@@ -1,0 +1,42 @@
+<!--%import("js/install_admin.js")-->
+<!--#include("header.html")-->
+	<div id="body">
+<!--#include("progress_menu.html")-->
+		<span class="dummy"></span>
+
+		<div id="content">
+			<form action="./" method="post" onsubmit="return doInstallFTPInfo(this);" id="ftp_form">
+				<ul class="form formFtp">
+					<li><label for="ftphost">{$lang->ftp_host}</label><input name="ftp_host" value="10.25.80.77" type="text" id="ftphost" class="iText" /></li>
+					<li><label for="ftpid">{$lang->user_id}</label><input name="ftp_user" type="text" id="ftpid" class="iText" /></li>
+					<li><label for="ftppw">{$lang->password}</label><input name="ftp_password" type="password" id="ftppw" class="iText" /></li>
+					<li><label for="ftpport">{$lang->ftp_port}</label><input name="ftp_port" type="text" id="ftpport" class="iText" /></li>
+					<li><label for="ftppath">{$lang->msg_ftp_installed_ftp_realpath}</label><input name="ftp_root_path" value="{$ftp_info->ftp_root_path}" type="text" id="ftppath" class="iText" />
+					<div class="desc" style="margin:1em 0; position:relative;"><p style="margin:1em 0;">{$lang->msg_ftp_installed_realpath}:<br/> {_XE_PATH_}</p>
+					<span class="ibtn" style="position:absolute; top:1em; right:1em;"><button type="button" onclick="getFTPList(); return false;">{$lang->ftp_get_list}</button></span>
+					<ul id="ftplist">
+					</ul>
+					</div></li>
+				</ul>
+				<div class="desc">
+					<p>FTP 정보를 등록하는 이유.</p>
+					<ul>
+						<li>{$lang->msg_safe_mode_ftp_needed}</li>
+						<li>{$lang->msg_safe_mode_ftp_needed2}</li>
+					</ul>
+					<p>{$lang->msg_safe_mode_ftp_config}</p>
+				</div>
+				<div class="ibtnArea">
+					<div class="fLeft">
+						<span class="ibtn icon"><span class="back"></span> <a href="{getUrl('', 'act', 'dispInstallCheckEnv')}">{$lang->cmd_back}</a></span>
+					</div>
+					<div class="fRight">
+						<span class="ibtn"><input name="" type="submit" value="{$lang->cmd_pass_step}" /></span> 
+						<span class="ibtn icon"><span class="monitor"></span> <button type="button" onclick="doCheckFTPInfo(); return false;">{$lang->cmd_check_ftp_connect}</button></span> 
+						<span class="ibtn icon"><span class="check"></span> <input name="" type="submit" value="{$lang->cmd_next}" /></span>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+<!--#include("footer.html")-->

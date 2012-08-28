@@ -1,0 +1,25 @@
+<h1 class="h1">{$lang->message} {$lang->cmd_management}</h1>
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+<form action="./" method="post">
+<input type="hidden" name="module" value="message" />
+<input type="hidden" name="act" value="procMessageAdminInsertConfig" />
+    <p>{$lang->about_skin}</p>
+	<ul>
+		<li>
+			<p class="q"><label for="skin">{$lang->skin}</label></p>
+			<p class="a">
+				<select name="skin" id="skin">
+					<!--@foreach($skin_list as $key => $val)-->
+					<option value="{$key}" <!--@if($key==$config->skin)-->selected="selected"<!--@end-->>{$val->title}</option>
+					<!--@end-->
+				</select>
+			</p>
+		</li>
+	</ul>
+	<div class="btnArea">
+		<span class="btn"><input type="submit" value="{$lang->cmd_registration}" /></span>
+	</div>
+</form>

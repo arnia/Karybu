@@ -1,0 +1,43 @@
+<load target="../../../../common/js/jquery.min.js" usecdn="true" index="-1000000" />
+<load target="./filter/openid_login.xml" />
+<load target="./message.css" />
+<load target="./message.js" />
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+<div id="loginAccess" class="gLogin">
+	<h1>{$system_message}</h1>
+	<div class="mLogin" id="gLogin" cond="!$is_logged && $module == 'admin'">
+		<form ruleset="@login" action="{getUrl('','act','procMemberLogin')}" method="post" id="gForm">
+		<input type="hidden" name="module" value="member" />
+		<input type="hidden" name="act" value="procMemberLogin" />
+		<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
+			<fieldset>
+				<ul class="idpw">
+					<li><input type="text" name="user_id" id="uid" value="" class="iText" title="{$lang->user_id}" /></li>
+					<li><input type="password" name="password" id="upw" value="" class="iText" title="{$lang->password}" /></li>
+				</ul>
+				<div class="buttonArea">
+					<p class="keeping">
+						<input type="checkbox" name="keep_signed" id="keepid" class="inputCheck" value="Y" onclick="jQuery('#warning')[(jQuery('#keepid:checked').size()>0?'addClass':'removeClass')]('open');" />						
+						<label for="keepid">{$lang->keep_signed}</label>
+					</p>
+					<div id="warning" class="">
+						<p>{$lang->about_keep_warning}</p>
+					</div>
+					<span class="buttonAccount"><input type="submit" value="{$lang->cmd_login}" /></span>
+				</div>
+			</fieldset>
+		</form>
+		<ul class="help">
+			<li class="first"><a href="{getUrl('','act','dispMemberFindAccount')}"><span>{$lang->cmd_find_member_account}</span></a></li>
+			<li><a href="{getUrl('','act','dispMemberSignUpForm')}"><span>{$lang->cmd_signup}</span></a></li>
+		</ul>
+	</div>
+	<div class="logOut" cond="$is_logged && $module == 'admin'">
+		<span class="buttonAccount"><a href="{getUrl('act','dispMemberLogout','module','')}">{$lang->cmd_logout}</a></span>
+	</div>
+	<div class="logOut" cond="!$is_logged && $module != 'admin'">
+		<span class="buttonAccount"><a href="{getUrl('act','dispMemberLoginForm','module','', 'mid', '')}">{$lang->cmd_login}...</a></span>
+	</div>
+</div>

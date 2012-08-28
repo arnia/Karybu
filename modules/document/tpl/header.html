@@ -1,0 +1,9 @@
+<load target="js/document_admin.js" usecdn="true" />
+<h3 class="h3">{$lang->document} {$lang->cmd_management}</h3>
+<div class="cnb">
+    <ul>
+        <li <!--@if($act=='dispDocumentAdminList')-->class="active"<!--@end-->><a href="{getUrl('act','dispDocumentAdminList')}">{$lang->document_list}</a></li>
+        <li <!--@if($act=='dispDocumentAdminConfig')-->class="active"<!--@end-->><a href="{getUrl('act','dispDocumentAdminConfig')}">{$lang->cmd_module_config}</a></li>
+        <li <!--@if($act=='dispDocumentAdminDeclared')-->class="active"<!--@end-->><a href="{getUrl('act','dispDocumentAdminDeclared')}">{$lang->cmd_declared_list}</a></li>
+    </ul>
+</div>

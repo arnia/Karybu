@@ -1,0 +1,53 @@
+<input type="hidden" name="member_join_form_srl" value="{$formInfo->member_join_form_srl}" />
+	<h2 class="h2">{$lang->cmd_input_extend_form}</h2>
+	<ul>
+		<li>
+			<p class="q"><label for="column_id">{$lang->column_id} *</label></p>
+			<p class="a"><input type="text" id="column_id" name="column_id" value="{$formInfo->column_name}" /></p>
+			<p class="description">{$lang->about_column_id}</p>
+		</li>
+		<li>
+			<p class="q"><label for="column_title">{$lang->column_title} *</label></p>
+			<p class="a"><input type="text" id="column_title" name="column_title" value="{$formInfo->column_title}" /></p>
+		</li>
+		<li>
+			<p class="q">{$lang->column_type} *</p>
+			<p class="a">
+				<select class="typeSelect" style="width:290px" name="column_type">
+					<option loop="$lang->column_type_list=>$key,$type_info" value="{$key}" selected="selected"|cond="$formInfo->column_type == $key" >{$lang->column_type_list[$key]}</option>
+				</select>
+			</p>
+			<p class="q multiExample">{$lang->about_multi_type}</p>
+			<p class="a multiExample"><textarea rows="8" cols="42" id="multiSelect" name="default_value"><block cond="$default_value">{implode('<enter>', $default_value)}</block></textarea></p>
+		</li>
+		<script>
+		var $ = jQuery;
+		var typeSelect = $('.typeSelect');
+		var multiOption = $('.typeSelect>option[value=checkbox], .typeSelect>option[value=radio], .typeSelect>option[value=selectM], .typeSelect>option[value=select]');
+		var multiExample = $('.multiExample');
+{@$default_value_types = array('checkbox', 'radio', 'select')}
+<!--@if(!in_array($formInfo->column_type, $default_value_types))-->
+		multiExample.hide();
+<!--@end-->
+		typeSelect.change(function(){
+			if(multiOption.is(':selected')){
+				multiExample.slideDown(200);
+			} else {
+				multiExample.slideUp(200);
+			}
+		});
+		</script>
+		<li>
+			<p class="q"><label for="desc">{$lang->description}</label></p>
+			<p class="a"><textarea rows="8" cols="42" id="desc" name="description">{$formInfo->description}</textarea></p>
+		</li>
+		<li>
+			<p class="a">
+				<input type="radio" id="radio_required" name="required" value="Y" /> <label for="radio_required">{$lang->cmd_required}</label>
+				<input type="radio" id="radio_option" name="required" value="N" /> <label for="radio_option">{$lang->cmd_optional}</label>
+			</p>
+		</li>
+	</ul>
+	<div class="btnArea">
+		<button type="submit" name="mode" <!--@if($formInfo)-->value="update"<!--@else-->value="insert"<!--@end--> >{$lang->cmd_save}</button>
+	</div>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+    <grants />
+    <permissions />
+    <actions>
+        <action name="dispLayoutInfo" type="view" standalone="true" />
+        <action name="dispLayoutAdminContent" type="view" standalone="true" />
+        <action name="dispLayoutAdminInfo" type="view" standalone="true" />
+        <action name="dispLayoutAdminLayoutModify" type="view" standalone="true" />
+        <action name="dispLayoutAdminLayoutImageList" type="view" standalone="true" />
+		<action name="dispLayoutAdminMobileContent" type="view" standalone="true" />
+
+		<action name="dispLayoutAdminInstalledList" type="view" admin_index="true" menu_name="installedLayout" menu_index="true" />
+		<action name="dispLayoutAdminInstanceList" type="view" menu_name="installedLayout" />
+		<action name="dispLayoutAdminAllInstanceList" type="view" menu_name="installedLayout" />
+		<action name="dispLayoutAdminInsert" type="view" menu_name="installedLayout" />
+		<action name="dispLayoutAdminModify" type="view" menu_name="installedLayout" />
+		<action name="dispLayoutAdminEdit" type="view" menu_name="installedLayout" />
+		<action name="dispLayoutAdminCopyLayout" type="view" />
+
+		<action name="dispLayoutPreview" type="view" />
+
+		<action name="procLayoutAdminUpdate" type="controller" ruleset="updateLayout" />
+		<action name="procLayoutAdminCodeUpdate" type="controller" ruleset="codeUpdate" />
+		<action name="procLayoutAdminUserImageUpload" type="controller" ruleset="imageUpload" />
+		<action name="procLayoutAdminUserImageDelete" type="controller" />
+		<action name="procLayoutAdminConfigImageUpload" type="controller" />
+		<action name="procLayoutAdminConfigImageDelete" type="controller" />
+		<action name="procLayoutAdminDelete" type="controller" ruleset="deleteLayout" />
+
+        <action name="procLayoutAdminInsert" type="controller" standalone="true" ruleset="insertLayout" />
+
+        <action name="procLayoutAdminCodeReset" type="controller" standalone="true" />
+
+        <action name="procLayoutAdminUserValueInsert" type="controller" standalone="true" />
+        <action name="procLayoutAdminUserLayoutExport" type="controller" standalone="true" />
+        <action name="procLayoutAdminUserLayoutImport" type="controller" standalone="true" ruleset="userLayoutImport" />
+        <action name="procLayoutAdminCopyLayout" type="controller" standalone="true" />
+
+    </actions>
+	<menus>
+		<menu name="installedLayout">
+			<title xml:lang="en">Layouts</title>
+			<title xml:lang="ko">설치된 레이아웃</title>
+			<title xml:lang="zh-CN">Layouts</title>
+			<title xml:lang="jp">Layouts</title>
+			<title xml:lang="es">Layouts</title>
+			<title xml:lang="ru">Layouts</title>
+			<title xml:lang="fr">Layouts</title>
+			<title xml:lang="zh-TW">Layouts</title>
+			<title xml:lang="vi">Layouts</title>
+			<title xml:lang="mn">Layouts</title>
+			<title xml:lang="tr">Layouts</title>
+		</menu>
+	</menus>
+</module>

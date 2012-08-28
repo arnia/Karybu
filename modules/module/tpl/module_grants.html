@@ -1,0 +1,73 @@
+<!--%import("filter/insert_grant.xml")-->
+<load target="js/module_admin.js" usecdn="true" />
+
+<script>
+    jQuery( function() { jQuery('.grant_default').change( function(event) { doShowGrantZone(); } ); doShowGrantZone() } );
+</script>
+
+<form action="./" method="post" onsubmit="return procFilter(this, insert_grant)" id="fo_obj" class="form">
+	<input type="hidden" name="module_srl" value="{$module_srl}" />
+	<input type="hidden" name="admin_member" value="<!--@foreach($admin_member as $key => $val)--><!--@if($member_config->identifier == 'email_address')-->{$val->email_address},<!--@else-->{$val->user_id},<!--@end--><!--@end-->" />
+	
+	<h2 class="h2">{$lang->module_admin}</h2>
+	<p>{$lang->about_admin_id}</p>
+	<ul>
+		<li>
+			<p class="q">
+				<!--@if($member_config->identifier == 'email_address')-->
+					{$lang->admin_email_address}
+				<!--@else-->
+					{$lang->admin_id}
+				<!--@end-->
+			</p>
+			<p class="a">
+				<select name="_admin_member" multiple="multiple" size="{count($admin_member)?count($admin_member):1}" style="width:290px">
+					<!--@foreach($admin_member as $key => $val)-->
+					<option value="<!--@if($member_config->identifier=='email_address')-->{$val->email_address}<!--@else-->{$val->user_id}<!--@end-->">{$val->nick_name} (<!--@if($member_config->identifier=='email_address')-->{$val->email_address}<!--@else-->{$val->user_id}<!--@end-->)</option>
+					<!--@end-->
+				</select>
+				<br />
+				<input type="text" name="admin_id" />
+				<span class="btn"><button type="button" onclick="doInsertAdmin()">{$lang->cmd_insert}</button></span>
+				<span class="btn"><button type="button" onclick="doDeleteAdmin()">{$lang->cmd_delete}</button></span>
+			</p>
+		</li>
+	</ul>
+	<h2 class="h2">{$lang->permission_setting}</h2>
+	<p>{$lang->about_grant_deatil}</p>
+	<div class="table">
+		<table width="100%" border="1" cellspacing="0">
+			<thead>
+				<tr>
+					<th scope="col">{$lang->grant}</th>
+					<th scope="col" colspan="3">{$lang->target}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!--@foreach($grant_list as $grant_name => $grant_item)-->
+				<tr>
+					<th scope="row">{$grant_item->title}</th>
+					<td >
+						<select name="{$grant_name}_default" class="grant_default">
+							<!--@if($grant_item->default == 'guest')--><option value="0" <!--@if($default_grant[$grant_name]=='all')-->selected="selected"<!--@end-->>{$lang->grant_to_all}</option><!--@end-->
+							<!--@if($grant_item->default != 'manager')--><option value="-1" <!--@if($default_grant[$grant_name]=='member')-->selected="selected"<!--@end-->>{$lang->grant_to_login_user}</option><!--@end-->
+							<!--@if($grant_item->default != 'manager')--><option value="-2" <!--@if($default_grant[$grant_name]=='site')-->selected="selected"<!--@end-->>{$lang->grant_to_site_user}</option><!--@end-->
+							<option value="" <!--@if($default_grant[$grant_name]=='group')-->selected="selected"<!--@end-->>{$lang->grant_to_group}</option>
+						</select>
+						<div id="zone_{$grant_name}" style="display:none">
+							<!--@foreach($group_list as $group_srl => $group_item)-->
+							<input type="checkbox" class="checkbox" name="{$grant_name}" value="{$group_item->group_srl}" id="grant_{$grant_name}_{$group_srl}" <!--@if(is_array($selected_group[$grant_name])&&in_array($group_srl,$selected_group[$grant_name]))-->checked="checked"<!--@end-->/>
+							<label for="grant_{$grant_name}_{$group_srl}">{$group_item->title}</label>
+							<!--@end-->
+						</div>
+						
+						</td>
+					</tr>
+				<!--@end-->
+				</tbody>
+		</table>
+	</div>
+	<div class="btnArea">
+		<span class="btn"><input type="submit" value="{$lang->cmd_save}" /></span>
+	</div>
+</form>

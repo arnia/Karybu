@@ -1,0 +1,11 @@
+<!--%import("popup.js")-->
+<!--%import("popup.css")-->
+<h1 class="h1">{$component_info->title} ver. {$component_info->version}</h1>
+<div class="emoticonList">
+    <select name="list" id="selectEmoticonList">
+    <!--@foreach($emoticon_list as $key => $val)-->
+        <option <!--@if($val=='msn')-->selected="select"<!--@end--> value="{$val}">{$val}</option>
+    <!--@end-->
+    </select>
+</div>
+<div id="emoticons"></div>

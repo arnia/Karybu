@@ -1,0 +1,193 @@
+<load target="js/multi_order.js" usecdn="true" />
+<load target="js/module_list.js" usecdn="true" />
+<load target="js/mid.js" usecdn="true" />
+<load target="js/multi_lang.js" usecdn="true" />
+<!--%load_js_plugin("ui.colorpicker")-->
+
+<ul>
+	<li>
+		<p class="q"><label for="skin">{$lang->skin}</label></p>
+		<p class="a">
+			<select name="skin" id="skin" style="width:280px">
+				<option value="">{$lang->select}</option>
+				<option loop="$skin_list => $skin_name, $skin" value="{$skin_name}">{$skin->title} ({$skin_name})</option>
+			</select>
+			<input type="button" value="{$lang->cmd_select}" />
+		</p>
+	</li>
+	<li>
+		<p class="q"><label for="colorset">{$lang->colorset}</label></p>
+		<p class="a">
+			<select name="colorset" id="widget_colorset" style="width:280px">
+			</select>
+		</p>
+	</li>
+	<li>
+		<p class="q"><label for="widget_cache">{$lang->widget_cache}</label></p>
+		<p class="a">
+			<input type="text" name="widget_cache" id="widget_cache" value="0" size="2" style="width:auto" /> {$lang->unit_min}
+			({$lang->about_widget_cache})
+		</p>
+	</li>
+</ul>
+{@$suggestion_id = 0}
+<block loop="$widget_info->extra_var => $id, $var">
+	{@$suggestion_id++}
+	<block cond="!$not_first && !$var->group"><ul class="extra_vars"></block>
+	<block cond="$group != $var->group">
+		<block cond="$not_first"></ul></block>
+		<h3 class="h3">{$var->group}</h3>
+		<ul class="extra_vars">
+		{@$group = $var->group}
+	</block>
+	{@$not_first = true}
+	<li class="moduleSearch moduleSearch1 modulefinder"|cond="$var->type == 'mid' || $var->type == 'module_srl_list'">
+		<p class="q"><label for="{$id}">{$var->name}</label></p>
+		<div class="a">
+			<div cond="$var->type == 'text'" class="multiLangEdit">
+				{@$use_multilang = true}
+				<input type="hidden" name="{$id}" value="" class="vLang" />
+				<input type="text" id="{$id}" class="vLang" />
+				<span class="desc"><a href="#langEdit" class="editUserLang tgAnchor">{$lang->cmd_set_multilingual}</a></span>
+				<script>
+					xe.registerApp(new xe.MultiLangManager('{$id}'));
+				</script>
+			</div>
+			<input cond="$var->type == 'color'" type="text" name="{$id}" value="" id="{$id}" class="color-indicator" />
+			<div cond="$var->type == 'textarea'" class="multiLangEdit">
+				{@$use_multilang_textarea = true}
+				<input type="hidden" name="{$id}" value="" class="vLang" />
+				<textarea cond="$var->type == 'textarea'" id="{$id}" class="vLang" rows="8" cols="42"></textarea>
+				<span class="desc"><a href="#langEditTextarea" class="editUserLang tgAnchor">{$lang->cmd_set_multilingual}</a></span>
+				<script>
+					xe.registerApp(new xe.MultiLangManager('{$id}'));
+				</script>
+			</div>
+			<select cond="$var->type == 'select'" name="{$id}" id="{$id}" style="width:290px">
+				<option loop="$var->options => $key, $val" value="{$key}">{$val}</option>
+			</select>
+			<block cond="$var->type == 'select-multi-order'">
+				<!--@if($var->init_options && is_array($var->init_options))-->
+				{@$inits = array_keys($var->init_options)}
+				<input type="hidden" name="{$id}" value="{implode(',', $inits)}" />
+				<!--@else-->
+				<input type="hidden" name="{$id}" value="" />
+				<!--@end-->
+				<select class="multiorder_show" size="8" multiple="multiple" style="width:290px;vertical-align:top">
+					<option loop="$var->options => $key, $val" cond="!$var->init_options[$key]" value="{$key}" default="true"|cond="$var->default_options[$key]">{$val}</option>
+				</select>
+				<button type="button" class="text multiorder_add" style="vertical-align:top">{$lang->cmd_insert}</button>
+				<select class="multiorder_selected" size="8" multiple="multiple" style="width:290px;vertical-align:top">
+					<option loop="$var->options => $key, $val" cond="$var->init_options[$key]" value="{$key}" default="true"|cond="$var->default_options[$key]">{$val}</option>
+				</select>
+				<button type="button" class="text multiorder_up" style="vertical-align:top">{$lang->cmd_move_up}</button>
+				<button type="button" class="text multiorder_down" style="vertical-align:top">{$lang->cmd_move_down}</button>
+				<button type="button" class="text multiorder_del" style="vertical-align:top">{$lang->cmd_delete}</button>
+				<script>
+					xe.registerApp(new xe.MultiOrderManager('{$id}'));
+				</script>
+			</block>
+			<block cond="$var->type == 'mid_list'">
+				<fieldset loop="$mid_list => $module_category_srl, $modules" style="border: 1px solid #ccc; margin:1em 0; padding:.5em 1em">
+					<legend cond="$modules->title">{$modules->title}</legend>
+					<legend cond="!$modules->title">{$lang->none_category}</legend>
+					<div loop="$modules->list => $key, $val">
+						<input type="checkbox" value="{$key}" name="{$id}" id="chk_mid_list_{$key}" />
+						<label for="chk_mid_list_{$key}">{$key} ({$val->browser_title})</label>
+					</div>
+				</fieldset>
+			</block>
+			<block cond="$var->type == 'member_group'">
+				<block loop="$group_list => $key, $val">
+					<input type="checkbox" value="{$key}" name="{$id}" id="chk_member_gruop_{$id}_{$key}" />
+					<label for="chk_member_gruop_{$id}_{$key}">{$val->title}</label>
+				</block>
+			</block>
+			<block cond="$var->type == 'module_srl_list'">
+				<p class="desc">{$var->description}</p>
+				<input type="hidden" name="{$id}" value="" />
+				<select class="modulelist_selected" size="8" multiple="multiple" style="width:290px;"></select>
+				<br/>
+				<span style="padding:1px;margin:1px"><b><a href="#moduleSearchWindow1" class="tgAnchor moduleSearch">{$lang->cmd_add}</a></b></span>
+				<button type="button" class="text modulelist_up" style="vertical-align:top">{$lang->cmd_move_up}</button>
+				<button type="button" class="text modulelist_down" style="vertical-align:top">{$lang->cmd_move_down}</button>
+				<button type="button" class="text modulelist_del" style="vertical-align:top">{$lang->cmd_delete}</button>
+				<script>
+					xe.registerApp(new xe.ModuleListManager('{$id}'));
+				</script>
+
+				<script>
+				jQuery(function($){
+					$('.moduleSearch1').bind('moduleSelect', function(e, sType, sName, sSrl){
+						xe.broadcast("ADD_MODULE_TO_MODULELIST_MANAGER", [sType, sName, sSrl]);
+					});
+				});
+
+				</script>
+
+				<!-- new module search -->
+				<div id="moduleSearchWindow1" class="moduleSearchWindow tgContent">
+					<div class="siteList sectionDiv">
+						<h2>{$lang->select_site}</h2>
+						<div class="siteListSearchBox">
+							<div class="siteListSearchBoxBorder">
+								<div class="searchImg icon-search"></div>
+								<input type="text" class="siteListSearchInput" name="site_filter">
+							</div>
+						</div>
+						<div class="siteListUL">
+							<ul>
+							</ul>
+						</div>
+					</div>
+					<div class="moduleTypeList sectionDiv">
+						<h2>{$lang->select_module_type}</h2>
+						<div>
+							<ul class="moduleTypeListUL">
+							</ul>
+						</div>
+					</div>
+					<div class="moduleInstanceList sectionDiv">
+						<h2>{$lang->select_module_instance}</h2>
+						<div>
+							<ul class="moduleInstanceListUL">
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!--// new module search -->
+			</block>
+			<block cond="$var->type == 'mid'">
+				<input type="hidden" name="{$id}" value="" />
+				<input type="text" readonly="readonly" /> <button class="text search">{$lang->cmd_search}</button> <button class="text delete">{$lang->cmd_delete}</button>
+				<div class="finder" style="display: none;">
+					<div class="a">
+						<input type="text" class="site_keyword" /> <a href="#suggestion_{$suggestion_id}" class="tgAnchor findSite">{$lang->find_site}</a>
+						<div id="suggestion_{$suggestion_id}" class="tgContent suggestion">
+							<ul>
+							</ul>
+						</div>
+					</div>
+					<p class="a"><select class="moduleList" style="width:290px;"></select></p>
+					<p class="a"><select class="moduleIdList" style="width:290px;"></select> <button class="text">{$lang->cmd_select}</button></p>
+				</div>
+				<script>
+					xe.registerApp(new xe.MidManager('{$id}'));
+				</script>
+			</block>
+			<block cond="$var->type == 'filebox'">
+				{@$use_filebox = true}
+				<input type="hidden" name="{$id}" />
+				<a class="modalAnchor filebox" href="#modalFilebox">{$lang->cmd_select}</a>
+			</block>
+			<select cond="$var->type == 'menu'" name="{$id}" style="width:290px">
+				<option value="">-</option>
+				<option loop="$menu_list => $key, $val" value="{$val->menu_srl}">{$val->title}</option>
+			</select>
+		</div>
+	</li>
+</block>
+</ul>
+<script>
+	xe.current_lang = "{$lang_type}";
+</script>
