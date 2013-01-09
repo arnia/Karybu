@@ -9,6 +9,8 @@
     *          If there is no act on the found module, excute an action referencing action_forward.
     **/
 
+    require_once 'ModuleMatcher.class.php';
+
     class ModuleHandler extends Handler {
 
         var $module = NULL; ///< Module
@@ -89,106 +91,71 @@
          * @return boolean true: OK, false: redirected
          **/
         function init() {
-			$oModuleModel = &getModel('module');
+            $oModuleModel = &getModel('module');
             $site_module_info = Context::get('site_module_info');
+            $oDocumentModel = &getModel('document');
+            $db_info = Context::getDBInfo();
 
-            if(!$this->document_srl && $this->mid && $this->entry) {
-                $oDocumentModel = &getModel('document');
-                $this->document_srl = $oDocumentModel->getDocumentSrlByAlias($this->mid, $this->entry);
-                if($this->document_srl) Context::set('document_srl', $this->document_srl);
+            $moduleMatcher = new ModuleMatcher($this->module, $this->act, $this->mid, $this->document_srl, $this->module_srl, $this->entry);
+            try
+            {
+                $found_module_info = $moduleMatcher->match($oModuleModel, $site_module_info, $oDocumentModel, $db_info->default_url);
+            }
+            catch(MidMismatchException $e)
+            {
+                header('location:' . getNotEncodedSiteUrl($site_module_info->domain, 'mid', $e->getMid(), 'document_srl', $e->getDocumentSrl()));
+            }
+            catch(DefaultModuleSiteSrlMismatchException $e)
+            {
+                header("location:".getNotEncodedSiteUrl($e->getDomain(),'mid',$e->getMid()));
+            }
+            catch(SiteSrlMismatchException $e)
+            {
+                getNotEncodedSiteUrl($e->getDomain()
+                    , 'mid',$e->getMid()
+                    ,'document_srl',$e->getDocumentSrl()
+                    ,'module_srl',$e->getModuleSrl()
+                    ,'entry',$e->getEntry());
+            }
+            catch(DefaultUrlNotDefined $e)
+            {
+                return Context::getLang('msg_default_url_is_not_defined');
+            }
+            catch(ModuleDoesNotExistException $e)
+            {
+                $this->error = 'msg_module_is_not_exists';
+                $this->httpStatusCode = '404';
+            }
+            catch(Exception $e)
+            {
+                $this->error = 'An error occurred';
+                $this->httpStatusCode = '500';
             }
 
-            // Get module's information based on document_srl, if it's specified
-            if($this->document_srl && !$this->module) {
-                $module_info = $oModuleModel->getModuleInfoByDocumentSrl($this->document_srl);
+            $this->document_srl = $found_module_info->document_srl;
+            $this->module_info = $found_module_info->module_info;
+            $this->module = $found_module_info->module;
+            $this->mid = $found_module_info->mid;
 
-                // If the document does not exist, remove document_srl
-                if(!$module_info) {
-                    unset($this->document_srl);
-                } else {
-                    // If it exists, compare mid based on the module information
-                    // if mids are not matching, set it as the document's mid
-                    if($this->mid != $module_info->mid) {
-                        $this->mid = $module_info->mid;
-                        Context::set('mid', $module_info->mid, true);
-						header('location:' . getNotEncodedSiteUrl($site_info->domain, 'mid', $this->mid, 'document_srl', $this->document_srl));
-						return false;
-                    }
-                }
-                // if requested module is different from one of the document, remove the module information retrieved based on the document number
-                if($this->module && $module_info->module != $this->module) unset($module_info);
+            Context::setBrowserTitle($this->module_info->browser_title);
+
+            if($this->module_info->use_mobile && Mobile::isFromMobilePhone())
+            {
+                $layoutSrl = $this->module_info->mlayout_srl;
+            }
+            else
+            {
+                $layoutSrl = $this->module_info->layout_srl;
             }
 
-            // If module_info is not set yet, and there exists mid information, get module information based on the mid
-            if(!$module_info && $this->mid) {
-                $module_info = $oModuleModel->getModuleInfoByMid($this->mid, $site_module_info->site_srl);
-                //if($this->module && $module_info->module != $this->module) unset($module_info);
-            }
+            $part_config= $oModuleModel->getModulePartConfig('layout',$layoutSrl);
+            Context::addHtmlHeader($part_config->header_script);
 
-            // redirect, if module_site_srl and site_srl are different
-            if(!$this->module && !$module_info && $site_module_info->site_srl == 0 && $site_module_info->module_site_srl > 0) {
-                $site_info = $oModuleModel->getSiteInfo($site_module_info->module_site_srl);
-                header("location:".getNotEncodedSiteUrl($site_info->domain,'mid',$site_module_info->mid));
-                return false;
-            }
 
-            // If module_info is not set still, and $module does not exist, find the default module
-            if(!$module_info && !$this->module && !$this->mid) $module_info = $site_module_info;
-
-            if(!$module_info && !$this->module && $site_module_info->module_site_srl) $module_info = $site_module_info;
-
-            // redirect, if site_srl of module_info is different from one of site's module_info
-            if($module_info && $module_info->site_srl != $site_module_info->site_srl && !isCrawler()) {
-                // If the module is of virtual site
-                if($module_info->site_srl) {
-                    $site_info = $oModuleModel->getSiteInfo($module_info->site_srl);
-                    $redirect_url = getNotEncodedSiteUrl($site_info->domain, 'mid',Context::get('mid'),'document_srl',Context::get('document_srl'),'module_srl',Context::get('module_srl'),'entry',Context::get('entry'));
-                // If it's called from a virtual site, though it's not a module of the virtual site
-                } else {
-                    $db_info = Context::getDBInfo();
-                    if(!$db_info->default_url) return Context::getLang('msg_default_url_is_not_defined');
-                    else $redirect_url = getNotEncodedSiteUrl($db_info->default_url, 'mid',Context::get('mid'),'document_srl',Context::get('document_srl'),'module_srl',Context::get('module_srl'),'entry',Context::get('entry'));
-                }
-                header("location:".$redirect_url);
-                return false;
-            }
-
-            // If module info was set, retrieve variables from the module information
-            if($module_info) {
-                $this->module = $module_info->module;
-                $this->mid = $module_info->mid;
-                $this->module_info = $module_info;
-                Context::setBrowserTitle($module_info->browser_title);
-
-				if($module_info->use_mobile && Mobile::isFromMobilePhone())
-				{
-					$layoutSrl = $module_info->mlayout_srl;
-				}
-				else
-				{
-					$layoutSrl = $module_info->layout_srl;
-				}
-
-                $part_config= $oModuleModel->getModulePartConfig('layout',$layoutSrl);
-                Context::addHtmlHeader($part_config->header_script);
-            }
-
-            // Set module and mid into module_info
-            $this->module_info->module = $this->module;
-            $this->module_info->mid = $this->mid;
-
-			// Set site_srl add 2011 08 09
-			$this->module_info->site_srl = $site_module_info->site_srl;
-
-            // Still no module? it's an error
-            if(!$this->module)
-			{
-				$this->error = 'msg_module_is_not_exists';
-				$this->httpStatusCode = '404';
-			}
-
+            if($this->document_srl) Context::set('document_srl', $this->document_srl);
             // If mid exists, set mid into context
             if($this->mid) Context::set('mid', $this->mid, true);
+
 
             // Call a trigger after moduleHandler init
             $output = ModuleHandler::triggerCall('moduleHandler.init', 'after', $this->module_info);
