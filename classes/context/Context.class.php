@@ -171,7 +171,8 @@ class Context {
 	 * @see This function should be called only once
 	 * @return void
 	 */
-	function init() {
+	function init()
+    {
 		// set context variables in $GLOBALS (to use in display handler)
 		$this->context = &$GLOBALS['__Context__'];
 		$this->context->lang = &$GLOBALS['lang'];
@@ -307,7 +308,12 @@ class Context {
             array('cache_dir' => __DIR__ . '/../../files/cache/s'),
             $requestContext
         );
-        $params = $this->router->match($this->request->getPathInfo());
+        try {
+            $params = $this->router->match($this->request->getPathInfo());
+        }
+        catch (Exception $e) {
+            //missing route? cache write problem?
+        }
     }
 
 	/**
@@ -315,7 +321,8 @@ class Context {
 	 *
 	 * @return void
 	 */
-	function close() {
+	function close()
+    {
 		// Session Close
 		if(function_exists('session_write_close')) session_write_close();
 
