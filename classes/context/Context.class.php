@@ -128,6 +128,12 @@ class Context {
 	 */
 	var $isSuccessInit = true;
 
+    public $request;
+
+    public $router;
+
+    public $requestContext;
+
 	/**
 	 * returns static context object (Singleton). It's to use Context without declaration of an object
 	 *
@@ -167,7 +173,34 @@ class Context {
 	 * @see This function should be called only once
 	 * @return void
 	 */
-	function init() {
+	function init()
+    {
+        $this->request = Symfony\Component\HttpFoundation\Request::createFromGlobals();
+        $this->requestContext = new Symfony\Component\Routing\RequestContext;
+        $this->requestContext->fromRequest($this->request);
+
+        $locator = new Symfony\Component\Config\FileLocator(array(__DIR__ . '/../../config'));
+        $this->router = new Symfony\Component\Routing\Router(
+            new \Symfony\Component\Routing\Loader\YamlFileLoader($locator),
+            'routes.yml',
+            array('cache_dir' => __DIR__ . '/../../files/cache/routes'),
+            $this->requestContext
+        );
+
+        try {
+            $routeParameters = $this->router->match($this->request->getPathInfo());
+            $this->request->attributes->add($routeParameters);
+            $resolver = new \GlCMS\ControllerResolver();
+            $resolver->getController($this->request);
+        }
+        catch (\Symfony\Component\Routing\Exception\ResourceNotFoundException $e) {
+            //route not found in config
+        }
+        catch (Exception $e) {
+            //controller not found or invalid arguments maybe?
+        }
+
+
 		// set context variables in $GLOBALS (to use in display handler)
 		$this->context = &$GLOBALS['__Context__'];
 		$this->context->lang = &$GLOBALS['lang'];

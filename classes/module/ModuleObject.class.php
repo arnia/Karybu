@@ -345,6 +345,7 @@
                 $oModuleModel->syncSkinInfoToModuleInfo($this->module_info);
                 Context::set('module_info', $this->module_info);
                 // Run
+                // TODO execute routing component controller
                 $output = $this->{$this->act}();
             }
 			else {
