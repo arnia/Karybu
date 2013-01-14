@@ -210,63 +210,35 @@
             // Get action information with conf/module.xml
             $xml_info = $oModuleModel->getModuleActionXml($this->module);
 
+            // Get info necessary to retrieve the module's instance
             $module_matcher = new ModuleMatcher();
-
-            // 1. Get 'act' retrieved from request
             try
             {
-                $this->act = $module_matcher->getAct($this->act, $this->module, $xml_info);
+                $module_key = $module_matcher->getModuleKey($this->act, $this->module, $xml_info, Mobile::isFromMobilePhone(),  Context::isInstalled());
             }
             catch(ModuleDoesNotExistException $e)
             {
                 $this->error = 'msg_module_is_not_exists';
                 $this->httpStatusCode = '404';
 
-                $type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
-                $oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
-                $oMessageObject->setError(-1);
-                $oMessageObject->setMessage($this->error);
-                $oMessageObject->dispMessage();
-                if($this->httpStatusCode)
-                {
-                    $oMessageObject->setHttpStatusCode($this->httpStatusCode);
-                }
-                return $oMessageObject;
+                return $this->showErrorToUser();
             }
 
-            // 2. Get 'type' (view, controller ..)
-            $type = $module_matcher->getType($this->act
-                                                , $xml_info
-                                                , Mobile::isFromMobilePhone()
-                                                , Context::isInstalled());
-
-            // 3. Get ruleset
-            // TODO There is a bug here - no one ever checked if "action->{$this->act}" is set
-            $ruleset = $xml_info->action->{$this->act}->ruleset;
-
-            // 4. Get act 'kind' - admin or not
-            $kind = $module_matcher->getKind($this->act, $this->module);
-
-            // 4.1. If kind is admin, do some initialization
-            if($kind == 'admin')
+            // If kind is admin, do some initialization
+            if($module_key->isAdmin())
             {
                 $this->initAdminMenu();
-                $is_denied = $this->checkAdminUserIsNotDenied($kind, $type);
-                if($is_denied instanceof Object) return $is_denied;
+                if($_SESSION['denied_admin'] == 'Y')
+                {
+                    $this->error = "msg_not_permitted_act";
+                    return $this->showErrorToUser();
+                }
             }
 
-            // 5. Get the instance
-            $oModule = &$this->getModuleInstance($this->module, $type, $kind);
+            // Get the instance
+            $oModule = $this->getModuleInstanceFromKey($module_key);
 
-            // 5.1. If module wasn't found and we're on mobile platform, we try to fallback to classic view
-            if($type == 'mobile' && (!is_object($oModule) || !method_exists($oModule, $this->act)))
-            {
-                $type = 'view';
-                Mobile::setMobile(false);
-                $oModule = &$this->getModuleInstance($this->module, $type, $kind);
-            }
-
-            // 5.2. If the module still wasn't found, we return
+            // If the module still wasn't found, we return
 			if(!is_object($oModule)) {
                 return $this->showErrorToUser();
 			}
@@ -278,19 +250,11 @@
 				if(!Context::isInstalled())
 				{
 					$this->error = 'msg_invalid_request';
-					$oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
-					$oMessageObject->setError(-1);
-					$oMessageObject->setMessage($this->error);
-					$oMessageObject->dispMessage();
-					if($this->httpStatusCode)
-					{
-						$oMessageObject->setHttpStatusCode($this->httpStatusCode);
-					}
-					return $oMessageObject;
+                    return $this->showErrorToUser();
 				}
 
                 $forward = null;
-				// 1. Look for the module with action name
+				// 1. Look for the module specified in the action name (dispPageIndex -> page)
                 if(preg_match('/^([a-z]+)([A-Z])([a-z0-9\_]+)(.*)$/', $this->act, $matches)) {
                     $module = strtolower($matches[2].$matches[3]);
                     $xml_info = $oModuleModel->getModuleActionXml($module);
@@ -302,53 +266,31 @@
                     }
                 }
 
+                // 2. If it still wasn't found, look for the module in the database
 				if(!$forward)
 				{
 					$forward = $oModuleModel->getActionForward($this->act);
 				}
 
+                // 3.1. If forward was found ..
                 if($forward->module && $forward->type && $forward->act && $forward->act == $this->act) {
-                    $kind = strpos(strtolower($forward->act),'admin')!==false?'admin':'';
-					$type = $forward->type;
+                    $xml_info = $oModuleModel->getModuleActionXml($forward->module);
+                    $forward_module_key = $module_matcher->getModuleKey($forward->act, $forward->module, $xml_info, Mobile::isFromMobilePhone(), Context::isInstalled());
+
 					$ruleset = $forward->ruleset;
 					$tpl_path = $oModule->getTemplatePath();
 					$orig_module = $oModule;
 
-					if($type == "view" && Mobile::isFromMobilePhone())
-					{
-						$orig_type = "view";
-						$type = "mobile";
-						// create a module instance
-						$oModule = &$this->getModuleInstance($forward->module, $type, $kind);
-						if(!is_object($oModule) || !method_exists($oModule, $this->act)) {
-							$type = $orig_type;
-							Mobile::setMobile(false);
-							$oModule = &$this->getModuleInstance($forward->module, $type, $kind);
-						}
-					}
-					else
-					{
-						$oModule = &$this->getModuleInstance($forward->module, $type, $kind);
-					}
+                    $oModule = &$this->getModuleInstanceFromKey($forward_module_key);
 
 					if(!is_object($oModule)) {
-						$type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
-						$oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
-						$oMessageObject->setError(-1);
-						$oMessageObject->setMessage('msg_module_is_not_exists');
-						$oMessageObject->dispMessage();
-						if($this->httpStatusCode)
-						{
-							$oMessageObject->setHttpStatusCode($this->httpStatusCode);
-						}
-						return $oMessageObject;
+                        $this->error = 'msg_module_is_not_exists';
+                        return $this->showErrorToUser();
 					}
 
-                    $xml_info = $oModuleModel->getModuleActionXml($forward->module);
-					$oMemberModel = &getModel('member');
-
-					if($this->module == "admin" && $type == "view")
+					if($this->module == "admin" && $forward_module_key->getType() == "view")
 					{
+                        $logged_info = Context::get('logged_info');
 						if($logged_info->is_admin=='Y'){
 							if ($this->act != 'dispLayoutAdminLayoutModify')
 							{
@@ -359,30 +301,24 @@
 							}
 						}else{
 							$this->error = 'msg_is_not_administrator';
-							$oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
-							$oMessageObject->setError(-1);
-							$oMessageObject->setMessage($this->error);
-							$oMessageObject->dispMessage();
-							return $oMessageObject;
+							return $this->showErrorToUser();
 						}
 					}
-					if ($kind == 'admin'){
+					if ($forward_module_key->getKind() == 'admin'){
 						$grant = $oModuleModel->getGrant($this->module_info, $logged_info);		
 						if(!$grant->is_admin && !$grant->manager) {
                             $this->error = 'msg_is_not_manager';
-                            $oMessageObject = &ModuleHandler::getModuleInstance('message','view');
-                            $oMessageObject->setError(-1);
-                            $oMessageObject->setMessage($this->error);
-                            $oMessageObject->dispMessage();
-                            return $oMessageObject;
+                            return $this->showErrorToUser();
                         }   
 						
 					}
 				}
-				else if($xml_info->default_index_act && method_exists($oModule, $xml_info->default_index_act))
+				// 3.2. Otherwise, fallback to module's default action
+                else if($xml_info->default_index_act && method_exists($oModule, $xml_info->default_index_act))
 				{
 					$this->act = $xml_info->default_index_act;
 				}
+                // 3.3 Else, error
 				else
 				{
 					$this->error = 'msg_invalid_request';
@@ -391,6 +327,9 @@
 					return $oModule;
 				}
 			}
+
+            // TODO There is a bug here - no one ever checked if "action->{$this->act}" is set
+            $ruleset = $xml_info->action->{$this->act}->ruleset;
 
 			// ruleset check...
 			if(!empty($ruleset))
@@ -497,6 +436,21 @@
             return $oModule;
         }
 
+        public function getModuleInstanceFromKey(ModuleKey $key)
+        {
+            // 5. Get the instance
+            $oModule = &$this->getModuleInstance($key->getModule(), $key->getType(), $key->getKind());
+
+            // 5.1. If module wasn't found and we're on mobile platform, we try to fallback to classic view
+            if($key->getType() == 'mobile' && (!is_object($oModule) || !method_exists($oModule, $this->act)))
+            {
+                $key = new ModuleKey($key->getModule(), 'view', $key->getKind());
+                Mobile::setMobile(false);
+                $oModule = &$this->getModuleInstance($key->getModule(), $key->getType(), $key->getKind());
+            }
+            return $oModule;
+        }
+
         private function initAdminMenu()
         {
             // admin menu check
@@ -515,20 +469,6 @@
                     $oMenuAdminController = &getAdminController('menu');
                     $oMenuAdminController->makeXmlFile($output->menu_srl);
                 }
-            }
-        }
-
-        private function checkAdminUserIsNotDenied($kind, $type)
-        {
-            // Admin ip
-            $logged_info = Context::get('logged_info');
-            if($kind == 'admin' && $_SESSION['denied_admin'] == 'Y'){
-                $this->error = "msg_not_permitted_act";
-                $oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
-                $oMessageObject->setError(-1);
-                $oMessageObject->setMessage($this->error);
-                $oMessageObject->dispMessage();
-                return $oMessageObject;
             }
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+require_once ('ModuleKey.php');
+
 class MidMismatchException extends Exception
 {
     private $mid;
@@ -222,7 +224,17 @@ class ModuleMatcher
         return $match;
     }
 
-    public function getAct($act, $module, $xml_info)
+    /**
+     * This represents the $act parameter in the HTTP request
+     * or the default_index_action for the current module, of $act is not specified
+     *
+     * @param $act
+     * @param $module
+     * @param $xml_info
+     * @return mixed
+     * @throws ModuleDoesNotExistException
+     */
+    public function getActionName($act, $module, $xml_info)
     {
         // If not installed yet, modify act
         if($module=="install") {
@@ -255,6 +267,25 @@ class ModuleMatcher
             $type = 'mobile';
         }
         return $type;
+    }
+
+    public function getModuleKey($request_act, $request_module, $xml_info, $is_mobile, $is_installed)
+    {
+        $module_matcher = new ModuleMatcher();
+
+        // 1. Get 'act' retrieved from request
+        $action_name = $module_matcher->getActionName($request_act, $request_module, $xml_info);
+
+        // 2. Get 'type' (view, controller ..)
+        $type = $module_matcher->getType($action_name
+            , $xml_info
+            , $is_mobile
+            , $is_installed);
+
+        // 3. Get act 'kind' - admin or not
+        $kind = $module_matcher->getKind($action_name, $request_module);
+
+        return new ModuleKey($request_module, $type, $kind);
     }
 
 }

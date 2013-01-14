@@ -152,7 +152,7 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
         $xml_info = new stdClass();
         $xml_info->default_index_act = "dispPageIndex";
 
-        $act = $module_matcher->getAct(null, 'page', $xml_info);
+        $act = $module_matcher->getActionName(null, 'page', $xml_info);
 
         $this->assertEquals("dispPageIndex", $act);
     }
@@ -171,7 +171,7 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
         $xml_info->action = new stdClass();
         $xml_info->action->dispPageAdminContent = new stdClass();
 
-        $act = $module_matcher->getAct('dispPageAdminContent', 'page', $xml_info);
+        $act = $module_matcher->getActionName('dispPageAdminContent', 'page', $xml_info);
 
         $this->assertEquals("dispPageAdminContent", $act);
     }
@@ -192,7 +192,7 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
         $xml_info->action = new stdClass();
         $xml_info->action->dispPageAdminContent = new stdClass();
 
-        $act = $module_matcher->getAct('myPageContent', 'page', $xml_info);
+        $act = $module_matcher->getActionName('myPageContent', 'page', $xml_info);
 
         $this->assertEquals("myPageContent", $act);
     }
@@ -211,15 +211,14 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
         $xml_info->action = new stdClass();
         $xml_info->action->dispPageAdminContent = new stdClass();
 
-        $act = $module_matcher->getAct('myPageContent', 'install', $xml_info);
+        $act = $module_matcher->getActionName('myPageContent', 'install', $xml_info);
 
         $this->assertEquals("dispPageIndex", $act);
     }
 
     /**
      * When no act is specified and no default action is found
-     * the method returns null
-     * TODO In the future, this method should return an exception that will issue a 404
+     * the method throws an Exception
      */
     public function testGetAct_MissingDefaultAction()
     {
@@ -229,9 +228,9 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
         $xml_info = new stdClass();
         $xml_info->default_index_act = null;
 
-        $act = $module_matcher->getAct(null, 'page', $xml_info);
+        $this->setExpectedException("ModuleDoesNotExistException");
 
-        $this->assertEquals(null, $act);
+        $module_matcher->getActionName(null, 'page', $xml_info);
     }
 
     public function testGetKind_Frontend()
@@ -256,6 +255,15 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
 
         $kind = $module_matcher->getKind("dispPageIndex", "admin");
         $this->assertEquals('admin', $kind);
+    }
+
+    /**
+     * index.php?module=admin&act=dispMemberAdminList
+     */
+    public function testGetModuleInstance_WhenModuleIsRetrievedFromAct()
+    {
+
+
     }
 
 }
