@@ -40,7 +40,7 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
      */
     public function testDefaultModule()
     {
-        $matcher = new ModuleMatcher(null,null, null, null, null, null);
+        $matcher = new ModuleMatcher();
 
         $moduleModel = new moduleModel();
         $documentModel = new documentModel();
@@ -53,7 +53,7 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
 
         $defaultUrl = 'http://www.xpressengine.org';
 
-        $match = $matcher->match($moduleModel, $site_module_info, $documentModel, $defaultUrl);
+        $match = $matcher->getModuleInfo(null,null, null, null, null, null, $moduleModel, $site_module_info, $documentModel, $defaultUrl);
 
         $this->assertEquals($match->module, "page");
         $this->assertEquals($match->act, null);
@@ -69,7 +69,7 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
      */
     public function testModuleByMid()
     {
-        $matcher = new ModuleMatcher(null,null, "welcome_page", null, null, null);
+        $matcher = new ModuleMatcher();
 
         $welcome_page_module_info = new stdClass();
         $welcome_page_module_info->site_srl = 0;
@@ -90,7 +90,7 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
 
         $defaultUrl = 'http://www.xpressengine.org';
 
-        $match = $matcher->match($moduleModelMock, $site_module_info, $documentModel, $defaultUrl);
+        $match = $matcher->getModuleInfo(null,null, "welcome_page", null, null, null, $moduleModelMock, $site_module_info, $documentModel, $defaultUrl);
 
         $this->assertEquals($match->module, "page");
         $this->assertEquals($match->act, null);
@@ -109,7 +109,7 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
      */
     public function testDefaultModuleFromVirtualSite()
     {
-        $matcher = new ModuleMatcher(null,null, null, null, null, null);
+        $matcher = new ModuleMatcher();
 
         $virtual_site_info = new stdClass();
         $virtual_site_info->site_srl = 140;
@@ -131,14 +131,13 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
 
         $defaultUrl = 'http://shop.xpressengine.org';
 
-        $this->setExpectedException("DefaultModuleSiteSrlMismatchException");
-
         try
         {
-            $matcher->match($moduleModelMock, $site_module_info, $documentModel, $defaultUrl);
+            $matcher->getModuleInfo(null,null, null, null, null, null, $moduleModelMock, $site_module_info, $documentModel, $defaultUrl);
         }
-        catch(DefaultModuleSiteSrlMismatchException $e)
+        catch(Exception $e)
         {
+            $this->assertEquals("DefaultModuleSiteSrlMismatchException", get_class($e));
             $this->assertEquals("demo", $e->getDomain());
             $this->assertEquals("shop", $e->getMid());
         }

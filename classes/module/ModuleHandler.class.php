@@ -99,7 +99,7 @@
             $moduleMatcher = new ModuleMatcher($this->module, $this->act, $this->mid, $this->document_srl, $this->module_srl, $this->entry);
             try
             {
-                $found_module_info = $moduleMatcher->match($oModuleModel, $site_module_info, $oDocumentModel, $db_info->default_url);
+                $found_module_info = $moduleMatcher->getModuleInfo($oModuleModel, $site_module_info, $oDocumentModel, $db_info->default_url);
             }
             catch(MidMismatchException $e)
             {

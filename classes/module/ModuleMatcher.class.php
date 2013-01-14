@@ -99,75 +99,51 @@ class ModuleDoesNotExistException extends Exception
 
 class ModuleMatcher
 {
-    private $original_module;
-    private $original_act;
-    private $original_mid;
-    private $original_document_srl;
-    private $original_module_srl;
-    private $original_entry;
-
-    private $module;
-    private $act;
-    private $mid;
-    private $document_srl;
-    private $module_srl;
-    private $entry;
-
-    public function __construct($module, $act, $mid, $document_srl, $module_srl, $entry)
+    public function getModuleInfo($original_module, $original_act, $original_mid, $original_document_srl, $original_module_srl, $original_entry, moduleModel $oModuleModel, $site_module_info, documentModel $oDocumentModel, $default_url /*db_info defalut url*/)
     {
-        $this->original_module = $module;
-        $this->original_act = $act;
-        $this->original_mid = $mid;
-        $this->original_document_srl = $document_srl;
-        $this->original_module_srl = $module_srl;
-        $this->original_entry = $entry;
+        $module = $original_module;
+        $act = $original_act;
+        $mid = $original_mid;
+        $document_srl = $original_document_srl;
+        $module_srl = $original_module_srl;
+        $entry = $original_entry;
 
-        $this->module = $module;
-        $this->act = $act;
-        $this->mid = $mid;
-        $this->document_srl = $document_srl;
-        $this->module_srl = $module_srl;
-        $this->entry = $entry;
-    }
-
-    public function match(moduleModel $oModuleModel, $site_module_info, documentModel $oDocumentModel, $default_url /*db_info defalut url*/)
-    {
         $module_info = null;
 
-        if(!$this->document_srl && $this->mid && $this->entry) {
-            $this->document_srl = $oDocumentModel->getDocumentSrlByAlias($this->mid, $this->entry);
+            if(!$document_srl && $mid && $entry) {
+            $document_srl = $oDocumentModel->getDocumentSrlByAlias($mid, $entry);
         }
 
 
         // Get module's information based on document_srl, if it's specified
-        if($this->document_srl && !$this->module) {
-            $module_info = $oModuleModel->getModuleInfoByDocumentSrl($this->document_srl);
+        if($document_srl && !$module) {
+            $module_info = $oModuleModel->getModuleInfoByDocumentSrl($document_srl);
 
             // If the document does not exist, remove document_srl
             if(!$module_info) {
-                unset($this->document_srl);
+                unset($document_srl);
             } else {
                 // If it exists, compare mid based on the module information
                 // if mids are not matching, set it as the document's mid
-                if($this->mid != $module_info->mid) {
+                if($mid != $module_info->mid) {
                     $mid_mismatch_exception = new MidMismatchException();
-                    $mid_mismatch_exception->setRedirectInfo($module_info->mid, $this->document_srl);
+                    $mid_mismatch_exception->setRedirectInfo($module_info->mid, $document_srl);
                     throw $mid_mismatch_exception;
                 }
             }
             // if requested module is different from one of the document, remove the module information retrieved based on the document number
-            if($this->module && $module_info->module != $this->module) unset($module_info);
+            if($module && $module_info->module != $module) unset($module_info);
         }
 
         // If module_info is not set yet, and there exists mid information, get module information based on the mid
-        if(!$module_info && $this->mid) {
-            $module_info = $oModuleModel->getModuleInfoByMid($this->mid, $site_module_info->site_srl);
-            //if($this->module && $module_info->module != $this->module) unset($module_info);
+        if(!$module_info && $mid) {
+            $module_info = $oModuleModel->getModuleInfoByMid($mid, $site_module_info->site_srl);
+            //if($module && $module_info->module != $module) unset($module_info);
         }
 
         // redirect, if module_site_srl and site_srl are different
         // If the site_srl of the default module set for the main website is other than 0, redirect to subdomain url
-        if(!$this->module && !$module_info && $site_module_info->site_srl == 0 && $site_module_info->module_site_srl > 0) {
+        if(!$module && !$module_info && $site_module_info->site_srl == 0 && $site_module_info->module_site_srl > 0) {
             // Retrieve info of the site associated with the default module
             $site_info = $oModuleModel->getSiteInfo($site_module_info->module_site_srl);
             $site_srl_mismatch_exception = new DefaultModuleSiteSrlMismatchException();
@@ -176,9 +152,9 @@ class ModuleMatcher
         }
 
         // If module_info is not set still, and $module does not exist, find the default module
-        if(!$module_info && !$this->module && !$this->mid) $module_info = $site_module_info;
+        if(!$module_info && !$module && !$mid) $module_info = $site_module_info;
 
-        if(!$module_info && !$this->module && $site_module_info->module_site_srl) $module_info = $site_module_info;
+        if(!$module_info && !$module && $site_module_info->module_site_srl) $module_info = $site_module_info;
 
         // redirect, if site_srl of module_info is different from one of site's module_info
         if($module_info && $module_info->site_srl != $site_module_info->site_srl && !isCrawler()) {
@@ -188,10 +164,10 @@ class ModuleMatcher
                 $site_srl_mismatch_exception = new SiteSrlMismatchException();
                 $site_srl_mismatch_exception->setRedirectInfo(
                     $site_info->domain
-                    , $this->original_mid
-                    , $this->original_document_srl
-                    , $this->original_module_srl
-                    , $this->original_entry
+                    , $original_mid
+                    , $original_document_srl
+                    , $original_module_srl
+                    , $original_entry
                 );
                 throw $site_srl_mismatch_exception;
                 // If it's called from a virtual site, though it's not a module of the virtual site
@@ -202,10 +178,10 @@ class ModuleMatcher
                 else {
                     $site_srl_mismatch_exception = new SiteSrlMismatchException();
                     $site_srl_mismatch_exception->setRedirectInfo($default_url
-                        , $this->original_mid
-                        , $this->original_document_srl
-                        , $this->original_module_srl
-                        , $this->original_entry
+                        , $original_mid
+                        , $original_document_srl
+                        , $original_module_srl
+                        , $original_entry
                     );
                     throw $site_srl_mismatch_exception;
                 }
@@ -215,33 +191,33 @@ class ModuleMatcher
 
         // If module info was set, retrieve variables from the module information
         if($module_info) {
-            $this->module = $module_info->module;
-            $this->mid = $module_info->mid;
-            $this->module_info = $module_info;
+            $module = $module_info->module;
+            $mid = $module_info->mid;
+            $module_info = $module_info;
         }
 
         // Set module and mid into module_info
-        $this->module_info->module = $this->module;
-        $this->module_info->mid = $this->mid;
+        $module_info->module = $module;
+        $module_info->mid = $mid;
 
         // Set site_srl add 2011 08 09
-        $this->module_info->site_srl = $site_module_info->site_srl;
+        $module_info->site_srl = $site_module_info->site_srl;
 
         // Still no module? it's an error
-        if(!$this->module)
+        if(!$module)
         {
             throw new ModuleDoesNotExistException();
         }
 
         $match = new stdClass();
-        $match->module = $this->module;
-        $match->act = $this->act;
-        $match->mid = $this->mid;
-        $match->document_srl = $this->document_srl;
-        $match->module_srl = $this->module_srl;
-        $match->entry = $this->entry;
+        $match->module = $module;
+        $match->act = $act;
+        $match->mid = $mid;
+        $match->document_srl = $document_srl;
+        $match->module_srl = $module_srl;
+        $match->entry = $entry;
 
-        $match->module_info = $this->module_info;
+        $match->module_info = $module_info;
 
         return $match;
     }
