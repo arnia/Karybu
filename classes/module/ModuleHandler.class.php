@@ -179,119 +179,96 @@
             return true;
         }
 
+        private function showErrorToUser()
+        {
+            $type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
+            $oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
+            $oMessageObject->setError(-1);
+            $oMessageObject->setMessage($this->error);
+            $oMessageObject->dispMessage();
+            if($this->httpStatusCode)
+            {
+                $oMessageObject->setHttpStatusCode($this->httpStatusCode);
+            }
+            return $oMessageObject;
+        }
+
         /**
          * get a module instance and execute an action
          * @return ModuleObject executed module instance
          **/
         function procModule() {
-            $oModuleModel = &getModel('module');
 
             // If error occurred while preparation, return a message instance
             if($this->error) {
-				$type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
-                $oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
-                $oMessageObject->setError(-1);
-                $oMessageObject->setMessage($this->error);
-                $oMessageObject->dispMessage();
-				if($this->httpStatusCode)
-				{
-					$oMessageObject->setHttpStatusCode($this->httpStatusCode);
-				}
-                return $oMessageObject;
+                return $this->showErrorToUser();
             }
 
+            if($this->module_info->use_mobile != "Y") Mobile::setMobile(false);
+
+            $oModuleModel = &getModel('module');
             // Get action information with conf/module.xml
             $xml_info = $oModuleModel->getModuleActionXml($this->module);
 
             $module_matcher = new ModuleMatcher();
-            $this->act = $module_matcher->getAct($this->act, $this->module, $xml_info);
 
-            // still no act means error
-            if(!$this->act) {
+            // 1. Get 'act' retrieved from request
+            try
+            {
+                $this->act = $module_matcher->getAct($this->act, $this->module, $xml_info);
+            }
+            catch(ModuleDoesNotExistException $e)
+            {
                 $this->error = 'msg_module_is_not_exists';
-				$this->httpStatusCode = '404';
+                $this->httpStatusCode = '404';
 
-				$type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
+                $type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
                 $oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
                 $oMessageObject->setError(-1);
                 $oMessageObject->setMessage($this->error);
                 $oMessageObject->dispMessage();
-				if($this->httpStatusCode)
-				{
-					$oMessageObject->setHttpStatusCode($this->httpStatusCode);
-				}
+                if($this->httpStatusCode)
+                {
+                    $oMessageObject->setHttpStatusCode($this->httpStatusCode);
+                }
                 return $oMessageObject;
             }
 
-            // get type, kind
+            // 2. Get 'type' (view, controller ..)
+            $type = $module_matcher->getType($this->act
+                                                , $xml_info
+                                                , Mobile::isFromMobilePhone()
+                                                , Context::isInstalled());
+
+            // 3. Get ruleset
             // TODO There is a bug here - no one ever checked if "action->{$this->act}" is set
-            $type = $xml_info->action->{$this->act}->type;
             $ruleset = $xml_info->action->{$this->act}->ruleset;
 
+            // 4. Get act 'kind' - admin or not
             $kind = $module_matcher->getKind($this->act, $this->module);
 
-			if($this->module_info->use_mobile != "Y") Mobile::setMobile(false);
+            // 4.1. If kind is admin, do some initialization
+            if($kind == 'admin')
+            {
+                $this->initAdminMenu();
+                $is_denied = $this->checkAdminUserIsNotDenied($kind, $type);
+                if($is_denied instanceof Object) return $is_denied;
+            }
 
-			// admin menu check
-            // TODO Why is this executed in all cases, instead of just when in admin?
-            if(Context::isInstalled())
-			{
-				$oMenuAdminModel = &getAdminModel('menu');
-				$output = $oMenuAdminModel->getMenuByTitle('__XE_ADMIN__');
+            // 5. Get the instance
+            $oModule = &$this->getModuleInstance($this->module, $type, $kind);
 
-				if(!$output->menu_srl)
-				{
-					$oAdminClass = &getClass('admin');
-					$oAdminClass->createXeAdminMenu();
-				}
-				else if(!is_readable($output->php_file))
-				{
-					$oMenuAdminController = &getAdminController('menu');
-					$oMenuAdminController->makeXmlFile($output->menu_srl);
-				}
-			}
+            // 5.1. If module wasn't found and we're on mobile platform, we try to fallback to classic view
+            if($type == 'mobile' && (!is_object($oModule) || !method_exists($oModule, $this->act)))
+            {
+                $type = 'view';
+                Mobile::setMobile(false);
+                $oModule = &$this->getModuleInstance($this->module, $type, $kind);
+            }
 
-			// Admin ip
-			$logged_info = Context::get('logged_info');
-			if($kind == 'admin' && $_SESSION['denied_admin'] == 'Y'){
-				$this->error = "msg_not_permitted_act";
-				$oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
-				$oMessageObject->setError(-1);
-				$oMessageObject->setMessage($this->error);
-				$oMessageObject->dispMessage();
-				return $oMessageObject;
-			}
-			
-			// if(type == view, and case for using mobilephone)
-			if($type == "view" && Mobile::isFromMobilePhone() && Context::isInstalled())
-			{
-				$orig_type = "view";
-				$type = "mobile";
-				// create a module instance
-				$oModule = &$this->getModuleInstance($this->module, $type, $kind);
-				if(!is_object($oModule) || !method_exists($oModule, $this->act)) {
-					$type = $orig_type;
-					Mobile::setMobile(false);
-					$oModule = &$this->getModuleInstance($this->module, $type, $kind);
-				}
-			}
-			else
-			{
-				// create a module instance
-				$oModule = &$this->getModuleInstance($this->module, $type, $kind);
-			}
-
+            // 5.2. If the module still wasn't found, we return
 			if(!is_object($oModule)) {
-				$type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
-                $oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
-                $oMessageObject->setError(-1);
-                $oMessageObject->setMessage($this->error);
-                $oMessageObject->dispMessage();
-				if($this->httpStatusCode)
-				{
-					$oMessageObject->setHttpStatusCode($this->httpStatusCode);
-				}
-                return $oMessageObject;
+                return $this->showErrorToUser();
 			}
 
 			// If there is no such action in the module object
@@ -518,6 +495,41 @@
 			
 			unset($logged_info);
             return $oModule;
+        }
+
+        private function initAdminMenu()
+        {
+            // admin menu check
+            if(Context::isInstalled())
+            {
+                $oMenuAdminModel = &getAdminModel('menu');
+                $output = $oMenuAdminModel->getMenuByTitle('__XE_ADMIN__');
+
+                if(!$output->menu_srl)
+                {
+                    $oAdminClass = &getClass('admin');
+                    $oAdminClass->createXeAdminMenu();
+                }
+                else if(!is_readable($output->php_file))
+                {
+                    $oMenuAdminController = &getAdminController('menu');
+                    $oMenuAdminController->makeXmlFile($output->menu_srl);
+                }
+            }
+        }
+
+        private function checkAdminUserIsNotDenied($kind, $type)
+        {
+            // Admin ip
+            $logged_info = Context::get('logged_info');
+            if($kind == 'admin' && $_SESSION['denied_admin'] == 'Y'){
+                $this->error = "msg_not_permitted_act";
+                $oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
+                $oMessageObject->setError(-1);
+                $oMessageObject->setMessage($this->error);
+                $oMessageObject->dispMessage();
+                return $oMessageObject;
+            }
         }
 
         /**

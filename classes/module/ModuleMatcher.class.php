@@ -232,6 +232,11 @@ class ModuleMatcher
         // if act exists, find type of the action, if not use default index act
         if(!$act) $act = $xml_info->default_index_act;
 
+        // still no act means error
+        if(!$act) {
+            throw new ModuleDoesNotExistException();
+        }
+
         return $act;
     }
 
@@ -240,6 +245,16 @@ class ModuleMatcher
         $kind = strpos(strtolower($act),'admin')!==false?'admin':'';
         if(!$kind && $module == 'admin') $kind = 'admin';
         return $kind;
+    }
+
+    public function getType($act, $xml_info, $is_mobile, $is_installed)
+    {
+        $type = $xml_info->action->{$act}->type;
+        if($type == 'view' && $is_mobile && $is_installed)
+        {
+            $type = 'mobile';
+        }
+        return $type;
     }
 
 }
