@@ -334,22 +334,33 @@
             $addon_file = $oAddonController->getCacheFilePath(Mobile::isFromMobilePhone()?"mobile":"pc");
             @include($addon_file);
 
-            if(isset($this->xml_info->action->{$this->act}) && method_exists($this, $this->act)) {
+            /** @var $request \Symfony\Component\HttpFoundation\Request */
+            $request = Context::get('request');
+            $resolver = new \GlCMS\ControllerResolver();
+
+            if ($request->attributes->has('_controller')) {
+                $controller = $resolver->getController($request);
+                $arguments = $resolver->getArguments($request, $controller);
+            }
+            elseif (isset($this->xml_info->action->{$this->act}) && method_exists($this, $this->act)) {
                 // Check permissions
-                if($this->module_srl && !$this->grant->access){
-					$this->stop("msg_not_permitted_act");
-					return FALSE;
-				}
+                if ($this->module_srl && !$this->grant->access) {
+                    $this->stop("msg_not_permitted_act");
+                    return false;
+                }
                 // integrate skin information of the module(change to sync skin info with the target module only by seperating its table)
                 $oModuleModel = &getModel('module');
                 $oModuleModel->syncSkinInfoToModuleInfo($this->module_info);
                 Context::set('module_info', $this->module_info);
+
                 // Run
-                $output = $this->{$this->act}();
+                $controller = array($this, $this->act);
+                $arguments = $resolver->getArguments($request, $controller);
+                //$output = $this->{$this->act}();
             }
-			else {
-				return false;
-			}
+            else return false;
+
+            $output = call_user_func_array($controller, $arguments);
 
             // trigger call
             $triggerOutput = ModuleHandler::triggerCall('moduleObject.proc', 'after', $this);
