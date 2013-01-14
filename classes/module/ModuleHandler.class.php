@@ -224,14 +224,16 @@
             }
 
             // get type, kind
+            // TODO There is a bug here - no one ever checked if "action->{$this->act}" is set
             $type = $xml_info->action->{$this->act}->type;
             $ruleset = $xml_info->action->{$this->act}->ruleset;
-            $kind = strpos(strtolower($this->act),'admin')!==false?'admin':'';
-            if(!$kind && $this->module == 'admin') $kind = 'admin';
+
+            $kind = $module_matcher->getKind($this->act, $this->module);
 
 			if($this->module_info->use_mobile != "Y") Mobile::setMobile(false);
 
 			// admin menu check
+            // TODO Why is this executed in all cases, instead of just when in admin?
             if(Context::isInstalled())
 			{
 				$oMenuAdminModel = &getAdminModel('menu');

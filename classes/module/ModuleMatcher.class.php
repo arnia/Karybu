@@ -235,4 +235,11 @@ class ModuleMatcher
         return $act;
     }
 
+    public function getKind($act, $module)
+    {
+        $kind = strpos(strtolower($act),'admin')!==false?'admin':'';
+        if(!$kind && $module == 'admin') $kind = 'admin';
+        return $kind;
+    }
+
 }

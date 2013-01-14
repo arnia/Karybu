@@ -234,5 +234,28 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(null, $act);
     }
 
+    public function testGetKind_Frontend()
+    {
+        $module_matcher = new ModuleMatcher();
+
+        $kind = $module_matcher->getKind("dispPageIndex", "page");
+        $this->assertEquals('', $kind);
+    }
+
+    public function testGetKind_Backend()
+    {
+        $module_matcher = new ModuleMatcher();
+
+        $kind = $module_matcher->getKind("dispPageAdminIndex", "page");
+        $this->assertEquals('admin', $kind);
+    }
+
+    public function testGetKind_ModuleIsAdmin()
+    {
+        $module_matcher = new ModuleMatcher();
+
+        $kind = $module_matcher->getKind("dispPageIndex", "admin");
+        $this->assertEquals('admin', $kind);
+    }
 
 }
