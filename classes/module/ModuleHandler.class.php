@@ -506,7 +506,7 @@
             // if failed message exists in session, set context
 			$this->_setInputErrorToContext();
 
-            //controller callback: array(get_class($oModule), $this->act)
+            // controller callback: array(get_class($oModule), $this->act)
             $procResult = $oModule->proc();
 
 			$methodList = array('XMLRPC'=>1, 'JSON'=>1);

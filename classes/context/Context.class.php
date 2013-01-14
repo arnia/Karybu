@@ -312,7 +312,7 @@ class Context {
             $params = $this->router->match($this->request->getPathInfo());
         }
         catch (Exception $e) {
-            //missing route? cache write problem?
+            // missing route? cache write problem?
         }
     }
 
