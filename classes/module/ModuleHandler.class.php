@@ -96,10 +96,19 @@
             $oDocumentModel = &getModel('document');
             $db_info = Context::getDBInfo();
 
-            $moduleMatcher = new ModuleMatcher($this->module, $this->act, $this->mid, $this->document_srl, $this->module_srl, $this->entry);
+            $moduleMatcher = new ModuleMatcher();
             try
             {
-                $found_module_info = $moduleMatcher->getModuleInfo($oModuleModel, $site_module_info, $oDocumentModel, $db_info->default_url);
+                $found_module_info = $moduleMatcher->getModuleInfo($this->module
+                                                                    , $this->act
+                                                                    , $this->mid
+                                                                    , $this->document_srl
+                                                                    , $this->module_srl
+                                                                    , $this->entry
+                                                                    , $oModuleModel
+                                                                    , $site_module_info
+                                                                    , $oDocumentModel
+                                                                    , $db_info->default_url);
             }
             catch(MidMismatchException $e)
             {
@@ -194,13 +203,8 @@
             // Get action information with conf/module.xml
             $xml_info = $oModuleModel->getModuleActionXml($this->module);
 
-            // If not installed yet, modify act
-            if($this->module=="install") {
-                if(!$this->act || !$xml_info->action->{$this->act}) $this->act = $xml_info->default_index_act;
-            }
-
-            // if act exists, find type of the action, if not use default index act
-            if(!$this->act) $this->act = $xml_info->default_index_act;
+            $module_matcher = new ModuleMatcher();
+            $this->act = $module_matcher->getAct($this->act, $this->module, $xml_info);
 
             // still no act means error
             if(!$this->act) {
@@ -224,6 +228,7 @@
             $ruleset = $xml_info->action->{$this->act}->ruleset;
             $kind = strpos(strtolower($this->act),'admin')!==false?'admin':'';
             if(!$kind && $this->module == 'admin') $kind = 'admin';
+
 			if($this->module_info->use_mobile != "Y") Mobile::setMobile(false);
 
 			// admin menu check

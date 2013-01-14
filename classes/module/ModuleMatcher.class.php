@@ -222,4 +222,17 @@ class ModuleMatcher
         return $match;
     }
 
+    public function getAct($act, $module, $xml_info)
+    {
+        // If not installed yet, modify act
+        if($module=="install") {
+            if(!$act || !isset($xml_info->action->{$act})) $act = $xml_info->default_index_act;
+        }
+
+        // if act exists, find type of the action, if not use default index act
+        if(!$act) $act = $xml_info->default_index_act;
+
+        return $act;
+    }
+
 }

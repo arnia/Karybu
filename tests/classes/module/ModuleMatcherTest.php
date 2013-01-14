@@ -38,7 +38,7 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
      * Test accessing root url directly
      * http://www.xpressengine.org
      */
-    public function testDefaultModule()
+    public function testGetModuleInfo_DefaultModule()
     {
         $matcher = new ModuleMatcher();
 
@@ -67,7 +67,7 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
      * Test accessing a module by mid
      * http://www.xpressengine.org/welcome_page
      */
-    public function testModuleByMid()
+    public function testGetModuleInfo_ModuleByMid()
     {
         $matcher = new ModuleMatcher();
 
@@ -107,7 +107,7 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
      * We expect to receive a DeafultModuleSiteSrlMismatchException
      * which will cause XE to redirect the user to the virtual site URL
      */
-    public function testDefaultModuleFromVirtualSite()
+    public function testGetModuleInfo_DefaultModuleFromVirtualSite()
     {
         $matcher = new ModuleMatcher();
 
@@ -141,6 +141,97 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
             $this->assertEquals("demo", $e->getDomain());
             $this->assertEquals("shop", $e->getMid());
         }
+    }
+
+
+    public function testGetAct_DefaultAct()
+    {
+        $module_matcher = new ModuleMatcher();
+
+        // Data loaded from corresponding module.xml
+        $xml_info = new stdClass();
+        $xml_info->default_index_act = "dispPageIndex";
+
+        $act = $module_matcher->getAct(null, 'page', $xml_info);
+
+        $this->assertEquals("dispPageIndex", $act);
+    }
+
+    /**
+     * Act given in URL
+     * /?act=dispPageAdminContent
+     */
+    public function testGetAct_ExplicitlySpecified()
+    {
+        $module_matcher = new ModuleMatcher();
+
+        // Data loaded from corresponding module.xml
+        $xml_info = new stdClass();
+        $xml_info->default_index_act = "dispPageIndex";
+        $xml_info->action = new stdClass();
+        $xml_info->action->dispPageAdminContent = new stdClass();
+
+        $act = $module_matcher->getAct('dispPageAdminContent', 'page', $xml_info);
+
+        $this->assertEquals("dispPageAdminContent", $act);
+    }
+
+    /**
+     * An invalid act when XE was already installed should be let as is
+     * That's because the controller action could also be specified as
+     * an action forward, so there will be subsequent searches based on
+     * this value
+     */
+    public function testGetAct_InvalidActWhenAlreadyInstalled()
+    {
+        $module_matcher = new ModuleMatcher();
+
+        // Data loaded from corresponding module.xml
+        $xml_info = new stdClass();
+        $xml_info->default_index_act = "dispPageIndex";
+        $xml_info->action = new stdClass();
+        $xml_info->action->dispPageAdminContent = new stdClass();
+
+        $act = $module_matcher->getAct('myPageContent', 'page', $xml_info);
+
+        $this->assertEquals("myPageContent", $act);
+    }
+
+    /**
+     * An invalid act while XE wasn't already installed
+     * should redirect to the default action for the module
+     */
+    public function testGetAct_InvalidActDuringInstallation()
+    {
+        $module_matcher = new ModuleMatcher();
+
+        // Data loaded from corresponding module.xml
+        $xml_info = new stdClass();
+        $xml_info->default_index_act = "dispPageIndex";
+        $xml_info->action = new stdClass();
+        $xml_info->action->dispPageAdminContent = new stdClass();
+
+        $act = $module_matcher->getAct('myPageContent', 'install', $xml_info);
+
+        $this->assertEquals("dispPageIndex", $act);
+    }
+
+    /**
+     * When no act is specified and no default action is found
+     * the method returns null
+     * TODO In the future, this method should return an exception that will issue a 404
+     */
+    public function testGetAct_MissingDefaultAction()
+    {
+        $module_matcher = new ModuleMatcher();
+
+        // Data loaded from corresponding module.xml
+        $xml_info = new stdClass();
+        $xml_info->default_index_act = null;
+
+        $act = $module_matcher->getAct(null, 'page', $xml_info);
+
+        $this->assertEquals(null, $act);
     }
 
 
