@@ -128,7 +128,11 @@ class Context {
 	 */
 	var $isSuccessInit = true;
 
-	/**
+
+    public $request, $router;
+
+
+    /**
 	 * returns static context object (Singleton). It's to use Context without declaration of an object
 	 *
 	 * @return object Instance
@@ -167,7 +171,8 @@ class Context {
 	 * @see This function should be called only once
 	 * @return void
 	 */
-	function init() {
+	function init()
+    {
 		// set context variables in $GLOBALS (to use in display handler)
 		$this->context = &$GLOBALS['__Context__'];
 		$this->context->lang = &$GLOBALS['lang'];
@@ -292,14 +297,32 @@ class Context {
 			$this->set('current_url',Context::getRequestUri());
 		}
 		$this->set('request_uri',Context::getRequestUri());
-	}
+
+        $this->set('request', $this->request = Symfony\Component\HttpFoundation\Request::createFromGlobals());
+        $requestContext = new Symfony\Component\Routing\RequestContext;
+        $requestContext->fromRequest($this->request);
+        $locator = new Symfony\Component\Config\FileLocator(array(__DIR__ . '/../../config'));
+        $this->router = new Symfony\Component\Routing\Router(
+            new \Symfony\Component\Routing\Loader\YamlFileLoader($locator),
+            'routes.yml',
+            array('cache_dir' => __DIR__ . '/../../files/cache/s'),
+            $requestContext
+        );
+        try {
+            $params = $this->router->match($this->request->getPathInfo());
+        }
+        catch (Exception $e) {
+            // missing route? cache write problem?
+        }
+    }
 
 	/**
 	 * Finalize using resources, such as DB connection
 	 *
 	 * @return void
 	 */
-	function close() {
+	function close()
+    {
 		// Session Close
 		if(function_exists('session_write_close')) session_write_close();
 

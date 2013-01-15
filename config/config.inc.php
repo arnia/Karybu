@@ -234,9 +234,10 @@
 
 		if(__DEBUG__) define('__StartTime__', getMicroTime());
 
-		// include the class files
-		//TODO When _autoload() can be used for PHP5 based applications, it will be removed.
-		if(__DEBUG__) define('__ClassLoadStartTime__', getMicroTime());
+        require_once dirname(__FILE__) . '/../vendor/autoload.php';
+
+        // include the class files
+        if(__DEBUG__) define('__ClassLoadStartTime__', getMicroTime());
 		require(_XE_PATH_.'classes/object/Object.class.php');
 		require(_XE_PATH_.'classes/extravar/Extravar.class.php');
 		require(_XE_PATH_.'classes/handler/Handler.class.php');

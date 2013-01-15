@@ -1,0 +1,51 @@
+admin:
+    pattern: /admin
+    defaults: { _controller: 'moduleAdminView::dispModuleAdminList' }
+
+doc:
+    pattern: /{document_srl}
+    defaults: { _controller: '' }
+    requirements:
+        document_srl: \d+
+
+mid:
+    pattern: /{mid}
+    defaults: { _controller: '' }
+    requirements:
+        mid: '[a-zA-Z0-9_]+'
+
+mid_doc:
+    pattern: /{mid}/{document_srl}
+    defaults: { _controller: '' }
+    requirements:
+        mid: '[a-zA-Z0-9_]+'
+        document_srl: '\d+'
+
+vid_mid:
+    pattern: /{vid}/{mid}
+    defaults: { _controller: '' }
+    requirements:
+        vid: '[a-zA-Z0-9_]+'
+        mid: '[a-zA-Z0-9_]+'
+
+vid_mid_doc:
+    pattern: /{vid}/{mid}/{document_srl}
+    defaults: { _controller: '' }
+    requirements:
+        vid: '[a-zA-Z0-9_]+'
+        mid: '[a-zA-Z0-9_]+'
+        document_srl: '\d+'
+
+mid_entry:
+    pattern: /{mid}/entry/{entry}
+    defaults: { _controller: '' }
+    requirements:
+        mid: '[a-zA-Z0-9_]+'
+
+vid_mid_entry:
+    pattern: /{vid}/{mid}/entry/{entry}
+    defaults: { _controller: '' }
+    requirements:
+        vid: '[a-zA-Z0-9_]+'
+        mid: '[a-zA-Z0-9_]+'
+
