@@ -352,10 +352,8 @@
                 $oModuleModel = &getModel('module');
                 $oModuleModel->syncSkinInfoToModuleInfo($this->module_info);
                 Context::set('module_info', $this->module_info);
-
-                $controller = array($this, $this->act);
-                $arguments = $resolver->getArguments($request, $controller);
-                //$output = $this->{$this->act}();
+                // Run
+                $output = $this->{$this->act}();
             }
             else return false;
 
