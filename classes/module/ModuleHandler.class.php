@@ -217,7 +217,7 @@
 
             try
             {
-                $oModule = $module_matcher->getModuleInstance($request_act, $request_module, $oModuleModel, $is_mobile, $is_installed, $this);
+                $oModule = $module_matcher->getModuleInstance($request_act, $request_module, $oModuleModel, $is_mobile, $is_installed, $this, $this->module_info);
                 $this->act = $oModule->act;
             }
             catch(ModuleDoesNotExistException $e)
@@ -314,12 +314,6 @@
 				}
 			}
 
-            $oModule->setAct($this->act);
-
-            $this->module_info->module_type = $oModule->module_key->getType();
-            $xml_info = $oModuleModel->getModuleActionXml($oModule->module_key->getModule());
-            $oModule->setModuleInfo($this->module_info, $xml_info);
-
 			if($oModule->module_key->getType() == "view" && $this->module_info->use_mobile == "Y" && Mobile::isMobileCheckByAgent())
 			{
 				global $lang;
@@ -335,7 +329,6 @@
 						Context::addHtmlFooter($module_config->htmlFooter);
 				}
 			}
-
 
             // if failed message exists in session, set context
 			$this->_setInputErrorToContext();

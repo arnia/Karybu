@@ -301,7 +301,7 @@ class ModuleMatcher
         return new ModuleKey($request_module, $type, $kind);
     }
 
-    public function getModuleInstance($request_act, $request_module, $oModuleModel, $is_mobile, $is_installed, ModuleHandler $module_handler)
+    public function getModuleInstance($request_act, $request_module, $oModuleModel, $is_mobile, $is_installed, ModuleHandler $module_handler, $module_info)
     {
         // Get action information with conf/module.xml
         $xml_info = $oModuleModel->getModuleActionXml($request_module);
@@ -373,7 +373,11 @@ class ModuleMatcher
 
         $oModule->module_key = $module_key;
         $oModule->ruleset = $forward->ruleset ? $forward->ruleset : $xml_info->action->{$act}->ruleset;
-        $oModule->act = $act;
+
+        $oModule->setAct($act);
+
+        $module_info->module_type = $module_key->getType();
+        $oModule->setModuleInfo($module_info, $xml_info);
 
         return $oModule;
     }
