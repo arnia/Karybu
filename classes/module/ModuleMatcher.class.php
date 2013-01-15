@@ -99,6 +99,11 @@ class ModuleDoesNotExistException extends Exception
 
 }
 
+class InvalidRequestException extends Exception
+{
+
+}
+
 class ModuleMatcher
 {
     public function getModuleInfo($original_module, $original_act, $original_mid, $original_document_srl, $original_module_srl, $original_entry, moduleModel $oModuleModel, $site_module_info, documentModel $oDocumentModel, $default_url /*db_info defalut url*/)
@@ -269,6 +274,14 @@ class ModuleMatcher
         return $type;
     }
 
+    /**
+     * @param $request_act Act retrieved from HTTP request parameters - unchanged by code
+     * @param $request_module Module retrieved from ..
+     * @param $xml_info
+     * @param $is_mobile
+     * @param $is_installed
+     * @return ModuleKey
+     */
     public function getModuleKey($request_act, $request_module, $xml_info, $is_mobile, $is_installed)
     {
         $module_matcher = new ModuleMatcher();
@@ -286,6 +299,83 @@ class ModuleMatcher
         $kind = $module_matcher->getKind($action_name, $request_module);
 
         return new ModuleKey($request_module, $type, $kind);
+    }
+
+    public function getModuleInstance($request_act, $request_module, $oModuleModel, $is_mobile, $is_installed, ModuleHandler $module_handler)
+    {
+        // Get action information with conf/module.xml
+        $xml_info = $oModuleModel->getModuleActionXml($request_module);
+
+        $module_matcher = new ModuleMatcher();
+        $module_key = $module_matcher->getModuleKey($request_act, $request_module, $xml_info, $is_mobile,  $is_installed);
+        $act = $module_matcher->getActionName($request_act, $request_module, $xml_info);
+
+        // Get the instance
+        $oModule = $module_handler->getModuleInstanceFromKey($module_key);
+
+        // If the module still wasn't found, we return
+        if(!is_object($oModule)) {
+            throw new ModuleDoesNotExistException();
+        }
+
+        // If there is no such action in the module object
+        // Try to find another key, based on action name instead of request params
+        // and if that still doesn't work, based on action forward
+        // and if that still doesn't work, just get default action for current module
+        if(!isset($xml_info->action->{$act}) || !method_exists($oModule, $act))
+        {
+            if(!Context::isInstalled())
+            {
+                throw new InvalidRequestException();
+            }
+
+            $forward = null;
+            // 1. Look for the module specified in the action name (dispPageIndex -> page)
+            if(preg_match('/^([a-z]+)([A-Z])([a-z0-9\_]+)(.*)$/', $act, $matches)) {
+                $module = strtolower($matches[2].$matches[3]);
+                $xml_info = $oModuleModel->getModuleActionXml($module);
+                if($xml_info->action->{$act}) {
+                    $forward->module = $module;
+                    $forward->type = $xml_info->action->{$act}->type;
+                    $forward->ruleset = $xml_info->action->{$act}->ruleset;
+                    $forward->act = $act;
+                }
+            }
+
+            // 2. If it still wasn't found, look for the module in the database
+            if(!$forward)
+            {
+                $forward = $oModuleModel->getActionForward($act);
+            }
+
+            // 3.1. If forward was found ..
+            if($forward->module && $forward->type && $forward->act && $forward->act == $act) {
+                $xml_info = $oModuleModel->getModuleActionXml($forward->module);
+                $module_key = $module_matcher->getModuleKey($forward->act, $forward->module, $xml_info, $is_mobile, $is_installed);
+
+                $oModule = $module_handler->getModuleInstanceFromKey($module_key);
+
+                if(!is_object($oModule)) {
+                    throw new ModuleDoesNotExistException();
+                }
+            }
+            // 3.2. Otherwise, fallback to module's default action
+            else if($xml_info->default_index_act && method_exists($oModule, $xml_info->default_index_act))
+            {
+                $act = $xml_info->default_index_act;
+            }
+            // 3.3 Else, error
+            else
+            {
+                throw new InvalidRequestException();
+            }
+        }
+
+        $oModule->module_key = $module_key;
+        $oModule->ruleset = $forward->ruleset ? $forward->ruleset : $xml_info->action->{$act}->ruleset;
+        $oModule->act = $act;
+
+        return $oModule;
     }
 
 }

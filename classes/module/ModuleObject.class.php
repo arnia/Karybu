@@ -169,7 +169,8 @@
             // checks permission and action if you don't have an admin privilege
             if(!$grant->manager) {
                 // get permission types(guest, member, manager, root) of the currently requested action
-                $permission_target = $xml_info->permission->{$this->act};
+                if(isset($xml_info->permission) && isset($xml_info->permission->{$this->act}))
+                    $permission_target = $xml_info->permission->{$this->act};
                 // check manager if a permission in module.xml otherwise action if no permission
                 if(!$permission_target && substr_count($this->act, 'Admin')) $permission_target = 'manager';
                 // Check permissions

@@ -206,15 +206,19 @@
 
             if($this->module_info->use_mobile != "Y") Mobile::setMobile(false);
 
-            $oModuleModel = &getModel('module');
-            // Get action information with conf/module.xml
-            $xml_info = $oModuleModel->getModuleActionXml($this->module);
-
-            // Get info necessary to retrieve the module's instance
+            // Look for a controller the XE way
             $module_matcher = new ModuleMatcher();
+            // Get info necessary to retrieve the module's instance
+            $request_act = $this->act;
+            $request_module = $this->module;
+            $oModuleModel = &getModel('module');
+            $is_mobile = Mobile::isFromMobilePhone();
+            $is_installed = Context::isInstalled();
+
             try
             {
-                $module_key = $module_matcher->getModuleKey($this->act, $this->module, $xml_info, Mobile::isFromMobilePhone(),  Context::isInstalled());
+                $oModule = $module_matcher->getModuleInstance($request_act, $request_module, $oModuleModel, $is_mobile, $is_installed, $this);
+                $this->act = $oModule->act;
             }
             catch(ModuleDoesNotExistException $e)
             {
@@ -223,118 +227,57 @@
 
                 return $this->showErrorToUser();
             }
-
-            // If kind is admin, do some initialization
-            if($module_key->isAdmin())
+            catch(InvalidRequestException $e)
             {
+                $this->error = 'msg_invalid_request';
+                return $this->showErrorToUser();
+            }
+
+            // ---------- We now have a identified a controller :D -------- //
+
+            // Now that we finally have a module instance and a valid act, do stuff
+            $logged_info = Context::get('logged_info');
+            if($request_module == "admin" && $oModule->module_key->getType() == "view")
+            {
+                // This is basically the entry point to the admin interface
+                if($logged_info->is_admin=='Y'){
+                    // Load the admin layout
+                    if ($this->act != 'dispLayoutAdminLayoutModify')
+                    {
+                        $oAdminView = &getAdminView('admin');
+                        $oAdminView->makeGnbUrl($oModule->module_key->getModule());
+                        $oModule->setLayoutPath("./modules/admin/tpl");
+                        $oModule->setLayoutFile("layout.html");
+                    }
+                }else{
+                    $this->error = 'msg_is_not_administrator';
+                    return $this->showErrorToUser();
+                }
+            }
+
+            if ($oModule->module_key->isAdmin()){
                 $this->initAdminMenu();
                 if($_SESSION['denied_admin'] == 'Y')
                 {
                     $this->error = "msg_not_permitted_act";
                     return $this->showErrorToUser();
                 }
-            }
 
-            // Get the instance
-            $oModule = $this->getModuleInstanceFromKey($module_key);
-
-            // If the module still wasn't found, we return
-			if(!is_object($oModule)) {
-                return $this->showErrorToUser();
-			}
-
-			// If there is no such action in the module object
-			if(!isset($xml_info->action->{$this->act}) || !method_exists($oModule, $this->act))
-			{
-
-				if(!Context::isInstalled())
-				{
-					$this->error = 'msg_invalid_request';
+                // Validate current user permissions
+                $grant = $oModuleModel->getGrant($this->module_info, $logged_info);
+                if(!$grant->is_admin && !$grant->manager) {
+                    $this->error = 'msg_is_not_manager';
                     return $this->showErrorToUser();
-				}
-
-                $forward = null;
-				// 1. Look for the module specified in the action name (dispPageIndex -> page)
-                if(preg_match('/^([a-z]+)([A-Z])([a-z0-9\_]+)(.*)$/', $this->act, $matches)) {
-                    $module = strtolower($matches[2].$matches[3]);
-                    $xml_info = $oModuleModel->getModuleActionXml($module);
-                    if($xml_info->action->{$this->act}) {
-                        $forward->module = $module;
-                        $forward->type = $xml_info->action->{$this->act}->type;
-            			$forward->ruleset = $xml_info->action->{$this->act}->ruleset;
-                        $forward->act = $this->act;
-                    }
                 }
 
-                // 2. If it still wasn't found, look for the module in the database
-				if(!$forward)
-				{
-					$forward = $oModuleModel->getActionForward($this->act);
-				}
+            }
 
-                // 3.1. If forward was found ..
-                if($forward->module && $forward->type && $forward->act && $forward->act == $this->act) {
-                    $xml_info = $oModuleModel->getModuleActionXml($forward->module);
-                    $forward_module_key = $module_matcher->getModuleKey($forward->act, $forward->module, $xml_info, Mobile::isFromMobilePhone(), Context::isInstalled());
-
-					$ruleset = $forward->ruleset;
-					$tpl_path = $oModule->getTemplatePath();
-					$orig_module = $oModule;
-
-                    $oModule = &$this->getModuleInstanceFromKey($forward_module_key);
-
-					if(!is_object($oModule)) {
-                        $this->error = 'msg_module_is_not_exists';
-                        return $this->showErrorToUser();
-					}
-
-					if($this->module == "admin" && $forward_module_key->getType() == "view")
-					{
-                        $logged_info = Context::get('logged_info');
-						if($logged_info->is_admin=='Y'){
-							if ($this->act != 'dispLayoutAdminLayoutModify')
-							{
-								$oAdminView = &getAdminView('admin');
-								$oAdminView->makeGnbUrl($forward->module);
-								$oModule->setLayoutPath("./modules/admin/tpl");
-								$oModule->setLayoutFile("layout.html");
-							}
-						}else{
-							$this->error = 'msg_is_not_administrator';
-							return $this->showErrorToUser();
-						}
-					}
-					if ($forward_module_key->getKind() == 'admin'){
-						$grant = $oModuleModel->getGrant($this->module_info, $logged_info);		
-						if(!$grant->is_admin && !$grant->manager) {
-                            $this->error = 'msg_is_not_manager';
-                            return $this->showErrorToUser();
-                        }   
-						
-					}
-				}
-				// 3.2. Otherwise, fallback to module's default action
-                else if($xml_info->default_index_act && method_exists($oModule, $xml_info->default_index_act))
-				{
-					$this->act = $xml_info->default_index_act;
-				}
-                // 3.3 Else, error
-				else
-				{
-					$this->error = 'msg_invalid_request';
-					$oModule->setError(-1);
-					$oModule->setMessage($this->error);
-					return $oModule;
-				}
-			}
-
-            // TODO There is a bug here - no one ever checked if "action->{$this->act}" is set
-            $ruleset = $xml_info->action->{$this->act}->ruleset;
+            $ruleset = $oModule->ruleset;
 
 			// ruleset check...
 			if(!empty($ruleset))
 			{
-				$rulesetModule = $forward->module ? $forward->module : $this->module;
+				$rulesetModule = $oModule->module_key->getModule(); // ? $forward->module : $this->module;
 				$rulesetFile = $oModuleModel->getValidatorFilePath($rulesetModule, $ruleset, $this->mid);
 				if(!empty($rulesetFile))
 				{
@@ -373,10 +316,11 @@
 
             $oModule->setAct($this->act);
 
-            $this->module_info->module_type = $type;
+            $this->module_info->module_type = $oModule->module_key->getType();
+            $xml_info = $oModuleModel->getModuleActionXml($oModule->module_key->getModule());
             $oModule->setModuleInfo($this->module_info, $xml_info);
 
-			if($type == "view" && $this->module_info->use_mobile == "Y" && Mobile::isMobileCheckByAgent())
+			if($oModule->module_key->getType() == "view" && $this->module_info->use_mobile == "Y" && Mobile::isMobileCheckByAgent())
 			{
 				global $lang;
 				$header = '<style type="text/css">div.xe_mobile{opacity:0.7;margin:1em 0;padding:.5em;background:#333;border:1px solid #666;border-left:0;border-right:0}p.xe_mobile{text-align:center;margin:1em 0}a.xe_mobile{color:#ff0;font-weight:bold;font-size:24px}@media only screen and (min-width:500px){a.xe_mobile{font-size:15px}}</style>';
@@ -385,7 +329,7 @@
 				Context::addHtmlFooter($footer);
 			}
 
-			if($type == "view" && $kind != 'admin'){
+			if($oModule->module_key->getType() == "view" && $oModule->module_key->getKind() != 'admin'){
 				$module_config= $oModuleModel->getModuleConfig('module');
 				if($module_config->htmlFooter){
 						Context::addHtmlFooter($module_config->htmlFooter);
