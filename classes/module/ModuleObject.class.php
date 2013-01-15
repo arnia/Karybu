@@ -340,7 +340,6 @@
 
             if ($request->attributes->has('_controller')) {
                 $controller = $resolver->getController($request);
-                $arguments = $resolver->getArguments($request, $controller);
             }
             elseif (isset($this->xml_info->action->{$this->act}) && method_exists($this, $this->act)) {
                 // Check permissions
@@ -352,11 +351,11 @@
                 $oModuleModel = &getModel('module');
                 $oModuleModel->syncSkinInfoToModuleInfo($this->module_info);
                 Context::set('module_info', $this->module_info);
-                // Run
-                $output = $this->{$this->act}();
+                $controller = array($this, $this->act);
             }
             else return false;
 
+            $arguments = $resolver->getArguments($request, $controller);
             $output = call_user_func_array($controller, $arguments);
 
             // trigger call
