@@ -52,3 +52,10 @@ vid_mid_entry:
         vid: '[a-zA-Z0-9_]+'
         mid: '[a-zA-Z0-9_]+'
 
+shop_product:
+    pattern: /{vid}/{type}/{identifier}
+    defaults:
+        _controller: shopView::route
+        _include:
+            - modules/shop/shop.class.php
+            - modules/shop/shop.view.php
