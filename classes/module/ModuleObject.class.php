@@ -339,10 +339,7 @@
             $request = Context::get('request');
             $resolver = new \GlCMS\ControllerResolver();
 
-            if ($request->attributes->has('_controller')) {
-                $controller = $resolver->getController($request);
-            }
-            elseif (isset($this->xml_info->action->{$this->act}) && method_exists($this, $this->act)) {
+            if (isset($this->xml_info->action->{$this->act}) && method_exists($this, $this->act)) {
                 // Check permissions
                 if ($this->module_srl && !$this->grant->access) {
                     $this->stop("msg_not_permitted_act");

@@ -215,23 +215,64 @@
             $is_mobile = Mobile::isFromMobilePhone();
             $is_installed = Context::isInstalled();
 
-            try
-            {
-                $oModule = $module_matcher->getModuleInstance($request_act, $request_module, $oModuleModel, $is_mobile, $is_installed, $this, $this->module_info);
-                $this->act = $oModule->act;
-            }
-            catch(ModuleDoesNotExistException $e)
-            {
-                $this->error = 'msg_module_is_not_exists';
-                $this->httpStatusCode = '404';
+            /** @var $request \Symfony\Component\HttpFoundation\Request */
+            $request = Context::get('request');
+            $resolver = new \GlCMS\ControllerResolver();
+            if ($request->attributes->has('_controller')) {
+                try
+                {
+                    // Get ModuleObject instance
+                    $controller = $resolver->getController($request);
+                    $oModule = $controller[0];
+                    $this->act = $controller[1];
 
-                return $this->showErrorToUser();
+                    // Add some more properties
+
+                    $xml_info = $oModuleModel->getModuleActionXml($request_module);
+                    $oModule->ruleset = $xml_info->action->{$this->act}->ruleset;
+
+                    $oModule->setAct($this->act);
+
+                    $this->module_info->module_type = $xml_info->action->{$this->act}->type;
+
+                    $module_matcher = new ModuleMatcher();
+                    $kind = $module_matcher->getKind($this->act, $this->module);
+                    $oModule->module_key = new ModuleKey($this->module
+                        ,$this->module_info->module_type
+                        ,$kind);
+
+
+                    $oModule->setModuleInfo($this->module_info, $xml_info);
+
+                }
+                // TODO Catch proper exceptions
+                catch(Exception $e)
+                {
+                    $this->error = 'msg_invalid_request';
+                    return $this->showErrorToUser();
+                }
             }
-            catch(InvalidRequestException $e)
+            else
             {
-                $this->error = 'msg_invalid_request';
-                return $this->showErrorToUser();
+                try
+                {
+                    $oModule = $module_matcher->getModuleInstance($request_act, $request_module, $oModuleModel, $is_mobile, $is_installed, $this, $this->module_info);
+                    $this->act = $oModule->act;
+                }
+                catch(ModuleDoesNotExistException $e)
+                {
+                    $this->error = 'msg_module_is_not_exists';
+                    $this->httpStatusCode = '404';
+
+                    return $this->showErrorToUser();
+                }
+                catch(InvalidRequestException $e)
+                {
+                    $this->error = 'msg_invalid_request';
+                    return $this->showErrorToUser();
+                }
             }
+
 
             // ---------- We now have a identified a controller :D -------- //
 
