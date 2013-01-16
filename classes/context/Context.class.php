@@ -185,6 +185,31 @@ class Context {
 		$this->_setRequestArgument();
 		$this->_setUploadedArgument();
 
+        $this->request = Symfony\Component\HttpFoundation\Request::createFromGlobals();
+        $requestContext = new Symfony\Component\Routing\RequestContext;
+        $requestContext->fromRequest($this->request);
+        $locator = new Symfony\Component\Config\FileLocator(array(__DIR__ . '/../../config'));
+        $this->router = new Symfony\Component\Routing\Router(
+            new \Symfony\Component\Routing\Loader\YamlFileLoader($locator),
+            'routes.yml',
+            array('cache_dir' => __DIR__ . '/../../files/cache/s'),
+            $requestContext
+        );
+
+        // Set route.yml arguments
+        try {
+            $params = $this->router->match($this->request->getPathInfo());
+            $this->request->attributes->add($params);
+            foreach ($params as $name=>$value) {
+                if (!is_numeric($name)) {
+                    $this->set($name, $value);
+                }
+            }
+        }
+        catch (Exception $e) {
+            // missing route? cache write problem?
+        }
+
 		$this->loadDBInfo();
 
 		// If XE is installed, get virtual site information
@@ -298,28 +323,8 @@ class Context {
 		}
 		$this->set('request_uri',Context::getRequestUri());
 
-        $this->request = Symfony\Component\HttpFoundation\Request::createFromGlobals();
-        $requestContext = new Symfony\Component\Routing\RequestContext;
-        $requestContext->fromRequest($this->request);
-        $locator = new Symfony\Component\Config\FileLocator(array(__DIR__ . '/../../config'));
-        $this->router = new Symfony\Component\Routing\Router(
-            new \Symfony\Component\Routing\Loader\YamlFileLoader($locator),
-            'routes.yml',
-            array('cache_dir' => __DIR__ . '/../../files/cache/s'),
-            $requestContext
-        );
-        try {
-            $params = $this->router->match($this->request->getPathInfo());
-            $this->request->attributes->add($params);
-            foreach ($params as $name=>$value) {
-                if (!is_numeric($name)) {
-                    $this->set($name, $value);
-                }
-            }
-        }
-        catch (Exception $e) {
-            // missing route? cache write problem?
-        }
+
+
         $this->set('request', $this->request);
     }
 
