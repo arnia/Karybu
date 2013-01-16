@@ -298,7 +298,7 @@ class Context {
 		}
 		$this->set('request_uri',Context::getRequestUri());
 
-        $this->set('request', $this->request = Symfony\Component\HttpFoundation\Request::createFromGlobals());
+        $this->request = Symfony\Component\HttpFoundation\Request::createFromGlobals();
         $requestContext = new Symfony\Component\Routing\RequestContext;
         $requestContext->fromRequest($this->request);
         $locator = new Symfony\Component\Config\FileLocator(array(__DIR__ . '/../../config'));
@@ -310,10 +310,17 @@ class Context {
         );
         try {
             $params = $this->router->match($this->request->getPathInfo());
+            $this->request->attributes->add($params);
+            foreach ($params as $name=>$value) {
+                if (!is_numeric($name)) {
+                    $this->set($name, $value);
+                }
+            }
         }
         catch (Exception $e) {
             // missing route? cache write problem?
         }
+        $this->set('request', $this->request);
     }
 
 	/**
