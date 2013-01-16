@@ -21,4 +21,45 @@ class ControllerResolver extends Controller\ControllerResolver
 
         return parent::getController($request);
     }
+
+    /**
+     * Returns a callable for the given controller.
+     *
+     * @param string $controller A Controller string
+     *
+     * @return mixed A PHP callable
+     */
+    protected function createController($controller)
+    {
+        if (false === strpos($controller, '::')) {
+            throw new \InvalidArgumentException(sprintf('Unable to find controller "%s".', $controller));
+        }
+
+        list($class, $method) = explode('::', $controller, 2);
+
+        if (!class_exists($class)) {
+            throw new \InvalidArgumentException(sprintf('Class "%s" does not exist.', $class));
+        }
+
+
+        preg_match_all('/((?:^|[A-Z])[a-z]+)/',$class,$matches);
+        $count = count($matches[1]);
+        if($count == 2)
+        {
+            list($module, $type) = $matches[1];
+        }
+        elseif($count == 3)
+        {
+            list($module, $kind, $type) = $matches[1];
+        }
+        else
+        {
+            throw new \InvalidArgumentException(sprintf('Invalid class name "%s".', $class));
+        }
+
+        require_once _XE_PATH_ . 'classes/module/ModuleHandler.class.php';
+        $oModule = \ModuleHandler::getModuleInstance($module, $type, $kind);
+
+        return array($oModule, $method);
+    }
 }

@@ -222,7 +222,7 @@
                 try
                 {
                     // Get ModuleObject instance
-                    $controller = $resolver->getController($request);
+                    $controller = $resolver->getController($request, $oModuleModel);
                     $oModule = $controller[0];
                     $this->act = $controller[1];
 
