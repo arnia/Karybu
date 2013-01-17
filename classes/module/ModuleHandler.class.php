@@ -9,6 +9,8 @@
     *          If there is no act on the found module, excute an action referencing action_forward.
     **/
 
+    require_once 'ModuleMatcher.class.php';
+
     class ModuleHandler extends Handler {
 
         var $module = NULL; ///< Module
@@ -89,106 +91,80 @@
          * @return boolean true: OK, false: redirected
          **/
         function init() {
-			$oModuleModel = &getModel('module');
+            $oModuleModel = &getModel('module');
             $site_module_info = Context::get('site_module_info');
+            $oDocumentModel = &getModel('document');
+            $db_info = Context::getDBInfo();
 
-            if(!$this->document_srl && $this->mid && $this->entry) {
-                $oDocumentModel = &getModel('document');
-                $this->document_srl = $oDocumentModel->getDocumentSrlByAlias($this->mid, $this->entry);
-                if($this->document_srl) Context::set('document_srl', $this->document_srl);
+            $moduleMatcher = new ModuleMatcher();
+            try
+            {
+                $found_module_info = $moduleMatcher->getModuleInfo($this->module
+                                                                    , $this->act
+                                                                    , $this->mid
+                                                                    , $this->document_srl
+                                                                    , $this->module_srl
+                                                                    , $this->entry
+                                                                    , $oModuleModel
+                                                                    , $site_module_info
+                                                                    , $oDocumentModel
+                                                                    , $db_info->default_url);
+            }
+            catch(MidMismatchException $e)
+            {
+                header('location:' . getNotEncodedSiteUrl($site_module_info->domain, 'mid', $e->getMid(), 'document_srl', $e->getDocumentSrl()));
+            }
+            catch(DefaultModuleSiteSrlMismatchException $e)
+            {
+                header("location:".getNotEncodedSiteUrl($e->getDomain(),'mid',$e->getMid()));
+            }
+            catch(SiteSrlMismatchException $e)
+            {
+                getNotEncodedSiteUrl($e->getDomain()
+                    , 'mid',$e->getMid()
+                    ,'document_srl',$e->getDocumentSrl()
+                    ,'module_srl',$e->getModuleSrl()
+                    ,'entry',$e->getEntry());
+            }
+            catch(DefaultUrlNotDefined $e)
+            {
+                return Context::getLang('msg_default_url_is_not_defined');
+            }
+            catch(ModuleDoesNotExistException $e)
+            {
+                $this->error = 'msg_module_is_not_exists';
+                $this->httpStatusCode = '404';
+            }
+            catch(Exception $e)
+            {
+                $this->error = 'An error occurred';
+                $this->httpStatusCode = '500';
             }
 
-            // Get module's information based on document_srl, if it's specified
-            if($this->document_srl && !$this->module) {
-                $module_info = $oModuleModel->getModuleInfoByDocumentSrl($this->document_srl);
+            $this->document_srl = $found_module_info->document_srl;
+            $this->module_info = $found_module_info->module_info;
+            $this->module = $found_module_info->module;
+            $this->mid = $found_module_info->mid;
 
-                // If the document does not exist, remove document_srl
-                if(!$module_info) {
-                    unset($this->document_srl);
-                } else {
-                    // If it exists, compare mid based on the module information
-                    // if mids are not matching, set it as the document's mid
-                    if($this->mid != $module_info->mid) {
-                        $this->mid = $module_info->mid;
-                        Context::set('mid', $module_info->mid, true);
-						header('location:' . getNotEncodedSiteUrl($site_info->domain, 'mid', $this->mid, 'document_srl', $this->document_srl));
-						return false;
-                    }
-                }
-                // if requested module is different from one of the document, remove the module information retrieved based on the document number
-                if($this->module && $module_info->module != $this->module) unset($module_info);
+            Context::setBrowserTitle($this->module_info->browser_title);
+
+            if($this->module_info->use_mobile && Mobile::isFromMobilePhone())
+            {
+                $layoutSrl = $this->module_info->mlayout_srl;
+            }
+            else
+            {
+                $layoutSrl = $this->module_info->layout_srl;
             }
 
-            // If module_info is not set yet, and there exists mid information, get module information based on the mid
-            if(!$module_info && $this->mid) {
-                $module_info = $oModuleModel->getModuleInfoByMid($this->mid, $site_module_info->site_srl);
-                //if($this->module && $module_info->module != $this->module) unset($module_info);
-            }
+            $part_config= $oModuleModel->getModulePartConfig('layout',$layoutSrl);
+            Context::addHtmlHeader($part_config->header_script);
 
-            // redirect, if module_site_srl and site_srl are different
-            if(!$this->module && !$module_info && $site_module_info->site_srl == 0 && $site_module_info->module_site_srl > 0) {
-                $site_info = $oModuleModel->getSiteInfo($site_module_info->module_site_srl);
-                header("location:".getNotEncodedSiteUrl($site_info->domain,'mid',$site_module_info->mid));
-                return false;
-            }
 
-            // If module_info is not set still, and $module does not exist, find the default module
-            if(!$module_info && !$this->module && !$this->mid) $module_info = $site_module_info;
-
-            if(!$module_info && !$this->module && $site_module_info->module_site_srl) $module_info = $site_module_info;
-
-            // redirect, if site_srl of module_info is different from one of site's module_info
-            if($module_info && $module_info->site_srl != $site_module_info->site_srl && !isCrawler()) {
-                // If the module is of virtual site
-                if($module_info->site_srl) {
-                    $site_info = $oModuleModel->getSiteInfo($module_info->site_srl);
-                    $redirect_url = getNotEncodedSiteUrl($site_info->domain, 'mid',Context::get('mid'),'document_srl',Context::get('document_srl'),'module_srl',Context::get('module_srl'),'entry',Context::get('entry'));
-                // If it's called from a virtual site, though it's not a module of the virtual site
-                } else {
-                    $db_info = Context::getDBInfo();
-                    if(!$db_info->default_url) return Context::getLang('msg_default_url_is_not_defined');
-                    else $redirect_url = getNotEncodedSiteUrl($db_info->default_url, 'mid',Context::get('mid'),'document_srl',Context::get('document_srl'),'module_srl',Context::get('module_srl'),'entry',Context::get('entry'));
-                }
-                header("location:".$redirect_url);
-                return false;
-            }
-
-            // If module info was set, retrieve variables from the module information
-            if($module_info) {
-                $this->module = $module_info->module;
-                $this->mid = $module_info->mid;
-                $this->module_info = $module_info;
-                Context::setBrowserTitle($module_info->browser_title);
-
-				if($module_info->use_mobile && Mobile::isFromMobilePhone())
-				{
-					$layoutSrl = $module_info->mlayout_srl;
-				}
-				else
-				{
-					$layoutSrl = $module_info->layout_srl;
-				}
-
-                $part_config= $oModuleModel->getModulePartConfig('layout',$layoutSrl);
-                Context::addHtmlHeader($part_config->header_script);
-            }
-
-            // Set module and mid into module_info
-            $this->module_info->module = $this->module;
-            $this->module_info->mid = $this->mid;
-
-			// Set site_srl add 2011 08 09
-			$this->module_info->site_srl = $site_module_info->site_srl;
-
-            // Still no module? it's an error
-            if(!$this->module)
-			{
-				$this->error = 'msg_module_is_not_exists';
-				$this->httpStatusCode = '404';
-			}
-
+            if($this->document_srl) Context::set('document_srl', $this->document_srl);
             // If mid exists, set mid into context
             if($this->mid) Context::set('mid', $this->mid, true);
+
 
             // Call a trigger after moduleHandler init
             $output = ModuleHandler::triggerCall('moduleHandler.init', 'after', $this->module_info);
@@ -203,248 +179,146 @@
             return true;
         }
 
+        private function showErrorToUser()
+        {
+            $type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
+            $oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
+            $oMessageObject->setError(-1);
+            $oMessageObject->setMessage($this->error);
+            $oMessageObject->dispMessage();
+            if($this->httpStatusCode)
+            {
+                $oMessageObject->setHttpStatusCode($this->httpStatusCode);
+            }
+            return $oMessageObject;
+        }
+
         /**
          * get a module instance and execute an action
          * @return ModuleObject executed module instance
          **/
         function procModule() {
-            $oModuleModel = &getModel('module');
 
             // If error occurred while preparation, return a message instance
             if($this->error) {
-				$type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
-                $oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
-                $oMessageObject->setError(-1);
-                $oMessageObject->setMessage($this->error);
-                $oMessageObject->dispMessage();
-				if($this->httpStatusCode)
-				{
-					$oMessageObject->setHttpStatusCode($this->httpStatusCode);
-				}
-                return $oMessageObject;
+                return $this->showErrorToUser();
             }
 
-            // Get action information with conf/module.xml
-            $xml_info = $oModuleModel->getModuleActionXml($this->module);
+            if($this->module_info->use_mobile != "Y") Mobile::setMobile(false);
 
-            // If not installed yet, modify act
-            if($this->module=="install") {
-                if(!$this->act || !$xml_info->action->{$this->act}) $this->act = $xml_info->default_index_act;
+            // Look for a controller the XE way
+            $module_matcher = new ModuleMatcher();
+            // Get info necessary to retrieve the module's instance
+            $request_act = $this->act;
+            $request_module = $this->module;
+            $oModuleModel = &getModel('module');
+            $is_mobile = Mobile::isFromMobilePhone();
+            $is_installed = Context::isInstalled();
+
+            /** @var $request \Symfony\Component\HttpFoundation\Request */
+            $request = Context::get('request');
+            $resolver = new \GlCMS\ControllerResolver();
+            if ($request->attributes->has('_controller')) {
+                try
+                {
+                    // Get ModuleObject instance
+                    $controller = $resolver->getController($request, $oModuleModel);
+                    $oModule = $controller[0];
+                    $this->act = $controller[1];
+
+                    // Add some more properties
+
+                    $xml_info = $oModuleModel->getModuleActionXml($request_module);
+                    $oModule->ruleset = $xml_info->action->{$this->act}->ruleset;
+
+                    $oModule->setAct($this->act);
+
+                    $this->module_info->module_type = $xml_info->action->{$this->act}->type;
+
+                    $module_matcher = new ModuleMatcher();
+                    $kind = $module_matcher->getKind($this->act, $this->module);
+                    $oModule->module_key = new ModuleKey($this->module
+                        ,$this->module_info->module_type
+                        ,$kind);
+
+
+                    $oModule->setModuleInfo($this->module_info, $xml_info);
+
+                }
+                // TODO Catch proper exceptions
+                catch(Exception $e)
+                {
+                    $this->error = 'msg_invalid_request';
+                    return $this->showErrorToUser();
+                }
+            }
+            else
+            {
+                try
+                {
+                    $oModule = $module_matcher->getModuleInstance($request_act, $request_module, $oModuleModel, $is_mobile, $is_installed, $this, $this->module_info);
+                    $this->act = $oModule->act;
+                }
+                catch(ModuleDoesNotExistException $e)
+                {
+                    $this->error = 'msg_module_is_not_exists';
+                    $this->httpStatusCode = '404';
+
+                    return $this->showErrorToUser();
+                }
+                catch(InvalidRequestException $e)
+                {
+                    $this->error = 'msg_invalid_request';
+                    return $this->showErrorToUser();
+                }
             }
 
-            // if act exists, find type of the action, if not use default index act
-            if(!$this->act) $this->act = $xml_info->default_index_act;
 
-            // still no act means error
-            if(!$this->act) {
-                $this->error = 'msg_module_is_not_exists';
-				$this->httpStatusCode = '404';
+            // ---------- We now have a identified a controller :D -------- //
 
-				$type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
-                $oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
-                $oMessageObject->setError(-1);
-                $oMessageObject->setMessage($this->error);
-                $oMessageObject->dispMessage();
-				if($this->httpStatusCode)
-				{
-					$oMessageObject->setHttpStatusCode($this->httpStatusCode);
-				}
-                return $oMessageObject;
-            }
-
-            // get type, kind
-            $type = $xml_info->action->{$this->act}->type;
-            $ruleset = $xml_info->action->{$this->act}->ruleset;
-            $kind = strpos(strtolower($this->act),'admin')!==false?'admin':'';
-            if(!$kind && $this->module == 'admin') $kind = 'admin';
-			if($this->module_info->use_mobile != "Y") Mobile::setMobile(false);
-
-			// admin menu check
-            if(Context::isInstalled())
-			{
-				$oMenuAdminModel = &getAdminModel('menu');
-				$output = $oMenuAdminModel->getMenuByTitle('__XE_ADMIN__');
-
-				if(!$output->menu_srl)
-				{
-					$oAdminClass = &getClass('admin');
-					$oAdminClass->createXeAdminMenu();
-				}
-				else if(!is_readable($output->php_file))
-				{
-					$oMenuAdminController = &getAdminController('menu');
-					$oMenuAdminController->makeXmlFile($output->menu_srl);
-				}
-			}
-
-			// Admin ip
-			$logged_info = Context::get('logged_info');
-			if($kind == 'admin' && $_SESSION['denied_admin'] == 'Y'){
-				$this->error = "msg_not_permitted_act";
-				$oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
-				$oMessageObject->setError(-1);
-				$oMessageObject->setMessage($this->error);
-				$oMessageObject->dispMessage();
-				return $oMessageObject;
-			}
-			
-			// if(type == view, and case for using mobilephone)
-			if($type == "view" && Mobile::isFromMobilePhone() && Context::isInstalled())
-			{
-				$orig_type = "view";
-				$type = "mobile";
-				// create a module instance
-				$oModule = &$this->getModuleInstance($this->module, $type, $kind);
-				if(!is_object($oModule) || !method_exists($oModule, $this->act)) {
-					$type = $orig_type;
-					Mobile::setMobile(false);
-					$oModule = &$this->getModuleInstance($this->module, $type, $kind);
-				}
-			}
-			else
-			{
-				// create a module instance
-				$oModule = &$this->getModuleInstance($this->module, $type, $kind);
-			}
-
-			if(!is_object($oModule)) {
-				$type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
-                $oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
-                $oMessageObject->setError(-1);
-                $oMessageObject->setMessage($this->error);
-                $oMessageObject->dispMessage();
-				if($this->httpStatusCode)
-				{
-					$oMessageObject->setHttpStatusCode($this->httpStatusCode);
-				}
-                return $oMessageObject;
-			}
-
-			// If there is no such action in the module object
-			if(!isset($xml_info->action->{$this->act}) || !method_exists($oModule, $this->act))
-			{
-
-				if(!Context::isInstalled())
-				{
-					$this->error = 'msg_invalid_request';
-					$oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
-					$oMessageObject->setError(-1);
-					$oMessageObject->setMessage($this->error);
-					$oMessageObject->dispMessage();
-					if($this->httpStatusCode)
-					{
-						$oMessageObject->setHttpStatusCode($this->httpStatusCode);
-					}
-					return $oMessageObject;
-				}
-
-                $forward = null;
-				// 1. Look for the module with action name
-                if(preg_match('/^([a-z]+)([A-Z])([a-z0-9\_]+)(.*)$/', $this->act, $matches)) {
-                    $module = strtolower($matches[2].$matches[3]);
-                    $xml_info = $oModuleModel->getModuleActionXml($module);
-                    if($xml_info->action->{$this->act}) {
-                        $forward->module = $module;
-                        $forward->type = $xml_info->action->{$this->act}->type;
-            			$forward->ruleset = $xml_info->action->{$this->act}->ruleset;
-                        $forward->act = $this->act;
+            // Now that we finally have a module instance and a valid act, do stuff
+            $logged_info = Context::get('logged_info');
+            if($request_module == "admin" && $oModule->module_key->getType() == "view")
+            {
+                // This is basically the entry point to the admin interface
+                if($logged_info->is_admin=='Y'){
+                    // Load the admin layout
+                    if ($this->act != 'dispLayoutAdminLayoutModify')
+                    {
+                        $oAdminView = &getAdminView('admin');
+                        $oAdminView->makeGnbUrl($oModule->module_key->getModule());
+                        $oModule->setLayoutPath("./modules/admin/tpl");
+                        $oModule->setLayoutFile("layout.html");
                     }
+                }else{
+                    $this->error = 'msg_is_not_administrator';
+                    return $this->showErrorToUser();
+                }
+            }
+
+            if ($oModule->module_key->isAdmin()){
+                $this->initAdminMenu();
+                if($_SESSION['denied_admin'] == 'Y')
+                {
+                    $this->error = "msg_not_permitted_act";
+                    return $this->showErrorToUser();
                 }
 
-				if(!$forward)
-				{
-					$forward = $oModuleModel->getActionForward($this->act);
-				}
+                // Validate current user permissions
+                $grant = $oModuleModel->getGrant($this->module_info, $logged_info);
+                if(!$grant->is_admin && !$grant->manager) {
+                    $this->error = 'msg_is_not_manager';
+                    return $this->showErrorToUser();
+                }
 
-                if($forward->module && $forward->type && $forward->act && $forward->act == $this->act) {
-                    $kind = strpos(strtolower($forward->act),'admin')!==false?'admin':'';
-					$type = $forward->type;
-					$ruleset = $forward->ruleset;
-					$tpl_path = $oModule->getTemplatePath();
-					$orig_module = $oModule;
+            }
 
-					if($type == "view" && Mobile::isFromMobilePhone())
-					{
-						$orig_type = "view";
-						$type = "mobile";
-						// create a module instance
-						$oModule = &$this->getModuleInstance($forward->module, $type, $kind);
-						if(!is_object($oModule) || !method_exists($oModule, $this->act)) {
-							$type = $orig_type;
-							Mobile::setMobile(false);
-							$oModule = &$this->getModuleInstance($forward->module, $type, $kind);
-						}
-					}
-					else
-					{
-						$oModule = &$this->getModuleInstance($forward->module, $type, $kind);
-					}
-
-					if(!is_object($oModule)) {
-						$type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
-						$oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
-						$oMessageObject->setError(-1);
-						$oMessageObject->setMessage('msg_module_is_not_exists');
-						$oMessageObject->dispMessage();
-						if($this->httpStatusCode)
-						{
-							$oMessageObject->setHttpStatusCode($this->httpStatusCode);
-						}
-						return $oMessageObject;
-					}
-
-                    $xml_info = $oModuleModel->getModuleActionXml($forward->module);
-					$oMemberModel = &getModel('member');
-
-					if($this->module == "admin" && $type == "view")
-					{
-						if($logged_info->is_admin=='Y'){
-							if ($this->act != 'dispLayoutAdminLayoutModify')
-							{
-								$oAdminView = &getAdminView('admin');
-								$oAdminView->makeGnbUrl($forward->module);
-								$oModule->setLayoutPath("./modules/admin/tpl");
-								$oModule->setLayoutFile("layout.html");
-							}
-						}else{
-							$this->error = 'msg_is_not_administrator';
-							$oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
-							$oMessageObject->setError(-1);
-							$oMessageObject->setMessage($this->error);
-							$oMessageObject->dispMessage();
-							return $oMessageObject;
-						}
-					}
-					if ($kind == 'admin'){
-						$grant = $oModuleModel->getGrant($this->module_info, $logged_info);		
-						if(!$grant->is_admin && !$grant->manager) {
-                            $this->error = 'msg_is_not_manager';
-                            $oMessageObject = &ModuleHandler::getModuleInstance('message','view');
-                            $oMessageObject->setError(-1);
-                            $oMessageObject->setMessage($this->error);
-                            $oMessageObject->dispMessage();
-                            return $oMessageObject;
-                        }   
-						
-					}
-				}
-				else if($xml_info->default_index_act && method_exists($oModule, $xml_info->default_index_act))
-				{
-					$this->act = $xml_info->default_index_act;
-				}
-				else
-				{
-					$this->error = 'msg_invalid_request';
-					$oModule->setError(-1);
-					$oModule->setMessage($this->error);
-					return $oModule;
-				}
-			}
+            $ruleset = $oModule->ruleset;
 
 			// ruleset check...
 			if(!empty($ruleset))
 			{
-				$rulesetModule = $forward->module ? $forward->module : $this->module;
+				$rulesetModule = $oModule->module_key->getModule(); // ? $forward->module : $this->module;
 				$rulesetFile = $oModuleModel->getValidatorFilePath($rulesetModule, $ruleset, $this->mid);
 				if(!empty($rulesetFile))
 				{
@@ -481,12 +355,7 @@
 				}
 			}
 
-            $oModule->setAct($this->act);
-
-            $this->module_info->module_type = $type;
-            $oModule->setModuleInfo($this->module_info, $xml_info);
-
-			if($type == "view" && $this->module_info->use_mobile == "Y" && Mobile::isMobileCheckByAgent())
+			if($oModule->module_key->getType() == "view" && $this->module_info->use_mobile == "Y" && Mobile::isMobileCheckByAgent())
 			{
 				global $lang;
 				$header = '<style type="text/css">div.xe_mobile{opacity:0.7;margin:1em 0;padding:.5em;background:#333;border:1px solid #666;border-left:0;border-right:0}p.xe_mobile{text-align:center;margin:1em 0}a.xe_mobile{color:#ff0;font-weight:bold;font-size:24px}@media only screen and (min-width:500px){a.xe_mobile{font-size:15px}}</style>';
@@ -495,13 +364,12 @@
 				Context::addHtmlFooter($footer);
 			}
 
-			if($type == "view" && $kind != 'admin'){
+			if($oModule->module_key->getType() == "view" && $oModule->module_key->getKind() != 'admin'){
 				$module_config= $oModuleModel->getModuleConfig('module');
 				if($module_config->htmlFooter){
 						Context::addHtmlFooter($module_config->htmlFooter);
 				}
 			}
-
 
             // if failed message exists in session, set context
 			$this->_setInputErrorToContext();
@@ -545,6 +413,42 @@
 			
 			unset($logged_info);
             return $oModule;
+        }
+
+        public function getModuleInstanceFromKey(ModuleKey $key)
+        {
+            // 5. Get the instance
+            $oModule = &$this->getModuleInstance($key->getModule(), $key->getType(), $key->getKind());
+
+            // 5.1. If module wasn't found and we're on mobile platform, we try to fallback to classic view
+            if($key->getType() == 'mobile' && (!is_object($oModule) || !method_exists($oModule, $this->act)))
+            {
+                $key = new ModuleKey($key->getModule(), 'view', $key->getKind());
+                Mobile::setMobile(false);
+                $oModule = &$this->getModuleInstance($key->getModule(), $key->getType(), $key->getKind());
+            }
+            return $oModule;
+        }
+
+        private function initAdminMenu()
+        {
+            // admin menu check
+            if(Context::isInstalled())
+            {
+                $oMenuAdminModel = &getAdminModel('menu');
+                $output = $oMenuAdminModel->getMenuByTitle('__XE_ADMIN__');
+
+                if(!$output->menu_srl)
+                {
+                    $oAdminClass = &getClass('admin');
+                    $oAdminClass->createXeAdminMenu();
+                }
+                else if(!is_readable($output->php_file))
+                {
+                    $oMenuAdminController = &getAdminController('menu');
+                    $oMenuAdminController->makeXmlFile($output->menu_srl);
+                }
+            }
         }
 
         /**

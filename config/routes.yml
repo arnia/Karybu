@@ -1,36 +1,41 @@
 admin:
     pattern: /admin
-    defaults: { _controller: 'moduleAdminView::dispModuleAdminList' }
+    defaults: { module: admin }
 
 doc:
     pattern: /{document_srl}
-    defaults: { _controller: '' }
     requirements:
         document_srl: \d+
 
 mid:
     pattern: /{mid}
-    defaults: { _controller: '' }
     requirements:
         mid: '[a-zA-Z0-9_]+'
 
+page:
+    pattern: /show/{mid}
+    requirements:
+        mid: '[a-zA-Z0-9_]+'
+    defaults:
+        _controller: pageView::dispPageIndex
+        _include:
+            - modules/page/page.class.php
+            - modules/page/page.view.php
+
 mid_doc:
     pattern: /{mid}/{document_srl}
-    defaults: { _controller: '' }
     requirements:
         mid: '[a-zA-Z0-9_]+'
         document_srl: '\d+'
 
 vid_mid:
     pattern: /{vid}/{mid}
-    defaults: { _controller: '' }
     requirements:
         vid: '[a-zA-Z0-9_]+'
         mid: '[a-zA-Z0-9_]+'
 
 vid_mid_doc:
     pattern: /{vid}/{mid}/{document_srl}
-    defaults: { _controller: '' }
     requirements:
         vid: '[a-zA-Z0-9_]+'
         mid: '[a-zA-Z0-9_]+'
@@ -38,14 +43,19 @@ vid_mid_doc:
 
 mid_entry:
     pattern: /{mid}/entry/{entry}
-    defaults: { _controller: '' }
     requirements:
         mid: '[a-zA-Z0-9_]+'
 
 vid_mid_entry:
     pattern: /{vid}/{mid}/entry/{entry}
-    defaults: { _controller: '' }
     requirements:
         vid: '[a-zA-Z0-9_]+'
         mid: '[a-zA-Z0-9_]+'
 
+shop_product:
+    pattern: /{vid}/{type}/{identifier}
+    defaults:
+        _controller: shopView::route
+        _include:
+            - modules/shop/shop.class.php
+            - modules/shop/shop.view.php

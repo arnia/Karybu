@@ -169,7 +169,8 @@
             // checks permission and action if you don't have an admin privilege
             if(!$grant->manager) {
                 // get permission types(guest, member, manager, root) of the currently requested action
-                $permission_target = $xml_info->permission->{$this->act};
+                if(isset($xml_info->permission) && isset($xml_info->permission->{$this->act}))
+                    $permission_target = $xml_info->permission->{$this->act};
                 // check manager if a permission in module.xml otherwise action if no permission
                 if(!$permission_target && substr_count($this->act, 'Admin')) $permission_target = 'manager';
                 // Check permissions
@@ -338,11 +339,7 @@
             $request = Context::get('request');
             $resolver = new \GlCMS\ControllerResolver();
 
-            if ($request->attributes->has('_controller')) {
-                $controller = $resolver->getController($request);
-                $arguments = $resolver->getArguments($request, $controller);
-            }
-            elseif (isset($this->xml_info->action->{$this->act}) && method_exists($this, $this->act)) {
+            if (isset($this->xml_info->action->{$this->act}) && method_exists($this, $this->act)) {
                 // Check permissions
                 if ($this->module_srl && !$this->grant->access) {
                     $this->stop("msg_not_permitted_act");
@@ -352,13 +349,11 @@
                 $oModuleModel = &getModel('module');
                 $oModuleModel->syncSkinInfoToModuleInfo($this->module_info);
                 Context::set('module_info', $this->module_info);
-
                 $controller = array($this, $this->act);
-                $arguments = $resolver->getArguments($request, $controller);
-                //$output = $this->{$this->act}();
             }
             else return false;
 
+            $arguments = $resolver->getArguments($request, $controller);
             $output = call_user_func_array($controller, $arguments);
 
             // trigger call

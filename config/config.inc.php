@@ -176,7 +176,7 @@
 		 * Only particular servers may have a problem in IE browser when sending a compression
 		 * </pre>
 		 */
-		define('__OB_GZHANDLER_ENABLE__', 1);
+		define('__OB_GZHANDLER_ENABLE__', 0);
 	}
 
     if(!defined('__ENABLE_PHPUNIT_TEST__'))
@@ -237,7 +237,8 @@
         require_once dirname(__FILE__) . '/../vendor/autoload.php';
 
         // include the class files
-        if(__DEBUG__) define('__ClassLoadStartTime__', getMicroTime());
+		//TODO When _autoload() can be used for PHP5 based applications, it will be removed.
+		if(__DEBUG__) define('__ClassLoadStartTime__', getMicroTime());
 		require(_XE_PATH_.'classes/object/Object.class.php');
 		require(_XE_PATH_.'classes/extravar/Extravar.class.php');
 		require(_XE_PATH_.'classes/handler/Handler.class.php');
