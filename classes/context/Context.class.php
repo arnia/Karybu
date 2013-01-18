@@ -188,18 +188,15 @@ class Context {
         $this->request = Symfony\Component\HttpFoundation\Request::createFromGlobals();
         $requestContext = new Symfony\Component\Routing\RequestContext;
         $requestContext->fromRequest($this->request);
-        $locator = new Symfony\Component\Config\FileLocator(array(__DIR__ . '/../../config'));
-        $this->router = new Symfony\Component\Routing\Router(
-            new \Symfony\Component\Routing\Loader\YamlFileLoader($locator),
-            'routes.yml',
-            array('cache_dir' => __DIR__ . '/../../files/cache/s'),
-            $requestContext
-        );
-
-        // Set route.yml arguments
         try {
-            $params = $this->router->match($this->request->getPathInfo());
+            $configPaths = array(__DIR__ . '/../../config');
+            $locator = new Symfony\Component\Config\FileLocator($configPaths);
+            $loader = new \Symfony\Component\Routing\Loader\YamlFileLoader($locator);
+            $routes = $loader->load('routes.yml');
+            $matcher = new \Symfony\Component\Routing\Matcher\UrlMatcher($routes, $requestContext);
+            $params = $matcher->match($this->request->getPathInfo());
             $this->request->attributes->add($params);
+            //inject request params into context
             foreach ($params as $name=>$value) {
                 if (!is_numeric($name)) {
                     $this->set($name, $value);
