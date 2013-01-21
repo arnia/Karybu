@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+    <title xml:lang="ko">TinyMCE Skin</title>
+    <title xml:lang="es">TinyMCE Skin</title>
+    <title xml:lang="en">TinyMCE Skin</title>
+    <title xml:lang="vi">TinyMCE Skin</title>
+    <title xml:lang="jp">TinyMCEスキン</title>
+    <title xml:lang="zh-CN">TinyMCE皮肤</title>
+    <title xml:lang="zh-TW">TinyMCE面板</title>
+    <title xml:lang="tr">TinyMCE Dış Görünümü</title>
+    <description xml:lang="ko">
+        TinyMCE
+    </description>
+	<description xml:lang="en">
+        TinyMCE
+    </description>
+    <description xml:lang="vi">
+        TinyMCE
+    </description>
+	<description xml:lang="es">
+        TinyMCE
+    </description>
+    <description xml:lang="jp">
+        TinyMCE
+    </description>
+    <description xml:lang="zh-CN">
+        TinyMCE
+    </description>
+    <description xml:lang="zh-TW">
+        TinyMCE
+    </description>
+    <description xml:lang="tr">
+        TinyMCE
+    </description>
+    <version>3.5.8</version>
+    <date>2013-01-08</date>
+    <author email_address="developers@xpressengine.com" link="http://xpressengine.com/">
+        <name xml:lang="ko">NHN</name>
+		<name xml:lang="es">NHN</name>
+		<name xml:lang="en">NHN</name>
+        <name xml:lang="vi">NHN</name>
+        <name xml:lang="jp">NHN</name>
+		<name xml:lang="zh-CN">NHN</name>
+        <name xml:lang="zh-TW">NHN</name>
+        <name xml:lang="tr">NHN</name>
+    </author>
+    <colorset>
+        <color name="default">
+            <title xml:lang="ko">Silver WYSIWYG(default)</title>
+            <title xml:lang="jp">Silver WYSIWYG(default)</title>
+            <title xml:lang="zh-CN">Silver WYSIWYG(default)</title>
+            <title xml:lang="en">Silver WYSIWYG(default)</title>
+            <title xml:lang="vi">Silver WYSIWYG(default)</title>
+            <title xml:lang="es">Silver WYSIWYG(default)</title>
+            <title xml:lang="zh-TW">Silver WYSIWYG(default)</title>
+            <title xml:lang="tr">Silver WYSIWYG(default)</title>
+        </color>
+        <color name="o2k7">
+            <title xml:lang="ko">Word processor</title>
+            <title xml:lang="jp">Word processor</title>
+            <title xml:lang="en">Word processor</title>
+            <title xml:lang="vi">Word processor</title>
+            <title xml:lang="ru">Word processor</title>
+            <title xml:lang="es">Word processor</title>
+            <title xml:lang="zh-CN">Word processor</title>
+            <title xml:lang="zh-TW">Word processor</title>
+            <title xml:lang="tr">Word processor</title>
+        </color>
+        <color name="o2k7_silver">
+            <title xml:lang="ko">Word processor(silver)</title>
+            <title xml:lang="jp">Word processor(silver)</title>
+            <title xml:lang="en">Word processor(silver)</title>
+            <title xml:lang="vi">Word processor(silver)</title>
+            <title xml:lang="ru">Word processor(silver)</title>
+            <title xml:lang="es">Word processor(silver)</title>
+            <title xml:lang="zh-CN">Word processor(silver)</title>
+            <title xml:lang="zh-TW">Word processor(silver)</title>
+            <title xml:lang="tr">Word processor(silver)</title>
+        </color>
+        <color name="o2k7_black">
+            <title xml:lang="ko">Word processor(black)</title>
+            <title xml:lang="jp">Word processor(black)</title>
+            <title xml:lang="en">Word processor(black)</title>
+            <title xml:lang="vi">Word processor(black)</title>
+            <title xml:lang="ru">Word processor(black)</title>
+            <title xml:lang="es">Word processor(black)</title>
+            <title xml:lang="zh-CN">Word processor(black)</title>
+            <title xml:lang="zh-TW">Word processor(black)</title>
+            <title xml:lang="tr">Word processor(black)</title>
+        </color>
+    </colorset>
+</skin>
