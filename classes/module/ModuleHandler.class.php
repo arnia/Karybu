@@ -206,71 +206,40 @@
 
             if($this->module_info->use_mobile != "Y") Mobile::setMobile(false);
 
-            // Look for a controller the XE way
-            $module_matcher = new ModuleMatcher();
             // Get info necessary to retrieve the module's instance
-            $request_act = $this->act;
-            $request_module = $this->module;
             $oModuleModel = &getModel('module');
-            $is_mobile = Mobile::isFromMobilePhone();
-            $is_installed = Context::isInstalled();
 
             /** @var $request \Symfony\Component\HttpFoundation\Request */
             $request = Context::get('request');
             $resolver = new \GlCMS\ControllerResolver();
-            if ($request->attributes->has('_controller')) {
-                try
-                {
-                    // Get ModuleObject instance
-                    $controller = $resolver->getController($request, $oModuleModel);
-                    $oModule = $controller[0];
-                    $this->act = $controller[1];
-
-                    // Add some more properties
-
-                    $xml_info = $oModuleModel->getModuleActionXml($request_module);
-                    $oModule->ruleset = $xml_info->action->{$this->act}->ruleset;
-
-                    $oModule->setAct($this->act);
-
-                    $this->module_info->module_type = $xml_info->action->{$this->act}->type;
-
-                    $module_matcher = new ModuleMatcher();
-                    $kind = $module_matcher->getKind($this->act, $this->module);
-                    $oModule->module_key = new ModuleKey($this->module
-                        ,$this->module_info->module_type
-                        ,$kind);
-
-
-                    $oModule->setModuleInfo($this->module_info, $xml_info);
-
-                }
-                // TODO Catch proper exceptions
-                catch(Exception $e)
-                {
-                    $this->error = 'msg_invalid_request';
-                    return $this->showErrorToUser();
-                }
-            }
-            else
+            try
             {
-                try
-                {
-                    $oModule = $module_matcher->getModuleInstance($request_act, $request_module, $oModuleModel, $is_mobile, $is_installed, $this, $this->module_info);
-                    $this->act = $oModule->act;
-                }
-                catch(ModuleDoesNotExistException $e)
-                {
-                    $this->error = 'msg_module_is_not_exists';
-                    $this->httpStatusCode = '404';
+                $request->attributes->set("act", $this->act);
+                $request->attributes->set("module", $this->module);
+                $request->attributes->set("is_mobile", Mobile::isFromMobilePhone());
+                $request->attributes->set("is_installed", Context::isInstalled());
+                $request->attributes->set('module_info', $this->module_info);
 
-                    return $this->showErrorToUser();
-                }
-                catch(InvalidRequestException $e)
-                {
-                    $this->error = 'msg_invalid_request';
-                    return $this->showErrorToUser();
-                }
+                // Get ModuleObject instance
+                $controller = $resolver->getController($request, $oModuleModel);
+                $oModule = $controller[0];
+                $this->act = $controller[1];
+            }
+            catch(ModuleDoesNotExistException $e) {
+                $this->error = 'msg_module_is_not_exists';
+                $this->httpStatusCode = '404';
+
+                return $this->showErrorToUser();
+            }
+            catch(InvalidRequestException $e) {
+                $this->error = 'msg_invalid_request';
+                return $this->showErrorToUser();
+            }
+            // TODO Catch proper exceptions
+            catch(Exception $e)
+            {
+                $this->error = 'msg_invalid_request';
+                return $this->showErrorToUser();
             }
 
 
@@ -278,7 +247,7 @@
 
             // Now that we finally have a module instance and a valid act, do stuff
             $logged_info = Context::get('logged_info');
-            if($request_module == "admin" && $oModule->module_key->getType() == "view")
+            if($this->module == "admin" && $oModule->module_key->getType() == "view")
             {
                 // This is basically the entry point to the admin interface
                 if($logged_info->is_admin=='Y'){
@@ -415,17 +384,17 @@
             return $oModule;
         }
 
-        public function getModuleInstanceFromKey(ModuleKey $key)
+        public static function getModuleInstanceFromKeyAndAct(ModuleKey $key, $act)
         {
             // 5. Get the instance
-            $oModule = &$this->getModuleInstance($key->getModule(), $key->getType(), $key->getKind());
+            $oModule = self::getModuleInstance($key->getModule(), $key->getType(), $key->getKind());
 
             // 5.1. If module wasn't found and we're on mobile platform, we try to fallback to classic view
-            if($key->getType() == 'mobile' && (!is_object($oModule) || !method_exists($oModule, $this->act)))
+            if($key->getType() == 'mobile' && (!is_object($oModule) || !method_exists($oModule, $act)))
             {
                 $key = new ModuleKey($key->getModule(), 'view', $key->getKind());
                 Mobile::setMobile(false);
-                $oModule = &$this->getModuleInstance($key->getModule(), $key->getType(), $key->getKind());
+                $oModule = self::getModuleInstance($key->getModule(), $key->getType(), $key->getKind());
             }
             return $oModule;
         }
@@ -495,7 +464,7 @@
          **/
         function displayContent($oModule = NULL) {
             // If the module is not set or not an object, set error
-            if(!$oModule || !is_object($oModule)) {
+            if (!$oModule || !is_object($oModule)) {
                 $this->error = 'msg_module_is_not_exists';
 				$this->httpStatusCode = '404';
             }
@@ -507,14 +476,13 @@
 
             // Call trigger after moduleHandler proc
             $output = ModuleHandler::triggerCall('moduleHandler.proc', 'after', $oModule);
-            if(!$output->toBool()) $this->error = $output->getMessage();
+            if (!$output->toBool()) $this->error = $output->getMessage();
 
             // Use message view object, if HTML call
 			$methodList = array('XMLRPC'=>1, 'JSON'=>1);
-            if(!isset($methodList[Context::getRequestMethod()])) {
+            if (!isset($methodList[Context::getRequestMethod()])) {
 
-				if($_SESSION['XE_VALIDATOR_RETURN_URL'])
-				{
+				if ($_SESSION['XE_VALIDATOR_RETURN_URL']) {
 					$display_handler = new DisplayHandler();
 					$display_handler->_debugOutput();
 
@@ -523,7 +491,7 @@
 				}
 
                 // If error occurred, handle it
-                if($this->error) {
+                if ($this->error) {
                     // display content with message module instance
 					$type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
 					$oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
@@ -531,14 +499,13 @@
 					$oMessageObject->setMessage($this->error);
 					$oMessageObject->dispMessage();
 
-					if($oMessageObject->getHttpStatusCode() && $oMessageObject->getHttpStatusCode() != '200')
-					{
+					if ($oMessageObject->getHttpStatusCode() && $oMessageObject->getHttpStatusCode() != '200') {
 						$this->_setHttpStatusMessage($oMessageObject->getHttpStatusCode());
 						$oMessageObject->setTemplateFile('http_status_code');
 					}
 
                     // If module was called normally, change the templates of the module into ones of the message view module
-                    if($oModule) {
+                    if ($oModule) {
 						$oModule->setTemplatePath($oMessageObject->getTemplatePath());
 						$oModule->setTemplateFile($oMessageObject->getTemplateFile());
                     // Otherwise, set message instance as the target module
@@ -550,24 +517,22 @@
                 }
 
                 // Check if layout_srl exists for the module
-				if(Mobile::isFromMobilePhone())
-				{
+				if (Mobile::isFromMobilePhone()) {
 					$layout_srl = $oModule->module_info->mlayout_srl;
 				}
-				else
-				{
+				else {
 					$layout_srl = $oModule->module_info->layout_srl;
 				}
 
-                if($layout_srl && !$oModule->getLayoutFile()) {
+                if ($layout_srl && !$oModule->getLayoutFile()) {
 
                     // If layout_srl exists, get information of the layout, and set the location of layout_path/ layout_file
                     $oLayoutModel = &getModel('layout');
                     $layout_info = $oLayoutModel->getLayout($layout_srl);
-                    if($layout_info) {
+                    if ($layout_info) {
 
                         // Input extra_vars into $layout_info
-                        if($layout_info->extra_var_count) {
+                        if ($layout_info->extra_var_count) {
 
                             foreach($layout_info->extra_var as $var_id => $val) {
                                 if($val->type == 'image') {

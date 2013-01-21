@@ -301,7 +301,7 @@ class ModuleMatcher
         return new ModuleKey($request_module, $type, $kind);
     }
 
-    public function getModuleInstance($request_act, $request_module, $oModuleModel, $is_mobile, $is_installed, ModuleHandler $module_handler, $module_info)
+    public function getModuleInstance($request_act, $request_module, $oModuleModel, $is_mobile, $is_installed, $module_info)
     {
         // Get action information with conf/module.xml
         $xml_info = $oModuleModel->getModuleActionXml($request_module);
@@ -311,7 +311,7 @@ class ModuleMatcher
         $act = $module_matcher->getActionName($request_act, $request_module, $xml_info);
 
         // Get the instance
-        $oModule = $module_handler->getModuleInstanceFromKey($module_key);
+        $oModule = ModuleHandler::getModuleInstanceFromKeyAndAct($module_key, $request_act);
 
         // If the module still wasn't found, we return
         if(!is_object($oModule)) {
@@ -353,7 +353,7 @@ class ModuleMatcher
                 $xml_info = $oModuleModel->getModuleActionXml($forward->module);
                 $module_key = $module_matcher->getModuleKey($forward->act, $forward->module, $xml_info, $is_mobile, $is_installed);
 
-                $oModule = $module_handler->getModuleInstanceFromKey($module_key);
+                $oModule = ModuleHandler::getModuleInstanceFromKeyAndAct($module_key, $forward->act);
 
                 if(!is_object($oModule)) {
                     throw new ModuleDoesNotExistException();
