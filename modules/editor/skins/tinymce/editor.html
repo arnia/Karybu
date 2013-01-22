@@ -40,6 +40,9 @@
 <!--@end-->
     
 <script>
+    
+    editorStart_xe("{$editor_sequence}", "{$editor_primary_key_name}", "{$editor_content_key_name}");
+    
     tinyMCE.init({
         mode: 'exact',
         elements: 'tiny_mce_text_area',
@@ -47,7 +50,7 @@
         theme: 'advanced',
         width: '100%',
         height: '{$editor_height}',
-        plugins : 'contextmenu,table{$enable_component?",xe_component":""}{$enable_autosave?",autosave":""}',
+        plugins : 'table{$enable_component?",xe_component":""}{$enable_autosave?",autosave":""}',
         <!--@if($enable_default_component)-->
         theme_advanced_buttons1 : 'undo,redo,|,formatselect,fontselect,fontsizeselect,|,bold,italic,underline,strikethrough,forecolor,backcolor,sup,sub,|,justifyleft,justifycenter,justifyright,numlist,bullist,outdent,indent',
         theme_advanced_buttons2 : 'blockquote,link,|,tablecontrols{$enable_component?",|,xe_component":""}{$enable_autosave?",|,restoredraft":""}{$html_mode?",|,code":""}',
@@ -58,8 +61,8 @@
         theme_advanced_toolbar_align : 'left',
         theme_advanced_statusbar_location : 'bottom',
         theme_advanced_resizing : true,
-        oninit: mce_editor_init,
-        onchange_callback: mce_editor_content_change,
+        oninit: mceEditorInit,
+        onchange_callback: mceEditorContentChange,
         xe_component_arrays: {{$xe_component_array}},
         xe_editor_sequence: '{$editor_sequence}',
         <!--@if($css_to_write)-->
@@ -93,7 +96,7 @@
         <div class="fileUploadControl">
                             <button type="button" id="swfUploadButton{$editor_sequence}" class="text">{$lang->edit->upload_file}</button>
                             <button type="button" onclick="removeUploadedFile('{$editor_sequence}');" class="text">{$lang->edit->delete_selected}</button>
-                            <button type="button" onclick="mce_insert_uploaded_file('{$editor_sequence}');" class="text">{$lang->edit->link_file}</button>
+                            <button type="button" onclick="mceInsertUploadedFile('{$editor_sequence}');" class="text">{$lang->edit->link_file}</button>
         </div>
         <div class="file_attach_info" id="uploader_status_{$editor_sequence}">{$upload_status}</div>
     </div>
@@ -102,8 +105,7 @@
 <load target="../../tpl/js/uploader.js" />
 <load target="../../tpl/js/swfupload.js" />
 <script type="text/javascript">//<![CDATA[
-    jQuery(function(){
-        editorStart_xe("{$editor_sequence}", "{$editor_primary_key_name}", "{$editor_content_key_name}");
+    jQuery(function(){        
         editorUploadInit({
             "editorSequence" : {$editor_sequence},
             "sessionName" : "{session_name()}",

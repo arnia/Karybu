@@ -1,5 +1,5 @@
 //Set existing content to editor
-function mce_editor_init(){
+function mceEditorInit(){
     if(jQuery("input[name=content]").size()>0){
         var content=jQuery("input[name=content]").val();
         tinyMCE.activeEditor.execCommand('mceInsertContent',false,content);
@@ -7,14 +7,14 @@ function mce_editor_init(){
 }
 
 //Get content from editor to content variable
-function mce_editor_content_change(tiny_mce_obj){
+function mceEditorContentChange(tiny_mce_obj){
     if(jQuery("input[name=content]").size()>0){
        jQuery("input[name=content]").val(tiny_mce_obj.getBody().innerHTML);
     }
 }
 
 //Insert uploaded file to editor
-function mce_insert_uploaded_file(editorSequence){
+function mceInsertUploadedFile(editorSequence){
     var temp_code='';
 
     var settings = uploaderSettings[editorSequence];
