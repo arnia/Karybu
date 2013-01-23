@@ -26,6 +26,11 @@ RewriteRule ^([a-zA-Z0-9_]+)/([0-9]+)/(.+)/trackback$ ./index.php?mid=$1&documen
 RewriteRule ^([a-zA-Z0-9_]+)/([0-9]+)/(.+)/trackback$ ./index.php?vid=$1&document_srl=$2&key=$3&act=trackback [L]
 RewriteRule ^([a-zA-Z0-9_]+)/([a-zA-Z0-9_]+)/([0-9]+)/(.+)/trackback$ ./index.php?vid=$1&mid=$2&document_srl=$3&key=$4&act=trackback [L]
 
+#RewriteRule ^([A-Za-z0-9-_]+)$ ./index.php/$1 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule (.*) ./index.php/$1 [L]
+
 ## administrator page
 #RewriteRule ^admin/?$ ./index.php?module=admin [L]
 #
