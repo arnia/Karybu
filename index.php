@@ -30,39 +30,25 @@
  *
  **/
 
+use Symfony\Component\HttpFoundation\Request;
+use GlCMS\Core;
+
 /**
- * @brief Declare constants for generic use and for checking to avoid a direct call from the Web
+ * Declare constants for generic use and for checking to avoid a direct call from the Web
  **/
 define('__XE__',   true);
 define('__ZBXE__', true); // deprecated : __ZBXE__ will be removed. Use __XE__ instead.
 
 /**
- * @brief Include the necessary configuration files
+ * Include the necessary configuration files
  **/
 require dirname(__FILE__) . '/config/config.inc.php';
 
-/**
- * @brief Initialize by creating Context object
- * Set all Request Argument/Environment variables
- **/
-$oContext = &Context::getInstance();
-$oContext->init();
-
-/**
- * @brief If default_url is set and it is different from the current url, attempt to redirect for SSO authentication and then process the module
- **/
-if($oContext->checkSSO())
-{
-	$oModuleHandler = new ModuleHandler();
-
-	if($oModuleHandler->init())
-	{
-		$oModule = &$oModuleHandler->procModule();
-		$oModuleHandler->displayContent($oModule);
-	}
-}
-
-$oContext->close();
-
-/* End of file index.php */
-/* Location: ./index.php */
+/** @var $container \Symfony\Component\DependencyInjection\Container */
+$container = include __DIR__.'/src/container.php';
+$request = Request::createFromGlobals();
+/** @var $core \GlCMS\Core */
+$core = $container->get('core');
+$response = $core->handle($request);
+$response->send();
+$core->terminate($request, $response);

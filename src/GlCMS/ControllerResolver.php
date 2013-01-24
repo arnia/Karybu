@@ -8,8 +8,9 @@ require_once _XE_PATH_ . 'classes/module/ModuleMatcher.class.php';
 class ControllerResolver extends Controller\ControllerResolver
 {
 
-    public function getController(Request $request, $oModuleModel = null)
+    public function getController(Request $request)
     {
+        $oModuleModel = getModel('module');
         $module = $request->attributes->get('module');
         $act = $request->attributes->get('act');
         $is_mobile = $request->attributes->get('is_mobile');
@@ -53,7 +54,6 @@ class ControllerResolver extends Controller\ControllerResolver
             $module_matcher = new \ModuleMatcher();
             $oModule = $module_matcher->getModuleInstance($act, $module, $oModuleModel, $is_mobile, $is_installed, $module_info);
             return array($oModule, $oModule->act);
-
         }
     }
 

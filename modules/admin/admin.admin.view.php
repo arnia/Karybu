@@ -313,6 +313,7 @@
             Context::set('layout','none');
 
             $this->setTemplateFile('index');
+            return new \Symfony\Component\HttpFoundation\Response('aaa');
         }
 
 		/**

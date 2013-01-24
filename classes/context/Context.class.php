@@ -30,17 +30,17 @@ class Context {
 	 * Conatins request parameters and environment variables
 	 * @var object
 	 */
-	var $context  = NULL;
+	var $context  = null;
 	/**
 	 * DB info 
 	 * @var object
 	 */
-	var $db_info  = NULL;
+	var $db_info  = null;
 	/**
 	 * FTP info 
 	 * @var object
 	 */
-	var $ftp_info = NULL;
+	var $ftp_info = null;
 	/**
 	 * ssl action cache file
 	 * @var array
@@ -60,7 +60,7 @@ class Context {
 	 * script codes in <head>..</head>
 	 * @var string
 	 */
-	var $html_header = NULL;
+	var $html_header = null;
 	/**
 	 * class names of <body>
 	 * @var array
@@ -70,12 +70,12 @@ class Context {
 	 * codes after <body>
 	 * @var string
 	 */
-	var $body_header = NULL;
+	var $body_header = null;
 	/**
 	 * class names before </body>
 	 * @var string
 	 */
-	var $html_footer = NULL;
+	var $html_footer = null;
 	/**
 	 * path of Xpress Engine 
 	 * @var string
@@ -92,7 +92,7 @@ class Context {
 	 * contains language-specific data
 	 * @var object 
 	 */
-	var $lang = NULL;
+	var $lang = null;
 	/**
 	 * list of loaded languages (to avoid re-loading them)
 	 * @var array
@@ -107,7 +107,7 @@ class Context {
 	 * variables from GET or form submit
 	 * @var mixed
 	 */
-	var $get_vars = NULL;
+	var $get_vars = null;
 	/**
 	 * Checks uploaded 
 	 * @var bool true if attached file exists
@@ -135,23 +135,19 @@ class Context {
     /**
 	 * returns static context object (Singleton). It's to use Context without declaration of an object
 	 *
-	 * @return object Instance
+	 * @return Context
 	 */
-	function &getInstance() {
+	public static function getInstance() {
 		static $theInstance = null;
 		if(!$theInstance) $theInstance = new Context();
-
 		// include ssl action cache file
 		$theInstance->sslActionCacheFile = FileHandler::getRealPath($theInstance->sslActionCacheFile);
-		if(is_readable($theInstance->sslActionCacheFile))
-		{
-			require_once($theInstance->sslActionCacheFile);
-			if(isset($sslActions))
-			{
+		if (is_readable($theInstance->sslActionCacheFile)) {
+			require_once $theInstance->sslActionCacheFile;
+			if (isset($sslActions)) {
 				$theInstance->ssl_actions = $sslActions;
 			}
 		}
-
 		return $theInstance;
 	}
 
@@ -173,39 +169,15 @@ class Context {
 	 */
 	function init()
     {
-		// set context variables in $GLOBALS (to use in display handler)
-		$this->context = &$GLOBALS['__Context__'];
-		$this->context->lang = &$GLOBALS['lang'];
+        $this->context->lang = &$GLOBALS['lang'];
 		$this->context->_COOKIE = $_COOKIE;
 
-		$this->setRequestMethod('');
+        $this->setRequestMethod('');
 
-		$this->_setXmlRpcArgument();
+        $this->_setXmlRpcArgument();
 		$this->_setJSONRequestArgument();
 		$this->_setRequestArgument();
 		$this->_setUploadedArgument();
-
-        $this->request = Symfony\Component\HttpFoundation\Request::createFromGlobals();
-        $requestContext = new Symfony\Component\Routing\RequestContext;
-        $requestContext->fromRequest($this->request);
-        try {
-            $configPaths = array(__DIR__ . '/../../config');
-            $locator = new Symfony\Component\Config\FileLocator($configPaths);
-            $loader = new \Symfony\Component\Routing\Loader\YamlFileLoader($locator);
-            $routes = $loader->load('routes.yml');
-            $matcher = new \Symfony\Component\Routing\Matcher\UrlMatcher($routes, $requestContext);
-            $params = $matcher->match($this->request->getPathInfo());
-            $this->request->attributes->add($params);
-            //inject request params into context
-            foreach ($params as $name=>$value) {
-                if (!is_numeric($name)) {
-                    $this->set($name, $value);
-                }
-            }
-        }
-        catch (Exception $e) {
-            // missing route? cache write problem?
-        }
 
 		$this->loadDBInfo();
 
@@ -219,7 +191,9 @@ class Context {
 			}
 
 			$this->set('site_module_info', $site_module_info);
-			if($site_module_info->site_srl && isSiteID($site_module_info->domain)) $this->set('vid', $site_module_info->domain, true);
+			if($site_module_info->site_srl && isSiteID($site_module_info->domain)) {
+                $this->set('vid', $site_module_info->domain, true);
+            }
 
 			$this->db_info->lang_type = $site_module_info->default_language;
 			if(!$this->db_info->lang_type) $this->db_info->lang_type = 'en';
@@ -235,16 +209,22 @@ class Context {
 			if($_COOKIE['lang_type'] != $this->lang_type) {
 				setcookie('lang_type', $this->lang_type, time()+3600*24*1000, '/');
 			}
-		} elseif($_COOKIE['lang_type']) {
+		} elseif ($_COOKIE['lang_type']) {
 			$this->lang_type = $_COOKIE['lang_type'];
 		}
 
 		// If it's not exists, follow default language type set in db_info
-		if(!$this->lang_type) $this->lang_type = $this->db_info->lang_type;
+		if (!$this->lang_type) {
+            $this->lang_type = $this->db_info->lang_type;
+        }
 
 		// if still lang_type has not been set or has not-supported type , set as English.
-		if(!$this->lang_type) $this->lang_type = 'en';
-		if(is_array($lang_supported)&&!isset($lang_supported[$this->lang_type])) $this->lang_type = 'en';
+		if (!$this->lang_type) {
+            $this->lang_type = 'en';
+        }
+		if (is_array($lang_supported) && !isset($lang_supported[$this->lang_type])) {
+            $this->lang_type = 'en';
+        }
 
 		$this->set('lang_supported', $lang_supported);
 		$this->setLangType($this->lang_type);
@@ -253,7 +233,7 @@ class Context {
 		$this->loadLang(_XE_PATH_.'modules/module/lang');
 
 		// set session handler
-		if(Context::isInstalled() && $this->db_info->use_db_session == 'Y') {
+		if (Context::isInstalled() && $this->db_info->use_db_session == 'Y') {
 			$oSessionModel = &getModel('session');
 			$oSessionController = &getController('session');
 			session_set_save_handler(
@@ -266,23 +246,24 @@ class Context {
 			);
 		}
 		session_start();
-		if($sess=$_POST[session_name()]) session_id($sess);
+		if ($sess=$_POST[session_name()]) {
+            session_id($sess);
+        }
 
 		// set authentication information in Context and session
-		if(Context::isInstalled()) {
+		if (Context::isInstalled()) {
 			$oModuleModel = &getModel('module');
 			$oModuleModel->loadModuleExtends();
 
 			$oMemberModel = &getModel('member');
 			$oMemberController = &getController('member');
 
-			if($oMemberController && $oMemberModel)
-			{
+			if ($oMemberController && $oMemberModel) {
 				// if signed in, validate it.
-				if($oMemberModel->isLogged()) {
+				if ($oMemberModel->isLogged()) {
 					$oMemberController->setSessionInfo();
 				}
-				elseif($_COOKIE['xeak']) { // check auto sign-in
+				elseif ($_COOKIE['xeak']) { // check auto sign-in
 					$oMemberController->doAutologin();
 				}
 
@@ -296,33 +277,37 @@ class Context {
 		$this->loadLang(_XE_PATH_.'common/lang/');
 
 		// check if using rewrite module
-		if(file_exists(_XE_PATH_.'.htaccess')&&$this->db_info->use_rewrite == 'Y') $this->allow_rewrite = true;
-		else $this->allow_rewrite = false;
+		if (file_exists(_XE_PATH_.'.htaccess')&&$this->db_info->use_rewrite == 'Y') {
+            $this->allow_rewrite = true;
+        }
+		else {
+            $this->allow_rewrite = false;
+        }
 
 		// set locations for javascript use
-		if($_SERVER['REQUEST_METHOD'] == 'GET') {
-			if($this->get_vars) {
-				foreach($this->get_vars as $key=>$val) {
-					if(is_array($val)&&count($val)) {
-						foreach($val as $k => $v) {
+		if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+			if ($this->get_vars) {
+				foreach ($this->get_vars as $key=>$val) {
+					if (is_array($val) && count($val)) {
+						foreach ($val as $k => $v) {
 							$url .= ($url?'&':'').$key.'['.$k.']='.urlencode($v);
 						}
-					} elseif ($val) {
+					}
+                    elseif ($val) {
 						$url .= ($url?'&':'').$key.'='.urlencode($val);
 					}
 				}
 				$this->set('current_url',sprintf('%s?%s', Context::getRequestUri(), $url));
-			} else {
+			}
+            else {
 				$this->set('current_url',$this->getUrl());
 			}
-		} else {
+		}
+        else {
 			$this->set('current_url',Context::getRequestUri());
 		}
 		$this->set('request_uri',Context::getRequestUri());
 
-
-
-        $this->set('request', $this->request);
     }
 
 	/**
@@ -351,46 +336,57 @@ class Context {
 		if(!$self->isInstalled()) return;
 
 		$config_file = $self->getConfigFile();
-		if(is_readable($config_file)) @include($config_file);
+		if (is_readable($config_file)) @include($config_file);
 
-                // If master_db information does not exist, the config file needs to be updated
-                if(!isset($db_info->master_db)) {
-                    $db_info->master_db = array();
-                    $db_info->master_db["db_type"] = $db_info->db_type; unset($db_info->db_type);
-                    $db_info->master_db["db_port"] = $db_info->db_port; unset($db_info->db_port);
-                    $db_info->master_db["db_hostname"] = $db_info->db_hostname; unset($db_info->db_hostname);
-                    $db_info->master_db["db_password"] = $db_info->db_password; unset($db_info->db_password);
-                    $db_info->master_db["db_database"] = $db_info->db_database; unset($db_info->db_database);
-                    $db_info->master_db["db_userid"] = $db_info->db_userid; unset($db_info->db_userid);
-                    $db_info->master_db["db_table_prefix"] = $db_info->db_table_prefix; unset($db_info->db_table_prefix);
-                    if(substr($db_info->master_db["db_table_prefix"],-1)!='_') $db_info->master_db["db_table_prefix"] .= '_';
+        // If master_db information does not exist, the config file needs to be updated
+        if (!isset($db_info->master_db)) {
+            $db_info->master_db = array();
+            $db_info->master_db["db_type"] = $db_info->db_type; unset($db_info->db_type);
+            $db_info->master_db["db_port"] = $db_info->db_port; unset($db_info->db_port);
+            $db_info->master_db["db_hostname"] = $db_info->db_hostname; unset($db_info->db_hostname);
+            $db_info->master_db["db_password"] = $db_info->db_password; unset($db_info->db_password);
+            $db_info->master_db["db_database"] = $db_info->db_database; unset($db_info->db_database);
+            $db_info->master_db["db_userid"] = $db_info->db_userid; unset($db_info->db_userid);
+            $db_info->master_db["db_table_prefix"] = $db_info->db_table_prefix; unset($db_info->db_table_prefix);
+            if(substr($db_info->master_db["db_table_prefix"],-1)!='_') $db_info->master_db["db_table_prefix"] .= '_';
 
-                    $slave_db = $db_info->master_db;
-                    $db_info->slave_db = array($slave_db);
-					
-                    $self->setDBInfo($db_info);
+            $slave_db = $db_info->master_db;
+            $db_info->slave_db = array($slave_db);
 
-                    $oInstallController = &getController('install');
-                    $oInstallController->makeConfigFile();
-                }
+            $self->setDBInfo($db_info);
+
+            $oInstallController = &getController('install');
+            $oInstallController->makeConfigFile();
+        }
 		
-		if(!$db_info->use_prepared_statements) 
-		{
+		if (!$db_info->use_prepared_statements) {
 			$db_info->use_prepared_statements = 'Y';
 		}
 				
-		if(!$db_info->time_zone) $db_info->time_zone = date('O');
+		if (!$db_info->time_zone) {
+            $db_info->time_zone = date('O');
+        }
 		$GLOBALS['_time_zone'] = $db_info->time_zone;
 
-		if($db_info->qmail_compatibility != 'Y') $db_info->qmail_compatibility = 'N';
+		if ($db_info->qmail_compatibility != 'Y') {
+            $db_info->qmail_compatibility = 'N';
+        }
 		$GLOBALS['_qmail_compatibility'] = $db_info->qmail_compatibility;
 
-		if(!$db_info->use_db_session) $db_info->use_db_session = 'N';
-		if(!$db_info->use_ssl) $db_info->use_ssl = 'none';
+		if (!$db_info->use_db_session) {
+            $db_info->use_db_session = 'N';
+        }
+		if (!$db_info->use_ssl) {
+            $db_info->use_ssl = 'none';
+        }
 		$this->set('_use_ssl', $db_info->use_ssl);
 
-		if($db_info->http_port)  $self->set('_http_port', $db_info->http_port);
-		if($db_info->https_port) $self->set('_https_port', $db_info->https_port);
+		if ($db_info->http_port) {
+            $self->set('_http_port', $db_info->http_port);
+        }
+		if ($db_info->https_port) {
+            $self->set('_https_port', $db_info->https_port);
+        }
 
 		$self->setDBInfo($db_info);
 	}
@@ -919,7 +915,7 @@ class Context {
 				$result = preg_match($pattern, $val);
 				if($result)
 				{
-					$this->isSuccessInit = FALSE;
+					$this->isSuccessInit = false;
 					return;
 				}
 			}
@@ -981,10 +977,10 @@ class Context {
 	 * @return mixed filtered value. Type are string or array
 	 */
 	function _filterRequestVar($key, $val, $do_stripslashes = 1) {
-		$isArray = TRUE;
+		$isArray = true;
 		if(!is_array($val))
 		{
-			$isArray = FALSE;
+			$isArray = false;
 			$val = array($val);
 		}
 
@@ -1340,7 +1336,7 @@ class Context {
 		is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
 		$self->context->{$key} = $val;
 		if($set_to_get_vars === false) return;
-		if($val === NULL || $val === '')
+		if($val === null || $val === '')
 		{
 			unset($self->get_vars->{$key});
 			return;
