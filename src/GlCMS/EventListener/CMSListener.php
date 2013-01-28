@@ -40,6 +40,7 @@ class CMSListener implements EventSubscriberInterface
                 array('doContextInit', 30),
                 array('doContextCheckSSO', 28),
                 array('checkModuleHandlerInit', 26),
+                array('prepareRequestForResolving', 24)
             ),
             KernelEvents::EXCEPTION => array('onKernelException', -128),
             KernelEvents::TERMINATE => 'onTerminate',
@@ -121,15 +122,24 @@ class CMSListener implements EventSubscriberInterface
 
     public function onView(GetResponseForControllerResultEvent $event)
     {
-        if ($response = $event->getControllerResult()) {
-            if (is_string($response)) {
-                $event->setResponse(new Response($response));
-            }
-        }
-        else {
-            $request = $event->getRequest();
-            //... deal with controller returns
-        }
+        $oModule = $event->getControllerResult();
+
+        ob_start();
+        \ModuleHandler::displayContent($oModule);
+        $content = ob_get_clean();
+
+        $event->setResponse(new Response($content));
+    }
+
+    public function prepareRequestForResolving(GetResponseEvent $event)
+    {
+        $request = $event->getRequest();
+        $module_handler = $request->attributes->get('oModuleHandler');
+        $request->attributes->set("act", $module_handler->act);
+        $request->attributes->set("module", $module_handler->module);
+        $request->attributes->set("is_mobile", \Mobile::isFromMobilePhone());
+        $request->attributes->set("is_installed", \Context::isInstalled());
+        $request->attributes->set('module_info', $module_handler->module_info);
     }
 
     public function onKernelRequest(GetResponseEvent $event)

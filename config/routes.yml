@@ -1,3 +1,6 @@
+homepage:
+    pattern: /
+
 admin:
     pattern: /admin
     defaults: { module: admin }

@@ -1,6 +1,7 @@
 <?php
 namespace GlCMS;
 use \Symfony\Component\HttpKernel\Controller;
+use GlCMS\Event\BeforeControllerEvent;
 use Symfony\Component\HttpFoundation\Request;
 
 require_once _XE_PATH_ . 'classes/module/ModuleMatcher.class.php';
@@ -46,15 +47,17 @@ class ControllerResolver extends Controller\ControllerResolver
 
 
             $oModule->setModuleInfo($module_info, $xml_info);
-
-            return array($oModule, $oModule->act);
         }
         else
         {
             $module_matcher = new \ModuleMatcher();
             $oModule = $module_matcher->getModuleInstance($act, $module, $oModuleModel, $is_mobile, $is_installed, $module_info);
-            return array($oModule, $oModule->act);
+
         }
+        return function($arguments = array()) use ($request, $oModule) {
+            call_user_func_array(array($oModule, $oModule->act), $arguments);
+            return $oModule;
+        };
     }
 
     /**
