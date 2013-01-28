@@ -133,6 +133,8 @@ class CMSListener implements EventSubscriberInterface
 
         $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
         $oModuleHandler->filterController($oModule);
+
+        // TODO Maybe setController after?
     }
 
     public function executeTriggersAddonsAndOthersBefore(FilterControllerEvent $event)
@@ -142,7 +144,7 @@ class CMSListener implements EventSubscriberInterface
         $oModule = $controller->getModuleInstance();
 
         $procResult = $oModule->preProc();
-        if(!$procResult)
+        if($procResult === false)
         {
             $oModule->skipAct = true;
             $controller->setModuleInstance($oModule);
@@ -160,8 +162,8 @@ class CMSListener implements EventSubscriberInterface
         $oModule = $result["oModule"];
         $output = $result["output"];
 
-        $procResult = (bool)$oModule->postProc($output);
-        if ($procResult) {
+        $procResult = $oModule->postProc($output);
+        if ($procResult === null || $procResult === true) {
             $procResult = $event->getRequest()->attributes->get('procResult');
         }
 
