@@ -49,10 +49,8 @@ class ControllerResolver extends Controller\ControllerResolver
             $module_matcher = new \ModuleMatcher();
             $oModule = $module_matcher->getModuleInstance($act, $module, $oModuleModel, $is_mobile, $is_installed, $module_info);
         }
-        return function($arguments = array()) use ($request, $oModule) {
-            call_user_func_array(array($oModule, $oModule->act), $arguments);
-            return $oModule;
-        };
+
+        return new ControllerWrapper($oModule);
     }
 
     /**

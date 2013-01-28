@@ -1,7 +1,10 @@
 <?php
 namespace GlCMS\EventListener;
 
+use GlCMS;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\Event\PostResponseEvent;
@@ -39,11 +42,20 @@ class CMSListener implements EventSubscriberInterface
                 array('doContextInit', 30),
                 array('doContextCheckSSO', 28),
                 array('checkModuleHandlerInit', 26),
-                array('prepareRequestForResolving', 24)
+                array('prepareRequestForResolving', 24),
+                array('checkForErrorsAndPrepareMobileStatus', 22)
+            ),
+            KernelEvents::CONTROLLER => array(
+                array('filterController', 100),
+                array('executeTriggersAddonsAndOthersBefore', 99)
+
             ),
             KernelEvents::EXCEPTION => array('onKernelException', -128),
             KernelEvents::TERMINATE => 'onTerminate',
-            KernelEvents::VIEW => 'onView'
+            KernelEvents::VIEW => array(
+                array('executeTriggersAddonsAndOthersAfter', 100),
+                array('onView', 99)
+            )
         );
     }
 
@@ -106,8 +118,60 @@ class CMSListener implements EventSubscriberInterface
         }
     }
 
+    public function checkForErrorsAndPrepareMobileStatus(GetResponseEvent $event)
+    {
+        $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
+        $oModuleHandler->checkForErrorsAndPrepareMobileStatus();
+
+    }
+
+    public function filterController(FilterControllerEvent $event)
+    {
+        /** @var $controller GlCMS\ControllerWrapper */
+        $controller = $event->getController();
+        $oModule = $controller->getModuleInstance();
+
+        $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
+        $oModuleHandler->filterController($oModule);
+    }
+
+    public function executeTriggersAddonsAndOthersBefore(FilterControllerEvent $event)
+    {
+        /** @var $controller GlCMS\ControllerWrapper */
+        $controller = $event->getController();
+        $oModule = $controller->getModuleInstance();
+
+        $procResult = $oModule->preProc();
+        if(!$procResult)
+        {
+            $oModule->skipAct = true;
+            $controller->setModuleInstance($oModule);
+            $event->setController($controller);
+        }
+
+
+        // Save state of before triggers, so that we can set session errors later
+        $event->getRequest()->attributes->set('procResult', $procResult);
+    }
+
+    public function executeTriggersAddonsAndOthersAfter(GetResponseForControllerResultEvent $event)
+    {
+        $result = $event->getControllerResult();
+        $oModule = $result["oModule"];
+        $output = $result["output"];
+
+        $procResult = (bool)$oModule->postProc($output);
+        if ($procResult) {
+            $procResult = $event->getRequest()->attributes->get('procResult');
+        }
+
+        $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
+        $oModuleHandler->setErrorsToSessionAfterProc($oModule, $procResult);
+    }
+
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
+
         //$exception = $event->getException();
         //$event->setResponse(new Response($exception->getMessage(), 500));
     }
@@ -123,7 +187,9 @@ class CMSListener implements EventSubscriberInterface
     {
         /** @var $oModuleHandler \ModuleHandler */
         $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
-        $oModule = $event->getControllerResult();
+        $response = $event->getControllerResult();
+        $oModule = $response["oModule"];
+        // $output = $response["output"];
 
         ob_start();
         $oModuleHandler->displayContent($oModule);

@@ -13,16 +13,16 @@
 
     class ModuleHandler extends Handler {
 
-        var $module = NULL; ///< Module
-        var $act = NULL; ///< action
-        var $mid = NULL; ///< Module ID
-        var $document_srl = NULL; ///< Document Number
-        var $module_srl = NULL; ///< Module Number
+        var $module = null; ///< Module
+        var $act = null; ///< action
+        var $mid = null; ///< Module ID
+        var $document_srl = null; ///< Document Number
+        var $module_srl = null; ///< Module Number
 
-        var $module_info = NULL; ///< Module Info. Object
+        var $module_info = null; ///< Module Info. Object
 
-        var $error = NULL; ///< an error code.
-        var $httpStatusCode = NULL; ///< http status code.
+        var $error = null; ///< an error code.
+        var $httpStatusCode = null; ///< http status code.
 
         /**
          * prepares variables to use in moduleHandler
@@ -184,12 +184,7 @@
             return $oMessageObject;
         }
 
-        /**
-         * get a module instance and execute an action
-         * @return ModuleObject executed module instance
-         **/
-        function procModule() {
-
+        function checkForErrorsAndPrepareMobileStatus() {
             // If error occurred while preparation, return a message instance
             if ($this->error) {
                 return $this->showErrorToUser();
@@ -197,10 +192,9 @@
             if ($this->module_info->use_mobile != "Y") {
                 Mobile::setMobile(false);
             }
+        }
 
-            // Get info necessary to retrieve the module's instance
-            $oModuleModel = getModel('module');
-
+        function getController(){
             $resolver = new \GlCMS\ControllerResolver();
             /** @var $request \Symfony\Component\HttpFoundation\Request */
             $request = Context::get('request');
@@ -223,16 +217,25 @@
                 $this->error = 'msg_invalid_request';
                 return $this->showErrorToUser();
             }
-            // TODO Catch proper exceptions
+                // TODO Catch proper exceptions
             catch (Exception $e) {
                 $this->error = 'msg_invalid_request';
                 return $this->showErrorToUser();
             }
 
-            /** @var $oModule \ModuleObject */
-            $oModule = $controller[0];
-            $this->act = $controller[1];
+            // Return $oModule instance - see ControllerResolver::getController for info
+            return $controller[0];
+        }
 
+        /**
+         * - Checks user permissions
+         * - Checks rulesets
+         *
+         */
+        function filterController($oModule) {
+            $this->act = $oModule->act;
+
+            $oModuleModel = getModel('module');
             // Now that we have a module instance and a valid act, do stuff
             $logged_info = Context::get('logged_info');
             if ($this->module == "admin" && $oModule->module_key->getType() == "view") {
@@ -268,94 +271,119 @@
             }
             $ruleset = $oModule->ruleset;
 
-			// ruleset check...
-			if (!empty($ruleset)) {
-				$rulesetModule = $oModule->module_key->getModule(); // ? $forward->module : $this->module;
-				$rulesetFile = $oModuleModel->getValidatorFilePath($rulesetModule, $ruleset, $this->mid);
-				if (!empty($rulesetFile)) {
-					if ($_SESSION['XE_VALIDATOR_ERROR_LANG']) {
-						$errorLang = $_SESSION['XE_VALIDATOR_ERROR_LANG'];
-						foreach ($errorLang as $key => $val) {
-							Context::setLang($key, $val);
-						}
-						unset($_SESSION['XE_VALIDATOR_ERROR_LANG']);
-					}
+            // ruleset check...
+            if (!empty($ruleset)) {
+                $rulesetModule = $oModule->module_key->getModule(); // ? $forward->module : $this->module;
+                $rulesetFile = $oModuleModel->getValidatorFilePath($rulesetModule, $ruleset, $this->mid);
+                if (!empty($rulesetFile)) {
+                    if ($_SESSION['XE_VALIDATOR_ERROR_LANG']) {
+                        $errorLang = $_SESSION['XE_VALIDATOR_ERROR_LANG'];
+                        foreach ($errorLang as $key => $val) {
+                            Context::setLang($key, $val);
+                        }
+                        unset($_SESSION['XE_VALIDATOR_ERROR_LANG']);
+                    }
 
-					$Validator = new Validator($rulesetFile);
-					$result = $Validator->validate();
-					if (!$result) {
-						$lastError = $Validator->getLastError();
-						$returnUrl = Context::get('error_return_url');
-						$errorMsg = $lastError['msg'] ? $lastError['msg'] : 'validation error';
+                    $Validator = new Validator($rulesetFile);
+                    $result = $Validator->validate();
+                    if (!$result) {
+                        $lastError = $Validator->getLastError();
+                        $returnUrl = Context::get('error_return_url');
+                        $errorMsg = $lastError['msg'] ? $lastError['msg'] : 'validation error';
 
-						//for xml response
-						$oModule->setError(-1);
-						$oModule->setMessage($errorMsg);
-						//for html redirect
-						$this->error = $errorMsg;
-						$_SESSION['XE_VALIDATOR_ERROR'] = -1;
-						$_SESSION['XE_VALIDATOR_MESSAGE'] = $this->error;
-						$_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] = 'error';
-						$_SESSION['XE_VALIDATOR_RETURN_URL'] = $returnUrl;
-						$this->_setInputValueToSession();
-						return $oModule;
-					}
-				}
-			}
+                        //for xml response
+                        $oModule->setError(-1);
+                        $oModule->setMessage($errorMsg);
+                        //for html redirect
+                        $this->error = $errorMsg;
+                        $_SESSION['XE_VALIDATOR_ERROR'] = -1;
+                        $_SESSION['XE_VALIDATOR_MESSAGE'] = $this->error;
+                        $_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] = 'error';
+                        $_SESSION['XE_VALIDATOR_RETURN_URL'] = $returnUrl;
+                        $this->_setInputValueToSession();
+                        return $oModule;
+                    }
+                }
+            }
 
-			if ($oModule->module_key->getType() == "view" && $this->module_info->use_mobile == "Y" && Mobile::isMobileCheckByAgent()) {
-				global $lang;
-				$header = '<style type="text/css">div.xe_mobile{opacity:0.7;margin:1em 0;padding:.5em;background:#333;border:1px solid #666;border-left:0;border-right:0}p.xe_mobile{text-align:center;margin:1em 0}a.xe_mobile{color:#ff0;font-weight:bold;font-size:24px}@media only screen and (min-width:500px){a.xe_mobile{font-size:15px}}</style>';
-				$footer = '<div class="xe_mobile"><p class="xe_mobile"><a class="xe_mobile" href="'.getUrl('m', '1').'">'.$lang->msg_pc_to_mobile.'</a></p></div>';
-				Context::addHtmlHeader($header);
-				Context::addHtmlFooter($footer);
-			}
+            if ($oModule->module_key->getType() == "view" && $this->module_info->use_mobile == "Y" && Mobile::isMobileCheckByAgent()) {
+                global $lang;
+                $header = '<style type="text/css">div.xe_mobile{opacity:0.7;margin:1em 0;padding:.5em;background:#333;border:1px solid #666;border-left:0;border-right:0}p.xe_mobile{text-align:center;margin:1em 0}a.xe_mobile{color:#ff0;font-weight:bold;font-size:24px}@media only screen and (min-width:500px){a.xe_mobile{font-size:15px}}</style>';
+                $footer = '<div class="xe_mobile"><p class="xe_mobile"><a class="xe_mobile" href="'.getUrl('m', '1').'">'.$lang->msg_pc_to_mobile.'</a></p></div>';
+                Context::addHtmlHeader($header);
+                Context::addHtmlFooter($footer);
+            }
 
-			if ($oModule->module_key->getType() == "view" && $oModule->module_key->getKind() != 'admin'){
-				$module_config= $oModuleModel->getModuleConfig('module');
-				if($module_config->htmlFooter) {
+            if ($oModule->module_key->getType() == "view" && $oModule->module_key->getKind() != 'admin'){
+                $module_config= $oModuleModel->getModuleConfig('module');
+                if($module_config->htmlFooter) {
                     Context::addHtmlFooter($module_config->htmlFooter);
-				}
-			}
+                }
+            }
 
             // if failed message exists in session, set context
-			$this->_setInputErrorToContext();
+            $this->_setInputErrorToContext();
 
-            // controller callback: array(get_class($oModule), $this->act)
-            $procResult = $oModule->proc();
+            unset($logged_info);
+        }
 
-			$methodList = array('XMLRPC'=>1, 'JSON'=>1);
-			if (!$oModule->stop_proc && !isset($methodList[Context::getRequestMethod()])) {
-				$error = $oModule->getError();
-				$message = $oModule->getMessage();
-				$messageType = $oModule->getMessageType();
-				$redirectUrl = $oModule->getRedirectUrl();
+        function setErrorsToSessionAfterProc($oModule, $procResult)
+        {
+            $methodList = array('XMLRPC'=>1, 'JSON'=>1);
+            if (!$oModule->stop_proc && !isset($methodList[Context::getRequestMethod()])) {
+                $error = $oModule->getError();
+                $message = $oModule->getMessage();
+                $messageType = $oModule->getMessageType();
+                $redirectUrl = $oModule->getRedirectUrl();
 
-				if (!$procResult) {
-					$this->error = $message;
-					if (!$redirectUrl && Context::get('error_return_url')) $redirectUrl = Context::get('error_return_url');
-					$this->_setInputValueToSession();
+                if (!$procResult) {
+                    $this->error = $message;
+                    if (!$redirectUrl && Context::get('error_return_url')) $redirectUrl = Context::get('error_return_url');
+                    $this->_setInputValueToSession();
 
-				}
-				else {
-					if (count($_SESSION['INPUT_ERROR'])) {
-						Context::set('INPUT_ERROR', $_SESSION['INPUT_ERROR']);
-						$_SESSION['INPUT_ERROR'] = '';
-					}
-				}
+                }
+                else {
+                    if (count($_SESSION['INPUT_ERROR'])) {
+                        Context::set('INPUT_ERROR', $_SESSION['INPUT_ERROR']);
+                        $_SESSION['INPUT_ERROR'] = '';
+                    }
+                }
 
-				$_SESSION['XE_VALIDATOR_ERROR'] = $error;
-				if ($message != 'success') {
+                $_SESSION['XE_VALIDATOR_ERROR'] = $error;
+                if ($message != 'success') {
                     $_SESSION['XE_VALIDATOR_MESSAGE'] = $message;
                 }
-				$_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] = $messageType;
+                $_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] = $messageType;
 
-				if (Context::get('xeVirtualRequestMethod') != 'xml') {
-					$_SESSION['XE_VALIDATOR_RETURN_URL'] = $redirectUrl;
-				}
-			}	
-			
-			unset($logged_info);
+                if (Context::get('xeVirtualRequestMethod') != 'xml') {
+                    $_SESSION['XE_VALIDATOR_RETURN_URL'] = $redirectUrl;
+                }
+            }
+        }
+
+        /**
+         * get a module instance and execute an action
+         * @return ModuleObject executed module instance
+         **/
+        function procModule() {
+
+            $this->checkForErrorsAndPrepareMobileStatus();
+
+            // Get info necessary to retrieve the module's instance
+            /** @var $oModule \ModuleObject */
+            $oModule = $this->getController(); // ControllerResolver::getController
+
+            $this->filterController($oModule);
+
+            // controller callback: array(get_class($oModule), $this->act)
+            if($oModule->preProc()) {
+                $output = $oModule->proc(); // Controller::execute
+                $procResult = (bool)$oModule->postProc($output);
+            }
+            else $procResult = false;
+
+            $this->setErrorsToSessionAfterProc($oModule, $procResult);
+
             return $oModule;
         }
 
@@ -437,7 +465,7 @@
          * @param ModuleObject $oModule module instance
          * @return void
          **/
-        function displayContent($oModule = NULL) {
+        function displayContent($oModule = null) {
             // If the module is not set or not an object, set error
             if (!$oModule || !is_object($oModule)) {
                 $this->error = 'msg_module_is_not_exists';
@@ -591,19 +619,19 @@
                 // Get base class name and load the file contains it
                 if(!class_exists($module)) {
                     $high_class_file = sprintf('%s%s%s.class.php', _XE_PATH_,$class_path, $module);
-                    if(!file_exists($high_class_file)) return NULL;
+                    if(!file_exists($high_class_file)) return null;
                     require_once($high_class_file);
                 }
 
                 // Get the name of the class file
-                if(!is_readable($class_file)) return NULL;
+                if(!is_readable($class_file)) return null;
 
                 // Create an instance with eval function
                 require_once($class_file);
-                if(!class_exists($instance_name)) return NULL;
+                if(!class_exists($instance_name)) return null;
 				$tmp_fn  = create_function('', "return new {$instance_name}();");
 				$oModule = $tmp_fn();
-                if(!is_object($oModule)) return NULL;
+                if(!is_object($oModule)) return null;
 
                 // Load language files for the class
                 Context::loadLang($class_path.'lang');
