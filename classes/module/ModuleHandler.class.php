@@ -336,7 +336,7 @@
                 $messageType = $oModule->getMessageType();
                 $redirectUrl = $oModule->getRedirectUrl();
 
-                if (!$procResult) {
+                if ($procResult === false) {
                     $this->error = $message;
                     if (!$redirectUrl && Context::get('error_return_url')) $redirectUrl = Context::get('error_return_url');
                     $this->_setInputValueToSession();
