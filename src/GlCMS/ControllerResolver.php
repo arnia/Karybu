@@ -1,7 +1,6 @@
 <?php
 namespace GlCMS;
 use \Symfony\Component\HttpKernel\Controller;
-use GlCMS\Event\BeforeControllerEvent;
 use Symfony\Component\HttpFoundation\Request;
 
 require_once _XE_PATH_ . 'classes/module/ModuleMatcher.class.php';
@@ -22,7 +21,7 @@ class ControllerResolver extends Controller\ControllerResolver
             if (is_array($include_paths = $request->attributes->get('_include'))) {
                 foreach ($include_paths as $include_path) {
                     $include_path = _XE_PATH_ . $include_path;
-                    if (file_exists($include_path) && !is_dir($include_path)) {
+                    if (is_readable($include_path) && !is_dir($include_path)) {
                         require_once $include_path;
                     }
                 }
@@ -41,10 +40,7 @@ class ControllerResolver extends Controller\ControllerResolver
 
             $module_matcher = new \ModuleMatcher();
             $kind = $module_matcher->getKind($act, $module);
-            $oModule->module_key = new \ModuleKey($module
-                ,$module_info->module_type
-                ,$kind);
-
+            $oModule->module_key = new \ModuleKey($module, $module_info->module_type, $kind);
 
             $oModule->setModuleInfo($module_info, $xml_info);
         }
@@ -52,7 +48,6 @@ class ControllerResolver extends Controller\ControllerResolver
         {
             $module_matcher = new \ModuleMatcher();
             $oModule = $module_matcher->getModuleInstance($act, $module, $oModuleModel, $is_mobile, $is_installed, $module_info);
-
         }
         return function($arguments = array()) use ($request, $oModule) {
             call_user_func_array(array($oModule, $oModule->act), $arguments);

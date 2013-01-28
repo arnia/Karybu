@@ -24,19 +24,18 @@ class CMSListener implements EventSubscriberInterface
     private $context;
     private $logger;
 
+    /**
+     * We're injecting into the HttpKernel workflow:
+     * http://symfony.com/doc/master/components/http_kernel/introduction.html
+     *
+     * @return array
+     */
     public static function getSubscribedEvents()
     {
         return array(
-            /*
-             * Typical Purposes: To add more information to the Request, initialize parts of the system, or return a Response if possible (e.g. a security layer that denies access)
-             * Overall, the purpose of the kernel.request event is either to create and return a Response directly, or to add information to the Request (e.g. setting the locale or setting some other information on the Request attributes).
-             * Here we're adding the old Context model to the request attributes, dealing with routes, checking SSO and executing the old Context init
-             * doContextGlobalsLink gets executed first, it has the biggest priority
-             */
             KernelEvents::REQUEST => array(
                 array('doContextGlobalsLink', 34),
-                array('onKernelRequest', 32),
-                //above this they could go together
+                array('routingListener', 32),
                 array('doContextInit', 30),
                 array('doContextCheckSSO', 28),
                 array('checkModuleHandlerInit', 26),
@@ -122,10 +121,12 @@ class CMSListener implements EventSubscriberInterface
 
     public function onView(GetResponseForControllerResultEvent $event)
     {
+        /** @var $oModuleHandler \ModuleHandler */
+        $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
         $oModule = $event->getControllerResult();
 
         ob_start();
-        \ModuleHandler::displayContent($oModule);
+        $oModuleHandler->displayContent($oModule);
         $content = ob_get_clean();
 
         $event->setResponse(new Response($content));
@@ -142,7 +143,7 @@ class CMSListener implements EventSubscriberInterface
         $request->attributes->set('module_info', $module_handler->module_info);
     }
 
-    public function onKernelRequest(GetResponseEvent $event)
+    public function routingListener(GetResponseEvent $event)
     {
         $request = $event->getRequest();
         $oContext = $request->attributes->get('oContext');
