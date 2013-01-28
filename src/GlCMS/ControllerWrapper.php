@@ -8,19 +8,17 @@ class ControllerWrapper
 
     function __construct(\ModuleObject $oModule)
     {
-        $this->oModule = $oModule;
+        $this->setModuleInstance($oModule);
     }
 
-    function __invoke($arguments = array()){
-        if(!$this->oModule->skipAct)
-        {
+    function __invoke($arguments = array())
+    {
+        if (!$this->oModule->skipAct) {
             $output = call_user_func_array(array($this->oModule, $this->oModule->act), $arguments);
         }
-        else
-        {
+        else {
             $output = null;
         }
-
         return array('output' => $output, 'oModule' => $this->oModule);
     }
 

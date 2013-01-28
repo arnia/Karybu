@@ -10,6 +10,6 @@ class ErrorController
 {
     function exceptionAction()
     {
-        die('aa');
+        die('Exception controller');
     }
 }
