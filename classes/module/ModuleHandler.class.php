@@ -564,10 +564,6 @@
                     }
                 }
             }
-
-            // Display contents
-            $oDisplayHandler = new DisplayHandler();
-            $oDisplayHandler->printContent($oModule);
         }
 
         /**

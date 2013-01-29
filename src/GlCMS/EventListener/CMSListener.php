@@ -55,7 +55,6 @@ class CMSListener implements EventSubscriberInterface
             KernelEvents::VIEW => array(
                 array('executeTriggersAddonsAndOthersAfter', 100),
                 array('makeResponse', 99),
-                array('addPhpHeadersToResponse', 98)
             )
         );
     }
@@ -180,36 +179,28 @@ class CMSListener implements EventSubscriberInterface
 
     public function makeResponse(GetResponseForControllerResultEvent $event)
     {
-        /** @var $oModuleHandler \ModuleHandler */
-        $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
         $response = $event->getControllerResult();
         $oModule = $response["oModule"];
-        ob_start();
-        $oModuleHandler->displayContent($oModule);
-        $content = ob_get_clean();
-        $response = new Response($content);
-        $event->setResponse($response);
-    }
 
-    /**
-     * Intercept php headers and inject them into the Response object
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent $event
-     */
-    public function addPhpHeadersToResponse(GetResponseForControllerResultEvent $event)
-    {
-        $response = $event->getResponse();
-        $rawHeaders = headers_list();
-        $event->getRequest()->attributes->set('headz', $rawHeaders);
-        $headers = array();
-        foreach ($rawHeaders as $header) {
-            $split = preg_split('/^(.+):[\s?]/', $header, -1, PREG_SPLIT_DELIM_CAPTURE);
-            if (isset($split[1]) && isset($split[2])) {
-                $headers[$split[1]] = $split[2];
-                header_remove($split[1]);
-            }
+        $oDisplayHandler = new \DisplayHandler();
+        $response = new Response();
+
+        // 1. Status code
+        $status_code = $oDisplayHandler->getStatusCode($oModule);
+        $response->setStatusCode($status_code[0], $status_code[1]);
+
+        // 2. Headers
+        $headers = $oDisplayHandler->getHeaders($oModule);
+        foreach($headers as $header) {
+            $response->headers->set($header[0], $header[1], $header[2]);
         }
-        $response->headers->add($headers);
+
+        // 3. The content
+        $content = $oDisplayHandler->getContent($oModule);
+        $response->setContent($content);
+
+
+        $event->setResponse($response);
     }
 
     public function prepareRequestForResolving(GetResponseEvent $event)
@@ -270,9 +261,10 @@ class CMSListener implements EventSubscriberInterface
 
     public function onTerminate(PostResponseEvent $event)
     {
-        $headers1 = $event->getRequest()->attributes->get('headz');
-        $headers2 = headers_list();
-        //$diff = array_diff_assoc($headers1, $headers2);
+        $content = $event->getResponse()->getContent();
+        // call a trigger after display
+        \ModuleHandler::triggerCall('display', 'after', $content);
+
         /** @var $oContext \Context */
         $oContext = $event->getRequest()->attributes->get('oContext');
         $oContext->close();
