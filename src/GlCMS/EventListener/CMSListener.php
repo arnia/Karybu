@@ -54,7 +54,8 @@ class CMSListener implements EventSubscriberInterface
             KernelEvents::TERMINATE => 'onTerminate',
             KernelEvents::VIEW => array(
                 array('executeTriggersAddonsAndOthersAfter', 100),
-                array('onView', 99)
+                array('makeResponse', 99),
+                array('addPhpHeadersToResponse', 98)
             )
         );
     }
@@ -173,31 +174,42 @@ class CMSListener implements EventSubscriberInterface
 
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
-
         //$exception = $event->getException();
         //$event->setResponse(new Response($exception->getMessage(), 500));
     }
 
-    public function onTerminate(PostResponseEvent $event)
-    {
-        /** @var $oContext \Context */
-        $oContext = $event->getRequest()->attributes->get('oContext');
-        $oContext->close();
-    }
-
-    public function onView(GetResponseForControllerResultEvent $event)
+    public function makeResponse(GetResponseForControllerResultEvent $event)
     {
         /** @var $oModuleHandler \ModuleHandler */
         $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
         $response = $event->getControllerResult();
         $oModule = $response["oModule"];
-        // $output = $response["output"];
-
         ob_start();
         $oModuleHandler->displayContent($oModule);
         $content = ob_get_clean();
+        $response = new Response($content);
+        $event->setResponse($response);
+    }
 
-        $event->setResponse(new Response($content));
+    /**
+     * Intercept php headers and inject them into the Response object
+     *
+     * @param \Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent $event
+     */
+    public function addPhpHeadersToResponse(GetResponseForControllerResultEvent $event)
+    {
+        $response = $event->getResponse();
+        $rawHeaders = headers_list();
+        $event->getRequest()->attributes->set('headz', $rawHeaders);
+        $headers = array();
+        foreach ($rawHeaders as $header) {
+            $split = preg_split('/^(.+):[\s?]/', $header, -1, PREG_SPLIT_DELIM_CAPTURE);
+            if (isset($split[1]) && isset($split[2])) {
+                $headers[$split[1]] = $split[2];
+                header_remove($split[1]);
+            }
+        }
+        $response->headers->add($headers);
     }
 
     public function prepareRequestForResolving(GetResponseEvent $event)
@@ -254,6 +266,16 @@ class CMSListener implements EventSubscriberInterface
             $message = sprintf('No route found for "%s %s": Method Not Allowed (Allow: %s)', $request->getMethod(), $request->getPathInfo(), strtoupper(implode(', ', $e->getAllowedMethods())));
             throw new MethodNotAllowedHttpException($e->getAllowedMethods(), $message, $e);
         }
+    }
+
+    public function onTerminate(PostResponseEvent $event)
+    {
+        $headers1 = $event->getRequest()->attributes->get('headz');
+        $headers2 = headers_list();
+        //$diff = array_diff_assoc($headers1, $headers2);
+        /** @var $oContext \Context */
+        $oContext = $event->getRequest()->attributes->get('oContext');
+        $oContext->close();
     }
 
 }
