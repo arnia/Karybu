@@ -2,7 +2,6 @@
 namespace GlCMS\EventListener;
 
 use GlCMS;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -11,20 +10,10 @@ use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
-use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Exception\MethodNotAllowedException;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
-use Symfony\Component\Routing\Matcher\RequestMatcherInterface;
-use Symfony\Component\Routing\RequestContext;
-use Symfony\Component\Routing\RequestContextAwareInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CMSListener implements EventSubscriberInterface
 {
-    private $matcher;
-    private $context;
     private $logger;
 
     /**
@@ -38,7 +27,7 @@ class CMSListener implements EventSubscriberInterface
         return array(
             KernelEvents::REQUEST => array(
                 array('doContextGlobalsLink', 34),
-                array('routingListener', 32),
+                //32 is router listener
                 array('doContextInit', 30),
                 array('doContextCheckSSO', 28),
                 array('checkModuleHandlerInit', 26),
@@ -48,7 +37,6 @@ class CMSListener implements EventSubscriberInterface
             KernelEvents::CONTROLLER => array(
                 array('filterController', 100),
                 array('executeTriggersAddonsAndOthersBefore', 99)
-
             ),
             KernelEvents::EXCEPTION => array('onKernelException', -128),
             KernelEvents::TERMINATE => 'onTerminate',
@@ -60,20 +48,10 @@ class CMSListener implements EventSubscriberInterface
     }
 
     /**
-     * @param UrlMatcherInterface|RequestMatcherInterface $matcher The Url or Request matcher
-     * @param RequestContext|null                         $context The RequestContext (can be null when $matcher implements RequestContextAwareInterface)
-     * @param LoggerInterface|null                        $logger  The logger
+     * @param LoggerInterface|null $logger  The logger
      */
-    public function __construct($matcher, RequestContext $context = null, LoggerInterface $logger = null)
+    public function __construct(LoggerInterface $logger = null)
     {
-        if (!$matcher instanceof UrlMatcherInterface && !$matcher instanceof RequestMatcherInterface) {
-            throw new \InvalidArgumentException('Matcher must either implement UrlMatcherInterface or RequestMatcherInterface.');
-        }
-        if (null === $context && !$matcher instanceof RequestContextAwareInterface) {
-            throw new \InvalidArgumentException('You must either pass a RequestContext or the matcher must implement RequestContextAwareInterface.');
-        }
-        $this->matcher = $matcher;
-        $this->context = $context ?: $matcher->getContext();
         $this->logger = $logger;
     }
 
@@ -199,7 +177,6 @@ class CMSListener implements EventSubscriberInterface
         $content = $oDisplayHandler->getContent($oModule);
         $response->setContent($content);
 
-
         $event->setResponse($response);
     }
 
@@ -212,51 +189,6 @@ class CMSListener implements EventSubscriberInterface
         $request->attributes->set("is_mobile", \Mobile::isFromMobilePhone());
         $request->attributes->set("is_installed", \Context::isInstalled());
         $request->attributes->set('module_info', $module_handler->module_info);
-    }
-
-    public function routingListener(GetResponseEvent $event)
-    {
-        $request = $event->getRequest();
-        $oContext = $request->attributes->get('oContext');
-        // initialize the context that is also used by the generator (assuming matcher and generator share the same context instance)
-        $this->context->fromRequest($request);
-        if ($request->attributes->has('_controller')) {
-            // routing is already done
-            return;
-        }
-        // add attributes based on the request (routing)
-        try {
-            // matching a request is more powerful than matching a URL path + context, so try that first
-            if ($this->matcher instanceof RequestMatcherInterface) {
-                $parameters = $this->matcher->matchRequest($request);
-            } else {
-                $parameters = $this->matcher->match($request->getPathInfo());
-            }
-            if (null !== $this->logger) {
-                $this->logger->info(sprintf('Matched route "%s" (parameters: %s)', $parameters['_route'], $this->parametersToString($parameters)));
-            }
-
-            // add route parameters to XE context as if they came from htaccess
-            foreach ($parameters as $name=>$value) {
-                if (!is_numeric($name)) {
-                    $oContext->set($name, $value);
-                }
-            }
-
-            $request->attributes->add($parameters);
-            unset($parameters['_route']);
-            unset($parameters['_controller']);
-            $request->attributes->set('_route_params', $parameters);
-
-            //TODO solve circular reference for better integration?
-            $oContext->set('request', $request);
-        } catch (ResourceNotFoundException $e) {
-            $message = sprintf('No route found for "%s %s"', $request->getMethod(), $request->getPathInfo());
-            throw new NotFoundHttpException($message, $e);
-        } catch (MethodNotAllowedException $e) {
-            $message = sprintf('No route found for "%s %s": Method Not Allowed (Allow: %s)', $request->getMethod(), $request->getPathInfo(), strtoupper(implode(', ', $e->getAllowedMethods())));
-            throw new MethodNotAllowedHttpException($e->getAllowedMethods(), $message, $e);
-        }
     }
 
     public function onTerminate(PostResponseEvent $event)
