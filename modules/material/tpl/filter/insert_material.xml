@@ -1,0 +1,11 @@
+<filter name="insert_material" module="material" act="procMaterialInsert">
+  <form>
+    <node target="auth" required="true" />
+    <node target="content" required="true" />
+  </form>
+  <parameter />
+  <response callback_func="completeInsertMaterial">
+    <tag name="error" />
+    <tag name="message" />
+  </response>
+</filter>

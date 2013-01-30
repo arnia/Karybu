@@ -1,0 +1,26 @@
+<!--%import("popup.js")-->
+<!--%import("popup.css")-->
+
+<h1 class="h1">{$component_info->title} ver. {$component_info->version}</h1>
+
+<div class="ingredientWrap">
+    <p class="noData">{$lang->edit->no_materials}</p>
+    
+    <div class="ingredientList">
+        <dl>
+            <dt>{regdate}</dt>
+            <dd>
+                <div class="ingredientConetnt">{content}</div>
+                <span class="btn"><button type="button" class="_insert_item">{$lang->cmd_insert}</button></span>
+            </dd>
+        </dl>
+    </div>
+    
+    <!-- pagenate -->
+    <div class="paginate">
+        <button type="button" class="prev" title="{$lang->edit->paging_prev_help}"></button>
+        <button type="button" class="next" title="{$lang->edit->paging_next_help}"></button>
+        <span>1/1</span>
+    </div>
+    
+</div>
