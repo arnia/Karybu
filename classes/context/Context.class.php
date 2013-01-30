@@ -284,9 +284,9 @@ class Context {
             $this->allow_rewrite = false;
         }
 
-		// set locations for javascript use
+		// set locations for javascript use ('current_url')
 		if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-			if ($this->get_vars) {
+			if ($this->get_vars) { // When GET request has params, encode them and append them to the request uri
 				foreach ($this->get_vars as $key=>$val) {
 					if (is_array($val) && count($val)) {
 						foreach ($val as $k => $v) {
@@ -299,11 +299,11 @@ class Context {
 				}
 				$this->set('current_url',sprintf('%s?%s', Context::getRequestUri(), $url));
 			}
-            else {
+            else { // When GET request doesn't have any parameters
 				$this->set('current_url',$this->getUrl());
 			}
 		}
-        else {
+        else { // When using POST
 			$this->set('current_url',Context::getRequestUri());
 		}
 		$this->set('request_uri',Context::getRequestUri());

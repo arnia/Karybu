@@ -79,6 +79,7 @@ class CMSListener implements EventSubscriberInterface
 
     /**
      * Set context variables in $GLOBALS (to use in display handler)
+     * // TODO Rename method to something like "persistContextInGlobals"
      */
     public function doContextGlobalsLink(GetResponseEvent $event)
     {
@@ -86,6 +87,8 @@ class CMSListener implements EventSubscriberInterface
         $oContext = \Context::getInstance();
         // This is the first code from the old cms
         $oContext->context = &$GLOBALS['__Context__'];
+        // TODO Create a seprate list of 'legacy' request attributes: like $request->attributes->legacy->set('oContext',$oContext);
+        // Could be done by $request->attributes->set('legacy', new ParametersBag()); or something
         $request->attributes->set('oContext', $oContext);
     }
 
@@ -132,6 +135,8 @@ class CMSListener implements EventSubscriberInterface
         $oModule = $controller->getModuleInstance();
 
         $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
+        // TODO Handler return values! This could return another $oModule if ruleset checks don't pass
+        // and stuff like that; need to update inital controller with new $oModule
         $oModuleHandler->filterController($oModule);
 
         // TODO Maybe setController after?
@@ -182,6 +187,11 @@ class CMSListener implements EventSubscriberInterface
         $response = $event->getControllerResult();
         $oModule = $response["oModule"];
 
+        // Load layouts and stuff like that
+        $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
+        $oModuleHandler->displayContent($oModule);
+
+        // Prepare Response object
         $oDisplayHandler = new \DisplayHandler();
         $response = new Response();
 
@@ -222,6 +232,8 @@ class CMSListener implements EventSubscriberInterface
         $this->context->fromRequest($request);
         if ($request->attributes->has('_controller')) {
             // routing is already done
+
+            // TODO Shouldn't the route params be set somewhere here too? (like in line 244) In request attributes or maybe even in Context
             return;
         }
         // add attributes based on the request (routing)
@@ -249,6 +261,7 @@ class CMSListener implements EventSubscriberInterface
             $request->attributes->set('_route_params', $parameters);
 
             //TODO solve circular reference for better integration?
+            //TODO Where is this needed anyway anymore? Maybe we can just remove it
             $oContext->set('request', $request);
         } catch (ResourceNotFoundException $e) {
             $message = sprintf('No route found for "%s %s"', $request->getMethod(), $request->getPathInfo());

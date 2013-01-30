@@ -94,6 +94,7 @@
             $oDocumentModel = getModel('document');
             $db_info = Context::getDBInfo();
 
+            // TODO Move all the 'catch' statements here to the Listener and return RedirectResponse
             $moduleMatcher = new ModuleMatcher();
             try {
                 $found_module_info = $moduleMatcher->getModuleInfo(
