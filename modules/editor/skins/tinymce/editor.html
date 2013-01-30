@@ -87,16 +87,15 @@
 
     <textarea id="editor_{$editor_sequence}" name="tiny_mce_text_area"></textarea>
 
-
     <div id="fileUploader_{$editor_sequence}" class="fileUploader" cond="$allow_fileupload"><!--File upload zone-->
         <div class="preview {$btn_class}" id="preview_uploaded_{$editor_sequence}"></div>
         <div class="fileListArea {$btn_class}">
             <select id="uploaded_file_list_{$editor_sequence}" multiple="multiple" class="fileList" title="Attached File List"><option></option></select>
         </div>
         <div class="fileUploadControl">
-                            <button type="button" id="swfUploadButton{$editor_sequence}" class="text">{$lang->edit->upload_file}</button>
-                            <button type="button" onclick="removeUploadedFile('{$editor_sequence}');" class="text">{$lang->edit->delete_selected}</button>
-                            <button type="button" onclick="mceInsertUploadedFile('{$editor_sequence}');" class="text">{$lang->edit->link_file}</button>
+            <button type="button" id="swfUploadButton{$editor_sequence}" class="text">{$lang->edit->upload_file}</button>
+            <button type="button" onclick="removeUploadedFile('{$editor_sequence}');" class="text">{$lang->edit->delete_selected}</button>
+            <button type="button" onclick="mceInsertUploadedFile('{$editor_sequence}');" class="text">{$lang->edit->link_file}</button>
         </div>
         <div class="file_attach_info" id="uploader_status_{$editor_sequence}">{$upload_status}</div>
     </div>

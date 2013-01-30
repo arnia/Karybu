@@ -48,9 +48,9 @@
 	
 		getInfo : function() {
 			return {
-				longname : 'XE Poll Plugin',
-				author : 'arnia',
-				authorurl : 'http://arnia.ro',
+				longname : 'XE Components Plugin',
+				author : 'NHN',
+				authorurl : 'http://xpressengine.com/',
 				infourl : '',
 				version : "1.0"
 			};
