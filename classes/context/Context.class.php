@@ -226,8 +226,6 @@ class Context {
             $this->getGlobals('lang'),
             $this->getGlobalCookies());
 
-        $this->setRequestMethod('');
-
 		$this->_setXmlRpcArgument();
 		$this->_setJSONRequestArgument();
 		$this->_setRequestArgument();
