@@ -11,7 +11,7 @@ $sc->setParameter('routes', include('routes.php'));
 
 $sc->register('context', 'Symfony\Component\Routing\RequestContext');
 $sc->register('matcher', 'Symfony\Component\Routing\Matcher\UrlMatcher')->setArguments(array('%routes%', new Reference('context')));
-$sc->register('resolver', 'GlCMS\ControllerResolver');
+$sc->register('resolver', 'GlCMS\HttpKernel\Controller\ControllerResolver');
 $sc->register('listener.router', 'GlCMS\EventListener\RouterListener')
     ->setArguments(array(new Reference('matcher')));
 $sc->register('listener.cms', 'GlCMS\EventListener\CMSListener');

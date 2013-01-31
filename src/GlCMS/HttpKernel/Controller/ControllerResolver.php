@@ -1,6 +1,7 @@
 <?php
-namespace GlCMS;
-use \Symfony\Component\HttpKernel\Controller;
+namespace GlCMS\HttpKernel\Controller;
+
+use Symfony\Component\HttpKernel\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 require_once _XE_PATH_ . 'classes/module/ModuleMatcher.class.php';

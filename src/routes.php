@@ -4,12 +4,13 @@
  * Currently it resides in config/routes.yml
  */
 
-use Symfony\Component\Routing;
-use Symfony\Component\Config;
+use Symfony\Component\Routing\Loader\YamlFileLoader;
+use Symfony\Component\Config\FileLocator;
+#use Symfony\Component\HttpKernel\Config\FileLocator;
 
 $configPaths = array(__DIR__ . '/../config');
-$locator = new Config\FileLocator($configPaths);
-$loader = new Routing\Loader\YamlFileLoader($locator);
+$locator = new FileLocator($configPaths);
+$loader = new YamlFileLoader($locator);
 $routes = $loader->load('routes.yml');
 
 return $routes;

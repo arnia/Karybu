@@ -196,7 +196,7 @@
         }
 
         function getController(){
-            $resolver = new \GlCMS\ControllerResolver();
+            $resolver = new \GlCMS\HttpKernel\Controller\ControllerResolver();
             /** @var $request \Symfony\Component\HttpFoundation\Request */
             $request = Context::get('request');
             $request->attributes->set("act", $this->act);

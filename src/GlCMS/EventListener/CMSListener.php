@@ -107,7 +107,7 @@ class CMSListener implements EventSubscriberInterface
 
     public function filterController(FilterControllerEvent $event)
     {
-        /** @var $controller GlCMS\ControllerWrapper */
+        /** @var $controller GlCMS\HttpKernel\Controller\ControllerWrapper */
         $controller = $event->getController();
         $oModule = $controller->getModuleInstance();
 
@@ -121,7 +121,7 @@ class CMSListener implements EventSubscriberInterface
 
     public function executeTriggersAddonsAndOthersBefore(FilterControllerEvent $event)
     {
-        /** @var $controller GlCMS\ControllerWrapper */
+        /** @var $controller GlCMS\HttpKernel\Controller\ControllerWrapper */
         $controller = $event->getController();
         $oModule = $controller->getModuleInstance();
 

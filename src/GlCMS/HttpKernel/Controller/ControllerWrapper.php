@@ -1,6 +1,5 @@
 <?php
-
-namespace GlCMS;
+namespace GlCMS\HttpKernel\Controller;
 
 class ControllerWrapper
 {
