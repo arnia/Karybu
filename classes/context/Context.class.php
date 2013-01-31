@@ -20,7 +20,7 @@ class Context {
 	 * Request method
 	 * @var string GET|POST|XMLRPC
 	 */
-	var $request_method  = 'GET';
+	var $request_method  = '';
 	/**
 	 * Response method.If it's not set, it follows request method.
 	 * @var string HTML|XMLRPC 
@@ -911,13 +911,12 @@ class Context {
 	 * @param string $type Request method. (Optional - GET|POST|XMLRPC|JSON)
 	 * @return void
 	 */
-	function setRequestMethod($type='') {
+	function setRequestMethod($type) {
 		is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
 
-		($type && $self->request_method=$type) or
-		(strpos($self->getRequestContentType(),'json') && $self->request_method='JSON') or
-		($self->getRequestContent() && $self->request_method='XMLRPC') or
-		($self->request_method = $self->getServerRequestMethod());
+        if($type) {
+            $self->request_method = $type;
+        }
 	}
 
 	/**
@@ -1103,7 +1102,20 @@ class Context {
 	 */
 	function getRequestMethod() {
 		is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
-		return $self->request_method;
+
+        if($self->request_method == "")
+        {
+            if(strpos($self->getRequestContentType(),'json'))
+                $self->request_method = 'JSON';
+            else if($self->getRequestContent())
+                $self->request_method = 'XMLRPC';
+            else if($self->getServerRequestMethod())
+                $self->request_method = $self->getServerRequestMethod();
+            else
+                $self->request_method = 'GET';
+        }
+
+    	return $self->request_method;
 	}
 
 	/**

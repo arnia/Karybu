@@ -50,36 +50,68 @@ class ContextTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(Context::getBodyClass(), ' class="red green blue"');
 	}
 
-	public function testRequestResponseMethod()
-	{
-		$this->assertEquals(Context::getRequestMethod(), 'GET');
+    public function testRequestMethod_Default()
+    {
+        $context = new Context();
+        $this->assertEquals('GET', $context->getRequestMethod());
+    }
 
-		$_SERVER['REQUEST_METHOD'] = 'POST';
-		Context::setRequestMethod();
-		$this->assertEquals(Context::getRequestMethod(), 'POST');
+    public function testRequestMethod_POST()
+    {
+        $context = new Context();
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $this->assertEquals('POST', $context->getRequestMethod());
+    }
 
-		$GLOBALS['HTTP_RAW_POST_DATA'] = 'abcde';
-		Context::setRequestMethod();
-		$this->assertEquals(Context::getRequestMethod(), 'XMLRPC');
+    public function testRequestMethod_XMLRPC()
+    {
+        $context = new Context();
+        $GLOBALS['HTTP_RAW_POST_DATA'] = 'abcde';
+        $this->assertEquals('XMLRPC', $context->getRequestMethod());
+    }
 
-		$_SERVER['CONTENT_TYPE'] = 'application/json';
-		Context::setRequestMethod();
-		$this->assertEquals(Context::getRequestMethod(), 'JSON');
+    public function testRequestMethod_JSON()
+    {
+        $context = new Context();
+        $_SERVER['CONTENT_TYPE'] = 'application/json';
+        $this->assertEquals('JSON', $context->getRequestMethod());
+    }
 
-		Context::setRequestMethod('POST');
-		$this->assertEquals(Context::getRequestMethod(), 'POST');
+    public function testRequestMethod_ManuallySet()
+    {
+        $context = new Context();
+        $context->setRequestMethod('POST');
+        $this->assertEquals('POST', $context->getRequestMethod());
+    }
 
-		$this->assertEquals(Context::getResponseMethod(), 'HTML');
-		Context::setRequestMethod('JSON');
-		$this->assertEquals(Context::getResponseMethod(), 'JSON');
+    public function testResponseMethod_Default()
+    {
+        $context = new Context();
+        $this->assertEquals('HTML', $context->getResponseMethod());
+    }
 
-		Context::setResponseMethod('WRONG_TYPE');
-		$this->assertEquals(Context::getResponseMethod(), 'HTML');
-		Context::setResponseMethod('XMLRPC');
-		$this->assertEquals(Context::getResponseMethod(), 'XMLRPC');
-		Context::setResponseMethod('HTML');
-		$this->assertEquals(Context::getResponseMethod(), 'HTML');
-	}
+    public function testReponseMethod_WhenRequestIs_JSON()
+    {
+        $context = new Context();
+        $context->setRequestMethod('JSON');
+        $this->assertEquals('JSON', $context->getResponseMethod());
+    }
+
+    public function testResponseMethod_WhenUserManuallySetsInvalidData()
+    {
+        $context = new Context();
+        $context->setResponseMethod('WRONG_TYPE');
+        $this->assertEquals('HTML', $context->getResponseMethod());
+    }
+
+    public function testResponseMethod_WhenUserManuallySetsValidData()
+    {
+        $context = new Context();
+        $context->setResponseMethod('XMLRPC');
+        $this->assertEquals('XMLRPC', $context->getResponseMethod());
+        $context->setResponseMethod('HTML');
+        $this->assertEquals('HTML', $context->getResponseMethod());
+    }
 
     /**
      * Test that when variables change in Context they also change in Global context
