@@ -30,17 +30,17 @@ class Context {
 	 * Conatins request parameters and environment variables
 	 * @var object
 	 */
-	var $context  = NULL;
+	var $context  = null;
 	/**
 	 * DB info 
 	 * @var object
 	 */
-	var $db_info  = NULL;
+	var $db_info  = null;
 	/**
 	 * FTP info 
 	 * @var object
 	 */
-	var $ftp_info = NULL;
+	var $ftp_info = null;
 	/**
 	 * ssl action cache file
 	 * @var array
@@ -60,7 +60,7 @@ class Context {
 	 * script codes in <head>..</head>
 	 * @var string
 	 */
-	var $html_header = NULL;
+	var $html_header = null;
 	/**
 	 * class names of <body>
 	 * @var array
@@ -70,12 +70,12 @@ class Context {
 	 * codes after <body>
 	 * @var string
 	 */
-	var $body_header = NULL;
+	var $body_header = null;
 	/**
 	 * class names before </body>
 	 * @var string
 	 */
-	var $html_footer = NULL;
+	var $html_footer = null;
 	/**
 	 * path of Xpress Engine 
 	 * @var string
@@ -92,7 +92,7 @@ class Context {
 	 * contains language-specific data
 	 * @var object 
 	 */
-	var $lang = NULL;
+	var $lang = null;
 	/**
 	 * list of loaded languages (to avoid re-loading them)
 	 * @var array
@@ -107,7 +107,7 @@ class Context {
 	 * variables from GET or form submit
 	 * @var mixed
 	 */
-	var $get_vars = NULL;
+	var $get_vars = null;
 	/**
 	 * Checks uploaded 
 	 * @var bool true if attached file exists
@@ -161,6 +161,7 @@ class Context {
 		$this->oFrontEndFileHandler = new FrontEndFileHandler();
 	}
 
+
 	/**
 	 * Initialization, it sets DB information, request arguments and so on.
 	 *
@@ -168,12 +169,9 @@ class Context {
 	 * @return void
 	 */
 	function init() {
-		// set context variables in $GLOBALS (to use in display handler)
-		$this->context = &$GLOBALS['__Context__'];
-		$this->context->lang = &$GLOBALS['lang'];
-		$this->context->_COOKIE = $_COOKIE;
+        $this->linkContextToGlobals($GLOBALS['__Context__'], $GLOBALS['lang'], $_COOKIE);
 
-		$this->setRequestMethod('');
+        $this->setRequestMethod('');
 
 		$this->_setXmlRpcArgument();
 		$this->_setJSONRequestArgument();
@@ -294,7 +292,21 @@ class Context {
 		$this->set('request_uri',Context::getRequestUri());
 	}
 
-	/**
+    /**
+     * set context variables in $GLOBALS (to use in display handler)
+     *
+     * @param $global_context
+     * @param $global_lang
+     * @param $global_cookie
+     */
+    public function linkContextToGlobals(&$global_context, &$global_lang, &$global_cookie)
+    {
+        $this->context = &$global_context;
+        $this->context->lang = &$global_lang;
+        $this->context->_COOKIE = &$global_cookie;
+    }
+
+    /**
 	 * Finalize using resources, such as DB connection
 	 *
 	 * @return void
@@ -887,7 +899,7 @@ class Context {
 				$result = preg_match($pattern, $val);
 				if($result)
 				{
-					$this->isSuccessInit = FALSE;
+					$this->isSuccessInit = false;
 					return;
 				}
 			}
@@ -949,10 +961,10 @@ class Context {
 	 * @return mixed filtered value. Type are string or array
 	 */
 	function _filterRequestVar($key, $val, $do_stripslashes = 1) {
-		$isArray = TRUE;
+		$isArray = true;
 		if(!is_array($val))
 		{
-			$isArray = FALSE;
+			$isArray = false;
 			$val = array($val);
 		}
 
@@ -1308,7 +1320,7 @@ class Context {
 		is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
 		$self->context->{$key} = $val;
 		if($set_to_get_vars === false) return;
-		if($val === NULL || $val === '')
+		if($val === null || $val === '')
 		{
 			unset($self->get_vars->{$key});
 			return;

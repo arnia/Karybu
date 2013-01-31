@@ -79,6 +79,29 @@ class ContextTest extends PHPUnit_Framework_TestCase
 		Context::setResponseMethod('HTML');
 		$this->assertEquals(Context::getResponseMethod(), 'HTML');
 	}
+
+    /**
+     * Test that when variables change in Context they also change in Global context
+     * MUST Have for displaying the templates (for now at least)
+     */
+    public function testChangesInContextAppearInGlobalContext()
+    {
+        $__Context__ = new stdClass();
+        $lang = new stdClass();
+        $myCookies = array();
+
+        $context = new Context();
+        $context->linkContextToGlobals($__Context__, $lang, $myCookies);
+
+        $context->set('name', 'Joe');
+        $this->assertEquals('Joe', $__Context__->name);
+
+        $lang->module_list='Modules List';
+        $this->assertEquals('Modules List', $__Context__->lang->module_list);
+
+        $myCookies['XDEBUG_SESSION_START'] = '1234';
+        $this->assertEquals('1234', $__Context__->_COOKIE['XDEBUG_SESSION_START']);
+    }
 }
 
 /* End of file ContextTest.php */
