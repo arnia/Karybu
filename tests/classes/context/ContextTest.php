@@ -5,6 +5,7 @@ if(!defined('__XE__')) require dirname(__FILE__).'/../../Bootstrap.php';
 require_once _XE_PATH_.'classes/context/Context.class.php'; 
 require_once _XE_PATH_.'classes/handler/Handler.class.php';
 require_once _XE_PATH_.'classes/frontendfile/FrontEndFileHandler.class.php';
+require_once _XE_PATH_.'classes/file/FileHandler.class.php';
 
 class ContextTest extends PHPUnit_Framework_TestCase
 {
@@ -101,6 +102,28 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         $myCookies['XDEBUG_SESSION_START'] = '1234';
         $this->assertEquals('1234', $__Context__->_COOKIE['XDEBUG_SESSION_START']);
+    }
+
+    public function testChangesInContextAppearInPHPGlobals()
+    {
+        $context = new Context();
+
+        $context->linkContextToGlobals(
+            $context->getGlobals('__Context__'),
+            $context->getGlobals('lang'),
+            $context->getGlobalCookies());
+
+        $context->set('name', 'Joe');
+        $this->assertEquals('Joe', $context->getGlobals('__Context__')->name);
+
+        global $lang;
+        $lang->module_list='Modules List';
+        $this->assertEquals('Modules List', $context->getGlobals('lang')->module_list);
+
+        $cookies = &$context->getGlobalCookies();
+        $cookies['XDEBUG_SESSION_START'] = '1234';
+        $this->assertEquals('1234', $context->getGlobals('__Context__')->_COOKIE['XDEBUG_SESSION_START']);
+
     }
 }
 

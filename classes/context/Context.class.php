@@ -161,6 +161,18 @@ class Context {
 		$this->oFrontEndFileHandler = new FrontEndFileHandler();
 	}
 
+    public function &getGlobals($key)
+    {
+        if(!isset($GLOBALS[$key]))
+            $GLOBALS[$key] = new stdClass();
+
+        return $GLOBALS[$key];
+    }
+
+    public function &getGlobalCookies()
+    {
+        return $_COOKIE;
+    }
 
 	/**
 	 * Initialization, it sets DB information, request arguments and so on.
@@ -169,7 +181,11 @@ class Context {
 	 * @return void
 	 */
 	function init() {
-        $this->linkContextToGlobals($GLOBALS['__Context__'], $GLOBALS['lang'], $_COOKIE);
+
+        $this->linkContextToGlobals(
+            $this->getGlobals('__Context__'),
+            $this->getGlobals('lang'),
+            $this->getGlobalCookies());
 
         $this->setRequestMethod('');
 
