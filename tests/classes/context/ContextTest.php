@@ -170,6 +170,8 @@ class ContextTest extends PHPUnit_Framework_TestCase
      *            <act><![CDATA[procAdminRecompileCacheFile]]></act>
      *        </params>
      *    </methodCall>
+     *
+     * Sample data taken from the "Re-create cache file" button in XE Admin Dashboard footer
      */
     public function testSetArguments_XMLRPC()
     {
@@ -212,6 +214,38 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $arguments = $context->getAll();
         $this->assertEquals($data, $arguments);
     }
+
+    /**
+     * Test that request arguments are properly initialized when
+     * Request type is JSON
+     *
+     * Data sent:
+     *  domain=&module=admin&act=getSiteAllList
+     *
+     * Sample data taken from Admin, General settings page, the Select Default Module textbox
+     * $.exec_json('module.procModuleAdminGetList', {site_srl:$this.data('site_srl')}, on_complete);
+     */
+    public function testSetArguments_JSON()
+    {
+        $context = new Context();
+        $context->setRequestMethod('JSON');
+
+        $GLOBALS['HTTP_RAW_POST_DATA'] = "domain=&module=admin&act=getSiteAllList";
+        $context->_setJSONRequestArgument();
+
+        $data = new stdClass();
+        $data->module = 'admin';
+        $data->act = 'getSiteAllList';
+
+        $arguments = $context->getRequestVars();
+        $this->assertEquals($data, $arguments);
+
+        $data->domain = "";
+        $arguments = $context->getAll();
+        $this->assertEquals($data, $arguments);
+
+    }
+
 }
 
 /* End of file ContextTest.php */

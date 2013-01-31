@@ -971,10 +971,11 @@ class Context {
 	 * @return void
 	 */
 	function _setJSONRequestArgument() {
-		if($this->getRequestMethod() != 'JSON') return;
+		if($this->getRequestMethod() != 'JSON')
+            return;
 
 		$params = array();
-		parse_str($GLOBALS['HTTP_RAW_POST_DATA'],$params);
+		parse_str($this->getRequestContent(),$params);
 
 		foreach($params as $key => $val) {
 			$val = $this->_filterRequestVar($key, $val,0);
@@ -988,7 +989,8 @@ class Context {
 	 * @return void
 	 */
 	function _setXmlRpcArgument(XmlParser $parser = null) {
-		if($this->getRequestMethod() != 'XMLRPC') return;
+		if($this->getRequestMethod() != 'XMLRPC')
+            return;
 
         if($parser == null)
             $parser = new XmlParser();
