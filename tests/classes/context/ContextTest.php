@@ -6,6 +6,7 @@ require_once _XE_PATH_.'classes/context/Context.class.php';
 require_once _XE_PATH_.'classes/handler/Handler.class.php';
 require_once _XE_PATH_.'classes/frontendfile/FrontEndFileHandler.class.php';
 require_once _XE_PATH_.'classes/file/FileHandler.class.php';
+require_once _XE_PATH_.'classes/xml/XmlParser.class.php';
 
 class ContextTest extends PHPUnit_Framework_TestCase
 {
@@ -155,7 +156,61 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $cookies = &$context->getGlobalCookies();
         $cookies['XDEBUG_SESSION_START'] = '1234';
         $this->assertEquals('1234', $context->getGlobals('__Context__')->_COOKIE['XDEBUG_SESSION_START']);
+    }
 
+    /**
+     * Test that request arguments are propely initialized when
+     * Request type is XMLRPC
+     *
+     * Data sent:
+     *    <?xml version="1.0" encoding="utf-8" ?>
+     *    <methodCall>
+     *        <params>
+     *            <module><![CDATA[admin]]></module>
+     *            <act><![CDATA[procAdminRecompileCacheFile]]></act>
+     *        </params>
+     *    </methodCall>
+     */
+    public function testSetArguments_XMLRPC()
+    {
+        // Set up object that will be returned after parsing input XML
+        $module = new Xml_Node_();
+        $module->node_name = "module";
+        $module->body = "admin";
+
+        $act = new Xml_Node_();
+        $act->node_name = "act";
+        $act->body = "procAdminRecompileCacheFile";
+
+        $params = new Xml_Node_();
+        $params->module = $module;
+        $params->act = $act;
+
+        $methodcall = new Xml_Node_();
+        $methodcall->params = $params;
+
+        $xml_obj = new stdClass();
+        $xml_obj->methodcall = $methodcall;
+
+        $parser = $this->getMock('XmlParser', array('parse'));
+        $parser
+            ->expects($this->any())
+            ->method('parse')
+            ->will($this->returnValue($xml_obj));
+
+        $context = new Context();
+        $context->setRequestMethod('XMLRPC');
+
+        $context->_setXmlRpcArgument($parser);
+
+        $data = new stdClass();
+        $data->module = 'admin';
+        $data->act = 'procAdminRecompileCacheFile';
+
+        $arguments = $context->getRequestVars();
+        $this->assertEquals($data, $arguments);
+        $arguments = $context->getAll();
+        $this->assertEquals($data, $arguments);
     }
 }
 

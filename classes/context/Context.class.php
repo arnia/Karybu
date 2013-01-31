@@ -987,10 +987,13 @@ class Context {
 	 *
 	 * @return void
 	 */
-	function _setXmlRpcArgument() {
+	function _setXmlRpcArgument(XmlParser $parser = null) {
 		if($this->getRequestMethod() != 'XMLRPC') return;
-		$oXml = new XmlParser();
-		$xml_obj = $oXml->parse();
+
+        if($parser == null)
+            $parser = new XmlParser();
+
+		$xml_obj = $parser->parse();
 
 		$params = $xml_obj->methodcall->params;
 		unset($params->node_name);
