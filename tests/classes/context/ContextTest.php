@@ -50,7 +50,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(Context::getBodyClass(), ' class="red green blue"');
 	}
 
-	public function testRequsetResponseMethod()
+	public function testRequestResponseMethod()
 	{
 		$this->assertEquals(Context::getRequestMethod(), 'GET');
 

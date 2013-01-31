@@ -161,6 +161,12 @@ class Context {
 		$this->oFrontEndFileHandler = new FrontEndFileHandler();
 	}
 
+    /**
+     * Returns a reference to the $GLOBALS array
+     *
+     * @param $key
+     * @return mixed
+     */
     public function &getGlobals($key)
     {
         if(!isset($GLOBALS[$key]))
@@ -169,10 +175,43 @@ class Context {
         return $GLOBALS[$key];
     }
 
+    /**
+     * Returns a reference to the global $_COOKIE array
+     *
+     * @return mixed
+     */
     public function &getGlobalCookies()
     {
         return $_COOKIE;
     }
+
+    /**
+     * Returns the value of $_SERVER['CONTENT_TYPE']
+     * # Symfony2\Request equivalent: $request->headers->get('Content-Type');
+     */
+    public function getRequestContentType()
+    {
+        return $_SERVER['CONTENT_TYPE'];
+    }
+
+    /**
+     * Returns $GLOBAL['HTTP_RAW_POST_DATA']
+     * # Symfony2\Request equivalent: $request->getContent();
+     */
+    public function getRequestContent()
+    {
+        return $GLOBALS['HTTP_RAW_POST_DATA'];
+    }
+
+    /**
+     * Returns $_SERVER['REQUEST_METHOD']
+     * # Symfony2\Request equivalent: $request->getMethod();
+     */
+    public function getServerRequestMethod()
+    {
+        return $_SERVER['REQUEST_METHOD'];
+    }
+
 
 	/**
 	 * Initialization, it sets DB information, request arguments and so on.
@@ -876,9 +915,9 @@ class Context {
 		is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
 
 		($type && $self->request_method=$type) or
-		(strpos($_SERVER['CONTENT_TYPE'],'json') && $self->request_method='JSON') or
-		($GLOBALS['HTTP_RAW_POST_DATA'] && $self->request_method='XMLRPC') or
-		($self->request_method = $_SERVER['REQUEST_METHOD']);
+		(strpos($self->getRequestContentType(),'json') && $self->request_method='JSON') or
+		($self->getRequestContent() && $self->request_method='XMLRPC') or
+		($self->request_method = $self->getServerRequestMethod());
 	}
 
 	/**
