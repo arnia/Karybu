@@ -815,6 +815,130 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected_db_info->slave_db, $actual_db_info->slave_db);
     }
 
+    /**
+     * Check that current site info is properly set
+     * And that if we are on a virtual site, the vid is also initialized
+     */
+    public function testInitializeCurrentSiteInfo_SetSiteModuleInfoInContext()
+    {
+        $db_info = new stdClass();
+        $db_info->master_db = array('something');
+        $db_info->default_url = 'http://www.xpressengine.org';
+
+        $site_module_info = new stdClass();
+        $site_module_info->site_srl = 0;
+        $site_module_info->domain = 'http://www.xpressengine.org';
+
+        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $context->loadDbInfo();
+        $context->initializeCurrentSiteInformation($site_module_info);
+
+        $expected_module_info = clone($site_module_info);
+        $actual_site_module_info = $context->get('site_module_info');
+
+        $this->assertEquals($expected_module_info, $actual_site_module_info);
+    }
+
+    /**
+     * Check that current site info is properly set
+     * And that if we are on a virtual site, the vid is also initialized
+     */
+    public function testInitializeCurrentSiteInfo_SetDefaultLanguage()
+    {
+        $db_info = new stdClass();
+        $db_info->master_db = array('something');
+        $db_info->default_url = 'http://www.xpressengine.org';
+
+        $site_module_info = new stdClass();
+        $site_module_info->site_srl = 0;
+        $site_module_info->domain = 'http://www.xpressengine.org';
+
+        // Test that default language is 'en', when nothing else is set
+        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $context->loadDbInfo();
+        $context->initializeCurrentSiteInformation($site_module_info);
+
+        $db_info = $context->getDbinfo();
+
+        $this->assertEquals('en', $db_info->lang_type);
+
+        // Test that default language persists when manually set
+        $site_module_info->default_language = 'ro';
+
+        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $context->loadDbInfo();
+        $context->initializeCurrentSiteInformation($site_module_info);
+
+        $db_info = $context->getDbinfo();
+
+        $this->assertEquals('ro', $db_info->lang_type);
+    }
+
+    /**
+     * Check that current site info is properly set
+     * And that if we are on a virtual site, the vid is also initialized
+     */
+    public function testInitializeCurrentSiteInfo_DifferentDefaultUrl()
+    {
+        // 1. Arrange
+        $db_info = new stdClass();
+        $db_info->master_db = array('something');
+        $db_info->default_url = 'http://demo.xpressengine.org';
+
+        $site_module_info = new stdClass();
+        $site_module_info->site_srl = 0;
+        $site_module_info->domain = 'http://www.xpressengine.org';
+
+        $context = $this->getContextMockForDbInfoLoading($db_info);
+
+        // 2. Act
+        $context->loadDbInfo();
+        $context->initializeCurrentSiteInformation($site_module_info);
+
+        // 3. Assert
+        // Make sure the default_url defined in db.config.php has precedence
+        $actual_site_module_info = $context->get('site_module_info');
+        $this->assertEquals('http://demo.xpressengine.org', $actual_site_module_info->domain);
+    }
+
+    /**
+     * Check that current site info is properly set
+     * And that if we are on a virtual site, the vid is also initialized
+     */
+    public function testInitializeCurrentSiteInfo_VirtualSite()
+    {
+        // 1. Arrange
+        $db_info = new stdClass();
+        $db_info->master_db = array('something');
+        $db_info->default_url = 'http://demo.xpressengine.org';
+
+        $site_module_info = new stdClass();
+        $site_module_info->site_srl = 123;
+        $site_module_info->domain = 'mysite';
+
+        $context = $this->getMock('Context', array('getDbInfoFromConfigFile', 'isInstalled', 'isSiteID'));
+        $context
+            ->expects($this->any())
+            ->method('isInstalled')
+            ->will($this->returnValue(true));
+        $context
+            ->expects($this->any())
+            ->method('getDbInfoFromConfigFile')
+            ->will($this->returnValue($db_info));
+        $context
+            ->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+
+        // 2. Act
+        $context->loadDbInfo();
+        $context->initializeCurrentSiteInformation($site_module_info);
+
+        // 3. Assert
+        $vid = $context->get('vid');
+        $this->assertEquals($site_module_info->domain, $vid);
+    }
+
 }
 
 /* End of file ContextTest.php */

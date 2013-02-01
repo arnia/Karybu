@@ -263,6 +263,17 @@ class Context {
     }
 
     /**
+     * Wrapper for the global isSiteID function
+     *
+     * @param $domain
+     * @return bool
+     */
+    public function isSiteID($domain)
+    {
+        return isSiteID($domain);
+    }
+
+    /**
      * Returns the current dbinfo
      */
     public function getDbInfoFromConfigFile()
@@ -300,18 +311,8 @@ class Context {
 		if(Context::isInstalled()) {
 			$oModuleModel = &getModel('module');
 			$site_module_info = $oModuleModel->getDefaultMid();
-			// if site_srl of site_module_info is 0 (default site), compare the domain to default_url of db_config
-			if($site_module_info->site_srl == 0 && $site_module_info->domain != $this->db_info->default_url) {
-				$site_module_info->domain = $this->db_info->default_url;
-			}
-
-			$this->set('site_module_info', $site_module_info);
-			if($site_module_info->site_srl && isSiteID($site_module_info->domain)) $this->set('vid', $site_module_info->domain, true);
-
-			$this->db_info->lang_type = $site_module_info->default_language;
-			if(!$this->db_info->lang_type) $this->db_info->lang_type = 'en';
-			if(!$this->db_info->use_db_session) $this->db_info->use_db_session = 'N';
-		}
+            $this->initializeCurrentSiteInformation($site_module_info);
+        }
 
 		// Load Language File
 		$lang_supported = $this->loadLangSelected();
@@ -407,6 +408,30 @@ class Context {
 		}
 		$this->set('request_uri',Context::getRequestUri());
 	}
+
+    /**
+     * Sets the site_module_info into context
+     * Sets the vid into context, if we are on a virtual site
+     *
+     * @param $site_module_info
+     */
+    public function initializeCurrentSiteInformation($site_module_info)
+    {
+        // if site_srl of site_module_info is 0 (default site), compare the domain to default_url of db_config
+        if ($site_module_info->site_srl == 0 && $site_module_info->domain != $this->db_info->default_url) {
+            $site_module_info->domain = $this->db_info->default_url;
+        }
+
+        $this->set('site_module_info', $site_module_info);
+
+        if ($site_module_info->site_srl && $this->isSiteID($site_module_info->domain)) {
+            $this->set('vid', $site_module_info->domain, true);
+        }
+
+        $this->db_info->lang_type = $site_module_info->default_language;
+        if (!$this->db_info->lang_type) $this->db_info->lang_type = 'en';
+        if (!$this->db_info->use_db_session) $this->db_info->use_db_session = 'N';
+    }
 
     /**
      * set context variables in $GLOBALS (to use in display handler)
