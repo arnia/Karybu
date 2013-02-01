@@ -274,6 +274,217 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($data, $arguments);
     }
 
+    private function getContextMockForFileUploads($is_uploaded_file = true, $multiple_files = false)
+    {
+        if(!$multiple_files)
+        {
+            $myFiles = array(
+                "product_image" => array(
+                    "name" => "400.png",
+                    "type" => "image/png",
+                    "tmp_name" => "/tmp/abcdef",
+                    "error" => 0,
+                    "size" => 15726
+                ));
+        }
+        else
+        {
+            $myFiles = array(
+                "product_image" => array(
+                    "name" => array("400.png"),
+                    "type" => array("image/png"),
+                    "tmp_name" => array("/tmp/abcdef"),
+                    "error" => array(0),
+                    "size" => array(15726)
+                ));
+        }
+
+        // Mock just the isUploadedFile, getFiles and getRequestContentType methods
+        $context = $this->getMock('Context', array('is_uploaded_file', 'getFiles', 'getRequestContentType'));
+        $context
+            ->expects($this->any())
+            ->method('is_uploaded_file')
+            ->will($this->returnValue($is_uploaded_file));
+
+        $context
+            ->expects($this->any())
+            ->method('getFiles')
+            ->will($this->returnValue($myFiles));
+
+        $context
+            ->expects($this->any())
+            ->method('getRequestContentType')
+            ->will($this->returnValue('multipart/form-data'));
+
+        return $context;
+    }
+
+
+    /**
+     * If $_FILES has data, but request type is GET, nothing should happen
+     */
+    public function testSetArguments_FileUpload_GET_Request()
+    {
+        $context = new Context();
+        $context->setRequestMethod('GET');
+
+        $context->_setUploadedArgument();
+
+        $this->assertEquals(false, $context->is_uploaded);
+        $this->assertEquals(new stdClass(), $context->getRequestVars());
+    }
+
+    /**
+     * If request method is POST, but data sent is not multipart/form-data
+     * nothing should happen
+     */
+    public function testSetArguments_FileUpload_NotMultipartFormData()
+    {
+        $context = $this->getMock('Context', array('getRequestContentType'));
+
+        $context
+            ->expects($this->any())
+            ->method('getRequestContentType')
+            ->will($this->returnValue('text/html'));
+
+        $context->setRequestMethod('POST');
+        $context->_setUploadedArgument();
+
+        $this->assertEquals(false, $context->is_uploaded);
+        $this->assertEquals(new stdClass(), $context->getRequestVars());
+    }
+
+    /**
+     * If $_FILES is empty, do nothing
+     */
+    public function testSetArguments_FileUpload_EmptyFILES()
+    {
+        $context = $this->getMock('Context', array('getFiles'));
+
+        $context
+            ->expects($this->any())
+            ->method('getFiles')
+            ->will($this->returnValue(null));
+
+        $context->setRequestMethod('POST');
+        $context->_setUploadedArgument();
+
+        $this->assertEquals(false, $context->is_uploaded);
+        $this->assertEquals(new stdClass(), $context->getRequestVars());
+    }
+
+    /**
+     * Test that arguments are properly intialized one just one file
+     * was uploaded
+     */
+    public function testSetArguments_FileUpload_JustOneFile()
+    {
+        $context = $this->getContextMockForFileUploads();
+        $context->setRequestMethod("POST");
+
+        $context->_setUploadedArgument();
+
+        $this->assertEquals(true, $context->is_uploaded);
+
+        $data = new stdClass();
+        $data->product_image = array(
+            "name" => "400.png",
+            "type" => "image/png",
+            "tmp_name" => "/tmp/abcdef",
+            "error" => 0,
+            "size" => 15726
+        );
+
+        $arguments = $context->getRequestVars();
+        $this->assertEquals($data, $arguments);
+
+
+        $arguments = $context->getAll();
+        $this->assertEquals($data, $arguments);
+    }
+
+    /**
+     * Test that arguments are not initialized when just one file
+     * was uploaded, but it is invalid
+     */
+    public function testSetArguments_FileUpload_JustOneFile_FakeUpload()
+    {
+        $context = $this->getContextMockForFileUploads(false);
+
+        $context->setRequestMethod("POST");
+
+        $context->_setUploadedArgument();
+
+        $this->assertEquals(false, $context->is_uploaded);
+        $this->assertEquals(new stdClass(), $context->getRequestVars());
+    }
+
+    /**
+     * Test that arguments were properly initialized when more than one file was uploaded
+     */
+    public function testSetArguments_FileUpload_Array()
+    {
+        $context = $this->getContextMockForFileUploads(true, true);
+        $context->setRequestMethod("POST");
+
+        $context->_setUploadedArgument();
+
+        $data = new stdClass();
+        $data->product_image = array(
+            array(
+                "name" => "400.png",
+                "type" => "image/png",
+                "tmp_name" => "/tmp/abcdef",
+                "error" => 0,
+                "size" => 15726
+            ));
+
+        $arguments = $context->getRequestVars();
+        $this->assertEquals($data, $arguments);
+
+        $arguments = $context->getAll();
+        $this->assertEquals($data, $arguments);
+    }
+
+    /**
+     * Test that the is_uploaded property is updated for multiple file uploads
+     */
+    public function testSetArguments_FileUpload_Array_SetsIsUploaded()
+    {
+        $context = $this->getContextMockForFileUploads(true, true);
+        $context->setRequestMethod("POST");
+
+        $context->_setUploadedArgument();
+
+        $data = new stdClass();
+        $data->product_image = array(
+            array(
+                "name" => "400.png",
+                "type" => "image/png",
+                "tmp_name" => "/tmp/abcdef",
+                "error" => 0,
+                "size" => 15726
+            ));
+
+        $this->assertEquals(true, $context->is_uploaded);
+    }
+
+    /**
+     * Test that arguments are not initialized if this was a fake upload
+     * (check using is_uploaded_file php function)
+     */
+    public function testSetArguments_FileUpload_Array_FakeUpload()
+    {
+        $context = $this->getContextMockForFileUploads(false, true);
+
+        $context->setRequestMethod("POST");
+
+        $context->_setUploadedArgument();
+
+        $this->assertEquals(false, $context->is_uploaded);
+        $this->assertEquals(new stdClass(), $context->getRequestVars());
+    }
+
 }
 
 /* End of file ContextTest.php */

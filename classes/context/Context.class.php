@@ -212,6 +212,14 @@ class Context {
     }
 
     /**
+     * Returns a reference to the global $_FILES array
+     */
+    public function &getFiles()
+    {
+        return $_FILES;
+    }
+
+    /**
      * Returns the value of $_SERVER['CONTENT_TYPE']
      * # Symfony2\Request equivalent: $request->headers->get('Content-Type');
      */
@@ -238,8 +246,16 @@ class Context {
         return $_SERVER['REQUEST_METHOD'];
     }
 
+    /**
+     * Wrappper for php's is_uploaded_file function
+     */
+    public function is_uploaded_file($file_name)
+    {
+        return is_uploaded_file($file_name);
+    }
 
-	/**
+
+    /**
 	 * Initialization, it sets DB information, request arguments and so on.
 	 *
 	 * @see This function should be called only once
@@ -1102,13 +1118,13 @@ class Context {
 	 */
 	function _setUploadedArgument() {
 		if($this->getRequestMethod() != 'POST') return;
-		if(!preg_match('/multipart\/form-data/i',$_SERVER['CONTENT_TYPE'])) return;
-		if(!$_FILES) return;
+		if(!preg_match('/multipart\/form-data/i',$this->getRequestContentType())) return;
+		if(!$this->getFiles()) return;
 
-		foreach($_FILES as $key => $val) {
+		foreach($this->getFiles() as $key => $val) {
 			$tmp_name = $val['tmp_name'];
 			if(!is_array($tmp_name)){
-				if(!$tmp_name || !is_uploaded_file($tmp_name)) continue;
+				if(!$tmp_name || !$this->is_uploaded_file($tmp_name)) continue;
 				$val['name'] = htmlspecialchars($val['name']);
 				$this->set($key, $val, true);
 				$this->is_uploaded = true;
