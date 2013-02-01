@@ -254,6 +254,27 @@ class Context {
         return is_uploaded_file($file_name);
     }
 
+    /**
+     * Returns the installController
+     */
+    public function &getInstallController()
+    {
+        return getController('install');
+    }
+
+    /**
+     * Returns the current dbinfo
+     */
+    public function getDbInfoFromConfigFile()
+    {
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
+        $config_file = $self->getConfigFile();
+        $db_info = new stdClass();
+        if(is_readable($config_file)) include($config_file);
+        return $db_info;
+    }
+
 
     /**
 	 * Initialization, it sets DB information, request arguments and so on.
@@ -425,29 +446,28 @@ class Context {
 
 		if(!$self->isInstalled()) return;
 
-		$config_file = $self->getConfigFile();
-		if(is_readable($config_file)) @include($config_file);
+        $db_info = $this->getDbInfoFromConfigFile();
 
-                // If master_db information does not exist, the config file needs to be updated
-                if(!isset($db_info->master_db)) {
-                    $db_info->master_db = array();
-                    $db_info->master_db["db_type"] = $db_info->db_type; unset($db_info->db_type);
-                    $db_info->master_db["db_port"] = $db_info->db_port; unset($db_info->db_port);
-                    $db_info->master_db["db_hostname"] = $db_info->db_hostname; unset($db_info->db_hostname);
-                    $db_info->master_db["db_password"] = $db_info->db_password; unset($db_info->db_password);
-                    $db_info->master_db["db_database"] = $db_info->db_database; unset($db_info->db_database);
-                    $db_info->master_db["db_userid"] = $db_info->db_userid; unset($db_info->db_userid);
-                    $db_info->master_db["db_table_prefix"] = $db_info->db_table_prefix; unset($db_info->db_table_prefix);
-                    if(substr($db_info->master_db["db_table_prefix"],-1)!='_') $db_info->master_db["db_table_prefix"] .= '_';
+        // If master_db information does not exist, the config file needs to be updated
+        if(!isset($db_info->master_db)) {
+            $db_info->master_db = array();
+            $db_info->master_db["db_type"] = $db_info->db_type; unset($db_info->db_type);
+            $db_info->master_db["db_port"] = $db_info->db_port; unset($db_info->db_port);
+            $db_info->master_db["db_hostname"] = $db_info->db_hostname; unset($db_info->db_hostname);
+            $db_info->master_db["db_password"] = $db_info->db_password; unset($db_info->db_password);
+            $db_info->master_db["db_database"] = $db_info->db_database; unset($db_info->db_database);
+            $db_info->master_db["db_userid"] = $db_info->db_userid; unset($db_info->db_userid);
+            $db_info->master_db["db_table_prefix"] = $db_info->db_table_prefix; unset($db_info->db_table_prefix);
+            if(substr($db_info->master_db["db_table_prefix"],-1)!='_') $db_info->master_db["db_table_prefix"] .= '_';
 
-                    $slave_db = $db_info->master_db;
-                    $db_info->slave_db = array($slave_db);
-					
-                    $self->setDBInfo($db_info);
+            $slave_db = $db_info->master_db;
+            $db_info->slave_db = array($slave_db);
 
-                    $oInstallController = &getController('install');
-                    $oInstallController->makeConfigFile();
-                }
+            $self->setDBInfo($db_info);
+
+            $oInstallController = &$this->getInstallController();
+            $oInstallController->makeConfigFile();
+        }
 		
 		if(!$db_info->use_prepared_statements) 
 		{
@@ -455,14 +475,17 @@ class Context {
 		}
 				
 		if(!$db_info->time_zone) $db_info->time_zone = date('O');
-		$GLOBALS['_time_zone'] = $db_info->time_zone;
+        $time_zone = &$this->getGlobals('_time_zone');
+        $time_zone = $db_info->time_zone;
 
 		if($db_info->qmail_compatibility != 'Y') $db_info->qmail_compatibility = 'N';
-		$GLOBALS['_qmail_compatibility'] = $db_info->qmail_compatibility;
+        $qmail_compatibility = &$this->getGlobals('_qmail_compatibility');
+        $qmail_compatibility = $db_info->qmail_compatibility;
 
 		if(!$db_info->use_db_session) $db_info->use_db_session = 'N';
+
 		if(!$db_info->use_ssl) $db_info->use_ssl = 'none';
-		$this->set('_use_ssl', $db_info->use_ssl);
+		$self->set('_use_ssl', $db_info->use_ssl);
 
 		if($db_info->http_port)  $self->set('_http_port', $db_info->http_port);
 		if($db_info->https_port) $self->set('_https_port', $db_info->https_port);

@@ -485,7 +485,338 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(new stdClass(), $context->getRequestVars());
     }
 
+    private function getContextMockForDbInfoLoading($db_info)
+    {
+        $context = $this->getMock('Context', array('getDbInfoFromConfigFile', 'isInstalled'));
+        $context
+            ->expects($this->any())
+            ->method('isInstalled')
+            ->will($this->returnValue(true));
+        $context
+            ->expects($this->any())
+            ->method('getDbInfoFromConfigFile')
+            ->will($this->returnValue($db_info));
+        return $context;
+    }
+
+    /**
+     * Test app configuration
+     */
+    public function testLoadDbInfo_DefaultValues()
+    {
+        $db_info = new stdClass();
+        $db_info->master_db = array('db_type' => 'mysql','db_port' => '3306','db_hostname' => 'localhost','db_userid' => 'root','db_password' => 'password','db_database' => 'globalcms','db_table_prefix' => 'xe_');
+        $db_info->slave_db = array(array('db_type' => 'mysql','db_port' => '3306','db_hostname' => 'localhost','db_userid' => 'root','db_password' => 'password','db_database' => 'globalcms','db_table_prefix' => 'xe_'));
+        $db_info->default_url = 'http://globalcms/';
+        $db_info->lang_type = 'en';
+        $db_info->use_rewrite = 'Y';
+        $db_info->time_zone = '+0200';
+
+        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $this->assertEquals(null, $context->getDbInfo());
+
+        $expected_db_info = clone($db_info);
+        $expected_db_info->time_zone = '+0200';
+        $expected_db_info->use_prepared_statements = 'Y';
+        $expected_db_info->qmail_compatibility = 'N';
+        $expected_db_info->use_db_session = 'N';
+        $expected_db_info->use_ssl = 'none';
+
+        $context->loadDbInfo();
+        $actual_db_info = $context->getDbInfo();
+
+        $this->assertEquals($expected_db_info, $actual_db_info);
+    }
+
+    /**
+     * Test app configuration - prepared statements
+     */
+    public function testLoadDbInfo_PreparedStatements()
+    {
+        // Test that the default value for this is Y
+        $db_info = new stdClass();
+        $db_info->master_db = array('something');
+
+        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $this->assertEquals(null, $context->getDbInfo());
+
+        $expected_db_info = clone($db_info);
+        $expected_db_info->use_prepared_statements = 'Y';
+
+        $context->loadDbInfo();
+        $actual_db_info = $context->getDbInfo();
+
+        $this->assertEquals($expected_db_info->use_prepared_statements, $actual_db_info->use_prepared_statements);
+
+        // Test that when value is manually set, it is not overridden
+        $db_info = new stdClass();
+        $db_info->master_db = array('something');
+        $db_info->use_prepared_statements = 'N';
+
+        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $this->assertEquals(null, $context->getDbInfo());
+
+        $expected_db_info = clone($db_info);
+
+        $context->loadDbInfo();
+        $actual_db_info = $context->getDbInfo();
+
+        $this->assertEquals($expected_db_info->use_prepared_statements, $actual_db_info->use_prepared_statements);
+    }
+
+    /**
+     * Test app configuration - time zone
+     */
+    public function testLoadDbInfo_TimeZone()
+    {
+        // Test that the default value for this is date('0')
+        $db_info = new stdClass();
+        $db_info->master_db = array('something');
+
+        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $this->assertEquals(null, $context->getDbInfo());
+
+        $expected_db_info = clone($db_info);
+        $expected_db_info->time_zone = date('O');
+
+        $context->loadDbInfo();
+        $actual_db_info = $context->getDbInfo();
+
+        $this->assertEquals($expected_db_info->time_zone, $actual_db_info->time_zone);
+
+        // Test that when value is already set in db.config.php, it is not overridden
+        $db_info = new stdClass();
+        $db_info->master_db = array('something');
+        $db_info->time_zone = '+0200';
+
+        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $this->assertEquals(null, $context->getDbInfo());
+
+        $expected_db_info = clone($db_info);
+
+        $context->loadDbInfo();
+        $actual_db_info = $context->getDbInfo();
+
+        $this->assertEquals($expected_db_info->time_zone, $actual_db_info->time_zone);
+
+        // Make sure time_zone is available in Globals
+        $this->assertEquals($context->getGlobals('_time_zone'), $actual_db_info->time_zone);
+    }
+
+    /**
+     * Test app configuration - Qmail compatibility
+     */
+    public function testLoadDbInfo_QmailCompatibility()
+    {
+        // Test that the default value for this is date('0')
+        $db_info = new stdClass();
+        $db_info->master_db = array('something');
+
+        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $this->assertEquals(null, $context->getDbInfo());
+
+        $expected_db_info = clone($db_info);
+        $expected_db_info->qmail_compatibility = 'N';
+
+        $context->loadDbInfo();
+        $actual_db_info = $context->getDbInfo();
+
+        $this->assertEquals($expected_db_info->qmail_compatibility, $actual_db_info->qmail_compatibility);
+
+        // Test that when value is already set in db.config.php, it is not overridden
+        $db_info = new stdClass();
+        $db_info->master_db = array('something');
+        $db_info->qmail_compatibility = 'Y';
+
+        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $this->assertEquals(null, $context->getDbInfo());
+
+        $expected_db_info = clone($db_info);
+
+        $context->loadDbInfo();
+        $actual_db_info = $context->getDbInfo();
+
+        $this->assertEquals($expected_db_info->qmail_compatibility, $actual_db_info->qmail_compatibility);
+
+        // Make sure time_zone is available in Globals
+        $this->assertEquals($context->getGlobals('_qmail_compatibility'), $actual_db_info->qmail_compatibility);
+    }
+
+    /**
+     * Test app configuration - use db session
+     */
+    public function testLoadDbInfo_UseDbSession()
+    {
+        // Test that the default value for this is 'N'
+        $db_info = new stdClass();
+        $db_info->master_db = array('something');
+
+        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $this->assertEquals(null, $context->getDbInfo());
+
+        $expected_db_info = clone($db_info);
+        $expected_db_info->use_db_session = 'N';
+
+        $context->loadDbInfo();
+        $actual_db_info = $context->getDbInfo();
+
+        $this->assertEquals($expected_db_info->use_db_session, $actual_db_info->use_db_session);
+
+        // Test that when value is already set in db.config.php, it is not overridden
+        $db_info = new stdClass();
+        $db_info->master_db = array('something');
+        $db_info->use_db_session = 'Y';
+
+        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $this->assertEquals(null, $context->getDbInfo());
+
+        $expected_db_info = clone($db_info);
+
+        $context->loadDbInfo();
+        $actual_db_info = $context->getDbInfo();
+
+        $this->assertEquals($expected_db_info->use_db_session, $actual_db_info->use_db_session);
+    }
+
+    /**
+     * Test app configuration - use SSL
+     *
+     * The available values for this are: none, optional and always
+     * (look for 'ssl_options' in project files)
+     */
+    public function testLoadDbInfo_UseSSL()
+    {
+        // Test that the default value for this is date('0')
+        $db_info = new stdClass();
+        $db_info->master_db = array('something');
+
+        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $this->assertEquals(null, $context->getDbInfo());
+
+        $expected_db_info = clone($db_info);
+        $expected_db_info->use_ssl = 'none';
+
+        $context->loadDbInfo();
+        $actual_db_info = $context->getDbInfo();
+
+        $this->assertEquals($expected_db_info->use_ssl, $actual_db_info->use_ssl);
+
+        // Test that when value is already set in db.config.php, it is not overridden
+        $db_info = new stdClass();
+        $db_info->master_db = array('something');
+        $db_info->use_ssl = 'always';
+
+        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $this->assertEquals(null, $context->getDbInfo());
+
+        $expected_db_info = clone($db_info);
+
+        $context->loadDbInfo();
+        $actual_db_info = $context->getDbInfo();
+
+        $this->assertEquals($expected_db_info->use_ssl, $actual_db_info->use_ssl);
+
+        // Make sure time_zone is available in Context
+        $this->assertEquals($context->get('_use_ssl'), $actual_db_info->use_ssl);
+    }
+
+    /**
+     * Test app configuration - HTTP and HTTPS port
+     */
+    public function testLoadDbInfo_HTTPS_Port()
+    {
+        // Test that the default value is to skip these attributes
+        $db_info = new stdClass();
+        $db_info->master_db = array('something');
+
+        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $this->assertEquals(null, $context->getDbInfo());
+
+        $expected_db_info = clone($db_info);
+
+        $context->loadDbInfo();
+        $actual_db_info = $context->getDbInfo();
+
+        $this->assertEquals(null, $actual_db_info->http_port);
+        $this->assertEquals(null, $actual_db_info->https_port);
+
+        // Test that when value is already set in db.config.php, it is not overridden
+        $db_info = new stdClass();
+        $db_info->master_db = array('something');
+        $db_info->http_port = '80';
+        $db_info->https_port = '25';
+
+        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $this->assertEquals(null, $context->getDbInfo());
+
+        $expected_db_info = clone($db_info);
+
+        $context->loadDbInfo();
+        $actual_db_info = $context->getDbInfo();
+
+        $this->assertEquals($expected_db_info->http_port, $actual_db_info->http_port);
+        $this->assertEquals($expected_db_info->https_port, $actual_db_info->https_port);
+        $this->assertEquals($actual_db_info->http_port, $context->get('_http_port'));
+        $this->assertEquals($actual_db_info->https_port, $context->get('_https_port'));
+    }
+
+
+    /**
+     * Test app configuration - missing master_db
+     *
+     * This is used for legacy apps - that had the db connection string
+     * directly as attributes to $db_info, instead of as two arrays
+     * (before XE 1.5)
+     */
+    public function testLoadDbInfo_MasterDbMissing()
+    {
+        // Test that the default value for this is date('0')
+        $db_info = new stdClass();
+        $db_info->db_type = 'mysql';
+        $db_info->db_port = '3306';
+        $db_info->db_hostname = 'localhost';
+        $db_info->db_userid = 'root';
+        $db_info->db_password = 'password';
+        $db_info->db_database = 'globalcms';
+        $db_info->db_table_prefix = 'xe_';
+
+        $context = $this->getMock('Context'
+            , array('getDbInfoFromConfigFile', 'isInstalled', 'getInstallController'));
+
+        $context
+            ->expects($this->any())
+            ->method('isInstalled')
+            ->will($this->returnValue(true));
+        $context
+            ->expects($this->any())
+            ->method('getDbInfoFromConfigFile')
+            ->will($this->returnValue($db_info));
+
+        $installController = $this->getMock('installController', array('makeConfigFile'));
+        $installController
+            ->expects($this->once())
+            ->method('makeConfigFile');
+
+        $context
+            ->expects($this->once())
+            ->method('getInstallController')
+            ->will($this->returnValue($installController));
+
+        $this->assertEquals(null, $context->getDbInfo());
+
+        $expected_db_info = new stdClass();
+        $expected_db_info->master_db = array('db_type' => 'mysql','db_port' => '3306','db_hostname' => 'localhost','db_userid' => 'root','db_password' => 'password','db_database' => 'globalcms','db_table_prefix' => 'xe_');
+        $expected_db_info->slave_db = array(array('db_type' => 'mysql','db_port' => '3306','db_hostname' => 'localhost','db_userid' => 'root','db_password' => 'password','db_database' => 'globalcms','db_table_prefix' => 'xe_'));
+
+        $context->loadDbInfo();
+        $actual_db_info = $context->getDbInfo();
+
+        $this->assertEquals($expected_db_info->master_db, $actual_db_info->master_db);
+        $this->assertEquals($expected_db_info->slave_db, $actual_db_info->slave_db);
+    }
+
 }
 
 /* End of file ContextTest.php */
 /* Location: ./tests/classes/context/ContextTest.php */
+
