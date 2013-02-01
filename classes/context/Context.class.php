@@ -307,13 +307,6 @@ class Context {
 
 		$this->loadDBInfo();
 
-		// If XE is installed, get virtual site information
-		if(Context::isInstalled()) {
-			$oModuleModel = &getModel('module');
-			$site_module_info = $oModuleModel->getDefaultMid();
-            $this->initializeCurrentSiteInformation($site_module_info);
-        }
-
 		// Load Language File
 		$lang_supported = $this->loadLangSelected();
 
@@ -410,6 +403,24 @@ class Context {
 	}
 
     /**
+     * default_url: $this->db_info->default_url
+     *
+     * @param $default_url
+     * @return mixed
+     */
+    public function getSiteModuleInfo($default_url)
+    {
+        $oModuleModel = &getModel('module');
+        $site_module_info = $oModuleModel->getDefaultMid();
+
+        // if site_srl of site_module_info is 0 (default site), compare the domain to default_url of db_config
+        if ($site_module_info->site_srl == 0 && $site_module_info->domain != $default_url) {
+            $site_module_info->domain = $default_url;
+        }
+        return $site_module_info;
+    }
+
+    /**
      * Sets the site_module_info into context
      * Sets the vid into context, if we are on a virtual site
      *
@@ -417,20 +428,7 @@ class Context {
      */
     public function initializeCurrentSiteInformation($site_module_info)
     {
-        // if site_srl of site_module_info is 0 (default site), compare the domain to default_url of db_config
-        if ($site_module_info->site_srl == 0 && $site_module_info->domain != $this->db_info->default_url) {
-            $site_module_info->domain = $this->db_info->default_url;
-        }
 
-        $this->set('site_module_info', $site_module_info);
-
-        if ($site_module_info->site_srl && $this->isSiteID($site_module_info->domain)) {
-            $this->set('vid', $site_module_info->domain, true);
-        }
-
-        $this->db_info->lang_type = $site_module_info->default_language;
-        if (!$this->db_info->lang_type) $this->db_info->lang_type = 'en';
-        if (!$this->db_info->use_db_session) $this->db_info->use_db_session = 'N';
     }
 
     /**
@@ -514,6 +512,17 @@ class Context {
 
 		if($db_info->http_port)  $self->set('_http_port', $db_info->http_port);
 		if($db_info->https_port) $self->set('_https_port', $db_info->https_port);
+
+        $site_module_info = $this->getSiteModuleInfo($db_info->default_url);
+        $this->set('site_module_info', $site_module_info);
+
+        if ($site_module_info->site_srl && $this->isSiteID($site_module_info->domain)) {
+            $this->set('vid', $site_module_info->domain, true);
+        }
+
+        $db_info->lang_type = $site_module_info->default_language;
+        if (!$db_info->lang_type) $db_info->lang_type = 'en';
+        if (!$db_info->use_db_session) $db_info->use_db_session = 'N';
 
 		$self->setDBInfo($db_info);
 	}

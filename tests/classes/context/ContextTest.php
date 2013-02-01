@@ -485,9 +485,9 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(new stdClass(), $context->getRequestVars());
     }
 
-    private function getContextMockForDbInfoLoading($db_info)
+    private function getContextMockForDbInfoLoading($db_info, $site_module_info = null)
     {
-        $context = $this->getMock('Context', array('getDbInfoFromConfigFile', 'isInstalled'));
+        $context = $this->getMock('Context', array('getDbInfoFromConfigFile', 'isInstalled', 'getSiteModuleInfo'));
         $context
             ->expects($this->any())
             ->method('isInstalled')
@@ -496,6 +496,12 @@ class ContextTest extends PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('getDbInfoFromConfigFile')
             ->will($this->returnValue($db_info));
+
+        if($site_module_info == null) $site_module_info = new stdClass();
+        $context
+            ->expects($this->any())
+            ->method('getSiteModuleInfo')
+            ->will($this->returnValue($site_module_info));
         return $context;
     }
 
@@ -781,7 +787,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $db_info->db_table_prefix = 'xe_';
 
         $context = $this->getMock('Context'
-            , array('getDbInfoFromConfigFile', 'isInstalled', 'getInstallController'));
+            , array('getDbInfoFromConfigFile', 'isInstalled', 'getInstallController', 'getSiteModuleInfo'));
 
         $context
             ->expects($this->any())
@@ -791,6 +797,10 @@ class ContextTest extends PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('getDbInfoFromConfigFile')
             ->will($this->returnValue($db_info));
+        $context
+            ->expects($this->any())
+            ->method('getSiteModuleInfo')
+            ->will($this->returnValue(new stdClass()));
 
         $installController = $this->getMock('installController', array('makeConfigFile'));
         $installController
@@ -829,7 +839,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $site_module_info->site_srl = 0;
         $site_module_info->domain = 'http://www.xpressengine.org';
 
-        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $context = $this->getContextMockForDbInfoLoading($db_info, $site_module_info);
         $context->loadDbInfo();
         $context->initializeCurrentSiteInformation($site_module_info);
 
@@ -854,7 +864,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $site_module_info->domain = 'http://www.xpressengine.org';
 
         // Test that default language is 'en', when nothing else is set
-        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $context = $this->getContextMockForDbInfoLoading($db_info, $site_module_info);
         $context->loadDbInfo();
         $context->initializeCurrentSiteInformation($site_module_info);
 
@@ -865,7 +875,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         // Test that default language persists when manually set
         $site_module_info->default_language = 'ro';
 
-        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $context = $this->getContextMockForDbInfoLoading($db_info, $site_module_info);
         $context->loadDbInfo();
         $context->initializeCurrentSiteInformation($site_module_info);
 
@@ -889,7 +899,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $site_module_info->site_srl = 0;
         $site_module_info->domain = 'http://www.xpressengine.org';
 
-        $context = $this->getContextMockForDbInfoLoading($db_info);
+        $context = $this->getContextMockForDbInfoLoading($db_info, $site_module_info);
 
         // 2. Act
         $context->loadDbInfo();
@@ -916,7 +926,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $site_module_info->site_srl = 123;
         $site_module_info->domain = 'mysite';
 
-        $context = $this->getMock('Context', array('getDbInfoFromConfigFile', 'isInstalled', 'isSiteID'));
+        $context = $this->getMock('Context', array('getDbInfoFromConfigFile', 'isInstalled', 'isSiteID', 'getSiteModuleInfo'));
         $context
             ->expects($this->any())
             ->method('isInstalled')
@@ -925,6 +935,10 @@ class ContextTest extends PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('getDbInfoFromConfigFile')
             ->will($this->returnValue($db_info));
+        $context
+            ->expects($this->any())
+            ->method('getSiteModuleInfo')
+            ->will($this->returnValue($site_module_info));
         $context
             ->expects($this->any())
             ->method('isSiteID')
