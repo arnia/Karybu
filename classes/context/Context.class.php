@@ -186,6 +186,32 @@ class Context {
     }
 
     /**
+     * Returns a reference to the global $_REQUEST array
+     *
+     * @return array
+     */
+    public function &getRequest()
+    {
+        return $_REQUEST;
+    }
+
+    /**
+     * Returns a reference to the global $_GET array
+     */
+    public function &getArgumentsForGETRequest()
+    {
+        return $_GET;
+    }
+
+    /**
+     * Returns a reference to the global $_POST array
+     */
+    public function &getArgumentsForPOSTRequest()
+    {
+        return $_POST;
+    }
+
+    /**
      * Returns the value of $_SERVER['CONTENT_TYPE']
      * # Symfony2\Request equivalent: $request->headers->get('Content-Type');
      */
@@ -923,14 +949,17 @@ class Context {
 	 * @return void
 	 */
 	function _setRequestArgument() {
-		if(!count($_REQUEST)) return;
+		if(!count($this->getRequest())) return;
 
-		foreach($_REQUEST as $key => $val) {
+		foreach($this->getRequest() as $key => $val) {
 			if($val === '' || Context::get($key)) continue;
 			$val = $this->_filterRequestVar($key, $val);
 
-			if($this->getRequestMethod()=='GET'&&isset($_GET[$key])) $set_to_vars = true;
-			elseif($this->getRequestMethod()=='POST'&&isset($_POST[$key])) $set_to_vars = true;
+            $get_arguments = $this->getArgumentsForGETRequest();
+            $post_arguments = $this->getArgumentsForPOSTRequest();
+
+			if($this->getRequestMethod()=='GET'&&isset($get_arguments[$key])) $set_to_vars = true;
+			elseif($this->getRequestMethod()=='POST'&&isset($post_arguments[$key])) $set_to_vars = true;
 			else $set_to_vars = false;
 
 			if($set_to_vars)

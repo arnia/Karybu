@@ -246,6 +246,34 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
     }
 
+
+    /**
+     * $_REQUEST holds all data in $_GET, $_POST and $_COOKIE
+     * Only what is in $_GET and $_POST should be set in the Request vars
+     */
+    public function testSetArguments_REQUEST()
+    {
+        $_GET = array("module" => "admin", "act" => "dispLayoutAdminAllInstanceList");
+        $_POST = array();
+        $_COOKIE = array("XDEBUG_SESSION_START" => "1234");
+
+        $_REQUEST = array_merge($_GET, $_POST, $_COOKIE);
+
+        $context = new Context();
+        $context->_setRequestArgument();
+
+        $data = new stdClass();
+        $data->module = 'admin';
+        $data->act = 'dispLayoutAdminAllInstanceList';
+
+        $arguments = $context->getRequestVars();
+        $this->assertEquals($data, $arguments);
+
+        $data->XDEBUG_SESSION_START = "1234";
+        $arguments = $context->getAll();
+        $this->assertEquals($data, $arguments);
+    }
+
 }
 
 /* End of file ContextTest.php */
