@@ -1129,17 +1129,26 @@ class Context {
 				$this->set($key, $val, true);
 				$this->is_uploaded = true;
 			}else {
+                $files = array();
 				for($i=0;$i< count($tmp_name);$i++){
-					if($val['size'][$i] > 0){
-						$file['name']=$val['name'][$i];
-						$file['type']=$val['type'][$i];
-						$file['tmp_name']=$val['tmp_name'][$i];
-						$file['error']=$val['error'][$i];
-						$file['size']=$val['size'][$i];
+                    $tmp_name = $val['tmp_name'][$i];
+					if(!$tmp_name || !$this->is_uploaded_file($tmp_name)) continue;
+                    if($val['size'][$i] > 0) {
+                        $file = array();
+						$file['name'] = $val['name'][$i];
+						$file['type'] = $val['type'][$i];
+						$file['tmp_name'] = $val['tmp_name'][$i];
+						$file['error'] = $val['error'][$i];
+						$file['size'] = $val['size'][$i];
 						$files[] = $file;
 					}
 				}
-				$this->set($key, $files, true);
+                if(count($files) > 0)
+                {
+                    $this->set($key, $files, true);
+                    $this->is_uploaded = true;
+                }
+
 			}
 		}
 	}
