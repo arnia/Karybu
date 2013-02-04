@@ -133,7 +133,12 @@ class Context {
 	 */
 	var $isSuccessInit = true;
 
-	/**
+    /**
+     * List of enabled languages
+     */
+    var $lang_selected = null;
+
+    /**
 	 * returns static context object (Singleton). It's to use Context without declaration of an object
 	 *
 	 * @return object Instance
@@ -656,9 +661,10 @@ class Context {
 	 * @return array Selected languages
 	 */
 	function loadLangSelected() {
-		static $lang_selected = null;
-		if(!$lang_selected) {
-            $file_handler = $this->file_handler;
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
+		if(!$self->lang_selected) {
+            $file_handler = $self->file_handler;
 
 			$orig_lang_file = _XE_PATH_.'common/lang/lang.info';
 			$selected_lang_file = _XE_PATH_.'files/config/lang_selected.info';
@@ -670,17 +676,17 @@ class Context {
 			if(!$file_handler->hasContent($selected_lang_file)) {
 				$buff = $file_handler->readFile($orig_lang_file);
                 $file_handler->writeFile($selected_lang_file, $buff);
-				$lang_selected = Context::loadLangSupported();
+                $self->lang_selected = $self->loadLangSupported();
 			} else {
 				$langs = $file_handler->readFileAsArray($selected_lang_file);
 				foreach($langs as $val) {
 					list($lang_prefix, $lang_text) = explode(',',$val);
 					$lang_text = trim($lang_text);
-					$lang_selected[$lang_prefix] = $lang_text;
+                    $self->lang_selected[$lang_prefix] = $lang_text;
 				}
 			}
 		}
-		return $lang_selected;
+		return $self->lang_selected;
 	}
 
 	/**

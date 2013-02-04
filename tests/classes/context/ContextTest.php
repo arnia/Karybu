@@ -949,6 +949,10 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($site_module_info->domain, $vid);
     }
 
+    /**
+     * Tests retrieving enabled languages for a site when
+     * the needed file exists and is correct
+     */
     public function testLoadEnabledLanguages_LangFileExists()
     {
         $frontend_file_handler = $this->getMock('FrontendFileHandler');
@@ -966,6 +970,82 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $expected = array("en" => "English", "ro" => "Romana");
         $this->assertEquals($expected, $enabled_languages);
 
+    }
+
+    /**
+     * Tests retrieving enabled languages for a site when
+     * the needed is in an old format (inside ./files/cache instead of ./files/config/..)
+     */
+    public function testLoadEnabledLanguages_OldFile()
+    {
+        // 1. Arrange
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $file_handler = $this->getMock('FileHandler', array('hasContent', 'moveFile', 'readFile', 'writeFile', 'readFileAsArray'));
+
+        // First time it checks for file contents, it will see it's empty
+        // Second time it will be true, since the file was moved from the old location
+        $file_handler->expects($this->any())
+            ->method('hasContent')
+            ->will($this->returnCallback(function() {
+                    static $visits = 0;
+                    if($visits == 0) {
+                        $visits++;
+                        return false;
+                    }
+                    return true;
+                }));
+
+        // We make sure the 'move' method was called once
+        $file_handler->expects($this->once())
+            ->method('moveFile');
+
+        $file_handler->expects($this->once())
+            ->method('readFileAsArray')
+            ->will($this->returnValue(array('en,English', 'ro,Romana')));
+
+        // 2. Act
+        $context = new Context($file_handler, $frontend_file_handler);
+        $enabled_languages = $context->loadLangSelected();
+
+        // 3. Assert
+        $expected = array("en" => "English", "ro" => "Romana");
+        $this->assertEquals($expected, $enabled_languages);
+    }
+
+    /**
+     * Tests retrieving enabled languages for a site when
+     * the needed is in an old format (inside ./files/cache instead of ./files/config/..)
+     */
+    public function testLoadEnabledLanguages_LangFileDoesNotExist()
+    {
+        // 1. Arrange
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $file_handler = $this->getMock('FileHandler', array('hasContent', 'moveFile', 'readFile', 'writeFile', 'readFileAsArray'));
+        $context = $this->getMock('Context'
+            , array('loadLangSupported')
+            , array($file_handler, $frontend_file_handler));
+
+        // First time it checks for file contents, it will see it's empty
+        // Second time it will also be false, since the file was not found even in the old location
+        $file_handler->expects($this->exactly(2))
+            ->method('hasContent')
+            ->will($this->returnValue(false));
+
+        // Will try to move the file, so we make sure the 'move' method was called once
+        $file_handler->expects($this->once())
+            ->method('moveFile');
+
+        // Since the file was still not found, it will return all available languages as enabled
+        $available_languages = array('en' => 'English', 'ro' => 'Romana', 'fr' => 'Francais');
+        $context->expects($this->once())
+            ->method('loadLangSupported')
+            ->will($this->returnValue($available_languages));
+
+        // 2. Act
+        $enabled_languages = $context->loadLangSelected();
+
+        // 3. Assert
+        $this->assertEquals($available_languages, $enabled_languages);
     }
 
 }
