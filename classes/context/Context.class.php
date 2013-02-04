@@ -56,6 +56,11 @@ class Context {
 	 * @var object
 	 */
 	var $oFrontEndFileHandler;
+    /**
+     * obejct FileHandler()
+     * @var object
+     */
+    var $file_handler;
 	/**
 	 * script codes in <head>..</head>
 	 * @var string
@@ -133,12 +138,13 @@ class Context {
 	 *
 	 * @return object Instance
 	 */
-	function &getInstance() {
+	function &getInstance(FileHandler $file_handler = null, FrontEndFileHandler $frontend_file_handler = null) {
 		static $theInstance = null;
-		if(!$theInstance) $theInstance = new Context();
+		if(!$theInstance) $theInstance = new Context($file_handler, $frontend_file_handler);
 
 		// include ssl action cache file
-		$theInstance->sslActionCacheFile = FileHandler::getRealPath($theInstance->sslActionCacheFile);
+        $file_handler = $theInstance->file_handler;
+		$theInstance->sslActionCacheFile = $file_handler->getRealPath($theInstance->sslActionCacheFile);
 		if(is_readable($theInstance->sslActionCacheFile))
 		{
 			require_once($theInstance->sslActionCacheFile);
@@ -156,9 +162,13 @@ class Context {
 	 *
 	 * @return void
 	 */
-	function Context()
+	function Context(FileHandler $file_handler = null, FrontEndFileHandler $frontend_file_handler = null)
 	{
-		$this->oFrontEndFileHandler = new FrontEndFileHandler();
+        if(!isset($file_handler)) $file_handler = new FileHandler();
+        if(!isset($frontend_file_handler)) $frontend_file_handler = new FrontEndFileHandler();
+
+        $this->file_handler = $file_handler;
+		$this->oFrontEndFileHandler = $frontend_file_handler;
 	}
 
     /**
@@ -648,19 +658,21 @@ class Context {
 	function loadLangSelected() {
 		static $lang_selected = null;
 		if(!$lang_selected) {
+            $file_handler = $this->file_handler;
+
 			$orig_lang_file = _XE_PATH_.'common/lang/lang.info';
 			$selected_lang_file = _XE_PATH_.'files/config/lang_selected.info';
-			if(!FileHandler::hasContent($selected_lang_file)) {
+			if(!$file_handler->hasContent($selected_lang_file)) {
 				$old_selected_lang_file = _XE_PATH_.'files/cache/lang_selected.info';
-				FileHandler::moveFile($old_selected_lang_file, $selected_lang_file);
+                $file_handler->moveFile($old_selected_lang_file, $selected_lang_file);
 			}
 
-			if(!FileHandler::hasContent($selected_lang_file)) {
-				$buff = FileHandler::readFile($orig_lang_file);
-				FileHandler::writeFile($selected_lang_file, $buff);
+			if(!$file_handler->hasContent($selected_lang_file)) {
+				$buff = $file_handler->readFile($orig_lang_file);
+                $file_handler->writeFile($selected_lang_file, $buff);
 				$lang_selected = Context::loadLangSupported();
 			} else {
-				$langs = file($selected_lang_file);
+				$langs = $file_handler->readFileAsArray($selected_lang_file);
 				foreach($langs as $val) {
 					list($lang_prefix, $lang_text) = explode(',',$val);
 					$lang_text = trim($lang_text);

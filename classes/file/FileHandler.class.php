@@ -99,6 +99,22 @@ class FileHandler {
 		return $buff;
 	}
 
+    /**
+     * Returns file content as an array, each line in the file being an element of the array
+     *
+     * @param $file_name
+     */
+    function readFileAsArray($file_name)
+    {
+        $file_name = FileHandler::getRealPath($file_name);
+
+        if(!file_exists($file_name)) return;
+        $filesize = filesize($file_name);
+        if($filesize<1) return;
+
+        return @file($file_name);
+    }
+
 	/**
 	 * Write $buff into the specified file
 	 *
@@ -159,7 +175,7 @@ class FileHandler {
 		$source = FileHandler::getRealPath($source);
 		if(!file_exists($source))
 		{
-			return FALSE;
+			return false;
 		}
 		FileHandler::removeFile($target);
 		return FileHandler::rename($source, $target);

@@ -5,7 +5,6 @@ if(!defined('__XE__')) require dirname(__FILE__).'/../../Bootstrap.php';
 require_once _XE_PATH_.'classes/context/Context.class.php'; 
 require_once _XE_PATH_.'classes/handler/Handler.class.php';
 require_once _XE_PATH_.'classes/frontendfile/FrontEndFileHandler.class.php';
-require_once _XE_PATH_.'classes/file/FileHandler.class.php';
 require_once _XE_PATH_.'classes/xml/XmlParser.class.php';
 
 class ContextTest extends PHPUnit_Framework_TestCase
@@ -15,8 +14,10 @@ class ContextTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testGetInstance()
 	{
-		$this->assertInstanceOf('Context', Context::getInstance());
-		$this->assertSame(Context::getInstance(), Context::getInstance());
+        $file_handler = $this->getMock('FileHandler', array('getRealPath'));
+
+		$this->assertInstanceOf('Context', Context::getInstance($file_handler));
+		$this->assertSame(Context::getInstance($file_handler), Context::getInstance($file_handler));
 	}
 
 	public function testSetGetVars()
@@ -946,6 +947,25 @@ class ContextTest extends PHPUnit_Framework_TestCase
         // 3. Assert
         $vid = $context->get('vid');
         $this->assertEquals($site_module_info->domain, $vid);
+    }
+
+    public function testLoadEnabledLanguages_LangFileExists()
+    {
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $file_handler = $this->getMock('FileHandler', array('hasContent', 'moveFile', 'readFile', 'writeFile', 'readFileAsArray'));
+        $file_handler->expects($this->any())
+            ->method('hasContent')
+            ->will($this->returnValue(true));
+        $file_handler->expects($this->once())
+            ->method('readFileAsArray')
+            ->will($this->returnValue(array('en,English', 'ro,Romana')));
+
+        $context = new Context($file_handler, $frontend_file_handler);
+        $enabled_languages = $context->loadLangSelected();
+
+        $expected = array("en" => "English", "ro" => "Romana");
+        $this->assertEquals($expected, $enabled_languages);
+
     }
 
 }
