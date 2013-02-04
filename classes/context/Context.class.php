@@ -300,11 +300,7 @@ class Context {
             $this->getGlobals('lang'),
             $this->getGlobalCookies());
 
-		$this->_setXmlRpcArgument();
-		$this->_setJSONRequestArgument();
-		$this->_setRequestArgument();
-		$this->_setUploadedArgument();
-
+        $this->initializeRequestArguments();
 		$this->initializeAppSettingsAndCurrentSiteInfo();
 
 		// Load Language File
@@ -401,6 +397,14 @@ class Context {
 		}
 		$this->set('request_uri',Context::getRequestUri());
 	}
+
+    public function initializeRequestArguments()
+    {
+        $this->_setXmlRpcArgument();
+        $this->_setJSONRequestArgument();
+        $this->_setRequestArgument();
+        $this->_setUploadedArgument();
+    }
 
     /**
      * Returns info about current site and its default module
