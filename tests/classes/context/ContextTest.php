@@ -841,7 +841,6 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         $context = $this->getContextMockForDbInfoLoading($db_info, $site_module_info);
         $context->loadDbInfo();
-        $context->initializeCurrentSiteInformation($site_module_info);
 
         $expected_module_info = clone($site_module_info);
         $actual_site_module_info = $context->get('site_module_info');
@@ -866,7 +865,6 @@ class ContextTest extends PHPUnit_Framework_TestCase
         // Test that default language is 'en', when nothing else is set
         $context = $this->getContextMockForDbInfoLoading($db_info, $site_module_info);
         $context->loadDbInfo();
-        $context->initializeCurrentSiteInformation($site_module_info);
 
         $db_info = $context->getDbinfo();
 
@@ -877,7 +875,6 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         $context = $this->getContextMockForDbInfoLoading($db_info, $site_module_info);
         $context->loadDbInfo();
-        $context->initializeCurrentSiteInformation($site_module_info);
 
         $db_info = $context->getDbinfo();
 
@@ -903,7 +900,6 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         // 2. Act
         $context->loadDbInfo();
-        $context->initializeCurrentSiteInformation($site_module_info);
 
         // 3. Assert
         // Make sure the default_url defined in db.config.php has precedence
@@ -946,7 +942,6 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         // 2. Act
         $context->loadDbInfo();
-        $context->initializeCurrentSiteInformation($site_module_info);
 
         // 3. Assert
         $vid = $context->get('vid');

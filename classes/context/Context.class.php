@@ -403,32 +403,34 @@ class Context {
 	}
 
     /**
+     * Returns info about current site and its default module
+     *
+     * @param $default_url
+     * @return mixed
+     */
+    public function getSiteModuleInfo()
+    {
+        $oModuleModel = &getModel('module');
+        $site_module_info = $oModuleModel->getDefaultMid();
+        return $site_module_info;
+    }
+
+    /**
      * default_url: $this->db_info->default_url
      *
      * @param $default_url
      * @return mixed
      */
-    public function getSiteModuleInfo($default_url)
+    public function getCurrentSiteInfo($default_url)
     {
-        $oModuleModel = &getModel('module');
-        $site_module_info = $oModuleModel->getDefaultMid();
+        $site_module_info = $this->getSiteModuleInfo();
 
         // if site_srl of site_module_info is 0 (default site), compare the domain to default_url of db_config
         if ($site_module_info->site_srl == 0 && $site_module_info->domain != $default_url) {
             $site_module_info->domain = $default_url;
         }
+
         return $site_module_info;
-    }
-
-    /**
-     * Sets the site_module_info into context
-     * Sets the vid into context, if we are on a virtual site
-     *
-     * @param $site_module_info
-     */
-    public function initializeCurrentSiteInformation($site_module_info)
-    {
-
     }
 
     /**
@@ -459,6 +461,65 @@ class Context {
 		if(is_object($oDB)&&method_exists($oDB, 'close')) $oDB->close();
 	}
 
+    function getGlobalAppSettings($custom_global_app_settings, $current_site_info)
+    {
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
+        $global_app_settings = clone($custom_global_app_settings);
+
+        // If master_db information does not exist, the config file needs to be updated
+        if(!isset($global_app_settings->master_db)) {
+            $global_app_settings->master_db = array();
+            $global_app_settings->master_db["db_type"] = $global_app_settings->db_type; unset($global_app_settings->db_type);
+            $global_app_settings->master_db["db_port"] = $global_app_settings->db_port; unset($global_app_settings->db_port);
+            $global_app_settings->master_db["db_hostname"] = $global_app_settings->db_hostname; unset($global_app_settings->db_hostname);
+            $global_app_settings->master_db["db_password"] = $global_app_settings->db_password; unset($global_app_settings->db_password);
+            $global_app_settings->master_db["db_database"] = $global_app_settings->db_database; unset($global_app_settings->db_database);
+            $global_app_settings->master_db["db_userid"] = $global_app_settings->db_userid; unset($global_app_settings->db_userid);
+            $global_app_settings->master_db["db_table_prefix"] = $global_app_settings->db_table_prefix; unset($global_app_settings->db_table_prefix);
+            if(substr($global_app_settings->master_db["db_table_prefix"],-1)!='_') $global_app_settings->master_db["db_table_prefix"] .= '_';
+
+            $slave_db = $global_app_settings->master_db;
+            $global_app_settings->slave_db = array($slave_db);
+
+            $self->setDBInfo($global_app_settings);
+
+            $oInstallController = &$this->getInstallController();
+            $oInstallController->makeConfigFile();
+        }
+
+        if(!$global_app_settings->use_prepared_statements) {
+            $global_app_settings->use_prepared_statements = 'Y';
+        }
+
+        if(!$global_app_settings->time_zone) {
+            $global_app_settings->time_zone = date('O');
+        }
+
+        if($global_app_settings->qmail_compatibility != 'Y') {
+            $global_app_settings->qmail_compatibility = 'N';
+        }
+
+        if(!$global_app_settings->use_db_session) {
+            $global_app_settings->use_db_session = 'N';
+        }
+
+        if(!$global_app_settings->use_ssl) {
+            $global_app_settings->use_ssl = 'none';
+        }
+
+        $global_app_settings->lang_type = $current_site_info->default_language;
+        if (!$global_app_settings->lang_type) {
+            $global_app_settings->lang_type = 'en';
+        }
+
+        if (!$global_app_settings->use_db_session) {
+            $global_app_settings->use_db_session = 'N';
+        }
+
+        return $global_app_settings;
+    }
+
 	/**
 	 * Load the database information
 	 *
@@ -469,62 +530,39 @@ class Context {
 
 		if(!$self->isInstalled()) return;
 
-        $db_info = $this->getDbInfoFromConfigFile();
+        $custom_global_app_settings = $this->getDbInfoFromConfigFile();
+        $current_site_info = $this->getCurrentSiteInfo($custom_global_app_settings->default_url);
 
-        // If master_db information does not exist, the config file needs to be updated
-        if(!isset($db_info->master_db)) {
-            $db_info->master_db = array();
-            $db_info->master_db["db_type"] = $db_info->db_type; unset($db_info->db_type);
-            $db_info->master_db["db_port"] = $db_info->db_port; unset($db_info->db_port);
-            $db_info->master_db["db_hostname"] = $db_info->db_hostname; unset($db_info->db_hostname);
-            $db_info->master_db["db_password"] = $db_info->db_password; unset($db_info->db_password);
-            $db_info->master_db["db_database"] = $db_info->db_database; unset($db_info->db_database);
-            $db_info->master_db["db_userid"] = $db_info->db_userid; unset($db_info->db_userid);
-            $db_info->master_db["db_table_prefix"] = $db_info->db_table_prefix; unset($db_info->db_table_prefix);
-            if(substr($db_info->master_db["db_table_prefix"],-1)!='_') $db_info->master_db["db_table_prefix"] .= '_';
+        $global_app_settings = $this->getGlobalAppSettings($custom_global_app_settings, $current_site_info);
 
-            $slave_db = $db_info->master_db;
-            $db_info->slave_db = array($slave_db);
-
-            $self->setDBInfo($db_info);
-
-            $oInstallController = &$this->getInstallController();
-            $oInstallController->makeConfigFile();
-        }
-		
-		if(!$db_info->use_prepared_statements) 
-		{
-			$db_info->use_prepared_statements = 'Y';
-		}
-				
-		if(!$db_info->time_zone) $db_info->time_zone = date('O');
+        // Set $time_zone in $GLOBALS['_time_zone']
         $time_zone = &$this->getGlobals('_time_zone');
-        $time_zone = $db_info->time_zone;
+        $time_zone = $global_app_settings->time_zone;
 
-		if($db_info->qmail_compatibility != 'Y') $db_info->qmail_compatibility = 'N';
+        // Set $qmail_compatibility in $GLOBALS['_qmail_compatibility']
         $qmail_compatibility = &$this->getGlobals('_qmail_compatibility');
-        $qmail_compatibility = $db_info->qmail_compatibility;
+        $qmail_compatibility = $global_app_settings->qmail_compatibility;
 
-		if(!$db_info->use_db_session) $db_info->use_db_session = 'N';
+        // Set some settings as variables in Context
+        $self->set('_use_ssl', $global_app_settings->use_ssl);
 
-		if(!$db_info->use_ssl) $db_info->use_ssl = 'none';
-		$self->set('_use_ssl', $db_info->use_ssl);
-
-		if($db_info->http_port)  $self->set('_http_port', $db_info->http_port);
-		if($db_info->https_port) $self->set('_https_port', $db_info->https_port);
-
-        $site_module_info = $this->getSiteModuleInfo($db_info->default_url);
-        $this->set('site_module_info', $site_module_info);
-
-        if ($site_module_info->site_srl && $this->isSiteID($site_module_info->domain)) {
-            $this->set('vid', $site_module_info->domain, true);
+        if($global_app_settings->http_port)  {
+            $self->set('_http_port', $global_app_settings->http_port);
         }
 
-        $db_info->lang_type = $site_module_info->default_language;
-        if (!$db_info->lang_type) $db_info->lang_type = 'en';
-        if (!$db_info->use_db_session) $db_info->use_db_session = 'N';
+        if($global_app_settings->https_port) {
+            $self->set('_https_port', $global_app_settings->https_port);
+        }
 
-		$self->setDBInfo($db_info);
+        // Set current site info in Context
+        $this->set('site_module_info', $current_site_info);
+
+        // Set vid, if this is a virtual site
+        if ($current_site_info->site_srl && $this->isSiteID($current_site_info->domain)) {
+            $this->set('vid', $current_site_info->domain, true);
+        }
+
+		$self->setDBInfo($global_app_settings);
 	}
 
 	/**
