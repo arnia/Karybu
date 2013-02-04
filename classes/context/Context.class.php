@@ -513,10 +513,6 @@ class Context {
             $global_app_settings->lang_type = 'en';
         }
 
-        if (!$global_app_settings->use_db_session) {
-            $global_app_settings->use_db_session = 'N';
-        }
-
         return $global_app_settings;
     }
 
