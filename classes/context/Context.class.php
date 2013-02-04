@@ -319,27 +319,11 @@ class Context {
 		$this->initializeAppSettingsAndCurrentSiteInfo();
 
 		// Load Language File
-		$lang_supported = $this->loadLangSelected();
+		$enabled_languages = $this->loadLangSelected();
+        $current_language = $this->getCurrentLanguage($enabled_languages, $this->db_info->lang_type);
 
-		// Retrieve language type set in user's cookie
-		if($this->get('l')) {
-			$this->lang_type = $this->get('l');
-			if($_COOKIE['lang_type'] != $this->lang_type) {
-				setcookie('lang_type', $this->lang_type, time()+3600*24*1000, '/');
-			}
-		} elseif($_COOKIE['lang_type']) {
-			$this->lang_type = $_COOKIE['lang_type'];
-		}
-
-		// If it's not exists, follow default language type set in db_info
-		if(!$this->lang_type) $this->lang_type = $this->db_info->lang_type;
-
-		// if still lang_type has not been set or has not-supported type , set as English.
-		if(!$this->lang_type) $this->lang_type = 'en';
-		if(is_array($lang_supported)&&!isset($lang_supported[$this->lang_type])) $this->lang_type = 'en';
-
-		$this->set('lang_supported', $lang_supported);
-		$this->setLangType($this->lang_type);
+        $this->set('lang_supported', $enabled_languages);
+		$this->setLangType($current_language);
 
 		// load module module's language file according to language setting
 		$this->loadLang(_XE_PATH_.'modules/module/lang');
@@ -412,6 +396,31 @@ class Context {
 		}
 		$this->set('request_uri',Context::getRequestUri());
 	}
+
+    public function getCurrentLanguage($enabled_languages, $default_language)
+    {
+        $current_language = null;
+        // Retrieve language type set in user's cookie
+        if ($this->get('l')) {
+            $current_language = $this->get('l');
+            if ($_COOKIE['lang_type'] != $current_language) {
+                setcookie('lang_type', $current_language, time() + 3600 * 24 * 1000, '/');
+            }
+        } elseif ($_COOKIE['lang_type']) {
+            $current_language = $_COOKIE['lang_type'];
+        }
+
+        // If it's not exists, follow default language type set in db_info
+        if (!$current_language) $current_language = $default_language;
+
+        // if still lang_type has not been set or has not-supported type , set as English.
+        if (!$current_language) $current_language = 'en';
+        if (is_array($enabled_languages) && !isset($enabled_languages[$current_language])) {
+            $current_language = 'en';
+        }
+
+        return $current_language;
+    }
 
     public function initializeRequestArguments()
     {
