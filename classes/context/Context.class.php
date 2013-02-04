@@ -533,6 +533,9 @@ class Context {
 		if(!$self->isInstalled()) return;
 
         $custom_global_app_settings = $this->loadDbInfoFromConfigFile();
+        // Set app configuration in db_info for getting current site info, otherwise it won't know db connection info
+        $self->setDBInfo($custom_global_app_settings);
+
         $current_site_info = $this->getCurrentSiteInfo($custom_global_app_settings->default_url);
 
         $global_app_settings = $this->getGlobalAppSettings($custom_global_app_settings, $current_site_info);
