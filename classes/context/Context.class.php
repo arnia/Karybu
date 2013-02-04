@@ -309,7 +309,6 @@ class Context {
 	 * @return void
 	 */
 	function init() {
-
         $this->linkContextToGlobals(
             $this->getGlobals('__Context__'),
             $this->getGlobals('lang'),
@@ -317,63 +316,10 @@ class Context {
 
         $this->initializeRequestArguments();
 		$this->initializeAppSettingsAndCurrentSiteInfo();
+        $this->initializeLanguages();
 
-		// Load Language File
-		$enabled_languages = $this->loadLangSelected();
-        $this->set('lang_supported', $enabled_languages);
-
-        $current_language = $this->getCurrentLanguage($enabled_languages, $this->db_info->lang_type);
-		$this->setLangType($current_language);
-
-		// load module module's language file according to language setting
-		$this->loadLang(_XE_PATH_.'modules/module/lang');
-
-		// set session handler
-		if(Context::isInstalled() && $this->db_info->use_db_session == 'Y') {
-			$oSessionModel = &getModel('session');
-			$oSessionController = &getController('session');
-			session_set_save_handler(
-				array(&$oSessionController, 'open'),
-				array(&$oSessionController, 'close'),
-				array(&$oSessionModel, 'read'),
-				array(&$oSessionController, 'write'),
-				array(&$oSessionController, 'destroy'),
-				array(&$oSessionController, 'gc')
-			);
-		}
-		session_start();
-		if($sess=$_POST[session_name()]) session_id($sess);
-
-		// set authentication information in Context and session
-		if(Context::isInstalled()) {
-			$oModuleModel = &getModel('module');
-			$oModuleModel->loadModuleExtends();
-
-			$oMemberModel = &getModel('member');
-			$oMemberController = &getController('member');
-
-			if($oMemberController && $oMemberModel)
-			{
-				// if signed in, validate it.
-				if($oMemberModel->isLogged()) {
-					$oMemberController->setSessionInfo();
-				}
-				elseif($_COOKIE['xeak']) { // check auto sign-in
-					$oMemberController->doAutologin();
-				}
-
-				$this->set('is_logged', $oMemberModel->isLogged() );
-				$this->set('logged_info', $oMemberModel->getLoggedInfo() );
-			}
-		}
-
-		// load common language file
-		$this->lang = &$GLOBALS['lang'];
-		$this->loadLang(_XE_PATH_.'common/lang/');
-
-		// check if using rewrite module
-		if(file_exists(_XE_PATH_.'.htaccess')&&$this->db_info->use_rewrite == 'Y') $this->allow_rewrite = true;
-		else $this->allow_rewrite = false;
+        $this->startSession();
+        $this->setAuthenticationInfoInContextAndSession();
 
 		// set locations for javascript use
 		if($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -396,6 +342,70 @@ class Context {
 		}
 		$this->set('request_uri',Context::getRequestUri());
 	}
+
+    public function initializeLanguages()
+    { // Load Language File
+        $enabled_languages = $this->loadLangSelected();
+        $this->set('lang_supported', $enabled_languages);
+
+        $current_language = $this->getCurrentLanguage($enabled_languages, $this->db_info->lang_type);
+        $this->setLangType($current_language);
+
+        $this->lang = & $GLOBALS['lang'];
+        // load module module's language file according to language setting
+        $this->loadLang(_XE_PATH_ . 'modules/module/lang');
+        // load common language file
+        $this->loadLang(_XE_PATH_ . 'common/lang/');
+    }
+
+    /**
+     * Save info of the currently logged in user in Context and Session
+     */
+    public function setAuthenticationInfoInContextAndSession()
+    {
+        if (!Context::isInstalled()) return;
+
+        $oModuleModel = & getModel('module');
+        $oModuleModel->loadModuleExtends();
+
+        $oMemberModel = & getModel('member');
+        $oMemberController = & getController('member');
+
+        if ($oMemberController && $oMemberModel) {
+            // if signed in, validate it.
+            if ($oMemberModel->isLogged()) {
+                $oMemberController->setSessionInfo();
+            } elseif ($_COOKIE['xeak']) { // check auto sign-in
+                $oMemberController->doAutologin();
+            }
+
+            $this->set('is_logged', $oMemberModel->isLogged());
+            $this->set('logged_info', $oMemberModel->getLoggedInfo());
+        }
+    }
+
+    /**
+     * Starts session
+     * Configures custom session handler in db, if enabled
+     */
+    public function startSession()
+    {
+        // set session handler
+        if (Context::isInstalled() && $this->db_info->use_db_session == 'Y') {
+            $oSessionModel = & getModel('session');
+            $oSessionController = & getController('session');
+            session_set_save_handler(
+                array(&$oSessionController, 'open'),
+                array(&$oSessionController, 'close'),
+                array(&$oSessionModel, 'read'),
+                array(&$oSessionController, 'write'),
+                array(&$oSessionController, 'destroy'),
+                array(&$oSessionController, 'gc')
+            );
+        }
+        session_start();
+        if ($sess = $_POST[session_name()]) session_id($sess);
+    }
 
     public function getCurrentLanguage($enabled_languages, $default_language)
     {
@@ -591,7 +601,15 @@ class Context {
             $this->set('vid', $current_site_info->domain, true);
         }
 
-		$self->setDBInfo($global_app_settings);
+        // check if using rewrite module
+        if(file_exists(_XE_PATH_.'.htaccess') && $global_app_settings->use_rewrite == 'Y') {
+            $this->allow_rewrite = true;
+        }
+        else {
+            $this->allow_rewrite = false;
+        }
+
+        $self->setDBInfo($global_app_settings);
 	}
 
 	/**
