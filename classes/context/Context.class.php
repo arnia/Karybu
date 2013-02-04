@@ -276,7 +276,7 @@ class Context {
     /**
      * Returns the current dbinfo
      */
-    public function getDbInfoFromConfigFile()
+    public function loadDbInfoFromConfigFile()
     {
         is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
 
@@ -305,7 +305,7 @@ class Context {
 		$this->_setRequestArgument();
 		$this->_setUploadedArgument();
 
-		$this->loadDBInfo();
+		$this->initializeAppSettingsAndCurrentSiteInfo();
 
 		// Load Language File
 		$lang_supported = $this->loadLangSelected();
@@ -517,16 +517,18 @@ class Context {
     }
 
 	/**
-	 * Load the database information
+	 * Loads the global app configuration - from the db.config.php file;
+     * Initializes other global app settings - like whether to use ssl or not and other
+     * Loads current site information (including info about the module set as default)
 	 *
 	 * @return void
 	 */
-	function loadDBInfo() {
+	function initializeAppSettingsAndCurrentSiteInfo() {
 		is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
 
 		if(!$self->isInstalled()) return;
 
-        $custom_global_app_settings = $this->getDbInfoFromConfigFile();
+        $custom_global_app_settings = $this->loadDbInfoFromConfigFile();
         $current_site_info = $this->getCurrentSiteInfo($custom_global_app_settings->default_url);
 
         $global_app_settings = $this->getGlobalAppSettings($custom_global_app_settings, $current_site_info);

@@ -487,14 +487,14 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
     private function getContextMockForDbInfoLoading($db_info, $site_module_info = null)
     {
-        $context = $this->getMock('Context', array('getDbInfoFromConfigFile', 'isInstalled', 'getSiteModuleInfo'));
+        $context = $this->getMock('Context', array('loadDbInfoFromConfigFile', 'isInstalled', 'getSiteModuleInfo'));
         $context
             ->expects($this->any())
             ->method('isInstalled')
             ->will($this->returnValue(true));
         $context
             ->expects($this->any())
-            ->method('getDbInfoFromConfigFile')
+            ->method('loadDbInfoFromConfigFile')
             ->will($this->returnValue($db_info));
 
         if($site_module_info == null) $site_module_info = new stdClass();
@@ -528,7 +528,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $expected_db_info->use_db_session = 'N';
         $expected_db_info->use_ssl = 'none';
 
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
         $actual_db_info = $context->getDbInfo();
 
         $this->assertEquals($expected_db_info, $actual_db_info);
@@ -549,7 +549,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $expected_db_info = clone($db_info);
         $expected_db_info->use_prepared_statements = 'Y';
 
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
         $actual_db_info = $context->getDbInfo();
 
         $this->assertEquals($expected_db_info->use_prepared_statements, $actual_db_info->use_prepared_statements);
@@ -564,7 +564,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         $expected_db_info = clone($db_info);
 
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
         $actual_db_info = $context->getDbInfo();
 
         $this->assertEquals($expected_db_info->use_prepared_statements, $actual_db_info->use_prepared_statements);
@@ -585,7 +585,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $expected_db_info = clone($db_info);
         $expected_db_info->time_zone = date('O');
 
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
         $actual_db_info = $context->getDbInfo();
 
         $this->assertEquals($expected_db_info->time_zone, $actual_db_info->time_zone);
@@ -600,7 +600,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         $expected_db_info = clone($db_info);
 
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
         $actual_db_info = $context->getDbInfo();
 
         $this->assertEquals($expected_db_info->time_zone, $actual_db_info->time_zone);
@@ -624,7 +624,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $expected_db_info = clone($db_info);
         $expected_db_info->qmail_compatibility = 'N';
 
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
         $actual_db_info = $context->getDbInfo();
 
         $this->assertEquals($expected_db_info->qmail_compatibility, $actual_db_info->qmail_compatibility);
@@ -639,7 +639,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         $expected_db_info = clone($db_info);
 
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
         $actual_db_info = $context->getDbInfo();
 
         $this->assertEquals($expected_db_info->qmail_compatibility, $actual_db_info->qmail_compatibility);
@@ -663,7 +663,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $expected_db_info = clone($db_info);
         $expected_db_info->use_db_session = 'N';
 
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
         $actual_db_info = $context->getDbInfo();
 
         $this->assertEquals($expected_db_info->use_db_session, $actual_db_info->use_db_session);
@@ -678,7 +678,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         $expected_db_info = clone($db_info);
 
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
         $actual_db_info = $context->getDbInfo();
 
         $this->assertEquals($expected_db_info->use_db_session, $actual_db_info->use_db_session);
@@ -702,7 +702,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $expected_db_info = clone($db_info);
         $expected_db_info->use_ssl = 'none';
 
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
         $actual_db_info = $context->getDbInfo();
 
         $this->assertEquals($expected_db_info->use_ssl, $actual_db_info->use_ssl);
@@ -717,7 +717,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         $expected_db_info = clone($db_info);
 
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
         $actual_db_info = $context->getDbInfo();
 
         $this->assertEquals($expected_db_info->use_ssl, $actual_db_info->use_ssl);
@@ -740,7 +740,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         $expected_db_info = clone($db_info);
 
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
         $actual_db_info = $context->getDbInfo();
 
         $this->assertEquals(null, $actual_db_info->http_port);
@@ -757,7 +757,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         $expected_db_info = clone($db_info);
 
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
         $actual_db_info = $context->getDbInfo();
 
         $this->assertEquals($expected_db_info->http_port, $actual_db_info->http_port);
@@ -787,7 +787,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $db_info->db_table_prefix = 'xe_';
 
         $context = $this->getMock('Context'
-            , array('getDbInfoFromConfigFile', 'isInstalled', 'getInstallController', 'getSiteModuleInfo'));
+            , array('loadDbInfoFromConfigFile', 'isInstalled', 'getInstallController', 'getSiteModuleInfo'));
 
         $context
             ->expects($this->any())
@@ -795,7 +795,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
         $context
             ->expects($this->any())
-            ->method('getDbInfoFromConfigFile')
+            ->method('loadDbInfoFromConfigFile')
             ->will($this->returnValue($db_info));
         $context
             ->expects($this->any())
@@ -818,7 +818,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $expected_db_info->master_db = array('db_type' => 'mysql','db_port' => '3306','db_hostname' => 'localhost','db_userid' => 'root','db_password' => 'password','db_database' => 'globalcms','db_table_prefix' => 'xe_');
         $expected_db_info->slave_db = array(array('db_type' => 'mysql','db_port' => '3306','db_hostname' => 'localhost','db_userid' => 'root','db_password' => 'password','db_database' => 'globalcms','db_table_prefix' => 'xe_'));
 
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
         $actual_db_info = $context->getDbInfo();
 
         $this->assertEquals($expected_db_info->master_db, $actual_db_info->master_db);
@@ -840,7 +840,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $site_module_info->domain = 'http://www.xpressengine.org';
 
         $context = $this->getContextMockForDbInfoLoading($db_info, $site_module_info);
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
 
         $expected_module_info = clone($site_module_info);
         $actual_site_module_info = $context->get('site_module_info');
@@ -864,7 +864,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         // Test that default language is 'en', when nothing else is set
         $context = $this->getContextMockForDbInfoLoading($db_info, $site_module_info);
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
 
         $db_info = $context->getDbinfo();
 
@@ -874,7 +874,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $site_module_info->default_language = 'ro';
 
         $context = $this->getContextMockForDbInfoLoading($db_info, $site_module_info);
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
 
         $db_info = $context->getDbinfo();
 
@@ -899,7 +899,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $context = $this->getContextMockForDbInfoLoading($db_info, $site_module_info);
 
         // 2. Act
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
 
         // 3. Assert
         // Make sure the default_url defined in db.config.php has precedence
@@ -922,14 +922,14 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $site_module_info->site_srl = 123;
         $site_module_info->domain = 'mysite';
 
-        $context = $this->getMock('Context', array('getDbInfoFromConfigFile', 'isInstalled', 'isSiteID', 'getSiteModuleInfo'));
+        $context = $this->getMock('Context', array('loadDbInfoFromConfigFile', 'isInstalled', 'isSiteID', 'getSiteModuleInfo'));
         $context
             ->expects($this->any())
             ->method('isInstalled')
             ->will($this->returnValue(true));
         $context
             ->expects($this->any())
-            ->method('getDbInfoFromConfigFile')
+            ->method('loadDbInfoFromConfigFile')
             ->will($this->returnValue($db_info));
         $context
             ->expects($this->any())
@@ -941,7 +941,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
 
         // 2. Act
-        $context->loadDbInfo();
+        $context->initializeAppSettingsAndCurrentSiteInfo();
 
         // 3. Assert
         $vid = $context->get('vid');
