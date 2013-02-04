@@ -320,9 +320,9 @@ class Context {
 
 		// Load Language File
 		$enabled_languages = $this->loadLangSelected();
-        $current_language = $this->getCurrentLanguage($enabled_languages, $this->db_info->lang_type);
-
         $this->set('lang_supported', $enabled_languages);
+
+        $current_language = $this->getCurrentLanguage($enabled_languages, $this->db_info->lang_type);
 		$this->setLangType($current_language);
 
 		// load module module's language file according to language setting
@@ -824,48 +824,98 @@ class Context {
 	 * @return void
 	 */
 	function loadLang($path) {
-		global $lang;
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
 
-		is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
-		if(!is_object($lang)) $lang = new stdClass;
-		if(!$self->lang_type) return;
+		if(!$self->lang_type) {
+            return;
+        }
 
 		$filename = $self->_loadXmlLang($path);
-		if(!$filename) $filename = $self->_loadPhpLang($path);
+		if(!$filename) {
+            $filename = $self->_loadPhpLang($path);
+        }
 
-		if(!is_array($self->loaded_lang_files)) $self->loaded_lang_files = array();
-		if(in_array($filename, $self->loaded_lang_files)) return;
+		if(!is_array($self->loaded_lang_files)) {
+            $self->loaded_lang_files = array();
+        }
 
-		if ($filename && is_readable($filename)){
+		if(in_array($filename, $self->loaded_lang_files)) {
+            return;
+        }
+
+		if ($filename && $this->is_readable($filename)){
 			$self->loaded_lang_files[] = $filename;
-			@include($filename);
-		}else{
+            $this->includeLanguageFile($filename);
+        }else{
 			$self->_evalxmlLang($path);
 		}
 	}
 
-	/**
+    /**
+     * Includes a PHP language file (old php formar or compiled new XML format)
+     *
+     * @param $filename
+     */
+    public function includeLanguageFile($filename)
+    {
+        global $lang;
+
+        if(!is_object($lang)) {
+            $lang = new stdClass;
+        }
+
+        include($filename);
+    }
+
+    /**
+     * Evaluates a compiled XML language file
+     *
+     * @param $content
+     */
+    public function evaluateLanguageFileContent($content)
+    {
+        global $lang;
+
+        if(!is_object($lang)) {
+            $lang = new stdClass;
+        }
+
+        eval($content);
+    }
+
+    /**
+     * Wrapper for PHP's is_readable function so it can be mocked in tests
+     *
+     * @param $filename
+     * @return bool
+     */
+    public function is_readable($filename)
+    {
+        return is_readable($filename);
+    }
+
+    /**
 	 * Evaluation of xml language file
 	 *
 	 * @param string Path of the language file
 	 * @return void
 	 */
 	function _evalxmlLang($path) {
-		global $lang;
-		
 		$_path = 'eval://'.$path;
 
-		if(in_array($_path, $this->loaded_lang_files)) return;
+		if(in_array($_path, $this->loaded_lang_files)) {
+            return;
+        }
 
 		if(substr($path,-1)!='/') $path .= '/';
 		$file = $path.'lang.xml';
 
-		$oXmlLangParser = new XmlLangParser($file, $this->lang_type);
+		$oXmlLangParser = $this->getXmlLangParser($file, $this->lang_type);
 		$content = $oXmlLangParser->getCompileContent();
 
 		if ($content){
 			$this->loaded_lang_files[] = $_path;
-			eval($content);
+			$this->evaluateLanguageFileContent($content);
 		}
 	}
 
@@ -877,15 +927,28 @@ class Context {
 	 */
 	function _loadXmlLang($path) {
 		if(substr($path,-1)!='/') $path .= '/';
-		$file = $path.'lang.xml';
+		$xml_file_name = $path.'lang.xml';
 
-		$oXmlLangParser = new XmlLangParser($file, $this->lang_type);
-		$file = $oXmlLangParser->compile();
+		$oXmlLangParser = $this->getXmlLangParser($xml_file_name, $this->lang_type);
+		$compiled_file_name = $oXmlLangParser->compile();
 
-		return $file;
+		return $compiled_file_name;
 	}
 
-	/**
+    /**
+     * Returns an instnace of the XmlLangParse class
+     * Used for tests
+     *
+     * @param $file
+     * @param $lang_type
+     * @return XmlLangParser
+     */
+    public function getXmlLangParser($file, $lang_type)
+    {
+        return new XmlLangParser($file, $lang_type);
+    }
+
+    /**
 	 * Load language file of php type
 	 *
 	 * @param string $path Path of the language file
@@ -897,11 +960,11 @@ class Context {
 		$file = sprintf($path_tpl, $this->lang_type);
 
 		$langs = array('ko','en'); // this will be configurable.
-		while(!is_readable($file) && $langs[0]) {
+		while(!$this->is_readable($file) && $langs[0]) {
 			$file = sprintf($path_tpl, array_shift($langs));
 		}
 
-		if(!is_readable($file)) return false;
+		if(!$this->is_readable($file)) return false;
 		return $file;
 	}
 

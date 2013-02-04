@@ -1048,6 +1048,167 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($available_languages, $enabled_languages);
     }
 
+    /**
+     * If the current language is not set, no language file should be loaded
+     */
+    public function testLoadLang_WhenCurrentLanguageIsNotSet()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        // 2. Act
+        $context->loadLang('/path/to/my_module');
+
+        // 3. Assert
+        $this->assertEquals(0, count($context->loaded_lang_files));
+    }
+
+    /**
+     * Test that loading works when languages are in the new XML format
+     */
+    public function testLoadLang_WhenLanguageFileIsXmlFormat()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+
+        $context = $this->getMock('Context', array('getXmlLangParser', 'is_readable', 'includeLanguageFile'), array($file_handler, $frontend_file_handler));
+
+        $xml_lang_parser = $this->getMock('XmlLangParser', array('compile'));
+        $xml_lang_parser->expects($this->once())
+            ->method('compile')
+            ->will($this->returnValue("compiled.php"));
+
+        $context->expects($this->once())
+            ->method('getXmlLangParser')
+            ->will($this->returnValue($xml_lang_parser));
+        $context->expects($this->any())
+            ->method('is_readable')
+            ->will($this->returnValue(true));
+
+        $context->lang_type = 'en';
+
+        // 2. Act
+        $context->loadLang('/path/to/my_module');
+
+        // 3. Assert
+        $this->assertEquals(1, count($context->loaded_lang_files));
+        $this->assertEquals("compiled.php", $context->loaded_lang_files[0]);
+    }
+
+    /**
+     * Test that loading works when languages are in the old PHP format
+     */
+    public function testLoadLang_WhenLanguageFileIsPhpFormat()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+
+        $context = $this->getMock('Context', array('getXmlLangParser', 'is_readable', 'includeLanguageFile'), array($file_handler, $frontend_file_handler));
+
+        $xml_lang_parser = $this->getMock('XmlLangParser', array('compile'));
+        $xml_lang_parser->expects($this->once())
+            ->method('compile')
+            ->will($this->returnValue(false));
+
+        $context->expects($this->once())
+            ->method('getXmlLangParser')
+            ->will($this->returnValue($xml_lang_parser));
+        $context->expects($this->any())
+            ->method('is_readable')
+            ->will($this->returnValue(true));
+
+        $context->lang_type = 'en';
+
+        // 2. Act
+        $context->loadLang('/path/to/my_module');
+
+        // 3. Assert
+        $this->assertEquals(1, count($context->loaded_lang_files));
+        $this->assertEquals("/path/to/my_module/en.lang.php", $context->loaded_lang_files[0]);
+    }
+
+    /**
+     * Test that if a language file was already loaded, it will not be loaded again
+     */
+    public function testLoadLang_WhenLanguageFileWasAlreadyLoaded()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+
+        $context = $this->getMock('Context', array('getXmlLangParser', 'is_readable'), array($file_handler, $frontend_file_handler));
+
+        $xml_lang_parser = $this->getMock('XmlLangParser', array('compile'));
+        $xml_lang_parser->expects($this->once())
+            ->method('compile')
+            ->will($this->returnValue("compiled.php"));
+
+        $context->expects($this->once())
+            ->method('getXmlLangParser')
+            ->will($this->returnValue($xml_lang_parser));
+        $context->expects($this->any())
+            ->method('is_readable')
+            ->will($this->returnValue(true));
+
+        $context->lang_type = 'en';
+        $context->loaded_lang_files = array("compiled.php");
+
+        // 2. Act
+        $context->loadLang('/path/to/my_module');
+
+        // 3. Assert
+        $this->assertEquals(1, count($context->loaded_lang_files));
+        $this->assertEquals("compiled.php", $context->loaded_lang_files[0]);
+    }
+
+    /**
+     * When using XML files for lang, XE compiles them to .php to make loading faster
+     * However, it is possible for PHP to not have the right to write to disk, so then
+     * the compiled result is not written to disk, but just used as is
+     */
+    public function testLoadLang_WhenThereAreNoPermissionToWriteCompiledXmlFile()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+
+        $context = $this->getMock('Context', array('getXmlLangParser', 'is_readable', 'evaluateLanguageFileContent'), array($file_handler, $frontend_file_handler));
+
+        $xml_lang_parser = $this->getMock('XmlLangParser', array('compile', 'getCompileContent'));
+        $xml_lang_parser->expects($this->any())
+            ->method('compile')
+            ->will($this->returnValue("compiled.php"));
+        $xml_lang_parser->expects($this->any())
+            ->method('getCompileContent')
+            ->will($this->returnValue("compiled_content"));
+
+        $context->expects($this->any())
+            ->method('getXmlLangParser')
+            ->will($this->returnValue($xml_lang_parser));
+        $context->expects($this->any())
+            ->method('is_readable')
+            ->will($this->returnValue(false));
+
+        $context->lang_type = 'en';
+
+        // 2. Act
+        $context->loadLang('/path/to/my_module');
+
+        // 3. Assert
+        $this->assertEquals(1, count($context->loaded_lang_files));
+        $this->assertEquals("eval:///path/to/my_module", $context->loaded_lang_files[0]);
+
+        // Also test that if called again, it won't load the content again
+        $context->loadLang('/path/to/my_module');
+        $this->assertEquals(1, count($context->loaded_lang_files));
+        $this->assertEquals("eval:///path/to/my_module", $context->loaded_lang_files[0]);
+
+    }
+
 }
 
 /* End of file ContextTest.php */
