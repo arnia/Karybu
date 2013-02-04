@@ -843,9 +843,9 @@ class Context {
             return;
         }
 
-		if ($filename && $this->is_readable($filename)){
+		if ($filename && $self->is_readable($filename)){
 			$self->loaded_lang_files[] = $filename;
-            $this->includeLanguageFile($filename);
+            $self->includeLanguageFile($filename);
         }else{
 			$self->_evalxmlLang($path);
 		}
@@ -955,16 +955,18 @@ class Context {
 	 * @return string file name
 	 */
 	function _loadPhpLang($path) {
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
 		if(substr($path,-1)!='/') $path .= '/';
 		$path_tpl = $path.'%s.lang.php';
-		$file = sprintf($path_tpl, $this->lang_type);
+		$file = sprintf($path_tpl, $self->lang_type);
 
 		$langs = array('ko','en'); // this will be configurable.
-		while(!$this->is_readable($file) && $langs[0]) {
+		while(!$self->is_readable($file) && $langs[0]) {
 			$file = sprintf($path_tpl, array_shift($langs));
 		}
 
-		if(!$this->is_readable($file)) return false;
+		if(!$self->is_readable($file)) return false;
 		return $file;
 	}
 
