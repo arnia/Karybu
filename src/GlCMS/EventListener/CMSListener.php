@@ -83,9 +83,11 @@ class CMSListener implements EventSubscriberInterface
     {
         $request = $event->getRequest();
         $oModuleHandler = new \ModuleHandler();
-        $request->attributes->set('oModuleHandler', $oModuleHandler);
         if (!$oModuleHandler->init()) {
             $event->setResponse(new Response('Module handler init failure', 500));
+        }
+        else {
+            $request->attributes->set('oModuleHandler', $oModuleHandler);
         }
     }
 
@@ -161,10 +163,11 @@ class CMSListener implements EventSubscriberInterface
 
     public function makeResponse(GetResponseForControllerResultEvent $event)
     {
-        $response = $event->getControllerResult();
-        $oModule = $response["oModule"];
+        $controllerResult = $event->getControllerResult();
+        $oModule = $controllerResult["oModule"];
 
         // Load layouts and stuff like that
+        /** @var $oModuleHandler \ModuleHandler */
         $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
         $oModuleHandler->displayContent($oModule);
 

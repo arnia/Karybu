@@ -31,7 +31,7 @@
  **/
 
 use Symfony\Component\HttpFoundation\Request;
-use GlCMS\Core;
+use GlCMS\HttpKernel\Kernel;
 
 /**
  * Declare constants for generic use and for checking to avoid a direct call from the Web
@@ -43,12 +43,8 @@ define('__ZBXE__', true); // deprecated : __ZBXE__ will be removed. Use __XE__ i
  * Include the necessary configuration files
  **/
 require dirname(__FILE__) . '/config/config.inc.php';
-
-/** @var $container \Symfony\Component\DependencyInjection\Container */
-$container = include __DIR__.'/src/container.php';
 $request = Request::createFromGlobals();
-/** @var $core \GlCMS\Core */
-$core = $container->get('core');
-$response = $core->handle($request);
+$kernel = new Kernel(true);
+$response = $kernel->handle($request);
 $response->send();
-$core->terminate($request, $response);
+$kernel->terminate($request, $response);
