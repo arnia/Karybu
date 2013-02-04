@@ -1209,6 +1209,90 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
     }
 
+    public function testGetCurrentUrl_Not_GET_Request()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestUri'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('getRequestUri')
+            ->will($this->returnValue('here_is_some_dummy_request_uri'));
+
+        $context->setRequestMethod('POST');
+
+        // 2. Act
+        $current_url = $context->getCurrentUrl();
+
+        // 3. Assert
+        $this->assertEquals($context->getRequestUri(), $current_url);
+    }
+
+    public function testGetCurrentUrl_GET_WithoutParams()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getUrl'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('getUrl')
+            ->will($this->returnValue('here_is_some_dummy_url'));
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+
+        // 2. Act
+        $current_url = $context->getCurrentUrl();
+
+        // 3. Assert
+        $this->assertEquals($context->getUrl(), $current_url);
+    }
+
+
+    public function testGetCurrentUrl_GET_WithParams()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestUri'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('getRequestUri')
+            ->will($this->returnValue('here_is_some_dummy_url'));
+
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $context->set('param1', 'value1', true);
+        $context->set('param2', 'value2', true);
+
+        // 2. Act
+        $current_url = $context->getCurrentUrl();
+
+        // 3. Assert
+        $this->assertEquals($context->getRequestUri() . '?param1=value1&param2=value2', $current_url);
+    }
+
+
+    public function testGetCurrentUrl_GET_WithParams_Array()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestUri'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('getRequestUri')
+            ->will($this->returnValue('here_is_some_dummy_url'));
+
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $context->set('param1', 'value1', true);
+        $context->set('param2', array('green', 'blue', 'yellow'), true);
+
+        // 2. Act
+        $current_url = $context->getCurrentUrl();
+
+        // 3. Assert
+        $this->assertEquals($context->getRequestUri() . '?param1=value1&param2[0]=green&param2[1]=blue&param2[2]=yellow', $current_url);
+    }
+
+
+
+
 }
 
 /* End of file ContextTest.php */

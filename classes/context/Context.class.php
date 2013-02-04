@@ -321,27 +321,44 @@ class Context {
         $this->startSession();
         $this->setAuthenticationInfoInContextAndSession();
 
-		// set locations for javascript use
-		if($_SERVER['REQUEST_METHOD'] == 'GET') {
-			if($this->get_vars) {
-				foreach($this->get_vars as $key=>$val) {
-					if(is_array($val)&&count($val)) {
-						foreach($val as $k => $v) {
-							$url .= ($url?'&':'').$key.'['.$k.']='.urlencode($v);
-						}
-					} elseif ($val) {
-						$url .= ($url?'&':'').$key.'='.urlencode($val);
-					}
-				}
-				$this->set('current_url',sprintf('%s?%s', Context::getRequestUri(), $url));
-			} else {
-				$this->set('current_url',$this->getUrl());
-			}
-		} else {
-			$this->set('current_url',Context::getRequestUri());
-		}
-		$this->set('request_uri',Context::getRequestUri());
+        $current_url = $this->getCurrentUrl();
+        $this->set('current_url', $current_url);
+
+        $this->set('request_uri',Context::getRequestUri());
 	}
+
+    /**
+     * Returns an url to be used in client-side js scripts
+     * Here's an example from a js file:
+     *      location.href = current_url.setQuery('module_srl',module_srl);
+     *
+     * @return string
+     */
+    public function getCurrentUrl()
+    {
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
+        // set locations for javascript use
+        if ($self->getServerRequestMethod() == 'GET') {
+            if ($self->get_vars) {
+                $url = null;
+                foreach ($self->get_vars as $key => $val) {
+                    if (is_array($val) && count($val)) {
+                        foreach ($val as $k => $v) {
+                            $url .= ($url ? '&' : '') . $key . '[' . $k . ']=' . urlencode($v);
+                        }
+                    } elseif ($val) {
+                        $url .= ($url ? '&' : '') . $key . '=' . urlencode($val);
+                    }
+                }
+                return sprintf('%s?%s', $self->getRequestUri(), $url);
+            } else {
+                return $self->getUrl();
+            }
+        } else {
+            return $self->getRequestUri();
+        }
+    }
 
     public function initializeLanguages()
     { // Load Language File
