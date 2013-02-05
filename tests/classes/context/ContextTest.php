@@ -1657,6 +1657,148 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/index.php?module=admin&amp;act=dispDashboard', $url);
     }
 
+    public function testGetUrl_MainWebsite_VidParamIsIgnored()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+        $context->allow_rewrite = true;
+
+        // 2. Act
+        $url = $context->getUrl(2, array('vid', 'my_blog'));
+
+        // 3. Assert
+        $this->assertEquals('/', $url);
+    }
+
+    public function testGetUrl_Domain_IgnoresVidIfManuallySpecified()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+        $context->allow_rewrite = true;
+        $site_module_info = new stdClass();
+        $site_module_info->domain = 'shop';
+        $context->set('site_module_info', $site_module_info);
+
+        // 2. Act
+        $url = $context->getUrl(2, array('vid', 'my_blog'));
+
+        // 3. Assert
+        $this->assertEquals('/shop', $url);
+    }
+
+    public function testGetUrl_Domain_WithParamsAndUrlRewrite_PrettifiesMostCommonParams()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+        $context->allow_rewrite = true;
+        $site_module_info = new stdClass();
+        $site_module_info->domain = 'shop';
+        $context->set('site_module_info', $site_module_info);
+
+        // 2-3. Act / assert
+        $url = $context->getUrl(2, array('mid', 'my_blog'));
+        $this->assertEquals('/shop/my_blog', $url);
+
+        $url = $context->getUrl(2, array('mid', 'my_blog', 'entry', 'hello-world'));
+        $this->assertEquals('/shop/my_blog/entry/hello-world', $url);
+
+        $url = $context->getUrl(2, array('document_srl', '1234'));
+        $this->assertEquals('/shop/1234', $url);
+
+        $url = $context->getUrl(4, array('mid', 'forum', 'document_srl', '1234'));
+        $this->assertEquals('/shop/forum/1234', $url);
+
+        $url = $context->getUrl(4, array('mid', 'forum', 'act', 'dispLatestPosts'));
+        $this->assertEquals('/index.php?mid=forum&amp;act=dispLatestPosts&amp;vid=shop', $url);
+
+        $url = $context->getUrl(4, array('mid', 'forum', 'act', 'rss'));
+        $this->assertEquals('/shop/forum/rss', $url);
+
+        $url = $context->getUrl(4, array('mid', 'forum', 'act', 'atom'));
+        $this->assertEquals('/shop/forum/atom', $url);
+
+        $url = $context->getUrl(4, array('mid', 'forum', 'act', 'api'));
+        $this->assertEquals('/shop/forum/api', $url);
+
+        $url = $context->getUrl(6, array('act', 'doSomething', 'document_srl', '1234', 'key', 'some-key'));
+        $this->assertEquals('/index.php?act=doSomething&amp;document_srl=1234&amp;key=some-key&amp;vid=shop', $url);
+
+        $url = $context->getUrl(6, array('act', 'trackback', 'document_srl', '1234', 'key', 'some-key'));
+        $this->assertEquals('/shop/1234/some-key/trackback', $url);
+
+        $url = $context->getUrl(6, array('mid', 'forum', 'act', 'trackback', 'document_srl', '1234', 'key', 'some-key'));
+        $this->assertEquals('/shop/forum/1234/some-key/trackback', $url);
+
+    }
+
+    public function testGetUrl_MainWebsite_WithParamsAndUrlRewrite_PrettifiesMostCommonParams()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+        $context->allow_rewrite = true;
+
+        // 2-3. Act / assert
+        $url = $context->getUrl(2, array('mid', 'my_blog'));
+        $this->assertEquals('/my_blog', $url);
+
+        $url = $context->getUrl(4, array('mid', 'my_blog', 'entry', 'hello-world'));
+        $this->assertEquals('/my_blog/entry/hello-world', $url);
+
+        $url = $context->getUrl(2, array('document_srl', '1234'));
+        $this->assertEquals('/1234', $url);
+
+        $url = $context->getUrl(4, array('mid', 'forum', 'document_srl', '1234'));
+        $this->assertEquals('/forum/1234', $url);
+
+        $url = $context->getUrl(4, array('mid', 'forum', 'act', 'dispLatestPosts'));
+        $this->assertEquals('/index.php?mid=forum&amp;act=dispLatestPosts', $url);
+
+        $url = $context->getUrl(4, array('mid', 'forum', 'act', 'rss'));
+        $this->assertEquals('/forum/rss', $url);
+
+        $url = $context->getUrl(4, array('mid', 'forum', 'act', 'atom'));
+        $this->assertEquals('/forum/atom', $url);
+
+        $url = $context->getUrl(4, array('mid', 'forum', 'act', 'api'));
+        $this->assertEquals('/forum/api', $url);
+
+        $url = $context->getUrl(6, array('act', 'doSomething', 'document_srl', '1234', 'key', 'some-key'));
+        $this->assertEquals('/index.php?act=doSomething&amp;document_srl=1234&amp;key=some-key', $url);
+
+        $url = $context->getUrl(6, array('act', 'trackback', 'document_srl', '1234', 'key', 'some-key'));
+        $this->assertEquals('/1234/some-key/trackback', $url);
+
+        $url = $context->getUrl(6, array('mid', 'forum', 'act', 'trackback', 'document_srl', '1234', 'key', 'some-key'));
+        $this->assertEquals('/forum/1234/some-key/trackback', $url);
+    }
 
 
 
