@@ -1537,6 +1537,67 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('http://www.xpressengine.org/', $url);
     }
 
+    public function testGetUrl_Default()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI'), array($file_handler, $frontend_file_handler));
+
+        $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
+
+        $url = $context->getUrl();
+
+        $this->assertEquals('/some_folder/xe/', $url);
+    }
+
+    public function testGetUrl_Default_WithDomain()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+
+        $site_module_info = new stdClass();
+        $site_module_info->domain = 'shop';
+        $context->set('site_module_info', $site_module_info);
+
+        $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
+
+        // 1. Test when allow rewrite is enabled
+        $url = $context->getUrl();
+        $this->assertEquals('/some_folder/xe/index.php?vid=shop', $url);
+
+        // 2. Test when allow rewrite is disabled
+        $context->allow_rewrite = true;
+        $url = $context->getUrl();
+        $this->assertEquals('/some_folder/xe/shop', $url);
+    }
+
+    public function testGetUrl_MainWebsite_TwoParams()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+        $context->allow_rewrite = true;
+
+        // 2. Act
+        $url = $context->getUrl(4, array('module', 'admin', 'act', 'dispDashboard'));
+
+        // 3. Assert
+        $this->assertEquals('/index.php?module=admin&amp;act=dispDashboard', $url);
+    }
+
+
 
 
 

@@ -144,6 +144,18 @@ class Context {
     var $url = array();
 
     /**
+     * Current site info and current url info - used only by getUrl
+     * Moved here because they were static
+     */
+    var $site_module_info;
+    var $current_info;
+
+    /**
+     * Computed script path URL
+     */
+    var $script_path_url;
+
+    /**
 	 * returns static context object (Singleton). It's to use Context without declaration of an object
 	 *
 	 * @return object Instance
@@ -299,9 +311,12 @@ class Context {
      */
     public function getScriptPath()
     {
-        static $url = null;
-        if($url == null) $url = preg_replace('/\/tools\//i','/',preg_replace('/index.php$/i','',str_replace('\\','/',$_SERVER['SCRIPT_NAME'])));
-        return $url;
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
+        if($self->script_path_url == null) {
+            $self->script_path_url = preg_replace('/\/tools\//i','/',preg_replace('/index.php$/i','',str_replace('\\','/',$_SERVER['SCRIPT_NAME'])));
+        }
+        return $self->script_path_url;
     }
 
 
@@ -1477,35 +1492,42 @@ class Context {
 	 * @return string URL
 	 */
 	function getUrl($num_args=0, $args_list=array(), $domain = null, $encode = true, $autoEncode = false) {
-		static $site_module_info = null;
-		static $current_info = null;
-
 		is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
 
 		// retrieve virtual site information
-		if(is_null($site_module_info)) $site_module_info = Context::get('site_module_info');
+		if(is_null($self->site_module_info)) {
+            $self->site_module_info = $self->get('site_module_info');
+        }
 
 		// If $domain is set, handle it (if $domain is vid type, remove $domain and handle with $vid)
-		if($domain && isSiteID($domain)) {
+		if($domain && $self->isSiteID($domain)) {
 			$vid = $domain;
 			$domain = '';
 		}
 
 		// If $domain, $vid are not set, use current site information
 		if(!$domain && !$vid) {
-			if($site_module_info->domain && isSiteID($site_module_info->domain)) $vid = $site_module_info->domain;
-			else $domain = $site_module_info->domain;
+			if($self->site_module_info->domain && $self->isSiteID($self->site_module_info->domain)) {
+                $vid = $self->site_module_info->domain;
+            }
+			else {
+                $domain = $self->site_module_info->domain;
+            }
 		}
 
 		// if $domain is set, compare current URL. If they are same, remove the domain, otherwise link to the domain.
 		if($domain) {
 			$domain_info = parse_url($domain);
-			if(is_null($current_info)) $current_info = parse_url(($_SERVER['HTTPS']=='on'?'https':'http').'://'.$_SERVER['HTTP_HOST'].getScriptPath());
-			if($domain_info['host'].$domain_info['path']==$current_info['host'].$current_info['path']) {
+			if(is_null($self->current_info)) {
+                $self->current_info = parse_url(($_SERVER['HTTPS']=='on'?'https':'http').'://'.$_SERVER['HTTP_HOST'].$self->getScriptPath());
+            }
+			if($domain_info['host'].$domain_info['path']==$self->current_info['host'].$self->current_info['path']) {
 				unset($domain);
 			} else {
 				$domain = preg_replace('/^(http|https):\/\//i','', trim($domain));
-				if(substr($domain,-1) != '/') $domain .= '/';
+				if(substr($domain,-1) != '/') {
+                    $domain .= '/';
+                }
 			}
 		}
 
@@ -1514,7 +1536,9 @@ class Context {
 		// If there is no GET variables or first argument is '' to reset variables
 		if(!$self->get_vars || $args_list[0]=='') {
 			// rearrange args_list
-			if(is_array($args_list) && $args_list[0]=='') array_shift($args_list);
+			if(is_array($args_list) && $args_list[0]=='') {
+                array_shift($args_list);
+            }
 		} else {
 			// Otherwise, make GET variables into array
 			$get_vars = get_object_vars($self->get_vars);
@@ -1536,8 +1560,12 @@ class Context {
 
 		// remove vid, rnd
 		unset($get_vars['rnd']);
-		if($vid) $get_vars['vid'] = $vid;
-		else unset($get_vars['vid']);
+		if($vid) {
+            $get_vars['vid'] = $vid;
+        }
+		else {
+            unset($get_vars['vid']);
+        }
 
 		// for compatibility to lower versions
 		$act = $get_vars['act'];
@@ -1547,7 +1575,9 @@ class Context {
 			'dispDocumentAdminManageDocument'=>'dispDocumentManageDocument',
 			'dispModuleAdminSelectList'=>'dispModuleSelectList'
 		);
-		if($act_alias[$act]) $get_vars['act'] = $act_alias[$act];
+		if($act_alias[$act]) {
+            $get_vars['act'] = $act_alias[$act];
+        }
 
 		// organize URL
 		$query = '';
@@ -1601,7 +1631,9 @@ class Context {
 						$queries[] = $key.'='.@urlencode($val);
 					}
 				}
-				if(count($queries)) $query = 'index.php?'.implode('&', $queries);
+				if(count($queries)) {
+                    $query = 'index.php?'.implode('&', $queries);
+                }
 			}
 		}
 
@@ -1612,21 +1644,29 @@ class Context {
 		// optional SSL use
 		} elseif($_use_ssl == 'optional') {
 			$ssl_mode = RELEASE_SSL;
-			if($get_vars['act'] && $self->isExistsSSLAction($get_vars['act'])) $ssl_mode = ENFORCE_SSL;
+			if($get_vars['act'] && $self->isExistsSSLAction($get_vars['act'])) {
+                $ssl_mode = ENFORCE_SSL;
+            }
 			$query = $self->getRequestUri($ssl_mode, $domain).$query;
 		// no SSL
 		} else {
 			// currently on SSL but target is not based on SSL
-			if($_SERVER['HTTPS']=='on' ) $query = $self->getRequestUri(ENFORCE_SSL, $domain).$query;
+			if($_SERVER['HTTPS']=='on' ) {
+                $query = $self->getRequestUri(ENFORCE_SSL, $domain).$query;
+            }
 
 			// if $domain is set
-			else if($domain) $query = $self->getRequestUri(FOLLOW_REQUEST_SSL, $domain).$query;
+			else if($domain) {
+                $query = $self->getRequestUri(FOLLOW_REQUEST_SSL, $domain).$query;
+            }
 
-			else $query = getScriptPath().$query;
+			else {
+                $query = $self->getScriptPath().$query;
+            }
 		}
 
-		if ($encode){
-			if($autoEncode){
+		if ($encode) {
+			if($autoEncode) {
 				$parsedUrl = parse_url($query);
 				parse_str($parsedUrl['query'], $output);
 				$encode_queries = array();
@@ -1639,10 +1679,10 @@ class Context {
 				$encode_query = implode('&', $encode_queries);
 				return htmlspecialchars($parsedUrl['path'].'?'.$encode_query);
 			}
-			else{
+			else {
 				return htmlspecialchars($query);
 			}
-		}else{
+		} else {
 			return $query;		
 		}
 	}
