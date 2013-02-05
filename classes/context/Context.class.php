@@ -262,6 +262,43 @@ class Context {
     }
 
     /**
+     * Returns $_SERVER['SERVER_PROTOCOL']
+     * # Symfony2\Request equivalent: $request->server->get('SERVER_PROTOCOL')
+     */
+    public function getServerRequestProtocol()
+    {
+        return $_SERVER['SERVER_PROTOCOL'];
+    }
+
+    /**
+     * Returns $_SERVER['HTTS']
+     * # Symfony2\Request equivalent: $request->server->get('HTTPS')
+     */
+    public function getServerRequestHttps()
+    {
+        return $_SERVER['HTTPS'];
+    }
+
+    /**
+     * Returns $_SERVER['HTTP_HOST']
+     *  # Symfony2\Request equivalent: $reuqest->headers->get('HOST')
+     */
+    public function getServerHost()
+    {
+        return $_SERVER['HTTP_HOST'];
+    }
+
+    /**
+     * Returns $_SERVER['SCRIPT_NAME'], after doing some parsing on it
+     * @return string
+     */
+    public function getScriptPath()
+    {
+        return getScriptPath();
+    }
+
+
+    /**
      * Wrappper for php's is_uploaded_file function
      */
     public function is_uploaded_file($file_name)
@@ -1611,18 +1648,23 @@ class Context {
 	 * @retrun string converted URL
 	 */
 	function getRequestUri($ssl_mode = FOLLOW_REQUEST_SSL, $domain = null) {
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
 		static $url = array();
 
 		// HTTP Request가 아니면 패스
-		if(!isset($_SERVER['SERVER_PROTOCOL'])) return ;
-		if(Context::get('_use_ssl') == 'always') $ssl_mode = ENFORCE_SSL;
+        $request_protocol = $this->getServerRequestProtocol();
+		if(!isset($request_protocol)) {
+            return ;
+        }
+		if($self->get('_use_ssl') == 'always') $ssl_mode = ENFORCE_SSL;
 
 		if($domain) $domain_key = md5($domain);
 		else $domain_key = 'default';
 
 		if(isset($url[$ssl_mode][$domain_key])) return $url[$ssl_mode][$domain_key];
 
-		$current_use_ssl = $_SERVER['HTTPS']=='on' ? true : false;
+		$current_use_ssl = $self->getServerRequestHttps() =='on' ? true : false;
 
 		switch($ssl_mode) {
 			case FOLLOW_REQUEST_SSL: $use_ssl = $current_use_ssl; break;
@@ -1634,7 +1676,7 @@ class Context {
 			$target_url = trim($domain);
 			if(substr($target_url,-1) != '/') $target_url.= '/';
 		} else {
-			$target_url= $_SERVER['HTTP_HOST'].getScriptPath();
+			$target_url= $self->getServerHost() . $self->getScriptPath();
 		}
 
 		$url_info = parse_url('http://'.$target_url);
@@ -1645,11 +1687,11 @@ class Context {
 		}
 
 		if($use_ssl) {
-			$port = Context::get('_https_port');
+			$port = $self->get('_https_port');
 			if($port && $port != 443)      $url_info['port'] = $port;
 			elseif($url_info['port']==443) unset($url_info['port']);
 		} else {
-			$port = Context::get('_http_port');
+			$port = $self->get('_http_port');
 			if($port && $port != 80)      $url_info['port'] = $port;
 			elseif($url_info['port']==80) unset($url_info['port']);
 		}
