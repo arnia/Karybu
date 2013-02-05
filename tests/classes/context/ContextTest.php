@@ -1551,6 +1551,66 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/some_folder/xe/', $url);
     }
 
+    public function testGetUrl_WithGetParametersSetButNoOtherVariables_ShouldReturnDefaultUrl()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI'), array($file_handler, $frontend_file_handler));
+
+        $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
+        $context->set('module', 'admin', true);
+        $context->set('act', 'dispDashboard', true);
+
+        $url = $context->getUrl();
+
+        $this->assertEquals('/some_folder/xe/', $url);
+    }
+
+    public function testGetUrl_WithGetParametersSetAndOtherVariables_ShouldAddVariablesToExistingParams()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI'), array($file_handler, $frontend_file_handler));
+
+        $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
+        $context->set('module', 'admin', true);
+        $context->set('act', 'dispDashboard', true);
+
+        $url = $context->getUrl(2, array('category_srl', '1234'));
+
+        $this->assertEquals('/some_folder/xe/index.php?module=admin&amp;act=dispDashboard&amp;category_srl=1234', $url);
+    }
+
+    public function testGetUrl_EmptyParamsShouldBeIgnored()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI'), array($file_handler, $frontend_file_handler));
+
+        $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
+
+        $url = $context->getUrl(2, array('module', 'admin', 'domain', '', 'act', 'dispDashboard'));
+
+        $this->assertEquals('/some_folder/xe/index.php?module=admin&amp;act=dispDashboard', $url);
+    }
+
+    public function testGetUrl_ArrayParameter()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI'), array($file_handler, $frontend_file_handler));
+
+        $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
+
+        $url = $context->getUrl(2, array('module', 'admin', 'color', array('red', 'blue', 'green'), 'act', 'dispDashboard'));
+
+        $this->assertEquals('/some_folder/xe/index.php?module=admin&amp;color[0]=red&amp;color[1]=blue&amp;color[2]=green&amp;act=dispDashboard', $url);
+    }
+
     public function testGetUrl_Default_WithDomain()
     {
         // 1. Arrange

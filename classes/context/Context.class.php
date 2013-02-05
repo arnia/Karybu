@@ -1547,10 +1547,19 @@ class Context {
 		// arrange args_list
 		for($i=0,$c=count($args_list);$i<$c;$i=$i+2) {
 			$key = $args_list[$i];
-			$val = trim($args_list[$i+1]);
+
+            $temp_val = $args_list[$i+1];
+            if(is_array($temp_val)) {
+                $val = array();
+                foreach($temp_val as $v) {
+                    $val[] = trim($v);
+                }
+            } else {
+                $val = trim($temp_val);
+            }
 
 			// If value is not set, remove the key
-			if(!isset($val) || !strlen($val)) {
+			if(!isset($val) || (!is_array($val) && !strlen($val))) {
 			  unset($get_vars[$key]);
 			  continue;
 			}
