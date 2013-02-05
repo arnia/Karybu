@@ -139,6 +139,11 @@ class Context {
     var $lang_selected = null;
 
     /**
+     * List of possible Request URIs
+     */
+    var $url = array();
+
+    /**
 	 * returns static context object (Singleton). It's to use Context without declaration of an object
 	 *
 	 * @return object Instance
@@ -294,7 +299,9 @@ class Context {
      */
     public function getScriptPath()
     {
-        return getScriptPath();
+        static $url = null;
+        if($url == null) $url = preg_replace('/\/tools\//i','/',preg_replace('/index.php$/i','',str_replace('\\','/',$_SERVER['SCRIPT_NAME'])));
+        return $url;
     }
 
 
@@ -1650,19 +1657,25 @@ class Context {
 	function getRequestUri($ssl_mode = FOLLOW_REQUEST_SSL, $domain = null) {
         is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
 
-		static $url = array();
-
-		// HTTP Request가 아니면 패스
-        $request_protocol = $this->getServerRequestProtocol();
+		// Make sure this is a valid HTTP Request
+        $request_protocol = $self->getServerRequestProtocol();
 		if(!isset($request_protocol)) {
             return ;
         }
-		if($self->get('_use_ssl') == 'always') $ssl_mode = ENFORCE_SSL;
+		if($self->get('_use_ssl') == 'always') {
+            $ssl_mode = ENFORCE_SSL;
+        }
 
-		if($domain) $domain_key = md5($domain);
-		else $domain_key = 'default';
+		if($domain) {
+            $domain_key = md5($domain);
+        }
+		else {
+            $domain_key = 'default';
+        }
 
-		if(isset($url[$ssl_mode][$domain_key])) return $url[$ssl_mode][$domain_key];
+		if(isset($self->url[$ssl_mode][$domain_key])) {
+            return $self->url[$ssl_mode][$domain_key];
+        }
 
 		$current_use_ssl = $self->getServerRequestHttps() =='on' ? true : false;
 
@@ -1688,17 +1701,25 @@ class Context {
 
 		if($use_ssl) {
 			$port = $self->get('_https_port');
-			if($port && $port != 443)      $url_info['port'] = $port;
-			elseif($url_info['port']==443) unset($url_info['port']);
+			if($port && $port != 443)      {
+                $url_info['port'] = $port;
+            }
+			elseif($url_info['port']==443) {
+                unset($url_info['port']);
+            }
 		} else {
 			$port = $self->get('_http_port');
-			if($port && $port != 80)      $url_info['port'] = $port;
-			elseif($url_info['port']==80) unset($url_info['port']);
+			if($port && $port != 80)      {
+                $url_info['port'] = $port;
+            }
+			elseif($url_info['port']==80) {
+                unset($url_info['port']);
+            }
 		}
 
-		$url[$ssl_mode][$domain_key] = sprintf('%s://%s%s%s',$use_ssl?'https':$url_info['scheme'], $url_info['host'], $url_info['port']&&$url_info['port']!=80?':'.$url_info['port']:'',$url_info['path']);
+		$self->url[$ssl_mode][$domain_key] = sprintf('%s://%s%s%s',$use_ssl?'https':$url_info['scheme'], $url_info['host'], $url_info['port']&&$url_info['port']!=80?':'.$url_info['port']:'',$url_info['path']);
 
-		return $url[$ssl_mode][$domain_key];
+		return $self->url[$ssl_mode][$domain_key];
 	}
 
 	/**

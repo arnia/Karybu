@@ -1290,6 +1290,255 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($context->getRequestUri() . '?param1=value1&param2[0]=green&param2[1]=blue&param2[2]=yellow', $current_url);
     }
 
+    public function testGetRequestURI_HTTP_Protocol_Missing()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        // 2. Act
+        $url = $context->getRequestUri();
+
+        // 3. Assert
+        $this->assertEquals(null, $url);
+    }
+
+    public function testGetRequestURI_DefaultValues()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['REQUEST_URI'] = '/';
+        $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+
+        // 2. Act
+        $url = $context->getRequestUri();
+
+        // 3. Assert
+        $this->assertEquals('http://www.xpressengine.org/', $url);
+    }
+
+    public function testGetRequestURI_DefaultValues_SecondCallShouldNotRecalculateUrl()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['REQUEST_URI'] = '/';
+        $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+
+        // 2-3. Act and assert
+        // At first, url should be empty
+        $this->assertEmpty($context->url);
+
+        // After first requesting the Request URI, the url should be saved in the 'url' property
+        $context->getRequestUri();
+        $url_at_first_call = $context->url;
+        $this->assertEquals('http://www.xpressengine.org/', $context->url[0]['default']);
+
+        // After second request, the 'url' property should be unchanged
+        // This does not necessarily mean the url wasn't recalculated, but i have no idea how to test this otherwise
+        $context->getRequestUri();
+        $this->assertEquals($url_at_first_call, $context->url);
+    }
+
+    public function testGetRequestURI_EnforceSSL()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['REQUEST_URI'] = '/';
+        $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+
+        $context->set('_use_ssl', 'always');
+
+        // 2. Act
+        $url = $context->getRequestUri();
+
+        // 3. Assert
+        $this->assertEquals('https://www.xpressengine.org/', $url);
+    }
+
+    public function testGetRequestURI_SkipDefaultSSLPort()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['REQUEST_URI'] = '/';
+        $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+
+        $context->set('_use_ssl', 'always');
+        $context->set('_https_port', '443');
+
+        // 2. Act
+        $url = $context->getRequestUri();
+
+        // 3. Assert
+        $this->assertEquals('https://www.xpressengine.org/', $url);
+    }
+
+    public function testGetRequestURI_SkipDefaultSSLPort2()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org:443';
+        $_SERVER['REQUEST_URI'] = '/';
+        $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+        $_SERVER['HTTPS'] = 'on';
+
+        // 2. Act
+        $url = $context->getRequestUri();
+
+        // 3. Assert
+        $this->assertEquals('https://www.xpressengine.org/', $url);
+    }
+
+    public function testGetRequestURI_SSLPort()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['REQUEST_URI'] = '/';
+        $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+
+        $context->set('_use_ssl', 'always');
+        $context->set('_https_port', '1234');
+
+        // 2. Act
+        $url = $context->getRequestUri();
+
+        // 3. Assert
+        $this->assertEquals('https://www.xpressengine.org:1234/', $url);
+    }
+
+    public function testGetRequestURI_SkipDefaultPort80()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['REQUEST_URI'] = '/';
+        $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+
+        $context->set('_http_port', '80');
+
+        // 2. Act
+        $url = $context->getRequestUri();
+
+        // 3. Assert
+        $this->assertEquals('http://www.xpressengine.org/', $url);
+    }
+
+
+    public function testGetRequestURI_SkipDefaultPort80_2()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org:80';
+        $_SERVER['REQUEST_URI'] = '/';
+        $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+
+        // 2. Act
+        $url = $context->getRequestUri();
+
+        // 3. Assert
+        $this->assertEquals('http://www.xpressengine.org/', $url);
+    }
+
+    public function testGetRequestURI_HTTP_Port()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['REQUEST_URI'] = '/';
+        $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+
+        $context->set('_http_port', '1234');
+
+        // 2. Act
+        $url = $context->getRequestUri();
+
+        // 3. Assert
+        $this->assertEquals('http://www.xpressengine.org:1234/', $url);
+    }
+
+    public function testGetRequestURI_WithDomain()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['REQUEST_URI'] = '/';
+        $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+
+        // 2. Act
+        $domain = 'demo.xpressengine.org';
+        $url = $context->getRequestUri(FOLLOW_REQUEST_SSL, $domain);
+
+        // 3. Assert
+        $this->assertEquals('http://demo.xpressengine.org/', $url);
+    }
+
+    public function testGetRequestURI_ReleaseSSL()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['REQUEST_URI'] = '/';
+        $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+        $_SERVER['HTTPS'] = 'on';
+
+        // 2. Act
+        $url = $context->getRequestUri(RELEASE_SSL);
+
+        // 3. Assert
+        $this->assertEquals('http://www.xpressengine.org/', $url);
+    }
+
+
+
 
 
 
