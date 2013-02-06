@@ -1657,6 +1657,89 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/index.php?module=admin&amp;act=dispDashboard', $url);
     }
 
+
+    public function testGetUrl_MainWebsite_ParamsShouldBeUrlEncoded()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+        $context->allow_rewrite = true;
+
+        // 2. Act
+        $url = $context->getUrl(4, array('mid', 'wiki', 'entry', 'Hello World!', 'category_srl', '1234'));
+
+        // 3. Assert
+        $this->assertEquals('/index.php?mid=wiki&amp;entry=Hello+World%21&amp;category_srl=1234', $url);
+    }
+
+    public function testGetUrl_MainWebsite_TwoParams_NotEncoded()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+        $context->allow_rewrite = true;
+
+        // 2. Act
+        $url = $context->getUrl(4, array('module', 'admin', 'act', 'dispDashboard'), null, false);
+
+        // 3. Assert
+        $this->assertEquals('/index.php?module=admin&act=dispDashboard', $url);
+    }
+
+
+    public function testGetUrl_MainWebsite_TwoParams_AutoEncoded_WhenParamsNotEncoded()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+        $context->allow_rewrite = true;
+
+        // 2. Act
+        $url = $context->getUrl(4, array('module', 'admin', 'entry', 'Hello World! Or should I say?'), null, true, true);
+
+        // 3. Assert
+        $this->assertEquals('/index.php?module=admin&amp;entry=Hello World! Or should I say?', $url);
+    }
+
+    public function testGetUrl_MainWebsite_TwoParams_AutoEncoded_WhenParamsEncoded()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+        $context->allow_rewrite = true;
+
+        // 2. Act
+        $url = $context->getUrl(4, array('module', 'admin', 'entry', 'Hello World! Or should I say &#33;?'), null, true, true);
+
+        // 3. Assert
+        $this->assertEquals('/index.php?module=admin&amp;entry=Hello+World%21+Or+should+I+say+%26%2333%3B%3F', $url);
+    }
+
+
     public function testGetUrl_MainWebsite_VidParamIsIgnored()
     {
         // 1. Arrange
