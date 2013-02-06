@@ -1834,12 +1834,16 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/index.php?module=admin&amp;vid=shop', $url);
     }
 
-    public function testGetUrl_WithDomain_Subdomain()
+    public function testGetUrl_WithDomain_Subdomain_DifferentHost()
     {
         // 1. Arrange
         $file_handler = $this->getMock('FileHandler');
         $frontend_file_handler = $this->getMock('FrontendFileHandler');
         $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->once())
+            ->method('getRequestURI')
+            ->with($this->equalTo(FOLLOW_REQUEST_SSL), $this->equalTo('shop.xpressengine.org/'))
+            ->will($this->returnValue('http://shop.xpressengine.org/'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(false));
@@ -1849,7 +1853,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         $url = $context->getUrl(2, array('module', 'admin'), 'http://shop.xpressengine.org');
 
-        $this->assertEquals('index.php?module=admin', $url);
+        $this->assertEquals('http://shop.xpressengine.org/index.php?module=admin', $url);
     }
 
     public function testGetUrl_WithDomain_Subdomain_SameAsHost()
@@ -1869,6 +1873,122 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('/index.php?module=admin', $url);
     }
+
+
+    public function testGetUrl_MainWebsite_UseSSL_Always()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        // We expect that getRequestURI will be called with ENFORCE_SLL on and no subdomain
+        $context->expects($this->once())
+            ->method('getRequestURI')
+            ->with($this->equalTo(ENFORCE_SSL), $this->equalTo(null))
+            ->will($this->returnValue('https://www.xpressengine.org/'));
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+        $context->allow_rewrite = true;
+        $context->set('_use_ssl', 'always');
+
+        // 2. Act
+        $url = $context->getUrl(4, array('module', 'admin', 'act', 'dispDashboard'));
+
+        // 3. Assert
+        $this->assertEquals('https://www.xpressengine.org/index.php?module=admin&amp;act=dispDashboard', $url);
+    }
+
+    public function testGetUrl_MainWebsite_UseSSLFalse_HttpsOn()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        // We expect that getRequestURI will be called with ENFORCE_SLL on and no subdomain
+        $context->expects($this->once())
+            ->method('getRequestURI')
+            ->with($this->equalTo(ENFORCE_SSL), $this->equalTo(null))
+            ->will($this->returnValue('https://www.xpressengine.org/'));
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+        $_SERVER['HTTPS'] = 'on';
+        $context->allow_rewrite = true;
+
+        // 2. Act
+        $url = $context->getUrl(4, array('module', 'admin', 'act', 'dispDashboard'));
+
+        // 3. Assert
+        $this->assertEquals('https://www.xpressengine.org/index.php?module=admin&amp;act=dispDashboard', $url);
+    }
+
+    public function testGetUrl_MainWebsite_UseSSL_Optional_SSLActionDoesNotExist()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID', 'isExistsSSLAction'), array($file_handler, $frontend_file_handler));
+
+        $context->expects($this->once())
+            ->method('isExistsSSLAction')
+            ->with($this->equalTo('dispDashboard'))
+            ->will($this->returnValue(false));
+        // We expect that getRequestURI will be called with ENFORCE_SLL on and no subdomain
+        $context->expects($this->once())
+            ->method('getRequestURI')
+            ->with($this->equalTo(RELEASE_SSL), $this->equalTo(null))
+            ->will($this->returnValue('http://www.xpressengine.org/'));
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(false));
+
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+        $context->allow_rewrite = true;
+        $context->set('_use_ssl', 'optional');
+
+        // 2. Act
+        $url = $context->getUrl(4, array('module', 'admin', 'act', 'dispDashboard'));
+
+        // 3. Assert
+        $this->assertEquals('http://www.xpressengine.org/index.php?module=admin&amp;act=dispDashboard', $url);
+    }
+
+    public function testGetUrl_MainWebsite_UseSSL_Optional_SSLActionExists()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID', 'isExistsSSLAction'), array($file_handler, $frontend_file_handler));
+
+        $context->expects($this->once())
+            ->method('isExistsSSLAction')
+            ->with($this->equalTo('dispDashboard'))
+            ->will($this->returnValue(true));
+        // We expect that getRequestURI will be called with ENFORCE_SLL on and no subdomain
+        $context->expects($this->once())
+            ->method('getRequestURI')
+            ->with($this->equalTo(ENFORCE_SSL), $this->equalTo(null))
+            ->will($this->returnValue('https://www.xpressengine.org/'));
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(false));
+
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+        $context->allow_rewrite = true;
+        $context->set('_use_ssl', 'optional');
+
+        // 2. Act
+        $url = $context->getUrl(4, array('module', 'admin', 'act', 'dispDashboard'));
+
+        // 3. Assert
+        $this->assertEquals('https://www.xpressengine.org/index.php?module=admin&amp;act=dispDashboard', $url);
+    }
+
 
 
 
