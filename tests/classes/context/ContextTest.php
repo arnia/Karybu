@@ -2355,8 +2355,148 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($result);
     }
 
+    public function testLoadJavascriptPlugin_JsFile()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler', array('readFileAsArray'));
+        $file_handler->expects($this->once())
+            ->method('readFileAsArray')
+            ->will($this->returnValue(array(
+                    'filebox.js'
+                )));
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->once())
+            ->method('loadFile')
+            ->with(array('./common/js/plugins/filebox/filebox.js', 'body', '', 0), true);
+        $context->expects($this->once())
+            ->method('pluginConfigFileExistsAndIsReadable')
+            ->will($this->returnValue(true));
+
+        $context->loadJavascriptPlugin('filebox');
+
+        $this->assertTrue($context->loaded_javascript_plugins['filebox']);
+    }
+
+    public function testLoadJavascriptPlugin_CssFile()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler', array('readFileAsArray'));
+        $file_handler->expects($this->once())
+            ->method('readFileAsArray')
+            ->will($this->returnValue(array(
+                    'filebox.css'
+                )));
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->once())
+            ->method('loadFile')
+            ->with(array('./common/js/plugins/filebox/filebox.css', 'all', '', 0), true);
+        $context->expects($this->once())
+            ->method('pluginConfigFileExistsAndIsReadable')
+            ->will($this->returnValue(true));
+
+        $context->loadJavascriptPlugin('filebox');
+
+        $this->assertTrue($context->loaded_javascript_plugins['filebox']);
+    }
 
 
+    public function testLoadJavascriptPlugin_SkipsEmptyRows_SkipsRelativePath()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler', array('readFileAsArray'));
+        $file_handler->expects($this->once())
+            ->method('readFileAsArray')
+            ->will($this->returnValue(array(
+                    './filebox.css',
+                    '   '
+                )));
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->once())
+            ->method('loadFile')
+            ->with(array('./common/js/plugins/filebox/filebox.css', 'all', '', 0), true);
+        $context->expects($this->once())
+            ->method('pluginConfigFileExistsAndIsReadable')
+            ->will($this->returnValue(true));
+
+        $context->loadJavascriptPlugin('filebox');
+
+        $this->assertTrue($context->loaded_javascript_plugins['filebox']);
+    }
+
+    public function testLoadJavascriptPlugin_JsFile_ShouldNotBeLoadedTwice()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler', array('readFileAsArray'));
+        $file_handler->expects($this->once())
+            ->method('readFileAsArray')
+            ->will($this->returnValue(array(
+                    'filebox.js'
+                )));
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->once())
+            ->method('loadFile')
+            ->with(array('./common/js/plugins/filebox/filebox.js', 'body', '', 0), true);
+        $context->expects($this->once())
+            ->method('pluginConfigFileExistsAndIsReadable')
+            ->will($this->returnValue(true));
+
+        $context->loadJavascriptPlugin('filebox');
+        $this->assertTrue($context->loaded_javascript_plugins['filebox']);
+        $context->loadJavascriptPlugin('filebox'); // Will fail since "loadFile" method of mock should only called once
+    }
+
+    public function testLoadJavascriptPlugin_JsFile_IsntLoadedIfConfigFileUnavailable()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler', array('readFileAsArray'));
+        $file_handler->expects($this->never())
+            ->method('readFileAsArray');
+
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('pluginConfigFileExistsAndIsReadable'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->once())
+            ->method('pluginConfigFileExistsAndIsReadable')
+            ->will($this->returnValue(false));
+
+        // 2. Act
+        $context->loadJavascriptPlugin('filebox');
+
+        // 3. Assert
+        $this->assertTrue($context->loaded_javascript_plugins['filebox']);
+    }
+
+    public function testLoadJavascriptPlugin_JsFile_WithLanguages()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler', array('readFileAsArray'));
+        $file_handler->expects($this->once())
+            ->method('readFileAsArray')
+            ->will($this->returnValue(array(
+                    'filebox.js'
+                )));
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('loadFile', 'pluginConfigFileExistsAndIsReadable', 'pluginUsesLocalization', 'loadLang'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->once())
+            ->method('loadFile')
+            ->with(array('./common/js/plugins/filebox/filebox.js', 'body', '', 0), true);
+        $context->expects($this->once())
+            ->method('pluginConfigFileExistsAndIsReadable')
+            ->will($this->returnValue(true));
+        $context->expects($this->once())
+            ->method('pluginUsesLocalization')
+            ->will($this->returnValue(true));
+        $context->expects($this->once())
+            ->method('loadLang')
+            ->with('./common/js/plugins/filebox/lang');
+
+        $context->loadJavascriptPlugin('filebox');
+
+        $this->assertTrue($context->loaded_javascript_plugins['filebox']);
+    }
 
 
 

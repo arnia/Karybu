@@ -156,6 +156,11 @@ class Context {
     var $script_path_url;
 
     /**
+     * Loaded javascript plugins
+     */
+    var $loaded_javascript_plugins;
+
+    /**
 	 * returns static context object (Singleton). It's to use Context without declaration of an object
 	 *
 	 * @return object Instance
@@ -2195,32 +2200,57 @@ class Context {
 	 * @return void
 	 */
 	function loadJavascriptPlugin($plugin_name) {
-		static $loaded_plugins = array();
-
 		is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
 		if($plugin_name == 'ui.datepicker') $plugin_name = 'ui';
 
-		if($loaded_plugins[$plugin_name]) return;
-		$loaded_plugins[$plugin_name] = true;
+		if($self->loaded_javascript_plugins[$plugin_name]) {
+            return;
+        }
+		$self->loaded_javascript_plugins[$plugin_name] = true;
 
 		$plugin_path = './common/js/plugins/'.$plugin_name.'/';
 		$info_file   = $plugin_path.'plugin.load';
-		if(!is_readable($info_file)) return;
 
-		$list = file($info_file);
+		if(!$self->pluginConfigFileExistsAndIsReadable($info_file)) {
+            return;
+        }
+
+		$list = $self->file_handler->readFileAsArray($info_file);
 		foreach($list as $filename) {
 			$filename = trim($filename);
-			if(!$filename) continue;
+			if(!$filename) {
+                continue;
+            }
 
-			if(substr($filename,0,2)=='./') $filename = substr($filename,2);
-			if(preg_match('/\.js$/i',  $filename))     $self->loadFile(array($plugin_path.$filename, 'body', '', 0), true);
-			elseif(preg_match('/\.css$/i', $filename)) $self->loadFile(array($plugin_path.$filename, 'all', '', 0), true);
+			if(substr($filename,0,2)=='./') {
+                $filename = substr($filename,2);
+            }
+
+			if(preg_match('/\.js$/i',  $filename))     {
+                $self->loadFile(array($plugin_path.$filename, 'body', '', 0), true);
+            }
+			elseif(preg_match('/\.css$/i', $filename)) {
+                $self->loadFile(array($plugin_path.$filename, 'all', '', 0), true);
+            }
 		}
 
-		if(is_dir($plugin_path.'lang')) $self->loadLang($plugin_path.'lang');
+		if($self->pluginUsesLocalization($plugin_path)) {
+            $self->loadLang($plugin_path.'lang');
+        }
 	}
 
-	/**
+    public function pluginUsesLocalization($plugin_path)
+    {
+        return is_dir($plugin_path . 'lang');
+    }
+
+    public function pluginConfigFileExistsAndIsReadable($info_file)
+    {
+        return is_readable($info_file);
+    }
+
+    /**
 	 * Add html code before </head>
 	 *
 	 * @param string $header add html code before </head>.
