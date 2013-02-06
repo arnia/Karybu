@@ -855,6 +855,9 @@ class Context {
 
 	/**
 	 * Single Sign On (SSO)
+     *
+     * SSO will enable users to sign in just once for both default and virtual site.
+     * You will need this only if you are using virtual sites.
 	 *
 	 * @return bool True : Module handling is necessary in the control path of current request , False : Otherwise
 	 */
@@ -1592,7 +1595,7 @@ class Context {
 		if($domain) {
 			$domain_info = parse_url($domain);
 			if(is_null($self->current_info)) {
-                $self->current_info = parse_url(($this->getServerRequestHttps()=='on'?'https':'http').'://'.$this->getServerHost().$self->getScriptPath());
+                $self->current_info = parse_url(($self->getServerRequestHttps()=='on'?'https':'http').'://'.$self->getServerHost().$self->getScriptPath());
             }
 			if($domain_info['host'].$domain_info['path']==$self->current_info['host'].$self->current_info['path']) {
 				unset($domain);
@@ -1721,7 +1724,7 @@ class Context {
 		// no SSL
 		} else {
 			// currently on SSL but target is not based on SSL
-			if($this->getServerRequestHttps()=='on' ) {
+			if($self->getServerRequestHttps()=='on' ) {
                 $query = $self->getRequestUri(ENFORCE_SSL, $domain).$query;
             }
 
