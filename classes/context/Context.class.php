@@ -168,23 +168,28 @@ class Context {
 	function &getInstance(FileHandler $file_handler = null, FrontEndFileHandler $frontend_file_handler = null) {
 		static $theInstance = null;
 		if(!$theInstance) $theInstance = new Context($file_handler, $frontend_file_handler);
-
-		// include ssl action cache file
-        $file_handler = $theInstance->file_handler;
-		$theInstance->sslActionCacheFile = $file_handler->getRealPath($theInstance->sslActionCacheFile);
-		if(is_readable($theInstance->sslActionCacheFile))
-		{
-			require_once($theInstance->sslActionCacheFile);
-			if(isset($sslActions))
-			{
-				$theInstance->ssl_actions = $sslActions;
-			}
-		}
-
-		return $theInstance;
+        // TODO Move this method inside Context::init and Context::init in the constructor
+        $theInstance->loadSslActionsCacheFile();
+        return $theInstance;
 	}
 
-	/**
+    public function loadSslActionsCacheFile()
+    {
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
+        // include ssl action cache file
+        $file_handler = $self->file_handler;
+        $self->sslActionCacheFile = $file_handler->getRealPath($self->sslActionCacheFile);
+        if (is_readable($self->sslActionCacheFile)) {
+            $sslActions = null;
+            require_once($self->sslActionCacheFile);
+            if (isset($sslActions)) {
+                $self->ssl_actions = $sslActions;
+            }
+        }
+    }
+
+    /**
 	 * Cunstructor
 	 *
 	 * @return void
