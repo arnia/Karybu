@@ -1576,18 +1576,6 @@ class Context {
             unset($get_vars['vid']);
         }
 
-		// for compatibility to lower versions
-		$act = $get_vars['act'];
-		$act_alias = array(
-			'dispMemberFriend'=>'dispCommunicationFriend',
-			'dispMemberMessages'=>'dispCommunicationMessages',
-			'dispDocumentAdminManageDocument'=>'dispDocumentManageDocument',
-			'dispModuleAdminSelectList'=>'dispModuleSelectList'
-		);
-		if($act_alias[$act]) {
-            $get_vars['act'] = $act_alias[$act];
-        }
-
 		// organize URL
 		$query = '';
 		if(count($get_vars)) {
