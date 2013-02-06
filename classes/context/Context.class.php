@@ -2311,7 +2311,7 @@ class Context {
 	/**
 	 * Returns added html code by addBodyHeader()
 	 *
-	 * @return string Added html code after <body>
+	 * @return string Added html co de after <body>
 	 */
 	function getBodyHeader() {
 		is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
@@ -2363,16 +2363,6 @@ class Context {
 	 */
 	function isInstalled() {
 		return FileHandler::hasContent(Context::getConfigFile());
-	}
-
-	/**
-	 * Transforms codes about widget or other features into the actual code, deprecatred
-	 *
-	 * @param string Transforms codes
-	 * @return string Transforms codes
-	 */
-	function transContent($content) {
-		return $content;
 	}
 
 	/**
