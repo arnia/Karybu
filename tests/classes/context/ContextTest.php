@@ -2498,6 +2498,56 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($context->loaded_javascript_plugins['filebox']);
     }
 
+    private function getContextMockForUsingGetBrowserTitle()
+    {
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getModuleController'), array($file_handler, $frontend_file_handler));
+        $module_controller = $this->getMock('moduleController', array('replaceDefinedLangCode'));
+        $module_controller->expects($this->atLeastOnce())
+            ->method('replaceDefinedLangCode');
+        $context->expects($this->atLeastOnce())
+            ->method('getModuleController')
+            ->will($this->returnValue($module_controller));
+        return $context;
+    }
+
+    public function testGetBrowserTitle()
+    {
+        // Arrange
+        $context = $this->getContextMockForUsingGetBrowserTitle();
+
+        // Test that default value is empty string
+        $this->assertEquals("", $context->getBrowserTitle());
+
+        // Test that it properly gets the default value set
+        $context->site_title = 'Hello World';
+        $this->assertEquals('Hello World', $context->getBrowserTitle());
+    }
+
+    public function testSetBrowserTitle()
+    {
+        // Arrange
+        $context = $this->getContextMockForUsingGetBrowserTitle();
+
+        $context->setBrowserTitle('Hello World');
+        $this->assertEquals('Hello World', $context->getBrowserTitle());
+
+        $context->setBrowserTitle('');
+        $this->assertEquals('Hello World', $context->getBrowserTitle());
+    }
+
+    public function testAddBrowserTitle()
+    {
+        // Arrange
+        $context = $this->getContextMockForUsingGetBrowserTitle();
+
+        $context->addBrowserTitle('Hello');
+        $this->assertEquals('Hello', $context->getBrowserTitle());
+
+        $context->addBrowserTitle('Joe');
+        $this->assertEquals('Hello - Joe', $context->getBrowserTitle());
+    }
 
 
 

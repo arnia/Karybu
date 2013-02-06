@@ -392,6 +392,14 @@ class Context {
     }
 
     /**
+     * Returns the moduleController
+     */
+    public function &getModuleController()
+    {
+        return getController('module');
+    }
+
+    /**
      * Wrapper for the global isSiteID function
      *
      * @param $domain
@@ -960,8 +968,11 @@ class Context {
 		if(!$site_title) return;
 		is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
 
-		if($self->site_title) $self->site_title .= ' - '.$site_title;
-		else $self->site_title = $site_title;
+		if($self->site_title) {
+            $self->site_title .= ' - '.$site_title;
+        } else {
+            $self->site_title = $site_title;
+        }
 	}
 
 	/**
@@ -984,16 +995,11 @@ class Context {
 	function getBrowserTitle() {
 		is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
 
-		$oModuleController = &getController('module');
+		$oModuleController = $self->getModuleController();
 		$oModuleController->replaceDefinedLangCode($self->site_title);
 
 		return htmlspecialchars($self->site_title);
 	}
-	/**
-	 * Get browser title
-	 * @deprecated
-	 */
-	function _getBrowserTitle() { return $this->getBrowserTitle(); }
 
 	/**
 	 * Load language file according to language type
