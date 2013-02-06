@@ -2072,6 +2072,171 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('https://www.xpressengine.org/index.php?module=admin&amp;act=dispDashboard', $url);
     }
 
+    public function testCheckSSO_WhenSSODisabled()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        // 2. Act
+        $result = $context->checkSSO();
+
+        // 3. Assert
+        $this->assertTrue($result);
+    }
+
+
+    public function testCheckSSO_WhenVisitorIsCrawler()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('isCrawler'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->once())
+            ->method('isCrawler')
+            ->will($this->returnValue(true));
+        $context->db_info->use_sso = 'Y';
+
+        // 2. Act
+        $result = $context->checkSSO();
+
+        // 3. Assert
+        $this->assertTrue($result);
+    }
+
+    public function testCheckSSO_WhenRequestMethodIsNotGET()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('isCrawler'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->once())
+            ->method('isCrawler')
+            ->will($this->returnValue(false));
+        $context->db_info->use_sso = 'Y';
+
+        $context->request_method = 'POST';
+
+        // 2. Act
+        $result = $context->checkSSO();
+
+        // 3. Assert
+        $this->assertTrue($result);
+    }
+
+    public function testCheckSSO_WhenNotInstalled()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('isCrawler', 'isInstalled'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->once())
+            ->method('isCrawler')
+            ->will($this->returnValue(false));
+        $context->expects($this->once())
+            ->method('isInstalled')
+            ->will($this->returnValue(false));
+        $context->db_info->use_sso = 'Y';
+
+        // 2. Act
+        $result = $context->checkSSO();
+
+        // 3. Assert
+        $this->assertTrue($result);
+    }
+
+    public function testCheckSSO_WhenShowingRSSorATOM()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('isCrawler', 'isInstalled'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('isCrawler')
+            ->will($this->returnValue(false));
+        $context->expects($this->any())
+            ->method('isInstalled')
+            ->will($this->returnValue(true));
+        $context->db_info->use_sso = 'Y';
+
+        $context->set('act', 'rss', true);
+        $result = $context->checkSSO();
+        $this->assertTrue($result);
+
+        $context->set('act', 'atom', true);
+        $result = $context->checkSSO();
+        $this->assertTrue($result);
+    }
+
+    public function testCheckSSO_WhenDefaultUrlNotSet()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('isCrawler', 'isInstalled'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->once())
+            ->method('isCrawler')
+            ->will($this->returnValue(false));
+        $context->expects($this->once())
+            ->method('isInstalled')
+            ->will($this->returnValue(true));
+        $context->db_info->use_sso = 'Y';
+
+        // 2. Act
+        $result = $context->checkSSO();
+
+        // 3. Assert
+        $this->assertTrue($result);
+    }
+
+    /**
+     * STEP 1
+     * This represents the first step in the Single Sign On process
+     * The user browses a virtual site with SSO enabled (shop.xe.org)
+     * and is redirected to the main site to login (www.xe.org)
+     *
+     * When the redirect is made, an extra parameter 'default_url' is passed, to know
+     * where to bring the user back after login. This default_url is the base64 encoded
+     * original url (shop.xe.org/hello/world) - including GET parameters
+     */
+    public function testCheckSSO_RequestSSO()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('isCrawler', 'isInstalled', 'getRequestUri', 'setCookie', 'setRedirectResponseTo'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->once())
+            ->method('isCrawler')
+            ->will($this->returnValue(false));
+        $context->expects($this->once())
+            ->method('isInstalled')
+            ->will($this->returnValue(true));
+        $context->expects($this->any())
+            ->method('getRequestUri')
+            ->will($this->returnValue('http://shop.xpressengine.org'));
+        $context->expects($this->once())
+            ->method('setCookie')
+            ->with(
+                $this->equalTo('sso'),
+                $this->equalTo(md5('http://shop.xpressengine.org')) ,
+                $this->equalTo(0),
+                $this->equalTo('/')
+        );
+        $context->expects($this->once())
+            ->method('setRedirectResponseTo')
+            ->with('http://www.xpressengine.org/?default_url=' . base64_encode($context->getRequestUrl()));
+
+        $context->db_info->use_sso = 'Y';
+        $context->db_info->default_url = 'http://www.xpressengine.org';
+
+        // 2. Act
+        $result = $context->checkSSO();
+
+        // 3. Assert
+        $this->assertFalse($result);
+    }
+
 
 
 

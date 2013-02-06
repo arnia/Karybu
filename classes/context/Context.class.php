@@ -218,6 +218,29 @@ class Context {
     }
 
     /**
+     * Returns a reference to an element in the global $_COOKIE array
+     *
+     * @return mixed
+     */
+    public function &getGlobalCookie($key)
+    {
+        return $_COOKIE[$key];
+    }
+
+    /**
+     * Wrapper for php's setcookie function
+     *
+     * @param $key
+     * @param $value
+     * @param $expire
+     * @param $path
+     */
+    public function setCookie($key, $value, $expire, $path)
+    {
+        setcookie($key, $value, $expire, $path);
+    }
+
+    /**
      * Returns a reference to the global $_REQUEST array
      *
      * @return array
@@ -345,6 +368,22 @@ class Context {
     public function isSiteID($domain)
     {
         return isSiteID($domain);
+    }
+
+    /**
+     * Wrapper for the global isCrawler function
+     *
+     * @return bool
+     */
+    public function isCrawler()
+    {
+        return isCrawler();
+    }
+
+
+    public function setRedirectResponseTo($url)
+    {
+        header('location:'.$url);
     }
 
     /**
@@ -798,20 +837,31 @@ class Context {
 	 * @return bool True : Module handling is necessary in the control path of current request , False : Otherwise
 	 */
 	function checkSSO() {
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
 		// pass if it's not GET request or XE is not yet installed
-		if($this->db_info->use_sso != 'Y' || isCrawler()) return true;
+		if($self->db_info->use_sso != 'Y'
+            || $self->isCrawler()) {
+            return true;
+        }
 		$checkActList = array('rss'=>1, 'atom'=>1);
-		if(Context::getRequestMethod()!='GET' || !Context::isInstalled() || isset($checkActList[Context::get('act')])) return true;
+		if($self->getRequestMethod() != 'GET'
+            || !$self->isInstalled()
+            || isset($checkActList[$self->get('act')])) {
+            return true;
+        }
 
 		// pass if default URL is not set
-		$default_url = trim($this->db_info->default_url);
+		$default_url = trim($self->db_info->default_url);
 		if(!$default_url) return true;
-		if(substr($default_url,-1)!='/') $default_url .= '/';
+		if(substr($default_url,-1)!='/') {
+            $default_url .= '/';
+        }
 
 		// for sites recieving SSO valdiation
-		if($default_url == Context::getRequestUri()) {
-			if(Context::get('default_url')) {
-				$url = base64_decode(Context::get('default_url'));
+		if($default_url == $self->getRequestUri()) {
+			if($self->get('default_url')) {
+				$url = base64_decode($self->get('default_url'));
 				$url_info = parse_url($url);
 				$url_info['query'].= ($url_info['query']?'&':'').'SSOID='.session_id();
 				$redirect_url = sprintf('%s://%s%s%s?%s',$url_info['scheme'],$url_info['host'],$url_info['port']?':'.$url_info['port']:'',$url_info['path'], $url_info['query']);
@@ -821,18 +871,18 @@ class Context {
 		// for sites requesting SSO validation
 		} else {
 			// result handling : set session_name()
-			if(Context::get('SSOID')) {
-				$session_name = Context::get('SSOID');
+			if($self->get('SSOID')) {
+				$session_name = $self->get('SSOID');
 				setcookie(session_name(), $session_name);
 
-				$url = preg_replace('/([\?\&])$/','',str_replace('SSOID='.$session_name,'',Context::getRequestUrl()));
-				header('location:'.$url);
+				$url = preg_replace('/([\?\&])$/','',str_replace('SSOID='.$session_name,'',$self->getRequestUrl()));
+                $this->setRedirectResponseTo($url);
 				return false;
 			// send SSO request
-			} else if($_COOKIE['sso']!=md5(Context::getRequestUri()) && !Context::get('SSOID')) {
-				setcookie('sso',md5(Context::getRequestUri()),0,'/');
-				$url = sprintf("%s?default_url=%s", $default_url, base64_encode(Context::getRequestUrl()));
-				header('location:'.$url);
+			} else if($this->getGlobalCookie('sso') != md5($self->getRequestUri()) && !$self->get('SSOID')) {
+				$self->setCookie('sso', md5($self->getRequestUri()), 0 ,'/');
+				$url = sprintf("%s?default_url=%s", $default_url, base64_encode($self->getRequestUrl()));
+				$this->setRedirectResponseTo($url);
 				return false;
 			}
 		}
@@ -1466,14 +1516,16 @@ class Context {
 	 * @return string request URL
 	 */
 	function getRequestUrl() {
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
 		static $url = null;
 		if(is_null($url)) {
-			$url = Context::getRequestUri();
+			$url = $self->getRequestUri();
 			if(count($_GET))
 			{
 				foreach($_GET as $key => $val)
 				{
-					$vars[] = $key . '=' . ($val ? urlencode(Context::convertEncodingStr($val)) : '');
+					$vars[] = $key . '=' . ($val ? urlencode($self->convertEncodingStr($val)) : '');
 				}
 				$url .= '?' . join('&', $vars);
 			}
