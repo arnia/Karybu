@@ -2194,7 +2194,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
      * STEP 1
      * This represents the first step in the Single Sign On process
      * The user browses a virtual site with SSO enabled (shop.xe.org)
-     * and is redirected to the main site to login (www.xe.org)
+     * and is redirected to the main site for the session id to be retrieved (www.xe.org)
      *
      * When the redirect is made, an extra parameter 'default_url' is passed, to know
      * where to bring the user back after login. This default_url is the base64 encoded
@@ -2229,6 +2229,124 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         $context->db_info->use_sso = 'Y';
         $context->db_info->default_url = 'http://www.xpressengine.org';
+
+        // 2. Act
+        $result = $context->checkSSO();
+
+        // 3. Assert
+        $this->assertFalse($result);
+    }
+
+    /**
+     * STEP 2
+     * The user just got on the main site (www.xe.org) from a subdomain
+     * (shop.xe.org). His session id from the main site will be sent back to
+     * the subdomain in the SSOID parameter (by doing another redirect)
+     */
+    public function testCheckSSO_RetrieveSessionId()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('isCrawler', 'isInstalled','getRequestUri', 'getSessionId', 'setRedirectResponseTo'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->once())
+            ->method('isCrawler')
+            ->will($this->returnValue(false));
+        $context->expects($this->once())
+            ->method('isInstalled')
+            ->will($this->returnValue(true));
+        $context->expects($this->any())
+            ->method('getRequestUri')
+            ->will($this->returnValue('http://www.xpressengine.org/'));
+        $context->expects($this->once())
+            ->method('getSessionId')
+            ->will($this->returnValue('here-is-my-session-id'));
+        $context->expects($this->once())
+            ->method('setRedirectResponseTo')
+            ->with('http://shop.xpressengine.org/?SSOID=here-is-my-session-id');
+
+        $context->db_info->use_sso = 'Y';
+        $context->db_info->default_url = 'http://www.xpressengine.org';
+        $context->set('default_url', base64_encode('http://shop.xpressengine.org/'));
+
+        // 2. Act
+        $result = $context->checkSSO();
+
+        // 3. Assert
+        $this->assertFalse($result);
+    }
+
+    /**
+     * STEP 2a
+     * The user is still on the subsite
+     */
+    public function testCheckSSO_SkipSSO()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('isCrawler', 'isInstalled','getRequestUri', 'getGlobalCookie'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->once())
+            ->method('isCrawler')
+            ->will($this->returnValue(false));
+        $context->expects($this->once())
+            ->method('isInstalled')
+            ->will($this->returnValue(true));
+        $context->expects($this->any())
+            ->method('getRequestUri')
+            ->will($this->returnValue('http://shop.xpressengine.org/'));
+        $context->expects($this->once())
+            ->method('getGlobalCookie')
+            ->will($this->returnValue(md5('http://shop.xpressengine.org/')));
+
+        $context->db_info->use_sso = 'Y';
+        $context->db_info->default_url = 'http://www.xpressengine.org';
+
+        // 2. Act
+        $result = $context->checkSSO();
+
+        // 3. Assert
+        $this->assertTrue($result);
+    }
+
+    /**
+     * STEP 3
+     * User is back on the url he originally asked for (shop.xe.org)
+     * only now he knows the session id on the main website,
+     * so the session name is updated on this subsite to the same as the main
+     * and then he is redirected to the actual original url (shop.xe.org) without SSOID set
+     */
+    public function testCheckSSO_UpdateSessionId()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('isCrawler', 'isInstalled','getRequestUri', 'getSessionName','setCookie','setRedirectResponseTo'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->once())
+            ->method('isCrawler')
+            ->will($this->returnValue(false));
+        $context->expects($this->once())
+            ->method('isInstalled')
+            ->will($this->returnValue(true));
+        $context->expects($this->any())
+            ->method('getRequestUri')
+            ->will($this->returnValue('http://shop.xpressengine.org/'));
+        $context->expects($this->any())
+            ->method('getSessionName')
+            ->will($this->returnValue('PHPSESSID'));
+        $context->expects($this->once())
+            ->method('setCookie')
+            ->with(
+            $this->equalTo($context->getSessionName()),
+            $this->equalTo('here-is-my-session-id')
+        );
+        $context->expects($this->once())
+            ->method('setRedirectResponseTo')
+            ->with('http://shop.xpressengine.org/');
+
+        $context->db_info->use_sso = 'Y';
+        $context->db_info->default_url = 'http://www.xpressengine.org';
+        $context->set('SSOID', 'here-is-my-session-id', true);
 
         // 2. Act
         $result = $context->checkSSO();

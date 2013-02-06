@@ -228,6 +228,22 @@ class Context {
     }
 
     /**
+     * Wrapper for the session_id() function
+     */
+    public function getSessionId()
+    {
+        return session_id();
+    }
+
+    /**
+     * Wrapper for the session_name() function
+     */
+    public function getSessionName()
+    {
+        return session_name();
+    }
+
+    /**
      * Wrapper for php's setcookie function
      *
      * @param $key
@@ -235,8 +251,14 @@ class Context {
      * @param $expire
      * @param $path
      */
-    public function setCookie($key, $value, $expire, $path)
+    public function setCookie($key, $value, $expire = null, $path = null)
     {
+        if(!isset($expire))
+        {
+            setcookie($key, $value);
+            return;
+        }
+
         setcookie($key, $value, $expire, $path);
     }
 
@@ -863,9 +885,9 @@ class Context {
 			if($self->get('default_url')) {
 				$url = base64_decode($self->get('default_url'));
 				$url_info = parse_url($url);
-				$url_info['query'].= ($url_info['query']?'&':'').'SSOID='.session_id();
+				$url_info['query'].= ($url_info['query']?'&':'').'SSOID='.$self->getSessionId();
 				$redirect_url = sprintf('%s://%s%s%s?%s',$url_info['scheme'],$url_info['host'],$url_info['port']?':'.$url_info['port']:'',$url_info['path'], $url_info['query']);
-				header('location:'.$redirect_url);
+                $self->setRedirectResponseTo($redirect_url);
 				return false;
 			}
 		// for sites requesting SSO validation
@@ -873,16 +895,15 @@ class Context {
 			// result handling : set session_name()
 			if($self->get('SSOID')) {
 				$session_name = $self->get('SSOID');
-				setcookie(session_name(), $session_name);
-
+				$this->setCookie($this->getSessionName(), $session_name);
 				$url = preg_replace('/([\?\&])$/','',str_replace('SSOID='.$session_name,'',$self->getRequestUrl()));
-                $this->setRedirectResponseTo($url);
+                $self->setRedirectResponseTo($url);
 				return false;
 			// send SSO request
 			} else if($this->getGlobalCookie('sso') != md5($self->getRequestUri()) && !$self->get('SSOID')) {
 				$self->setCookie('sso', md5($self->getRequestUri()), 0 ,'/');
 				$url = sprintf("%s?default_url=%s", $default_url, base64_encode($self->getRequestUrl()));
-				$this->setRedirectResponseTo($url);
+				$self->setRedirectResponseTo($url);
 				return false;
 			}
 		}
