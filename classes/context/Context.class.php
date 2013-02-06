@@ -1519,7 +1519,7 @@ class Context {
 		if($domain) {
 			$domain_info = parse_url($domain);
 			if(is_null($self->current_info)) {
-                $self->current_info = parse_url(($_SERVER['HTTPS']=='on'?'https':'http').'://'.$_SERVER['HTTP_HOST'].$self->getScriptPath());
+                $self->current_info = parse_url(($this->getServerRequestHttps()=='on'?'https':'http').'://'.$this->getServerHost().$self->getScriptPath());
             }
 			if($domain_info['host'].$domain_info['path']==$self->current_info['host'].$self->current_info['path']) {
 				unset($domain);
@@ -1660,7 +1660,7 @@ class Context {
 		// no SSL
 		} else {
 			// currently on SSL but target is not based on SSL
-			if($_SERVER['HTTPS']=='on' ) {
+			if($this->getServerRequestHttps()=='on' ) {
                 $query = $self->getRequestUri(ENFORCE_SSL, $domain).$query;
             }
 

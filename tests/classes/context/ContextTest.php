@@ -1801,6 +1801,76 @@ class ContextTest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testGetUrl_WithGetParametersSetAndOtherVariables_StartNewWhenFirstParamsIsEmptyString()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI'), array($file_handler, $frontend_file_handler));
+
+        $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
+        $context->set('module', 'admin', true);
+        $context->set('act', 'dispDashboard', true);
+
+        $url = $context->getUrl(2, array('', 'category_srl', '1234'));
+
+        $this->assertEquals('/some_folder/xe/index.php?category_srl=1234', $url);
+    }
+
+    public function testGetUrl_WithDomain_SiteID()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+
+        $url = $context->getUrl(2, array('module', 'admin'), 'shop');
+
+        $this->assertEquals('/index.php?module=admin&amp;vid=shop', $url);
+    }
+
+    public function testGetUrl_WithDomain_Subdomain()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(false));
+
+        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+
+        $url = $context->getUrl(2, array('module', 'admin'), 'http://shop.xpressengine.org');
+
+        $this->assertEquals('index.php?module=admin', $url);
+    }
+
+    public function testGetUrl_WithDomain_Subdomain_SameAsHost()
+    {
+        // 1. Arrange
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(false));
+
+        $_SERVER['HTTP_HOST'] = 'shop.xpressengine.org';
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+
+        $url = $context->getUrl(2, array('module', 'admin'), 'http://shop.xpressengine.org/');
+
+        $this->assertEquals('/index.php?module=admin', $url);
+    }
+
+
 
 
 
