@@ -2549,6 +2549,223 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Hello - Joe', $context->getBrowserTitle());
     }
 
+    /**
+     * Make sure Context delegates the call to FrontendFileHandler
+     */
+    public function testLoadFile_WithoutCDN()
+    {
+        $args = array('filename');
+        $useCdn = false;
+        $cdnPrefix = '';
+        $cdnVersion = '';
+
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler->expects($this->once())
+            ->method('loadFile')
+            ->with($args, $useCdn, $cdnPrefix, $cdnVersion);
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        // 2. Act
+        $context->loadFile($args, $useCdn, $cdnPrefix, $cdnVersion);
+    }
+
+    /**
+     * Make sure Context delegates the call to FrontendFileHandler
+     */
+    public function testLoadFile_WithCDN_DefaultValues()
+    {
+        define('__XE_CDN_PREFIX__', 'http://static.xpressengine.com/core/');
+        define('__XE_CDN_VERSION__', '%__XE_CDN_VERSION__%');
+
+        $args = array('filename');
+        $useCdn = true;
+        $cdnPrefix = '';
+        $cdnVersion = '';
+
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler->expects($this->once())
+            ->method('loadFile')
+            ->with($args, $useCdn, __XE_CDN_PREFIX__, __XE_CDN_VERSION__);
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        $context->loadFile($args, $useCdn, $cdnPrefix, $cdnVersion);
+    }
+
+    /**
+     * Make sure Context delegates the call to FrontendFileHandler
+     */
+    public function testLoadFile_WithCDN_CustomValues()
+    {
+        define('__XE_CDN_PREFIX__', 'http://static.xpressengine.com/core/');
+        define('__XE_CDN_VERSION__', '%__XE_CDN_VERSION__%');
+
+        $args = array('filename');
+        $useCdn = 'Y';
+        $cdnPrefix = '//ajax.googleapis.com';
+        $cdnVersion = '1.6';
+
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler->expects($this->once())
+            ->method('loadFile')
+            ->with($args, $useCdn, $cdnPrefix, $cdnVersion);
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        $context->loadFile($args, $useCdn, $cdnPrefix, $cdnVersion);
+    }
+
+    /**
+     * Make sure Context delegates the call to FrontendFileHandler
+     */
+    public function testUnloadFile()
+    {
+        $file = 'somefile';
+        $targetIe = '123';
+        $media = 'some';
+
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler->expects($this->once())
+            ->method('unloadFile')
+            ->with($file, $targetIe, $media);
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        // 2. Act
+        $context->unloadFile($file, $targetIe, $media);
+    }
+
+    /**
+     * Make sure Context delegates the call to FrontendFileHandler
+     */
+    public function testUnloadAllFiles()
+    {
+        $type = 'some';
+
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler->expects($this->once())
+            ->method('unloadAllFiles')
+            ->with($type);
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        // 2. Act
+        $context->unloadAllFiles($type);
+    }
+
+    /**
+     * Make sure Context delegates the call to FrontendFileHandler
+     */
+    public function testUnloadJsFile()
+    {
+        $file = 'filename.js';
+        $optimized = true;
+        $targetie = '123';
+
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler->expects($this->once())
+            ->method('unloadFile')
+            ->with($file, $targetie);
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        // 2. Act
+        $context->unloadJsFile($file, $optimized, $targetie);
+    }
+
+    /**
+     * Make sure Context delegates the call to FrontendFileHandler
+     */
+    public function testUnloadAllJsFiles()
+    {
+        $type = 'js';
+
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler->expects($this->once())
+            ->method('unloadAllFiles')
+            ->with($type);
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        // 2. Act
+        $context->unloadAllJsFiles();
+    }
+
+    /**
+     * Make sure Context delegates the call to FrontendFileHandler
+     */
+    public function testGetJsFile()
+    {
+        $type = 'body';
+
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler->expects($this->once())
+            ->method('getJsFileList')
+            ->with($type);
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        // 2. Act
+        $context->getJsFile($type);
+    }
+
+
+    /**
+     * Make sure Context delegates the call to FrontendFileHandler
+     */
+    public function testUnloadCssFile()
+    {
+        $file = 'filename.css';
+        $optimized = false;
+        $media = 'some';
+        $targetie = '123';
+
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler->expects($this->once())
+            ->method('unloadFile')
+            ->with($file, $targetie, $media);
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        // 2. Act
+        $context->unloadCssFile($file, $optimized, $media, $targetie);
+    }
+
+
+    /**
+     * Make sure Context delegates the call to FrontendFileHandler
+     */
+    public function testUnloadAllCssFiles()
+    {
+        $type = 'css';
+
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler->expects($this->once())
+            ->method('unloadAllFiles')
+            ->with($type);
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        // 2. Act
+        $context->unloadAllCssFiles();
+    }
+
+
+    /**
+     * Make sure Context delegates the call to FrontendFileHandler
+     */
+    public function testGetCssFile()
+    {
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler->expects($this->once())
+            ->method('getCssFileList');
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        // 2. Act
+        $context->getCSSFile();
+    }
 
 
 }
