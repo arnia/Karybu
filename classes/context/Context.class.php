@@ -1968,36 +1968,6 @@ class Context {
 	}
 
 	/**
-	 * Normalize file path
-	 *
-	 * @deprecated
-	 * @param string $file file path
-	 * @return string normalized file path
-	 */
-	function normalizeFilePath($file) {
-		if(strpos($file,'://')===false && $file{0}!='/' && $file{0}!='.') $file = './'.$file;
-		$file = preg_replace('@/\./|(?<!:)\/\/@', '/', $file);
-		while(strpos($file,'/../')) $file = preg_replace('/\/([^\/]+)\/\.\.\//s','/',$file,1);
-
-		return $file;
-	}
-
-	/**
-	 * Get abstract file url
-	 *
-	 * @deprecated
-	 * @param string $file file path
-	 * @return string Converted file path
-	 */
-	function getAbsFileUrl($file) {
-		$file = Context::normalizeFilePath($file);
-		if(strpos($file,'./')===0) $file = dirname($_SERVER['SCRIPT_NAME']).'/'.substr($file,2);
-		elseif(strpos($file,'../')===0) $file = Context::normalizeFilePath(dirname($_SERVER['SCRIPT_NAME'])."/{$file}");
-
-		return $file;
-	}
-
-	/**
 	 * Load front end file
 	 *
 	 * @param array $args array
@@ -2119,26 +2089,6 @@ class Context {
 	function addJsFilter($path, $filename) {
 		$oXmlFilter = new XmlJSFilter($path, $filename);
 		$oXmlFilter->compile();
-	}
-	/**
-	 * Same as array_unique but works only for file subscript
-	 *
-	 * @deprecated
-	 * @param array $files File list
-	 * @return array File list
- 	 */
-	function _getUniqueFileList($files) {
-		ksort($files);
-		$files = array_values($files);
-		$filenames = array();
-		$size = count($files);
-		for($i = 0; $i < $size; ++ $i)
-		{
-			if(in_array($files[$i]['file'], $filenames)) unset($files[$i]);
-			$filenames[] = $files[$i]['file'];
-		}
-
-		return $files;
 	}
 
 	/**
