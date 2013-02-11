@@ -161,6 +161,11 @@ class Context {
     var $loaded_javascript_plugins;
 
     /**
+     * Validator
+     */
+    var $validator;
+
+    /**
 	 * returns static context object (Singleton). It's to use Context without declaration of an object
 	 *
 	 * @return object Instance
@@ -194,13 +199,15 @@ class Context {
 	 *
 	 * @return void
 	 */
-	function Context(FileHandler $file_handler = null, FrontEndFileHandler $frontend_file_handler = null)
+	function Context(FileHandler $file_handler = null, FrontEndFileHandler $frontend_file_handler = null, Validator $validator = null)
 	{
         if(!isset($file_handler)) $file_handler = new FileHandler();
         if(!isset($frontend_file_handler)) $frontend_file_handler = new FrontEndFileHandler();
+        if(!isset($validator)) $validator = new Validator();
 
         $this->file_handler = $file_handler;
 		$this->oFrontEndFileHandler = $frontend_file_handler;
+        $this->validator = $validator;
 	}
 
     /**
@@ -2046,7 +2053,9 @@ class Context {
 				$file = str_replace('#', '', $file);
 				if (!is_readable($file)) $file = $autoPath;
 			}
-			$validator   = new Validator($file);
+            // TODO I think Validator needs some refactoring itself
+			$validator   = $this->validator;
+            $validator->setRulesetPath($file);
 			$validator->setCacheDir('files/cache');
 			$file = $validator->getJsPath();
 		}

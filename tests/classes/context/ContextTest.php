@@ -4,8 +4,11 @@ if(!defined('__XE__')) require dirname(__FILE__).'/../../Bootstrap.php';
 
 require_once _XE_PATH_.'classes/context/Context.class.php'; 
 require_once _XE_PATH_.'classes/handler/Handler.class.php';
-require_once _XE_PATH_.'classes/frontendfile/FrontEndFileHandler.class.php';
 require_once _XE_PATH_.'classes/xml/XmlParser.class.php';
+
+class FrontendFileHandler {}
+class FileHandler {}
+class Validator {}
 
 class ContextTest extends PHPUnit_Framework_TestCase
 {
@@ -2560,7 +2563,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $cdnVersion = '';
 
         $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler', array('loadFile'));
         $frontend_file_handler->expects($this->once())
             ->method('loadFile')
             ->with($args, $useCdn, $cdnPrefix, $cdnVersion);
@@ -2584,7 +2587,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $cdnVersion = '';
 
         $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler', array('loadFile'));
         $frontend_file_handler->expects($this->once())
             ->method('loadFile')
             ->with($args, $useCdn, __XE_CDN_PREFIX__, __XE_CDN_VERSION__);
@@ -2607,7 +2610,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $cdnVersion = '1.6';
 
         $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler', array('loadFile'));
         $frontend_file_handler->expects($this->once())
             ->method('loadFile')
             ->with($args, $useCdn, $cdnPrefix, $cdnVersion);
@@ -2626,7 +2629,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $media = 'some';
 
         $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler', array('unloadFile'));
         $frontend_file_handler->expects($this->once())
             ->method('unloadFile')
             ->with($file, $targetIe, $media);
@@ -2644,7 +2647,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $type = 'some';
 
         $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler', array('unloadAllFiles'));
         $frontend_file_handler->expects($this->once())
             ->method('unloadAllFiles')
             ->with($type);
@@ -2664,7 +2667,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $targetie = '123';
 
         $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler', array('unloadFile'));
         $frontend_file_handler->expects($this->once())
             ->method('unloadFile')
             ->with($file, $targetie);
@@ -2682,7 +2685,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $type = 'js';
 
         $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler', array('unloadAllFiles'));
         $frontend_file_handler->expects($this->once())
             ->method('unloadAllFiles')
             ->with($type);
@@ -2700,7 +2703,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $type = 'body';
 
         $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler', array('getJsFileList'));
         $frontend_file_handler->expects($this->once())
             ->method('getJsFileList')
             ->with($type);
@@ -2722,7 +2725,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $targetie = '123';
 
         $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler', array('unloadFile'));
         $frontend_file_handler->expects($this->once())
             ->method('unloadFile')
             ->with($file, $targetie, $media);
@@ -2741,7 +2744,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $type = 'css';
 
         $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler', array('unloadAllFiles'));
         $frontend_file_handler->expects($this->once())
             ->method('unloadAllFiles')
             ->with($type);
@@ -2758,7 +2761,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetCssFile()
     {
         $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler', array('getCssFileList'));
         $frontend_file_handler->expects($this->once())
             ->method('getCssFileList');
         $context = new Context($file_handler, $frontend_file_handler);
@@ -2767,7 +2770,86 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $context->getCSSFile();
     }
 
+    /**
+     * Make sure Context delegates the call to FrontendFileHandler
+     */
+    public function testAddJsFile_Basic()
+    {
+        $file = 'somefile.js';
+        $optimized = false;
+        $targetie = '123';
+        $index=0;
+        $type='body';
+        $isRuleset = false;
+        $autoPath = null;
 
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler', array('loadFile'));
+        $frontend_file_handler->expects($this->once())
+            ->method('loadFile')
+            ->with($this->equalTo(array($file, $type, $targetie, $index)));
+
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        // 2. Act
+        $context->addJsFile($file, $optimized, $targetie, $index, $type, $isRuleset, $autoPath);
+    }
+
+    /**
+     * Make sure Context delegates the call to FrontendFileHandler
+     */
+    public function testAddJsFile_Ruleset()
+    {
+        $file = 'somefile.js';
+        $optimized = false;
+        $targetie = '123';
+        $index=0;
+        $type='body';
+        $isRuleset = true;
+        $autoPath = null;
+
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler', array('loadFile'));
+        $frontend_file_handler->expects($this->once())
+            ->method('loadFile')
+            ->with($this->equalTo(array('ruleset_cache_file.js', $type, $targetie, $index)));
+        $validator = $this->getMock('Validator', array('setCacheDir', 'setRulesetPath', 'getJsPath'));
+        $validator->expects($this->once())
+            ->method('setRulesetPath')
+            ->with($file);
+        $validator->expects($this->once())
+            ->method('setCacheDir');
+        $validator->expects($this->once())
+            ->method('getJsPath')
+            ->will($this->returnValue("ruleset_cache_file.js"));
+
+        $context = new Context($file_handler, $frontend_file_handler, $validator);
+
+        // 2. Act
+        $context->addJsFile($file, $optimized, $targetie, $index, $type, $isRuleset, $autoPath);
+    }
+
+    /**
+     * Make sure Context delegates the call to FrontendFileHandler
+     */
+    public function testAddCssFile()
+    {
+        $file = 'style.css';
+        $optimized=true;
+        $media='some';
+        $targetie='123';
+        $index=7;
+
+        $file_handler = $this->getMock('FileHandler');
+        $frontend_file_handler = $this->getMock('FrontendFileHandler', array('loadFile'));
+        $frontend_file_handler->expects($this->once())
+            ->method('loadFile')
+            ->with(array($file, $media, $targetie, $index));
+        $context = new Context($file_handler, $frontend_file_handler);
+
+        // 2. Act
+        $context->addCSSFile($file, $optimized, $media, $targetie, $index);
+    }
 }
 
 /* End of file ContextTest.php */
