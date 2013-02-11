@@ -1,13 +1,16 @@
 <?php
 namespace GlCMS\HttpKernel\Controller;
 
-use Symfony\Component\HttpKernel\Controller;
+use Symfony\Component\HttpKernel\Controller\ControllerResolver as BaseResolver;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 require_once _XE_PATH_ . 'classes/module/ModuleMatcher.class.php';
 
-class ControllerResolver extends Controller\ControllerResolver
+class ControllerResolver extends BaseResolver
 {
+    protected $container;
+    protected $parser;
 
     public function getController(Request $request)
     {
@@ -49,6 +52,10 @@ class ControllerResolver extends Controller\ControllerResolver
         {
             $module_matcher = new \ModuleMatcher();
             $oModule = $module_matcher->getModuleInstance($act, $module, $oModuleModel, $is_mobile, $is_installed, $module_info);
+        }
+
+        if ($oModule instanceof ContainerAwareInterface) {
+            $oModule->setContainer($this->container);
         }
 
         return new ControllerWrapper($oModule);

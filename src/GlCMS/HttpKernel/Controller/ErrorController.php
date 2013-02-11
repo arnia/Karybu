@@ -1,7 +1,9 @@
 <?php
 namespace GlCMS\HttpKernel\Controller;
 
-class ErrorController
+use GlCMS\Controller\Controller;
+
+class ErrorController extends Controller
 {
     function exceptionAction()
     {

@@ -1,25 +1,223 @@
 <?php
-    /**
-    * @class ModuleObject
-    * @author NHN (developers@xpressengine.com)
-    * base class of ModuleHandler
-    **/
+    use GlCMS\HttpKernel\Module;
 
-    class ModuleObject extends Object {
+    class ModuleObject extends Module
+    {
 
-        var $mid = NULL; ///< string to represent run-time instance of Module (XE Module)
-        var $module = NULL; ///< Class name of Xe Module that is identified by mid
-        var $module_srl = NULL; ///< integer value to represent a run-time instance of Module (XE Module)
-        var $module_info = NULL; ///< an object containing the module information
-		var $origin_module_info = NULL;
-        var $xml_info = NULL; ///< an object containing the module description extracted from XML file
+        /**
+         * old Object class below:
+         */
 
-        var $module_path = NULL; ///< a path to directory where module source code resides
+        //region Object
+        /**
+         * Error code. If `0`, it is not an error.
+         * @var int
+         */
+        var $error = 0;
 
-        var $act = NULL; ///< a string value to contain the action name
+        /**
+         * Error message. If `success`, it is not an error.
+         * @var string
+         */
+        var $message = 'success';
 
-        var $template_path = NULL; ///< a path of directory where template files reside
-        var $template_file = NULL; ///< name of template file
+        /**
+         * An additional variable
+         * @var array
+         */
+        var $variables = array();
+
+        /**
+         * http status code.
+         * @var int
+         */
+        var $httpStatusCode = NULL;
+
+
+        /**
+         * Constructor
+         *
+         * @param int $error Error code
+         * @param string $message Error message
+         * @return void
+         */
+        public function __construct($error = 0, $message = 'success')
+        {
+            $this->setError($error);
+            $this->setMessage($message);
+        }
+
+
+        /**
+         * Setter to set error code
+         *
+         * @param int $error error code
+         * @return void
+         */
+        function setError($error = 0)
+        {
+            $this->error = $error;
+        }
+
+        /**
+         * Getter to retrieve error code
+         *
+         * @return int Returns an error code
+         */
+        function getError()
+        {
+            return $this->error;
+        }
+
+        /**
+         * Setter to set HTTP status code
+         *
+         * @param int $code HTTP status code. Default value is `200` that means successful
+         * @return void
+         */
+        function setHttpStatusCode($code = '200')
+        {
+            $this->httpStatusCode = $code;
+        }
+
+        /**
+         * Getter to retrieve HTTP status code
+         *
+         * @return int Returns HTTP status code
+         */
+        function getHttpStatusCode()
+        {
+            return $this->httpStatusCode;
+        }
+
+        /**
+         * Getter to retrieve an error message
+         *
+         * @return string Returns message
+         */
+        function getMessage()
+        {
+            return $this->message;
+        }
+
+        /**
+         * Setter to set a key/value pair as an additional variable
+         *
+         * @param string $key A variable name
+         * @param mixed $val A value for the variable
+         * @return void
+         */
+        function add($key, $val)
+        {
+            $this->variables[$key] = $val;
+        }
+
+        /**
+         * Method to set multiple key/value pairs as an additional variables
+         *
+         * @param Object|array $object Either object or array containg key/value pairs to be added
+         * @return void
+         */
+        function adds($object)
+        {
+            if (is_object($object)) {
+                $object = get_object_vars($object);
+            }
+            if (is_array($object)) {
+                foreach ($object as $key => $val) {
+                    $this->variables[$key] = $val;
+                }
+            }
+        }
+
+        /**
+         * Method to retrieve a corresponding value to a given key
+         *
+         * @param string $key
+         * @return string Returns value to a given key
+         */
+        function get($key)
+        {
+            return $this->variables[$key];
+        }
+
+
+        /**
+         * Method to retrieve an object containing a key/value paris
+         *
+         * @return Object Returns an object containing key/value pairs
+         */
+        function gets() {
+            $num_args = func_num_args();
+            $args_list = func_get_args();
+            $output = new stdClass();
+            for($i=0;$i<$num_args;$i++) {
+                $key = $args_list[$i];
+                $output->{$key} = $this->get($key);
+            }
+            return $output;
+        }
+
+        /**
+         * Method to retrieve an array of key/value pairs
+         *
+         * @return array
+         */
+        function getVariables()
+        {
+            return $this->variables;
+        }
+
+        /**
+         * Method to retrieve an object of key/value pairs
+         *
+         * @return Object
+         */
+        function getObjectVars()
+        {
+            $output = new stdClass();
+            foreach ($this->variables as $key => $val) {
+                $output->{$key} = $val;
+            }
+            return $output;
+        }
+
+        /**
+         * Method to return either true or false depnding on the value in a 'error' variable
+         *
+         * @return bool Retruns true : error isn't 0 or false : otherwise.
+         */
+        function toBool()
+        {
+            // TODO This method is misleading in that it returns true if error is 0, which should be true in boolean representation.
+            return $this->error == 0 ? true : false;
+        }
+
+
+        /**
+         * Method to return either true or false depnding on the value in a 'error' variable
+         *
+         * @return bool
+         */
+        function toBoolean()
+        {
+            return $this->toBool();
+        }
+        //endregion
+
+        var $mid = null; ///< string to represent run-time instance of Module (XE Module)
+        var $module = null; ///< Class name of Xe Module that is identified by mid
+        var $module_srl = null; ///< integer value to represent a run-time instance of Module (XE Module)
+        var $module_info = null; ///< an object containing the module information
+		var $origin_module_info = null;
+        var $xml_info = null; ///< an object containing the module description extracted from XML file
+
+        var $module_path = null; ///< a path to directory where module source code resides
+
+        var $act = null; ///< a string value to contain the action name
+
+        var $template_path = null; ///< a path of directory where template files reside
+        var $template_file = null; ///< name of template file
 
         var $layout_path = ''; ///< a path of directory where layout files reside
         var $layout_file = ''; ///< name of layout file
@@ -27,17 +225,18 @@
 
         var $stop_proc = false; ///< a flag to indicating whether to stop the execution of code.
 
-		var $module_config = NULL;
+		var $module_config = null;
 		var $ajaxRequestMethod = array('XMLRPC', 'JSON');
 
-		var $gzhandler_enable = TRUE;
+		var $gzhandler_enable = true;
 
         /**
          * setter to set the name of module
          * @param string $module name of module
 		 * @return void
          **/
-        function setModule($module) {
+        function setModule($module)
+        {
             $this->module = $module;
         }
 
@@ -46,7 +245,8 @@
          * @param string $path the directory path to a module directory
 		 * @return void
          **/
-        function setModulePath($path) {
+        function setModulePath($path)
+        {
             if(substr($path,-1)!='/') $path.='/';
             $this->module_path = $path;
         }
@@ -55,17 +255,16 @@
          * setter to set an url for redirection
          * @param string $url url for redirection
          * @remark redirect_url is used only for ajax requests
-		 * @return void
+		 * @return void|mixed
          **/
-        function setRedirectUrl($url='./', $output = NULL) {
+        function setRedirectUrl($url='./', $output = null)
+        {
 			$ajaxRequestMethod = array_flip($this->ajaxRequestMethod);
-			if(!isset($ajaxRequestMethod[Context::getRequestMethod()]))
-			{
+			if (!isset($ajaxRequestMethod[Context::getRequestMethod()])) {
 				$this->add('redirect_url', $url);
 			}
 
-			if($output !== NULL && is_object($output))
-			{
+			if($output !== null && is_object($output)) {
 				return $output;
 			}
         }
@@ -74,7 +273,8 @@
 		 * get url for redirection
 		 * @return string redirect_url
 		 **/
-		function getRedirectUrl(){
+		function getRedirectUrl()
+        {
 			return $this->get('redirect_url');
 		}
 
@@ -84,17 +284,22 @@
 		 * @param string $type type of message (error, info, update)
 		 * @return void
 		 **/
-		function setMessage($message, $type = null){
-			parent::setMessage($message);
+		function setMessage($message, $type = null)
+        {
+            if (Context::getLang($message)) {
+                $message = Context::getLang($message);
+            }
+            $this->message = $message;
 			$this->setMessageType($type);
 		}
 
-		/**
+        /**
 		 * set type of message
 		 * @param string $type type of message (error, info, update)
 		 * @return void
 		 **/
-		function setMessageType($type){
+		function setMessageType($type)
+        {
 			$this->add('message_type', $type);
 		}
 
@@ -102,10 +307,11 @@
 		 * get type of message
 		 * @return string $type
 		 **/
-		function getMessageType(){
+		function getMessageType()
+        {
 			$type = $this->get('message_type');
 			$typeList = array('error'=>1, 'info'=>1, 'update'=>1);
-			if (!isset($typeList[$type])){
+			if (!isset($typeList[$type])) {
 				$type = $this->getError()?'error':'info';
 			}
 			return $type;
@@ -117,7 +323,8 @@
          * Tpl as the common run of the refresh.html ..
 		 * @return void
          **/
-        function setRefreshPage() {
+        function setRefreshPage()
+        {
             $this->setTemplatePath('./common/tpl');
             $this->setTemplateFile('refresh');
         }
@@ -128,7 +335,8 @@
 		 * @param string $act
 		 * @return void
          **/
-        function setAct($act) {
+        function setAct($act)
+        {
             $this->act = $act;
         }
 
@@ -138,7 +346,8 @@
          * @param object $xml_info object containing module description
 		 * @return void
         **/
-        function setModuleInfo($module_info, $xml_info) {
+        function setModuleInfo($module_info, $xml_info)
+        {
             // The default variable settings
             $this->mid = $module_info->mid;
             $this->module_srl = $module_info->module_srl;
@@ -203,7 +412,8 @@
          * @param string $msg_code an error code
 		 * @return ModuleObject $this
          **/
-        function stop($msg_code) {
+        function stop($msg_code)
+        {
             // flag setting to stop the proc processing
             $this->stop_proc = true;
             // Error handling
@@ -227,7 +437,8 @@
 		 * @param string name of file
 		 * @return void
          **/
-        function setTemplateFile($filename) {
+        function setTemplateFile($filename)
+        {
             if(substr($filename,-5)!='.html') $filename .= '.html';
             $this->template_file = $filename;
         }
@@ -236,7 +447,8 @@
          * retrieve the directory path of the template directory
 		 * @return string
          **/
-        function getTemplateFile() {
+        function getTemplateFile()
+        {
             return $this->template_file;
         }
 
@@ -245,7 +457,8 @@
 		 * @param string path of template directory.
 		 * @return void
          **/
-        function setTemplatePath($path) {
+        function setTemplatePath($path)
+        {
             if(substr($path,0,1)!='/' && substr($path,0,2)!='./') $path = './'.$path;
             if(substr($path,-1)!='/') $path .= '/';
             $this->template_path = $path;
@@ -255,7 +468,8 @@
          * retrieve the directory path of the template directory
 		 * @return string
          **/
-        function getTemplatePath() {
+        function getTemplatePath()
+        {
             return $this->template_path;
         }
 
@@ -264,7 +478,8 @@
 		 * @param string name of file
 		 * @return void
          **/
-        function setEditedLayoutFile($filename) {
+        function setEditedLayoutFile($filename)
+        {
             if(substr($filename,-5)!='.html') $filename .= '.html';
             $this->edited_layout_file = $filename;
         }
@@ -273,7 +488,8 @@
          * retreived the file name of edited_layout_file
 		 * @return string
          **/
-        function getEditedLayoutFile() {
+        function getEditedLayoutFile()
+        {
             return $this->edited_layout_file;
         }
 
@@ -282,7 +498,8 @@
 		 * @param string name of file
 		 * @return void
          **/
-        function setLayoutFile($filename) {
+        function setLayoutFile($filename)
+        {
             if(substr($filename,-5)!='.html') $filename .= '.html';
             $this->layout_file = $filename;
         }
@@ -291,7 +508,8 @@
          * get the file name of the layout file
 		 * @return string
          **/
-        function getLayoutFile() {
+        function getLayoutFile()
+        {
             return $this->layout_file;
         }
 
@@ -299,7 +517,8 @@
          * set the directory path of the layout directory
 		 * @param string path of layout directory.
          **/
-        function setLayoutPath($path) {
+        function setLayoutPath($path)
+        {
             if(substr($path,0,1)!='/' && substr($path,0,2)!='./') $path = './'.$path;
             if(substr($path,-1)!='/') $path .= '/';
             $this->layout_path = $path;
@@ -309,7 +528,8 @@
          * set the directory path of the layout directory
 		 * @return string
          **/
-        function getLayoutPath() {
+        function getLayoutPath()
+        {
             return $this->layout_path;
         }
 
@@ -385,7 +605,8 @@
          * excute the member method specified by $act variable
 		 * @return boolean true : success false : fail 
          **/
-        function proc() {
+        function proc()
+        {
             /** @var $request \Symfony\Component\HttpFoundation\Request */
             $controller = array($this, $this->act);
             $request = Context::get('request');
