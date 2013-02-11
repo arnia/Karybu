@@ -253,12 +253,37 @@ class Context {
     }
 
     /**
+     * Wrapper for the session_id() function
+     */
+    public function setSessionId($id)
+    {
+        return session_id($id);
+    }
+
+    /**
      * Wrapper for the session_name() function
      */
     public function getSessionName()
     {
         return session_name();
     }
+
+    /**
+     * Wrapper for the session_set_save_handler() function
+     */
+    public function setSessionSaveHandler($open, $close, $read, $write, $destroy, $gc)
+    {
+        session_set_save_handler($open, $close, $read, $write, $destroy, $gc);
+    }
+
+    /**
+     * Wrapper for the session_start() function
+     */
+    public function startPHPSession()
+    {
+        return session_start();
+    }
+
 
     /**
      * Wrapper for php's setcookie function
@@ -303,6 +328,15 @@ class Context {
     public function &getArgumentsForPOSTRequest()
     {
         return $_POST;
+    }
+
+    /**
+     * Returns a reference to the global $_POST array
+     */
+    public function &getPOSTArgument($name)
+    {
+        $post = $this->getArgumentsForPOSTRequest();
+        return $post[$name];
     }
 
     /**
@@ -414,6 +448,16 @@ class Context {
     public function &getMemberController()
     {
         return getController('member');
+    }
+
+    public function &getSessionModel()
+    {
+        return getModel('session');
+    }
+
+    public function &getSessionController()
+    {
+        return getController('session');
     }
 
     /**
@@ -572,11 +616,14 @@ class Context {
      */
     public function startSession()
     {
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
         // set session handler
-        if (Context::isInstalled() && $this->db_info->use_db_session == 'Y') {
-            $oSessionModel = & getModel('session');
-            $oSessionController = & getController('session');
-            session_set_save_handler(
+        if ($self->isInstalled() && $self->db_info->use_db_session == 'Y') {
+            $oSessionModel = &$self->getSessionModel();
+            $oSessionController = &$self->getSessionController();
+
+            $self->setSessionSaveHandler(
                 array(&$oSessionController, 'open'),
                 array(&$oSessionController, 'close'),
                 array(&$oSessionModel, 'read'),
@@ -585,8 +632,11 @@ class Context {
                 array(&$oSessionController, 'gc')
             );
         }
-        session_start();
-        if ($sess = $_POST[session_name()]) session_id($sess);
+
+        $self->startPHPSession();
+        if ($sess = $self->getPOSTArgument($self->getSessionName())) {
+            $self->setSessionId($sess);
+        }
     }
 
     public function getCurrentLanguage($enabled_languages, $default_language)

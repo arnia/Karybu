@@ -2832,6 +2832,62 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("logged-info-object-here", $context->get('logged_info'));
     }
 
+    public function testStartSession_AppNotInstalledYet()
+    {
+        $context = $this->getMock('Context', array('startPHPSession', 'isInstalled'));
+        $context->expects($this->any())->method('isInstalled')->will($this->returnValue(false));
+
+        $context->expects($this->never())->method('setSessionSaveHandler');
+        $context->expects($this->once())->method('startPHPSession');
+
+        $context->startSession();
+    }
+
+
+    public function testStartSession_SessionDisabled()
+    {
+        $context = $this->getMock('Context', array('startPHPSession', 'isInstalled'));
+        $context->expects($this->any())->method('isInstalled')->will($this->returnValue(true));
+
+        $context->expects($this->never())->method('setSessionSaveHandler');
+        $context->expects($this->once())->method('startPHPSession');
+
+        $context->startSession();
+    }
+
+    public function testStartSession_SessionEnabled()
+    {
+        $context = $this->getMock('Context', array('startPHPSession', 'isInstalled', 'getSessionController', 'getSessionModel', 'setSessionSaveHandler'));
+        $context->expects($this->any())->method('isInstalled')->will($this->returnValue(true));
+        $context->db_info->use_db_session = 'Y';
+
+        $context->expects($this->once())->method('setSessionSaveHandler');
+        $context->expects($this->once())->method('startPHPSession');
+
+        $context->startSession();
+    }
+
+
+    public function testStartSession_SessionEnabled_SessionNamePosted()
+    {
+        $context = $this->getMock('Context', array('startPHPSession', 'isInstalled'
+            , 'getSessionController', 'getSessionModel'
+            , 'setSessionSaveHandler', 'getSessionName', 'getPOSTArgument', 'setSessionId'));
+        $context->expects($this->any())->method('isInstalled')->will($this->returnValue(true));
+        $context->db_info->use_db_session = 'Y';
+
+        $context->expects($this->once())->method('setSessionSaveHandler');
+        $context->expects($this->once())->method('startPHPSession');
+        $context->expects($this->any())->method('getSessionName')->will($this->returnValue('PHPSESSID'));
+        $context->expects($this->any())->method('getPOSTArgument')
+            ->with($this->equalTo($context->getSessionName()))
+            ->will($this->returnValue('my-session'));
+        $context->expects($this->once())->method('setSessionId')
+            ->with($this->equalTo('my-session'));
+
+        $context->startSession();
+    }
+
 }
 
 /* End of file ContextTest.php */
