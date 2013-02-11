@@ -137,6 +137,10 @@ class Context {
      * List of enabled languages
      */
     var $lang_selected = null;
+    /**
+     * List of supported languages
+     */
+    var $lang_supported = null;
 
     /**
      * List of possible Request URIs
@@ -902,16 +906,17 @@ class Context {
 	 * @return array Supported languages
 	 */
 	function loadLangSupported() {
-		static $lang_supported = null;
-		if(!$lang_supported) {
-			$langs = file(_XE_PATH_.'common/lang/lang.info');
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
+		if(!$self->lang_supported) {
+			$langs = $self->file_handler->readFileAsArray(_XE_PATH_.'common/lang/lang.info');
 			foreach($langs as $val) {
 				list($lang_prefix, $lang_text) = explode(',',$val);
 				$lang_text = trim($lang_text);
-				$lang_supported[$lang_prefix] = $lang_text;
+				$self->lang_supported[$lang_prefix] = $lang_text;
 			}
 		}
-		return $lang_supported;
+		return $self->lang_supported;
 	}
 
 	/**

@@ -2913,6 +2913,20 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($url . '?color=green&sky=blue', $context->getRequestUrl());
     }
 
+    public function testLoadLangSupported()
+    {
+        $supported_languages = array("en" => "English", "ro" => "Romana");
+        $file_handler = $this->getMock('FileHandler', array('readFileAsArray'));
+        $file_handler->expects($this->any())->method('readFileAsArray')
+            ->will($this->returnValue(array("en,English", "ro,   Romana")));
+
+        $context = new Context($file_handler);
+
+        $context->loadLangSupported();
+
+        $this->assertEquals($supported_languages, $context->lang_supported);
+    }
+
 }
 
 /* End of file ContextTest.php */
