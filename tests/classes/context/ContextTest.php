@@ -958,7 +958,6 @@ class ContextTest extends PHPUnit_Framework_TestCase
      */
     public function testLoadEnabledLanguages_LangFileExists()
     {
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
         $file_handler = $this->getMock('FileHandler', array('hasContent', 'moveFile', 'readFile', 'writeFile', 'readFileAsArray'));
         $file_handler->expects($this->any())
             ->method('hasContent')
@@ -967,7 +966,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
             ->method('readFileAsArray')
             ->will($this->returnValue(array('en,English', 'ro,Romana')));
 
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context($file_handler);
         $enabled_languages = $context->loadLangSelected();
 
         $expected = array("en" => "English", "ro" => "Romana");
@@ -982,7 +981,6 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testLoadEnabledLanguages_OldFile()
     {
         // 1. Arrange
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
         $file_handler = $this->getMock('FileHandler', array('hasContent', 'moveFile', 'readFile', 'writeFile', 'readFileAsArray'));
 
         // First time it checks for file contents, it will see it's empty
@@ -1007,7 +1005,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(array('en,English', 'ro,Romana')));
 
         // 2. Act
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context($file_handler);
         $enabled_languages = $context->loadLangSelected();
 
         // 3. Assert
@@ -1022,11 +1020,10 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testLoadEnabledLanguages_LangFileDoesNotExist()
     {
         // 1. Arrange
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
         $file_handler = $this->getMock('FileHandler', array('hasContent', 'moveFile', 'readFile', 'writeFile', 'readFileAsArray'));
         $context = $this->getMock('Context'
             , array('loadLangSupported')
-            , array($file_handler, $frontend_file_handler));
+            , array($file_handler));
 
         // First time it checks for file contents, it will see it's empty
         // Second time it will also be false, since the file was not found even in the old location
@@ -1057,9 +1054,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testLoadLang_WhenCurrentLanguageIsNotSet()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context();
 
         // 2. Act
         $context->loadLang('/path/to/my_module');
@@ -1074,10 +1069,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testLoadLang_WhenLanguageFileIsXmlFormat()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-
-        $context = $this->getMock('Context', array('getXmlLangParser', 'is_readable', 'includeLanguageFile'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getXmlLangParser', 'is_readable', 'includeLanguageFile'));
 
         $xml_lang_parser = $this->getMock('XmlLangParser', array('compile'));
         $xml_lang_parser->expects($this->once())
@@ -1107,10 +1099,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testLoadLang_WhenLanguageFileIsPhpFormat()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-
-        $context = $this->getMock('Context', array('getXmlLangParser', 'is_readable', 'includeLanguageFile'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getXmlLangParser', 'is_readable', 'includeLanguageFile'));
 
         $xml_lang_parser = $this->getMock('XmlLangParser', array('compile'));
         $xml_lang_parser->expects($this->once())
@@ -1140,10 +1129,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testLoadLang_WhenLanguageFileWasAlreadyLoaded()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-
-        $context = $this->getMock('Context', array('getXmlLangParser', 'is_readable'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getXmlLangParser', 'is_readable'));
 
         $xml_lang_parser = $this->getMock('XmlLangParser', array('compile'));
         $xml_lang_parser->expects($this->once())
@@ -1176,10 +1162,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testLoadLang_WhenThereAreNoPermissionToWriteCompiledXmlFile()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-
-        $context = $this->getMock('Context', array('getXmlLangParser', 'is_readable', 'evaluateLanguageFileContent'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getXmlLangParser', 'is_readable', 'evaluateLanguageFileContent'));
 
         $xml_lang_parser = $this->getMock('XmlLangParser', array('compile', 'getCompileContent'));
         $xml_lang_parser->expects($this->any())
@@ -1215,9 +1198,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetCurrentUrl_Not_GET_Request()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestUri'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestUri'));
         $context->expects($this->any())
             ->method('getRequestUri')
             ->will($this->returnValue('here_is_some_dummy_request_uri'));
@@ -1234,9 +1215,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetCurrentUrl_GET_WithoutParams()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getUrl'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getUrl'));
         $context->expects($this->any())
             ->method('getUrl')
             ->will($this->returnValue('here_is_some_dummy_url'));
@@ -1253,9 +1232,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetCurrentUrl_GET_WithParams()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestUri'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestUri'));
         $context->expects($this->any())
             ->method('getRequestUri')
             ->will($this->returnValue('here_is_some_dummy_url'));
@@ -1275,9 +1252,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetCurrentUrl_GET_WithParams_Array()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestUri'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestUri'));
         $context->expects($this->any())
             ->method('getRequestUri')
             ->will($this->returnValue('here_is_some_dummy_url'));
@@ -1296,9 +1271,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_HTTP_Protocol_Missing()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context();
 
         // 2. Act
         $url = $context->getRequestUri();
@@ -1310,9 +1283,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_DefaultValues()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1329,9 +1300,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_DefaultValues_SecondCallShouldNotRecalculateUrl()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1356,9 +1325,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_EnforceSSL()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1377,9 +1344,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_SkipDefaultSSLPort()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1399,9 +1364,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_SkipDefaultSSLPort2()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org:443';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1419,9 +1382,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_SSLPort()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1441,9 +1402,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_SkipDefaultPort80()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1463,9 +1422,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_SkipDefaultPort80_2()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org:80';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1482,9 +1439,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_HTTP_Port()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1503,9 +1458,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_WithDomain()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1523,9 +1476,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_ReleaseSSL()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1543,9 +1494,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_Default()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI'));
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
 
@@ -1557,9 +1506,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_WithGetParametersSetButNoOtherVariables_ShouldReturnDefaultUrl()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI'));
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
         $context->set('module', 'admin', true);
@@ -1573,9 +1520,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_WithGetParametersSetAndOtherVariables_ShouldAddVariablesToExistingParams()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI'));
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
         $context->set('module', 'admin', true);
@@ -1589,9 +1534,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_EmptyParamsShouldBeIgnored()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI'));
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
 
@@ -1603,9 +1546,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_ArrayParameter()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI'));
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
 
@@ -1617,9 +1558,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_Default_WithDomain()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1643,9 +1582,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_TwoParams()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1664,9 +1601,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_ParamsShouldBeUrlEncoded()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1684,9 +1619,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_TwoParams_NotEncoded()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1705,9 +1638,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_TwoParams_AutoEncoded_WhenParamsNotEncoded()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1725,9 +1656,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_TwoParams_AutoEncoded_WhenParamsEncoded()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1746,9 +1675,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_VidParamIsIgnored()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1766,9 +1693,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_Domain_IgnoresVidIfManuallySpecified()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1789,9 +1714,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_Domain_WithParamsAndUrlRewrite_PrettifiesMostCommonParams()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1841,9 +1764,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_WithParamsAndUrlRewrite_PrettifiesMostCommonParams()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1890,9 +1811,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_WithGetParametersSetAndOtherVariables_StartNewWhenFirstParamsIsEmptyString()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI'));
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
         $context->set('module', 'admin', true);
@@ -1906,9 +1825,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_WithDomain_SiteID()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1923,9 +1840,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_WithDomain_Subdomain_DifferentHost()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'));
         $context->expects($this->once())
             ->method('getRequestURI')
             ->with($this->equalTo(FOLLOW_REQUEST_SSL), $this->equalTo('shop.xpressengine.org/'))
@@ -1945,9 +1860,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_WithDomain_Subdomain_SameAsHost()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(false));
@@ -1964,9 +1877,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_UseSSL_Always()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'));
         // We expect that getRequestURI will be called with ENFORCE_SLL on and no subdomain
         $context->expects($this->once())
             ->method('getRequestURI')
@@ -1990,9 +1901,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_UseSSLFalse_HttpsOn()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID'));
         // We expect that getRequestURI will be called with ENFORCE_SLL on and no subdomain
         $context->expects($this->once())
             ->method('getRequestURI')
@@ -2016,9 +1925,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_UseSSL_Optional_SSLActionDoesNotExist()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID', 'isExistsSSLAction'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID', 'isExistsSSLAction'));
 
         $context->expects($this->once())
             ->method('isExistsSSLAction')
@@ -2047,9 +1954,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_UseSSL_Optional_SSLActionExists()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID', 'isExistsSSLAction'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getRequestURI', 'isSiteID', 'isExistsSSLAction'));
 
         $context->expects($this->once())
             ->method('isExistsSSLAction')
@@ -2078,9 +1983,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_WhenSSODisabled()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context();
 
         // 2. Act
         $result = $context->checkSSO();
@@ -2093,9 +1996,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_WhenVisitorIsCrawler()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('isCrawler'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('isCrawler'));
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(true));
@@ -2111,9 +2012,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_WhenRequestMethodIsNotGET()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('isCrawler'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('isCrawler'));
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(false));
@@ -2131,9 +2030,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_WhenNotInstalled()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('isCrawler', 'isInstalled'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('isCrawler', 'isInstalled'));
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(false));
@@ -2152,9 +2049,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_WhenShowingRSSorATOM()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('isCrawler', 'isInstalled'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('isCrawler', 'isInstalled'));
         $context->expects($this->any())
             ->method('isCrawler')
             ->will($this->returnValue(false));
@@ -2175,9 +2070,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_WhenDefaultUrlNotSet()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('isCrawler', 'isInstalled'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('isCrawler', 'isInstalled'));
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(false));
@@ -2206,9 +2099,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_RequestSSO()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('isCrawler', 'isInstalled', 'getRequestUri', 'setCookie', 'setRedirectResponseTo'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('isCrawler', 'isInstalled', 'getRequestUri', 'setCookie', 'setRedirectResponseTo'));
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(false));
@@ -2249,9 +2140,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_RetrieveSessionId()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('isCrawler', 'isInstalled','getRequestUri', 'getSessionId', 'setRedirectResponseTo'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('isCrawler', 'isInstalled','getRequestUri', 'getSessionId', 'setRedirectResponseTo'));
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(false));
@@ -2286,9 +2175,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_SkipSSO()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('isCrawler', 'isInstalled','getRequestUri', 'getGlobalCookie'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('isCrawler', 'isInstalled','getRequestUri', 'getGlobalCookie'));
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(false));
@@ -2322,9 +2209,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_UpdateSessionId()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('isCrawler', 'isInstalled','getRequestUri', 'getSessionName','setCookie','setRedirectResponseTo'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('isCrawler', 'isInstalled','getRequestUri', 'getSessionName','setCookie','setRedirectResponseTo'));
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(false));
@@ -2367,8 +2252,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(array(
                     'filebox.js'
                 )));
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler));
         $context->expects($this->once())
             ->method('loadFile')
             ->with(array('./common/js/plugins/filebox/filebox.js', 'body', '', 0), true);
@@ -2390,8 +2274,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(array(
                     'filebox.css'
                 )));
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler));
         $context->expects($this->once())
             ->method('loadFile')
             ->with(array('./common/js/plugins/filebox/filebox.css', 'all', '', 0), true);
@@ -2415,8 +2298,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
                     './filebox.css',
                     '   '
                 )));
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler));
         $context->expects($this->once())
             ->method('loadFile')
             ->with(array('./common/js/plugins/filebox/filebox.css', 'all', '', 0), true);
@@ -2438,8 +2320,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(array(
                     'filebox.js'
                 )));
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler));
         $context->expects($this->once())
             ->method('loadFile')
             ->with(array('./common/js/plugins/filebox/filebox.js', 'body', '', 0), true);
@@ -2459,8 +2340,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $file_handler->expects($this->never())
             ->method('readFileAsArray');
 
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('pluginConfigFileExistsAndIsReadable'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('pluginConfigFileExistsAndIsReadable'), array($file_handler));
         $context->expects($this->once())
             ->method('pluginConfigFileExistsAndIsReadable')
             ->will($this->returnValue(false));
@@ -2481,8 +2361,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(array(
                     'filebox.js'
                 )));
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('loadFile', 'pluginConfigFileExistsAndIsReadable', 'pluginUsesLocalization', 'loadLang'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('loadFile', 'pluginConfigFileExistsAndIsReadable', 'pluginUsesLocalization', 'loadLang'), array($file_handler));
         $context->expects($this->once())
             ->method('loadFile')
             ->with(array('./common/js/plugins/filebox/filebox.js', 'body', '', 0), true);
@@ -2503,9 +2382,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
     private function getContextMockForUsingGetBrowserTitle()
     {
-        $file_handler = $this->getMock('FileHandler');
-        $frontend_file_handler = $this->getMock('FrontendFileHandler');
-        $context = $this->getMock('Context', array('getModuleController'), array($file_handler, $frontend_file_handler));
+        $context = $this->getMock('Context', array('getModuleController'));
         $module_controller = $this->getMock('moduleController', array('replaceDefinedLangCode'));
         $module_controller->expects($this->atLeastOnce())
             ->method('replaceDefinedLangCode');
@@ -2562,12 +2439,11 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $cdnPrefix = '';
         $cdnVersion = '';
 
-        $file_handler = $this->getMock('FileHandler');
         $frontend_file_handler = $this->getMock('FrontendFileHandler', array('loadFile'));
         $frontend_file_handler->expects($this->once())
             ->method('loadFile')
             ->with($args, $useCdn, $cdnPrefix, $cdnVersion);
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context(null, $frontend_file_handler);
 
         // 2. Act
         $context->loadFile($args, $useCdn, $cdnPrefix, $cdnVersion);
@@ -2586,12 +2462,11 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $cdnPrefix = '';
         $cdnVersion = '';
 
-        $file_handler = $this->getMock('FileHandler');
         $frontend_file_handler = $this->getMock('FrontendFileHandler', array('loadFile'));
         $frontend_file_handler->expects($this->once())
             ->method('loadFile')
             ->with($args, $useCdn, __XE_CDN_PREFIX__, __XE_CDN_VERSION__);
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context(null, $frontend_file_handler);
 
         $context->loadFile($args, $useCdn, $cdnPrefix, $cdnVersion);
     }
@@ -2609,12 +2484,11 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $cdnPrefix = '//ajax.googleapis.com';
         $cdnVersion = '1.6';
 
-        $file_handler = $this->getMock('FileHandler');
         $frontend_file_handler = $this->getMock('FrontendFileHandler', array('loadFile'));
         $frontend_file_handler->expects($this->once())
             ->method('loadFile')
             ->with($args, $useCdn, $cdnPrefix, $cdnVersion);
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context(null, $frontend_file_handler);
 
         $context->loadFile($args, $useCdn, $cdnPrefix, $cdnVersion);
     }
@@ -2628,12 +2502,11 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $targetIe = '123';
         $media = 'some';
 
-        $file_handler = $this->getMock('FileHandler');
         $frontend_file_handler = $this->getMock('FrontendFileHandler', array('unloadFile'));
         $frontend_file_handler->expects($this->once())
             ->method('unloadFile')
             ->with($file, $targetIe, $media);
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context(null, $frontend_file_handler);
 
         // 2. Act
         $context->unloadFile($file, $targetIe, $media);
@@ -2646,12 +2519,11 @@ class ContextTest extends PHPUnit_Framework_TestCase
     {
         $type = 'some';
 
-        $file_handler = $this->getMock('FileHandler');
         $frontend_file_handler = $this->getMock('FrontendFileHandler', array('unloadAllFiles'));
         $frontend_file_handler->expects($this->once())
             ->method('unloadAllFiles')
             ->with($type);
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context(null, $frontend_file_handler);
 
         // 2. Act
         $context->unloadAllFiles($type);
@@ -2666,12 +2538,11 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $optimized = true;
         $targetie = '123';
 
-        $file_handler = $this->getMock('FileHandler');
         $frontend_file_handler = $this->getMock('FrontendFileHandler', array('unloadFile'));
         $frontend_file_handler->expects($this->once())
             ->method('unloadFile')
             ->with($file, $targetie);
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context(null, $frontend_file_handler);
 
         // 2. Act
         $context->unloadJsFile($file, $optimized, $targetie);
@@ -2684,12 +2555,11 @@ class ContextTest extends PHPUnit_Framework_TestCase
     {
         $type = 'js';
 
-        $file_handler = $this->getMock('FileHandler');
         $frontend_file_handler = $this->getMock('FrontendFileHandler', array('unloadAllFiles'));
         $frontend_file_handler->expects($this->once())
             ->method('unloadAllFiles')
             ->with($type);
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context(null, $frontend_file_handler);
 
         // 2. Act
         $context->unloadAllJsFiles();
@@ -2702,12 +2572,11 @@ class ContextTest extends PHPUnit_Framework_TestCase
     {
         $type = 'body';
 
-        $file_handler = $this->getMock('FileHandler');
         $frontend_file_handler = $this->getMock('FrontendFileHandler', array('getJsFileList'));
         $frontend_file_handler->expects($this->once())
             ->method('getJsFileList')
             ->with($type);
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context(null, $frontend_file_handler);
 
         // 2. Act
         $context->getJsFile($type);
@@ -2724,12 +2593,11 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $media = 'some';
         $targetie = '123';
 
-        $file_handler = $this->getMock('FileHandler');
         $frontend_file_handler = $this->getMock('FrontendFileHandler', array('unloadFile'));
         $frontend_file_handler->expects($this->once())
             ->method('unloadFile')
             ->with($file, $targetie, $media);
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context(null, $frontend_file_handler);
 
         // 2. Act
         $context->unloadCssFile($file, $optimized, $media, $targetie);
@@ -2743,12 +2611,11 @@ class ContextTest extends PHPUnit_Framework_TestCase
     {
         $type = 'css';
 
-        $file_handler = $this->getMock('FileHandler');
         $frontend_file_handler = $this->getMock('FrontendFileHandler', array('unloadAllFiles'));
         $frontend_file_handler->expects($this->once())
             ->method('unloadAllFiles')
             ->with($type);
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context(null, $frontend_file_handler);
 
         // 2. Act
         $context->unloadAllCssFiles();
@@ -2760,11 +2627,10 @@ class ContextTest extends PHPUnit_Framework_TestCase
      */
     public function testGetCssFile()
     {
-        $file_handler = $this->getMock('FileHandler');
         $frontend_file_handler = $this->getMock('FrontendFileHandler', array('getCssFileList'));
         $frontend_file_handler->expects($this->once())
             ->method('getCssFileList');
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context(null, $frontend_file_handler);
 
         // 2. Act
         $context->getCSSFile();
@@ -2783,13 +2649,12 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $isRuleset = false;
         $autoPath = null;
 
-        $file_handler = $this->getMock('FileHandler');
         $frontend_file_handler = $this->getMock('FrontendFileHandler', array('loadFile'));
         $frontend_file_handler->expects($this->once())
             ->method('loadFile')
             ->with($this->equalTo(array($file, $type, $targetie, $index)));
 
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context(null, $frontend_file_handler);
 
         // 2. Act
         $context->addJsFile($file, $optimized, $targetie, $index, $type, $isRuleset, $autoPath);
@@ -2808,7 +2673,6 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $isRuleset = true;
         $autoPath = null;
 
-        $file_handler = $this->getMock('FileHandler');
         $frontend_file_handler = $this->getMock('FrontendFileHandler', array('loadFile'));
         $frontend_file_handler->expects($this->once())
             ->method('loadFile')
@@ -2823,7 +2687,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
             ->method('getJsPath')
             ->will($this->returnValue("ruleset_cache_file.js"));
 
-        $context = new Context($file_handler, $frontend_file_handler, $validator);
+        $context = new Context(null, $frontend_file_handler, $validator);
 
         // 2. Act
         $context->addJsFile($file, $optimized, $targetie, $index, $type, $isRuleset, $autoPath);
@@ -2840,12 +2704,11 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $targetie='123';
         $index=7;
 
-        $file_handler = $this->getMock('FileHandler');
         $frontend_file_handler = $this->getMock('FrontendFileHandler', array('loadFile'));
         $frontend_file_handler->expects($this->once())
             ->method('loadFile')
             ->with(array($file, $media, $targetie, $index));
-        $context = new Context($file_handler, $frontend_file_handler);
+        $context = new Context(null, $frontend_file_handler);
 
         // 2. Act
         $context->addCSSFile($file, $optimized, $media, $targetie, $index);
