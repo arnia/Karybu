@@ -1638,9 +1638,9 @@ class Context {
 		static $url = null;
 		if(is_null($url)) {
 			$url = $self->getRequestUri();
-			if(count($_GET))
+			if(count($self->getArgumentsForGETRequest()))
 			{
-				foreach($_GET as $key => $val)
+				foreach($self->getArgumentsForGETRequest() as $key => $val)
 				{
 					$vars[] = $key . '=' . ($val ? urlencode($self->convertEncodingStr($val)) : '');
 				}

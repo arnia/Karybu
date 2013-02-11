@@ -2888,6 +2888,31 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $context->startSession();
     }
 
+    public function testGetRequestUrl_NoParams()
+    {
+        $url = 'http://www.xpressengine.org/';
+
+        $context = $this->getMock('Context', array('getRequestUri'));
+        $context->expects($this->any())->method('getRequestUri')->will($this->returnValue($url));
+
+        $this->assertEquals($url, $context->getRequestUrl());
+    }
+
+    public function testGetRequestUrl_WithParams()
+    {
+        $url = 'http://www.xpressengine.org/';
+
+        $context = $this->getMock('Context', array('getRequestUri', 'getArgumentsForGETRequest', 'convertEncodingStr'));
+        $context->expects($this->any())->method('getRequestUri')->will($this->returnValue($url));
+        $context->expects($this->any())->method('getArgumentsForGETRequest')->will($this->returnValue(
+                array("color" => 'green', "sky" => "blue")
+            ));
+        $context->expects($this->atLeastOnce())->method('convertEncodingStr')
+            ->will($this->returnCallback(function($string){ return $string; }));
+
+        $this->assertEquals($url . '?color=green&sky=blue', $context->getRequestUrl());
+    }
+
 }
 
 /* End of file ContextTest.php */
