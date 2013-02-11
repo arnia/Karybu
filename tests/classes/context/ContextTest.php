@@ -2850,6 +2850,58 @@ class ContextTest extends PHPUnit_Framework_TestCase
         // 2. Act
         $context->addCSSFile($file, $optimized, $media, $targetie, $index);
     }
+
+    public function testGetCurrentLanguage_BasicBehaviour()
+    {
+        $context = new Context();
+
+        $lang = $context->getCurrentLanguage(array('en' => 'English', 'ro' => 'Romana'), 'ro');
+
+        $this->assertEquals('ro', $lang);
+    }
+
+    public function testGetCurrentLanguage_WhenLanguageNotEnabled()
+    {
+        $context = new Context();
+
+        $lang = $context->getCurrentLanguage(array('en' => 'English'), 'ro');
+
+        $this->assertEquals('en', $lang);
+    }
+
+    public function testGetCurrentLanguage_DefaultLanguageNotSet()
+    {
+        $context = new Context();
+
+        $lang = $context->getCurrentLanguage(array('en' => 'English'), '');
+
+        $this->assertEquals('en', $lang);
+    }
+
+    public function testGetCurrentLanguage_LanguageGivenInQueryString()
+    {
+        $context = $this->getMock('Context', array('setCookie', 'getGlobalCookie'));
+        $context->expects($this->once())
+            ->method('setCookie');
+        $context->set('l', 'ro', true);
+
+        $lang = $context->getCurrentLanguage(array('en' => 'English', 'ro' => 'Romana'), 'en');
+
+        $this->assertEquals('ro', $lang);
+    }
+
+    public function testGetCurrentLanguage_LanguageTakenFromCookie()
+    {
+        $context = $this->getMock('Context', array('getGlobalCookie'));
+        $context->expects($this->any())
+            ->method('getGlobalCookie')
+            ->will($this->returnValue('ro'));
+
+        $lang = $context->getCurrentLanguage(array('en' => 'English', 'ro' => 'Romana'), 'en');
+
+        $this->assertEquals('ro', $lang);
+    }
+
 }
 
 /* End of file ContextTest.php */

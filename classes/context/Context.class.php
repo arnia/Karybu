@@ -575,11 +575,11 @@ class Context {
         // Retrieve language type set in user's cookie
         if ($this->get('l')) {
             $current_language = $this->get('l');
-            if ($_COOKIE['lang_type'] != $current_language) {
-                setcookie('lang_type', $current_language, time() + 3600 * 24 * 1000, '/');
+            if ($this->getGlobalCookie('lang_type') != $current_language) {
+                $this->setCookie('lang_type', $current_language, time() + 3600 * 24 * 1000, '/');
             }
-        } elseif ($_COOKIE['lang_type']) {
-            $current_language = $_COOKIE['lang_type'];
+        } elseif ($this->getGlobalCookie('lang_type')) {
+            $current_language = $this->getGlobalCookie('lang_type');
         }
 
         // If it's not exists, follow default language type set in db_info
