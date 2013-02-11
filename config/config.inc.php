@@ -228,23 +228,19 @@ if(version_compare(PHP_VERSION, '5.3.0') >= 0)
     date_default_timezone_set(@date_default_timezone_get());
 }
 
-if(!defined('__XE_LOADED_CLASS__')){
-    // Require a function-defined-file for simple use
-    require(_XE_PATH_.'config/func.inc.php');
+// Require a function-defined-file for simple use
+require(_XE_PATH_.'config/func.inc.php');
 
-    if(__DEBUG__) define('__StartTime__', getMicroTime());
+if(__DEBUG__) define('__StartTime__', getMicroTime());
 
-    /**
-     * composer autoloader
-     * http://getcomposer.org/doc/04-schema.md#autoload
-     **/
-    require_once dirname(__FILE__) . '/../vendor/autoload.php';
+if(__DEBUG__) define('__ClassLoadStartTime__', getMicroTime());
 
-    // include the class files
-    //TODO When _autoload() can be used for PHP5 based applications, it will be removed.
-    if(__DEBUG__) define('__ClassLoadStartTime__', getMicroTime());
-
-    if(__DEBUG__) $GLOBALS['__elapsed_class_load__'] = getMicroTime() - __ClassLoadStartTime__;
-}
+/**
+ * composer autoloader
+ * http://getcomposer.org/doc/04-schema.md#autoload
+ **/
+require_once dirname(__FILE__) . '/../vendor/autoload.php';
 
 $cmsAutoloader = new \GlCMS\Autoloader\Autoloader();
+
+if(__DEBUG__) $GLOBALS['__elapsed_class_load__'] = getMicroTime() - __ClassLoadStartTime__;
