@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class CMSListener implements EventSubscriberInterface
 {
@@ -135,7 +136,6 @@ class CMSListener implements EventSubscriberInterface
             $event->setController($controller);
         }
 
-
         // Save state of before triggers, so that we can set session errors later
         $event->getRequest()->attributes->set('procResult', $procResult);
     }
@@ -153,12 +153,6 @@ class CMSListener implements EventSubscriberInterface
 
         $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
         $oModuleHandler->setErrorsToSessionAfterProc($oModule, $procResult);
-    }
-
-    public function onKernelException(GetResponseForExceptionEvent $event)
-    {
-        //$exception = $event->getException();
-        //$event->setResponse(new Response($exception->getMessage(), 500));
     }
 
     public function makeResponse(GetResponseForControllerResultEvent $event)
@@ -181,15 +175,36 @@ class CMSListener implements EventSubscriberInterface
 
         // 2. Headers
         $headers = $oDisplayHandler->getHeaders($oModule);
-        foreach($headers as $header) {
+        foreach ($headers as $header) {
             $response->headers->set($header[0], $header[1], $header[2]);
         }
 
+        //location
+        $lookingForLocation = headers_list();
+        foreach ($lookingForLocation as $header) {
+            $hSplit = explode(':', $header, 2);
+            $hTarget = trim($hSplit[1]);
+            $hName = trim($hSplit[0]);
+            if ($hName == 'location') {
+                header_remove('location');
+                $response = new RedirectResponse($hTarget);
+            }
+        }
+
         // 3. The content
-        $content = $oDisplayHandler->getContent($oModule);
-        $response->setContent($content);
+        if (!($response instanceof RedirectResponse)) {
+            $content = $oDisplayHandler->getContent($oModule);
+            $response->setContent($content);
+        }
+
 
         $event->setResponse($response);
+    }
+
+    public function onKernelException(GetResponseForExceptionEvent $event)
+    {
+        //$exception = $event->getException();
+        //$event->setResponse(new Response($exception->getMessage(), 500));
     }
 
     public function prepareRequestForResolving(GetResponseEvent $event)
