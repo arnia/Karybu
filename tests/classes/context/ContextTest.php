@@ -2765,6 +2765,73 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('ro', $lang);
     }
 
+    public function testSetAuthenticationInfoInContextAndSession_NotInstalled()
+    {
+        $context = $this->getMock('Context', array('isInstalled'));
+        $context->expects($this->any())->method('isInstalled')->will($this->returnValue(false));
+
+        $context->setAuthenticationInfoInContextAndSession();
+
+        $this->assertEquals(null, $context->get('is_logged'));
+        $this->assertEquals(null, $context->get('logged_info'));
+    }
+
+    public function testSetAuthenticationInfoInContextAndSession_UserNotLoggedIn()
+    {
+        $context = $this->getMock('Context', array('isInstalled', 'getMemberModel', 'getMemberController'));
+        $context->expects($this->any())->method('isInstalled')->will($this->returnValue(true));
+        $memberModel = $this->getMock('memberModel', array('isLogged', 'getLoggedInfo'));
+        $memberModel->expects($this->any())->method('isLogged')->will($this->returnValue(false));
+        $memberModel->expects($this->any())->method('getLoggedInfo')->will($this->returnValue("logged-info-object-here"));
+
+        $memberController = $this->getMock('memberController');
+        $context->expects($this->any())->method('getMemberModel')->will($this->returnValue($memberModel));
+        $context->expects($this->any())->method('getMemberController')->will($this->returnValue($memberController));
+
+        $context->setAuthenticationInfoInContextAndSession();
+
+        $this->assertEquals(false, $context->get('is_logged'));
+        $this->assertEquals("logged-info-object-here", $context->get('logged_info'));
+    }
+
+    public function testSetAuthenticationInfoInContextAndSession_UserNotLoggedIn_AutoSignInEnabled()
+    {
+        $context = $this->getMock('Context', array('isInstalled', 'getGlobalCookie',  'getMemberModel', 'getMemberController'));
+        $context->expects($this->any())->method('isInstalled')->will($this->returnValue(true));
+        $context->expects($this->any())->method('getGlobalCookie')->with($this->equalTo('xeak'))->will($this->returnValue(true));
+
+        $memberModel = $this->getMock('memberModel', array('isLogged', 'getLoggedInfo'));
+        $memberModel->expects($this->any())->method('isLogged')->will($this->returnValue(false));
+
+        $memberController = $this->getMock('memberController', array('doAutologin'));
+        $memberController->expects($this->once())->method('doAutologin');
+
+        $context->expects($this->any())->method('getMemberModel')->will($this->returnValue($memberModel));
+        $context->expects($this->any())->method('getMemberController')->will($this->returnValue($memberController));
+
+        $context->setAuthenticationInfoInContextAndSession();
+    }
+
+    public function testSetAuthenticationInfoInContextAndSession_UserLoggedIn()
+    {
+        $context = $this->getMock('Context', array('isInstalled', 'getMemberModel', 'getMemberController'));
+        $context->expects($this->any())->method('isInstalled')->will($this->returnValue(true));
+        $memberModel = $this->getMock('memberModel', array('isLogged', 'getLoggedInfo'));
+        $memberModel->expects($this->any())->method('isLogged')->will($this->returnValue(true));
+        $memberModel->expects($this->any())->method('getLoggedInfo')->will($this->returnValue("logged-info-object-here"));
+
+        $memberController = $this->getMock('memberController', array('setSessionInfo'));
+        $memberController->expects($this->once())->method('setSessionInfo');
+
+        $context->expects($this->any())->method('getMemberModel')->will($this->returnValue($memberModel));
+        $context->expects($this->any())->method('getMemberController')->will($this->returnValue($memberController));
+
+        $context->setAuthenticationInfoInContextAndSession();
+
+        $this->assertEquals(true, $context->get('is_logged'));
+        $this->assertEquals("logged-info-object-here", $context->get('logged_info'));
+    }
+
 }
 
 /* End of file ContextTest.php */

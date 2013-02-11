@@ -406,6 +406,16 @@ class Context {
         return getController('module');
     }
 
+    public function &getMemberModel()
+    {
+        return getModel('member');
+    }
+
+    public function &getMemberController()
+    {
+        return getController('member');
+    }
+
     /**
      * Wrapper for the global isSiteID function
      *
@@ -464,6 +474,7 @@ class Context {
         $this->initializeLanguages();
 
         $this->startSession();
+        $this->loadModuleExtends();
         $this->setAuthenticationInfoInContextAndSession();
 
         $current_url = $this->getCurrentUrl();
@@ -520,29 +531,38 @@ class Context {
         $this->loadLang(_XE_PATH_ . 'common/lang/');
     }
 
-    /**
-     * Save info of the currently logged in user in Context and Session
-     */
-    public function setAuthenticationInfoInContextAndSession()
+    public function loadModuleExtends()
     {
         if (!Context::isInstalled()) return;
 
         $oModuleModel = & getModel('module');
         $oModuleModel->loadModuleExtends();
+    }
 
-        $oMemberModel = & getModel('member');
-        $oMemberController = & getController('member');
+    /**
+     * Save info of the currently logged in user in Context and Session
+     */
+    public function setAuthenticationInfoInContextAndSession()
+    {
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
+        if (!$self->isInstalled()) {
+            return;
+        }
+
+        $oMemberModel = &$self->getMemberModel();
+        $oMemberController = &$self->getMemberController();
 
         if ($oMemberController && $oMemberModel) {
             // if signed in, validate it.
             if ($oMemberModel->isLogged()) {
                 $oMemberController->setSessionInfo();
-            } elseif ($_COOKIE['xeak']) { // check auto sign-in
+            } elseif ($self->getGlobalCookie('xeak')) { // check auto sign-in
                 $oMemberController->doAutologin();
             }
 
-            $this->set('is_logged', $oMemberModel->isLogged());
-            $this->set('logged_info', $oMemberModel->getLoggedInfo());
+            $self->set('is_logged', $oMemberModel->isLogged());
+            $self->set('logged_info', $oMemberModel->getLoggedInfo());
         }
     }
 
