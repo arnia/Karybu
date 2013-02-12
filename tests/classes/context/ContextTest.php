@@ -3053,6 +3053,46 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("asdf\"\\aaa", $context->get("some_key"));
     }
 
+    public function testEncodeString_UTF8()
+    {
+        $to_encode = new stdClass();
+        $to_encode->text = iconv('UTF-8','UTF-8','XE팀은 작년 하반기 동안');
+
+        $encoded = Context::convertEncoding($to_encode);
+
+        $this->assertEquals('XE팀은 작년 하반기 동안', $encoded->text);
+    }
+
+    public function testEncodeString_DifferentFromUTF8()
+    {
+        $to_encode = new stdClass();
+        $to_encode->text = iconv('UTF-8','EUC-KR','XE팀은 작년 하반기 동안');
+
+        $encoded = Context::convertEncoding($to_encode);
+
+        $this->assertEquals('XE팀은 작년 하반기 동안', $encoded->text);
+    }
+
+    public function testEncodeString_Array()
+    {
+        $to_encode = new stdClass();
+        $euc_kr_encoded_string = iconv('UTF-8','EUC-KR','XE팀은 작년 하반기 동안');
+        $to_encode->text = array($euc_kr_encoded_string, $euc_kr_encoded_string);
+
+        $encoded = Context::convertEncoding($to_encode);
+
+        $this->assertEquals(array('XE팀은 작년 하반기 동안', 'XE팀은 작년 하반기 동안'), $encoded->text);
+    }
+
+    public function testEncodingStr_DifferentFromUTF8()
+    {
+        $to_encode = iconv('UTF-8','EUC-KR','XE팀은 작년 하반기 동안');
+
+        $encoded = Context::convertEncodingStr($to_encode);
+
+        $this->assertEquals('XE팀은 작년 하반기 동안', $encoded);
+    }
+
 }
 
 /* End of file ContextTest.php */

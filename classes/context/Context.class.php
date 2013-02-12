@@ -1306,13 +1306,15 @@ class Context {
 
 		$obj = clone($source_obj);
 
-		foreach($charset_list as $charset) 
+		foreach($charset_list as $charset)
 		{
 			array_walk($obj,'Context::checkConvertFlag',$charset);
 			$flag = Context::checkConvertFlag($flag = true);
 			if($flag)
 			{
-				if($charset == 'UTF-8') return $obj;
+				if($charset == 'UTF-8') {
+                    return $obj;
+                }
 				array_walk($obj,'Context::doConvertEncoding',$charset);
 				return $obj;
 			}
@@ -1320,11 +1322,11 @@ class Context {
 		return $obj;
 	}
 	/**
-	 * Check flag 
+	 * Check flag
 	 *
 	 * @param mixed $val
 	 * @param string $key
-	 * @param mixed $charset charset 
+	 * @param mixed $charset charset
 	 * @return void
 	 */
 	function checkConvertFlag(&$val, $key = null, $charset = null)
@@ -1338,9 +1340,6 @@ class Context {
 			else if($val && iconv($charset, $charset, $val) != $val) {
                 $flag = false;
             }
-			else {
-                $flag = false;
-            }
 		}
 		else
 		{
@@ -1351,7 +1350,7 @@ class Context {
 	}
 
 	/**
-	 * Convert array type variables into UTF-8 
+	 * Convert array type variables into UTF-8
 	 *
 	 * @param mixed $val
 	 * @param string $key
