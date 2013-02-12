@@ -1,58 +1,172 @@
-<load target="js/xe_official.js" />
-<load target="css/default.css" cond="$layout_info->colorset=='default' || !$layout_info->colorset" />
-<load target="css/white.css" cond="$layout_info->colorset=='white'" />
-<load target="css/black.css" cond="$layout_info->colorset=='black'" />
-<style type="text/css" cond="$layout_info->background_image">
-body{background:url({$layout_info->background_image}) repeat-x left top;}
-</style>
-<!--@if(!$layout_info->colorset)-->{@$layout_info->colorset = "default"}<!--@end-->
-<div class="xe">
-	<div class="header">
-		<h1>
-			<a href="{$layout_info->index_url}" cond="$layout_info->logo_image"><img src="{$layout_info->logo_image}" alt="logo" border="0" /></a>
-			<a href="{$layout_info->index_url}" cond="!$layout_info->logo_image">{$layout_info->logo_image_alt}</a>
-		</h1>
-		<div class="language">
-			<strong title="{$lang_type}">{$lang_supported[$lang_type]}</strong> <button type="button" class="toggle"><img src="./images/{$layout_info->colorset}/buttonLang.gif" alt="Select Language" width="87" height="15" /></button>
-			<ul class="selectLang">
-				<li loop="$lang_supported=>$key,$val" cond="$key!= $lang_type"><button type="button" onclick="doChangeLangType('{$key}');return false;">{$val}</button></li>
-			</ul>
-		</div>
-		<div class="gnb">
-			<ul>
-				<li loop="$main_menu->list=>$key1,$val1" class="active"|cond="$val1['selected']"><a href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']}</a>
-					<ul cond="$val1['list']">
-						<li loop="$val1['list']=>$key2,$val2" class="active"|cond="$val2['selected']"><a href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'">{$val2['link']}</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-		<form action="{getUrl()}" method="post" class="iSearch">
-			<input type="hidden" name="vid" value="{$vid}" cond="$vid" />
-			<input type="hidden" name="mid" value="{$mid}" />
-			<input type="hidden" name="act" value="IS" />
-			<input type="hidden" name="search_target" value="title_content" />
-			<input name="is_keyword" type="text" class="iText" title="keyword" />
-			<input type="image" src="./images/{$layout_info->colorset}/buttonSearch.gif" alt="{$lang->cmd_search}" class="submit" />
-		</form>
-	</div>
-	<div class="body">
-		<div class="lnb">
-			<img widget="login_info" skin="xe_official" colorset="{$layout_info->colorset}" />
-			<h2 loop="$main_menu->list=>$key1,$val1" cond="$val1['selected']"><a href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']}</a></h2>
-			<ul class="locNav" loop="$main_menu->list=>$key1,$val1" cond="$val1['selected'] && $val1['list']">
-				<li loop="$val1['list']=>$key2,$val2" class="active"|cond="$val2['selected']"><a href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'">{$val2['link']}</a>
-					<ul cond="$val2['list']">
-						<li loop="$val2['list']=>$key3,$val3" class="active"|cond="$val3['selected']"><a href="{$val3['href']}" target="_blank"|cond="$val3['open_window']=='Y'">{$val3['link']}</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-		<div class="content xe_content">
-			{$content}
-		</div>
-	</div>
-	<div class="footer">
-		<p><a href="http://xpressengine.com/" target="_blank">Powered by <strong>XE</strong></a></p>
-	</div>
+<load target="css/bootstrap.min.css" />
+<load target="css/edit-mode.css" />
+<!-- HEADER
+    ================================================== -->
+<div id="header" class="zone">
+    <div class="container">
+        <div class="row">
+            <div id="logo" class="span12 edit">
+                <h1>
+                    <a class="brand"  href="{$layout_info->index_url}" cond="$layout_info->logo_image"><img src="{$layout_info->logo_image}" alt="logo" border="0" /></a>
+                    <a class="brand"  href="{$layout_info->index_url}" cond="!$layout_info->logo_image">{$layout_info->logo_image_alt}</a>
+                </h1>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<!-- NAVBAR
+================================================== -->
+<div class="navbar-wrapper zone">
+    <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+    <div class="container">
+        <div class="navbar edit">
+            <div class="navbar-inner">
+                <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li loop="$main_menu->list=>$key1,$val1" class="active"|cond="$val1['selected']">
+                            <a href="{$val1['href']}"
+                                <!--@if(count($val1['list'])!=0)-->
+                                    class="dropdown-toggle" data-toggle="dropdown"
+                                <!--@end-->
+                                target="_blank"|cond="$val1['open_window']=='Y'">
+                                {$val1['link']}
+                            </a>
+                            <ul cond="$val1['list']" class="dropdown-menu">
+                                <li loop="$val1['list']=>$key2,$val2" class="active"|cond="$val2['selected']"><a href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'">{$val2['link']}</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li class="nav-header">Nav header</li>
+                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div><!-- /.navbar-inner -->
+        </div><!-- /.navbar -->
+
+    </div> <!-- /.container -->
+</div><!-- /.navbar-wrapper -->
+
+
+
+<!-- Carousel
+================================================== -->
+<div class="container zone">
+    <div id="myCarousel" class="carousel slide edit">
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="../xe_official/slides/slide1.jpg" alt="">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>Example headline.</h1>
+                        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        <a class="btn btn-large btn-primary" href="#">Sign up today</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="../xe_official/slides/slide2.jpg" alt="">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>Another example headline.</h1>
+                        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        <a class="btn btn-large btn-primary" href="#">Learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="../xe_official/slides/slide3.jpg" alt="">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>One more for good measure.</h1>
+                        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        <a class="btn btn-large btn-primary" href="#">Browse gallery</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div><!-- /.carousel -->
+</div><!-- /.container -->
+
+
+
+<!-- Content
+================================================== -->
+<div id="content" class="zone">
+    <div class="container">
+        <h2 class="page-header edit">Please add some title here</h2>
+        <div class="row-inline">
+        {$content}
+        </div>
+    </div>
+    <div class="container">
+
+        <h3 class="page-header edit">Please add some title here</h3>
+        <div class="row-fluid">
+            <ul class="thumbnails">
+                <li class="span4">
+                    <div class="thumbnail">
+                        <img data-src="holder.js/300x200" alt="">
+                        <h4>Some blog post here</h4>
+                        <p>caption...</p>
+                    </div>
+                </li>
+                <li class="span4">
+                    <div class="thumbnail">
+                        <img data-src="holder.js/300x200" alt="">
+                        <h4>Some blog post here</h4>
+                        <p>caption...</p>
+                    </div>
+                </li>
+                <li class="span4">
+                    <div class="thumbnail">
+                        <img data-src="holder.js/300x200" alt="">
+                        <h4>Some blog post here</h4>
+                        <p>caption...</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Content
+================================================== -->
+<div id="footer" class="zone">
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span12">
+                <!-- FOOTER -->
+                <footer>
+                    <p class="pull-right edit"><a href="#">Back to top</a></p>
+                    <p class="edit">&copy; 2012 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<load target="js/bootstrap.js" />
