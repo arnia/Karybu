@@ -1548,7 +1548,10 @@ class Context {
 		{
 			if($key === 'page' || $key === 'cpage' || substr($key, -3) === 'srl')
 			{
-				$val[$k] = !preg_match('/^[0-9,]+$/', $v) ? (int)$v : $v;
+                if(!preg_match('/^[0-9,]+$/', $v))
+                {
+                    $val[$k] =  (int)$v;
+                }
 			}
 			elseif($key === 'mid' || $key === 'vid' || $key === 'search_keyword')
 			{
@@ -1556,12 +1559,17 @@ class Context {
 			}
 			else
 			{
-				if($do_stripslashes && version_compare(PHP_VERSION, '5.9.0', '<') && get_magic_quotes_gpc())
+				if($do_stripslashes
+                    && $this->magicQuotesAreSupportedInCurrentPHPVersion()
+                    && $this->magicQuotesAreOn()
+                )
 				{
 					$v = stripslashes($v);
 				}
 
-				if (is_string($v)) $val[$k] = trim($v);
+				if (is_string($v)) {
+                    $val[$k] = trim($v);
+                }
 			}
 		}
 
@@ -1575,7 +1583,17 @@ class Context {
 		}
 	}
 
-	/**
+    public function magicQuotesAreOn()
+    {
+        return get_magic_quotes_gpc();
+    }
+
+    public function magicQuotesAreSupportedInCurrentPHPVersion()
+    {
+        return version_compare(PHP_VERSION, '5.9.0', '<');
+    }
+
+    /**
 	 * Check if there exists uploaded file
 	 *
 	 * @return bool True: exists, False: otherwise

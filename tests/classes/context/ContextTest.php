@@ -2987,6 +2987,73 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(false, $context->isSuccessInit);
     }
 
+    public function testRecursiveCheckVar_Array()
+    {
+        $_GET = array("module" => "admin"
+        , "act" => array(
+                "dispLayout<% echo 'Gotcha' %>AdminAllInstanceList",
+                "dispLayout<? echo 'Gotcha' ?>AdminAllInstanceList")
+        );
+        $_REQUEST = $_GET;
+
+        $context = new Context();
+        $context->_setRequestArgument();
+
+        $this->assertEquals(false, $context->isSuccessInit);
+    }
+
+    public function testFilterRequestVar_CleanupKnownNumericValues()
+    {
+        $_GET = array("page" => "123aaa" ,
+                "cpage" => "457sss",
+                "someones_srl" => "678eeee",
+                "anything_else" => "23444assadsa"
+        );
+
+        $_REQUEST = $_GET;
+
+        $context = new Context();
+        $context->_setRequestArgument();
+
+        $this->assertEquals(123, $context->get("page"));
+        $this->assertEquals(457, $context->get("cpage"));
+        $this->assertEquals(678, $context->get("someones_srl"));
+        $this->assertEquals("23444assadsa", $context->get("anything_else"));
+    }
+
+    public function testFilterRequestVar_EscapeKnownStringValues()
+    {
+        $_GET = array("mid" => "aaa&aa" ,
+            "vid" => "asdf<aaa",
+            "search_keyword" => "what>s up",
+            "anything_else" => "Don't convert>         "
+        );
+
+        $_REQUEST = $_GET;
+
+        $context = new Context();
+        $context->_setRequestArgument();
+
+        $this->assertEquals("aaa&amp;aa", $context->get("mid"));
+        $this->assertEquals("asdf&lt;aaa", $context->get("vid"));
+        $this->assertEquals("what&gt;s up", $context->get("search_keyword"));
+        $this->assertEquals("Don't convert>", $context->get("anything_else"));
+    }
+
+    public function testFilterRequestVar_StripSlashes()
+    {
+        $_GET = array("some_key" => "asdf\\\"\\\\aaa");
+
+        $_REQUEST = $_GET;
+
+        $context = $this->getMock('Context', array('magicQuotesAreOn', 'magicQuotesAreSupportedInCurrentPHPVersion'));
+        $context->expects($this->any())->method('magicQuotesAreOn')->will($this->returnValue(true));
+        $context->expects($this->any())->method('magicQuotesAreSupportedInCurrentPHPVersion')->will($this->returnValue(true));
+
+        $context->_setRequestArgument();
+
+        $this->assertEquals("asdf\"\\aaa", $context->get("some_key"));
+    }
 
 }
 
