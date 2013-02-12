@@ -886,7 +886,9 @@ class Context {
 	 */
 	function getSslStatus()
 	{
-		$dbInfo = Context::getDBInfo();
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
+		$dbInfo = $self->getDBInfo();
 		return $dbInfo->use_ssl;
 	}
 

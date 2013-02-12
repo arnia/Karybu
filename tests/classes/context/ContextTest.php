@@ -334,7 +334,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         $context->_setUploadedArgument();
 
-        $this->assertEquals(false, $context->is_uploaded);
+        $this->assertEquals(false, $context->isUploaded());
         $this->assertEquals(new stdClass(), $context->getRequestVars());
     }
 
@@ -354,7 +354,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $context->setRequestMethod('POST');
         $context->_setUploadedArgument();
 
-        $this->assertEquals(false, $context->is_uploaded);
+        $this->assertEquals(false, $context->isUploaded());
         $this->assertEquals(new stdClass(), $context->getRequestVars());
     }
 
@@ -373,7 +373,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $context->setRequestMethod('POST');
         $context->_setUploadedArgument();
 
-        $this->assertEquals(false, $context->is_uploaded);
+        $this->assertEquals(false, $context->isUploaded());
         $this->assertEquals(new stdClass(), $context->getRequestVars());
     }
 
@@ -388,7 +388,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         $context->_setUploadedArgument();
 
-        $this->assertEquals(true, $context->is_uploaded);
+        $this->assertEquals(true, $context->isUploaded());
 
         $data = new stdClass();
         $data->product_image = array(
@@ -419,7 +419,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         $context->_setUploadedArgument();
 
-        $this->assertEquals(false, $context->is_uploaded);
+        $this->assertEquals(false, $context->isUploaded());
         $this->assertEquals(new stdClass(), $context->getRequestVars());
     }
 
@@ -470,7 +470,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
                 "size" => 15726
             ));
 
-        $this->assertEquals(true, $context->is_uploaded);
+        $this->assertEquals(true, $context->isUploaded());
     }
 
     /**
@@ -485,7 +485,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
         $context->_setUploadedArgument();
 
-        $this->assertEquals(false, $context->is_uploaded);
+        $this->assertEquals(false, $context->isUploaded());
         $this->assertEquals(new stdClass(), $context->getRequestVars());
     }
 
@@ -707,9 +707,8 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $expected_db_info->use_ssl = 'none';
 
         $context->initializeAppSettingsAndCurrentSiteInfo();
-        $actual_db_info = $context->getDbInfo();
 
-        $this->assertEquals($expected_db_info->use_ssl, $actual_db_info->use_ssl);
+        $this->assertEquals($expected_db_info->use_ssl, $context->getSslStatus());
 
         // Test that when value is already set in db.config.php, it is not overridden
         $db_info = new stdClass();
@@ -722,12 +721,11 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $expected_db_info = clone($db_info);
 
         $context->initializeAppSettingsAndCurrentSiteInfo();
-        $actual_db_info = $context->getDbInfo();
 
-        $this->assertEquals($expected_db_info->use_ssl, $actual_db_info->use_ssl);
+        $this->assertEquals($expected_db_info->use_ssl, $context->getSslStatus());
 
         // Make sure time_zone is available in Context
-        $this->assertEquals($context->get('_use_ssl'), $actual_db_info->use_ssl);
+        $this->assertEquals($context->get('_use_ssl'), $context->getSslStatus());
     }
 
     /**
