@@ -1323,7 +1323,6 @@ class Context {
 	 * @param mixed $val
 	 * @param string $key
 	 * @param mixed $charset charset 
-	 * @see arrayConvWalkCallback will replaced array_walk_recursive in >=PHP5
 	 * @return void
 	 */
 	function checkConvertFlag(&$val, $key = null, $charset = null)
@@ -1331,10 +1330,15 @@ class Context {
 		static $flag = true;
 		if($charset)
 		{
-			if(is_array($val))
-				array_walk($val,'Context::checkConvertFlag',$charset);
-			else if($val && iconv($charset,$charset,$val)!=$val) $flag = false;
-			else $flag = false;
+			if(is_array($val)) {
+                array_walk($val,'Context::checkConvertFlag',$charset);
+            }
+			else if($val && iconv($charset, $charset, $val) != $val) {
+                $flag = false;
+            }
+			else {
+                $flag = false;
+            }
 		}
 		else
 		{
@@ -1359,7 +1363,7 @@ class Context {
 		{
 			array_walk($val,'Context::doConvertEncoding',$charset);
 		}
-		else $val = iconv($charset,'UTF-8',$val);
+		else $val = iconv($charset, 'UTF-8', $val);
 	}
 
 	/**
@@ -1445,7 +1449,18 @@ class Context {
 		}
 	}
 
-	function _recursiveCheckVar($val)
+    /**
+     * Tests that the string does not contain php script tags
+     * @See http://php.net/manual/ro/language.basic-syntax.phpmode.php
+     *
+     * 1. <?php ... ?>
+     * 2. <script language="php"> ... </script>
+     * 3. <? ... ?>
+     * 4. <% ... %>
+     *
+     * @param $val
+     */
+    function _recursiveCheckVar($val)
 	{
 		if(is_string($val))
 		{
@@ -1454,6 +1469,7 @@ class Context {
 				$result = preg_match($pattern, $val);
 				if($result)
 				{
+                    // TODO This triggers an Invalid request in ModuleHandler constructor
 					$this->isSuccessInit = false;
 					return;
 				}
@@ -2122,6 +2138,8 @@ class Context {
 	 * @return void
 	 */
 	function addJsFile($file, $optimized = false, $targetie = '',$index=0, $type='head', $isRuleset = false, $autoPath = null) {
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
 		if($isRuleset)
 		{
 			if (strpos($file, '#') !== false){
@@ -2129,13 +2147,12 @@ class Context {
 				if (!is_readable($file)) $file = $autoPath;
 			}
             // TODO I think Validator needs some refactoring itself
-			$validator   = $this->validator;
+			$validator   = $self->validator;
             $validator->setRulesetPath($file);
 			$validator->setCacheDir('files/cache');
 			$file = $validator->getJsPath();
 		}
 
-		is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
 		$self->oFrontEndFileHandler->loadFile(array($file, $type, $targetie, $index));
 	}
 

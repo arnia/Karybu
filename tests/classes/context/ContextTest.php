@@ -2927,6 +2927,67 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($supported_languages, $context->lang_supported);
     }
 
+    public function testRecursiveCheckVar_NoErrors()
+    {
+        $_GET = array("module" => "admin"
+            , "act" => "dispLayoutAdminAllInstanceList");
+        $_REQUEST = $_GET;
+
+        $context = new Context();
+        $context->_setRequestArgument();
+
+        $this->assertEquals(true, $context->isSuccessInit);
+    }
+
+    public function testRecursiveCheckVar_ClassicPHPTags()
+    {
+        $_GET = array("module" => "admin"
+                , "act" => "dispLayout<?php echo 'Gotcha' ?>AdminAllInstanceList");
+        $_REQUEST = $_GET;
+
+        $context = new Context();
+        $context->_setRequestArgument();
+
+        $this->assertEquals(false, $context->isSuccessInit);
+    }
+
+    public function testRecursiveCheckVar_ShortPHPTags()
+    {
+        $_GET = array("module" => "admin"
+            , "act" => "dispLayout<? echo 'Gotcha' ?>AdminAllInstanceList");
+        $_REQUEST = $_GET;
+
+        $context = new Context();
+        $context->_setRequestArgument();
+
+        $this->assertEquals(false, $context->isSuccessInit);
+    }
+
+    public function testRecursiveCheckVar_ScriptPHPTags()
+    {
+        $_GET = array("module" => "admin"
+            , "act" => "dispLayout<script language='php'> echo 'Gotcha' </script>AdminAllInstanceList");
+        $_REQUEST = $_GET;
+
+        $context = new Context();
+        $context->_setRequestArgument();
+
+        $this->assertEquals(false, $context->isSuccessInit);
+    }
+
+    public function testRecursiveCheckVar_ASPPHPTags()
+    {
+        $_GET = array("module" => "admin"
+            , "act" => "dispLayout<% echo 'Gotcha' %>AdminAllInstanceList");
+        $_REQUEST = $_GET;
+
+        $context = new Context();
+        $context->_setRequestArgument();
+
+        $this->assertEquals(false, $context->isSuccessInit);
+    }
+
+
 }
 
 /* End of file ContextTest.php */
