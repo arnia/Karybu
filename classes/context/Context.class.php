@@ -187,15 +187,23 @@ class Context {
         is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
 
         // include ssl action cache file
-        $file_handler = $self->file_handler;
-        $self->sslActionCacheFile = $file_handler->getRealPath($self->sslActionCacheFile);
-        if (is_readable($self->sslActionCacheFile)) {
-            $sslActions = null;
-            require_once($self->sslActionCacheFile);
+        if ($self->sslActionsFileExists()) {
+            $sslActions = $self->getSslActionsFromCacheFile();
             if (isset($sslActions)) {
                 $self->ssl_actions = $sslActions;
             }
         }
+    }
+
+    public function getSslActionsFromCacheFile()
+    {
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
+        $file = $self->file_handler->getRealPath($self->sslActionCacheFile);
+
+        $sslActions = null;
+        require_once($file);
+        return $sslActions;
     }
 
     /**
@@ -2039,6 +2047,26 @@ class Context {
 		return new stdClass;
 	}
 
+    function sslActionsFileExists()
+    {
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+        return is_readable($self->file_handler->getRealPath($self->sslActionCacheFile));
+    }
+
+    function createSslActionsFile()
+    {
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+        $buff = '<?php if(!defined("__XE__"))exit;';
+        FileHandler::writeFile($self->file_handler->getRealPath($self->sslActionCacheFile), $buff);
+    }
+
+    function enableSslAction($action)
+    {
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
+        $sslActionCacheString = sprintf('$sslActions[\'%s\'] = 1;', $action);
+        FileHandler::writeFile($self->file_handler->getRealPath($self->sslActionCacheFile), $sslActionCacheString, 'a');
+    }
 
 	/**
 	 * Register if actions is to be encrypted by SSL. Those actions are sent to https in common/js/xml_handler.js
@@ -2050,16 +2078,12 @@ class Context {
 	{
 		is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
 
-		if(!is_readable($self->sslActionCacheFile))
-		{
-			$buff = '<?php if(!defined("__XE__"))exit;';
-			FileHandler::writeFile($self->sslActionCacheFile, $buff);
+		if(!$self->sslActionsFileExists()) {
+            $self->createSslActionsFile();
 		}
 
-		if(!isset($self->ssl_actions[$action]))
-		{
-			$sslActionCacheString = sprintf('$sslActions[\'%s\'] = 1;', $action);
-			FileHandler::writeFile($self->sslActionCacheFile, $sslActionCacheString, 'a');
+		if(!isset($self->ssl_actions[$action])) {
+            $self->enableSslAction($action);
 		}
 	}
 

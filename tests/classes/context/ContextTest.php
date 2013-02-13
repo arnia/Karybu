@@ -3112,6 +3112,71 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/../images/', $web_path);
     }
 
+    public function testAddSSLAction_CacheFileDoesntExist()
+    {
+        // Arrange
+        $context = $this->getMock('Context', array('sslActionsFileExists', 'createSslActionsFile', 'enableSslAction'));
+        $context->expects($this->once())->method('sslActionsFileExists')->will($this->returnValue(false));
+
+        // Assert
+        $context->expects($this->once())->method('createSslActionsFile');
+
+        // Act
+        $context->addSSLAction('dispDashboard');
+    }
+
+    public function testAddSSLAction_CacheFileExists_ActionDoesnt()
+    {
+        // Arrange
+        $context = $this->getMock('Context', array('sslActionsFileExists', 'createSslActionsFile', 'enableSslAction'));
+        $context->expects($this->once())->method('sslActionsFileExists')->will($this->returnValue(true));
+
+        // Assert
+        $context->expects($this->never())->method('createSslActionsFile');
+        $context->expects($this->once())->method('enableSslAction')->with($this->equalTo('dispDashboard'));
+
+        // Act
+        $context->addSSLAction('dispDashboard');
+
+        // Assert
+        // Actions will only become available in the following request
+        $this->assertEquals(0, count($context->getSSLActions()));
+        $this->assertEquals(false, $context->isExistsSSLAction('dispDashboard'));
+    }
+
+    public function testAddSSLAction_CacheFileExists_ActionDoes()
+    {
+        // Arrange
+        $context = $this->getMock('Context', array('sslActionsFileExists', 'createSslActionsFile', 'enableSslAction'));
+        $context->expects($this->once())->method('sslActionsFileExists')->will($this->returnValue(true));
+        $context->ssl_actions['dispDashboard'] = 1;
+
+        // Assert
+        $context->expects($this->never())->method('createSslActionsFile');
+        $context->expects($this->never())->method('enableSslAction');
+
+        // Act
+        $context->addSSLAction('dispDashboard');
+    }
+
+    public function testLoadSslActions()
+    {
+        $context = $this->getMock('Context', array('sslActionsFileExists', 'getSslActionsFromCacheFile'));
+        $context->expects($this->once())->method('sslActionsFileExists')->will($this->returnValue(true));
+
+        $context->expects($this->once())->method('getSslActionsFromCacheFile')->will($this->returnValue(
+                    array(
+                        'dispDashboard' => 1,
+                        'procSomething' => 1
+                    )
+            ));
+
+        $context->loadSslActionsCacheFile();
+
+        $this->assertEquals(2, count($context->getSSLActions()));
+    }
+
+
 }
 
 /* End of file ContextTest.php */
