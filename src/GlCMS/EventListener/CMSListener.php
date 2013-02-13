@@ -80,9 +80,7 @@ class CMSListener implements EventSubscriberInterface
     {
         /** @var $oContext \Context */
         $oContext = $event->getRequest()->attributes->get('oContext');
-        if ($event->getRequestType() === HttpKernelInterface::MASTER_REQUEST) {
-            $oContext->init();
-        }
+        $oContext->init();
     }
 
     public function checkModuleHandlerInit(GetResponseEvent $event)

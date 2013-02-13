@@ -399,7 +399,7 @@ class Context {
 	 * @return string DB's db_type
 	 */
 	function getDBType() {
-		is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
 		return $self->db_info->master_db["db_type"];
 	}
 
@@ -1592,7 +1592,7 @@ class Context {
 	 * @return void
 	 */
 	function addJsFilter($path, $filename) {
-		$oXmlFilter = new XmlJSFilter($path, $filename);
+		$oXmlFilter = new XmlJsFilter($path, $filename);
 		$oXmlFilter->compile();
 	}
 	/**

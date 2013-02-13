@@ -38,6 +38,11 @@ class ExceptionListener implements EventSubscriberInterface
 
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
+        /**
+         * don't handle the exception until we have the forward feature
+         */
+        throw $event->getException();
+
         static $handling;
 
         if (true === $handling) {
