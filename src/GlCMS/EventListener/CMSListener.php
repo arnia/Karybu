@@ -65,9 +65,7 @@ class CMSListener implements EventSubscriberInterface
     {
         $request = $event->getRequest();
         $oContext = \Context::getInstance();
-        if ($event->getRequestType() === HttpKernelInterface::MASTER_REQUEST) {
-            $oContext->context = &$GLOBALS['__Context__'];
-        }
+        $oContext->context = &$GLOBALS['__Context__'];
         // TODO Create a seprate list of 'legacy' request attributes: like $request->attributes->legacy->set('oContext',$oContext);
         // Could be done by $request->attributes->set('legacy', new ParametersBag()); or something
         $request->attributes->set('oContext', $oContext);
@@ -196,7 +194,7 @@ class CMSListener implements EventSubscriberInterface
         foreach ($lookingForLocation as $header) {
             $hSplit = explode(':', $header, 2);
             $hTarget = trim($hSplit[1]); $hName = trim($hSplit[0]);
-            if ($hName == 'location') {
+            if (strtolower($hName) == 'location') {
                 header_remove('location');
                 $response = new RedirectResponse($hTarget);
             }
