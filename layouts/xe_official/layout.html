@@ -1,114 +1,101 @@
-<load target="css/bootstrap.min.css" />
-<load target="css/edit-mode.css" />
-<!-- HEADER
-    ================================================== -->
-<div id="header" class="zone">
-    <div class="container">
-        <div class="row">
-            <div id="logo" class="span12 edit">
-                <h1>
-                    <a class="brand"  href="{$layout_info->index_url}" cond="$layout_info->logo_image"><img src="{$layout_info->logo_image}" alt="logo" border="0" /></a>
-                    <a class="brand"  href="{$layout_info->index_url}" cond="!$layout_info->logo_image">{$layout_info->logo_image_alt}</a>
-                </h1>
-            </div>
+<load target="css/bootstrap.min.css"/>
+<load target="css/edit-mode.css"/>
+<!-- NAVBAR
+================================================== -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="{$layout_info->index_url}" cond="$layout_info->logo_image"><img src="{$layout_info->logo_image}" alt="logo" border="0" /></a>
+            <a class="brand" href="{$layout_info->index_url}" cond="!$layout_info->logo_image">{$layout_info->logo_image_alt}</a>
+
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li loop="$main_menu->list=>$key1,$val1" class="
+                        <!--@if(count($val1['list'])!=0)-->
+                         dropdown
+                        <!--@end-->
+                        <!--@if($val1['selected'])-->
+                         active
+                        <!--@end-->
+                        ">
+                        <a href="{$val1['href']}"
+                        <!--@if(count($val1['list'])!=0)-->
+                        class="dropdown-toggle" data-toggle="dropdown"
+                        <!--@end-->
+                        target="_blank"|cond="$val1['open_window']=='Y'">
+                        {$val1['link']}
+                        </a>
+                        <ul cond="$val1['list']" class="dropdown-menu">
+                            <li loop="$val1['list']=>$key2,$val2" class="active"|cond="$val2['selected']">
+                                <a href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'">{$val2['link']}</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form pull-right">
+                    <input class="span2" type="text" placeholder="Email">
+                    <input class="span2" type="password" placeholder="Password">
+                    <button type="submit" class="btn">Sign in</button>
+                </form>
+            </div><!--/.nav-collapse -->
         </div>
     </div>
 </div>
-
-
-<!-- NAVBAR
-================================================== -->
-<div class="navbar-wrapper zone">
-    <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+<div id="header" class="zone">
     <div class="container">
-        <div class="navbar edit">
-            <div class="navbar-inner">
-                <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
-                <div class="nav-collapse collapse">
-                    <ul class="nav">
-                        <li loop="$main_menu->list=>$key1,$val1" class="active"|cond="$val1['selected']">
-                            <a href="{$val1['href']}"
-                                <!--@if(count($val1['list'])!=0)-->
-                                    class="dropdown-toggle" data-toggle="dropdown"
-                                <!--@end-->
-                                target="_blank"|cond="$val1['open_window']=='Y'">
-                                {$val1['link']}
-                            </a>
-                            <ul cond="$val1['list']" class="dropdown-menu">
-                                <li loop="$val1['list']=>$key2,$val2" class="active"|cond="$val2['selected']"><a href="{$val2['href']}" target="_blank"|cond="$val2['open_window']=='Y'">{$val2['link']}</a></li>
-                            </ul>
-                        </li>
 
-                        <!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li class="nav-header">Nav header</li>
-                                <li><a href="#">Separated link</a></li>
-                                <li><a href="#">One more separated link</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div><!-- /.navbar-inner -->
-        </div><!-- /.navbar -->
-
-    </div> <!-- /.container -->
-</div><!-- /.navbar-wrapper -->
-
-
+    </div>
+</div>
 
 <!-- Carousel
 ================================================== -->
-<div class="container zone">
-    <div id="myCarousel" class="carousel slide edit">
-        <div class="carousel-inner">
-            <div class="item active">
-                <img src="../xe_official/slides/slide1.jpg" alt="">
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h1>Example headline.</h1>
-                        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <a class="btn btn-large btn-primary" href="#">Sign up today</a>
+<div class="zone">
+    <div class="container">
+        <div class="row-inline">
+            <div id="myCarousel" class="carousel slide edit">
+                    <div class="carousel-inner">
+                <div class="item active">
+                    <img src="../xe_official/slides/slide1.jpg" alt="">
+                    <div class="container-inline">
+                        <div class="carousel-caption">
+                            <h1>Example headline.</h1>
+                            <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                            <a class="btn btn-large btn-primary" href="#">Sign up today</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../xe_official/slides/slide2.jpg" alt="">
+                    <div class="container-inline">
+                        <div class="carousel-caption">
+                            <h1>Another example headline.</h1>
+                            <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                            <a class="btn btn-large btn-primary" href="#">Learn more</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../xe_official/slides/slide3.jpg" alt="">
+                    <div class="container-inline">
+                        <div class="carousel-caption">
+                            <h1>One more for good measure.</h1>
+                            <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                            <a class="btn btn-large btn-primary" href="#">Browse gallery</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="item">
-                <img src="../xe_official/slides/slide2.jpg" alt="">
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h1>Another example headline.</h1>
-                        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <a class="btn btn-large btn-primary" href="#">Learn more</a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <img src="../xe_official/slides/slide3.jpg" alt="">
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h1>One more for good measure.</h1>
-                        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <a class="btn btn-large btn-primary" href="#">Browse gallery</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
-    </div><!-- /.carousel -->
-</div><!-- /.container -->
-
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+            </div><!-- /.row -->
+        </div><!-- /.carousel -->
+    </div><!-- /.container -->
+</div><!-- /.zone -->
 
 
 <!-- Content
@@ -127,21 +114,21 @@
             <ul class="thumbnails">
                 <li class="span4">
                     <div class="thumbnail">
-                        <img data-src="holder.js/300x200" alt="">
+                        <img data-src="holder.js/300x200" alt="" />
                         <h4>Some blog post here</h4>
                         <p>caption...</p>
                     </div>
                 </li>
                 <li class="span4">
                     <div class="thumbnail">
-                        <img data-src="holder.js/300x200" alt="">
+                        <img data-src="holder.js/300x200" alt="" />
                         <h4>Some blog post here</h4>
                         <p>caption...</p>
                     </div>
                 </li>
                 <li class="span4">
                     <div class="thumbnail">
-                        <img data-src="holder.js/300x200" alt="">
+                        <img data-src="holder.js/300x200" alt="" />
                         <h4>Some blog post here</h4>
                         <p>caption...</p>
                     </div>
@@ -151,6 +138,195 @@
     </div>
 </div>
 
+
+<div id="styles" class="zone">
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span4">
+                <h4>Unstyled list</h4>
+                <ul class="unstyled">
+                    <li>Some list item here</li>
+                    <ul>
+                        <li>Some list item here</li>
+                        <li>Some list item here</li>
+                        <li>Some list item here</li>
+                        <li>Some list item here</li>
+                    </ul>
+                    <li>Some list item here</li>
+                    <li>Some list item here</li>
+                    <li>Some list item here</li>
+                </ul>
+            </div>
+            <div class="span4">
+                <h4>Unordered list</h4>
+                <ul>
+                    <li>Some list item here</li>
+                    <ul>
+                        <li>Some list item here</li>
+                        <li>Some list item here</li>
+                        <li>Some list item here</li>
+                        <li>Some list item here</li>
+                    </ul>
+                    <li>Some list item here</li>
+                    <li>Some list item here</li>
+                    <li>Some list item here</li>
+                </ul>
+            </div>
+            <div class="span3">
+                <h4>Ordered list</h4>
+                <ol>
+                    <li>Some list item here</li>
+                    <ul>
+                        <li>Some list item here</li>
+                        <li>Some list item here</li>
+                        <li>Some list item here</li>
+                        <li>Some list item here</li>
+                    </ul>
+                    <li>Some list item here</li>
+                    <li>Some list item here</li>
+                    <li>Some list item here</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row-inline">
+            <div>
+            <h4>Description</h4>
+            <dl class="dl-horizontal">
+                Some description here
+            </dl>
+            </div>
+        </div>
+        <div class="row-inline">
+            <table class="table table-striped">
+                <thead>
+                <th>Table head</th>
+                <th>Column</th>
+                </thead>
+                <tbody>
+                <td>Table body</td>
+                <td>Second</td>
+                <td>Table body</td>
+                <td>Second</td>
+                <td>Table body</td>
+                <td>Second</td>
+                </tbody>
+            </table>
+        </div>
+        <div class="row-inline">
+            <form class="well">
+                <label>Label name</label>
+                <input type="text" class="span4" placeholder="Type something">
+                <span class="help-inline">Associated help text!</span>
+                <label class="checkbox">
+                    <input type="checkbox"> Check me out
+                </label>
+                </label>
+                <button type="submit" class="btn">Submit</button>
+            </form>
+            <form class="well form-search">
+                <input type="text" class="input-medium search-query">
+                <button type="submit" class="btn btn-info">Search</button>
+            </form>
+            <form class="well form-inline">
+                <input type="text" class="input-small" placeholder="Email">
+                <input type="password" class="input-small" placeholder="Password">
+                <label class="checkbox">
+                    <input type="checkbox">Remember me
+                </label>
+                <button type="submit" class="btn">Sign in</button>
+            </form>
+            <form class="form-horizontal">
+                <fieldset>
+                    <legend>Legend text</legend>
+                    <div class="control-group ">
+                        <label class="control-label" for="input01">Text input</label>
+                        <div class="controls">
+                            <div class="input-prepend">
+                                <span class="add-on">@</span>
+                                <input class="span2" id="prependedInput" type="text" placeholder="Username">
+                            </div>
+                            <div class="input-append">
+                                <input class="span2" id="appendedInput" type="text">
+                                <span class="add-on">.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group error">
+                        <label class="control-label" for="input01">Checkbox</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <input type="checkbox">Option one
+                            </label>
+                        </div>
+                    </div>
+                    <div class="control-group success">
+                        <label class="control-label" for="input01">Select list</label>
+                        <div class="controls">
+                            <select>
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="mercedes">Mercedes</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group warning">
+                        <label class="control-label" for="input01">Multiple select</label>
+                        <div class="controls">
+                            <select multiple>
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="mercedes">Mercedes</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="input01">File input</label>
+                        <div class="controls">
+                            <input type="file" class="input-xlarge" id="input1" disabled>
+                            <span class="help-inline"><small>Some help text inline</small></span>
+                            <p class="help-block"><small>Upload logo here</small></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="input01">Text Area</label>
+                        <div class="controls">
+                            <textarea class="textarea"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn">Cancel</button>
+                </fieldset>
+            </form>
+            <button class="btn">Default button <i class="icon-search"></i></button>
+            <button class="btn btn-primary">Primary button <i class="icon-star icon-white"></i></button>
+            <button class="btn btn-info">Info button</button>
+            <button class="btn btn-success">Success button</button>
+            <button class="btn btn-warning">Warning button</button>
+            <button class="btn btn-danger">Danger button</button>
+            <button class="btn btn-inverse">Inverse button</button>
+        </div>
+        <div class="row-inline">
+            <h1>h1. Heading 1</h1>
+            <h2>h2. Heading 2</h2>
+            <h3>h3. Heading 3</h3>
+            <h4>h4. Heading 4</h4>
+            <h5>h5. Heading 5</h5>
+            <h6>h6. Heading 6</h6>
+            <p><strong>Paragraph</strong> <em>Lorem Ipsum</em> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <address>
+                <h4>Example Address</h4>
+                my address here<br>
+                Bucharest<br>
+            </address>
+            <blockquote>
+                <p><em>Lorem Ipsum</em> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <small>Someone famous</small>
+            </blockquote>
+        </div>
+    </div>
+</div>
 
 
 <!-- Content
@@ -168,5 +344,4 @@
         </div>
     </div>
 </div>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 <load target="js/bootstrap.js" />
