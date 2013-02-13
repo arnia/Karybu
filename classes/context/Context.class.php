@@ -2458,10 +2458,12 @@ class Context {
 	 * @return string Converted path
 	 */
 	function pathToUrl($path) {
+        is_a($this,'Context')?$self=&$this:$self=&Context::getInstance();
+
 		$xe   = _XE_PATH_;
 		$path = strtr($path, "\\", "/");
 
-		$base_url = preg_replace('@^https?://[^/]+/?@', '', Context::getRequestUri());
+		$base_url = preg_replace('@^https?://[^/]+/?@', '', $self->getRequestUri());
 
 		$_xe   = explode('/', $xe);
 		$_path = explode('/', $path);
@@ -2469,15 +2471,19 @@ class Context {
 
 		if(!$_base[count($_base)-1]) array_pop($_base);
 
-		foreach($_xe as $idx=>$dir) {
+		foreach($_xe as $idx => $dir) {
 			if($_path[0] != $dir) break;
 			array_shift($_path);
 		}
 
 		$idx = count($_xe) - $idx - 1;
 		while($idx--) {
-			if(count($_base)) array_shift($_base);
-			else array_unshift($_base, '..');
+			if(count($_base)) {
+                array_shift($_base);
+            }
+			else {
+                array_unshift($_base, '..');
+            }
 		}
 
 		if(count($_base)) {

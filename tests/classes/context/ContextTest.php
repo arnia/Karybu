@@ -3093,6 +3093,25 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('XE팀은 작년 하반기 동안', $encoded);
     }
 
+    public function testPathToUrl()
+    {
+        $xe_path = _XE_PATH_; // _XE_PATH_ was defined in Bootstrap file
+
+        $context = $this->getMock('Context', array('getRequestUri'));
+        $context->expects($this->any())->method('getRequestUri')->will($this->returnValue('http://localhost/xe'));
+
+        $web_path = $context->pathToUrl($xe_path);
+
+        $this->assertEquals('/xe/', $web_path);
+
+        $context = $this->getMock('Context', array('getRequestUri'));
+        $context->expects($this->any())->method('getRequestUri')->will($this->returnValue('http://www.xpressengine.org'));
+
+        $web_path = $context->pathToUrl('images');
+
+        $this->assertEquals('/../images/', $web_path);
+    }
+
 }
 
 /* End of file ContextTest.php */
