@@ -30,7 +30,10 @@ class Autoloader
             include_once $path;
             return;
         }
-        //in-module PSR-0
+        /**
+         * In-module PSR-0
+         * @see http://zaemis.blogspot.ro/2012/05/writing-minimal-psr-0-autoloader.html
+         **/
         elseif (preg_match_all('/^GlCMS\\\\Module\\\\([^\\\\]+)(\\\\.+)?(\\\\.+)$/', $class, $matches, PREG_SET_ORDER)) {
             $matches = $matches[0];
             $matches[3] = ltrim($matches[3], '\\');

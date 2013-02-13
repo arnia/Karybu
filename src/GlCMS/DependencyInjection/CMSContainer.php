@@ -29,8 +29,7 @@ class CMSContainer
         $this->serviceContainer->register('listener.cms', 'GlCMS\EventListener\CMSListener');
         $this->serviceContainer->register('listener.response', 'Symfony\Component\HttpKernel\EventListener\ResponseListener')
             ->setArguments(array('%charset%'));
-        $this->serviceContainer->register('listener.exception', 'Symfony\Component\HttpKernel\EventListener\ExceptionListener')
-            ->setArguments(array('GlCMS\\ErrorController::exceptionAction'));
+        $this->serviceContainer->register('listener.exception', 'GlCMS\EventListener\ExceptionListener');
         $this->serviceContainer->register('dispatcher', 'Symfony\Component\EventDispatcher\EventDispatcher')
             ->addMethodCall('addSubscriber', array(new Reference('listener.router')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.cms')))

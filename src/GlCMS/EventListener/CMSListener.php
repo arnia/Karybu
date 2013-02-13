@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class CMSListener implements EventSubscriberInterface
 {
@@ -63,8 +65,9 @@ class CMSListener implements EventSubscriberInterface
     {
         $request = $event->getRequest();
         $oContext = \Context::getInstance();
-        // This is the first code from the old cms
-        $oContext->context = &$GLOBALS['__Context__'];
+        if ($event->getRequestType() === HttpKernelInterface::MASTER_REQUEST) {
+            $oContext->context = &$GLOBALS['__Context__'];
+        }
         // TODO Create a seprate list of 'legacy' request attributes: like $request->attributes->legacy->set('oContext',$oContext);
         // Could be done by $request->attributes->set('legacy', new ParametersBag()); or something
         $request->attributes->set('oContext', $oContext);
@@ -77,7 +80,9 @@ class CMSListener implements EventSubscriberInterface
     {
         /** @var $oContext \Context */
         $oContext = $event->getRequest()->attributes->get('oContext');
-        $oContext->init();
+        if ($event->getRequestType() === HttpKernelInterface::MASTER_REQUEST) {
+            $oContext->init();
+        }
     }
 
     public function checkModuleHandlerInit(GetResponseEvent $event)
@@ -103,9 +108,15 @@ class CMSListener implements EventSubscriberInterface
 
     public function checkForErrorsAndPrepareMobileStatus(GetResponseEvent $event)
     {
+        $request = $event->getRequest();
+        /** @var $oModuleHandler \ModuleHandler */
         $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
-        $oModuleHandler->checkForErrorsAndPrepareMobileStatus();
-
+        if ($errorObject = $oModuleHandler->checkForErrorsAndPrepareMobileStatus()) {
+            /**
+             * we have a cms error
+             */
+            $request->attributes->set('error', $errorObject);
+        }
     }
 
     public function filterController(FilterControllerEvent $event)
@@ -165,7 +176,10 @@ class CMSListener implements EventSubscriberInterface
         $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
         $oModuleHandler->displayContent($oModule);
 
-        // Prepare Response object
+        /**
+         * Prepare Response object and cms display handler (which manages page headers and content)
+         * We'll copy from $oDisplayHandler to $response and then set event $response
+         */
         $oDisplayHandler = new \DisplayHandler();
         $response = new Response();
 
@@ -179,24 +193,22 @@ class CMSListener implements EventSubscriberInterface
             $response->headers->set($header[0], $header[1], $header[2]);
         }
 
-        //location
+        // 3. Location header
         $lookingForLocation = headers_list();
         foreach ($lookingForLocation as $header) {
             $hSplit = explode(':', $header, 2);
-            $hTarget = trim($hSplit[1]);
-            $hName = trim($hSplit[0]);
+            $hTarget = trim($hSplit[1]); $hName = trim($hSplit[0]);
             if ($hName == 'location') {
                 header_remove('location');
                 $response = new RedirectResponse($hTarget);
             }
         }
 
-        // 3. The content
+        // 4. The content
         if (!($response instanceof RedirectResponse)) {
             $content = $oDisplayHandler->getContent($oModule);
             $response->setContent($content);
         }
-
 
         $event->setResponse($response);
     }
@@ -211,10 +223,10 @@ class CMSListener implements EventSubscriberInterface
     {
         $request = $event->getRequest();
         $module_handler = $request->attributes->get('oModuleHandler');
-        $request->attributes->set("act", $module_handler->act);
-        $request->attributes->set("module", $module_handler->module);
-        $request->attributes->set("is_mobile", \Mobile::isFromMobilePhone());
-        $request->attributes->set("is_installed", \Context::isInstalled());
+        $request->attributes->set('act', $module_handler->act);
+        $request->attributes->set('module', $module_handler->module);
+        $request->attributes->set('is_mobile', \Mobile::isFromMobilePhone());
+        $request->attributes->set('is_installed', \Context::isInstalled());
         $request->attributes->set('module_info', $module_handler->module_info);
     }
 

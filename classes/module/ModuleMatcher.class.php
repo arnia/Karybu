@@ -197,10 +197,12 @@ class ModuleMatcher
         }
 
         // If module info was set, retrieve variables from the module information
-        if($module_info) {
+        if ($module_info) {
             $module = $module_info->module;
             $mid = $module_info->mid;
-            $module_info = $module_info;
+        }
+        else {
+            $module_info = new stdClass();
         }
 
         // Set module and mid into module_info
@@ -242,15 +244,15 @@ class ModuleMatcher
     public function getActionName($act, $module, $xml_info)
     {
         // If not installed yet, modify act
-        if($module=="install") {
+        if ($module=="install") {
             if(!$act || !isset($xml_info->action->{$act})) $act = $xml_info->default_index_act;
         }
 
         // if act exists, find type of the action, if not use default index act
-        if(!$act) $act = $xml_info->default_index_act;
+        if (!$act) $act = $xml_info->default_index_act;
 
         // still no act means error
-        if(!$act) {
+        if (!$act) {
             throw new ModuleDoesNotExistException();
         }
 
@@ -260,15 +262,14 @@ class ModuleMatcher
     public function getKind($act, $module)
     {
         $kind = strpos(strtolower($act),'admin')!==false?'admin':'';
-        if(!$kind && $module == 'admin') $kind = 'admin';
+        if (!$kind && $module == 'admin') $kind = 'admin';
         return $kind;
     }
 
     public function getType($act, $xml_info, $is_mobile, $is_installed)
     {
         $type = $xml_info->action->{$act}->type;
-        if($type == 'view' && $is_mobile && $is_installed)
-        {
+        if ($type == 'view' && $is_mobile && $is_installed) {
             $type = 'mobile';
         }
         return $type;
