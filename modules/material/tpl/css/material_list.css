@@ -1,6 +1,7 @@
 .ingredientList{border-top: 2px solid #ccc}
 .ingredientList dd{margin: 3px;}
 .ingredientList dl{position: relative; border-bottom: 1px solid #ccc}
+.ingredientList .ingredientContent{max-height: 400px; overflow: auto}
 .ingredientList .ingredientContent img{max-height: 200px}
 .ingredientList .ingredientNav{position: absolute; top: 0; right: 0}
 .ingredientList .ingredientNav button._delete_item{height: 19px; width: 19px; margin: 5px; background: url('../img/buttonTableDataX.gif') no-repeat; border: none}

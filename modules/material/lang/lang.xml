@@ -14,48 +14,19 @@
         <item name="tutorial">
             <value xml:lang="ko"><![CDATA[Tutorial]]></value>
             <value xml:lang="en"><![CDATA[Tutorial]]></value>
-            <value xml:lang="jp"><![CDATA[]]></value>
-            <value xml:lang="zh-CN"><![CDATA[]]></value>
-            <value xml:lang="zh-TW"><![CDATA[]]></value>
-            <value xml:lang="tr"><![CDATA[]]></value>
-            <value xml:lang="vi"><![CDATA[]]></value>
         </item>
         <item name="writing_ingredients">
             <value xml:lang="ko"><![CDATA[글감보관함]]></value>
-            <value xml:lang="en"><![CDATA[Writing Ingredients]]></value>
-            <value xml:lang="jp"><![CDATA[資料箱]]></value>
-            <value xml:lang="zh-CN"><![CDATA[素材管理]]></value>
-            <value xml:lang="zh-TW"><![CDATA[素材管理]]></value>
-            <value xml:lang="fr"><![CDATA[Writing Ingredients]]></value>
-            <value xml:lang="ru"><![CDATA[Writing Ingredients]]></value>
-            <value xml:lang="es"><![CDATA[Writing Ingredients]]></value>
-            <value xml:lang="tr"><![CDATA[Yazı İçerikleri]]></value>
-            <value xml:lang="vi"><![CDATA[Thành phần]]></value>
+            <value xml:lang="en"><![CDATA[Material]]></value>
         </item>
         
         <item name="what_is_writing_ingredients">
             <value xml:lang="ko"><![CDATA[글감 보관함이란?]]></value>
-            <value xml:lang="en"><![CDATA[What is Writing Ingredients?]]></value>
-            <value xml:lang="jp"><![CDATA[What is Writing Ingredients?]]></value>
-            <value xml:lang="zh-CN"><![CDATA[What is Writing Ingredients?]]></value>
-            <value xml:lang="zh-TW"><![CDATA[What is Writing Ingredients?]]></value>
-            <value xml:lang="fr"><![CDATA[What is Writing Ingredients?]]></value>
-            <value xml:lang="ru"><![CDATA[What is Writing Ingredients?]]></value>
-            <value xml:lang="es"><![CDATA[What is Writing Ingredients?]]></value>
-            <value xml:lang="tr"><![CDATA[What is Writing Ingredients?]]></value>
-            <value xml:lang="vi"><![CDATA[What is Writing Ingredients?]]></value>
+            <value xml:lang="en"><![CDATA[What is the Material (Ingredients collector) module?]]></value>
         </item>
         <item name="how_to_install_bookmarklet">
             <value xml:lang="ko"><![CDATA[북마클릿 설치하기]]></value>
-            <value xml:lang="en"><![CDATA[How to Install Bookmarklet]]></value>
-            <value xml:lang="jp"><![CDATA[How to Install Bookmarklet]]></value>
-            <value xml:lang="zh-CN"><![CDATA[How to Install Bookmarklet]]></value>
-            <value xml:lang="zh-TW"><![CDATA[How to Install Bookmarklet]]></value>
-            <value xml:lang="fr"><![CDATA[How to Install Bookmarklet]]></value>
-            <value xml:lang="ru"><![CDATA[How to Install Bookmarklet]]></value>
-            <value xml:lang="es"><![CDATA[How to Install Bookmarklet]]></value>
-            <value xml:lang="tr"><![CDATA[How to Install Bookmarklet]]></value>
-            <value xml:lang="vi"><![CDATA[How to Install Bookmarklet]]></value>
+            <value xml:lang="en"><![CDATA[How to use the Ingredients collector]]></value>
         </item>
         <item name="how_to_use_bookmarklet">
             <value xml:lang="ko"><![CDATA[북마클릿 사용하기]]></value>
@@ -88,44 +59,20 @@
         
         <item name="what_is_writing_ingredients">
             <value xml:lang="ko"><![CDATA[우리 블로거들은 뉴스 사이트나 남의 블로그, 혹은 여타 웹 페이지에서 흥미로운 소재를 발견할 때가 많습니다. &quot;이건 기억해뒀다가 나중에 관련 글을 쓸 때 써먹어야지&quot; 하고 마음먹기도 하죠. 그러나 정작 글을 쓸 때면 그걸 어디서 봤는지 주소는 커녕 발견한 사실조차 기억나지 않을 때가 많습니다. 이제 좋은 글감을 발견하면 글감 보관함에 넣어 두세요. 수집해 놓은 내용(텍스트, 링크, 이미지, 동영상 등)은 글을 쓸 때 마우스로 끌어다가 손쉽게 첨부할 수 있습니다.]]></value>
-            <value xml:lang="en"><![CDATA[We bloggers discover a lot of interesting materials to write on the web. So we often think, &quot;Oh, I will write about this later!&quot;. But when we actually try to write it, most of us forget not only the URL of the material but also that fact of having found new material. Now, try Ingredients Collector. All you have to do is to drag materials such as texts, links, images or movies that you have collected before when writing a post.]]></value>
-            <value xml:lang="jp"><![CDATA[We bloggers discover a lot of interesting materials to write on the web. So we often think, &quot;Oh, I will write about this later!&quot;. But when we actually try to write it, most of us forget not only the URL of the material but also that fact of having found new material. Now, try Ingredients Collector. All you have to do is to drag materials such as texts, links, images or movies that you have collected before when writing a post.]]></value>
-            <value xml:lang="zh-CN"><![CDATA[We bloggers discover a lot of interesting materials to write on the web. So we often think, &quot;Oh, I will write about this later!&quot;. But when we actually try to write it, most of us forget not only the URL of the material but also that fact of having found new material. Now, try Ingredients Collector. All you have to do is to drag materials such as texts, links, images or movies that you have collected before when writing a post.]]></value>
-            <value xml:lang="zh-TW"><![CDATA[We bloggers discover a lot of interesting materials to write on the web. So we often think, &quot;Oh, I will write about this later!&quot;. But when we actually try to write it, most of us forget not only the URL of the material but also that fact of having found new material. Now, try Ingredients Collector. All you have to do is to drag materials such as texts, links, images or movies that you have collected before when writing a post.]]></value>
-            <value xml:lang="fr"><![CDATA[We bloggers discover a lot of interesting materials to write on the web. So we often think, &quot;Oh, I will write about this later!&quot;. But when we actually try to write it, most of us forget not only the URL of the material but also that fact of having found new material. Now, try Ingredients Collector. All you have to do is to drag materials such as texts, links, images or movies that you have collected before when writing a post.]]></value>
-            <value xml:lang="ru"><![CDATA[We bloggers discover a lot of interesting materials to write on the web. So we often think, &quot;Oh, I will write about this later!&quot;. But when we actually try to write it, most of us forget not only the URL of the material but also that fact of having found new material. Now, try Ingredients Collector. All you have to do is to drag materials such as texts, links, images or movies that you have collected before when writing a post.]]></value>
-            <value xml:lang="es"><![CDATA[We bloggers discover a lot of interesting materials to write on the web. So we often think, &quot;Oh, I will write about this later!&quot;. But when we actually try to write it, most of us forget not only the URL of the material but also that fact of having found new material. Now, try Ingredients Collector. All you have to do is to drag materials such as texts, links, images or movies that you have collected before when writing a post.]]></value>
-            <value xml:lang="tr"><![CDATA[We bloggers discover a lot of interesting materials to write on the web. So we often think, &quot;Oh, I will write about this later!&quot;. But when we actually try to write it, most of us forget not only the URL of the material but also that fact of having found new material. Now, try Ingredients Collector. All you have to do is to drag materials such as texts, links, images or movies that you have collected before when writing a post.]]></value>
-            <value xml:lang="vi"><![CDATA[We bloggers discover a lot of interesting materials to write on the web. So we often think, &quot;Oh, I will write about this later!&quot;. But when we actually try to write it, most of us forget not only the URL of the material but also that fact of having found new material. Now, try Ingredients Collector. All you have to do is to drag materials such as texts, links, images or movies that you have collected before when writing a post.]]></value>
+            <value xml:lang="en"><![CDATA[There are a lot of interesting things on the web that serve as inspiration for our content. So we often think: "Oh, I will write about this later!". But when we actually want to publish something, most of us forget not only the URL that was inspiring but also the fact of having found something inspiring in the first place. To help with this you can try Material module (Ingredients Collector). All you have to do is to drag ingredients / materials such as texts, links, images or videos that you have collected before when publishing something with the editor.]]></value>
         </item>
         <item name="how_to_install_bookmarklet">
             <value xml:lang="ko"><![CDATA[글감을 수집하려면 사용하고 계신 브라우저에 글감 수집기 북마클릿을 설치해야 합니다. 북마클릿을 설치하는 방법은 브라우저 종류에 따라 조금씩 다릅니다. 아래 안내에 따라 사용중인 브라우저에 맞게 북마클릿을 설치하세요.]]></value>
-            <value xml:lang="en"><![CDATA[To collect writing ingredients, you need to install bookmarklet on your current browser. Installing bookmarklets depends on the type of browsers you are using. So, please install bookmarklet according to proper manuals below.]]></value>
-            <value xml:lang="jp"><![CDATA[To collect writing ingredients, you need to install bookmarklet on your current browser. Installing bookmarklets depends on the type of browsers you are using. So, please install bookmarklet according to proper manuals below.]]></value>
-            <value xml:lang="zh-CN"><![CDATA[To collect writing ingredients, you need to install bookmarklet on your current browser. Installing bookmarklets depends on the type of browsers you are using. So, please install bookmarklet according to proper manuals below.]]></value>
-            <value xml:lang="zh-TW"><![CDATA[To collect writing ingredients, you need to install bookmarklet on your current browser. Installing bookmarklets depends on the type of browsers you are using. So, please install bookmarklet according to proper manuals below.]]></value>
-            <value xml:lang="fr"><![CDATA[To collect writing ingredients, you need to install bookmarklet on your current browser. Installing bookmarklets depends on the type of browsers you are using. So, please install bookmarklet according to proper manuals below.]]></value>
-            <value xml:lang="ru"><![CDATA[To collect writing ingredients, you need to install bookmarklet on your current browser. Installing bookmarklets depends on the type of browsers you are using. So, please install bookmarklet according to proper manuals below.]]></value>
-            <value xml:lang="es"><![CDATA[To collect writing ingredients, you need to install bookmarklet on your current browser. Installing bookmarklets depends on the type of browsers you are using. So, please install bookmarklet according to proper manuals below.]]></value>
-            <value xml:lang="tr"><![CDATA[To collect writing ingredients, you need to install bookmarklet on your current browser. Installing bookmarklets depends on the type of browsers you are using. So, please install bookmarklet according to proper manuals below.]]></value>
-            <value xml:lang="vi"><![CDATA[To collect writing ingredients, you need to install bookmarklet on your current browser. Installing bookmarklets depends on the type of browsers you are using. So, please install bookmarklet according to proper manuals below.]]></value>
+            <value xml:lang="en"><![CDATA[To collect ingredients, you need to install a bookmarklet on your browser. Installing bookmarklets depends on the type of browser you are using. For each browser see bellow the steps that you have to take.]]></value>
         </item>
         <item name="how_to_use_bookmarklet">
             <value xml:lang="ko"><![CDATA[이제 인터넷에서 좋은 글감을 발견하면 설치해둔 북마클릿을 클릭하세요. 텍스트, 이미지, 동영상 등 원하는 유형을 선택한 후 저장하시면 됩니다. 이렇게 수집한 글감들은 지금 보고 계신 글감보관함에 저장되며 글쓰기 화면에서 끌어다 쓸 수 있게 됩니다. 모든 글감은 자동으로 출처 정보와 함께 저장됩니다. 그러나 어떤 웹 사이트는 정보의 복제를 원천적으로 금하기도 합니다. 글감 수집기 북마클릿을 사용하실 때에는 타인의 지적재산권을 침해하는 일이 없도록 유의하시기 바랍니다.]]></value>
-            <value xml:lang="en"><![CDATA[Now, if you have found anything interesting to write, just click on the bookmarklet you had installed. Then, select appropriate type of contents such as text, image or movie and save it. All writing ingredients you saved will be collected to Writing Ingredients here, and you can use them when writing a post. Bookmarklet will save the original source of the writing ingredients automatically. But as some websites do not allow their information to be copied, please be careful not to violate intellectual property rights.]]></value>
-            <value xml:lang="jp"><![CDATA[Now, if you have found anything interesting to write, just click on the bookmarklet you had installed. Then, select appropriate type of contents such as text, image or movie and save it. All writing ingredients you saved will be collected to Writing Ingredients here, and you can use them when writing a post. Bookmarklet will save the original source of the writing ingredients automatically. But as some websites do not allow their information to be copied, please be careful not to violate intellectual property rights.]]></value>
-            <value xml:lang="zh-CN"><![CDATA[Now, if you have found anything interesting to write, just click on the bookmarklet you had installed. Then, select appropriate type of contents such as text, image or movie and save it. All writing ingredients you saved will be collected to Writing Ingredients here, and you can use them when writing a post. Bookmarklet will save the original source of the writing ingredients automatically. But as some websites do not allow their information to be copied, please be careful not to violate intellectual property rights.]]></value>
-            <value xml:lang="zh-TW"><![CDATA[Now, if you have found anything interesting to write, just click on the bookmarklet you had installed. Then, select appropriate type of contents such as text, image or movie and save it. All writing ingredients you saved will be collected to Writing Ingredients here, and you can use them when writing a post. Bookmarklet will save the original source of the writing ingredients automatically. But as some websites do not allow their information to be copied, please be careful not to violate intellectual property rights.]]></value>
-            <value xml:lang="fr"><![CDATA[Now, if you have found anything interesting to write, just click on the bookmarklet you had installed. Then, select appropriate type of contents such as text, image or movie and save it. All writing ingredients you saved will be collected to Writing Ingredients here, and you can use them when writing a post. Bookmarklet will save the original source of the writing ingredients automatically. But as some websites do not allow their information to be copied, please be careful not to violate intellectual property rights.]]></value>
-            <value xml:lang="ru"><![CDATA[Now, if you have found anything interesting to write, just click on the bookmarklet you had installed. Then, select appropriate type of contents such as text, image or movie and save it. All writing ingredients you saved will be collected to Writing Ingredients here, and you can use them when writing a post. Bookmarklet will save the original source of the writing ingredients automatically. But as some websites do not allow their information to be copied, please be careful not to violate intellectual property rights.]]></value>
-            <value xml:lang="es"><![CDATA[Now, if you have found anything interesting to write, just click on the bookmarklet you had installed. Then, select appropriate type of contents such as text, image or movie and save it. All writing ingredients you saved will be collected to Writing Ingredients here, and you can use them when writing a post. Bookmarklet will save the original source of the writing ingredients automatically. But as some websites do not allow their information to be copied, please be careful not to violate intellectual property rights.]]></value>
-            <value xml:lang="tr"><![CDATA[Now, if you have found anything interesting to write, just click on the bookmarklet you had installed. Then, select appropriate type of contents such as text, image or movie and save it. All writing ingredients you saved will be collected to Writing Ingredients here, and you can use them when writing a post. Bookmarklet will save the original source of the writing ingredients automatically. But as some websites do not allow their information to be copied, please be careful not to violate intellectual property rights.]]></value>
-            <value xml:lang="vi"><![CDATA[Now, if you have found anything interesting to write, just click on the bookmarklet you had installed. Then, select appropriate type of contents such as text, image or movie and save it. All writing ingredients you saved will be collected to Writing Ingredients here, and you can use them when writing a post. Bookmarklet will save the original source of the writing ingredients automatically. But as some websites do not allow their information to be copied, please be careful not to violate intellectual property rights.]]></value>
+            <value xml:lang="en"><![CDATA[If you have anything interesting to write, just click on the bookmarklet. Then, select the appropriate type of contents such as text, image or video and save it. All content that you save will be added to Writing Ingredients, that you can use from the WYSIWYG editor on frontend. As you know some websites do not allow their information to be copied, so please be careful not to violate their intellectual property rights.  ]]></value>
         </item>
         
         <item name="about_bookmarklet">
             <value xml:lang="ko"><![CDATA[언제 어디서나<br />블로깅할 글감을 수집하세요.]]></value>
-            <value xml:lang="en"><![CDATA[Collect ingredients to blog always.]]></value>
+            <value xml:lang="en"><![CDATA[Collect inspiration for your website.]]></value>
             <value xml:lang="jp"><![CDATA[]]></value>
             <value xml:lang="zh-CN"><![CDATA[]]></value>
             <value xml:lang="zh-TW"><![CDATA[]]></value>
@@ -269,7 +216,7 @@
         </item>
         <item name="ie_step7">
             <value xml:lang="ko"><![CDATA[웹 서핑 도중 북마클릿을 실행하면 현재 페이지의 콘텐츠를 글감으로 저장할 수 있습니다. 인용하고 싶은 문장을 블럭으로 지정한 다음 북마클릿을 실행하면 텍스트 또는 인용구 형식으로 담을 수 있습니다. 현재 페이지의 이미지 목록이 자동으로 표시 됩니다. 현재 페이지의 동영상 삽입코드가 자동으로 포함 됩니다. 한 번에 한 가지 유형만 <em>&quot;글감 보관함에 보관하기&quot;</em> 할 수 있습니다.]]></value>
-            <value xml:lang="en"><![CDATA[Ingredients collector specified block of statements you want to quote, and then when you run the bookmarklet, you can put it in text format or quote. Images list is automatically displayed, and video inserted code is also included.]]></value>
+            <value xml:lang="en"><![CDATA[When you click the bookmarklet, you can choose to format it as plain text or quote. Images list is automatically displayed, and video inserted code is also included.]]></value>
             <value xml:lang="jp"><![CDATA[]]></value>
             <value xml:lang="zh-CN"><![CDATA[]]></value>
             <value xml:lang="zh-TW"><![CDATA[]]></value>
@@ -324,7 +271,7 @@
         </item>
         <item name="firefox_step6">
             <value xml:lang="ko"><![CDATA[웹 서핑 도중 북마클릿을 실행하면 현재 페이지의 콘텐츠를 글감으로 저장할 수 있습니다. 인용하고 싶은 문장을 블럭으로 지정한 다음 북마클릿을 실행하면 텍스트 또는 인용구 형식으로 담을 수 있습니다. 현재 페이지의 이미지 목록이 자동으로 표시 됩니다. 현재 페이지의 동영상 삽입코드가 자동으로 포함 됩니다. 한 번에 한 가지 유형만 <em>&quot;글감 보관함에 보관하기&quot;</em> 할 수 있습니다.]]></value>
-            <value xml:lang="en"><![CDATA[Ingredients collector specified block of statements you want to quote, and then when you run the bookmarklet, you can put it in text format or quote. Images list is automatically displayed, and video inserted code is also included.]]></value>
+            <value xml:lang="en"><![CDATA[When you click the bookmarklet, you can choose to format it as plain text or quote. Images list is automatically displayed, and video inserted code is also included.]]></value>
             <value xml:lang="jp"><![CDATA[]]></value>
             <value xml:lang="zh-CN"><![CDATA[]]></value>
             <value xml:lang="zh-TW"><![CDATA[]]></value>
@@ -370,7 +317,7 @@
         </item>
         <item name="safari_step5">
             <value xml:lang="ko"><![CDATA[웹 서핑 도중 북마클릿을 실행하면 현재 페이지의 콘텐츠를 글감으로 저장할 수 있습니다. 인용하고 싶은 문장을 블럭으로 지정한 다음 북마클릿을 실행하면 텍스트 또는 인용구 형식으로 담을 수 있습니다. 현재 페이지의 이미지 목록이 자동으로 표시 됩니다. 현재 페이지의 동영상 삽입코드가 자동으로 포함 됩니다. 한 번에 한 가지 유형만 <em>&quot;글감 보관함에 보관하기&quot;</em> 할 수 있습니다.]]></value>
-            <value xml:lang="en"><![CDATA[Ingredients collector specified block of statements you want to quote, and then when you run the bookmarklet, you can put it in text format or quote. Images list is automatically displayed, and video inserted code is also included.]]></value>
+            <value xml:lang="en"><![CDATA[When you click the bookmarklet, you can choose to format it as plain text or quote. Images list is automatically displayed, and video inserted code is also included.]]></value>
             <value xml:lang="jp"><![CDATA[]]></value>
             <value xml:lang="zh-CN"><![CDATA[]]></value>
             <value xml:lang="zh-TW"><![CDATA[]]></value>
@@ -407,60 +354,13 @@
         </item>
         <item name="chrome_step4">
             <value xml:lang="ko"><![CDATA[웹 서핑 도중 북마클릿을 실행하면 현재 페이지의 콘텐츠를 글감으로 저장할 수 있습니다. 인용하고 싶은 문장을 블럭으로 지정한 다음 북마클릿을 실행하면 텍스트 또는 인용구 형식으로 담을 수 있습니다. 현재 페이지의 이미지 목록이 자동으로 표시 됩니다. 현재 페이지의 동영상 삽입코드가 자동으로 포함 됩니다. 한 번에 한 가지 유형만 <em>&quot;글감 보관함에 보관하기&quot;</em> 할 수 있습니다.]]></value>
-            <value xml:lang="en"><![CDATA[Ingredients collector specified block of statements you want to quote, and then when you run the bookmarklet, you can put it in text format or quote. Images list is automatically displayed, and video inserted code is also included.]]></value>
+            <value xml:lang="en"><![CDATA[When you click the bookmarklet, you can choose to format it as plain text or quote. Images list is automatically displayed, and video inserted code is also included.]]></value>
             <value xml:lang="jp"><![CDATA[]]></value>
             <value xml:lang="zh-CN"><![CDATA[]]></value>
             <value xml:lang="zh-TW"><![CDATA[]]></value>
             <value xml:lang="tr"><![CDATA[]]></value>
             <value xml:lang="vi"><![CDATA[]]></value>
         </item>
-        
-        <item name="opera_step1">
-            <value xml:lang="ko"><![CDATA[먼저 북마크 패널을 화면에 표시해야 합니다. 북마크 패널이 표시되지 않았다면 <em>&quot;Ctrl(Cmd)+B&quot;</em> 키를 누릅니다.]]></value>
-            <value xml:lang="en"><![CDATA[If the bookmarks panel does not display, press <em>&quot;Ctrl(Cmd)+Shift+B&quot;</em>]]></value>
-            <value xml:lang="jp"><![CDATA[]]></value>
-            <value xml:lang="zh-CN"><![CDATA[]]></value>
-            <value xml:lang="zh-TW"><![CDATA[]]></value>
-            <value xml:lang="tr"><![CDATA[]]></value>
-            <value xml:lang="vi"><![CDATA[]]></value>
-        </item>
-        <item name="opera_step2">
-            <value xml:lang="ko"><![CDATA[마우스 포인터를 글감 수집기 버튼 위치에 놓고 <em>&quot;마우스 오른쪽 버튼&quot;</em>을 누릅니다.]]></value>
-            <value xml:lang="en"><![CDATA[Focus your cursor on Ingredients Collector button, and press the <em>&quot;Right Button&quot;</em> of your mouse. For keyboard users, focus on Ingredients Collector button, and press  <em>&quot;Shift+F10&quot;</em> key.]]></value>
-            <value xml:lang="jp"><![CDATA[]]></value>
-            <value xml:lang="zh-CN"><![CDATA[]]></value>
-            <value xml:lang="zh-TW"><![CDATA[]]></value>
-            <value xml:lang="tr"><![CDATA[]]></value>
-            <value xml:lang="vi"><![CDATA[]]></value>
-        </item>
-        <item name="opera_step3">
-            <value xml:lang="ko"><![CDATA[문맥 메뉴가 열리면 <em>&quot;링크 북마크하기(B)&quot;</em>를 선택 합니다.]]></value>
-            <value xml:lang="en"><![CDATA[In the context menu, select <em>&quot;Bookmark Link&quot;</em>]]></value>
-            <value xml:lang="jp"><![CDATA[]]></value>
-            <value xml:lang="zh-CN"><![CDATA[]]></value>
-            <value xml:lang="zh-TW"><![CDATA[]]></value>
-            <value xml:lang="tr"><![CDATA[]]></value>
-            <value xml:lang="vi"><![CDATA[]]></value>
-        </item>
-        <item name="opera_step4">
-            <value xml:lang="ko"><![CDATA[글감 수집기 북마클릿을 사용할 준비가 됐습니다. 웹 서핑 도중 수집하고 싶은 글감이 있으면 언제든지 북마클릿을 클릭해 주세요. <em>&quot;Ctrl(Cmd)+B&quot;</em> 북마크 패널을 이용해 북마클릿을 실행할 수 있습니다.]]></value>
-            <value xml:lang="en"><![CDATA[Now you are ready to use ingredients collector. If you want to collect ingredients during web surfing, please click on the bookmarklet to display <em>&quot;Ingredients Collector&quot;</em> popup.]]></value>
-            <value xml:lang="jp"><![CDATA[]]></value>
-            <value xml:lang="zh-CN"><![CDATA[]]></value>
-            <value xml:lang="zh-TW"><![CDATA[]]></value>
-            <value xml:lang="tr"><![CDATA[]]></value>
-            <value xml:lang="vi"><![CDATA[]]></value>
-        </item>
-        <item name="opera_step5">
-            <value xml:lang="ko"><![CDATA[웹 서핑 도중 북마클릿을 실행하면 현재 페이지의 콘텐츠를 글감으로 저장할 수 있습니다. 인용하고 싶은 문장을 블럭으로 지정한 다음 북마클릿을 실행하면 텍스트 또는 인용구 형식으로 담을 수 있습니다. 현재 페이지의 이미지 목록이 자동으로 표시 됩니다. 현재 페이지의 동영상 삽입코드가 자동으로 포함 됩니다. 한 번에 한 가지 유형만 <em>&quot;글감 보관함에 보관하기&quot;</em> 할 수 있습니다.]]></value>
-            <value xml:lang="en"><![CDATA[Ingredients collector specified block of statements you want to quote, and then when you run the bookmarklet, you can put it in text format or quote. Images list is automatically displayed, and video inserted code is also included.]]></value>
-            <value xml:lang="jp"><![CDATA[]]></value>
-            <value xml:lang="zh-CN"><![CDATA[]]></value>
-            <value xml:lang="zh-TW"><![CDATA[]]></value>
-            <value xml:lang="tr"><![CDATA[]]></value>
-            <value xml:lang="vi"><![CDATA[]]></value>
-        </item>
-        
     </item>
     
     <!--Popup-->

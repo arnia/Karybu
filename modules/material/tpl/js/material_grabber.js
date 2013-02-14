@@ -12,6 +12,11 @@
 		pn='parentNode',
 		ih='innerHTML',
 		oh='outerHTML',
+                st='style',
+                wi='width',
+                owi='offsetWidth',
+                he='height',
+                ohe='offsetHeight',
 		c=d.charset,
 		ie=('\v'=='v'),
 		pr=w.__xe_root+'&auth='+w.auth,
@@ -45,12 +50,37 @@
 		if(e[oh])return e[oh];
 		var t;di[ac](e.cloneNode(true));t=di[ih];di[ih]='';return t;
 	};
+        
+        // get the original width and height of object
+        function owh(o){
+            var tmp_o=o.cloneNode(true);
+            
+            var width=o[owi];
+            if(!width) width=560;
+            tmp_o[st][wi]=width + 'px';
+            if(o[wi]) tmp_o.removeAttribute(wi);
+            
+            var height=o[ohe];
+            if(!height) height=315;
+            tmp_o[st][he]=height + 'px';
+            if(o[he]) tmp_o.removeAttribute(he);
+            
+            return tmp_o;
+        }
 
 	// grab objects
 	function ob(d){
 		var e=d[gt]('embed'),o=d[gt]('object'),i;
-		for(i=0;i<e[l];i++)(e[i][pn]&&e[i][pn].tagName.toLowerCase()=='object')?0:s.o.push(goh(e[i]));
-		for(i=0;i<o[l];i++)s.o.push(goh(o[i]));
+		for(i=0;i<e[l];i++){
+                    if(e[i][pn]&&e[i][pn].tagName.toLowerCase()!='object'){
+                        var tmp_o=owh(e[i]);
+                        s.o.push(goh(tmp_o));
+                    }
+                }
+		for(i=0;i<o[l];i++){
+                    var tmp_o=owh(o[i]);
+                    s.o.push(goh(tmp_o));
+                }
 	};
 
 	// find all frames
