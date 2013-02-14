@@ -1,10 +1,12 @@
 <phpunit bootstrap="./Bootstrap.php">
 	<testsuites>
 		<testsuite name="XE Core Test Suite">
-			<directory>.</directory>
-			<exclude>./classes/context/Context.mock.php</exclude>
-			<exclude>./classes/db/</exclude>
-			<exclude>./classes/frontendfile/FrontEndFileHandlerTest.php</exclude>
+			<file>./classes/context/ContextTest.php</file>
+            <file>./classes/file/FileHandlerTest.php</file>
+            <file>./classes/frontendfile/FrontendFileHandlerTest.php</file>
+            <file>./classes/module/ModuleMatcherTest.php</file>
+            <file>./classes/security/SecurityTest.php</file>
+            <file>./classes/validator/ValidatorTest.php</file>
 		</testsuite>
 	</testsuites>
 	<logging>
