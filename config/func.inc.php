@@ -926,9 +926,8 @@
 	 * @return string
      **/
     function getScriptPath() {
-        static $url = null;
-        if($url == null) $url = preg_replace('/\/tools\//i','/',preg_replace('/index.php$/i','',str_replace('\\','/',$_SERVER['SCRIPT_NAME'])));
-        return $url;
+        $context = new Context();
+        return $context->getScriptPath();
     }
 
     /**

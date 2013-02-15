@@ -67,7 +67,7 @@ class Validator
 		$this->_filters = array();
 		$this->_xml_ruleset = null;
 
-		if($xml_path) $this->load($xml_path);
+		if($xml_path) $this->setRulesetPath($xml_path);
 
 		// predefined rules
 		$this->addRule(array(
@@ -83,7 +83,15 @@ class Validator
 		$this->setCacheDir('./files/cache');
 	}
 
-	/**
+    /**
+     * Set path from where the rules for validation will be loaded
+     */
+    public function setRulesetPath($xml_path)
+    {
+        $this->load($xml_path);
+    }
+
+    /**
 	 * @destructor
 	 * @return void
 	 */
