@@ -57,10 +57,11 @@
             try {
                 // PDO is only supported with PHP5,
                 // so it is allowed to use try~catch statment in this class.
-                $this->handler = new PDO('mysql:='.$connection['db_hostname'].';port='.$connection[db_port].';dbname='.$connection['db_database'].';charset=UTF-8;', $connection['db_userid'], $connection['db_password'],array(
+                $this->handler = new PDO('mysql:='.$connection['db_hostname'].';port='.$connection[db_port].';dbname='.$connection['db_database'].';', $connection['db_userid'], $connection['db_password'],array(
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
                 ));
             } catch (PDOException $e) {
+                error_log($e->getMessage());
                 $this->setError(-1, 'Connection failed: '.$e->getMessage());
                 $this->is_connected = false;
                 return;
@@ -125,6 +126,7 @@
                                 $this->stmt->bindParam($key+1,$param->value,$param->type);
                             }
                         } catch(PDOException $e){
+                            error_log($e->getMessage());
                             $this->setError(-1, $e->getMessage());
                         }
 					}
@@ -132,6 +134,7 @@
                     try{
                         $this->stmt->execute();
                     } catch(PDOException $e){
+                        error_log($e->getMessage());
                         $this->setError(-1, $e->getMessage());
                     }
 
@@ -145,6 +148,7 @@
             try {
                 $this->stmt = $this->handler->query($query);
             }  catch(PDOException $e){
+                error_log($e->getMessage());
                 $this->setError(-1, $e->getMessage());
             }
 
