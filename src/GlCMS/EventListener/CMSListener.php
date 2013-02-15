@@ -120,13 +120,11 @@ class CMSListener implements EventSubscriberInterface
         /** @var $controller GlCMS\HttpKernel\Controller\ControllerWrapper */
         $controller = $event->getController();
         $oModule = $controller->getModuleInstance();
-
         $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
-        // TODO Handler return values! This could return another $oModule if ruleset checks don't pass
-        // and stuff like that; need to update inital controller with new $oModule
-        $oModuleHandler->filterController($oModule);
-
-        // TODO Maybe setController after?
+        if ($errorObject = $oModuleHandler->filterController($oModule)) {
+            $controller->setModuleInstance($errorObject);
+            $event->setController($controller);
+        }
     }
 
     public function executeTriggersAddonsAndOthersBefore(FilterControllerEvent $event)
@@ -136,8 +134,7 @@ class CMSListener implements EventSubscriberInterface
         $oModule = $controller->getModuleInstance();
 
         $procResult = $oModule->preProc();
-        if($procResult === false)
-        {
+        if ($procResult === false) {
             $oModule->skipAct = true;
             $controller->setModuleInstance($oModule);
             $event->setController($controller);
