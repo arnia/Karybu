@@ -33,6 +33,8 @@
 use Symfony\Component\HttpFoundation\Request;
 use GlCMS\HttpKernel\Kernel;
 
+$isCommandLine = ( php_sapi_name() == 'cli' );
+
 /**
  * Declare constants for generic use and for checking to avoid a direct call from the Web
  **/
@@ -43,7 +45,10 @@ define('__ZBXE__', true); // deprecated : __ZBXE__ will be removed. Use __XE__ i
  * Include the necessary configuration files
  **/
 require dirname(__FILE__) . '/config/config.inc.php';
-$request = Request::createFromGlobals();
+
+$validCommandLineCall = $isCommandLine && isset($argv[1]) && filter_var($argv[1], FILTER_VALIDATE_URL);
+//create request using first call parameter if the script is called from the console with a valid url as first param
+$request = $validCommandLineCall ? Request::create($argv[1]) : Request::createFromGlobals();
 $kernel = new Kernel('dev', true);
 $response = $kernel->handle($request);
 $response->send();
