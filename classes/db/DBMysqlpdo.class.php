@@ -19,6 +19,7 @@
          **/
         var $bind_idx     = 0;
         var $bind_vars    = array();
+        var $param		= array();
 
 		/**
 		 * Constructor
@@ -58,6 +59,8 @@
                 $result = new PDO('mysql:='.$connection['db_hostname'].';port='.$connection[db_port].';dbname='.$connection['db_database'].';', $connection['db_userid'], $connection['db_password'],array(
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
                 ));
+                // Make sure the default behaviour is to always auto-commit; this will be set to false on each $db->begin() call (begin transaction)
+                $result->setAttribute(PDO::ATTR_AUTOCOMMIT, TRUE);
             } catch (PDOException $e) {
                 error_log($e->getMessage());
                 $this->setError(-1, 'Connection failed: '.$e->getMessage());
@@ -71,24 +74,55 @@
         /**
          * disconnect to DB
          **/
-        function close() {
-            if(!$this->is_connected) return;
-            $this->commit();
+        function _close(PDO &$connection) {
+            if($this->transaction_started)
+            {
+                /** @var $connection PDO */
+                $connection->commit();
+                $this->transaction_started = FALSE;
+            }
+        }
+
+        /**
+         * DB transaction start
+         * this method is private
+         * @return boolean
+         */
+        function _begin() {
+            /** @var $connection PDO */
+            $connection = &$this->_getConnection('master');
+            $connection->beginTransaction(); // Turns off auto-commit
+            return TRUE;
         }
 
         /**
          * Commit
          **/
         function _commit() {
-            $connection = $this->_getConnection('master');
+            /** @var $connection PDO */
+            $connection = &$this->_getConnection('master');
             try {
                 $connection->commit();
+                return true;
             }
             catch(PDOException $e){
                 // There was no transaction started, so just continue.
                 error_log($e->getMessage());
                 return false;
             }
+        }
+
+        /**
+         * DB transaction rollback
+         * this method is private
+         * @return boolean
+         */
+        function _rollback()
+        {
+            /** @var $connection PDO */
+            $connection = &$this->_getConnection('master');
+            $connection->rollBack();
+            return TRUE;
         }
 
         /**
@@ -107,10 +141,11 @@
 		 * @param resource $connection
 		 * @return resource
 		 */
-        function __query($query, $connection) {
+        function __query($query, PDO &$connection) {
 			if($this->use_prepared_statements == 'Y')
 			{
 				// 1. Prepare query
+                /** @var $stmt PDOStatement */
 				$stmt = $connection->prepare($query);
 				if($stmt){
 					//$types = '';
@@ -136,7 +171,6 @@
                         $this->setError(-1, $e->getMessage());
                     }
 
-					
 					// Return stmt for other processing - like retrieving resultset (_fetch)
 					return $stmt;
 				}
@@ -228,7 +262,7 @@
 		 * @param int|NULL $arrayIndexEndValue
 		 * @return array
 		 */
-        function _fetch($result, $arrayIndexEndValue = NULL) {
+        function _fetch(PDOStatement &$result, $arrayIndexEndValue = NULL) {
 			if($this->use_prepared_statements != 'Y'){
 				return parent::_fetch($result, $arrayIndexEndValue);
 			}
@@ -325,6 +359,7 @@
 		 */
 		function db_insert_id()
 		{
+            /** @var $connection PDO */
             $connection = $this->_getConnection('master');
             return  $connection->lastInsertId();
 		}
@@ -334,7 +369,7 @@
 		 * @param resource $result
 		 * @return object
 		 */
-		function db_fetch_object(&$result)
+		function db_fetch_object(PDOStatement &$result)
 		{
 			return $result->fetch((PDO::FETCH_OBJ));
 		}
@@ -344,7 +379,7 @@
 		 * @param resource $result
 		 * @return boolean Returns TRUE on success or FALSE on failure.
 		 */
-		function db_free_result(&$result){
+		function db_free_result(PDOStatement &$result){
             return $result->closeCursor();
 		}		
     }
