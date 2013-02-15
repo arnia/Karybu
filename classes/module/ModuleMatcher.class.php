@@ -380,6 +380,10 @@ class ModuleMatcher
         $module_info->module_type = $module_key->getType();
         $oModule->setModuleInfo($module_info, $xml_info);
 
+        if($forward->module && $forward->type && $forward->act && $forward->act == $act) {
+            $oModule->checkAdminPermission = true;
+        }
+
         return $oModule;
     }
 

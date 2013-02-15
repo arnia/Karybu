@@ -246,7 +246,9 @@ class ModuleHandler extends Handler {
         $oModuleModel = getModel('module');
         // Now that we have a module instance and a valid act, do stuff
         $logged_info = Context::get('logged_info');
-        if ($this->module == "admin" && $oModule->module_key->getType() == "view") {
+        if ($oModule->checkAdminPermission
+            && $this->module == "admin"
+            && $oModule->module_key->getType() == "view") {
             // This is basically the entry point to the admin interface
             if ($logged_info->is_admin=='Y') {
                 // Load the admin layout
@@ -270,11 +272,14 @@ class ModuleHandler extends Handler {
                 return $this->showErrorToUser();
             }
 
-            // Validate current user permissions
-            $grant = $oModuleModel->getGrant($this->module_info, $logged_info);
-            if (!$grant->is_admin && !$grant->manager) {
-                $this->error = 'msg_is_not_manager';
-                return $this->showErrorToUser();
+            if($oModule->checkAdminPermission)
+            {
+                // Validate current user permissions
+                $grant = $oModuleModel->getGrant($this->module_info, $logged_info);
+                if (!$grant->is_admin && !$grant->manager) {
+                    $this->error = 'msg_is_not_manager';
+                    return $this->showErrorToUser();
+                }
             }
         }
         $ruleset = $oModule->ruleset;
