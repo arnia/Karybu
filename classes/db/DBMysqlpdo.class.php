@@ -17,8 +17,6 @@
         /**
          * Variables for using PDO
          **/
-        var $handler      = NULL;
-        var $stmt         = NULL;
         var $bind_idx     = 0;
         var $bind_vars    = array();
 
@@ -57,7 +55,7 @@
             try {
                 // PDO is only supported with PHP5,
                 // so it is allowed to use try~catch statment in this class.
-                $this->handler = new PDO('mysql:='.$connection['db_hostname'].';port='.$connection[db_port].';dbname='.$connection['db_database'].';', $connection['db_userid'], $connection['db_password'],array(
+                $result = new PDO('mysql:='.$connection['db_hostname'].';port='.$connection[db_port].';dbname='.$connection['db_database'].';', $connection['db_userid'], $connection['db_password'],array(
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
                 ));
             } catch (PDOException $e) {
@@ -67,7 +65,7 @@
                 return;
             }
 
-            return $this->handler;
+            return $result;
         }
 
         /**
@@ -81,16 +79,16 @@
         /**
          * Commit
          **/
-        function commit($force = false) {
-            if(!$force && (!$this->is_connected || !$this->transaction_started)) return;
+        function _commit() {
+            $connection = $this->_getConnection('master');
             try {
-                $this->handler->commit();
+                $connection->commit();
             }
             catch(PDOException $e){
                 // There was no transaction started, so just continue.
                 error_log($e->getMessage());
+                return false;
             }
-            $this->transaction_started = false;
         }
 
         /**
@@ -113,8 +111,8 @@
 			if($this->use_prepared_statements == 'Y')
 			{
 				// 1. Prepare query
-				$this->stmt = $this->handler->prepare($query);
-				if($this->stmt){
+				$stmt = $connection->prepare($query);
+				if($stmt){
 					//$types = '';
 					$params = array();
 					$this->_prepareQueryParameters($params);
@@ -123,7 +121,7 @@
 					{
                         try{
                             foreach($params as $key => $param) {
-                                $this->stmt->bindParam($key+1,$param->value,$param->type);
+                                $stmt->bindParam($key+1,$param->value,$param->type);
                             }
                         } catch(PDOException $e){
                             error_log($e->getMessage());
@@ -132,7 +130,7 @@
 					}
 
                     try{
-                        $this->stmt->execute();
+                        $stmt->execute();
                     } catch(PDOException $e){
                         error_log($e->getMessage());
                         $this->setError(-1, $e->getMessage());
@@ -140,19 +138,19 @@
 
 					
 					// Return stmt for other processing - like retrieving resultset (_fetch)
-					return $this->stmt;
+					return $stmt;
 				}
 				
 			}
             // Run the query statement
             try {
-                $this->stmt = $this->handler->query($query);
+                $stmt = $connection->query($query);
             }  catch(PDOException $e){
                 error_log($e->getMessage());
                 $this->setError(-1, $e->getMessage());
             }
 
-            return $this->stmt;
+            return $stmt;
         }
 		
 		/**
@@ -328,7 +326,7 @@
 		function db_insert_id()
 		{
             $connection = $this->_getConnection('master');
-            return  $this->handler->lastInsertId();
+            return  $connection->lastInsertId();
 		}
 
 		/**
@@ -338,7 +336,7 @@
 		 */
 		function db_fetch_object(&$result)
 		{
-			return $this->stmt->fetch((PDO::FETCH_OBJ));
+			return $result->fetch((PDO::FETCH_OBJ));
 		}
 		
 		/**
@@ -347,7 +345,7 @@
 		 * @return boolean Returns TRUE on success or FALSE on failure.
 		 */
 		function db_free_result(&$result){
-            return $this->stmt->closeCursor();
+            return $result->closeCursor();
 		}		
     }
 ?>
