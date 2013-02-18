@@ -45,7 +45,8 @@ require dirname(__FILE__) . '/config/config.inc.php';
  * @brief Initialize by creating Context object
  * Set all Request Argument/Environment variables
  **/
-$oContext = &Context::getInstance();
+$oContext = new NonStaticContext();
+Context::setRequestContext($oContext);
 $oContext->init();
 
 /**

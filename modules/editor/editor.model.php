@@ -538,7 +538,7 @@
             }
 
             if(!file_exists($cache_file)) return;
-            @include($cache_file);
+            include($cache_file);
 			$logged_info = Context::get('logged_info');
 			if($logged_info && is_array($logged_info->group_list)) 
 			{

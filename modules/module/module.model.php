@@ -672,7 +672,7 @@
                 return $info;
             }
 
-            @include($cache_file);
+            include($cache_file);
 
             return $info;
         }

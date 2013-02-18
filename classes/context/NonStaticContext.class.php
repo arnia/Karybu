@@ -1015,7 +1015,7 @@ class NonStaticContext {
 		if(!$this->isFTPRegisted()) return null;
 
 		$ftp_config_file = $this->getFTPConfigFile();
-		@include($ftp_config_file);
+		include($ftp_config_file);
 
 		return $ftp_info;
 	}

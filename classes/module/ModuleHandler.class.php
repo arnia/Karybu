@@ -81,7 +81,7 @@
             $called_position = 'before_module_init';
             $oAddonController = &getController('addon');
             $addon_file = $oAddonController->getCacheFilePath(Mobile::isFromMobilePhone()?'mobile':'pc');
-            @include($addon_file);
+            include($addon_file);
         }
 
         /**
@@ -674,7 +674,7 @@
                         // Set menus into context
                         if($layout_info->menu_count) {
                             foreach($layout_info->menu as $menu_id => $menu) {
-                                if(file_exists($menu->php_file)) @include($menu->php_file);
+                                if(file_exists($menu->php_file)) include($menu->php_file);
                                 Context::set($menu_id, $menu);
                             }
                         }
