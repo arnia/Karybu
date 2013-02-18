@@ -85,7 +85,11 @@ class CMSListener implements EventSubscriberInterface
     {
         $request = $event->getRequest();
         $oModuleHandler = new \ModuleHandler();
-        if (!$oModuleHandler->init()) {
+        $init = $oModuleHandler->init();
+        if ($init instanceof RedirectResponse) {
+            $event->setResponse($init);
+        }
+        elseif (!$init) {
             $event->setResponse(new Response('Module handler init failure', 500));
         }
         else {
