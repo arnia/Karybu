@@ -49,6 +49,9 @@ $oContext = new ContextInstance();
 Context::setRequestContext($oContext);
 $oContext->init();
 
+$mobile = new MobileInstance();
+Mobile::setRequestMobileInfo($mobile);
+
 /**
  * @brief If default_url is set and it is different from the current url, attempt to redirect for SSO authentication and then process the module
  **/

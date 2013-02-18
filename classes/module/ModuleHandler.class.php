@@ -11,16 +11,22 @@
 
     class ModuleHandler extends Handler {
 
-        var $module = NULL; ///< Module
-        var $act = NULL; ///< action
-        var $mid = NULL; ///< Module ID
-        var $document_srl = NULL; ///< Document Number
-        var $module_srl = NULL; ///< Module Number
+        var $module = null; ///< Module
+        var $act = null; ///< action
+        var $mid = null; ///< Module ID
+        var $document_srl = null; ///< Document Number
+        var $module_srl = null; ///< Module Number
 
-        var $module_info = NULL; ///< Module Info. Object
+        var $module_info = null; ///< Module Info. Object
 
-        var $error = NULL; ///< an error code.
-        var $httpStatusCode = NULL; ///< http status code.
+        var $error = null; ///< an error code.
+        var $httpStatusCode = null; ///< http status code.
+
+        /** @var \|\ContextInstance|null */
+        private $context = null;
+
+        /** @var null MobileInstance */
+        private $mobile = null;
 
         /**
          * prepares variables to use in moduleHandler
@@ -31,28 +37,39 @@
 		 * @param int $module_srl
 		 * @return void
          **/
-        function ModuleHandler($module = '', $act = '', $mid = '', $document_srl = '', $module_srl = '') {
+        function ModuleHandler($module = '', $act = '', $mid = '', $document_srl = '', $module_srl = '', ContextInstance $context = null, MobileInstance $mobile) {
+            if($context == null) {
+                $context = Context::getInstance();
+            }
+
+            $this->context = $context;
+
+            if($mobile == null) {
+                $mobile = Mobile::getInstance();
+            }
+
+            $this->mobile = $mobile;
+
             // If XE has not installed yet, set module as install
-            if(!Context::isInstalled()) {
+            if(!$this->context->isInstalled()) {
                 $this->module = 'install';
-                $this->act = Context::get('act');
+                $this->act = $this->context->get('act');
                 return;
             }
 
-			$oContext = Context::getInstance();
-			if($oContext->isSuccessInit == false)
+			if($this->context->isSuccessInit == false)
 			{
 				$this->error = 'msg_invalid_request';
 				return;
 			}
 
             // Set variables from request arguments
-            $this->module = $module?$module:Context::get('module');
-            $this->act    = $act?$act:Context::get('act');
-            $this->mid    = $mid?$mid:Context::get('mid');
-            $this->document_srl = $document_srl?(int)$document_srl:(int)Context::get('document_srl');
-            $this->module_srl   = $module_srl?(int)$module_srl:(int)Context::get('module_srl');
-            $this->entry  = Context::convertEncodingStr(Context::get('entry'));
+            $this->module = $module?$module:$this->context->get('module');
+            $this->act    = $act?$act:$this->context->get('act');
+            $this->mid    = $mid?$mid:$this->context->get('mid');
+            $this->document_srl = $document_srl?(int)$document_srl:(int)$this->context->get('document_srl');
+            $this->module_srl   = $module_srl?(int)$module_srl:(int)$this->context->get('module_srl');
+            $this->entry  = $this->context->convertEncodingStr($this->context->get('entry'));
 
             // Validate variables to prevent XSS
 			$isInvalid = null;
@@ -62,15 +79,15 @@
 			if ($isInvalid)
 			{
 				htmlHeader();
-				echo Context::getLang("msg_invalid_request");
+				echo $this->context->getLang("msg_invalid_request");
 				htmlFooter();
-				Context::close();
+				$this->context->close();
 				exit;
 			}
 
 			if(isset($this->act) && substr($this->act, 0, 4) == 'disp')
 			{
-				if(Context::get('_use_ssl') == 'optional' && Context::isExistsSSLAction($this->act) && $_SERVER['HTTPS'] != 'on')
+				if($this->context->get('_use_ssl') == 'optional' && $this->context->isExistsSSLAction($this->act) && $_SERVER['HTTPS'] != 'on')
 				{
 					header('location:https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 					return;
@@ -80,7 +97,7 @@
             // execute addon (before module initialization)
             $called_position = 'before_module_init';
             $oAddonController = &getController('addon');
-            $addon_file = $oAddonController->getCacheFilePath(Mobile::isFromMobilePhone()?'mobile':'pc');
+            $addon_file = $oAddonController->getCacheFilePath($this->mobile->isFromMobilePhone()?'mobile':'pc');
             include($addon_file);
         }
 
@@ -90,12 +107,12 @@
          **/
         function init() {
 			$oModuleModel = &getModel('module');
-            $site_module_info = Context::get('site_module_info');
+            $site_module_info = $this->context->get('site_module_info');
 
             if(!$this->document_srl && $this->mid && $this->entry) {
                 $oDocumentModel = &getModel('document');
                 $this->document_srl = $oDocumentModel->getDocumentSrlByAlias($this->mid, $this->entry);
-                if($this->document_srl) Context::set('document_srl', $this->document_srl);
+                if($this->document_srl) $this->context->set('document_srl', $this->document_srl);
             }
 
             // Get module's information based on document_srl, if it's specified
@@ -110,7 +127,7 @@
                     // if mids are not matching, set it as the document's mid
                     if($this->mid != $module_info->mid) {
                         $this->mid = $module_info->mid;
-                        Context::set('mid', $module_info->mid, true);
+                        $this->context->set('mid', $module_info->mid, true);
 						header('location:' . getNotEncodedSiteUrl($site_info->domain, 'mid', $this->mid, 'document_srl', $this->document_srl));
 						return false;
                     }
@@ -142,12 +159,12 @@
                 // If the module is of virtual site
                 if($module_info->site_srl) {
                     $site_info = $oModuleModel->getSiteInfo($module_info->site_srl);
-                    $redirect_url = getNotEncodedSiteUrl($site_info->domain, 'mid',Context::get('mid'),'document_srl',Context::get('document_srl'),'module_srl',Context::get('module_srl'),'entry',Context::get('entry'));
+                    $redirect_url = getNotEncodedSiteUrl($site_info->domain, 'mid',$this->context->get('mid'),'document_srl',$this->context->get('document_srl'),'module_srl',$this->context->get('module_srl'),'entry',$this->context->get('entry'));
                 // If it's called from a virtual site, though it's not a module of the virtual site
                 } else {
-                    $db_info = Context::getDBInfo();
-                    if(!$db_info->default_url) return Context::getLang('msg_default_url_is_not_defined');
-                    else $redirect_url = getNotEncodedSiteUrl($db_info->default_url, 'mid',Context::get('mid'),'document_srl',Context::get('document_srl'),'module_srl',Context::get('module_srl'),'entry',Context::get('entry'));
+                    $db_info = $this->context->getDBInfo();
+                    if(!$db_info->default_url) return $this->context->getLang('msg_default_url_is_not_defined');
+                    else $redirect_url = getNotEncodedSiteUrl($db_info->default_url, 'mid',$this->context->get('mid'),'document_srl',$this->context->get('document_srl'),'module_srl',$this->context->get('module_srl'),'entry',$this->context->get('entry'));
                 }
                 header("location:".$redirect_url);
                 return false;
@@ -158,9 +175,9 @@
                 $this->module = $module_info->module;
                 $this->mid = $module_info->mid;
                 $this->module_info = $module_info;
-                Context::setBrowserTitle($module_info->browser_title);
+                $this->context->setBrowserTitle($module_info->browser_title);
 
-				if($module_info->use_mobile && Mobile::isFromMobilePhone())
+				if($module_info->use_mobile && $this->mobile->isFromMobilePhone())
 				{
 					$layoutSrl = $module_info->mlayout_srl;
 				}
@@ -170,7 +187,7 @@
 				}
 
                 $part_config= $oModuleModel->getModulePartConfig('layout',$layoutSrl);
-                Context::addHtmlHeader($part_config->header_script);
+                $this->context->addHtmlHeader($part_config->header_script);
             }
 
             // Set module and mid into module_info
@@ -188,7 +205,7 @@
 			}
 
             // If mid exists, set mid into context
-            if($this->mid) Context::set('mid', $this->mid, true);
+            if($this->mid) $this->context->set('mid', $this->mid, true);
 
             // Call a trigger after moduleHandler init
             $output = ModuleHandler::triggerCall('moduleHandler.init', 'after', $this->module_info);
@@ -198,7 +215,7 @@
             }
 
             // Set current module info into context
-            Context::set('current_module_info', $this->module_info);
+            $this->context->set('current_module_info', $this->module_info);
 
             return true;
         }
@@ -212,7 +229,7 @@
 
             // If error occurred while preparation, return a message instance
             if($this->error) {
-				$type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
+				$type = $this->mobile->isFromMobilePhone() ? 'mobile' : 'view';
                 $oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
                 $oMessageObject->setError(-1);
                 $oMessageObject->setMessage($this->error);
@@ -240,7 +257,7 @@
                 $this->error = 'msg_module_is_not_exists';
 				$this->httpStatusCode = '404';
 
-				$type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
+				$type = $this->mobile->isFromMobilePhone() ? 'mobile' : 'view';
                 $oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
                 $oMessageObject->setError(-1);
                 $oMessageObject->setMessage($this->error);
@@ -257,10 +274,10 @@
             $ruleset = $xml_info->action->{$this->act}->ruleset;
             $kind = strpos(strtolower($this->act),'admin')!==false?'admin':'';
             if(!$kind && $this->module == 'admin') $kind = 'admin';
-			if($this->module_info->use_mobile != "Y") Mobile::setMobile(false);
+			if($this->module_info->use_mobile != "Y") $this->mobile->setMobile(false);
 
 			// admin menu check
-            if(Context::isInstalled())
+            if($this->context->isInstalled())
 			{
 				$oMenuAdminModel = &getAdminModel('menu');
 				$output = $oMenuAdminModel->getMenuByTitle('__XE_ADMIN__');
@@ -278,7 +295,7 @@
 			}
 
 			// Admin ip
-			$logged_info = Context::get('logged_info');
+			$logged_info = $this->context->get('logged_info');
 			if($kind == 'admin' && $_SESSION['denied_admin'] == 'Y'){
 				$this->error = "msg_not_permitted_act";
 				$oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
@@ -289,7 +306,7 @@
 			}
 			
 			// if(type == view, and case for using mobilephone)
-			if($type == "view" && Mobile::isFromMobilePhone() && Context::isInstalled())
+			if($type == "view" && $this->mobile->isFromMobilePhone() && $this->context->isInstalled())
 			{
 				$orig_type = "view";
 				$type = "mobile";
@@ -297,7 +314,7 @@
 				$oModule = &$this->getModuleInstance($this->module, $type, $kind);
 				if(!is_object($oModule) || !method_exists($oModule, $this->act)) {
 					$type = $orig_type;
-					Mobile::setMobile(false);
+					$this->mobile->setMobile(false);
 					$oModule = &$this->getModuleInstance($this->module, $type, $kind);
 				}
 			}
@@ -308,7 +325,7 @@
 			}
 
 			if(!is_object($oModule)) {
-				$type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
+				$type = $this->mobile->isFromMobilePhone() ? 'mobile' : 'view';
                 $oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
                 $oMessageObject->setError(-1);
                 $oMessageObject->setMessage($this->error);
@@ -324,7 +341,7 @@
 			if(!isset($xml_info->action->{$this->act}) || !method_exists($oModule, $this->act))
 			{
 
-				if(!Context::isInstalled())
+				if(!$this->context->isInstalled())
 				{
 					$this->error = 'msg_invalid_request';
 					$oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
@@ -363,7 +380,7 @@
 					$tpl_path = $oModule->getTemplatePath();
 					$orig_module = $oModule;
 
-					if($type == "view" && Mobile::isFromMobilePhone())
+					if($type == "view" && $this->mobile->isFromMobilePhone())
 					{
 						$orig_type = "view";
 						$type = "mobile";
@@ -371,7 +388,7 @@
 						$oModule = &$this->getModuleInstance($forward->module, $type, $kind);
 						if(!is_object($oModule) || !method_exists($oModule, $this->act)) {
 							$type = $orig_type;
-							Mobile::setMobile(false);
+							$this->mobile->setMobile(false);
 							$oModule = &$this->getModuleInstance($forward->module, $type, $kind);
 						}
 					}
@@ -381,7 +398,7 @@
 					}
 
 					if(!is_object($oModule)) {
-						$type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
+						$type = $this->mobile->isFromMobilePhone() ? 'mobile' : 'view';
 						$oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
 						$oMessageObject->setError(-1);
 						$oMessageObject->setMessage('msg_module_is_not_exists');
@@ -453,7 +470,7 @@
 						$errorLang = $_SESSION['XE_VALIDATOR_ERROR_LANG'];
 						foreach($errorLang as $key => $val)
 						{
-							Context::setLang($key, $val);
+							$this->context->setLang($key, $val);
 						}
 						unset($_SESSION['XE_VALIDATOR_ERROR_LANG']);
 					}
@@ -463,7 +480,7 @@
 					if(!$result)
 					{
 						$lastError = $Validator->getLastError();
-						$returnUrl = Context::get('error_return_url');
+						$returnUrl = $this->context->get('error_return_url');
 						$errorMsg = $lastError['msg'] ? $lastError['msg'] : 'validation error';
 
 						//for xml response
@@ -486,19 +503,19 @@
             $this->module_info->module_type = $type;
             $oModule->setModuleInfo($this->module_info, $xml_info);
 
-			if($type == "view" && $this->module_info->use_mobile == "Y" && Mobile::isMobileCheckByAgent())
+			if($type == "view" && $this->module_info->use_mobile == "Y" && $this->mobile->isMobileCheckByAgent())
 			{
 				global $lang;
 				$header = '<style type="text/css">div.xe_mobile{opacity:0.7;margin:1em 0;padding:.5em;background:#333;border:1px solid #666;border-left:0;border-right:0}p.xe_mobile{text-align:center;margin:1em 0}a.xe_mobile{color:#ff0;font-weight:bold;font-size:24px}@media only screen and (min-width:500px){a.xe_mobile{font-size:15px}}</style>';
 				$footer = '<div class="xe_mobile"><p class="xe_mobile"><a class="xe_mobile" href="'.getUrl('m', '1').'">'.$lang->msg_pc_to_mobile.'</a></p></div>';
-				Context::addHtmlHeader($header);
-				Context::addHtmlFooter($footer);
+				$this->context->addHtmlHeader($header);
+				$this->context->addHtmlFooter($footer);
 			}
 
 			if($type == "view" && $kind != 'admin'){
 				$module_config= $oModuleModel->getModuleConfig('module');
 				if($module_config->htmlFooter){
-						Context::addHtmlFooter($module_config->htmlFooter);
+						$this->context->addHtmlFooter($module_config->htmlFooter);
 				}
 			}
 
@@ -509,7 +526,7 @@
             $procResult = $oModule->proc();
 
 			$methodList = array('XMLRPC'=>1, 'JSON'=>1);
-			if(!$oModule->stop_proc && !isset($methodList[Context::getRequestMethod()]))
+			if(!$oModule->stop_proc && !isset($methodList[$this->context->getRequestMethod()]))
 			{
 				$error = $oModule->getError();
 				$message = $oModule->getMessage();
@@ -519,7 +536,7 @@
 				if (!$procResult)
 				{
 					$this->error = $message;
-					if (!$redirectUrl && Context::get('error_return_url')) $redirectUrl = Context::get('error_return_url');
+					if (!$redirectUrl && $this->context->get('error_return_url')) $redirectUrl = $this->context->get('error_return_url');
 					$this->_setInputValueToSession();
 
 				}
@@ -527,7 +544,7 @@
 				{
 					if(count($_SESSION['INPUT_ERROR']))
 					{
-						Context::set('INPUT_ERROR', $_SESSION['INPUT_ERROR']);
+						$this->context->set('INPUT_ERROR', $_SESSION['INPUT_ERROR']);
 						$_SESSION['INPUT_ERROR'] = '';
 					}
 				}
@@ -536,7 +553,7 @@
 				if ($message != 'success') $_SESSION['XE_VALIDATOR_MESSAGE'] = $message;
 				$_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] = $messageType;
 
-				if(Context::get('xeVirtualRequestMethod') != 'xml')
+				if($this->context->get('xeVirtualRequestMethod') != 'xml')
 				{
 					$_SESSION['XE_VALIDATOR_RETURN_URL'] = $redirectUrl;
 				}
@@ -552,10 +569,10 @@
          **/
 		function _setInputErrorToContext()
 		{
-			if($_SESSION['XE_VALIDATOR_ERROR'] && !Context::get('XE_VALIDATOR_ERROR')) Context::set('XE_VALIDATOR_ERROR', $_SESSION['XE_VALIDATOR_ERROR']);
-			if($_SESSION['XE_VALIDATOR_MESSAGE'] && !Context::get('XE_VALIDATOR_MESSAGE')) Context::set('XE_VALIDATOR_MESSAGE', $_SESSION['XE_VALIDATOR_MESSAGE']);
-			if($_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] && !Context::get('XE_VALIDATOR_MESSAGE_TYPE')) Context::set('XE_VALIDATOR_MESSAGE_TYPE', $_SESSION['XE_VALIDATOR_MESSAGE_TYPE']);
-			if($_SESSION['XE_VALIDATOR_RETURN_URL'] && !Context::get('XE_VALIDATOR_RETURN_URL')) Context::set('XE_VALIDATOR_RETURN_URL', $_SESSION['XE_VALIDATOR_RETURN_URL']);
+			if($_SESSION['XE_VALIDATOR_ERROR'] && !$this->context->get('XE_VALIDATOR_ERROR')) $this->context->set('XE_VALIDATOR_ERROR', $_SESSION['XE_VALIDATOR_ERROR']);
+			if($_SESSION['XE_VALIDATOR_MESSAGE'] && !$this->context->get('XE_VALIDATOR_MESSAGE')) $this->context->set('XE_VALIDATOR_MESSAGE', $_SESSION['XE_VALIDATOR_MESSAGE']);
+			if($_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] && !$this->context->get('XE_VALIDATOR_MESSAGE_TYPE')) $this->context->set('XE_VALIDATOR_MESSAGE_TYPE', $_SESSION['XE_VALIDATOR_MESSAGE_TYPE']);
+			if($_SESSION['XE_VALIDATOR_RETURN_URL'] && !$this->context->get('XE_VALIDATOR_RETURN_URL')) $this->context->set('XE_VALIDATOR_RETURN_URL', $_SESSION['XE_VALIDATOR_RETURN_URL']);
 
 			$this->_clearErrorSession();
 		}
@@ -578,7 +595,7 @@
          **/
 		function _setInputValueToSession()
 		{
-			$requestVars = Context::getRequestVars();
+			$requestVars = $this->context->getRequestVars();
 			unset($requestVars->act, $requestVars->mid, $requestVars->vid, $requestVars->success_return_url, $requestVars->error_return_url);
 			foreach($requestVars AS $key=>$value) $_SESSION['INPUT_ERROR'][$key] = $value;
 		}
@@ -588,7 +605,7 @@
          * @param ModuleObject $oModule module instance
          * @return void
          **/
-        function displayContent($oModule = NULL) {
+        function displayContent($oModule = null) {
             // If the module is not set or not an object, set error
             if(!$oModule || !is_object($oModule)) {
                 $this->error = 'msg_module_is_not_exists';
@@ -596,7 +613,7 @@
             }
 
             // If connection to DB has a problem even though it's not install module, set error
-            if($this->module != 'install' && $GLOBALS['__DB__'][Context::getDBType()]->isConnected() == false) {
+            if($this->module != 'install' && $GLOBALS['__DB__'][$this->context->getDBType()]->isConnected() == false) {
                 $this->error = 'msg_dbconnect_failed';
             }
 
@@ -606,7 +623,7 @@
 
             // Use message view object, if HTML call
 			$methodList = array('XMLRPC'=>1, 'JSON'=>1);
-            if(!isset($methodList[Context::getRequestMethod()])) {
+            if(!isset($methodList[$this->context->getRequestMethod()])) {
 
 				if($_SESSION['XE_VALIDATOR_RETURN_URL'])
 				{
@@ -620,7 +637,7 @@
                 // If error occurred, handle it
                 if($this->error) {
                     // display content with message module instance
-					$type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
+					$type = $this->mobile->isFromMobilePhone() ? 'mobile' : 'view';
 					$oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
 					$oMessageObject->setError(-1);
 					$oMessageObject->setMessage($this->error);
@@ -645,7 +662,7 @@
                 }
 
                 // Check if layout_srl exists for the module
-				if(Mobile::isFromMobilePhone())
+				if($this->mobile->isFromMobilePhone())
 				{
 					$layout_srl = $oModule->module_info->mlayout_srl;
 				}
@@ -666,7 +683,7 @@
 
                             foreach($layout_info->extra_var as $var_id => $val) {
                                 if($val->type == 'image') {
-                                    if(preg_match('/^\.\/files\/attach\/images\/(.+)/i',$val->value)) $val->value = Context::getRequestUri().substr($val->value,2);
+                                    if(preg_match('/^\.\/files\/attach\/images\/(.+)/i',$val->value)) $val->value = $this->context->getRequestUri().substr($val->value,2);
                                 }
                                 $layout_info->{$var_id} = $val->value;
                             }
@@ -675,12 +692,12 @@
                         if($layout_info->menu_count) {
                             foreach($layout_info->menu as $menu_id => $menu) {
                                 if(file_exists($menu->php_file)) include($menu->php_file);
-                                Context::set($menu_id, $menu);
+                                $this->context->set($menu_id, $menu);
                             }
                         }
 
                         // Set layout information into context
-                        Context::set('layout_info', $layout_info);
+                        $this->context->set('layout_info', $layout_info);
 
                         $oModule->setLayoutPath($layout_info->path);
                         $oModule->setLayoutFile('layout');
@@ -746,24 +763,24 @@
                 // Get base class name and load the file contains it
                 if(!class_exists($module)) {
                     $high_class_file = sprintf('%s%s%s.class.php', _XE_PATH_,$class_path, $module);
-                    if(!file_exists($high_class_file)) return NULL;
+                    if(!file_exists($high_class_file)) return null;
                     require_once($high_class_file);
                 }
 
                 // Get the name of the class file
-                if(!is_readable($class_file)) return NULL;
+                if(!is_readable($class_file)) return null;
 
                 // Create an instance with eval function
                 require_once($class_file);
-                if(!class_exists($instance_name)) return NULL;
+                if(!class_exists($instance_name)) return null;
 				$tmp_fn  = create_function('', "return new {$instance_name}();");
 				$oModule = $tmp_fn();
-                if(!is_object($oModule)) return NULL;
+                if(!is_object($oModule)) return null;
 
                 // Load language files for the class
-                Context::loadLang($class_path.'lang');
+                $this->context->loadLang($class_path.'lang');
 				if($extend_module) {
-					Context::loadLang(ModuleHandler::getModulePath($parent_module).'lang');
+					$this->context->loadLang(ModuleHandler::getModulePath($parent_module).'lang');
 				}
 
                 // Set variables to the instance
@@ -820,7 +837,7 @@
          **/
         function triggerCall($trigger_name, $called_position, &$obj) {
             // skip if not installed
-            if(!Context::isInstalled()) return new Object();
+            if(!$this->context->isInstalled()) return new Object();
 
             $oModuleModel = &getModel('module');
             $triggers = $oModuleModel->getTriggers($trigger_name, $called_position);
@@ -894,8 +911,8 @@
 			$statusMessage = $statusMessageList[$code];
 			if(!$statusMessage) $statusMessage = 'OK';
 
-			Context::set('http_status_code', $code);
-			Context::set('http_status_message', $statusMessage);
+			$this->context->set('http_status_code', $code);
+			$this->context->set('http_status_message', $statusMessage);
 		}
     }
 ?>

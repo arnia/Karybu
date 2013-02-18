@@ -6,7 +6,8 @@
      * @author NHN (developers@xpressengine.com)
      **/
 
-    @error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
+    // @error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
+    error_reporting(-1 ^ E_NOTICE);
 
     if(!defined('__ZBXE__')) exit();
 
@@ -245,7 +246,7 @@
 		require(_XE_PATH_.'classes/xml/XmlJsFilter.class.php');
 		require(_XE_PATH_.'classes/xml/XmlLangParser.class.php');
 		require(_XE_PATH_.'classes/cache/CacheHandler.class.php');
-		require(_XE_PATH_ . 'classes/context/ContextInstance.class.php');
+		require(_XE_PATH_.'classes/context/ContextInstance.class.php');
         require(_XE_PATH_.'classes/context/Context.class.php');
 		require(_XE_PATH_.'classes/db/DB.class.php');
 		require(_XE_PATH_.'classes/file/FileHandler.class.php');
@@ -257,7 +258,8 @@
 		require(_XE_PATH_.'classes/template/TemplateHandler.class.php');
 		require(_XE_PATH_.'classes/mail/Mail.class.php');
 		require(_XE_PATH_.'classes/page/PageHandler.class.php');
-		require(_XE_PATH_.'classes/mobile/Mobile.class.php');
+		require(_XE_PATH_.'classes/mobile/MobileInstance.class.php');
+        require(_XE_PATH_.'classes/mobile/Mobile.class.php');
 		require(_XE_PATH_.'classes/validator/Validator.class.php');
 		require(_XE_PATH_.'classes/frontendfile/FrontEndFileHandler.class.php');
 		require(_XE_PATH_.'classes/security/Security.class.php');
