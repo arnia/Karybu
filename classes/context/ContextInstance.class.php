@@ -9,7 +9,7 @@ define('RELEASE_SSL',2);
  *
  * @author NHN (developers@xpressengine.com)
  */
-class NonStaticContext {
+class ContextInstance {
 
 	/**
 	 * Allow rewrite
@@ -207,7 +207,7 @@ class NonStaticContext {
 	 *
 	 * @return void
 	 */
-	function NonStaticContext(FileHandler $file_handler = null, FrontEndFileHandler $frontend_file_handler = null, Validator $validator = null)
+	function ContextInstance(FileHandler $file_handler = null, FrontEndFileHandler $frontend_file_handler = null, Validator $validator = null)
 	{
         if(!isset($file_handler)) $file_handler = new FileHandler();
         if(!isset($frontend_file_handler)) $frontend_file_handler = new FrontEndFileHandler();

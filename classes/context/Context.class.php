@@ -2,10 +2,10 @@
 
 class Context
 {
-    /** @var NonStaticContext */
+    /** @var ContextInstance */
     private static $context;
 
-    public static function setRequestContext(NonStaticContext $context)
+    public static function setRequestContext(ContextInstance $context)
     {
         self::$context = $context;
     }

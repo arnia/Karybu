@@ -3,7 +3,7 @@
 if(!defined('__XE__')) require dirname(__FILE__).'/../../Bootstrap.php';
 
 require_once _XE_PATH_.'classes/context/Context.class.php';
-require_once _XE_PATH_.'classes/context/NonStaticContext.class.php';
+require_once _XE_PATH_ . 'classes/context/ContextInstance.class.php';
 require_once _XE_PATH_.'classes/handler/Handler.class.php';
 require_once _XE_PATH_.'classes/xml/XmlParser.class.php';
 
@@ -15,61 +15,61 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 {
     public function testRequestMethod_Default()
     {
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $this->assertEquals('GET', $context->getRequestMethod());
     }
 
     public function testRequestMethod_POST()
     {
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $_SERVER['REQUEST_METHOD'] = 'POST';
         $this->assertEquals('POST', $context->getRequestMethod());
     }
 
     public function testRequestMethod_XMLRPC()
     {
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $GLOBALS['HTTP_RAW_POST_DATA'] = 'abcde';
         $this->assertEquals('XMLRPC', $context->getRequestMethod());
     }
 
     public function testRequestMethod_JSON()
     {
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $_SERVER['CONTENT_TYPE'] = 'application/json';
         $this->assertEquals('JSON', $context->getRequestMethod());
     }
 
     public function testRequestMethod_ManuallySet()
     {
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $context->setRequestMethod('POST');
         $this->assertEquals('POST', $context->getRequestMethod());
     }
 
     public function testResponseMethod_Default()
     {
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $this->assertEquals('HTML', $context->getResponseMethod());
     }
 
     public function testReponseMethod_WhenRequestIs_JSON()
     {
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $context->setRequestMethod('JSON');
         $this->assertEquals('JSON', $context->getResponseMethod());
     }
 
     public function testResponseMethod_WhenUserManuallySetsInvalidData()
     {
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $context->setResponseMethod('WRONG_TYPE');
         $this->assertEquals('HTML', $context->getResponseMethod());
     }
 
     public function testResponseMethod_WhenUserManuallySetsValidData()
     {
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $context->setResponseMethod('XMLRPC');
         $this->assertEquals('XMLRPC', $context->getResponseMethod());
         $context->setResponseMethod('HTML');
@@ -86,7 +86,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $lang = new stdClass();
         $myCookies = array();
 
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $context->linkContextToGlobals($__Context__, $lang, $myCookies);
 
         $context->set('name', 'Joe');
@@ -101,7 +101,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
     public function testChangesInContextAppearInPHPGlobals()
     {
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         $context->linkContextToGlobals(
             $context->getGlobals('__Context__'),
@@ -162,7 +162,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
             ->method('parse')
             ->will($this->returnValue($xml_obj));
 
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $context->setRequestMethod('XMLRPC');
 
         $context->_setXmlRpcArgument($parser);
@@ -189,7 +189,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
      */
     public function testSetArguments_JSON()
     {
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $context->setRequestMethod('JSON');
 
         $GLOBALS['HTTP_RAW_POST_DATA'] = "domain=&module=admin&act=getSiteAllList";
@@ -221,7 +221,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
         $_REQUEST = array_merge($_GET, $_POST, $_COOKIE);
 
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $context->_setRequestArgument();
 
         $data = new stdClass();
@@ -287,7 +287,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
      */
     public function testSetArguments_FileUpload_GET_Request()
     {
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $context->setRequestMethod('GET');
 
         $context->_setUploadedArgument();
@@ -922,7 +922,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
             ->method('readFileAsArray')
             ->will($this->returnValue(array('en,English', 'ro,Romana')));
 
-        $context = new NonStaticContext($file_handler);
+        $context = new ContextInstance($file_handler);
         $enabled_languages = $context->loadLangSelected();
 
         $expected = array("en" => "English", "ro" => "Romana");
@@ -961,7 +961,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(array('en,English', 'ro,Romana')));
 
         // 2. Act
-        $context = new NonStaticContext($file_handler);
+        $context = new ContextInstance($file_handler);
         $enabled_languages = $context->loadLangSelected();
 
         // 3. Assert
@@ -1010,7 +1010,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testLoadLang_WhenCurrentLanguageIsNotSet()
     {
         // 1. Arrange
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         // 2. Act
         $context->loadLang('/path/to/my_module');
@@ -1227,7 +1227,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_HTTP_Protocol_Missing()
     {
         // 1. Arrange
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         // 2. Act
         $url = $context->getRequestUri();
@@ -1239,7 +1239,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_DefaultValues()
     {
         // 1. Arrange
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1256,7 +1256,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_DefaultValues_SecondCallShouldNotRecalculateUrl()
     {
         // 1. Arrange
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1281,7 +1281,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_EnforceSSL()
     {
         // 1. Arrange
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1300,7 +1300,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_SkipDefaultSSLPort()
     {
         // 1. Arrange
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1320,7 +1320,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_SkipDefaultSSLPort2()
     {
         // 1. Arrange
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org:443';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1338,7 +1338,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_SSLPort()
     {
         // 1. Arrange
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1358,7 +1358,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_SkipDefaultPort80()
     {
         // 1. Arrange
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1378,7 +1378,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_SkipDefaultPort80_2()
     {
         // 1. Arrange
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org:80';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1395,7 +1395,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_HTTP_Port()
     {
         // 1. Arrange
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1414,7 +1414,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_WithDomain()
     {
         // 1. Arrange
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1432,7 +1432,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetRequestURI_ReleaseSSL()
     {
         // 1. Arrange
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['REQUEST_URI'] = '/';
@@ -1939,7 +1939,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_WhenSSODisabled()
     {
         // 1. Arrange
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         // 2. Act
         $result = $context->checkSSO();
@@ -2399,7 +2399,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $frontend_file_handler->expects($this->once())
             ->method('loadFile')
             ->with($args, $useCdn, $cdnPrefix, $cdnVersion);
-        $context = new NonStaticContext(null, $frontend_file_handler);
+        $context = new ContextInstance(null, $frontend_file_handler);
 
         // 2. Act
         $context->loadFile($args, $useCdn, $cdnPrefix, $cdnVersion);
@@ -2422,7 +2422,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $frontend_file_handler->expects($this->once())
             ->method('loadFile')
             ->with($args, $useCdn, __XE_CDN_PREFIX__, __XE_CDN_VERSION__);
-        $context = new NonStaticContext(null, $frontend_file_handler);
+        $context = new ContextInstance(null, $frontend_file_handler);
 
         $context->loadFile($args, $useCdn, $cdnPrefix, $cdnVersion);
     }
@@ -2444,7 +2444,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $frontend_file_handler->expects($this->once())
             ->method('loadFile')
             ->with($args, $useCdn, $cdnPrefix, $cdnVersion);
-        $context = new NonStaticContext(null, $frontend_file_handler);
+        $context = new ContextInstance(null, $frontend_file_handler);
 
         $context->loadFile($args, $useCdn, $cdnPrefix, $cdnVersion);
     }
@@ -2462,7 +2462,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $frontend_file_handler->expects($this->once())
             ->method('unloadFile')
             ->with($file, $targetIe, $media);
-        $context = new NonStaticContext(null, $frontend_file_handler);
+        $context = new ContextInstance(null, $frontend_file_handler);
 
         // 2. Act
         $context->unloadFile($file, $targetIe, $media);
@@ -2479,7 +2479,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $frontend_file_handler->expects($this->once())
             ->method('unloadAllFiles')
             ->with($type);
-        $context = new NonStaticContext(null, $frontend_file_handler);
+        $context = new ContextInstance(null, $frontend_file_handler);
 
         // 2. Act
         $context->unloadAllFiles($type);
@@ -2498,7 +2498,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $frontend_file_handler->expects($this->once())
             ->method('unloadFile')
             ->with($file, $targetie);
-        $context = new NonStaticContext(null, $frontend_file_handler);
+        $context = new ContextInstance(null, $frontend_file_handler);
 
         // 2. Act
         $context->unloadJsFile($file, $optimized, $targetie);
@@ -2515,7 +2515,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $frontend_file_handler->expects($this->once())
             ->method('unloadAllFiles')
             ->with($type);
-        $context = new NonStaticContext(null, $frontend_file_handler);
+        $context = new ContextInstance(null, $frontend_file_handler);
 
         // 2. Act
         $context->unloadAllJsFiles();
@@ -2532,7 +2532,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $frontend_file_handler->expects($this->once())
             ->method('getJsFileList')
             ->with($type);
-        $context = new NonStaticContext(null, $frontend_file_handler);
+        $context = new ContextInstance(null, $frontend_file_handler);
 
         // 2. Act
         $context->getJsFile($type);
@@ -2553,7 +2553,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $frontend_file_handler->expects($this->once())
             ->method('unloadFile')
             ->with($file, $targetie, $media);
-        $context = new NonStaticContext(null, $frontend_file_handler);
+        $context = new ContextInstance(null, $frontend_file_handler);
 
         // 2. Act
         $context->unloadCssFile($file, $optimized, $media, $targetie);
@@ -2571,7 +2571,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $frontend_file_handler->expects($this->once())
             ->method('unloadAllFiles')
             ->with($type);
-        $context = new NonStaticContext(null, $frontend_file_handler);
+        $context = new ContextInstance(null, $frontend_file_handler);
 
         // 2. Act
         $context->unloadAllCssFiles();
@@ -2586,7 +2586,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $frontend_file_handler = $this->getMock('FrontendFileHandler', array('getCssFileList'));
         $frontend_file_handler->expects($this->once())
             ->method('getCssFileList');
-        $context = new NonStaticContext(null, $frontend_file_handler);
+        $context = new ContextInstance(null, $frontend_file_handler);
 
         // 2. Act
         $context->getCSSFile();
@@ -2610,7 +2610,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
             ->method('loadFile')
             ->with($this->equalTo(array($file, $type, $targetie, $index)));
 
-        $context = new NonStaticContext(null, $frontend_file_handler);
+        $context = new ContextInstance(null, $frontend_file_handler);
 
         // 2. Act
         $context->addJsFile($file, $optimized, $targetie, $index, $type, $isRuleset, $autoPath);
@@ -2643,7 +2643,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
             ->method('getJsPath')
             ->will($this->returnValue("ruleset_cache_file.js"));
 
-        $context = new NonStaticContext(null, $frontend_file_handler, $validator);
+        $context = new ContextInstance(null, $frontend_file_handler, $validator);
 
         // 2. Act
         $context->addJsFile($file, $optimized, $targetie, $index, $type, $isRuleset, $autoPath);
@@ -2664,7 +2664,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $frontend_file_handler->expects($this->once())
             ->method('loadFile')
             ->with(array($file, $media, $targetie, $index));
-        $context = new NonStaticContext(null, $frontend_file_handler);
+        $context = new ContextInstance(null, $frontend_file_handler);
 
         // 2. Act
         $context->addCSSFile($file, $optimized, $media, $targetie, $index);
@@ -2672,7 +2672,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
     public function testGetCurrentLanguage_BasicBehaviour()
     {
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         $lang = $context->getCurrentLanguage(array('en' => 'English', 'ro' => 'Romana'), 'ro');
 
@@ -2681,7 +2681,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
     public function testGetCurrentLanguage_WhenLanguageNotEnabled()
     {
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         $lang = $context->getCurrentLanguage(array('en' => 'English'), 'ro');
 
@@ -2690,7 +2690,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
     public function testGetCurrentLanguage_DefaultLanguageNotSet()
     {
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
 
         $lang = $context->getCurrentLanguage(array('en' => 'English'), '');
 
@@ -2876,7 +2876,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $file_handler->expects($this->any())->method('readFileAsArray')
             ->will($this->returnValue(array("en,English", "ro,   Romana")));
 
-        $context = new NonStaticContext($file_handler);
+        $context = new ContextInstance($file_handler);
 
         $context->loadLangSupported();
 
@@ -2889,7 +2889,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
             , "act" => "dispLayoutAdminAllInstanceList");
         $_REQUEST = $_GET;
 
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $context->_setRequestArgument();
 
         $this->assertEquals(true, $context->isSuccessInit);
@@ -2901,7 +2901,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
                 , "act" => "dispLayout<?php echo 'Gotcha' ?>AdminAllInstanceList");
         $_REQUEST = $_GET;
 
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $context->_setRequestArgument();
 
         $this->assertEquals(false, $context->isSuccessInit);
@@ -2913,7 +2913,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
             , "act" => "dispLayout<? echo 'Gotcha' ?>AdminAllInstanceList");
         $_REQUEST = $_GET;
 
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $context->_setRequestArgument();
 
         $this->assertEquals(false, $context->isSuccessInit);
@@ -2925,7 +2925,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
             , "act" => "dispLayout<script language='php'> echo 'Gotcha' </script>AdminAllInstanceList");
         $_REQUEST = $_GET;
 
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $context->_setRequestArgument();
 
         $this->assertEquals(false, $context->isSuccessInit);
@@ -2937,7 +2937,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
             , "act" => "dispLayout<% echo 'Gotcha' %>AdminAllInstanceList");
         $_REQUEST = $_GET;
 
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $context->_setRequestArgument();
 
         $this->assertEquals(false, $context->isSuccessInit);
@@ -2952,7 +2952,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         );
         $_REQUEST = $_GET;
 
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $context->_setRequestArgument();
 
         $this->assertEquals(false, $context->isSuccessInit);
@@ -2968,7 +2968,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
         $_REQUEST = $_GET;
 
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $context->_setRequestArgument();
 
         $this->assertEquals(123, $context->get("page"));
@@ -2987,7 +2987,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
         $_REQUEST = $_GET;
 
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $context->_setRequestArgument();
 
         $this->assertEquals("aaa&amp;aa", $context->get("mid"));
@@ -3016,7 +3016,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $to_encode = new stdClass();
         $to_encode->text = iconv('UTF-8','UTF-8','XE팀은 작년 하반기 동안');
 
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $encoded = $context->convertEncoding($to_encode);
 
         $this->assertEquals('XE팀은 작년 하반기 동안', $encoded->text);
@@ -3027,7 +3027,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $to_encode = new stdClass();
         $to_encode->text = iconv('UTF-8','EUC-KR','XE팀은 작년 하반기 동안');
 
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $encoded = $context->convertEncoding($to_encode);
 
         $this->assertEquals('XE팀은 작년 하반기 동안', $encoded->text);
@@ -3039,7 +3039,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $euc_kr_encoded_string = iconv('UTF-8','EUC-KR','XE팀은 작년 하반기 동안');
         $to_encode->text = array($euc_kr_encoded_string, $euc_kr_encoded_string);
 
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $encoded = $context->convertEncoding($to_encode);
 
         $this->assertEquals(array('XE팀은 작년 하반기 동안', 'XE팀은 작년 하반기 동안'), $encoded->text);
@@ -3049,7 +3049,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     {
         $to_encode = iconv('UTF-8','EUC-KR','XE팀은 작년 하반기 동안');
 
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         $encoded = $context->convertEncodingStr($to_encode);
 
         $this->assertEquals('XE팀은 작년 하반기 동안', $encoded);

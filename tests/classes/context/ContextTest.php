@@ -3,7 +3,7 @@
     if(!defined('__XE__')) require dirname(__FILE__).'/../../Bootstrap.php';
 
     require_once _XE_PATH_.'classes/context/Context.class.php';
-    require_once _XE_PATH_.'classes/context/NonStaticContext.class.php';
+    require_once _XE_PATH_ . 'classes/context/ContextInstance.class.php';
     require_once _XE_PATH_.'classes/handler/Handler.class.php';
     require_once _XE_PATH_.'classes/xml/XmlParser.class.php';
 
@@ -19,7 +19,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
     public function testGetInstance()
     {
         $file_handler = $this->getMock('FileHandler', array('getRealPath'));
-        $context = new NonStaticContext($file_handler);
+        $context = new ContextInstance($file_handler);
         Context::setRequestContext($context);
 
         $this->assertInstanceOf('NonStaticContext', Context::getInstance());
@@ -28,7 +28,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
     public function testSetGetVars()
     {
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         Context::setRequestContext($context);
 
         $this->assertSame(null, Context::get('var1'));
@@ -48,7 +48,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
     public function testAddGetBodyClass()
     {
-        $context = new NonStaticContext();
+        $context = new ContextInstance();
         Context::setRequestContext($context);
 
         $this->assertEquals(Context::getBodyClass(), '');
