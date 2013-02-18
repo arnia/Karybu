@@ -22,7 +22,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $context = new ContextInstance($file_handler);
         Context::setRequestContext($context);
 
-        $this->assertInstanceOf('NonStaticContext', Context::getInstance());
+        $this->assertInstanceOf('ContextInstance', Context::getInstance());
         $this->assertSame(Context::getInstance(), Context::getInstance());
     }
 

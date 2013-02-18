@@ -216,6 +216,9 @@ class ContextInstance {
         $this->file_handler = $file_handler;
 		$this->oFrontEndFileHandler = $frontend_file_handler;
         $this->validator = $validator;
+
+        $this->context = new stdClass();
+        $this->get_vars = new stdClass();
 	}
 
     /**
@@ -361,7 +364,9 @@ class ContextInstance {
      */
     public function getRequestContentType()
     {
-        return $_SERVER['CONTENT_TYPE'];
+        if(isset($_SERVER['CONTENT_TYPE']))
+            return $_SERVER['CONTENT_TYPE'];
+        return '';
     }
 
     /**
@@ -370,7 +375,9 @@ class ContextInstance {
      */
     public function getRequestContent()
     {
-        return $GLOBALS['HTTP_RAW_POST_DATA'];
+        if(isset($GLOBALS['HTTP_RAW_POST_DATA']))
+            return $GLOBALS['HTTP_RAW_POST_DATA'];
+        return '';
     }
 
     /**
@@ -379,7 +386,9 @@ class ContextInstance {
      */
     public function getServerRequestMethod()
     {
-        return $_SERVER['REQUEST_METHOD'];
+        if(isset($_SERVER['REQUEST_METHOD']))
+            return $_SERVER['REQUEST_METHOD'];
+        return '';
     }
 
     /**
@@ -388,7 +397,9 @@ class ContextInstance {
      */
     public function getServerRequestProtocol()
     {
-        return $_SERVER['SERVER_PROTOCOL'];
+        if(isset($_SERVER['SERVER_PROTOCOL']))
+            return $_SERVER['SERVER_PROTOCOL'];
+        return '';
     }
 
     /**
@@ -397,7 +408,9 @@ class ContextInstance {
      */
     public function getServerRequestHttps()
     {
-        return $_SERVER['HTTPS'];
+        if(isset($_SERVER['HTTPS']))
+            return $_SERVER['HTTPS'];
+        return '';
     }
 
     /**
@@ -406,7 +419,9 @@ class ContextInstance {
      */
     public function getServerHost()
     {
-        return $_SERVER['HTTP_HOST'];
+        if(isset($_SERVER['HTTP_HOST']))
+            return $_SERVER['HTTP_HOST'];
+        return '';
     }
 
     /**
@@ -1910,12 +1925,12 @@ class ContextInstance {
 			if($port && $port != 80)      {
                 $url_info['port'] = $port;
             }
-			elseif($url_info['port']==80) {
+			elseif(isset($url_info['port']) && $url_info['port']==80) {
                 unset($url_info['port']);
             }
 		}
 
-		$this->url[$ssl_mode][$domain_key] = sprintf('%s://%s%s%s',$use_ssl?'https':$url_info['scheme'], $url_info['host'], $url_info['port']&&$url_info['port']!=80?':'.$url_info['port']:'',$url_info['path']);
+		$this->url[$ssl_mode][$domain_key] = sprintf('%s://%s%s%s',$use_ssl?'https':$url_info['scheme'], $url_info['host'], isset($url_info['port'])&&$url_info['port']!=80?':'.$url_info['port']:'',$url_info['path']);
 
 		return $this->url[$ssl_mode][$domain_key];
 	}
@@ -1936,7 +1951,10 @@ class ContextInstance {
 			unset($this->get_vars->{$key});
 			return;
 		}
-		if($set_to_get_vars || $this->get_vars->{$key}) $this->get_vars->{$key} = $val;
+		if($set_to_get_vars ||
+            (property_exists($this->get_vars, $key) && $this->get_vars->{$key})) {
+            $this->get_vars->{$key} = $val;
+        }
 	}
 
 	/**
@@ -1960,6 +1978,7 @@ class ContextInstance {
 		if($num_args<1) return;
 
 		$args_list = func_get_args();
+        $output = new stdClass();
 		foreach($args_list as $v) {
 			$output->{$v} = $this->get($v);
 		}

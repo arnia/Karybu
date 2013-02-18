@@ -11,7 +11,7 @@ class FrontendFileHandler {}
 class FileHandler {}
 class Validator {}
 
-class NonStaticContextTest extends PHPUnit_Framework_TestCase
+class ContextInstanceTest extends PHPUnit_Framework_TestCase
 {
     public function testRequestMethod_Default()
     {
@@ -262,7 +262,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         }
 
         // Mock just the isUploadedFile, getFiles and getRequestContentType methods
-        $context = $this->getMock('NonStaticContext', array('is_uploaded_file', 'getFiles', 'getRequestContentType'));
+        $context = $this->getMock('ContextInstance', array('is_uploaded_file', 'getFiles', 'getRequestContentType'));
         $context
             ->expects($this->any())
             ->method('is_uploaded_file')
@@ -302,7 +302,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
      */
     public function testSetArguments_FileUpload_NotMultipartFormData()
     {
-        $context = $this->getMock('NonStaticContext', array('getRequestContentType'));
+        $context = $this->getMock('ContextInstance', array('getRequestContentType'));
 
         $context
             ->expects($this->any())
@@ -321,7 +321,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
      */
     public function testSetArguments_FileUpload_EmptyFILES()
     {
-        $context = $this->getMock('NonStaticContext', array('getFiles'));
+        $context = $this->getMock('ContextInstance', array('getFiles'));
 
         $context
             ->expects($this->any())
@@ -449,17 +449,37 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
     private function getContextMockForDbInfoLoading($db_info, $site_module_info = null)
     {
-        $context = $this->getMock('NonStaticContext', array('loadDbInfoFromConfigFile', 'isInstalled', 'getSiteModuleInfo'));
+        $context = $this->getMock('ContextInstance', array('loadDbInfoFromConfigFile', 'isInstalled', 'getSiteModuleInfo'));
         $context
             ->expects($this->any())
             ->method('isInstalled')
             ->will($this->returnValue(true));
+
+        if(!isset($db_info->master_db)) $db_info->master_db = null;
+        if(!isset($db_info->slave_db)) $db_info->slave_db = null;
+        if(!isset($db_info->default_url)) $db_info->default_url = null;
+        if(!isset($db_info->lang_type))  $db_info->lang_type = null;
+        if(!isset($db_info->use_rewrite)) $db_info->use_rewrite = null;
+        if(!isset($db_info->time_zone))$db_info->time_zone = null;
+        if(!isset($db_info->use_prepared_statements)) $db_info->use_prepared_statements = null;
+        if(!isset($db_info->qmail_compatibility)) $db_info->qmail_compatibility = null;
+        if(!isset($db_info->use_db_session)) $db_info->use_db_session = null;
+        if(!isset($db_info->use_ssl)) $db_info->use_ssl = null;
+        if(!isset($db_info->default_language)) $db_info->default_language = null;
+        if(!isset($db_info->http_port)) $db_info->http_port = null;
+        if(!isset($db_info->https_port)) $db_info->https_port = null;
+
         $context
             ->expects($this->any())
             ->method('loadDbInfoFromConfigFile')
             ->will($this->returnValue($db_info));
 
-        if($site_module_info == null) $site_module_info = new stdClass();
+        if($site_module_info == null) {
+            $site_module_info = new stdClass();
+            $site_module_info->site_srl = null;
+            $site_module_info->domain = null;
+            $site_module_info->default_language = null;
+        }
         $context
             ->expects($this->any())
             ->method('getSiteModuleInfo')
@@ -479,6 +499,13 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $db_info->lang_type = 'en';
         $db_info->use_rewrite = 'Y';
         $db_info->time_zone = '+0200';
+        $db_info->use_prepared_statements = null;
+        $db_info->qmail_compatibility = null;
+        $db_info->use_db_session = null;
+        $db_info->use_ssl = null;
+        $db_info->default_language = null;
+        $db_info->http_port = null;
+        $db_info->https_port = null;
 
         $context = $this->getContextMockForDbInfoLoading($db_info);
         $this->assertEquals(null, $context->getDbInfo());
@@ -745,8 +772,17 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $db_info->db_password = 'password';
         $db_info->db_database = 'globalcms';
         $db_info->db_table_prefix = 'xe_';
+        $db_info->default_url = null;
+        $db_info->use_prepared_statements = null;
+        $db_info->use_db_session = null;
+        $db_info->http_port = null;
+        $db_info->https_port = null;
+        $db_info->time_zone = null;
+        $db_info->qmail_compatibility = null;
+        $db_info->use_ssl = null;
+        $db_info->use_rewrite = null;
 
-        $context = $this->getMock('NonStaticContext'
+        $context = $this->getMock('ContextInstance'
             , array('loadDbInfoFromConfigFile', 'isInstalled', 'getInstallController', 'getSiteModuleInfo'));
 
         $context
@@ -757,10 +793,15 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('loadDbInfoFromConfigFile')
             ->will($this->returnValue($db_info));
+
+        $site_module_info = new stdClass();
+        $site_module_info->site_srl = null;
+        $site_module_info->domain = null;
+        $site_module_info->default_language = null;
         $context
             ->expects($this->any())
             ->method('getSiteModuleInfo')
-            ->will($this->returnValue(new stdClass()));
+            ->will($this->returnValue($site_module_info));
 
         $installController = $this->getMock('installController', array('makeConfigFile'));
         $installController
@@ -798,6 +839,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $site_module_info = new stdClass();
         $site_module_info->site_srl = 0;
         $site_module_info->domain = 'http://www.xpressengine.org';
+        $site_module_info->default_language = null;
 
         $context = $this->getContextMockForDbInfoLoading($db_info, $site_module_info);
         $context->initializeAppSettingsAndCurrentSiteInfo();
@@ -821,6 +863,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $site_module_info = new stdClass();
         $site_module_info->site_srl = 0;
         $site_module_info->domain = 'http://www.xpressengine.org';
+        $site_module_info->default_language = null;
 
         // Test that default language is 'en', when nothing else is set
         $context = $this->getContextMockForDbInfoLoading($db_info, $site_module_info);
@@ -855,6 +898,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $site_module_info = new stdClass();
         $site_module_info->site_srl = 0;
         $site_module_info->domain = 'http://www.xpressengine.org';
+        $site_module_info->default_language = null;
 
         $context = $this->getContextMockForDbInfoLoading($db_info, $site_module_info);
 
@@ -877,12 +921,23 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $db_info = new stdClass();
         $db_info->master_db = array('something');
         $db_info->default_url = 'http://demo.xpressengine.org';
+        $db_info->default_url = null;
+        $db_info->use_prepared_statements = null;
+        $db_info->use_db_session = null;
+        $db_info->http_port = null;
+        $db_info->https_port = null;
+        $db_info->time_zone = null;
+        $db_info->qmail_compatibility = null;
+        $db_info->use_ssl = null;
+        $db_info->use_rewrite = null;
+
 
         $site_module_info = new stdClass();
         $site_module_info->site_srl = 123;
         $site_module_info->domain = 'mysite';
+        $site_module_info->default_language = null;
 
-        $context = $this->getMock('NonStaticContext', array('loadDbInfoFromConfigFile', 'isInstalled', 'isSiteID', 'getSiteModuleInfo'));
+        $context = $this->getMock('ContextInstance', array('loadDbInfoFromConfigFile', 'isInstalled', 'isSiteID', 'getSiteModuleInfo'));
         $context
             ->expects($this->any())
             ->method('isInstalled')
@@ -977,7 +1032,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     {
         // 1. Arrange
         $file_handler = $this->getMock('FileHandler', array('hasContent', 'moveFile', 'readFile', 'writeFile', 'readFileAsArray'));
-        $context = $this->getMock('NonStaticContext'
+        $context = $this->getMock('ContextInstance'
             , array('loadLangSupported')
             , array($file_handler));
 
@@ -1025,7 +1080,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testLoadLang_WhenLanguageFileIsXmlFormat()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getXmlLangParser', 'is_readable', 'includeLanguageFile'));
+        $context = $this->getMock('ContextInstance', array('getXmlLangParser', 'is_readable', 'includeLanguageFile'));
 
         $xml_lang_parser = $this->getMock('XmlLangParser', array('compile'));
         $xml_lang_parser->expects($this->once())
@@ -1055,7 +1110,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testLoadLang_WhenLanguageFileIsPhpFormat()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getXmlLangParser', 'is_readable', 'includeLanguageFile'));
+        $context = $this->getMock('ContextInstance', array('getXmlLangParser', 'is_readable', 'includeLanguageFile'));
 
         $xml_lang_parser = $this->getMock('XmlLangParser', array('compile'));
         $xml_lang_parser->expects($this->once())
@@ -1085,7 +1140,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testLoadLang_WhenLanguageFileWasAlreadyLoaded()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getXmlLangParser', 'is_readable'));
+        $context = $this->getMock('ContextInstance', array('getXmlLangParser', 'is_readable'));
 
         $xml_lang_parser = $this->getMock('XmlLangParser', array('compile'));
         $xml_lang_parser->expects($this->once())
@@ -1118,7 +1173,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testLoadLang_WhenThereAreNoPermissionToWriteCompiledXmlFile()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getXmlLangParser', 'is_readable', 'evaluateLanguageFileContent'));
+        $context = $this->getMock('ContextInstance', array('getXmlLangParser', 'is_readable', 'evaluateLanguageFileContent'));
 
         $xml_lang_parser = $this->getMock('XmlLangParser', array('compile', 'getCompileContent'));
         $xml_lang_parser->expects($this->any())
@@ -1154,7 +1209,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetCurrentUrl_Not_GET_Request()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestUri'));
+        $context = $this->getMock('ContextInstance', array('getRequestUri'));
         $context->expects($this->any())
             ->method('getRequestUri')
             ->will($this->returnValue('here_is_some_dummy_request_uri'));
@@ -1171,7 +1226,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetCurrentUrl_GET_WithoutParams()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getUrl'));
+        $context = $this->getMock('ContextInstance', array('getUrl'));
         $context->expects($this->any())
             ->method('getUrl')
             ->will($this->returnValue('here_is_some_dummy_url'));
@@ -1188,7 +1243,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetCurrentUrl_GET_WithParams()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestUri'));
+        $context = $this->getMock('ContextInstance', array('getRequestUri'));
         $context->expects($this->any())
             ->method('getRequestUri')
             ->will($this->returnValue('here_is_some_dummy_url'));
@@ -1208,7 +1263,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetCurrentUrl_GET_WithParams_Array()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestUri'));
+        $context = $this->getMock('ContextInstance', array('getRequestUri'));
         $context->expects($this->any())
             ->method('getRequestUri')
             ->will($this->returnValue('here_is_some_dummy_url'));
@@ -1450,7 +1505,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_Default()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI'));
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
 
@@ -1462,7 +1517,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_WithGetParametersSetButNoOtherVariables_ShouldReturnDefaultUrl()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI'));
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
         $context->set('module', 'admin', true);
@@ -1476,7 +1531,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_WithGetParametersSetAndOtherVariables_ShouldAddVariablesToExistingParams()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI'));
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
         $context->set('module', 'admin', true);
@@ -1490,7 +1545,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_EmptyParamsShouldBeIgnored()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI'));
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
 
@@ -1502,7 +1557,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_ArrayParameter()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI'));
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
 
@@ -1514,7 +1569,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_Default_WithDomain()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI', 'isSiteID'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1538,7 +1593,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_TwoParams()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI', 'isSiteID'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1557,7 +1612,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_ParamsShouldBeUrlEncoded()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI', 'isSiteID'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1575,7 +1630,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_TwoParams_NotEncoded()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI', 'isSiteID'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1594,7 +1649,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_TwoParams_AutoEncoded_WhenParamsNotEncoded()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI', 'isSiteID'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1612,7 +1667,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_TwoParams_AutoEncoded_WhenParamsEncoded()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI', 'isSiteID'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1631,7 +1686,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_VidParamIsIgnored()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI', 'isSiteID'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1649,7 +1704,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_Domain_IgnoresVidIfManuallySpecified()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI', 'isSiteID'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1670,7 +1725,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_Domain_WithParamsAndUrlRewrite_PrettifiesMostCommonParams()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI', 'isSiteID'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1720,7 +1775,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_WithParamsAndUrlRewrite_PrettifiesMostCommonParams()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI', 'isSiteID'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1767,7 +1822,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_WithGetParametersSetAndOtherVariables_StartNewWhenFirstParamsIsEmptyString()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI'));
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
         $context->set('module', 'admin', true);
@@ -1781,7 +1836,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_WithDomain_SiteID()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI', 'isSiteID'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1796,7 +1851,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_WithDomain_Subdomain_DifferentHost()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI', 'isSiteID'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'));
         $context->expects($this->once())
             ->method('getRequestURI')
             ->with($this->equalTo(FOLLOW_REQUEST_SSL), $this->equalTo('shop.xpressengine.org/'))
@@ -1816,7 +1871,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_WithDomain_Subdomain_SameAsHost()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI', 'isSiteID'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(false));
@@ -1833,7 +1888,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_UseSSL_Always()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI', 'isSiteID'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'));
         // We expect that getRequestURI will be called with ENFORCE_SLL on and no subdomain
         $context->expects($this->once())
             ->method('getRequestURI')
@@ -1857,7 +1912,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_UseSSLFalse_HttpsOn()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI', 'isSiteID'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'));
         // We expect that getRequestURI will be called with ENFORCE_SLL on and no subdomain
         $context->expects($this->once())
             ->method('getRequestURI')
@@ -1881,7 +1936,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_UseSSL_Optional_SSLActionDoesNotExist()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI', 'isSiteID', 'isExistsSSLAction'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID', 'isExistsSSLAction'));
 
         $context->expects($this->once())
             ->method('isExistsSSLAction')
@@ -1910,7 +1965,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testGetUrl_MainWebsite_UseSSL_Optional_SSLActionExists()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('getRequestURI', 'isSiteID', 'isExistsSSLAction'));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID', 'isExistsSSLAction'));
 
         $context->expects($this->once())
             ->method('isExistsSSLAction')
@@ -1952,7 +2007,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_WhenVisitorIsCrawler()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('isCrawler'));
+        $context = $this->getMock('ContextInstance', array('isCrawler'));
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(true));
@@ -1968,7 +2023,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_WhenRequestMethodIsNotGET()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('isCrawler'));
+        $context = $this->getMock('ContextInstance', array('isCrawler'));
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(false));
@@ -1986,7 +2041,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_WhenNotInstalled()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('isCrawler', 'isInstalled'));
+        $context = $this->getMock('ContextInstance', array('isCrawler', 'isInstalled'));
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(false));
@@ -2005,7 +2060,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_WhenShowingRSSorATOM()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('isCrawler', 'isInstalled'));
+        $context = $this->getMock('ContextInstance', array('isCrawler', 'isInstalled'));
         $context->expects($this->any())
             ->method('isCrawler')
             ->will($this->returnValue(false));
@@ -2026,7 +2081,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_WhenDefaultUrlNotSet()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('isCrawler', 'isInstalled'));
+        $context = $this->getMock('ContextInstance', array('isCrawler', 'isInstalled'));
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(false));
@@ -2055,7 +2110,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_RequestSSO()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('isCrawler', 'isInstalled', 'getRequestUri', 'setCookie', 'setRedirectResponseTo'));
+        $context = $this->getMock('ContextInstance', array('isCrawler', 'isInstalled', 'getRequestUri', 'setCookie', 'setRedirectResponseTo'));
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(false));
@@ -2096,7 +2151,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_RetrieveSessionId()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('isCrawler', 'isInstalled','getRequestUri', 'getSessionId', 'setRedirectResponseTo'));
+        $context = $this->getMock('ContextInstance', array('isCrawler', 'isInstalled','getRequestUri', 'getSessionId', 'setRedirectResponseTo'));
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(false));
@@ -2131,7 +2186,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_SkipSSO()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('isCrawler', 'isInstalled','getRequestUri', 'getGlobalCookie'));
+        $context = $this->getMock('ContextInstance', array('isCrawler', 'isInstalled','getRequestUri', 'getGlobalCookie'));
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(false));
@@ -2165,7 +2220,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testCheckSSO_UpdateSessionId()
     {
         // 1. Arrange
-        $context = $this->getMock('NonStaticContext', array('isCrawler', 'isInstalled','getRequestUri', 'getSessionName','setCookie','setRedirectResponseTo'));
+        $context = $this->getMock('ContextInstance', array('isCrawler', 'isInstalled','getRequestUri', 'getSessionName','setCookie','setRedirectResponseTo'));
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(false));
@@ -2208,7 +2263,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(array(
                     'filebox.js'
                 )));
-        $context = $this->getMock('NonStaticContext', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler));
+        $context = $this->getMock('ContextInstance', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler));
         $context->expects($this->once())
             ->method('loadFile')
             ->with(array('./common/js/plugins/filebox/filebox.js', 'body', '', 0), true);
@@ -2230,7 +2285,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(array(
                     'filebox.css'
                 )));
-        $context = $this->getMock('NonStaticContext', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler));
+        $context = $this->getMock('ContextInstance', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler));
         $context->expects($this->once())
             ->method('loadFile')
             ->with(array('./common/js/plugins/filebox/filebox.css', 'all', '', 0), true);
@@ -2254,7 +2309,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
                     './filebox.css',
                     '   '
                 )));
-        $context = $this->getMock('NonStaticContext', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler));
+        $context = $this->getMock('ContextInstance', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler));
         $context->expects($this->once())
             ->method('loadFile')
             ->with(array('./common/js/plugins/filebox/filebox.css', 'all', '', 0), true);
@@ -2276,7 +2331,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(array(
                     'filebox.js'
                 )));
-        $context = $this->getMock('NonStaticContext', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler));
+        $context = $this->getMock('ContextInstance', array('loadFile', 'pluginConfigFileExistsAndIsReadable'), array($file_handler));
         $context->expects($this->once())
             ->method('loadFile')
             ->with(array('./common/js/plugins/filebox/filebox.js', 'body', '', 0), true);
@@ -2296,7 +2351,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
         $file_handler->expects($this->never())
             ->method('readFileAsArray');
 
-        $context = $this->getMock('NonStaticContext', array('pluginConfigFileExistsAndIsReadable'), array($file_handler));
+        $context = $this->getMock('ContextInstance', array('pluginConfigFileExistsAndIsReadable'), array($file_handler));
         $context->expects($this->once())
             ->method('pluginConfigFileExistsAndIsReadable')
             ->will($this->returnValue(false));
@@ -2317,7 +2372,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(array(
                     'filebox.js'
                 )));
-        $context = $this->getMock('NonStaticContext', array('loadFile', 'pluginConfigFileExistsAndIsReadable', 'pluginUsesLocalization', 'loadLang'), array($file_handler));
+        $context = $this->getMock('ContextInstance', array('loadFile', 'pluginConfigFileExistsAndIsReadable', 'pluginUsesLocalization', 'loadLang'), array($file_handler));
         $context->expects($this->once())
             ->method('loadFile')
             ->with(array('./common/js/plugins/filebox/filebox.js', 'body', '', 0), true);
@@ -2338,7 +2393,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
     private function getContextMockForUsingGetBrowserTitle()
     {
-        $context = $this->getMock('NonStaticContext', array('getModuleController'));
+        $context = $this->getMock('ContextInstance', array('getModuleController'));
         $module_controller = $this->getMock('moduleController', array('replaceDefinedLangCode'));
         $module_controller->expects($this->atLeastOnce())
             ->method('replaceDefinedLangCode');
@@ -2699,7 +2754,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
     public function testGetCurrentLanguage_LanguageGivenInQueryString()
     {
-        $context = $this->getMock('NonStaticContext', array('setCookie', 'getGlobalCookie'));
+        $context = $this->getMock('ContextInstance', array('setCookie', 'getGlobalCookie'));
         $context->expects($this->once())
             ->method('setCookie');
         $context->set('l', 'ro', true);
@@ -2711,7 +2766,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
     public function testGetCurrentLanguage_LanguageTakenFromCookie()
     {
-        $context = $this->getMock('NonStaticContext', array('getGlobalCookie'));
+        $context = $this->getMock('ContextInstance', array('getGlobalCookie'));
         $context->expects($this->any())
             ->method('getGlobalCookie')
             ->will($this->returnValue('ro'));
@@ -2723,7 +2778,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
     public function testSetAuthenticationInfoInContextAndSession_NotInstalled()
     {
-        $context = $this->getMock('NonStaticContext', array('isInstalled'));
+        $context = $this->getMock('ContextInstance', array('isInstalled'));
         $context->expects($this->any())->method('isInstalled')->will($this->returnValue(false));
 
         $context->setAuthenticationInfoInContextAndSession();
@@ -2734,7 +2789,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
     public function testSetAuthenticationInfoInContextAndSession_UserNotLoggedIn()
     {
-        $context = $this->getMock('NonStaticContext', array('isInstalled', 'getMemberModel', 'getMemberController'));
+        $context = $this->getMock('ContextInstance', array('isInstalled', 'getMemberModel', 'getMemberController'));
         $context->expects($this->any())->method('isInstalled')->will($this->returnValue(true));
         $memberModel = $this->getMock('memberModel', array('isLogged', 'getLoggedInfo'));
         $memberModel->expects($this->any())->method('isLogged')->will($this->returnValue(false));
@@ -2752,7 +2807,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
     public function testSetAuthenticationInfoInContextAndSession_UserNotLoggedIn_AutoSignInEnabled()
     {
-        $context = $this->getMock('NonStaticContext', array('isInstalled', 'getGlobalCookie',  'getMemberModel', 'getMemberController'));
+        $context = $this->getMock('ContextInstance', array('isInstalled', 'getGlobalCookie',  'getMemberModel', 'getMemberController'));
         $context->expects($this->any())->method('isInstalled')->will($this->returnValue(true));
         $context->expects($this->any())->method('getGlobalCookie')->with($this->equalTo('xeak'))->will($this->returnValue(true));
 
@@ -2770,7 +2825,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
     public function testSetAuthenticationInfoInContextAndSession_UserLoggedIn()
     {
-        $context = $this->getMock('NonStaticContext', array('isInstalled', 'getMemberModel', 'getMemberController'));
+        $context = $this->getMock('ContextInstance', array('isInstalled', 'getMemberModel', 'getMemberController'));
         $context->expects($this->any())->method('isInstalled')->will($this->returnValue(true));
         $memberModel = $this->getMock('memberModel', array('isLogged', 'getLoggedInfo'));
         $memberModel->expects($this->any())->method('isLogged')->will($this->returnValue(true));
@@ -2790,7 +2845,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
     public function testStartSession_AppNotInstalledYet()
     {
-        $context = $this->getMock('NonStaticContext', array('startPHPSession', 'isInstalled'));
+        $context = $this->getMock('ContextInstance', array('startPHPSession', 'isInstalled'));
         $context->expects($this->any())->method('isInstalled')->will($this->returnValue(false));
 
         $context->expects($this->never())->method('setSessionSaveHandler');
@@ -2802,7 +2857,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
     public function testStartSession_SessionDisabled()
     {
-        $context = $this->getMock('NonStaticContext', array('startPHPSession', 'isInstalled'));
+        $context = $this->getMock('ContextInstance', array('startPHPSession', 'isInstalled'));
         $context->expects($this->any())->method('isInstalled')->will($this->returnValue(true));
 
         $context->expects($this->never())->method('setSessionSaveHandler');
@@ -2813,7 +2868,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
     public function testStartSession_SessionEnabled()
     {
-        $context = $this->getMock('NonStaticContext', array('startPHPSession', 'isInstalled', 'getSessionController', 'getSessionModel', 'setSessionSaveHandler'));
+        $context = $this->getMock('ContextInstance', array('startPHPSession', 'isInstalled', 'getSessionController', 'getSessionModel', 'setSessionSaveHandler'));
         $context->expects($this->any())->method('isInstalled')->will($this->returnValue(true));
         $context->db_info->use_db_session = 'Y';
 
@@ -2826,7 +2881,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
     public function testStartSession_SessionEnabled_SessionNamePosted()
     {
-        $context = $this->getMock('NonStaticContext', array('startPHPSession', 'isInstalled'
+        $context = $this->getMock('ContextInstance', array('startPHPSession', 'isInstalled'
             , 'getSessionController', 'getSessionModel'
             , 'setSessionSaveHandler', 'getSessionName', 'getPOSTArgument', 'setSessionId'));
         $context->expects($this->any())->method('isInstalled')->will($this->returnValue(true));
@@ -2848,7 +2903,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     {
         $url = 'http://www.xpressengine.org/';
 
-        $context = $this->getMock('NonStaticContext', array('getRequestUri'));
+        $context = $this->getMock('ContextInstance', array('getRequestUri'));
         $context->expects($this->any())->method('getRequestUri')->will($this->returnValue($url));
 
         $this->assertEquals($url, $context->getRequestUrl());
@@ -2858,7 +2913,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     {
         $url = 'http://www.xpressengine.org/';
 
-        $context = $this->getMock('NonStaticContext', array('getRequestUri', 'getArgumentsForGETRequest', 'convertEncodingStr'));
+        $context = $this->getMock('ContextInstance', array('getRequestUri', 'getArgumentsForGETRequest', 'convertEncodingStr'));
         $context->expects($this->any())->method('getRequestUri')->will($this->returnValue($url));
         $context->expects($this->any())->method('getArgumentsForGETRequest')->will($this->returnValue(
                 array("color" => 'green', "sky" => "blue")
@@ -3002,7 +3057,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
         $_REQUEST = $_GET;
 
-        $context = $this->getMock('NonStaticContext', array('magicQuotesAreOn', 'magicQuotesAreSupportedInCurrentPHPVersion'));
+        $context = $this->getMock('ContextInstance', array('magicQuotesAreOn', 'magicQuotesAreSupportedInCurrentPHPVersion'));
         $context->expects($this->any())->method('magicQuotesAreOn')->will($this->returnValue(true));
         $context->expects($this->any())->method('magicQuotesAreSupportedInCurrentPHPVersion')->will($this->returnValue(true));
 
@@ -3059,14 +3114,14 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     {
         $xe_path = _XE_PATH_; // _XE_PATH_ was defined in Bootstrap file
 
-        $context = $this->getMock('NonStaticContext', array('getRequestUri'));
+        $context = $this->getMock('ContextInstance', array('getRequestUri'));
         $context->expects($this->any())->method('getRequestUri')->will($this->returnValue('http://localhost/xe'));
 
         $web_path = $context->pathToUrl($xe_path);
 
         $this->assertEquals('/xe/', $web_path);
 
-        $context = $this->getMock('NonStaticContext', array('getRequestUri'));
+        $context = $this->getMock('ContextInstance', array('getRequestUri'));
         $context->expects($this->any())->method('getRequestUri')->will($this->returnValue('http://www.xpressengine.org'));
 
         $web_path = $context->pathToUrl('images');
@@ -3077,7 +3132,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testAddSSLAction_CacheFileDoesntExist()
     {
         // Arrange
-        $context = $this->getMock('NonStaticContext', array('sslActionsFileExists', 'createSslActionsFile', 'enableSslAction'));
+        $context = $this->getMock('ContextInstance', array('sslActionsFileExists', 'createSslActionsFile', 'enableSslAction'));
         $context->expects($this->once())->method('sslActionsFileExists')->will($this->returnValue(false));
 
         // Assert
@@ -3090,7 +3145,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testAddSSLAction_CacheFileExists_ActionDoesnt()
     {
         // Arrange
-        $context = $this->getMock('NonStaticContext', array('sslActionsFileExists', 'createSslActionsFile', 'enableSslAction'));
+        $context = $this->getMock('ContextInstance', array('sslActionsFileExists', 'createSslActionsFile', 'enableSslAction'));
         $context->expects($this->once())->method('sslActionsFileExists')->will($this->returnValue(true));
 
         // Assert
@@ -3109,7 +3164,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
     public function testAddSSLAction_CacheFileExists_ActionDoes()
     {
         // Arrange
-        $context = $this->getMock('NonStaticContext', array('sslActionsFileExists', 'createSslActionsFile', 'enableSslAction'));
+        $context = $this->getMock('ContextInstance', array('sslActionsFileExists', 'createSslActionsFile', 'enableSslAction'));
         $context->expects($this->once())->method('sslActionsFileExists')->will($this->returnValue(true));
         $context->ssl_actions['dispDashboard'] = 1;
 
@@ -3123,7 +3178,7 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
     public function testLoadSslActions()
     {
-        $context = $this->getMock('NonStaticContext', array('sslActionsFileExists', 'getSslActionsFromCacheFile'));
+        $context = $this->getMock('ContextInstance', array('sslActionsFileExists', 'getSslActionsFromCacheFile'));
         $context->expects($this->once())->method('sslActionsFileExists')->will($this->returnValue(true));
 
         $context->expects($this->once())->method('getSslActionsFromCacheFile')->will($this->returnValue(
@@ -3141,6 +3196,6 @@ class NonStaticContextTest extends PHPUnit_Framework_TestCase
 
 }
 
-/* End of file NonStaticContextTest.php */
-/* Location: ./tests/classes/context/NonStaticContextTest.php */
+/* End of file ContextInstanceTest.php */
+/* Location: ./tests/classes/context/ContextInstanceTest.php */
 

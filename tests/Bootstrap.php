@@ -6,7 +6,7 @@ if(!defined('__ZBXE__')) define('__ZBXE__', true);
 if(!defined('_XE_PATH_')) define('_XE_PATH_', realpath(dirname(__FILE__).'/../').'/');
 
 $_SERVER['SCRIPT_NAME'] = '/xe/index.php';
-error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(-1);
 
 /**
  * Print out the message
