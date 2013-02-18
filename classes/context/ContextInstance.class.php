@@ -216,9 +216,6 @@ class ContextInstance {
         $this->file_handler = $file_handler;
 		$this->oFrontEndFileHandler = $frontend_file_handler;
         $this->validator = $validator;
-
-        $this->context = new stdClass();
-        $this->get_vars = new stdClass();
 	}
 
     /**
@@ -366,7 +363,7 @@ class ContextInstance {
     {
         if(isset($_SERVER['CONTENT_TYPE']))
             return $_SERVER['CONTENT_TYPE'];
-        return '';
+        return null;
     }
 
     /**
@@ -377,7 +374,7 @@ class ContextInstance {
     {
         if(isset($GLOBALS['HTTP_RAW_POST_DATA']))
             return $GLOBALS['HTTP_RAW_POST_DATA'];
-        return '';
+        return null;
     }
 
     /**
@@ -388,7 +385,7 @@ class ContextInstance {
     {
         if(isset($_SERVER['REQUEST_METHOD']))
             return $_SERVER['REQUEST_METHOD'];
-        return '';
+        return null;
     }
 
     /**
@@ -399,7 +396,7 @@ class ContextInstance {
     {
         if(isset($_SERVER['SERVER_PROTOCOL']))
             return $_SERVER['SERVER_PROTOCOL'];
-        return '';
+        return null;
     }
 
     /**
@@ -410,7 +407,7 @@ class ContextInstance {
     {
         if(isset($_SERVER['HTTPS']))
             return $_SERVER['HTTPS'];
-        return '';
+        return null;
     }
 
     /**
@@ -421,7 +418,7 @@ class ContextInstance {
     {
         if(isset($_SERVER['HTTP_HOST']))
             return $_SERVER['HTTP_HOST'];
-        return '';
+        return null;
     }
 
     /**
@@ -984,8 +981,10 @@ class ContextInstance {
 			if($this->get('default_url')) {
 				$url = base64_decode($this->get('default_url'));
 				$url_info = parse_url($url);
-				$url_info['query'].= ($url_info['query']?'&':'').'SSOID='.$this->getSessionId();
-				$redirect_url = sprintf('%s://%s%s%s?%s',$url_info['scheme'],$url_info['host'],$url_info['port']?':'.$url_info['port']:'',$url_info['path'], $url_info['query']);
+                $query_string = isset($url_info['query']) ? $url_info['query'] .'&':'';
+				$query_string.= $query_string.'SSOID='.$this->getSessionId();
+                $url_info['query'] = $query_string;
+				$redirect_url = sprintf('%s://%s%s%s?%s',$url_info['scheme'],$url_info['host'],isset($url_info['port'])?':'.$url_info['port']:'',$url_info['path'], $url_info['query']);
                 $this->setRedirectResponseTo($redirect_url);
 				return false;
 			}
@@ -1291,7 +1290,8 @@ class ContextInstance {
 		foreach($charset_list as $charset)
 		{
 			array_walk($obj,array($this, 'checkConvertFlag') ,$charset);
-			$flag = $this->checkConvertFlag($flag = true);
+            $flag = true;
+			$flag = $this->checkConvertFlag($flag);
 			if($flag)
 			{
 				if($charset == 'UTF-8') {
@@ -1319,7 +1319,7 @@ class ContextInstance {
 			if(is_array($val)) {
                 array_walk($val,array($this, 'checkConvertFlag'),$charset);
             }
-			else if($val && iconv($charset, $charset, $val) != $val) {
+			else if($val && @iconv($charset, $charset, $val) != $val) {
                 $flag = false;
             }
 		}
@@ -1356,6 +1356,7 @@ class ContextInstance {
 	 * @return string converted string
 	 */
 	function convertEncodingStr($str) {
+        $obj = new stdClass();
 		$obj->str = $str;
 		$obj = $this->convertEncoding($obj);
 		return $obj->str;
@@ -1672,6 +1673,9 @@ class ContextInstance {
 	 * @return string URL
 	 */
 	function getUrl($num_args=0, $args_list=array(), $domain = null, $encode = true, $autoEncode = false) {
+        $vid = null;
+        $domain = null;
+
 		// retrieve virtual site information
 		if(is_null($this->site_module_info)) {
             $this->site_module_info = $this->get('site_module_info');
@@ -1699,7 +1703,10 @@ class ContextInstance {
 			if(is_null($this->current_info)) {
                 $this->current_info = parse_url(($this->getServerRequestHttps()=='on'?'https':'http').'://'.$this->getServerHost().$this->getScriptPath());
             }
-			if($domain_info['host'].$domain_info['path']==$this->current_info['host'].$this->current_info['path']) {
+
+            $domain_info_path = $domain_info['host']. (isset($domain_info['path']) ? $domain_info['path'] : '');
+            $current_info_path = $this->current_info['host'].(isset($this->current_info['path']) ? $this->current_info['path'] : '');
+			if($domain_info_path == $current_info_path) {
 				unset($domain);
 			} else {
 				$domain = preg_replace('/^(http|https):\/\//i','', trim($domain));
@@ -1712,9 +1719,9 @@ class ContextInstance {
 		$get_vars = null;
 
 		// If there is no GET variables or first argument is '' to reset variables
-		if(!$this->get_vars || $args_list[0]=='') {
+		if(!$this->get_vars || (count($args_list) && $args_list[0]=='')) {
 			// rearrange args_list
-			if(is_array($args_list) && $args_list[0]=='') {
+			if(is_array($args_list) && count($args_list)  && $args_list[0]=='') {
                 array_shift($args_list);
             }
 		} else {
@@ -1764,11 +1771,12 @@ class ContextInstance {
 
 				$target = implode('.', $var_keys);
 
-				$act = $get_vars['act'];
-				$vid = $get_vars['vid'];
-				$mid = $get_vars['mid'];
-				$key = $get_vars['key'];
-				$srl = $get_vars['document_srl'];
+				$act = isset($get_vars['act']) ? $get_vars['act'] : '';
+				$vid = isset($get_vars['vid']) ? $get_vars['vid'] : '';
+				$mid = isset($get_vars['mid']) ? $get_vars['mid'] : '';
+				$key = isset($get_vars['key']) ? $get_vars['key'] : '';
+				$srl = isset($get_vars['document_srl']) ? $get_vars['document_srl'] : '';
+                $entry = isset($get_vars['entry']) ? $get_vars['entry'] : '';
 
 				$tmpArray = array('rss'=>1, 'atom'=>1, 'api'=>1);
 				$is_feed = isset($tmpArray[$act]);
@@ -1778,8 +1786,8 @@ class ContextInstance {
 					'mid'=>$mid,
 					'mid.vid'=>"$vid/$mid",
 
-					'entry.mid'    =>"$mid/entry/".$get_vars['entry'],
-					'entry.mid.vid'=>"$vid/$mid/entry/".$get_vars['entry'],
+					'entry.mid'    =>"$mid/entry/$entry",
+					'entry.mid.vid'=>"$vid/$mid/entry/$entry",
 
 					'document_srl'=>$srl,
 					'document_srl.mid'=>"$mid/$srl",
@@ -1794,7 +1802,7 @@ class ContextInstance {
 					'act.document_srl.key.mid.vid'=>($act=='trackback')?"$vid/$mid/$srl/$key/$act":''
 				);
 
-				$query  = $target_map[$target];
+				$query = isset($target_map[$target]) ? $target_map[$target] : '';
 			}
 
 			if(!$query) {
@@ -1917,7 +1925,7 @@ class ContextInstance {
 			if($port && $port != 443)      {
                 $url_info['port'] = $port;
             }
-			elseif($url_info['port']==443) {
+			elseif(isset($url_info['port']) && $url_info['port']==443) {
                 unset($url_info['port']);
             }
 		} else {
@@ -1944,6 +1952,7 @@ class ContextInstance {
 	 * @return void
 	 */
 	public function set($key, $val, $set_to_get_vars=0) {
+        if(!$this->context) $this->context = new stdClass();
 		$this->context->{$key} = $val;
 		if($set_to_get_vars === false) return;
 		if($val === null || $val === '')
@@ -1952,7 +1961,8 @@ class ContextInstance {
 			return;
 		}
 		if($set_to_get_vars ||
-            (property_exists($this->get_vars, $key) && $this->get_vars->{$key})) {
+            ($this->get_vars && property_exists($this->get_vars, $key) && $this->get_vars->{$key})) {
+            if(!$this->get_vars) $this->get_vars = new stdClass();
             $this->get_vars->{$key} = $val;
         }
 	}

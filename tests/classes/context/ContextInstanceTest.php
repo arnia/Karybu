@@ -1504,8 +1504,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
 
     public function testGetUrl_Default()
     {
-        // 1. Arrange
         $context = $this->getMock('ContextInstance', array('getRequestURI'));
+        $context->site_module_info = new stdClass();
+        $context->site_module_info->domain = null;
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
 
@@ -1514,10 +1515,11 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/some_folder/xe/', $url);
     }
 
-    public function testGetUrl_WithGetParametersSetButNoOtherVariables_ShouldReturnDefaultUrl()
+    public function testGetUrl_WithGetParametersSetButNoOtherVariables_ShouldReturnSameUrl()
     {
-        // 1. Arrange
         $context = $this->getMock('ContextInstance', array('getRequestURI'));
+        $context->site_module_info = new stdClass();
+        $context->site_module_info->domain = null;
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
         $context->set('module', 'admin', true);
@@ -1525,13 +1527,14 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
 
         $url = $context->getUrl();
 
-        $this->assertEquals('/some_folder/xe/', $url);
+        $this->assertEquals('/some_folder/xe/index.php?module=admin&amp;act=dispDashboard', $url);
     }
 
     public function testGetUrl_WithGetParametersSetAndOtherVariables_ShouldAddVariablesToExistingParams()
     {
-        // 1. Arrange
         $context = $this->getMock('ContextInstance', array('getRequestURI'));
+        $context->site_module_info = new stdClass();
+        $context->site_module_info->domain = null;
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
         $context->set('module', 'admin', true);
@@ -1544,8 +1547,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
 
     public function testGetUrl_EmptyParamsShouldBeIgnored()
     {
-        // 1. Arrange
         $context = $this->getMock('ContextInstance', array('getRequestURI'));
+        $context->site_module_info = new stdClass();
+        $context->site_module_info->domain = null;
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
 
@@ -1556,8 +1560,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
 
     public function testGetUrl_ArrayParameter()
     {
-        // 1. Arrange
         $context = $this->getMock('ContextInstance', array('getRequestURI'));
+        $context->site_module_info = new stdClass();
+        $context->site_module_info->domain = null;
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
 
@@ -1597,6 +1602,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
+        $site_module_info = new stdClass();
+        $site_module_info->domain = null;
+        $context->set('site_module_info', $site_module_info);
 
         $_SERVER['SCRIPT_NAME'] = '/index.php';
         $context->allow_rewrite = true;
@@ -1616,6 +1624,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
+        $site_module_info = new stdClass();
+        $site_module_info->domain = null;
+        $context->set('site_module_info', $site_module_info);
 
         $_SERVER['SCRIPT_NAME'] = '/index.php';
         $context->allow_rewrite = true;
@@ -1634,6 +1645,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
+        $site_module_info = new stdClass();
+        $site_module_info->domain = null;
+        $context->set('site_module_info', $site_module_info);
 
         $_SERVER['SCRIPT_NAME'] = '/index.php';
         $context->allow_rewrite = true;
@@ -1653,6 +1667,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
+        $site_module_info = new stdClass();
+        $site_module_info->domain = null;
+        $context->set('site_module_info', $site_module_info);
 
         $_SERVER['SCRIPT_NAME'] = '/index.php';
         $context->allow_rewrite = true;
@@ -1671,6 +1688,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
+        $site_module_info = new stdClass();
+        $site_module_info->domain = null;
+        $context->set('site_module_info', $site_module_info);
 
         $_SERVER['SCRIPT_NAME'] = '/index.php';
         $context->allow_rewrite = true;
@@ -1690,6 +1710,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
+        $site_module_info = new stdClass();
+        $site_module_info->domain = null;
+        $context->set('site_module_info', $site_module_info);
 
         $_SERVER['SCRIPT_NAME'] = '/index.php';
         $context->allow_rewrite = true;
@@ -1779,6 +1802,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
+        $site_module_info = new stdClass();
+        $site_module_info->domain = null;
+        $context->set('site_module_info', $site_module_info);
 
         $_SERVER['SCRIPT_NAME'] = '/index.php';
         $context->allow_rewrite = true;
@@ -1823,6 +1849,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     {
         // 1. Arrange
         $context = $this->getMock('ContextInstance', array('getRequestURI'));
+        $site_module_info = new stdClass();
+        $site_module_info->domain = null;
+        $context->set('site_module_info', $site_module_info);
 
         $_SERVER['SCRIPT_NAME'] = '/some_folder/xe/index.php';
         $context->set('module', 'admin', true);
@@ -1840,6 +1869,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
+        $site_module_info = new stdClass();
+        $site_module_info->domain = 'shop';
+        $context->set('site_module_info', $site_module_info);
 
         $_SERVER['SCRIPT_NAME'] = '/index.php';
 
@@ -1859,6 +1891,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(false));
+        $site_module_info = new stdClass();
+        $site_module_info->domain = 'http://shop.xpressengine.org';
+        $context->set('site_module_info', $site_module_info);
 
         $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
         $_SERVER['SCRIPT_NAME'] = '/index.php';
@@ -1875,6 +1910,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(false));
+        $site_module_info = new stdClass();
+        $site_module_info->domain = null;
+        $context->set('site_module_info', $site_module_info);
 
         $_SERVER['HTTP_HOST'] = 'shop.xpressengine.org';
         $_SERVER['SCRIPT_NAME'] = '/index.php';
@@ -1897,6 +1935,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
+        $site_module_info = new stdClass();
+        $site_module_info->domain = null;
+        $context->set('site_module_info', $site_module_info);
 
         $_SERVER['SCRIPT_NAME'] = '/index.php';
         $context->allow_rewrite = true;
@@ -1921,6 +1962,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
+        $site_module_info = new stdClass();
+        $site_module_info->domain = null;
+        $context->set('site_module_info', $site_module_info);
 
         $_SERVER['SCRIPT_NAME'] = '/index.php';
         $_SERVER['HTTPS'] = 'on';
@@ -1950,6 +1994,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(false));
+        $site_module_info = new stdClass();
+        $site_module_info->domain = null;
+        $context->set('site_module_info', $site_module_info);
 
         $_SERVER['SCRIPT_NAME'] = '/index.php';
         $context->allow_rewrite = true;
@@ -1979,6 +2026,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(false));
+        $site_module_info = new stdClass();
+        $site_module_info->domain = null;
+        $context->set('site_module_info', $site_module_info);
 
         $_SERVER['SCRIPT_NAME'] = '/index.php';
         $context->allow_rewrite = true;
@@ -1995,6 +2045,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     {
         // 1. Arrange
         $context = new ContextInstance();
+        $context->db_info = new stdClass();
+        $context->db_info->use_sso = null;
+        $context->db_info->default_url = null;
 
         // 2. Act
         $result = $context->checkSSO();
@@ -2011,7 +2064,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(true));
+        $context->db_info = new stdClass();
         $context->db_info->use_sso = 'Y';
+        $context->db_info->default_url = null;
 
         // 2. Act
         $result = $context->checkSSO();
@@ -2027,7 +2082,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->once())
             ->method('isCrawler')
             ->will($this->returnValue(false));
+        $context->db_info = new stdClass();
         $context->db_info->use_sso = 'Y';
+        $context->db_info->default_url = null;
 
         $context->request_method = 'POST';
 
@@ -2048,7 +2105,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->once())
             ->method('isInstalled')
             ->will($this->returnValue(false));
+        $context->db_info = new stdClass();
         $context->db_info->use_sso = 'Y';
+        $context->db_info->default_url = null;
 
         // 2. Act
         $result = $context->checkSSO();
@@ -2067,7 +2126,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->any())
             ->method('isInstalled')
             ->will($this->returnValue(true));
+        $context->db_info = new stdClass();
         $context->db_info->use_sso = 'Y';
+        $context->db_info->default_url = null;
 
         $context->set('act', 'rss', true);
         $result = $context->checkSSO();
@@ -2088,7 +2149,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->once())
             ->method('isInstalled')
             ->will($this->returnValue(true));
+        $context->db_info = new stdClass();
         $context->db_info->use_sso = 'Y';
+        $context->db_info->default_url = null;
 
         // 2. Act
         $result = $context->checkSSO();
@@ -2132,6 +2195,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             ->method('setRedirectResponseTo')
             ->with('http://www.xpressengine.org/?default_url=' . base64_encode($context->getRequestUrl()));
 
+        $context->db_info = new stdClass();
         $context->db_info->use_sso = 'Y';
         $context->db_info->default_url = 'http://www.xpressengine.org';
 
@@ -2168,6 +2232,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             ->method('setRedirectResponseTo')
             ->with('http://shop.xpressengine.org/?SSOID=here-is-my-session-id');
 
+        $context->db_info = new stdClass();
         $context->db_info->use_sso = 'Y';
         $context->db_info->default_url = 'http://www.xpressengine.org';
         $context->set('default_url', base64_encode('http://shop.xpressengine.org/'));
@@ -2200,6 +2265,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             ->method('getGlobalCookie')
             ->will($this->returnValue(md5('http://shop.xpressengine.org/')));
 
+        $context->db_info = new stdClass();
         $context->db_info->use_sso = 'Y';
         $context->db_info->default_url = 'http://www.xpressengine.org';
 
@@ -2243,6 +2309,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             ->method('setRedirectResponseTo')
             ->with('http://shop.xpressengine.org/');
 
+        $context->db_info = new stdClass();
         $context->db_info->use_sso = 'Y';
         $context->db_info->default_url = 'http://www.xpressengine.org';
         $context->set('SSOID', 'here-is-my-session-id', true);
@@ -2487,8 +2554,10 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
      */
     public function testLoadFile_WithCDN_CustomValues()
     {
-        define('__XE_CDN_PREFIX__', 'http://static.xpressengine.com/core/');
-        define('__XE_CDN_VERSION__', '%__XE_CDN_VERSION__%');
+        if(!defined('__XE_CDN_PREFIX__'))
+            define('__XE_CDN_PREFIX__', 'http://static.xpressengine.com/core/');
+        if(!defined('__XE_CDN_VERSION__'))
+            define('__XE_CDN_VERSION__', '%__XE_CDN_VERSION__%');
 
         $args = array('filename');
         $useCdn = 'Y';
@@ -2859,6 +2928,8 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     {
         $context = $this->getMock('ContextInstance', array('startPHPSession', 'isInstalled'));
         $context->expects($this->any())->method('isInstalled')->will($this->returnValue(true));
+        $context->db_info = new stdClass();
+        $context->db_info->use_db_session = null;
 
         $context->expects($this->never())->method('setSessionSaveHandler');
         $context->expects($this->once())->method('startPHPSession');
@@ -2870,6 +2941,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     {
         $context = $this->getMock('ContextInstance', array('startPHPSession', 'isInstalled', 'getSessionController', 'getSessionModel', 'setSessionSaveHandler'));
         $context->expects($this->any())->method('isInstalled')->will($this->returnValue(true));
+        $context->db_info = new stdClass();
         $context->db_info->use_db_session = 'Y';
 
         $context->expects($this->once())->method('setSessionSaveHandler');
@@ -2885,6 +2957,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             , 'getSessionController', 'getSessionModel'
             , 'setSessionSaveHandler', 'getSessionName', 'getPOSTArgument', 'setSessionId'));
         $context->expects($this->any())->method('isInstalled')->will($this->returnValue(true));
+        $context->db_info = new stdClass();
         $context->db_info->use_db_session = 'Y';
 
         $context->expects($this->once())->method('setSessionSaveHandler');
