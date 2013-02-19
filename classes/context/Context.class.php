@@ -3,6 +3,8 @@ define('FOLLOW_REQUEST_SSL',0);
 define('ENFORCE_SSL',1);
 define('RELEASE_SSL',2);
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 /**
  * Manages Context such as request arguments/environment variables
  * It has dual method structure, easy-to use methods which can be called as Context::methodname(),and methods called with static object.
@@ -1000,30 +1002,28 @@ class Context {
         }
 
 		// for sites recieving SSO valdiation
-		if($default_url == $self->getRequestUri()) {
+		if ($default_url == $self->getRequestUri()) {
 			if($self->get('default_url')) {
 				$url = base64_decode($self->get('default_url'));
 				$url_info = parse_url($url);
 				$url_info['query'].= ($url_info['query']?'&':'').'SSOID='.$self->getSessionId();
 				$redirect_url = sprintf('%s://%s%s%s?%s',$url_info['scheme'],$url_info['host'],$url_info['port']?':'.$url_info['port']:'',$url_info['path'], $url_info['query']);
-                $self->setRedirectResponseTo($redirect_url);
-				return false;
+                return new RedirectResponse($redirect_url);
 			}
 		// for sites requesting SSO validation
 		} else {
 			// result handling : set session_name()
-			if($self->get('SSOID')) {
+			if ($self->get('SSOID')) {
 				$session_name = $self->get('SSOID');
 				$this->setCookie($this->getSessionName(), $session_name);
 				$url = preg_replace('/([\?\&])$/','',str_replace('SSOID='.$session_name,'',$self->getRequestUrl()));
-                $self->setRedirectResponseTo($url);
-				return false;
+                return new RedirectResponse($url);
 			// send SSO request
-			} else if($this->getGlobalCookie('sso') != md5($self->getRequestUri()) && !$self->get('SSOID')) {
+			}
+            else if($this->getGlobalCookie('sso') != md5($self->getRequestUri()) && !$self->get('SSOID')) {
 				$self->setCookie('sso', md5($self->getRequestUri()), 0 ,'/');
 				$url = sprintf("%s?default_url=%s", $default_url, base64_encode($self->getRequestUrl()));
-				$self->setRedirectResponseTo($url);
-				return false;
+				return new RedirectResponse($url);
 			}
 		}
 

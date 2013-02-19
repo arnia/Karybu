@@ -2115,18 +2115,18 @@ class ContextTest extends PHPUnit_Framework_TestCase
                 $this->equalTo(0),
                 $this->equalTo('/')
         );
-        $context->expects($this->once())
-            ->method('setRedirectResponseTo')
-            ->with('http://www.xpressengine.org/?default_url=' . base64_encode($context->getRequestUrl()));
 
         $context->db_info->use_sso = 'Y';
         $context->db_info->default_url = 'http://www.xpressengine.org';
 
         // 2. Act
+        /** @var $result \Symfony\Component\HttpFoundation\RedirectResponse */
         $result = $context->checkSSO();
 
         // 3. Assert
-        $this->assertFalse($result);
+        $this->assertTrue($result instanceof \Symfony\Component\HttpFoundation\RedirectResponse);
+        $expected_url = 'http://www.xpressengine.org/?default_url=' . base64_encode($context->getRequestUrl());
+        $this->assertEquals($expected_url, $result->getTargetUrl());
     }
 
     /**
@@ -2151,9 +2151,6 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $context->expects($this->once())
             ->method('getSessionId')
             ->will($this->returnValue('here-is-my-session-id'));
-        $context->expects($this->once())
-            ->method('setRedirectResponseTo')
-            ->with('http://shop.xpressengine.org/?SSOID=here-is-my-session-id');
 
         $context->db_info->use_sso = 'Y';
         $context->db_info->default_url = 'http://www.xpressengine.org';
@@ -2163,7 +2160,9 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $result = $context->checkSSO();
 
         // 3. Assert
-        $this->assertFalse($result);
+        $this->assertTrue($result instanceof \Symfony\Component\HttpFoundation\RedirectResponse);
+        $expected_url = 'http://shop.xpressengine.org/?SSOID=here-is-my-session-id';
+        $this->assertEquals($expected_url, $result->getTargetUrl());
     }
 
     /**
@@ -2226,19 +2225,19 @@ class ContextTest extends PHPUnit_Framework_TestCase
             $this->equalTo($context->getSessionName()),
             $this->equalTo('here-is-my-session-id')
         );
-        $context->expects($this->once())
-            ->method('setRedirectResponseTo')
-            ->with('http://shop.xpressengine.org/');
 
         $context->db_info->use_sso = 'Y';
         $context->db_info->default_url = 'http://www.xpressengine.org';
         $context->set('SSOID', 'here-is-my-session-id', true);
 
         // 2. Act
+        /** @var $result \Symfony\Component\HttpFoundation\RedirectResponse */
         $result = $context->checkSSO();
 
         // 3. Assert
-        $this->assertFalse($result);
+        $this->assertTrue($result instanceof \Symfony\Component\HttpFoundation\RedirectResponse);
+        $url = 'http://shop.xpressengine.org/';
+        $this->assertEquals($url, $result->getTargetUrl());
     }
 
     public function testLoadJavascriptPlugin_JsFile()

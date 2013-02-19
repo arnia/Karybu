@@ -101,8 +101,8 @@ class CMSListener implements EventSubscriberInterface
     {
         /** @var $oContext \Context */
         $oContext = $event->getRequest()->attributes->get('oContext');
-        if (!$oContext->checkSSO()) {
-            $event->setResponse(new Response('SSO?', 403));
+        if (($result = $oContext->checkSSO()) instanceof RedirectResponse) {
+            $event->setResponse($result);
         }
     }
 

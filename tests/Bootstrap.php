@@ -1,12 +1,14 @@
 <?php
 
+require_once __DIR__ . "/../vendor/autoload.php";
+
 if(!defined('__DEBUG__')) define('__DEBUG__', 1);
 if(!defined('__XE__')) define('__XE__', true);
 if(!defined('__ZBXE__')) define('__ZBXE__', true);
 if(!defined('_XE_PATH_')) define('_XE_PATH_', realpath(dirname(__FILE__).'/../').'/');
 
 $_SERVER['SCRIPT_NAME'] = '/xe/index.php';
-error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 
 /**
  * Print out the message
