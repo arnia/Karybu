@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Context class will be replaced by ContextInstance class in the future
+ *
+ * The entire app should share the same instance of the context,
+ * but that doesn't mean calls have to be static
+ *
+ *
+ * @deprecated
+ */
 class Context
 {
     /** @var ContextInstance */

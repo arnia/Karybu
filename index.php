@@ -47,18 +47,19 @@ require dirname(__FILE__) . '/config/config.inc.php';
  **/
 $oContext = new ContextInstance();
 Context::setRequestContext($oContext);
-$oContext->init();
 
 $mobile = new MobileInstance();
 Mobile::setRequestMobileInfo($mobile);
+
+$oContext->init();
+$oModuleHandler = new ModuleHandlerInstance($oContext);
+ModuleHandler::setModuleHandler($oModuleHandler);
 
 /**
  * @brief If default_url is set and it is different from the current url, attempt to redirect for SSO authentication and then process the module
  **/
 if($oContext->checkSSO())
 {
-	$oModuleHandler = new ModuleHandler();
-
 	if($oModuleHandler->init())
 	{
 		$oModule = &$oModuleHandler->procModule();

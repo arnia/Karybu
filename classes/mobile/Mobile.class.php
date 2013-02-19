@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Will be replaced with MobileInstance
+ *
+ * @deprecated
+ */
 class Mobile
 {
     /** @var MobileInstance */

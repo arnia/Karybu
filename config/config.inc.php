@@ -6,8 +6,8 @@
      * @author NHN (developers@xpressengine.com)
      **/
 
-    // @error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
-    error_reporting(-1 ^ E_NOTICE);
+    @error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
+    // error_reporting(-1 ^ E_NOTICE);
 
     if(!defined('__ZBXE__')) exit();
 
@@ -253,7 +253,8 @@
 		require(_XE_PATH_.'classes/widget/WidgetHandler.class.php');
 		require(_XE_PATH_.'classes/editor/EditorHandler.class.php');
 		require(_XE_PATH_.'classes/module/ModuleObject.class.php');
-		require(_XE_PATH_.'classes/module/ModuleHandler.class.php');
+        require(_XE_PATH_ . 'classes/module/ModuleHandler.class.php');
+		require(_XE_PATH_ . 'classes/module/ModuleHandlerInstance.class.php');
 		require(_XE_PATH_.'classes/display/DisplayHandler.class.php');
 		require(_XE_PATH_.'classes/template/TemplateHandler.class.php');
 		require(_XE_PATH_.'classes/mail/Mail.class.php');
