@@ -400,7 +400,7 @@ class ContextInstance {
     }
 
     /**
-     * Returns $_SERVER['HTTS']
+     * Returns $_SERVER['HTTPS']
      * # Symfony2\Request equivalent: $request->server->get('HTTPS')
      */
     public function getServerRequestHttps()
@@ -412,12 +412,23 @@ class ContextInstance {
 
     /**
      * Returns $_SERVER['HTTP_HOST']
-     *  # Symfony2\Request equivalent: $reuqest->headers->get('HOST')
+     *  # Symfony2\Request equivalent: $request->headers->get('HOST')
      */
     public function getServerHost()
     {
         if(isset($_SERVER['HTTP_HOST']))
             return $_SERVER['HTTP_HOST'];
+        return null;
+    }
+
+    /**
+     * Returns $_SERVER['REQUEST_URI']
+     *  # Symfony2\Request equivalent:  $request->server->get('REQUEST_URI');
+     */
+    public function getServerRequestUri()
+    {
+        if(isset($_SERVER['REQUEST_URI']))
+            return $_SERVER['REQUEST_URI'];
         return null;
     }
 

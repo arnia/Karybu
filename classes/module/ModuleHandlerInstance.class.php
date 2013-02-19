@@ -77,25 +77,16 @@
          * @return boolean true: OK, false: redirected
          **/
         function init() {
-            // Validate variables to prevent XSS
-            $isInvalid = null;
-            if($this->module && !preg_match("/^([a-z0-9\_\-]+)$/i",$this->module)) $isInvalid = true;
-            if($this->mid && !preg_match("/^([a-z0-9\_\-]+)$/i",$this->mid)) $isInvalid = true;
-            if($this->act && !preg_match("/^([a-z0-9\_\-]+)$/i",$this->act)) $isInvalid = true;
-            if ($isInvalid)
-            {
-                htmlHeader();
-                echo $this->context->getLang("msg_invalid_request");
-                htmlFooter();
-                $this->context->close();
-                exit;
-            }
+            $this->validateVariablesAgainstXSS();
 
             if(isset($this->act) && substr($this->act, 0, 4) == 'disp')
             {
-                if($this->context->get('_use_ssl') == 'optional' && $this->context->isExistsSSLAction($this->act) && $_SERVER['HTTPS'] != 'on')
+                if($this->context->get('_use_ssl') == 'optional'
+                    && $this->context->isExistsSSLAction($this->act)
+                    && $this->context->getServerRequestHttps() != 'on')
                 {
-                    header('location:https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+                    $redirect_url = 'https://'.$this->context->getServerHost().$this->context->getServerRequestUri();
+                    $this->context->setRedirectResponseTo($redirect_url);
                     return;
                 }
             }
@@ -218,6 +209,37 @@
             $this->context->set('current_module_info', $this->module_info);
 
             return true;
+        }
+
+        public function validateVariablesAgainstXSS()
+        { // Validate variables to prevent XSS
+            $isInvalid = null;
+            if ($this->module && !preg_match("/^([a-z0-9\_\-]+)$/i", $this->module)) {
+                $isInvalid = true;
+            }
+            if ($this->mid && !preg_match("/^([a-z0-9\_\-]+)$/i", $this->mid)) {
+                $isInvalid = true;
+            }
+            if ($this->act && !preg_match("/^([a-z0-9\_\-]+)$/i", $this->act)) {
+                $isInvalid = true;
+            }
+            if ($isInvalid) {
+                $this->printInvalidRequestHtmlPage();
+                $this->context->close();
+                $this->terminateScript();
+            }
+        }
+
+        public function terminateScript()
+        {
+            exit;
+        }
+
+        public function printInvalidRequestHtmlPage()
+        {
+            htmlHeader();
+            echo $this->context->getLang("msg_invalid_request");
+            htmlFooter();
         }
 
         /**
