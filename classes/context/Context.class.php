@@ -232,5 +232,10 @@ class Context
         self::$context->addJsFile($file, $optimized, $targetie, $index, $type, $isRuleset, $autoPath);
     }
 
+    public static function addJsFilter($path, $filename)
+    {
+        self::$context->addJsFilter($path, $filename);
+    }
+
 
 }
