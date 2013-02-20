@@ -374,6 +374,9 @@
 			<value xml:lang="tr"><![CDATA[innodb ile MySQL'ü veritabanı olrak kullanınız.<br />İşlemler, innodb ile işlenecektir]]></value>
 			<value xml:lang="vi"><![CDATA[Dùng chức năng <b>innodb</b> để sử dụng MySql Database.<br />Giao dịch được kích hoạt cho innodb]]></value>
 		</item>
+		<item name="mysqlpdo">
+            <value xml:lang="en"><![CDATA[Use MySQL as a database with PDO.]]></value>
+        </item>
 		<item name="sqlite2">
 			<value xml:lang="ko"><![CDATA[파일로 데이터를 저장하는 sqlite2를 지원합니다.<br />설치 시 DB파일은 웹에서 접근할 수 없는 곳에 생성하여 주셔야 합니다.<br />(안정화 테스트가 되지 않았습니다.)]]></value>
 			<value xml:lang="en"><![CDATA[Use sqlite2 as a database which saves the data in files.<br />DB file <b>must not be</b> accessible from the web.<br />(Never been tested for stabilization)]]></value>

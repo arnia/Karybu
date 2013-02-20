@@ -28,7 +28,7 @@ class ControllerResolver extends Controller\ControllerResolver
 
             $controller = parent::getController($request);
             $oModule = $controller[0];
-            $this->act = $controller[1];
+            $act = $controller[1];
 
             $xml_info = $oModuleModel->getModuleActionXml($module);
             $oModule->ruleset = $xml_info->action->{$act}->ruleset;
@@ -37,9 +37,9 @@ class ControllerResolver extends Controller\ControllerResolver
 
             $module_info->module_type = $xml_info->action->{$act}->type;
 
-            $module_matcher = new ModuleMatcher();
+            $module_matcher = new \ModuleMatcher();
             $kind = $module_matcher->getKind($act, $module);
-            $oModule->module_key = new ModuleKey($module
+            $oModule->module_key = new \ModuleKey($module
                 ,$module_info->module_type
                 ,$kind);
 
