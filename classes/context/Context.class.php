@@ -2700,6 +2700,11 @@ class Context
         return self::$context->getHtmlFooter();
     }
 
+    public static function addHtmlFooter($footer)
+    {
+        return self::$context->addHtmlFooter($footer);
+    }
+
     public static function addHtmlHeader($header)
     {
         self::$context->addHtmlHeader($header);
