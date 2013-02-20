@@ -333,7 +333,7 @@
             $called_position = 'before_module_proc';
             $oAddonController = &getController('addon');
             $addon_file = $oAddonController->getCacheFilePath(Mobile::isFromMobilePhone()?"mobile":"pc");
-            @include($addon_file);
+            include($addon_file);
 
             /** @var $request \Symfony\Component\HttpFoundation\Request */
             $request = Context::get('request');
@@ -368,7 +368,7 @@
             $called_position = 'after_module_proc';
             $oAddonController = &getController('addon');
             $addon_file = $oAddonController->getCacheFilePath(Mobile::isFromMobilePhone()?"mobile":"pc");
-            @include($addon_file);
+            include($addon_file);
 
             if(is_a($output, 'Object') || is_subclass_of($output, 'Object')) {
                 $this->setError($output->getError());
