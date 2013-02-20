@@ -2495,4 +2495,17 @@ class ContextInstance {
 
 		$map[$key] = $content;
 	}
+
+    public function getNotEncodedSiteUrl()
+    {
+        $num_args = func_num_args();
+        $args_list = func_get_args();
+
+        if(!$num_args) return $this->getRequestUri();
+
+        $domain = array_shift($args_list);
+        $num_args = count($args_list);
+
+        return $this->getUrl($num_args, $args_list, $domain, false);
+    }
 }

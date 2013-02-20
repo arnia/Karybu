@@ -129,12 +129,15 @@
                     if($this->mid != $module_info->mid) {
                         $this->mid = $module_info->mid;
                         $this->context->set('mid', $module_info->mid, true);
-						header('location:' . getNotEncodedSiteUrl($site_module_info->domain, 'mid', $this->mid, 'document_srl', $this->document_srl));
+                        $redirect_url = $this->context->getNotEncodedSiteUrl($site_module_info->domain, 'mid', $this->mid, 'document_srl', $this->document_srl);
+                        $this->context->setRedirectResponseTo($redirect_url);
 						return false;
                     }
                 }
                 // if requested module is different from one of the document, remove the module information retrieved based on the document number
-                if($this->module && $module_info->module != $this->module) unset($module_info);
+                if($this->module && $module_info->module != $this->module) {
+                    unset($module_info);
+                }
             }
 
             // If module_info is not set yet, and there exists mid information, get module information based on the mid
@@ -151,9 +154,13 @@
             }
 
             // If module_info is not set still, and $module does not exist, find the default module
-            if(!$module_info && !$this->module && !$this->mid) $module_info = $site_module_info;
+            if (!$module_info && !$this->module && !$this->mid) {
+                $module_info = $site_module_info;
+            }
 
-            if(!$module_info && !$this->module && $site_module_info->module_site_srl) $module_info = $site_module_info;
+            if (!$module_info && !$this->module && $site_module_info->module_site_srl) {
+                $module_info = $site_module_info;
+            }
 
             // redirect, if site_srl of module_info is different from one of site's module_info
             if($module_info && $module_info->site_srl != $site_module_info->site_srl && !isCrawler()) {
@@ -192,6 +199,7 @@
             }
 
             // Set module and mid into module_info
+            if(!isset($this->module_info)) $this->module_info = new stdClass();
             $this->module_info->module = $this->module;
             $this->module_info->mid = $this->mid;
 
@@ -206,7 +214,9 @@
 			}
 
             // If mid exists, set mid into context
-            if($this->mid) $this->context->set('mid', $this->mid, true);
+            if ($this->mid) {
+                $this->context->set('mid', $this->mid, true);
+            }
 
             // Call a trigger after moduleHandler init
             // TODO Replace with event dispatcher

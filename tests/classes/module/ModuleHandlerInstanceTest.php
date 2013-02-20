@@ -161,6 +161,10 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $this->assertFalse((bool)$result);
     }
 
+    /**
+     * Request: /some_mid/entry/some_entry
+     * Module info will be retrieved based on the document_srl
+     */
     public function testInit_WithMidAndEntry_WhenDocumentExists()
     {
         $mock_helper = new MockHelper($this);
@@ -171,7 +175,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Current module info (from the database)
         $module_info = new stdClass();
         $module_info->module = 'wiki_module';
-        $module_info->mid = 'wiki';
+        $module_info->mid = 'wiki_mid';
         $module_info->browser_title = 'Hello';
         $module_info->layout_srl = 456;
         $mock_helper->method('moduleModel', 'getModuleInfoByDocumentSrl')->shouldBeCalledWith(1234)->shouldReturn($module_info);
@@ -208,19 +212,19 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         // Act - load context, mobile and construct ModuleHandlerInstance
         /** @var $context ContextInstance */
         $context = $mock_helper->getMock('ContextInstance');
-        $context->set('mid', 'wiki');
+        $context->set('mid', 'wiki_mid');
         $context->set('entry', 'Tutorials');
         $context->set('site_module_info', $site_module_info);
 
         $mobile = $this->getMock('MobileInstance');
         $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
 
-        $module_handler->init();
+        $result = $module_handler->init();
 
         // Assert
         // 1. Make sure Context is setup
         $this->assertEquals(1234, $context->get('document_srl'));
-        $this->assertEquals('wiki', $context->get('mid'));
+        $this->assertEquals('wiki_mid', $context->get('mid'));
         $this->assertEquals($expected_module_info, $context->get('current_module_info'));
         $this->assertEquals('Hello', $context->getBrowserTitle());
         $this->assertEquals("\n<script></script>", $context->getHtmlHeader());
@@ -228,8 +232,262 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         // 2. Make sure ModuleHanlderInstance properties are setup
         $this->assertEquals($expected_module_info, $module_handler->module_info);
         $this->assertEquals('wiki_module', $module_handler->module);
-        $this->assertEquals('wiki', $module_handler->mid);
+        $this->assertEquals('wiki_mid', $module_handler->mid);
+        $this->assertEquals(1234, $module_handler->document_srl);
 
+        // 3. Make sure Init result is true
+        $this->assertTrue((bool)$result);
+    }
+
+    public function testInit_WithMidAndEntry_WhenDocumentExists_ButItDoesntHaveAnAssociatedModule()
+    {
+        $mock_helper = new MockHelper($this);
+
+        // Arrange
+        // 0. App is installed
+        $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+        // 1. Current module info (from the database) - can only be retrieved by mid
+        $module_info = new stdClass();
+        $module_info->module = 'wiki_module';
+        $module_info->mid = 'wiki_mid';
+        $module_info->browser_title = 'Hello';
+        $module_info->layout_srl = 456;
+        $mock_helper->method('moduleModel', 'getModuleInfoByDocumentSrl')->shouldBeCalledWith(1234)->shouldReturn(null);
+        $mock_helper->method('moduleModel', 'getModuleInfoByMid')->shouldBeCalledWith('wiki_mid')->shouldReturn($module_info);
+        // 2. Site module info - we are on the main site
+        $site_module_info = new stdClass();
+        $site_module_info->site_srl = 0;
+        // 3. Current document info (from the database)
+        $mock_helper->method('documentModel', 'getDocumentSrlByAlias')->shouldReturn(1234);
+        // 4. Current layout part config
+        $part_config = new stdClass();
+        $part_config->header_script = '<script></script>';
+        $mock_helper->method('moduleModel', 'getModulePartConfig')->shouldBeCalledWith('layout', 456)->shouldReturn($part_config);
+
+        // Put mocks together
+        $mock_helper->method('ContextInstance', 'getModuleController')->shouldReturnMockModuleController();
+        $mock_helper->method('ModuleHandlerInstance', 'getDocumentModel')->shouldReturn($mock_helper->getMock('documentModel'));
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($mock_helper->getMock('moduleModel'));
+
+        // Assert
+        // 1. Make sure input was validated
+        $mock_helper->method('ModuleHandlerInstance', 'validateVariablesAgainstXSS')->shouldBeCalled('once');
+        // 2. Make sure the before_module_init addon is executed
+        $mock_helper->method('ModuleHandlerInstance', 'executeAddon_before_module_init')->shouldBeCalled('once');
+
+        // Setup what we expect to receive
+        $expected_module_info = clone($module_info);
+        $expected_module_info->site_srl = 0;
+
+        // 3. Make sure trigger is called on the expected output
+        $mock_helper->method('ModuleHandlerInstance', 'triggerCall')
+            ->shouldBeCalledWith('moduleHandler.init', 'after', $expected_module_info)
+            ->shouldReturn(new Object());
+
+        // Act - load context, mobile and construct ModuleHandlerInstance
+        /** @var $context ContextInstance */
+        $context = $mock_helper->getMock('ContextInstance');
+        $context->set('mid', 'wiki_mid');
+        $context->set('entry', 'Tutorials');
+        $context->set('site_module_info', $site_module_info);
+
+        $mobile = $this->getMock('MobileInstance');
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
+
+        $result = $module_handler->init();
+
+        // Assert
+        // 1. Make sure Context is setup
+        $this->assertEquals(1234, $context->get('document_srl'));
+        $this->assertEquals('wiki_mid', $context->get('mid'));
+        $this->assertEquals($expected_module_info, $context->get('current_module_info'));
+        $this->assertEquals('Hello', $context->getBrowserTitle());
+        $this->assertEquals("\n<script></script>", $context->getHtmlHeader());
+
+        // 2. Make sure ModuleHandlerInstance properties are setup
+        $this->assertEquals($expected_module_info, $module_handler->module_info);
+        $this->assertEquals('wiki_module', $module_handler->module);
+        $this->assertEquals('wiki_mid', $module_handler->mid);
+        $this->assertEquals(null, $module_handler->document_srl);
+
+        // 3. Make sure Init result is true
+        $this->assertTrue((bool)$result);
+    }
+
+    public function testInit_WithMidAndEntry_WhenDocumentExists_ButItHasADifferentAssociatedModule()
+    {
+        $mock_helper = new MockHelper($this);
+
+        // Arrange
+        // 0. App is installed
+        $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+        // 1. Current module info (from the database)
+        $module_info = new stdClass();
+        $module_info->module = 'wiki_module';
+        $module_info->mid = 'another_wiki_mid';
+        $module_info->browser_title = 'Hello';
+        $module_info->layout_srl = 456;
+        $mock_helper->method('moduleModel', 'getModuleInfoByDocumentSrl')->shouldBeCalledWith(1234)->shouldReturn($module_info);
+        // 2. Site module info - we are on the main site
+        $site_module_info = new stdClass();
+        $site_module_info->domain = 'http://www.xpressengine.org';
+        $site_module_info->site_srl = 0;
+        // 3. Current document info (from the database)
+        $mock_helper->method('documentModel', 'getDocumentSrlByAlias')->shouldReturn(1234);
+
+        // Put mocks together
+        $mock_helper->method('ModuleHandlerInstance', 'getDocumentModel')->shouldReturn($mock_helper->getMock('documentModel'));
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($mock_helper->getMock('moduleModel'));
+
+        // Assert
+        // 1. Make sure input was validated
+        $mock_helper->method('ModuleHandlerInstance', 'validateVariablesAgainstXSS')->shouldBeCalled('once');
+        // 2. Make sure the before_module_init addon is executed
+        $mock_helper->method('ModuleHandlerInstance', 'executeAddon_before_module_init')->shouldBeCalled('once');
+        // 3. Make sure the redirect url is not encoded
+        $mock_helper->method('ContextInstance', 'getNotEncodedSiteUrl')
+            ->shouldBeCalledWith($site_module_info->domain, 'mid', $module_info->mid, 'document_srl', 1234)
+            ->shouldReturn('redirect_url');
+        // 3. Make sure a Redirect is performed
+        $mock_helper->method('ContextInstance', 'setRedirectResponseTo')
+            ->shouldBeCalledWith('redirect_url');
+
+        // Act - load context, mobile and construct ModuleHandlerInstance
+        /** @var $context ContextInstance */
+        $context = $mock_helper->getMock('ContextInstance');
+        $context->set('mid', 'wiki_mid');
+        $context->set('entry', 'Tutorials');
+        $context->set('site_module_info', $site_module_info);
+
+        $mobile = $this->getMock('MobileInstance');
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
+
+        $result = $module_handler->init();
+
+        // Assert
+        // Make sure Init result is false
+        $this->assertFalse((bool)$result);
+    }
+
+    /**
+     * Request: /some_mid/entry/some_entry
+     * 'some_entry; document does not exist
+     *
+     * Module info will be retrieved based on the mid
+     */
+    public function testInit_WithMidAndEntry_WhenDocumentDoesntExist()
+    {
+        $mock_helper = new MockHelper($this);
+
+        // Arrange
+        // 0. App is installed
+        $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+        // 1. Current module info (from the database)
+        $module_info = new stdClass();
+        $module_info->module = 'wiki_module';
+        $module_info->mid = 'wiki_mid';
+        $module_info->browser_title = 'Hello';
+        $module_info->layout_srl = 456;
+        $mock_helper->method('moduleModel', 'getModuleInfoByMid')->shouldBeCalledWith('wiki_mid')->shouldReturn($module_info);
+        // 2. Site module info - we are on the main site
+        $site_module_info = new stdClass();
+        $site_module_info->site_srl = 0;
+        // 3. Current document info (from the database)
+        $mock_helper->method('documentModel', 'getDocumentSrlByAlias')->shouldReturn(null);
+        // 4. Current layout part config
+        $part_config = new stdClass();
+        $part_config->header_script = '<script></script>';
+        $mock_helper->method('moduleModel', 'getModulePartConfig')->shouldBeCalledWith('layout', 456)->shouldReturn($part_config);
+
+        // Put mocks together
+        $mock_helper->method('ContextInstance', 'getModuleController')->shouldReturnMockModuleController();
+        $mock_helper->method('ModuleHandlerInstance', 'getDocumentModel')->shouldReturn($mock_helper->getMock('documentModel'));
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($mock_helper->getMock('moduleModel'));
+
+        // Assert
+        // 1. Make sure input was validated
+        $mock_helper->method('ModuleHandlerInstance', 'validateVariablesAgainstXSS')->shouldBeCalled('once');
+        // 2. Make sure the before_module_init addon is executed
+        $mock_helper->method('ModuleHandlerInstance', 'executeAddon_before_module_init')->shouldBeCalled('once');
+
+        // Setup what we expect to receive
+        $expected_module_info = clone($module_info);
+        $expected_module_info->site_srl = 0;
+
+        // 3. Make sure trigger is called on the expected output
+        $mock_helper->method('ModuleHandlerInstance', 'triggerCall')
+            ->shouldBeCalledWith('moduleHandler.init', 'after', $expected_module_info)
+            ->shouldReturn(new Object());
+
+        /** @var $context ContextInstance */
+        $context = $mock_helper->getMock('ContextInstance');
+        $mobile = $this->getMock('MobileInstance');
+
+        // Arrange - 5. Request arguments
+        $context->set('mid', 'wiki_mid');
+        $context->set('entry', 'Tutorials');
+        $context->set('site_module_info', $site_module_info);
+
+        // Act - load context, mobile and construct ModuleHandlerInstance
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
+        $result = $module_handler->init();
+
+        // Assert
+        // 1. Make sure Context is setup
+        $this->assertEquals('wiki_mid', $context->get('mid'));
+        $this->assertEquals($expected_module_info, $context->get('current_module_info'));
+        $this->assertEquals('Hello', $context->getBrowserTitle());
+        $this->assertEquals("\n<script></script>", $context->getHtmlHeader());
+
+        // 2. Make sure ModuleHanlderInstance properties are setup
+        $this->assertEquals($expected_module_info, $module_handler->module_info);
+        $this->assertEquals('wiki_module', $module_handler->module);
+        $this->assertEquals('wiki_mid', $module_handler->mid);
+
+        // 3. Make sure Init result is true
+        $this->assertTrue((bool)$result);
+    }
+
+    public function testInit_WithModule()
+    {
+        $mock_helper = new MockHelper($this);
+        $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+
+        // Prepare mocks
+        $context = $mock_helper->getMock('ContextInstance');
+        $mobile = $this->getMock('MobileInstance');
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($mock_helper->getMock('moduleModel'));
+
+        // Arrange - Request arguments
+        $context->set('module', 'admin');
+
+        // Assert
+        // 1. Make sure input was validated
+        $mock_helper->method('ModuleHandlerInstance', 'validateVariablesAgainstXSS')->shouldBeCalled('once');
+        // 2. Make sure the before_module_init addon is executed
+        $mock_helper->method('ModuleHandlerInstance', 'executeAddon_before_module_init')->shouldBeCalled('once');
+        // 3. Make sure trigger is called
+        $mock_helper->method('ModuleHandlerInstance', 'triggerCall')->shouldBeCalled('once')->shouldReturn(new Object());
+
+        // Act
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
+        $result = $module_handler->init();
+
+        // Assert
+        $expected_module_info = new stdClass();
+        $expected_module_info->module = 'admin';
+        $expected_module_info->mid = null;
+        $expected_module_info->site_srl = null;
+
+        // 1. Make sure Context is setup
+        $this->assertEquals($expected_module_info, $context->get('current_module_info'));
+
+        // 2. Make sure ModuleHanlderInstance properties are setup
+        $this->assertEquals($expected_module_info, $module_handler->module_info);
+        $this->assertEquals('admin', $module_handler->module);
+
+        // 3. Make sure Init result is true
+        $this->assertTrue((bool)$result);
     }
 
 

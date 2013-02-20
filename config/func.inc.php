@@ -360,15 +360,8 @@
      * @return string
      **/
     function getNotEncodedSiteUrl() {
-        $num_args = func_num_args();
-        $args_list = func_get_args();
-
-        if(!$num_args) return Context::getRequestUri();
-
-        $domain = array_shift($args_list);
-        $num_args = count($args_list);
-
-        return Context::getUrl($num_args, $args_list, $domain, false);
+        $context = new ContextInstance();
+        return call_user_func_array(array($context, 'getNotEncodedSiteUrl'), func_get_args());
     }
 
     /**
