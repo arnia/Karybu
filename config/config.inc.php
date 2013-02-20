@@ -246,7 +246,6 @@
 		require(_XE_PATH_.'classes/xml/XmlJsFilter.class.php');
 		require(_XE_PATH_.'classes/xml/XmlLangParser.class.php');
 		require(_XE_PATH_.'classes/cache/CacheHandler.class.php');
-		require(_XE_PATH_.'classes/context/ContextInstance.class.php');
         require(_XE_PATH_.'classes/context/Context.class.php');
 		require(_XE_PATH_.'classes/db/DB.class.php');
 		require(_XE_PATH_.'classes/file/FileHandler.class.php');
@@ -254,12 +253,10 @@
 		require(_XE_PATH_.'classes/editor/EditorHandler.class.php');
 		require(_XE_PATH_.'classes/module/ModuleObject.class.php');
         require(_XE_PATH_ . 'classes/module/ModuleHandler.class.php');
-		require(_XE_PATH_ . 'classes/module/ModuleHandlerInstance.class.php');
 		require(_XE_PATH_.'classes/display/DisplayHandler.class.php');
 		require(_XE_PATH_.'classes/template/TemplateHandler.class.php');
 		require(_XE_PATH_.'classes/mail/Mail.class.php');
 		require(_XE_PATH_.'classes/page/PageHandler.class.php');
-		require(_XE_PATH_.'classes/mobile/MobileInstance.class.php');
         require(_XE_PATH_.'classes/mobile/Mobile.class.php');
 		require(_XE_PATH_.'classes/validator/Validator.class.php');
 		require(_XE_PATH_.'classes/frontendfile/FrontEndFileHandler.class.php');

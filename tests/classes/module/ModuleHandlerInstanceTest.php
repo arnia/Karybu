@@ -2,9 +2,9 @@
 
 if(!defined('__XE__')) require dirname(__FILE__).'/../../Bootstrap.php';
 
-require_once _XE_PATH_ . 'classes/context/ContextInstance.class.php';
+require_once _XE_PATH_ . 'classes/context/Context.class.php';
 require_once _XE_PATH_ . 'classes/handler/Handler.class.php';
-require_once _XE_PATH_ . 'classes/module/ModuleHandlerInstance.class.php';
+require_once _XE_PATH_ . 'classes/module/ModuleHandler.class.php';
 
 class FileHandler {};
 class FrontendFileHandler {}
