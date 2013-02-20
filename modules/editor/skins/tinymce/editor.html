@@ -11,7 +11,9 @@
 
 <!--Content font and font size-->
 {@
-    $css_filename=$editor_path.'css/content.css';
+    $css_path='./files/cache/editor/tinymce/';
+    if(!is_dir($css_path)) FileHandler::makeDir($css_path);
+    $css_filename=$css_path.'content.css';
     $css_content='body, td, pre{';
     $css_to_write=false;
 }
@@ -41,12 +43,16 @@
     
 <script>
     
+    var editor_primary_key_name='{$editor_primary_key_name}';
+    var editor_content_key_name='{$editor_content_key_name}';
+    
     editorStart_xe("{$editor_sequence}", "{$editor_primary_key_name}", "{$editor_content_key_name}");
     
     tinyMCE.init({
         mode: 'exact',
-        elements: 'tiny_mce_text_area',
+        elements: 'tiny_mce_text_area_{$editor_sequence}',
         valid_elements: '*[*]',
+        valid_children : '+body[style]',
         theme: 'advanced',
         width: '100%',
         height: '{$editor_height}',
@@ -85,7 +91,7 @@
 
 <div class="tiny_mce_editor">
 
-    <textarea id="editor_{$editor_sequence}" name="tiny_mce_text_area"></textarea>
+    <textarea id="editor_{$editor_sequence}" name="tiny_mce_text_area_{$editor_sequence}"></textarea>
 
     <div id="fileUploader_{$editor_sequence}" class="fileUploader" cond="$allow_fileupload"><!--File upload zone-->
         <div class="preview {$btn_class}" id="preview_uploaded_{$editor_sequence}"></div>

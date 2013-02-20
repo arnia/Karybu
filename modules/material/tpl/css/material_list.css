@@ -4,6 +4,7 @@
 .ingredientList .ingredientContent{max-height: 400px; overflow: auto}
 .ingredientList .ingredientContent img{max-height: 200px}
 .ingredientList .ingredientNav{position: absolute; top: 0; right: 0}
-.ingredientList .ingredientNav button._delete_item{height: 19px; width: 19px; margin: 5px; background: url('../img/buttonTableDataX.gif') no-repeat; border: none}
+.ingredientList .ingredientNav input.ingredientCart{float: left}
+.ingredientList .ingredientNav button._delete_item{float: left; height: 19px; width: 19px; margin: 5px; background: url('../img/buttonTableDataX.gif') no-repeat; border: none}
 
 .tRight{text-align: right}

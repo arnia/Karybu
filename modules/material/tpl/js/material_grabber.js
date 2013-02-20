@@ -12,11 +12,13 @@
 		pn='parentNode',
 		ih='innerHTML',
 		oh='outerHTML',
-                st='style',
-                wi='width',
-                owi='offsetWidth',
-                he='height',
-                ohe='offsetHeight',
+        st='style',
+        wi='width',
+        owi='offsetWidth',
+        he='height',
+        ohe='offsetHeight',
+        wm='wmode',
+        oq='opaque',
 		c=d.charset,
 		ie=('\v'=='v'),
 		pr=w.__xe_root+'&auth='+w.auth,
@@ -53,19 +55,45 @@
         
         // get the original width and height of object
         function owh(o){
-            var tmp_o=o.cloneNode(true);
+            //Fix overlap issue for Safari
+            o.setAttribute(wm, oq);
             
+            //Add style to object
             var width=o[owi];
             if(!width) width=560;
-            tmp_o[st][wi]=width + 'px';
-            if(o[wi]) tmp_o.removeAttribute(wi);
+            o[st][wi]=width + 'px';
+            if(o[wi]) o.removeAttribute(wi);
             
             var height=o[ohe];
             if(!height) height=315;
-            tmp_o[st][he]=height + 'px';
-            if(o[he]) tmp_o.removeAttribute(he);
+            o[st][he]=height + 'px';
+            if(o[he]) o.removeAttribute(he);
             
-            return tmp_o;
+            return o;
+        }
+        
+        // add embed to tag into object tag
+        function aeo(o){
+            var nodes=o.childNodes;
+            var emb=document.createElement('embed');
+            var emb_src='';
+            for(i=0; i<nodes.length; i++){
+                var node=nodes[i];
+                if(node.tagName && node.tagName != 'undefined'){
+                    if(node.tagName.toLowerCase() == 'embed'){
+                        return o;
+                    }
+                    else if(node.tagName.toLowerCase() == 'param'){                        
+                        emb.setAttribute(node.name, node.value);
+                        if(node.name.toLowerCase()=='movie'){
+                            emb_src=node.value;
+                        }
+                    }
+                }
+            }
+            if(!emb_src && o.hasAttribute('data')) emb_src=o.getAttribute('data');
+            if(emb_src) emb.setAttribute('src', emb_src);
+            return emb;
         }
 
 	// grab objects
@@ -78,8 +106,9 @@
                     }
                 }
 		for(i=0;i<o[l];i++){
-                    var tmp_o=owh(o[i]);
-                    s.o.push(goh(tmp_o));
+                    var tmp_o=aeo(o[i]);
+                    var tmp_o2=owh(tmp_o);
+                    s.o.push(goh(tmp_o2));
                 }
 	};
 

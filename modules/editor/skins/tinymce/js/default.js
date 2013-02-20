@@ -1,15 +1,15 @@
 //Set existing content to editor
 function mceEditorInit(){
-    if(jQuery("input[name=content]").size()>0){
-        var content=jQuery("input[name=content]").val();
+    if(jQuery("input[name=" + editor_content_key_name + "]").size()>0){
+        var content=jQuery("input[name=" + editor_content_key_name + "]").val();
         tinyMCE.activeEditor.execCommand('mceInsertContent',false,content);
     }
 }
 
 //Get content from editor to content variable
 function mceEditorContentChange(tiny_mce_obj){
-    if(jQuery("input[name=content]").size()>0){
-       jQuery("input[name=content]").val(tiny_mce_obj.getBody().innerHTML);
+    if(jQuery("input[name=" + editor_content_key_name + "]").size()>0){
+       jQuery("input[name=" + editor_content_key_name + "]").val(tiny_mce_obj.getBody().innerHTML);
     }
 }
 
