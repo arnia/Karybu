@@ -72,13 +72,25 @@
             $this->entry  = $this->context->convertEncodingStr($this->context->get('entry'));
         }
 
+        public function &getModuleModel()
+        {
+            return getModel('module');
+        }
+
+        public function &getDocumentModel()
+        {
+            return getModel('document');
+        }
+
         /**
          * Initialization. It finds the target module based on module, mid, document_srl, and prepares to execute an action
          * @return boolean true: OK, false: redirected
          **/
         function init() {
+            // Exit if invalid input found
             $this->validateVariablesAgainstXSS();
 
+            // Exit if ssl is enabled and a ssl action exists for this request
             if(isset($this->act) && substr($this->act, 0, 4) == 'disp')
             {
                 if($this->context->get('_use_ssl') == 'optional'
@@ -90,20 +102,18 @@
                     return;
                 }
             }
+            // TODO Replace with event dispatcher
+            $this->executeAddon_before_module_init();
 
-            // execute addon (before module initialization)
-            $called_position = 'before_module_init';
-            $oAddonController = &getController('addon');
-            $addon_file = $oAddonController->getCacheFilePath($this->mobile->isFromMobilePhone()?'mobile':'pc');
-            include($addon_file);
-
-			$oModuleModel = &getModel('module');
+            $oModuleModel = $this->getModuleModel();
             $site_module_info = $this->context->get('site_module_info');
 
             if(!$this->document_srl && $this->mid && $this->entry) {
-                $oDocumentModel = &getModel('document');
+                $oDocumentModel = $this->getDocumentModel();
                 $this->document_srl = $oDocumentModel->getDocumentSrlByAlias($this->mid, $this->entry);
-                if($this->document_srl) $this->context->set('document_srl', $this->document_srl);
+                if($this->document_srl) {
+                    $this->context->set('document_srl', $this->document_srl);
+                }
             }
 
             // Get module's information based on document_srl, if it's specified
@@ -119,7 +129,7 @@
                     if($this->mid != $module_info->mid) {
                         $this->mid = $module_info->mid;
                         $this->context->set('mid', $module_info->mid, true);
-						header('location:' . getNotEncodedSiteUrl($site_info->domain, 'mid', $this->mid, 'document_srl', $this->document_srl));
+						header('location:' . getNotEncodedSiteUrl($site_module_info->domain, 'mid', $this->mid, 'document_srl', $this->document_srl));
 						return false;
                     }
                 }
@@ -199,7 +209,8 @@
             if($this->mid) $this->context->set('mid', $this->mid, true);
 
             // Call a trigger after moduleHandler init
-            $output = ModuleHandler::triggerCall('moduleHandler.init', 'after', $this->module_info);
+            // TODO Replace with event dispatcher
+            $output = $this->triggerCall('moduleHandler.init', 'after', $this->module_info);
             if(!$output->toBool()) {
                 $this->error = $output->getMessage();
                 return false;
@@ -209,6 +220,15 @@
             $this->context->set('current_module_info', $this->module_info);
 
             return true;
+        }
+
+        public function executeAddon_before_module_init()
+        {
+            // execute addon (before module initialization)
+            $called_position = 'before_module_init';
+            $oAddonController = & getController('addon');
+            $addon_file = $oAddonController->getCacheFilePath($this->mobile->isFromMobilePhone() ? 'mobile' : 'pc');
+            include($addon_file);
         }
 
         public function validateVariablesAgainstXSS()

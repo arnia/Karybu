@@ -411,7 +411,7 @@ class ContextInstance {
     }
 
     /**
-     * Returns $_SERVER['HTTP_HOST']
+     * Returns $_SERVER['HTTP_HOST']get
      *  # Symfony2\Request equivalent: $request->headers->get('HOST')
      */
     public function getServerHost()
