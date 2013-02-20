@@ -135,6 +135,7 @@
                     }
                 }
                 // if requested module is different from one of the document, remove the module information retrieved based on the document number
+                // TODO Is this ever executed? The if above checks that "module" is not set, so the below will never be true.. To be removed or moved outside the upper if
                 if($this->module && $module_info->module != $this->module) {
                     unset($module_info);
                 }
@@ -164,18 +165,22 @@
             }
 
             // redirect, if site_srl of module_info is different from one of site's module_info
-            if($module_info && $module_info->site_srl != $site_module_info->site_srl && !isCrawler()) {
+            if($module_info && $module_info->site_srl != $site_module_info->site_srl && !$this->context->isCrawler()) {
                 // If the module is of virtual site
                 if($module_info->site_srl) {
                     $site_info = $oModuleModel->getSiteInfo($module_info->site_srl);
-                    $redirect_url = getNotEncodedSiteUrl($site_info->domain, 'mid',$this->context->get('mid'),'document_srl',$this->context->get('document_srl'),'module_srl',$this->context->get('module_srl'),'entry',$this->context->get('entry'));
+                    $redirect_url = $this->context->getNotEncodedSiteUrl($site_info->domain, 'mid',$this->context->get('mid'),'document_srl',$this->context->get('document_srl'),'module_srl',$this->context->get('module_srl'),'entry',$this->context->get('entry'));
                 // If it's called from a virtual site, though it's not a module of the virtual site
                 } else {
                     $db_info = $this->context->getDBInfo();
-                    if(!$db_info->default_url) return $this->context->getLang('msg_default_url_is_not_defined');
-                    else $redirect_url = getNotEncodedSiteUrl($db_info->default_url, 'mid',$this->context->get('mid'),'document_srl',$this->context->get('document_srl'),'module_srl',$this->context->get('module_srl'),'entry',$this->context->get('entry'));
+                    if(!$db_info->default_url) {
+                        return $this->context->getLang('msg_default_url_is_not_defined');
+                    }
+                    else {
+                        $redirect_url = $this->context->getNotEncodedSiteUrl($db_info->default_url, 'mid',$this->context->get('mid'),'document_srl',$this->context->get('document_srl'),'module_srl',$this->context->get('module_srl'),'entry',$this->context->get('entry'));
+                    }
                 }
-                header("location:".$redirect_url);
+                $this->context->setRedirectResponseTo($redirect_url);
                 return false;
             }
 

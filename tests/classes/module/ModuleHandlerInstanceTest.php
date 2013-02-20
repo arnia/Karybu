@@ -239,6 +239,190 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $this->assertTrue((bool)$result);
     }
 
+    public function testInit_WithMidAndEntry_WhenDocumentExistsAndBelongsToVirtualSite_ButIsCalledFromMainSite()
+    {
+        $mock_helper = new MockHelper($this);
+
+        // Arrange
+        // 0. App is installed
+        $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+        // 1. Current module info (from the database)
+        $module_info = new stdClass();
+        $module_info->module = 'wiki_module';
+        $module_info->mid = 'wiki_mid';
+        $module_info->browser_title = 'Hello';
+        $module_info->layout_srl = 456;
+        $module_info->site_srl = 12;
+        $mock_helper->method('moduleModel', 'getModuleInfoByDocumentSrl')->shouldBeCalledWith(1234)->shouldReturn($module_info);
+        // 2. Site module info - we are on the main site
+        $site_module_info = new stdClass();
+        $site_module_info->site_srl = 0;
+        // 3. Current document info (from the database)
+        $mock_helper->method('documentModel', 'getDocumentSrlByAlias')->shouldReturn(1234);
+        // 4. Current layout part config
+        $part_config = new stdClass();
+        $part_config->header_script = '<script></script>';
+        $mock_helper->method('moduleModel', 'getModulePartConfig')->shouldBeCalledWith('layout', 456)->shouldReturn($part_config);
+        // 5. Virtual site info
+        $virtual_site_info = new stdClass();
+        $virtual_site_info->site_srl = 12;
+        $virtual_site_info->domain = 'http://shop.xpressengine.org';
+        $mock_helper->method('moduleModel', 'getSiteInfo')->shouldReturn($virtual_site_info);
+
+        // Put mocks together
+        $mock_helper->method('ContextInstance', 'getModuleController')->shouldReturnMockModuleController();
+        $mock_helper->method('ModuleHandlerInstance', 'getDocumentModel')->shouldReturn($mock_helper->getMock('documentModel'));
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($mock_helper->getMock('moduleModel'));
+        $mock_helper->method('ContextInstance', 'isCrawler')->shouldReturn(false);
+
+        // Assert
+        // 1. Make sure input was validated
+        $mock_helper->method('ModuleHandlerInstance', 'validateVariablesAgainstXSS')->shouldBeCalled('once');
+        // 2. Make sure the before_module_init addon is executed
+        $mock_helper->method('ModuleHandlerInstance', 'executeAddon_before_module_init')->shouldBeCalled('once');
+        // 3. Make sure a redirect is done
+        $mock_helper->method('ContextInstance', 'getNotEncodedSiteUrl')
+            ->shouldBeCalledWith('http://shop.xpressengine.org', 'mid', 'wiki_mid', 'document_srl', '1234', 'module_srl', null, 'entry', 'Tutorials');
+        $mock_helper->method('ContextInstance','setRedirectResponseTo')->shouldBeCalled('once')
+            ->shouldReturn('redirect_url');
+
+        // Act - load context, mobile and construct ModuleHandlerInstance
+        /** @var $context ContextInstance */
+        $context = $mock_helper->getMock('ContextInstance');
+        $context->set('mid', 'wiki_mid');
+        $context->set('entry', 'Tutorials');
+        $context->set('site_module_info', $site_module_info);
+
+        $mobile = $this->getMock('MobileInstance');
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
+
+        $result = $module_handler->init();
+
+        // Assert
+        $this->assertFalse((bool)$result);
+    }
+
+    public function testInit_WithMidAndEntry_WhenDocumentExistsAndBelongsToMainSite_ButIsCalledFromVirtualSite()
+    {
+        $mock_helper = new MockHelper($this);
+
+        // Arrange
+        // 0. App is installed
+        $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+        // 1. Current module info (from the database)
+        $module_info = new stdClass();
+        $module_info->module = 'wiki_module';
+        $module_info->mid = 'wiki_mid';
+        $module_info->browser_title = 'Hello';
+        $module_info->layout_srl = 456;
+        $module_info->site_srl = 0;
+        $mock_helper->method('moduleModel', 'getModuleInfoByDocumentSrl')->shouldBeCalledWith(1234)->shouldReturn($module_info);
+        // 2. Site module info - we are on a virtual site
+        $site_module_info = new stdClass();
+        $site_module_info->site_srl = 12;
+        // 3. Current document info (from the database)
+        $mock_helper->method('documentModel', 'getDocumentSrlByAlias')->shouldReturn(1234);
+        // 4. Current layout part config
+        $part_config = new stdClass();
+        $part_config->header_script = '<script></script>';
+        $mock_helper->method('moduleModel', 'getModulePartConfig')->shouldBeCalledWith('layout', 456)->shouldReturn($part_config);
+        // 5. Set up default_url
+        $db_info = new stdClass();
+        $db_info->default_url = 'http://www.xpressengine.org';
+        $mock_helper->method('ContextInstance', 'getDbInfo')->shouldReturn($db_info);
+
+        // Put mocks together
+        $mock_helper->method('ContextInstance', 'getModuleController')->shouldReturnMockModuleController();
+        $mock_helper->method('ModuleHandlerInstance', 'getDocumentModel')->shouldReturn($mock_helper->getMock('documentModel'));
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($mock_helper->getMock('moduleModel'));
+        $mock_helper->method('ContextInstance', 'isCrawler')->shouldReturn(false);
+
+        // Assert
+        // 1. Make sure input was validated
+        $mock_helper->method('ModuleHandlerInstance', 'validateVariablesAgainstXSS')->shouldBeCalled('once');
+        // 2. Make sure the before_module_init addon is executed
+        $mock_helper->method('ModuleHandlerInstance', 'executeAddon_before_module_init')->shouldBeCalled('once');
+        // 3. Make sure a redirect is done
+        $mock_helper->method('ContextInstance', 'getNotEncodedSiteUrl')
+            ->shouldBeCalledWith('http://www.xpressengine.org', 'mid', 'wiki_mid', 'document_srl', '1234', 'module_srl', null, 'entry', 'Tutorials');
+        $mock_helper->method('ContextInstance','setRedirectResponseTo')->shouldBeCalled('once')
+            ->shouldReturn('redirect_url');
+
+        // Act - load context, mobile and construct ModuleHandlerInstance
+        /** @var $context ContextInstance */
+        $context = $mock_helper->getMock('ContextInstance');
+        $context->set('mid', 'wiki_mid');
+        $context->set('entry', 'Tutorials');
+        $context->set('site_module_info', $site_module_info);
+
+        $mobile = $this->getMock('MobileInstance');
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
+
+        $result = $module_handler->init();
+
+        // Assert
+        $this->assertFalse((bool)$result);
+    }
+
+
+    public function testInit_WithMidAndEntry_WhenDocumentExistsAndBelongsToMainSite_ButIsCalledFromVirtualSite_WhenDefaultUrlNotSet()
+    {
+        $mock_helper = new MockHelper($this);
+
+        // Arrange
+        // 0. App is installed
+        $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+        // 1. Current module info (from the database)
+        $module_info = new stdClass();
+        $module_info->module = 'wiki_module';
+        $module_info->mid = 'wiki_mid';
+        $module_info->browser_title = 'Hello';
+        $module_info->layout_srl = 456;
+        $module_info->site_srl = 0;
+        $mock_helper->method('moduleModel', 'getModuleInfoByDocumentSrl')->shouldBeCalledWith(1234)->shouldReturn($module_info);
+        // 2. Site module info - we are on a virtual site
+        $site_module_info = new stdClass();
+        $site_module_info->site_srl = 12;
+        // 3. Current document info (from the database)
+        $mock_helper->method('documentModel', 'getDocumentSrlByAlias')->shouldReturn(1234);
+        // 4. Current layout part config
+        $part_config = new stdClass();
+        $part_config->header_script = '<script></script>';
+        $mock_helper->method('moduleModel', 'getModulePartConfig')->shouldBeCalledWith('layout', 456)->shouldReturn($part_config);
+        // 5. Set up default_url
+        $db_info = new stdClass();
+        $mock_helper->method('ContextInstance', 'getDbInfo')->shouldReturn($db_info);
+
+        // Put mocks together
+        $mock_helper->method('ContextInstance', 'getModuleController')->shouldReturnMockModuleController();
+        $mock_helper->method('ModuleHandlerInstance', 'getDocumentModel')->shouldReturn($mock_helper->getMock('documentModel'));
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($mock_helper->getMock('moduleModel'));
+        $mock_helper->method('ContextInstance', 'isCrawler')->shouldReturn(false);
+        $mock_helper->method('ContextInstance', 'getLang')->shouldBeCalledWith('msg_default_url_is_not_defined')
+            ->shouldReturn('msg_default_url_is_not_defined');
+
+        // Assert
+        // 1. Make sure input was validated
+        $mock_helper->method('ModuleHandlerInstance', 'validateVariablesAgainstXSS')->shouldBeCalled('once');
+        // 2. Make sure the before_module_init addon is executed
+        $mock_helper->method('ModuleHandlerInstance', 'executeAddon_before_module_init')->shouldBeCalled('once');
+
+        // Act - load context, mobile and construct ModuleHandlerInstance
+        /** @var $context ContextInstance */
+        $context = $mock_helper->getMock('ContextInstance');
+        $context->set('mid', 'wiki_mid');
+        $context->set('entry', 'Tutorials');
+        $context->set('site_module_info', $site_module_info);
+
+        $mobile = $this->getMock('MobileInstance');
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
+
+        $result = $module_handler->init();
+
+        // Assert
+        $this->assertEquals('msg_default_url_is_not_defined', $result); // TODO Fix this, it should return false and set $module_handler->error instead
+    }
+
     public function testInit_WithMidAndEntry_WhenDocumentExists_ButItDoesntHaveAnAssociatedModule()
     {
         $mock_helper = new MockHelper($this);
@@ -540,6 +724,60 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('404', $module_handler->httpStatusCode);
     }
 
+    public function testInit_WhenModuleInfoNotFound_DefaultModuleShouldBeUsed_RequestByMid_VirtualSite()
+    {
+        $mock_helper = new MockHelper($this);
+
+        // Arrange
+        // 0. App is installed
+        $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+        // 1. Current module info (from the database)
+        $mock_helper->method('moduleModel', 'getModuleInfoByDocumentSrl')->shouldBeCalledWith(123)->shouldReturn(null);
+        // 2. Site module info - we are on the main site
+        $site_module_info = new stdClass();
+        $site_module_info->module = 'wiki_module';
+        $site_module_info->mid = 'wiki_mid';
+        $site_module_info->browser_title = 'Hello';
+        $site_module_info->layout_srl = 456;
+        $site_module_info->site_srl = 12;
+        $site_module_info->module_site_srl = 12;
+        // 4. Current layout part config
+        $part_config = new stdClass();
+        $part_config->header_script = '<script></script>';
+        $mock_helper->method('moduleModel', 'getModulePartConfig')->shouldBeCalledWith('layout', 456)->shouldReturn($part_config);
+        $mock_helper->method('moduleModel', 'getModuleInfoByMid')->shouldReturn(null); // for second test case
+
+        // Put mocks together
+        $mock_helper->method('ContextInstance', 'getModuleController')->shouldReturnMockModuleController();
+        $mock_helper->method('ModuleHandlerInstance', 'getDocumentModel')->shouldReturn($mock_helper->getMock('documentModel'));
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($mock_helper->getMock('moduleModel'));
+        $mock_helper->method('ModuleHandlerInstance', 'validateVariablesAgainstXSS');
+        $mock_helper->method('ModuleHandlerInstance', 'executeAddon_before_module_init');
+        $mock_helper->method('ModuleHandlerInstance', 'triggerCall')->shouldReturn(new Object());
+
+        /** @var $context ContextInstance */
+        $context = $mock_helper->getMock('ContextInstance');
+        $mobile = $this->getMock('MobileInstance');
+
+        $context->set('site_module_info', $site_module_info);
+        $context->set('mid', 'some_mid');
+
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
+        $result = $module_handler->init();
+
+        // 1. Make sure Context is setup
+        $this->assertEquals('wiki_mid', $context->get('mid'));
+        $this->assertEquals($site_module_info, $context->get('current_module_info'));
+        $this->assertEquals('Hello', $context->getBrowserTitle());
+        $this->assertEquals("\n<script></script>", $context->getHtmlHeader());
+
+        // 2. Make sure ModuleHandlerInstance properties are setup
+        $this->assertEquals('wiki_module', $module_handler->module);
+
+        // 3. Make sure Init result is true
+        $this->assertTrue((bool)$result);
+    }
+
     public function testInit_WithModule()
     {
         $mock_helper = new MockHelper($this);
@@ -582,7 +820,41 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $this->assertTrue((bool)$result);
     }
 
-    public function testInit_DefaultModuleBelongsToVirtualSite()
+
+    public function testInit_WhenTriggersFailShouldReturnFalse()
+    {
+        $mock_helper = new MockHelper($this);
+        $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+
+        // Prepare mocks
+        $context = $mock_helper->getMock('ContextInstance');
+        $mobile = $this->getMock('MobileInstance');
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($mock_helper->getMock('moduleModel'));
+
+        // Arrange - Request arguments
+        $context->set('module', 'admin');
+
+        // Assert
+        // 1. Make sure input was validated
+        $mock_helper->method('ModuleHandlerInstance', 'validateVariablesAgainstXSS')->shouldBeCalled('once');
+        // 2. Make sure the before_module_init addon is executed
+        $mock_helper->method('ModuleHandlerInstance', 'executeAddon_before_module_init')->shouldBeCalled('once');
+        // 3. Make sure trigger is called
+        $mock_helper->method('Object', 'toBool')->shouldReturn(false);
+        $mock_helper->method('Object', 'getMessage')->shouldReturn('Some error');
+        $mock_helper->method('ModuleHandlerInstance', 'triggerCall')
+            ->shouldBeCalled('once')->shouldReturn($mock_helper->getMock('Object'));
+
+        // Act
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
+        $result = $module_handler->init();
+
+        // Assert
+        $this->assertFalse((bool)$result);
+        $this->assertEquals('Some error', $module_handler->error);
+    }
+
+    public function testInit_WhenDefaultModuleBelongsToVirtualSite()
     {
         $mock_helper = new MockHelper($this);
         $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
