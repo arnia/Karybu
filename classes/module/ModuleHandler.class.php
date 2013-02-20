@@ -33,6 +33,7 @@ class ModuleHandler
     }
 
     public static function triggerCall($trigger_name, $called_position, &$obj) {
-        return self::$module_handler->triggerCall($trigger_name, $called_position, $obj);
+        $module_handler = new ModuleHandlerInstance();
+        return $module_handler->triggerCall($trigger_name, $called_position, $obj);
     }
 }
