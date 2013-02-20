@@ -149,7 +149,8 @@
             // redirect, if module_site_srl and site_srl are different
             if(!$this->module && !$module_info && $site_module_info->site_srl == 0 && $site_module_info->module_site_srl > 0) {
                 $site_info = $oModuleModel->getSiteInfo($site_module_info->module_site_srl);
-                header("location:".getNotEncodedSiteUrl($site_info->domain,'mid',$site_module_info->mid));
+                $redirect_url = $this->context->getNotEncodedSiteUrl($site_info->domain,'mid',$site_module_info->mid);
+                $this->context->setRedirectResponseTo($redirect_url);
                 return false;
             }
 

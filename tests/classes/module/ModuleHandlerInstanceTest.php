@@ -448,6 +448,98 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $this->assertTrue((bool)$result);
     }
 
+    private function getModuleHandlerInstance_ForInitTest_WhenModuleInfoNotFound(&$context, $request_arg_name, $request_arg_value)
+    {
+        $mock_helper = new MockHelper($this);
+
+        // Arrange
+        // 0. App is installed
+        $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+        // 1. Current module info (from the database)
+        $mock_helper->method('moduleModel', 'getModuleInfoByDocumentSrl')->shouldBeCalledWith(123)->shouldReturn(null);
+        // 2. Site module info - we are on the main site
+        $site_module_info = new stdClass();
+        $site_module_info->module = 'wiki_module';
+        $site_module_info->mid = 'wiki_mid';
+        $site_module_info->browser_title = 'Hello';
+        $site_module_info->layout_srl = 456;
+        $site_module_info->site_srl = 0;
+        // 4. Current layout part config
+        $part_config = new stdClass();
+        $part_config->header_script = '<script></script>';
+        $mock_helper->method('moduleModel', 'getModulePartConfig')->shouldBeCalledWith('layout', 456)->shouldReturn($part_config);
+        $mock_helper->method('moduleModel', 'getModuleInfoByMid')->shouldReturn(null); // for second test case
+
+        // Put mocks together
+        $mock_helper->method('ContextInstance', 'getModuleController')->shouldReturnMockModuleController();
+        $mock_helper->method('ModuleHandlerInstance', 'getDocumentModel')->shouldReturn($mock_helper->getMock('documentModel'));
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($mock_helper->getMock('moduleModel'));
+        $mock_helper->method('ModuleHandlerInstance', 'validateVariablesAgainstXSS');
+        $mock_helper->method('ModuleHandlerInstance', 'executeAddon_before_module_init');
+        $mock_helper->method('ModuleHandlerInstance', 'triggerCall')->shouldReturn(new Object());
+
+        /** @var $context ContextInstance */
+        $context = $mock_helper->getMock('ContextInstance');
+        $mobile = $this->getMock('MobileInstance');
+
+        $context->set('site_module_info', $site_module_info);
+        $context->set($request_arg_name, $request_arg_value);
+
+        return $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
+    }
+
+    public function testInit_WhenModuleInfoNotFound_DefaultModuleShouldBeUsed_RequestByDocumentSrl()
+    {
+        $context = null;
+        // Act
+        $module_handler = $this->getModuleHandlerInstance_ForInitTest_WhenModuleInfoNotFound($context, 'document_srl', '123');
+        $result = $module_handler->init();
+
+        // Assert
+        // 1. Make sure Context is setup
+        $this->assertEquals('Hello', $context->getBrowserTitle());
+        $this->assertEquals("\n<script></script>", $context->getHtmlHeader());
+
+        // 2. Make sure ModuleHandlerInstance properties are setup
+        $this->assertEquals('wiki_module', $module_handler->module);
+
+        // 3. Make sure Init result is true
+        $this->assertTrue((bool)$result);
+    }
+
+    public function testInit_WhenModuleInfoNotFound_DefaultModuleShouldBeUsed_RequestByModule()
+    {
+        $context = null;
+        // Act
+        $module_handler = $this->getModuleHandlerInstance_ForInitTest_WhenModuleInfoNotFound($context, 'module', 'some_module');
+        $result = $module_handler->init();
+
+        $expected_module_info = new stdClass();
+        $expected_module_info->mid = null;
+        $expected_module_info->module = 'some_module';
+        $expected_module_info->site_srl = 0;
+        $this->assertTrue((bool)$result);
+        $this->assertEquals($expected_module_info, $context->get('current_module_info'));
+    }
+
+    public function testInit_WhenModuleInfoNotFound_DefaultModuleShouldBeUsed_RequestByMid()
+    {
+        $context = null;
+        // Act
+        $module_handler = $this->getModuleHandlerInstance_ForInitTest_WhenModuleInfoNotFound($context, 'mid', 'some_mid');
+        $result = $module_handler->init();
+
+        $expected_module_info = new stdClass();
+        $expected_module_info->mid = 'some_mid';
+        $expected_module_info->module = null;
+        $expected_module_info->site_srl = 0;
+        $this->assertTrue((bool)$result);
+        $this->assertEquals('some_mid', $context->get('mid'));
+        $this->assertEquals($expected_module_info, $context->get('current_module_info'));
+        $this->assertEquals('msg_module_is_not_exists', $module_handler->error);
+        $this->assertEquals('404', $module_handler->httpStatusCode);
+    }
+
     public function testInit_WithModule()
     {
         $mock_helper = new MockHelper($this);
@@ -488,6 +580,48 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
 
         // 3. Make sure Init result is true
         $this->assertTrue((bool)$result);
+    }
+
+    public function testInit_DefaultModuleBelongsToVirtualSite()
+    {
+        $mock_helper = new MockHelper($this);
+        $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+
+        // Assert
+        // 1. Make sure input was validated
+        $mock_helper->method('ModuleHandlerInstance', 'validateVariablesAgainstXSS')->shouldBeCalled('once');
+        // 2. Make sure the before_module_init addon is executed
+        $mock_helper->method('ModuleHandlerInstance', 'executeAddon_before_module_init')->shouldBeCalled('once');
+        // 3. Make sure we are redirecting to the right thing
+        $mock_helper->method('ContextInstance', 'getNotEncodedSiteUrl')
+            ->shouldBeCalledWith('http://shop.xpressengine.org', 'mid', 'default_module_mid')
+            ->shouldReturn('redirect_url');
+        $mock_helper->method('ContextInstance', 'setRedirectResponseTo')->shouldBeCalled('once')
+            ->shouldBeCalledWith('redirect_url');
+
+        // Prepare mocks
+        $context = $mock_helper->getMock('ContextInstance');
+        $mobile = $this->getMock('MobileInstance');
+
+        // Arrange
+        // 1. Site module info - we are on the main site
+        $site_module_info = new stdClass();
+        $site_module_info->site_srl = 0;
+        $site_module_info->module_site_srl = 123;
+        $site_module_info->mid = 'default_module_mid';
+        $context->set('site_module_info', $site_module_info);
+        // 2. Module site info - default module belongs to different site
+        $module_site_info = new stdClass();
+        $module_site_info->domain = 'http://shop.xpressengine.org';
+        $mock_helper->method('moduleModel', 'getSiteInfo')->shouldBeCalledWith(123)->shouldReturn($module_site_info);
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($mock_helper->getMock('moduleModel'));
+
+        // Act
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
+        $result = $module_handler->init();
+
+        // Assert - Make sure Init result is false
+        $this->assertFalse((bool)$result);
     }
 
 
