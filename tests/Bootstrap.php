@@ -1,5 +1,8 @@
 <?php
 
+require_once 'MockHelper.php';
+require_once 'classes/object/Object.mock.php';
+
 if(!defined('__DEBUG__')) define('__DEBUG__', 1);
 if(!defined('__XE__')) define('__XE__', true);
 if(!defined('__ZBXE__')) define('__ZBXE__', true);
