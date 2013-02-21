@@ -1,6 +1,7 @@
 <phpunit bootstrap="./Bootstrap.php">
 	<testsuites>
 		<testsuite name="XE Core Test Suite">
+            <file>./classes/context/ContextInstanceTest.php</file>
 			<file>./classes/context/ContextTest.php</file>
             <file>./classes/frontendfile/FrontendFileHandlerTest.php</file>
             <file>./classes/module/ModuleMatcherTest.php</file>

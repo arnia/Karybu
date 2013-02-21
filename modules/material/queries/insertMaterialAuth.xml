@@ -1,0 +1,9 @@
+<query id="insertMaterialAuth" action="insert">
+    <tables>
+        <table name="material_auth" />
+    </tables>
+    <columns>
+        <column name="member_srl" var="member_srl" filter="number" notnull="notnull" />
+        <column name="auth" var="auth" notnull="notnull" />
+    </columns>
+</query>

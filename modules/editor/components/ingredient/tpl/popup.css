@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+@import url(../../../../../modules/admin/tpl/css/admin.css);
+p.noData{display: none}
+div.ingredientWrap{min-height: 500px}
+div.ingredientWrap div.ingredientList{border-top: 2px solid #CCC}
+div.ingredientWrap div.ingredientList dl{position: relative; border-bottom: 1px solid #CCC}
+div.ingredientWrap div.ingredientList dl dt{padding: 0 0 10px 5px}
+div.ingredientWrap div.ingredientList dl dd{margin: 3px; padding: 3px}
+div.ingredientWrap div.ingredientList dl dd span.btn{position: static}
+div.ingredientWrap div.ingredientList div.ingredientConetnt{max-height: 400px; overflow: auto}
+div.ingredientWrap div.ingredientList div.ingredientConetnt img{max-height: 200px}
+div.ingredientWrap div.ingredientList dl dd button._insert_item{position: absolute; right: 10px; top: 0}
+div.ingredientWrap div.paginate{width: 100px; margin: auto; text-align: center}
+div.ingredientWrap div.paginate button{width: 17px; height: 17px; background: url('images/buttonPaginate.gif') no-repeat; border: none}
+div.ingredientWrap div.paginate button.prev{float: left; background-position: left top}
+div.ingredientWrap div.paginate button.next{float: right; background-position: right top}

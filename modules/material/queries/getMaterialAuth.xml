@@ -1,0 +1,12 @@
+<query id="getMaterialAuth" action="select">
+    <tables>
+        <table name="material_auth" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="member_srl" var="member_srl" filter="number" />
+        <condition operation="equal" column="auth" var="auth" pipe="and" />
+	</conditions>
+</query>

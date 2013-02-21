@@ -25,6 +25,7 @@
             $oEditorController->insertComponent('table_maker',true);
             $oEditorController->insertComponent('poll_maker',true);
             $oEditorController->insertComponent('image_gallery',true);
+            $oEditorController->insertComponent('ingredient',true);
             // Create a directory to use in the editor module
             FileHandler::makeDir('./files/cache/editor');
             // 2007. 10. 17 Add a trigger to delete automatically saved document whenever the document(insert or update) is modified

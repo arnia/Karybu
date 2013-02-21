@@ -48,8 +48,8 @@
 			
 			if(!$editor_config->editor_height) if($editor_default_config->editor_height? $editor_config->editor_height = $editor_default_config->editor_height : $editor_config->editor_height = 400);
             if(!$editor_config->comment_editor_height) if($editor_default_config->comment_editor_height? $editor_config->comment_editor_height = $editor_default_config->comment_editor_height : $editor_config->comment_editor_height = 100);
-			if(!$editor_config->editor_skin) if($editor_default_config->editor_skin? $editor_config->editor_skin = $editor_default_config->editor_skin : $editor_config->editor_skin = 'xpresseditor');
-			if(!$editor_config->comment_editor_skin) if($editor_default_config->comment_editor_skin? $editor_config->comment_editor_skin = $editor_default_config->comment_editor_skin : $editor_config->comment_editor_skin = 'xpresseditor');
+			if(!$editor_config->editor_skin) if($editor_default_config->editor_skin? $editor_config->editor_skin = $editor_default_config->editor_skin : $editor_config->editor_skin = 'tinymce');
+			if(!$editor_config->comment_editor_skin) if($editor_default_config->comment_editor_skin? $editor_config->comment_editor_skin = $editor_default_config->comment_editor_skin : $editor_config->comment_editor_skin = 'tinymce');
 			if(!$editor_config->content_style) if($editor_default_config->content_style? $editor_config->content_style = $editor_default_config->content_style : $editor_config->content_style = 'default');
 			
 			if(!$editor_config->content_font && $editor_default_config->content_font) $editor_config->content_font = $editor_default_config->content_font;
@@ -192,23 +192,37 @@
          **/
         function getEditor($upload_target_srl = 0, $option = null) {
             /**
-             * Editor's default options
-             **/
-            // Option setting to allow file upload
-			if($upload_target_srl)
-			{
-				$option->editor_sequence = $upload_target_srl;
-			}
+             * Editor default option
+             */
+            $oModuleModel = &getModel('module');
+            $editor_config = $editor_config = $oModuleModel->getModuleConfig('editor');
+            if(!$editor_config->editor_height) $editor_config->editor_height = 400;
+            if(!$editor_config->comment_editor_height) $editor_config->comment_editor_height = 100;
+            if(!$editor_config->editor_skin) $editor_config->editor_skin = 'tinymce';
+            if(!$editor_config->comment_editor_skin) $editor_config->comment_editor_skin = 'tinymce';
+            if(!$editor_config->sel_editor_colorset) $editor_config->sel_editor_colorset= 'default';
+            if(!$editor_config->sel_comment_editor_colorset) $editor_config->sel_comment_editor_colorset= 'default';
+            
+
+            if($upload_target_srl){
+                    $option->editor_sequence = $upload_target_srl;
+            }
+            if(!$option->skin) $option->skin=$editor_config->editor_skin;
+            if(!$option->colorset) $option->colorset=$editor_config->sel_editor_colorset;
+            if(!$option->height) $option->height=$editor_config->editor_height;
+            if(!$option->comment_skin) $option->comment_skin=$editor_config->comment_editor_skin;
+            if(!$option->comment_colorset) $option->comment_colorset=$editor_config->sel_comment_editor_colorset;
+            if(!$option->comment_height) $option->comment_height=$editor_config->comment_editor_height;
+            if(!$option->content_style) $option->content_style = $editor_config->content_style;            
+            
             if(!$option->allow_fileupload) $allow_fileupload = false;
             else $allow_fileupload = true;
-            // content_style setting
-            if(!$option->content_style) $option->content_style = 'default';
+            
             Context::set('content_style', $option->content_style);
-            // Default font setting
             Context::set('content_font', $option->content_font);
             Context::set('content_font_size', $option->content_font_size);
 			
-			// Option setting to allow auto-save
+            // Option setting to allow auto-save
             if(!$option->enable_autosave) $enable_autosave = false;
             elseif(Context::get($option->primary_key_name)) $enable_autosave = false;
             else $enable_autosave = true;
@@ -222,19 +236,15 @@
             if($option->disable_html) $html_mode = false;
             else $html_mode = true;
             // Set Height
-            if(!$option->height) $editor_height = 400;
-            else $editor_height = $option->height;
+            $editor_height = $option->height;
             // Skin Setting
             $skin = $option->skin;
-            if(!$skin) $skin = 'xpresseditor';
+            Context::set('colorset', $option->colorset);
+            Context::set('skin', $option->skin);
 
-            $colorset = $option->colorset;
-            Context::set('colorset', $colorset);
-            Context::set('skin', $skin);
-
-			if($skin=='dreditor'){
-				$this->loadDrComponents();	
-			}
+            if($skin=='dreditor'){
+                    $this->loadDrComponents();	
+            }
 
             /**
              * Check the automatic backup feature (do not use if the post is edited)
@@ -324,7 +334,7 @@
             $tpl_file = 'editor.html';
 
             if(!file_exists($tpl_path.$tpl_file)) {
-                $skin = 'xpresseditor';
+                $skin = 'tinymce';
                 $tpl_path = sprintf('%sskins/%s/', $this->module_path, $skin);
             }
             Context::set('editor_path', $tpl_path);
@@ -333,7 +343,8 @@
 			Context::loadLang($tpl_path.'lang');
             // Return the compiled result from tpl file
             $oTemplate = new TemplateHandler();
-            return $oTemplate->compile($tpl_path, $tpl_file);
+            $aux =  $oTemplate->compile($tpl_path, $tpl_file);
+            return  $aux;
         }
 
         /**
@@ -538,7 +549,7 @@
             }
 
             if(!file_exists($cache_file)) return;
-            @include($cache_file);
+            include($cache_file);
 			$logged_info = Context::get('logged_info');
 			if($logged_info && is_array($logged_info->group_list)) 
 			{

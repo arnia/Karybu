@@ -12,6 +12,31 @@
     "autoload": {
         "psr-0": {
             "GlCMS": "src/"
-        }
+        },
+        "classmap": [
+            "classes/object/Object.class.php",
+            "classes/extravar/Extravar.class.php",
+            "classes/handler/Handler.class.php",
+            "classes/xml/XmlParser.class.php",
+            "classes/xml/XmlGenerator.class.php",
+            "classes/xml/XmlJsFilter.class.php",
+            "classes/xml/XmlLangParser.class.php",
+            "classes/cache/CacheHandler.class.php",
+            "classes/context/Context.class.php",
+            "classes/db/DB.class.php",
+            "classes/file/FileHandler.class.php",
+            "classes/widget/WidgetHandler.class.php",
+            "classes/editor/EditorHandler.class.php",
+            "classes/module/ModuleObject.class.php",
+            "classes/module/ModuleHandler.class.php",
+            "classes/display/DisplayHandler.class.php",
+            "classes/template/TemplateHandler.class.php",
+            "classes/mail/Mail.class.php",
+            "classes/page/PageHandler.class.php",
+            "classes/mobile/Mobile.class.php",
+            "classes/validator/Validator.class.php",
+            "classes/frontendfile/FrontEndFileHandler.class.php",
+            "classes/security/Security.class.php"
+        ]
     }
 }

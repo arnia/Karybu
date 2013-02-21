@@ -1,0 +1,14 @@
+<h1 class="h1">{$lang->heading->writing_ingredients}</h1>
+
+<div class="cnb" cond="$tutorial || ($page_navigation && $page_navigation->total_count>0)">
+    <ul>
+        <li class="active"|cond="$act=='dispMaterialAdminIndex'"><a href="{getUrl('act','dispMaterialAdminIndex')}">{$lang->heading->ingredients_list}</a></li>
+        <li class="active"|cond="$act=='dispMaterialAdminTutorial'"><a href="{getUrl('act','dispMaterialAdminTutorial')}">{$lang->heading->tutorial}</a></li>
+    </ul>
+</div>
+
+<!--@if($page_navigation && $page_navigation->total_count>0)-->
+        <!--#include('materialList.html')-->
+<!--@else-->
+        <!--#include('materialHelp.html')-->
+<!--@end-->

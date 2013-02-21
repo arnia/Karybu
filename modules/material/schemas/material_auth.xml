@@ -1,0 +1,4 @@
+<table name="material_auth">
+	<column name="member_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+	<column name="auth" type="varchar" size="32" notnull="notnull" index="idx_auth" />
+</table>

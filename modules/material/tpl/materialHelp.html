@@ -1,0 +1,140 @@
+<load target="css/material_help.css" />
+
+<script>
+    jQuery(document).ready(function(){
+        jQuery('dl.browserList dt span').click(function(){
+            jQuery(this).parent().next().toggle();
+        });
+    });
+</script>
+
+<h3 class="h3">{$lang->heading->what_is_writing_ingredients}</h3>
+<p>{$lang->content->what_is_writing_ingredients}</p>
+
+<h3 class="h3">{$lang->heading->how_to_install_bookmarklet}</h3>
+<div class="bookmarkletWrap">
+    <div class="bookmarklet">
+        <h4>{$lang->heading->install_bookmarklet}</h4>
+        <p>{$lang->content->about_bookmarklet}</p>
+        <a href="{$bookmark_url}" class="btnBookmarklet"><img src="img/iconBookmarkletInstall.gif" width="15" height="15" alt="" /> {$lang->cmd_ingredients_collector}</a>
+    </div>
+</div>
+<p>{$lang->content->how_to_install_bookmarklet}</p>
+<dl class="browserList">
+    <dt><span>{$lang->browser->ie}</span></dt>
+    <dd>
+        <ol>
+            <li>
+                    <p class="description">{$lang->browser->ie_step1}</p>
+                    <p class="image"><img src="img/{$img_folder}/bookmarklet1.gif" width="230" height="134" /></p>
+            </li>
+            <li>
+                        <p class="description">{$lang->browser->ie_step2}</p>
+                    <p class="image"><img src="img/{$img_folder}/bookmarkletIE1.gif" width="210" height="245" /></p>
+            </li>
+            <li>
+                    <p class="description">{$lang->browser->ie_step3}</p>
+                    <p class="image"><img src="img/{$img_folder}/bookmarkletIE2.gif" width="462" height="119"/></p>
+            </li>
+            <li>
+                    <p class="description">{$lang->browser->ie_step4}</p>
+                    <p class="image"><img src="img/{$img_folder}/bookmarkletIE3.gif" width="508" height="175"/></p>
+            </li>
+            <li>
+                    <p class="description">{$lang->browser->ie_step5}</p>
+                    <p class="image"><img src="img/{$img_folder}/bookmarkletIE4.gif" width="600" height="200"/></p>
+            </li>
+            <li>
+                    <p class="description">{$lang->browser->ie_step6}</p>
+                    <p class="image"><img src="img/{$img_folder}/bookmarkletIE5.gif" width="500" height="112"/></p>
+            </li>
+            <li>
+                    <p class="description">{$lang->browser->ie_step7}</p>
+                    <p class="image"><img src="img/{$img_folder}/bookmarkletWindow.gif" width="600" height="420"/></p>
+            </li>
+        </ol>
+    </dd>
+
+    <dt><span>{$lang->browser->firefox}</span></dt>
+    <dd>
+        <ol>
+            <li>
+                <p class="description">{$lang->browser->firefox_step1}</p>
+                <p class="image"><img src="img/{$img_folder}/bookmarklet1.gif" width="230" height="134"/></p>
+            </li>
+            <li>
+                <p class="description">{$lang->browser->firefox_step2}</p>
+                <p class="image"><img src="img/{$img_folder}/bookmarkletFF1.gif" width="167" height="155"/></p>
+            </li>
+            <li>
+                <p class="description">{$lang->browser->firefox_step3}</p>
+                <p class="image"><img src="img/{$img_folder}/bookmarkletFF2.gif" width="380" height="180"/></p>
+            </li>
+            <li>
+                <p class="description">{$lang->browser->firefox_step4}</p>
+                <p class="image"><img src="img/{$img_folder}/bookmarkletFF3.gif" width="587" height="210"/></p>
+            </li>
+            <li>
+                <p class="description">{$lang->browser->firefox_step5}</p>
+                <p class="image"><img src="img/{$img_folder}/bookmarkletFF4.gif" width="465" height="89"/></p>
+            </li>
+            <li>
+                <p class="description">{$lang->browser->firefox_step6}</p>
+                <p class="image"><img src="img/{$img_folder}/bookmarkletWindow.gif" width="600" height="420"/></p>
+            </li>
+        </ol>
+    </dd>
+
+    <dt><span>{$lang->browser->safari}</span></dt>
+    <dd>
+        <ol>
+                <li>
+                    <p class="description">{$lang->browser->safari_step1}</p>
+                    <p class="image"><img src="img/{$img_folder}/bookmarkletSF1.gif" width="420" height="83"/></p>
+                </li>
+                <li>
+                    <p class="description">{$lang->browser->safari_step2}</p>
+                    <p class="image"><img src="img/{$img_folder}/bookmarklet1.gif" width="230" height="134"/></p>
+                </li>
+                <li>
+                    <p class="description">{$lang->browser->safari_step3}</p>
+                    <p class="image"><img src="img/{$img_folder}/bookmarkletSF3.gif" width="585" height="269"/></p>
+                </li>
+                <li>
+                    <p class="description">{$lang->browser->safari_step4}</p>
+                    <p class="image"><img src="img/{$img_folder}/bookmarkletSF4.gif" width="707" height="80"/></p>
+                </li>
+                <li>
+                    <p class="description">{$lang->browser->safari_step5}</p>
+                    <p class="image"><img src="img/{$img_folder}/bookmarkletWindow.gif" width="600" height="420"/></p>
+                </li>
+        </ol>
+    </dd>
+
+    <dt><span>{$lang->browser->chrome}</span></dt>
+    <dd>
+        <ol>
+                <li>
+                    <p class="description">{$lang->browser->chrome_step1}</p>
+                    <p class="image"><img src="img/{$img_folder}/bookmarkletCR1.gif" width="672" height="84"/></p>
+                </li>
+                <li>
+                    <p class="description">{$lang->browser->chrome_step2}</p>
+                    <p class="image"><img src="img/{$img_folder}/bookmarklet1.gif" width="230" height="134"/></p>
+                </li>
+                <li>
+                    <p class="description">{$lang->browser->chrome_step3}</p>
+                    <p class="image"><img src="img/{$img_folder}/bookmarkletCR3.gif" width="655" height="84"/></p>
+                </li>
+                <li>
+                    <p class="description">{$lang->browser->chrome_step4}</p>
+                    <p class="image"><img src="img/{$img_folder}/bookmarkletWindow.gif" width="600" height="420"/></p>
+                </li>
+        </ol>
+    </dd>
+</dl>
+
+<div style="clear: both"></div>
+
+<h3 class="h3">{$lang->heading->how_to_use_bookmarklet}</h3>
+<p>{$lang->content->how_to_use_bookmarklet}</p>
