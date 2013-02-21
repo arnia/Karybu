@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qub:flow xmlns:qub="http://www.arnia.ro/qub/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.arnia.ro/qub/ ../conf/flow.xsd ">
+  
+  <form id="form1">
+    <field name="first_name" required="true"/>
+    <field name="last_name" required="true"/>
+    <navigation>
+      <next>
+        <form>form2</form>
+        <condition>true</condition>
+      </next>
+      <previous>
+        <url>www.google.com</url>
+        <condition>true</condition>
+      </previous>
+    </navigation>
+  </form>
+    
+  <form id="form2">
+    <field name="city" required="true"/>
+    <field name="county" required="true"/>
+    <navigation>
+      <next>
+        <url>www.google.com</url>
+        <condition>true</condition>
+      </next>
+      <previous>
+        <form>form1</form>
+        <condition>true</condition>
+      </previous>
+    </navigation>
+  </form>
+  
+</qub:flow>

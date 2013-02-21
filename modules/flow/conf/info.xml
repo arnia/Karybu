@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+    <title xml:lang="en">flow</title>
+    <description xml:lang="en"></description>
+    <version>1.0</version>
+    <date>15-Feb-2013</date>
+    <category>service</category>
+    <author email_address="" link="">
+        <name xml:lang="en">razvan.nutu@arnia.ro</name>
+    </author>
+</module>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.arnia.ro/qub/" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:qub="http://www.arnia.ro/qub/">
+
+    <complexType name="formType">
+    	<sequence maxOccurs="1" minOccurs="1" >
+    		<sequence maxOccurs="unbounded" minOccurs="1" >
+    			<element name="field" type="qub:fieldType"></element>
+    		</sequence>
+	    	<element name="navigation" type="qub:navigationType"></element>
+    	</sequence>
+    	<attribute name="id" type="string" use="required"></attribute>
+    	<attribute name="filename" type="string"></attribute>
+    </complexType>
+
+    <complexType name="fieldType">
+    	<attribute name="name" type="string"></attribute>
+    	<attribute name="required" type="boolean"></attribute>
+    </complexType>
+
+    <complexType name="navigationType">
+    	<sequence>
+    		<element name="next" type="qub:directionType"></element>
+    		<element name="previous" type="qub:directionType"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="directionType">
+    	<sequence>
+	    	<choice>
+	    		<element name="form" type="string"></element>
+	    		<element name="url" type="string"></element>
+	    	</choice>
+	   		<element name="condition" type="string"></element>
+	   	</sequence>
+    </complexType>
+    
+    <complexType name="flowType">
+    	<sequence>
+    		    <element name="form" type="qub:formType" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+    
+    <element name="flow" type="qub:flowType"></element>
+    
+</schema>
