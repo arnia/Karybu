@@ -2757,5 +2757,20 @@ class Context
         self::$context->addJsFilter($path, $filename);
     }
 
+    public static function pathToUrl($path)
+    {
+        return self::$context->pathToUrl($path);
+    }
+
+    public static function setDbInfo($db_info)
+    {
+        self::$context->setDBInfo($db_info);
+    }
+
+    public static function getConfigFile()
+    {
+        return self::$context->getConfigFile();
+    }
+
 
 }
