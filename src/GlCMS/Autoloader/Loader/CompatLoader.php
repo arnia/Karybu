@@ -38,7 +38,7 @@ class CompatLoader extends AbstractLoader
             $matches = $matches[0];
             $module = $matches[0];
             $name = strtolower(implode('.', $matches));
-            $path = "{$this->modulesPath}/$module/$name.phpz";
+            $path = "{$this->modulesPath}/$module/$name.php";
             return $this->includeFile($path);
         }
         return false;
