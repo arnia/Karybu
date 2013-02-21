@@ -1,0 +1,9 @@
+div.bookmarkletWrap{float: right; width: 250px; margin-left: 10px}
+div.bookmarkletWrap div.bookmarklet{width: 200px; background: url("../img/bgBookmarklet.gif"); border: 1px solid #C2C4C6; font-size: 12px; padding: 13px}
+div.bookmarkletWrap div.bookmarklet h4{margin: 0 0 8px 5px; color: #5C6379}
+div.bookmarkletWrap div.bookmarklet p{margin: 0 0 10px 5px; color: #9096A9}
+div.bookmarkletWrap .btnBookmarklet{width: 198px; height: 34px; padding-top: 15px; display: inline-block; text-align: center; font-weight: bold; text-decoration: none; color: #FFFFFF !important; background: url("../img/buttonBookmarkletInstall.gif") no-repeat}
+
+dl.browserList dd{display: none}
+dl.browserList dt span{font-weight: bold; color: #648AB9; cursor: pointer}
+dl.browserList dt span:hover{text-decoration: underline}

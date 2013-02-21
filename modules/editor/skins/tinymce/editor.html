@@ -1,0 +1,129 @@
+<!-- css -->
+<load target="css/default.css" />
+
+<!-- JS -->
+<load target="../../tpl/js/editor_common.js" cond="__DEBUG__" />
+<load target="../../tpl/js/editor_common.min.js" cond="!__DEBUG__" />
+
+<load target="js/default.js" />
+<load target="js/xe_interface.js" />
+<load target="tiny_mce/tiny_mce.js" />
+
+<!--Content font and font size-->
+{@
+    $css_path='./files/cache/editor/tinymce/';
+    if(!is_dir($css_path)) FileHandler::makeDir($css_path);
+    $css_filename=$css_path.'content.css';
+    $css_content='body, td, pre{';
+    $css_to_write=false;
+}
+<!--@if(!empty($content_font))-->
+    {@$css_content .= 'font-family: '.$content_font.';';}
+    {@$css_to_write=true;}
+<!--@end-->
+<!--@if(!empty($content_font_size))-->
+    {@$css_content .= 'font-size: '.$content_font_size.';';}
+    {@$css_to_write=true;}
+<!--@end-->
+
+<!--@if($css_to_write)-->
+    {@$css_content .= chr(125);}
+    {@file_put_contents($css_filename, $css_content);}
+<!--@end-->
+
+
+<!--Component list-->
+{@$xe_component_array='';}
+<!--@if($enable_component)-->
+    <!--@foreach($component_list as $component_name => $component)-->
+        {@$xe_component_array .= $component_name.":'".$component->title."',";}
+    <!--@end-->
+    {@$xe_component_array = substr($xe_component_array, 0, strlen($xe_component_array)-1);}
+<!--@end-->
+    
+<script>
+    
+    var editor_primary_key_name='{$editor_primary_key_name}';
+    var editor_content_key_name='{$editor_content_key_name}';
+    
+    editorStart_xe("{$editor_sequence}", "{$editor_primary_key_name}", "{$editor_content_key_name}");
+    
+    tinyMCE.init({
+        mode: 'exact',
+        elements: 'tiny_mce_text_area_{$editor_sequence}',
+        valid_elements: '*[*]',
+        valid_children : '+body[style]',
+        theme: 'advanced',
+        width: '100%',
+        height: '{$editor_height}',
+        plugins : 'table{$enable_component?",xe_component":""}{$enable_autosave?",autosave":""}',
+        <!--@if($enable_default_component)-->
+        theme_advanced_buttons1 : 'undo,redo,|,formatselect,fontselect,fontsizeselect,|,bold,italic,underline,strikethrough,forecolor,backcolor,sup,sub,|,justifyleft,justifycenter,justifyright,numlist,bullist,outdent,indent',
+        theme_advanced_buttons2 : 'blockquote,link,|,tablecontrols{$enable_component?",|,xe_component":""}{$enable_autosave?",|,restoredraft":""}{$html_mode?",|,code":""}',
+        <!--@else-->
+        theme_advanced_buttons1 : '{$enable_component?"xe_component":""}{$enable_autosave?",|,restoredraft":""}{$html_mode?",|,code":""}',
+        <!--@end-->
+        theme_advanced_toolbar_location : 'top',
+        theme_advanced_toolbar_align : 'left',
+        theme_advanced_statusbar_location : 'bottom',
+        theme_advanced_resizing : true,
+        oninit: mceEditorInit,
+        onchange_callback: mceEditorContentChange,
+        xe_component_arrays: {{$xe_component_array}},
+        xe_editor_sequence: '{$editor_sequence}',
+        <!--@if($css_to_write)-->
+        content_css: '{$css_filename}',
+        <!--@end-->
+        <!--@if($colorset=='default') -->
+        skin: 'default'
+        <!--@elseif($colorset=='o2k7')-->
+        skin: 'o2k7'
+        <!--@elseif($colorset=='o2k7_silver')-->
+        skin: 'o2k7',
+        skin_variant: 'silver'
+        <!--@elseif($colorset=='o2k7_black')-->
+        skin: 'o2k7',
+        skin_variant: 'black'
+        <!--@end-->
+    });
+    
+</script>
+
+<div class="tiny_mce_editor">
+
+    <textarea id="editor_{$editor_sequence}" name="tiny_mce_text_area_{$editor_sequence}"></textarea>
+
+    <div id="fileUploader_{$editor_sequence}" class="fileUploader" cond="$allow_fileupload"><!--File upload zone-->
+        <div class="preview {$btn_class}" id="preview_uploaded_{$editor_sequence}"></div>
+        <div class="fileListArea {$btn_class}">
+            <select id="uploaded_file_list_{$editor_sequence}" multiple="multiple" class="fileList" title="Attached File List"><option></option></select>
+        </div>
+        <div class="fileUploadControl">
+            <button type="button" id="swfUploadButton{$editor_sequence}" class="text">{$lang->edit->upload_file}</button>
+            <button type="button" onclick="removeUploadedFile('{$editor_sequence}');" class="text">{$lang->edit->delete_selected}</button>
+            <button type="button" onclick="mceInsertUploadedFile('{$editor_sequence}');" class="text">{$lang->edit->link_file}</button>
+        </div>
+        <div class="file_attach_info" id="uploader_status_{$editor_sequence}">{$upload_status}</div>
+    </div>
+</div>    
+<!--@if($allow_fileupload)-->
+<load target="../../tpl/js/uploader.js" />
+<load target="../../tpl/js/swfupload.js" />
+<script type="text/javascript">//<![CDATA[
+    jQuery(function(){        
+        editorUploadInit({
+            "editorSequence" : {$editor_sequence},
+            "sessionName" : "{session_name()}",
+            "allowedFileSize" : "{$file_config->allowed_filesize}",
+            "allowedFileTypes" : "{$file_config->allowed_filetypes}",
+            "allowedFileTypesDescription" : "{$file_config->allowed_filetypes}",
+            "insertedFiles" : {(int)$files_count},
+            "replaceButtonID" : "swfUploadButton{$editor_sequence}",
+            "fileListAreaID" : "uploaded_file_list_{$editor_sequence}",
+            "previewAreaID" : "preview_uploaded_{$editor_sequence}",
+            "uploaderStatusID" : "uploader_status_{$editor_sequence}"
+        });			
+    });
+
+</script>
+<!--@end-->

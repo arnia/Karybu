@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+    <actions>
+		<action name="procMaterialDelete" type="controller" />
+		<action name="procMaterialInsert" type="controller" />
+		<action name="dispMaterialList" type="view" />
+		<action name="dispMaterialPopup" type="view" />
+                
+                <action name="dispMaterialAdminIndex" type="view" admin_index="true" standalone="true"/>
+                <action name="dispMaterialAdminTutorial" type="view" />
+    </actions>
+</module>

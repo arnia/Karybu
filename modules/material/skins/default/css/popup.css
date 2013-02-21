@@ -1,0 +1,81 @@
+@charset "utf-8";
+/* NHN (developers@xpressengine.com) */
+
+body{ margin:0; font-size:12px; background:#fff; color:#000;}
+form{ margin:0; padding:0;}
+fieldset{ border:0; margin:0; padding:0;}
+legend{ position:absolute; width:0; height:0; overflow:hidden; font-size:0; line-height:0; visibility:hidden; z-index:-1;}
+
+#popup_content{ border:0 !important; width:620px; height:430px;}
+#popup_content .xButton{ top:12px !important; display:none !important;}
+
+#container{ position:relative; background:url(../img/bgContainer.png) repeat-x 0 0; *zoom:1;}
+
+#header{ *zoom:1; font-size:12px;}
+#header:after{ content:""; display:block; clear:both;}
+#header h3{ margin:10px 0 0 10px; padding:0; float:left;}
+#header ul{ position:relative; height:46px; float:right; margin:0; padding:0; list-style:none; overflow:hidden;}
+#header li{ position:relative; left:-2px; float:left; background:url(../img/lineVr.gif) no-repeat left center;}
+#header li a{ float:left; display:block; height:38px; padding:0 18px 0 20px;  font-weight:bold; color:#555; text-decoration:none; line-height:38px; position:relative;}
+#header li a:hover{ text-decoration:underline;}
+
+#header #navigation{ position:relative; float:right; *zoom:1;}
+#header #navigation.activeTxt .txt a,
+#header #navigation.activeLink .link a,
+#header #navigation.activeList .list a,
+#header #navigation.activeBlockquote .blockquote a,
+#header #navigation.activeImg .img a,
+#header #navigation.activeMov .mov a{ color:#ea3f22; *zoom:1;}
+#header #navigation.activeTxt .txt a span,
+#header #navigation.activeLink .link a span,
+#header #navigation.activeList .list a span,
+#header #navigation.activeBlockquote .blockquote a span,
+#header #navigation.activeImg .img a span,
+#header #navigation.activeMov .mov a span{ display:inline; float:left; height:46px; background:url(../img/arrowActive.gif) no-repeat center bottom; *zoom:1;}
+
+#body{ margin:0 20px; padding:20px 0; *zoom:1;}
+#body .section{ display:none;}
+
+#body .cite{ margin:0;}
+#body .cite *{ display:inline; margin:0; padding:0;}
+#body .cite dt{ font-weight:bold; margin:0 5px 0 0; color:#666;}
+#body .cite dd{ padding:0 0 0 10px; border-left:1px solid #ddd; color:#8b8b8b;}
+
+#body.openTxt .section.txt,
+#body.openLink .section.link,
+#body.openList .section.list,
+#body.openBlockquote .section.blockquote,
+#body.openImg .section.img,
+#body.openMov .section.mov{ display:block;}
+#body h2{ font-size:14px; margin:0 0 10px 0;}
+
+#body .img ul{ overflow:auto; width:98%; margin:0 0 10px 0; padding:0 5px; list-style:none; *zoom:1; height:120px; background:#f7f7f7; border:1px solid #ddd;}
+#body .img ul:after{ content:""; display:block; clear:both;}
+#body .img li{ float:left; width:100px; height:100px; text-align:center; margin:10px 5px;}
+#body .img li button{ margin:0; padding:0; border:0; background:transparent; overflow:visible; cursor:pointer;}
+#body .img li button:hover img,
+#body .img li button:active img,
+#body .img li button:focus img,
+#body .img li button.active img{ border:3px solid #ea3f22;}
+
+/* Input */
+.inputTitle{ width:98%; border:1px solid #ddd; background:#fff url(../img/bgInputText.gif) no-repeat; color:#666; padding:6px 0 0 10px; height:21px; font-size:14px; margin-bottom:10px;}
+.inputLink{ width:98%; border:1px solid #ddd; background:#fff url(../img/bgInputText.gif) no-repeat; color:#666; padding:6px 0 0 10px; height:21px; font-size:11px; margin-bottom:10px;}
+.inputText{ width:98%; border:1px solid #ddd; background:#fff url(../img/bgInputText.gif) no-repeat; color:#666; padding:6px 0 0 10px; height:21px; font-size:12px; margin-bottom:10px;}
+.inputTextarea{ width:98%; border:1px solid #ddd; background:#fff url(../img/bgInputText.gif) no-repeat; color:#666; padding:10px 0 0 10px; height:60px; font-size:14px; line-height:1.5; margin-bottom:10px;}
+.txt .inputTextarea,
+.blockquote .inputTextarea{ height:150px;}
+
+/* Button Area */
+.buttonArea{ position:relative; text-align:center; padding:15px 0; *zoom:1; width:100%;}
+.buttonSubmit,
+.buttonSubmit input{ position:relative; border:0; margin:0; display:inline-block; font-family:Tahoma, Sans-serif; font-weight:bold !important; cursor:pointer; text-decoration:none !important; white-space:nowrap; vertical-align:middle; background-color:transparent; background-image:url(../img/buttonSubmit.gif); background-repeat:no-repeat;}
+.buttonSubmit{ background-position:left top; margin-right:7px;}
+.buttonSubmit input { left:7px; height:39px; padding:0 25px 0 18px; font:12px/39px Sans-serif; color:#fff; background-position:right top; overflow:visible;}
+
+/* Error */
+#error{ display:none;}
+.error #header,
+.error #body{ display:none;}
+.error #error{ display:block; padding:0 30px; font-size:12px; font-family:Tahoma;}
+.error #error h1{ margin:0 0 1em 0; padding:0; color:#fff; line-height:38px;}

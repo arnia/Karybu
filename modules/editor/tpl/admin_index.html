@@ -108,6 +108,7 @@
 <form action="./" method="post" class="form" ruleset="componentOrderAndUse">
 	<input type="hidden" name="module" value="editor" />
 	<input type="hidden" name="act" value="procEditorAdminCheckUseListOrder" />
+        <input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
 	<fieldset class="section">
 		<h2 class="h2">{$lang->editor_component}</h2>
 		<div class="table even easyList">

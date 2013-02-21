@@ -1,0 +1,8 @@
+<query id="deleteMaterialAuth" action="delete">
+    <tables>
+        <table name="material_auth" />
+    </tables>
+    <conditions>
+        <condition operation="equal" column="member_srl" var="member_srl" notnull="notnull" />
+    </conditions>
+</query>

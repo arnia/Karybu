@@ -1,0 +1,167 @@
+<!--%import("css/popup.css")-->
+<!--%import("js/popup.js")-->
+
+{@$_from=htmlspecialchars('<cite>'.$lang->material->citefrom . ': <a href="'.$url.'">'.$title.'</a></cite>')}
+
+
+<div id="container"<!--@if($error)--> class="error"<!--@end-->>
+	<div id="header">
+		<h3>{$lang->heading->writing_ingredients}</h3>
+		<ul id="navigation" class="<!--@if($text)-->activeTxt<!--@else-->activeLink<!--@end-->">
+			<li class="link"><a href="#link"><span>{$lang->material->link}</span></a></li>
+			<li class="blockquote"><a href="#blockquote"><span>{$lang->material->cite}</span></a></li>
+			<li class="txt"><a href="#txt"><span>{$lang->material->text}</span></a></li>
+			<!--li class="list"><a href="#list"><span>{$lang->material->list}</span></a></li-->
+			<li class="img"><a href="#img"><span>{$lang->material->images}</span></a></li>
+			<li class="mov"><a href="#mov"><span>{$lang->material->movie}</span></a></li>
+			<!--  onclick="document.getElementById('body').className='openMov'; document.getElementById('navigation').className='activeMov'; return false;" -->
+		</ul>
+	</div>
+	<div id="body" class="<!--@if($text)-->openTxt<!--@else-->openLink<!--@end-->">
+		<div id="txt" class="section txt">
+			<form action="" method="post" onsubmit="return insertMaterial(this, insert_material)">
+				<input type="hidden" name="type" value="txt" />
+				<input type="hidden" name="mid" value="{$mid}" />
+				<input type="hidden" name="auth" value="{$auth}" />
+				<input type="hidden" name="content" value="" />
+				<input type="hidden" name="from" value="{$_from}" />
+				<fieldset>
+					<legend>{$lang->material->text}</legend>
+					<h2>{$lang->material->content}</h2>
+					<textarea name="" cols="50" rows="5" class="inputTextarea p" title="{$lang->material->about_content}">{htmlspecialchars($text)}</textarea>
+					<dl class="cite">
+						<dt>{$lang->material->citefrom}</dt>
+						<dd>{$title}</dd>
+					</dl>
+					<div class="buttonArea">
+						<span class="buttonSubmit"><input type="submit" value="{$lang->material->cmd_deposit}" /></span>
+					</div>					
+				</fieldset>
+			</form>
+		</div>
+		<div id="link" class="section link">
+			<form action="" method="post" onsubmit="return insertMaterial(this, insert_material)">
+				<input type="hidden" name="type" value="link" />
+				<input type="hidden" name="mid" value="{$mid}" />
+				<input type="hidden" name="auth" value="{$auth}" />
+				<input type="hidden" name="content" value="" />
+				<input type="hidden" name="from" value="{$_from}" />
+				<fieldset>
+					<legend>{$lang->material->link}</legend>
+					<h2>{$lang->material->subject}</h2>
+					<input name="" type="text" class="inputTitle pstrong" value="{$title}" title="{$lang->material->about_page_subject}" />
+					<h2>{$lang->material->link}</h2>
+					<input name="" type="text" class="inputLink pa" value="{htmlspecialchars($url)}" title="http://" />
+					<h2>{$lang->material->description}</h2>
+					<textarea name="" cols="50" rows="5" class="inputTextarea p" title="{$lang->material->about_linkdescription}"></textarea>
+					<div class="buttonArea">
+						<span class="buttonSubmit"><input type="submit" value="{$lang->material->cmd_deposit}" /></span>
+					</div>					
+				</fieldset>
+			</form>
+		</div>
+		<div id="list" class="section list">
+			<form action="" method="post" onsubmit="return insertMaterial(this, insert_material)">
+				<input type="hidden" name="type" value="list" />
+				<input type="hidden" name="mid" value="{$mid}" />
+				<input type="hidden" name="auth" value="{$auth}" />
+				<input type="hidden" name="content" value="" />
+				<input type="hidden" name="from" value="{$_from}" />
+				<fieldset>
+					<legend>{$lang->material->list}</legend>
+					<h2>{$lang->material->list}</h2>
+					<textarea name="" cols="50" rows="5" class="inputTextarea" title="{$lang->material->about_list}"></textarea>
+					<div class="buttonArea">
+						<span class="buttonSubmit"><input type="submit" value="{$lang->material->cmd_deposit}" /></span>
+					</div>					
+				</fieldset>
+			</form>
+		</div>
+		<div id="blockquote" class="section blockquote">
+			<form action="" method="post" onsubmit="return insertMaterial(this, insert_material)">
+				<input type="hidden" name="type" value="blockquote" />
+				<input type="hidden" name="mid" value="{$mid}" />
+				<input type="hidden" name="auth" value="{$auth}" />
+				<input type="hidden" name="content" value="" />
+				<input type="hidden" name="from" value="{$_from}" />
+
+				<fieldset>
+					<legend>{$lang->material->cite}</legend>
+					<h2>{$lang->material->citesubject}</h2>
+					<textarea name="" cols="50" rows="5" class="inputTextarea blockquotep" title="{$lang->material->about_citesubject}">{htmlspecialchars($text)}</textarea>
+					<dl class="cite">
+						<dt>{$lang->material->citefrom}</dt>
+						<dd>{$title}</dd>
+					</dl>
+					<div class="buttonArea">
+						<span class="buttonSubmit"><input type="submit" value="{$lang->material->cmd_deposit}" /></span>
+					</div>					
+				</fieldset>
+			</form>
+		</div>
+		<div id="img" class="section img">
+			<form action="" method="post" onsubmit="return insertMaterial(this, insert_material)">
+				<input type="hidden" name="type" value="img" />
+				<input type="hidden" name="image" value="" class="pimg" />
+				<input type="hidden" name="mid" value="{$mid}" />
+				<input type="hidden" name="auth" value="{$auth}" />
+				<input type="hidden" name="content" value="" />
+				<input type="hidden" name="from" value="{$_from}" />
+				<fieldset>
+					<legend>{$lang->material->images}</legend>
+					<h2>{$lang->material->select_image}</h2>
+					<ul>
+						<!--@foreach($images as $no => $src)-->
+						<li><button type="button"><img src="{$src}" style="display:none" alt=""/></button></li>
+						<!--@end-->
+					</ul>
+					<h2>{$lang->material->description}</h2>
+<textarea name="" cols="50" rows="5" class="inputTextarea p" title="{$lang->material->about_imagedescription}"></textarea>
+					<dl class="cite">
+						<dt>{$lang->material->citefrom}</dt>
+						<dd>{$title}</dd>
+					</dl>
+					<div class="buttonArea">
+						<span class="buttonSubmit"><input type="submit" value="{$lang->material->cmd_deposit}" /></span>
+					</div>					
+				</fieldset>
+			</form>
+		</div>
+		<div id="mov" class="section mov">
+			<form action="" method="post" onsubmit="return insertMaterial(this, insert_material)">
+				<input type="hidden" name="type" value="mov" />
+				<input type="hidden" name="act" value="procMaterialInsert" />
+				<input type="hidden" name="mid" value="{$mid}" />
+				<input type="hidden" name="auth" value="{$auth}" />
+				<input type="hidden" name="content" value="" />
+				<input type="hidden" name="from" value="{$_from}" />
+				<fieldset>
+					<legend>{$lang->material->movie}</legend>
+					<h2>{$lang->material->code}</h2>
+					<textarea name="" cols="50" rows="5" class="inputTextarea null" title="{$lang->material->about_code}">{$objects[0]}</textarea>
+					<h2>{$lang->material->codedescription}</h2>
+<textarea name="" cols="50" rows="5" class="inputTextarea p" title="{$lang->material->about_codedescription}"></textarea>
+					<dl class="cite">
+						<dt>{$lang->material->citefrom}</dt>
+						<dd>{$title}</dd>
+					</dl>
+					<div class="buttonArea">
+						<span class="buttonSubmit"><input type="submit" value="{$lang->material->cmd_deposit}" /></span>
+					</div>					
+				</fieldset>
+			</form>
+		</div>
+	</div>
+	<div id="error">
+		<h1>Sorry!</h1>
+		<p>{$lang->material->error_msg_title}</p>
+		<ol>
+			<!--@foreach($lang->material->error_msg_list as $k => $v)-->
+			<li>{$v}</li>
+			<!--@end-->
+		</ol>
+		<div class="buttonArea">
+			<span class="buttonSubmit"><button type="button" onclick="window.close()">{$lang->cmd_close}</button></span>
+		</div>					
+	</div>
+</div>

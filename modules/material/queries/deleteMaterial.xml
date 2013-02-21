@@ -1,0 +1,9 @@
+<query id="deleteMaterial" action="delete">
+    <tables>
+        <table name="material" />
+    </tables>
+    <conditions>
+        <condition operation="equal" column="material_srl" var="material_srl" />
+        <condition operation="in" column="material_srl" var="material_srls" pipe="or" />
+    </conditions>
+</query>
