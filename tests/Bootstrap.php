@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__ . "/../vendor/autoload.php";
 require_once 'MockHelper.php';
 require_once 'classes/object/Object.mock.php';
 

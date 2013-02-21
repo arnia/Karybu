@@ -325,6 +325,7 @@
 		 * @return array Returns list
          **/
         function getInsertedAddons($site_srl = 0, $gtype = 'site') {
+            $args = new stdClass();
             $args->list_order = 'addon';
             if($gtype == 'global') $output = executeQuery('addon.getAddons', $args);
             else {
@@ -335,6 +336,7 @@
             if(!is_array($output->data)) $output->data = array($output->data);
 
             $activated_count = count($output->data);
+            $addon_list = array();
             for($i=0;$i<$activated_count;$i++) {
                 $addon = $output->data[$i];
                 $addon_list[$addon->addon] = $addon;

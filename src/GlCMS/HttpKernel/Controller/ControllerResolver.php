@@ -1,15 +1,21 @@
 <?php
-namespace GlCMS;
-use \Symfony\Component\HttpKernel\Controller;
+namespace GlCMS\HttpKernel\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\HttpKernel\Controller\ControllerResolver as BaseResolver;
 
 require_once _XE_PATH_ . 'classes/module/ModuleMatcher.class.php';
 
-class ControllerResolver extends Controller\ControllerResolver
+class ControllerResolver extends BaseResolver
 {
+    protected $container;
+    protected $parser;
 
-    public function getController(Request $request, $oModuleModel = null)
+    public function getController(Request $request)
     {
+        $oModuleModel = getModel('module');
+        $error = $request->attributes->get('error');
         $module = $request->attributes->get('module');
         $act = $request->attributes->get('act');
         $is_mobile = $request->attributes->get('is_mobile');
@@ -17,15 +23,6 @@ class ControllerResolver extends Controller\ControllerResolver
         $module_info = $request->attributes->get('module_info');
 
         if ($request->attributes->has('_controller')) {
-            if (is_array($include_paths = $request->attributes->get('_include'))) {
-                foreach ($include_paths as $include_path) {
-                    $include_path = _XE_PATH_ . $include_path;
-                    if (file_exists($include_path) && !is_dir($include_path)) {
-                        require_once $include_path;
-                    }
-                }
-            }
-
             $controller = parent::getController($request);
             $oModule = $controller[0];
             $act = $controller[1];
@@ -39,22 +36,29 @@ class ControllerResolver extends Controller\ControllerResolver
 
             $module_matcher = new \ModuleMatcher();
             $kind = $module_matcher->getKind($act, $module);
-            $oModule->module_key = new \ModuleKey($module
-                ,$module_info->module_type
-                ,$kind);
-
+            $oModule->module_key = new \ModuleKey($module, $module_info->module_type, $kind);
 
             $oModule->setModuleInfo($module_info, $xml_info);
-
-            return array($oModule, $oModule->act);
         }
-        else
-        {
+        else {
             $module_matcher = new \ModuleMatcher();
-            $oModule = $module_matcher->getModuleInstance($act, $module, $oModuleModel, $is_mobile, $is_installed, $module_info);
-            return array($oModule, $oModule->act);
-
+            if ($error) {
+                $module = $error->module;
+                $module_matcher = new \ModuleMatcher();
+                $kind = $module_matcher->getKind('dispMessage', $module);
+                $error->module_key = new \ModuleKey($module, $module_info->module_type, $kind);
+                $oModule = $error;
+            }
+            else {
+                $oModule = $module_matcher->getModuleInstance($act, $module, $oModuleModel, $is_mobile, $is_installed, $module_info);
+            }
         }
+
+        if ($oModule instanceof ContainerAwareInterface) {
+            $oModule->setContainer($this->container);
+        }
+
+        return new ControllerWrapper($oModule);
     }
 
     /**

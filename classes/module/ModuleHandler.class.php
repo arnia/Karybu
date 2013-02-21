@@ -11,6 +11,9 @@
 
 require_once 'ModuleMatcher.class.php';
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 class ModuleHandlerInstance extends Handler
 {
 
@@ -120,8 +123,9 @@ class ModuleHandlerInstance extends Handler
         $oDocumentModel = $this->getDocumentModel();
         $db_info = $this->context->getDBInfo();
 
-
+        // TODO Move all the 'catch' statements here to the Listener and return RedirectResponse
         $moduleMatcher = new ModuleMatcher();
+        $found_module_info = new stdClass();
         try {
             $found_module_info = $moduleMatcher->getModuleInfo(
                 $this->module
@@ -147,42 +151,23 @@ class ModuleHandlerInstance extends Handler
                 $this->context
             );
         } catch (MidMismatchException $e) {
-            $this->context->setRedirectResponseTo(
-                $this->context->getNotEncodedSiteUrl(
-                    $site_module_info->domain,
-                    'mid',
-                    $e->getMid(),
-                    'document_srl',
-                    $e->getDocumentSrl()
-                )
+            $redirectionUrl = getNotEncodedSiteUrl($site_module_info->domain, 'mid', $e->getMid(), 'document_srl', $e->getDocumentSrl());
+            return new RedirectResponse($redirectionUrl);
+        } catch (DefaultModuleSiteSrlMismatchException $e) {
+            $redirectionUrl = getNotEncodedSiteUrl($e->getDomain(),'mid',$e->getMid());
+            return new RedirectResponse($redirectionUrl);
+        } catch (SiteSrlMismatchException $e) {
+            $redirectionUrl = getNotEncodedSiteUrl(
+                $e->getDomain(),
+                'mid', $e->getMid(),
+                'document_srl', $e->getDocumentSrl(),
+                'module_srl', $e->getModuleSrl(),
+                'entry', $e->getEntry()
             );
-        }
-        catch (DefaultModuleSiteSrlMismatchException $e) {
-            $this->context->setRedirectResponseTo(
-                $this->context->getNotEncodedSiteUrl($e->getDomain(), 'mid', $e->getMid())
-            );
-        }
-        catch (SiteSrlMismatchException $e) {
-            $this->context->getNotEncodedSiteUrl(
-                $e->getDomain()
-                ,
-                'mid',
-                $e->getMid()
-                ,
-                'document_srl',
-                $e->getDocumentSrl()
-                ,
-                'module_srl',
-                $e->getModuleSrl()
-                ,
-                'entry',
-                $e->getEntry()
-            );
-        }
-        catch (DefaultUrlNotDefined $e) {
-            return $this->context->getLang('msg_default_url_is_not_defined');
-        }
-        catch (ModuleDoesNotExistException $e) {
+            return new RedirectResponse($redirectionUrl);
+        } catch (DefaultUrlNotDefined $e) {
+            return Context::getLang('msg_default_url_is_not_defined');
+        } catch (ModuleDoesNotExistException $e) {
             $this->error = 'msg_module_is_not_exists';
             $this->httpStatusCode = '404';
         }
@@ -284,43 +269,34 @@ class ModuleHandlerInstance extends Handler
     }
 
 
-    /**
-     * get a module instance and execute an action
-     * @return ModuleObject executed module instance
-     **/
-    function procModule()
-    {
-
+    function checkForErrorsAndPrepareMobileStatus() {
         // If error occurred while preparation, return a message instance
         if ($this->error) {
             return $this->showErrorToUser();
         }
-
         if ($this->module_info->use_mobile != "Y") {
             Mobile::setMobile(false);
         }
+    }
 
-        // Get info necessary to retrieve the module's instance
-        $oModuleModel = & getModel('module');
 
+    function getController(){
+        $resolver = new \GlCMS\HttpKernel\Controller\ControllerResolver();
         /** @var $request \Symfony\Component\HttpFoundation\Request */
         $request = Context::get('request');
-        $resolver = new \GlCMS\ControllerResolver();
-        try {
-            $request->attributes->set("act", $this->act);
-            $request->attributes->set("module", $this->module);
-            $request->attributes->set("is_mobile", Mobile::isFromMobilePhone());
-            $request->attributes->set("is_installed", Context::isInstalled());
-            $request->attributes->set('module_info', $this->module_info);
+        $request->attributes->set("act", $this->act);
+        $request->attributes->set("module", $this->module);
+        $request->attributes->set("is_mobile", Mobile::isFromMobilePhone());
+        $request->attributes->set("is_installed", Context::isInstalled());
+        $request->attributes->set('module_info', $this->module_info);
 
+        try {
             // Get ModuleObject instance
-            $controller = $resolver->getController($request, $oModuleModel);
-            $oModule = $controller[0];
-            $this->act = $controller[1];
-        } catch (ModuleDoesNotExistException $e) {
+            $controller = $resolver->getController($request);
+        }
+        catch (ModuleDoesNotExistException $e) {
             $this->error = 'msg_module_is_not_exists';
             $this->httpStatusCode = '404';
-
             return $this->showErrorToUser();
         }
         catch (InvalidRequestException $e) {
@@ -333,22 +309,36 @@ class ModuleHandlerInstance extends Handler
             return $this->showErrorToUser();
         }
 
+        // Return $oModule instance - see ControllerResolver::getController for info
+        return $controller[0];
+    }
 
-        // ---------- We now have a identified a controller :D -------- //
 
-        // Now that we finally have a module instance and a valid act, do stuff
+    /**
+     * - Checks user permissions
+     * - Checks rulesets
+     *
+     */
+    function filterController($oModule) {
+        $this->act = $oModule->act;
+
+        $oModuleModel = getModel('module');
+        // Now that we have a module instance and a valid act, do stuff
         $logged_info = Context::get('logged_info');
-        if ($this->module == "admin" && $oModule->module_key->getType() == "view") {
+        if ($oModule->checkAdminPermission
+            && $this->module == "admin"
+            && $oModule->module_key->getType() == "view") {
             // This is basically the entry point to the admin interface
-            if ($logged_info->is_admin == 'Y') {
+            if ($logged_info->is_admin=='Y') {
                 // Load the admin layout
                 if ($this->act != 'dispLayoutAdminLayoutModify') {
-                    $oAdminView = & getAdminView('admin');
+                    $oAdminView = &getAdminView('admin');
                     $oAdminView->makeGnbUrl($oModule->module_key->getModule());
                     $oModule->setLayoutPath("./modules/admin/tpl");
                     $oModule->setLayoutFile("layout.html");
                 }
-            } else {
+            }
+            else {
                 $this->error = 'msg_is_not_administrator';
                 return $this->showErrorToUser();
             }
@@ -356,20 +346,21 @@ class ModuleHandlerInstance extends Handler
 
         if ($oModule->module_key->isAdmin()) {
             $this->initAdminMenu();
-            if ($_SESSION['denied_admin'] == 'Y') {
+            if($_SESSION['denied_admin'] == 'Y') {
                 $this->error = "msg_not_permitted_act";
                 return $this->showErrorToUser();
             }
 
-            // Validate current user permissions
-            $grant = $oModuleModel->getGrant($this->module_info, $logged_info);
-            if (!$grant->is_admin && !$grant->manager) {
-                $this->error = 'msg_is_not_manager';
-                return $this->showErrorToUser();
+            if($oModule->checkAdminPermission)
+            {
+                // Validate current user permissions
+                $grant = $oModuleModel->getGrant($this->module_info, $logged_info);
+                if (!$grant->is_admin && !$grant->manager) {
+                    $this->error = 'msg_is_not_manager';
+                    return $this->showErrorToUser();
+                }
             }
-
         }
-
         $ruleset = $oModule->ruleset;
 
         // ruleset check...
@@ -407,51 +398,45 @@ class ModuleHandlerInstance extends Handler
             }
         }
 
-        if ($oModule->module_key->getType(
-        ) == "view" && $this->module_info->use_mobile == "Y" && Mobile::isMobileCheckByAgent()
-        ) {
+        if ($oModule->module_key->getType() == "view" && $this->module_info->use_mobile == "Y" && Mobile::isMobileCheckByAgent()) {
             global $lang;
             $header = '<style type="text/css">div.xe_mobile{opacity:0.7;margin:1em 0;padding:.5em;background:#333;border:1px solid #666;border-left:0;border-right:0}p.xe_mobile{text-align:center;margin:1em 0}a.xe_mobile{color:#ff0;font-weight:bold;font-size:24px}@media only screen and (min-width:500px){a.xe_mobile{font-size:15px}}</style>';
-            $footer = '<div class="xe_mobile"><p class="xe_mobile"><a class="xe_mobile" href="' . getUrl(
-                'm',
-                '1'
-            ) . '">' . $lang->msg_pc_to_mobile . '</a></p></div>';
+            $footer = '<div class="xe_mobile"><p class="xe_mobile"><a class="xe_mobile" href="'.getUrl('m', '1').'">'.$lang->msg_pc_to_mobile.'</a></p></div>';
             Context::addHtmlHeader($header);
             Context::addHtmlFooter($footer);
         }
 
-        if ($oModule->module_key->getType() == "view" && $oModule->module_key->getKind() != 'admin') {
-            $module_config = $oModuleModel->getModuleConfig('module');
-            if ($module_config->htmlFooter) {
-                $this->context->addHtmlFooter($module_config->htmlFooter);
+        if ($oModule->module_key->getType() == "view" && $oModule->module_key->getKind() != 'admin'){
+            $module_config= $oModuleModel->getModuleConfig('module');
+            if($module_config->htmlFooter) {
+                Context::addHtmlFooter($module_config->htmlFooter);
             }
         }
 
         // if failed message exists in session, set context
         $this->_setInputErrorToContext();
 
-        // controller callback: array(get_class($oModule), $this->act)
-        $procResult = $oModule->proc();
+        unset($logged_info);
+    }
 
-        $methodList = array('XMLRPC' => 1, 'JSON' => 1);
-        if (!$oModule->stop_proc && !isset($methodList[$this->context->getRequestMethod()])) {
+    function setErrorsToSessionAfterProc($oModule, $procResult)
+    {
+        $methodList = array('XMLRPC'=>1, 'JSON'=>1);
+        if (!$oModule->stop_proc && !isset($methodList[Context::getRequestMethod()])) {
             $error = $oModule->getError();
             $message = $oModule->getMessage();
             $messageType = $oModule->getMessageType();
             $redirectUrl = $oModule->getRedirectUrl();
 
-            if (!$procResult) {
+            if ($procResult === false) {
                 $this->error = $message;
-                if (!$redirectUrl && $this->context->get('error_return_url')) {
-                    $redirectUrl = $this->context->get(
-                        'error_return_url'
-                    );
-                }
+                if (!$redirectUrl && Context::get('error_return_url')) $redirectUrl = Context::get('error_return_url');
                 $this->_setInputValueToSession();
 
-            } else {
+            }
+            else {
                 if (count($_SESSION['INPUT_ERROR'])) {
-                    $this->context->set('INPUT_ERROR', $_SESSION['INPUT_ERROR']);
+                    Context::set('INPUT_ERROR', $_SESSION['INPUT_ERROR']);
                     $_SESSION['INPUT_ERROR'] = '';
                 }
             }
@@ -462,12 +447,34 @@ class ModuleHandlerInstance extends Handler
             }
             $_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] = $messageType;
 
-            if ($this->context->get('xeVirtualRequestMethod') != 'xml') {
+            if (Context::get('xeVirtualRequestMethod') != 'xml') {
                 $_SESSION['XE_VALIDATOR_RETURN_URL'] = $redirectUrl;
             }
         }
+    }
+    /**
+     * get a module instance and execute an action
+     * @return ModuleObject executed module instance
+     **/
+    function procModule() {
 
-        unset($logged_info);
+        $this->checkForErrorsAndPrepareMobileStatus();
+
+        // Get info necessary to retrieve the module's instance
+        /** @var $oModule \ModuleObject */
+        $oModule = $this->getController(); // ControllerResolver::getController
+
+        $this->filterController($oModule);
+
+        // controller callback: array(get_class($oModule), $this->act)
+        if($oModule->preProc()) {
+            $output = $oModule->proc(); // Controller::execute
+            $procResult = (bool)$oModule->postProc($output);
+        }
+        else $procResult = false;
+
+        $this->setErrorsToSessionAfterProc($oModule, $procResult);
+
         return $oModule;
     }
 
@@ -495,11 +502,11 @@ class ModuleHandlerInstance extends Handler
             if (!$output->menu_srl) {
                 $oAdminClass = & getClass('admin');
                 $oAdminClass->createXeAdminMenu();
-            } else {
-                if (!is_readable($output->php_file)) {
-                    $oMenuAdminController = & getAdminController('menu');
-                    $oMenuAdminController->makeXmlFile($output->menu_srl);
-                }
+            }
+            else if(!is_readable($output->php_file))
+            {
+                $oMenuAdminController = & getAdminController('menu');
+                $oMenuAdminController->makeXmlFile($output->menu_srl);
             }
         }
     }
@@ -679,10 +686,6 @@ class ModuleHandlerInstance extends Handler
                 }
             }
         }
-
-        // Display contents
-        $oDisplayHandler = new DisplayHandler();
-        $oDisplayHandler->printContent($oModule);
     }
 
     /**

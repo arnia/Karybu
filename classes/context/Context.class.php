@@ -3,6 +3,8 @@ define('FOLLOW_REQUEST_SSL',0);
 define('ENFORCE_SSL',1);
 define('RELEASE_SSL',2);
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 /**
  * Manages Context such as request arguments/environment variables
  * It has dual method structure, easy-to use methods which can be called as Context::methodname(),and methods called with static object.
@@ -553,34 +555,11 @@ class ContextInstance {
         $this->loadModuleExtends();
         $this->setAuthenticationInfoInContextAndSession();
 
-        $this->request = Symfony\Component\HttpFoundation\Request::createFromGlobals();
-        $requestContext = new Symfony\Component\Routing\RequestContext;
-        $requestContext->fromRequest($this->request);
-        try {
-            $configPaths = array(__DIR__ . '/../../config');
-            $locator = new Symfony\Component\Config\FileLocator($configPaths);
-            $loader = new \Symfony\Component\Routing\Loader\YamlFileLoader($locator);
-            $routes = $loader->load('routes.yml');
-            $matcher = new \Symfony\Component\Routing\Matcher\UrlMatcher($routes, $requestContext);
-            $params = $matcher->match($this->request->getPathInfo());
-            $this->request->attributes->add($params);
-            //inject request params into context
-            foreach ($params as $name=>$value) {
-                if (!is_numeric($name)) {
-                    $this->set($name, $value);
-                }
-            }
-        }
-        catch (Exception $e) {
-            // missing route? cache write problem?
-        }
-
         $current_url = $this->getCurrentUrl();
         $this->set('current_url', $current_url);
 
         $this->set('request_uri',Context::getRequestUri());
-        $this->set('request', $this->request);
-    }
+	}
 
     /**
      * Returns an url to be used in client-side js scripts
@@ -761,7 +740,8 @@ class ContextInstance {
      */
     public function linkContextToGlobals(&$global_context, &$global_lang, &$global_cookie)
     {
-        $this->context = &$global_context;
+        // Removed link from here because now it is called separately in Listener
+        // $this->context = &$global_context;
         $this->context->lang = &$global_lang;
         $this->context->_COOKIE = &$global_cookie;
     }
@@ -1024,8 +1004,7 @@ class ContextInstance {
                 $query_string.= $query_string.'SSOID='.$this->getSessionId();
                 $url_info['query'] = $query_string;
                 $redirect_url = sprintf('%s://%s%s%s?%s',$url_info['scheme'],$url_info['host'],isset($url_info['port'])?':'.$url_info['port']:'',$url_info['path'], $url_info['query']);
-                $this->setRedirectResponseTo($redirect_url);
-                return false;
+                return new RedirectResponse($redirect_url);
             }
             // for sites requesting SSO validation
         } else {
@@ -1034,14 +1013,12 @@ class ContextInstance {
                 $session_name = $this->get('SSOID');
                 $this->setCookie($this->getSessionName(), $session_name);
                 $url = preg_replace('/([\?\&])$/','',str_replace('SSOID='.$session_name,'',$this->getRequestUrl()));
-                $this->setRedirectResponseTo($url);
-                return false;
+                return new RedirectResponse($url);
                 // send SSO request
             } else if($this->getGlobalCookie('sso') != md5($this->getRequestUri()) && !$this->get('SSOID')) {
                 $this->setCookie('sso', md5($this->getRequestUri()), 0 ,'/');
                 $url = sprintf("%s?default_url=%s", $default_url, base64_encode($this->getRequestUrl()));
-                $this->setRedirectResponseTo($url);
-                return false;
+                return new RedirectResponse($url);
             }
         }
 
@@ -2221,7 +2198,7 @@ class ContextInstance {
      * @return void
      */
     function addJsFilter($path, $filename) {
-        $oXmlFilter = new XmlJSFilter($path, $filename);
+        $oXmlFilter = new XmlJsFilter($path, $filename);
         $oXmlFilter->compile();
     }
 

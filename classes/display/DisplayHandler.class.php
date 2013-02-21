@@ -15,6 +15,107 @@
         var $gz_enabled = false; // / <a flog variable whether to call contents after compressing by gzip
 		var $handler = null;
 
+        var $headers = array();
+
+        function addHeader($key, $header, $replace = true)
+        {
+            $this->headers[] = array($key, $header, $replace);
+        }
+
+        function isGzipEnabled($gzhandler_enable)
+        {
+            return (defined('__OB_GZHANDLER_ENABLE__') && __OB_GZHANDLER_ENABLE__ == 1) &&
+                strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')!==false &&
+                function_exists('ob_gzhandler') &&
+                extension_loaded('zlib') &&
+                $gzhandler_enable;
+        }
+
+        function getHandler()
+        {
+            if(Context::get('xeVirtualRequestMethod')=='xml') {
+                require_once("./classes/display/VirtualXMLDisplayHandler.php");
+                $handler = new VirtualXMLDisplayHandler();
+            }
+            else if(Context::getRequestMethod() == 'XMLRPC') {
+                require_once("./classes/display/XMLDisplayHandler.php");
+                $handler = new XMLDisplayHandler();
+                if(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false) $this->gz_enabled = false;
+            }
+            else if(Context::getRequestMethod() == 'JSON') {
+                require_once("./classes/display/JSONDisplayHandler.php");
+                $handler = new JSONDisplayHandler();
+            }
+            else {
+                require_once("./classes/display/HTMLDisplayHandler.php");
+                $handler = new HTMLDisplayHandler();
+            }
+            return $handler;
+        }
+
+        function getContent($oModule)
+        {
+            // Check if the gzip encoding supported
+            $this->gz_enabled = $this->isGzipEnabled($oModule->gzhandler_enable);
+
+            // Extract contents to display by the request method
+            $handler = $this->getHandler();
+            $output = $handler->toDoc($oModule);
+            $this->modifyOutput($output, $handler);
+
+            // debugOutput output
+            $this->content_size = strlen($output);
+            $output .= $this->_debugOutput();
+
+            // Print content
+            if($this->gz_enabled) $output = ob_gzhandler($output, 5);
+
+            return $output;
+        }
+
+        function modifyOutput(&$output, $handler)
+        {
+            // call a trigger before display
+            ModuleHandler::triggerCall('display', 'before', $output);
+            // execute add-on
+            $called_position = 'before_display_content';
+            $oAddonController = &getController('addon');
+            $addon_file = $oAddonController->getCacheFilePath(Mobile::isFromMobilePhone()?"mobile":"pc");
+            @include($addon_file);
+
+            if(method_exists($handler, "prepareToPrint")) $handler->prepareToPrint($output);
+        }
+
+        function getStatusCode($oModule)
+        {
+            $code = $oModule->getHttpStatusCode();
+            $message = Context::get('http_status_message');
+            if(!$code) $code = 200;
+
+            return array($code, $message);
+        }
+
+        function prepareHeaders($oModule)
+        {
+            // header output
+            if($this->gz_enabled) $this->addHeader("Content-Encoding", "gzip");
+
+            $httpStatusCode = $oModule->getHttpStatusCode();
+
+            if(!$httpStatusCode || $httpStatusCode == 200) {
+                if(Context::getResponseMethod() == 'JSON') $this->_printJSONHeader();
+                else if(Context::getResponseMethod() != 'HTML') $this->_printXMLHeader();
+                else $this->_printHTMLHeader();
+            }
+        }
+
+        function getHeaders($oModule)
+        {
+            $this->headers = array();
+            $this->prepareHeaders($oModule);
+            return $this->headers;
+        }
+
         /**
          * print either html or xml content given oModule object
          * @remark addon execution and the trigger execution are included within this method, which might create inflexibility for the fine grained caching
@@ -22,63 +123,8 @@
 		 * @return void
          **/
         function printContent(&$oModule) {
-            // Check if the gzip encoding supported
-            if(
-                (defined('__OB_GZHANDLER_ENABLE__') && __OB_GZHANDLER_ENABLE__ == 1) &&
-                strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')!==false &&
-                function_exists('ob_gzhandler') &&
-                extension_loaded('zlib') &&
-				$oModule->gzhandler_enable
-            ) $this->gz_enabled = true;
-            // Extract contents to display by the request method
-            if(Context::get('xeVirtualRequestMethod')=='xml') {
-				require_once("./classes/display/VirtualXMLDisplayHandler.php");
-				$handler = new VirtualXMLDisplayHandler();
-			}
-            else if(Context::getRequestMethod() == 'XMLRPC') {
-				require_once("./classes/display/XMLDisplayHandler.php");
-				$handler = new XMLDisplayHandler();
-				if(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false) $this->gz_enabled = false;
-			}
-            else if(Context::getRequestMethod() == 'JSON') {
-				require_once("./classes/display/JSONDisplayHandler.php");
-				$handler = new JSONDisplayHandler();
-			}
-            else {
-				require_once("./classes/display/HTMLDisplayHandler.php");
-				$handler = new HTMLDisplayHandler();
-			}
-
-			$output = $handler->toDoc($oModule);
-			// call a trigger before display
-			ModuleHandler::triggerCall('display', 'before', $output);
-			// execute add-on
-			$called_position = 'before_display_content';
-			$oAddonController = &getController('addon');
-			$addon_file = $oAddonController->getCacheFilePath(Mobile::isFromMobilePhone()?"mobile":"pc");
-			include($addon_file);
-
-			if(method_exists($handler, "prepareToPrint")) $handler->prepareToPrint($output);
-			// header output
-			if($this->gz_enabled) header("Content-Encoding: gzip");
-
-			$httpStatusCode = $oModule->getHttpStatusCode();
-			if($httpStatusCode && $httpStatusCode != 200) $this->_printHttpStatusCode($httpStatusCode);
-			else
-			{
-				if(Context::getResponseMethod() == 'JSON') $this->_printJSONHeader();
-				else if(Context::getResponseMethod() != 'HTML') $this->_printXMLHeader();
-				else $this->_printHTMLHeader();
-			}
-
-			// debugOutput output
-			$this->content_size = strlen($output);
-			$output .= $this->_debugOutput();
-			// results directly output
-			if($this->gz_enabled) print ob_gzhandler($output, 5);
-			else print $output;
-			// call a trigger after display
-			ModuleHandler::triggerCall('display', 'after', $content);
+            $output = $this->getContent($oModule);
+            $headers = $this->getHeaders($oModule);
         }
 
 
@@ -227,12 +273,12 @@
 		 * @return void
 		 **/
 		function _printXMLHeader() {
-			header("Content-Type: text/xml; charset=UTF-8");
-			header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-			header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-			header("Cache-Control: no-store, no-cache, must-revalidate");
-			header("Cache-Control: post-check=0, pre-check=0", false);
-			header("Pragma: no-cache");
+            $this->addHeader("Content-Type", "text/xml; charset=UTF-8");
+            $this->addHeader("Expires", "Mon, 26 Jul 1997 05:00:00 GMT");
+            $this->addHeader("Last-Modified", gmdate("D, d M Y H:i:s") . " GMT");
+            $this->addHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+            $this->addHeader("Cache-Control", "post-check=0, pre-check=0", false);
+            $this->addHeader("Pragma", "no-cache");
 		}
 
 
@@ -241,12 +287,12 @@
 		 * @return void
 		 **/
 		function _printHTMLHeader() {
-			header("Content-Type: text/html; charset=UTF-8");
-			header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-			header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-			header("Cache-Control: no-store, no-cache, must-revalidate");
-			header("Cache-Control: post-check=0, pre-check=0", false);
-			header("Pragma: no-cache");
+            $this->addHeader("Content-Type", "text/html; charset=UTF-8");
+            $this->addHeader("Expires", "Mon, 26 Jul 1997 05:00:00 GMT");
+            $this->addHeader("Last-Modified", gmdate("D, d M Y H:i:s") . " GMT");
+            $this->addHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+            $this->addHeader("Cache-Control", "post-check=0, pre-check=0", false);
+            $this->addHeader("Pragma", "no-cache");
 		}
 
 
@@ -255,22 +301,13 @@
 		 * @return void
 		 **/
 		function _printJSONHeader() {
-			header("Content-Type: text/html; charset=UTF-8");
-			header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-			header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-			header("Cache-Control: no-store, no-cache, must-revalidate");
-			header("Cache-Control: post-check=0, pre-check=0", false);
-			header("Pragma: no-cache");
+            $this->addHeader("Content-Type", "text/html; charset=UTF-8");
+            $this->addHeader("Expires", "Mon, 26 Jul 1997 05:00:00 GMT");
+            $this->addHeader("Last-Modified", gmdate("D, d M Y H:i:s") . " GMT");
+            $this->addHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+            $this->addHeader("Cache-Control", "post-check=0, pre-check=0", false);
+            $this->addHeader("Pragma", "no-cache");
 		}
 
-
-		/**
-		 * print a HTTP HEADER for HTML, which is encoded in UTF-8
-		 * @return void
-		 **/
-		function _printHttpStatusCode($code) {
-			$statusMessage = Context::get('http_status_message');
-			header("HTTP/1.0 $code $statusMessage");
-		}
     }
 ?>
