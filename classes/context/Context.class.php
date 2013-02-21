@@ -738,10 +738,8 @@ class ContextInstance {
      * @param $global_lang
      * @param $global_cookie
      */
-    public function linkContextToGlobals(&$global_context, &$global_lang, &$global_cookie)
+    public function linkContextToGlobals(&$global_lang, &$global_cookie)
     {
-        // Removed link from here because now it is called separately in Listener
-        // $this->context = &$global_context;
         $this->context->lang = &$global_lang;
         $this->context->_COOKIE = &$global_cookie;
     }
