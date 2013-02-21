@@ -2748,5 +2748,8 @@ class Context
         self::$context->addJsFilter($path, $filename);
     }
 
-
+    public static function pathToUrl($path)
+    {
+        self::$context->pathToUrl($path);
+    }
 }
