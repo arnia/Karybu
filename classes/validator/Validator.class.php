@@ -53,15 +53,6 @@ class Validator
 	 * @param string $xml_path
 	 * @return void
 	 */
-	function Validator($xml_path='') {
-		$this->__construct($xml_path);
-	}
-
-	/**
-	 * @constructor
-	 * @param string $xml_path
-	 * @return void
-	 */
 	function __construct($xml_path='') {
 		$this->_rules   = array();
 		$this->_filters = array();
@@ -89,9 +80,9 @@ class Validator
     public function setRulesetPath($xml_path)
     {
         $this->load($xml_path);
-    }
+	}
 
-    /**
+	/**
 	 * @destructor
 	 * @return void
 	 */
