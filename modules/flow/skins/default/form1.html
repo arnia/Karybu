@@ -3,11 +3,12 @@
     <input type="hidden" name="mid" value="flow">
     <input type="hidden" name="act" value="dispFlowQ1"/>
     <input type="hidden" name="FROM" value="form1"/>
-    <input type="hidden" name="NEXT" value="true"/>
+    <input id="NAVIGATION" type="hidden" name="NAVIGATION" value="NEXT"/>
 
     <label for="first_name">First Name:</label>
-    <input id="first_name" name="first_name" type="text"/><br/>
+    <input id="first_name" name="first_name" type="text"/>{$first_name}<br/>
     <label for="last_name">Last Name:</label>
-    <input id="last_name" name="last_name" type="text"/><br/>
+    <input id="last_name" name="last_name" type="text"/>{$last_name}<br/>
+    <input type="submit" value="Previous" onclick="document.getElementById('NAVIGATION').value='PREVIOUS'"/>
     <input type="submit" value="Next"/>
 </form>

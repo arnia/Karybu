@@ -18,5 +18,5 @@ interface FlowActionRegister
      * @return mixed
      * @throw FlowException if something is wrong
      */
-    public function registerAction($ACTION_TYPE, $form, callable $action, $priority=0);
+    public function registerAction($ACTION_TYPE, $form, $action, $priority=0);
 }

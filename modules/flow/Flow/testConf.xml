@@ -6,6 +6,14 @@
     <field name="last_name" required="true"/>
     <navigation>
       <next>
+        <url>index.php?mid=flow&amp;act=dispQ1</url>
+        <condition>$last_name=='Razvan'</condition>
+      </next>
+      <next>
+        <url>index.php</url>
+        <condition>$last_name==Dummy\DummyModel::standardAnswer()</condition>
+      </next>
+      <next>
         <form>form2</form>
         <condition>true</condition>
       </next>
@@ -21,7 +29,7 @@
     <field name="county" required="true"/>
     <navigation>
       <next>
-        <url>www.google.com</url>
+        <form>form3</form>
         <condition>true</condition>
       </next>
       <previous>
@@ -30,5 +38,8 @@
       </previous>
     </navigation>
   </form>
-  
+
+  <form id="form3"/>
+
+
 </qub:flow>

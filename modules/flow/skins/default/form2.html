@@ -1,13 +1,15 @@
 <!-- TEST ONLY; SUBJECT FOR DELETION -->
+Hello {$entire_name}<br/>
 <form action="." method="POST">
     <input type="hidden" name="mid" value="flow">
     <input type="hidden" name="act" value="dispFlowQ1"/>
-    <input type="hidden" name="FROM" value="form1"/>
-    <input type="hidden" name="NEXT" value="true"/>
+    <input type="hidden" name="FROM" value="form2"/>
+    <input id="NAVIGATION" type="hidden" name="NAVIGATION" value="NEXT"/>
 
     <label for="city">City:</label>
     <input id="city" name="city" type="text"/><br/>
     <label for="county">County:</label>
     <input id="county" name="county" type="text"/><br/>
+    <input type="submit" value="Previous" onclick="document.getElementById('NAVIGATION').value='PREVIOUS'"/>
     <input type="submit" value="Next"/>
 </form>

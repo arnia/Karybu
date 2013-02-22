@@ -3,10 +3,10 @@
 
     <complexType name="formType">
     	<sequence maxOccurs="1" minOccurs="1" >
-    		<sequence maxOccurs="unbounded" minOccurs="1" >
+    		<sequence maxOccurs="unbounded" minOccurs="0" >
     			<element name="field" type="qub:fieldType"></element>
     		</sequence>
-	    	<element name="navigation" type="qub:navigationType"></element>
+	    	<element name="navigation" type="qub:navigationType" minOccurs="0"></element>
     	</sequence>
     	<attribute name="id" type="string" use="required"></attribute>
     	<attribute name="filename" type="string"></attribute>
@@ -19,8 +19,8 @@
 
     <complexType name="navigationType">
     	<sequence>
-    		<element name="next" type="qub:directionType"></element>
-    		<element name="previous" type="qub:directionType"></element>
+    		<element name="next" type="qub:directionType" maxOccurs="unbounded" minOccurs="0"></element>
+    		<element name="previous" type="qub:directionType" maxOccurs="unbounded" minOccurs="0"></element>
     	</sequence>
     </complexType>
 

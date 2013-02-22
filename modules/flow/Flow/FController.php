@@ -16,8 +16,9 @@ define (_FLOW_SCHEMA_PATH_, __DIR__.'\\..\\conf\\flow.xsd');
 class FController implements FlowActionRegister{
 	
 	const FROM_PARAM = "FROM";
-	const NEXT_PARAM = "NEXT";
-	const PREVIOUS_PARAM = "PREVIOUS";
+    const NAVIGATION_PARAM = "NAVIGATION";
+	const NAVIGATION_NEXT_VALUE = "NEXT";
+	const NAVIGATION_PREVIOUS_VALUE = "PREVIOUS";
 	
 	/** @var $confDom DOMDocument */
 	private $confDom;
@@ -48,14 +49,14 @@ class FController implements FlowActionRegister{
 		$this->confDomXPath = new DOMXPath($this->confDom);
 		
 		// load form flow information
-		$this->loadFormsInfo();
+		$this->loadFlowInfo();
 	}
 
     public function setPrefixToReachAForm($prefix){
         $this->formUrlPrefix = $prefix;
     }
 
-    public function registerAction($ACTION_TYPE, $form, callable $action, $priority = 0)
+    public function registerAction($ACTION_TYPE, $form, $action, $priority = 0)
     {
         if (!isset($this->forms[$form])){
             throw new FlowException("Specified form cannot be found in flow's configuration!");
@@ -86,23 +87,35 @@ class FController implements FlowActionRegister{
         $isNext = $this->isNext();
 		
 		// retrieve fields values
-        $fieldValues = $this->getFieldsValues($currentFormName);
+        $fieldValues = $this->getFieldsValues($currentFormName, $isNext);
+
+        // TODO apply a ruleset mechanism (to be defined in conf file and used
 
         // compute following step
         $followingStep = $this->getFollowing($fieldValues, $currentFormName, $isNext);
 
 		// call model actions
-        $this->callActions($fieldValues, $currentFormName, $isNext);
+        $args = $this->callActions($fieldValues, $currentFormName, $isNext);
 
-        // TODO collect actions output, as input for the following form
+        // collect actions output, as input for the following form
+        foreach(array_keys($args) as $key){
+            Context::set($key, $args[$key]);
+        }
 
 		// go to the following step
-        $this->oView->setTemplateFile($followingStep);
+        if(stristr($followingStep, 'URL|', true)===''){
+            // following step is a generic URL
+            $this->oView->setRedirectUrl(substr($followingStep, 4));
+        }else{
+            // following step is a form
+            $this->oView->setTemplateFile($followingStep);
+        }
+
 	}
 	
 	// =========== PRIVATE AREA ==============
 	
-	private function loadFormsInfo(){
+	private function loadFlowInfo(){
 		/** @var $formNodes DOMNodeList */
 		$formNodes = $this->confDomXPath->query("/qub:flow/form");
 		foreach ($formNodes as $formNode){
@@ -160,22 +173,22 @@ class FController implements FlowActionRegister{
     private function isNext(){
         $reqVars = Context::getRequestVars();
         $reqVars = get_object_vars($reqVars);
-        if (isset($reqVars[self::NEXT_PARAM])){
+        if ($reqVars[self::NAVIGATION_PARAM] == self::NAVIGATION_NEXT_VALUE){
             return true;
         }
-        if (isset($reqVars[self::PREVIOUS_PARAM])){
+        if ($reqVars[self::NAVIGATION_PARAM] == self::NAVIGATION_PREVIOUS_VALUE){
             return false;
         }
         throw new FlowException("Direction (NEXT/ PREVIOUS not specified");
     }
 
-    private function getFieldsValues($currentFormName){
+    private function getFieldsValues($currentFormName, $isNext){
         $result = array();
         $reqVars = get_object_vars(Context::getRequestVars());
         $form = $this->forms[$currentFormName];
         foreach($form->fields as $field){
             $receivedField = $reqVars[$field->name];
-            if ($field->required && !isset($receivedField)){
+            if ($isNext && $field->required && !isset($receivedField)){
                 throw new FlowException("Field $field->name is required, but isn't set");
             }
             $result[$field->name] = $receivedField;
@@ -201,7 +214,7 @@ class FController implements FlowActionRegister{
                 if (isset($navigation->formId)){
                     return $this->formUrlPrefix.$navigation->formId;
                 }else if (isset($navigation->url)){
-                    return $navigation->url;
+                    return 'URL|'.$navigation->url;
                 }else{
                     throw new FlowException("The following step cannot be computed for $navigation->form");
                 }
@@ -231,12 +244,16 @@ class FController implements FlowActionRegister{
                         if(!is_callable($callableAction)){
                             continue;
                         }
-                        if (!call_user_func($callableAction, $args)){
+                        $result = call_user_func($callableAction, $args);
+                        if (!result){
                             throw new FlowException("An error occurred while calling $callableAction on current $currentFormName form");
+                        }else{
+                            $args = $result;
                         }
                     }
                 }
             }
+            return $args;
         }catch(FlowException $fe){
             throw $fe;
         }catch(Exception $e){
