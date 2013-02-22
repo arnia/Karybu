@@ -5,209 +5,226 @@
  *
  * @author NHN (developers@xpressengine.com)
  */
-class Mobile {
-	/**
-	 * Whether mobile or not mobile mode
-	 * @var bool
-	 */
-	var $ismobile = null;
+class MobileInstance {
+    /**
+     * Whether mobile or not mobile mode
+     * @var bool
+     */
+    var $ismobile = null;
 
-	/**
-	 * Get instance of Mobile class(for singleton)
-	 *
-	 * @return Mobile
-	 */
-	function &getInstance() {
-		static $theInstance;
-		if(!isset($theInstance)) $theInstance = new Mobile();
-		return $theInstance;
-	}
+    /**
+     * Get current mobile mode
+     *
+     * @return bool If mobile mode returns true or false
+     */
+    function isFromMobilePhone() {
+        if($this->ismobile !== null) return $this->ismobile;
 
-	/**
-	 * Get current mobile mode
-	 *
-	 * @return bool If mobile mode returns true or false
-	 */
-	function isFromMobilePhone() {
-		$oMobile =& Mobile::getInstance();
-		return $oMobile->_isFromMobilePhone();
-	}
+        $db_info = Context::getDBInfo();
+        if($db_info->use_mobile_view != "Y" || Context::get('full_browse') || $_COOKIE["FullBrowse"]) {
+            return ($this->ismobile = false);
+        }
 
-	/**
-	 * Get current mobile mode
-	 *
-	 * @return bool
-	 */
-	function _isFromMobilePhone() {
-		if($this->ismobile !== null) return $this->ismobile;
+        $xe_web_path = Context::pathToUrl(_XE_PATH_);
 
-		$db_info = Context::getDBInfo();
-		if($db_info->use_mobile_view != "Y" || Context::get('full_browse') || $_COOKIE["FullBrowse"]) {
-			return ($this->ismobile = false);
-		}
+        // default setting. if there is cookie for a device, XE do not have to check if it is mobile or not and it will enhance performace of the server.
+        $this->ismobile = FALSE;
 
-		$xe_web_path = Context::pathToUrl(_XE_PATH_);
+        $m = Context::get('m');
+        if(strlen($m)==1) {
+            if($m == "1") {
+                $this->ismobile = true;
+            } elseif($m == "0") {
+                $this->ismobile = false;
+            }
+        } elseif(isset($_COOKIE['mobile'])) {
+            if($_COOKIE['user-agent'] == md5($_SERVER['HTTP_USER_AGENT']))
+            {
+                if($_COOKIE['mobile']  == 'true') {
+                    $this->ismobile = true;
+                } else {
+                    $this->ismobile = false;
+                }
+            }
+            else
+            {
+                $this->ismobile = FALSE;
+                setcookie("mobile", FALSE, 0, $xe_web_path);
+                setcookie("user-agent", FALSE, 0, $xe_web_path);
+                if(!$this->isMobilePadCheckByAgent() && $this->isMobileCheckByAgent())
+                {
+                    $this->ismobile = TRUE;
+                }
+            }
+        }
+        else
+        {
+            if($this->isMobilePadCheckByAgent())
+            {
+                $this->ismobile = FALSE;
+            }
+            else
+            {
+                if($this->isMobileCheckByAgent())
+                {
+                    $this->ismobile = TRUE;
+                }
+            }
+        }
 
-		// default setting. if there is cookie for a device, XE do not have to check if it is mobile or not and it will enhance performace of the server.
-		$this->ismobile = FALSE;
+        if($this->ismobile !== NULL)
+        {
+            if($this->ismobile == TRUE)
+            {
+                if($_COOKIE['mobile'] != 'true')
+                {
+                    $_COOKIE['mobile'] = 'true';
+                    setcookie("mobile", 'true', 0, $xe_web_path);
+                }
+            }
+            elseif($_COOKIE['mobile'] != 'false')
+            {
+                $_COOKIE['mobile'] = 'false';
+                setcookie("mobile", 'false', 0, $xe_web_path);
+            }
 
-		$m = Context::get('m');
-		if(strlen($m)==1) {
-			if($m == "1") {
-				$this->ismobile = true;
-			} elseif($m == "0") {
-				$this->ismobile = false;
-			}
-		} elseif(isset($_COOKIE['mobile'])) {
-			if($_COOKIE['user-agent'] == md5($_SERVER['HTTP_USER_AGENT']))
-			{
-				if($_COOKIE['mobile']  == 'true') {
-					$this->ismobile = true;
-				} else {
-					$this->ismobile = false;
-				}
-			}
-			else
-			{
-				$this->ismobile = FALSE;
-				setcookie("mobile", FALSE, 0, $xe_web_path);
-				setcookie("user-agent", FALSE, 0, $xe_web_path);
-				if(!$this->isMobilePadCheckByAgent() && $this->isMobileCheckByAgent())
-				{
-					$this->ismobile = TRUE;
-				}
-			}
-		}
-		else
-		{
-			if($this->isMobilePadCheckByAgent())
-			{
-				$this->ismobile = FALSE;
-			}
-			else
-			{
-				if($this->isMobileCheckByAgent())
-				{
-					$this->ismobile = TRUE;
-				}
-			}
-		}
+            if($_COOKIE['user-agent'] != md5($_SERVER['HTTP_USER_AGENT']))
+            {
+                setcookie("user-agent",md5($_SERVER['HTTP_USER_AGENT']), 0, $xe_web_path);
+            }
+        }
 
-		if($this->ismobile !== NULL)
-		{
-			if($this->ismobile == TRUE)
-			{
-				if($_COOKIE['mobile'] != 'true')
-				{
-					$_COOKIE['mobile'] = 'true';
-					setcookie("mobile", 'true', 0, $xe_web_path);
-				}
-			}
-			elseif($_COOKIE['mobile'] != 'false')
-			{
-				$_COOKIE['mobile'] = 'false';
-				setcookie("mobile", 'false', 0, $xe_web_path);
-			}
+        return $this->ismobile;
+    }
 
-			if($_COOKIE['user-agent'] != md5($_SERVER['HTTP_USER_AGENT']))
-			{
-				setcookie("user-agent",md5($_SERVER['HTTP_USER_AGENT']), 0, $xe_web_path);
-			}
-		}
+    /**
+     * Detect mobile device by user agent
+     *
+     * @return bool Returns true on mobile device or false.
+     */
+    function isMobileCheckByAgent()
+    {
+        static $UACheck;
+        if(isset($UACheck)) return $UACheck;
 
-		return $this->ismobile;
-	}
+        // stripos is only for PHP5.
+        $mobileAgent = unserialize(strtolower(serialize(array('iPod','iPhone','Android','BlackBerry','SymbianOS','Bada','Kindle','Wii','SCH-','SPH-','CANU-','Windows Phone','Windows CE','POLARIS','Palm','Dorothy Browser','Mobile','Opera Mobi','Opera Mini','Minimo','AvantGo','NetFront','Nokia','LGPlayer','SonyEricsson','HTC'))));
 
-	/**
-	 * Detect mobile device by user agent
-	 *
-	 * @return bool Returns true on mobile device or false.
-	 */
-	function isMobileCheckByAgent()
-	{
-		static $UACheck;
-		if(isset($UACheck)) return $UACheck;
+        if($this->isMobilePadCheckByAgent())
+        {
+            $UACheck = TRUE;
+            return TRUE;
+        }
 
-		$oMobile =& Mobile::getInstance();
-		// stripos is only for PHP5.
-		$mobileAgent = unserialize(strtolower(serialize(array('iPod','iPhone','Android','BlackBerry','SymbianOS','Bada','Kindle','Wii','SCH-','SPH-','CANU-','Windows Phone','Windows CE','POLARIS','Palm','Dorothy Browser','Mobile','Opera Mobi','Opera Mini','Minimo','AvantGo','NetFront','Nokia','LGPlayer','SonyEricsson','HTC'))));
+        foreach($mobileAgent as $agent)
+        {
+            // stripos is only for PHP5..
+            $httpUA = strtolower($_SERVER['HTTP_USER_AGENT']);
+            if(strpos($httpUA, $agent) !== FALSE)
+            {
+                $UACheck = TRUE;
+                return TRUE;
+            }
+        }
+        $UACheck = FALSE;
+        return FALSE;
+    }
 
-		if($oMobile->isMobilePadCheckByAgent())
-		{
-			$UACheck = TRUE;
-			return TRUE;
-		}
+    /**
+     * Check if user-agent is a tablet PC as iPad or Andoid tablet.
+     *
+     * @return bool TRUE for tablet, and FALSE for else.
+     */
+    function isMobilePadCheckByAgent()
+    {
+        static $UACheck;
+        if(isset($UACheck)) return $UACheck;
+        $padAgent = array('iPad','Android','webOS','hp-tablet','PlayBook');
 
-		foreach($mobileAgent as $agent)
-		{
-			// stripos is only for PHP5..
-			$httpUA = strtolower($_SERVER['HTTP_USER_AGENT']);
-			if(strpos($httpUA, $agent) !== FALSE)
-			{
-				$UACheck = TRUE;
-				return TRUE;
-			}
-		}
-		$UACheck = FALSE;
-		return FALSE;
-	}
+        // Android with 'Mobile' string is not a tablet-like device, and 'Andoroid' without 'Mobile' string is a tablet-like device.
+        // $exceptionAgent[0] contains exception agents for all exceptions.
+        $exceptionAgent = array(0 => array('Opera Mini','Opera Mobi'),'Android' => 'Mobile');
 
-	/**
-	 * Check if user-agent is a tablet PC as iPad or Andoid tablet.
-	 *
-	 * @return bool TRUE for tablet, and FALSE for else.
-	 */
-	function isMobilePadCheckByAgent()
-	{
-		static $UACheck;
-		if(isset($UACheck)) return $UACheck;
-		$padAgent = array('iPad','Android','webOS','hp-tablet','PlayBook');
+        foreach($padAgent as $agent)
+        {
+            if(strpos($_SERVER['HTTP_USER_AGENT'], $agent) !== FALSE)
+            {
+                if(!isset($exceptionAgent[$agent]))
+                {
+                    $UACheck = TRUE;
+                    return TRUE;
+                }
+                elseif(strpos($_SERVER['HTTP_USER_AGENT'], $exceptionAgent[$agent]) === FALSE)
+                {
+                    // If the agent is the Android, that can be either tablet and mobile phone.
+                    foreach($exceptionAgent[0] as $val)
+                    {
+                        if(strpos($_SERVER['HTTP_USER_AGENT'], $val) !== FALSE)
+                        {
+                            $UACheck = FALSE;
+                            return FALSE;
+                        }
+                    }
+                    $UACheck = TRUE;
+                    return TRUE;
+                }
+            }
+        }
 
-		// Android with 'Mobile' string is not a tablet-like device, and 'Andoroid' without 'Mobile' string is a tablet-like device.
-		// $exceptionAgent[0] contains exception agents for all exceptions.
-		$exceptionAgent = array(0 => array('Opera Mini','Opera Mobi'),'Android' => 'Mobile');
+        $UACheck = FALSE;
+        return FALSE;
+    }
 
-		foreach($padAgent as $agent)
-		{
-			if(strpos($_SERVER['HTTP_USER_AGENT'], $agent) !== FALSE)
-			{
-				if(!isset($exceptionAgent[$agent]))
-				{
-					$UACheck = TRUE;
-					return TRUE;
-				}
-				elseif(strpos($_SERVER['HTTP_USER_AGENT'], $exceptionAgent[$agent]) === FALSE)
-				{
-					// If the agent is the Android, that can be either tablet and mobile phone.
-					foreach($exceptionAgent[0] as $val)
-					{
-						if(strpos($_SERVER['HTTP_USER_AGENT'], $val) !== FALSE)
-						{
-							$UACheck = FALSE;
-							return FALSE;
-						}
-					}
-					$UACheck = TRUE;
-					return TRUE;
-				}
-			}
-		}
-
-		$UACheck = FALSE;
-		return FALSE;
-	}
-
-	/**
-	 * Set mobile mode
-	 *
-	 * @param bool $ismobile
-	 * @return void
-	 */
-	function setMobile($ismobile)
-	{
-		$oMobile =& Mobile::getInstance();
-		$oMobile->ismobile = $ismobile;
-	}
+    /**
+     * Set mobile mode
+     *
+     * @param bool $ismobile
+     * @return void
+     */
+    function setMobile($ismobile)
+    {
+        $this->ismobile = $ismobile;
+    }
 }
 
-?>
+/**
+ * Will be replaced with MobileInstance
+ *
+ * @deprecated
+ */
+class Mobile
+{
+    /** @var MobileInstance */
+    private static $mobile;
+
+    public static function setRequestMobileInfo(MobileInstance $mobile)
+    {
+        self::$mobile = $mobile;
+    }
+
+    public static function &getInstance()
+    {
+        return self::$mobile;
+    }
+
+    public static function isFromMobilePhone()
+    {
+        return self::$mobile->isFromMobilePhone();
+    }
+
+    public static function isMobileCheckByAgent()
+    {
+        return self::$mobile->isMobileCheckByAgent();
+    }
+
+    public static function isMobilePadCheckByAgent()
+    {
+        return self::$mobile->isMobilePadCheckByAgent();
+    }
+
+    public static function setMobile($mobile)
+    {
+        self::$mobile->setMobile($mobile);
+    }
+
+}

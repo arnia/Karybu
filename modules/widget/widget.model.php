@@ -121,7 +121,7 @@
 
 
             if(file_exists($cache_file)&&filemtime($cache_file)>filemtime($xml_file)) {
-                @include($cache_file);
+                include($cache_file);
                 return $widget_info;
             }
             // If no cache file exists, parse the xml and then return the variable.
@@ -260,7 +260,7 @@
             $buff = '<?php if(!defined("__ZBXE__")) exit(); '.$buff.' ?>';
             FileHandler::writeFile($cache_file, $buff);
 
-            if(file_exists($cache_file)) @include($cache_file);
+            if(file_exists($cache_file)) include($cache_file);
             return $widget_info;
         }
 
@@ -280,7 +280,7 @@
             $cache_file = sprintf('./files/cache/widgetstyles/%s.%s.cache.php', $widgetStyle, Context::getLangType());
 
             if(file_exists($cache_file)&&filemtime($cache_file)>filemtime($xml_file)) {
-                @include($cache_file);
+                include($cache_file);
                 return $widgetStyle_info;
             }
             // If no cache file exists, parse the xml and then return the variable.
@@ -395,7 +395,7 @@
             $buff = '<?php if(!defined("__ZBXE__")) exit(); '.$buff.' ?>';
             FileHandler::writeFile($cache_file, $buff);
 
-            if(file_exists($cache_file)) @include($cache_file);
+            if(file_exists($cache_file)) include($cache_file);
             return $widgetStyle_info;
         }
 

@@ -45,7 +45,9 @@
 			if(!$password) $password = Context::get('password');
 			$password = trim($password);
 
-			if(!$keep_signed) $keep_signed = Context::get('keep_signed');
+			if (!$keep_signed) {
+                $keep_signed = Context::get('keep_signed');
+            }
 			// Return an error when id and password doesn't exist
 			if(!$user_id) return new Object(-1,'null_user_id');
 			if(!$password) return new Object(-1,'null_password');

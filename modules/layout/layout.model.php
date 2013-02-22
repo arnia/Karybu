@@ -286,7 +286,7 @@
                 $cache_file = $this->getUserLayoutCache($layout_srl, Context::getLangType());
             }
             if(file_exists($cache_file)&&filemtime($cache_file)>filemtime($xml_file)) {
-                @include($cache_file);
+                include($cache_file);
 
 
                 if($layout_info->extra_var && $vars) {
@@ -530,7 +530,7 @@
 
             $buff = '<?php if(!defined("__ZBXE__")) exit(); '.$buff.' ?>';
             FileHandler::writeFile($cache_file, $buff);
-            if(file_exists($cache_file)) @include($cache_file);
+            if(file_exists($cache_file)) include($cache_file);
 
 			if(!$layout_info->title)
 			{

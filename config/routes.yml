@@ -1,3 +1,6 @@
+homepage:
+    pattern: /
+
 admin:
     pattern: /admin
     defaults: { module: admin }
@@ -9,10 +12,19 @@ admin2:
 doc:
     pattern: /{document_srl}
     requirements:
-        document_srl: \d+
+        document_srl: '\d+'
+doc_slash:
+    pattern: /{document_srl}/
+    requirements:
+        document_srl: '\d+'
 
 mid:
     pattern: /{mid}
+    requirements:
+        mid: '[a-zA-Z0-9_]+'
+
+mid_slash:
+    pattern: /{mid}/
     requirements:
         mid: '[a-zA-Z0-9_]+'
 
@@ -22,9 +34,6 @@ page:
         mid: '[a-zA-Z0-9_]+'
     defaults:
         _controller: pageView::dispPageIndex
-        _include:
-            - modules/page/page.class.php
-            - modules/page/page.view.php
 
 mid_doc:
     pattern: /{mid}/{document_srl}
@@ -60,6 +69,3 @@ shop_product:
     pattern: /{vid}/{type}/{identifier}
     defaults:
         _controller: shopView::route
-        _include:
-            - modules/shop/shop.class.php
-            - modules/shop/shop.view.php

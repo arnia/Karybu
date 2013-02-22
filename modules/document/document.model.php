@@ -641,7 +641,7 @@
                 if(!$oDocumentController->makeCategoryFile($module_srl)) return array();
             }
 
-            @include($filename);
+            include($filename);
             // Cleanup of category
             $document_category = array();
             $this->_arrangeCategory($document_category, $menu->list, 0);

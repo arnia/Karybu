@@ -2,5 +2,6 @@
 
 @import url(../../../../../modules/admin/tpl/css/admin.css);
 img.emoticon { margin:10px 10px 0 0; cursor:pointer; }
-.emoticonList { position:absolute; right:40px; top:4px;}
+.emoticonList { position:absolute; right:20px; top:15px;}
+.emotions{min-height: 80px}
 
