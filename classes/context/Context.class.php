@@ -543,7 +543,6 @@ class ContextInstance {
      */
     function init() {
         $this->linkContextToGlobals(
-            $this->getGlobals('__Context__'),
             $this->getGlobals('lang'),
             $this->getGlobalCookies());
 

@@ -13,7 +13,7 @@ class CompatLoader extends AbstractLoader
         if ($loaded = $this->loadSimplePath($class)) {
             return $loaded;
         }
-        if ($loaded = $this->loadComplexPath($class)) {
+        if ($loaded = $this->loadCamelCasePath($class)) {
             return $loaded;
         }
         return false;
@@ -30,9 +30,9 @@ class CompatLoader extends AbstractLoader
 
     /**
      * pageView => modules/page/page.view.php
-     * pageAdminController => midules/page/page.admin.controller.php
+     * pageAdminController => modules/page/page.admin.controller.php
      */
-    public function loadComplexPath($class)
+    public function loadCamelCasePath($class)
     {
         if (preg_match_all('#((?:^|[A-Z])[a-z]+)#', $class, $matches)) {
             $matches = $matches[0];

@@ -35,7 +35,7 @@ class CMSContainer
             ->addMethodCall('addSubscriber', array(new Reference('listener.cms')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.response')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.exception')));
-        $this->serviceContainer->register('http_kernel', 'GlCMS\HttpKernel')->setArguments(array(new Reference('dispatcher'), new Reference('resolver')));
+        $this->serviceContainer->register('http_kernel', 'GlCMS\HttpKernel\HttpKernel')->setArguments(array(new Reference('dispatcher'), new Reference('resolver')));
     }
 
     /**
