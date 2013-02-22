@@ -117,7 +117,6 @@ input[type="color"]:focus,
     .carousel-caption {
         position: static;
     }
-
 }
 
 @media (max-width: 767px) {
@@ -288,6 +287,7 @@ legend {
 
 .flickrfeed img {
     max-width: 24%;
+    margin-bottom: 4px;
 }
 
 .newsletter .container {
