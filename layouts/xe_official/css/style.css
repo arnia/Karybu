@@ -1,16 +1,20 @@
+/* General Styles*/
+
+
 body {
     padding-top: 40px;
 }
 
-#header {
-    min-height: 6px;
-    background: url("../img/hbg.jpg");
-    background-position: center 0;
+a {
+    color: #4a6d8f;
+    text-decoration: none;
 }
 
-.carousel-caption h1 {
-    color: grey;
+legend {
+    padding: 10px 0px;
 }
+
+/* Buttons */
 
 .btn {background-color: #f2f2f2;background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);}
 .btn:hover, .btn:active {background-color: #f2f2f2;}
@@ -33,7 +37,7 @@ body {
 .btn-inverse {background-color: #4a4a4a;background-image: linear-gradient(to bottom, #6e6e6e, #4a4a4a);}
 .btn-inverse:hover, .btn-inverse:active {background-color: #4a4a4a;}
 
-
+/* Validation Styles*/
 
 .control-group.error .control-label, .control-group.error .help-block, .control-group.error .help-inline {
     color: #f43148;
@@ -93,7 +97,151 @@ input[type="color"]:focus,
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 4px rgba(146,164,178,.6);
 }
 
+/* Carrousel Styles*/
 
+.carousel {
+    margin-top: 20px;
+}
+
+.carousel-control {
+    background: none repeat scroll 0 0 #000000;
+    border: 0;
+    border-radius: 30px 30px 30px 30px;
+    color: #FFFFFF;
+    font-size: 60px;
+    font-weight: 100;
+    height: 60px;
+    left: 15px;
+    line-height: 47px;
+    margin-top: -20px;
+    opacity: 0.8;
+    position: absolute;
+    text-align: center;
+    top: 40%;
+    width: 60px;
+}
+
+.carousel-control:hover {
+    background: none repeat scroll 0 0 #24a4d3;
+}
+
+
+.carousel-caption {
+    background: none repeat scroll 0 0 rgba(36, 164, 211, 0.75);
+}
+
+.carousel-caption h1{
+    color: white;
+}
+
+.carousel-caption p{
+    color: white;
+    margin-bottom: 16px !important;
+}
+
+/* Custom Styles*/
+
+#header {
+    min-height: 6px;
+    background: url("../img/hbg.jpg");
+    background-position: center 0;
+}
+
+.features{
+    text-align: center;
+    margin: 20px 0px;
+}
+
+.features h3{
+    border-bottom: 1px dashed rgba(122, 122, 122, 0.3);
+    padding: 16px 0px;
+    font-weight: normal;
+    text-align: center;
+    margin: 20px 0px 40px 0px;
+}
+
+.features img{
+    text-align: center;
+    margin: 10px 0px;
+    margin-bottom: 20px;
+}
+
+.features p{
+    text-align: center;
+    margin: 40px 0px;
+}
+
+.features a{
+    margin: 20px 0px;
+}
+
+
+.zheadline {
+    color: #333333;
+    padding: 40px 0px;
+    font-weight: normal;
+    text-align: center;
+    border-top: 1px dashed rgba(122, 122, 122, 0.3);
+    border-bottom: 1px dashed rgba(122, 122, 122, 0.3);
+    background: url("../img/hash.png");
+}
+
+.gallerypost, .btnArea {
+    margin-bottom: 20px;
+}
+
+.gallerypost h4 {
+    background-color: black;
+    color: white;
+    padding: 16px 10px;
+    margin-top: 0;
+}
+
+.twitfeed li {
+    background: url("../img/twit.png");
+    background-repeat: no-repeat;
+    padding-left: 24px;
+    margin-bottom: 10px;
+}
+
+.twitfeed li span {
+    color: grey;
+}
+
+.flickrfeed img {
+    max-width: 24%;
+    margin-bottom: 4px;
+}
+
+.newsletter .container {
+    border-left: none;
+    border-right: none;
+    padding: 40px 0px;
+    border-top: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.newsletter .input-append {
+    margin-top: 4px;
+}
+
+.newsletter h3 {
+    display: inline;
+}
+
+footer {
+    padding: 30px 0px;
+    margin: 20px 0px;
+    border-top: 1px solid #eaeaea;
+}
+
+.footerwidgets h4 {
+    padding: 20px 0px 10px 0px;
+    border-bottom: 1px dashed rgba(122, 122, 122, 0.3);
+    margin-bottom: 20px;
+}
+
+/* Mobile views */
 
 @media (min-width: 768px) and (max-width: 979px) {
     body {
@@ -171,151 +319,3 @@ input[type="color"]:focus,
         position: static;
     }
 }
-
-.carousel {
-    margin-top: 20px;
-}
-
-.carousel-control {
-    background: none repeat scroll 0 0 #000000;
-    border: 0;
-    border-radius: 30px 30px 30px 30px;
-    color: #FFFFFF;
-    font-size: 60px;
-    font-weight: 100;
-    height: 60px;
-    left: 15px;
-    line-height: 47px;
-    margin-top: -20px;
-    opacity: 0.8;
-    position: absolute;
-    text-align: center;
-    top: 40%;
-    width: 60px;
-}
-
-.carousel-control:hover {
-    background: none repeat scroll 0 0 #24a4d3;
-}
-
-
-.carousel-caption {
-    background: none repeat scroll 0 0 rgba(36, 164, 211, 0.75);
-}
-
-.carousel-caption h1{
-    color: white;
-}
-
-.carousel-caption p{
-    color: white;
-    margin-bottom: 16px !important;
-}
-
-.features{
-    margin: 40px 0px;
-}
-
-.features h3, .features p{
-    text-align: center;
-    margin: 40px 0px;
-}
-
-.features h3{
-    border-bottom: 1px dashed rgba(122, 122, 122, 0.3);
-    padding: 16px 0px;
-    font-weight: normal;
-}
-
-.features img, .features{
-    text-align: center;
-    margin: 10px 0px;
-}
-
-.features img{
-    margin-bottom: 20px;
-}
-
-.features a{
-    margin-top: 20px;
-}
-
-a {
-    color: #4a6d8f;
-    text-decoration: none;
-}
-
-legend {
-    padding: 10px 0px;
-}
-
-.zheadline {
-    color: #333333;
-    padding: 40px 0px;
-    font-weight: normal;
-    text-align: center;
-    border-top: 1px dashed rgba(122, 122, 122, 0.3);
-    border-bottom: 1px dashed rgba(122, 122, 122, 0.3);
-    background: url("../img/hash.png");
-}
-
-.gallerypost {
-    margin-bottom: 20px;
-}
-
-.btnArea {
-    margin-bottom: 30px;
-}
-
-.gallerypost h4 {
-    background-color: black;
-    color: white;
-    padding: 16px 10px;
-    margin-top: 0;
-}
-
-.twitfeed li {
-    background: url("../img/twit.png");
-    background-repeat: no-repeat;
-    padding-left: 24px;
-    margin-bottom: 10px;
-}
-
-.twitfeed li span {
-    color: grey;
-}
-
-.flickrfeed img {
-    max-width: 24%;
-    margin-bottom: 4px;
-}
-
-.newsletter .container {
-    border-left: none;
-    border-right: none;
-    padding: 40px 0px;
-    border-top: 1px solid #eaeaea;
-    border-bottom: 1px solid #eaeaea;
-    margin-bottom: 20px;
-}
-
-.newsletter .input-append {
-    margin-top: 4px;
-}
-
-.newsletter h3 {
-    display: inline;
-}
-
-footer {
-    padding: 30px 0px;
-    margin: 20px 0px;
-    border-top: 1px solid #eaeaea;
-}
-
-.footerwidgets h4 {
-    padding: 20px 0px 10px 0px;
-    border-bottom: 1px dashed rgba(122, 122, 122, 0.3);
-    margin-bottom: 20px;
-}
-
