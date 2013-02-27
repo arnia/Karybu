@@ -38,6 +38,7 @@
 		<action name="getMemberAdminIPCheck" type="model" standalone="true" />
 
         <action name="procMemberLogin" type="controller" standalone="true" ruleset="@login" />
+        <action name="procMemeberLoginAjax" type="controller" standalone="true" />
         <action name="procMemberLogout" type="controller" standalone="true" />
         <action name="procMemberCheckValue" type="controller" standalone="true" />
         <action name="procMemberInsert" type="controller" standalone="true" ruleset="@insertMember" />

@@ -22,63 +22,99 @@
         function init() {
         }
 
-        /**
-         * Log-in by checking user_id and password
-		 *
-		 * @param string $user_id
-		 * @param string $password
-		 * @param string $keep_signed
-		 *
-		 * @return void|Object (void : success, Object : fail)
-         **/
+    /**
+     * Log-in by checking user_id and password
+     *
+     * @param string $user_id
+     * @param string $password
+     * @param string $keep_signed
+     *
+     * @return void|Object (void : success, Object : fail)
+     **/
         function procMemberLogin($user_id = null, $password = null, $keep_signed = null) {
-			if(!$user_id && !$password && Context::getRequestMethod() == 'GET')
-			{
-				$this->setRedirectUrl(getNotEncodedUrl(''));
-				return new Object(-1, 'null_user_id');
-			}
 
-			// Variables
-			if(!$user_id) $user_id = Context::get('user_id');
-			$user_id = trim($user_id);
+            if(!$user_id && !$password && Context::getRequestMethod() == 'GET')
+            {
+                $this->setRedirectUrl(getNotEncodedUrl(''));
+                return new Object(-1, 'null_user_id');
+            }
 
-			if(!$password) $password = Context::get('password');
-			$password = trim($password);
+            // Variables
+            if(!$user_id) $user_id = Context::get('user_id');
+            $user_id = trim($user_id);
 
-			if (!$keep_signed) {
+            if(!$password) $password = Context::get('password');
+            $password = trim($password);
+
+            if (!$keep_signed) {
                 $keep_signed = Context::get('keep_signed');
             }
-			// Return an error when id and password doesn't exist
-			if(!$user_id) return new Object(-1,'null_user_id');
-			if(!$password) return new Object(-1,'null_password');
+            // Return an error when id and password doesn't exist
+            if(!$user_id) return new Object(-1,'null_user_id');
+            if(!$password) return new Object(-1,'null_password');
 
-			$output = $this->doLogin($user_id, $password, $keep_signed=='Y'?true:false);
-			if (!$output->toBool()) return $output;
+            $output = $this->doLogin($user_id, $password, $keep_signed=='Y'?true:false);
+            if (!$output->toBool()) return $output;
 
-			$oModuleModel = &getModel('module');
-			$config = $oModuleModel->getModuleConfig('member');
+            $oModuleModel = &getModel('module');
+            $config = $oModuleModel->getModuleConfig('member');
 
-			// Check change_password_date
-			$limit_date = $config->change_password_date;
+            // Check change_password_date
+            $limit_date = $config->change_password_date;
 
-			// Check if change_password_date is set
-			if ($limit_date > 0) {
-				$oMemberModel = &getModel('member');
-				if ($this->memberInfo->change_password_date < date ('YmdHis', strtotime ('-' . $limit_date . ' day'))) {
-					$this->setRedirectUrl(getNotEncodedUrl('','vid',Context::get('vid'),'mid',Context::get('mid'),'act','dispMemberModifyPassword'));
-					return;
-				}
-			}
+            // Check if change_password_date is set
+            if ($limit_date > 0) {
+                $oMemberModel = &getModel('member');
+                if ($this->memberInfo->change_password_date < date ('YmdHis', strtotime ('-' . $limit_date . ' day'))) {
+                    $this->setRedirectUrl(getNotEncodedUrl('','vid',Context::get('vid'),'mid',Context::get('mid'),'act','dispMemberModifyPassword'));
+                    return;
+                }
+            }
 
-			if(!$config->after_login_url)
-			{
-				$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'mid', Context::get('mid'), 'act', '');
-			}
-			else
-			{
-				$returnUrl = $config->after_login_url;
-			}
-			return $this->setRedirectUrl($returnUrl, $output);
+            if(!$config->after_login_url)
+            {
+                $returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'mid', Context::get('mid'), 'act', '');
+            }
+            else
+            {
+                $returnUrl = $config->after_login_url;
+            }
+            return $this->setRedirectUrl($returnUrl, $output);
+        }
+
+        function procMemeberLoginAjax($user_id = null, $password = null, $keep_signed = null) {
+
+            $error_message = '';
+            $user_id = Context::get('user_id');
+            $password = Context::get('password');
+            $keep_signed = Context::get('keep_signed');
+
+            if (Context::getRequestMethod() == 'GET') {
+                return ;
+            }
+
+            // Variables
+            if (!$user_id) {
+                $error_message = 'Invalid user';
+                $this->add('login_message',$error_message);
+                return;
+            }
+
+            if (!$password) {
+                $error_message = 'Please enter a password';
+                $this->add('login_message',$error_message);
+                return;
+            }
+
+            $output = $this->doLogin($user_id, $password, $keep_signed=='Y'?true:false);
+            if (!$output->toBool()) {
+                $this->add('login_message',$output->message);
+                return;
+            }
+
+            $error_message = 'success';
+            $this->add('login_message',$error_message);
+
         }
 
         /**
