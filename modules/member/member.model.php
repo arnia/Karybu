@@ -890,5 +890,128 @@
 			}
 			return $groupSrl;
 		}
+                
+                
+                
+        function getSnsList($filter_enabled = TRUE){
+            if($filter_enabled) $args->enabled = "Y";
+            $output = executeQuery('member.getSnsList', $args);
+            
+            //SNS list from DB
+            $db_list = $output->data;
+            if(!is_array($db_list)) $db_list = array($db_list);
+            
+            //SNS list from SNS directory
+            $downloaded_list = FileHandler::readDir(sprintf('%s/sns', $this->module_path));
+
+            foreach($db_list as $sns) {
+                $sns_name = $sns->sns_name;
+                if(!$sns_name) continue;
+                
+                if(!in_array($sns_name, $downloaded_list)){
+                    $this->removeSns($sns_name);
+                    continue;
+                }
+
+                if(!$sns->icon)
+                    $sns->icon = sprintf('%s/sns/%s/icon.jpg', $this->module_path, $sns_name);
+
+                if($sns->config) {
+                    $sns->config = unserialize($sns->config);
+                }
+                $xml_info = $this->getSnsXmlInfo($sns_name, FALSE);
+                $sns->title = $xml_info->title;
+                $sns->description = $xml_info->description;
+                
+                
+                $sns_list->{$sns_name} = $sns;
+            }
+            
+            if(!$filter_enabled){
+                foreach($downloaded_list as $sns_name) {
+                    $sns_path = sprintf('%s/sns/%s', $this->module_path, $sns_name);
+                    if(!is_dir($sns_path)) continue;
+                    // Pass if configured
+                    if($sns_list->{$sns_name}) continue;
+                    // Insert data into the DB
+                    $xml_info = $this->getSnsXmlInfo($sns_name, true);
+
+                    $xml_info->enabled = 'N';
+                    $oMemberController = &getAdminController('member');
+                    $oMemberController->insertSns($xml_info);
+
+                    $sns_list->{$sns_name} = $xml_info;
+                }
+            }
+            return $sns_list;
+            
+        }
+        
+        
+        /**
+         * @brief Read xml information of the SNS
+         * @param boolean $includeConfig Include config or not
+         **/
+        function getSnsXmlInfo($sns, $includeConfig=false) {
+            // Get xml file path of the requested SNS
+            $sns_path = sprintf('%s/sns/%s/', $this->module_path, $sns);
+
+            $xml_file = sprintf('%sinfo.xml', $sns_path);
+            
+            $oParser = new XmlParser();
+            $xml_doc = $oParser->loadXmlFile($xml_file);
+            // SNS information listed
+            $xml_info->sns_name = $sns;
+            $xml_info->title = $xml_doc->sns->title->body;
+            $xml_info->description = str_replace('\n', "\n", $xml_doc->sns->description->body);
+            $xml_info->regdate = $xml_doc->component->regdate->body;
+            if($includeConfig){
+                $config=$xml_doc->sns->config->item;
+                if($config){
+                    if(!is_array($config)) $config = array($config);
+                }
+                foreach($config as $item){
+                    $obj->{$item->attrs->name}->title = $item->title->body;
+                    $obj->{$item->attrs->name}->value = '';
+                }
+                $xml_info->config=$obj;
+            }
+            
+            return $xml_info;
+        }
+        
+        /**
+         * @brief Get xml and db information of the SNS
+         **/
+        function getSns($sns_name){
+            $args->sns_name = $sns_name;
+            $output = executeQuery('member.getSns', $args);
+            $sns = $output->data;
+
+            unset($xml_info);
+            $xml_info = $this->getSnsXmlInfo($sns_name);
+            $xml_info->enabled = $sns->enabled;
+            if($sns->icon)
+                $xml_info->icon = $sns->icon;
+            else
+                $xml_info->icon = sprintf('%s/sns/%s/icon.jpg', $this->module_path, $sns_name);
+
+            if($sns->config) {
+                $config = unserialize($sns->config);
+                $xml_info->config=$config;
+            }
+
+            return $xml_info;
+        }
+        
+        /**
+         * @brief remove an sns from db
+         */
+        function removeSns($sns_name){
+            $args->sns_name = $sns_name;
+            $output = executeQuery('member.deleteSns', $args);
+            return $output;
+        }
+        
     }
 ?>

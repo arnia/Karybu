@@ -250,7 +250,9 @@
          **/
         function dispMemberModifyInfo() 
 		{
-			if($_SESSION['rechecked_password_step'] != 'VALIDATE_PASSWORD')
+            $logged_info = Context::get('logged_info');
+            $auth_type=$logged_info->auth_type;
+			if($auth_type == 'xe' && $_SESSION['rechecked_password_step'] != 'VALIDATE_PASSWORD')
 			{
 				$this->dispMemberModifyInfoBefore();
 				return;
@@ -264,7 +266,6 @@
             // A message appears if the user is not logged-in
             if(!$oMemberModel->isLogged()) return $this->stop('msg_not_logged');
 
-            $logged_info = Context::get('logged_info');
             $member_srl = $logged_info->member_srl;
 
 			$columnList = array('member_srl', 'user_id', 'user_name', 'nick_name', 'email_address', 'find_account_answer', 'homepage', 'blog', 'birthday', 'allow_mailing');
@@ -397,6 +398,11 @@
 			$config = $this->member_config;
 			Context::set('identifier', $config->identifier);
 
+            //SNS
+            $oMemberModel=&getModel('member');
+            $sns_list=$oMemberModel->getSnsList();
+            Context::set('sns_list',$sns_list);
+                        
             // Set a template file
             Context::set('referer_url', htmlspecialchars($_SERVER['HTTP_REFERER']));
             $this->setTemplateFile('login_form');
@@ -590,5 +596,18 @@
 
 			Context::addHtmlHeader($js_code);
 		}
+
+                
+        /**
+         * @brief ask sns user to add their email for some providers
+         * which doesn't provide email such as twitter
+         */
+        function dispMemberSnsAddEmail(){
+            if(Context::get('is_logged') || empty($_SESSION['tmp_member_srl'])) $this->setRedirectUrl();
+            
+            Context::set('tmp_member_srl', $_SESSION['tmp_member_srl']);
+            $this->setTemplateFile('member_sns_add_email');
+        }
+                
     }
 ?>
