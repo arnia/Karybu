@@ -13,18 +13,18 @@
 	<input type="hidden" name="content" value="{htmlspecialchars($content)}" />
 
 	<div class="btnArea" id="pageBtnArea" style="display:none;">
-		<div class="etc">
-			<span class="btn"><input type="button" value="{$lang->cmd_box_widget_insert}" onclick="doAddWidgetBox(); return false;" /></span>
-			<span class="btn"><input type="button" value="{$lang->cmd_content_insert}" onclick="doAddContent('{$module_info->mid}'); return false;" /></span>
+		<p class="etc">
+			<input type="button" value="{$lang->cmd_box_widget_insert}" onclick="doAddWidgetBox(); return false;" class="btn" />
+			<input type="button" value="{$lang->cmd_content_insert}" onclick="doAddContent('{$module_info->mid}'); return false;" class="btn" />
 			<select name="widget_list">
 				<!--@foreach($widget_list as $widget)-->
 				<option value="{$widget->widget}" <!--@if($widget->widget=='content')-->selected="selected"<!--@end-->>{$widget->title}</option>
 				<!--@end-->
 			</select>
-			<span class="btn"><input type="button" value="{$lang->cmd_insert}" onclick="doAddWidget(this.form); return false;"/></span>
-		</div>
-		<span class="btn"><input type="submit" value="{$lang->cmd_save}"/></span>
-		<span class="btn"><input type="button" value="{$lang->cmd_remove_all_widgets}" onclick="removeAllWidget();return false;"/></span>
+			<input type="button" value="{$lang->cmd_insert}" onclick="doAddWidget(this.form); return false;" class="btn" />
+            <input type="submit" value="{$lang->cmd_save}" class="btn" />
+            <input type="button" value="{$lang->cmd_remove_all_widgets}" onclick="removeAllWidget();return false;" class="btn" />
+        </p>
 	</div>
 </form>
 
