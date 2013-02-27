@@ -1,5 +1,5 @@
 <?php
-namespace GlCMS;
+namespace GlCMS\HttpKernel;
 
 use Symfony\Component\HttpKernel\HttpKernel as K;
 
