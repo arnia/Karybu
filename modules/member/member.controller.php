@@ -96,24 +96,24 @@
             // Variables
             if (!$user_id) {
                 $error_message = 'Invalid user';
-                $this->add('login_message',$error_message);
+                $this->setMessage($error_message,'error');
+                $this->setError(-1);
                 return;
             }
 
             if (!$password) {
                 $error_message = 'Please enter a password';
-                $this->add('login_message',$error_message);
+                $this->setMessage($error_message,'error');
+                $this->setError(-1);
                 return;
             }
 
             $output = $this->doLogin($user_id, $password, $keep_signed=='Y'?true:false);
             if (!$output->toBool()) {
-                $this->add('login_message',$output->message);
+                $this->setMessage($output->getMessage(),'error');
+                $this->setError(-1);
                 return;
             }
-
-            $error_message = 'success';
-            $this->add('login_message',$error_message);
 
         }
 

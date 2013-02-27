@@ -1,4 +1,3 @@
-<!--%import("css/default.css")-->
 <!--%import("./filter/login.xml")-->
 <!--%import("./filter/openid_login.xml")-->
 <!--%import("./js/login.js")-->
@@ -8,13 +7,13 @@
     <a href="#signinmodal" role="button" class="btn" data-toggle="modal">Sign in</a>
 </div>
 
-<div id="signinmodal" class="modal hide fade">
+<div id="signinmodal" class="modal hide fade" tabindex='-1'>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3>Sign in!</h3>
     </div>
     <div class="modal-body">
-        <div class="alert">
+        <div class="alert alert-error">
             <button type="button" class="close">×</button>
             <div class="alert-body"></div>
         </div>
@@ -55,13 +54,32 @@
 </div>
 
 <script type="text/javascript">
-    <!-- We add the modal to the end of the page so that it will be on top -->
+
     jQuery(document).ready(function(){
+
         $ = jQuery;
-        $('body').append($('#signinmodal'));
+        var modal = $('#signinmodal');
+
+        // We add the modal to the end of the page so that it will be on top
+        $('body').append(modal);
+
+        // Message box setup in modal
         $('#signinmodal .close').click(function(){
             $('#signinmodal .alert').hide();
         });
         hideErrorMessage();
+
+        // submit form on enter key pressed
+        $('#signinmodal input[type=text],#signinmodal input[type=password]').keydown(function (e){
+            if(e.keyCode == 13){
+                modal.find('.modal-footer .btn-primary').click();
+            }
+        });
+
+        // focus first field when modal is shown
+        modal.on('shown', function() {
+            modal.find('input[type!=hidden]:first').focus();
+        });
+
     });
 </script>

@@ -11,13 +11,13 @@ function setMessageBody(message) {
 }
 
 function loginCallback(data) {
-    if (data.login_message == 'success') {
+    if (data.message == 'success') {
+        $('#signinmodal').modal('hide');
         location.reload();
-        hideErrorMessage();
         return;
     }
-    if (data.login_message) {
-        setMessageBody(data.login_message);
+    if (data.message) {
+        setMessageBody(data.message);
         showErrorMessage();
     }
 }
