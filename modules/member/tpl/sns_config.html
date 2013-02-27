@@ -1,0 +1,34 @@
+<h1 class="h1">{$lang->cmd_setup}</h1>
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+<form action="./" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="module" value="admin" />
+    <input type="hidden" name="act" value="procMemberAdminSetupSns" />
+    <input type="hidden" name="sns_name" value="{$sns_name}" />
+    <input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
+    <div class="table">
+        <table width="100%" border="1" cellspacing="0">
+            <tr>
+                <th scope="row"><div>{$lang->sns_name}</div></th>
+                <td>{$sns->title}({$sns->sns_name})</td>
+            </tr>
+            <tr>
+                <th scope="row"><div>{$lang->sns_icon}</div></th>
+                <td>
+                    <img src="{$sns->icon}" alt="{$sns->sns_name} icon" />
+                    <p><input type="file" name="_file_sns_icon" /></p>
+                </td>
+            </tr>
+            
+            <tr loop="$sns->config => $key, $value">
+                <th scope="row"><div>{$value->title}</div></th>
+                <td><input type="text" name="{$key}" value="{$value->value}" /></td>
+            </tr>
+        </table>
+    </div>
+    <div class="btnArea">
+        <span class="btn"><a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminConfig')}" >{$lang->cmd_back}</a></span>
+        <span class="btn"><input type="submit" value="{$lang->cmd_apply}" /></span>
+    </div>
+</form>
