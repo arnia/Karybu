@@ -1,0 +1,21 @@
+<div id="body-left-sidebar">
+    <div class="body-left-panel">
+        <h3>{$lang->my_account}</h3>
+        <div class="body-left-panel-content">
+            <ul>
+                <li class="active"|cond="$act=='dispShopMyAccount'">
+                    <span><a href="{getUrl('','act','dispShopMyAccount')}">{$lang->dashboard}</a></span>
+                </li>
+                <li class="active"|cond="$act=='dispMemberInfo'">
+                    <span><a href="{getUrl('','act','dispMemberInfo')}">{$lang->account_info}</a></span>
+                </li>
+                <li class="active"|cond="$act=='dispShopAddressBook'">
+                    <span><a href="{getUrl('','act','dispShopAddressBook')}">{$lang->address_book}</a></span>
+                </li>
+                <li class="active"|cond="$act=='dispShopMyOrders'">
+                    <span><a href="{getUrl('','act','dispShopMyOrders')}">{$lang->my_orders}</a></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<p>
+    <label for="business_account">Business account email</label>
+    <input type="text" name="business_account" id="business_account" value="{$payment_method->business_account}" />
+</p>
+<p>
+    <label for="pdt_token">PDT (Payment data transfer) token</label>
+    <input type="text" name="pdt_token" id="pdt_token" value="{$payment_method->pdt_token}" >
+</p>
+<p>
+    <label for="gateway_api">Gateway API URL</label>
+    <select name="gateway_api" id="gateway_api">
+        <option value="{PaypalPaymentsStandard::SANDBOX_URL}"
+                <!--@if($payment_method->gateway_api == PaypalPaymentsStandard::SANDBOX_URL)-->
+                    selected="selected"
+                <!--@end-->
+                >
+            Sandbox
+        </option>
+        <option value="{PaypalPaymentsStandard::LIVE_URL}"
+                <!--@if($payment_method->gateway_api == PaypalPaymentsStandard::LIVE_URL)-->
+                selected="selected"
+                <!--@end-->
+                >
+            Live
+        </option>
+    </select>
+</p>

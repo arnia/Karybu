@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ruleset version="1.5.0">
+    <customrules>
+    </customrules>
+    <fields>
+        <field name="discount_min_amount" rule="float" length="1:20" />
+        <field name="discount_type" />
+        <field name="discount_amount" rule="float" length="1:20"  />
+        <field name="discount_tax_phase" />
+    </fields>
+</ruleset>

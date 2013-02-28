@@ -1,0 +1,92 @@
+<include target="_tool_header.html" />
+
+<!-- Content -->
+<div id="content">
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+
+	<!-- writingHeader -->
+	<div class="dashboardHeader">
+		<h3 class="h3">
+            <span class="icon add_page"></span>
+			<!--@if($document_srl)-->
+			{$lang->modify_post}
+			<!--@else-->
+			{$lang->cmd_shop_new_page}
+			<!--@end-->
+		</h3>
+	</div>
+	<!-- /writingHeader -->
+        <!--@if($document_srl)-->
+        <form action="" method="post" class="{$editor_skin}">
+            <input type="hidden" name="act" value="procShopToolUpdatePage" />
+            <input type="hidden" name="module_srl" value="{$page_module_info->module_srl}" />
+        <!--@else-->
+        <form action="" method="post" class="{$editor_skin}">
+            <input type="hidden" name="act" value="procShopToolInsertPage" />
+        <!--@end-->
+		    <input type="hidden" name="publish" value="" />
+		    <input type="hidden" name="_filter" value="save_post" />
+		    <input type="hidden" name="mid" value="{$mid}" />
+            <input type="hidden" name="vid" value="{$vid}" />
+
+
+		<fieldset>
+			<legend>
+			<!--@if($document_srl)-->
+			{$lang->modify_post}
+			<!--@else-->
+			{$lang->new_post}
+			<!--@end-->
+			</legend>
+                        <!-- Post Title -->
+			<div class="wTitle">
+				<fieldset>
+					<div>
+                        <b>{$lang->url}</b>
+                            <!--@if($page_module_info)-->
+                                    {getFullUrl('').'/'.$page_module_info->mid}
+                            <!--@else-->
+                                    {str_replace('__mid__','<input type="text" name="page_mid"  value="" />',getFullUrl('','mid','__mid__'))}
+                                    {$lang->msg_limit_shop_extra_mid}
+                            <!--@end-->
+					</div>
+                    <div>
+                        <b>{$lang->page_title}</b>
+                            <input type="text" name="page_title" id="page_title" value="<!--@if($page_module_info)-->{$page_module_info->browser_title}<!--@end-->"/>
+							<a href="{getUrl('','module','module','act','dispModuleAdminLangcode','target','menu_name')}" onclick="popopen(this.href);return false;">{$lang->cmd_find_langcode}</a>
+							{$lang->about_langcode}
+					</div>
+                    <!-- wPublish -->
+                        <div class="wPublish" id="wPublishButtonContainer">
+                                <span class="btnAction actionWhite normal"><button type="submit">{$lang->cmd_save}</button></span>
+                        </div>
+                    <!-- /wPublish -->
+					<span class="cap capLeft"></span> <span class="cap capRight"></span>
+				</fieldset>
+			</div>
+			<!-- /Post Title -->
+
+			<!-- Textyle Editor -->
+			<input type="hidden" name="msg_close_before_write" value="{$lang->msg_close_before_write}" />
+			<input type="hidden" name="content" value="{$oDocument->getContentText()}" />
+			<input type="hidden" name="document_srl" value="{$document_srl}" />
+			<!--@if($document_srl)-->
+			<input type="hidden" name="_disable_autosaved" value="" />
+			<!--@end-->
+			{$editor}
+
+			<!-- /Textyle Editor -->
+		</fieldset>
+	</form>
+</div>
+<hr />
+<!-- /Content -->
+<!-- Extension -->
+<include target="_tool_menu.html" />
+<include target="_tool_footer.html" />
+
+<script type="text/javascript">//<![[CDATA
+setInterval('isLive()', 30000);
+//]]></script>

@@ -1,0 +1,9 @@
+<query id="insertProductCategories" action="insert">
+    <tables>
+        <table name="shop_product_categories" />
+    </tables>
+    <columns>
+        <column name="product_srl" var="product_srl" filter="number" notnull="notnull"/>
+        <column name="category_srl" var="category_srl" filter="number" notnull="notnull"/>
+    </columns>
+</query>

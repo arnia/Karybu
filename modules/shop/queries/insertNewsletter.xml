@@ -1,0 +1,14 @@
+<query id="insertNewsletter" action="insert">
+    <tables>
+        <table name="shop_newsletters" />
+    </tables>
+    <columns>
+        <column name="newsletter_srl" var="newsletter_srl" filter="number" notnull="notnull" />
+        <column name="module_srl" var="module_srl" filter="number" notnull="notnull" />
+        <column name="subject" var="subject"/>
+        <column name="sender_name" var="sender_name"/>
+        <column name="sender_email" var="sender_email"/>
+        <column name="content" var="content"/>
+        <column name="regdate" var="regdate" default="curdate()"/>
+    </columns>
+</query>

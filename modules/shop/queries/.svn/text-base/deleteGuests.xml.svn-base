@@ -1,0 +1,9 @@
+<query id="deleteGuests" action="delete">
+    <tables>
+        <table name="shop_guests"/>
+    </tables>
+    <conditions>
+        <condition operation="in" column="guest_srl" var="guest_srls" />
+        <condition operation="equal" column="session_id" var="session_id" pipe="or"/>
+    </conditions>
+</query>

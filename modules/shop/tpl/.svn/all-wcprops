@@ -1,0 +1,377 @@
+K 25
+svn:wc:ra_dav:version-url
+V 27
+/svn/!svn/ver/724/trunk/tpl
+END
+ManageProducts.html
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/611/trunk/tpl/ManageProducts.html
+END
+AddAttribute.html
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/679/trunk/tpl/AddAttribute.html
+END
+ManageNewsletterSubscribers.html
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/611/trunk/tpl/ManageNewsletterSubscribers.html
+END
+AddAssociatedProducts.html
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/539/trunk/tpl/AddAssociatedProducts.html
+END
+ConfigInfo.html
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/678/trunk/tpl/ConfigInfo.html
+END
+product_items.html
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/530/trunk/tpl/product_items.html
+END
+order_email.html
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/558/trunk/tpl/order_email.html
+END
+EditPaymentMethod.html
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/626/trunk/tpl/EditPaymentMethod.html
+END
+_tool_header.html
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/624/trunk/tpl/_tool_header.html
+END
+ManageAddresses.html
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/445/trunk/tpl/ManageAddresses.html
+END
+AddCategory.html
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/666/trunk/tpl/AddCategory.html
+END
+EditShipping.html
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/626/trunk/tpl/EditShipping.html
+END
+ManageInvoices.html
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/669/trunk/tpl/ManageInvoices.html
+END
+LayoutConfigSkin.html
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/611/trunk/tpl/LayoutConfigSkin.html
+END
+header.html
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svn/!svn/ver/2/trunk/tpl/header.html
+END
+ManageCustomers.html
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/611/trunk/tpl/ManageCustomers.html
+END
+ManageCategories.html
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/611/trunk/tpl/ManageCategories.html
+END
+ImportProducts.html
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/445/trunk/tpl/ImportProducts.html
+END
+Pages.html
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/611/trunk/tpl/Pages.html
+END
+ShipOrder.html
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/528/trunk/tpl/ShipOrder.html
+END
+InsertPage.html
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/611/trunk/tpl/InsertPage.html
+END
+Attribute.html
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/699/trunk/tpl/Attribute.html
+END
+DiscountInfo.html
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/717/trunk/tpl/DiscountInfo.html
+END
+ManageAccount.html
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/611/trunk/tpl/ManageAccount.html
+END
+DiscountCodes.html
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/717/trunk/tpl/DiscountCodes.html
+END
+ManageOrders.html
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/611/trunk/tpl/ManageOrders.html
+END
+ChangePassword.html
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/266/trunk/tpl/ChangePassword.html
+END
+AdminProductsList.html
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/445/trunk/tpl/AdminProductsList.html
+END
+LayoutConfigEdit.html
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/611/trunk/tpl/LayoutConfigEdit.html
+END
+_tool_layout.html
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/2/trunk/tpl/_tool_layout.html
+END
+AddCustomer.html
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/440/trunk/tpl/AddCustomer.html
+END
+StatisticsVisitor.html
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/613/trunk/tpl/StatisticsVisitor.html
+END
+list.html
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/!svn/ver/12/trunk/tpl/list.html
+END
+AddCoupon.html
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/717/trunk/tpl/AddCoupon.html
+END
+ManageShippingMethods.html
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/620/trunk/tpl/ManageShippingMethods.html
+END
+top_refresh.html
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/2/trunk/tpl/top_refresh.html
+END
+ManageShipments.html
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/611/trunk/tpl/ManageShipments.html
+END
+Menus.html
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/611/trunk/tpl/Menus.html
+END
+Dashboard.html
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/611/trunk/tpl/Dashboard.html
+END
+ViewNewsletter.html
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/446/trunk/tpl/ViewNewsletter.html
+END
+InvoiceOrder.html
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/669/trunk/tpl/InvoiceOrder.html
+END
+ManageNewsletters.html
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/611/trunk/tpl/ManageNewsletters.html
+END
+AddCouponGroup.html
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/717/trunk/tpl/AddCouponGroup.html
+END
+AddProduct.html
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/724/trunk/tpl/AddProduct.html
+END
+_tool_footer.html
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/2/trunk/tpl/_tool_footer.html
+END
+LayoutConfigEditSettings.html
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/684/trunk/tpl/LayoutConfigEditSettings.html
+END
+shop_delete.html
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/12/trunk/tpl/shop_delete.html
+END
+AddAddress.html
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/426/trunk/tpl/AddAddress.html
+END
+move_shop.html
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/2/trunk/tpl/move_shop.html
+END
+ManageAttributes.html
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/611/trunk/tpl/ManageAttributes.html
+END
+_tool_menu.html
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/717/trunk/tpl/_tool_menu.html
+END
+log_viewer.html
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/539/trunk/tpl/log_viewer.html
+END
+AssociatedProducts.html
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/445/trunk/tpl/AssociatedProducts.html
+END
+insert.html
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/21/trunk/tpl/insert.html
+END
+ManageNewsletter.html
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/446/trunk/tpl/ManageNewsletter.html
+END
+_multilingual.html
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/659/trunk/tpl/_multilingual.html
+END
+move_myshop.html
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/2/trunk/tpl/move_myshop.html
+END
+ViewOrder.html
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/669/trunk/tpl/ViewOrder.html
+END
+SendNewsletter.html
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/400/trunk/tpl/SendNewsletter.html
+END
+Login.html
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/624/trunk/tpl/Login.html
+END
+AddConfigurableProduct.html
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/599/trunk/tpl/AddConfigurableProduct.html
+END
+ManagePaymentMethods.html
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/620/trunk/tpl/ManagePaymentMethods.html
+END

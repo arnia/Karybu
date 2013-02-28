@@ -1,0 +1,12 @@
+<query id="getProductImages" action="select">
+    <tables>
+        <table name="shop_product_images" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="product_srl" var="product_srl" />
+        <condition operation="in" column="image_srl" var="image_srls" pipe = "or" />
+    </conditions>
+</query>

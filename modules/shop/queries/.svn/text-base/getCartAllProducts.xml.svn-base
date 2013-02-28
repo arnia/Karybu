@@ -1,0 +1,29 @@
+<query id="getCartAllProducts" action="select">
+    <tables>
+        <table name="shop_cart" alias="c"/>
+        <table name="shop_cart_products" alias="cp" type="left join">
+            <conditions>
+                <condition operation="equal" column="c.cart_srl" default="cp.cart_srl"/>
+            </conditions>
+        </table>
+        <table name="shop_products" alias="p" type="left join">
+            <conditions>
+                <condition operation="equal" column="cp.product_srl" default="p.product_srl"/>
+            </conditions>
+        </table>
+    </tables>
+    <columns>
+        <column name="p.*" />
+        <column name="cp.quantity" alias="quantity" />
+        <column name="cp.product_srl" alias="cart_product_srl" />
+        <column name="cp.title" alias="cart_product_title" />
+        <column name="cp.price" alias="cart_product_price" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="c.cart_srl" var="cart_srl" notnull="notnull" />
+    </conditions>
+    <navigation>
+        <index var="product_order" default="cp.product_srl" order="desc" />
+        <list_count var="list_count" default="10"/>
+    </navigation>
+</query>

@@ -1,0 +1,62 @@
+<!--%import("slideshow.css")-->
+<!--%import("slides.jquery.js")-->
+
+<div class="slide_widget body-two-columns">
+    <div class="mask">
+        <div id="slides" class="slides">
+            <div class="slides_container xeBanner" style="display:none">
+                <div>
+                    <a class="url" href="">
+                        <div class="section">
+                            <div>
+                                <img src="img/slideshow_images/slide1.jpg" width='714' height='200' />
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div>
+                    <a class="url" href="">
+                        <div class="section">
+                            <div>
+                                <img src="img/slideshow_images/slide2.jpg" width='714' height='200' />
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div>
+                    <a class="url" href="">
+                        <div class="section">
+                            <div>
+                                <img src="img/slideshow_images/slide3.jpg" width='714' height='200' />
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready( function() {
+
+        $ = jQuery;
+
+        var links = $('a.url');
+
+        $('#slides').slides({
+            preload: true,
+            preloadImage: './images/loading.gif',
+            generateNextPrev: true,
+            play: 6000,
+            slideSpeed:1000,
+            paginationClass: "{'slideshow_pagination'}",
+            effect: 'fade',
+            crossfade: true,
+            pause: 1
+        });
+
+        if('{$act}' == 'IS')
+            $('.slide_widget').find('ul').css('bottom','33px');
+    });
+</script>

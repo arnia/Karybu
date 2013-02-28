@@ -1,0 +1,86 @@
+<!--#include("_tool_header.html")-->
+<!--%import("css/pagination.css",optimized=false)-->
+
+<script type="text/javascript">
+    if (!xe.lang) xe.lang = {};
+    xe.lang.not_allowed_to_add_more_than_2_configurable_attributes = '{$lang->not_allowed_to_add_more_than_2_configurable_attributes}';
+
+    jQuery(document).ready(function($){
+        $("#attributes input:checkbox").change(function(){
+            if($(this).is(":checked"))
+            {
+                count_of_already_selected_attributes = $("#attributes input:checkbox:checked").length;
+                if(count_of_already_selected_attributes > 2)
+                {
+                    $(this).attr("checked", false);
+                    alert(xe.lang.not_allowed_to_add_more_than_2_configurable_attributes);
+                }
+            }
+        });
+    });
+</script>
+
+<!-- Content -->
+<div id="content">
+    <!-- contentHeader -->
+    <div class="contentHeader postListHeader">
+        <!--@if(!$product)-->
+        <h3 class="h3">{$lang->add_configurable_product}</h3>
+        <!--@else-->
+        <h3 class="h3">{$lang->edit_configurable_product}</h3>
+        <!--@endif-->
+    </div>
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+    <!-- /contentHeader -->
+    <form action="./" method="post">
+        <input type="hidden" name="act" value="dispShopToolAddProduct" />
+        <input type="hidden" name="product_type" value="configurable" />
+
+        <div class="wOption">
+            <fieldset class="visualFieldset">
+                <legend class="visualLabel">{$lang->select_configurable_attribute}</legend>
+                <table border="1" cellspacing="0" class="tableData">
+                    <tr>
+                        <th scope="row">
+                            <label for="attributes">{$lang->select_attributes}</label>
+                        </th>
+                        <td class="title">
+                            <div class="fItem">
+                                <ul class= "multiple_checkbox" id="attributes">
+                                    <!--@if(count($attributes) == 0)-->
+                                        <li><span>{sprintf($lang->no_config_attributes,getUrl('','act','dispShopToolAddAttribute'))}</span></li>
+                                    <!--@else-->
+                                        <!--@foreach($attributes as $attribute)-->
+                                            <li><input type="checkbox"  name="configurable_attributes[]" value="{$attribute->attribute_srl}" />{$attribute->title}</li>
+                                        <!--@end-->
+                                    <!--@endif-->
+                                </ul>
+                                <span>{$lang->about_select_attributes}</span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr class="last">
+                        <th scope="row">
+                        </th>
+                        <td class="title">
+                            <span class="btn"><input type="submit" value="{$lang->cmd_continue}" /></span>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+    </form>
+
+</div>
+<!-- /Content -->
+
+
+<!-- Extension -->
+<!--#include("_tool_menu.html")-->
+<!-- Extension -->
+
+<!--#include("_tool_footer.html")-->
+

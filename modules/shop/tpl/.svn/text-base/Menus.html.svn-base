@@ -1,0 +1,49 @@
+<include target="_tool_header.html" />
+<load target="css/form.css" />
+
+
+<!-- Content -->
+<div id="content">
+    <!-- contentHeader -->
+    <div class="dashboardHeader">
+        <h3 class="h3"><span class="icon menus"></span>{$lang->shop_menus}</h3>
+    </div>
+
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+    <!-- /contentHeader -->
+
+    <form action="./" method="post">
+        <input type="hidden" name="act" value="procShopToolSaveShopMenus" />
+
+        <!--@foreach($menus as $menu_key => $menu_srl)-->
+            <p>
+                <label>
+                    {$menu_lang[$menu_key]}
+                </label>
+                <select name="menus[{$menu_key}]">
+                    <option value=""></option>
+                    <!--@foreach($all_site_menus as $site_menu)-->
+                    <option value="{$site_menu->menu_srl}"
+                            <!--@if($site_menu->menu_srl == $menu_srl)-->
+                                selected="selected"
+                            <!--@end-->
+                            >
+                        {$site_menu->title}
+                    </option>
+                    <!--@end-->
+                </select>
+            </p>
+        <!--@end-->
+
+        <p class="submit">
+            <input type="submit" value="{$lang->save}" />
+        </p>
+    </form>
+
+</div>
+<!-- /Content -->
+
+<include target="_tool_menu.html" />
+<include target="_tool_footer.html" />

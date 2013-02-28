@@ -1,0 +1,57 @@
+<include target="_tool_header" />
+<load target="css/pagination.css" />
+
+<!-- Content -->
+<div id="content">
+	<!-- contentHeader -->
+	<div class="dashboardHeader">
+		<h3 class="h3"><span class="icon all_pages"></span>{$lang->shop_second_menus[4]['dispShopToolPages']}</h3>
+	</div>
+
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+	<!-- /contentHeader -->
+
+	<div class="listHeader">
+		<p class="info">{$lang->about_shop_pages}</p>
+	</div>
+
+	<div class="setUp">
+		<table border="1" cellspacing="0" summary="{$lang->content_list}" class="tableData">
+		<thead>
+			<tr>
+			<th scope="col">{$lang->page_title}</th>
+			<th scope="col">{$lang->url}</th>
+            <th scope="col">-</th>
+			<th scope="col">-</th>
+			</tr>
+		</thead>
+
+		<tbody>
+		<!--@foreach($shop_pages as $k => $shop_page)-->
+
+			<tr>
+				<td><a href="{getUrl('', 'mid', $shop_page->mid)}" target="_blank">{$shop_page->browser_title}</a></td>
+				<td>{$shop_page->mid}</td>
+                <td>
+                    <a href="{getUrl('', 'act', 'dispShopToolInsertPage', 'module_srl', $shop_page->module_srl)}">{$lang->edit_page}</a>
+                    </td>
+				<td>
+				<button type="button" onclick="deleteShopPage('{$shop_page->module_srl}', '{$lang->confirm_delete}')" class="text">{$lang->cmd_delete}</button>
+				</td>
+			</tr>
+		<!--@end-->
+		</tbody>
+		</table>
+
+		<div class="btnArea">
+			<span class="btn"><a href="{getUrl('','act','dispShopToolInsertPage')}">{$lang->cmd_insert}</a></span>
+		</div>
+	</div>
+</div>
+<hr />
+<!-- /Content -->
+
+<!-- Extension -->
+<include target="_tool_menu.html" />

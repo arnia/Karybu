@@ -1,0 +1,33 @@
+<query id="getCategoriesAttributeFilters" action="select">
+    <tables>
+        <table name="shop_attributes" alias="a" />
+        <table name="shop_attributes_scope" alias="s" type="left join">
+            <conditions>
+                <condition operation="equal" column="a.attribute_srl" default="s.attribute_srl" />
+            </conditions>
+        </table>
+        <!--<table name="shop_product_attributes" alias="pa" type="left join">-->
+            <!--<conditions>-->
+                <!--<condition operation="equal" column="a.attribute_srl" default="pa.attribute_srl"/>-->
+            <!--</conditions>-->
+        <!--</table>-->
+    </tables>
+    <columns>
+        <column name="a.*" />
+        <column name="s.category_srl" />
+        <!--TODO !Watchout for this type casting in anything different to MYSQL!-->
+        <!--<column name="MAX(convert(pa.value, UNSIGNED INTEGER))" alias="max" />-->
+        <!--<column name="MIN(convert(pa.value, UNSIGNED INTEGER))" alias="min" />-->
+    </columns>
+    <conditions>
+        <condition operation="equal" column="module_srl" var="module_srl" notnull="notnull" />
+        <condition operation="equals" column="a.is_filter" var="is_filter" default="1" />
+        <group pipe="and">
+            <condition operation="in" column="s.category_srl" var="category_srls" />
+            <condition operation="null" column="s.category_srl" pipe="or" />
+        </group>
+    </conditions>
+    <groups>
+        <group column="a.attribute_srl" />
+    </groups>
+</query>

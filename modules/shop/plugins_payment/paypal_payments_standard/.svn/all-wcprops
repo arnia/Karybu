@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/727/trunk/plugins_payment/paypal_payments_standard
+END
+PaypalPaymentsStandard.php
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/727/trunk/plugins_payment/paypal_payments_standard/PaypalPaymentsStandard.php
+END
+form_admin_settings.html
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/460/trunk/plugins_payment/paypal_payments_standard/form_admin_settings.html
+END
+form_payment.html
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/661/trunk/plugins_payment/paypal_payments_standard/form_payment.html
+END

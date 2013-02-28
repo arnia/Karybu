@@ -1,0 +1,45 @@
+<include target="_header.html" />
+<include target="_my_account_sidebar.html" />
+
+<div id="my_account" class="body-two-columns main-content clearfix">
+    <div id="MyAccountInfo">
+        <h1 class="underline">{sprintf($lang->order_with_number, $order->order_srl)}</h1>
+        <a class="button" title="This will fill your cart with the products existing on this order so you can buy them again" href="{getUrl('','act','procShopRenewOrder','order_srl',$order->order_srl)}">{$lang->renew}</a>
+        <a class="button" title="Print order" target="_blank" href="{getUrl('','act','procShopPrintOrder','order_srl',$order->order_srl)}">{$lang->print}</a>
+    </div>
+
+    <div class="viewOrder">
+
+        <h2>{$lang->order_status}</h2>
+        <p>{$lang->current_order_status} <b>{$order->order_status}</b></p>
+
+
+        <h2>{$lang->account_info}</h2>
+        <p>{$lang->customer_ip} <b>{$order->ip}</b></p>
+
+
+        <h2>{$lang->billing_address}</h2>
+        <p>{$order->billing_address}</p>
+
+
+        <h2>{$lang->shipping_address}</h2>
+        <p>{$order->shipping_address}</p>
+
+
+        <h2>{$lang->payment_info}</h2>
+        <p>{$lang->payment_method_used} <b>{ucwords(str_replace('_', ' ', $order->payment_method))}</b></p>
+
+
+        <h2>{$lang->shipping_info}</h2>
+        <p>{$lang->shipping_method_used} <b>{ucwords(str_replace('_', ' ', $order->shipping_method))}</b>{$order->getShippingMethodVariant() ? ' - ' . $order->getShippingMethodVariant() : ''}</p>
+
+
+        <h2>{$lang->items_ordered}</h2>
+
+        {@ $product_container = $order; }
+        <include target="product_items.html" />
+
+    </div>
+</div>
+
+<include target="_footer.html"/>

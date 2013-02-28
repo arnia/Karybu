@@ -1,0 +1,112 @@
+<query id="getProductList" action="select">
+    <tables>
+        <table name="shop_products" alias="p" />
+        <table name="shop_product_attributes" alias="pa" type="left join">
+            <conditions>
+                <condition operation="equal" column="p.product_srl" default="pa.product_srl"/>
+            </conditions>
+        </table>
+    </tables>
+    <columns>
+        <column name="p.*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="module_srl" var="module_srl" notnull="notnull" />
+        <condition operation="null" column="parent_product_srl" pipe="and" />
+        <condition operation="equal" column="status" var="status" default="enabled" pipe="and"/>
+        <condition operation="equal" column="in_stock" var="in_stock" pipe="and"/>
+        <condition operation="less" column="discount_price" var="max_price" pipe="and"/>
+        <condition operation="more" column="discount_price" var="min_price" pipe="and"/>
+        <!--search-->
+        <group pipe="and">
+            <condition operation="equal" column="sku" var="sku" pipe="or"/>
+            <condition operation="like" column="title" var="title" pipe="or"/>
+            <condition operation="like" column="description" var="description" pipe="or"/>
+        </group>
+
+        <!--attribute filter 1-->
+        <group pipe="and">
+            <condition operation="equal" column="pa.attribute_srl" var="attr_1_range_srl" />
+            <condition operation="more" column="CONVERT(pa.value, UNSIGNED INTEGER)" var="attr_1_range_a" pipe="and" />
+            <condition operation="less" column="CONVERT(pa.value, UNSIGNED INTEGER)" var="attr_1_range_b" pipe="and" />
+        </group>
+        <group pipe="and">
+            <condition operation="equal" column="pa.attribute_srl" var="attr_1_in_srl" />
+            <condition operation="in" column="pa.value" var="attr_1_in_value" pipe="and" />
+        </group>
+        <group pipe="and">
+            <condition operation="equal" column="pa.attribute_srl" var="attr_1_eq_srl" />
+            <condition operation="like" column="pa.value" var="attr_1_eq_value" pipe="and" />
+        </group>
+
+        <!--attribute filter 2-->
+        <group pipe="and">
+            <condition operation="equal" column="pa.attribute_srl" var="attr_2_range_srl" />
+            <condition operation="more" column="CONVERT(pa.value, UNSIGNED INTEGER)" var="attr_2_range_a" pipe="and" />
+            <condition operation="less" column="CONVERT(pa.value, UNSIGNED INTEGER)" var="attr_2_range_b" pipe="and" />
+        </group>
+        <group pipe="and">
+            <condition operation="equal" column="pa.attribute_srl" var="attr_2_in_srl" />
+            <condition operation="in" column="pa.value" var="attr_2_in_value" pipe="and" />
+        </group>
+        <group pipe="and">
+            <condition operation="equal" column="pa.attribute_srl" var="attr_2_eq_srl" />
+            <condition operation="like" column="pa.value" var="attr_2_eq_value" pipe="and" />
+        </group>
+
+        <!--attribute filter 3-->
+        <group pipe="and">
+            <condition operation="equal" column="pa.attribute_srl" var="attr_3_range_srl" />
+            <condition operation="more" column="CONVERT(pa.value, UNSIGNED INTEGER)" var="attr_3_range_a" pipe="and" />
+            <condition operation="less" column="CONVERT(pa.value, UNSIGNED INTEGER)" var="attr_3_range_b" pipe="and" />
+        </group>
+        <group pipe="and">
+            <condition operation="equal" column="pa.attribute_srl" var="attr_3_in_srl" />
+            <condition operation="in" column="pa.value" var="attr_3_in_value" pipe="and" />
+        </group>
+        <group pipe="and">
+            <condition operation="equal" column="pa.attribute_srl" var="attr_3_eq_srl" />
+            <condition operation="like" column="pa.value" var="attr_3_eq_value" pipe="and" />
+        </group>
+
+        <!--attribute filter 4-->
+        <group pipe="and">
+            <condition operation="equal" column="pa.attribute_srl" var="attr_4_range_srl" />
+            <condition operation="more" column="CONVERT(pa.value, UNSIGNED INTEGER)" var="attr_4_range_a" pipe="and" />
+            <condition operation="less" column="CONVERT(pa.value, UNSIGNED INTEGER)" var="attr_4_range_b" pipe="and" />
+        </group>
+        <group pipe="and">
+            <condition operation="equal" column="pa.attribute_srl" var="attr_4_in_srl" />
+            <condition operation="in" column="pa.value" var="attr_4_in_value" pipe="and" />
+        </group>
+        <group pipe="and">
+            <condition operation="equal" column="pa.attribute_srl" var="attr_4_eq_srl" />
+            <condition operation="like" column="pa.value" var="attr_4_eq_value" pipe="and" />
+        </group>
+
+        <!--attribute filter 5-->
+        <group pipe="and">
+            <condition operation="equal" column="pa.attribute_srl" var="attr_5_range_srl" />
+            <condition operation="more" column="CONVERT(pa.value, UNSIGNED INTEGER)" var="attr_5_range_a" pipe="and" />
+            <condition operation="less" column="CONVERT(pa.value, UNSIGNED INTEGER)" var="attr_5_range_b" pipe="and" />
+        </group>
+        <group pipe="and">
+            <condition operation="equal" column="pa.attribute_srl" var="attr_5_in_srl" />
+            <condition operation="in" column="pa.value" var="attr_5_in_value" pipe="and" />
+        </group>
+        <group pipe="and">
+            <condition operation="equal" column="pa.attribute_srl" var="attr_5_eq_srl" />
+            <condition operation="like" column="pa.value" var="attr_5_eq_value" pipe="and" />
+        </group>
+
+    </conditions>
+    <groups>
+        <group column="p.product_srl" />
+    </groups>
+    <navigation>
+        <index var="index" default="product_srl" order="order_type" />
+        <list_count var="list_count" default="10" />
+        <page_count var="page_count" default="10" />
+        <page var="page" default="1" />
+    </navigation>
+</query>

@@ -1,0 +1,9 @@
+<query id="deleteCarts" action="delete">
+    <tables>
+        <table name="shop_cart"/>
+    </tables>
+    <conditions>
+        <condition operation="in" column="cart_srl" var="cart_srls" />
+        <condition operation="equal" column="module_srl" var="module_srl" filter="number" pipe="or"/>
+    </conditions>
+</query>

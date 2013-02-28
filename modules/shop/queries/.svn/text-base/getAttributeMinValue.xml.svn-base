@@ -1,0 +1,18 @@
+<query id="getAttributeMinValue" action="select">
+    <tables>
+        <table name="shop_attributes" alias="a" />
+        <table name="shop_product_attributes" alias="pa" type="left join">
+            <conditions>
+                <condition operation="equal" column="a.attribute_srl" default="pa.attribute_srl"/>
+            </conditions>
+        </table>
+    </tables>
+    <columns>
+        <column name="pa.value" alias="value" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="a.attribute_srl" var="attribute_srl" notnull="notnull" />
+        <!--type numeric, optional input:-->
+        <condition operation="equal" column="a.type" default="7" var="type" pipe="and"/>
+    </conditions>
+</query>

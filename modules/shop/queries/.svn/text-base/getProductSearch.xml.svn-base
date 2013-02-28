@@ -1,0 +1,23 @@
+<query id="getProductSearch" action="select">
+    <tables>
+        <table name="shop_products"/>
+    </tables>
+    <columns>
+        <column name="*"/>
+    </columns>
+    <conditions>
+        <condition operation="equal" column="module_srl" var="module_srl" notnull="notnull"/>
+        <condition operation="null" column="parent_product_srl" pipe="and"/>
+        <group pipe="and">
+            <condition operation="like" column="sku" var="sku" pipe="or"/>
+            <condition operation="like" column="title" var="title" pipe="or"/>
+            <condition operation="like" column="description" var="description" pipe="or"/>
+        </group>
+    </conditions>
+    <navigation>
+        <index var="product_srl" default="product_srl" order="order_type"/>
+        <list_count var="list_count" default="10"/>
+        <page_count var="page_count" default="10"/>
+        <page var="page" default="1"/>
+    </navigation>
+</query>

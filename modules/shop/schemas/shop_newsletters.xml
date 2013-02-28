@@ -1,0 +1,9 @@
+<table name="shop_newsletters">
+    <column name="newsletter_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+    <column name="module_srl" type="number" size="11" notnull="notnull" />
+    <column name="subject" type="text"/>
+    <column name="sender_name" type="varchar" size="45" />
+    <column name="sender_email" type="varchar" size="45" />
+    <column name="content" type="text"/>
+    <column name="regdate" type="date" />
+</table>

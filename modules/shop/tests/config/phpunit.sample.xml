@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ Copy and rename this file to db.config.php to load database configuration
+-->
+<phpunit>
+    <php>
+        <var name="DB_DSN" value="mysql:dbname=tests_db;host=dbhost"/>
+        <var name="DB_USER" value="db_user"/>
+        <var name="DB_PASSWD" value="db_pass"/>
+        <var name="DB_DBNAME" value="db_name"/>
+        <var name="XE_ROOT_URL" value="http://localhost/xe" />
+        <var name="XE_SHOP_VID" value="your_shop_name" />
+    </php>
+</phpunit>

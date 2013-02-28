@@ -1,0 +1,36 @@
+<!-- Info: https://www.2checkout.com/blog/knowledge-base/merchants/tech-support/3rd-party-carts/parameter-sets/does-your-system-have-its-own-parameters-if-so-what-are-they/ -->
+
+<!-- Required parameters -->
+<input type="hidden" name="sid" value="{$payment_method->sid}" />
+<input type="hidden" name="total" value="{$cart->getTotal()}" />
+<input type="hidden" name="cart_order_id" value="{$cart->cart_srl}" />
+
+<!-- Product identification parameters -->
+<input type="hidden" name="id_type" value="1" />
+{@ $i = 0; }
+<!--@foreach($cart->getProducts() as $product)-->
+<input type="hidden" name="c_prod_{$i}" value="{$product->product_srl . ',' . $product->quantity}" />
+<input type="hidden" name="c_name_{$i}" value="{$product->title}" />
+<input type="hidden" name="c_description_{$i}" value="{$product->short_description}" />
+<input type="hidden" name="c_price_{$i}" value="{ShopDisplay::numberFormat($product->getPrice(), $shop->getCurrencySymbol())}" />
+{@ $i += 1; }
+<!--@end-->
+
+<!-- Additional parameters -->
+<!--@if(!$payment_method->isLive())-->
+<input type="hidden" name="demo" value="Y" />
+<!--@end-->
+<input type="hidden" name="merchant_order_id" value="{$cart->cart_srl}" />
+<input type="hidden" name="fixed" value="Y" />
+<input type="hidden" name="x_receipt_link_url" value="{$payment_method->getOrderConfirmationPageUrl()}" />
+
+
+<!-- Fields for pre-populating billing info -->
+<input type="hidden" name="card_holder_name" value="{$cart->getCustomerFirstname() . ' ' . $cart->getCustomerLastname()}" />
+{@ $billing_address = $cart->getBillingAddress() }
+<input type="hidden" name="street_address" value="{$billing_address->address}" />
+<input type="hidden" name="city" value="{$billing_address->city}" />
+<input type="hidden" name="zip" value="{$billing_address->postal_code}">
+<!-- // TODO Add country code; also tax and currency code need to be reviewed -->
+<!--<input type="hidden" name="country" value="{$billing_address->country}">-->
+<input type="hidden" name="email" value="{$cart->getExtra('email')}">

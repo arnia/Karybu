@@ -1,0 +1,73 @@
+<style type='text/css'>
+    #debugging_top_bar {
+        background: #FDE073;
+        text-align: center;
+            padding: 10px;
+        z-index: 99999;
+    }
+    #debugging_top_bar div {
+        background-color: #FDE073;
+        padding: 10px;
+    }
+    #debugging_top_bar div div {
+        background-color:#E8E8E8;
+        text-align: left;
+        width:80%;
+        margin: auto;
+        padding: 10px;
+    }
+    .debug_messages_container {
+        display: none;
+    }
+</style>
+
+<script type="text/javascript">
+    jQuery(document).ready(function($){
+        $("body").prepend($("#debugging_top_bar"));
+
+        $(".debug_messages_link").click(function(){
+            id = $(this).attr("id");
+            $('#' + id + "_messages").toggle().siblings(".debug_messages_container").hide();
+        });
+
+        $(".logger_message_details").click(function(){
+            $(this).next("div").css("background-color", "#E8E8E8").css("text-align","left").css("width", "70%").css("margin", "auto").css("padding", "10px");
+            $(this).next("div").toggle();
+        });
+
+    });
+</script>
+
+<div id="debugging_top_bar">
+    <!--@if(empty($shop_log_messages))-->
+    Shop messages
+    <!--@else-->
+    <a href="#" id="xe_shop_debug" class="debug_messages_link">Shop messages</a>
+    <!--@endif-->
+
+    &nbsp;|&nbsp;
+    <a href="#" id="xe_core_debug" class="debug_messages_link">XE debug messages</a>
+    &nbsp;|&nbsp;
+
+    <!--@if(empty($debug_db_query))-->
+    Debug DB Query
+    <!--@else-->
+    <a href="#" id="xe_db_query_debug" class="debug_messages_link">Debug DB Query</a>
+    <!--@endif-->
+
+    <div id="xe_shop_debug_messages" class="debug_messages_container">
+        {nl2br($shop_log_messages)}
+    </div>
+
+    <div id="xe_core_debug_messages" class="debug_messages_container">
+        <div>
+            {nl2br($debug_messages)}
+        </div>
+    </div>
+
+    <div id="xe_db_query_debug_messages" class="debug_messages_container">
+        <div>
+            {nl2br($debug_db_query)}
+        </div>
+    </div>
+</div>

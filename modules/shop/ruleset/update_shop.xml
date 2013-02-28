@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ruleset version="1.5.0">
+    <customrules>
+    </customrules>
+    <fields>
+        <field name="user_id" required="true" length="3:250" />
+        <field name="domain" length="3:250" />
+        <field name="site_id" length="3:250" rule="alpha_number" />
+    </fields>
+</ruleset>

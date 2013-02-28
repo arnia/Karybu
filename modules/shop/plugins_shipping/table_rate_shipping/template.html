@@ -1,0 +1,139 @@
+<p>
+    <label for="type">
+        Type
+    </label>
+    <select name="type" id="type">
+        TableRateShipping::TYPE_PRICE_DESTINATION
+        <option value="{TableRateShipping::TYPE_PRICE_DESTINATION}"
+          <!--@if($shipping_method->type == TableRateShipping::TYPE_PRICE_DESTINATION)-->selected<!--@endif-->>
+            Price and destination
+        </option>
+        <option value="{TableRateShipping::TYPE_WEIGHT_DESTINATION }"
+          <!--@if($shipping_method->type == TableRateShipping::TYPE_WEIGHT_DESTINATION )-->selected<!--@endif-->>
+          Weight and destination
+        </option>
+        <option value="{TableRateShipping::TYPE_ITEMS_COUNT_DESTINATION }"
+          <!--@if($shipping_method->type == TableRateShipping::TYPE_ITEMS_COUNT_DESTINATION )-->selected<!--@endif-->>
+          Number of items and destination
+        </option>
+    </select>
+</p>
+
+<p>
+    <script type="text/javascript">
+        jQuery(document).ready(function($){
+
+            var add_new_row = function()
+            {
+                // Clone the last row of the table
+                var last_row = $('#table_rates tbody>tr:last');
+                last_row.clone(true).insertAfter(last_row);
+
+                // Reset all its form fields
+                var new_row = $("#table_rates tbody>tr:last");
+                new_row.find("input").val("");
+                new_row.find("input.row_index").val($("#table_rates tbody>tr").size());
+            }
+
+            // When pressing tab on the last input of the last row, add a new row and focus on it
+            $('#table_rates tbody>tr:last input:last').live('keydown', function(e) {
+                var keyCode = e.keyCode || e.which;
+
+                if (keyCode == 9) {
+                    e.preventDefault();
+
+                    add_new_row();
+                    $("#table_rates tbody>tr:last input[type='text']:first").focus();
+                }
+            });
+
+            $("#add_row").click(function(){
+                add_new_row();
+                return false;
+            });
+
+            $(".delete_row").click(function(){
+                $(this).closest("tr").remove();
+            });
+
+            $("form").submit(function(){
+                var table_values = $('#table_rates tbody tr').map(function() {
+                    var $row = $(this);
+                    return {
+                        id: $row.find('input.row_index').val(),
+                        country: $row.find('input.table_country').val(),
+                        unit: $row.find('input.table_unit').val(),
+                        price: $row.find('input.table_price').val()
+                    };
+                }).get();
+
+                $("#serialized_table_rates").val(JSON.stringify(table_values));
+                $(this).submit();
+            });
+        });
+    </script>
+
+    <input type="hidden" id="serialized_table_rates" name="serialized_table_rates" value="{$shipping_method->serialized_table_rates}" />
+
+    <table id="table_rates">
+        <thead>
+            <tr>
+                <th>Country</th>
+                <th>Unit</th>
+                <th>Shipping price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {@ $table_rates = $shipping_method->getTableRates(); }
+            <!--@if(count($table_rates) > 0)-->
+                <!--@foreach($table_rates as $table_rate)-->
+                    <tr>
+                        <td>
+                            <input type="hidden" class="row_index" value="{$table_rate->id}" />
+                            <input type="text" class="table_country" value="{$table_rate->country}" />
+                        </td>
+                        <td>
+                            <input type="text" class="table_unit" value="{$table_rate->unit}" />
+                        </td>
+                        <td>
+                            <input type="text" class="table_price" value="{$table_rate->price}" />
+                        </td>
+                        <td>
+                            <a href="#" class="delete_row">
+                                <img src="{getFullSiteUrl()}/modules/shop/plugins_shipping/table_rate_shipping/delete.png" />
+                            </a>
+                        </td>
+                    </tr>
+                <!--@end-->
+            <!--@else-->
+                <tr>
+                    <td>
+                        <input type="hidden" class="row_index" value="1" />
+                        <input type="text" class="table_country" value="*" />
+                    </td>
+                    <td>
+                        <input type="text" class="table_unit" value="" />
+                    </td>
+                    <td>
+                        <input type="text" class="table_price" value="" />
+                    </td>
+                    <td>
+                        <a href="#" class="delete_row">
+                            <img src="{getFullSiteUrl()}/modules/shop/plugins_shipping/table_rate_shipping/delete.png" />
+                        </a>
+                    </td>
+                </tr>
+            <!--@end-->
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" style="text-align: right">
+                    <a href="#" id="add_row">
+                        <img src="{getFullSiteUrl()}/modules/shop/plugins_shipping/table_rate_shipping/add.png" />
+                    </a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</p>

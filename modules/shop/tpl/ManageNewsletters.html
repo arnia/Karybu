@@ -1,0 +1,145 @@
+<!--#include("_tool_header.html")-->
+<!--%import("css/pagination.css",optimized=false)-->
+
+<!-- Content -->
+<div id="content">
+    <div class="dashboardHeader">
+        <h3 class="h3"><span class="icon newsletters"></span>{$lang->manage_newsletters}</h3>
+    </div>
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+    <!-- contentNavigation -->
+    <div class="contentNavigation" >
+        <ul class="sortDefault">
+            <a href="{getUrl('act','dispShopToolSendNewsletter')}">{$lang->send_newsletter}</a>
+        </ul>
+    </div>
+    <!-- /contentNavigation -->
+
+    <div class="contentNavigation" cond="empty($newsletters)">
+        No newsletters
+    </div>
+
+    <!-- listHeader -->
+    <div class="listHeader" cond="!empty($newsletters)">
+        <p class="info">
+            <!--@if($search_keyword)-->{sprintf($lang->search_result_count,$page_navigation->total_count)}
+            <!--@else-->{sprintf($lang->total_result_count,$page_navigation->total_count)}
+            <!--@end-->
+        </p>
+        <fieldset class="search">
+            <legend>{$lang->cmd_search}</legend>
+            <form action="{Context::getRequestUri()}">
+                <input type="hidden" name="published" value="{$published}"/>
+                <input type="hidden" name="vid" value="{$vid}"/>
+                <input type="hidden" name="act" value="{$act}"/>
+                <input type="hidden" name="mid" value="{$mid}"/>
+                <input name="search_keyword" type="text" title="{$lang->cmd_search}" class="iText"
+                       value="{htmlspecialchars($search_keyword)}"/>
+                <span class="btnGray medium"><input type="submit" value="{$lang->cmd_search}"/></span>
+            </form>
+        </fieldset>
+    </div>
+    <!-- /listHeader -->
+
+    <!-- Table Data -->
+    <fieldset>
+        <legend>{$lang->newsletter_list}</legend>
+        <form action="" method="post">
+            <table border="1" cellspacing="0" summary="{$lang->content_list}" class="tableData">
+                <thead>
+                <tr cond="!empty($newsletters)">
+                    <th scope="col">
+                        <input type="checkbox" class="inputCheck" onclick="jQuery('input.boxlist').click()"/>
+                    </th>
+                    <th scope="col">{$lang->newsletter} #</th>
+                    <th scope="col" class="title">{$lang->newsletter_subject}</th>
+                    <th scope="col">{$lang->sender_name}</th>
+                    <th scope="col">{$lang->sender_email}</th>
+                    <th scope="col">{$lang->sent_on}</th>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr cond="empty($newsletters)">
+                    <td class="noData" colspan="9"><p>{$lang->newsletters}</p></td>
+                </tr>
+                <!--@foreach($newsletters as $newsletter)-->
+                <tr>
+                    <td>
+                        <input type="checkbox" name="newsletter_srl" value="{$newsletter->newsletter_srl}" class="inputCheck boxlist"/>
+                    </td>
+                    <td class="small">{$newsletter->newsletter_srl}</td>
+                    <td class="small"><a href="{getUrl('act','dispShopToolViewNewsletter','newsletter_srl',$newsletter->newsletter_srl)}">{$newsletter->subject}</a></td>
+                    <td class="title">{$newsletter->sender_name}</td>
+                    <td class="title">{$newsletter->sender_email}</td>
+                    <td class="small">{zdate($newsletter->regdate)}</td>
+                    <td>
+                        <span class="btnGray small">
+                            <a href="{getUrl('act','dispShopToolViewNewsletter','newsletter_srl',$newsletter->newsletter_srl)}">{$lang->cmd_view}</a>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="btnGray small">
+                            <a href="{getUrl('act','dispShopToolResendNewsletter','newsletter_srl',$newsletter->newsletter_srl)}">{$lang->resend}</a>
+                        </span>
+                    </td>
+                    <td>
+                        <button type="button" class="btnTableData" onclick="deleteNewsletterItem({$newsletter->newsletter_srl})"><span>{$lang->cmd_delete}</span></button>
+                    </td>
+                </tr>
+                <!--@end-->
+
+                </tbody>
+            </table>
+
+            <div class="listFooter" cond="!empty($newsletters)">
+                <!-- Change-->
+                <div class="change">
+                    <p class="p1">{$lang->selected_articles}</p>
+                    <span class="btnGray large"><button type="button" onclick="deleteNewslettersItems({$page})"><img src="img/buttonTableDataX.gif" width="7" height="7" alt="" class="icon" />{$lang->cmd_delete}</button></span>
+
+                </div>
+                <!-- /Change -->
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <a href="{getUrl('page','','mid',$mid)}" class="prev"><span>{$lang->first_page}</span></a>
+
+                    <!--@while ($page_no = $page_navigation->getNextPage())-->
+                        <!--@if($page == $page_no)-->
+                        <strong>{$page_no}</strong>
+                        <!--@else-->
+                        <a href="{getUrl('page',$page_no,'mid',$mid)}">{$page_no}</a>
+                        <!--@end-->
+                    <!--@end-->
+
+                    <a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="next"><span>{$lang->last_page}</span></a>
+                </div>
+                <!-- /Pagination -->
+
+            </div>
+
+        </form>
+    </fieldset>
+    <!-- /Table Data -->
+
+</div>
+<!-- /Content -->
+
+
+<!-- Extension -->
+<!--#include("_tool_menu.html")-->
+<!-- Extension -->
+
+<!--#include("_tool_footer.html")-->
+
+<script type="text/javascript">
+    if (!xe.lang) xe.lang = {};
+    xe.lang.msg_confirm_delete_newsletter = "{$lang->msg_confirm_delete_newsletter}";
+    xe.lang.msg_confirm_delete_newsletters = '{$lang->msg_confirm_delete_newsletters}';
+</script>

@@ -1,0 +1,18 @@
+<include target="_header.html"/>
+
+<div id="confirm_order" class="main-content">
+    <h1>{$lang->payment_error}</h1>
+
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+
+    <div cond="$error_details" class="message error">
+        <p>{$error_details}</p>
+    </div>
+
+    <p>{$lang->order_failed}</p>
+
+</div>
+
+<include target="_footer.html"/>

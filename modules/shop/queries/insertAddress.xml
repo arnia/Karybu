@@ -1,0 +1,25 @@
+<query id="insertAddress" action="insert">
+    <tables>
+        <table name="shop_addresses" />
+    </tables>
+    <columns>
+        <column name="address_srl" var="address_srl" filter="number" notnull="notnull" />
+        <column name="member_srl" var="member_srl" filter="number" />
+        <column name="firstname" var="firstname"/>
+        <column name="lastname" var="lastname"/>
+        <column name="email" var="email"/>
+        <column name="address" var="address"/>
+        <column name="country" var="country"/>
+        <column name="company" var="company"/>
+        <column name="region" var="region"/>
+        <column name="city" var="city"/>
+        <column name="postal_code" var="postal_code"/>
+        <column name="telephone" var="telephone"/>
+        <column name="fax" var="fax" filter="number"/>
+        <column name="default_shipping" var="default_shipping" default="N"/>
+        <column name="default_billing" var="default_billing" default="N"/>
+        <column name="additional_info" var="additional_info"/>
+        <column name="regdate" var="regdate" default="curdate()"/>
+        <column name="last_update" var="last_update" default="curdate()"/>
+    </columns>
+</query>

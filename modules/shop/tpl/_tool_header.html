@@ -1,0 +1,38 @@
+<!--%import("js/tool_shop.js")-->
+
+<!--%import("css/layout.css")-->
+<!--%import("css/layer.css")-->
+<!--%import("css/layout@shopAdmin.css")-->
+<!--%import("css/button.css")-->
+<!--%import("css/calendar.css")-->
+
+<div id="shopAdmin" class="shopAdmin hybrid">
+	<div id="container" class="<!--@if($containerClassName)-->{$containerClassName}<!--@else-->ec<!--@end-->">
+
+		<!-- Header -->
+		<div id="header">
+			<a href="#content" class="skipToContent">{$lang->skip_to_content}</a>
+			<h1><a href="http://www.xpressengine.org" onclick="window.open(this.href);return false;"><img src="img/xe_shop_logo.jpg" alt="XE SHOP" /></a></h1>
+			<hr />
+			<div class="navigation">
+				<div class="section">
+					<h2>Navigation</h2>
+					<!--@if(Context::get('is_logged'))-->
+					<ul>
+						<li class="logout"><a href="{getUrl('act','dispMemberLogout')}">{$lang->cmd_logout}</a></li>
+					</ul>
+					<!--@end-->
+				</div>
+			</div>
+
+			<div class="title">
+				<h2>{$shop->getShopTitle()}</h2>
+				<span class="btnGray large"><a href="{getSiteUrl($shop->domain)}">{$lang->cmd_go_shop}</a></span>
+			</div>
+
+		</div>
+		<hr />
+		<!-- /Header -->
+
+		<!-- Body -->
+		<div id="body">

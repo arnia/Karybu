@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/727/trunk/plugins_payment/paypal_express_checkout
+END
+PaypalExpressCheckout.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/727/trunk/plugins_payment/paypal_express_checkout/PaypalExpressCheckout.php
+END
+form_admin_settings.html
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/577/trunk/plugins_payment/paypal_express_checkout/form_admin_settings.html
+END
+form_payment.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/263/trunk/plugins_payment/paypal_express_checkout/form_payment.html
+END

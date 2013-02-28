@@ -1,0 +1,32 @@
+<input type="hidden" name="cmd" value="_cart">
+<input type="hidden" name="upload" value="1">
+<input type="hidden" name="business" value="{$payment_method->business_account}">
+<input type="hidden" name="currency_code" value="{$shop->getCurrency()}">
+<INPUT TYPE="hidden" name="charset" value="utf-8">
+<INPUT TYPE="hidden" NAME="return" value="{$payment_method->getOrderConfirmationPageUrl()}">
+<INPUT TYPE="hidden" NAME="notify_url" value="{$payment_method->getNotifyUrl()}">
+<INPUT TYPE="hidden" name="address_override" value="1">
+<INPUT TYPE="hidden" NAME="handling_cart" value="{$cart->getShippingCost()}">
+<INPUT TYPE="hidden" name="no_shipping" value="1">
+
+<input type="hidden" name="first_name" value="{$cart->getCustomerFirstname()}">
+<input type="hidden" name="last_name" value="{$cart->getCustomerLastname()}">
+{@ $billing_address = $cart->getBillingAddress() }
+<input type="hidden" name="address1" value="{$billing_address->address}">
+<input type="hidden" name="address2" value="">
+<input type="hidden" name="city" value="{$billing_address->city}">
+<!-- // TODO Add country code; also tax and currency code need to be reviewed -->
+<!--<input type="hidden" name="country" value="{$billing_address->country}">-->
+<input type="hidden" name="zip" value="{$billing_address->postal_code}">
+<input type="hidden" name="email" value="{$cart->getExtra('email')}">
+<input type="hidden" name="custom" value="{$cart->cart_srl}">
+<input type="hidden" name="discount_amount_cart" value="{$cart->getDiscountAmount()}">
+
+{@ $i = 1; }
+<!--@foreach($cart->getProducts() as $product)-->
+    <input type="hidden" name="item_name_{$i}" value="{$product->title}">
+    <input type="hidden" name="amount_{$i}" value="{ShopDisplay::numberFormat($product->getPrice(), $shop->getCurrencySymbol())}">
+    <input type="hidden" name="quantity_{$i}" value="{$product->quantity}">
+
+    {@ $i += 1; }
+<!--@end-->

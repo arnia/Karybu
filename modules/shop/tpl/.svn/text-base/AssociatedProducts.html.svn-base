@@ -1,0 +1,25 @@
+<script type="text/javascript">
+    jQuery(document).ready(function($){
+	    $("#associated_products fieldset").hide();
+
+		$("#associated_products_title").click(function(){
+			$("#associated_products fieldset").slideToggle();
+
+		    if($("#associated_products_title").text().substr(0, 1) == '+')
+			{
+				$("#associated_products_title").text("- Associated products");
+			}
+			else
+			{
+				$("#associated_products_title").text("+ Associated products");
+			}
+		});
+	});
+</script>
+
+<div id="associated_products">
+	<span id="associated_products_title" title="{$lang->show_hide_associated_products}">{$lang->show_hide_associated_products}</span>
+
+	<include target="AdminProductsList" />
+
+</div>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ruleset version="1.5.0">
+    <customrules>
+    </customrules>
+    <fields>
+        <field name="email_address" required="true" rule="email" />
+        <field name="user_name" required="true" />
+        <field name="nick_name" required="true" />
+        <field name="user_id" required="true" />
+        <field name="password" length="6:45" />
+        <field name="password" length="6:45" />
+    </fields>
+</ruleset>

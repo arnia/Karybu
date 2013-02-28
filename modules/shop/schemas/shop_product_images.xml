@@ -1,0 +1,10 @@
+<table name="shop_product_images">
+  <column name="image_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+  <column name="product_srl" type="number" size="11" notnull="notnull" unique="unique_shop_product_images" />
+  <column name="module_srl" type="number" size="11" notnull="notnull" />
+  <column name="member_srl" type="number" size="11" notnull="notnull" />
+  <column name="filename" type="varchar" size="250" notnull="notnull" unique="unique_shop_product_images" />
+  <column name="is_primary" type="char" size="1" default="N" />
+  <column name="file_size" type="number" size="11" default="0" notnull="notnull" />
+  <column name="regdate" type="date" />
+</table>

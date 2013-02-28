@@ -1,0 +1,20 @@
+<query id="getCouponList" action="select">
+    <tables>
+        <table name="shop_coupons" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="module_srl" var="module_srl" notnull="notnull" />
+        <condition operation="like" column="code" var="search" pipe="and" />
+        <condition operation="null" column="parent_srl" pipe="and" />
+        <condition operation="equal" column="type" var="type" pipe="and" />
+    </conditions>
+    <navigation>
+        <index var="srl" default="srl" order="order_type" />
+        <list_count var="list_count" default="10" />
+        <page_count var="page_count" default="10" />
+        <page var="page" default="1" />
+    </navigation>
+</query>

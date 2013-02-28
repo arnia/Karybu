@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/!svn/ver/644/trunk/tests/config
+END
+db.config.sample.php
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/47/trunk/tests/config/db.config.sample.php
+END
+phpunit.sample.xml
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/644/trunk/tests/config/phpunit.sample.xml
+END

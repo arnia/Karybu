@@ -1,0 +1,32 @@
+<div class="setUp">
+    <fieldset>
+        <h4 class="h4">{$lang->order_status}</h4>
+        <p>{$lang->current_order_status} <b>{$email_order->order_status}</b></p>
+        <p>{$lang->purchased_on}: <b>{zdate($email_order->regdate)}</b></p>
+    </fieldset>
+    <fieldset>
+        <h4 class="h4">{$lang->account_info}</h4>
+        <p>{$lang->customer_ip} <b>{$email_order->ip}</b></p>
+    </fieldset>
+    <fieldset>
+        <h4 class="h4">{$lang->billing_address}</h4>
+        <p>{$email_order->billing_address}</p>
+    </fieldset>
+    <fieldset>
+        <h4 class="h4">{$lang->shipping_address}</h4>
+        <p>{$email_order->shipping_address}</p>
+    </fieldset>
+    <fieldset>
+        <h4 class="h4">{$lang->payment_info}</h4>
+        <p>{$lang->payment_method_used} <b>{ucwords(str_replace('_', ' ', $email_order->payment_method))}</b></p>
+    </fieldset>
+    <fieldset>
+        <h4 class="h4">{$lang->shipping_info}</h4>
+        <p>{$lang->shipping_method_used} <b>{ucwords(str_replace('_', ' ', $email_order->shipping_method))}</b></p>
+    </fieldset>
+    <fieldset>
+        <h4 class="h4">{$lang->items_ordered}</h4>
+        {@ $order = $email_order}
+        <include target="product_items" />
+    </fieldset>
+</div>

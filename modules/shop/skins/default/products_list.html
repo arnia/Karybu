@@ -1,0 +1,61 @@
+<div class="product-list clearfix" xmlns="http://www.w3.org/1999/html">
+    <!--@if($grid_view)-->
+    <!--@foreach($products as $product)-->
+    <div id="product_{$product->product_srl}" class="product {$product->product_type}">
+        <a href="{getUrl('vid', $mid, 'act', 'dispShopProduct', 'product_srl', $product->product_srl, 'category_srl', $category_srl)}" class="product-link">
+            <span class="product-image-container">&nbsp;
+                <img src="{$product->getPrimaryImage()->getThumbnailPath(170)}" />
+            </span>
+            <h4>
+                <!--@if(strlen($product->title)>22)-->
+                {substr($product->title, 0, 22)}...
+                <!--@else-->
+                {$product->title}
+                <!--@end-->
+            </h4>
+        </a>
+        <include target="add_to_cart"/>
+    </div>
+    <!--@end-->
+    <!--@else-->
+    <!--@foreach($products as $product)-->
+    <div id="product_{$product->product_srl}" class="product list-view {$product->product_type}">
+        <a href="{$product->getUrl()}" class="product-link list-view">
+            <span class="product-image-container list-view">
+                <img src="{$product->getPrimaryImage()->getThumbnailPath(130)}" />
+            </span>
+        </a>
+        <h2><a href="{$product->getUrl()}">{$product->title}</a></h2>
+        <div class="f-right product-actions a-right">
+            <form action="./" method="post" cond="isset($product->available) ? $product->available : $product->isAvailable()">
+                <input type="hidden" name="act" value="procShopToolCartAddProduct" />
+                <!--@if($product->isSimple())-->
+                <p>
+                    <span class="quantity"><label>{$lang->quantity}:</label><input type="text" name="quantity" value="1" /></span>
+                </p>
+                <!--@end-->
+                <!--@if($product->isSimple())-->
+                <input type="hidden" id="product_srl" name="product_srl" value="{$product->product_srl}" />
+                <!--@end-->
+                <p>
+                    <span cond="$product->discount_price && $product->discount_price < $product->price" class="discount-price">{ShopDisplay::priceFormat($product->getPrice(false), $shop->getCurrencySymbol())}</span><br />
+                    <span class="price">{ShopDisplay::priceFormat($product->getPrice(), $shop->getCurrencySymbol())}</span>
+                </p>
+                <p>
+                    <!--@if($product->isSimple())-->
+                        <input class="add-to-cart" type="submit" value="Add to cart" />
+                    <!--@elseif($product->isConfigurable())-->
+                        <a href="{getUrl('vid', $mid, 'act', 'dispShopProduct', 'product_srl', $product->product_srl, 'category_srl', $category_srl)}" class="button">{$lang->customize}</a>
+                    <!--@end-->
+                </p>
+            </form>
+        </div>
+        <!--@if($product->description != '')-->
+        {nl2br($product->short_description)}
+        <!--@else-->
+        {$lang->no_description}
+        <!--@end-->
+    </div>
+    <!--@end-->
+    <!--@end-->
+</div>

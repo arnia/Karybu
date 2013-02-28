@@ -1,0 +1,10 @@
+<query id="getAddresses" action="select">
+    <tables>
+        <table name="shop_addresses" />
+    </tables>
+    <columns>
+    </columns>
+    <conditions>
+        <condition operation="equal" column="member_srl" var="member_srl" notnull="notnull" />
+    </conditions>
+</query>

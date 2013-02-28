@@ -1,0 +1,41 @@
+<include target="_header.html"/>
+
+<div id="confirm_order" class="main-content" cond="isset($cart) && $cart->items">
+    <h1>Confirm order</h1>
+
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+
+    {$lang->please_review_order}
+
+
+    <h2>{$lang->billing_info}</h2>
+    <p>{$billing_address}</p>
+
+    <h2>{$lang->shipping_method}</h2>
+    <p>{$shipping_method_name} {$shipping_method_variant ? ' - ' . $shipping_method_variant : ''}</p>
+
+    <h2>{$lang->shipping_info}</h2>
+    <p>{$shipping_address}</p>
+
+    <h2>{$lang->payment_method}</h2>
+    <p>{$payment_method->getDisplayName()}</p>
+
+    <h2>{$lang->products}</h2>
+
+    {@ $product_container = $cart; }
+    <include target="product_items" />
+
+    <form action="{$payment_method->getPaymentFormAction()}" method="post">
+        <input type="hidden" name="act" value="procShopPlaceOrder" />
+        <input type="hidden" name="payment_method" value="{$payment_method_name}" />
+
+        {$payment_method->getPaymentFormHTML()}
+
+        <input type="submit" value="{$payment_method->getPaymentSubmitButtonText()}" />
+    </form>
+
+</div>
+
+<include target="_footer.html"/>

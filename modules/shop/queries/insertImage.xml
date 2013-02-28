@@ -1,0 +1,15 @@
+<query id="insertImage" action="insert">
+    <tables>
+        <table name="shop_product_images" />
+    </tables>
+    <columns>
+        <column name="image_srl" var="image_srl" filter="number" notnull="notnull"/>
+        <column name="product_srl" var="product_srl" filter="number" notnull="notnull"/>
+        <column name="module_srl" var="module_srl" filter="number" notnull="notnull"/>
+        <column name="member_srl" var="member_srl" filter="number" notnull="notnull"/>
+        <column name="filename" var="filename" notnull="notnull"/>
+        <column name="is_primary" var="is_primary" />
+        <column name="file_size" var="file_size" />
+        <column name="regdate" var="regdate" default="curdate()" />
+    </columns>
+</query>

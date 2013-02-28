@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ruleset version="1.5.0">
+    <customrules>
+    </customrules>
+    <fields>
+        <field name="VAT" length="1:2" rule="number" />
+        <field name="minimum_order" length="1:20" rule="number" />
+        <field name="telephone" length="5:25" rule="number" />
+    </fields>
+</ruleset>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ruleset version="1.5.0">
+    <fields>
+        <field name="document_srl" required="true" />
+        <field name="nick_name" length="1:20" />
+        <field name="password" />
+        <field name="email_address" rule="email" length="1:250" />
+        <field name="homepage" length="1:250" />
+        <field name="content" required="true" />
+    </fields>
+</ruleset>

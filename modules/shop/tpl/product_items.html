@@ -1,0 +1,82 @@
+{@
+  // Template file for displaying order items in backend
+}
+{@ $ordered_items = $order->getProducts(); }
+<table border="1" cellspacing="0" summary="{$lang->items_ordered}" class="tableData">
+    <thead>
+    <tr cond="!empty($ordered_items)">
+        <th scope="col" class="title">{$lang->title}</th>
+        <th scope="col">{$lang->price}</th>
+        <th scope="col">{$lang->qty}</th>
+        <th scope="col">{$lang->subtotal}</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <!--@foreach($ordered_items as $no => $item)-->
+    <tr>
+        <td class="title">{$item->getTitle()}</td>
+        <td class="small">{ShopDisplay::priceFormat($item->getPrice(), $shop->getCurrencySymbol())}</td>
+        <td class="small">{$item->getQuantity()}</td>
+        <td class="small">{ShopDisplay::priceFormat($item->getPrice() * $item->getQuantity(), $shop->getCurrencySymbol())}</td>
+    </tr>
+    <!--@end-->
+    <tfoot>
+        <!-- Total before discount -->
+        <tr>
+            <td colspan="2"></td>
+            <td>{$lang->total}</td>
+            <td>
+                {ShopDisplay::priceFormat($order->getTotalBeforeDiscount(), $shop->getCurrencySymbol())}
+            </td>
+        </tr>
+        <!-- // Total before discount -->
+
+        <!-- Discount -->
+        <tr cond="$order->getDiscountAmount()">
+            <td colspan="2">
+            </td>
+            <td><a href="#" onclick="alert('{$order->getDiscountName()}\n\n{$order->getDiscountDescription()}'); return false">Discount</a></td>
+            <td>
+                {ShopDisplay::priceFormat(-1 * $order->getDiscountAmount(), $shop->getCurrencySymbol())}
+            </td>
+        </tr>
+        <!-- // Discount -->
+
+        <!-- Shipping cost -->
+        <tr>
+            <td colspan="2"></td>
+            <td>Shipping</td>
+            <td>
+                {ShopDisplay::priceFormat($order->getShippingCost(), $shop->getCurrencySymbol())}
+            </td>
+        </tr>
+        <!-- // Shipping cost -->
+
+        <!-- Grand total -->
+        <tr style="font-weight: bold;">
+            <td colspan="2">
+            </td>
+            <td>{$lang->grand_total}</td>
+            <td>
+                {ShopDisplay::priceFormat($order->getTotal(), $shop->getCurrencySymbol())}
+            </td>
+        </tr>
+        <!-- // Grand total -->
+
+        <!-- VAT -->
+        <tr cond="$shop->showVAT()">
+            <td colspan="2"></td>
+            <td>
+                {$lang->taxes}
+            </td>
+            <td>
+                {ShopDisplay::priceFormat($order->getVAT(), $shop->getCurrencySymbol())}
+            </td>
+        </tr>
+        <!-- // VAT -->
+
+    </tfoot>
+
+    </tbody>
+</table>

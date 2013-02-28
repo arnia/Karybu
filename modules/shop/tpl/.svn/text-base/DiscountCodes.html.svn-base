@@ -1,0 +1,223 @@
+<!--#include("_tool_header.html")-->
+
+<!-- Content -->
+<div id="content">
+
+    <!-- contentHeader -->
+    <div class="dashboardHeader">
+        <h3 class="h3"><span class="icon shop_discout"></span>{$lang->shop_second_menus[7]['dispShopToolDiscountCodes']}</h3>
+    </div>
+    <!-- /contentHeader -->
+
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+
+    <!-- contentNavigation -->
+    <div class="contentNavigation" cond="!empty($objects1)">
+        <ul class="sortDefault">
+            <a href="{getUrl('act','dispShopToolAddCoupon')}">{$lang->add_new_coupon}</a> |
+            <a href="{getUrl('act','dispShopToolAddCouponGroup')}">{$lang->add_new_coupon_group}</a>
+        </ul>
+    </div>
+    <!-- /contentNavigation -->
+
+    <!-- listHeader -->
+    <div class="listHeader" cond="!empty($objects1)">
+        <p class="info" cond="false"> <!--@if($search)-->{sprintf($lang->search_result_count,$page_navigation1->total_count)}<!--@else-->{sprintf($lang->total_result_count,$page_navigation1->total_count)}<!--@end--></p>
+        <fieldset class="search">
+            <legend>{$lang->cmd_search}</legend>
+            <form action="./">
+                <input type="hidden" name="published" value="{$published}" />
+                <input type="hidden" name="act" value="procShopToolFilterCoupons" />
+                <input name="search_keyword" type="text" title="{$lang->cmd_search}" class="iText" value="{$search}" style="width: 300px" />
+                <span class="btnGray medium"><input type="submit" value="{$lang->cmd_search}" /></span>
+            </form>
+        </fieldset>
+    </div>
+    <!-- /listHeader -->
+
+    <h2>Single</h2>
+    <fieldset id="table1">
+        <legend>Single coupons management</legend>
+        <form action="./" method="post">
+            <div cond="empty($objects1)">
+                <p cond="!$search" class="noData" colspan="9">{sprintf($lang->no_coupon, getUrl('', 'act', 'dispShopToolAddCoupon'))}</p>
+                <p cond="$search" class="noData" colspan="9">{$lang->no_search_results}</p>
+            </div>
+            <table border="1" cellspacing="0" summary="{$lang->content_list}" class="tableData" cond="!empty($objects1)">
+                <thead>
+                    <tr cond="!empty($objects1)">
+                        <th scope="col">
+                            <input type="checkbox" class="inputCheck" onclick="jQuery('#table1 input.boxlist').click()" />
+                        </th>
+                        <th scope="col">{$lang->id}</th>
+                        <th scope="col">code</th>
+                        <th scope="col">times used</th>
+                        <th scope="col">max uses</th>
+                        <th scope="col">valid from</th>
+                        <th scope="col">valid to</th>
+                        <!--<th scope="col">discount type</th>-->
+                        <th scope="col">discount value</th>
+                        <th scope="col">active</th>
+                        <th scope="col">&nbsp;</th>
+                        <th scope="col">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                <!--@foreach($objects1 as $no => $object)-->
+                <tr class="highlighted"|cond="$object->srl == $highlight">
+                    <td>
+                        <input type="checkbox" name="srl" value="{$object->srl}" class="inputCheck boxlist" />
+                    </td>
+                    <td class="small">{$object->srl}</td>
+                    <td class="title"><a href="{getUrl('act','dispShopToolEditCoupon','srl',$object->srl)}" class="attributeTitle">{$object->code}</a></td>
+                    <td>{$object->uses}</td>
+                    <td>{$object->max_uses}</td>
+                    <td>{$object->valid_from&&$object->valid_from!='null' ? $object->valid_from : '-'}</td>
+                    <td>{$object->valid_to&&$object->valid_to!='null' ? $object->valid_to : '-'}</td>
+                    <!--<td>{$object->discount_type == Coupon::DISCOUNT_TYPE_FIXED_AMOUNT ? 'fixed' : 'percentage'}</td>-->
+                    <td>{$object->discount_value} {$object->discount_type == Coupon::DISCOUNT_TYPE_FIXED_AMOUNT ? $shop->getCurrencySymbol() : '%'}</td>
+                    <td>{$object->active?'yes':'no'}</td>
+                    <td>
+                        <span class="btnGray small"><a href="{getUrl('act','dispShopToolEditCoupon','srl',$object->srl)}">{$lang->cmd_edit}</a></span>
+                    </td>
+                    <td>
+                        <button type="button" class="btnTableData" onclick="deleteItem({$object->srl}, 'procShopToolDeleteCoupons')"><span>{$lang->cmd_delete}</span></button>
+                    </td>
+                </tr>
+                <!--@end-->
+
+                </tbody>
+            </table>
+
+            <div class="listFooter" cond="!empty($objects1)">
+
+                <!-- Change-->
+                <div class="change">
+                    <p class="p1">{$lang->selected_articles}</p>
+                    <span class="btnGray large"><button type="button" onclick="deleteCouponItems({$page})"><img src="img/buttonTableDataX.gif" width="7" height="7" alt="" class="icon" />{$lang->cmd_delete}</button></span>
+
+                </div>
+                <!-- /Change -->
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <a href="{getUrl('page1','','mid',$mid)}" class="prev"><span>{$lang->first_page}</span></a>
+
+                    <!--@while($page_no = $page_navigation1->getNextPage())-->
+                        <!--@if($page == $page_no)-->
+                        <strong>{$page_no}</strong>
+                        <!--@else-->
+                        <a href="{getUrl('page1',$page_no,'mid',$mid)}">{$page_no}</a>
+                        <!--@end-->
+                    <!--@end-->
+
+                    <a href="{getUrl('page1',$page_navigation1->last_page,'module_srl','')}" class="next"><span>{$lang->last_page}</span></a>
+                </div>
+                <!-- /Pagination -->
+
+            </div>
+
+        </form>
+    </fieldset>
+
+    <BR>
+    <h2>Groups</h2>
+    <fieldset id="table2">
+        <legend>Group coupons management</legend>
+        <form action="./" method="post">
+            <div cond="empty($objects2)">
+                <p cond="!$search" class="noData" colspan="9">{sprintf($lang->no_coupon_group, getUrl('', 'act', 'dispShopToolAddCouponGroup'))}</p>
+                <p cond="$search" class="noData" colspan="9">{$lang->no_search_results}</p>
+            </div>
+            <table border="1" cellspacing="0" summary="{$lang->content_list}" class="tableData" cond="!empty($objects2)">
+                <thead>
+                    <tr cond="!empty($objects2)">
+                        <th scope="col">
+                            <input type="checkbox" class="inputCheck" onclick="jQuery('#table2 input.boxlist').click()" />
+                        </th>
+                        <th scope="col">{$lang->id}</th>
+                        <th scope="col">name</th>
+                        <th scope="col">max uses</th>
+                        <th scope="col">valid from</th>
+                        <th scope="col">valid to</th>
+                        <th scope="col">discount type</th>
+                        <th scope="col">discount value</th>
+                        <th scope="col">active</th>
+                        <th scope="col">&nbsp;</th>
+                        <th scope="col">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                <tr cond="empty($objects2)">
+                    <td cond="!$search" class="noData" colspan="9"><p>{sprintf($lang->no_coupon_group, getUrl('', 'act', 'dispShopToolAddCouponGroup'))}</p></td>
+                    <td cond="$search" class="noData" colspan="9"><p>{$lang->no_search_results}</p></td>
+                </tr>
+                <!--@foreach($objects2 as $no => $object)-->
+                <tr class="highlighted"|cond="$object->srl == $highlight">
+                    <td>
+                        <input type="checkbox" name="srl" value="{$object->srl}" class="inputCheck boxlist" />
+                    </td>
+                    <td class="small">{$object->srl}</td>
+                    <td class="title"><a href="{getUrl('act','dispShopToolEditCouponGroup','srl',$object->srl)}" class="attributeTitle">{$object->name}</a></td>
+                    <td>{$object->max_uses}</td>
+                    <td>{$object->valid_from&&$object->valid_from!='null' ? $object->valid_from : '-'}</td>
+                    <td>{$object->valid_to&&$object->valid_to!='null' ? $object->valid_to : '-'}</td>
+                    <td>{$object->discount_type == Coupon::DISCOUNT_TYPE_FIXED_AMOUNT ? 'fixed' : 'percentage'}</td>
+                    <td>{$object->discount_value} {$object->discount_type == Coupon::DISCOUNT_TYPE_FIXED_AMOUNT ? $shop->getCurrencySymbol() : '%'}</td>
+                    <td>{$object->active?'yes':'no'}</td>
+                    <td>
+                        <span class="btnGray small"><a href="{getUrl('act','dispShopToolEditCouponGroup','srl',$object->srl)}">{$lang->cmd_edit}</a></span>
+                    </td>
+                    <td>
+                        <button type="button" class="btnTableData" onclick="deleteItem({$object->srl}, 'procShopToolDeleteCoupons')"><span>{$lang->cmd_delete}</span></button>
+                    </td>
+                </tr>
+                <!--@end-->
+
+                </tbody>
+            </table>
+
+            <div class="listFooter" cond="!empty($objects2)">
+
+                <!-- Change-->
+                <div class="change">
+                    <p class="p1">{$lang->selected_articles}</p>
+                    <span class="btnGray large"><button type="button" onclick="deleteCouponItems({$page})"><img src="img/buttonTableDataX.gif" width="7" height="7" alt="" class="icon" />{$lang->cmd_delete}</button></span>
+
+                </div>
+                <!-- /Change -->
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <a href="{getUrl('page2','','mid',$mid)}" class="prev"><span>{$lang->first_page}</span></a>
+
+                    <!--@while($page_no = $page_navigation2->getNextPage())-->
+                        <!--@if($page == $page_no)-->
+                        <strong>{$page_no}</strong>
+                        <!--@else-->
+                        <a href="{getUrl('page2',$page_no,'mid',$mid)}">{$page_no}</a>
+                        <!--@end-->
+                    <!--@end-->
+
+                    <a href="{getUrl('page2',$page_navigation2->last_page,'module_srl','')}" class="next"><span>{$lang->last_page}</span></a>
+                </div>
+                <!-- /Pagination -->
+
+            </div>
+
+        </form>
+    </fieldset>
+
+</div>
+<hr />
+<!-- /Content -->
+
+<!-- Extension -->
+<!--#include("_tool_menu.html")-->
+<!-- Extension -->
+
+<!--#include("_tool_footer.html")-->

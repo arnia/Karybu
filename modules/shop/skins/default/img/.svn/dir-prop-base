@@ -1,0 +1,10 @@
+K 16
+bugtraq:logregex
+V 7
+#(\d+)
+
+K 11
+bugtraq:url
+V 32
+http://www.zeroboard.com/%BUGID%
+END

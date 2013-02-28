@@ -1,0 +1,341 @@
+<include target="_header.html" />
+<include target="_sidebar.html" />
+<include target="product_variants_datasource.html" />
+<!--%import("comments.js")-->
+<!--%import("LAB.min.js")-->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=104637762997237";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<script type="text/javascript">
+    jQuery(document).ready( function() {
+
+        $ = jQuery;
+
+        Gallery = function() {
+
+            this.init();
+
+        }
+
+        $.extend( Gallery.prototype, {
+
+            init: function() {
+
+                initH = 0, initW = 0,
+                mouseX = 0, mouseY = 0,
+                largeImages = new Array(),
+                zoomImages = new Array(),
+                current = 0;
+                currentView = 1,
+                viewable = 4,
+                zoomRatio = 3,
+                obj = $('#product-images'),
+                main = obj.find('#product-image'),
+                thumbs = obj.find('#thumbnails'),
+                zoom = obj.find('#product-image-zoom'),
+                prev = obj.find('.prev'),
+                next = obj.find('.next'),
+                thumbNr = thumbs.children('span').children('span').children('img').size(),
+                preloader = obj.find('.preloading'),
+                mainImage = '<img src="{$product->getPrimaryImage()->getThumbnailPath(340, 240)}" />',
+                mainImageH = 0,
+                mainImageW = 0,
+                mainImageOffset = 0;
+                <!--@foreach($product->images as $image)-->
+                largeImages.push('<img src="{$image->getThumbnailPath(340, 240)}" />');
+                zoomImages.push('<img src="{$image->getThumbnailPath(1020, 720)}" />');
+                <!--@end-->
+                for ( i=0; i<=largeImages.length; i++ ) {
+                    if ( largeImages[i] == mainImage ) current = i+1;
+                }
+
+                prev.click($.proxy(this.goToPrev, this));
+                next.click($.proxy(this.goToNext, this));
+
+                this.showCurrentImage();
+                this.initThumbs();
+                this.initZoom();
+
+                $(document).mousemove( function(e) {
+                    mouseX = e.pageX;
+                    mouseY = e.pageY;
+                })
+
+            },
+
+            initThumbs: function() {
+
+                thumbs.children().click(this.showMainImage);
+
+            },
+
+            initZoom: function() {
+
+                zoom.mouseenter( $.proxy(function() {
+
+                    zoom.children().show();
+                    this.initZoomImage();
+
+                },this));
+
+                zoom.mouseleave( function () {
+
+                    var img = zoom.find('img');
+                    img.stop(true, true);
+                    zoom.children().hide();
+                    zoom.off('mousemove');
+
+                });
+
+            },
+
+            initZoomImage: function() {
+
+                var img = zoom.find('img');
+                initH = img.outerHeight();
+                initW = img.outerWidth();
+//                img.height(mainImageH);
+//                img.width(mainImageW);
+//                img.css('top',mainImageOffset.top - zoom.offset().top);
+//                img.css('left',mainImageOffset.left - zoom.offset().left);
+//
+//                img.animate({
+//                        height: initH,
+//                        width: initW
+//                    },{
+//                        duration: 1,
+//                        step: this.updateImagePosition
+//                    }
+//                );
+
+                zoom.mousemove(this.updateImagePosition);
+
+            },
+
+            updateImagePosition: function() {
+
+                localY = mouseY - zoom.offset().top;
+                localX = mouseX - zoom.offset().left;
+                var top = - (zoom.find('img').outerHeight() - zoom.outerHeight()) * localY/zoom.outerHeight();
+                var left = - (zoom.find('img').outerWidth() - zoom.outerWidth()) * localX/zoom.outerWidth();
+
+                zoom.find('img').css('top',top);
+                zoom.find('img').css('left',left);
+
+            },
+
+            goToPrev: function(e) {
+
+                if (e) e.preventDefault();
+
+                if (currentView > 1) {
+                    this.decreaseViewCounter();
+                    thumbs.animate({
+                                left: '+=81'
+                            },
+                            300,
+                            'linear'
+                    );
+                }
+
+            },
+
+            goToNext: function(e) {
+
+                if (e) e.preventDefault();
+
+                if (currentView < thumbNr - viewable) {
+                    this.increaseViewCounter();
+                    thumbs.animate({
+                                left: '-=81'
+                            },
+                            300,
+                            'linear'
+                    );
+                }
+
+            },
+
+            increaseViewCounter: function() {
+
+                currentView++;
+
+            },
+
+            decreaseViewCounter: function() {
+
+                currentView--;
+
+            },
+
+            hideAllImages: function() {
+
+                main.children().hide();
+
+            },
+
+            showCurrentImage: function() {
+
+                this.hideAllImages();
+                var mainImg = main.children(':nth-child(' + current + ')');
+                mainImg.show();
+                mainImg.one( 'load', function() {
+
+                    $(this).show();
+                    preloader.hide();
+                    mainImageOffset = $(this).offset();
+                    mainImageW = $(this).outerWidth();
+                    mainImageH = $(this).outerHeight();
+
+                }).each( function() {
+
+                    if (this.complete) $(this).trigger('load');
+
+                });
+            },
+
+            showMainImage: function(e) {
+
+                main.html(largeImages[$(this).index()]);
+                zoom.html(zoomImages[$(this).index()]);
+
+                var img = main.find('img');
+                img.hide();
+                preloader.show();
+                img.one( 'load', function() {
+
+                    $(this).show();
+                    preloader.hide();
+                    mainImageOffset = $(this).offset();
+                    mainImageW = $(this).outerWidth();
+                    mainImageH = $(this).outerHeight();
+
+                }).each( function() {
+
+                    if (this.complete) $(this).trigger('load');
+
+                });
+            }
+
+        });
+
+        gallery = new Gallery();
+
+    });
+</script>
+
+<div style="margin-left: 244px;">
+    <div class="breadcrumbs">
+        <span class="breadcrumbs-title">
+            <include target="breadcrumbs.html" />
+        </span>
+    </div>
+</div>
+
+<div id="body-content" class="body-two-columns main-content clearfix">
+    <div id="product-page">
+        <div id="product-images">
+            <div id="product-image">
+                <img src="{$product->getPrimaryImage()->getThumbnailPath(340, 240)}" />
+            </div>
+            <div id="product-image-zoom">
+                <img src="{$product->getPrimaryImage()->getThumbnailPath(1020, 1020)}" />
+            </div>
+            <img class="preloading" src="img/loading.gif" alt="Loading" />
+            <!--@if(count($product->images) > 1)-->
+                <a class="prev button" href="#"><span></span></a>
+                <a class="next button" href="#"><span></span></a>
+                <div id="thumbnails-container">
+                    <div id="thumbnails">
+                        <!-- DO NOT ADD SPACES IN FOREACH BECAUSE IT ADDS SPACES IN TEMPLATE -->
+                        <!--@foreach($product->images as $image)--><span class="cont"><span><img src="{$image->getThumbnailPath(63)}" /></span></span><!--@end-->
+                    </div>
+                </div>
+            <!--@end-->
+        </div>
+        <form action="./" method="post" cond="isset($product->available) ? $product->available : $product->isAvailable()">
+            <input type="hidden" name="act" value="procShopToolCartAddProduct" />
+
+            <h1 style="text-decoration: line-through;"|cond="!$product->isAvailable()">{$product->title}</h1>
+            {nl2br($product->short_description)}
+
+            <div class="socials underline">
+                <div class="fb-like" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false"></div>
+                <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+
+            </div>
+
+            <p class="product-stock underline">
+                <span class="stock">{$lang->in_stock}: <span class="{$product->isInStock() ? 'green' : 'red'}" >{$product->isInStock() ? $lang->yes : $lang->no}</span></span>
+                <span class="quantity"><label>{$lang->quantity}:</label><input type="text" name="quantity" value="1" /></span>
+            </p>
+
+            <p class="product-price underline">
+                <input class="add-to-cart" type="submit" value="{$lang->add_to_cart}" />
+                <span class="price f-right">{ShopDisplay::priceFormat($product->getPrice(), $shop->getCurrencySymbol())}</span>
+                <span class="discount-price f-right" cond="$product->discount_price && $product->discount_price < $product->price" class="discount-price">{$product->getPrice(false)}</span>
+            </p>
+
+            <p class="clearfix"></p>
+
+            <!--@if($product->isSimple())-->
+            <input type="hidden" id="product_srl" name="product_srl" value="{$product->product_srl}" />
+            <!--@elseif($product->isConfigurable())-->
+            <include target="product_variants.html"/>
+            <!--@end-->
+
+            <div id="description">
+                {nl2br($product->description)}
+            </div>
+
+            <div id="additional_info">
+                <p>
+                    <b>{$lang->sku} </b>: {$product->sku}
+                </p>
+                <p>
+                    <b> {$lang->weight} </b>: {$product->weight} {$shop->getUnitOfMeasure()}
+                </p>
+            <!--<p>-->
+                <!--<b> Price </b> {ShopDisplay::priceFormat($product->price, $shop->getCurrencySymbol())}-->
+            <!--</p>-->
+                <!--@foreach($product->attributes as $attribute_srl => $attribute_value)-->
+                    <p>
+                        <b>{$attributes[$attribute_srl]->title}</b>: {$attribute_value}
+                    </p>
+                <!--@end-->
+            </div>
+        </form>
+    </div>
+</div>
+<div id="comment-body" class="body-two-columns main-content clearfix">
+    <div id="comments-page">
+        <div id="feedbacks">
+            <div class="feedbackTitle">
+                <p>
+                    <span id="commentToggle">{$product->document->getCommentCount()} comments</span>
+                </p>
+            </div>
+            <div id="comments">
+                <!--#include("./comment.html")-->
+                <!--@if($product->document->allowComment() )-->
+                <div id="editor-box">
+                    <p>
+                        <span id="loadEditorButton"><a href="#" class="button" onclick="loadCommentForm({$product->document_srl})">{$lang->insert_comment}</a></span>
+                    </p>
+                </div>
+                <!--@else-->
+                <p>{$lang->disable_comment}</p>
+                <!--@end-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<include target="_footer.html" />

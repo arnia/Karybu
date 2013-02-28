@@ -1,0 +1,27 @@
+<p>
+    <label for="sid">2Checkout account number</label>
+    <input type="text" name="sid" id="sid" value="{$payment_method->sid}" />
+</p>
+<p>
+    <label for="secret_word">Secret word</label>
+    <input type="text" name="secret_word" id="secret_word" value="{$payment_method->secret_word}" />
+</p>
+<p>
+    <label for="use_demo_mode">Gateway API URL</label>
+    <select name="use_demo_mode" id="use_demo_mode">
+        <option value="Y"
+        <!--@if($payment_method->use_demo_mode === 'Y')-->
+        selected="selected"
+        <!--@end-->
+        >
+        Sandbox
+        </option>
+        <option value=""
+        <!--@if($payment_method->use_demo_mode !== 'Y')-->
+        selected="selected"
+        <!--@end-->
+        >
+        Live
+        </option>
+    </select>
+</p>

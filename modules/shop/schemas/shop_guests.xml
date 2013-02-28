@@ -1,0 +1,7 @@
+<table name="shop_guests">
+    <column name="guest_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+    <column name="address_srl" type="number" size="11" notnull="notnull" />
+    <column name="ip" type="varchar" size="50" notnull="notnull" />
+    <column name="session_id" type="varchar" size="14" />
+    <column name="regdate" type="date" />
+</table>

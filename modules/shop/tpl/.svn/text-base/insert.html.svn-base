@@ -1,0 +1,51 @@
+<!--#include("./header.html")-->
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<!--@if($shop)-->
+	<form action="./" method="post" id="shopFo" ruleset="update_shop">
+		<input type="hidden" name="site_srl" value="{$shop->site_srl}" />
+		<input type="hidden" name="module_srl" value="{$module_srl}" />
+		<input type="hidden" name="module" value="shop" />
+		<input type="hidden" name="act" value="procShopAdminUpdate" />
+		<input type="hidden" name="error_return_url" value="{getUrl('module', 'admin', 'act', 'dispShopAdminInsert', 'module_srl', $module_srl)}" />
+<!--@else-->
+	<form action="./" method="post" ruleset="insert_shop" id="shopFo">
+		<input type="hidden" name="module" value="shop" />
+		<input type="hidden" name="act" value="procShopAdminCreate" />
+		<input type="hidden" name="error_return_url" value="{getUrl('module', 'admin', 'act', 'dispShopAdminInsert')}" />
+<!--@end-->
+
+	<table cellspacing="0" class="rowTable">
+	<caption>&nbsp;</caption>
+	<tbody>
+        <tr>
+            <th scope="row"><div>{$lang->access_type}</div></th>
+            <td>
+                <label for="chkDomain"><input type="radio" id="chkDomain" name="access_type" value="domain" onclick="toggleAccessType('domain');" <!--@if(!isSiteID($shop->domain))-->checked="checked"<!--@end--> /> {$lang->access_domain}</label>
+                <label for="chkVid"><input type="radio" id="chkVid" name="access_type" value="vid" onclick="toggleAccessType('site_id');" <!--@if(isSiteID($shop->domain))-->checked="checked"<!--@end--> /> {$lang->access_vid}</label>
+                <div id="accessDomain" style="display:<!--@if(!isSiteID($shop->domain))-->block<!--@else-->none<!--@end-->; margin-top:10px;">
+                    http://<input type="text" name="domain" value="<!--@if(!isSiteID($shop->domain))-->{$shop->domain}<!--@end-->" />
+                    <p>{$lang->about_domain}</p>
+                </div>
+                <div id="accessVid" style="display:<!--@if(isSiteID($shop->domain))-->block<!--@else-->none<!--@end-->; margin-top:10px;">
+                    <input type="text" name="site_id" value="<!--@if(isSiteID($shop->domain))-->{$shop->domain}<!--@end-->" />
+                    <p>{$lang->about_vid}</p>
+                </div>
+            </td>
+        </tr>
+		<tr>
+			<th scope="row"><div>{$lang->shop_admin} (<!--@if($identifier == 'user_id')-->{$lang->user_id}<!--@else-->{$lang->email_address}<!--@end-->)</div></th>
+			<td>
+				<input type="text" name="user_id" value="{$site_admin}" />
+				<p>{$lang->about_shop_admin}</p>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+	<div class="btnArea">
+		<span class="btn"><input type="submit" value="<!--@if($shop)-->{$lang->cmd_shop_update}<!--@else-->{$lang->cmd_shop_creation}<!--@end-->" /></span>
+	</div>
+</form>

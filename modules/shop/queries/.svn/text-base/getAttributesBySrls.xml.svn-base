@@ -1,0 +1,12 @@
+<query id="getAttributesBySrls" action="select">
+    <tables>
+        <table name="shop_attributes" />
+    </tables>
+    <columns>
+        <column name="shop_attributes.*" />
+    </columns>
+    <conditions>
+        <condition operation="in" column="attribute_srl" var="attribute_srls" />
+        <condition operation="in" column="attribute_srl" var="srls" pipe="or" />
+    </conditions>
+</query>

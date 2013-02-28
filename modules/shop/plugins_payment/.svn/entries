@@ -1,0 +1,77 @@
+10
+
+dir
+735
+https://xe-shop.googlecode.com/svn/trunk/plugins_payment
+https://xe-shop.googlecode.com/svn
+
+
+
+2012-12-21T15:35:34.317858Z
+727
+corina.udrescu@gmail.com
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+a237117d-c3a3-7e14-bcca-fd8395c59b2d
+
+two_checkout
+dir
+
+paypal_express_checkout
+dir
+
+paypal_payments_standard
+dir
+
+PaymentMethodAbstract.php
+file
+
+
+
+
+2013-02-04T14:27:42.046985Z
+639e49885af6b8c2fece36fead033ca6
+2012-12-21T15:35:34.317858Z
+727
+corina.udrescu@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5935
+
+authorize
+dir
+
+cash_on_delivery
+dir
+

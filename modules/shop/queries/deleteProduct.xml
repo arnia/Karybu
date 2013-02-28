@@ -1,0 +1,8 @@
+<query id="deleteProduct" action="delete">
+    <tables>
+        <table name="shop_products" />
+    </tables>
+    <conditions>
+        <condition operation="equal" column="product_srl" var="product_srl" filter="number" />
+    </conditions>
+</query>

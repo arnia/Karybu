@@ -1,0 +1,15 @@
+<include target="_header.html"/>
+
+<div id="confirm_order" class="main-content">
+    <h1>Order confirmation</h1>
+
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+
+    {sprintf($lang->order_successfully_created, $order_srl)}
+    <a href="{getUrl('', 'act', 'dispShopViewOrder', 'order_srl', $order_srl)}">{$lang->view_just_created_order}</a>!
+
+</div>
+
+<include target="_footer.html"/>

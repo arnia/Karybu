@@ -1,0 +1,109 @@
+<!--#include("_tool_header.html")-->
+<!--%import("css/pagination.css",optimized=false)-->
+
+<!-- Content -->
+<div id="content">
+    <div class="dashboardHeader">
+        <h3 class="h3"><span class="icon invoices"></span>{$lang->manage_invoices}</h3>
+    </div>
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+
+    <!-- listHeader -->
+    <div class="listHeader">
+        <p class="info">
+            <!--@if($search_keyword)-->{sprintf($lang->search_result_count,$page_navigation->total_count)}
+            <!--@else-->{sprintf($lang->total_result_count,$page_navigation->total_count)}
+            <!--@end-->
+        </p>
+        <fieldset class="search">
+            <legend>{$lang->cmd_search}</legend>
+            <form action="./">
+                <input type="hidden" name="published" value="{$published}"/>
+                <input type="hidden" name="act" value="procShopToolFilterInvoices"/>
+                <input name="search_keyword" type="text" title="{$lang->cmd_search}" class="iText" value="{$search}"/>
+                <span class="btnGray medium"><input type="submit" value="{$lang->cmd_search}"/></span>
+            </form>
+        </fieldset>
+    </div>
+    <!-- /listHeader -->
+
+    <!-- Table Data -->
+    <fieldset>
+        <legend>{$lang->invoices_list}</legend>
+        <form action="" method="post">
+            <table border="1" cellspacing="0" summary="{$lang->content_list}" class="tableData">
+                <thead>
+                <tr>
+                    <th scope="col">{$lang->invoice} #</th>
+                    <th scope="col">{$lang->invoice_for_order} #</th>
+                    <th scope="col" class="title">{$lang->comments}</th>
+                    <th scope="col">{$lang->invoice_on}</th>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr cond="empty($invoices)">
+                    <td class="noData" colspan="10">
+                        <p cond="!$search">{$lang->no_invoices}</p>
+                        <p cond="$search">{$lang->no_search_results}</p>
+                    </td>
+                </tr>
+                <!--@foreach($invoices as $invoice)-->
+                <tr>
+                    <td class="small">{$invoice->invoice_srl}</td>
+                    <td class="small">{$invoice->order_srl}</td>
+                    <td class="title">{$invoice->comments}</td>
+                    <td class="small">{zdate($invoice->regdate)}</td>
+                    <td>
+                        <span class="btnGray small">
+                            <a href="{getUrl('act','dispShopToolInvoiceOrder','order_srl',$invoice->order_srl)}">{$lang->cmd_view}</a>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="btnGray small">
+                            <a href="{getUrl('act','procShopToolPrintOrder','order_srl',$invoice->order_srl)}" target="_blank">{$lang->print}</a>
+                        </span>
+                    </td>
+                </tr>
+                <!--@end-->
+
+                </tbody>
+            </table>
+
+            <div class="listFooter" cond="!empty($invoices)">
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <a href="{getUrl('page','','mid',$mid)}" class="prev"><span>{$lang->first_page}</span></a>
+
+                    <!--@while ($page_no = $page_navigation->getNextPage())-->
+                        <!--@if($page == $page_no)-->
+                        <strong>{$page_no}</strong>
+                        <!--@else-->
+                        <a href="{getUrl('page',$page_no,'mid',$mid)}">{$page_no}</a>
+                        <!--@end-->
+                    <!--@end-->
+
+                    <a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="next"><span>{$lang->last_page}</span></a>
+                </div>
+                <!-- /Pagination -->
+
+            </div>
+
+        </form>
+    </fieldset>
+    <!-- /Table Data -->
+
+</div>
+<!-- /Content -->
+
+
+<!-- Extension -->
+<!--#include("_tool_menu.html")-->
+<!-- Extension -->
+
+<!--#include("_tool_footer.html")-->

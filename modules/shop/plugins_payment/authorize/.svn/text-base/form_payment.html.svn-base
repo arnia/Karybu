@@ -1,0 +1,13 @@
+<p>
+    <label for="cc_number">Credit card number</label>
+    <input type="text" name="cc_number" id="cc_number" autocomplete="off" />
+</p>
+<p>
+    <label>Expiration date</label>
+    <input type="text" name="cc_exp_month" size="2" id="cc_exp_month" />
+    <input type="text" name="cc_exp_year" size="4" id="cc_exp_year" />
+</p>
+<p>
+    <label for="cc_cvv">CVV</label>
+    <input type="text" name="cc_cvv" size="4" id="cc_cvv" autocomplete="off" />
+</p>

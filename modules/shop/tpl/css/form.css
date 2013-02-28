@@ -1,0 +1,45 @@
+form p
+{
+    padding: 0;
+    margin: 0;
+    border-bottom:1px solid #E3E5E7;
+}
+
+form p.submit
+{
+    text-align: center;
+    padding: 8px;
+    border-bottom: 2px solid #CBD4DF;
+}
+
+form label {
+    display: inline-block;
+    margin: 8px;
+    width: 200px;
+    color: #868D95;
+    font-weight: bold;
+    padding-left: 20px;
+}
+
+form input.text,
+form textarea,
+form select {
+    width: 200px;
+}
+
+form p input,
+form p textarea,
+form p select,
+form p span {
+    margin: 8px;
+}
+
+form table {
+    margin: 8px;
+    padding-left: 18px;
+}
+
+form table th {
+    color: #868D95;
+    font-weight: bold;
+}

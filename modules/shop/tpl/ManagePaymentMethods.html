@@ -1,0 +1,92 @@
+<!--#include("_tool_header.html")-->
+
+<div id="content">
+
+    <div class="dashboardHeader">
+        <h3 class="h3"><span class="icon payment"></span>{$lang->shop_second_menus[7]['dispShopToolManagePaymentMethods']}</h3>
+    </div>
+
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+
+    <table class="tableData">
+        <thead>
+            <tr>
+                <th scope="col">{$lang->settings}</th>
+                <th scope="col">{$lang->name}</th>
+                <th scope="col">{$lang->status}</th>
+                <th scope="col">{$lang->default}</th>
+                <th scope="col">{$lang->actions}</th>
+            </tr>
+        </thead>
+        <tbody>
+        <!--@foreach($payment_methods as $payment_method)-->
+            <tr>
+                <td>
+                    <span class="btnGray medium">
+                        <a href="{getUrl('act','dispShopToolEditPaymentMethod','name',$payment_method->name)}">
+                            {$lang->settings}
+                        </a>
+                    </span>
+                </td>
+
+                <td>
+                    {$payment_method->getDisplayName()}
+                </td>
+
+                <td>
+                    <!--@if($payment_method->isActive())-->
+                        <!--@if($payment_method->isConfigured())-->
+                            <img src="img/check.png" alt="Active" />
+                        <!--@else-->
+                            <img src="img/cross.png" alt="Needs configuration" /> (Settings missing)
+                        <!--@end-->
+                    <!--@end-->
+                </td>
+
+                <td>
+                    <!--@if($payment_method->isDefault())-->
+                        <img src="img/check.png" alt="Selected as default" />
+                    <!--@end-->
+                </td>
+
+                <td>
+                    <!--@if($payment_method->isActive())-->
+                        <!--@if(!$payment_method->isDefault())-->
+                            <a href="{getUrl('act','procUpdateShopDeactivatePaymentMethod','name',$payment_method->name)}">{$lang->deactivate}</a>
+                        <!--@end-->
+                    <!--@else-->
+                        <a href="{getUrl('act','procUpdateShopActivatePaymentMethod','name',$payment_method->name)}">{$lang->activate}</a>
+                    <!--@end-->
+                    <!--@if($payment_method->isActive() && !$payment_method->isDefault())-->
+                        &nbsp;|&nbsp;
+                        <a href="{getUrl('act','procShopToolSetPaymentMethodAsDefault','name',$payment_method->name)}">{$lang->set_as_default}</a>
+                    <!--@end-->
+                </td>
+            </tr>
+        <!--@end-->
+        </tbody>
+    </table>
+
+    <h4 class="dashboardH4">{$lang->upload_new_pg}</h4>
+
+    <form enctype="multipart/form-data" action="" method="post">
+        <input type="hidden" name="act" value="procShopUploadPaymentPlugin" />
+        <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+        <p>
+            <label for="uploadedPaymentGateway">{$lang->choose_file_to_upload}:</label>
+            <input id="uploadedPaymentGateway" name="uploadedPaymentGateway" type="file" />
+        </p>
+        <span class="btnGray medium"><input type="submit" value="{$lang->upload_file}" /></span>
+    </form>
+    <br />
+
+</div>
+
+<!-- Extension -->
+<!--#include("_tool_menu.html")-->
+<!-- Extension -->
+
+<!--#include("_tool_footer.html")-->
+

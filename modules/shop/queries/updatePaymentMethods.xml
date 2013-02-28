@@ -1,0 +1,12 @@
+<query id="updatePaymentMethods" action="update">
+    <tables>
+        <table name="shop_payment_methods" />
+    </tables>
+    <columns>
+        <column name="is_default" var="is_default" filter="number" />
+    </columns>
+    <conditions>
+        <condition operation="not_equal" column="name" var="except_name" notnull="notnull" />
+        <condition operation="equal" column="module_srl" var="module_srl" pipe="and" notnull="notnull" />
+    </conditions>
+</query>

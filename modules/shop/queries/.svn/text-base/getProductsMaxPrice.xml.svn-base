@@ -1,0 +1,14 @@
+<query id="getProductsMaxPrice" action="select">
+    <tables>
+        <table name="shop_products" />
+    </tables>
+    <columns>
+        <column name="MAX(discount_price)" alias="max" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="module_srl" var="module_srl" notnull="notnull" />
+        <condition operation="null" column="parent_product_srl" pipe="and" />
+        <condition operation="equal" column="status" var="status" pipe="and"/>
+        <condition operation="equal" column="in_stock" var="in_stock" pipe="and"/>
+    </conditions>
+</query>

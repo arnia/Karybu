@@ -1,0 +1,12 @@
+<query id="insertInvoice" action="insert">
+    <tables>
+        <table name="shop_invoices" />
+    </tables>
+    <columns>
+        <column name="invoice_srl" var="invoice_srl" filter="number" notnull="notnull" />
+        <column name="order_srl" var="order_srl" filter="number" notnull="notnull" />
+        <column name="module_srl" var="module_srl" filter="number" notnull="notnull" />
+        <column name="comments" var="comments"/>
+        <column name="regdate" var="regdate" default="curdate()"/>
+    </columns>
+</query>

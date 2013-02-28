@@ -1,0 +1,8 @@
+<query id="fixCategoriesOrder" action="update">
+    <tables>
+        <table name="shop_categories" />
+    </tables>
+    <columns>
+        <column name="list_order" default="shop_categories.category_srl" />
+    </columns>
+</query>

@@ -1,0 +1,2 @@
+<input type="hidden" name="payer_id" value="{$payer_id}" />
+<input type="hidden" name="token" value="{$token}" />

@@ -1,0 +1,24 @@
+<query id="updateShopInfo" action="update">
+    <tables>
+        <table name="shop" />
+    </tables>
+	<columns>
+		<column name="shop_content" var="shop_content" default="" />
+        <column name="shop_title" var="shop_title" default="" />
+        <column name="shop_email" var="shop_email" default="" />
+		<column name="timezone" var="timezone" />
+        <column name="telephone" var="telephone" />
+        <column name="address" var="address" />
+        <column name="unit_of_measure" var="unit_of_measure" />
+        <column name="currency" var="currency" />
+        <column name="currency_symbol" var="currency_symbol" />
+        <column name="out_of_stock_products" var="out_of_stock_products" />
+        <column name="minimum_order" var="minimum_order" />
+        <column name="VAT" var="VAT" />
+        <column name="show_VAT" var="show_VAT" />
+        <column name="menus" var="menus" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="module_srl" var="module_srl" filter="number" notnull="notnull" />
+    </conditions>
+</query>

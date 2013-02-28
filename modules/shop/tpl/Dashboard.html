@@ -1,0 +1,239 @@
+<!--%import("./filter/change_language.xml")-->
+<!--#include("_tool_header.html")-->
+
+<!-- Content -->
+<div id="content">
+
+<!-- Dashboard Header -->
+<div class="dashboardHeader">
+    <h3 class="h3"><span class="icon dashboard"></span>{$lang->shop_first_menus[0][1]}</h3>
+</div>
+<!-- /Dashboard Header -->
+
+<!--@if($addTables || $needUpdate)-->
+<div class="message update">
+    <h2 cond="$needUpdate && $addTables">{$lang->need_update_and_table}</h2>
+    <h2 cond="$needUpdate && !$addTables">{$lang->need_update}</h2>
+    <h2 cond="!$needUpdate && $addTables">{$lang->need_table}</h2>
+    <ul>
+        <!--@foreach($module_list AS $key => $value)-->
+        <!--@if($value->need_install)-->
+        <li style="margin:0 0 4px 0;">{$value->module} - <span class="btn"><button type="button" onclick="doInstallModule('{$value->module}')">{$lang->cmd_create_db_table}</button></span></li>
+        <!--@else if($value->need_update)-->
+        <li style="margin:0 0 4px 0;">{$value->module} - <span class="btn"><button type="button" onclick="doUpdateModule('{$value->module}')">{$lang->cmd_module_update}</button></span></li>
+        <!--@end-->
+        <!--@end-->
+    </ul>
+</div>
+<!--@end-->
+
+<!-- Dashboard Statistic -->
+<div class="section dashboardStatistic">
+    <div class="statistic">
+        <h4><span>{$lang->all_time} <em>{date('Y.m.d')}</em></span></h4>
+        <dl class="lifetime_sales">
+            <dt>{$lang->lifetime_sales}</dt>
+            <dd>{ShopDisplay::priceFormat($stat->lifetime_sales,$shop->getCurrencySymbol())}</dd>
+        </dl>
+        <dl class="average_order_amount">
+            <dt>{$lang->average_sale_amount}</dt>
+            <dd>{ShopDisplay::priceFormat($stat->average_sale_amount,$shop->getCurrencySymbol())}</dd>
+        </dl>
+        <dl class="total_orders">
+            <dt>{$lang->total_sales}</dt>
+            <dd>{$stat->total_sales}</dd>
+        </dl>
+        <div class="summary">
+            <table border="1" cellspacing="0">
+                <caption>{$lang->shop_summary}</caption>
+                <tr>
+
+                    <th scope="row">{$lang->regdate}</th>
+                    <td>{zdate($shop->get('regdate'),'Y.m.d')}</td>
+                </tr>
+                <tr>
+                    <th scope="row">{$lang->placed_orders}</th>
+                    <td><strong>{$stat->placed_orders}</strong></td>
+
+                </tr>
+                <tr>
+                    <th scope="row">{$lang->completed_orders}</th>
+                    <td><strong>{$stat->total_sales}</strong></td>
+
+                </tr>
+                <tr>
+                    <th scope="row">{$lang->current_processing_orders}</th>
+                    <td><strong>{$stat->processing_orders}</strong></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <span class="outline ml"></span>
+    <span class="outline mr"></span>
+    <span class="outline tc"></span>
+    <span class="outline bc"></span>
+    <span class="outline tl"></span>
+    <span class="outline tr"></span>
+
+    <span class="outline bl"></span>
+    <span class="outline br"></span>
+</div>
+<!-- /Dashboard Statistic -->
+
+<!-- Dashboard List -->
+<div class="partitionContainer">
+    <div class="partition partitionLeft">
+
+        <!-- Last 5 orders -->
+        <div class="section">
+
+            <h4 class="dashboardH4">{$lang->last_orders}</h4>
+            <div class="dashboardWire">
+                <!--@if(count($recent_orders))-->
+                <ul class="lastOrder">
+                    <!--@foreach($recent_orders as $order)-->
+                    <li>
+                        <p class="title"><a href="{getUrl('','act','dispShopToolViewOrder','order_srl',$order->order_srl)}">{reset(explode(',',$order->billing_address))}</a><span class="date">{zdate($order->regdate)}</span></p>
+                        <p class="state">
+                            <!--@if($order->order_status == Order::ORDER_STATUS_COMPLETED)-->
+                            <strong class="publishState out"><span>{$order->order_status}</span></strong>
+                            <!--@else-->
+                            <strong class="publishState draft"><span>{$order->order_status}</span></strong>
+                            <!--@end-->
+                            <span>{$lang->grand_total}: {ShopDisplay::priceFormat($order->total,$shop->getCurrencySymbol())}</span>
+                        </p>
+                    </li>
+                    <!--@end-->
+                </ul>
+                <!--@else-->
+                <p class="noData">{$lang->no_orders}</p>
+                <!--@end-->
+            </div>
+            <a href="{getUrl('','act','dispShopToolManageOrders')}" class="dashboardMoreTop">{$lang->manage_orders}</a>
+        </div>
+        <!-- /Last 5 orders -->
+
+
+        <!-- Top Customers -->
+        <div class="section">
+            <h4 class="dashboardH4">{$lang->top_customers}</h4>
+            <div class="dashboardWire">
+                <!--@if(count($top_customers))-->
+
+                <ul class="topCustomer">
+                    <!--@foreach($top_customers as $customer)-->
+                    <li>
+                        <p class="member_{$customer->member_srl} content"><strong><a href="{getUrl('','mid',$mid,'act','dispShopToolEditCustomer','member-srl',$customer->member_srl)}">{$customer->user_name}</a></strong>, <strong>{$customer->email_address}</strong>{$lang->total}: <strong>{ShopDisplay::priceFormat($customer->total,$shop->getCurrencySymbol())}</strong> & {$lang->order_count}: <strong>{$customer->order_count}</strong> </p>
+                    </li>
+                    <!--@end-->
+                </ul>
+                <!--@else-->
+                <p class="noData">{$lang->no_top_customers}</p>
+                <!--@end-->
+            </div>
+            <a href="{getUrl('','act','dispShopToolManageCustomers')}" class="dashboardMoreTop">{$lang->manage_accounts}</a>
+        </div>
+        <!-- /Top Customers -->
+
+    </div>
+
+    <div class="partition partitionRight">
+
+        <!-- Most ordered products -->
+        <div class="section">
+            <h4 class="dashboardH4">{$lang->most_ordered_products}</h4>
+            <div class="dashboardWire">
+                <!--@if(count($top_products))-->
+                <ul class="topProduct">
+                    <!--@foreach($top_products as $product)-->
+                    <li>
+                        <img src="{$product->getPrimaryImage()->getThumbnailPath(50)}" alt="{$product->title}" class="author" />
+                        <p class="content"><span class="product_{$product->product_srl}"><strong><a href="{getUrl('','act','dispShopToolEditProduct','product_srl',$product->product_srl)}">{$product->title}</a></strong></span> {$lang->qty}: <strong>{$product->qty}</strong> & {$lang->order_count}: <strong>{$product->order_count}</strong> & {$lang->order_revenue}: <strong>{ShopDisplay::priceFormat($product->price * $product->qty,$shop->getCurrencySymbol())}</strong></p>
+                    </li>
+                    <!--@end-->
+                </ul>
+                <!--@else-->
+                <p class="noData">{$lang->no_comment}</p>
+                <!--@end-->
+            </div>
+            <a href="{getUrl('','act','dispShopToolManageProducts')}" class="dashboardMoreTop">{$lang->manage_products}</a>
+        </div>
+        <!-- Most ordered products -->
+
+        <!-- Visotors Graph -->
+        <div class="section">
+
+            <h4 class="dashboardH4">{$lang->visitor_count} <em>{date("Y.m.d")}</em></h4>
+            <div class="dashboardWire">
+                <dl class="legend">
+                    <dt class="past"><img src="img/graphYesterday.gif" width="5" height="5" alt="{$lang->yesterday}" /></dt>
+                    <dd>{$lang->last_week}</dd>
+                    <dt class="today"><img src="img/graphToday.gif" width="5" height="5" alt="{$lang->today}" /></dt>
+                    <dd>{$lang->this_week}</dd>
+
+                </dl>
+                <dl class="summary">
+                    <dt>{$lang->today}</dt>
+                    <dd>{number_format($stat->visitor)}</dd>
+                    <dt>{$lang->this_week}</dt>
+                    <dd>{number_format($stat->thisWeekSum)}</dd>
+                    <dt>{$lang->total}</dt>
+                    <dd>{number_format($stat->total_visitor)}</dd>
+                </dl>
+                <div class="graph">
+                    <!--object title="{$stat->visitor}" height="170" width="350" align="middle" id="data2" class="F1239845427590201480_undefined" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
+                                             <param value="{getUrl()}modules/shop/tpl/swf/MainContainer.swf" name="movie"/>
+                                             <param value="high" name="quality"/>
+                                             <param value="#FFFFFF" name="bgColor"/>
+                                             <param value="always" name="allowScriptAccess"/>
+                                             <param value="transparent" name="wmode"/>
+                                             <param value="false" name="menu"/>
+                                             <param value="true" name="allowFullScreen"/>
+                                             <param value="modules/shop/tpl/swf/common/flash/statistics/&base64Code={$xml}&width=350&dSet=02" name="flashVars"/>
+                                             <object title="{$stat->visitor}" height="170" width="350" align="middle" name="count_red" class="F1239845427590201480_undefined" data="{getUrl()}modules/shop/tpl/swf/MainContainer.swf" type="application/x-shockwave-flash">
+                                                 <param value="baseURL=modules/shop/tpl/swf/common/flash/statistics/&base64Code={$xml}&dSet=02&width=350" name="flashVars"/>
+                                                 <param value="transparent" name="wmode"/>
+                                                 {$stat->visitor}
+                                             </object>
+                                         </object-->
+                    <!--@if($flash)-->
+                    <script type="text/javascript">
+                        displayMultimedia('{getUrl()}modules/shop/tpl/swf/MainContainer.swf','100%','170',{
+                            'menu':'false',
+                            'wmode':'transparent',
+                            'flashvars':"width=350&dSet=02&baseURL=modules/shop/tpl/swf/common/flash/statistics/&total={$detail_stat->total}&base64Code="+encodeURIComponent('{$xml}')
+                        });
+                    </script>
+                    <!--@else-->
+
+                    <!--@foreach($stat->week as $key => $val)-->
+                    <dl>
+                        <dt>{$key}</dt>
+                        <dd class="past" style="height:{$val->last/$stat->week_max * 100}%" title="{$lang->last_week}:{number_format($val->last)}"><span>{$lang->last_week}:{number_format($val->last)}</span></dd>
+                        <dd class="today" style="height:{$val->this/$stat->week_max * 100}%" title="{$lang->this_week}:{number_format($val->this)}"><span>{$lang->this_week}:{number_format($val->this)}</span></dd>
+
+                    </dl>
+                    <!--@end-->
+                    <!--@end-->
+                </div>
+            </div>
+            <a href="{getUrl('','act','dispShopToolStatisticsVisitor')}" class="dashboardMoreTop">{$lang->more}</a>
+        </div>
+
+        <!-- /Visotors Graph -->
+
+    </div>
+</div>
+<!-- Dashboard List -->
+
+</div>
+<hr />
+<!-- /Content -->
+
+<!-- Extension -->
+<!--#include("_tool_menu.html")-->
+<!-- Extension -->
+
+
+
+<!--#include("_tool_footer.html")-->

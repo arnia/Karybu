@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="en">Default Shop Theme</title>
+    <description xml:lang="en">
+       Default theme of shop Module
+    </description>
+    <version>1.2.3</version>
+    <date>2010-02-03</date>
+
+    <author email_address="xe_dev@arnia.ro" link="http://www.xpressengine.org">
+		<name xml:lang="en">Arnia</name>
+    </author>
+
+    <extra_vars>
+        <var name="xe_banner" type="select" default="Yes">
+            <title xml:lang="en">XE banner</title>
+            <description xml:lang="en">Check this if you want to hide the XE Banner. Please keep in mind that we need your support in order to improve XE and spreading the word helps us a lot.</description>
+            <options value="Yes">
+                <title xml:lang="en">Show</title>
+            </options>
+            <options value="No">
+                <title xml:lang="en">Hide</title>
+            </options>
+        </var>
+        <var name="footer_content" type="textarea">
+            <title xml:lang="en">Footer text</title>
+            <description xml:lang="en">You can add HTML in the textarea.</description>
+        </var>
+        <var name="category_product_count" type="select" default="Yes">
+            <title xml:lang="en">Category product count</title>
+            <description xml:lang="en">Shows/Hides category product count in category tree list.</description>
+            <options value="Yes">
+                <title xml:lang="en">Show</title>
+            </options>
+            <options value="No">
+                <title xml:lang="en">Hide</title>
+            </options>
+        </var>
+        <var name="xe_banner" type="checkbox" default="N">
+            <title xml:lang="en">XE banner</title>
+            <description xml:lang="en">Check this if you want to hide the XE Banner. Please keep in mind that we need your support in order to improve XE and spreading the word helps us a lot.</description>
+            <options value="Y">
+                <title xml:lang="en">Hide</title>
+            </options>
+        </var>
+    </extra_vars>
+
+</skin>

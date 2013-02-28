@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ruleset version="1.5.0">
+    <customrules>
+        <rule name = "zip" type = "regex" test = "/^.*\.(zip)$/i"/>
+    </customrules>
+    <fields>
+        <field name="import_file" required="true" rule="zip"/>
+    </fields>
+</ruleset>

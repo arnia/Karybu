@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+    <grants>
+        <grant name="create" default="member">
+            <title xml:lang="en">Create a shop</title>
+        </grant>
+        <grant name="write_comment" default="guest">
+            <title xml:lang="en">Write a comment</title>
+        </grant>
+    </grants>
+    <permissions>
+
+        <!-- Backend -->
+		<permission action="dispShopToolDashboard" target="manager" />
+		<permission action="dispShopToolLayoutConfigSkin" target="manager" />
+		<permission action="dispShopToolLayoutConfigEdit" target="manager" />
+        <permission action="dispShopToolLayoutConfigEditSettings" target="manager" />
+        <permission action="dispShopToolManageAccount" target="manager" />
+        <permission action="dispShopToolChangePassword" target="manager" />
+        <permission action="dispShopToolConfigInfo" target="manager" />
+        <permission action="dispShopToolDiscountInfo" target="manager" />
+        <permission action="dispShopToolDiscountCodes" target="manager" />
+        <permission action="dispShopToolStatisticsVisitor" target="manager" />
+
+		<permission action="procShopInfoUpdate" target="manager" />
+		<permission action="procShopToolLayoutConfigSkin" target="manager" />
+		<permission action="procShopToolLayoutConfigEdit" target="manager" />
+		<permission action="procShopToolLayoutResetConfigSkin" target="manager" />
+		<permission action="procShopToolInit" target="manager" />
+		<permission action="procShopToolUserSkinExport" target="manager" />
+		<permission action="procShopToolUserSkinImport" target="manager" />
+		<permission action="procShopToolLive" target="manager" />
+        <permission action="procShopToolAccountUpdate" target="manager" />
+        <permission action="procShopToolInfoUpdate" target="manager" />
+        <permission action="procShopToolDiscountUpdate" target="manager" />
+        <permission action="procShopToolManageProducts" target="manager" />
+        <permission action="procShopToolCustomerInsert" target="manager" />
+        <permission action="procShopToolCheckFriendlyUrlAvailability" target="manager" />
+
+        <!-- Products -->
+        <permission action="dispShopToolManageProducts" target="manager" />
+        <permission action="dispShopToolAddProduct" target="manager" />
+        <permission action="dispShopToolAddConfigurableProduct" target="manager" />
+        <permission action="dispShopToolAddAssociatedProducts" target="manager" />
+        <permission action="dispShopToolEditProduct" target="manager" />
+        <permission action="dispShopToolImportProducts" target="manager"/>
+        <permission action="procShopToolInsertProduct" target="manager" />
+        <permission action="procShopToolInsertDuplicate" target="manager" />
+        <permission action="procShopToolInsertAssociatedProducts" target="manager" />
+        <permission action="procShopToolDeleteProduct" target="manager" />
+        <permission action="procShopToolDeleteProducts" target="manager" />
+        <permission action="procShopToolExportProducts" target="manager" />
+        <permission action="procShopToolImportProducts" target="manager" />
+
+        <!-- Product categories -->
+        <permission action="dispShopToolManageCategories" target="manager" />
+        <permission action="dispShopToolAddCategory" target="manager" />
+        <permission action="procShopToolInsertCategory" target="manager" />
+        <permission action="procShopServiceDeleteCategory" target="manager" />
+
+        <!-- Product attributes -->
+        <permission action="dispShopToolManageAttributes" target="manager"/>
+        <permission action="dispShopToolAddAttribute" target="manager"/>
+        <permission action="dispShopToolAddCoupon" target="manager"/>
+        <permission action="dispShopToolAddCouponGroup" target="manager"/>
+        <permission action="dispShopToolEditAttribute" target="manager"/>
+        <permission action="dispShopToolEditCoupon" target="manager"/>
+        <permission action="dispShopToolEditCouponGroup" target="manager"/>
+        <permission action="procShopToolInsertAttribute" target="manager" />
+        <permission action="procShopToolInsertCoupon" target="manager" />
+        <permission action="procShopToolDeleteAttributes" target="manager" />
+        <permission action="procShopToolDeleteCoupons" target="manager" />
+        <permission action="procShopToolFilterAttributes" target="manager"/>
+        <permission action="procShopToolFilterCoupons" target="manager"/>
+
+        <!-- Payment methods -->
+        <permission action="dispShopToolManagePaymentMethods" target="manager" />
+        <permission action="procUpdateShopActivatePaymentMethod" target="manager" />
+        <permission action="procUpdateShopDeactivatePaymentMethod" target="manager" />
+        <permission action="procShopToolSetPaymentMethodAsDefault" target="manager" />
+        <permission action="procUpdateShopDeletePaymentMethod" target="manager" />
+        <permission action="procShopUploadPaymentPlugin" target="manager" />
+        <permission action="procSanitizePaymentMethods" target="manager" />
+
+        <!-- Customers -->
+        <permission action="dispShopToolManageCustomers" target="manager" />
+        <permission action="dispShopToolManageNewsletters" target="manager" />
+        <permission action="dispShopToolManageNewsletterSubscribers" target="manager" />
+        <permission action="dispShopToolAddCustomer" target="manager" />
+        <permission action="dispShopToolEditCustomer" target="manager" />
+        <permission action="dispShopToolSendNewsletter" target="manager" />
+        <permission action="dispShopToolResendNewsletter" target="manager" />
+        <permission action="dispShopToolViewNewsletter" target="manager" />
+        <permission action="procShopToolDeleteCustomers" target="manager" />
+        <permission action="procShopToolSendNewsletter" target="manager" />
+        <permission action="procShopToolUnsubscribeCustomers" target="manager" />
+        <permission action="procShopToolDeleteNewsletters" target="manager" />
+
+        <!-- Orders -->
+        <permission action="dispShopToolManageOrders" target="manager"/>
+        <permission action="dispShopToolViewOrder" target="manager"/>
+        <permission action="dispShopToolManageInvoices" target="manager"/>
+        <permission action="dispShopToolManageShipments" target="manager"/>
+        <permission action="procShopToolHoldOrder" target="manager"/>
+        <permission action="procShopToolUnholdOrder" target="manager"/>
+        <permission action="procShopToolCancelOrder" target="manager"/>
+        <permission action="procShopToolFilterOrders" target="manager"/>
+        <permission action="procShopToolFilterCustomers" target="manager"/>
+        <permission action="procShopToolFilterInvoices" target="manager"/>
+        <permission action="procShopToolInsertInvoice" target="manager"/>
+        <permission action="procShopToolInsertShipment" target="manager"/>
+        <permission action="dispShopToolInvoiceOrder" target="manager"/>
+        <permission action="dispShopToolShipOrder" target="manager"/>
+
+        <!-- Addresses -->
+        <permission action="dispShopToolManageAddresses" target="manager"/>
+        <permission action="procShopToolDeleteAddresses" target="manager" />
+        <permission action="dispShopToolAddAddress" target="manager" />
+        <permission action="dispShopToolEditAddress" target="manager" />
+        <permission action="procShopToolInsertAddress" target="manager" />
+
+    </permissions>
+    <actions>
+        <!-- Shop frontend -->
+        <action name="dispShop" type="view" />
+        <action name="dispShopHome" type="view" index="true" />
+        <action name="dispShopProduct" type="view" />
+        <action name="dispShopProfile" type="view" />
+        <action name="dispShopLogin" type="view" />
+        <action name="dispShopCart" type="view" />
+        <action name="dispShopCheckout" type="view" />
+        <action name="dispShopPlaceOrder" type="view" />
+        <action name="dispShopOrderConfirmation" type="view" />
+        <action name="dispShopMenu" type="view" />
+        <action name="dispShopSearch" type="view" />
+        <action name="dispShopViewOrder" type="view" />
+        <action name="dispCommentEditor" type="view" />
+        <action name="dispReplyComment" type="view" />
+        <action name="dispModifyComment" type="view" />
+
+        <action name="procShopLogin" type="controller" ruleset="shop_login" />
+        <action name="procShopFilter" type="controller" />
+        <action name="procShopDenyDelete" type="controller" />
+        <action name="procShopProfileUpdate" type="controller" />
+        <action name="procShopProfileImageUpload" type="controller" />
+        <action name="procShopInfoUpdate" type="controller" />
+        <action name="procShopPlaceOrder" type="controller" />
+        <action name="procShopSignToNewsletter" type="controller" />
+        <action name="procShopUnsignToNewsletter" type="controller" />
+        <action name="procShopSearch" type="controller"/>
+        <action name="procShopRenewOrder" type="controller"/>
+        <action name="procShopPrintOrder" type="controller"/>
+        <action name="procShopToolPrintOrder" type="controller"/>
+        <action name="procShopSort" type="controller"/>
+        <action name="procShopCommentItemDelete" type="controller" />
+        <action name="procShopInsertComment" type="controller" ruleset="insert_comment" />
+
+        <!-- Shop backend -->
+        <action name="route" type="view" />
+        <action name="dispShopToolLogin" type="view" />
+		<action name="dispShopToolLayoutConfigSkin" type="view" />
+		<action name="dispShopToolLayoutConfigEdit" type="view" />
+        <action name="dispShopToolLayoutConfigEditSettings" type="view" />
+    	<action name="dispShopToolDashboard" type="view" />
+        <action name="dispShopAdminList" type="view" standalone="true" admin_index="true" />
+        <action name="dispShopAdminInsert" type="view" standalone="true" />
+        <action name="dispShopAdminDelete" type="view" standalone="true" />
+        <action name="dispShopToolManageAccount" type="view"/>
+        <action name="dispShopToolChangePassword" type="view"/>
+        <action name="dispShopToolConfigInfo" type="view"/>
+        <action name="dispShopToolDiscountInfo" type="view"/>
+        <action name="dispShopToolDiscountCodes" type="view"/>
+        <action name="dispShopToolStatisticsVisitor" type="view"/>
+
+        <action name="procShopToolLayoutConfigSkin" type="controller" />
+		<action name="procShopToolLayoutConfigMobileSkin" type="controller" />
+		<action name="procShopToolLayoutConfigEdit" type="controller" />
+		<action name="procShopToolLayoutResetConfigSkin" type="controller" />
+		<action name="procShopToolResetSkin" type="controller" />
+		<action name="procShopToolInit" type="controller" />
+		<action name="procShopToolUserSkinExport" type="controller" />
+		<action name="procShopToolUserSkinImport" type="controller" />
+		<action name="procShopToolLive" type="controller" />
+        <action name="procShopToolAccountUpdate" type="controller" ruleset="account_update" />
+        <action name="procShopToolInfoUpdate" type="controller" ruleset="update_shop_info" />
+        <action name="procShopToolDiscountUpdate" type="controller" ruleset="discount_update"/>
+        <action name="procShopToolCustomerInsert" type="controller" ruleset="insert_customer"/>
+        <action name="procShopToolManageProducts" type="controller"/>
+        <action name="procShopToolCheckFriendlyUrlAvailability" type="controller"/>
+
+        <action name="procShopAdminCreate" type="controller" standalone="true" ruleset="insert_shop"  />
+		<action name="procShopAdminUpdate" type="controller" standalone="true" ruleset="update_shop" />
+        <action name="procShopAdminDelete" type="controller" standalone="true" ruleset="delete_shop"  />
+        <action name="procShopAdminInsertCustomMenu" type="controller" standalone="true" />
+
+		<action name="dispShopPasswordForm" type="mobile" />
+
+        <!-- Products -->
+        <action name="dispShopToolManageProducts" type="view" />
+        <action name="dispShopToolAddProduct" type="view" />
+        <action name="dispShopToolAddConfigurableProduct" type="view" />
+        <action name="dispShopToolAddAssociatedProducts" type="view" />
+        <action name="dispShopToolEditProduct" type="view" />
+        <action name="dispShopToolImportProducts" type="view"/>
+        <action name="procShopToolInsertProduct" type="controller" ruleset="insert_product" />
+        <action name="procShopToolInsertDuplicate" type="controller" />
+        <action name="procShopToolImportProducts" type="controller" ruleset="import_products"/>
+        <action name="procShopToolDeleteProduct" type="controller" />
+        <action name="procShopToolDeleteProducts" type="controller" />
+        <action name="procShopToolInsertAssociatedProducts" type="controller" />
+        <action name="procShopToolExportProducts" type="controller" />
+
+        <!-- Product categories -->
+        <action name="dispShopToolManageCategories" type="view"/>
+        <action name="dispShopToolAddCategory" type="view"/>
+        <action name="procShopToolInsertCategory" type="controller" />
+        <action name="procShopServiceMoveCategory" type="controller" standalone="true" />
+        <action name="procShopServiceDeleteCategory" type="controller" standalone="true" />
+        <action name="procShopServiceGetCategory" type="controller" standalone="true" />
+
+        <!-- Product attributes -->
+        <action name="dispShopToolManageAttributes" type="view"/>
+        <action name="dispShopToolAddAttribute" type="view" />
+        <action name="dispShopToolAddCoupon" type="view" />
+        <action name="dispShopToolAddCouponGroup" type="view" />
+        <action name="dispShopToolEditAttribute" type="view" />
+        <action name="dispShopToolEditCoupon" type="view" />
+        <action name="dispShopToolEditCouponGroup" type="view" />
+        <action name="procShopToolInsertAttribute" type="controller" ruleset="insert_attribute"/>
+        <action name="procShopToolInsertCoupon" type="controller" />
+        <action name="procShopToolDeleteAttributes" type="controller" />
+        <action name="procShopToolDeleteCoupons" type="controller" />
+        <action name="procShopToolFilterAttributes" type="controller"/>
+        <action name="procShopToolFilterCoupons" type="controller"/>
+        <action name="procShopToolFilterOrders" type="controller"/>
+        <action name="procShopToolFilterInvoices" type="controller"/>
+        <action name="procShopToolFilterCustomers" type="controller"/>
+
+        <!-- Payment methods -->
+        <action name="dispShopToolManagePaymentMethods" type="view" />
+        <action name="dispShopToolEditPaymentMethod" type="view" />
+        <action name="dispShopTestCheckout" type="view" />
+        <action name="dispShopTestOrderConfirmation" type="view" />
+        <action name="procShopToolTestCheckout" type="controller" />
+        <action name="procShopTestCompleteOrder" type="controller" />
+        <action name="procUpdateShopActivatePaymentMethod" type="controller" />
+        <action name="procUpdateShopDeactivatePaymentMethod" type="controller" />
+        <action name="procUpdateShopDeletePaymentMethod" type="controller" />
+        <action name="procShopUploadPaymentPlugin" type="controller" />
+        <action name="procSanitizePaymentMethods" type="controller" />
+        <action name="procShopPaymentMethodUpdate" type="controller" />
+        <action name="procShopPaymentNotify" type="controller" />
+        <action name="procShopToolSetPaymentMethodAsDefault" type="controller" />
+
+        <!-- Extra menu -->
+        <action name="dispShopToolPages" type="view" />
+        <action name="dispShopToolInsertPage" type="view" />
+        <action name="dispShopToolMenus" type="view" />
+        <action name="procShopServiceGetModulesByTypeAndSiteSrl" type="controller" standalone="true"/>
+        <action name="procShopToolDeletePage" type="controller" standalone="true"/>
+        <action name="procShopToolInsertPage" type="controller" standalone="true"/>
+        <action name="procShopToolUpdatePage" type="controller" standalone="true"/>
+        <action name="procShopToolSaveShopMenus" type="controller" standalone="true"/>
+
+        <!-- Shipping -->
+        <action name="dispShopToolManageShippingMethods" type="view" />
+        <action name="dispShopToolEditShipping" type="view" />
+        <action name="procShopToolShippingUpdate" type="controller" />
+        <action name="procShopServiceActivateShippingMethod" type="controller" />
+        <action name="procShopToolActivateShippingMethod" type="controller" />
+        <action name="procShopToolDeactivateShippingMethod" type="controller" />
+        <action name="procShopToolSetShippingMethodAsDefault" type="controller" />
+
+        <!-- Customers -->
+        <action name="dispShopToolManageCustomers" type="view" />
+        <action name="dispShopToolManageNewsletters" type="view" />
+        <action name="dispShopToolManageNewsletterSubscribers" type="view" />
+        <action name="dispShopToolAddCustomer" type="view" />
+        <action name="dispShopToolEditCustomer" type="view" />
+        <action name="dispShopToolSendNewsletter" type="view" />
+        <action name="dispShopToolResendNewsletter" type="view" />
+        <action name="dispShopToolViewNewsletter" type="view" />
+        <action name="procShopToolDeleteCustomers" type="controller" ruleset="delete_customers"/>
+        <action name="procShopToolSendNewsletter" type="controller" ruleset="send_newsletter"/>
+        <action name="procShopToolUnsubscribeCustomers" type="controller"/>
+        <action name="procShopToolDeleteNewsletters" type="controller"/>
+
+        <!-- My account -->
+        <action name="dispShopMyAccount" type="view" />
+        <action name="dispShopMyOrders" type="view" />
+
+        <!-- Addresses -->
+        <action name="dispShopAddressBook" type="view" />
+        <action name="dispShopAddAddress" type="view" />
+        <action name="dispShopEditAddress" type="view" />
+        <action name="procShopAddAddress" type="controller" ruleset="add_address" />
+        <action name="procShopDeleteAddress" type="controller"/>
+        <action name="dispShopToolManageAddresses" type="view" />
+        <action name="procShopToolDeleteAddresses" type="controller"/>
+        <action name="dispShopToolAddAddress" type="view" />
+        <action name="dispShopToolEditAddress" type="view" />
+        <action name="procShopToolInsertAddress" type="controller" ruleset="add_address"/>
+
+        <!-- Cart and Checkout -->
+        <action name="procShopToolCartAddProduct" type="controller" />
+        <action name="procShopCartRemoveProducts" type="controller" />
+        <action name="procShopCartUpdateProducts" type="controller" />
+        <action name="procShopToolCheckout" type="controller" ruleset="checkout" />
+        <action name="procShopCheckoutLogin" type="controller" ruleset="checkout_login" />
+        <action name="procShopToolRefreshCheckout" type="controller" ruleset="checkout" />
+        <action name="procShopToolUpdateCheckout" type="controller" />
+
+        <!-- Orders -->
+        <action name="dispShopToolManageOrders" type="view"/>
+        <action name="dispShopToolViewOrder" type="view"/>
+        <action name="dispShopToolManageInvoices" type="view"/>
+        <action name="dispShopToolManageShipments" type="view"/>
+        <action name="dispShopToolInvoiceOrder" type="view"/>
+        <action name="procShopToolHoldOrder" type="controller"/>
+        <action name="procShopToolUnholdOrder" type="controller"/>
+        <action name="procShopToolCancelOrder" type="controller"/>
+        <action name="procShopToolInsertInvoice" type="controller"/>
+        <action name="procShopToolInsertShipment" type="controller"/>
+        <action name="procShopToggleGridView" type="controller"/>
+        <action name="dispShopToolShipOrder" type="view"/>
+        <action name="procShopToolPrintOrder" type="controller"/>
+
+    </actions>
+</module>

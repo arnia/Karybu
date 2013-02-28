@@ -1,0 +1,122 @@
+<!--#include("_tool_header.html")-->
+<!--%import("css/pagination.css",optimized=false)-->
+
+<!-- Content -->
+<div id="content">
+    <!-- contentHeader -->
+    <div class="contentHeader postListHeader">
+        <h3 class="h3">{$customer ? $lang->edit_customer : $lang->new_customer}</h3>
+    </div>
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+    <!-- /contentHeader -->
+    <form action="./" method="post" ruleset="insert_customer" class="">
+        <input type="hidden" name="module" value="member" />
+        <input type="hidden" name="group_srl_list" value="{$default_group}" />
+        <input type="hidden" name="act" value="procShopToolCustomerInsert" />
+        <input type="hidden" name="success_return_url" value="{getUrl('act', 'dispShopToolManageCustomers')}" />
+        <!--@if($customer)-->
+        <input type="hidden" name="member_srl" value="{$customer->member_srl}" />
+        <!--@endif-->
+        <div class="wOption">
+            <fieldset class="visualFieldset">
+                <legend class="visualLabel">{$customer ? $lang->edit_customer : $lang->new_customer}</legend>
+                <table border="1" cellspacing="0" class="tableData">
+
+                    <tr class="first">
+                        <th scope="row">
+                            <label for="user_name">{$lang->name}</label>
+                        </th>
+                        <td class="title">
+                            <div class="fItem">
+                                <label class="iLabel" for="user_name">{$lang->about_name}</label>
+                                <input type="text" id="user_name" name="user_name" style="width:200px" class="iText iText" title="{$lang->about_name}" value="{$customer->user_name}"/>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">
+                            <label for="email_address">{$lang->email_address}</label>
+                        </th>
+                        <td class="type">
+                            <div class="fItem">
+                                <label class="iLabel" for="email_address">{$lang->customer_about_email_address}</label>
+                                <input type="text" id="email_address" name="email_address" style="width:200px" class="iText iText" title="{$lang->customer_about_email_address}" value="{$customer->email_address}"/>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">
+                            <label for="user_id">{$lang->user_id}</label>
+                        </th>
+                        <td class="type">
+                            <div class="fItem">
+                                <label class="iLabel" for="user_id">{$lang->about_user_id}</label>
+                                <input type="text" id="user_id" name="user_id" style="width:200px" class="iText iText" title="{$lang->about_user_id}" value="{$customer->user_id}"/>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">
+                            <label for="nick_name">{$lang->nick_name}</label>
+                        </th>
+                        <td class="title">
+                            <div class="fItem">
+                                <label class="iLabel" for="nick_name">{$lang->about_nick_name}</label>
+                                <input type="text" id="nick_name" name="nick_name" style="width:200px" class="iText iText" title="{$lang->about_nick_name}" value="{$customer->nick_name}"/>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">
+                            <!--@if($password_exists == 'Y')-->
+                            <label for="password">{$lang->change_password}</label>
+                            <!--@else-->
+                            <label for="password">{$lang->password}</label>
+                            <!--@end-->
+                        </th>
+                        <td class="title">
+                            <div class="fItem">
+                                <!--@if($password_exists != 'Y')-->
+                                <label class="iLabel" for="password">{$lang->about_password}</label>
+                                <input type="text" id="password" name="password" style="width:200px" class="iText iText" title="{$lang->about_password}" />
+                                <!--@else-->
+                                <input type="text" id="reset_password" name="reset_password" style="width:200px" class="iText iText" title="{$lang->about_password}" />
+                                <!--@end-->
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr class="last">
+                        <th scope="row">
+                        </th>
+                        <td class="title">
+                            <a cond="$customer->member_srl" title="delete customer '{$customer->user_name}'" href="{getNotEncodedUrl('', 'act', 'procShopToolDeleteCustomers', 'target_member_srls', $customer->member_srl)}" onclick="if (!confirm('Are you sure?')) return false;" style="display: block; float: right; margin-right: 100px;">
+                                {$lang->cmd_delete}
+                            </a>
+                            <span class="btn"><input type="submit" value="{$lang->cmd_save}"/></span>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </fieldset>
+            <div id="regdate" cond="$customer->regdate">{$lang->created_at}: {zdate($customer->regdate)}</div>
+            <div id="last_login" cond="$customer->last_login">{$lang->last_update}: {zdate($customer->last_login)}</div>
+        </div>
+    </form>
+</div>
+<!-- /Content -->
+
+
+<!-- Extension -->
+<!--#include("_tool_menu.html")-->
+<!-- Extension -->
+
+<!--#include("_tool_footer.html")-->
+

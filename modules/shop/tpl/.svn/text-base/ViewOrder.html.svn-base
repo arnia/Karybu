@@ -1,0 +1,81 @@
+<!--#include("_tool_header.html")-->
+
+<div id="content">
+    <div class="dashboardHeader">
+        <h3 class="h3">{$lang->order} {$order->order_srl}</h3>
+    </div>
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+    <!-- contentNavigation -->
+    <div class="contentNavigation" cond="!empty($order)">
+        <ul class="sortDefault">
+            <a href="{getUrl('act', 'dispShopToolManageOrders')}">{$lang->back_to_orders}</a>
+            <!--@if($order->order_status != Order::ORDER_STATUS_CANCELED)-->
+                <!--@if($order->order_status != Order::ORDER_STATUS_HOLD && $order->order_status != Order::ORDER_STATUS_COMPLETED)-->
+                    <!-- <li><a href="{getUrl('act','dispShopToolEditOrder','order_srl',$order->order_srl)}">{$lang->edit}</a></li>  -->
+                    <li><a href="{getUrl('act','procShopToolCancelOrder','order_srl',$order->order_srl)}">{$lang->cancel}</a></li>
+                <!--@end-->
+                <!-- <li><a href="{getUrl('act','procShopToolSendOrderEmail','order_srl',$order->order_srl)}">{$lang->send_email}</a></li> -->
+                <!--@if($order->order_status != Order::ORDER_STATUS_COMPLETED)-->
+                    <!--@if($order->order_status == Order::ORDER_STATUS_HOLD)-->
+                        <li><a href="{getUrl('act','procShopToolUnholdOrder','order_srl',$order->order_srl)}">{$lang->unhold}</a></li>
+                    <!--@else-->
+                        <li><a href="{getUrl('act','procShopToolHoldOrder','order_srl',$order->order_srl)}">{$lang->hold}</a></li>
+                    <!--@end-->
+                <!--@end-->
+                <!--@if($order->order_status != Order::ORDER_STATUS_HOLD)-->
+                    <!--@if(!isset($order->invoice))-->
+                        <li><a href="{getUrl('act','dispShopToolInvoiceOrder','order_srl',$order->order_srl)}">{$lang->invoice}</a></li>
+                    <!--@end-->
+                    <!--@if(!isset($order->shipment))-->
+                        <li><a href="{getUrl('act','dispShopToolShipOrder','order_srl',$order->order_srl)}">{$lang->ship}</a></li>
+                    <!--@end-->
+                <!--@end-->
+            <!--@end-->
+            <li><a href="{getUrl('act','procShopToolPrintOrder','order_srl',$order->order_srl)}" target="_blank">{$lang->print}</a></li>
+            <!--@if($order->order_status != Order::ORDER_STATUS_HOLD)-->
+                <!-- <li><a href="{getUrl('act','dispShopToolReorder','order_srl',$order->order_srl)}">{$lang->reorder}</a></li>    -->
+            <!--@end-->
+        </ul>
+    </div>
+    <!-- /contentNavigation -->
+
+    <div class="setUp">
+    <fieldset>
+        <h4 class="h4">{$lang->order_status}</h4>
+        <p>{$lang->current_order_status} <b>{$order->order_status}</b></p>
+        <p>{$lang->purchased_on}: <b>{zdate($order->regdate)}</b></p>
+    </fieldset>
+    <fieldset>
+        <h4 class="h4">{$lang->account_info}</h4>
+        <p>{$lang->customer_ip} <b>{$order->ip}</b></p>
+    </fieldset>
+    <fieldset>
+        <h4 class="h4">{$lang->billing_address}</h4>
+        <p>{$order->billing_address}</p>
+    </fieldset>
+    <fieldset>
+        <h4 class="h4">{$lang->shipping_address}</h4>
+        <p>{$order->shipping_address}</p>
+    </fieldset>
+    <fieldset>
+        <h4 class="h4">{$lang->payment_info}</h4>
+        <p>{$lang->payment_method_used} <b>{ucwords(str_replace('_', ' ', $order->payment_method))}</b></p>
+    </fieldset>
+    <fieldset>
+        <h4 class="h4">{$lang->shipping_info}</h4>
+        <p>{$lang->shipping_method_used} <b>{ucwords(str_replace('_', ' ', $order->shipping_method))}</b></p>
+    </fieldset>
+    <fieldset>
+        <h4 class="h4">{$lang->items_ordered}</h4>
+        <include target="product_items" />
+    </fieldset>
+    </div>
+    <a href="{getUrl('act', 'dispShopToolManageOrders')}">{$lang->back_to_orders}</a>
+
+</div>
+
+<!--#include("_tool_menu.html")-->
+
+<!--#include("_tool_footer.html")-->

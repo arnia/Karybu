@@ -1,0 +1,30 @@
+<include target="_header.html" />
+<!--@if($shop_mode == 'module')-->
+        <!--@if(in_array($external_module, array('member')))-->
+            <include target="_my_account_sidebar.html" />
+
+            {$content}
+        <!--@else-->
+            <div id="body-content" class="main-content clearfix">
+                {$content}
+            </div>
+        <!--@end-->
+<!--@else-->
+    <div id="body-content" class="main-content clearfix">
+        <!--@if(__DEBUG__)-->
+            <h1>Missing layout file!</h1>
+            <p>This is the default layout / template file.</p>
+
+            <p>You should really set a custom template file for your view using <b>$this->setTemplateFile("someFile.html")</b>.</p>
+
+            <p>Good luck!</p>
+        <!--@else-->
+            <h1>{$lang->page_not_found}</h1>
+            <p>
+                {$lang->page_not_found_details} <a href="{getUrl('', 'vid', $vid, 'mid', $mid)}">{$lang->homepage}</a>.
+            </p>
+        <!--@end-->
+    </div>
+<!--@end-->
+
+<include target="_footer.html"/>

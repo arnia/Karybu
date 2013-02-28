@@ -1,0 +1,2 @@
+In order to run tests from an IDE (like PhpStorm or Eclipse)
+you need to have proper write permissions set for the files dir.

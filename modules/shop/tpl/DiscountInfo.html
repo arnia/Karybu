@@ -1,0 +1,111 @@
+<!--#include("_tool_header.html")-->
+
+<!-- Content -->
+<div id="content">
+
+    <!-- contentHeader -->
+    <div class="dashboardHeader">
+        <h3 class="h3"><span class="icon shop_discout"></span>{$lang->shop_second_menus[7]['dispShopToolDiscountInfo']}</h3>
+    </div>
+    <!-- /contentHeader -->
+
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+
+    <div class="setUp">
+        <form action="{Context::getRequestUri()}" method="post" ruleset="discount_update">
+            <input type="hidden" name="act" value="procShopToolDiscountUpdate" />
+            <input type="hidden" name="module" value="shop" />
+            <input type="hidden" name="mid" value="{$mid}" />
+            <input type="hidden" name="vid" value="{$vid}" />
+
+            <fieldset>
+                <h4 class="h4">{$lang->discount_config}</h4>
+                <table border="1" cellspacing="0" class="setupData">
+                    <tr>
+                        <th scope="row"><label for="discount_min_amount">{$lang->discount_min_amount}</label></th>
+                        <td>
+                            <input name="discount_min_amount" type="text" class="iText" style="width:300px" id="discount_min_amount" value="{htmlspecialchars($shop->getShopDiscountMinAmount())}" />
+                            <p>{$lang->about_discount_min_amount}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="discount_type">{$lang->discount_type}</label></th>
+                        <td>
+                            <select name="discount_type" id="discount_type">
+                                <option value="fixed_amount" <!--@if($shop->getShopDiscountType()=='fixed_amount')-->selected<!--@end-->>{$lang->fixed_amount}</option>
+                                <option value="percentage" <!--@if($shop->getShopDiscountType()=='percentage')-->selected<!--@end-->>{$lang->percentage}</option>
+                            </select>
+                            <p>{$lang->about_discount_type}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="discount_amount">{$lang->discount_amount}</label></th>
+                        <td>
+                            <input name="discount_amount" type="text" class="iText" style="width:300px" id="discount_amount" value="{htmlspecialchars($shop->getShopDiscountAmount())}" />
+                            <span id="amount_descriptor">{$shop->getCurrencySymbol()}</span>
+                            <p>{$lang->about_discount_amount}</p>
+                            <script type="text/javascript">
+                                jQuery(function(){
+                                    if (jQuery('#discount_type > option:selected').val() == 'fixed_amount') {
+                                        jQuery('#tax-phase:visible').hide();
+                                    }
+                                    jQuery('#discount_type').live('change', function(){
+                                        var val = jQuery(this).children('option:selected').val();
+                                        if (val == 'fixed_amount') {
+                                            var descriptor = '{$shop->getCurrencySymbol()}';
+                                            jQuery('#tax-phase:visible').fadeOut('fast');
+                                        }
+                                        else if (val == 'percentage') {
+                                            descriptor = '%';
+                                            jQuery('#tax-phase:hidden').fadeIn('fast');
+                                        }
+                                        jQuery('#amount_descriptor').text(descriptor);
+                                    }).change();
+                                });
+                            </script>
+                            <style type="text/css">
+                                #amount_descriptor {
+                                    font-size: 18px;
+                                    font-weight: bold;
+                                    display: inline-block;
+                                    margin-left: 20px;
+                                }
+                            </style>
+                        </td>
+                    </tr>
+                    <tr id="tax-phase">
+                        <th scope="row"><label for="discount_tax_phase">{$lang->discount_tax_phase}</label></th>
+                        <td>
+                            <select name="discount_tax_phase" id="discount_tax_phase">
+                                <option value="pre_taxes" <!--@if($shop->getShopDiscountTaxPhase()=='pre_taxes')-->selected<!--@end-->>{$lang->pre_taxes}</option>
+                                <option value="post_taxes" <!--@if($shop->getShopDiscountTaxPhase()=='post_taxes')-->selected<!--@end-->>{$lang->post_taxes}</option>
+                            </select>
+                            <p>{$lang->about_discount_tax_phase}</p>
+                        </td>
+                    </tr>
+
+                </table>
+            </fieldset>
+
+            <div class="btnArea">
+                <span class="btn"><input type="submit" value="{$lang->cmd_apply}" /></span>
+            </div>
+
+        </form>
+
+        <form action="{Context::getRequestUri()}" method="post">
+            <input type="hidden" name="act" value="procShopToolDiscountUpdate" />
+        </form>
+    </div>
+
+</div>
+<hr />
+<!-- /Content -->
+
+<!-- Extension -->
+<!--#include("_tool_menu.html")-->
+<!-- Extension -->
+
+<!--#include("_tool_footer.html")-->

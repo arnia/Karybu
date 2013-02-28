@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 31
+/svn/!svn/ver/724/trunk/schemas
+END
+shop_payment_methods.xml
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/537/trunk/schemas/shop_payment_methods.xml
+END
+shop_products.xml
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/724/trunk/schemas/shop_products.xml
+END
+shop_shipping_methods.xml
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/537/trunk/schemas/shop_shipping_methods.xml
+END
+shop_product_images.xml
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/154/trunk/schemas/shop_product_images.xml
+END
+shop_guests.xml
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/120/trunk/schemas/shop_guests.xml
+END
+shop_shipments.xml
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/269/trunk/schemas/shop_shipments.xml
+END
+shop_cart_products.xml
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/494/trunk/schemas/shop_cart_products.xml
+END
+shop_addresses.xml
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/275/trunk/schemas/shop_addresses.xml
+END
+shop_invoices.xml
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/269/trunk/schemas/shop_invoices.xml
+END
+shop_attributes_scope.xml
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/62/trunk/schemas/shop_attributes_scope.xml
+END
+shop_newsletters.xml
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/284/trunk/schemas/shop_newsletters.xml
+END
+shop.xml
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/678/trunk/schemas/shop.xml
+END
+shop_product_categories.xml
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/63/trunk/schemas/shop_product_categories.xml
+END
+shop_categories.xml
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/398/trunk/schemas/shop_categories.xml
+END
+shop_attributes.xml
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/679/trunk/schemas/shop_attributes.xml
+END
+shop_product_attributes.xml
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/703/trunk/schemas/shop_product_attributes.xml
+END
+shop_coupons.xml
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/717/trunk/schemas/shop_coupons.xml
+END
+shop_cart.xml
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/239/trunk/schemas/shop_cart.xml
+END
+shop_order_products.xml
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/520/trunk/schemas/shop_order_products.xml
+END
+shop_orders.xml
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/717/trunk/schemas/shop_orders.xml
+END

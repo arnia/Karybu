@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ruleset version="1.5.0">
+    <customrules>
+    </customrules>
+    <fields>
+        <field name="subject" required="true" />
+        <field name="sender_name" required="true" />
+        <field name="sender_email" required="true" rule="email" />
+        <field name="content" required="true" />
+    </fields>
+</ruleset>

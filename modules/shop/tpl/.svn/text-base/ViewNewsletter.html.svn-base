@@ -1,0 +1,93 @@
+<!--#include("_tool_header.html")-->
+<!--%import("css/pagination.css",optimized=false)-->
+
+<!-- Content -->
+<div id="content">
+    <!-- contentHeader -->
+    <div class="contentHeader postListHeader">
+        <h3 class="h3">{$lang->view_newsletter}</h3>
+    </div>
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+    <!-- /contentHeader -->
+    <form action="./" method="post" ruleset="send_newsletter" class="">
+        <div class="wOption">
+            <fieldset class="visualFieldset">
+                <legend class="visualLabel">{$lang->view_newsletter}</legend>
+                <table border="1" cellspacing="0" class="tableData">
+
+                    <tr class="first">
+                        <th scope="row">
+                            {$lang->subject}
+                        </th>
+                        <td class="title">
+                            <div class="fItem">
+                                {$newsletter->subject}
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr class="first">
+                        <th scope="row">
+                            {$lang->sender_name}
+                        </th>
+                        <td class="title">
+                            <div class="fItem">
+                                {$newsletter->sender_name}
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr class="first">
+                        <th scope="row">
+                            {$lang->sender_email}
+                        </th>
+                        <td class="title">
+                            <div class="fItem">
+                                {$newsletter->sender_email}
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr class="first">
+                        <th scope="row">
+                            {$lang->content}
+                        </th>
+                        <td class="title">
+                            <div class="fItem">
+                                {$newsletter->content}
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr class="last">
+                        <th scope="row">
+                        </th>
+                        <td class="title">
+                            <a class="delete_link" cond="$newsletter->newsletter_srl" title="delete newsletter '{$newsletter->newsletter_srl}'" href="{getNotEncodedUrl('', 'act', 'procShopToolDeleteNewsletters', 'newsletter_srls', $newsletter->newsletter_srl)}" onclick="if (!confirm('Are you sure?')) return false;" >
+                                {$lang->cmd_delete}
+                            </a>
+                           <a href="{getUrl('','act','dispShopToolManageNewsletters')}" style="display: block; float: right; margin-right: 100px;">{$lang->cmd_back}</a>
+                           <a href="{getUrl('','act','dispShopToolResendNewsletter','newsletter_srl',$newsletter->newsletter_srl)}" style="display: block; float: right; margin-right: 100px;">{$lang->resend}</a>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </fieldset>
+            <div id="regdate" cond="$newsletter->regdate">{$lang->created_at}: {zdate($newsletter->regdate)}</div>
+            <div id="last_login" cond="$newsletter->last_login">{$lang->last_update}: {zdate($newsletter->last_login)}</div>
+        </div>
+    </form>
+
+</div>
+<!-- /Content -->
+
+
+<!-- Extension -->
+<!--#include("_tool_menu.html")-->
+<!-- Extension -->
+
+<!--#include("_tool_footer.html")-->
+

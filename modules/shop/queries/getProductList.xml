@@ -1,0 +1,27 @@
+<query id="getProductList" action="select">
+    <tables>
+        <table name="shop_products" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="module_srl" var="module_srl" notnull="notnull" />
+        <condition operation="null" column="parent_product_srl" pipe="and" />
+        <condition operation="equal" column="status" var="status" pipe="and"/>
+        <condition operation="equal" column="in_stock" var="in_stock" pipe="and"/>
+        <condition operation="less" column="discount_price" var="max_price" pipe="and"/>
+        <condition operation="more" column="discount_price" var="min_price" pipe="and"/>
+        <group pipe="and">
+            <condition operation="equal" column="sku" var="sku" pipe="or"/>
+            <condition operation="like" column="title" var="title" pipe="or"/>
+            <condition operation="like" column="description" var="description" pipe="or"/>
+        </group>
+    </conditions>
+    <navigation>
+        <index var="index" default="product_srl" order="order_type" />
+        <list_count var="list_count" default="10" />
+        <page_count var="page_count" default="10" />
+        <page var="page" default="1" />
+    </navigation>
+</query>

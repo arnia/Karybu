@@ -1,0 +1,11 @@
+<query id="countProducts" action="select">
+    <tables>
+        <table name="shop_products" alias="p" />
+    </tables>
+    <columns>
+        <column name="count(*)" alias="count" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="p.module_srl" var="module_srl" notnull="notnull" />
+    </conditions>
+</query>

@@ -1,0 +1,31 @@
+<p>
+    <label for="api_username">API Username</label>
+    <input type="text" name="api_username" id="api_username" value="{$payment_method->api_username}" />
+</p>
+<p>
+    <label for="api_password">API Password</label>
+    <input type="text" name="api_password" id="api_password" value="{$payment_method->api_password}" />
+</p>
+<p>
+    <label for="signature">Signature</label>
+    <input type="text" name="signature" id="signature" value="{$payment_method->signature}" />
+</p>
+<p>
+    <label for="gateway_api">Gateway API URL</label>
+    <select name="gateway_api" id="gateway_api">
+        <option value="{PaypalExpressCheckout::SANDBOX_URL}"
+        <!--@if($payment_method->gateway_api == PaypalExpressCheckout::SANDBOX_URL)-->
+        selected="selected"
+        <!--@end-->
+        >
+        Sandbox
+        </option>
+        <option value="{PaypalExpressCheckout::LIVE_URL}"
+        <!--@if($payment_method->gateway_api == PaypalExpressCheckout::LIVE_URL)-->
+        selected="selected"
+        <!--@end-->
+        >
+        Live
+        </option>
+    </select>
+</p>

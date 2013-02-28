@@ -1,0 +1,29 @@
+<query id="updateProduct" action="update">
+    <tables>
+        <table name="shop_products" />
+    </tables>
+    <columns>
+        <column name="member_srl" var="member_srl" filter="number" />
+        <column name="module_srl" var="module_srl" filter="number" />
+        <column name="document_srl" var="document_srl" filter="number" />
+        <column name="parent_product_srl" var="parent_product_srl" filter="number" />
+        <column name="product_type" var="product_type" />
+        <column name="title" var="title" />
+        <column name="description" var="description"/>
+        <column name="short_description" var="short_description" />
+        <column name="sku" var="sku" />
+        <column name="weight" var="weight"/>
+        <column name="status" var="status" />
+        <column name="friendly_url" var="friendly_url" />
+        <column name="price" var="price" />
+        <column name="discount_price" var="discount_price" />
+        <column name="qty" var="qty" />
+        <column name="in_stock" var="in_stock" />
+        <column name="is_featured" var="is_featured" />
+        <column name="related_products" var="related_products"/>
+        <column name="last_update" var="last_update" default="curdate()" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="product_srl" var="product_srl" filter="number" notnull="notnull" />
+    </conditions>
+</query>

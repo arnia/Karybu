@@ -1,0 +1,10 @@
+<query id="getCartProducts" action="select">
+    <tables>
+        <table name="shop_cart_products" />
+    </tables>
+    <columns></columns>
+    <conditions>
+        <condition operation="in" column="product_srl" var="product_srls" />
+        <condition operation="equal" column="cart_srl" var="cart_srl" notnull="notnull" pipe="and" />
+    </conditions>
+</query>

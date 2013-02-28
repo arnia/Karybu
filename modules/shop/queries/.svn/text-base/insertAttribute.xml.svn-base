@@ -1,0 +1,19 @@
+<query id="insertAttribute" action="insert">
+    <tables>
+        <table name="shop_attributes" />
+    </tables>
+    <columns>
+        <column name="attribute_srl" var="attribute_srl" filter="number" notnull="notnull"/>
+        <column name="member_srl" var="member_srl" filter="number" notnull="notnull"/>
+        <column name="module_srl" var="module_srl" filter="number" notnull="notnull"/>
+        <column name="title" var="title" notnull="notnull"/>
+        <column name="type" var="type" />
+        <column name="required" var="required" />
+        <column name="status" var="status" />
+        <column name="values" var="values" />
+        <column name="default_value" var="default_value" />
+        <column name="is_filter" var="is_filter" />
+        <column name="regdate" var="regdate" default="curdate()" />
+        <column name="last_update" var="last_update" default="curdate()" />
+    </columns>
+</query>

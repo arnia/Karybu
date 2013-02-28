@@ -1,0 +1,26 @@
+<query id="updateOrder" action="update">
+    <tables>
+        <table name="shop_orders" />
+    </tables>
+    <columns>
+        <column name="cart_srl" var="cart_srl" filter="number"/>
+        <column name="module_srl" var="module_srl" filter="number" notnull="notnull"/>
+        <column name="member_srl" var="member_srl" filter="number"/>
+        <column name="client_name" var="client_name"/>
+        <column name="client_email" var="client_email"/>
+        <column name="client_company" var="client_company"/>
+        <column name="shipping_address" var="shipping_address"/>
+        <column name="payment_method" var="payment_method"/>
+        <column name="shipping_method" var="shipping_method"/>
+        <column name="shipping_variant" var="shipping_variant"/>
+        <column name="shipping_cost" var="shipping_cost" filter="number"/>
+        <column name="total" var="total"/>
+        <column name="vat" var="vat" filter="number"/>
+        <column name="transaction_id" var="transaction_id" />
+        <column name="order_status" var="order_status"/>
+        <column name="ip" var="ip"/>
+    </columns>
+    <conditions>
+        <condition operation="equal" column="order_srl" var="order_srl" filter="number" notnull="notnull"/>
+    </conditions>
+</query>

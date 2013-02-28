@@ -1,0 +1,10 @@
+<query id="deleteCoupons" action="delete">
+    <tables>
+        <table name="shop_coupons"/>
+    </tables>
+    <conditions>
+        <condition operation="in" column="srl" var="srls" />
+        <condition operation="equal" column="module_srl" var="module_srl" filter="number" pipe="or" />
+        <condition operation="equal" column="parent_srl" var="parent_srl" filter="number" pipe="or" />
+    </conditions>
+</query>

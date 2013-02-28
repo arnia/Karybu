@@ -1,0 +1,211 @@
+<include target="_header.html" />
+
+<script type="text/javascript">
+jQuery(function () {
+    var $ = jQuery;
+
+    //remove
+    $('a.remove').click(function(e){
+        if (!confirm('Are you sure?')) e.preventDefault();
+    });
+
+    //multiple delete
+    $('#cart #delete_multiple').click(function (e) {
+        if (!$(this).parents('table').find('input[type=checkbox].boxlist').filter(':checked').length) {
+            alert('Nothing selected for delete');
+            return false;
+        }
+        if (!confirm('Are you sure you want to remove these products from your shopping cart?')) {
+            return false;
+        }
+        e.preventDefault();
+        var form = $(this).parents('form');
+        form.find('input[name=act]').val('procShopCartRemoveProducts');
+        form.submit();
+    });
+
+    //update
+    $('#cart #update_multiple').click(function (e) {
+        e.preventDefault();
+        var form = $(this).parents('form');
+        form.find('input[name=act]').val('procShopCartUpdateProducts');
+        form.submit();
+    });
+    $('td.quantity input').on('input', function(){
+        var flag = 'quantity';
+        var self = $(this);
+        var upd = $('a.update', self.parents('.product'));
+        var massUpd = $('#cart #update_multiple');
+        if (self.val() != self.data(flag)) {
+            upd.attr('href', upd.attr('href')).show(function(){
+                massUpd.hide();
+            });
+        }
+        else upd.hide(function(){
+            massUpd.hide();
+        });
+    });
+    $('a.update').on('click', function(e){
+        e.preventDefault();
+        var box = $('td.quantity input', $(this).parents('.product'));
+        if (box.val() == 0 && !confirm('Are you sure you want to remove the product from your cart?')) return false;
+        window.location = $(this).attr('href').replace('QUANTITY', box.val());
+    });
+});
+</script>
+
+<div id="cart" class="main-content">
+
+    <h1 class="underline">{$lang->shopping_cart}</h1>
+
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+
+    <div cond="!$cart->items">{$lang->cart_is_empty}</div>
+
+    <div class="listHeader" cond="$cart->items">
+        <p class="info">
+            <!--@if($search_keyword)-->{sprintf($lang->search_result_count,$page_navigation->total_count)}
+            <!--@else-->{sprintf($lang->total_result_count,$products_output->total_count)}<!--@end-->
+        </p>
+    </div>
+
+    <form action="" method="post" cond="!empty($products_output->data)">
+        <table border="0" cellspacing="0" summary="{$lang->content_list}" class="tableData">
+            <thead>
+                <tr cond="!empty($products_output)">
+                    <th scope="col" class="a-left">
+                        <input cond="$cart->countAvailableProducts()" type="checkbox" class="inputCheck" onclick="jQuery(this).parents('table').find('input[type=checkbox].boxlist').attr('checked', jQuery(this).is(':checked'))"/>
+                    </th>
+                    <th scope="col" class="a-left">{$lang->product}</th>
+                    <th scope="col" class="a-center">{$lang->price}</th>
+                    <th scope="col" class="a-center">{$lang->quantity}</th>
+                    <th scope="col" class="a-center">{$lang->subtotal}</th>
+                    <th scope="col" class="a-center">{$lang->actions}</th>
+                </tr>
+            </thead>
+            <tbody>
+
+<!--@foreach($products_output->data as $no => $product)-->
+            <tr cond="$product->product_srl" class="product{!$product->available ? ' not-available' : ''}" data-price="{$product->price}">
+                <td width="5%">
+                    <input type="checkbox" name="product_srls[]" value="{$product->product_srl}" class="inputCheck boxlist" cond="$product->product_srl" />
+                </td>
+                <td width="45%" class="v-middle a-left">
+                    <a href="{$product->getProduct()->getUrl()}">
+                        <img class="f-left cart-image" src="{$product->getThumbnailPath(50)}" alt="" title=""/>
+                        <p>{$product->title}</p>
+                    </a>
+                </td>
+<!--@if ($product->available)-->
+                <td class="price a-center">
+                    {ShopDisplay::priceFormat($product->price, $shop->getCurrencySymbol())}
+                </td>
+                <td class="quantity a-center">
+                    <input type="text" data-quantity="{$product->quantity}" value="{$product->quantity}" name="quantity[{$product->product_srl}]">
+                </td>
+                <td class="price a-center">
+                    {ShopDisplay::priceFormat($product->price * $product->quantity, $shop->getCurrencySymbol())}
+                </td>
+                <td width="20%" class="a-center">
+                    <a class="remove button" href="{getUrl('act','procShopCartRemoveProducts','cart_srl',$cart->cart_srl, 'product_srls', $product->product_srl)}">{$lang->cmd_delete}</a>
+                    <a class="update button" href="{getUrl('act','procShopCartUpdateProducts','cart_srl',$cart->cart_srl, 'quantity['.$product->product_srl.']', 'QUANTITY')}">{$lang->cmd_update}</a>
+                </td>
+<!--@else-->
+                <td colspan="4">
+                    {str_replace('Delete', '<a class="remove" href="'.getUrl('act','procShopCartRemoveProducts','cart_srl',$cart->cart_srl, 'product_srls', $product->product_srl).'">'.$lang->cmd_delete.'</a>', $lang->no_longer_available)}
+                </td>
+<!--@endif-->
+                </tr>
+                <tr cond="!$product->product_srl" class="product deleted">
+                    <td></td>
+                    <td colspan="7">
+                        <p>Product "<b>{$product->cart_product_title}</b>" was deleted by admin after you added it. <a href="{getUrl('act','procShopCartRemoveProducts','cart_srl',$cart->cart_srl, 'product_srls', $product->cart_product_srl)}">Yes, I got it.</a></p>
+                    </td>
+                </tr>
+<!--@end-->
+        </tbody>
+        <tfoot>
+        <!-- Total before discount -->
+        <tr>
+            <td colspan="4"></td>
+            <td>{$lang->total}</td>
+            <td>
+                {ShopDisplay::priceFormat($cart->getTotalBeforeDiscount(), $shop->getCurrencySymbol())}
+            </td>
+        </tr>
+        <!-- // Total before discount -->
+
+        <!-- Discount -->
+        <tr cond="$cart->getDiscountAmount()">
+            <td colspan="4">
+            </td>
+            <td><a href="#" onclick="alert('{$cart->getDiscountName()}\n\n{$cart->getDiscountDescription()}'); return false">Discount</a></td>
+            <td>
+                {ShopDisplay::priceFormat(-1 * $cart->getDiscountAmount(), $shop->getCurrencySymbol())}
+            </td>
+        </tr>
+        <!-- // Discount -->
+
+        <!-- Total after discount -->
+        <tr cond="$cart->getDiscountAmount()">
+            <td colspan="4"></td>
+            <td>{$lang->total_after_discount}</td>
+            <td>
+                {ShopDisplay::priceFormat($cart->getTotalAfterDiscount(), $shop->getCurrencySymbol())}
+            </td>
+        </tr>
+        <!-- // Total after discount -->
+
+        <!-- VAT -->
+        <tr cond="$shop->showVAT()">
+            <td colspan="4"></td>
+            <td>
+                {$lang->taxes}
+            </td>
+            <td>
+                {ShopDisplay::priceFormat($cart->getVAT(), $shop->getCurrencySymbol())}
+            </td>
+        </tr>
+        <!-- // VAT -->
+
+        <!-- Update cart -->
+        <tr>
+            <td colspan="4"></td>
+            <td>
+                <input cond="$cart->countAvailableProducts()" type="submit" value="{$lang->cmd_delete}" name="del_cart_products" id="delete_multiple">
+            </td>
+            <td>
+                <input type="submit" value="{$lang->cmd_update}" name="upd_cart_products" id="update_multiple">
+            </td>
+        </tr>
+        <!-- // Update cart -->
+
+    </tfoot>
+    </table>
+
+    <div class="listFooter" cond="!empty($products_output->data)">
+        <div class="pagination" cond="$products_output->page_navigation->total_page > 1">
+            <a href="{getUrl('page','','mid',$mid)}" class="prev"><span>{$lang->first_page}</span></a>
+            <!--@while ($page_no = $products_output->page_navigation->getNextPage())-->
+            <!--@if ($page == $page_no)-->
+            <strong>{$page_no}</strong>
+            <!--@else-->
+            <a href="{getUrl('page',$page_no,'mid',$mid)}">{$page_no}</a>
+            <!--@end-->
+            <!--@end-->
+            <a href="{getUrl('page',$products_output->page_navigation->last_page,'module_srl','')}" class="next"><span>{$lang->last_page}</span></a>
+        </div>
+    </div>
+
+    </form>
+
+    <div class="checkout" cond="$cart->items">
+        <p class="a-center"><a class="button" href="{getUrl('act','dispShopCheckout')}">{$lang->checkout}</a></p>
+    </div>
+
+</div>
+
+
+<include target="_footer.html"/>

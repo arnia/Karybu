@@ -1,0 +1,119 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/!svn/ver/722/trunk/libs/classes
+END
+RandomGenerator.php
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/717/trunk/libs/classes/RandomGenerator.php
+END
+ShopException.php
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/722/trunk/libs/classes/ShopException.php
+END
+Discount.php
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/719/trunk/libs/classes/Discount.php
+END
+APIException.php
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/722/trunk/libs/classes/APIException.php
+END
+PaymentProcessingException.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/722/trunk/libs/classes/PaymentProcessingException.php
+END
+DbQueryException.php
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/722/trunk/libs/classes/DbQueryException.php
+END
+ShopUtils.php
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/679/trunk/libs/classes/ShopUtils.php
+END
+CartPreview.php
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/722/trunk/libs/classes/CartPreview.php
+END
+APIAbstract.php
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/722/trunk/libs/classes/APIAbstract.php
+END
+ShopCache.php
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/717/trunk/libs/classes/ShopCache.php
+END
+IProductItemsContainer.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/722/trunk/libs/classes/IProductItemsContainer.php
+END
+ShopDisplay.php
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/722/trunk/libs/classes/ShopDisplay.php
+END
+ArgumentException.php
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/722/trunk/libs/classes/ArgumentException.php
+END
+IProductItem.php
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/722/trunk/libs/classes/IProductItem.php
+END
+ShopLogger.php
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/722/trunk/libs/classes/ShopLogger.php
+END
+ShopThumbnail.php
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/722/trunk/libs/classes/ShopThumbnail.php
+END
+IThumbnailable.php
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/722/trunk/libs/classes/IThumbnailable.php
+END
+FrontFilters.php
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/702/trunk/libs/classes/FrontFilters.php
+END
+NetworkErrorException.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/722/trunk/libs/classes/NetworkErrorException.php
+END

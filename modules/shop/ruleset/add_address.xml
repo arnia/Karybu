@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ruleset version="1.5.0">
+    <customrules>
+        <rule name = "telephone" type = "regex" test = "/^[0-9]*$/i"/>
+    </customrules>
+    <fields>
+        <field name="firstname" required="true" />
+        <field name="lastname" required="true" />
+        <field name="email" required="true" rule="email" />
+        <field name="address" required="true" />
+        <field name="city" required="true"  />
+        <field name="region" required="true"  />
+        <field name="country" required="true"  />
+        <field name="telephone" required="true" rule="telephone"/>
+        <field name="fax" rule="telephone"/>
+        <field name="postal_code" required="true"  />
+    </fields>
+</ruleset>

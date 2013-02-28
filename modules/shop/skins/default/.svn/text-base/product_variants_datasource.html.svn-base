@@ -1,0 +1,113 @@
+<script type="text/javascript">
+jQuery(document).ready(function($){
+	{$datasourceJS}
+
+    var synchronizeDropDowns = function($first_select, $second_select, $product_srl, $selected_value, $reverse)
+	{
+	    if($product_srl == undefined || $selected_value == undefined) return;
+
+	    if($reverse)
+		{
+			$options_list = reverse_associated_products[$product_srl][$selected_value];
+		}
+		else
+		{
+			$options_list = associated_products[$product_srl][$selected_value];
+		}
+
+		$second_select.html("<option value=''></option>");
+		$.each($options_list, function(attribute, associated_product_srl){
+			$second_select.append("<option value='" + attribute + "'>" + attribute + "</option>");
+		});
+	};
+
+    $('.product.configurable').find('.add_to_cart').click(function(e){
+        e.preventDefault();
+        $(this).attr('href', $(this).attr('href').replace('REPLACE', $(this).parents('.product').find('.product_srl').val()));
+        window.location = $(this).attr('href');
+    }).hide();
+
+
+	$(".product-variants select.level_1").change(function(){
+		// When the first select changes ...
+		$first_select = $(this);
+		$current_container = $first_select.parent("p").parent(".product-variants");
+
+		$selected_value = $first_select.val();
+
+        $addToCart = $(this).parents('.product').find('.add_to_cart');
+        // If it's value is not set, we make sure product srl is reset and return
+		if(!$selected_value)
+		{
+			$current_container.find("#product_srl").val("");
+            $addToCart.hide();
+			return;
+		}
+        else $addToCart.filter(':hidden').css('display', 'inline-block');
+
+		$product_srl = $current_container.attr("id").substr("product-variants_".length);
+
+		$second_select = $first_select.parent("p").next("p").children("select.level_2");
+		// If there's a second select
+		if($second_select.length)
+		{
+		    // And if that second select has been initialised
+		    $corresponding_value = $second_select.val();
+			if($corresponding_value && $selected_value)
+			{
+			    // It means we have a product variant!
+				$associated_product_srl = associated_products[$product_srl][$selected_value][$corresponding_value];
+				$current_container.find("#product_srl").val($associated_product_srl);
+			}
+			else
+			{
+				// Otherwise, we need to update the second select values
+				synchronizeDropDowns($first_select, $second_select, $product_srl, $selected_value, false);
+			}
+		}
+		else
+		{
+		    // If there's no other select, we already now the variant:
+		    if($selected_value)
+			{
+				$associated_product_srl = associated_products[$product_srl][$selected_value];
+				$current_container.find("#product_srl").val($associated_product_srl);
+			}
+		}
+		});
+
+	$(".product-variants select.level_2").change(function(){
+		// When the second select changes ..
+		$second_select = $(this);
+		$selected_value = $(this).val();
+
+	    // If it's value is not set, we make sure product srl is reset and return
+		$current_container = $(this).parent("p").parent(".product-variants");
+		if(!$selected_value)
+		{
+			$current_container.find("#product_srl").val("");
+			return;
+		}
+
+		$first_select = $second_select.parent("p").prev("p").children("select.level_1");
+
+		$product_srl = $current_container.attr("id").substr("product-variants_".length);
+
+		// There's always a first select, so we just take its value
+	    $corresponding_value = $first_select.val();
+
+	    // If both are set, we found a variant!
+	    if($corresponding_value && $selected_value)
+		{
+			$associated_product_srl = reverse_associated_products[$product_srl][$selected_value][$corresponding_value];
+			$current_container.find("#product_srl").val($associated_product_srl);
+		}
+		else
+		{
+			// Else, we add the possible values
+			synchronizeDropDowns($second_select, $first_select, $product_srl, $selected_value, true);
+		}
+	});
+});
+
+</script>

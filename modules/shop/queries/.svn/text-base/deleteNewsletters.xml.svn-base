@@ -1,0 +1,8 @@
+<query id="deleteNewsletters" action="delete">
+    <tables>
+        <table name="shop_newsletters"/>
+    </tables>
+    <conditions>
+        <condition operation="in" column="newsletter_srl" var="newsletter_srls" />
+    </conditions>
+</query>

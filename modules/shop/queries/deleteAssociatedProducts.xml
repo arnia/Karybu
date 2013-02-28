@@ -1,0 +1,8 @@
+<query id="deleteAssociatedProducts" action="delete">
+    <tables>
+        <table name="shop_products" />
+    </tables>
+    <conditions>
+        <condition operation="in" column="parent_product_srl" var="parent_product_srls" filter="number" notnull="notnull"/>
+    </conditions>
+</query>

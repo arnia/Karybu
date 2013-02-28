@@ -1,0 +1,12 @@
+<query id="getShippingMethods" action="select">
+    <tables>
+        <table name="shop_shipping_methods" />
+    </tables>
+    <columns>
+    </columns>
+    <conditions>
+        <condition operation="equal" column="module_srl" var="module_srl" notnull="notnull" />
+        <condition operation="equal" column="status" var="status" pipe="and" />
+        <condition operation="equal" column="is_default" var="is_default" pipe="and" />
+    </conditions>
+</query>

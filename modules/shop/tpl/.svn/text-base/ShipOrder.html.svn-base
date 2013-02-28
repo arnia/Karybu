@@ -1,0 +1,77 @@
+<!--#include("_tool_header.html")-->
+<!--%import("css/pagination.css",optimized=false)-->
+
+<!-- Content -->
+<div id="content">
+    <!-- contentHeader -->
+    <div class="contentHeader postListHeader">
+        <h3 class="h3">{$lang->new_shipment_for_order} {$order->order_srl}</h3>
+    </div>
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+    <!-- /contentHeader -->
+    <form action="./" method="post" class="">
+        <input type="hidden" name="act" value="procShopToolInsertShipment" />
+        <input type="hidden" name="order_srl" value="{$order->order_srl}" />
+        <!--@if(isset($order->shipment->shipment_srl))-->
+        <input type="hidden" name="shipment_srl" value="{$order->shipment->shipment_srl}" />
+        <!--@end-->
+        <div class="wOption">
+            <fieldset class="visualFieldset">
+                <h4 class="h4">{$lang->items_ordered}</h4>
+
+                <include target="product_items" />
+
+                <table border="1" cellspacing="0" class="tableData">
+
+                    <tr class="first">
+                        <th scope="row">
+                            <label for="comments">{$lang->comments}</label>
+                        </th>
+                        <td class="title">
+                            <div class="fItem">
+                                <label class="iLabel" for="comments">{$lang->about_comments}</label>
+                                <textarea name="comments" rows="8" cols="100" class="iTextarea" id="comments" title="{$lang->about_comments}">{$order->shipment->comments}</textarea>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr class="first">
+                        <th scope="row">
+                            <label for="package_number">{$lang->package_number}</label>
+                        </th>
+                        <td class="title">
+                            <div class="fItem">
+                                <label class="iLabel" for="package_number">{$lang->about_package_number}</label>
+                                <input type="text" id="package_number" name="package_number" style="width:200px" class="iText iText" title="{$lang->about_package_number}" value="{$order->shipment->package_number}"/>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr class="last">
+                        <th scope="row">
+                        </th>
+                        <td class="title">
+                            <span class="btn"><input type="submit" value="{$lang->cmd_save}"/></span>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </fieldset>
+            <div id="regdate" cond="$order->shipment->regdate">{$lang->created_at}: {zdate($order->shipment->regdate)}</div>
+            <div id="last_update" cond="$order->shipment->last_update">{$lang->last_update}: {zdate($order->shipment->last_update)}</div>
+        </div>
+    </form>
+
+</div>
+<!-- /Content -->
+
+
+<!-- Extension -->
+<!--#include("_tool_menu.html")-->
+<!-- Extension -->
+
+<!--#include("_tool_footer.html")-->
+

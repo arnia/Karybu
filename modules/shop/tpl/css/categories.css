@@ -1,0 +1,54 @@
+#menu
+{
+    float:left;
+}
+
+#categoryFormContainer
+{
+    margin: 0 30px;
+    border-top:2px solid #CBD4DF;
+    display: block;
+    float: left;
+    padding-top: 20px;
+}
+
+#categoryFormContainer h4
+{
+    background: url(../img/iconH4.gif) no-repeat 0 center !important;
+    color:#626972;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 0 0 20px !important;
+    margin: 0 0 10px 0 !important;
+}
+
+#categoryFormContainer form
+{
+    color:#555;
+    background-color: #F9F9F9;
+    border:1px solid #EDEFF1;
+}
+
+#parent_title {
+    margin: 8px;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+#category_image {
+    margin-top: 8px;
+    margin-left: 8px;
+}
+
+#image_container {
+    margin-left: 240px;
+}
+
+#menu .product-count
+{
+    float:right;
+    margin-right: 60px;
+}

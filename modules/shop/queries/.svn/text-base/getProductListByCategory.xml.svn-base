@@ -1,0 +1,46 @@
+<query id="getProductListByCategory" action="select">
+    <tables>
+        <table name="shop_products" alias="p" />
+        <table name="shop_order_products" alias="op" type="left join">
+            <conditions>
+                <condition operation="equal" column="op.product_srl" default="p.product_srl"/>
+            </conditions>
+        </table>
+    </tables>
+    <columns>
+        <column name="p.*" />
+        <column name="count(distinct op.order_srl)" alias="orders" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="p.module_srl" var="module_srl" notnull="notnull" />
+        <condition operation="equal" column="p.status" var="status" pipe="and"/>
+        <condition operation="equal" column="p.in_stock" var="in_stock" pipe="and"/>
+        <condition operation="less" column="p.price" var="max_price" pipe="and"/>
+        <condition operation="more" column="p.price" var="min_price" pipe="and"/>
+        <group pipe="and">
+            <condition operation="like" column="p.title" var="title" />
+            <condition operation="like" column="p.description" var="description" pipe="or" />
+        </group>
+        <query alias="productsInCategories" operation="in" column="p.product_srl" pipe="and">
+            <tables>
+                <table name="shop_product_categories" alias="pc" />
+            </tables>
+            <columns>
+                <column name="pc.product_srl" alias="product_srl" />
+            </columns>
+            <conditions>
+                <condition operation="in" column="pc.category_srl" var="category_srls" />
+                <condition operation="null" column="p.parent_product_srl" pipe="and" />
+            </conditions>
+        </query>
+    </conditions>
+    <groups>
+        <group column="p.product_srl" />
+    </groups>
+    <navigation>
+        <index var="index" default="product_srl" order="order_type" />
+        <list_count var="list_count" default="10" />
+        <page_count var="page_count" default="10" />
+        <page var="page" default="1" />
+    </navigation>
+</query>

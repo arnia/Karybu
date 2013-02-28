@@ -1,0 +1,166 @@
+<!-- This div is needed to make the footer stick to the bottom -->
+<div class="wrapper">
+
+<div id="upper-header">
+    <div class="layout-centered clearfix">
+        <div id="header-menu" class="f-left">
+            {$header_menu}
+        </div>
+        <!-- Cart preview -->
+        <div class="f-right cart">
+            <span>
+                <span id="cart-button">
+                    <a href="{getURL('', 'act','dispShopCart')}">
+                        <span>{$cart_preview->getCartProductsCount()}</span>
+                        {$lang->your_cart}
+                        <img src="img/arrow_dropdown.png" alt="" title=""/>
+                    </a>
+                </span>
+                <span id="cart-details">
+                    <!--@if($cart_preview->hasProducts())-->
+                        <ul id="cart-products">
+                            {@ $cart_preview_products = $cart_preview->getProducts() }
+                            <!--@foreach($cart_preview_products as $i => $cart_product)-->
+                                <li id="cart-product-{$cart_product->product_srl}" class="clearfix">
+                                    <a href="{getUrl('vid', $mid, 'act', 'dispShopProduct', 'product_srl', $cart_product->product_srl, 'category_srl', $category_srl)}">
+                                    <p class="cart-product-image"><img src="{$cart_product->getThumbnailPath(50)}" alt="" title=""/></p>
+                                    <p class="cart-preview-title">
+                                        <!--@if(strlen($cart_product->title)>40)-->
+                                            {substr($cart_product->title,0,40)}...
+                                        <!--@else-->
+                                            {$cart_product->title}
+                                        <!--@end-->
+                                    </p>
+                                    <p class="cart-preview-price">{$cart_product->quantity} x {ShopDisplay::priceFormat($cart_product->price, $shop->getCurrencySymbol())}</p>
+                                    </a>
+                                </li>
+                            <!--@endforeach-->
+                        </ul>
+
+                        <!-- See more products (if preview does not show all products) -->
+                        <p class="clearfix" cond="$cart_preview->hasMoreProducts()">
+                            <span class="f-right"><a href="{getURL('', 'act','dispShopCart')}">... and {$cart_preview->getNumberOfProductsNotDisplayed()} more product(s)</a></span>
+                        </p>
+
+                        <!-- Total before discount -->
+                        <p class="clearfix">
+                            <span class="f-left">{$lang->total}<span cond="$shop->showVAT()"> (including {$shop->getVAT()}% VAT)</span>:</span>
+                            <span class="f-right">{ShopDisplay::priceFormat($cart_preview->getTotalBeforeDiscount(), $shop->getCurrencySymbol())}</span>
+                        </p>
+                        <!-- // Total before discount -->
+
+                        <!-- Discount -->
+                        <p id="cart-discount" class="clearfix" cond="$cart_preview->getDiscountAmount()">
+                            <span class="f-left" title="{$cart_preview->getDiscountName()}: {$cart_preview->getDiscountDescription()}">{$cart_preview->getDiscountName()}</span>
+                            <span class="f-right">{ShopDisplay::priceFormat($cart_preview->getDiscountAmount(), $shop->getCurrencySymbol())}</span>
+                        </p>
+                        <!-- // Discount -->
+
+                        <!-- Shipping -->
+                        <p class="clearfix" cond="$cart->getShippingMethodName()">
+                            <span class="f-left">{$lang->shipping}:</span>
+                            <span class="f-right">{ShopDisplay::priceFormat($cart_preview->getShippingCost(), $shop->getCurrencySymbol())}</span>
+                        </p>
+                        <!-- // Shipping -->
+
+                        <p id="cart-costs" class="clearfix">
+                            <span class="f-left">{$lang->grand_total}<span cond="$shop->showVAT()"></span>:</span>
+                            <span class="f-right">{ShopDisplay::priceFormat($cart_preview->getTotal(), $shop->getCurrencySymbol())}</span>
+                        </p>
+                        <p>
+                            <span class="f-left"><a href="{getURL('', 'act','dispShopCart')}">{$lang->edit_cart}</a></span>
+                            <span class="f-right"><a href="{getURL('', 'act','dispShopCheckout')}" cond="$cart && $cart->count()">{$lang->checkout}</a></span>
+                        </p>
+                    <!--@else-->
+                        <p class="a-center">
+                            <br />
+                            {$lang->frontend_cart_empty}
+                            <br />
+                            <br />
+                        </p>
+                    <!--@end-->
+                </span>
+            </span>
+        </div>
+        <!-- // Cart preview -->
+        <p class="f-right header-separator">
+            <select onchange="langSelect()" id="languages">
+                <option value="{$lang_type}">{$lang_supported[$lang_type]}</option>
+                <!--@foreach($lang_supported as $key => $val)--><!--@if($key!= $lang_type)-->
+                <option value="{$key}">{$val}</option>
+                <!--@end--><!--@end-->
+            </select>
+        </p>
+        <p class="f-right">
+            <a href="{$admin_url}" accesskey="A">Admin Page</a>
+        </p>
+    </div>
+</div>
+<div id="header">
+    <div class="layout-centered clearfix">
+        <a id="header-logo" class="f-left" href="{ShopUtils::getUrl()}"><img src="img/logo.gif" title="My Store" alt="My Store"/></a>
+        <!-- Search box -->
+        <form action="./">
+            <p id="header-search" class="f-left">
+                <input type="hidden" id="act" name="act" value="procShopSearch" />
+                <!-- DO NOT ADD SPACE BETWEEN THIS SELECT AND THE FOLLOWING INPUT -->
+                <select name="search_category_srl" id="search_category_srl">
+                    <option>{$lang->all}</option>
+                    <!--@foreach($search_categories as $node)-->
+                    {@ $val = $node->category }
+                    <option value="{$val->category_srl}" <!--@if($search_category_srl==$val->category_srl)-->selected="selected"<!--@end-->>
+                    <!--@for($i = 0; $i < $node->depth; $i++)-->
+                    &nbsp;
+                    <!--@end-->
+                    {$val->title}
+                    </option>
+                    <!--@end-->
+                </select><input type="text" name="search" value="{$search_value}"/>
+                <input type="image" src="img/search_button.gif" alt="Search" />
+            </p>
+        </form>
+        <!-- /Search box -->
+        <p id="header-links" class="f-right" <!--@if(!$logged_info)-->style="margin-top: 15px;""<!--@end-->>
+            <!--@if($logged_info)-->
+                <span>{ucfirst(sprintf($lang->welcome, $logged_info->user_id))}!</span><br />
+                <a href="{getURL('','act','dispMemberLogout')}">{ucfirst($lang->logout)}</a> <span>|</span>
+                <a href="{getURL('','act','dispShopMyAccount')}">{ucfirst($lang->my_account)}</a>
+            <!--@else-->
+                <a href="{getURL('','act','dispMemberLoginForm')}">{ucfirst($lang->login)}</a> <span>|</span>
+        <a href="{getURL('','act','dispMemberSignUpForm')}">{ucfirst($lang->register)}</a>
+            <!--@end-->
+            <!--@if (isset($cart) && $cart->count()) -->
+                <span>|</span>
+                <a href="{getURL('', 'act','dispShopCheckout')}">{ucfirst($lang->checkout)}</a>
+            <!--@end-->
+        </p>
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(function(){
+        var $ = jQuery;
+        $(window).keydown(function(e) {
+            //ctrl + shift + s
+            if (e.which == 83 && e.shiftKey && e.ctrlKey) {
+                e.preventDefault();
+                $.get("{getNotEncodedUrl('act', 'procShopToolResetSkin')}", {}, function(data) {
+                    window.location.reload();
+                });
+            }
+        });
+    });
+</script>
+
+<div id="top_links">
+	<!-- Menu -->
+		<div id="main_menu">
+			{$header_menu}
+		</div>
+	<!-- /Menu -->
+</div>
+
+<div class="clearfix"></div>
+
+<div id="body" class="clearfix">
+    <div class="layout-centered clearfix">

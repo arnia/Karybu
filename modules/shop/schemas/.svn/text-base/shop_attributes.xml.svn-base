@@ -1,0 +1,14 @@
+<table name="shop_attributes">
+    <column name="attribute_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+    <column name="member_srl" type="number" size="11" notnull="notnull" />
+    <column name="module_srl" type="number" size="11" notnull="notnull" />
+    <column name="title" type="varchar" size="160" notnull="notnull" />
+    <column name="type" type="varchar" size="14" />
+    <column name="required" type="char" size="1" default="Y" />
+    <column name="status" type="char" size="1" default="Y" />
+    <column name="default_value" type="varchar" size="255" />
+    <column name="values" type="text" />
+    <column name="is_filter" type="text" />
+    <column name="regdate" type="date" />
+    <column name="last_update" type="date" />
+</table>

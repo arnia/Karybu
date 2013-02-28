@@ -1,0 +1,95 @@
+{@
+/*
+* Prints an attribute field
+* Must have set:
+*        $attribute - the Attribute object
+*        $product - the parent product, for setting the selected value
+*/
+}
+
+<!--@if($attribute->type == AttributeRepository::TYPE_TEXTFIELD)-->
+{@ $value = (isset($product->attributes[$attribute->attribute_srl]) ? $product->attributes[$attribute->attribute_srl] : '')}
+    <input type="text"
+           id="attribute_{$attribute->attribute_srl}"
+           name="attribute_{$attribute->attribute_srl}"
+           style="width:200px"
+           class="iText iText attribute {implode(' ', $attribute->category_scope)}"
+           value="{$value}"
+            />
+
+<!--@elseif($attribute->type == AttributeRepository::TYPE_SELECT)-->
+{@ $values = explode('|', $attribute->values); }
+    <select name="attribute_{$attribute->attribute_srl}"
+            id="attribute_{$attribute->attribute_srl}"
+            class="attribute {implode(' ', $attribute->category_scope)}"
+            >
+        <!--@foreach($values as $value)-->
+        <option value="{$value}"
+        <!--@if($product->attributes[$attribute->attribute_srl]==$value)-->selected<!--@end-->>
+        {$value}
+        </option>
+        <!--@end-->
+    </select>
+
+<!--@elseif($attribute->type == AttributeRepository::TYPE_TEXTAREA)-->
+{@ $value = (isset($product->attributes[$attribute->attribute_srl]) ? $product->attributes[$attribute->attribute_srl] : '')}
+<textarea
+       id="attribute_{$attribute->attribute_srl}"
+       name="attribute_{$attribute->attribute_srl}"
+       style="width:200px"
+       class="attribute {implode(' ', $attribute->category_scope)}"
+        >{$value}</textarea>
+
+<!--@elseif($attribute->type == AttributeRepository::TYPE_DATE)-->
+{@ $value = (isset($product->attributes[$attribute->attribute_srl]) ? $product->attributes[$attribute->attribute_srl] : '')}
+<input type="text"
+       id="attribute_{$attribute->attribute_srl}"
+       name="attribute_{$attribute->attribute_srl}"
+       style="width:200px"
+       class="iText iText attribute date {implode(' ', $attribute->category_scope)}"
+       value="{$value}"
+        />
+
+<!--@elseif($attribute->type == AttributeRepository::TYPE_BOOLEAN)-->
+{@ $value = (isset($product->attributes[$attribute->attribute_srl]) ? $product->attributes[$attribute->attribute_srl] : '')}
+<select
+       id="attribute_{$attribute->attribute_srl}"
+       name="attribute_{$attribute->attribute_srl}"
+       style="width:200px"
+       class="attribute {implode(' ', $attribute->category_scope)}"
+       value="{$value}"
+        >
+    <option value="" <!--@if($value == "")-->selected="selected"<!--@endif-->> </option>
+    <option value="Y" <!--@if($value == "Y")-->selected="selected"<!--@endif-->>{$lang->cmd_yes}</option>
+    <option value="N" <!--@if($value == "N")-->selected="selected"<!--@endif-->>{$lang->cmd_no}</option>
+    </select>
+
+<!--@elseif($attribute->type == AttributeRepository::TYPE_SELECT_MULTIPLE)-->
+{@ $values = explode('|', $attribute->values); }
+<select name="attribute_{$attribute->attribute_srl}[]"
+        id="attribute_{$attribute->attribute_srl}"
+        class="attribute {implode(' ', $attribute->category_scope)}"
+        multiple="multiple"
+        >
+    {@ $selected_values = $product->attributes[$attribute->attribute_srl]; }
+    <!--@if(!is_array($selected_values))-->{@ $selected_values = array($selected_values)}<!--@end-->
+    <!--@foreach($values as $value)-->
+    <option value="{$value}"
+    <!--@if(in_array($value, $selected_values))-->selected<!--@end-->>
+    {$value}
+    </option>
+    <!--@end-->
+</select>
+
+
+<!--@elseif($attribute->type == AttributeRepository::TYPE_NUMERIC)-->
+{@ $value = (isset($product->attributes[$attribute->attribute_srl]) ? $product->attributes[$attribute->attribute_srl] : '')}
+<input type="text"
+       id="attribute_{$attribute->attribute_srl}"
+       name="attribute_{$attribute->attribute_srl}"
+       style="width:200px"
+       class="iText iText attribute {implode(' ', $attribute->category_scope)}"
+       value="{$value}"
+        />
+
+<!--@end-->

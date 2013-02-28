@@ -1,0 +1,11 @@
+<query id="updateDefaultBillingAddress" action="update">
+    <tables>
+        <table name="shop_addresses" />
+    </tables>
+    <columns>
+        <column name="default_billing" var="default_billing" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="member_srl" var="member_srl" filter="number" notnull="notnull" />
+    </conditions>
+</query>

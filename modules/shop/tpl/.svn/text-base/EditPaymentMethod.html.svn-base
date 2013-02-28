@@ -1,0 +1,48 @@
+<include target="_tool_header.html" />
+<load target="css/form.css" />
+
+<!-- Content -->
+<div id="content">
+    <!-- contentHeader -->
+    <div class="dashboardHeader">
+        <h3 class="h3"><span class="icon payment_settings"></span>{$payment_method->display_name}</h3>
+    </div>
+
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+    <!-- /contentHeader -->
+
+    <form action="./" method="POST">
+        <input type="hidden" id="name" name="name" value="{$payment_method->name}" />
+        <input type="hidden" id="act" name="act" value="procShopPaymentMethodUpdate" />
+        <p>
+            <label for="display_name">{$lang->display_name}</label>
+            <input type="text" name="display_name" id="display_name" value="{$payment_method->display_name}" />
+        </p>
+
+        <p>
+            <label for="is_active">{$lang->is_active}</label>
+            <select name="status" id="is_active">
+                <option value="1" <!--@if($payment_method->isActive())-->selected<!--@endif-->>{$lang->yes}</option>
+                <option value="0" <!--@if(!$payment_method->isActive())-->selected<!--@endif-->>{$lang->no}</option>
+            </select>
+        </p>
+
+        {$payment_method_settings_HTML}
+
+
+        <p class="submit">
+            <input type="submit" value="Save" />
+            {$lang->or}
+            <a href="{getUrl('act','dispShopToolManagePaymentMethods','name',$obj->name)}">
+                {$lang->go_back}
+            </a>
+        </p>
+    </form>
+
+</div>
+<!-- /Content -->
+
+<include target="_tool_menu.html" />
+<include target="_tool_footer.html" />

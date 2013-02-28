@@ -1,0 +1,12 @@
+<query id="getPrimaryImageFilename" action="select">
+    <tables>
+        <table name="shop_product_images" />
+    </tables>
+    <columns>
+        <column name="filename" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="product_srl" var="product_srl" />
+        <condition operation="equal" column="is_primary" var="is_primary" pipe = "and" />
+    </conditions>
+</query>

@@ -1,0 +1,9 @@
+<query id="deleteProductImages" action="delete">
+    <tables>
+        <table name="shop_product_images"/>
+    </tables>
+    <conditions>
+        <condition operation="in" column="product_srl" var="product_srls" filter="number" />
+        <condition operation="in" column="image_srl" var="image_srls" filter="number" pipe="or" />
+    </conditions>
+</query>

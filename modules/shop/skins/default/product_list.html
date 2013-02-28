@@ -1,0 +1,64 @@
+<!--
+    Shop layout page
+-->
+<include target="_header.html" />
+<include target="_sidebar.html" />
+<include target="product_variants_datasource.html" />
+
+<div class="breadcrumbs main-content">
+        <span class="breadcrumbs-title">
+            <include target="breadcrumbs.html" />
+        </span>
+        <span class="breadcrumbs-options">
+            <script type="text/javascript">
+                jQuery('.breadcrumbs-options select').live('change', function(){
+                    var option = jQuery('option:selected', this);
+                    if (option.length) jQuery(this).parents('form').submit();
+                });
+            </script>
+            <form action="./"><input name="act" value="procShopSort" type="hidden">
+                <input type="hidden" name="category_srl" id="category_srl" value="{Context::get('category_srl')}"/>
+                <label for="sort">{$lang->sort_by}</label>
+                <select name="sort" id="sort">
+                    <option value="price_asc" selected="selected"|cond="$sort=='price_asc'">price (asc)</option>
+                    <option value="price_desc" selected="selected"|cond="$sort=='price_desc'">price (desc)</option>
+                </select>
+            </form>
+            <a href="{getUrl('', 'act', 'procShopToggleGridView', 'mode', 'grid')}" class="breadcrumbs-button <!--@if($grid_view)-->selected<!--@end-->">
+                <img src="img/grid-icon.png" alt="Grid view" title="Grid view" />
+            </a>
+            <a href="{getUrl('', 'act', 'procShopToggleGridView', 'mode', 'list')}" class="breadcrumbs-button <!--@if(!$grid_view)-->selected<!--@end-->">
+                <img src="img/list-icon.png" alt="List view" title="List view" />
+            </a>
+        </span>
+</div>
+<div id="body-content" class="body-two-columns <!--@if(!$products || empty($products))-->main-content<!--@end-->">
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+
+    <h2 cond="$q && $act == 'dispShopSearch'">{sprintf($lang->searching_for, $q)}</h2>
+    <h1 cond="!$products || empty($products)" >{$lang->no_products}</h1>
+
+    <include target="products_list.html"/>
+
+    <!-- Pagination -->
+    <!--@if($page_navigation)-->
+        <!--@if($page==null)-->{@$page=1;}<!--@end-->
+        <div class="pagination" cond="$products && !empty($products)">
+            <a href="{getUrl('page','','mid',$mid)}" class="prev">&laquo; {$lang->first_page}</a>
+            <!--@while($page_no = $page_navigation->getNextPage())-->
+                <!--@if($page == $page_no)-->
+                    <span>{$page_no}</span>
+                <!--@else-->
+                    <a href="{getUrl('page',$page_no,'mid',$mid)}" class="number">{$page_no}</a>
+                <!--@end-->
+            <!--@end-->
+            <a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="next">{$lang->last_page} &raquo;</a>
+        </div>
+    <!--@end-->
+    <!-- /Pagination -->
+    <div class="clearfix"></div>
+</div>
+
+<include target="_footer.html"/>

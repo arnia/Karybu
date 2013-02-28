@@ -1,0 +1,28 @@
+<query id="getMostOrderedProducts" action="select">
+    <tables>
+        <table name="shop_order_products" alias="op" />
+        <table name="shop_products" alias="p" />
+    </tables>
+    <columns>
+        <column name="p.product_srl" />
+        <column name="p.title" />
+        <column name="p.primary_image_filename" />
+        <column name="p.product_type" />
+        <column name="p.price" />
+        <column name="p.module_srl" />
+        <column name="sum(op.quantity)" alias="qty"/>
+        <column name="count(distinct op.order_srl)" alias="order_count"/>
+    </columns>
+    <conditions>
+        <condition operation="equal" column="p.module_srl" var="module_srl" notnull="notnull" />
+        <condition operation="equal" column="op.product_srl" default="p.product_srl" pipe="and"/>
+    </conditions>
+    <groups>
+        <group column="p.product_srl" />
+        <group column="p.title" />
+    </groups>
+    <navigation>
+        <index var="sum(op.quantity)" default="sum(op.quantity)" order="desc" />
+        <list_count var="list_count" default="5" />
+    </navigation>
+</query>

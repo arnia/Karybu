@@ -1,0 +1,41 @@
+<!--@if(strpos(Context::get('act'),'dispMember') === false )-->
+<!--%import("categories.js")-->
+
+<div id="body-left-sidebar">
+    <div class="body-left-panel">
+        <h3>{$lang->categories}</h3>
+        <div class="body-left-panel-content">
+            {$HTML_tree}
+        </div>
+    </div>
+    <div id="newsletter" class="body-left-panel">
+        <h3>{$lang->newsletter}</h3>
+        <div class="body-left-panel-content clearfix">
+            <p>
+            <!--@if(Context::get('logged_info'))-->
+                <!--@ $logged_info = Context::get('logged_info');--> <!--@end-->
+                <!--@if($logged_info->newsletter == 'Y')-->
+                    {$lang->newsletter_already_subscribed}. <a href="{getUrl('','act','procShopSignToNewsletter','member_srl',$logged_info->member_srl,'email_address',$logged_info->email_address,'newsletter','N')}">{$lang->newsletter_unsubscribe}</a>
+                <!--@else-->
+                    <a href="{getUrl('','act','procShopSignToNewsletter','member_srl',$logged_info->member_srl,'email_address',$logged_info->email_address,'newsletter','Y')}">{$lang->newsletter_subscribe}</a>
+                <!--@end-->
+            <!--@else-->
+                {$lang->newsletter_in_order_to_sign_up} <a href="{getUrl('','act','dispMemberLoginForm')}">{strtolower($lang->login)}</a>
+            <!--@end-->
+            </p>
+        </div>
+    </div>
+    <!--@if($module_info->xe_banner == 'Yes')-->
+    <div class="body-left-panel">
+        <div class="body-left-panel-content a-center" style="border-top:1px solid #cacaca;">
+            <a href="http://www.xpressengine.org/"><img src="img/banner.jpg" alt="Built with XpressEngine" title="Built with XpressEngine" style="border: 0;"/></a>
+        </div>
+    </div>
+    <!--@end-->
+    <div class="body-left-panel" id="sidefilters">
+        <include target="_filters.html" />
+    </div>
+</div>
+<!--@else-->
+<include target="_my_account_sidebar.html" />
+<!--@end-->

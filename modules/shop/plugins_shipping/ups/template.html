@@ -1,0 +1,229 @@
+<!-- Fields required for connecting to the API -->
+<p>
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" value="{$shipping_method->username}" />
+</p>
+<p>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" value="{$shipping_method->password}" />
+</p>
+<p>
+    <label for="shipper_number">Shipper number</label>
+    <input type="text" name="shipper_number" id="shipper_number" value="{$shipping_method->shipper_number}" />
+</p>
+<p>
+    <label for="api_access_key">API Access key</label>
+    <input type="text" name="api_access_key" id="api_access_key" value="{$shipping_method->api_access_key}" />
+</p>
+<p>
+    <label for="gateway_api">Gateway API URL</label>
+    <select name="gateway_api" id="gateway_api">
+        <option value="{Ups::SANDBOX_URL}"
+        <!--@if($shipping_method->gateway_api == Ups::SANDBOX_URL)-->
+        selected="selected"
+        <!--@end-->
+        >
+        Sandbox
+        </option>
+        <option value="{Ups::LIVE_URL}"
+        <!--@if($shipping_method->gateway_api == Ups::LIVE_URL)-->
+        selected="selected"
+        <!--@end-->
+        >
+        Live
+        </option>
+    </select>
+</p>
+
+<!-- Fields for customizing UPS service -->
+<p>
+    <label for="pickup_type">Pickup method</label>
+    <select name="pickup_type" id="pickup_type">
+        <option value="{Ups::PICKUP_TYPE_DAILY_PICKUP}"
+                <!--@if($shipping_method->pickup_type == Ups::PICKUP_TYPE_DAILY_PICKUP)-->
+                selected="selected"
+                <!--@end-->>
+            Daily Pickup
+        </option>
+        <option value="{Ups::PICKUP_TYPE_CUSTOMER_COUNTER}"
+                <!--@if($shipping_method->pickup_type == Ups::PICKUP_TYPE_CUSTOMER_COUNTER)-->
+                selected="selected"
+                <!--@end-->>
+            Customer Counter
+        </option>
+        <option value="{Ups::PICKUP_TYPE_ONE_TIME_PICKUP}"
+                <!--@if($shipping_method->pickup_type == Ups::PICKUP_TYPE_ONE_TIME_PICKUP)-->
+                selected="selected"
+                <!--@end-->>
+            One Time Pickup
+        </option>
+        <option value="{Ups::PICKUP_TYPE_ON_CALL_AIR}"
+                <!--@if($shipping_method->pickup_type == Ups::PICKUP_TYPE_ON_CALL_AIR)-->
+                selected="selected"
+                <!--@end-->>
+            On Call Air
+        </option>
+        <option value="{Ups::PICKUP_TYPE_LETTER_CENTER}"
+                <!--@if($shipping_method->pickup_type == Ups::PICKUP_TYPE_LETTER_CENTER)-->
+                selected="selected"
+                <!--@end-->>
+            Letter Center
+        </option>
+        <option value="{Ups::PICKUP_TYPE_AIR_SERVICE_CENTER}"
+                <!--@if($shipping_method->pickup_type == Ups::PICKUP_TYPE_AIR_SERVICE_CENTER)-->
+                selected="selected"
+                <!--@end-->>
+            Air Service Center
+        </option>
+    </select>
+</p>
+
+<p>
+    <label for="postal_code">Shipper zip code</label>
+    <input type="text" name="postal_code" id="postal_code" value="{$shipping_method->postal_code}" />
+</p>
+<p>
+    <label for="country_code">Shipper country (country code)</label>
+    <input type="text" name="country_code" id="country_code" value="{$shipping_method->country_code}" />
+</p>
+
+<p>
+    <label for="enabled_services">Enabled services</label>
+    <select name="enabled_services[]" id="enabled_services" multiple="multiple">
+        <!--@if(!isset($shipping_method->enabled_services))-->
+        {@ $shipping_method->enabled_services = array();}
+        <!--@end-->
+
+        <option value="{Ups::SERVICE_NEXT_DAY_AIR_EARLY_AM}"
+            <!--@if(in_array(Ups::SERVICE_NEXT_DAY_AIR_EARLY_AM, $shipping_method->enabled_services))-->
+            selected="selected"
+            <!--@end-->>
+        Domestic - Next Day Air Early AM
+        </option>
+        <option value="{Ups::SERVICE_NEXT_DAY_AIR}"
+            <!--@if(in_array(Ups::SERVICE_NEXT_DAY_AIR, $shipping_method->enabled_services))-->
+            selected="selected"
+            <!--@end-->>
+        Domestic - Next Day Air
+        </option>
+        <option value="{Ups::SERVICE_NEXT_DAY_AIR_SAVER}"
+            <!--@if(in_array(Ups::SERVICE_NEXT_DAY_AIR_SAVER, $shipping_method->enabled_services))-->
+            selected="selected"
+            <!--@end-->>
+        Domestic - Next Day Air Saver
+        </option>
+        <option value="{Ups::SERVICE_2ND_DAY_AIR_AM}"
+            <!--@if(in_array(Ups::SERVICE_2ND_DAY_AIR_AM, $shipping_method->enabled_services))-->
+            selected="selected"
+            <!--@end-->>
+        Domestic - 2nd Day Air AM
+        </option>
+        <option value="{Ups::SERVICE_2ND_DAY_AIR}"
+            <!--@if(in_array(Ups::SERVICE_2ND_DAY_AIR, $shipping_method->enabled_services))-->
+            selected="selected"
+            <!--@end-->>
+        Domestic - 2nd Day Air
+        </option>
+        <option value="{Ups::SERVICE_3DAY_SELECT}"
+            <!--@if(in_array(Ups::SERVICE_3DAY_SELECT, $shipping_method->enabled_services))-->
+            selected="selected"
+            <!--@end-->>
+        Domestic - 3rd Day Select
+        </option>
+        <option value="{Ups::SERVICE_GROUND}"
+            <!--@if(in_array(Ups::SERVICE_GROUND, $shipping_method->enabled_services))-->
+            selected="selected"
+            <!--@end-->>
+        Domestic - Ground
+        </option>
+        <option value="{Ups::SERVICE_STANDARD}"
+            <!--@if(in_array(Ups::SERVICE_STANDARD, $shipping_method->enabled_services))-->
+            selected="selected"
+            <!--@end-->>
+        International - Standard
+        </option>
+        <option value="{Ups::SERVICE_WORLDWIDE_EXPRESS}"
+            <!--@if(in_array(Ups::SERVICE_WORLDWIDE_EXPRESS, $shipping_method->enabled_services))-->
+            selected="selected"
+            <!--@end-->>
+        International - Worldwide Express
+        </option>
+        <option value="{Ups::SERVICE_WORLDWIDE_EXPRESS_PLUS}"
+            <!--@if(in_array(Ups::SERVICE_WORLDWIDE_EXPRESS_PLUS, $shipping_method->enabled_services))-->
+            selected="selected"
+            <!--@end-->>
+        International - Worldwide Express Plus
+        </option>
+        <option value="{Ups::SERVICE_WORLDWIDE_EXPEDITED}"
+            <!--@if(in_array(Ups::SERVICE_WORLDWIDE_EXPEDITED, $shipping_method->enabled_services))-->
+            selected="selected"
+            <!--@end-->>
+        International - Worldwide Expedited
+        </option>
+        <option value="{Ups::SERVICE_SAVER}"
+            <!--@if(in_array(Ups::SERVICE_SAVER, $shipping_method->enabled_services))-->
+            selected="selected"
+            <!--@end-->>
+        International - Saver
+        </option>
+    </select>
+</p>
+<p>
+    <label for="package_type">Package type</label>
+    <select name="package_type" id="package_type">
+        <option value="{Ups::PACKAGE_TYPE_UNKNOWN}"
+            <!--@if($shipping_method->package_type == Ups::PACKAGE_TYPE_UNKNOWN)-->
+            selected="selected"
+            <!--@end-->>
+        Unknown
+        </option>
+        <option value="{Ups::PACKAGE_TYPE_UPS_LETTER}"
+            <!--@if($shipping_method->package_type == Ups::PACKAGE_TYPE_UPS_LETTER)-->
+            selected="selected"
+            <!--@end-->>
+        UPS Letter
+        </option>
+        <option value="{Ups::PACKAGE_TYPE_PACKAGE}"
+            <!--@if($shipping_method->package_type == Ups::PACKAGE_TYPE_PACKAGE)-->
+            selected="selected"
+            <!--@end-->>
+        Package
+        </option>
+        <option value="{Ups::PACKAGE_TYPE_TUBE}"
+            <!--@if($shipping_method->package_type == Ups::PACKAGE_TYPE_TUBE)-->
+            selected="selected"
+            <!--@end-->>
+        Tube
+        </option>
+        <option value="{Ups::PACKAGE_TYPE_PAK}"
+            <!--@if($shipping_method->package_type == Ups::PACKAGE_TYPE_PAK)-->
+            selected="selected"
+            <!--@end-->>
+        Pak
+        </option>
+        <option value="{Ups::PACKAGE_TYPE_EXPRESS_BOX}"
+            <!--@if($shipping_method->package_type == Ups::PACKAGE_TYPE_EXPRESS_BOX)-->
+            selected="selected"
+            <!--@end-->>
+        Express Box
+        </option>
+        <option value="{Ups::PACKAGE_TYPE_25KG_BOX}"
+            <!--@if($shipping_method->package_type == Ups::PACKAGE_TYPE_25KG_BOX)-->
+            selected="selected"
+            <!--@end-->>
+        25kg box
+        </option>
+        <option value="{Ups::PACKAGE_TYPE_15KG_BOX}"
+            <!--@if($shipping_method->package_type == Ups::PACKAGE_TYPE_15KG_BOX)-->
+            selected="selected"
+            <!--@end-->>
+        15kg box
+        </option>
+        <option value="{Ups::PACKAGE_TYPE_PALLET}"
+            <!--@if($shipping_method->package_type == Ups::PACKAGE_TYPE_PALLET)-->
+            selected="selected"
+            <!--@end-->>
+        Pallet
+        </option>
+    </select>
+</p>

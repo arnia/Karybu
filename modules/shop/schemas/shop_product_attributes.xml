@@ -1,0 +1,5 @@
+<table name="shop_product_attributes">
+    <column name="product_srl" type="number" size="11" notnull="notnull" />
+    <column name="attribute_srl" type="number" size="11" notnull="notnull" />
+    <column name="value" type="varchar" size="5000"/>
+</table>

@@ -1,0 +1,114 @@
+<!--%import("jquery.numeric.js")-->
+
+<h3>Filters</h3>
+<div class="body-left-panel-content filters">
+    <form action="./">
+        <input name="act" type="hidden" value="procShopFilter">
+        <ul>
+            <!--<li cond="!isset($priceFilter[3])" style="color: #ff4500; font-size: 10px;">No price range (missing upper price range limit)</li>-->
+            <li cond="isset($priceFilter[3])" id="price">
+                <h4>Filter by price:</h4>
+                    <div class="range-numeric" data-min="{$priceFilter[0]}" data-minvalue="{$priceFilter[1]}" data-maxvalue="{$priceFilter[2]}" data-max="{$priceFilter[3]}"></div>
+                    <p class="clearfix a-center" style="line-height: 26px;">
+                        <span class="f-left">
+                            <input class="range price1 price-half" name="filter[price][{FrontFilters::FROM_PRICE_MIN}]" class="price-half" type="text"> {$shop->getCurrencySymbol()}
+                        </span>
+                        <span style="vertical-align: middle;">-----------</span>
+                        <span class="f-right">
+                            <input class="range price2 price-half" name="filter[price][{FrontFilters::FROM_PRICE_MAX}]" class="price-half" type="text"> {$shop->getCurrencySymbol()}
+                        </span>
+                    </p>
+            </li>
+            <li id="filter_attributes" cond="isset($filter_attributes) && !empty($filter_attributes)">
+                <h4>Filter by attributes:</h4>
+                <table class="filterTable">
+                    <tbody>
+                    <!--@foreach ($filter_attributes as $attribute)-->
+                    {@ $attributeId = "filter_attribute_" . $attribute->attribute_srl }
+                    {@ $controlId = $attributeId . "_ctrl" }
+                    <tr cond="$attribute->isSelect()" id="{$attributeId}" class="filter-select">
+                        <td width="50%">
+                            <label for="{$attributeId}">{$attribute->title}</label>
+                        </td>
+                        <td>
+                            <select class="f-right" name="filter[attributes][{$attribute->attribute_srl}]" id="{$controlId}">
+                                <option></option>
+                                <!--@foreach ($attribute->getValues() as $value)-->
+                                <option value="{$value}" selected="selected"|cond="$attribute->getMeta('filterValue') == $value">{$value}</option>
+                                <!--@endforeach-->
+                            </select>
+                        </td>
+                    </tr>
+                    <tr cond="$attribute->isMultipleSelect()" id="{$attributeId}" class="filter-multiple-select">
+                        <td colspan="2">
+                            <label for="{$attributeId}">{$attribute->title}</label>
+                        </td>
+                    </tr>
+                    <!--@foreach ($attribute->getValues() as $i=>$value)-->
+                    <tr cond="$attribute->isMultipleSelect()" id="{$attributeId}" class="filter-multiple-select">
+                        <td class="multiple-select-filter-body" colspan="2">
+                            <input type="checkbox" name="filter[attributes][{$attribute->attribute_srl}][{$i}]" id="filter_{$attribute->attribute_srl}_{$i}_multiple" value="{$value}" checked="checked"|cond="is_array($values = $attribute->getMeta('filterValues')) && in_array($value, $values)">
+                            <label for="filter_{$attribute->attribute_srl}_{$i}_multiple">{$value}</label>
+                        </td>
+                    </tr>
+                    <!--@endforeach-->
+                    <tr cond="$attribute->isNumeric()" id="{$attributeId}" class="filter-numeric">
+                        <p>{$attribute->title}</p>
+                        <div class="range-numeric" data-max="{$attribute->getMeta('max')}" data-min="{$attribute->getMeta('min')}" data-minvalue="{$attribute->getMeta('minValue')}" data-maxvalue="{$attribute->getMeta('maxValue')}"></div>
+                        <input class="range price1 price-half" name="filter[attributes][{$attribute->attribute_srl}][min]" class="price-half" type="text"> {$shop->getCurrencySymbol()} <span class="side-separator">-</span>
+                        <input class="range price2 price-half" name="filter[attributes][{$attribute->attribute_srl}][max]" class="price-half" type="text"> {$shop->getCurrencySymbol()}
+                    </tr>
+                    <!--@endforeach-->
+                    </tbody>
+                </table>
+            </li>
+        </ul>
+        <p class="a-center">
+            <input class="filter-submit" type="submit" value="Apply filter">
+        </p>
+    </form>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $(".range-numeric").each(function(){
+            var pr = $(this),
+                price1 = pr.parent().find('.range.price1'),
+                price2 = pr.parent().find('.range.price2'),
+                sliderMinValue = Math.floor(pr.data('min')),
+                sliderMaxValue = Math.ceil(pr.data('max')),
+                v1 = Math.floor(pr.data('minvalue') ? pr.data('minvalue') : sliderMinValue),
+                v2 = Math.ceil(
+                        (v1 < sliderMaxValue) ?
+                        (pr.data('maxvalue') ? pr.data('maxvalue') : sliderMaxValue) :
+                        sliderMaxValue
+                );
+            //console.log(sliderMinValue, v1, v2, sliderMaxValue);
+            var unit = (sliderMaxValue - sliderMinValue) / 100;
+            pr.slider({
+                range: true,
+                min: sliderMinValue,
+                max: sliderMaxValue,
+                values: [v1, v2],
+                step: Math.ceil(unit),
+                slide: function(event, ui) {
+                    price1.val(ui.values[0]);
+                    price2.val(ui.values[1]);
+                }
+            });
+
+            // update slider when user changes the input values
+            price1.blur(function() {
+                pr.slider({values: [$(this).val(),pr.slider("values", 1)]});
+            });
+            price2.blur(function() {
+                pr.slider({values: [pr.slider("values", 0),$(this).val()]});
+            });
+            price1.val(pr.slider("values", 0));
+            price2.val(pr.slider("values", 1));
+
+            price1.numeric({ negative: false });
+            price2.numeric({ negative: false });
+        });
+    });
+</script>

@@ -1,0 +1,25 @@
+<query id="updateCoupon" action="update">
+    <tables>
+        <table name="shop_coupons" />
+    </tables>
+    <columns>
+        <column name="module_srl" var="module_srl" filter="number" notnull="notnull" />
+        <column name="code" var="code" />
+        <column name="parent_srl" var="parent_srl" filter="number" />
+        <column name="name" var="name" />
+        <column name="description" var="description" />
+        <column name="uses" var="uses" filter="number" />
+        <column name="max_uses" var="max_uses" filter="number" />
+        <column name="valid_from" var="valid_from" />
+        <column name="valid_to" var="valid_to"  />
+        <column name="discount_type" var="discount_type" />
+        <column name="discount_value" var="discount_value" filter="number" />
+        <column name="member_srl" var="member_srl" filter="number" />
+        <column name="ip" var="ip" />
+        <column name="active" var="active" filter="number" />
+        <column name="type" var="type" filter="number" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="srl" var="srl" filter="number" notnull="notnull"/>
+    </conditions>
+</query>

@@ -1,0 +1,14 @@
+<!--%import("js/shop.js")-->
+
+<h3 class="xeAdmin">{$lang->shop} <span class="gray">{$lang->cmd_management}</span></h3>
+
+<div class="infoText">{nl2br($lang->about_shop)}</div>
+
+<div class="header4">
+    <ul class="localNavigation">
+        <!--li <!--@if($act=='dispShopAdminSetup')-->class="on"<!--@end-->><a href="{getUrl('act','dispShopAdminSetup','module_srl','')}">{$lang->cmd_shop_setup}</a></li-->
+        <li <!--@if($act=='dispShopAdminList')-->class="on"<!--@end-->><a href="{getUrl('act','dispShopAdminList','module_srl','')}">{$lang->cmd_shop_list}</a></li>
+        <li <!--@if($act=='dispShopAdminInsert')-->class="on"<!--@end-->><a href="{getUrl('act','dispShopAdminInsert','module_srl')}">{$lang->cmd_shop_creation}</a></li>
+    </ul>
+</div>
+

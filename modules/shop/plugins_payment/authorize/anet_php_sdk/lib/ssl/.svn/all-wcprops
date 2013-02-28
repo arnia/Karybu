@@ -1,0 +1,11 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/231/trunk/plugins_payment/authorize/anet_php_sdk/lib/ssl
+END
+cert.pem
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/231/trunk/plugins_payment/authorize/anet_php_sdk/lib/ssl/cert.pem
+END

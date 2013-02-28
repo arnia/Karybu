@@ -1,0 +1,17 @@
+<query id="insertCart" action="insert">
+    <tables>
+        <table name="shop_cart" />
+    </tables>
+    <columns>
+        <column name="cart_srl" var="cart_srl" filter="number" notnull="notnull" />
+        <column name="module_srl" var="module_srl" filter="number" notnull="notnull" />
+        <column name="member_srl" var="member_srl" filter="number" />
+        <column name="session_id" var="session_id" />
+        <column name="billing_address_srl" var="billing_address_srl" filter="number"/>
+        <column name="shipping_address_srl" var="shipping_address_srl" filter="number"/>
+        <column name="items" var="items" filter="number" />
+        <column name="extra" var="extra" />
+        <column name="regdate" var="regdate" default="curdate()" />
+        <column name="last_update" var="last_update" default="curdate()" />
+    </columns>
+</query>

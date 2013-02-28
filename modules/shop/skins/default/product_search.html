@@ -1,0 +1,76 @@
+<!--
+    Shop layout page
+-->
+<include target="_header.html" />
+<include target="_sidebar.html" />
+<include target="product_variants_datasource.html" />
+
+<div class="breadcrumbs main-content">
+    <span class="breadcrumbs-title">{$lang->front_search_results} <strong>"{$q}"</strong> {$lang->front_search_returned} <strong>{count($products)}</strong> {$lang->front_results}</span>
+    <span class="breadcrumbs-options pagination" cond="$page_navigation->getNextPage() != 1">
+        <a href="{getUrl('page','','mid',$mid)}" class="prev">&laquo; {$lang->first_page}</a>
+        <!--@while($page_no = $page_navigation->getNextPage())-->
+            <!--@if($page == $page_no)-->
+            <span>{$page_no}</span>
+            <!--@else-->
+            <a href="{getUrl('page',$page_no,'mid',$mid)}" class="number">{$page_no}</a>
+            <!--@end-->
+        <!--@end-->
+        <a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="next">{$lang->last_page} &raquo;</a>
+    </span>
+</div>
+
+<div id="body-content" class="body-two-columns main-content">
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+
+    <h1 cond="!$products || empty($products)">{$lang->front_search_no_results}</h1>
+    <div class="search-product-list">
+        <!--@if(count($products))-->
+            <ul>
+            <!--@foreach($products as $product)-->
+            <li id="product_{$product->product_srl}" class="product {$product->product_type} clearfix">
+                <a href="{$product->getUrl()}" class="product-link">
+                    <img src="{$product->getPrimaryImage()->getThumbnailPath(100)}" />
+                </a>
+                <h2>
+                    <a href="{$product->getUrl()}" class="product-link">
+                        {$product->title}
+                    </a>
+                </h2>
+                <div class="actions f-right">
+                    <p class="a-right">
+                        <span cond="$product->discount_price && $product->discount_price < $product->price" class="discount-price">{ShopDisplay::priceFormat($product->getPrice(false), $shop->getCurrencySymbol())}</span><br/>
+                        <span class="price">{ShopDisplay::priceFormat($product->getPrice(), $shop->getCurrencySymbol())}</span>
+                    </p>
+                    <p class="a-right"><a class="button" href="{getUrl('vid', $mid, 'act', 'dispShopProduct', 'product_srl', $product->product_srl, 'category_srl', $category_srl)}">{$lang->add_to_cart}</a></p>
+                </div>
+                {nl2br($product->short_description)}
+            </li>
+            <!--@end-->
+            </ul>
+        <!--@else-->
+        <!--@end-->
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+
+<!-- Pagination -->
+<!--@if($page_navigation->getNextPage())-->
+<div class="pagination main-content" cond="$products && !empty($products)">
+    <a href="{getUrl('page','','mid',$mid)}" class="prev">&laquo; {$lang->first_page}</a>
+    <!--@while($page_no = $page_navigation->getNextPage())-->
+        <!--@if($page == $page_no)-->
+        <span>{$page_no}</span>
+        <!--@else-->
+        <a href="{getUrl('page',$page_no,'mid',$mid)}" class="number">{$page_no}</a>
+        <!--@end-->
+    <!--@end-->
+    <a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="next">{$lang->last_page} &raquo;</a>
+</div>
+<!--@end-->
+<!-- /Pagination -->
+
+<include target="_footer.html"/>

@@ -1,0 +1,14 @@
+<query id="updateGuest" action="insert">
+    <tables>
+        <table name="shop_guests" />
+    </tables>
+    <columns>
+        <column name="guest_srl" var="guest_srl" filter="number" notnull="notnull" />
+        <column name="address_srl" var="address_srl" filter="number" notnull="notnull" />
+        <column name="ip" var="ip" />
+        <column name="session_id" var="session_id" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="guest_srl" var="guest_srl" filter="number" notnull="notnull"/>
+    </conditions>
+</query>

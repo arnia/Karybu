@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/727/trunk/plugins_payment/authorize
+END
+visa_mastercard.gif
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/259/trunk/plugins_payment/authorize/visa_mastercard.gif
+END
+form_admin_settings.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/240/trunk/plugins_payment/authorize/form_admin_settings.html
+END
+Authorize.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/727/trunk/plugins_payment/authorize/Authorize.php
+END
+form_payment.html
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/240/trunk/plugins_payment/authorize/form_payment.html
+END

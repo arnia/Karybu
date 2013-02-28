@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/729/trunk/libs/repositories
+END
+CartRepository.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/649/trunk/libs/repositories/CartRepository.php
+END
+NewsletterRepository.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/729/trunk/libs/repositories/NewsletterRepository.php
+END
+InvoiceRepository.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/729/trunk/libs/repositories/InvoiceRepository.php
+END
+CustomerRepository.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/729/trunk/libs/repositories/CustomerRepository.php
+END
+CouponRepository.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/717/trunk/libs/repositories/CouponRepository.php
+END
+AttributeRepository.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/719/trunk/libs/repositories/AttributeRepository.php
+END
+BaseRepository.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/717/trunk/libs/repositories/BaseRepository.php
+END
+OrderRepository.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/649/trunk/libs/repositories/OrderRepository.php
+END
+CategoryRepository.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/726/trunk/libs/repositories/CategoryRepository.php
+END
+PaymentMethodRepository.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/726/trunk/libs/repositories/PaymentMethodRepository.php
+END
+ProductRepository.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/729/trunk/libs/repositories/ProductRepository.php
+END
+ShippingMethodRepository.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/726/trunk/libs/repositories/ShippingMethodRepository.php
+END
+AbstractPluginRepository.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/726/trunk/libs/repositories/AbstractPluginRepository.php
+END
+ProductImageRepository.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/729/trunk/libs/repositories/ProductImageRepository.php
+END
+AddressRepository.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/729/trunk/libs/repositories/AddressRepository.php
+END
+GuestRepository.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/729/trunk/libs/repositories/GuestRepository.php
+END
+ShipmentRepository.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/729/trunk/libs/repositories/ShipmentRepository.php
+END

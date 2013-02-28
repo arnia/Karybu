@@ -1,0 +1,20 @@
+<table name="shop_addresses">
+    <column name="address_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+    <column name="member_srl" type="number" size="11" />
+    <column name="firstname" type="varchar" size="45"/>
+    <column name="lastname" type="varchar" size="45"/>
+    <column name="email" type="varchar" size="45"/>
+    <column name="address" type="varchar" size="255" notnull="notnull"/>
+    <column name="country" type="varchar" size="45"/>
+    <column name="region" type="varchar" size="45"/>
+    <column name="city" type="varchar" size="45"/>
+    <column name="company" type="varchar" size="100"/>
+    <column name="postal_code" type="varchar" size="45"/>
+    <column name="telephone" type="varchar" size="45"/>
+    <column name="fax" type="varchar" size="45"/>
+    <column name="default_shipping" type="char" size="1" default="N"/>
+    <column name="default_billing" type="char" size="1" default="N"/>
+    <column name="additional_info" type="text"/>
+    <column name="regdate" type="date"/>
+    <column name="last_update" type="date"/>
+</table>

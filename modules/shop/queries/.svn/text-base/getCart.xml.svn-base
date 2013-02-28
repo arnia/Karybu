@@ -1,0 +1,16 @@
+<query id="getCart" action="select">
+    <tables>
+        <table name="shop_cart" />
+    </tables>
+    <columns>
+    </columns>
+    <conditions>
+        <condition operation="in" column="cart_srl" var="srls"/>
+        <group pipe="and">
+            <condition operation="equal" column="cart_srl" var="cart_srl" filter="number"/>
+            <condition operation="equal" column="module_srl" var="module_srl" filter="number" pipe="and"/>
+            <condition operation="equal" column="member_srl" var="member_srl" filter="number" pipe="and"/>
+            <condition operation="equal" column="session_id" var="session_id" pipe="and"/>
+        </group>
+    </conditions>
+</query>

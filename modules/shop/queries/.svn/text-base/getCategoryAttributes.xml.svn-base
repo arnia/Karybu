@@ -1,0 +1,17 @@
+<query id="getCategoryAttributes" action="select">
+    <tables>
+        <table name="shop_attributes" alias="a" />
+        <table name="shop_attributes_scope" alias="s" type="left join">
+            <conditions>
+                <condition operation="equal" column="a.attribute_srl" default="s.attribute_srl" />
+            </conditions>
+        </table>
+    </tables>
+    <columns>
+        <column name="a.attribute_srl" />
+    </columns>
+    <conditions>
+        <condition operation="in" column="s.category_srl" var="category_srls" notnull="notnull" />
+        <condition operation="null" column="s.category_srl" pipe="or" />
+    </conditions>
+</query>

@@ -1,0 +1,33 @@
+        <!-- The .PUSH div is needed to make the footer stick to the bottom of the screen. Do not remove it! -->
+        <div class="push"></div>
+    </div><!--Closes div.layout-centered.clearfix open in _header.html-->
+</div><!--Closes div#body open in _header.html-->
+
+</div><!-- Closes the wrapper div-->
+
+<div id="footer">
+    <div class="footer">
+        <div class="layout-centered">
+            <div id="footerStaticHeight" class="clearfix">
+                <!--@if($module_info->footer_content == '')-->
+                    <div class="footer-box" style="width: 500px;">
+                        <h3>About your company</h3>
+                        <p> You can add your own custom content here. </p>
+                    </div>
+                <!--@else-->
+                    {$module_info->footer_content}
+                <!--@end-->
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="layout-centered clearfix">
+            <div id="footer-menu" class="clearfix">
+                {$footer_menu}
+            </div>
+            <p>
+                <img src="img/cards.png" title="" />
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,313 @@
+<include target="_tool_header.html" />
+<load target="css/pagination.css" />
+<load target="js/add_product.js" />
+
+<!-- Content -->
+<div id="content">
+    <include target="_multilingual.html" />
+
+    <!-- contentHeader -->
+    <div class="contentHeader postListHeader">
+        <!--@if(!$product->product_srl)-->
+            <!--@if($product->isConfigurable())-->
+                <h3 class="h3">{$lang->add_configurable_product}</h3>
+            <!--@else-->
+                <h3 class="h3">{$lang->add_simple_product}</h3>
+            <!--@endif-->
+        <!--@else-->
+            <!--@if($product->isConfigurable())-->
+                <h3 class="h3">{$lang->edit_configurable_product}</h3>
+                <p><span>!{$lang->notice}: {$lang->notice_update_configurable}</span></p>
+            <!--@else-->
+                <h3 class="h3">{$lang->edit_simple_product}</h3>
+            <!--@endif-->
+        <!--@endif-->
+    </div>
+    <!-- /contentHeader -->
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+
+    <div class="wOption">
+        <!--@if($product->product_srl && $product->isConfigurable())-->
+            <include target="AssociatedProducts.html" />
+        <!--@end-->
+
+        <fieldset class="visualFieldset">
+            <!--@if(!$product->product_srl)-->
+                <!--@if($product->isConfigurable())-->
+                    <legend class="visualLabel">{$lang->add_configurable_product}</legend>
+                <!--@else-->
+                    <legend class="visualLabel">{$lang->add_simple_product}</legend>
+                <!--@endif-->
+            <!--@else-->
+                <!--@if($product->isConfigurable())-->
+                    <legend class="visualLabel">{$lang->edit_configurable_product}</legend>
+                <!--@else-->
+                    <legend class="visualLabel">{$lang->edit_simple_product}</legend>
+                <!--@endif-->
+            <!--@endif-->
+
+            <form action="./" method="post" ruleset="insert_product" class="" enctype="multipart/form-data" >
+            <input type="hidden" name="act" value="procShopToolInsertProduct" />
+            <!--@if(isset($product->product_srl))-->
+            <input type="hidden" name="product_srl" value="{$product->product_srl}" />
+            <!--@endif-->
+            <!--@if(isset($product->parent_product_srl))-->
+            <input type="hidden" name="parent_product_srl" value="{$product->parent_product_srl}" />
+            <!--@endif-->
+
+            <!--@if($product->isConfigurable())-->
+            <input type="hidden" name="product_type" value="configurable" />
+                <!--@if(isset($configurable_attributes))-->
+                    <!--@foreach($configurable_attributes as $conf_attribute)-->
+                    <input type="hidden" name="configurable_attributes[]" value="{$conf_attribute}" />
+                    <!--@end-->
+                <!--@else-->
+                    <!--@if(isset($product->configurable_attributes))-->
+                        <!--@foreach($product->configurable_attributes as $conf_srl => $conf_attribute)-->
+                        <input type="hidden" name="configurable_attributes[]" value="{$conf_srl}" />
+                        <!--@end-->
+                    <!--@end-->
+                <!--@end-->
+            <!--@else-->
+            <input type="hidden" name="product_type" value="simple" />
+            <!--@endif-->
+
+            <table border="1" cellspacing="0" class="tableData">
+                <!--@if($product->parent_product_srl)-->
+                <tr>
+                    <span>{sprintf($lang->about_editing_associated_products,$parent_product->title,$parent_product->sku)}</span>
+                </tr>
+                <!--@endif-->
+                <tr class="first">
+                    <th scope="row">
+                        <label for="title">{$lang->title}</label>
+                    </th>
+                    <td class="title">
+                        {ShopDisplay::multiLanguageInput('title', 'title', $product->title, 'width:517px', 'iText', $lang->about_product_title, 'iLabel', 'fItem')}
+                    </td>
+                </tr>
+                <!--@if(!$product->parent_product_srl)-->
+                <tr style="font-size: 10px">
+                    <th scope="row" title="{$lang->about_friendly_url}">
+                        <label for="friendly_url">{$lang->friendly_url}</label>
+                    </th>
+                    <td class="title">
+                        <div class="fItem">
+                            <span>{call_user_func(array($product->repo, getUrl), '')}</span>
+                            <input data-ajaxcheck="{getNotEncodedUrl('', 'act', 'procShopToolCheckFriendlyUrlAvailability')}" type="text" id="friendly_url" name="friendly_url" style="width:417px;" class="iText iText" title="{$lang->about_friendly_url}" value="{$product->friendly_url}"|cond="$product->title" />
+                            <span id="availability" class="available"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label for="description">{$lang->description}</label>
+                    </th>
+                    <td class="title">
+                        <div class="fItem">
+                            <label class="iLabel" for="description">{$lang->about_description}</label>
+                            <textarea name="description" rows="8" cols="100" class="iTextarea" id="description" title="{$lang->about_description}"><!--@if($product->title)-->{$product->description}<!--@end--></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label for="short_description">{$lang->short_description}</label>
+                    </th>
+                    <td class="title">
+                        <div class="fItem">
+                            <label class="iLabel" for="short_description">{$lang->about_short_description}</label>
+                            <textarea name="short_description" rows="8" cols="100" class="iTextarea" id="short_description" title="{$lang->about_short_description}"><!--@if($product->short_description)-->{$product->short_description}<!--@end--></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <!--@endif-->
+                <tr>
+                    <th scope="row">
+                        <label>{$lang->images}</label>
+                    </th>
+                    <td class="title">
+                        <div class="fItem">
+                            <label class="iLabel" for="filesToUpload">{$lang->about_images}</label>
+                            <input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" onchange="makeFileList();"/>
+                            <ul id="fileList" style="list-style:none;">
+                            </ul>
+                            <ul id="existingFilesList" style="list-style:none;">
+                                <!--@foreach($product->images as $image)-->
+                                <li>
+                                    <input type="radio" name="primary_image" value="{$image->image_srl}" id="{$image->image_srl}" <!--@if($image->is_primary == 'Y')-->checked<!--@end-->>{$image->filename}
+                                    <img name="{$image->image_srl}" src="./files/attach/images/shop/{$product->module_srl}/product-images/{$product->product_srl}/{$image->filename}" width="100" height="100">
+                                    <input type="checkbox" id="delete_{$image->image_srl}" name="delete[]" value="{$image->image_srl}"/> Delete
+                                </li>
+                                <!--@end-->
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label for="sku">{$lang->sku}</label>
+                    </th>
+                    <td class="title">
+                        <div class="fItem">
+                            <label class="iLabel" for="sku">{$lang->about_sku}</label>
+                            <input type="text" id="sku" name="sku" style="width:200px" class="iText iText" title="{$lang->about_sku}" <!--@if($product->title)-->value="{$product->sku}"<!--@end--> />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label for="weight">{$lang->weight}</label>
+                    </th>
+                    <td class="title">
+                        <div class="fItem">
+                            <label class="iLabel" for="weight">{$lang->about_weight}</label>
+                            <input type="text" id="weight" name="weight" style="width:200px" class="iText iText" title="{$lang->about_weight}" <!--@if($product->title)-->value="{number_format($product->weight,2, '.', '')}"<!--@end--> /> {$shop->getUnitOfMeasure()}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label for="status">{$lang->status}</label>
+                    </th>
+                    <td class="title">
+                        <div class="fItem">
+                            <select name="status" id="status">
+                                <option value="enabled" <!--@if($product->status=='enabled')-->selected<!--@end-->>{$lang->enabled}</option>
+                                <option value="disabled" <!--@if($product->status=='disabled')-->selected<!--@end-->>{$lang->disabled}</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <!--@if(!$product->parent_product_srl)-->
+                <tr>
+                    <th scope="row">
+                        <label for="price">{$lang->price}</label>
+                    </th>
+                    <td class="title">
+                        <div class="fItem">
+                            <label class="iLabel" for="price">{$lang->about_price}</label>
+                            <input type="text" id="price" name="price" style="width:200px" class="iText iText" title="{$lang->about_price}"  <!--@if($product->title)--> value="{ShopDisplay::numberFormat($product->price)}"<!--@end--> /> {$shop->getCurrencySymbol()}
+                            <p>{$lang->about_price_VAT}</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label for="discount_price">{$lang->discount_price}</label>
+                    </th>
+                    <td class="title">
+                        <div class="fItem">
+                            <label class="iLabel" for="discount_price">{$lang->about_discount_price}</label>
+                            <input type="text" id="discount_price" name="discount_price" style="width:200px" class="iText iText" title="{$lang->about_discount_price}" <!--@if($product->title)-->value="{ShopDisplay::numberFormat($product->discount_price)}"<!--@end--> /> {$shop->getCurrencySymbol()}
+                        </div>
+                    </td>
+                </tr>
+                <!--@else-->
+                <input type="hidden" name="price" <!--@if($product->title)--> value="{ShopDisplay::numberFormat($product->price)}"<!--@end--> />
+                <!--@endif-->
+                <!--@if(!$product->isConfigurable())-->
+                <tr>
+                    <th scope="row">
+                        <label for="qty">{$lang->qty}</label>
+                    </th>
+                    <td class="title">
+                        <div class="fItem">
+                            <label class="iLabel" for="qty">{$lang->about_qty}</label>
+                            <input type="text" id="qty" name="qty" style="width:200px" class="iText iText" title="{$lang->about_qty}" <!--@if($product->title)-->value="{$product->qty}"<!--@end--> />
+                        </div>
+                    </td>
+                </tr>
+                <!--@endif-->
+                <tr>
+                    <th scope="row">
+                        <label for="in_stock">{$lang->in_stock}</label>
+                    </th>
+                    <td class="title">
+                        <div class="fItem">
+                            <select name="in_stock" id="in_stock">
+                                <option value="N" <!--@if($product->in_stock=='N')-->selected<!--@end-->>{$lang->no}</option>
+                                <option value="Y" <!--@if($product->in_stock=='Y')-->selected<!--@end-->>{$lang->yes}</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label for="is_featured">{$lang->is_featured}</label>
+                    </th>
+                    <td class="title">
+                        <div class="fItem">
+                            <select name="is_featured" id="is_featured">
+                                <option value="N" <!--@if($product->is_featured=='N')-->selected<!--@end-->>{$lang->no}</option>
+                                <option value="Y" <!--@if($product->is_featured=='Y')-->selected<!--@end-->>{$lang->yes}</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <!--@if(!$product->parent_product_srl)-->
+                <tr>
+                    <th scope="row">
+                        <label for="categories">{$lang->categories}</label>
+                    </th>
+                    <td class="title">
+                        <div class="fItem">
+                            {$HTML_tree}
+                            <span>{$lang->about_category}</span>
+                        </div>
+                    </td>
+                </tr>
+                <!--@endif-->
+                <!--@if(!$product->isConfigurable())-->
+                    <!--@foreach($attributes_list as $attribute)-->
+
+                    <tr
+                        <!--@if((count($attribute->category_scope) > 0 && count(array_intersect($product->categories, $attribute->category_scope)) === 0) || (isset($parent_product) && in_array($attribute->attribute_srl,$parent_product->configurable_attributes)))-->
+                            style="display:none"
+                        <!--@end-->
+                        >
+                        <th scope="row">
+                            <label for="attribute_{$attribute->attribute_srl}">{$attribute->title}</label>
+                        </th>
+                        <td class="title">
+                            <div class="fItem">
+                                <include target="Attribute.html" />
+                            </div>
+                        </td>
+                    </tr>
+                    <!--@end-->
+                <!--@endif-->
+
+
+                <tr class="last">
+                    <th scope="row">
+                    </th>
+                    <td class="title">
+                        <a class="delete_link" cond="$product->product_srl" title="delete product '{$product->title}'" href="{getNotEncodedUrl('', 'act', 'procShopToolDeleteProduct', 'product_srl', $product->product_srl)}" onclick="if (!confirm('Are you sure?')) return false;">
+                            {$lang->cmd_delete}
+                        </a>
+                        <!--@if(!isset($product->product_srl))-->
+                            <span class="btn"><input type="submit" value="{$lang->cmd_submit}" /></span>
+                        <!--@else-->
+                            <span class="btn"><input type="submit" value="{$lang->cmd_update}" /></span>
+                        <!--@endif-->
+                    </td>
+                </tr>
+            </table>
+            </form>
+        </fieldset>
+        <div id="regdate" cond="$product->regdate">{$lang->created_at}: {zdate($product->regdate)}</div>
+        <div id="last_update" cond="$product->last_update">{$lang->last_update}: {zdate($product->last_update)}</div>
+    </div>
+
+</div>
+<!-- /Content -->
+
+
+<!-- Extension -->
+<!--#include("_tool_menu.html")-->
+<!-- Extension -->
+
+<!--#include("_tool_footer.html")-->

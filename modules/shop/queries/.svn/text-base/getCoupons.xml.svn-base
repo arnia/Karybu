@@ -1,0 +1,16 @@
+<query id="getCoupons" action="select">
+    <tables>
+        <table name="shop_coupons" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="module_srl" var="module_srl" notnull="notnull" />
+        <condition operation="like" column="code" var="search" pipe="and" />
+        <condition operation="like" column="name" var="name" pipe="and" />
+        <condition operation="like" column="description" var="description" pipe="and" />
+        <condition operation="equal" column="parent_srl" var="parent_srl" pipe="and" />
+        <condition operation="equal" column="type" var="type" pipe="and" />
+    </conditions>
+</query>

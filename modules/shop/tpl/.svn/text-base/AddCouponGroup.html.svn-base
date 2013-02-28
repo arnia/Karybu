@@ -1,0 +1,244 @@
+<!--#include("_tool_header.html")-->
+<!--%import("css/pagination.css",optimized=false)-->
+<!-- Content -->
+<div id="content">
+    <!-- contentHeader -->
+    <div class="contentHeader postListHeader">
+        <h3 class="h3">{$object->isPersisted() ? $lang->edit_coupon_group : $lang->add_new_coupon_group}</h3>
+    </div>
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+    <!-- /contentHeader -->
+    <form action="./" method="post" ruleset="insert_coupon" class="">
+        <input type="hidden" name="act" value="procShopToolInsertCoupon" />
+        <!--@if($object)-->
+        <input type="hidden" name="srl" value="{$object->srl}" />
+        <!--@endif-->
+        <div class="wOption">
+            <fieldset class="visualFieldset">
+                <legend class="visualLabel">{$object->isPersisted() ? $lang->edit_coupon_group : $lang->add_new_coupon_group}</legend>
+                <table border="1" cellspacing="0" class="tableData">
+
+                    <tr>
+                        <th scope="row" colspan=2><h2>Coupon group characteristics</h2></th>
+                    </tr>
+
+                    <tr>
+                        <th scope="row"><label for="name">Name</label></th>
+                        <td class="type">
+                            <input name="name" autofocus="autofocus" type="text" class="iText" style="width:200px" id="name" value="{$object->name}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="description">Description</label></th>
+                        <td class="type">
+                            <textarea name="description" id="description" style="width: 250px; height: 75px; color: #767676; border: 1px solid #C6C6C6">{$object->description}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="max_uses">Maximum uses</label></th>
+                        <td class="type">
+                            <input name="max_uses" type="text" class="iText" style="width:50px" id="max_uses" value="{$object->max_uses?$object->max_uses:1}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="discount_type">{$lang->discount_type}</label></th>
+                        <td>
+                            <select name="discount_type" id="discount_type">
+                                <option value="{Coupon::DISCOUNT_TYPE_FIXED_AMOUNT}" <!--@if($object->discount_type==Coupon::DISCOUNT_TYPE_FIXED_AMOUNT)-->selected<!--@end-->>{$lang->fixed_amount}</option>
+                                <option value="{Coupon::DISCOUNT_TYPE_PERCENTAGE}" <!--@if($object->discount_type==Coupon::DISCOUNT_TYPE_PERCENTAGE)-->selected<!--@end-->>{$lang->percentage}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="discount_value">{$lang->discount_amount}</label></th>
+                        <td>
+                            <input name="discount_value" type="text" class="iText" style="width:50px" id="discount_value" value="{htmlspecialchars($object->discount_value)}" />
+                            <span id="amount_descriptor">{$shop->getCurrencySymbol()}</span>
+                            <script type="text/javascript">
+                                jQuery(function($){
+                                    jQuery('#discount_type').live('change', function(){
+                                        var val = $(this).children('option:selected').val();
+                                        if (val == '{Coupon::DISCOUNT_TYPE_FIXED_AMOUNT}') {
+                                            var descriptor = '{$shop->getCurrencySymbol()}';
+                                        }
+                                        else if (val == '{Coupon::DISCOUNT_TYPE_PERCENTAGE}') {
+                                            descriptor = '%';
+                                        }
+                                        $('#amount_descriptor').text(descriptor);
+                                        $('#discount_value').focus();
+                                    }).change();
+                                });
+                            </script>
+                            <style type="text/css">
+                                #amount_descriptor {
+                                    font-size: 18px;
+                                    font-weight: bold;
+                                    display: inline-block;
+                                    margin-left: 20px;
+                                }
+                            </style>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="valid_from">Valid from</label>
+                        </th>
+                        <td class="type">
+                            <div class="fItem">
+                                <input name="valid_from" id="valid_from" type="text" value="{$object->valid_from!='null'?$object->valid_from:''}" class="iText" style="width: 65px">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="valid_to">Until</label>
+                        </th>
+                        <td class="type">
+                            <div class="fItem">
+                                <input name="valid_to" id="valid_to" type="text" value="{$object->valid_to!='null'?$object->valid_to:''}" class="iText" style="width: 65px">
+                            </div>
+                            <script>
+                                jQuery(function($){
+                                    $('#valid_from').datepicker({
+                                        <!--@if($object->valid_to && $object->valid_to != 'null')-->
+                                        maxDate: '{$object->valid_to}',
+                                        <!--@end-->
+                                        onClose: function(selectedDate){
+                                            $('#valid_to').datepicker('option', 'minDate', selectedDate)
+                                        }
+                                    });
+                                    $('#valid_to').datepicker({
+                                        <!--@if($object->valid_from && $object->valid_from != 'null')-->
+                                        minDate: '{$object->valid_from}',
+                                        <!--@end-->
+                                        onClose: function(selectedDate){
+                                            $('#valid_from').datepicker('option', 'maxDate', selectedDate)
+                                        }
+                                    });
+                                })
+                            </script>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="active">{$lang->active}</label>
+                        </th>
+                        <td class="type">
+                            <div class="fItem">
+                                <select name="active" id="active">
+                                    <option value="1"<!--@if ($object->active === '1')--> selected<!--@end-->>{$lang->yes}</option>
+                                    <option value="0"<!--@if ($object->active === '0')--> selected<!--@end-->>{$lang->no}</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr cond="!$object->isPersisted()">
+                        <th scope="row"><label for="codes_number">Number of coupons</label></th>
+                        <td class="type">
+                            <input name="codes_number" type="text" class="iText" style="width:50px" id="codes_number" value="10" />
+                        </td>
+                    </tr>
+
+                    <tr cond="!$object->isPersisted()">
+                        <th scope="row"><label for="code_pattern">Code template</label></th>
+                        <td class="type">
+                            <input name="code_pattern" type="text" class="iText" style="width:300px" id="code_pattern" value="CODE" />
+                            <p><small>This is the pattern by which we'll generate the codes. <BR>Must contain "CODE". Example: "<b>prefix-CODE-suffix</b>".</small></p>
+                        </td>
+                    </tr>
+
+                    <tr cond="!$object->isPersisted()">
+                        <th scope="row" colspan=2><h2>CODE characteristics</h2></th>
+                    </tr>
+
+                    <tr cond="!$object->isPersisted()">
+                        <th scope="row"><label for="code_length">Characters type</label></th>
+                        <td class="type">
+                            <select name="code_type" id="code_type">
+                                <option value="{RandomGenerator::TYPE_ALPHA}">alphabetic</option>
+                                <option value="{RandomGenerator::TYPE_ALPHANUM}" selected>alphanumeric</option>
+                                <option value="{RandomGenerator::TYPE_NUM}">numeric</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr cond="!$object->isPersisted()">
+                        <th scope="row"><label for="code_length">Length</label></th>
+                        <td class="type">
+                            <input name="code_length" type="text" class="iText" style="width:50px" id="code_length" value="12" />
+                        </td>
+                    </tr>
+
+                    <tr cond="!$object->isPersisted()">
+                        <th scope="row"><label for="code_length">Separator?</label></th>
+                        <td class="type">
+                            <input name="separate_at" type="text" class="iText" style="width:50px" id="separate_at" value="3" />
+                            <p>Inserts a dash ( <b>-</b> ) at every X characters. Use 0 to disable.</p>
+                        </td>
+                    </tr>
+
+                    <!--%import("js/jquery.zclip.min.js")-->
+                    <script>
+                        jQuery(function($){
+                            var codes = $('a#copy-codes').zclip({
+                                path:'{getUrl()}modules/shop/tpl/swf/ZeroClipboard.swf',
+                                copy: $(this).data('clipboard')
+                            }).data('clipboard');
+                        })
+                    </script>
+                    <tr cond="$object->isPersisted() && $object->isGroup() && !empty($childCoupons)">
+                        <th scope="row">
+                            <label for="codes">Codes</label>
+                        </th>
+                        <td>
+                            <ul id="codes" style="display: inline-block">
+                                <!--@foreach($childCoupons as $coupon)-->
+                                <li>
+                                    <span class="child_code">{$coupon->code}</span>
+                                    <span class="used_times" cond="$coupon->uses">(used {$coupon->uses}) times</span>
+                                </li>
+                                <!--@end-->
+                            </ul>
+
+                            <a id="copy-codes" style="cursor: pointer; display: inline-block; margin-left: 20px" data-clipboard="{$codesForCopy}">
+                                <img src="{getUrl()}modules/shop/tpl/img/copy.png" alt="copy to clipboard" title="copy to clipboard">
+                            </a>
+
+                        </td>
+                    </tr>
+
+                    <tr class="last">
+                        <th scope="row">
+                        </th>
+                        <td class="title">
+                            <a class="delete_link" cond="$object->srl" title="delete coupon group '{$object->name}'" href="{getNotEncodedUrl('', 'act', 'procShopToolDeleteCoupons', 'srls', $object->srl)}" onclick="if (!confirm('Are you sure?')) return false;" >
+                                {$lang->cmd_delete}
+                            </a>
+                            <!--<span class="btn"><input type="submit" value="{$lang->cmd_save}"/></span>-->
+                            <span class="btn">
+                                <input type="submit" value="{$object->isPersisted() ? 'Save' : 'Generate'}">
+                            </span>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </fieldset>
+            <div id="regdate" cond="$object->regdate">{$lang->created_at}: {zdate($object->regdate)}</div>
+            <div id="last_update" cond="$object->last_update">{$lang->last_update}: {zdate($object->last_update)}</div>
+        </div>
+    </form>
+
+</div>
+<!-- /Content -->
+
+
+<!-- Extension -->
+<!--#include("_tool_menu.html")-->
+<!-- Extension -->
+
+<!--#include("_tool_footer.html")-->
+

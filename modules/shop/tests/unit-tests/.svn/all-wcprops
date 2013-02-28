@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/717/trunk/tests/unit-tests
+END
+CategoryTreeSortingTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/622/trunk/tests/unit-tests/CategoryTreeSortingTest.php
+END
+AttributeTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/622/trunk/tests/unit-tests/AttributeTest.php
+END
+RandomGeneratorTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/717/trunk/tests/unit-tests/RandomGeneratorTest.php
+END
+CartTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/623/trunk/tests/unit-tests/CartTest.php
+END
+OrderTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/622/trunk/tests/unit-tests/OrderTest.php
+END
+CartPreviewTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/644/trunk/tests/unit-tests/CartPreviewTest.php
+END
+CategoryHierarchyTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/622/trunk/tests/unit-tests/CategoryHierarchyTest.php
+END
+CategoryTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/622/trunk/tests/unit-tests/CategoryTest.php
+END
+ProductTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/622/trunk/tests/unit-tests/ProductTest.php
+END

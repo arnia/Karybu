@@ -1,0 +1,10 @@
+<query id="getProductByFriendlyUrl" action="select">
+    <tables>
+        <table name="shop_products" />
+    </tables>
+    <columns></columns>
+    <conditions>
+        <condition operation="equal" column="friendly_url" var="friendly_url" notnull="notnull" />
+        <condition operation="equal" column="module_srl" var="module_srl" notnull="notnull" pipe="and" />
+    </conditions>
+</query>

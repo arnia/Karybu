@@ -1,0 +1,28 @@
+<query id="insertOrderProduct" action="insert">
+    <tables>
+        <table name="shop_order_products" />
+    </tables>
+    <columns>
+        <column name="order_srl" var="order_srl" filter="number" notnull="notnull"/>
+        <column name="product_srl" var="product_srl" filter="number" notnull="notnull"/>
+        <column name="quantity" var="quantity" default="1" />
+        <column name="member_srl" var="member_srl" />
+        <column name="parent_product_srl" var="parent_product_srl" />
+        <column name="product_type" var="product_type" />
+        <column name="title" var="title" />
+        <column name="description" var="description" />
+        <column name="short_description" var="short_description" />
+        <column name="sku" var="sku" />
+        <column name="weight" var="weight" />
+        <column name="status" var="status" />
+        <column name="friendly_url" var="friendly_url" />
+        <column name="price" var="price" />
+        <column name="discount_price" var="discount_price" />
+        <column name="qty" var="qty" />
+        <column name="in_stock" var="in_stock" />
+        <column name="primary_image_filename" var="primary_image_filename" />
+        <column name="related_products" var="related_products" />
+        <column name="regdate" var="regdate" />
+        <column name="last_update" var="last_update" />
+    </columns>
+</query>

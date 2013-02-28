@@ -1,0 +1,18 @@
+<table name="shop_coupons">
+    <column name="srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+    <column name="module_srl" type="number" size="11" notnull="notnull" />
+    <column name="code" type="varchar" size="255" />
+    <column name="parent_srl" type="number" size="11" />
+    <column name="name" type="varchar" size="255" />
+    <column name="description" type="varchar" size="255" />
+    <column name="uses" type="number" size="11" />
+    <column name="max_uses" type="number" size="11" />
+    <column name="valid_from" type="date" />
+    <column name="valid_to" type="date" />
+    <column name="discount_type" type="number" size="2" />
+    <column name="discount_value" type="number" size="11" />
+    <column name="member_srl" type="number" size="11" />
+    <column name="ip" type="varchar" size="50" />
+    <column name="type" type="number" size="1" />
+    <column name="active" type="number" size="1" />
+</table>

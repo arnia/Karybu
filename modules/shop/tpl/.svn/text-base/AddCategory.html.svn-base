@@ -1,0 +1,70 @@
+<div id="categoryFormContainer" style="display: none">
+<!-- Content -->
+	<h4>Add product category</h4>
+	<!-- /contentHeader -->
+
+    <form id="categoryForm" action="./" method="post" enctype="multipart/form-data" >
+		<input type="hidden" id="module" name="module" value="shop" />
+		<input type="hidden" id="vid" name="vid" value="{$vid}" />
+		<input type="hidden" id="act" name="act" value="procShopToolInsertCategory" />
+	    <input type="hidden" id="category_srl" name="category_srl" value="{$category->category_srl}" />
+	    <input type="hidden" id="module_srl"  name="module_srl" value="{$category->module_srl}" />
+
+		<p <!--@if($category->parent_srl == 0)-->style="display:none"<!--@endif-->>
+ 			<label for="parent_srl">{$lang->parent}</label>
+			<span id="parent_title">{$lang->parent_title}</span>
+			<input type="hidden" id="parent_srl" name="parent_srl" value="{$category->parent_srl}" />
+			</select>
+		</p>
+
+		<p>
+			<label for="title">{$lang->title}</label>
+			<input type="text" id="title" name="title" value="{$category->title}" class="text" />
+		</p>
+
+		<p>
+			<label for="description">{$lang->description}</label>
+			<textarea rows="5" cols="10" id="description" name="description" class="iTextarea">{$category->description}</textarea>
+		</p>
+
+		<p>
+			<label for="friendly_url">{$lang->friendly_url}</label>
+			<input type="text" id="friendly_url" name="friendly_url" value="{$category->friendly_url}" class="text" />
+		    <span id="availability"></span>
+        </p>
+
+		<p>
+			<label for="file_info">{$lang->image}</label>
+			<input type="file" id="file_info" name="file_info" />
+			<input type="hidden" id="filename" name="filename" value="{$category->filename}" />
+
+			<br />
+			<span id="image_container" style="display: none;" >
+				<img id="category_image" src="{$category->filename}" />
+				<input type="checkbox" id="delete_image" name="delete_image" />
+				Delete
+			</span>
+		</p>
+
+		<p>
+		<label for="include_in_navigation_menu">{$lang->include_in_navigation_menu}</label>
+		<input type="checkbox"
+			   id="include_in_navigation_menu"
+			   name="include_in_navigation_menu"
+			   class="checkbox"
+			   value="{$category->getIncludeInNavigationMenu()}"
+		<!--@if($category->getIncludeInNavigationMenu() == 'Y')-->checked="checked"<!--@endif-->
+		/>
+		</p>
+
+		<p class="submit">
+			<span class="btnGray medium">
+				<input type="submit" value="Submit" class="submit" />
+			</span>
+		</p>
+
+		<span id="regdate" cond="$category->regdate">{$lang->created_at}: {$category->regdate}</span>
+		<span id="last_update" cond="$category->last_update">{$lang->last_update}: {$category->last_update}</span>
+	</form>
+<!-- /Content -->
+</div>

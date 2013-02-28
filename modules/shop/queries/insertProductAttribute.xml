@@ -1,0 +1,10 @@
+<query id="insertProductAttribute" action="insert">
+    <tables>
+        <table name="shop_product_attributes" />
+    </tables>
+    <columns>
+        <column name="product_srl" var="product_srl" filter="number" notnull="notnull"/>
+        <column name="attribute_srl" var="attribute_srl" filter="number" notnull="notnull"/>
+        <column name="value" var="attribute_value" />
+    </columns>
+</query>

@@ -1,0 +1,13 @@
+<query id="updatePrimaryImage" action="update">
+    <tables>
+        <table name="shop_product_images" />
+    </tables>
+    <columns>
+        <column name="is_primary" var="is_primary" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="product_srl" var="product_srl" filter="number" notnull="notnull" />
+        <condition operation="equal" column="image_srl" var="primary_image" filter="number" pipe="and"/>
+        <condition operation="equal" column="filename" var="filename" pipe="and"/>
+    </conditions>
+</query>

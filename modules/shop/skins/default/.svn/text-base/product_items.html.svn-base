@@ -1,0 +1,110 @@
+{@
+  // View used for displaying cart or order products
+  // Before loading template file please set:
+  //    - $product_container => your cart or order; must implement IProductItemsContainer
+  //    - $shop => of type ShopInfo, object containing info about currency, vat and discount global settings
+}
+<!--@if($product_container instanceof IProductItemsContainer && $shop instanceof ShopInfo)-->
+<table border="0" cellspacing="0" cellpadding="0">
+    <thead>
+        <tr>
+            <th class="a-center">{$lang->product_no_dot}</th>
+            <th class="a-left" colspan="2">{$lang->title}</th>
+            <th class="a-center">{$lang->quantity}</th>
+            <th width="10%" class="a-center">{$lang->price}</th>
+            <th width="10%" class="a-center">{$lang->subtotal}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Products -->
+        {@ $i = 0 }
+        {@ $product_items = $product_container->getProducts() }
+        <!--@foreach($product_items as $product)-->
+            <!--@if($product instanceof IProductItem)-->
+            <tr>
+                <td class="a-center">{@ ++$i;}{$i}</td>
+                <!--@if ($product instanceof OrderProduct) -->
+                <td><p><img src="{$product->getThumbnailPath(70)}" /></p></td>
+                <td>{$product->getTitle()}</td>
+                <!--@else-->
+                <td><p><a target="_blank" href="{$product->getProduct()->getUrl()}"><img src="{$product->getThumbnailPath(70)}" /></a></p></td>
+                <td><a target="_blank" href="{$product->getProduct()->getUrl()}">{$product->getTitle()}</a></td>
+                <!--@end-->
+                <td class="a-center">{$product->getQuantity()}</td>
+                <td class="a-center">{ShopDisplay::priceFormat($product->getPrice(), $shop->getCurrencySymbol())}</td>
+                <td class="a-center">{ShopDisplay::priceFormat($product->getPrice() * $product->getQuantity(), $shop->getCurrencySymbol())}</td>
+            </tr>
+            <!--@end-->
+        <!--@end-->
+        <!-- // Products -->
+    </tbody>
+    <tfoot>
+        <!-- Total before discount -->
+        <tr>
+            <td colspan="4"></td>
+            <td>{$lang->total}</td>
+            <td>
+                {ShopDisplay::priceFormat($product_container->getTotalBeforeDiscount(), $shop->getCurrencySymbol())}
+            </td>
+        </tr>
+        <!-- // Total before discount -->
+
+        <!-- Discount -->
+        <tr cond="$product_container->getDiscountAmount()">
+            <td colspan="4">
+            </td>
+            <td><a href="#" onclick="alert('{$product_container->getDiscountName()}\n\n{$product_container->getDiscountDescription()}'); return false">{$lang->discount}</a></td>
+            <td>
+                {ShopDisplay::priceFormat(-1 * $product_container->getDiscountAmount(), $shop->getCurrencySymbol())}
+            </td>
+        </tr>
+        <!-- // Discount -->
+
+        <!-- Coupon -->
+        <tr cond="$coupon = $product_container->getCoupon()">
+            <td colspan="4">
+            </td>
+            <td title="{$coupon->code}">{$lang->discount_code}</td>
+            <td cond="$coupon->discount_type == Coupon::DISCOUNT_TYPE_FIXED_AMOUNT">
+                {ShopDisplay::priceFormat(-1 * $coupon->discount_value, $shop->getCurrencySymbol())}
+            </td>
+            <td cond="$coupon->discount_type == Coupon::DISCOUNT_TYPE_PERCENTAGE">{ShopDisplay::priceFormat(-1 * $product_container->getCouponDiscount(), $shop->getCurrencySymbol())} ({$coupon->discount_value} %)</td>
+        </tr>
+        <!-- // Discount -->
+
+        <!-- Shipping cost -->
+        <tr cond="$product_container->getShippingMethodName()">
+            <td colspan="4"></td>
+            <td>{$lang->shipping}</td>
+            <td>
+                {ShopDisplay::priceFormat($product_container->getShippingCost(), $shop->getCurrencySymbol())}
+            </td>
+        </tr>
+        <!-- // Shipping cost -->
+
+        <!-- Grand total -->
+        <tr style="font-weight: bold;">
+            <td colspan="4">
+            </td>
+            <td>{$lang->grand_total}</td>
+            <td>
+                {ShopDisplay::priceFormat($product_container->getTotal(), $shop->getCurrencySymbol())}
+            </td>
+        </tr>
+        <!-- // Grand total -->
+
+        <!-- VAT -->
+        <tr cond="$shop->showVAT()">
+            <td colspan="4"></td>
+            <td>
+                {$lang->taxes}
+            </td>
+            <td>
+                {ShopDisplay::priceFormat($product_container->getVAT(), $shop->getCurrencySymbol())}
+            </td>
+        </tr>
+        <!-- // VAT -->
+
+    </tfoot>
+</table>
+<!--@end-->

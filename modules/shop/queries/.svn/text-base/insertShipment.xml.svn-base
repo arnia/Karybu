@@ -1,0 +1,13 @@
+<query id="insertShipment" action="insert">
+    <tables>
+        <table name="shop_shipments" />
+    </tables>
+    <columns>
+        <column name="shipment_srl" var="shipment_srl" filter="number" notnull="notnull" />
+        <column name="order_srl" var="order_srl" filter="number" notnull="notnull" />
+        <column name="module_srl" var="module_srl" filter="number" notnull="notnull" />
+        <column name="package_number" var="package_number" filter="number"/>
+        <column name="comments" var="comments"/>
+        <column name="regdate" var="regdate" default="curdate()"/>
+    </columns>
+</query>

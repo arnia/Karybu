@@ -1,0 +1,14 @@
+<p>
+    <label for="type">
+        Type
+    </label>
+    <select name="type" id="type">
+        <option value="per_order" <!--@if($shipping_method->type == 'per_order')-->selected<!--@endif-->>Per order</option>
+        <option value="per_item" <!--@if($shipping_method->type == 'per_item')-->selected<!--@endif-->>Per item</option>
+    </select>
+</p>
+
+<p>
+    <label for="price">Price</label>
+    <input type="text" name="price" id="price" value="{$shipping_method->price}" />
+</p>

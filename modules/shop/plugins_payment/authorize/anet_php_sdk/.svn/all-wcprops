@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/231/trunk/plugins_payment/authorize/anet_php_sdk
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/231/trunk/plugins_payment/authorize/anet_php_sdk/README
+END
+README.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/231/trunk/plugins_payment/authorize/anet_php_sdk/README.html
+END
+AuthorizeNet.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/231/trunk/plugins_payment/authorize/anet_php_sdk/AuthorizeNet.php
+END
+License.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/231/trunk/plugins_payment/authorize/anet_php_sdk/License.pdf
+END

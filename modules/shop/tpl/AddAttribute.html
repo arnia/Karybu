@@ -1,0 +1,195 @@
+<!--#include("_tool_header.html")-->
+<!--%import("css/pagination.css",optimized=false)-->
+<script type="text/javascript">
+    jQuery(document).ready(function($){
+        $("#category_scope input[type='checkbox']").change(function(){
+            checkOrUncheckParents($(this), 'category_scope');
+        });
+    });
+</script>
+<!-- Content -->
+<div id="content">
+    <!-- contentHeader -->
+    <div class="contentHeader postListHeader">
+        <h3 class="h3">{$attribute ? $lang->edit_attribute : $lang->new_attribute}</h3>
+    </div>
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+    <!-- /contentHeader -->
+    <form action="./" method="post" ruleset="insert_attribute" class="">
+        <input type="hidden" name="act" value="procShopToolInsertAttribute" />
+        <!--@if($attribute)-->
+        <input type="hidden" name="attribute_srl" value="{$attribute->attribute_srl}" />
+        <!--@endif-->
+        <div class="wOption">
+            <fieldset class="visualFieldset">
+                <legend class="visualLabel">{$attribute ? $lang->edit_attribute : $lang->new_attribute}</legend>
+                <table border="1" cellspacing="0" class="tableData">
+
+                    <tr class="first">
+                        <th scope="row">
+                            <label for="title">{$lang->title}</label>
+                        </th>
+                        <td class="title">
+                            <div class="fItem">
+                                <label class="iLabel" for="title">{$lang->attribute_about_title}</label>
+                                <input type="text" id="title" name="title" style="width:200px" class="iText iText" title="{$lang->attribute_about_title}" value="{$attribute->title}"/>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">
+                            <label for="required">{$lang->required}</label>
+                        </th>
+                        <td class="type">
+                            <div class="fItem">
+                                <select name="required" id="required">
+                                    <option value="Y"<!--@if ($attribute->required == 'Y')--> selected<!--@end-->>{$lang->yes}</option>
+                                    <option value="N"<!--@if ($attribute->required == 'N')--> selected<!--@end-->>{$lang->no}</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">
+                            <label for="status">{$lang->status}</label>
+                        </th>
+                        <td class="title">
+                            <div class="fItem">
+                                <select name="status" id="status">
+                                    <option value="Y"<!--@if($attribute->status == 'Y')--> selected<!--@end-->>{$lang->enabled}</option>
+                                    <option value="N"<!--@if($attribute->status == 'N')--> selected<!--@end-->>{$lang->disabled}</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">
+                            <label for="type">{$lang->type}</label>
+                        </th>
+                        <td class="type">
+                            <div class="fItem">
+                                <select name="type" id="type">
+                                    <!--@foreach ($types as $val => $text)-->
+                                    <option value="{$val}" selected="selected"|cond="$attribute->type == $val">{$text}</option>
+                                    <!--@end-->
+                                </select>
+                                <script type="text/javascript">
+                                    (function( $ ){
+                                        $.fn.settingsVisibility = function() {
+                                            var selected = $('option:selected', this);
+                                            var trs = $('#valuesTr,#valueTr');
+                                            var showAsFilter = $('#showAsFilter');
+                                            if (selected.val() == 5 || selected.val() == 6) {
+                                                showAsFilter.show(400).trRedLabels(1500);
+                                                trs.show(400).trRedLabels(1500);
+                                            }
+                                            else if (selected.val() == 7) {
+                                                trs.hide();
+                                                showAsFilter.show(400).trRedLabels(1500);
+                                            }
+                                            else {
+                                                trs.hide();
+                                                showAsFilter.hide();
+                                            }
+                                        };
+                                        $.fn.trRedLabels = function(milis){
+                                            var target = $('th label', this);
+                                            var originalColor = target.css('color');
+                                            target.css('color', '#EA3F22');
+                                            setTimeout(function(){
+                                                target.css('color', originalColor);
+                                            }, milis);
+                                        };
+                                    })(jQuery);
+                                    jQuery(function(){
+                                        jQuery('#type').live('change', function(){
+                                            jQuery(this).settingsVisibility();
+                                        }).change();
+                                    });
+                                </script>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr id="valuesTr">
+                        <th scope="row">
+                            <label for="values">{$lang->attribute_values}</label>
+                        </th>
+                        <td class="title">
+                            <div class="fItem">
+                                <label class="iLabel" for="values">{$lang->about_attribute_values}</label>
+                                <textarea name="values" rows="8" cols="100" class="iTextarea" id="values" title="{$lang->about_attribute_values}">{$attribute->values}</textarea>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr id="valueTr">
+                        <th scope="row">
+                            <label for="default_value">{$lang->attribute_default_value}</label>
+                        </th>
+                        <td class="title">
+                            <div class="fItem">
+                                <label class="iLabel" for="default_value">{$lang->about_attribute_default_value}</label>
+                                <input type="text" id="default_value" name="default_value" style="width:200px" class="iText iText" title="{$lang->about_attribute_default_value}" value="{$attribute->default_value}"/>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr id="showAsFilter">
+                        <th scope="row">
+                            <label for="values">{$lang->is_filter}</label>
+                        </th>
+                        <td class="title">
+                            <div class="fItem">
+                                <label class="iLabel" for="is_filter" style="margin-left: 20px;">{$lang->show_as_sidebar_filter}</label>
+                                <input type="checkbox" id="is_filter" name="is_filter" checked="checked"|cond="$attribute->is_filter">
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">
+                            <label>{$lang->category_scope}</label>
+                        </th>
+                        <td class="title">
+                            <div class="fItem">
+                               	{$HTML_tree}
+                                <span>{$lang->about_category_scope}</span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr class="last">
+                        <th scope="row">
+                        </th>
+                        <td class="title">
+                            <a class="delete_link" cond="$attribute->attribute_srl" title="delete attribute '{$attribute->title}'" href="{getNotEncodedUrl('', 'act', 'procShopToolDeleteAttributes', 'attribute_srls', $attribute->attribute_srl)}" onclick="if (!confirm('Are you sure?')) return false;" >
+                                {$lang->cmd_delete}
+                            </a>
+                            <span class="btn"><input type="submit" value="{$lang->cmd_save}"/></span>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </fieldset>
+            <div id="regdate" cond="$attribute->regdate">{$lang->created_at}: {zdate($attribute->regdate)}</div>
+            <div id="last_update" cond="$attribute->last_update">{$lang->last_update}: {zdate($attribute->last_update)}</div>
+        </div>
+    </form>
+
+</div>
+<!-- /Content -->
+
+
+<!-- Extension -->
+<!--#include("_tool_menu.html")-->
+<!-- Extension -->
+
+<!--#include("_tool_footer.html")-->
+

@@ -1,0 +1,26 @@
+<query id="getTopCustomers" action="select">
+    <tables>
+        <table name="shop_orders" alias="o" />
+        <table name="member" alias="m" />
+    </tables>
+    <columns>
+        <column name="m.member_srl" />
+        <column name="m.user_name" />
+        <column name="m.user_id" />
+        <column name="m.email_address" />
+        <column name="sum(o.total)" alias="total"/>
+        <column name="count(distinct o.order_srl)" alias="order_count"/>
+    </columns>
+    <conditions>
+        <condition operation="equal" column="o.module_srl" var="module_srl" notnull="notnull" />
+        <condition operation="equal" column="o.member_srl" default="m.member_srl" pipe="and"/>
+    </conditions>
+    <groups>
+        <group column="m.member_srl" />
+        <group column="m.user_name" />
+    </groups>
+    <navigation>
+        <index var="sum(o.total)" default="sum(o.total)" order="desc" />
+        <list_count var="list_count" default="5" />
+    </navigation>
+</query>

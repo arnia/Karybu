@@ -1,0 +1,334 @@
+<include target="_header.html"/>
+<!--%import("jquery.validate.js")-->
+<!--%import("validator.js")-->
+
+<script type="text/javascript">
+    jQuery.fn.serializeObject = function()
+    {
+        var o = {};
+        var a = this.serializeArray();
+        jQuery.each(a, function() {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+    jQuery.fn.extractObject = function() {
+        var accum = {};
+        function add(accum, namev, value) {
+            if (namev.length == 1)
+                accum[namev[0]] = value;
+            else {
+                if (accum[namev[0]] == null)
+                    accum[namev[0]] = {};
+                add(accum[namev[0]], namev.slice(1), value);
+            }
+        };
+        this.find('input, textarea, select').each(function() {
+            if(jQuery(this).attr('name'))
+            {
+                add(accum, jQuery(this).attr('name').split('.'), jQuery(this).val());
+            }
+        });
+        return accum;
+    };
+
+    function persistCartAndUpdateShippingMethods()
+    {
+        var cart_info = jQuery('#big').extractObject();
+        jQuery.exec_json('shop.procShopToolUpdateCheckout'
+                , cart_info
+                , function(data){
+                    if(data.error != 0)
+                    {
+                        alert("Error " + data.error + " " + data.message);
+                        return;
+                    }
+                    var cart = data.cart;
+                    var shipping_methods = data.shipping_methods;
+                    jQuery("#shipping_method").html("");
+                    for(var shipping_method_name in shipping_methods)
+                    {
+                        var new_option = jQuery("<option></option>")
+                                .val(shipping_method_name)
+                                .html(shipping_methods[shipping_method_name]);
+
+                        if(data.selected_shipping_method == shipping_method_name)
+                            new_option.attr("selected", "selected");
+
+                        jQuery("#shipping_method").append(new_option);
+                    }
+                }
+        );
+    }
+
+    jQuery(document).ready(function($){
+
+        $("#shipping_address").change(function() {
+            persistCartAndUpdateShippingMethods();
+        });
+
+        $("#new-address-shipping input").change(function(){
+            var new_shipping_address = $('#new-address-shipping').extractObject();
+            // Check that new shipping address form is valid
+            var shipping_address_inputs = $("#new-address-shipping input");
+            for(var i = 0; i < shipping_address_inputs.length; i++)
+            {
+                if(!$(shipping_address_inputs[i]).valid())
+                {
+                    return;
+                };
+            }
+
+            // If form passed validation, we can now update the shipping methods dropdown
+            persistCartAndUpdateShippingMethods();
+        });
+    });
+</script>
+
+<div id="checkout" class="main-content form" cond="isset($cart) && $cart->items">
+    <h1 class="underline">{$lang->checkout}</h1>
+
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+
+    <form action="./" method="post" id="login_form" ruleset="checkout_login">
+        <input type="hidden" name="act" value="procShopCheckoutLogin"/>
+        <div id="login" cond="!$is_logged">
+            <h2 class="underline">{$lang->are_you_already_a_customer}</h2>
+            <ul>
+                <p>
+                    <label for="login_user">{$lang->user_email}</label>
+                    <input type="text" name="login[user]" id="login_user">
+                </p>
+                <p>
+                    <label for="login_pass">{$lang->password}</label>
+                    <input type="password" name="login[pass]" id="login_pass">
+                </p>
+                <p>
+                    <input type="submit" id="login_button" value="{ucfirst($lang->login)}" style="margin-left: 232px">
+                </p>
+            </ul>
+        </div>
+    </form>
+
+    <form action="./" method="post" id="big" ruleset="checkout">
+        <input type="hidden" id="act" name="act" value="procShopToolCheckout"/>
+        <div id="billing">
+
+            <h2 class="underline">Billing</h2>
+
+            <!-- @if ($addresses) -->
+            <p>
+                <label for="billing_address">Billing address</label>
+                <select style="width: 70%;" id="billing_address" name="billing[address]">
+                    <option value="new">new address</option>
+                    <!--@foreach ($addresses as $key=>$address)-->
+                    <option value="{$address->address_srl}" selected="selected"|cond="$default_billing && $address->address_srl == $default_billing->address_srl">{$address}</option>
+                    <!--@endforeach-->
+                </select>
+            </p>
+            <!-- @endif -->
+
+            <div id="new-address-billing" <!--@if ($addresses)--> style="display:none"<!--@endif-->>
+                <p>
+                    <input type="hidden" value="{$logged_info->member_srl}" name="new_billing_address[member_srl]">
+                    <label for="new_billing_address_firstname">{$lang->firstname}</label>
+                    <input type="text" name="new_billing_address[firstname]" id="new_billing_address_firstname" value="{$extra['firstname']}">
+                </p>
+                <p>
+                    <label for="new_billing_address_lastname">{$lang->lastname}</label>
+                    <input type="text" name="new_billing_address[lastname]" id="new_billing_address_lastname" value="{$extra['lastname']}">
+                </p>
+                <p>
+                    <label for="new_billing_address_email">{$lang->email}</label>
+                    <input type="text" name="new_billing_address[email]" id="new_billing_address_email" value="{$extra['email']}">
+                </p>
+                <p>
+                    <label for="new_billing_address_company">{$lang->company}</label>
+                    <input type="text" name="new_billing_address[company]" id="new_billing_address_company">
+                </p>
+                <p>
+                    <label for="new_billing_address_telephone">{$lang->telephone}</label>
+                    <input type="text" name="new_billing_address[telephone]" id="new_billing_address_telephone">
+                </p>
+                <p>
+                    <label for="new_billing_address_fax">{$lang->fax}</label>
+                    <input type="text" name="new_billing_address[fax]" id="new_billing_address_fax">
+                </p>
+                <p>
+                    <label for="new_billing_address_address">{$lang->address}</label>
+                    <textarea rows="5" id="new_billing_address_address" name="new_billing_address[address]"></textarea>
+                </p>
+                <p>
+                    <label for="new_billing_address_additionalinfo">{$lang->additional_info}</label>
+                    <textarea rows="5" id="new_billing_address_additionalinfo" name="new_billing_address[additional_info]"></textarea>
+                </p>
+                <p>
+                    <label for="new_billing_address_city">{$lang->city}</label>
+                    <input type="text" name="new_billing_address[city]" id="new_billing_address_city">
+                </p>
+                <p>
+                    <label for="new_billing_address_region">{$lang->region}</label>
+                    <input type="text" name="new_billing_address[region]" id="new_billing_address_region">
+                </p>
+                <p>
+                    <label for="new_billing_address_postalcode">{$lang->postal_code}</label>
+                    <input type="text" name="new_billing_address[postal_code]" id="new_billing_address_postalcode">
+                </p>
+                <p>
+                    <label for="new_billing_address_country">{$lang->country}</label>
+                    <input type="text" name="new_billing_address[country]" id="new_billing_address_country">
+                </p>
+            </div>
+            <label for="different_shipping">{$lang->use_different_shipping_address}</label>
+            <input type="checkbox" name="different_shipping" id="different_shipping" value="yes" checked="yes"|cond="$needs_new_shipping">
+        </div>
+
+        <div id="shipping">
+            <h2 class="underline">{$lang->shipping}</h2>
+            <p id="shipping-address-select" style="display:none"|cond="!$needs_new_shipping">
+                <label for="shipping_address">{$lang->shipping_address}</label>
+                <select style="width: 70%;" id="shipping_address" name="shipping[address]">
+                    <option value="new">new address</option>
+                    <!--@foreach ($addresses as $key=>$address)-->
+                    <option value="{$address->address_srl}" selected="selected"|cond="$default_shipping && $address->address_srl == $default_shipping->address_srl">{$address}</option>
+                    <!--@endforeach-->
+                </select>
+            </p>
+
+            <div id="new-address-shipping" style="display:none"|cond="$default_shipping || !$needs_new_shipping">
+
+                <p>
+                    <input type="hidden" value="{$logged_info->member_srl}" name="new_shipping_address[member_srl]">
+                    <label for="new_shipping_address_firstname">{$lang->firstname}</label>
+                    <input type="text" name="new_shipping_address[firstname]" id="new_shipping_address_firstname" value="{$extra['firstname']}">
+                </p>
+                <p>
+                    <label for="new_shipping_address_lastname">{$lang->lastname}</label>
+                    <input type="text" name="new_shipping_address[lastname]" id="new_shipping_address_lastname" value="{$extra['lastname']}">
+                </p>
+                <p>
+                    <label for="new_shipping_address_email">{$lang->email}</label>
+                    <input type="text" name="new_shipping_address[email]" id="new_shipping_address_email" value="{$extra['email']}">
+                </p>
+                <p>
+                    <label for="new_shipping_address_company">{$lang->company}</label>
+                    <input type="text" name="new_shipping_address[company]" id="new_shipping_address_company">
+                </p>
+                <p>
+                    <label for="new_shipping_address_telephone">{$lang->telephone}</label>
+                    <input type="text" name="new_shipping_address[telephone]" id="new_shipping_address_telephone">
+                </p>
+                <p>
+                    <label for="new_shipping_address_fax">{$lang->fax}</label>
+                    <input type="text" name="new_shipping_address[fax]" id="new_shipping_address_fax">
+                </p>
+                <p>
+                    <label for="new_shipping_address_address">{$lang->address}</label>
+                    <textarea rows="5" id="new_shipping_address_address" name="new_shipping_address[address]"></textarea>
+                </p>
+                <p>
+                    <label for="new_shipping_address_additionalinfo">{$lang->additional_info}</label>
+                    <textarea rows="5" id="new_shipping_address_additionalinfo" name="new_shipping_address[additional_info]"></textarea>
+                </p>
+                <p>
+                    <label for="new_shipping_address_city">{$lang->city}</label>
+                    <input type="text" name="new_shipping_address[city]" id="new_shipping_address_city">
+                </p>
+                <p>
+                    <label for="new_shipping_address_region">{$lang->region}</label>
+                    <input type="text" name="new_shipping_address[region]" id="new_shipping_address_region">
+                </p>
+                <p>
+                    <label for="new_shipping_address_postalcode">{$lang->postal_code}</label>
+                    <input type="text" name="new_shipping_address[postal_code]"
+                           id="new_shipping_address_postalcode">
+                </p>
+                <p>
+                    <label for="new_shipping_address_country">{$lang->country}</label>
+                    <input type="text" name="new_shipping_address[country]" id="new_shipping_address_country">
+                </p>
+
+            </div>
+
+            <p>
+                <label for="shipping_method">{$lang->shipping_method}</label>
+                <select id="shipping_method">
+                    <!--@foreach($shipping_methods as $key => $value)-->
+                    <option value="{$key}"
+                    <!--@if($selected_shipping_method == $key)-->
+                    selected="selected"
+                    <!--@end-->
+                    >{$value}</option>
+                    <!--@end-->
+                </select>
+                <input type="hidden" name="shipping[method]" id="shipping_method_name" value="{$cart->getShippingMethodName()}" />
+                <input type="hidden" name="shipping[variant]" id="shipping_method_variant" value="{$cart->getShippingMethodVariant()}" />
+                <script type="text/javascript">
+                    jQuery(document).ready(function($){
+                        $("#shipping_method").change(function(){
+                            $new_value = $(this).val();
+                            $shipping_info = $new_value.split("__");
+                            $("#shipping_method_name").val($shipping_info[0]);
+                            $("#shipping_method_variant").val($shipping_info[1]);
+
+                            $checkout_form = $(this).closest('form');
+                            $checkout_form.find("input[name='act']").val("procShopToolRefreshCheckout");
+                            $checkout_form.submit();
+                        });
+                    });
+                </script>
+            </p>
+        </div>
+
+        <div id="payment">
+            <h2 class="underline">{$lang->payment_method}</h2>
+            <!--@foreach($payment_methods as $payment_method)-->
+            <p>
+                <input type="radio" id="payment_{$payment_method->name}" name="payment[method]" value="{$payment_method->name}" checked="checked"|cond="$payment_method->name == $cart->getPaymentMethodName()">
+                <label for="payment_{$payment_method->name}">{$payment_method->getSelectPaymentHtml()}</label>
+            </p>
+            <!--@end-->
+        </div>
+
+        <div id="review">
+            <h2 class="underline">{$lang->order_review}</h2>
+            {@ $product_container = $cart; }
+            <include target="product_items" />
+        </div>
+
+        <p class="f-right">
+            Forgot something? <a class="button" href="{getUrl('act','dispShopCart')}" title="cart">Edit your cart</a>
+        </p>
+        <div class="clearfix"></div>
+
+        <p class="f-left">
+            <div style="clear: both; display: block">
+                <input name="code" type="text" id="code" value="discount code?" data-default="discount code?" style="color: #406685">
+                <script type="text/javascript">
+                    jQuery(function($) {
+                        var input = $('input[type=text]');
+                        input
+                          .focus(function() {if ($(this).val() == $(this).data('default')) $(this).val('')})
+                          .blur(function() { if ($(this).val() == '') $(this).val($(this).data('default')); });
+                    });
+                </script>
+            </div>
+            <BR>
+            <input type="submit" value="Continue"><br />
+            {$lang->co_review_order}
+        </p>
+    </form>
+
+</div>
+
+<include target="_footer.html"/>

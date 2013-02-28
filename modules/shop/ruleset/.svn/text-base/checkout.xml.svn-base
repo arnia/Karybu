@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ruleset version="1.5.0">
+    <customrules>
+        <rule name = "phone" type = "regex" test = "/^[)\(0-9 -+]*$/i"/>
+        <rule name = "name" type="regex" test="/^[A-Za-z][A-Za-z- ]*$/i"/>
+        <rule name = "postal_code" type="regex" test="/^[a-z0-9-]*$/i"/>
+        <rule name = "yesno" type="enum" test="yes|no" delim="|"/>
+    </customrules>
+    <fields>
+        <field name="billing[address]" required="true" />
+        <field name="new_billing_address[firstname]">
+            <if test="$billing['address'] == 'new'" attr="required" value="true"/>
+            <if test="$billing['address'] == 'new'" attr="rule" value="name"/>
+        </field>
+        <field name="new_billing_address[lastname]">
+            <if test="$billing['address'] == 'new'" attr="required" value="true"/>
+            <if test="$billing['address'] == 'new'" attr="rule" value="name"/>
+        </field>
+        <field name="new_billing_address[email]">
+            <if test="$billing['address'] == 'new'" attr="required" value="true"/>
+            <if test="$billing['address'] == 'new'" attr="rule" value="email"/>
+        </field>
+        <field name="new_billing_address[company]" />
+        <field name="new_billing_address[telephone]">
+            <if test="$billing['address'] == 'new'" attr="required" value="true"/>
+            <if test="$billing['address'] == 'new'" attr="rule" value="phone"/>
+        </field>
+        <field name="new_billing_address[fax]" /><!-- rule="phone"-->
+        <field name="new_billing_address[address]">
+            <if test="$billing['address'] == 'new'" attr="required" value="true"/>
+        </field>
+        <field name="new_billing_address[additional_info]" />
+        <field name="new_billing_address[city]" /><!-- rule="name"-->
+        <field name="new_billing_address[region]" /><!--rule="name"-->
+        <field name="new_billing_address[postal_code]" /><!--rule="postal_code"-->
+        <field name="new_billing_address[country]" /><!--rule="name"-->
+
+        <field name="different_shipping" rule="yesno" />
+
+        <field name="shipping[address]">
+            <if test="$different_shipping == 'yes' &amp;&amp; $shipping['address'] == 'new'" attr="required" value="true" />
+        </field>
+        <field name="new_shipping_address[firstname]">
+            <if test="$different_shipping == 'yes' &amp;&amp; $shipping['address'] == 'new'" attr="required" value="true" />
+            <if test="$different_shipping == 'yes' &amp;&amp; $shipping['address'] == 'new'" attr="rule" value="name" />
+        </field>
+        <field name="new_shipping_address[lastname]">
+            <if test="$different_shipping == 'yes' &amp;&amp; $shipping['address'] == 'new'" attr="required" value="true" />
+            <if test="$different_shipping == 'yes' &amp;&amp; $shipping['address'] == 'new'" attr="rule" value="name" />
+        </field>
+        <field name="new_shipping_address[email]">
+            <if test="$different_shipping == 'yes' &amp;&amp; $shipping['address'] == 'new'" attr="required" value="true" />
+            <if test="$different_shipping == 'yes' &amp;&amp; $shipping['address'] == 'new'" attr="rule" value="email" />
+        </field>
+        <field name="new_shipping_address[company]" /><!--rule="name" -->
+        <field name="new_shipping_address[telephone]">
+            <if test="$different_shipping == 'yes' &amp;&amp; $shipping['address'] == 'new'" attr="required" value="true" />
+            <if test="$different_shipping == 'yes' &amp;&amp; $shipping['address'] == 'new'" attr="rule" value="phone" />
+        </field>
+        <field name="new_shipping_address[fax]" /><!--rule="phone"-->
+        <field name="new_shipping_address[address]">
+            <if test="$different_shipping == 'yes' &amp;&amp; $shipping['address'] == 'new'" attr="required" value="true" />
+            <if test="$different_shipping == 'yes' &amp;&amp; $shipping['address'] == 'new'" />
+        </field>
+        <field name="new_shipping_address[additional_info]" />
+        <field name="new_shipping_address[city]" /><!--rule="name"-->
+        <field name="new_shipping_address[region]" /><!--rule="name"-->
+        <field name="new_shipping_address[postal_code]" /><!--rule="postal_code"-->
+        <field name="new_shipping_address[country]" /><!--rule="name"-->
+    </fields>
+</ruleset>

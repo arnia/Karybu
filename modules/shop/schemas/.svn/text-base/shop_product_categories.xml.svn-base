@@ -1,0 +1,4 @@
+<table name="shop_product_categories">
+    <column name="product_srl" type="number" size="11" notnull="notnull" primary_key="primary_key"/>
+    <column name="category_srl" type="number" size="11" notnull="notnull" primary_key="primary_key"/>
+</table>

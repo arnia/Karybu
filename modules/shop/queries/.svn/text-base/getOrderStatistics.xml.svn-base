@@ -1,0 +1,18 @@
+<query id="getOrderStatistics" action="select">
+    <tables>
+        <table name="shop_orders" />
+    </tables>
+    <columns>
+        <column name="order_status" alias="order_status" />
+        <column name="sum(total)" alias="total" />
+        <column name="count(*)" alias="count" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="module_srl" var="module_srl" />
+        <condition operation="more" column="regdate" var="start_date" pipe="and" />
+        <condition operation="less" column="regdate" var="end_date" pipe="and" />
+    </conditions>
+    <groups>
+        <group column="order_status"/>
+    </groups>
+</query>
