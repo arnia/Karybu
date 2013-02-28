@@ -1,7 +1,0 @@
-<script type="text/javascript">
-	var url = request_uri;
-	<!--@foreach($url as $k => $v)-->
-		url = url.setQuery('{$k}','{$v}');
-	<!--@end-->
-	top.location.href = url;
-</script>

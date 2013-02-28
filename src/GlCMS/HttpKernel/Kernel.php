@@ -9,8 +9,11 @@ class Kernel extends SymfonyKernel implements KernelInterface
 {
     protected $modules = array();
 
-    public function registerBundles() {
-        return array();
+    public function registerBundles()
+    {
+        return array(
+            new \GlCMS\Module\Shop\Shop()
+        );
     }
 
     /**
@@ -54,20 +57,38 @@ class Kernel extends SymfonyKernel implements KernelInterface
         return $this->modules;
     }
 
+    public function registerContainerConfiguration(LoaderInterface $loader)
+    {
+        //$loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
+        $loader->load(_XE_PATH_.'/config/config.yml');
+    }
+
     /**
      * Initializes the service container.
+     *
+     * The cached version of the service container is used when fresh, otherwise the
+     * container is built.
      */
     protected function initializeContainer()
     {
-        //TODO if needed, implement the container cache that was stripped from parent
-        $cmsContainer = new \GlCMS\DependencyInjection\CMSContainer();
-        $this->container = $cmsContainer->getServiceContainer();
-        $this->container->set('kernel', $this);
-    }
+        $class = $this->getContainerClass();
+        $cache = new \Symfony\Component\Config\ConfigCache($this->getCacheDir().'/'.$class.'.php', $this->debug);
+        $fresh = true;
+        if (!$cache->isFresh()) {
+            $container = $this->buildContainer();
+            $this->dumpContainer($cache, $container, $class, $this->getContainerBaseClass());
 
-    public function registerContainerConfiguration(LoaderInterface $loader)
-    {
-        $loader->load(_XE_PATH_.'/config/config_'.$this->getEnvironment().'.yml');
+            $fresh = false;
+        }
+
+        require_once $cache;
+
+        $this->container = new $class();
+        $this->container->set('kernel', $this);
+
+        if (!$fresh && $this->container->has('cache_warmer')) {
+            $this->container->get('cache_warmer')->warmUp($this->container->getParameter('kernel.cache_dir'));
+        }
     }
 
     /**
@@ -84,6 +105,58 @@ class Kernel extends SymfonyKernel implements KernelInterface
     final public function getCoreModules()
     {
         return array();
+    }
+
+    public function getCacheDir()
+    {
+        return $this->rootDir . 'files/cache/env/' . $this->environment;
+    }
+
+    /**
+     * Gets the application root dir.
+     *
+     * @return string The application root dir
+     */
+    public function getRootDir()
+    {
+        return _XE_PATH_;
+    }
+
+    /**
+     * Gets the log directory.
+     *
+     * @return string The log directory
+     */
+    public function getLogDir()
+    {
+        return $this->rootDir.'/files/logs';
+    }
+
+    /**
+     * Gets the container class.
+     *
+     * @return string The container class
+     */
+    protected function getContainerClass()
+    {
+        return $this->name.ucfirst($this->environment).($this->debug ? 'Debug' : '').'ProjectContainer';
+    }
+
+    /**
+     * Gets the name of the kernel
+     *
+     * @return string The kernel name
+     *
+     * @api
+     */
+    public function getName()
+    {
+        if (null === $this->name) {
+            //$this->name = preg_replace('/[^a-zA-Z0-9_]+/', '', basename($this->rootDir));
+            $this->name = 'GlCMS';
+        }
+
+        return $this->name;
     }
 
 }

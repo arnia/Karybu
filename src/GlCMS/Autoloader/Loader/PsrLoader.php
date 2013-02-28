@@ -22,7 +22,7 @@ class PsrLoader extends AbstractLoader
             $classPath = str_replace(array('\\', '_'), '/', $matches[3]);
             $path = "{$this->modulesPath}/$moduleName$internalPath/$classPath.php";
             if (!is_readable($path)) {
-                throw new \RuntimeException("[PSR-0 autoloading for module $moduleName] Could not load $path");
+                //throw new \RuntimeException("[PSR-0 autoloading for module $moduleName] Could not load $path");
             }
             return $this->includeFile($path);
         }

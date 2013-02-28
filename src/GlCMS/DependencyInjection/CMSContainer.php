@@ -22,8 +22,8 @@ class CMSContainer
         $this->serviceContainer->setParameter('routes', include(_XE_PATH_ . '/src/routes.php'));
 
         $this->serviceContainer->register('context', 'Symfony\Component\Routing\RequestContext');
-        $this->serviceContainer->register('matcher', 'Symfony\Component\Routing\Matcher\UrlMatcher')->setArguments(array('%routes%', new Reference('context')));
         $this->serviceContainer->register('resolver', 'GlCMS\HttpKernel\Controller\ControllerResolver');
+        $this->serviceContainer->register('matcher', 'Symfony\Component\Routing\Matcher\UrlMatcher')->setArguments(array('%routes%', new Reference('context')));
         $this->serviceContainer->register('listener.router', 'GlCMS\EventListener\RouterListener')
             ->setArguments(array(new Reference('matcher')));
         $this->serviceContainer->register('listener.cms', 'GlCMS\EventListener\CMSListener');
