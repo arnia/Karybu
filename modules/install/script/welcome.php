@@ -49,6 +49,8 @@ class DatasetCreator {
         $extra_vars->bottom_menu = $main_menu->getSrl();
         $extra_vars->menu_name_list = array();
         $extra_vars->menu_name_list[$main_menu->getSrl()] = $main_menu->getTitle();
+        $extra_vars->logo_image_alt = $layout_title;
+        $extra_vars->index_url = Context::getDefaultUrl();
 
         $args = new stdClass();
         $args->site_srl = 0;
@@ -276,7 +278,6 @@ $dataset_creator = new DatasetCreator();
 // 1. Create the new menu
 $menu = $dataset_creator->createNewMenu('welcome_menu');
 
-$home_srl = $menu->addItem('Welcome to XE', 'welcome');
 $styles_srl = $menu->addItem('Styles');
 $text_styles_srl = $menu->addItem('Text styles', 'text_styles', $styles_srl);
 $form_styles_srl = $menu->addItem('Form styles', 'form_styles', $styles_srl);
@@ -288,7 +289,7 @@ $codebook_srl = $menu->addItem('Codebook', 'http://www.xpressengine.org/help_and
 $menu->save();
 
 // 2. Create a new layout
-$layout_srl = $dataset_creator->createNewLayout('xe_official', 'Welcome layout', $menu);
+$layout_srl = $dataset_creator->createNewLayout('xe_official', 'Freshstart', $menu);
 
 // 3. Create new pages
 $welcome_page = $dataset_creator->createNewArticlePage($layout_srl, 'Welcome to XE', 'welcome', 'Welcome to XE');
