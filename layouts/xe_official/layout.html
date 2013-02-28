@@ -41,10 +41,7 @@
                                 </ul>
                             </li>
                         </ul>
-                        <form class="navbar-form pull-right">
-                            <a href="#signupmodal" role="button" class="btn btn-success" data-toggle="modal">Register</a>
-                            <a href="#signinmodal" role="button" class="btn" data-toggle="modal">Sign in</a>
-                        </form>
+                        <img widget="login_info" skin="bootstrap" />
                     </div><!--/.nav-collapse -->
                 </div>
             </div>
@@ -115,82 +112,4 @@
     </div>
 </div>
 
-<div id="signupmodal" class="modal hide fade">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Sign up!</h3>
-    </div>
-    <div class="modal-body">
-        <form class="form-horizontal">
-            <div class="control-group">
-                <label class="control-label" for="inputEmail">Choose Username</label>
-                <div class="controls">
-                    <input placeholder="Username" type="text"/>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="inputEmail">Email</label>
-                <div class="controls">
-                    <input placeholder="Email" type="text"/>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="inputPassword">Password</label>
-                <div class="controls">
-                    <input placeholder="Password" type="password"/>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="inputPassword">Retype password</label>
-                <div class="controls">
-                    <input placeholder="Password" type="password"/>
-                </div>
-            </div>
-            <div class="control-group">
-                <div class="controls">
-                    <label class="checkbox">
-                        <input type="checkbox"/> I accept the <a href="#">Terms & Conditions</a>.
-                    </label>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <a href="#" class="btn">Close</a>
-        <a href="#" class="btn btn-success">Register</a>
-    </div>
-</div>
-<div id="signinmodal" class="modal hide fade">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Sign in!</h3>
-    </div>
-    <div class="modal-body">
-        <form class="form-horizontal">
-            <div class="control-group">
-                <label class="control-label" for="inputEmail">Email</label>
-                <div class="controls">
-                    <input id="inputEmail" placeholder="Email" type="text"/>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="inputPassword">Password</label>
-                <div class="controls">
-                    <input id="inputPassword" placeholder="Password" type="password"/>
-                </div>
-            </div>
-            <div class="control-group">
-                <div class="controls">
-                    <label class="checkbox">
-                        <input type="checkbox"/> Remember me
-                    </label>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <a href="#" class="btn">Close</a>
-        <a href="#" class="btn btn-primary">Sign in</a>
-    </div>
-</div>
 <load target="js/bootstrap.js" />

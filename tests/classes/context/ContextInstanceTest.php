@@ -79,36 +79,13 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
      * Test that when variables change in Context they also change in Global context
      * MUST Have for displaying the templates (for now at least)
      */
-    public function testChangesInContextAppearInGlobalContext()
-    {
-        $__Context__ = new stdClass();
-        $lang = new stdClass();
-        $myCookies = array();
-
-        $context = new ContextInstance();
-        $context->linkContextToGlobals($__Context__, $lang, $myCookies);
-
-        $context->set('name', 'Joe');
-        $this->assertEquals('Joe', $__Context__->name);
-
-        $lang->module_list='Modules List';
-        $this->assertEquals('Modules List', $__Context__->lang->module_list);
-
-        $myCookies['XDEBUG_SESSION_START'] = '1234';
-        $this->assertEquals('1234', $__Context__->_COOKIE['XDEBUG_SESSION_START']);
-    }
-
     public function testChangesInContextAppearInPHPGlobals()
     {
         $context = new ContextInstance();
 
         $context->linkContextToGlobals(
-            $context->getGlobals('__Context__'),
             $context->getGlobals('lang'),
             $context->getGlobalCookies());
-
-        $context->set('name', 'Joe');
-        $this->assertEquals('Joe', $context->getGlobals('__Context__')->name);
 
         global $lang;
         $lang->module_list='Modules List';
@@ -116,7 +93,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
 
         $cookies = &$context->getGlobalCookies();
         $cookies['XDEBUG_SESSION_START'] = '1234';
-        $this->assertEquals('1234', $context->getGlobals('__Context__')->_COOKIE['XDEBUG_SESSION_START']);
+        $this->assertEquals('1234', $context->context->_COOKIE['XDEBUG_SESSION_START']);
     }
 
     /**
@@ -1081,7 +1058,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Arrange
         $context = $this->getMock('ContextInstance', array('getXmlLangParser', 'is_readable', 'includeLanguageFile'));
 
-        $xml_lang_parser = $this->getMock('XmlLangParser', array('compile'));
+        $xml_lang_parser = $this->getMock('XmlLangParser', array('compile'), array('filename', 'lang'));
         $xml_lang_parser->expects($this->once())
             ->method('compile')
             ->will($this->returnValue("compiled.php"));
@@ -1111,7 +1088,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Arrange
         $context = $this->getMock('ContextInstance', array('getXmlLangParser', 'is_readable', 'includeLanguageFile'));
 
-        $xml_lang_parser = $this->getMock('XmlLangParser', array('compile'));
+        $xml_lang_parser = $this->getMock('XmlLangParser', array('compile'), array('filename', 'lang'));
         $xml_lang_parser->expects($this->once())
             ->method('compile')
             ->will($this->returnValue(false));
@@ -1141,7 +1118,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Arrange
         $context = $this->getMock('ContextInstance', array('getXmlLangParser', 'is_readable'));
 
-        $xml_lang_parser = $this->getMock('XmlLangParser', array('compile'));
+        $xml_lang_parser = $this->getMock('XmlLangParser', array('compile'), array('filename', 'lang'));
         $xml_lang_parser->expects($this->once())
             ->method('compile')
             ->will($this->returnValue("compiled.php"));
@@ -1174,7 +1151,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Arrange
         $context = $this->getMock('ContextInstance', array('getXmlLangParser', 'is_readable', 'evaluateLanguageFileContent'));
 
-        $xml_lang_parser = $this->getMock('XmlLangParser', array('compile', 'getCompileContent'));
+        $xml_lang_parser = $this->getMock('XmlLangParser', array('compile', 'getCompileContent'), array('filename', 'lang'));
         $xml_lang_parser->expects($this->any())
             ->method('compile')
             ->will($this->returnValue("compiled.php"));
@@ -2185,24 +2162,24 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->once())
             ->method('setCookie')
             ->with(
-                $this->equalTo('sso'),
-                $this->equalTo(md5('http://shop.xpressengine.org')) ,
-                $this->equalTo(0),
-                $this->equalTo('/')
+            $this->equalTo('sso'),
+            $this->equalTo(md5('http://shop.xpressengine.org')) ,
+            $this->equalTo(0),
+            $this->equalTo('/')
         );
-        $context->expects($this->once())
-            ->method('setRedirectResponseTo')
-            ->with('http://www.xpressengine.org/?default_url=' . base64_encode($context->getRequestUrl()));
 
         $context->db_info = new stdClass();
         $context->db_info->use_sso = 'Y';
         $context->db_info->default_url = 'http://www.xpressengine.org';
 
         // 2. Act
+        /** @var $result \Symfony\Component\HttpFoundation\RedirectResponse */
         $result = $context->checkSSO();
 
         // 3. Assert
-        $this->assertFalse($result);
+        $this->assertTrue($result instanceof \Symfony\Component\HttpFoundation\RedirectResponse);
+        $expected_url = 'http://www.xpressengine.org/?default_url=' . base64_encode($context->getRequestUrl());
+        $this->assertEquals($expected_url, $result->getTargetUrl());
     }
 
     /**
@@ -2227,9 +2204,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->once())
             ->method('getSessionId')
             ->will($this->returnValue('here-is-my-session-id'));
-        $context->expects($this->once())
-            ->method('setRedirectResponseTo')
-            ->with('http://shop.xpressengine.org/?SSOID=here-is-my-session-id');
 
         $context->db_info = new stdClass();
         $context->db_info->use_sso = 'Y';
@@ -2240,7 +2214,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $result = $context->checkSSO();
 
         // 3. Assert
-        $this->assertFalse($result);
+        $this->assertTrue($result instanceof \Symfony\Component\HttpFoundation\RedirectResponse);
+        $expected_url = 'http://shop.xpressengine.org/?SSOID=here-is-my-session-id';
+        $this->assertEquals($expected_url, $result->getTargetUrl());
     }
 
     /**
@@ -2264,6 +2240,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             ->method('getGlobalCookie')
             ->will($this->returnValue(md5('http://shop.xpressengine.org/')));
 
+        $context->db_info = new stdClass();
         $context->db_info = new stdClass();
         $context->db_info->use_sso = 'Y';
         $context->db_info->default_url = 'http://www.xpressengine.org';
@@ -2304,9 +2281,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             $this->equalTo($context->getSessionName()),
             $this->equalTo('here-is-my-session-id')
         );
-        $context->expects($this->once())
-            ->method('setRedirectResponseTo')
-            ->with('http://shop.xpressengine.org/');
 
         $context->db_info = new stdClass();
         $context->db_info->use_sso = 'Y';
@@ -2314,10 +2288,13 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->set('SSOID', 'here-is-my-session-id', true);
 
         // 2. Act
+        /** @var $result \Symfony\Component\HttpFoundation\RedirectResponse */
         $result = $context->checkSSO();
 
         // 3. Assert
-        $this->assertFalse($result);
+        $this->assertTrue($result instanceof \Symfony\Component\HttpFoundation\RedirectResponse);
+        $url = 'http://shop.xpressengine.org/';
+        $this->assertEquals($url, $result->getTargetUrl());
     }
 
     public function testLoadJavascriptPlugin_JsFile()
