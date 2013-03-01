@@ -2,6 +2,8 @@
 
 require_once ('ModuleKey.php');
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 class MidMismatchException extends Exception
 {
     private $mid;
@@ -89,14 +91,18 @@ class SiteSrlMismatchException extends Exception
     }
 }
 
-class DefaultUrlNotDefined extends Exception
+class DefaultUrlNotDefinedException extends Exception
 {
-
+    public function __construct() {
+        return parent::__construct('msg_default_url_is_not_defined');
+    }
 }
 
 class ModuleDoesNotExistException extends Exception
 {
-
+    public function __construct() {
+        return parent::__construct('msg_module_is_not_exists');
+    }
 }
 
 class InvalidRequestException extends Exception
@@ -104,132 +110,167 @@ class InvalidRequestException extends Exception
 
 }
 
-class ModuleMatcher
-{
-    public function getModuleInfo($original_module, $original_act, $original_mid, $original_document_srl, $original_module_srl, $original_entry, moduleModel $oModuleModel, $site_module_info, documentModel $oDocumentModel, $default_url /*db_info defalut url*/)
-    {
-        $module = $original_module;
-        $act = $original_act;
-        $mid = $original_mid;
-        $document_srl = $original_document_srl;
-        $module_srl = $original_module_srl;
-        $entry = $original_entry;
 
-        $module_info = null;
+class ModuleInfoResult {
+    private $module_info;
+    private $redirect_url;
 
-            if(!$document_srl && $mid && $entry) {
-            $document_srl = $oDocumentModel->getDocumentSrlByAlias($mid, $entry);
+    public function __construct($module_info, $redirect_url) {
+        $this->module_info = $module_info;
+        $this->redirect_url = $redirect_url;
+    }
+
+    public function isSuccessful() {
+        if($this->module_info) return true;
+        return false;
+    }
+
+    public function getRedirectUrl() {
+        return $this->redirect_url;
+    }
+
+    public function getModuleInfo() {
+        return $this->module_info;
+    }
+}
+
+/**
+ * Returns the properties of a module_instance, given a document_srl, a mid or a mid and an entry
+ *
+ */
+class ModuleInstanceRetriever {
+
+    private $documentModel;
+    private $moduleModel;
+    private $context;
+
+    public function __construct(documentModel $documentModel, moduleModel $moduleModel, ContextInstance $context) {
+        $this->documentModel = $documentModel;
+        $this->moduleModel = $moduleModel;
+        $this->context = $context;
+    }
+
+    public function findModuleInfo($mid, $entry, &$document_srl, $site_module_info) {
+        // 1. Search module instance properties based on a document
+        $module_info = $this->findModuleInfoByMidAndEntry($mid, $entry, $document_srl);
+
+        if (!$module_info) {
+            $module_info = $this->findModuleInfoByDocumentSrl($document_srl);
         }
 
-
-        // Get module's information based on document_srl, if it's specified
-        if($document_srl && !$module) {
-            $module_info = $oModuleModel->getModuleInfoByDocumentSrl($document_srl);
-
-            // If the document does not exist, remove document_srl
-            if(!$module_info) {
-                unset($document_srl);
-            } else {
-                // If it exists, compare mid based on the module information
-                // if mids are not matching, set it as the document's mid
-                if($mid != $module_info->mid) {
-                    $mid_mismatch_exception = new MidMismatchException();
-                    $mid_mismatch_exception->setRedirectInfo($module_info->mid, $document_srl);
-                    throw $mid_mismatch_exception;
-                }
-            }
-            // if requested module is different from one of the document, remove the module information retrieved based on the document number
-            if($module && $module_info->module != $module) unset($module_info);
+        if(!$module_info) {
+            $document_srl = null;
+        }
+        if ($module_info && $mid != $module_info->mid) {
+            return new ModuleInfoResult(null,
+                $this->context->getNotEncodedSiteUrl(
+                    $site_module_info->domain
+                    , 'mid', $module_info->mid
+                    , 'document_srl', $document_srl));
         }
 
-        // If module_info is not set yet, and there exists mid information, get module information based on the mid
-        if(!$module_info && $mid) {
-            $module_info = $oModuleModel->getModuleInfoByMid($mid, $site_module_info->site_srl);
-            //if($module && $module_info->module != $module) unset($module_info);
+        // 2. Search module instance properties based on a mid (module id)
+        if (!$module_info && $mid) {
+            $module_info = $this->findModuleInfoByMid($mid, $site_module_info->site_srl);
+        }
+
+        $current_site_srl = $site_module_info->site_srl;
+        $default_module_site_srl = $site_module_info->module_site_srl;
+        if(!$module_info && $current_site_srl == 0 && $default_module_site_srl > 0) {
+            // Get info of virtual site
+            $site_info = $this->moduleModel->getSiteInfo($default_module_site_srl);
+            // Redirect to its domain
+            return new ModuleInfoResult(null,
+                $this->context->getNotEncodedSiteUrl(
+                    $site_info->domain
+                    , 'mid',$site_module_info->mid)
+            );
+        }
+
+        // 3. Lastly, just try to use the default module for this request
+        // If module_info is not set still, and $module does not exist, find the default module
+        if (!$module_info && !$mid) {
+            $module_info = $site_module_info;
+        }
+
+        // If default module belongs to virtual site
+        if (!$module_info && $site_module_info->module_site_srl && $site_module_info->site_srl != 0) {
+            $module_info = $site_module_info;
         }
 
         // redirect, if module_site_srl and site_srl are different
-        // If the site_srl of the default module set for the main website is other than 0, redirect to subdomain url
-        if(!$module && !$module_info && $site_module_info->site_srl == 0 && $site_module_info->module_site_srl > 0) {
-            // Retrieve info of the site associated with the default module
-            $site_info = $oModuleModel->getSiteInfo($site_module_info->module_site_srl);
-            $site_srl_mismatch_exception = new DefaultModuleSiteSrlMismatchException();
-            $site_srl_mismatch_exception->setRedirectInfo($site_info->domain, $site_module_info->mid);
-            throw $site_srl_mismatch_exception;
-        }
-
-        // If module_info is not set still, and $module does not exist, find the default module
-        if(!$module_info && !$module && !$mid) $module_info = $site_module_info;
-
-        if(!$module_info && !$module && $site_module_info->module_site_srl) $module_info = $site_module_info;
-
+        $current_module_site_srl = $module_info->site_srl;
         // redirect, if site_srl of module_info is different from one of site's module_info
-        if($module_info && $module_info->site_srl != $site_module_info->site_srl && !isCrawler()) {
+        if($module_info && $current_module_site_srl != $current_site_srl && !$this->context->isCrawler()) {
             // If the module is of virtual site
-            if($module_info->site_srl) {
-                $site_info = $oModuleModel->getSiteInfo($module_info->site_srl);
-                $site_srl_mismatch_exception = new SiteSrlMismatchException();
-                $site_srl_mismatch_exception->setRedirectInfo(
-                    $site_info->domain
-                    , $original_mid
-                    , $original_document_srl
-                    , $original_module_srl
-                    , $original_entry
+            if($current_module_site_srl) {
+                $site_info = $this->moduleModel->getSiteInfo($current_module_site_srl);
+                return new ModuleInfoResult(null,
+                    $this->context->getNotEncodedSiteUrl(
+                        $site_info->domain
+                        , 'mid',$this->context->get('mid')
+                        , 'document_srl',$document_srl
+                        , 'module_srl',$this->context->get('module_srl')
+                        , 'entry',$this->context->get('entry'))
                 );
-                throw $site_srl_mismatch_exception;
-                // If it's called from a virtual site, though it's not a module of the virtual site
-            } else {
-                if(!$default_url) {
-                    throw new DefaultUrlNotDefined;
-                }
-                else {
-                    $site_srl_mismatch_exception = new SiteSrlMismatchException();
-                    $site_srl_mismatch_exception->setRedirectInfo($default_url
-                        , $original_mid
-                        , $original_document_srl
-                        , $original_module_srl
-                        , $original_entry
-                    );
-                    throw $site_srl_mismatch_exception;
-                }
             }
 
+            // If it's called from a virtual site, though it's not a module of the virtual site
+            $default_url = $this->context->getDefaultUrl();
+            if(!$default_url) {
+                throw new DefaultUrlNotDefinedException();
+            }
+
+            return new ModuleInfoResult(null,
+                $this->context->getNotEncodedSiteUrl(
+                    $default_url
+                    , 'mid',$this->context->get('mid')
+                    , 'document_srl',$document_srl
+                    , 'module_srl',$this->context->get('module_srl')
+                    , 'entry',$this->context->get('entry'))
+            );
         }
 
-        // If module info was set, retrieve variables from the module information
-        if ($module_info) {
-            $module = $module_info->module;
-            $mid = $module_info->mid;
-        }
-        else {
-            $module_info = new stdClass();
-        }
-
-        // Set module and mid into module_info
-        $module_info->module = $module;
-        $module_info->mid = $mid;
-
-        // Set site_srl add 2011 08 09
-        $module_info->site_srl = $site_module_info->site_srl;
-
-        // Still no module? it's an error
-        if(!$module)
-        {
+        if(!$module_info) {
             throw new ModuleDoesNotExistException();
         }
 
-        $match = new stdClass();
-        $match->module = $module;
-        $match->act = $act;
-        $match->mid = $mid;
-        $match->document_srl = $document_srl;
-        $match->module_srl = $module_srl;
-        $match->entry = $entry;
-
-        $match->module_info = $module_info;
-
-        return $match;
+        return new ModuleInfoResult($module_info, null);
     }
+
+
+    private function findModuleInfoByDocumentSrl($document_srl) {
+        if(!$document_srl) {
+            return null;
+        }
+        return $this->moduleModel->getModuleInfoByDocumentSrl($document_srl);
+    }
+
+    private function findModuleInfoByMidAndEntry($mid, $entry, &$document_srl) {
+        if (!$mid || !$entry) {
+            return null;
+        }
+
+        $document_srl = $this->documentModel->getDocumentSrlByAlias($mid, $entry);
+        return $this->findModuleInfoByDocumentSrl($document_srl);
+    }
+
+    private function findModuleInfoByMid($mid, $site_srl) {
+        return $this->moduleModel->getModuleInfoByMid($mid, $site_srl);;
+    }
+}
+
+
+class ModuleMatcher
+{
+    private $documentModel;
+    private $moduleModel;
+
+    public function __construct(documentModel $documentModel, moduleModel $moduleModel) {
+        $this->documentModel = $documentModel;
+        $this->moduleModel = $moduleModel;
+    }
+
 
     /**
      * This represents the $act parameter in the HTTP request

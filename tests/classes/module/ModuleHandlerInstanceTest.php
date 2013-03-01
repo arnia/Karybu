@@ -47,6 +47,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('encoded_my_entry', $module_handler->entry);
     }
 
+
     public function testConstructor_WhenAppIsNotInstalled()
     {
         $context = $this->getMock('ContextInstance', array('isInstalled'));
@@ -151,14 +152,13 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->once())->method('getServerHost')->will($this->returnValue('www.xpressengine.org'));
         $context->expects($this->once())->method('getServerRequestUri')->will($this->returnValue('/?act=dispSomeAction'));
 
-        // Assert that a redirect will be made
-        $context->expects($this->once())->method('setRedirectResponseTo')->with('https://www.xpressengine.org/?act=dispSomeAction');
-
         // Act - call init
         $module_handler = new ModuleHandlerInstance($context, $mobile);
+        /** @var $result \Symfony\Component\HttpFoundation\RedirectResponse */
         $result = $module_handler->init();
 
-        $this->assertFalse((bool)$result);
+        $this->assertTrue(is_a($result, '\Symfony\Component\HttpFoundation\RedirectResponse'));
+        $this->assertEquals('https://www.xpressengine.org/?act=dispSomeAction', $result->getTargetUrl());
     }
 
     /**
@@ -172,6 +172,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         // Arrange
         // 0. App is installed
         $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+        $mock_helper->method('ContextInstance', 'isCrawler')->shouldReturn(false);
         // 1. Current module info (from the database)
         $module_info = new stdClass();
         $module_info->module = 'wiki_module';
@@ -282,8 +283,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $mock_helper->method('ModuleHandlerInstance', 'executeAddon_before_module_init')->shouldBeCalled('once');
         // 3. Make sure a redirect is done
         $mock_helper->method('ContextInstance', 'getNotEncodedSiteUrl')
-            ->shouldBeCalledWith('http://shop.xpressengine.org', 'mid', 'wiki_mid', 'document_srl', '1234', 'module_srl', null, 'entry', 'Tutorials');
-        $mock_helper->method('ContextInstance','setRedirectResponseTo')->shouldBeCalled('once')
+            ->shouldBeCalledWith('http://shop.xpressengine.org', 'mid', 'wiki_mid', 'document_srl', '1234', 'module_srl', null, 'entry', 'Tutorials')
             ->shouldReturn('redirect_url');
 
         // Act - load context, mobile and construct ModuleHandlerInstance
@@ -296,10 +296,12 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $mobile = $this->getMock('MobileInstance');
         $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
 
+        /** @var $result \Symfony\Component\HttpFoundation\RedirectResponse */
         $result = $module_handler->init();
 
         // Assert
-        $this->assertFalse((bool)$result);
+        $this->assertTrue(is_a($result, '\Symfony\Component\HttpFoundation\RedirectResponse'));
+        $this->assertEquals('redirect_url', $result->getTargetUrl());
     }
 
     public function testInit_WithMidAndEntry_WhenDocumentExistsAndBelongsToMainSite_ButIsCalledFromVirtualSite()
@@ -344,8 +346,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $mock_helper->method('ModuleHandlerInstance', 'executeAddon_before_module_init')->shouldBeCalled('once');
         // 3. Make sure a redirect is done
         $mock_helper->method('ContextInstance', 'getNotEncodedSiteUrl')
-            ->shouldBeCalledWith('http://www.xpressengine.org', 'mid', 'wiki_mid', 'document_srl', '1234', 'module_srl', null, 'entry', 'Tutorials');
-        $mock_helper->method('ContextInstance','setRedirectResponseTo')->shouldBeCalled('once')
+            ->shouldBeCalledWith('http://www.xpressengine.org', 'mid', 'wiki_mid', 'document_srl', '1234', 'module_srl', null, 'entry', 'Tutorials')
             ->shouldReturn('redirect_url');
 
         // Act - load context, mobile and construct ModuleHandlerInstance
@@ -358,10 +359,12 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $mobile = $this->getMock('MobileInstance');
         $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
 
+        /** @var $result \Symfony\Component\HttpFoundation\RedirectResponse */
         $result = $module_handler->init();
 
         // Assert
-        $this->assertFalse((bool)$result);
+        $this->assertTrue(is_a($result, '\Symfony\Component\HttpFoundation\RedirectResponse'));
+        $this->assertEquals('redirect_url', $result->getTargetUrl());
     }
 
 
@@ -420,7 +423,8 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $result = $module_handler->init();
 
         // Assert
-        $this->assertEquals('msg_default_url_is_not_defined', $result); // TODO Fix this, it should return false and set $module_handler->error instead
+        $this->assertFalse($result);
+        $this->assertEquals('msg_default_url_is_not_defined', $module_handler->error); // TODO Fix this, it should return false and set $module_handler->error instead
     }
 
     public function testInit_WithMidAndEntry_WhenDocumentExists_ButItDoesntHaveAnAssociatedModule()
@@ -430,6 +434,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         // Arrange
         // 0. App is installed
         $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+        $mock_helper->method('ContextInstance', 'isCrawler')->shouldReturn(false);
         // 1. Current module info (from the database) - can only be retrieved by mid
         $module_info = new stdClass();
         $module_info->module = 'wiki_module';
@@ -482,7 +487,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
 
         // Assert
         // 1. Make sure Context is setup
-        $this->assertEquals(1234, $context->get('document_srl'));
+        $this->assertEquals(null, $context->get('document_srl')); // In old xe, this would return 1234, but should return null since document has no associated module
         $this->assertEquals('wiki_mid', $context->get('mid'));
         $this->assertEquals($expected_module_info, $context->get('current_module_info'));
         $this->assertEquals('Hello', $context->getBrowserTitle());
@@ -505,6 +510,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         // Arrange
         // 0. App is installed
         $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+        $mock_helper->method('ContextInstance', 'isCrawler')->shouldReturn(false);
         // 1. Current module info (from the database)
         $module_info = new stdClass();
         $module_info->module = 'wiki_module';
@@ -532,9 +538,6 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $mock_helper->method('ContextInstance', 'getNotEncodedSiteUrl')
             ->shouldBeCalledWith($site_module_info->domain, 'mid', $module_info->mid, 'document_srl', 1234)
             ->shouldReturn('redirect_url');
-        // 3. Make sure a Redirect is performed
-        $mock_helper->method('ContextInstance', 'setRedirectResponseTo')
-            ->shouldBeCalledWith('redirect_url');
 
         // Act - load context, mobile and construct ModuleHandlerInstance
         /** @var $context ContextInstance */
@@ -546,11 +549,13 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $mobile = $this->getMock('MobileInstance');
         $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
 
+        /** @var $result \Symfony\Component\HttpFoundation\RedirectResponse */
         $result = $module_handler->init();
 
         // Assert
         // Make sure Init result is false
-        $this->assertFalse((bool)$result);
+        $this->assertTrue(is_a($result, '\Symfony\Component\HttpFoundation\RedirectResponse'));
+        $this->assertEquals('redirect_url', $result->getTargetUrl());
     }
 
     /**
@@ -566,6 +571,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         // Arrange
         // 0. App is installed
         $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+        $mock_helper->method('ContextInstance', 'isCrawler')->shouldReturn(false);
         // 1. Current module info (from the database)
         $module_info = new stdClass();
         $module_info->module = 'wiki_module';
@@ -639,6 +645,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         // Arrange
         // 0. App is installed
         $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+        $mock_helper->method('ContextInstance', 'isCrawler')->shouldReturn(false);
         // 1. Current module info (from the database)
         $mock_helper->method('moduleModel', 'getModuleInfoByDocumentSrl')->shouldBeCalledWith(123)->shouldReturn(null);
         // 2. Site module info - we are on the main site
@@ -691,7 +698,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $this->assertTrue((bool)$result);
     }
 
-    public function testInit_WhenModuleInfoNotFound_DefaultModuleShouldBeUsed_RequestByModule()
+    public function testInit_WhenModuleInfoNotFound_ShouldContinue_RequestByModule()
     {
         $context = null;
         // Act
@@ -706,7 +713,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected_module_info, $context->get('current_module_info'));
     }
 
-    public function testInit_WhenModuleInfoNotFound_DefaultModuleShouldBeUsed_RequestByMid()
+    public function testInit_WhenModuleInfoNotFound_ShouldReturn404_RequestByMid()
     {
         $context = null;
         // Act
@@ -731,6 +738,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         // Arrange
         // 0. App is installed
         $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+        $mock_helper->method('ContextInstance', 'isCrawler')->shouldReturn(false);
         // 1. Current module info (from the database)
         $mock_helper->method('moduleModel', 'getModuleInfoByDocumentSrl')->shouldBeCalledWith(123)->shouldReturn(null);
         // 2. Site module info - we are on the main site
@@ -782,11 +790,14 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
     {
         $mock_helper = new MockHelper($this);
         $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+        $mock_helper->method('ContextInstance', 'isCrawler')->shouldReturn(false);
 
         // Prepare mocks
         $context = $mock_helper->getMock('ContextInstance');
         $mobile = $this->getMock('MobileInstance');
+        $mock_helper->method('moduleModel', 'getModulePartConfig')->shouldReturn(null);
         $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($mock_helper->getMock('moduleModel'));
+        $mock_helper->method('ModuleHandlerInstance', 'getDocumentModel')->shouldReturn($mock_helper->getMock('documentModel'));
 
         // Arrange - Request arguments
         $context->set('module', 'admin');
@@ -825,11 +836,14 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
     {
         $mock_helper = new MockHelper($this);
         $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+        $mock_helper->method('ContextInstance', 'isCrawler')->shouldReturn(false);
 
         // Prepare mocks
         $context = $mock_helper->getMock('ContextInstance');
         $mobile = $this->getMock('MobileInstance');
+        $mock_helper->method('moduleModel', 'getModulePartConfig')->shouldReturn(null);
         $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($mock_helper->getMock('moduleModel'));
+        $mock_helper->method('ModuleHandlerInstance', 'getDocumentModel')->shouldReturn($mock_helper->getMock('documentModel'));
 
         // Arrange - Request arguments
         $context->set('module', 'admin');
@@ -858,6 +872,8 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
     {
         $mock_helper = new MockHelper($this);
         $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+        $mock_helper->method('ContextInstance', 'isCrawler')->shouldReturn(false);
+        $mock_helper->method('ModuleHandlerInstance', 'getDocumentModel')->shouldReturn(null);
 
         // Assert
         // 1. Make sure input was validated
@@ -868,8 +884,6 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $mock_helper->method('ContextInstance', 'getNotEncodedSiteUrl')
             ->shouldBeCalledWith('http://shop.xpressengine.org', 'mid', 'default_module_mid')
             ->shouldReturn('redirect_url');
-        $mock_helper->method('ContextInstance', 'setRedirectResponseTo')->shouldBeCalled('once')
-            ->shouldBeCalledWith('redirect_url');
 
         // Prepare mocks
         $context = $mock_helper->getMock('ContextInstance');
@@ -885,16 +899,21 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         // 2. Module site info - default module belongs to different site
         $module_site_info = new stdClass();
         $module_site_info->domain = 'http://shop.xpressengine.org';
+        $mock_helper->method('moduleModel', 'getModulePartConfig')->shouldReturn(null);
         $mock_helper->method('moduleModel', 'getSiteInfo')->shouldBeCalledWith(123)->shouldReturn($module_site_info);
         $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($mock_helper->getMock('moduleModel'));
+        $mock_helper->method('ModuleHandlerInstance', 'getDocumentModel')->shouldReturn($mock_helper->getMock('documentModel'));
 
         // Act
         $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
+        /** @var $result \Symfony\Component\HttpFoundation\RedirectResponse */
         $result = $module_handler->init();
 
         // Assert - Make sure Init result is false
-        $this->assertFalse((bool)$result);
+        $this->assertTrue(is_a($result, '\Symfony\Component\HttpFoundation\RedirectResponse'));
+        $this->assertEquals('redirect_url', $result->getTargetUrl());
     }
+
 
 
 }

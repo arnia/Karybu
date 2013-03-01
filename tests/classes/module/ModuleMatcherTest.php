@@ -53,13 +53,11 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
 
         $defaultUrl = 'http://www.xpressengine.org';
 
-        $match = $matcher->getModuleInfo(null,null, null, null, null, null, $moduleModel, $site_module_info, $documentModel, $defaultUrl);
+        $match = $matcher->getModuleInfo(null,null, null, null, $moduleModel, $site_module_info, $documentModel, $defaultUrl, false);
 
         $this->assertEquals($match->module, "page");
-        $this->assertEquals($match->act, null);
         $this->assertEquals($match->mid, "welcome_page");
         $this->assertEquals($match->document_srl, null);
-        $this->assertEquals($match->module_srl, null);
         $this->assertEquals($match->entry, null);
     }
 
@@ -90,13 +88,11 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
 
         $defaultUrl = 'http://www.xpressengine.org';
 
-        $match = $matcher->getModuleInfo(null,null, "welcome_page", null, null, null, $moduleModelMock, $site_module_info, $documentModel, $defaultUrl);
+        $match = $matcher->getModuleInfo(null,"welcome_page", null, null, $moduleModelMock, $site_module_info, $documentModel, $defaultUrl, false);
 
         $this->assertEquals($match->module, "page");
-        $this->assertEquals($match->act, null);
         $this->assertEquals($match->mid, "welcome_page");
         $this->assertEquals($match->document_srl, null);
-        $this->assertEquals($match->module_srl, null);
         $this->assertEquals($match->entry, null);
     }
 
@@ -133,7 +129,7 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
 
         try
         {
-            $matcher->getModuleInfo(null,null, null, null, null, null, $moduleModelMock, $site_module_info, $documentModel, $defaultUrl);
+            $matcher->getModuleInfo(null, null, null, null, $moduleModelMock, $site_module_info, $documentModel, $defaultUrl, false);
         }
         catch(Exception $e)
         {

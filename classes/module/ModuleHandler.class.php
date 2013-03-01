@@ -95,6 +95,37 @@ class ModuleHandlerInstance extends Handler
         return getModel('document');
     }
 
+    private function isDisplayAction() {
+        return isset($this->act) && substr($this->act, 0, 4) == 'disp';
+    }
+
+    private function currentRequestIsHttps() {
+        return $this->context->getServerRequestHttps() == 'on';
+    }
+
+    private function sslEnabledAndSslActionExists() {
+        if ($this->isDisplayAction()
+            && $this->context->get('_use_ssl') == 'optional'
+            && $this->context->isExistsSSLAction($this->act)
+            && !$this->currentRequestIsHttps()
+        ) {
+            $redirect_url = 'https://' . $this->context->getServerHost() . $this->context->getServerRequestUri();
+            return new \Symfony\Component\HttpFoundation\RedirectResponse($redirect_url);
+        }
+
+        return null;
+    }
+
+    private function onMainWebsiteAndDefaultModuleBelongsToVirtualSite($current_site_srl, $default_module_site_srl) {
+        if($current_site_srl == 0 && $default_module_site_srl > 0) {
+            // Get info of virtual site
+            $site_info = $this->getModuleModel()->getSiteInfo($default_module_site_srl);
+            // Redirect to its domain
+            $redirect_url = $this->context->getNotEncodedSiteUrl($site_info->domain,'mid',$site_info->mid);
+            return new RedirectResponse($redirect_url);
+        }
+    }
+
     /**
      * Initialization. It finds the target module based on module, mid, document_srl, and prepares to execute an action
      * @return boolean true: OK, false: redirected
@@ -105,106 +136,77 @@ class ModuleHandlerInstance extends Handler
         $this->validateVariablesAgainstXSS();
 
         // Exit if ssl is enabled and a ssl action exists for this request
-        if (isset($this->act) && substr($this->act, 0, 4) == 'disp') {
-            if ($this->context->get('_use_ssl') == 'optional'
-                && $this->context->isExistsSSLAction($this->act)
-                && $this->context->getServerRequestHttps() != 'on'
-            ) {
-                $redirect_url = 'https://' . $this->context->getServerHost() . $this->context->getServerRequestUri();
-                $this->context->setRedirectResponseTo($redirect_url);
-                return;
-            }
+        if($response = $this->sslEnabledAndSslActionExists()) {
+            return $response;
         }
+
         // TODO Replace with event dispatcher
         $this->executeAddon_before_module_init();
 
         $oModuleModel = $this->getModuleModel();
         $site_module_info = $this->context->get('site_module_info');
-        $oDocumentModel = $this->getDocumentModel();
-        $db_info = $this->context->getDBInfo();
 
-        // TODO Move all the 'catch' statements here to the Listener and return RedirectResponse
-        $moduleMatcher = new ModuleMatcher();
-        $found_module_info = new stdClass();
         try {
-            $found_module_info = $moduleMatcher->getModuleInfo(
-                $this->module
-                ,
-                $this->act
-                ,
-                $this->mid
-                ,
-                $this->document_srl
-                ,
-                $this->module_srl
-                ,
-                $this->entry
-                ,
-                $oModuleModel
-                ,
-                $site_module_info
-                ,
-                $oDocumentModel
-                ,
-                $db_info->default_url
-                ,
-                $this->context
-            );
-        } catch (MidMismatchException $e) {
-            $redirectionUrl = getNotEncodedSiteUrl($site_module_info->domain, 'mid', $e->getMid(), 'document_srl', $e->getDocumentSrl());
-            return new RedirectResponse($redirectionUrl);
-        } catch (DefaultModuleSiteSrlMismatchException $e) {
-            $redirectionUrl = getNotEncodedSiteUrl($e->getDomain(),'mid',$e->getMid());
-            return new RedirectResponse($redirectionUrl);
-        } catch (SiteSrlMismatchException $e) {
-            $redirectionUrl = getNotEncodedSiteUrl(
-                $e->getDomain(),
-                'mid', $e->getMid(),
-                'document_srl', $e->getDocumentSrl(),
-                'module_srl', $e->getModuleSrl(),
-                'entry', $e->getEntry()
-            );
-            return new RedirectResponse($redirectionUrl);
-        } catch (DefaultUrlNotDefined $e) {
-            return Context::getLang('msg_default_url_is_not_defined');
-        } catch (ModuleDoesNotExistException $e) {
-            $this->error = 'msg_module_is_not_exists';
+            if(!$this->module) {
+                // Get current module instance properties
+                $moduleInstanceRetriever = new ModuleInstanceRetriever($this->getDocumentModel(), $this->getModuleModel(), $this->context);
+                $result = $moduleInstanceRetriever->findModuleInfo($this->mid, $this->entry, $this->document_srl, $site_module_info);
+                if(!$result->isSuccessful()) {
+                    return new RedirectResponse($result->getRedirectUrl());
+                }
+
+                $module_info = $result->getModuleInfo();
+
+                // If module info was set, retrieve variables from the module information
+                $this->module = $module_info->module;
+                $this->mid = $module_info->mid;
+                $this->module_info = $module_info;
+                $this->module_info->site_srl = $site_module_info->site_srl;
+
+
+                $this->context->setBrowserTitle($module_info->browser_title);
+
+                if ($module_info->use_mobile && $this->mobile->isFromMobilePhone()) {
+                    $layoutSrl = $module_info->mlayout_srl;
+                } else {
+                    $layoutSrl = $module_info->layout_srl;
+                }
+
+                $part_config= $oModuleModel->getModulePartConfig('layout',$layoutSrl);
+                $this->context->addHtmlHeader($part_config->header_script);
+            }
+
+        } catch(ModuleDoesNotExistException $e) {
+            $this->error = $e->getMessage();
             $this->httpStatusCode = '404';
-        }
-        catch (Exception $e) {
-            $this->error = 'An error occurred';
+        } catch(DefaultUrlNotDefinedException $e) {
+            $this->error = $e->getMessage();
+            $this->httpStatusCode = '500';
+            return false;
+        } catch(Exception $e) {
+            $this->error = $e->getMessage();
             $this->httpStatusCode = '500';
         }
 
-        $this->document_srl = $found_module_info->document_srl;
-        $this->module_info = $found_module_info->module_info;
-        $this->module = $found_module_info->module;
-        $this->mid = $found_module_info->mid;
-
-        $this->context->setBrowserTitle($this->module_info->browser_title);
-
-        if ($this->module_info->use_mobile && Mobile::isFromMobilePhone()) {
-            $layoutSrl = $this->module_info->mlayout_srl;
-        } else {
-            $layoutSrl = $this->module_info->layout_srl;
+        if(!$this->module_info) {
+            $this->module_info = new stdClass();
+            $this->module_info->module = $this->module;
+            $this->module_info->mid = $this->mid;
+            $this->module_info->site_srl = $site_module_info->site_srl;
         }
 
-        $part_config = $oModuleModel->getModulePartConfig('layout', $layoutSrl);
-        $this->context->addHtmlHeader($part_config->header_script);
-
-
-        if ($this->document_srl) {
-            $this->context->set('document_srl', $this->document_srl);
-        }
         // If mid exists, set mid into context
         if ($this->mid) {
             $this->context->set('mid', $this->mid, true);
         }
-
+        if ($this->document_srl) {
+            $this->context->set('document_srl', $this->document_srl);
+        }
 
         // Call a trigger after moduleHandler init
+        // TODO Replace with event dispatcher
         $output = $this->triggerCall('moduleHandler.init', 'after', $this->module_info);
-        if (!$output->toBool()) {
+        if(!$output->toBool()) {
             $this->error = $output->getMessage();
             return false;
         }
