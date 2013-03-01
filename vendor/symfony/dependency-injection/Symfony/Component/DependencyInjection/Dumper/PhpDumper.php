@@ -187,7 +187,7 @@ class PhpDumper extends Dumper
      *
      * @return string
      *
-     * @throws \RuntimeException When the factory definition is incomplete
+     * @throws RuntimeException When the factory definition is incomplete
      * @throws ServiceCircularReferenceException When a circular reference is detected
      */
     private function addServiceInlinedDefinitions($id, $definition)
@@ -416,7 +416,7 @@ class PhpDumper extends Dumper
         }
 
         if (is_array($callable)) {
-            if (is_object($callable[0]) && $callable[0] instanceof Reference) {
+            if ($callable[0] instanceof Reference) {
                 return sprintf("        %s->%s(\$%s);\n", $this->getServiceCall((string) $callable[0]), $callable[1], $variableName);
             }
 
@@ -746,7 +746,7 @@ EOF;
     {
         \$name = strtolower(\$name);
 
-        if (!array_key_exists(\$name, \$this->parameters)) {
+        if (!(isset(\$this->parameters[\$name]) || array_key_exists(\$name, \$this->parameters))) {
             throw new InvalidArgumentException(sprintf('The parameter "%s" must be defined.', \$name));
         }
 
@@ -758,7 +758,9 @@ EOF;
      */
     public function hasParameter(\$name)
     {
-        return array_key_exists(strtolower(\$name), \$this->parameters);
+        \$name = strtolower(\$name);
+
+        return isset(\$this->parameters[\$name]) || array_key_exists(\$name, \$this->parameters);
     }
 
     /**
@@ -808,6 +810,8 @@ EOF;
      * @param integer $indent
      *
      * @return string
+     *
+     * @throws InvalidArgumentException
      */
     private function exportParameters($parameters, $path = '', $indent = 12)
     {
@@ -950,16 +954,17 @@ EOF;
     /**
      * Checks if a service id has a reference
      *
-     * @param string $id
-     * @param array  $arguments
+     * @param string  $id
+     * @param array   $arguments
+     * @param Boolean $deep
      *
      * @return Boolean
      */
-    private function hasReference($id, array $arguments, $deep = false)
+    private function hasReference($id, array $arguments, $deep = false, $visited = array())
     {
         foreach ($arguments as $argument) {
             if (is_array($argument)) {
-                if ($this->hasReference($id, $argument, $deep)) {
+                if ($this->hasReference($id, $argument, $deep, $visited)) {
                     return true;
                 }
             } elseif ($argument instanceof Reference) {
@@ -967,11 +972,13 @@ EOF;
                     return true;
                 }
 
-                if ($deep) {
+                if ($deep && !isset($visited[(string) $argument])) {
+                    $visited[(string) $argument] = true;
+
                     $service = $this->container->getDefinition((string) $argument);
                     $arguments = array_merge($service->getMethodCalls(), $service->getArguments(), $service->getProperties());
 
-                    if ($this->hasReference($id, $arguments, $deep)) {
+                    if ($this->hasReference($id, $arguments, $deep, $visited)) {
                         return true;
                     }
                 }
@@ -988,6 +995,8 @@ EOF;
      * @param Boolean $interpolate
      *
      * @return string
+     *
+     * @throws RuntimeException
      */
     private function dumpValue($value, $interpolate = true)
     {
@@ -998,7 +1007,7 @@ EOF;
             }
 
             return sprintf('array(%s)', implode(', ', $code));
-        } elseif (is_object($value) && $value instanceof Definition) {
+        } elseif ($value instanceof Definition) {
             if (null !== $this->definitionVariables && $this->definitionVariables->contains($value)) {
                 return $this->dumpValue($this->definitionVariables->offsetGet($value), $interpolate);
             }
@@ -1030,15 +1039,15 @@ EOF;
             }
 
             return sprintf("new \\%s(%s)", substr(str_replace('\\\\', '\\', $class), 1, -1), implode(', ', $arguments));
-        } elseif (is_object($value) && $value instanceof Variable) {
+        } elseif ($value instanceof Variable) {
             return '$'.$value;
-        } elseif (is_object($value) && $value instanceof Reference) {
+        } elseif ($value instanceof Reference) {
             if (null !== $this->referenceVariables && isset($this->referenceVariables[$id = (string) $value])) {
                 return $this->dumpValue($this->referenceVariables[$id], $interpolate);
             }
 
             return $this->getServiceCall((string) $value, $value);
-        } elseif (is_object($value) && $value instanceof Parameter) {
+        } elseif ($value instanceof Parameter) {
             return $this->dumpParameter($value);
         } elseif (true === $interpolate && is_string($value)) {
             if (preg_match('/^%([^%]+)%$/', $value, $match)) {
@@ -1052,9 +1061,6 @@ EOF;
                 };
 
                 $code = str_replace('%%', '%', preg_replace_callback('/(?<!%)(%)([^%]+)\1/', $replaceParameters, var_export($value, true)));
-
-                // optimize string
-                $code = preg_replace(array("/^''\./", "/\.''$/", "/(\w+)(?:'\.')/", "/(.+)(?:\.''\.)/"), array('', '', '$1', '$1.'), $code);
 
                 return $code;
             }

@@ -27,6 +27,7 @@ return array(
     'Object' => $baseDir . '/classes/object/Object.class.php',
     'PageHandler' => $baseDir . '/classes/page/PageHandler.class.php',
     'Security' => $baseDir . '/classes/security/Security.class.php',
+    'SessionHandlerInterface' => $baseDir . '/vendor/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
     'TemplateHandler' => $baseDir . '/classes/template/TemplateHandler.class.php',
     'Validator' => $baseDir . '/classes/validator/Validator.class.php',
     'WidgetHandler' => $baseDir . '/classes/widget/WidgetHandler.class.php',
