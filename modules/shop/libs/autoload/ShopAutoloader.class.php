@@ -15,7 +15,7 @@ class ShopAutoloader
     public function __construct($bulkPath=null)
     {
         //todo: test against static methods
-        spl_autoload_register(array($this, 'loader'));
+        spl_autoload_register(array($this, 'loader'), true, true);
         if ($bulkPath) $this->bulkPath = $bulkPath;
     }
 
@@ -49,7 +49,7 @@ class ShopAutoloader
                 }
 
                 if (!in_array($class, array('ShippingMethod','PaymentMethod'))) {
-                    $this->getFile(__DIR__ . "/../model/$itemClass.php", $itemClass);
+                    $this->getFile(_XE_PATH_ . "modules/shop/libs/model/$itemClass.php", $itemClass);
                 }
                 else
                 {

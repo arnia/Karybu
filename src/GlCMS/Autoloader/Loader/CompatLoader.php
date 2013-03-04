@@ -24,8 +24,11 @@ class CompatLoader extends AbstractLoader
      */
     public function loadSimplePath($class)
     {
+        if ($this->classHasNamespace($class)) {
+            return false;
+        }
         $path = "{$this->modulesPath}/$class/$class.class.php";
-        return $this->includeFile("{$path}");
+        return $this->includeFile($path);
     }
 
     /**
@@ -34,6 +37,9 @@ class CompatLoader extends AbstractLoader
      */
     public function loadCamelCasePath($class)
     {
+        if ($this->classHasNamespace($class)) {
+            return false;
+        }
         if (preg_match_all('#((?:^|[A-Z])[a-z]+)#', $class, $matches)) {
             $matches = $matches[0];
             $module = $matches[0];
