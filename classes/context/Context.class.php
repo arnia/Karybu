@@ -2526,7 +2526,7 @@ class ContextInstance {
         foreach($routes as $routeName=>$route){
             /**@var $route Route */
             $matches = array();
-            preg_match_all('/\{([^\}]+)\}/', $route->getPattern(), $matches);
+            preg_match_all('/\{([^\}]+)\}/', $route->getPath(), $matches);
             $patParams = $matches[1];sort($patParams);
 
             if ($patParams == $paramKeys){
