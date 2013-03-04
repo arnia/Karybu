@@ -13,6 +13,10 @@ require_once 'ModuleMatcher.class.php';
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use GlCMS\ModuleHandler\ModuleInstanceRetriever;
+use GlCMS\Exception\ModuleDoesNotExistException;
+use GlCMS\Exception\DefaultUrlNotDefinedException;
+use GlCMS\Exception\InvalidRequestException;
 
 class ModuleHandlerInstance extends Handler
 {
