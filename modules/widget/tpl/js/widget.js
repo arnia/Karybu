@@ -180,16 +180,17 @@ function getWidgetCode(childObj, widget) {
 // 팝업 띄움
 function doAddContent(mid) {
     var url = request_uri.setQuery('module','widget').setQuery('act','dispWidgetAdminAddContent').setQuery('module_srl',zoneModuleSrl).setQuery('mid',mid);
-	popopen(url, "addContent");
+
+    showModal(url);
 }
 
 // 직접 내용을 입력하기 위한 에디터 활성화 작업 및 form 데이터 입력
 function doSyncPageContent() {
-    if(opener && opener.selectedWidget) {
+    if(window.parent && window.parent.selectedWidget) {
 
         var fo_obj = get_by_id("content_fo");
-        var sel_obj = opener.selectedWidget;
-        fo_obj.style.value = getStyle(opener.selectedWidget);
+        var sel_obj = window.parent.selectedWidget;
+        fo_obj.style.value = getStyle(window.parent.selectedWidget);
         fo_obj.widget_padding_left.value = getPadding(sel_obj, 'left');
         fo_obj.widget_padding_right.value = getPadding(sel_obj,'right');
         fo_obj.widget_padding_bottom.value = getPadding(sel_obj,'bottom');
@@ -252,7 +253,7 @@ function addContentWidget(fo_obj) {
 			if(!ret_obj || ret_obj.error != '0') return;
 
 			var document_srl  = ret_obj.document_srl;
-			var contentWidget = opener.jQuery('div.widgetOutput[widget=widgetContent][document_srl='+document_srl+']'), attr = [];
+			var contentWidget = window.parent.jQuery('div.widgetOutput[widget=widgetContent][document_srl='+document_srl+']'), attr = [];
 
 			if(contentWidget.size() > 0) {
 				attr = contentWidget.get(0).attributes;
@@ -273,8 +274,8 @@ function addContentWidget(fo_obj) {
 				if(!$tpl.attr(attr[i].name)) $tpl.attr(attr[i].name, attr[i].value);
 			}
 			tpl = jQuery('<div>').append($tpl).html();
-			opener.doAddWidgetCode(tpl);
-			window.close();
+			window.parent.doAddWidgetCode(tpl);
+			window.parent.triggerClose();
 		},
 		'document_srl'.split(',') // response tags
 	);
@@ -297,7 +298,6 @@ function doAddWidgetBox() {
     doFitBorderSize();
 }
 
-
 /* 일반 위젯을 추가하기 위해 위젯 팝업창을 띄움 */
 function doAddWidget(fo) {
     var sel = fo.widget_list;
@@ -306,10 +306,9 @@ function doAddWidget(fo) {
     var module_srl = fo.module_srl.value;
 
     var url = request_uri.setQuery('module','widget').setQuery('act','dispWidgetGenerateCodeInPage').setQuery('selected_widget', val).setQuery('module_srl', module_srl);
-    popopen(url,'GenerateWidgetCode');
+
+    showModal(url);
 }
-
-
 
 // widgetBorder에 height를 widgetOutput와 맞춰줌
 function doFitBorderSize() {
@@ -468,8 +467,8 @@ function doCheckWidget(e) {
         var widget = p_obj.getAttribute("widget");
         if(!widget) return;
         selectedWidget = p_obj;
-        if(widget == 'widgetContent') popopen(request_uri+"?module=widget&act=dispWidgetAdminAddContent&module_srl="+zoneModuleSrl+"&document_srl="+p_obj.getAttribute("document_srl"), "addContent");
-        else popopen(request_uri+"?module=widget&act=dispWidgetGenerateCodeInPage&selected_widget="+widget+"&widgetstyle="+widgetstyle,'GenerateCodeInPage');
+        if(widget == 'widgetContent') showModal(request_uri+"?module=widget&act=dispWidgetAdminAddContent&module_srl="+zoneModuleSrl+"&document_srl="+p_obj.getAttribute("document_srl"));
+        else showModal(request_uri+"?module=widget&act=dispWidgetGenerateCodeInPage&selected_widget="+widget+"&widgetstyle="+widgetstyle);
         return;
 
     // 위젯 스타일
@@ -479,7 +478,7 @@ function doCheckWidget(e) {
         var widgetstyle = p_obj.getAttribute("widgetstyle");
         if(!widget) return;
         selectedWidget = p_obj;
-        popopen(request_uri+"?module=widget&act=dispWidgetStyleGenerateCodeInPage&selected_widget="+widget+"&widgetstyle="+widgetstyle,'GenerateCodeInPage');
+        showModal(request_uri+"?module=widget&act=dispWidgetStyleGenerateCodeInPage&selected_widget="+widget+"&widgetstyle="+widgetstyle);
         return;
 
     // 위젯 복사
@@ -1326,4 +1325,18 @@ function widgetManualEnd() {
 
     widgetDragManager.obj = null;
     widgetDragManager.isDrag = false;
+}
+
+function showModal(url) {
+    jQuery("#widget_admin_modal").css("width", "750px");
+    jQuery("#widget_admin_modal .modal-body").css("max-height", "800px").css("height", "600px");
+    jQuery("#widget_admin_modal .modal-body").html("<iframe src='" + url + "' " +
+        "style='width:100%;height:100%;" +
+        "border:0px" +
+        "'></iframe>");
+    jQuery("#widget_admin_modal").modal();
+}
+
+function triggerClose() {
+    jQuery("#widget_admin_modal").modal('hide');
 }
