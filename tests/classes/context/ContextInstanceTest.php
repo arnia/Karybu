@@ -3163,6 +3163,10 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     {
         $xe_path = _XE_PATH_; // _XE_PATH_ was defined in Bootstrap file
 
+        if (!(strpos($xe_path, '\\') === false)){
+            $this->markTestSkipped('This doesn\'t work for non UX systems');
+        }
+
         $context = $this->getMock('ContextInstance', array('getRequestUri'));
         $context->expects($this->any())->method('getRequestUri')->will($this->returnValue('http://localhost/xe'));
 
