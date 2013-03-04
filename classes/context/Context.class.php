@@ -4,6 +4,7 @@ define('ENFORCE_SSL',1);
 define('RELEASE_SSL',2);
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Route;
 
 /**
  * Manages Context such as request arguments/environment variables
@@ -1819,16 +1820,24 @@ class ContextInstance {
             }
 
             if(!$query) {
-                $queries = array();
-                foreach($get_vars as $key => $val) {
-                    if(is_array($val) && count($val)) {
-                        foreach($val as $k => $v) $queries[] = $key.'['.$k.']='.urlencode($v);
-                    } else {
-                        $queries[] = $key.'='.@urlencode($val);
+                // get URL from route definitions
+                // TODO take routes and context the right way (see how)
+                $routes = include(_XE_PATH_ . '/src/routes.php');
+                $context = new \Symfony\Component\Routing\RequestContext();
+                $query = $this->getUrlFromRoute($context, $routes, $get_vars);
+
+                if ($query == null){
+                    $queries = array();
+                    foreach($get_vars as $key => $val) {
+                        if(is_array($val) && count($val)) {
+                            foreach($val as $k => $v) $queries[] = $key.'['.$k.']='.urlencode($v);
+                        } else {
+                            $queries[] = $key.'='.@urlencode($val);
+                        }
                     }
-                }
-                if(count($queries)) {
-                    $query = 'index.php?'.implode('&', $queries);
+                    if(count($queries)) {
+                        $query = 'index.php?'.implode('&', $queries);
+                    }
                 }
             }
         }
@@ -2510,6 +2519,33 @@ class ContextInstance {
 
         return $this->getUrl($num_args, $args_list, $domain, false);
     }
+
+    private function getUrlFromRoute($context, $routes, $params){
+        $selectedRoute = null;
+        $paramKeys = array_keys($params);sort($paramKeys);
+        foreach($routes as $routeName=>$route){
+            /**@var $route Route */
+            $matches = array();
+            preg_match_all('/\{([^\}]+)\}/', $route->getPath(), $matches);
+            $patParams = $matches[1];sort($patParams);
+
+            if ($patParams == $paramKeys){
+                $selectedRoute['name'] = $routeName;
+                $selectedRoute['route'] = $route;
+                break;
+            }
+        }
+        if ($selectedRoute != null){
+            try{
+                $gen = new \Symfony\Component\Routing\Generator\UrlGenerator($routes, $context);
+            }catch (Exception $e){
+                return null;
+            }
+            return $gen->generate($selectedRoute['name'], $params);
+        }
+        return null;
+    }
+
 }
 
 /**
