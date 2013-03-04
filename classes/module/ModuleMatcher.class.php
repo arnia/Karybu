@@ -174,15 +174,6 @@ class ModuleInstanceRetriever {
 
 class ModuleMatcher
 {
-    private $documentModel;
-    private $moduleModel;
-
-    public function __construct(documentModel $documentModel, moduleModel $moduleModel) {
-        $this->documentModel = $documentModel;
-        $this->moduleModel = $moduleModel;
-    }
-
-
     /**
      * This represents the $act parameter in the HTTP request
      * or the default_index_action for the current module, of $act is not specified
