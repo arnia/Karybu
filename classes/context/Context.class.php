@@ -4,6 +4,7 @@ define('ENFORCE_SSL',1);
 define('RELEASE_SSL',2);
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Route;
 
 /**
@@ -177,18 +178,9 @@ class ContextInstance {
      */
     var $validator;
 
-//    /**
-//	 * returns static context object (Singleton). It's to use Context without declaration of an object
-//	 *
-//	 * @return object Instance
-//	 */
-//	function &getInstance(FileHandler $file_handler = null, FrontEndFileHandler $frontend_file_handler = null) {
-//		static $theInstance = null;
-//		if(!$theInstance) $theInstance = new Context($file_handler, $frontend_file_handler);
-//        // TODO Move this method inside Context::init and Context::init in the constructor
-//        $theInstance->loadSslActionsCacheFile();
-//        return $theInstance;
-//	}
+    /** @var $routes \Symfony\Component\Routing\RouteCollection */
+    private $routes;
+
 
     public function loadSslActionsCacheFile()
     {
@@ -215,15 +207,17 @@ class ContextInstance {
      *
      * @return void
      */
-    function ContextInstance(FileHandler $file_handler = null, FrontEndFileHandler $frontend_file_handler = null, Validator $validator = null)
+    function __construct(FileHandler $file_handler = null, FrontEndFileHandler $frontend_file_handler = null, Validator $validator = null, RouteCollection $routes = null)
     {
         if(!isset($file_handler)) $file_handler = new FileHandler();
         if(!isset($frontend_file_handler)) $frontend_file_handler = new FrontEndFileHandler();
         if(!isset($validator)) $validator = new Validator();
+        if (!isset($routes)) $routes = new RouteCollection();
 
         $this->file_handler = $file_handler;
         $this->oFrontEndFileHandler = $frontend_file_handler;
         $this->validator = $validator;
+        $this->routes = $routes;
     }
 
     /**
@@ -1824,7 +1818,7 @@ class ContextInstance {
                 // TODO take routes and context the right way (see how)
                 $routes = include(_XE_PATH_ . '/src/routes.php');
                 $context = new \Symfony\Component\Routing\RequestContext();
-                $query = $this->getUrlFromRoute($context, $routes, $get_vars);
+                $query = $this->getUrlFromRoutes($context, $routes, $get_vars);
 
                 if ($query == null){
                     $queries = array();
@@ -2520,7 +2514,7 @@ class ContextInstance {
         return $this->getUrl($num_args, $args_list, $domain, false);
     }
 
-    private function getUrlFromRoute($context, $routes, $params){
+    private function getUrlFromRoutes($context, $routes, $params){
         $selectedRoute = null;
         $paramKeys = array_keys($params);sort($paramKeys);
         foreach($routes as $routeName=>$route){
