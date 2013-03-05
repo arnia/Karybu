@@ -2017,6 +2017,72 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('https://www.xpressengine.org/index.php?module=admin&amp;act=dispDashboard', $url);
     }
 
+    public function testGetUrl_RouteBased_WithGetParams(){
+
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'), array(null, null, null, $this->getRoutes()));
+        $context->site_module_info = new stdClass();
+        $context->site_module_info->domain = null;
+        $_SERVER['SCRIPT_NAME'] = '/';
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+
+
+        $url = $context->getUrl(4, array("p1", "v1", "p2", "v2"));
+        $this->assertEquals('/?p1=v1&amp;p2=v2', $url);
+
+        $url = $context->getUrl(4, array("act", "act_value", "p2", "v2"));
+        $this->assertEquals('/admin/act_value?p2=v2', $url);
+
+        $url = $context->getUrl(4, array("act", "act_value", "mid", "mid_value"));
+        $this->assertEquals('/admin/act_value/mid_value', $url);
+
+        $url = $context->getUrl(4, array("document_srl", "document_srl_value"));
+        $this->assertEquals('/document_srl_value', $url);
+
+        $url = $context->getUrl(4, array("mid", "mid_value"));
+        $this->assertEquals('/mid_value', $url);
+
+        $url = $context->getUrl(4, array("mid", "mid_value", "document_srl", "document_srl_value"));
+        $this->assertEquals('/mid_value/document_srl_value', $url);
+
+        $url = $context->getUrl(4, array("mid", "mid_value", "vid", "vid_value"), "domain");
+        $this->assertEquals('/domain/mid_value', $url);
+
+        $url = $context->getUrl(4, array("mid", "mid_value", "vid", "vid_value", "document_srl", "document_srl_value"), "domain");
+        $this->assertEquals('/domain/mid_value/document_srl_value', $url);
+
+        $url = $context->getUrl(4, array("mid", "mid_value", "entry", "entry_value"));
+        $this->assertEquals('/mid_value/entry/entry_value', $url);
+
+        $url = $context->getUrl(4, array("mid", "mid_value", "entry", "entry_value"), "domain");
+        $this->assertEquals('/domain/mid_value/entry/entry_value', $url);
+
+        $url = $context->getUrl(4, array("type", "type_value", "identifier", "identifier_value"), "domain");
+        $this->assertEquals('/domain/type_value/identifier_value', $url);
+
+    }
+
+    private function getRoutes(){
+        $routes = new \Symfony\Component\Routing\RouteCollection();
+        $routes->add("homepage", new \Symfony\Component\Routing\Route('/'));
+        $routes->add("admin", new \Symfony\Component\Routing\Route('/admin'));
+        $routes->add("admin2", new \Symfony\Component\Routing\Route('/admin/{act}'));
+        $routes->add("admin3", new \Symfony\Component\Routing\Route('/admin/{act}/{mid}'));
+        $routes->add("doc", new \Symfony\Component\Routing\Route('/{document_srl}'));
+        $routes->add("doc_slash", new \Symfony\Component\Routing\Route('/{document_srl}/'));
+        $routes->add("mid", new \Symfony\Component\Routing\Route('/{mid}'));
+        $routes->add("mid_slash", new \Symfony\Component\Routing\Route('/admin/{act}'));
+        $routes->add("page", new \Symfony\Component\Routing\Route('/show/{mid}'));
+        $routes->add("mid_doc", new \Symfony\Component\Routing\Route('/{mid}/{document_srl}'));
+        $routes->add("vid_mid", new \Symfony\Component\Routing\Route('/{vid}/{mid}'));
+        $routes->add("vid_mid_doc", new \Symfony\Component\Routing\Route('/{vid}/{mid}/{document_srl}'));
+        $routes->add("mid_entry", new \Symfony\Component\Routing\Route('/{mid}/entry/{entry}'));
+        $routes->add("vid_mid_entry", new \Symfony\Component\Routing\Route('/{vid}/{mid}/entry/{entry}'));
+        $routes->add("shop_product", new \Symfony\Component\Routing\Route('/{vid}/{type}/{identifier}'));
+        return $routes;
+    }
+
     public function testCheckSSO_WhenSSODisabled()
     {
         // 1. Arrange

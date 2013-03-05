@@ -1682,7 +1682,7 @@ class ContextInstance {
      */
     function getUrl($num_args=0, $args_list=array(), $domain = null, $encode = true, $autoEncode = false) {
         $vid = null;
-        $domain = null;
+        //$domain = null;
 
         // retrieve virtual site information
         if(is_null($this->site_module_info)) {
@@ -2519,7 +2519,7 @@ class ContextInstance {
         foreach($routes as $routeName=>$route){
             /**@var $route Route */
             $matches = array();
-            preg_match_all('/\{([^\}]+)\}/', $route->getPattern(), $matches);
+            preg_match_all('/\{([^\}]+)\}/', $route->getPath(), $matches);
             $patParams = $matches[1];sort($patParams);
             $patAndReqParams = array_intersect($patParams, $paramKeys); sort($patAndReqParams);
 
@@ -2528,12 +2528,15 @@ class ContextInstance {
                 $selectedRoute['name'] = $routeName;
                 $selectedRoute['route'] = $route;
                 break;
-            }else if($patParams == $patAndReqParams && count($patAndReqParams) > $matchingDegree){
-                // acceptable match
-                $selectedRoute['name'] = $routeName;
-                $selectedRoute['route'] = $route;
-                $matchingDegree = count($patAndReqParams);
-                continue;
+            }else {
+                $countPathAndReqParams = count($patAndReqParams);
+                if($patParams == $patAndReqParams && $countPathAndReqParams > $matchingDegree){
+                    // acceptable match
+                    $selectedRoute['name'] = $routeName;
+                    $selectedRoute['route'] = $route;
+                    $matchingDegree = $countPathAndReqParams;
+                    continue;
+                }
             }
         }
         if ($selectedRoute != null){
