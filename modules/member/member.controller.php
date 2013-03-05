@@ -22,15 +22,15 @@
         function init() {
         }
 
-    /**
-     * Log-in by checking user_id and password
-     *
-     * @param string $user_id
-     * @param string $password
-     * @param string $keep_signed
-     *
-     * @return void|Object (void : success, Object : fail)
-     **/
+        /**
+         * Log-in by checking user_id and password
+         *
+         * @param string $user_id
+         * @param string $password
+         * @param string $keep_signed
+         *
+         * @return void|Object (void : success, Object : fail)
+         **/
         function procMemberLogin($user_id = null, $password = null, $keep_signed = null) {
 
             if(!$user_id && !$password && Context::getRequestMethod() == 'GET')
@@ -42,9 +42,6 @@
             // Variables
             if(!$user_id) $user_id = Context::get('user_id');
             $user_id = trim($user_id);
-
-            if(!$password) $password = Context::get('password');
-            $password = trim($password);
 
             if (!$keep_signed) {
                 $keep_signed = Context::get('keep_signed');
@@ -2224,5 +2221,187 @@
             $this->setTemplatePath($this->module_path.'tpl');
             $this->setTemplateFile('msg_success_modify_email_address');
 		}
+                
+            /**
+             * @brief process member sign in via SNS
+             * - POST request: request for login
+             * - GET request: verify login
+             */
+            function procMemberSnsSignIn(){
+                // Create a member model object
+                $oMemberModel = &getModel('member');
+                
+                //Load SNS object
+                $sns_name=  Context::get('sns');
+                $sns_class_file = sprintf('./modules/member/sns/%s/%s_login.php', $sns_name, $sns_name);
+                $sns_class_name = sprintf('%s_login', $sns_name);
+                if(!file_exists($sns_class_file)) return $this->_redirectToSnsError(new Object (-1, 'msg_sns_config_error'));
+                    
+                require_once $sns_class_file;
+                if(!class_exists($sns_class_name)) return $this->_redirectToSnsError(new Object (-1, 'msg_sns_config_error'));
+                $oSns = new $sns_class_name();
+                $sns = $oMemberModel->getSns($sns_name);
+                if(!$oSns->isConfigValid($sns->config)) return $this->_redirectToSnsError(new Object (-1, 'msg_sns_config_error'));
+                
+                //Before login process
+                // check IP access count.
+                $config = $oMemberModel->getMemberConfig();
+                $args->ipaddress = $_SERVER['REMOTE_ADDR'];
+                $output = executeQuery('member.getLoginCountByIp', $args);
+                $count = (int)$output->data->count;
+                if($config->max_error_count < $count)
+                {
+                    $last_update = strtotime($output->data->last_update);
+                    $term = intval(time()-$last_update);
+                    if($term < $config->max_error_count_time)
+                    {
+                            $term = $config->max_error_count_time - $term;
+                            if($term < 60) $term = intval($term).Context::getLang('unit_sec');
+                            elseif(60 <= $term && $term < 3600) $term = intval($term/60).Context::getLang('unit_min');
+                            elseif(3600 <= $term && $term < 86400) $term = intval($term/3600).Context::getLang('unit_hour');
+                            else $term = intval($term/86400).Context::getLang('unit_day');
+                            return $this->_redirectToSnsError(new Object(-1, sprintf(Context::getLang('excess_ip_access_count'),$term)));
+                    }
+                    else
+                    {
+                            $args->ipaddress = $_SERVER['REMOTE_ADDR'];
+                            $output = executeQuery('member.deleteLoginCountByIp', $args);
+                    }
+                }
+
+                //Process login
+                $member = $oSns->doLogin($sns->config);
+                if(!$member) return;    //return to let sns redirect to their site
+                elseif($member->error) return $this->_redirectToSnsError ($member);
+                elseif(!$member->sns_guid) return $this->_redirectToSnsError(new Object (-1, 'msg_sns_config_error'));
+                
+                //After login process
+                //Check if the user already exist
+                $args->sns_guid = $member->sns_guid;
+                $output=  executeQuery('member.getMemberSnsInfoBySnsGuid', $args);
+                if(!$output->toBool()) return $this->_redirectToSnsError ($output);
+                $member_srl=$output->data->member_srl;
+                $email_host=$output->data->email_host;
+                if(!$member_srl){
+                    $member_srl = getNextSequence();
+                    $args->member_srl = $member_srl;
+                    $args->user_id = $member->user_id;
+                    $args->user_name = $member->user_name;
+                    $args->nick_name = $member->nick_name;
+                    $args->email_address = $member->email_address;
+                    $args->list_order = -1 * $member_srl;
+                    $args->password = 'n/a';
+                    $args->auth_type=$member->auth_type;
+                    $args->sns_guid=$member->sns_guid;
+                    
+                    //Check if email already exist
+                    if($args->email_address){
+                        $output = executeQuery('member.getMemberInfoByEmailAddress', $args);
+                        if(!$output->toBool()) return $this->_redirectToSnsError ($output);
+                        if($output->data) return $this->_redirectToSnsError (new Object(-1,'msg_exists_email_address'));
+                    }
+                    
+                    $args->member=$member;
+                    $output = $this->insertMemberSns($args);
+                    if(!$output->toBool()) return $this->_redirectToSnsError ($output);
+                    list($email_id, $email_host)=  explode('@', $args->email_address);
+                    if($member->profile_image)
+                        $this->insertSnsProfileImage($member_srl, $member->profile_image);
+                }
+                
+                //Sign in sucess
+                //inactive_email.com: default email_host for providers which don't provdie email
+                if($email_host == 'inactive_email.com'){
+                    $_SESSION['tmp_member_srl']=$member_srl;
+                    $this->setRedirectUrl(getNotEncodedUrl('','act','dispMemberSnsAddEmail'));
+                    return;
+                }
+                
+                $this->snsDoAfterLogin($member_srl);
+                
+                $returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'mid', Context::get('mid'), 'act', '');
+                $this->setRedirectUrl($returnUrl);
+                
+            }
+            
+            function snsDoAfterLogin($member_srl){
+                // Update the latest login time
+                $output = executeQuery('member.updateLastLogin', $args);
+                
+                $_SESSION['is_logged'] = true;
+                $_SESSION['ipaddress'] = $_SERVER['REMOTE_ADDR'];
+                $_SESSION['member_srl']=$member_srl;
+                
+                $this->setSessionInfo();
+            }
+            
+            function _redirectToSnsError($oError){
+                $this->setRedirectUrl(getNotEncodedUrl(''));
+                return $oError;
+            }
+            
+            function insertMemberSns($args){
+                //Check if user_id exist
+                if(!$args->member_srl) $args->member_srl = getNextSequence();
+                if(!$args->user_id) $args->user_id= 'user'.$args->member_srl;
+                $oMemberModel = &getModel('member');
+                $member_srl = $oMemberModel->getMemberSrlByUserID($args->user_id);
+                if($member_srl)
+                    $args->user_id=sprintf('%s_%s', $args->user_id, $args->member->sns_postfix);
+                
+                //Check if nick_name exist
+                if(!$args->nick_name) $args->nick_name = $args->user_id;
+                $member_srl = $oMemberModel->getMemberSrlByNickName($args->nick_name);
+                if($member_srl)
+                    $args->nick_name=sprintf('%s_%s', $args->nick_name, $args->member->sns_postfix);
+                
+                if(!$args->email_address) $args->email_address = $args->user_id.'@inactive_email.com';
+                $args->password = 'n/a';
+                list($args->email_id, $args->email_host) = explode('@', $args->email_address);
+                if(!$args->user_name) $args->user_name = $args->nick_name;
+                $args->list_order = -1 * $args->member_srl;
+                
+                $output = executeQuery('member.insertMemberSns', $args);
+                return $output;
+            }
+            
+            function procMemberSnsAddEmail(){
+                $member_srl = Context::get('tmp_member_srl');
+                $email_address=  Context::get('email_address');
+                $args->member_srl = $member_srl;
+                $args->email_address=$email_address;
+                list($args->email_id, $args->email_host)=  explode('@', $email_address);
+                
+                //Check if email exist
+                $output = executeQuery('member.getMemberInfoByEmailAddress', $args);
+                if(!$output->toBool()) return $output;
+                if($output->data) return new Object(-1,'msg_exists_email_address');
+                
+                $output=  executeQuery('member.updateMemberEmailAddress', $args);
+                if(!$output->toBool()) return $output;
+                
+                $this->snsDoAfterLogin($member_srl);
+                
+                $returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'mid', Context::get('mid'), 'act', '');
+                $this->setRedirectUrl($returnUrl);
+            }
+            
+            function insertSnsProfileImage($member_srl, $profile_image_url){
+                // Get file information
+                $image_info=@getimagesize($profile_image_url);
+                if(!$image_info) return;
+                list($width, $height, $type, $attrs) = $image_info;
+                if($type == 3) $ext = 'png';
+                elseif($type == 2) $ext = 'jpg';
+                else $ext = 'gif';
+
+                // Get a target path to save
+                $target_path = sprintf('files/member_extra_info/profile_image/%s', getNumberingPath($member_srl));
+                FileHandler::makeDir($target_path);
+                
+                $target_filename = sprintf('%s%d.%s', $target_path, $member_srl, $ext);
+                @copy($profile_image_url, $target_filename);
+            }
+            
     }
 ?>

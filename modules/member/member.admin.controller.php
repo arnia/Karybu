@@ -1138,5 +1138,156 @@
 
             return new Object();
         }
+        
+        //SNS
+        /**
+         * @brief Add an SNS to DB
+         **/
+        function insertSns($sns){
+            $args->sns_name = $sns->sns_name;
+            if($sns->enabled) $args->enabled = $sns->enabled;
+            if($sns->icon) $args->icon = $sns->icon;
+            if($sns->config) $args->config = serialize($sns->config);
+            if($sns->regdate) $args->regdate = $sns->regdate;
+            
+            // Check if the component exists
+            $output = executeQuery('member.isSnsInserted', $args);
+            
+            if($output->data->count) return new Object(-1, 'msg_sns_is_not_founded');
+            
+            // Inert a component
+            $args->list_order = getNextSequence();
+            $output = executeQuery('member.insertSns', $args);
+
+            return $output;
+        }
+        
+        /**
+         * @brief Update SNS
+         */
+        function updateSns($sns){
+            $args->sns_name = $sns->sns_name;
+            if($sns->enabled) $args->enabled = $sns->enabled;
+            if($sns->icon) $args->icon = $sns->icon;
+            if($sns->config) $args->config = serialize($sns->config);
+            if($sns->regdate) $args->regdate = $sns->regdate;
+            $output = executeQuery('member.updateSns', $args);
+            return $output;
+        }
+        
+        /**
+         * @brief Enable/disable and re-order SNS
+         **/	
+        function procMemberAdminSnsCheckUseListOrder(){
+                $enables = Context::get('enables');			
+                $sns_names = Context::get('sns_names');
+
+                if(!is_array($sns_names)) $sns_names = array();
+                if(!is_array($enables)) $enables = array();
+
+                $unables = array_diff($sns_names, $enables);
+                $snsList = array();	
+
+                foreach($enables as $sns_name) {
+                        $snsList[$sns_name] = 'Y';
+                }
+                foreach($unables as $sns_name) {
+                        $snsList[$sns_name] = 'N';
+                }
+                
+                $output = $this->snsListOrder($sns_names);
+                if(!$output->toBool()) return new Object();
+
+                $output = $this->snsCheckUse($snsList);			
+                if(!$output->toBool()) return new Object();
+                
+                $this->setMessage('success_updated');
+                $redirectUrl = Context::get('success_return_url');
+                $this->setRedirectUrl($redirectUrl);
+        }
+        
+        /**
+         * @brief list order componet
+         **/
+        function snsListOrder($sns_names){
+            $list_order_num = '30';
+            if(is_array($sns_names)){
+                foreach($sns_names as $name){
+                    $args->list_order = $list_order_num;
+                    $args->sns_name = $name;
+                    $output = executeQuery('member.updateSns', $args);					
+
+                    if(!$output->toBool()) return new Object();
+                    $list_order_num++;
+                }
+            }	
+            unset($sns_names);
+            return $output;
+        }
+        
+        /**
+         * @brief check use SNS
+         **/	
+        function snsCheckUse($snsList){
+            foreach($snsList as $snsName => $value){
+                $args->sns_name = $snsName;
+                $args->enabled = $value;
+                $output = executeQuery('member.updateSns', $args);
+            }
+            if(!$output->toBool()) return new Object();
+
+            unset($snsList);
+            return $output;
+        }
+        
+        /**
+         * @brief setup SNS API
+         */
+        function procMemberAdminSetupSns(){
+            $sns_name=  Context::get('sns_name');
+            $oMemberModule=&getModel('member');
+            $sns=$oMemberModule->getSns($sns_name);
+            $config=$sns->config;
+            foreach($config as $key => $value){
+                $value->value = Context::get($key);
+            }
+            
+            $newSns->sns_name = $sns_name;
+            $newSns->config = $config;
+            
+            $sns_icon = Context::get('_file_sns_icon');
+            if($sns_icon){
+                $newSns->icon = $this->uploadSnsIcon($sns_name, $sns_icon);
+            }
+            
+            $output = $this->updateSns($newSns);
+            
+            $this->setMessage('success_updated');
+            $redirectUrl = Context::get('success_return_url');
+            $this->setRedirectUrl($redirectUrl);
+        }
+        
+        function uploadSnsIcon($sns_name, $snsIconFile){
+            $target_file = $snsIconFile['tmp_name'];
+            // Get file information
+            $image_info=@getimagesize($target_file);
+            if(!$image_info) return;
+            list($width, $height, $type, $attrs) = $image_info;
+            if($type == 3) $ext = 'png';
+            elseif($type == 2) $ext = 'jpg';
+            else $ext = 'gif';
+
+            // Get a target path to save
+            $target_path = sprintf('./files/attach/images/member/sns/%s/', $sns_name);
+            FileHandler::makeDir($target_path);
+            
+            $icon_file_name = microtime(true);
+            $target_filename = sprintf('%s%s.%s', $target_path, $icon_file_name, $ext);
+            $db_file_name = sprintf('./files/attach/images/member/sns/%s/%s.%s', $sns_name, $icon_file_name, $ext);
+            @copy($target_file, $target_filename);
+            
+            return $db_file_name;
+        }
+        
     }
 ?>

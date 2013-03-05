@@ -1,0 +1,10 @@
+<table name="member_sns">
+
+    <column name="sns_name" type="varchar" size="20" notnull="notnull" primary_key="primary_key" />
+    <column name="enabled" type="char" size="1" default="N" notnull="notnull" />
+    <column name="icon" type="varchar" size="200" />
+    <column name="config" type="text" />
+    <column name="regdate" type="date" index="idx_regdate" />
+    <column name="list_order" type="number" size="11" notnull="notnull" index="idx_list_order" />
+    
+</table>

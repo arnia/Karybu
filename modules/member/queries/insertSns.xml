@@ -1,0 +1,12 @@
+<query id="insertSns" action="insert">
+    <tables>
+        <table name="member_sns" />
+    </tables>
+    <columns>
+        <column name="sns_name" var="sns_name" notnull="notnull" />
+        <column name="enabled" var="enabled" default="N" />
+        <column name="icon" var="icon" />
+        <column name="config" var="config" />
+        <column name="list_order" var="list_order" default="sequence()" />
+    </columns>
+</query>

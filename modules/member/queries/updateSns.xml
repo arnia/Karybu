@@ -1,0 +1,15 @@
+<query id="updateSns" action="update">
+    <tables>
+        <table name="member_sns" />
+    </tables>
+    <columns>
+        <column name="enabled" var="enabled" />
+        <column name="icon" var="icon" />
+        <column name="config" var="config" />
+        <column name="regdate" var="regdate" />
+        <column name="list_order" var="list_order" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="sns_name" var="sns_name" notnull="notnull" />
+    </conditions>
+</query>
