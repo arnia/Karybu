@@ -2572,6 +2572,11 @@ class Context
         return self::$context->getRequestMethod();
     }
 
+    public function setRequestMethod($type)
+    {
+        self::$context->setRequestMethod($type);
+    }
+
     public static function getRequestVars()
     {
         return self::$context->getRequestVars();
@@ -2600,6 +2605,16 @@ class Context
     public static function getFtpInfo()
     {
         return self::$context->getFTPInfo();
+    }
+
+    public static function getFTPConfigFile()
+    {
+        return self::$context->getFTPConfigFile();
+    }
+
+    public static function isFtpRegisted()
+    {
+        return self::$context->isFTPRegisted();
     }
 
     public static function getDefaultUrl()
@@ -2657,6 +2672,11 @@ class Context
     public static function loadFile($args, $useCdn = false, $cdnPrefix = '', $cdnVersion = '')
     {
         self::$context->loadFile($args, $useCdn, $cdnPrefix, $cdnVersion);
+    }
+
+    public static function unloadFile($file, $targetIe = '', $media = 'all')
+    {
+        self::$context->unloadFile($file, $targetIe, $media);
     }
 
     public static function getBodyHeader()
@@ -2739,7 +2759,7 @@ class Context
         self::$context->addCSSFile($file,$optimized, $media, $targetie, $index);
     }
 
-    function getJsFile($type='head')
+    public static function getJsFile($type='head')
     {
         return self::$context->getJsFile($type);
     }
