@@ -43,6 +43,9 @@
             if(!$user_id) $user_id = Context::get('user_id');
             $user_id = trim($user_id);
 
+            if(!$password) $password = Context::get('password');
+            $password = trim($password);
+
             if (!$keep_signed) {
                 $keep_signed = Context::get('keep_signed');
             }
