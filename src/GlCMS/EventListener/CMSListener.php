@@ -18,6 +18,8 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 class CMSListener implements EventSubscriberInterface
 {
     private $logger;
+    /** @var $cmsContext ContextInstance */
+    private $cmsContext;
 
     /**
      * We're injecting into the HttpKernel workflow:
@@ -53,9 +55,10 @@ class CMSListener implements EventSubscriberInterface
     /**
      * @param LoggerInterface|null $logger  The logger
      */
-    public function __construct(LoggerInterface $logger = null)
+    public function __construct(\ContextInstance $cmsContext, LoggerInterface $logger = null)
     {
         $this->logger = $logger;
+        $this->cmsContext = $cmsContext;
     }
 
     /**
@@ -64,13 +67,12 @@ class CMSListener implements EventSubscriberInterface
     public function doContextGlobalsLink(GetResponseEvent $event)
     {
         $request = $event->getRequest();
-        $oContext = new \ContextInstance();
-        $oContext->context = &$GLOBALS['__Context__'];
-        \Context::setRequestContext($oContext);
+        $this->cmsContext->context = &$GLOBALS['__Context__'];
+        \Context::setRequestContext($this->cmsContext);
 
         // TODO Create a seprate list of 'legacy' request attributes: like $request->attributes->legacy->set('oContext',$oContext);
         // Could be done by $request->attributes->set('legacy', new ParametersBag()); or something
-        $request->attributes->set('oContext', $oContext);
+        $request->attributes->set('oContext', $this->cmsContext);
     }
 
     /**

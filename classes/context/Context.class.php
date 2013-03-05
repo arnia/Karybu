@@ -1815,10 +1815,8 @@ class ContextInstance {
 
             if(!$query) {
                 // get URL from route definitions
-                // TODO take routes and context the right way (see how)
-                $routes = include(_XE_PATH_ . '/src/routes.php');
                 $context = new \Symfony\Component\Routing\RequestContext();
-                $query = $this->getUrlFromRoutes($context, $routes, $get_vars);
+                $query = $this->getUrlFromRoutes($context, $this->routes, $get_vars);
 
                 if ($query == null){
                     $queries = array();
@@ -2516,17 +2514,26 @@ class ContextInstance {
 
     private function getUrlFromRoutes($context, $routes, $params){
         $selectedRoute = null;
+        $matchingDegree = -1;
         $paramKeys = array_keys($params);sort($paramKeys);
         foreach($routes as $routeName=>$route){
             /**@var $route Route */
             $matches = array();
-            preg_match_all('/\{([^\}]+)\}/', $route->getPath(), $matches);
+            preg_match_all('/\{([^\}]+)\}/', $route->getPattern(), $matches);
             $patParams = $matches[1];sort($patParams);
+            $patAndReqParams = array_intersect($patParams, $paramKeys); sort($patAndReqParams);
 
             if ($patParams == $paramKeys){
+                // exact match
                 $selectedRoute['name'] = $routeName;
                 $selectedRoute['route'] = $route;
                 break;
+            }else if($patParams == $patAndReqParams && count($patAndReqParams) > $matchingDegree){
+                // acceptable match
+                $selectedRoute['name'] = $routeName;
+                $selectedRoute['route'] = $route;
+                $matchingDegree = count($patAndReqParams);
+                continue;
             }
         }
         if ($selectedRoute != null){
@@ -2535,7 +2542,8 @@ class ContextInstance {
             }catch (Exception $e){
                 return null;
             }
-            return $gen->generate($selectedRoute['name'], $params);
+            // cut first "/" (slash) character
+            return substr($gen->generate($selectedRoute['name'], $params), 1);
         }
         return null;
     }
