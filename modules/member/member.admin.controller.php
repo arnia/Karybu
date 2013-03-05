@@ -1269,17 +1269,22 @@
         
         function uploadSnsIcon($sns_name, $snsIconFile){
             $target_file = $snsIconFile['tmp_name'];
-            $type = $snsIconFile['type'];
+            // Get file information
+            $image_info=@getimagesize($target_file);
+            if(!$image_info) return;
+            list($width, $height, $type, $attrs) = $image_info;
+            if($type == 3) $ext = 'png';
+            elseif($type == 2) $ext = 'jpg';
+            else $ext = 'gif';
+
+            // Get a target path to save
+            $target_path = sprintf('./files/attach/images/member/sns/%s/', $sns_name);
+            FileHandler::makeDir($target_path);
             
-            $icon_path = sprintf('./files/attach/images/member/sns/%s', $sns_name);
-            if(!is_dir($icon_path)) FileHandler::makeDir($icon_path);
             $icon_file_name = microtime(true);
-            $icon_file_ext = pathinfo($snsIconFile['name'], PATHINFO_EXTENSION);
-            $target_filename = sprintf('%s/%s.%s', $icon_path, $icon_file_name, $icon_file_ext);
-            
-            $db_file_name = sprintf('./files/attach/images/member/sns/%s/%s.%s', $sns_name, $icon_file_name, $icon_file_ext);
-            
-            FileHandler::copyFile($target_file, $target_filename);
+            $target_filename = sprintf('%s%s.%s', $target_path, $icon_file_name, $ext);
+            $db_file_name = sprintf('./files/attach/images/member/sns/%s/%s.%s', $sns_name, $icon_file_name, $ext);
+            @copy($target_file, $target_filename);
             
             return $db_file_name;
         }

@@ -21,11 +21,15 @@ class yahoo_login implements ISns{
             $yhuser = $session->getSessionedUser();
             $profile = $yhuser->getProfile();
 
-            //$member->user_id=$profile->guid;
-            $member->nick_name=$profile->emails[0]->handle;
+            $email=$profile->emails[0]->handle;
+            
+            $member->user_id=substr($email, 0, strpos($email, '@'));
+            $member->user_name=$member->user_id;
             $member->user_name=$profile->givenName;
-            $member->email_address=$profile->emails[0]->handle;
+            $member->email_address=$email;
+            $member->profile_image=$profile_image = $profile->image->imageUrl;
             $member->auth_type='yahoo';
+            $member->sns_postfix='yh';
             $member->sns_guid=$profile->guid;
 
             return $member;

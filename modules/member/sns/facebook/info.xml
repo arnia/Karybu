@@ -17,6 +17,10 @@
             <title xml:lang="ko">APP_SECRET</title>
             <title xml:lang="en">APP_SECRET</title>
         </item>
+        <item name="callback_url">
+            <title xml:lang="ko">Site URL</title>
+            <title xml:lang="en">Site URL</title>
+        </item>
     </config>
     
 </sns>

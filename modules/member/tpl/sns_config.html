@@ -23,7 +23,11 @@
             
             <tr loop="$sns->config => $key, $value">
                 <th scope="row"><div>{$value->title}</div></th>
-                <td><input type="text" name="{$key}" value="{$value->value}" /></td>
+                <td>
+                    <input cond="$key!='callback_url'" type="text" name="{$key}" value="{$value->value}" />
+                    <input cond="$key=='callback_url'" type="hidden" name="{$key}" value="{getFullUrl('act','procMemberSnsSignIn','sns',$sns->sns_name)}" />
+                    <span cond="$key=='callback_url'">{getFullUrl('act','procMemberSnsSignIn','sns',$sns->sns_name)}</span>
+                </td>
             </tr>
         </table>
     </div>

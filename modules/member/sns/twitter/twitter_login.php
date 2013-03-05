@@ -9,6 +9,7 @@
             return (
                 !empty($config->consumer_key->value) 
                 && !empty($config->consumer_secret->value)
+                && !empty($config->callback_url->value)
             );
         }
         
@@ -19,11 +20,13 @@
                 $_SESSION['access_token'] = $access_token;
                 $profile = $twitteroauth->get('account/verify_credentials');
 
-                //$member->user_id=$profile->id;
-                $member->nick_name='';
+                $member->user_id=$profile->screen_name;
+                $member->user_name=$member->user_id;
                 $member->user_name=$profile->name;
                 $member->email_address='';
+                $member->profile_image=$profile->profile_image_url;
                 $member->auth_type='twitter';
+                $member->sns_postfix='tw';
                 $member->sns_guid=$profile->id;
                 
                 return $member;

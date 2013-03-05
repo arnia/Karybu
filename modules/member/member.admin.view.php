@@ -590,18 +590,9 @@ EOD;
             //$formTags=  $this->snsFormTags($sns);
             
             Context::set('sns', $sns);
-            //Context::set('twitter_api_config', $formTags);
-            
 			
             $this->setTemplatePath($this->module_path.'tpl');
             $this->setTemplateFile('sns_config');
-        }
-        
-        function snsFormTags($sns){
-            foreach($sns as $key => $value){
-                //$formTags->{$key}->title=$value->title;
-                //$formTags->{$key}->input=$value->title;
-            }
         }
         
     }

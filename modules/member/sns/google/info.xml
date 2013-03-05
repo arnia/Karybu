@@ -21,7 +21,7 @@
             <title xml:lang="ko">CLIENT_SECRET</title>
             <title xml:lang="en">CLIENT_SECRET</title>
         </item>
-        <item name="redirect_uri">
+        <item name="callback_url">
             <title xml:lang="ko">REDIRECT_URI</title>
             <title xml:lang="en">REDIRECT_URI</title>
         </item>

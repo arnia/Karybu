@@ -22,11 +22,13 @@ class facebook_login implements ISns{
             try {
                 $profile = $facebook->api('/me');
                 
-                //$member->user_id=$profile['id'];
-                $member->nick_name=$profile['email'];
+                $member->user_id=$profile['username'];
+                $member->nick_name=$member->user_id;
                 $member->user_name=$profile['name'];
                 $member->email_address=$profile['email'];
+                $member->profile_image=sprintf('http://graph.facebook.com/%s/picture?type=square', $profile['id']);
                 $member->auth_type='facebook';
+                $member->sns_postfix='fb';
                 $member->sns_guid=$profile['id'];
 
                 return $member;

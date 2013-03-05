@@ -35,6 +35,13 @@
                 if(preg_match('/^https:\/\//i', Context::getRequestUri())) $ssl_mode = true;
             }
             Context::set('ssl_mode',$ssl_mode);
+            
+            //SNS
+            if(!Context::get('is_logged')){
+                $oMemberModel=&getModel('member');
+                $sns_list=$oMemberModel->getSnsList();
+                Context::set('sns_list',$sns_list);
+            }
 
             // Compile a template
             $oTemplate = &TemplateHandler::getInstance();

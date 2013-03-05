@@ -10,7 +10,7 @@ class google_login implements ISns{
         return (
                 !empty($config->client_id->value) 
                 && !empty($config->client_secret->value)
-                && !empty($config->redirect_uri->value)
+                && !empty($config->callback_url->value)
                 && !empty($config->developer_key->value)
         );
     }
@@ -21,7 +21,7 @@ class google_login implements ISns{
 
         $client->setClientId($config->client_id->value);
         $client->setClientSecret($config->client_secret->value);
-        $client->setRedirectUri($config->redirect_uri->value);
+        $client->setRedirectUri($config->callback_url->value);
         $client->setDeveloperKey($config->developer_key->value);
         $oauth2 = new Google_Oauth2Service($client);
 
@@ -29,12 +29,16 @@ class google_login implements ISns{
             $client->authenticate($_GET['code']);
 
             $profile = $oauth2->userinfo->get();
+            
+            $email=$profile['email'];
 
-            //$member->user_id=$profile['id'];
-            $member->nick_name=$profile['email'];
+            $member->user_id=substr($email, 0, strpos($email, '@'));
+            $member->nick_name=$member->user_id;
             $member->user_name=$profile['name'];
-            $member->email_address=$profile['email'];
+            $member->email_address=$email;
+            $member->profile_image=$profile['picture'];
             $member->auth_type='google';
+            $member->sns_postfix='gm';
             $member->sns_guid=$profile['id'];
 
             return $member;

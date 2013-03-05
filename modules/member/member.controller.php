@@ -1422,7 +1422,7 @@
                 setCookie('xeak',null,time()+60*60*24*365, '/');
                 return;
             }
-
+            
 			$oMemberModel = &getModel('member');
 			$config = $oMemberModel->getMemberConfig();
 
@@ -2252,7 +2252,7 @@
                     $args->member_srl = $member_srl;
                     $args->user_id = $member->user_id;
                     $args->user_name = $member->user_name;
-                    $args->nick_name = $member->email_address;
+                    $args->nick_name = $member->nick_name;
                     $args->email_address = $member->email_address;
                     $args->list_order = -1 * $member_srl;
                     $args->password = 'n/a';
@@ -2266,9 +2266,12 @@
                         if($output->data) return $this->_redirectToSnsError (new Object(-1,'msg_exists_email_address'));
                     }
                     
+                    $args->member=$member;
                     $output = $this->insertMemberSns($args);
-                    list($email_id, $email_host)=  explode('@', $args->email_address);
                     if(!$output->toBool()) return $this->_redirectToSnsError ($output);
+                    list($email_id, $email_host)=  explode('@', $args->email_address);
+                    if($member->profile_image)
+                        $this->insertSnsProfileImage($member_srl, $member->profile_image);
                 }
                 
                 //Sign in sucess
@@ -2303,13 +2306,24 @@
             }
             
             function insertMemberSns($args){
+                //Check if user_id exist
                 if(!$args->member_srl) $args->member_srl = getNextSequence();
                 if(!$args->user_id) $args->user_id= 'user'.$args->member_srl;
+                $oMemberModel = &getModel('member');
+                $member_srl = $oMemberModel->getMemberSrlByUserID($args->user_id);
+                if($member_srl)
+                    $args->user_id=sprintf('%s_%s', $args->user_id, $args->member->sns_postfix);
+                
+                //Check if nick_name exist
+                if(!$args->nick_name) $args->nick_name = $args->user_id;
+                $member_srl = $oMemberModel->getMemberSrlByNickName($args->nick_name);
+                if($member_srl)
+                    $args->nick_name=sprintf('%s_%s', $args->nick_name, $args->member->sns_postfix);
+                
                 if(!$args->email_address) $args->email_address = $args->user_id.'@inactive_email.com';
                 $args->password = 'n/a';
                 list($args->email_id, $args->email_host) = explode('@', $args->email_address);
-                if(!$args->user_name) $args->user_name = $args->member_srl;
-                if(!$args->nick_name) $args->nick_name = $args->email_address;
+                if(!$args->user_name) $args->user_name = $args->nick_name;
                 $args->list_order = -1 * $args->member_srl;
                 
                 $output = executeQuery('member.insertMemberSns', $args);
@@ -2328,13 +2342,30 @@
                 if(!$output->toBool()) return $output;
                 if($output->data) return new Object(-1,'msg_exists_email_address');
                 
-                $output=  executeQuery('member.updateMemberSnsEmailAddress', $args);
+                $output=  executeQuery('member.updateMemberEmailAddress', $args);
                 if(!$output->toBool()) return $output;
                 
                 $this->snsDoAfterLogin($member_srl);
                 
                 $returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'mid', Context::get('mid'), 'act', '');
                 $this->setRedirectUrl($returnUrl);
+            }
+            
+            function insertSnsProfileImage($member_srl, $profile_image_url){
+                // Get file information
+                $image_info=@getimagesize($profile_image_url);
+                if(!$image_info) return;
+                list($width, $height, $type, $attrs) = $image_info;
+                if($type == 3) $ext = 'png';
+                elseif($type == 2) $ext = 'jpg';
+                else $ext = 'gif';
+
+                // Get a target path to save
+                $target_path = sprintf('files/member_extra_info/profile_image/%s', getNumberingPath($member_srl));
+                FileHandler::makeDir($target_path);
+                
+                $target_filename = sprintf('%s%d.%s', $target_path, $member_srl, $ext);
+                @copy($profile_image_url, $target_filename);
             }
             
     }
