@@ -289,7 +289,7 @@ $codebook_srl = $menu->addItem('Codebook', 'http://www.xpressengine.org/help_and
 $menu->save();
 
 // 2. Create a new layout
-$layout_srl = $dataset_creator->createNewLayout('xe_official', 'Freshstart', $menu);
+$layout_srl = $dataset_creator->createNewLayout('bootstrap', 'Default theme', $menu);
 
 // 3. Create new pages
 $welcome_page = $dataset_creator->createNewArticlePage($layout_srl, 'Welcome to XE', 'welcome', 'Welcome to XE');

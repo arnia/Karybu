@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.2">
+    <title xml:lang="en">Bootstrap website layout</title>
+    <description xml:lang="en">
+        This is the default layout for all websites.
+    </description>
+    <version>1.0</version>
+    <date>2013-03-08</date>
+    <link>http://xpressengine.org/</link>
+
+    <author email_address="dev@xpressengine.org" link="http://xpressengine.org/">
+        <name xml:lang="en">Arnia</name>
+    </author>
+
+    <extra_vars>
+        <var name="logo_image" type="image">
+            <title xml:lang="en">Logo image</title>
+            <description xml:lang="en">Please input a logo image which will be displayed on the top of the layout. (Transparent image with height of 23px is recommended.)</description>
+        </var>
+        <var name="logo_image_alt" type="text">
+            <title xml:lang="en">Logo image alt text</title>
+            <description xml:lang="en">Please input a logo image alternative text which will be displayed on the top of the layout.</description>
+        </var>
+        <var name="index_url" type="text">
+            <title xml:lang="en">Homepage URL</title>
+            <description xml:lang="en">Please input the URL to redirect when user clicks the logo.</description>
+             </var>
+        <var name="background_image" type="image">
+            <title xml:lang="en">Background Image</title>
+            <description xml:lang="en">Please input if you want to use the background image.</description>
+        </var>
+    </extra_vars>
+
+    <menus>
+        <menu name="main_menu" maxdepth="3" default="true">
+            <title xml:lang="en">Menu</title>
+        </menu>
+    </menus>
+</layout>
