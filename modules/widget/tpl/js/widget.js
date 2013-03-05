@@ -1002,8 +1002,8 @@ function widgetDragStart(tobj, px, py) {
 
 // 드래그 시작후 마우스를 이동할때 발생되는 이벤트에 의해 실행되는 함수
 function widgetDrag(tobj, dx, dy) {
-    var minWidth = 40;
-    var minHeight = 10;
+    var minWidth = 60;
+    var minHeight = 60;
 
     var sx = xPageX(tobj.parentNode);
     var sy = xPageY(tobj.parentNode);
