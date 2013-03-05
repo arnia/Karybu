@@ -32,7 +32,7 @@
         <action name="dispMemberAdminDeniedIDList" type="view" standalone="true" />
         <action name="dispMemberAdminManageGroup" type="view" standalone="true" />
         <action name="dispMemberAdminDeleteMembers" type="view" standalone="true" />
-        <action name="dispMemberAdminSetupSns" type="view" standalone="true" />
+        <action name="dispMemberAdminSetupSns" menu_name="userSetting" type="view" standalone="true" />
 
         <action name="getMemberMenu" type="model" standalone="true" />
         <action name="getMemberAdminColorset" type="model" standalone="true" />

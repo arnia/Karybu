@@ -1,12 +1,12 @@
 <h1 class="h1">{$lang->cmd_setup}</h1>
 <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-	<p>{$XE_VALIDATOR_MESSAGE}</p>
+    <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 <form action="./" method="post" enctype="multipart/form-data">
     <input type="hidden" name="module" value="admin" />
     <input type="hidden" name="act" value="procMemberAdminSetupSns" />
     <input type="hidden" name="sns_name" value="{$sns_name}" />
-    <input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
+    <input type="hidden" name="success_return_url" value="{getUrl('', 'act', 'dispMemberAdminConfig', 'module', 'admin')}" />
     <div class="table">
         <table width="100%" border="1" cellspacing="0">
             <tr>
@@ -20,7 +20,7 @@
                     <p><input type="file" name="_file_sns_icon" /></p>
                 </td>
             </tr>
-            
+
             <tr loop="$sns->config => $key, $value">
                 <th scope="row"><div>{$value->title}</div></th>
                 <td>
