@@ -13,16 +13,16 @@ use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class CMSListener implements EventSubscriberInterface
 {
     private $logger;
 
     /**
-     * We're injecting into the HttpKernel workflow:
+     * We're injecting into the HttpKernel's events:
      * http://symfony.com/doc/master/components/http_kernel/introduction.html
      *
+     * @see RouterListener
      * @return array
      */
     public static function getSubscribedEvents()
