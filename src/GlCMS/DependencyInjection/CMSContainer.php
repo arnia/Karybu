@@ -32,7 +32,6 @@ class CMSContainer
         $this->containerBuilder->register('matcher', 'Symfony\Component\Routing\Matcher\UrlMatcher')->setArguments(array(new Reference('cms.routes'), new Reference('context')));
         $this->containerBuilder->register('listener.router', 'GlCMS\EventListener\RouterListener')
             ->setArguments(array(new Reference('matcher')));
-        $this->containerBuilder->register('listener.cms', 'GlCMS\EventListener\CMSListener');
         $this->containerBuilder->register('listener.response', 'Symfony\Component\HttpKernel\EventListener\ResponseListener')
             ->setArguments(array('%charset%'));
         $this->containerBuilder->register('listener.exception', 'GlCMS\EventListener\ExceptionListener');
@@ -42,6 +41,12 @@ class CMSContainer
             ->addMethodCall('addSubscriber', array(new Reference('listener.response')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.exception')));
         $this->containerBuilder->register('http_kernel', 'GlCMS\HttpKernel\HttpKernel')->setArguments(array(new Reference('dispatcher'), new Reference('resolver')));
+        $this->containerBuilder->register('context_instance', 'ContextInstance')->setArguments(array(null, null, null, new Reference('cms.routes')));
+        $this->containerBuilder->register('listener.cms', 'GlCMS\EventListener\CMSListener')->setArguments(array(new Reference('context_instance')));
+    }
+
+    public function get($id){
+        return $this->containerBuilder->get($id);
     }
 
 }
