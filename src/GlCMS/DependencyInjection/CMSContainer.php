@@ -25,7 +25,7 @@ class CMSContainer
         $this->containerBuilder->setParameter('charset', 'UTF-8');
 
         $this->register('cms.config.locator', 'GlCMS\Config\ConfigLocator');
-        $this->register('cms.router.loader', 'Symfony\Component\Routing\Loader\YamlFileLoader')->setArguments(array(new Reference('cms.config.locator')));
+        $this->register('cms.router.loader', 'GlCMS\Routing\Loader\YamlFileLoader')->setArguments(array(new Reference('cms.config.locator')));
         $this->register('context', 'Symfony\Component\Routing\RequestContext');
         $this->register('cms.router', 'GlCMS\Routing\Router')->setArguments(array(new Reference('cms.router.loader'), new Reference('context'), null, '%debug%'));
 
