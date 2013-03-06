@@ -2520,7 +2520,9 @@ class ContextInstance {
             /**@var $route Route */
             $matches = array();
             preg_match_all('/\{([^\}]+)\}/', $route->getPath(), $matches);
-            $patParams = $matches[1];sort($patParams);
+            $patParams = $matches[1];
+            $defaultParams = array_keys($route->getDefaults());
+            $patParams = array_merge($patParams, $defaultParams);sort($patParams);
             $patAndReqParams = array_intersect($patParams, $paramKeys); sort($patAndReqParams);
 
             if ($patParams == $paramKeys){
