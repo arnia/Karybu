@@ -23,7 +23,7 @@ class yahoo_login implements ISns{
 
             $email=$profile->emails[0]->handle;
             
-            $member->user_id=substr($email, 0, strpos($email, '@'));
+            $member->user_id=$profile->nickname;
             $member->user_name=$member->user_id;
             $member->user_name=$profile->givenName;
             $member->email_address=$email;

@@ -1840,6 +1840,9 @@ class OAuthClient {
 
         $headerParser = new YahooHeaderParser();
         curl_setopt($ch, CURLOPT_HEADERFUNCTION, array(&$headerParser, "read"));
+        if(__DEBUG__){
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        }
         $response = curl_exec($ch);
         if(is_bool($response) && !$response) {
             YahooLogger::error("Error making libcurl request(" . $requestUrl . "): " . curl_error($ch));
