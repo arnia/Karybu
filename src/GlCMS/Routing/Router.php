@@ -14,10 +14,10 @@ class Router extends SymfonyRouter
     public function __construct(LoaderInterface $loader, RequestContext $context = null, LoggerInterface $logger = null, $debug=false)
     {
         $options = array(
-//            'cache_dir' => _XE_PATH_ . '/files/cache',
-//            'debug' => (boolean) $debug,
-//            'generator_cache_class' => 'cmsUrlGeneratorCache',
-//            'matcher_cache_class' => 'cmsUrlMatcherCache'
+            'cache_dir' => _XE_PATH_ . '/files/cache',
+            'debug' => (boolean) $debug,
+            'generator_cache_class' => 'cmsUrlGeneratorCache',
+            'matcher_cache_class' => 'cmsUrlMatcherCache'
         );
         parent::__construct($loader, 'routes.yml', $options, $context, $logger);
     }
