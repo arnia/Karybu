@@ -1,5 +1,6 @@
 //Start editor
 function editorStart_xe(editor_sequence, primary_key, content_key){
+    console.log("editor start");
     editorRelKeys[editor_sequence] = new Array();
     editorRelKeys[editor_sequence]["primary"]   = document.getElementsByName(primary_key)[0];
     editorRelKeys[editor_sequence]["content"]   = document.getElementsByName(content_key)[0];

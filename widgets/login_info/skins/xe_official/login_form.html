@@ -39,5 +39,10 @@
 			<li><a href="{getUrl('act','dispMemberFindAccount')}">{$lang->cmd_find_member_account}</a></li>
 			<li><a href="{getUrl('act','dispMemberResendAuthMail')}">{$lang->cmd_resend_auth_mail}</a></li>
 		</ul>
+                
+                <p cond="!empty($sns_list)">Sign in via SNS:</p>
+                <ul>
+                    <li loop="$sns_list => $sns"><a href="{getUrl('act','procMemberSnsSignIn','sns',$sns->sns_name)}">{$sns->title}</a></li>
+                </ul>
 	</fieldset>
 </form> 

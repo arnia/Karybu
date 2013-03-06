@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sns>
+    <title xml:lang="ko">Google</title>
+    <title xml:lang="en">Google</title>
+
+    <description xml:lang="ko">Sign in with XE using your Gmail account.</description>
+    <description xml:lang="en">Sign in with XE using your Gmail account.</description>
+
+    <regdate>2013-02-13</regdate>
+    
+    <config>
+        <item name="developer_key">
+            <title xml:lang="ko">DEVELOPER_KEY</title>
+            <title xml:lang="en">DEVELOPER_KEY</title>
+        </item>
+        <item name="client_id">
+            <title xml:lang="ko">CLIENT_ID</title>
+            <title xml:lang="en">CLIENT_ID</title>
+        </item>
+        <item name="client_secret">
+            <title xml:lang="ko">CLIENT_SECRET</title>
+            <title xml:lang="en">CLIENT_SECRET</title>
+        </item>
+        <item name="callback_url">
+            <title xml:lang="ko">REDIRECT_URI</title>
+            <title xml:lang="en">REDIRECT_URI</title>
+        </item>
+    </config>
+    
+</sns>

@@ -1,5 +1,11 @@
 <include target="./common_header.html" />
 <load target="filter/openid_login.xml" />
+
+<style>
+    .sns_sign_in a{display: inline-block; border: 1px solid white}
+    .sns_sign_in a:hover{border: 1px solid red}
+</style>
+
 <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
@@ -32,6 +38,16 @@
 		</span>
 	</div>
 </form>
+
+<div class="sns_sign_in" cond="!empty($sns_list)">
+    <h1 class="h1">Sign In Via SNS:</h1>
+    <block loop="$sns_list => $sns">
+        <a href="{getUrl('act','procMemberSnsSignIn','sns',$sns->sns_name)}" style="display: inline-block">
+            <img style="max-height: 40px" src="{$sns->icon}" alt="{$sns->title}" />
+        </a>
+    </block>    
+</div>
+
 <script type="text/javascript">
 jQuery(function($){
 	var keep_msg = $('#keep_msg');

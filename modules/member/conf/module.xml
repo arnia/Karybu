@@ -19,6 +19,7 @@
         <action name="dispMemberGetTempPassword" type="view" standalone="true" />
 		<action name="dispMemberResendAuthMail" type="view" standalone="true" />
         <action name="dispSavedDocumentList" type="view" standalone="true" />
+        <action name="dispMemberSnsAddEmail" type="view" standalone="true" />
 
         <action name="dispMemberAdminList" type="view" standalone="true" index="true" admin_index="true" menu_name="userList" menu_index="true"/>
         <action name="dispMemberAdminConfig" type="view" menu_name="userSetting" menu_index="true" />
@@ -31,6 +32,7 @@
         <action name="dispMemberAdminDeniedIDList" type="view" standalone="true" />
         <action name="dispMemberAdminManageGroup" type="view" standalone="true" />
         <action name="dispMemberAdminDeleteMembers" type="view" standalone="true" />
+        <action name="dispMemberAdminSetupSns" menu_name="userSetting" type="view" standalone="true" />
 
         <action name="getMemberMenu" type="model" standalone="true" />
         <action name="getMemberAdminColorset" type="model" standalone="true" />
@@ -65,8 +67,10 @@
         <action name="procMemberAuthAccount" type="controller" standalone="true" />
         <action name="procMemberAuthEmailAddress" type="controller" />
         <action name="procMemberUpdateAuthMail" type="controller" standalone="true" />
-		<action name="procMemberResendAuthMail" type="controller" standalone="true" ruleset="resendAuthMail" />
-		<action name="procMemberResetAuthMail" type="controller" ruleset="resetAuthMail" />
+        <action name="procMemberResendAuthMail" type="controller" standalone="true" ruleset="resendAuthMail" />
+        <action name="procMemberResetAuthMail" type="controller" ruleset="resetAuthMail" />
+        <action name="procMemberSnsSignIn" type="controller" standalone="true" />
+        <action name="procMemberSnsAddEmail" type="controller" standalone="true" />
 
         <action name="procMemberAdminInsert" type="controller" standalone="true" ruleset="insertAdminMember" />
         <action name="procMemberAdminDelete" type="controller" standalone="true" />
@@ -86,6 +90,10 @@
 
         <action name="procMemberAdminSelectedMemberManage" type="controller" ruleset="updateSeletecdMemberInfo" />
         <action name="procMemberAdminGroupConfig" type="controller" />
+        <!--SNS-->
+        <action name="procMemberAdminSnsCheckUseListOrder" type="controller" />
+        <action name="procMemberAdminSetupSns" type="controller" />
+        
     </actions>
 	<menus>
 		<menu name="userList">

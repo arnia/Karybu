@@ -270,10 +270,56 @@
 			<span class="btn small"><a href="#userDefine" class="modalAnchor _extendFormEdit">{$lang->add_extend_form}...</a></span>
 		</p>
 	</fieldset>
-	<div class="btnArea">
-		<span class="btn medium"><input type="submit" value="{$lang->cmd_save}" /></span>
+        
+        <div class="btnArea">
+		<span class="btn"><input type="submit" value="{$lang->cmd_save}" /></span>
 	</div>
-</form>
+    </form>
+        
+    <form action="./" method="post" class="form">
+	<input type="hidden" name="module" value="member" />
+	<input type="hidden" name="act" value="procMemberAdminSnsCheckUseListOrder" />
+        <input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
+        <fieldset class="section sns_config">
+		<h2 class="h2">{$lang->sns}</h2>
+                
+                <div class="table">
+			<table id="sortable_table" class="sortable"width="100%" border="1" cellspacing="0">
+				<caption>
+                                    {$lang->total_count}({$sns_count})
+				</caption>
+				<thead>
+					<tr>
+						<th scope="col">{$lang->cmd_move}</th>
+						<th scope="col" class="title">{$lang->sns_name}</th>
+                                                <th scope="col">{$lang->path}</th>
+						<th scope="col">{$lang->use}</th>
+						<th scope="col">{$lang->cmd_setup}</th>
+					</tr>
+				</thead>
+				<tbody class="uDrag">
+					<!--@foreach($sns_list as $sns_name => $xml_info)-->
+					<tr>
+						<td><div class="wrap" style="height:80px"><button type="button" class="dragBtn">Move to</button></div></td>
+						<td class="title">
+							<input type="hidden" name="sns_names[]" value="{$xml_info->sns_name}" />
+							<p><b>{$xml_info->title}</b></p>
+							<p>{nl2br($xml_info->description)}</p>
+						</td>
+                                                <td>{$xml_info->path}</td>
+						<td><input type="checkbox" name="enables[]" id="enable" value="{$xml_info->sns_name}" title="Use this SNS " <!--@if($xml_info->enabled=='Y')--> checked="checked"<!--@end--> /></td>
+						<td><a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminSetupSns', 'sns_name', $xml_info->sns_name)}">{$lang->cmd_setup}</a>
+					</tr>
+					<!--@end-->
+				</tbody>
+			</table>
+		</div>
+               <div class="btnArea">
+                    <span class="btn"><input type="submit" value="{$lang->cmd_save}" /></span>
+		</div>     
+        </fieldset>
+    </form>
+
 <h2 class="h2">{$lang->cmd_member_sync}</h2>
 <div class="form">
 	<span class="btn small"><input type="button" value="{$lang->cmd_member_sync}" class="__sync" /></span>

@@ -6,9 +6,15 @@ require_once _XE_PATH_.'classes/context/Context.class.php';
 require_once _XE_PATH_.'classes/handler/Handler.class.php';
 require_once _XE_PATH_.'classes/xml/XmlParser.class.php';
 
-class FrontendFileHandler {}
-class FileHandler {}
-class Validator {}
+if(!class_exists('FrontendFileHandler')){
+    class FrontendFileHandler {}
+}
+if(!class_exists('FileHandler')){
+    class FileHandler {}
+}
+if(!class_exists('Validator')){
+    class Validator {}
+}
 
 class ContextInstanceTest extends PHPUnit_Framework_TestCase
 {

@@ -143,31 +143,44 @@
             $editor = $oEditorModel->getEditor(0, $option);
             Context::set('editor', $editor);
 
-			$signupForm = $config->signupForm;
-			foreach($signupForm as $val)
-			{
-				if($val->name == 'user_id')
-				{
-					$userIdInfo = $val;
-					break;
-				}
-			}
+            $signupForm = $config->signupForm;
+            foreach($signupForm as $val)
+            {
+                    if($val->name == 'user_id')
+                    {
+                            $userIdInfo = $val;
+                            break;
+                    }
+            }
 
-			if($userIdInfo->isUse)
-			{
-				// get denied ID list
-				Context::set('useUserID', 1);
-				$denied_list = $oMemberModel->getDeniedIDs();
-				Context::set('deniedIDs', $denied_list);
-			}
+            if($userIdInfo->isUse)
+            {
+                    // get denied ID list
+                    Context::set('useUserID', 1);
+                    $denied_list = $oMemberModel->getDeniedIDs();
+                    Context::set('deniedIDs', $denied_list);
+            }
 
-			// get denied NickName List
-			$deniedNickNames = $oMemberModel->getDeniedNickNames();
-			Context::set('deniedNickNames', $deniedNickNames);
+            // get denied NickName List
+            $deniedNickNames = $oMemberModel->getDeniedNickNames();
+            Context::set('deniedNickNames', $deniedNickNames);
 
-			$security = new Security();
-			$security->encodeHTML('config..');
+            $security = new Security();
+            $security->encodeHTML('config..');
 
+                        
+            //SNS
+            $sns_list = $oMemberModel->getSnsList(FALSE);
+            $sns_count=0;
+            if($sns_list){
+                foreach($sns_list as $sns_name => $config) {
+                    $sns_count++;		    								
+                    $config->path = sprintf('./modules/member/sns/%s', $sns_name);
+                }
+            }
+            Context::set('sns_count', $sns_count);
+            Context::set('sns_list', $sns_list);
+                        
             $this->setTemplateFile('member_config');
         }
 
@@ -567,5 +580,20 @@ EOD;
 			$this->setLayoutFile('popup_layout');
             $this->setTemplateFile('delete_members');
         }
+        
+        
+        //SNS
+        function dispMemberAdminSetupSns(){
+            $sns_name = Context::get('sns_name');
+            $oMemberModel = &getModel('member');
+            $sns = $oMemberModel->getSns($sns_name);
+            //$formTags=  $this->snsFormTags($sns);
+            
+            Context::set('sns', $sns);
+			
+            $this->setTemplatePath($this->module_path.'tpl');
+            $this->setTemplateFile('sns_config');
+        }
+        
     }
 ?>

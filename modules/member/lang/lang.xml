@@ -2506,4 +2506,43 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="ko"><![CDATA[<h2>로그인 실패 기록을 알려드립니다.</h2><div>%1$s</div><p>* 비밀번호를 틀리는 등의 일이 없었는데 이 메시지를 보신다면, 계정 관리에 유의해주시기 바랍니다.<br />* 이 메시지는 로그인이 성공한 순간 누적 로그인 실패 기록이 많을 경우, 로그인 성공 이전 실패 기록을 모아서 발송합니다.<br />발송 시각: %2$s</p>]]></value>
 		<value xml:lang="en"><![CDATA[<h2>There is recorded sign in failures.</h2><div>%1$s</div><p>* This notification is shown once.<br />* This message contains sign in failure records, before a ID sign in success.<br />Sending: %2$s</p>]]></value>
 	</item>
+        
+        <!--SNS-->
+        <item name="sns">
+		<value xml:lang="ko"><![CDATA[SNS]]></value>
+		<value xml:lang="en"><![CDATA[SNS]]></value>
+	</item>
+        <item name="msg_sns_is_not_founded">
+		<value xml:lang="ko"><![CDATA[Cannot find SNS %s.]]></value>
+		<value xml:lang="en"><![CDATA[Cannot find SNS %s.]]></value>
+	</item>
+        <item name="sns_name">
+		<value xml:lang="ko"><![CDATA[SNS Name]]></value>
+		<value xml:lang="en"><![CDATA[SNS Name]]></value>
+	</item>
+        <item name="sns_icon">
+		<value xml:lang="ko"><![CDATA[SNS icon]]></value>
+		<value xml:lang="en"><![CDATA[SNS icon]]></value>
+	</item>
+        <item name="sns_config_error">
+		<value xml:lang="ko"><![CDATA[SNS Configueration Error]]></value>
+		<value xml:lang="en"><![CDATA[SNS Configueration Error]]></value>
+	</item>
+        <item name="msg_sns_config_error">
+		<value xml:lang="ko"><![CDATA[SNS is not configured correctly. Please contact your administrator.]]></value>
+		<value xml:lang="en"><![CDATA[SNS is not configured correctly. Please contact your administrator.]]></value>
+	</item>
+        <item name="sns_add_email">
+		<value xml:lang="ko"><![CDATA[Add Email Address]]></value>
+		<value xml:lang="en"><![CDATA[Add Email Address]]></value>
+	</item>
+        <item name="sns_add_email_description">
+		<value xml:lang="ko"><![CDATA[Please add your email to complete the registraton:]]></value>
+		<value xml:lang="en"><![CDATA[Please add your email to complete the registraton:]]></value>
+	</item>
+        <item name="unexpected_error">
+		<value xml:lang="ko"><![CDATA[Unexpected error.]]></value>
+		<value xml:lang="en"><![CDATA[Unexpected error.]]></value>
+	</item>
+        
 </lang>

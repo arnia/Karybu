@@ -1,0 +1,14 @@
+<query id="getSnsList" action="select">
+    <tables>
+        <table name="member_sns" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="enabled" var="enabled" />
+    </conditions>
+    <navigation>
+        <index var="sort_index" default="list_order" order="asc" />
+    </navigation>
+</query>

@@ -246,7 +246,7 @@ class Argument {
 					break;
 				case 'userid' :
 				case 'user_id' :
-					if (!preg_match('/^[a-zA-Z]+([_0-9a-zA-Z]+)*$/is', $val)) {
+					if (!preg_match('/^[a-zA-Z]+([\._0-9a-zA-Z]+)*$/is', $val)) {
 						$this->isValid = false;
 						$this->errorMessage = new Object(-1, sprintf($lang->filter->invalid_userid, $lang->{$key} ? $lang->{$key} : $key));
 					}
