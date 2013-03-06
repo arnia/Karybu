@@ -17,7 +17,8 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 class CMSListener implements EventSubscriberInterface
 {
     private $logger;
-    /** @var $cmsContext ContextInstance */
+
+    /** @var \ContextInstance */
     private $cmsContext;
 
     /**
@@ -53,12 +54,13 @@ class CMSListener implements EventSubscriberInterface
     }
 
     /**
-     * @param LoggerInterface|null $logger  The logger
+     * @param \ContextInstance $cmsContext CMS context
+     * @param \Symfony\Component\HttpKernel\Log\LoggerInterface $logger The logger
      */
     public function __construct(\ContextInstance $cmsContext, LoggerInterface $logger = null)
     {
-        $this->logger = $logger;
         $this->cmsContext = $cmsContext;
+        $this->logger = $logger;
     }
 
     /**

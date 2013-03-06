@@ -68,8 +68,3 @@ vid_mid_entry:
     requirements:
         vid: '[a-zA-Z0-9_]+'
         mid: '[a-zA-Z0-9_]+'
-
-shop_product:
-    pattern: /{vid}/{type}/{identifier}
-    defaults:
-        _controller: shopView::route

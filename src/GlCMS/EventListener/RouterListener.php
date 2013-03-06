@@ -18,6 +18,7 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RequestContextAwareInterface;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use GlCMS\Routing\Router;
 
 class RouterListener implements EventSubscriberInterface
 {
@@ -33,20 +34,14 @@ class RouterListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param UrlMatcherInterface|RequestMatcherInterface $matcher The Url or Request matcher
+     * @param Router                                      $router complete Router object, with matcher and context and all
      * @param RequestContext|null                         $context The RequestContext (can be null when $matcher implements RequestContextAwareInterface)
      * @param LoggerInterface|null                        $logger  The logger
      */
-    public function __construct($matcher, RequestContext $context = null, LoggerInterface $logger = null)
+    public function __construct(Router $router, LoggerInterface $logger = null)
     {
-        if (!$matcher instanceof UrlMatcherInterface && !$matcher instanceof RequestMatcherInterface) {
-            throw new \InvalidArgumentException('Matcher must either implement UrlMatcherInterface or RequestMatcherInterface.');
-        }
-        if (null === $context && !$matcher instanceof RequestContextAwareInterface) {
-            throw new \InvalidArgumentException('You must either pass a RequestContext or the matcher must implement RequestContextAwareInterface.');
-        }
-        $this->matcher = $matcher;
-        $this->context = $context ?: $matcher->getContext();
+        $this->matcher = $router->getMatcher();
+        $this->context = $router->getContext();
         $this->logger = $logger;
     }
 
@@ -54,6 +49,7 @@ class RouterListener implements EventSubscriberInterface
     {
         $request = $event->getRequest();
         $oContext = $request->attributes->get('oContext');
+
         // initialize the context that is also used by the generator (assuming matcher and generator share the same context instance)
         $this->context->fromRequest($request);
         if ($request->attributes->has('_controller')) {
