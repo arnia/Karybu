@@ -12,7 +12,7 @@
     </layout>
     <skinInfos>
         <skinInfo>
-            <directory path="./modules/member/skins/default" />
+            <directory path="./modules/member/skins/bootstrap" />
         </skinInfo>
     </skinInfos>
 </theme>
