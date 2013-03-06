@@ -6,21 +6,21 @@ function editorStart_xe(editor_sequence, primary_key, content_key){
     editorRelKeys[editor_sequence]["content"]   = document.getElementsByName(content_key)[0];
     editorRelKeys[editor_sequence]["func"]	  = editorGetContentTextarea_xe;
     editorRelKeys[editor_sequence]["pasteHTML"] = function(text){
-            tinyMCE.activeEditor.execCommand('mceInsertContent',false,text);
+        CKEDITOR.instances.ckeditor_instance.insertHtml(text);
     }
 }
 
 //Get content from editor
 function editorGetContentTextarea_xe(editor_sequence){
-    return tinyMCE.activeEditor.getContent();
+    return CKEDITOR.instances.ckeditor_instanceinstance.getData();
 }
 
 function editorGetContent(editor_sequence) {
-    return tinyMCE.activeEditor.getContent();
+    return CKEDITOR.instances.ckeditor_instance.getData()
 }
 
 //Replace html content to editor
 function editorReplaceHTML(iframe_obj, content) {
-    tinyMCE.activeEditor.execCommand('mceInsertContent',false,content);
+    CKEDITOR.instances.ckeditor_instance.insertHtml(content);
 }
 

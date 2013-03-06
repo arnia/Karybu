@@ -343,8 +343,7 @@
 			Context::loadLang($tpl_path.'lang');
             // Return the compiled result from tpl file
             $oTemplate = new TemplateHandler();
-            $aux =  $oTemplate->compile($tpl_path, $tpl_file);
-            return  $aux;
+            return $oTemplate->compile($tpl_path, $tpl_file);
         }
 
         /**
@@ -549,7 +548,7 @@
             }
 
             if(!file_exists($cache_file)) return;
-            include($cache_file);
+            @include($cache_file);
 			$logged_info = Context::get('logged_info');
 			if($logged_info && is_array($logged_info->group_list)) 
 			{
