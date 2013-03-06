@@ -30,13 +30,15 @@ class YamlFileLoader extends SymfonyYamlFileLoader
 
         foreach ($paths as $path) {
 
+            $subCollection = new RouteCollection();
+
             $config = Yaml::parse($path);
 
-            $collection->addResource(new FileResource($path));
+            $subCollection->addResource(new FileResource($path));
 
             // empty file
             if (null === $config) {
-                return $collection;
+                continue;
             }
 
             // not an array
@@ -57,11 +59,13 @@ class YamlFileLoader extends SymfonyYamlFileLoader
                 $this->validate($config, $name, $path);
 
                 if (isset($config['resource'])) {
-                    $this->parseImport($collection, $config, $path, $file);
+                    $this->parseImport($subCollection, $config, $path, $file);
                 } else {
-                    $this->parseRoute($collection, $name, $config, $path);
+                    $this->parseRoute($subCollection, $name, $config, $path);
                 }
             }
+
+            $collection->addCollection($subCollection);
 
         }
 
