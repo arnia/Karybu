@@ -1,0 +1,30 @@
+<load target="css/communication.css" />
+<load target="js/communication.js" />
+<h1 class="h1">
+	<!--@if($friend_group->friend_group_srl)-->
+		{$lang->cmd_rename_friend_group}
+	<!--@else-->
+		{$lang->cmd_add_friend_group}
+	<!--@end-->
+</h1>
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+<form ruleset="addFriendGroup" action="./" method="post" class="form">
+	<input type="hidden" name="module" value="communication" />
+	<input type="hidden" name="act" value="procCommunicationAddFriendGroup" />
+	<input type="hidden" name="friend_group_srl" value="{$friend_group->friend_group_srl}" />
+	<ul>
+		<li>
+			<p class="q">{$lang->msg_insert_group_name}</p>
+			<p class="a"><input name="title" type="text" value="{htmlspecialchars($friend_group->title)}"/></p>
+		</li>
+	</ul>
+	<div class="btnArea">
+		<!--@if($friend_group->friend_group_srl)-->
+		<span class="btn"><input type="submit" value="{$lang->cmd_modify}" /></span>
+		<!--@else-->
+		<span class="btn"><input type="submit" value="{$lang->cmd_insert}" /></span>
+		<!--@end-->
+	</div>
+</form>
