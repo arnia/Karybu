@@ -2069,6 +2069,50 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
 
     }
 
+    public function testGetUrl_RouteBased_ModuleAndAct()
+    {
+        $router = $this->getMock('GlCMS\Routing\Router', array('getRouteCollection'),
+            array(
+                $this->getMock('Symfony\Component\Config\Loader\LoaderInterface'),
+                $this->getMock('Symfony\Component\Routing\RequestContext'),
+                $this->getMock('Psr\Log\LoggerInterface'),
+                false
+            ));
+        $router->expects($this->any())->method('getRouteCollection')->will($this->returnValue($this->getRoutes()));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID')
+            , array(null, null, null, $router));
+        $context->site_module_info = new stdClass();
+        $context->site_module_info->domain = null;
+        $_SERVER['SCRIPT_NAME'] = '/';
+
+        $url = $context->getUrl(4, array("module", "admin", "act", "hello"));
+        $this->assertEquals('/admin/hello', $url);
+    }
+
+    /**
+     * Note: I fixed this bug temporarily (or not) by changing the order of the routes: admin3 is now the last one
+     */
+    public function testGetUrl_RouteBased_MidVidAndAct()
+    {
+        $router = $this->getMock('GlCMS\Routing\Router', array('getRouteCollection'),
+            array(
+                $this->getMock('Symfony\Component\Config\Loader\LoaderInterface'),
+                $this->getMock('Symfony\Component\Routing\RequestContext'),
+                $this->getMock('Psr\Log\LoggerInterface'),
+                false
+            ));
+        $router->expects($this->any())->method('getRouteCollection')->will($this->returnValue($this->getRoutes()));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID')
+            , array(null, null, null, $router));
+        $_SERVER['SCRIPT_NAME'] = '/';
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+
+        $url = $context->getUrl(4, array("mid", "shop", "act", "dispShopToolLogin"), 'magazin');
+        $this->assertEquals('/shop/magazin?act=dispShopToolLogin', $url);
+    }
+
     private function getRoutes(){
         $routes = new \Symfony\Component\Routing\RouteCollection();
         $routes->add("homepage", new \Symfony\Component\Routing\Route('/'));

@@ -13,10 +13,6 @@ admin2:
     pattern: /admin/{act}
     defaults: { module: admin }
 
-admin3:
-    pattern: /admin/{act}/{mid}
-    defaults: { module: admin }
-
 doc:
     pattern: /{document_srl}
     requirements:
@@ -72,3 +68,7 @@ vid_mid_entry:
     requirements:
         vid: '[a-zA-Z0-9_]+'
         mid: '[a-zA-Z0-9_]+'
+
+admin3:
+    pattern: /admin/{act}/{mid}
+    defaults: { module: admin }
