@@ -5,6 +5,10 @@ admin:
     pattern: /admin
     defaults: { module: admin }
 
+admin_slash:
+    pattern: /admin/
+    defaults: { module: admin }
+
 admin2:
     pattern: /admin/{act}
     defaults: { module: admin }
