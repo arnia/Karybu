@@ -7,7 +7,7 @@
 
 /* General Styles*/
 body {
-    padding-top: 40px;
+    padding-top: 60px;
 }
 
 a {
@@ -147,7 +147,7 @@ input[type="color"]:focus,
 /* Custom Styles*/
 
 #header {
-    min-height: 6px;
+    min-height: 48px;
     background: url("../img/hbg.jpg");
     background-position: center 0;
 }

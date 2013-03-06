@@ -1,6 +1,7 @@
 <include target="./common_header.html" />
 <load target="filter/delete_checked_message.xml" />
 <load target="filter/update_allow_message.xml" />
+<h3>{$member_title = $lang->cmd_view_message_box}</h3>
 <div class="btnArea">
 	<form action="./" method="GET" class="etc" onsubmit="location.href=current_url.setQuery('message_srl','').setQuery('message_type',this.message_box.options[this.message_box.selectedIndex].value); return false;">
 		<select name="message_box">
