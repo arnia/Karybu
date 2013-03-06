@@ -27,12 +27,6 @@ abstract class AbstractLoader implements LoaderInterface
 
     protected function includeFile($path)
     {
-        /*if (!file_exists($path)) {
-            throw new \RuntimeException("File '$path' does not exist.");
-        }
-        if (!is_readable($path)) {
-            throw new \RuntimeException("File '$path' is not readable.");
-        }*/
         if (!file_exists($path) || !is_readable($path)) return false;
         return include_once($path);
     }

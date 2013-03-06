@@ -262,6 +262,8 @@
 			for($i=0;$i<$target_count;$i++) {
 				$target = $target_list[$i];
 				if(!$lang->{$target}) $lang->{$target} = $target;
+                // TODO There might be a bug here: if language is an object instead of string (array of multiple texts)
+                if(!is_string($lang->{$target})) continue;
 				$text = preg_replace('@\r?\n@', '\\n', addslashes($lang->{$target}));
 				$js_messages[] = "v.cast('ADD_MESSAGE',['{$target}','{$text}']);";
 			}

@@ -6,9 +6,15 @@ require_once _XE_PATH_.'classes/context/Context.class.php';
 require_once _XE_PATH_.'classes/handler/Handler.class.php';
 require_once _XE_PATH_.'classes/xml/XmlParser.class.php';
 
-class FrontendFileHandler {}
-class FileHandler {}
-class Validator {}
+if(!class_exists('FrontendFileHandler')){
+    class FrontendFileHandler {}
+}
+if(!class_exists('FileHandler')){
+    class FileHandler {}
+}
+if(!class_exists('Validator')){
+    class Validator {}
+}
 
 class ContextInstanceTest extends PHPUnit_Framework_TestCase
 {
@@ -2061,6 +2067,50 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $url = $context->getUrl(4, array("type", "type_value", "identifier", "identifier_value"), "domain");
         $this->assertEquals('/domain/type_value/identifier_value', $url);
 
+    }
+
+    public function testGetUrl_RouteBased_ModuleAndAct()
+    {
+        $router = $this->getMock('GlCMS\Routing\Router', array('getRouteCollection'),
+            array(
+                $this->getMock('Symfony\Component\Config\Loader\LoaderInterface'),
+                $this->getMock('Symfony\Component\Routing\RequestContext'),
+                $this->getMock('Psr\Log\LoggerInterface'),
+                false
+            ));
+        $router->expects($this->any())->method('getRouteCollection')->will($this->returnValue($this->getRoutes()));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID')
+            , array(null, null, null, $router));
+        $context->site_module_info = new stdClass();
+        $context->site_module_info->domain = null;
+        $_SERVER['SCRIPT_NAME'] = '/';
+
+        $url = $context->getUrl(4, array("module", "admin", "act", "hello"));
+        $this->assertEquals('/admin/hello', $url);
+    }
+
+    /**
+     * Note: I fixed this bug temporarily (or not) by changing the order of the routes: admin3 is now the last one
+     */
+    public function testGetUrl_RouteBased_MidVidAndAct()
+    {
+        $router = $this->getMock('GlCMS\Routing\Router', array('getRouteCollection'),
+            array(
+                $this->getMock('Symfony\Component\Config\Loader\LoaderInterface'),
+                $this->getMock('Symfony\Component\Routing\RequestContext'),
+                $this->getMock('Psr\Log\LoggerInterface'),
+                false
+            ));
+        $router->expects($this->any())->method('getRouteCollection')->will($this->returnValue($this->getRoutes()));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID')
+            , array(null, null, null, $router));
+        $_SERVER['SCRIPT_NAME'] = '/';
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+
+        $url = $context->getUrl(4, array("mid", "shop", "act", "dispShopToolLogin"), 'magazin');
+        $this->assertEquals('/shop/magazin?act=dispShopToolLogin', $url);
     }
 
     private function getRoutes(){

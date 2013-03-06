@@ -5,7 +5,10 @@
 			<file>./classes/context/ContextTest.php</file>
             <file>./classes/frontendfile/FrontendFileHandlerTest.php</file>
             <file>./classes/module/ModuleMatcherTest.php</file>
+            <file>./classes/module/ModuleHandlerInstanceTest.php</file>
             <file>./classes/security/SecurityTest.php</file>
+            <file>./src/GlCMS/EventListener/CMSListenerTest.php</file>
+            <file>./src/GlCMS/ModuleHandler/ModuleInstanceRetrieverTest.php</file>
 		</testsuite>
 	</testsuites>
 	<logging>

@@ -1,0 +1,11 @@
+<query id="getSns" action="select">
+    <tables>
+        <table name="member_sns" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="sns_name" var="sns_name" notnull="notnull" />
+    </conditions>
+</query>

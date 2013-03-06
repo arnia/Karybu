@@ -1,0 +1,8 @@
+<query id="deleteSns" action="delete">
+    <tables>
+        <table name="member_sns" />
+    </tables>
+    <conditions>
+        <condition operation="equal" column="sns_name" var="sns_name" notnull="notnull" />
+    </conditions>
+</query>

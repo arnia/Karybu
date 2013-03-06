@@ -214,6 +214,11 @@
 			if (!is_readable('./files/ruleset/login.xml')) return true;
 			if (!is_readable('./files/ruleset/find_member_account_by_question.xml')) return true;
 
+
+            // SNS
+            if(!$oDB->isColumnExists("member", "auth_type")) return true;
+            if(!$oDB->isColumnExists("member", "sns_guid")) return true;
+
             return false;
         }
 
@@ -337,6 +342,14 @@
 				$oMemberAdminController->_createLoginRuleset($config->identifier);
 			if (!is_readable('./files/ruleset/find_member_account_by_question.xml'))
 				$oMemberAdminController->_createFindAccountByQuestion($config->identifier);
+
+            if(!$oDB->isColumnExists("member", "auth_type")) {
+                $oDB->addColumn("member", "auth_type", "varchar", 20, 'xe', true);
+            }
+
+            if(!$oDB->isColumnExists("member", "sns_guid")) {
+                $oDB->addColumn("member", "sns_guid", "varchar", 100);
+            }
 
             return new Object(0, 'success_updated');
         }

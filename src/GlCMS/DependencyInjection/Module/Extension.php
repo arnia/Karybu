@@ -5,6 +5,11 @@ namespace GlCMS\DependencyInjection\Module;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * base class for module extensions
+ * also checks for a configuration class
+ * children should implement the load and getAlias (module name) methods
+ */
 abstract class Extension implements ExtensionInterface
 {
     public function getXsdValidationBasePath()
@@ -17,6 +22,9 @@ abstract class Extension implements ExtensionInterface
         return 'http://example.org/schema/dic/'.$this->getAlias();
     }
 
+    /**
+     * http://symfony.com/doc/2.0/cookbook/bundles/extension.html
+     */
     public function getConfiguration(array $config, ContainerBuilder $container)
     {
         $reflected = new \ReflectionClass($this);

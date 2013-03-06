@@ -1,0 +1,139 @@
+<!-- css -->
+<load target="css/default.css" />
+
+<!-- JS -->
+<load target="../../tpl/js/editor_common.js" cond="__DEBUG__" />
+<load target="../../tpl/js/editor_common.min.js" cond="!__DEBUG__" />
+
+<load target="js/default.js" />
+<load target="js/xe_interface.js" />
+<load target="ckeditor/ckeditor.js" />
+
+<!--Content font and font size-->
+<!--@if($content_font || $content_font_size)-->
+    {@
+        $css_path='./files/cache/editor/ckeditor/';
+        if(!is_dir($css_path)) FileHandler::makeDir($css_path);
+        $css_filename=$css_path.'content.css';
+        $css_content='body{';
+        $embed_css=true;
+    }
+    <!--@if($content_font)-->
+        {@$css_content .= 'font-family: '.$content_font.';';}
+    <!--@end-->
+    <!--@if($content_font_size)-->
+        {@$css_content .= 'font-size: '.$content_font_size.';';}
+    <!--@end-->
+
+    {@$css_content .= chr(125);}
+    {@file_put_contents($css_filename, $css_content);}
+
+<!--@end-->
+<!--Component list-->
+{@$xe_component_array='';}
+<!--@if($enable_component)-->
+    <!--@foreach($component_list as $component_name => $component)-->
+        {@$xe_component_array .= $component_name.":'".$component->title."',";}
+    <!--@end-->
+    {@$xe_component_array = substr($xe_component_array, 0, strlen($xe_component_array)-1);}
+<!--@end-->
+<div class="ckeditor">
+    <textarea id="ckeditor_instance" name="ckeditor_instance"></textarea>
+    
+    <div cond="$allow_fileupload" id="fileUploader_{$editor_sequence}" class="fileUploader">
+        <div class="preview {$btn_class}" id="preview_uploaded_{$editor_sequence}"></div>
+        <div class="fileListArea {$btn_class}">
+            <select id="uploaded_file_list_{$editor_sequence}" multiple="multiple" class="fileList" title="Attached File List"><option></option></select>
+        </div>
+        <div class="fileUploadControl">
+            <button type="button" id="swfUploadButton{$editor_sequence}" class="text">{$lang->edit->upload_file}</button>
+            <button type="button" onclick="removeUploadedFile('{$editor_sequence}');" class="text">{$lang->edit->delete_selected}</button>
+            <button type="button" onclick="ckInsertUploadedFile('{$editor_sequence}');" class="text">{$lang->edit->link_file}</button>
+        </div>
+        <div class="file_attach_info" id="uploader_status_{$editor_sequence}">{$upload_status}</div>
+    </div>
+    
+</div>
+
+<script>
+    (function(){
+        var editor_primary_key_name='{$editor_primary_key_name}';
+        var editor_content_key_name='{$editor_content_key_name}';
+
+        editorStart_xe("{$editor_sequence}", "{$editor_primary_key_name}", "{$editor_content_key_name}");
+
+        CKEDITOR.replace('ckeditor_instance', 
+            {   
+                extraPlugins: 'preview,xe_component,onchange',
+                xe_editor_sequence: '{$editor_sequence}',
+                xe_component_arrays: {{$xe_component_array}},
+                <!--@if($colorset=='kama' || $colorset=='kama_black')-->
+                skin: 'kama',
+                <!--@end-->
+                <!--@if($colorset=='moono_black' || $colorset=='kama_black')-->
+                uiColor: '#000000',
+                <!--@end-->
+                <!--@if($embed_css)-->
+                contentsCss: '{$css_filename}',
+                <!--@end-->
+                width: '100%',
+                height: '{$editor_height}',
+                toolbar: [
+                    <!--@if($enable_default_component)-->
+                    ['Undo', 'Redo'],
+                    ['Format', 'Font', 'FontSize'],
+                    ['Bold', 'Italic', 'Underline', 'Strike', 'TextColor', 'BGColor', 'Subscript', 'Superscript'],
+                    ['Preview'],
+                    '/',
+                    ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'NumberedList', 'BulletedList', 'Outdent', 'Indent'],
+                    ['Blockquote', 'Link'],
+                    ['Table']
+                    <!--@end-->
+                    <!--@if($enable_component)-->
+                    ,['Xe_component']
+                    <!--@end-->
+                    <!--@if($html_mode)-->
+                    ,['Source']
+                    <!--@end-->
+                ],
+
+                on:{
+                    instanceReady: function(e){
+                        if(jQuery("input[name=" + editor_content_key_name + "]").size()>0){
+                            var content=jQuery("input[name=" + editor_content_key_name + "]").val();
+                            e.editor.insertHtml(content);
+                        }
+                    },
+                    change: function(e){
+                        if(jQuery("input[name=" + editor_content_key_name + "]").size()>0){
+                           jQuery("input[name=" + editor_content_key_name + "]").val(e.editor.getData());
+                        }
+                    }
+                }
+
+            }
+        );
+    })();
+</script>
+
+<!--@if($allow_fileupload)-->
+<load target="../../tpl/js/uploader.js" />
+<load target="../../tpl/js/swfupload.js" />
+<script type="text/javascript">//<![CDATA[
+    jQuery(function(){
+        editorUploadInit({
+            "editorSequence" : {$editor_sequence},
+            "sessionName" : "{session_name()}",
+            "allowedFileSize" : "{$file_config->allowed_filesize}",
+            "allowedFileTypes" : "{$file_config->allowed_filetypes}",
+            "allowedFileTypesDescription" : "{$file_config->allowed_filetypes}",
+            "insertedFiles" : {(int)$files_count},
+            "replaceButtonID" : "swfUploadButton{$editor_sequence}",
+            "fileListAreaID" : "uploaded_file_list_{$editor_sequence}",
+            "previewAreaID" : "preview_uploaded_{$editor_sequence}",
+            "uploaderStatusID" : "uploader_status_{$editor_sequence}"
+        });			
+    });
+
+</script>
+<!--@end-->

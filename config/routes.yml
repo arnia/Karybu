@@ -5,12 +5,12 @@ admin:
     pattern: /admin
     defaults: { module: admin }
 
-admin2:
-    pattern: /admin/{act}
+admin_slash:
+    pattern: /admin/
     defaults: { module: admin }
 
-admin3:
-    pattern: /admin/{act}/{mid}
+admin2:
+    pattern: /admin/{act}
     defaults: { module: admin }
 
 doc:
@@ -69,7 +69,6 @@ vid_mid_entry:
         vid: '[a-zA-Z0-9_]+'
         mid: '[a-zA-Z0-9_]+'
 
-shop_product:
-    pattern: /{vid}/{type}/{identifier}
-    defaults:
-        _controller: shopView::route
+admin3:
+    pattern: /admin/{act}/{mid}
+    defaults: { module: admin }

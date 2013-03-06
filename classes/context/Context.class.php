@@ -4,7 +4,7 @@ define('ENFORCE_SSL',1);
 define('RELEASE_SSL',2);
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Routing\RouteCollection;
+use GlCMS\Routing\Router;
 use Symfony\Component\Routing\Route;
 
 /**
@@ -138,7 +138,7 @@ class ContextInstance {
 	var $isSuccessInit = true;
 
 
-    public $request, $router;
+    public $request;
 
 
     /**
@@ -179,8 +179,29 @@ class ContextInstance {
     var $validator;
 
     /** @var $routes \Symfony\Component\Routing\RouteCollection */
-    private $routes;
+    protected $routes;
 
+    /** @var \GlCMS\Routing\Router */
+    protected $router;
+
+
+    /**
+     * Cunstructor
+     *
+     * @return void
+     */
+    function __construct(FileHandler $file_handler = null, FrontEndFileHandler $frontend_file_handler = null, Validator $validator = null, Router $router = null)
+    {
+        if(!isset($file_handler)) $file_handler = new FileHandler();
+        if(!isset($frontend_file_handler)) $frontend_file_handler = new FrontEndFileHandler();
+        if(!isset($validator)) $validator = new Validator();
+
+        $this->file_handler = $file_handler;
+        $this->oFrontEndFileHandler = $frontend_file_handler;
+        $this->validator = $validator;
+        $this->routes = $router->getRouteCollection();
+        $this->router = $router;
+    }
 
     public function loadSslActionsCacheFile()
     {
@@ -200,24 +221,6 @@ class ContextInstance {
         $sslActions = null;
         require_once($file);
         return $sslActions;
-    }
-
-    /**
-     * Cunstructor
-     *
-     * @return void
-     */
-    function __construct(FileHandler $file_handler = null, FrontEndFileHandler $frontend_file_handler = null, Validator $validator = null, RouteCollection $routes = null)
-    {
-        if(!isset($file_handler)) $file_handler = new FileHandler();
-        if(!isset($frontend_file_handler)) $frontend_file_handler = new FrontEndFileHandler();
-        if(!isset($validator)) $validator = new Validator();
-        if (!isset($routes)) $routes = new RouteCollection();
-
-        $this->file_handler = $file_handler;
-        $this->oFrontEndFileHandler = $frontend_file_handler;
-        $this->validator = $validator;
-        $this->routes = $routes;
     }
 
     /**
@@ -2615,6 +2618,11 @@ class Context
         return self::$context->getRequestMethod();
     }
 
+    public function setRequestMethod($type)
+    {
+        self::$context->setRequestMethod($type);
+    }
+
     public static function getRequestVars()
     {
         return self::$context->getRequestVars();
@@ -2643,6 +2651,16 @@ class Context
     public static function getFtpInfo()
     {
         return self::$context->getFTPInfo();
+    }
+
+    public static function getFTPConfigFile()
+    {
+        return self::$context->getFTPConfigFile();
+    }
+
+    public static function isFtpRegisted()
+    {
+        return self::$context->isFTPRegisted();
     }
 
     public static function getDefaultUrl()
@@ -2700,6 +2718,11 @@ class Context
     public static function loadFile($args, $useCdn = false, $cdnPrefix = '', $cdnVersion = '')
     {
         self::$context->loadFile($args, $useCdn, $cdnPrefix, $cdnVersion);
+    }
+
+    public static function unloadFile($file, $targetIe = '', $media = 'all')
+    {
+        self::$context->unloadFile($file, $targetIe, $media);
     }
 
     public static function getBodyHeader()
@@ -2782,7 +2805,7 @@ class Context
         self::$context->addCSSFile($file,$optimized, $media, $targetie, $index);
     }
 
-    function getJsFile($type='head')
+    public static function getJsFile($type='head')
     {
         return self::$context->getJsFile($type);
     }
