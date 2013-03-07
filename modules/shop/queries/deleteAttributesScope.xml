@@ -1,9 +1,0 @@
-<query id="deleteAttributesScope" action="delete">
-    <tables>
-        <table name="shop_attributes_scope"/>
-    </tables>
-    <conditions>
-        <condition operation="in" column="attribute_srl" var="attribute_srls" filter="number" />
-        <condition operation="equal" column="category_srl" var="category_srl" filter="number" pipe="or" />
-    </conditions>
-</query>

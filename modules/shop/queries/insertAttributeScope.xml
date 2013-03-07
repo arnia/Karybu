@@ -1,9 +1,0 @@
-<query id="insertAttributeScope" action="insert">
-    <tables>
-        <table name="shop_attributes_scope" />
-    </tables>
-    <columns>
-        <column name="attribute_srl" var="attribute_srl" filter="number" notnull="notnull"/>
-        <column name="category_srl" var="category_srl" filter="number" notnull="notnull"/>
-    </columns>
-</query>

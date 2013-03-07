@@ -1,4 +1,0 @@
-shop_product:
-    pattern: /{vid}/{type}/{identifier}
-    defaults:
-        _controller: shopView::route

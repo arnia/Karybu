@@ -616,4 +616,3 @@ class ModuleObject extends Module
         return $output;
     }
 }
-?>

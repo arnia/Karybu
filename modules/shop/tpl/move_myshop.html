@@ -1,8 +1,0 @@
-<script type="text/javascript">
-    <!--@if($url)-->
-        top.location.href = "{$url}";
-    <!--@else-->
-	var url = top.location.href.replace(/#(.+)$/i,'');
-	top.location = url;
-    <!--@end-->
-</script>

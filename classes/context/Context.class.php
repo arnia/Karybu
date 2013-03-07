@@ -1684,7 +1684,8 @@ class ContextInstance {
      * @param bool $autoEncode If true, url encode automatically, detailed. Use this option, $encode value should be true
      * @return string URL
      */
-    function getUrl($num_args=0, $args_list=array(), $domain = null, $encode = true, $autoEncode = false) {
+    function getUrl($num_args=0, $args_list=array(), $domain = null, $encode = true, $autoEncode = false)
+    {
         $vid = null;
         //$domain = null;
 
@@ -2522,27 +2523,27 @@ class ContextInstance {
         $paramKeys = array_keys($params);sort($paramKeys);
 
         // add here some dummy routes to force desired URLs;
-        if ($routes->count()){
+        if ($routes->count()) {
             $customRoutes = new RouteCollection();
             $customRoutes->add("module_admin_act_whatever", new Route("/{module}/{act}"));
             $customRoutes->addCollection($routes);
             $routes = $customRoutes;
         }
 
-        foreach($routes as $routeName=>$route){
+        foreach ($routes as $routeName=>$route){
             /**@var $route Route */
 
-            if ($checkRequirements){
+            if ($checkRequirements) {
                 $requirements = $route->getRequirements();
                 $comply = true;
-                foreach($requirements as $reqK=>$reqV){
+                foreach($requirements as $reqK=>$reqV) {
                     // check if param value comply to routes requirements
                     if(isset($params[$reqK]) && !preg_match("/^$reqV$/", $params[$reqK])){
                         $comply = false;
                         break;
                      }
                 }
-                if (!$comply){
+                if (!$comply) {
                     continue;
                 }
             }
@@ -2554,14 +2555,14 @@ class ContextInstance {
             $patParams = array_merge($patParams, $defaultParams);sort($patParams);
             $patAndReqParams = array_intersect($patParams, $paramKeys); sort($patAndReqParams);
 
-            if ($patParams == $paramKeys){
+            if ($patParams == $paramKeys) {
                 // exact match
                 $selectedRoute['name'] = $routeName;
                 $selectedRoute['route'] = $route;
                 break;
-            }else {
+            } else {
                 $countPathAndReqParams = count($patAndReqParams);
-                if($patParams == $patAndReqParams && $countPathAndReqParams > $matchingDegree){
+                if($patParams == $patAndReqParams && $countPathAndReqParams > $matchingDegree) {
                     // acceptable match
                     $selectedRoute['name'] = $routeName;
                     $selectedRoute['route'] = $route;
@@ -2570,10 +2571,10 @@ class ContextInstance {
                 }
             }
         }
-        if ($selectedRoute != null){
-            try{
+        if ($selectedRoute != null) {
+            try {
                 $gen = new \Symfony\Component\Routing\Generator\UrlGenerator($routes, $context);
-            }catch (Exception $e){
+            } catch (Exception $e) {
                 return null;
             }
             // cut first "/" (slash) character
