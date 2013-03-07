@@ -1,8 +1,8 @@
 <load target="js/communication.js" />
 <!--@if($message)-->
-<h1 class="h1">{$lang->message_received}</h1>
-<div class="table">
-    <table width="100%" border="1" cellspacing="0">
+<h3>{$lang->message_received}</h3>
+<div>
+    <table class="table table-bordered" width="100%"cellspacing="0">
 		<!--@if($message->member_srl != $logged_info->member_srl)-->
 		<tr>
 			<th scope="row">{$lang->sender}</th>

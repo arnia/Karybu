@@ -1,12 +1,12 @@
 <load target="css/communication.css" />
 <load target="js/communication.js" />
-<h1 class="h1">
+<h3>
 	<!--@if($friend_group->friend_group_srl)-->
 		{$lang->cmd_rename_friend_group}
 	<!--@else-->
 		{$lang->cmd_add_friend_group}
 	<!--@end-->
-</h1>
+</h3>
 <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>

@@ -1,21 +1,22 @@
 <include target="./common_header.html" />
 <load target="filter/delete_checked_message.xml" />
 <load target="filter/update_allow_message.xml" />
+<h3>{$member_title = $lang->cmd_view_message_box}</h3>
 <div class="btnArea">
-	<form action="./" method="GET" class="etc" onsubmit="location.href=current_url.setQuery('message_srl','').setQuery('message_type',this.message_box.options[this.message_box.selectedIndex].value); return false;">
-		<select name="message_box">
+	<form action="./" method="GET" class="form-horizontal" onsubmit="location.href=current_url.setQuery('message_srl','').setQuery('message_type',this.message_box.options[this.message_box.selectedIndex].value); return false;">
+		<select name="message_box" class="span3">
 			<option loop="$lang->message_box => $key,$val" selected="selected"|cond="$key==$message_type" value="{$key}" >{$val}</option>
 		</select>
-		<input type="submit" value="{$lang->cmd_select}" />
+		<input class="btn" type="submit" value="{$lang->cmd_select}" />
 	</form>
-	<form action="./" method="POST" class="setupMessage">
+	<form action="./" method="POST" class="form-horizontal">
 		<input type="hidden" name="module" value="communication" />
 		<input type="hidden" name="act" value="procCommunicationUpdateAllowMessage" />
 		<input type="hidden" name="message_type" value="{$message_type}" />
-		<select name="allow_message">
+		<select name="allow_message" class="span3">
 			<option loop="$lang->allow_message_type => $key,$val" value="{$key}" selected="selected"|cond="$logged_info->allow_message==$key">{$val}</option>
 		</select>
-		<input type="submit" value="{$lang->cmd_save}">
+		<input class="btn" type="submit" value="{$lang->cmd_save}">
 	</form>
 </div>
 <div class="table even" cond="$message">
@@ -46,8 +47,8 @@
 	<input type="hidden" name="module" value="communication" />
 	<input type="hidden" name="act" value="procCommunicationDeleteMessages" />
 	<input type="hidden" name="message_type" value="{$message_type}" />
-	<div class="table even">
-		<table width="100%" border="1" cellspacing="0">
+	<div>
+		<table width="100%" class="table table-bordered">
 			<thead>
 				<tr>
 					<th scope="col" class="title">{$lang->title}</th>
@@ -82,7 +83,7 @@
 		</table>
 	</div>
 	<div class="btnArea">
-		<input type="submit" value="{$lang->cmd_delete}" />
+		<input class="btn" type="submit" value="{$lang->cmd_delete}" />
 	</div>
 </form>
 <div class="pagination">

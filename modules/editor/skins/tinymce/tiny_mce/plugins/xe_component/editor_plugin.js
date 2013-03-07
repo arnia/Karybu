@@ -15,7 +15,7 @@
                         case 'xe_component':
                             var xe_component_array=tinyMCE.activeEditor.getParam('xe_component_arrays');
                             var xe_editor_sequence=tinyMCE.activeEditor.getParam('xe_editor_sequence');
-                            var c = cm.createSplitButton('xe_component_split_button', {title : 'XE Components', 'class': 'xe_component_icon', image: xe_component_plugin_path + '/img/ic_xe_component.gif'});
+                            var c = cm.createSplitButton('xe_component_split_button', {title : 'Extension Components', image: xe_component_plugin_path + '/img/ic_xe_component.gif'});
                             
                             var componentClick = function(component_name, editor_sequence){
                                 return function(){
@@ -31,7 +31,8 @@
                                 }
                             };
                             
-                            c.onRenderMenu.add(function(c, m){                                
+                            c.onRenderMenu.add(function(c, m){
+                                m.add({title: 'Extension Components', 'class': 'mceMenuItemTitle'}).setDisabled(1);
                                 for(var key in xe_component_array){
                                     var component_name=key;
                                     var component_title=xe_component_array[key];
