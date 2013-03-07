@@ -1,0 +1,22 @@
+<div class="row-inline">
+    <div id="carouselWidget" class="carousel slide em">
+        <div class="carousel-inner">
+            {@ $i=0 }
+            <!--@foreach($Imgs as $key => $src)-->
+            <div class="item <!--@if($i==0)-->active<!--@end-->">
+                <a href="{$urls[$key]}">
+                    <img src="{$src}" alt="" />
+                </a>
+                {$captions[$key]}
+            </div>
+            {@ $i++ }
+            <!--@end-->
+        </div>
+        <a class="left carousel-control" href="#carouselWidget" data-slide="prev">
+            <img src="img/left.png"/>
+        </a>
+        <a class="right carousel-control" href="#carouselWidget" data-slide="next">
+            <img src="img/right.png"/>
+        </a>
+    </div>
+</div>
