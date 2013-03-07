@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget version="0.2">
+	<title xml:lang="en">Slideshow widget</title>
+	<description xml:lang="en">Adds a slideshow to your widget pages.</description>
+	<version>1.0</version>
+	<date>2013-3-7</date>
+
+	<author email_address="daniel.ionescu@arnia.ro" link="">
+		<name xml:lang="en">ARNIA SOFTWARE</name>
+	</author>
+
+	<extra_vars>
+
+        <var id="link1">
+            <type>text</type>
+            <name xml:lang="en">Image1 link</name>
+        </var>
+        <var id="image1">
+            <type filter="jpg,jpeg,gif,png">filebox</type>
+			<name xml:lang="en">Image1</name>
+        </var>
+        <var id="caption1">
+            <type>textarea</type>
+            <name xml:lang="en">Image1 caption</name>
+        </var>
+
+        <var id="link2">
+            <type>text</type>
+            <name xml:lang="en">Image2 link</name>
+        </var>
+        <var id="image2">
+            <type filter="jpg,jpeg,gif,png">filebox</type>
+            <name xml:lang="en">Image2</name>
+        </var>
+        <var id="caption2">
+            <type>textarea</type>
+            <name xml:lang="en">Image2 caption</name>
+        </var>
+
+        <var id="link3">
+            <type>text</type>
+            <name xml:lang="en">Image3 link</name>
+        </var>
+        <var id="image3">
+            <type filter="jpg,jpeg,gif,png">filebox</type>
+            <name xml:lang="en">Image3</name>
+        </var>
+        <var id="caption3">
+            <type>textarea</type>
+            <name xml:lang="en">Image3 caption</name>
+        </var>
+
+        <var id="link4">
+            <type>text</type>
+            <name xml:lang="en">Image4 link</name>
+        </var>
+        <var id="image4">
+            <type filter="jpg,jpeg,gif,png">filebox</type>
+            <name xml:lang="en">Image4</name>
+        </var>
+        <var id="caption4">
+            <type>textarea</type>
+            <name xml:lang="en">Image4 caption</name>
+        </var>
+
+        <var id="link5">
+            <type>text</type>
+            <name xml:lang="en">Image5 link</name>
+        </var>
+        <var id="image5">
+            <type filter="jpg,jpeg,gif,png">filebox</type>
+            <name xml:lang="en">Image5</name>
+        </var>
+        <var id="caption5">
+            <type>textarea</type>
+            <name xml:lang="en">Image5 caption</name>
+        </var>
+
+	</extra_vars>
+</widget>

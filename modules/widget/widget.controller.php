@@ -457,9 +457,9 @@
                         break;
                     // If the General wijetil
                     default :
-                            $widget_content_header = sprintf('<div %sstyle="overflow:hidden;%s">',$args->id,$style);
-                            $widget_content_body = sprintf('<div style="*zoom:1;%s">%s</div>', $inner_style,$widget_content);
-                            $widget_content_footer = '</div>';
+                            $widget_content_header = sprintf('',$args->id,$style);
+                            $widget_content_body = sprintf('%s', $widget_content);
+                            $widget_content_footer = '';
                         break;
                 }
             // Edit page is called when a widget if you add the code for handling
