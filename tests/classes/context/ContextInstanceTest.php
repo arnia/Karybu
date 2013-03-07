@@ -2024,8 +2024,16 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     }
 
     public function testGetUrl_RouteBased_WithGetParams(){
+        $router = $this->getMock('GlCMS\Routing\Router', array('getRouteCollection'),
+            array(
+                $this->getMock('Symfony\Component\Config\Loader\LoaderInterface'),
+                $this->getMock('Symfony\Component\Routing\RequestContext'),
+                $this->getMock('Psr\Log\LoggerInterface'),
+                false
+            ));
+        $router->expects($this->any())->method('getRouteCollection')->will($this->returnValue($this->getRoutes()));
 
-        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'), array(null, null, null, $this->getRoutes()));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'), array(null, null, null, $router));
         $context->site_module_info = new stdClass();
         $context->site_module_info->domain = null;
         $_SERVER['SCRIPT_NAME'] = '/';
@@ -2110,7 +2118,32 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
 
         $url = $context->getUrl(4, array("mid", "shop", "act", "dispShopToolLogin"), 'magazin');
-        $this->assertEquals('/shop/magazin?act=dispShopToolLogin', $url);
+        $this->assertEquals('/magazin/shop?act=dispShopToolLogin', $url);
+    }
+
+    public function test_GetUrl_RouteBased_Fall2NextValidRequirements(){
+        $routes = new \Symfony\Component\Routing\RouteCollection();
+        $routes->add("mid_act", new \Symfony\Component\Routing\Route('/{mid}/{act}', array(), array("act"=>"[a-zA-Z0-9]+")));
+        $routes->add("act_mid", new \Symfony\Component\Routing\Route('/{act}/{mid}'));
+        $router = $this->getMock('GlCMS\Routing\Router', array('getRouteCollection'),
+            array(
+                $this->getMock('Symfony\Component\Config\Loader\LoaderInterface'),
+                $this->getMock('Symfony\Component\Routing\RequestContext'),
+                $this->getMock('Psr\Log\LoggerInterface'),
+                false
+            ));
+        $router->expects($this->any())->method('getRouteCollection')->will($this->returnValue($routes));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID')
+            , array(null, null, null, $router));
+        $_SERVER['SCRIPT_NAME'] = '/';
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+        $context->site_module_info = new stdClass();
+        $context->site_module_info->domain = null;
+
+        $url = $context->getUrl(4, array("mid", "shop", "act", "dispShopToolLogin_"));
+        $this->assertEquals('/dispShopToolLogin_/shop', $url);
     }
 
     private function getRoutes(){
@@ -2118,7 +2151,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $routes->add("homepage", new \Symfony\Component\Routing\Route('/'));
         $routes->add("admin", new \Symfony\Component\Routing\Route('/admin'));
         $routes->add("admin2", new \Symfony\Component\Routing\Route('/admin/{act}'));
-        $routes->add("admin3", new \Symfony\Component\Routing\Route('/admin/{act}/{mid}'));
         $routes->add("doc", new \Symfony\Component\Routing\Route('/{document_srl}'));
         $routes->add("doc_slash", new \Symfony\Component\Routing\Route('/{document_srl}/'));
         $routes->add("mid", new \Symfony\Component\Routing\Route('/{mid}'));
@@ -2130,6 +2162,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $routes->add("mid_entry", new \Symfony\Component\Routing\Route('/{mid}/entry/{entry}'));
         $routes->add("vid_mid_entry", new \Symfony\Component\Routing\Route('/{vid}/{mid}/entry/{entry}'));
         $routes->add("shop_product", new \Symfony\Component\Routing\Route('/{vid}/{type}/{identifier}'));
+        $routes->add("admin3", new \Symfony\Component\Routing\Route('/admin/{act}/{mid}'));
         return $routes;
     }
 

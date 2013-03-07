@@ -4,6 +4,7 @@ define('ENFORCE_SSL',1);
 define('RELEASE_SSL',2);
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\RouteCollection;
 use GlCMS\Routing\Router;
 use Symfony\Component\Routing\Route;
 
@@ -199,8 +200,8 @@ class ContextInstance {
         $this->file_handler = $file_handler;
         $this->oFrontEndFileHandler = $frontend_file_handler;
         $this->validator = $validator;
-        $this->routes = $router->getRouteCollection();
-        $this->router = $router;
+        $this->routes = isset($router) ? $router->getRouteCollection() : new RouteCollection();
+        //$this->router = $router;
     }
 
     public function loadSslActionsCacheFile()
@@ -1718,7 +1719,7 @@ class ContextInstance {
             $domain_info_path = $domain_info['host']. (isset($domain_info['path']) ? $domain_info['path'] : '');
             $current_info_path = $this->current_info['host'].(isset($this->current_info['path']) ? $this->current_info['path'] : '');
             if($domain_info_path == $current_info_path) {
-                unset($domain);
+                $domain = null;
             } else {
                 $domain = preg_replace('/^(http|https):\/\//i','', trim($domain));
                 if(substr($domain,-1) != '/') {
@@ -2515,12 +2516,37 @@ class ContextInstance {
         return $this->getUrl($num_args, $args_list, $domain, false);
     }
 
-    private function getUrlFromRoutes($context, $routes, $params){
+    private function getUrlFromRoutes($context, RouteCollection $routes, $params, $checkRequirements = true){
         $selectedRoute = null;
         $matchingDegree = -1;
         $paramKeys = array_keys($params);sort($paramKeys);
+
+        // add here some dummy routes to force desired URLs;
+        if ($routes->count()){
+            $customRoutes = new RouteCollection();
+            $customRoutes->add("module_admin_act_whatever", new Route("/{module}/{act}"));
+            $customRoutes->addCollection($routes);
+            $routes = $customRoutes;
+        }
+
         foreach($routes as $routeName=>$route){
             /**@var $route Route */
+
+            if ($checkRequirements){
+                $requirements = $route->getRequirements();
+                $comply = true;
+                foreach($requirements as $reqK=>$reqV){
+                    // check if param value comply to routes requirements
+                    if(isset($params[$reqK]) && !preg_match("/^$reqV$/", $params[$reqK])){
+                        $comply = false;
+                        break;
+                     }
+                }
+                if (!$comply){
+                    continue;
+                }
+            }
+
             $matches = array();
             preg_match_all('/\{([^\}]+)\}/', $route->getPath(), $matches);
             $patParams = $matches[1];
