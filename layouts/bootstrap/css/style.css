@@ -126,10 +126,14 @@ input[type="color"]:focus,
     width: 60px;
 }
 
+.carousel-control img{
+    position: relative;
+    top: 25%;
+}
+
 .carousel-control:hover {
     background: none repeat scroll 0 0 #24a4d3;
 }
-
 
 .carousel-caption {
     background: none repeat scroll 0 0 rgba(36, 164, 211, 0.75);
@@ -146,7 +150,7 @@ input[type="color"]:focus,
 
 /* Custom Styles*/
 
-#header {
+.navbar {
     min-height: 48px;
     background: url("../img/hbg.jpg");
     background-position: center 0;

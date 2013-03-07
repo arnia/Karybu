@@ -23,14 +23,17 @@
 </table>
 </div>
 <div class="pagination">
-    <a href="{getUrl('page','','module_srl','')}" class="direction">&lsaquo; {$lang->first_page}</a> 
-    <!--@while($page_no = $page_navigation->getNextPage())-->
+    <ul>
+
+        <li><a href="{getUrl('page','','module_srl','')}" class="direction">&lsaquo; {$lang->first_page}</a></li>
+        <!--@while($page_no = $page_navigation->getNextPage())-->
         <!--@if($page == $page_no)-->
-            <strong>{$page_no}</strong> 
+        <li><a href="#">{$page_no}</a></li>
         <!--@else-->
-            <a href="{getUrl('page',$page_no,'module_srl','')}">{$page_no}</a> 
+        <li><a href="{getUrl('page',$page_no,'module_srl','')}">{$page_no}</a></li>
         <!--@end-->
-    <!--@end-->
-    <a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="direction">{$lang->last_page} &rsaquo;</a>
+        <!--@end-->
+        <li><a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="direction">{$lang->last_page} &rsaquo;</a></li>
+    </ul>
 </div>
 <include target="./common_footer.html" />
