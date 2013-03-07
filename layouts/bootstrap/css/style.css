@@ -328,3 +328,12 @@ footer {
         position: static;
     }
 }
+
+.search {
+    padding: 7px!important;
+}
+
+.navbar-form {
+    margin-right: 5px;
+    margin-top: 1px;
+}
