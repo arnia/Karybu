@@ -1,0 +1,18 @@
+/* File Uploader */
+.ckeditor .fileUploader{clear:both;padding-top:5px;margin-bottom:10px}
+.ckeditor .fileUploader:after{content:"";display:block;clear:both}
+.ckeditor .fileUploader .preview{float:left;width:64px;height:64px;border:1px solid #ccc;;padding:2px;margin:0 10px 5px 0}
+.ckeditor .fileUploader .preview.black {background-color:#000;border:1px solid #666}
+.ckeditor .fileUploader .preview img{display:block;width:64px;height:64px}
+.ckeditor .fileUploader .fileListArea{float:left;width:260px;margin:0 10px 5px 0}
+.ckeditor .fileUploader .fileListArea select{width:100%;height:70px;overflow:auto;margin:0;padding:0;float:none}
+.ckeditor .fileUploader .fileListArea select option{font-size:11px}
+.ckeditor .fileUploader .fileListArea.black select {background-color:#000;border:1px solid #666}
+.ckeditor .fileUploader .fileListArea.black select option {color:#aaa}
+.ckeditor .fileUploader .fileUploadControl{clear:right}
+.ckeditor .fileUploader .fileUploadControl .button{margin-bottom:5px}
+.ckeditor .fileUploader .file_attach_info{clear:right;margin:5px 0;font-size:11px;color:#333}
+/* Auto Save */
+.ckeditor .autosave_message {display:none;background: #f6ffdb;padding:6px 10px;margin:0;line-height:1}
+.ckeditor.black .autosave_message {display:none;background:#222;padding:6px 10px;margin:0;line-height:1;color:#fff}
+.ckeditor .input_syntax.black {background:transparent;color:#fff}

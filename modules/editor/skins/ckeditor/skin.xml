@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.1">
+    <title xml:lang="ko">CKEditor Skin</title>
+    <title xml:lang="es">CKEditor Skin</title>
+    <title xml:lang="en">CKEditor Skin</title>
+    <title xml:lang="vi">CKEditor Skin</title>
+    <title xml:lang="jp">CKEditorスキン</title>
+    <title xml:lang="zh-CN">CKEditor皮肤</title>
+    <title xml:lang="zh-TW">CKEditor面板</title>
+    <title xml:lang="tr">CKEditor Dış Görünümü</title>
+    <description xml:lang="ko">
+        CKEditor
+    </description>
+	<description xml:lang="en">
+        CKEditor
+    </description>
+    <description xml:lang="vi">
+        CKEditor
+    </description>
+	<description xml:lang="es">
+        CKEditor
+    </description>
+    <description xml:lang="jp">
+        CKEditor
+    </description>
+    <description xml:lang="zh-CN">
+        CKEditor
+    </description>
+    <description xml:lang="zh-TW">
+        CKEditor
+    </description>
+    <description xml:lang="tr">
+        CKEditor
+    </description>
+    <version>3.5.8</version>
+    <date>2013-01-08</date>
+    <author email_address="developers@xpressengine.com" link="http://xpressengine.com/">
+        <name xml:lang="ko">NHN</name>
+		<name xml:lang="es">NHN</name>
+		<name xml:lang="en">NHN</name>
+        <name xml:lang="vi">NHN</name>
+        <name xml:lang="jp">NHN</name>
+		<name xml:lang="zh-CN">NHN</name>
+        <name xml:lang="zh-TW">NHN</name>
+        <name xml:lang="tr">NHN</name>
+    </author>
+    <colorset>
+        <color name="moono">
+            <title xml:lang="ko">Moono (silver)</title>
+            <title xml:lang="jp">Moono (silver)</title>
+            <title xml:lang="zh-CN">Moono (silver)</title>
+            <title xml:lang="en">Moono (silver)</title>
+            <title xml:lang="vi">Moono (silver)</title>
+            <title xml:lang="es">Moono (silver)</title>
+            <title xml:lang="zh-TW">Moono (silver)</title>
+            <title xml:lang="tr">Moono (silver)</title>
+        </color>
+        <color name="kama">
+            <title xml:lang="ko">Kama (silver)</title>
+            <title xml:lang="jp">Kama (silver)</title>
+            <title xml:lang="en">Kama (silver)</title>
+            <title xml:lang="vi">Kama (silver)</title>
+            <title xml:lang="ru">Kama (silver)</title>
+            <title xml:lang="es">Kama (silver)</title>
+            <title xml:lang="zh-CN">Kama (silver)</title>
+            <title xml:lang="zh-TW">Kama (silver)</title>
+            <title xml:lang="tr">Kama (silver)</title>
+        </color>
+        <color name="moono_black">
+            <title xml:lang="ko">Moono (black)</title>
+            <title xml:lang="jp">Moono (black)</title>
+            <title xml:lang="en">Moono (black)</title>
+            <title xml:lang="vi">Moono (black)</title>
+            <title xml:lang="ru">Moono (black)</title>
+            <title xml:lang="es">Moono (black)</title>
+            <title xml:lang="zh-CN">Moono (black)</title>
+            <title xml:lang="zh-TW">Moono (black)</title>
+            <title xml:lang="tr">Moono (black)</title>
+        </color>
+        <color name="kama_black">
+            <title xml:lang="ko">Kama (black)</title>
+            <title xml:lang="jp">Kama (black)</title>
+            <title xml:lang="en">Kama (black)</title>
+            <title xml:lang="vi">Kama (black)</title>
+            <title xml:lang="ru">Kama (black)</title>
+            <title xml:lang="es">Kama (black)</title>
+            <title xml:lang="zh-CN">Kama (black)</title>
+            <title xml:lang="zh-TW">Kama (black)</title>
+            <title xml:lang="tr">Kama (black)</title>
+        </color>
+    </colorset>
+</skin>
