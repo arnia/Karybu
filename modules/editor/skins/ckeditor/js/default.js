@@ -1,20 +1,5 @@
-//Set existing content to editor
-function mceEditorInit(){
-    if(jQuery("input[name=" + editor_content_key_name + "]").size()>0){
-        var content=jQuery("input[name=" + editor_content_key_name + "]").val();
-        tinyMCE.activeEditor.execCommand('mceInsertContent',false,content);
-    }
-}
-
-//Get content from editor to content variable
-function mceEditorContentChange(tiny_mce_obj){
-    if(jQuery("input[name=" + editor_content_key_name + "]").size()>0){
-       jQuery("input[name=" + editor_content_key_name + "]").val(tiny_mce_obj.getBody().innerHTML);
-    }
-}
-
 //Insert uploaded file to editor
-function mceInsertUploadedFile(editorSequence){
+function ckInsertUploadedFile(editorSequence){
     var temp_code='';
 
     var settings = uploaderSettings[editorSequence];
@@ -52,5 +37,5 @@ function mceInsertUploadedFile(editorSequence){
             temp_code="<a href=\""+file.download_url+"\">"+file.source_filename+"</a>\n";
         }
     }
-    tinyMCE.activeEditor.execCommand('mceInsertContent',false,temp_code);
+    CKEDITOR.instances.ckeditor_instance.insertHtml(temp_code);
 }

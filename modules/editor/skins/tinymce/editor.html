@@ -10,27 +10,25 @@
 <load target="tiny_mce/tiny_mce.js" />
 
 <!--Content font and font size-->
-{@
-    $css_path='./files/cache/editor/tinymce/';
-    if(!is_dir($css_path)) FileHandler::makeDir($css_path);
-    $css_filename=$css_path.'content.css';
-    $css_content='body, td, pre{';
-    $css_to_write=false;
-}
-<!--@if(!empty($content_font))-->
-    {@$css_content .= 'font-family: '.$content_font.';';}
-    {@$css_to_write=true;}
-<!--@end-->
-<!--@if(!empty($content_font_size))-->
-    {@$css_content .= 'font-size: '.$content_font_size.';';}
-    {@$css_to_write=true;}
-<!--@end-->
+<!--@if($content_font || $content_font_size)-->
+    {@
+        $css_path='./files/cache/editor/tinymce/';
+        if(!is_dir($css_path)) FileHandler::makeDir($css_path);
+        $css_filename=$css_path.'content.css';
+        $css_content='body, td, pre{';
+        $embed_css=true;
+    }
+    <!--@if($content_font)-->
+        {@$css_content .= 'font-family: '.$content_font.';';}
+    <!--@end-->
+    <!--@if($content_font_size)-->
+        {@$css_content .= 'font-size: '.$content_font_size.';';}
+    <!--@end-->
 
-<!--@if($css_to_write)-->
     {@$css_content .= chr(125);}
     {@file_put_contents($css_filename, $css_content);}
-<!--@end-->
 
+<!--@end-->
 
 <!--Component list-->
 {@$xe_component_array='';}
@@ -50,7 +48,7 @@
     
     tinyMCE.init({
         mode: 'exact',
-        elements: 'tiny_mce_text_area_{$editor_sequence}',
+        elements: 'tiny_mce_text_area',
         valid_elements: '*[*]',
         valid_children : '+body[style]',
         theme: 'advanced',
@@ -72,7 +70,7 @@
         onchange_callback: mceEditorContentChange,
         xe_component_arrays: {{$xe_component_array}},
         xe_editor_sequence: '{$editor_sequence}',
-        <!--@if($css_to_write)-->
+        <!--@if($embed_css)-->
         content_css: '{$css_filename}',
         <!--@end-->
         <!--@if($colorset=='default') -->
@@ -92,9 +90,9 @@
 
 <div class="tiny_mce_editor">
 
-    <textarea id="editor_{$editor_sequence}" name="tiny_mce_text_area_{$editor_sequence}"></textarea>
+    <textarea id="editor_{$editor_sequence}" name="tiny_mce_text_area"></textarea>
 
-    <div id="fileUploader_{$editor_sequence}" class="fileUploader" cond="$allow_fileupload"><!--File upload zone-->
+    <div cond="$allow_fileupload" id="fileUploader_{$editor_sequence}" class="fileUploader">
         <div class="preview {$btn_class}" id="preview_uploaded_{$editor_sequence}"></div>
         <div class="fileListArea {$btn_class}">
             <select id="uploaded_file_list_{$editor_sequence}" multiple="multiple" class="fileList" title="Attached File List"><option></option></select>
