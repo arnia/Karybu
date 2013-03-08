@@ -2536,6 +2536,11 @@ class Context
         return self::$context;
     }
 
+    public static function isUploaded()
+    {
+        return self::$context->isUploaded();
+    }
+
     public static function get($key)
     {
         return self::$context->get($key);
