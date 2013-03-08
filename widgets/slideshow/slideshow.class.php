@@ -59,10 +59,8 @@
             $tpl_path = sprintf('%sskins/%s', $this->widget_path, $args->skin);
 
             // set skin file
-			if (in_array(Context::get('act'), array("procWidgetGenerateCodeInPage", "dispPageAdminContentModify")))
-                $tpl_file = 'pageedit';
-            else
-                $tpl_file = 'banner';
+            $tpl_file = 'banner';
+
             // set skin
             $oTemplate = &TemplateHandler::getInstance();
             return $oTemplate->compile($tpl_path, $tpl_file);
