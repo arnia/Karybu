@@ -1,5 +1,9 @@
 <?php
 
+if(!defined('__XE__')) {
+    return;
+}
+
 /**
  * Class responsible for generating the menu and the pages
  * that will exist on a first time installation
@@ -292,7 +296,7 @@ $menu->save();
 $layout_srl = $dataset_creator->createNewLayout('bootstrap', 'Default theme', $menu);
 
 // 3. Create new pages
-$welcome_page = $dataset_creator->createNewArticlePage($layout_srl, 'Welcome to XE', 'welcome', 'Welcome to XE');
+$welcome_page = $dataset_creator->createNewWidgetPage($layout_srl, 'Welcome to XE', 'welcome');
 $text_styles_page = $dataset_creator->createNewArticlePage($layout_srl, 'Text styles', 'text_styles', 'Text styles');
 $form_styles_page = $dataset_creator->createNewArticlePage($layout_srl, 'Form styles', 'form_styles', 'Form styles');
 $table_styles_page = $dataset_creator->createNewArticlePage($layout_srl, 'Table styles', 'table_styles', 'Table styles');
