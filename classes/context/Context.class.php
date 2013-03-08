@@ -2522,10 +2522,11 @@ class ContextInstance {
         $matchingDegree = -1;
         $paramKeys = array_keys($params);sort($paramKeys);
 
-        // add here some dummy routes to force desired URLs;
+        // add here dummy routes to force desired URLs;
         if ($routes->count()) {
             $customRoutes = new RouteCollection();
-            $customRoutes->add("module_admin_act_whatever", new Route("/{module}/{act}"));
+            //$customRoutes->add("module_admin", new Route("/{module}", array(), array("module" =>"admin")));
+            //$customRoutes->add("module_admin_act_whatever", new Route("/{module}/{act}", array(), array("module" =>"admin")));
             $customRoutes->addCollection($routes);
             $routes = $customRoutes;
         }
@@ -2551,7 +2552,7 @@ class ContextInstance {
             $matches = array();
             preg_match_all('/\{([^\}]+)\}/', $route->getPath(), $matches);
             $patParams = $matches[1];
-            $defaultParams = array_keys($route->getDefaults());
+            $defaultParams = array(); // Not clear how to use them //array_keys($route->getDefaults());
             $patParams = array_merge($patParams, $defaultParams);sort($patParams);
             $patAndReqParams = array_intersect($patParams, $paramKeys); sort($patAndReqParams);
 

@@ -13,6 +13,16 @@ admin2:
     pattern: /admin/{act}
     defaults: { module: admin }
 
+module_is_admin:
+    pattern: /{module}
+    requirements:
+        module: "admin"
+
+module_is_admin_act_is_whatever:
+    pattern: /{module}/{act}
+    requirements:
+        module: "admin"
+
 doc:
     pattern: /{document_srl}
     requirements:
