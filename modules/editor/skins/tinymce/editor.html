@@ -48,7 +48,7 @@
     
     tinyMCE.init({
         mode: 'exact',
-        elements: 'tiny_mce_text_area',
+        elements: 'tiny_mce_text_area_{$editor_sequence}',
         valid_elements: '*[*]',
         valid_children : '+body[style]',
         theme: 'advanced',
@@ -89,7 +89,7 @@
 
 <div class="tiny_mce_editor">
 
-    <textarea id="editor_{$editor_sequence}" name="tiny_mce_text_area"></textarea>
+    <textarea id="editor_{$editor_sequence}" name="tiny_mce_text_area_{$editor_sequence}"></textarea>
 
     <div cond="$allow_fileupload" id="fileUploader_{$editor_sequence}" class="fileUploader">
         <div class="preview {$btn_class}" id="preview_uploaded_{$editor_sequence}"></div>
