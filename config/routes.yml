@@ -9,9 +9,9 @@ admin_slash:
     pattern: /admin/
     defaults: { module: admin }
 
-admin2:
-    pattern: /admin/{act}
-    defaults: { module: admin }
+#admin2:
+#    pattern: /admin/{act}
+#    defaults: { module: admin }
 
 module_is_admin:
     pattern: /{module}
@@ -79,6 +79,6 @@ vid_mid_entry:
         vid: '[a-zA-Z0-9_]+'
         mid: '[a-zA-Z0-9_]+'
 
-admin3:
-    pattern: /admin/{act}/{mid}
-    defaults: { module: admin }
+#admin3:
+#    pattern: /admin/{act}/{mid}
+#    defaults: { module: admin }
