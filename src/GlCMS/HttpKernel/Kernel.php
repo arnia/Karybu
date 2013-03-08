@@ -18,7 +18,7 @@ class Kernel extends SymfonyKernel
     public function registerBundles()
     {
         return array(
-            new \GlCMS\Module\Shop\Shop()
+            // new \GlCMS\Module\Shop\Shop()
         );
     }
 

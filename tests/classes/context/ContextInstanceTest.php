@@ -2121,6 +2121,29 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/magazin/shop?act=dispShopToolLogin', $url);
     }
 
+    public function testGetUrl_RouteBased_Module_Is_Admin()
+    {
+        $router = $this->getMock('GlCMS\Routing\Router', array('getRouteCollection'),
+            array(
+                $this->getMock('Symfony\Component\Config\Loader\LoaderInterface'),
+                $this->getMock('Symfony\Component\Routing\RequestContext'),
+                $this->getMock('Psr\Log\LoggerInterface'),
+                false
+            ));
+        $router->expects($this->any())->method('getRouteCollection')->will($this->returnValue($this->getRoutes()));
+        $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID')
+            , array(null, null, null, $router));
+        $_SERVER['SCRIPT_NAME'] = '/';
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+        $context->site_module_info = new stdClass();
+        $context->site_module_info->domain = null;
+
+        $url = $context->getUrl(4, array("module", "admin"));
+        $this->assertEquals('/admin', $url);
+    }
+
     public function test_GetUrl_RouteBased_Fall2NextValidRequirements(){
         $routes = new \Symfony\Component\Routing\RouteCollection();
         $routes->add("mid_act", new \Symfony\Component\Routing\Route('/{mid}/{act}', array(), array("act"=>"[a-zA-Z0-9]+")));
@@ -2151,6 +2174,8 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $routes->add("homepage", new \Symfony\Component\Routing\Route('/'));
         $routes->add("admin", new \Symfony\Component\Routing\Route('/admin'));
         $routes->add("admin2", new \Symfony\Component\Routing\Route('/admin/{act}'));
+        $routes->add("module_admin", new \Symfony\Component\Routing\Route("/{module}", array(), array("module" =>"admin")));
+        $routes->add("module_admin_act_whatever", new \Symfony\Component\Routing\Route("/{module}/{act}", array(), array("module" =>"admin")));
         $routes->add("doc", new \Symfony\Component\Routing\Route('/{document_srl}'));
         $routes->add("doc_slash", new \Symfony\Component\Routing\Route('/{document_srl}/'));
         $routes->add("mid", new \Symfony\Component\Routing\Route('/{mid}'));
