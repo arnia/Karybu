@@ -18,38 +18,34 @@
     <input type="hidden" name="member_srl" value="{$member_info->member_srl}" />
     <input type="hidden" name="signature" value="{htmlspecialchars($member_info->signature)}" />
     <input type="hidden" name="page" value="{$page}" />
-	<ul>
-		<li>
-			<p class="q">{$identifierForm->title} <em style="color:red">*</em></p>
-			<p class="a">
+		<fieldset>
+			<label>{$identifierForm->title} <em style="color:red">*</em></label>
+			<label>
 				<input type="hidden" name="{$identifierForm->name}" value="{$identifierForm->value}" />
 				<input type="text" name="{$identifierForm->name}" value="{$identifierForm->value}" disabled="disabled" />
-			</p>
-		</li>
-		<li loop="$formTags=>$formTag">
-			<p class="q">{$formTag->title}</p>
-			<div class="a" cond="$formTag->name != 'signature'">{$formTag->inputTag}</div>
-			<div class="a" cond="$formTag->name =='signature'">{$editor}</div>
-		</li>
-		<li>
-			<p class="q">{$lang->allow_mailing}</p>
-			<p class="a">
+			</label>
+		</fieldset>
+		<fieldset loop="$formTags=>$formTag">
+			<label>{$formTag->title}</label>
+			<div cond="$formTag->name != 'signature'">{$formTag->inputTag}</div>
+			<div cond="$formTag->name =='signature'">{$editor}</div>
+		</fieldset>
+		<fieldset>
+			<label><strong>{$lang->allow_mailing}</strong></label>
+			<label class="radio">
 				<input type="radio" name="allow_mailing" id="mailingYes" value="Y" checked="checked"|cond="$member_info->allow_mailing == 'Y'"> <label for="mailingYes">{$lang->cmd_yes}</label>
 				<input type="radio" name="allow_mailing" id="mailingNo" value="N" checked="checked"|cond="$member_info->allow_mailing != 'Y'" > <label for="mailingNo">{$lang->cmd_no}</label>
-			</p>
-		</li>
-		<li>
-			<p class="q">{$lang->allow_message}</p>
-			<p class="a">
-				<block loop="$lang->allow_message_type=>$key,$val">
-					<input type="radio" name="allow_message" value="{$key}" checked="checked"|cond="$member_info->allow_message == $key" id="allow_{$key}" /> <label for="allow_{$key}">{$val}</label>
-				</block>
-			</p>
-		</li>
-	</ul>
+			</label>
+		</fieldset>
+		<fieldset>
+			<label><strong>{$lang->allow_message}</strong></label>
+			<label class="radio" loop="$lang->allow_message_type=>$key,$val">
+				<input type="radio" name="allow_message" value="{$key}" checked="checked"|cond="$member_info->allow_message == $key" id="allow_{$key}"/> <label for="allow_{$key}">{$val}</label>
+			</label>
+		</fieldset>
 	<div class="btnArea">
-		<span class="btn"><input type="submit" value="{$lang->cmd_registration}" /></span>
-		<span class="btn"><a href="{getUrl('act','dispMemberInfo','member_srl','')}">{$lang->cmd_cancel}</a></span>
+		<input class="btn btn-success" type="submit" value="{$lang->cmd_registration}" />
+		<a class="btn" href="{getUrl('act','dispMemberInfo','member_srl','')}">{$lang->cmd_cancel}</a>
 	</div>
 </form>
 <script type="text/javascript">
