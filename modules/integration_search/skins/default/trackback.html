@@ -1,10 +1,10 @@
 <!--#include("header.html")-->
 
-<h3 class="subTitle">{$lang->trackback} <span>({number_format($output->total_count)})</span></h3>
+<h6>{$lang->trackback} <span>({number_format($output->total_count)})</span></h3>
 
-<ul class="subNavigation">
+<ul class="nav nav-pills">
     <!--@foreach($lang->is_search_option['trackback'] as $key => $val)-->
-    <li value="{$key}" class="<!--@if($search_target == $key)-->on<!--@end--><!--@if($key=="tag")--> last<!--@end-->"><a href="{getUrl('where','trackback','search_target',$key,'page',1)}">{$val}</a></li>
+    <li value="{$key}" class="<!--@if($search_target == $key)-->active<!--@end--><!--@if($key=="tag")--> last<!--@end-->"><a href="{getUrl('where','trackback','search_target',$key,'page',1)}">{$val}</a></li>
     <!--@end-->
 </ul>
 
