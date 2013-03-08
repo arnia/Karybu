@@ -345,3 +345,7 @@ footer {
 .user-info a{
     color: white;
 }
+
+.user-nav {
+    margin-top: 20px;
+}

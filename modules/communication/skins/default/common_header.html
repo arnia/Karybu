@@ -2,7 +2,7 @@
 <load target="js/communication.js" />
 <div>
     <div cond="$is_logged && $logged_info->menu_list && (!$member_srl || $member_srl == $logged_info->member_srl)">
-		<ul class="nav nav-tabs">
+		<ul class="nav nav-tabs user-nav">
 			<li loop="$logged_info->menu_list => $key,$val" class="active"|cond="$key==$act">
 				<a href="{getUrl('act',$key)}"><span>{Context::getLang($val)}</span></a>
 			</li>
