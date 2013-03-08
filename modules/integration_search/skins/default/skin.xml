@@ -1,20 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skin version="0.2">
-    <title xml:lang="ko">통합 검색 기본 스킨</title>
-    <title xml:lang="vi">Skin trang tìm kiếm</title>
-    <title xml:lang="zh-CN">搜索默认皮肤</title>
-    <title xml:lang="jp">統合検索のデフォルトスキン</title>
-    <title xml:lang="en">The Default Skin of the Integrated Search Module</title>
-    <title xml:lang="zh-TW">預設綜合搜尋面板</title>
-    <title xml:lang="tr">Birleşik Arama Varsayılan Dış Görünümü</title>
-    <description xml:lang="vi">Skin mặc định của trang tìm kiếm.</description>
-    <description xml:lang="ko">통합검색 모듈의 기본 스킨</description>
-    <description xml:lang="zh-CN">搜索模块的默认皮肤。</description>
-    <description xml:lang="jp">統合検索モジュールのデフォルトスキンです。</description>
-    <description xml:lang="en">The Default Skin of the Integrated Search Module</description>
-    <description xml:lang="zh-TW">預設綜合搜尋面板。</description>
-    <description xml:lang="tr">Birleşik aramanın varsayılan dış görünümü</description>
-    <version>0.1</version>
+    <title xml:lang="en">Bootrap Theme</title>
+    <description xml:lang="en">Bootstrap theme of the Integrated Search Module</description>
+     <version>0.1</version>
     <date>2007-07-24</date>
 
     <author email_address="developers@xpressengine.com" link="http://xpressengine.com/">

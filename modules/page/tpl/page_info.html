@@ -134,12 +134,12 @@
 		</table>
 	</div>
 	<div class="btnArea">
-		<span class="btn"><input type="submit" value="{$lang->cmd_save}" /></span>
+		<input type="submit" value="{$lang->cmd_save}" class="btn" />
 		<!--@if($module_info->page_type != 'OUTSIDE')-->
-		<span class="btn"><a href="{getUrl('','module','page','act','dispPageAdminContentModify','module_srl',$module_info->module_srl)}" target="_blank">{$lang->cmd_page_modify}...</a></span>
+		<a href="{getUrl('','module','page','act','dispPageAdminContentModify','module_srl',$module_info->module_srl)}" target="_blank" class="btn" >{$lang->cmd_page_modify}</a>
 		<!--@end-->
 		<!--@if($module=="admin")-->
-		<span class="btn"><a href="{getUrl('act','dispPageAdminContent','module_srl','')}">{$lang->cmd_list}</a></span>
+		<a href="{getUrl('act','dispPageAdminContent','module_srl','')}" class="btn" >{$lang->cmd_list}</a>
 		<!--@end-->
 	</div>
 	<!-- Multilingual -->
@@ -158,9 +158,9 @@
 			</ul>
 			<div class="action">
 				<div class="btnArea">
-					<span class="btn small"><input type="submit" value="{$lang->use}|{$lang->use_after_save}" /></span>
+					<input type="submit" value="{$lang->use}|{$lang->use_after_save}" class="btn" />
 				</div>
-				<p><a href="{getUrl('act','dispModuleAdminLangcode')}">{$lang->multilingual_manager}</a></p>
+				<p><a class="btn" href="{getUrl('act','dispModuleAdminLangcode')}">{$lang->multilingual_manager}</a></p>
 			</div>
 		</div>
 	</div>

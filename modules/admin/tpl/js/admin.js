@@ -1393,7 +1393,7 @@ jQuery(function($){
 		details.slideToggle(200);
 	});
 // Toggle Content
-	var $h2h3 = $('.x .content .h2, .x .content .h3').not('.portlet .h2, .modal .h2');
+	var $h2h3 = $('.x .content .h2, .x .content .h3').not('.portlet .h2, .xe-modal .h2');
 	$h2h3.each(function(){
 		var $sTog = $('<button type="button" class="sTog" title="Open/Close"><i class="icon-chevron-up"></i></button>');
 		$(this).append($sTog);

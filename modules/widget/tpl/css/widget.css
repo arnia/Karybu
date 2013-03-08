@@ -1,44 +1,224 @@
 @charset "utf-8";
-.widget_title{border:1px solid #ddd;margin:10px 5px 5px 0;padding:3px}
-.widget_mid_list{margin:0 0 5px 10px}
-.widget_description{color:#aaa;border-top:1px dotted #eee;margin:5px 0 0 0;padding:5px 0 0 0}
-#colorset_area{margin-top:.5em}
-#colorset_area .header{float:left;margin-right:.5em;padding-top:.2em}
-#colorset_area .footer{float:left}
-#zonePageContent{overflow:hidden;width:100%;padding:none !important;margin:none !important}
-.pageAddContent{width:700px}
-.widgetOutput{float:left;cursor:move;z-index:998;overflow:hidden;position:relative;width:100%}
-.widgetOutput .widgetBorder{border:1px dashed #ccc;z-index:999}
-.widgetOutput .widgetBoxBorder{border:1px dashed #ccc;z-index:999}
-.widgetOutput .widgetResize {border:0;background:transparent url("../images/btn_resize.gif") no-repeat left bottom;width:12px;height:12px;position:absolute;bottom:1px;right:1px;cursor:pointer;z-index:1000}
-.widgetOutput .widgetResizeLeft {border:0;background:transparent url("../images/btn_resize_left.gif") no-repeat left bottom;width:12px;height:12px;position:absolute;bottom:0;left:1px;cursor:pointer;z-index:1000}
-.widgetOutput .widgetBoxResize {border:0;background:transparent url("../images/btn_resize.gif") no-repeat left bottom;width:12px;height:12px;position:absolute;bottom:1px;right:1px;cursor:pointer;z-index:1000}
-.widgetOutput .widgetBoxResizeLeft{border:0;background:transparent url("../images/btn_resize_left.gif") no-repeat left bottom;width:12px;height:12px;position:absolute;bottom:0;left:1px;cursor:pointer;z-index:1000}
-.widgetButtons{z-index:9999;overflow:hidden;*zoom:1;float:left;padding:3px;position:absolute;visibility:hidden}
-#widgetButton{background-color:#C7DBE9;left:0;top:0}
-#widgetBoxButton{background-color:#D2E9C7;right:0;top:0}
-.widgetButtons div{float:left}
-.widgetButtons .widgetStyle{background:transparent url("../images/widgetstyle_setup.gif") no-repeat 1px 1px;width:14px;height:14px; cursor:pointer;z-index:1000}
-.widgetButtons .widgetSetup{background:transparent url("../images/widget_setup.gif") no-repeat 1px 1px;width:14px;height:14px; cursor:pointer;z-index:1000}
-.widgetButtons .widgetCopy{background:transparent url("../images/widget_copy.gif") no-repeat 1px 1px;width:14px;height:14px; cursor:pointer;z-index:1000}
-.widgetButtons .widgetSize{background:transparent url("../images/widget_size.gif") no-repeat 1px 1px;width:14px;height:14px; cursor:pointer;z-index:1000}
-.widgetButtons .widgetRemove{background:transparent url("../images/widget_remove.gif") no-repeat 1px 1px;width:14px;height:14px; cursor:pointer;z-index:1000}
-.widgetButtons .widgetBoxCopy{background:transparent url("../images/widget_copy.gif") no-repeat 1px 1px;width:14px;height:14px;cursor:pointer;z-index:1000}
-.widgetButtons .widgetBoxSize{background:transparent url("../images/widget_size.gif") no-repeat 1px 1px;width:14px;height:14px;cursor:pointer;z-index:1000}
-.widgetButtons .widgetBoxRemove{background:transparent url("../images/widget_remove.gif") no-repeat 1px 1px;width:14px;height:14px;cursor:pointer;z-index:1000}
-#pageSizeLayer{width:500px;overflow:hidden;border:1px solid #888;background:#fff;z-index:2000;position:absolute}
-#pageSizeLayer table{border:0;width:100%;table-layout:fixed}
-#pageSizeLayer table th{padding:4px 0 4px 0;background-color:#DEDEDE;text-align:center;color:#888}
-#pageSizeLayer table th.line {border-top:1px dotted #eee}
-#pageSizeLayer table td{padding:4px 10px 4px 10px;background-color:#EFEFEF}
-#pageSizeLayer table td div{margin-bottom:5px}
-#pageSizeLayer table td.line {border-top:1px dotted #999}
-#pageSizeLayer table td.buttonBox{background-color:#fff;white-space:nowrap;overflow:hidden;vertical-align:top;text-align:center;border-top:1px solid #888;color:#ddd}
-#pageSizeLayer .input{background:#fff;border:1px solid #aaa;padding:1px;font:8pt verdana;width:60px}
-#pageSizeLayer .full_input{background:#fff;border:1px solid #aaa;padding:1px;font:8pt verdana;width:90%}
-#pageSizeLayer .small_input{background:#fff;border:1px solid #aaa;padding:1px;font:8pt verdana;width:20px}
-#pageSizeLayer .color_input{background:#fff;border:1px solid #aaa;padding:1px;font:8pt verdana;width:44px}
-#pageSizeLayer .submit{width:90%;border:1px solid #DEDEDE;background-color:#fff}
+.widget_title {
+    border: 1px solid #ddd;
+    margin: 10px 5px 5px 0;
+    padding: 3px;
+}
+
+.widget_mid_list {
+    margin:0 0 5px 10px;
+}
+
+.widget_description {
+    color: #aaa;
+    border-top: 1px dotted #eee;
+    margin: 5px 0 0 0;
+    padding: 5px 0 0 0;
+}
+
+#colorset_area {
+    margin-top:.5em;
+}
+
+#colorset_area .header {
+    float: left;
+    margin-right: .5em;
+    padding-top: .2em;
+}
+
+#colorset_area .footer {
+    float:left;
+}
+
+#zonePageContent {
+    width: 100%;
+    padding: none !important;
+    margin: none !important;
+}
+
+.pageAddContent{
+    width:700px;
+}
+
+.widgetOutput {
+    float: left;
+    cursor: move;
+    z-index: 998;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.widgetOutput:hover, .widgetOutput .widgetOutput:hover {
+    box-shadow:         0px 0px 0px 10px #ffffbe;
+    -webkit-box-shadow: 0px 0px 0px 10px #ffffbe;
+    -moz-box-shadow:    0px 0px 0px 10px #ffffbe;
+}
+
+.widgetOutput .widgetBorder {
+    border: 1px dashed #afafaf;
+    z-index: 999;
+    padding: 5px;
+}
+
+.widgetOutput .widgetBoxBorder {
+    border: 1px dashed #afafaf;
+    z-index: 999;
+}
+
+.widgetOutput .widgetResize {
+    background:transparent url("../images/resize_br.png") no-repeat left bottom;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.widgetOutput .widgetResizeLeft {
+    background: transparent url("../images/resize_bl.png") no-repeat left bottom;
+    width: 14px;
+    height:14px;
+    position: absolute;
+    bottom: 3px;
+    left: 3px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.widgetOutput .widgetBoxResize {
+    background:transparent url("../images/resize_br.png") no-repeat left bottom;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.widgetOutput .widgetBoxResizeLeft {
+    background: transparent url("../images/resize_bl.png") no-repeat left bottom;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    bottom: 0;
+    left: 3px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.widgetButtons {
+    z-index: 9999;
+    overflow: hidden;
+    float: left;
+    padding: 3px 0 4px;
+    position: absolute;
+    visibility: hidden;
+}
+
+#widgetButton {
+    /*min-width: 146px;*/
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    border: 1px solid #54544c;
+    background: #717171;
+    background: -moz-linear-gradient(top,  #717171 0%, #373737 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#717171), color-stop(100%,#373737));
+    background: -webkit-linear-gradient(top,  #717171 0%,#373737 100%);
+    background: -o-linear-gradient(top,  #717171 0%,#373737 100%);
+    background: -ms-linear-gradient(top,  #717171 0%,#373737 100%);
+    background: linear-gradient(to bottom,  #717171 0%,#373737 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#717171', endColorstr='#373737',GradientType=0 );
+    left: 8px;
+    top: 8px;
+}
+
+#widgetButton div, #widgetBoxButton div {
+    background-position: center center;
+    border-right: 1px solid rgba(255,255,255,.1);
+    cursor: pointer;
+    width: 16px;
+    height: 15px;
+    padding: 3px 6px 5px;
+    z-index: 1000;
+}
+
+#widgetButton div:last-child {
+    border-right: 0;
+}
+
+#widgetBoxButton {
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    border: 1px solid #54544c;
+    background: #717171;
+    background: -moz-linear-gradient(top,  #717171 0%, #373737 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#717171), color-stop(100%,#373737));
+    background: -webkit-linear-gradient(top,  #717171 0%,#373737 100%);
+    background: -o-linear-gradient(top,  #717171 0%,#373737 100%);
+    background: -ms-linear-gradient(top,  #717171 0%,#373737 100%);
+    background: linear-gradient(to bottom,  #717171 0%,#373737 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#717171', endColorstr='#373737',GradientType=0 );
+    right: 8px;
+    top: 8px;
+}
+
+.widgetButtons div {
+    float:left;
+}
+
+.widgetButtons .widgetStyle {
+    background:transparent url("../images/skin.png") no-repeat;
+}
+
+.widgetButtons .widgetSetup {
+    background:transparent url("../images/settings.png") no-repeat;
+}
+
+.widgetButtons .widgetCopy {
+    background:transparent url("../images/duplicate.png") no-repeat;
+}
+
+.widgetButtons .widgetSize {
+    background:transparent url("../images/styles.png") no-repeat;
+}
+
+.widgetButtons .widgetRemove {
+    background:transparent url("../images/delete.png") no-repeat;
+}
+
+.widgetButtons .widgetBoxCopy {
+    background: transparent url("../images/duplicate.png") no-repeat;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.widgetButtons .widgetBoxSize {
+    background:transparent url("../images/styles.png") no-repeat;
+}
+
+.widgetButtons .widgetBoxRemove{
+    background:transparent url("../images/delete.png") no-repeat;
+}
+
+#pageSizeLayer {
+    width: 500px;
+    overflow: hidden;
+    border: 1px solid #888;
+    background: #fff;
+    z-index: 2000;
+    position:absolute;
+}
+
 .help{padding:5px 0;background-color:#EFEFEF;border-top:1px solid #ccc}
 ul.midCommand{float:left;margin:0 0 0 10px;;padding:0;*zoom:1}
 ul.midCommand li{display:block;margin-bottom:5px;list-style:none}

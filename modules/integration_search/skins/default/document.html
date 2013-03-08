@@ -1,10 +1,10 @@
 <!--#include("header.html")-->
 
-<h3 class="subTitle">{$lang->document} <span>({number_format($output->total_count)})</span></h3>
+<h3>{$lang->document} <span>({number_format($output->total_count)})</span></h3>
 
-<ul class="subNavigation">
+<ul class="nav nav-pills">
     <!--@foreach($lang->is_search_option['document'] as $key => $val)-->
-    <li value="{$key}" class="<!--@if($search_target == $key)-->on<!--@end--><!--@if($key=="tag")--> last<!--@end-->"><a href="{getUrl('where','document','search_target',$key,'page',1,'division','')}">{$val}</a></li>
+    <li value="{$key}" class="<!--@if($search_target == $key)-->active<!--@end--><!--@if($key=="tag")--> last<!--@end-->"><a href="{getUrl('where','document','search_target',$key,'page',1,'division','')}">{$val}</a></li>
     <!--@end-->
 </ul>
 
@@ -18,9 +18,9 @@
         <!--@end-->
     </span>
 <!--@else-->
-    <ul class="searchResult">
+    <ul class="searchResult unstyled">
     <!--@foreach($output->data as $no => $document)-->
-        <li>
+        <li class="well">
             <!--@if($document->thumbnailExists(80))-->
             <a href="{getUrl('','document_srl',$document->document_srl)}" onclick="window.open(this.href);return false;"><img src="{$document->getThumbnail(80)}" alt="" width="80" height="80" class="thumb" /></a>
             <!--@end-->
@@ -36,19 +36,21 @@
     </ul>
 
     <!--@if($where == 'document' && $output->page_navigation)-->
-        <div class="pagination a1">
-            <a href="{getAutoEncodedUrl('page','')}" class="prevEnd">{$lang->first_page}</a> 
-            <!--@while($page_no = $output->page_navigation->getNextPage())-->
-                <!--@if($page == $page_no)-->
-                    <strong>{$page_no}</strong> 
-                <!--@else-->
-                    <a href="{getAutoEncodedUrl('page',$page_no)}">{$page_no}</a>
+        <div class="pagination">
+            <ul>
+                <li href="{getAutoEncodedUrl('page','')}" class="prevEnd">{$lang->first_page}</li>
+                <!--@while($page_no = $output->page_navigation->getNextPage())-->
+                    <!--@if($page == $page_no)-->
+                        <strong>{$page_no}</strong>
+                    <!--@else-->
+                        <li href="{getAutoEncodedUrl('page',$page_no)}">{$page_no}</li>
+                    <!--@end-->
                 <!--@end-->
-            <!--@end-->
-            <a href="{getAutoEncodedUrl('page',$output->page_navigation->last_page)}" <!--@if(!$last_division)-->class="nextEnd"<!--@end-->>{$lang->last_page}</a>
-            <!--@if($last_division)-->
-            <a href="{getAutoEncodedUrl('page',1,'document_srl','','search_target',$search_target,'is_keyword',$is_keyword,'division',$last_division,'last_division','')}" class="nextEnd">{$lang->cmd_search_next}</a>
-            <!--@end-->
+                <li href="{getAutoEncodedUrl('page',$output->page_navigation->last_page)}" <!--@if(!$last_division)-->class="nextEnd"<!--@end-->>{$lang->last_page}</li>
+                <!--@if($last_division)-->
+                <li href="{getAutoEncodedUrl('page',1,'document_srl','','search_target',$search_target,'is_keyword',$is_keyword,'division',$last_division,'last_division','')}" class="nextEnd">{$lang->cmd_search_next}</li>
+                <!--@end-->
+            </ul>
         </div>
     <!--@end-->
 <!--@end-->

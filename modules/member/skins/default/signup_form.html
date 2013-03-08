@@ -1,9 +1,9 @@
-<load target="../../tpl/js/signup_check.js" />
+<load target="../../tpl/js/signup_check.js" xmlns="http://www.w3.org/1999/html"/>
 <!--// datepicker javascript plugin load -->
 <!--%load_js_plugin("ui")-->
 <!--%load_js_plugin("ui.datepicker")-->
 <include target="./common_header.html" />
-    <h1 class="h1">{$lang->cmd_signup}</h1>
+    <h3>{$lang->cmd_signup}</h3>
 	<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 		<p>{$XE_VALIDATOR_MESSAGE}</p>
 	</div>
@@ -18,49 +18,50 @@
 				<label for="accept_agree">{$lang->about_accept_agreement}</label>
 			</div>
 		</div>
-		<ul>
-			<li>
-				<p class="q">{$identifierForm->title} <em style="color:red">*</em></p>
-				<p class="a">
-					<input type="text" name="{$identifierForm->name}" value="{$identifierForm->value}" />
-				</p>
-			</li>
-			<li>
-				<p class="q">{$lang->password} <em style="color:red">*</em></p>
-				<p class="a">
-					<input type="password" name="password" value=""/>
-				</p>
-				<p class="desc">{$lang->about_password}</p>
-			</li>
-			<li>
-				<p class="q">{$lang->password3} <em style="color:red">*</em></p>
-				<p class="a">
-					<input type="password" name="password2" value=""/>
-				</p>
-			</li>
-			<li loop="$formTags=>$formTag" cond="$formTag->name != 'signature'">
-				<p class="q">{$formTag->title}</p>
-				<div class="a">{$formTag->inputTag}</div>
-			</li>
-			<li>
-				<p class="q">{$lang->allow_mailing}</p>
-				<p class="a">
-					<input type="radio" name="allow_mailing" id="mailingYes" value="Y" checked="checked"|cond="$member_info->allow_mailing == 'Y'" /> <label for="mailingYes">{$lang->cmd_yes}</label>
-					<input type="radio" name="allow_mailing" id="mailingNo" value="N" checked="checked"|cond="$member_info->allow_mailing != 'Y'" /> <label for="mailingNo">{$lang->cmd_no}</label>
-				</p>
-			</li>
-			<li>
-				<p class="q">{$lang->allow_message}</p>
-				<p class="a">
-					<block loop="$lang->allow_message_type=>$key,$val">
-						<input type="radio" name="allow_message" value="{$key}" checked="checked"|cond="$member_info->allow_message == $key || (!$member_info && $key == 'Y')" id="allow_{$key}" /> <label for="allow_{$key}">{$val}</label>
-					</block>
-				</p>
-			</li>
-		</ul>
+        <form>
+            <fieldset>
+                <legend>Login Information</legend>
+                <label>{$identifierForm->title} <em style="color:red">*</em></label>
+                <input type="text" placeholder="Email address" name="{$identifierForm->name}" value="{$identifierForm->value}">
+                <label>{$lang->password} <em style="color:red">*</em></label>
+
+                <input type="password" placeholder="Type password" name="password" value="{$identifierForm->value}">
+                <span class="help-block help-inline">{$lang->about_password}</span>
+
+                <label>{$lang->password3} <em style="color:red">*</em></label>
+                <input type="password" placeholder="Retype password" name="password2" value="">
+                <legend>Account Details</legend>
+            </fieldset>
+            <fieldset loop="$formTags=>$formTag" cond="$formTag->name != 'signature'">
+                <label>{$formTag->title}</label>
+                <div>{$formTag->inputTag}</div>
+            </fieldset>
+            <fieldset>
+                <legend>Privacy Options</legend>
+                <label><strong>{$lang->allow_mailing}</strong></label>
+                <div>
+                    <label class="radio">
+                        <input type="radio" name="allow_mailing" id="mailingYes" value="Y" checked="checked"|cond="$member_info->allow_mailing == 'Y'" /> <label for="mailingYes">{$lang->cmd_yes}</label>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="allow_mailing" id="mailingNo" value="N" checked="checked"|cond="$member_info->allow_mailing != 'Y'" /> <label for="mailingNo">{$lang->cmd_no}</label>
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <label><strong>{$lang->allow_message}</strong></label>
+                <div>
+                    <block loop="$lang->allow_message_type=>$key,$val">
+                        <label class="radio">
+                        <input type="radio" name="allow_message" value="{$key}" checked="checked"|cond="$member_info->allow_message == $key || (!$member_info && $key == 'Y')" id="allow_{$key}" /> <label for="allow_{$key}">{$val}</label>
+                        </label>
+                    </block>
+                </div>
+            </fieldset>
+        </form>
 		<div class="btnArea">
-			<span class="btn"><input type="submit" value="{$lang->cmd_registration}" /></span>
-			<span class="btn"><a href="{getUrl('act','','member_srl','')}">{$lang->cmd_cancel}</a></span>
+			<input class="btn btn-success" type="submit" value="{$lang->cmd_registration}" />
+			<a class="btn" href="{getUrl('act','','member_srl','')}">{$lang->cmd_cancel}</a>
 		</div>
 	</form>
 	<script type="text/javascript">

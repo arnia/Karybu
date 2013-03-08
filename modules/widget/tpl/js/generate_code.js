@@ -50,20 +50,20 @@ function doShowSkinColorset()
 }
 
 function completeGenerateCodeInPage(widget_code) {
-    if(!opener || !widget_code) {
-        window.close();
+    if(!widget_code) {
+        window.parent.triggerClose();
         return;
     }
 
-    opener.doAddWidgetCode(widget_code);
-    window.close();
+    window.parent.doAddWidgetCode(widget_code);
+    window.parent.triggerClose();
 }
 
 var selected_node = null;
 
 function getWidgetVars() {
-    if(!opener || !opener.selectedWidget || !opener.selectedWidget.getAttribute("widget")) return;
-    selected_node = opener.selectedWidget;
+    if(!window.parent || !window.parent.selectedWidget || !window.parent.selectedWidget.getAttribute("widget")) return;
+    selected_node = window.parent.selectedWidget;
 
     if(!xGetElementById('fo_widget').widgetstyle.value) {
         xGetElementById('fo_widget').widgetstyle.value = selected_node.getAttribute('widgetstyle');
@@ -73,8 +73,8 @@ function getWidgetVars() {
 }
 
 function doFillWidgetVars() {
-    if(!opener || !opener.selectedWidget || !opener.selectedWidget.getAttribute("widget")) return;
-    selected_node = opener.selectedWidget;
+    if(!window.parent || !window.parent.selectedWidget || !window.parent.selectedWidget.getAttribute("widget")) return;
+    selected_node = window.parent.selectedWidget;
 
     // 스킨과 컬러셋은 기본
     var skin = selected_node.getAttribute("skin");
@@ -336,7 +336,8 @@ jQuery(document).ready(function($){
 		}
 
 		exec_xml('widget', 'procWidgetGenerateCodeInPage', params, on_complete, ['error', 'message', 'widget_code']);
-
 		return false;
 	});
+
+
 });
