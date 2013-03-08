@@ -337,3 +337,11 @@ footer {
     margin-right: 5px;
     margin-top: 1px;
 }
+
+.user-info {
+    margin-top: 12px;
+}
+
+.user-info a{
+    color: white;
+}
