@@ -333,6 +333,11 @@ footer {
     padding: 7px!important;
 }
 
+.admin {
+    padding: 7px 7px 6px 7px!important;
+    margin-left: 4px;
+}
+
 .navbar-form {
     margin-right: 5px;
     margin-top: 1px;
@@ -348,4 +353,9 @@ footer {
 
 .user-nav {
     margin-top: 20px;
+}
+
+.login-form {
+    margin-top: 1px;
+    margin-right: 4px;
 }
