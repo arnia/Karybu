@@ -4,6 +4,9 @@ define('ENFORCE_SSL',1);
 define('RELEASE_SSL',2);
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\RouteCollection;
+use GlCMS\Routing\Router;
+use Symfony\Component\Routing\Route;
 
 /**
  * Manages Context such as request arguments/environment variables
@@ -136,7 +139,7 @@ class ContextInstance {
 	var $isSuccessInit = true;
 
 
-    public $request, $router;
+    public $request;
 
 
     /**
@@ -176,18 +179,30 @@ class ContextInstance {
      */
     var $validator;
 
-//    /**
-//	 * returns static context object (Singleton). It's to use Context without declaration of an object
-//	 *
-//	 * @return object Instance
-//	 */
-//	function &getInstance(FileHandler $file_handler = null, FrontEndFileHandler $frontend_file_handler = null) {
-//		static $theInstance = null;
-//		if(!$theInstance) $theInstance = new Context($file_handler, $frontend_file_handler);
-//        // TODO Move this method inside Context::init and Context::init in the constructor
-//        $theInstance->loadSslActionsCacheFile();
-//        return $theInstance;
-//	}
+    /** @var $routes \Symfony\Component\Routing\RouteCollection */
+    protected $routes;
+
+    /** @var \GlCMS\Routing\Router */
+    protected $router;
+
+
+    /**
+     * Cunstructor
+     *
+     * @return void
+     */
+    function __construct(FileHandler $file_handler = null, FrontEndFileHandler $frontend_file_handler = null, Validator $validator = null, Router $router = null)
+    {
+        if(!isset($file_handler)) $file_handler = new FileHandler();
+        if(!isset($frontend_file_handler)) $frontend_file_handler = new FrontEndFileHandler();
+        if(!isset($validator)) $validator = new Validator();
+
+        $this->file_handler = $file_handler;
+        $this->oFrontEndFileHandler = $frontend_file_handler;
+        $this->validator = $validator;
+        $this->routes = isset($router) ? $router->getRouteCollection() : new RouteCollection();
+        //$this->router = $router;
+    }
 
     public function loadSslActionsCacheFile()
     {
@@ -207,22 +222,6 @@ class ContextInstance {
         $sslActions = null;
         require_once($file);
         return $sslActions;
-    }
-
-    /**
-     * Cunstructor
-     *
-     * @return void
-     */
-    function ContextInstance(FileHandler $file_handler = null, FrontEndFileHandler $frontend_file_handler = null, Validator $validator = null)
-    {
-        if(!isset($file_handler)) $file_handler = new FileHandler();
-        if(!isset($frontend_file_handler)) $frontend_file_handler = new FrontEndFileHandler();
-        if(!isset($validator)) $validator = new Validator();
-
-        $this->file_handler = $file_handler;
-        $this->oFrontEndFileHandler = $frontend_file_handler;
-        $this->validator = $validator;
     }
 
     /**
@@ -1685,9 +1684,10 @@ class ContextInstance {
      * @param bool $autoEncode If true, url encode automatically, detailed. Use this option, $encode value should be true
      * @return string URL
      */
-    function getUrl($num_args=0, $args_list=array(), $domain = null, $encode = true, $autoEncode = false) {
+    function getUrl($num_args=0, $args_list=array(), $domain = null, $encode = true, $autoEncode = false)
+    {
         $vid = null;
-        $domain = null;
+        //$domain = null;
 
         // retrieve virtual site information
         if(is_null($this->site_module_info)) {
@@ -1720,7 +1720,7 @@ class ContextInstance {
             $domain_info_path = $domain_info['host']. (isset($domain_info['path']) ? $domain_info['path'] : '');
             $current_info_path = $this->current_info['host'].(isset($this->current_info['path']) ? $this->current_info['path'] : '');
             if($domain_info_path == $current_info_path) {
-                unset($domain);
+                $domain = null;
             } else {
                 $domain = preg_replace('/^(http|https):\/\//i','', trim($domain));
                 if(substr($domain,-1) != '/') {
@@ -1819,16 +1819,22 @@ class ContextInstance {
             }
 
             if(!$query) {
-                $queries = array();
-                foreach($get_vars as $key => $val) {
-                    if(is_array($val) && count($val)) {
-                        foreach($val as $k => $v) $queries[] = $key.'['.$k.']='.urlencode($v);
-                    } else {
-                        $queries[] = $key.'='.@urlencode($val);
+                // get URL from route definitions
+                $context = new \Symfony\Component\Routing\RequestContext();
+                $query = $this->getUrlFromRoutes($context, $this->routes, $get_vars);
+
+                if ($query == null){
+                    $queries = array();
+                    foreach($get_vars as $key => $val) {
+                        if(is_array($val) && count($val)) {
+                            foreach($val as $k => $v) $queries[] = $key.'['.$k.']='.urlencode($v);
+                        } else {
+                            $queries[] = $key.'='.@urlencode($val);
+                        }
                     }
-                }
-                if(count($queries)) {
-                    $query = 'index.php?'.implode('&', $queries);
+                    if(count($queries)) {
+                        $query = 'index.php?'.implode('&', $queries);
+                    }
                 }
             }
         }
@@ -2510,6 +2516,73 @@ class ContextInstance {
 
         return $this->getUrl($num_args, $args_list, $domain, false);
     }
+
+    private function getUrlFromRoutes($context, RouteCollection $routes, $params, $checkRequirements = true){
+        $selectedRoute = null;
+        $matchingDegree = -1;
+        $paramKeys = array_keys($params);sort($paramKeys);
+
+        // add here some dummy routes to force desired URLs;
+        if ($routes->count()) {
+            $customRoutes = new RouteCollection();
+            $customRoutes->add("module_admin_act_whatever", new Route("/{module}/{act}"));
+            $customRoutes->addCollection($routes);
+            $routes = $customRoutes;
+        }
+
+        foreach ($routes as $routeName=>$route){
+            /**@var $route Route */
+
+            if ($checkRequirements) {
+                $requirements = $route->getRequirements();
+                $comply = true;
+                foreach($requirements as $reqK=>$reqV) {
+                    // check if param value comply to routes requirements
+                    if(isset($params[$reqK]) && !preg_match("/^$reqV$/", $params[$reqK])){
+                        $comply = false;
+                        break;
+                     }
+                }
+                if (!$comply) {
+                    continue;
+                }
+            }
+
+            $matches = array();
+            preg_match_all('/\{([^\}]+)\}/', $route->getPath(), $matches);
+            $patParams = $matches[1];
+            $defaultParams = array_keys($route->getDefaults());
+            $patParams = array_merge($patParams, $defaultParams);sort($patParams);
+            $patAndReqParams = array_intersect($patParams, $paramKeys); sort($patAndReqParams);
+
+            if ($patParams == $paramKeys) {
+                // exact match
+                $selectedRoute['name'] = $routeName;
+                $selectedRoute['route'] = $route;
+                break;
+            } else {
+                $countPathAndReqParams = count($patAndReqParams);
+                if($patParams == $patAndReqParams && $countPathAndReqParams > $matchingDegree) {
+                    // acceptable match
+                    $selectedRoute['name'] = $routeName;
+                    $selectedRoute['route'] = $route;
+                    $matchingDegree = $countPathAndReqParams;
+                    continue;
+                }
+            }
+        }
+        if ($selectedRoute != null) {
+            try {
+                $gen = new \Symfony\Component\Routing\Generator\UrlGenerator($routes, $context);
+            } catch (Exception $e) {
+                return null;
+            }
+            // cut first "/" (slash) character
+            return substr($gen->generate($selectedRoute['name'], $params), 1);
+        }
+        return null;
+    }
+
 }
 
 /**

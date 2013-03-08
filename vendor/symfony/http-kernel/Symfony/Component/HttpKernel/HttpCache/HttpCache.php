@@ -19,6 +19,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\TerminableInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\HttpCache\Esi;
 
 /**
  * Cache provides HTTP caching.
@@ -135,7 +136,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     /**
      * Gets the Request instance associated with the master request.
      *
-     * @return Symfony\Component\HttpFoundation\Request A Request instance
+     * @return Request A Request instance
      */
     public function getRequest()
     {
@@ -145,7 +146,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     /**
      * Gets the Kernel instance
      *
-     * @return Symfony\Component\HttpKernel\HttpKernelInterface An HttpKernelInterface instance
+     * @return HttpKernelInterface An HttpKernelInterface instance
      */
     public function getKernel()
     {
@@ -156,7 +157,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     /**
      * Gets the Esi instance
      *
-     * @return Symfony\Component\HttpKernel\HttpCache\Esi An Esi instance
+     * @return Esi An Esi instance
      */
     public function getEsi()
     {
@@ -251,6 +252,8 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
      *
      * @return Response A Response instance
      *
+     * @throws \Exception
+     *
      * @see RFC2616 13.10
      */
     protected function invalidate(Request $request, $catch = false)
@@ -288,6 +291,8 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
      * @param Boolean $catch   whether to process exceptions
      *
      * @return Response A Response instance
+     *
+     * @throws \Exception
      */
     protected function lookup(Request $request, $catch = false)
     {
@@ -443,6 +448,18 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
             $this->esi->addSurrogateEsiCapability($request);
         }
 
+        // modify the X-Forwarded-For header if needed
+        $forwardedFor = $request->headers->get('X-Forwarded-For');
+        if ($forwardedFor) {
+            $request->headers->set('X-Forwarded-For', $forwardedFor.', '.$request->server->get('REMOTE_ADDR'));
+        } else {
+            $request->headers->set('X-Forwarded-For', $request->server->get('REMOTE_ADDR'));
+        }
+
+        // fix the client IP address by setting it to 127.0.0.1 as HttpCache
+        // is always called from the same process as the backend.
+        $request->server->set('REMOTE_ADDR', '127.0.0.1');
+
         // always a "master" request (as the real master request can be in cache)
         $response = $this->kernel->handle($request, HttpKernelInterface::MASTER_REQUEST, $catch);
         // FIXME: we probably need to also catch exceptions if raw === true
@@ -515,7 +532,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
 
             // wait for the lock to be released
             $wait = 0;
-            while (is_file($lock) && $wait < 5000000) {
+            while ($this->store->isLocked($request) && $wait < 5000000) {
                 usleep(50000);
                 $wait += 50000;
             }
@@ -549,6 +566,8 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
      *
      * @param Request  $request  A Request instance
      * @param Response $response A Response instance
+     *
+     * @throws \Exception
      */
     protected function store(Request $request, Response $response)
     {
@@ -580,7 +599,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
      */
     private function restoreResponseBody(Request $request, Response $response)
     {
-        if ('HEAD' === $request->getMethod() || 304 === $response->getStatusCode()) {
+        if ($request->isMethod('HEAD') || 304 === $response->getStatusCode()) {
             $response->setContent(null);
             $response->headers->remove('X-Body-Eval');
             $response->headers->remove('X-Body-File');

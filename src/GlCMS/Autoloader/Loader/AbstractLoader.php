@@ -27,6 +27,12 @@ abstract class AbstractLoader implements LoaderInterface
 
     protected function includeFile($path)
     {
-        return @include_once($path);
+        if (!file_exists($path) || !is_readable($path)) return false;
+        return include_once($path);
+    }
+
+    protected function notCompat($class)
+    {
+        return strpos($class, '\\') ? true : false;
     }
 }

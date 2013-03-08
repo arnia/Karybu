@@ -6,7 +6,6 @@
 
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 use Symfony\Component\Config\FileLocator;
-#use Symfony\Component\HttpKernel\Config\FileLocator;
 
 $configPaths = array(__DIR__ . '/../config');
 $locator = new FileLocator($configPaths);

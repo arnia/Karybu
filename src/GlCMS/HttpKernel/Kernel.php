@@ -4,13 +4,22 @@ namespace GlCMS\HttpKernel;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel as SymfonyKernel;
+use \Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
-class Kernel extends SymfonyKernel implements KernelInterface
+use Symfony\Component\DependencyInjection;
+use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+class Kernel extends SymfonyKernel
 {
     protected $modules = array();
 
-    public function registerBundles() {
-        return array();
+    public function registerBundles()
+    {
+        return array(
+            //new \GlCMS\Module\Shop\Shop()
+        );
     }
 
     /**
@@ -20,49 +29,16 @@ class Kernel extends SymfonyKernel implements KernelInterface
     {
     }
 
-    public function boot()
-    {
-        parent::boot();
-
-        $this->initializeModules();
-
-        foreach ($this->getModules() as $module) {
-            $module->setContainer($this->container);
-            $module->boot();
-        }
-    }
-
     /**
-     * just like for bundles, but with the inheritance part stripped
+     * Gets a new ContainerBuilder instance used to build the service container.
      *
-     * @throws \LogicException
+     * @return
      */
-    protected function initializeModules()
+    protected function getContainerBuilder()
     {
-        $this->modules = array();
-        foreach ($this->registerModules() as $module) {
-            $name = $module->getName();
-            if (isset($this->modules[$name])) {
-                throw new \LogicException(sprintf('Trying to register two modules with the same name "%s"', $name));
-            }
-            $this->modules[$name] = $module;
-        }
-    }
-
-    public function getModules()
-    {
-        return $this->modules;
-    }
-
-    /**
-     * Initializes the service container.
-     */
-    protected function initializeContainer()
-    {
-        //TODO if needed, implement the container cache that was stripped from parent
-        $cmsContainer = new \GlCMS\DependencyInjection\CMSContainer();
-        $this->container = $cmsContainer->getServiceContainer();
-        $this->container->set('kernel', $this);
+        $this->container = new \GlCMS\DependencyInjection\CMSContainer(new ParameterBag($this->getKernelParameters()));
+        $this->container->containerBuilder->set('kernel', $this);
+        return $this->container->containerBuilder;
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
@@ -71,19 +47,52 @@ class Kernel extends SymfonyKernel implements KernelInterface
     }
 
     /**
-     * @return array Array of modules
+     * Gets the container class.
+     *
+     * @return string The container class
      */
-    public function registerModules()
+    protected function getContainerClass()
     {
-        $modules = $this->getCoreModules();
-        return array_merge($modules, array(
-
-            ));
+        return $this->name.ucfirst($this->environment).($this->debug ? 'Debug' : '').'ProjectContainer';
     }
 
-    final public function getCoreModules()
+    public function getCacheDir()
     {
-        return array();
+        return $this->rootDir . 'files/cache/' . $this->environment;
+    }
+
+    /**
+     * Gets the application root dir.
+     *
+     * @return string The application root dir
+     */
+    public function getRootDir()
+    {
+        return _XE_PATH_;
+    }
+
+    /**
+     * Gets the log directory.
+     *
+     * @return string The log directory
+     */
+    public function getLogDir()
+    {
+        return $this->rootDir.'/files/logs';
+    }
+
+    /**
+     * Gets the name of the kernel
+     *
+     * @return string The kernel name
+     */
+    public function getName()
+    {
+        if (null === $this->name) {
+            //$this->name = preg_replace('/[^a-zA-Z0-9_]+/', '', basename($this->rootDir));
+            $this->name = 'cms';
+        }
+        return $this->name;
     }
 
 }
