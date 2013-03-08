@@ -38,13 +38,78 @@
                                 </ul>
                             </li>
                         </ul>
-
-
-
                     </div><!--/.nav-collapse -->
-                    <div class="pull-right">
+                    <div class="pull-right nav-righthand">
                         <a href="#" class="btn btn-primary">Admin Panel</a>
-                        <a class="btn btn-inverse search" href="#search" role="button" class="btn" data-toggle="modal"><i class="icon-search"></i></a>
+                        <a class="btn btn-inverse search" role="button" class="btn"><i class="icon-search"></i></a>
+                        <div id="searchForm" class="input-append">
+                            <form action="{getUrl()}" method="get">
+                                <input type="hidden" name="vid" value="{$vid}" />
+                                <input type="hidden" name="mid" value="{$mid}" />
+                                <input type="hidden" name="act" value="IS" />
+                                <input class="span2" type="text" name="is_keyword"  value="{$is_keyword}" />
+                                <input class="btn" type="submit" value="{$lang->cmd_search}" />
+                            </form>
+                            <script type="text/javascript">
+                                jQuery(document).ready(function(){
+
+                                    $ = jQuery;
+
+                                    var searchForm = $('#searchForm');
+                                    var searchButton = $('a.search') ;
+                                    var barHeight = searchForm.closest('.container').height();
+
+                                    searchForm.open = function() {
+                                        if (!searchForm.status) {
+                                            $(this).show();
+                                            searchForm.focusForm();
+                                            $(this).stop(true).animate({
+                                                    top: barHeight
+                                                }
+                                            );
+                                            searchForm.status = true;
+                                        } else {
+                                            searchForm.close();
+                                        }
+                                    }
+
+                                    searchForm.close = function() {
+                                        if (searchForm.status) {
+                                            $(this).stop(true).animate({
+                                                    top: barHeight - $(this).outerHeight()
+                                                },
+                                                function(){
+                                                    $(this).hide();
+                                                }
+                                            );
+                                            searchForm.status = false;
+                                        } else {
+                                            searchForm.open();
+                                        }
+                                    }
+
+                                    searchForm.focusForm = function() {
+                                        $(this).find('input[type=text]:first').focus();
+                                    }
+
+                                    searchForm.css({
+                                        top: barHeight - searchForm.outerHeight()
+                                    });
+
+                                    searchButton.click(function(){
+                                        searchForm.open();
+                                    });
+
+                                    // bind ctrl+shift+f event for quick search
+                                    $(document).keypress("f",function(e) {
+                                        if(e.ctrlKey && e.shiftKey) {
+                                            searchForm.open();
+                                        }
+                                    });
+
+                                });
+                            </script>
+                        </div>
                     </div>
                     <img widget="login_info" skin="bootstrap"/>
                 </div>
@@ -115,17 +180,4 @@
         </div>
     </div>
 
-    <!-- Search Modal -->
-    <div id="search" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="myModalLabel">Search</h3>
-        </div>
-        <div class="modal-body">
-            <form class="form-search">
-                <input type="text" class="input-medium search-query">
-                <button type="submit" class="btn">Search</button>
-            </form>
-        </div>
-    </div>
 <load target="js/bootstrap.js" />

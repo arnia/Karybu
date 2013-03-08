@@ -349,3 +349,22 @@ footer {
 .user-nav {
     margin-top: 20px;
 }
+
+#searchForm {
+    position: absolute;
+    float: right;
+    background: #000;
+    padding: 10px;
+    right: 0;
+    border-radius: 0 0 10px 10px;
+    display: none;
+    z-index: -1;
+}
+
+#searchForm form {
+    margin-bottom: 0;
+}
+
+.nav-righthand {
+    position: relative;
+}
