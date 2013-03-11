@@ -16,12 +16,12 @@ function completeGenerateCode(ret_obj) {
 /* 생성된 코드를 페이지 zone에 출력 */
 function completeGenerateCodeInPage(ret_obj,response_tags,params,fo_obj) {
     var widget_code = ret_obj["widget_code"];
-    if(!opener || !widget_code) {
+    if(!window.parent || !widget_code) {
         window.close();
         return;
     }
 
-    opener.doAddWidgetCode(widget_code);
+    window.parent.doAddWidgetCode(widget_code);
     window.close();
 }
 
@@ -72,8 +72,8 @@ function completeGetSkinColorset(ret_obj, response_tags, params, fo_obj) {
 var selected_node = null;
 /* 페이지 모듈에서 위젯스타일 수정하려고 할 경우 */
 function getWidgetVars() {
-    if(!opener || !opener.selectedWidget || !opener.selectedWidget.getAttribute("widget")) return;
-    selected_node = opener.selectedWidget;
+    if(!window.parent || !window.parent.selectedWidget || !window.parent.selectedWidget.getAttribute("widget")) return;
+    selected_node = window.parent.selectedWidget;
 
     if(!get_by_id('fo_widget').widgetstyle.value) {
         get_by_id('fo_widget').widgetstyle.value = selected_node.getAttribute('widgetstyle');
@@ -84,8 +84,8 @@ function getWidgetVars() {
 
 /* 페이지 모듈에서 내용의 위젯을 더블클릭하여 수정하려고 할 경우 */
 function doFillWidgetVars() {
-    if(!opener || !opener.selectedWidget || !opener.selectedWidget.getAttribute("widget")) return;
-    selected_node = opener.selectedWidget;
+    if(!window.parent || !window.parent.selectedWidget || !window.parent.selectedWidget.getAttribute("widget")) return;
+    selected_node = window.parent.selectedWidget;
 
     // 스킨과 컬러셋은 기본
     var skin = selected_node.getAttribute("skin");

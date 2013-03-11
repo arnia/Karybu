@@ -48,8 +48,8 @@
 			
 			if(!$editor_config->editor_height) if($editor_default_config->editor_height? $editor_config->editor_height = $editor_default_config->editor_height : $editor_config->editor_height = 400);
             if(!$editor_config->comment_editor_height) if($editor_default_config->comment_editor_height? $editor_config->comment_editor_height = $editor_default_config->comment_editor_height : $editor_config->comment_editor_height = 100);
-			if(!$editor_config->editor_skin) if($editor_default_config->editor_skin? $editor_config->editor_skin = $editor_default_config->editor_skin : $editor_config->editor_skin = 'tinymce');
-			if(!$editor_config->comment_editor_skin) if($editor_default_config->comment_editor_skin? $editor_config->comment_editor_skin = $editor_default_config->comment_editor_skin : $editor_config->comment_editor_skin = 'tinymce');
+			if(!$editor_config->editor_skin) if($editor_default_config->editor_skin? $editor_config->editor_skin = $editor_default_config->editor_skin : $editor_config->editor_skin = 'ckeditor');
+			if(!$editor_config->comment_editor_skin) if($editor_default_config->comment_editor_skin? $editor_config->comment_editor_skin = $editor_default_config->comment_editor_skin : $editor_config->comment_editor_skin = 'ckeditor');
 			if(!$editor_config->content_style) if($editor_default_config->content_style? $editor_config->content_style = $editor_default_config->content_style : $editor_config->content_style = 'default');
 			
 			if(!$editor_config->content_font && $editor_default_config->content_font) $editor_config->content_font = $editor_default_config->content_font;
@@ -198,8 +198,8 @@
             $editor_config = $editor_config = $oModuleModel->getModuleConfig('editor');
             if(!$editor_config->editor_height) $editor_config->editor_height = 400;
             if(!$editor_config->comment_editor_height) $editor_config->comment_editor_height = 100;
-            if(!$editor_config->editor_skin) $editor_config->editor_skin = 'tinymce';
-            if(!$editor_config->comment_editor_skin) $editor_config->comment_editor_skin = 'tinymce';
+            if(!$editor_config->editor_skin) $editor_config->editor_skin = 'ckeditor';
+            if(!$editor_config->comment_editor_skin) $editor_config->comment_editor_skin = 'ckeditor';
             if(!$editor_config->sel_editor_colorset) $editor_config->sel_editor_colorset= 'default';
             if(!$editor_config->sel_comment_editor_colorset) $editor_config->sel_comment_editor_colorset= 'default';
             
@@ -334,7 +334,7 @@
             $tpl_file = 'editor.html';
 
             if(!file_exists($tpl_path.$tpl_file)) {
-                $skin = 'tinymce';
+                $skin = 'ckeditor';
                 $tpl_path = sprintf('%sskins/%s/', $this->module_path, $skin);
             }
             Context::set('editor_path', $tpl_path);

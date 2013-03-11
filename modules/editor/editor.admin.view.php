@@ -30,8 +30,8 @@
 			//editor_config init
 			if(!$editor_config->editor_height) $editor_config->editor_height = 400;
                         if(!$editor_config->comment_editor_height) $editor_config->comment_editor_height = 100;
-			if(!$editor_config->editor_skin) $editor_config->editor_skin = 'tinymce';
-			if(!$editor_config->comment_editor_skin) $editor_config->comment_editor_skin = 'tinymce';
+			if(!$editor_config->editor_skin) $editor_config->editor_skin = 'ckeditor';
+			if(!$editor_config->comment_editor_skin) $editor_config->comment_editor_skin = 'ckeditor';
 			if(!$editor_config->sel_editor_colorset) $editor_config->sel_editor_colorset= 'default';
 			if(!$editor_config->sel_comment_editor_colorset) $editor_config->sel_comment_editor_colorset= 'default';
             

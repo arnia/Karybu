@@ -38,7 +38,7 @@
     {@$xe_component_array = substr($xe_component_array, 0, strlen($xe_component_array)-1);}
 <!--@end-->
 <div class="ckeditor">
-    <textarea id="ckeditor_instance" name="ckeditor_instance"></textarea>
+    <textarea id="ckeditor_instance_{$editor_sequence}" name="ckeditor_instance"></textarea>
     
     <div cond="$allow_fileupload" id="fileUploader_{$editor_sequence}" class="fileUploader">
         <div class="preview {$btn_class}" id="preview_uploaded_{$editor_sequence}"></div>
@@ -62,7 +62,7 @@
 
         editorStart_xe("{$editor_sequence}", "{$editor_primary_key_name}", "{$editor_content_key_name}");
 
-        CKEDITOR.replace('ckeditor_instance', 
+        CKEDITOR.replace('ckeditor_instance_{$editor_sequence}',
             {   
                 extraPlugins: 'preview,xe_component,onchange',
                 xe_editor_sequence: '{$editor_sequence}',
