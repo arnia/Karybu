@@ -15,5 +15,6 @@ return array(
     'Symfony\\Component\\Config\\' => $vendorDir . '/symfony/config/',
     'Symfony\\Component\\ClassLoader\\' => $vendorDir . '/symfony/class-loader/',
     'Psr\\Log\\' => $vendorDir . '/psr/log/',
+    'Monolog' => $vendorDir . '/monolog/monolog/src/',
     'GlCMS' => $baseDir . '/src/',
 );

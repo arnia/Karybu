@@ -24,6 +24,12 @@ class CMSContainer
         $this->containerBuilder->setParameter('debug', true);
         $this->containerBuilder->setParameter('charset', 'UTF-8');
 
+        $this->register('logger', 'Monolog\Logger\Logger')
+            ->setArguments(array('cms'))
+            ->addMethodCall('pushHandler', array(new Reference('logger.handler')));
+        $this->register('logger.handler', 'Monolog\Handler\StreamHandler\StreamHandler')
+            ->setArguments(array('%kernel.logs_dir%/%kernel.environment%.log'));
+
         $this->register('cms.config.locator', 'GlCMS\Config\ConfigLocator');
         $this->register('cms.router.loader', 'GlCMS\Routing\Loader\YamlFileLoader')->setArguments(array(new Reference('cms.config.locator')));
         $this->register('context', 'Symfony\Component\Routing\RequestContext');
