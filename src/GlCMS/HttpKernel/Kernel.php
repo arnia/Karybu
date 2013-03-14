@@ -27,6 +27,7 @@ class Kernel extends SymfonyKernel
      */
     public function init()
     {
+        
     }
 
     /**

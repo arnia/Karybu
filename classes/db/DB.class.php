@@ -1,5 +1,7 @@
 <?php
-    if(!defined('__XE_LOADED_DB_CLASS__')){
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+if(!defined('__XE_LOADED_DB_CLASS__')){
         define('__XE_LOADED_DB_CLASS__', 1);
 
         require(_XE_PATH_.'classes/xml/xmlquery/DBParser.class.php');
@@ -139,7 +141,9 @@
 		 * @var string
 		 */
 		var $use_prepared_statements;
-		
+
+        static private $logger = null;
+
 		/**
 		 * returns instance of certain db type
 		 * @param string $db_type type of db
@@ -157,7 +161,11 @@
 
 				// get a singletone instance of the database driver class
 				require_once($class_file);
-                $GLOBALS['__DB__'][$db_type] = call_user_func(array($class_name, 'create'));
+                $GLOBALS['__DB__'][$db_type] = call_user_func(array($class_name, 'create'), self::$logger);
+
+                // triggerEvent("db_connect")
+                // dispatcher-dispatch('db_connect", info);
+
 				$GLOBALS['__DB__'][$db_type]->db_type = $db_type;
             }
 
@@ -1059,5 +1067,16 @@
             return $dbParser;
         }
 
+        /**
+         * Sets the Container.
+         *
+         * @param ContainerInterface $container A ContainerInterface instance
+         *
+         * @api
+         */
+        public static function setLogger(\Psr\Log\LoggerInterface $logger = null)
+        {
+            self::$logger = $logger;
+        }
     }
 ?>
