@@ -1,9 +1,12 @@
 <?php
 
-    use \Psr\Log\LoggerInterface;
-    use \GlCMS\Utils\StopWatch\IStopWatch;
+use \Psr\Log\LoggerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use GlCMS\Event\QueryEvent;
+use GlCMS\Event\DBEvents;
 
-    if(!defined('__XE_LOADED_DB_CLASS__')){
+if(!defined('__XE_LOADED_DB_CLASS__')){
         define('__XE_LOADED_DB_CLASS__', 1);
 
         require(_XE_PATH_.'classes/xml/xmlquery/DBParser.class.php');
@@ -51,7 +54,7 @@
 	 * @package /classes/db
 	 * @version 0.1
 	 */
-    class DB{
+    class DB {
 
 		/**
 		 * count cache path
@@ -78,14 +81,14 @@
 		 * master database connection string
 		 * @var array
 		 */
-        var $master_db = NULL;
+        var $master_db = null;
 		/**
 		 * array of slave databases connection strings
 		 * @var array
 		 */
-        var $slave_db = NULL;
+        var $slave_db = null;
 
-        var $result = NULL;
+        var $result = null;
 
 		/**
 		 * error code (0 means no error)
@@ -118,9 +121,9 @@
 		 * transaction flag
 		 * @var boolean
 		 */
-        var $transaction_started = FALSE;
+        var $transaction_started = false;
 
-        var $is_connected = FALSE;
+        var $is_connected = false;
 
 		/**
          * returns enable list in supported dbms list
@@ -148,15 +151,16 @@
 		var $use_prepared_statements;
 
         static private $logger = null;
-        /** @var $stopWatch IStopWatch */
-        static private $stopWatch = null;
+
+        /** @var EventDispatcherInterface */
+        private $dispatcher;
 
 		/**
 		 * returns instance of certain db type
 		 * @param string $db_type type of db
 		 * @return DB return DB object instance
 		 */
-        function &getInstance($db_type = NULL) {
+        function &getInstance($db_type = null) {
             if(!$db_type) $db_type = Context::getDBType();
             if(!$db_type && Context::isInstalled()) return new Object(-1, 'msg_db_not_setted');
 
@@ -190,6 +194,7 @@
         function DB() {
             $this->count_cache_path = _XE_PATH_.$this->count_cache_path;
             $this->cache_file = _XE_PATH_.$this->cache_file;
+            $this->setDispatcher(new EventDispatcher());
         }
 
         /**
@@ -261,7 +266,7 @@
 			$get_supported_list = array();
             $db_classes_path = _XE_PATH_."classes/db/";
             $filter = "/^DB([^\.]+)\.class\.php/i";
-            $supported_list = FileHandler::readDir($db_classes_path, $filter, TRUE);
+            $supported_list = FileHandler::readDir($db_classes_path, $filter, true);
             sort($supported_list);
 
             // after creating instance of class, check is supported
@@ -281,9 +286,9 @@
 
                 if(!$oDB) continue;
 
-                $obj = NULL;
+                $obj = null;
                 $obj->db_type = $db_type;
-                $obj->enable = $oDB->isSupported() ? TRUE : FALSE;
+                $obj->enable = $oDB->isSupported() ? true : false;
 
                 $get_supported_list[] = $obj;
             }
@@ -297,7 +302,7 @@
          * @return boolean true: is supported, false: is not supported
          */
         function isSupported() {
-			return FALSE;
+			return false;
         }
 
         /**
@@ -307,8 +312,8 @@
          * @return boolean true: connected, false: not connected
          */
         function isConnected($type = 'master', $indx = 0) {
-            if($type == 'master') return $this->master_db["is_connected"] ? TRUE : FALSE;
-            else return $this->slave_db[$indx]["is_connected"] ? TRUE : FALSE;
+            if($type == 'master') return $this->master_db["is_connected"] ? true : false;
+            else return $this->slave_db[$indx]["is_connected"] ? true : false;
         }
 
         /**
@@ -355,7 +360,7 @@
                     $debug_file = _XE_PATH_."files/_debug_db_query.php";
                     $buff = array();
                     if(!file_exists($debug_file)) $buff[] = '<?php exit(); ?>';
-                    $buff[] = print_r($log, TRUE);
+                    $buff[] = print_r($log, true);
 
                     if(@!$fp = fopen($debug_file, "a")) return;
                     fwrite($fp, implode("\n", $buff)."\n\n");
@@ -418,7 +423,7 @@
          * @return boolean true: error, false: no error
          */
         function isError() {
-            return $this->errno === 0 ? FALSE : TRUE;
+            return $this->errno === 0 ? false : true;
         }
 
         /**
@@ -438,7 +443,7 @@
          * @param array $arg_columns column list. if you want get specific colums from executed result, add column list to $arg_columns
          * @return object result of query
          */
-        function executeQuery($query_id, $args = NULL, $arg_columns = NULL) {
+        function executeQuery($query_id, $args = null, $arg_columns = null) {
 			static $cache_file = array();
 
             if(!$query_id) return new Object(-1, 'msg_invalid_queryid');
@@ -568,8 +573,8 @@
          * @return int count of cache data
          */
         function getCountCache($tables, $condition) {
-            return FALSE;
-            if(!$tables) return FALSE;
+            return false;
+            if(!$tables) return false;
             if(!is_dir($this->count_cache_path)) return FileHandler::makeDir($this->count_cache_path);
 
             $condition = md5($condition);
@@ -581,14 +586,14 @@
             if(!is_dir($cache_path)) FileHandler::makeDir($cache_path);
 
             $cache_filename = sprintf('%s/%s.%s', $cache_path, $tables_str, $condition);
-            if(!file_exists($cache_filename)) return FALSE;
+            if(!file_exists($cache_filename)) return false;
 
             $cache_mtime = filemtime($cache_filename);
 
             if(!is_array($tables)) $tables = array($tables);
             foreach($tables as $alias => $table) {
                 $table_filename = sprintf('%s/cache.%s%s', $this->count_cache_path, $this->prefix, $table) ;
-                if(!file_exists($table_filename) || filemtime($table_filename) > $cache_mtime) return FALSE;
+                if(!file_exists($table_filename) || filemtime($table_filename) > $cache_mtime) return false;
             }
 
             $count = (int)FileHandler::readFile($cache_filename);
@@ -603,8 +608,8 @@
          * @return void
          */
         function putCountCache($tables, $condition, $count = 0) {
-            return FALSE;
-            if(!$tables) return FALSE;
+            return false;
+            if(!$tables) return false;
             if(!is_dir($this->count_cache_path)) return FileHandler::makeDir($this->count_cache_path);
 
             $condition = md5($condition);
@@ -626,8 +631,8 @@
          * @return boolean true: success, false: failed
          */
         function resetCountCache($tables) {
-            return FALSE;
-            if(!$tables) return FALSE;
+            return false;
+            if(!$tables) return false;
             if(!is_dir($this->count_cache_path)) return FileHandler::makeDir($this->count_cache_path);
 
             if(!is_array($tables)) $tables = array($tables);
@@ -637,7 +642,7 @@
                 FileHandler::writeFile($filename, '');
             }
 
-            return TRUE;
+            return true;
         }
 
         /**
@@ -675,7 +680,7 @@
 		 * @param boolean $with_values
 		 * @return string
 		 */
-    	function getSelectSql($query, $with_values = TRUE){
+    	function getSelectSql($query, $with_values = true){
 			$select = $query->getSelectString($with_values);
 			if($select == '') return new Object(-1, "Invalid query");
 			$select = 'SELECT ' .$select;
@@ -746,7 +751,7 @@
 		 * @param boolean $with_priority
 		 * @return string
 		 */
-   		function getDeleteSql($query, $with_values = TRUE, $with_priority = FALSE){
+   		function getDeleteSql($query, $with_values = true, $with_priority = false){
 			$sql = 'DELETE ';
 
 			$sql .= $with_priority?$query->getPriority():'';
@@ -771,7 +776,7 @@
 		 * @param boolean $with_priority
 		 * @return string
 		 */
-    	function getUpdateSql($query, $with_values = TRUE, $with_priority = FALSE){
+    	function getUpdateSql($query, $with_values = true, $with_priority = false){
 			$columnsList = $query->getUpdateString($with_values);
 			if($columnsList == '') return new Object(-1, "Invalid query");
 
@@ -793,7 +798,7 @@
 		 * @param boolean $with_priority
 		 * @return string
 		 */
-    	function getInsertSql($query, $with_values = TRUE, $with_priority = FALSE){
+    	function getInsertSql($query, $with_values = true, $with_priority = false){
 			$tableName = $query->getFirstTableName();
 			$values = $query->getInsertString($with_values);
 			$priority = $with_priority?$query->getPriority():'';
@@ -817,7 +822,7 @@
 		 * @param int $indx if indx value is NULL, return rand number in slave server list
 		 * @return resource
 		 */
-        function _getConnection($type = 'master', $indx = NULL){
+        function _getConnection($type = 'master', $indx = null){
             if($type == 'master'){
                 if(!$this->master_db['is_connected'])
                         $this->_connect($type);
@@ -825,7 +830,7 @@
                 return $this->master_db["resource"];
             }
 
-            if($indx === NULL)
+            if($indx === null)
                 $indx = $this->_getSlaveConnectionStringIndex($type);
 
             if(!$this->slave_db[$indx]['is_connected'])
@@ -841,10 +846,10 @@
 		 */
         function _dbInfoExists() {
             if (!$this->master_db)
-                return FALSE;
+                return false;
             if (count($this->slave_db) === 0)
-                return FALSE;
-            return TRUE;
+                return false;
+            return true;
         }
 
 		/**
@@ -874,7 +879,7 @@
 
             $this->_close($connection["resource"]);
 
-            $connection["is_connected"] = FALSE;
+            $connection["is_connected"] = false;
         }
 
 		/**
@@ -883,7 +888,7 @@
 		 * @return boolean
 		 */
         function _begin(){
-            return TRUE;
+            return true;
         }
 
 		/**
@@ -895,7 +900,7 @@
                 return;
 
             if($this->_begin())
-                 $this->transaction_started = TRUE;
+                 $this->transaction_started = true;
         }
 
 		/**
@@ -904,7 +909,7 @@
 		 * @return boolean
 		 */
         function _rollback(){
-            return TRUE;
+            return true;
         }
 
 		/**
@@ -915,7 +920,7 @@
             if (!$this->isConnected() || !$this->transaction_started)
                 return;
             if($this->_rollback())
-                $this->transaction_started = FALSE;
+                $this->transaction_started = false;
         }
 
 		/**
@@ -924,7 +929,7 @@
 		 * @return boolean
 		 */
         function _commit(){
-            return TRUE;
+            return true;
         }
 
 		/**
@@ -932,11 +937,11 @@
 		 * @param boolean $force regardless transaction start status or connect status, forced to commit
 		 * @return void
 		 */
-        function commit($force = FALSE) {
+        function commit($force = false) {
             if (!$force && (!$this->isConnected() || !$this->transaction_started))
                 return;
             if($this->_commit())
-                $this->transaction_started = FALSE;
+                $this->transaction_started = false;
         }
 
 		/**
@@ -957,21 +962,22 @@
 		 * @param resource $connection
 		 * @return resource
 		 */
-        function _query($query, $connection = NULL) {
-            if($connection == NULL)
+        function _query($query, $connection = null) {
+            if($connection == null)
                 $connection = $this->_getConnection('master');
-            // Notify to start a query execution
-            if (self::$stopWatch) self::$stopWatch->start();
-            $this->actStart($query);
+
+            // Start of query execution
+            $query_info = new QueryEvent();
+            $query_info->setQuery($query);
+            $this->dispatcher->dispatch(DBEvents::QUERY_STARTED, $query_info);
+
+            $this->actStart($query); // TODO Remove this - legacy
 
             // Run the query statement
             $result = $this->__query($query, $connection);
 
             // Notify to complete a query execution
-            if (self::$stopWatch){
-                self::$stopWatch->stop();
-                self::$stopWatch->setCurrentSummary($this->getQuerySummary());
-            }
+            $this->dispatcher->dispatch(DBEvents::QUERY_ENDED, $query_info);
             $this->actFinish();
 
             // Return result
@@ -1040,14 +1046,14 @@
                 $connection = &$this->slave_db[$indx];
 
             $result = $this->__connect($connection);
-            if($result === NULL || $result === FALSE) {
-                $connection["is_connected"] = FALSE;
+            if($result === null || $result === false) {
+                $connection["is_connected"] = false;
                 return;
             }
 
             // Check connections
             $connection["resource"] = $result;
-            $connection["is_connected"] = TRUE;
+            $connection["is_connected"] = true;
 
             // Save connection info for db logs
             $this->connection = ucfirst($type) . ' ' . $connection["db_hostname"];
@@ -1087,8 +1093,8 @@
 		 * @param boolean $force force load DBParser instance
 		 * @return DBParser
 		 */
-       function &getParser($force = FALSE){
-            static $dbParser = NULL;
+       function &getParser($force = false){
+            static $dbParser = null;
             if(!$dbParser || $force) {
                 $oDB = &DB::getInstance();
                 $dbParser = $oDB->getParser();
@@ -1107,9 +1113,21 @@
             self::$logger = $logger;
         }
 
-        public static function setStopWatch(IStopWatch $stopWatch)
+        /**
+         * Initialises event dispatcher for the database
+         *
+         * @param EventDispatcherInterface $dispatcher
+         */
+        private function setDispatcher(EventDispatcherInterface $dispatcher)
         {
-            self::$stopWatch = $stopWatch;
+            $this->dispatcher = $dispatcher;
+        }
+
+        public static function addSubscribers($subscribers) {
+            $db = DB::getInstance();
+            foreach($subscribers as $subscriber) {
+                $db->dispatcher->addSubscriber($subscriber);
+            }
         }
     }
 ?>

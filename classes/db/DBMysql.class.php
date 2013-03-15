@@ -45,6 +45,7 @@ class DBMysql extends DB {
 	 * @return void
      */
     function DBMysql(LoggerInterface $logger = null) {
+        parent::DB();
         $this->logger = $logger;
         $this->_setDBInfo();
         $this->_connect();

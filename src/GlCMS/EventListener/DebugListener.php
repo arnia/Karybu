@@ -28,12 +28,12 @@ class DebugListener  implements EventSubscriberInterface{
     {
         return array(
             KernelEvents::REQUEST => array(
-                array('doTriggerDBStatistics', 30)
+                array('doTriggerDBStatistics', 29)
             ));
     }
 
     public function doTriggerDBStatistics(GetResponseEvent $event){
-        \DB::addListeners($this->dbListeners);
+        \DB::addSubscribers($this->dbListeners);
         // TODO implement this
     }
 

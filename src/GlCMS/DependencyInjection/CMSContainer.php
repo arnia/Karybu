@@ -48,6 +48,13 @@ class CMSContainer
         $this->register('listener.router', 'GlCMS\EventListener\RouterListener')->setArguments(array(new Reference('cms.router')));
         $this->register('listener.response', 'Symfony\Component\HttpKernel\EventListener\ResponseListener')->setArguments(array('%charset%'));
         $this->register('listener.exception', 'GlCMS\EventListener\ExceptionListener');
+        $this->register('listener.cms', 'GlCMS\EventListener\CMSListener')->setArguments(array(new Reference('cms.context.instance'), new Reference('logger')));
+
+        $this->register('db.query_info_listener', 'GlCMS\EventListener\Debug\DBQueryInfoListener')
+            ->setArguments(array(new Reference('db.logger')));
+
+        $this->register('listener.debug', 'GlCMS\EventListener\DebugListener')
+            ->addMethodCall('addDBListener', array(new Reference("db.query_info_listener")));
 
         $this->register('dispatcher', 'Symfony\Component\EventDispatcher\EventDispatcher')
             ->addMethodCall('addSubscriber', array(new Reference('listener.router')))
@@ -59,9 +66,8 @@ class CMSContainer
         $this->register('resolver', 'GlCMS\HttpKernel\Controller\ControllerResolver');
         $this->register('http_kernel', 'GlCMS\HttpKernel\HttpKernel')->setArguments(array(new Reference('dispatcher'), new Reference('resolver')));
         $this->register('cms.context.instance', 'ContextInstance')->setArguments(array(null, null, null, new Reference('cms.router')));
-        $this->register('listener.cms', 'GlCMS\EventListener\CMSListener')->setArguments(array(new Reference('cms.context.instance'), new Reference('logger')));
-        $this->register('listener.debug', 'GlCMS\EventListener\DebugListener')
-            ->addMethodCall('setGenericDBLogger', array(new Reference('db.logger')));
+
+
 
     }
 
