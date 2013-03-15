@@ -28,10 +28,15 @@ class CMSContainer
 
         $this->register('logger.handler', 'Monolog\Handler\StreamHandler')
             ->setArguments(array('%kernel.logs_dir%/%kernel.environment%.log', Logger::DEBUG));
+        $this->register('db.logger.handler', 'Monolog\Handler\StreamHandler')
+            ->setArguments(array('%kernel.logs_dir%/db_%kernel.environment%.log', Logger::DEBUG));
 
         $this->register('logger', 'Monolog\Logger')
             ->setArguments(array('cms'))
             ->addMethodCall('pushHandler', array(new Reference('logger.handler')));
+        $this->register('db.logger', 'Monolog\Logger')
+            ->setArguments(array('db'))
+            ->addMethodCall('pushHandler', array(new Reference('db.logger.handler')));
 
         // $this->register("database", "\DB")->addMethodCall("setLogger", new Reference("logger"));
 
@@ -46,6 +51,7 @@ class CMSContainer
 
         $this->register('dispatcher', 'Symfony\Component\EventDispatcher\EventDispatcher')
             ->addMethodCall('addSubscriber', array(new Reference('listener.router')))
+            ->addMethodCall('addSubscriber', array(new Reference('listener.debug')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.cms')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.response')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.exception')));
@@ -54,6 +60,9 @@ class CMSContainer
         $this->register('http_kernel', 'GlCMS\HttpKernel\HttpKernel')->setArguments(array(new Reference('dispatcher'), new Reference('resolver')));
         $this->register('cms.context.instance', 'ContextInstance')->setArguments(array(null, null, null, new Reference('cms.router')));
         $this->register('listener.cms', 'GlCMS\EventListener\CMSListener')->setArguments(array(new Reference('cms.context.instance'), new Reference('logger')));
+        $this->register('listener.debug', 'GlCMS\EventListener\DebugListener')
+            ->addMethodCall('setGenericDBLogger', array(new Reference('db.logger')));
+
     }
 
     // mirrors

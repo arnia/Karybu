@@ -1,5 +1,5 @@
 {
-    "hash": "6086a70421e81b5c7b8169b5501d06dd",
+    "hash": "12bc16019c9668792803524083ab8953",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -485,6 +485,53 @@
             "time": "2013-02-11 11:24:47"
         },
         {
+            "name": "symfony/stopwatch",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/Stopwatch",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Stopwatch.git",
+                "reference": "23d6e7b188069d80950cdf96f3d48029f56f11e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Stopwatch/zipball/23d6e7b188069d80950cdf96f3d48029f56f11e5",
+                "reference": "23d6e7b188069d80950cdf96f3d48029f56f11e5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Stopwatch\\": ""
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Stopwatch Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-01-31 21:39:01"
+        },
+        {
             "name": "symfony/yaml",
             "version": "v2.2.0",
             "target-dir": "Symfony/Component/Yaml",
@@ -540,6 +587,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "symfony/stopwatch": 20,
         "monolog/monolog": 20
     },
     "platform": [

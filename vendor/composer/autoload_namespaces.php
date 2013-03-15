@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Symfony\\Component\\Yaml\\' => $vendorDir . '/symfony/yaml/',
+    'Symfony\\Component\\Stopwatch\\' => $vendorDir . '/symfony/stopwatch/',
     'Symfony\\Component\\Routing\\' => $vendorDir . '/symfony/routing/',
     'Symfony\\Component\\HttpKernel\\' => $vendorDir . '/symfony/http-kernel/',
     'Symfony\\Component\\HttpFoundation\\' => $vendorDir . '/symfony/http-foundation/',

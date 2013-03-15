@@ -48,9 +48,9 @@ class SimpleStopWatch implements IStopWatch{
             $this->lapTime = getMicroTime()-$this->microsCounter;
             $this->started = false;
             $this->totalTime+=$this->lapTime;
+            $this->saveSummary($currentSummary);
             if ($currentSummary != null){
                 $this->notifyListeners(IStopWatchListener::SUMMARY_EVENT);
-                $this->saveSummary($currentSummary);
             }
             $this->notifyListeners(IStopWatchListener::STOP_EVENT);
         }
