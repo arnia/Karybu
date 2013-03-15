@@ -1,6 +1,7 @@
 <!--%import("./filter/login.xml")-->
 <!--%import("./filter/openid_login.xml")-->
 <!--%import("./js/login.js")-->
+<load target="css/default.css" />
 
 <div class="pull-right login-form">
     <a href="{getUrl('act','dispMemberSignUpForm')}" role="button" class="btn btn-success">Register</a>
@@ -45,7 +46,14 @@
                     <p class="keep_msg">{$lang->about_keep_warning}</p>
                 </div>
             </div>
+            <div class="control-group">
+                <label class="control-label" cond="!empty($sns_list)">Sign in with</label>
+                <div class="controls">
+                    <a class="sns-options pull-left" loop="$sns_list => $sns" href="{getUrl('act','procMemberSnsSignIn','sns',$sns->sns_name)}"><div class="{$sns->sns_name}"></div></a>
+                </div>
+            </div>
         </form>
+
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
