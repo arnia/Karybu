@@ -149,7 +149,7 @@ if(!defined('__LOG_SLOW_QUERY__'))
      * Log file is saved as ./files/_db_slow_query.php file
      * </pre>
      */
-    define('__LOG_SLOW_QUERY__', 1);
+    define('__LOG_SLOW_QUERY__', 0.001);
 }
 
 if(!defined('__DEBUG_QUERY__'))

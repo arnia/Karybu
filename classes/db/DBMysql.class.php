@@ -1,4 +1,6 @@
 <?php
+
+use Psr\Log\LoggerInterface;
 /**
  * Class to use MySQL DBMS
  * mysql handling class
@@ -42,7 +44,7 @@ class DBMysql extends DB {
      * Constructor
 	 * @return void
      */
-    function DBMysql(\Psr\Log\LoggerInterface $logger = null) {
+    function DBMysql(LoggerInterface $logger = null) {
         $this->logger = $logger;
         $this->_setDBInfo();
         $this->_connect();
@@ -52,7 +54,7 @@ class DBMysql extends DB {
 	 * Create an instance of this class
 	 * @return DBMysql return DBMysql object instance
 	 */
-    function create(\Psr\Log\LoggerInterface $logger = null) {
+    function create(LoggerInterface $logger = null) {
         return new DBMysql($logger);
     }
 
@@ -74,7 +76,7 @@ class DBMysql extends DB {
 	 */
     function __connect($connection) {
         if($this->logger) {
-            $this->logger->debug("Attempting to connect to database ",
+            $this->logger->debug("Attempting to connect to Mysql database ",
                 array(  "host" => $connection["db_hostname"],     "port" => $connection["db_port"],
                         "name" => $connection["db_database"],     "user" => $connection["db_userid"]));
         }
@@ -104,13 +106,13 @@ class DBMysql extends DB {
             }
 
             if($this->logger) {
-                $this->logger->debug("Connection succeed");
+                $this->logger->debug("Connection to MySql succeed.");
             }
 
             return $result;
         }catch(Exception $e){
             if($this->logger) {
-                $this->logger->debug("Connection failed");
+                $this->logger->debug("Connection to MySql failed");
             }
             return;
         }

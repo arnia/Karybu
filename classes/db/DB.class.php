@@ -1,7 +1,9 @@
 <?php
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
-if(!defined('__XE_LOADED_DB_CLASS__')){
+    use \Psr\Log\LoggerInterface;
+    use \GlCMS\Utils\StopWatch\IStopWatch;
+
+    if(!defined('__XE_LOADED_DB_CLASS__')){
         define('__XE_LOADED_DB_CLASS__', 1);
 
         require(_XE_PATH_.'classes/xml/xmlquery/DBParser.class.php');
@@ -41,12 +43,15 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
 	 * - in case of query xml, DB::executeQuery() method compiles xml file into php code and then execute it
 	 * - query xml has unique query id, and will be created in module
 	 * - queryid = module_name.query_name
+     *
+     * Obs. Here we have a design pattern misuse: DB is the same time a Factory and a parent for specific db classes.
+     *      Hopefully this will change in the near future (current date: 14.03.2013)
 	 *
 	 * @author NHN (developers@xpressengine.com)
 	 * @package /classes/db
 	 * @version 0.1
 	 */
-    class DB {
+    class DB{
 
 		/**
 		 * count cache path
@@ -143,6 +148,8 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
 		var $use_prepared_statements;
 
         static private $logger = null;
+        /** @var $stopWatch IStopWatch */
+        static private $stopWatch = null;
 
 		/**
 		 * returns instance of certain db type
@@ -162,10 +169,6 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
 				// get a singletone instance of the database driver class
 				require_once($class_file);
                 $GLOBALS['__DB__'][$db_type] = call_user_func(array($class_name, 'create'), self::$logger);
-
-                // triggerEvent("db_connect")
-                // dispatcher-dispatch('db_connect", info);
-
 				$GLOBALS['__DB__'][$db_type]->db_type = $db_type;
             }
 
@@ -310,6 +313,7 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
 
         /**
          * start recording log
+         * @deprecated
 		 * @param string $query query string
          * @return void
          */
@@ -322,6 +326,7 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
 
         /**
          * finish recording log
+         * @deprecated
          * @return void
          */
         function actFinish() {
@@ -335,7 +340,7 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
             $log['elapsed_time'] = $elapsed_time;
             $log['connection'] = $this->connection;
 
-            // leave error log if an error occured (if __DEBUG_DB_OUTPUT__ is defined)
+            // leave error log if an error occurred (if __DEBUG_DB_OUTPUT__ is defined)
             if($this->isError()) {
                 $site_module_info = Context::get('site_module_info');
                 $log['module'] = $site_module_info->module;
@@ -377,6 +382,25 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
                 }
             }
         }
+
+        private function getQuerySummary(){
+            $summary = array();
+            $summary['query'] = $this->query;
+            $summary['connection'] = $this->connection;
+            $summary['query_id'] = $this->query_id;
+            if ($this->isError()){
+                $site_module_info = Context::get('site_module_info');
+                $summary['module'] = $site_module_info->module;
+                $summary['act'] = Context::get('act');
+                $summary['time'] = date('Y-m-d H:i:s');
+                $summary['result'] = "Failed";
+                $summary['errno'] = $this->errno;
+                $summary['errstr'] = $this->errstr;
+            }else{
+                $summary['result'] = "Success";
+            }
+            return $summary;
+         }
 
         /**
          * set error
@@ -937,13 +961,19 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
             if($connection == NULL)
                 $connection = $this->_getConnection('master');
             // Notify to start a query execution
+            if (self::$stopWatch) self::$stopWatch->start();
             $this->actStart($query);
 
             // Run the query statement
             $result = $this->__query($query, $connection);
 
             // Notify to complete a query execution
+            if (self::$stopWatch){
+                self::$stopWatch->stop();
+                self::$stopWatch->setCurrentSummary($this->getQuerySummary());
+            }
             $this->actFinish();
+
             // Return result
             return $result;
         }
@@ -1068,15 +1098,18 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
         }
 
         /**
-         * Sets the Container.
+         * Sets the Logger which will be passed to specific DB instances.
          *
-         * @param ContainerInterface $container A ContainerInterface instance
-         *
-         * @api
+         * @param LoggerInterface $logger - logger
          */
-        public static function setLogger(\Psr\Log\LoggerInterface $logger = null)
+        public static function setLogger(LoggerInterface $logger = null)
         {
             self::$logger = $logger;
+        }
+
+        public static function setStopWatch(IStopWatch $stopWatch)
+        {
+            self::$stopWatch = $stopWatch;
         }
     }
 ?>

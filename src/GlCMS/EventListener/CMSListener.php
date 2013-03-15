@@ -69,6 +69,11 @@ class CMSListener implements EventSubscriberInterface
     public function doContextGlobalsLink(GetResponseEvent $event)
     {
         \DB::setLogger($this->logger);
+        // TODO refactor; this is not according to DI patterns
+        $stopWatch = new GlCMS\Utils\StopWatch\SimpleStopWatch();
+        $stopListener = new GlCMS\Utils\Statistics\DBQueriesStatistics($this->logger);
+        $stopWatch->registerListener(GlCMS\Utils\StopWatch\IStopWatchListener::SUMMARY_EVENT, $stopListener);
+        \DB::setStopWatch($stopWatch);
 
 
         $request = $event->getRequest();
