@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -68,11 +68,19 @@ class CMSListener implements EventSubscriberInterface
      */
     public function doContextGlobalsLink(GetResponseEvent $event)
     {
+        \DB::setLogger($this->logger);
+        // TODO refactor; this is not according to DI patterns
+        $stopWatch = new GlCMS\Utils\StopWatch\SimpleStopWatch();
+        $stopListener = new GlCMS\Utils\Statistics\DBQueriesStatistics($this->logger);
+        $stopWatch->registerListener(GlCMS\Utils\StopWatch\IStopWatchListener::SUMMARY_EVENT, $stopListener);
+        \DB::setStopWatch($stopWatch);
+
+
         $request = $event->getRequest();
         $this->cmsContext->context = &$GLOBALS['__Context__'];
         \Context::setRequestContext($this->cmsContext);
 
-        // TODO Create a seprate list of 'legacy' request attributes: like $request->attributes->legacy->set('oContext',$oContext);
+        // TODO Create a separate list of 'legacy' request attributes: like $request->attributes->legacy->set('oContext',$oContext);
         // Could be done by $request->attributes->set('legacy', new ParametersBag()); or something
         $request->attributes->set('oContext', $this->cmsContext);
     }

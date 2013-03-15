@@ -7,6 +7,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 
 class CMSContainer
@@ -23,6 +25,15 @@ class CMSContainer
     {
         $this->containerBuilder->setParameter('debug', true);
         $this->containerBuilder->setParameter('charset', 'UTF-8');
+
+        $this->register('logger.handler', 'Monolog\Handler\StreamHandler')
+            ->setArguments(array('%kernel.logs_dir%/%kernel.environment%.log', Logger::DEBUG));
+
+        $this->register('logger', 'Monolog\Logger')
+            ->setArguments(array('cms'))
+            ->addMethodCall('pushHandler', array(new Reference('logger.handler')));
+
+        // $this->register("database", "\DB")->addMethodCall("setLogger", new Reference("logger"));
 
         $this->register('cms.config.locator', 'GlCMS\Config\ConfigLocator');
         $this->register('cms.router.loader', 'GlCMS\Routing\Loader\YamlFileLoader')->setArguments(array(new Reference('cms.config.locator')));
@@ -42,7 +53,7 @@ class CMSContainer
         $this->register('resolver', 'GlCMS\HttpKernel\Controller\ControllerResolver');
         $this->register('http_kernel', 'GlCMS\HttpKernel\HttpKernel')->setArguments(array(new Reference('dispatcher'), new Reference('resolver')));
         $this->register('cms.context.instance', 'ContextInstance')->setArguments(array(null, null, null, new Reference('cms.router')));
-        $this->register('listener.cms', 'GlCMS\EventListener\CMSListener')->setArguments(array(new Reference('cms.context.instance')));
+        $this->register('listener.cms', 'GlCMS\EventListener\CMSListener')->setArguments(array(new Reference('cms.context.instance'), new Reference('logger')));
     }
 
     // mirrors
