@@ -51,7 +51,7 @@
 		 * constructor
 		 * @return void
 		 */
-		function DBCubrid(LoggerInterface $logger)
+		function DBCubrid(LoggerInterface $logger = null)
 		{
 			$this->logger = $logger;
             $this->_setDBInfo();
@@ -62,7 +62,7 @@
 		 * Create an instance of this class
 		 * @return DBCubrid return DBCubrid object instance
 		 */
-		function create(LoggerInterface $logger)
+		function create(LoggerInterface $logger = null)
 		{
 			return new DBCubrid($logger);
 		}

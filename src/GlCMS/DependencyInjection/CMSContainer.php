@@ -50,15 +50,15 @@ class CMSContainer
         $this->register('listener.exception', 'GlCMS\EventListener\ExceptionListener');
         $this->register('listener.cms', 'GlCMS\EventListener\CMSListener')->setArguments(array(new Reference('cms.context.instance'), new Reference('logger')));
 
-        $this->register('db.query_info_listener', 'GlCMS\EventListener\Debug\DBQueryInfoListener')
-            ->setArguments(array(new Reference('db.logger')));
+//        $this->register('db.query_info_listener', 'GlCMS\EventListener\Debug\DBQueryInfoListener')
+//            ->setArguments(array(new Reference('db.logger')));
 
-        $this->register('listener.debug', 'GlCMS\EventListener\DebugListener')
-            ->addMethodCall('addDBListener', array(new Reference("db.query_info_listener")));
+//        $this->register('listener.debug', 'GlCMS\EventListener\DebugListener')
+//            ->addMethodCall('addDBListener', array(new Reference("db.query_info_listener")));
 
         $this->register('dispatcher', 'Symfony\Component\EventDispatcher\EventDispatcher')
             ->addMethodCall('addSubscriber', array(new Reference('listener.router')))
-            ->addMethodCall('addSubscriber', array(new Reference('listener.debug')))
+//            ->addMethodCall('addSubscriber', array(new Reference('listener.debug')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.cms')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.response')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.exception')));

@@ -193,7 +193,6 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
          */
         function DB() {
             $this->count_cache_path = _XE_PATH_.$this->count_cache_path;
-            $this->cache_file = _XE_PATH_.$this->cache_file;
             $this->setDispatcher(new EventDispatcher());
         }
 

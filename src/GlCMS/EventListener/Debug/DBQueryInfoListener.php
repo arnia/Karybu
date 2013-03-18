@@ -5,6 +5,7 @@ namespace GlCMS\EventListener\Debug;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use GlCMS\Event\DBEvents;
+use GlCMS\Event\QueryEvent;
 
 class DBQueryInfoListener implements EventSubscriberInterface {
 
