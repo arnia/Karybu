@@ -59,7 +59,7 @@ class DBQueryInfoListener implements EventSubscriberInterface {
     private function logSummary(QueryEvent $event, StopwatchEvent $swEvent)
     {
         $periods = $swEvent->getPeriods();
-        $durationInSec = $periods[0]->getDuration()/1000;
+        $durationInSec = end($periods)->getDuration()/1000;
 
         if ($event->getResult() == 'Failed'){
             if(__DEBUG_DB_OUTPUT__ == 1)  {
