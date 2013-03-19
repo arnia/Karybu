@@ -58,12 +58,11 @@ class DBQueryInfoListener implements EventSubscriberInterface {
 
     private function logSummary(QueryEvent $event, StopwatchEvent $swEvent)
     {
-        $periods = $swEvent->getPeriods();
-        $durationInSec = end($periods)->getDuration()/1000;
+        $durationInSec = $this->durationInSec($swEvent);
 
         if ($event->getResult() == 'Failed'){
             if(__DEBUG_DB_OUTPUT__ == 1)  {
-                $debug_file = _XE_PATH_."files/_debug_db_query.new.php";
+                $debug_file = _XE_PATH_."files/_debug_db_query.php";
                 $buff = array();
                 if(!file_exists($debug_file)) $buff[] = '<?php exit(); ?>';
                 $buff[] = print_r($this->getSummary($event, $swEvent), TRUE);
@@ -74,14 +73,13 @@ class DBQueryInfoListener implements EventSubscriberInterface {
             }
         }
 
-        // this may disappear from here
-        $GLOBALS['__db_queries__'][] = $event->getQuery();
+        $GLOBALS['__db_queries__'][] = $this->getSummary($event, $swEvent);//$event->getQuery();
         $GLOBALS['__db_elapsed_time__'] += $durationInSec;
 
         // if __LOG_SLOW_QUERY__ if defined, check elapsed time and leave query log
         if(__LOG_SLOW_QUERY__ > 0 && $durationInSec > __LOG_SLOW_QUERY__) {
             $buff = '';
-            $log_file = _XE_PATH_.'files/_db_slow_query.new.php';
+            $log_file = _XE_PATH_.'files/_db_slow_query.php';
             if(!file_exists($log_file)) {
                 $buff = '<?php exit();?>'."\n";
             }
@@ -98,19 +96,23 @@ class DBQueryInfoListener implements EventSubscriberInterface {
     }
 
     private function getSummary(QueryEvent $event, StopwatchEvent $swEvent){
-        $result = new \stdClass();
-        $result->query = $event->getQuery();
-        $result->elapsed_time = $swEvent->getDuration();
-        $result->connection = $event->getConnection();
-        $result->module = $event->getModule();
-        $result->act = $event->getAct();
-        $result->query_id = $event->getQueryId();
-        $result->time = $event->getTime();
-        $result->result = $event->getResult();
-        $result->errno = $event->getErrno();
-        $result->errstr = $event->getErrstr();
+        $result = array();
+        $result["query"] = $event->getQuery();
+         $result["elapsed_time"] = $this->durationInSec($swEvent);
+        $result["connection"] = $event->getConnection();
+        $result["module"] = $event->getModule();
+        $result["act"] = $event->getAct();
+        $result["query_id"] = $event->getQueryId();
+        $result["time"] = $event->getTime();
+        $result["result"] = $event->getResult();
+        $result["errno"] = $event->getErrno();
+        $result["errstr"] = $event->getErrstr();
         return $result;
     }
 
+    private function durationInSec(StopwatchEvent $swEvent){
+        $periods = $swEvent->getPeriods();
+        return end($periods)->getDuration()/1000;
+    }
 
 }

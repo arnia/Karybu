@@ -317,74 +317,24 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
 
         /**
          * start recording log
-         * @deprecated
 		 * @param string $query query string
          * @return void
          */
         function actStart($query) {
             $this->setError(0, 'success');
             $this->query = $query;
-            $this->act_start = getMicroTime();
-            $this->elapsed_time = 0;
+
+            $query_info = new QueryEvent();
+            $query_info->setQuery($query);
+            $this->dispatcher->dispatch(DBEvents::QUERY_STARTED, $query_info);
         }
 
         /**
          * finish recording log
-         * @deprecated
          * @return void
          */
         function actFinish() {
-            if(!$this->query) return;
-            $this->act_finish = getMicroTime();
-            $elapsed_time = $this->act_finish - $this->act_start;
-            $this->elapsed_time = $elapsed_time;
-            $GLOBALS['__db_elapsed_time__'] += $elapsed_time;
-
-            $log['query'] = $this->query;
-            $log['elapsed_time'] = $elapsed_time;
-            $log['connection'] = $this->connection;
-
-            // leave error log if an error occurred (if __DEBUG_DB_OUTPUT__ is defined)
-            if($this->isError()) {
-                $site_module_info = Context::get('site_module_info');
-                $log['module'] = $site_module_info->module;
-                $log['act'] = Context::get('act');
-                $log['query_id'] = $this->query_id;
-                $log['time'] = date('Y-m-d H:i:s');
-                $log['result'] = 'Failed';
-                $log['errno'] = $this->errno;
-                $log['errstr'] = $this->errstr;
-
-                if(__DEBUG_DB_OUTPUT__ == 1)  {
-                    $debug_file = _XE_PATH_."files/_debug_db_query.php";
-                    $buff = array();
-                    if(!file_exists($debug_file)) $buff[] = '<?php exit(); ?>';
-                    $buff[] = print_r($log, true);
-
-                    if(@!$fp = fopen($debug_file, "a")) return;
-                    fwrite($fp, implode("\n", $buff)."\n\n");
-                    fclose($fp);
-                }
-            } else {
-                $log['result'] = 'Success';
-            }
-            $GLOBALS['__db_queries__'][] = $log;
-
-            // if __LOG_SLOW_QUERY__ if defined, check elapsed time and leave query log
-            if(__LOG_SLOW_QUERY__ > 0 && $elapsed_time > __LOG_SLOW_QUERY__) {
-                $buff = '';
-                $log_file = _XE_PATH_.'files/_db_slow_query.php';
-                if(!file_exists($log_file)) {
-                    $buff = '<?php exit();?>'."\n";
-                }
-
-                $buff .= sprintf("%s\t%s\n\t%0.6f sec\tquery_id:%s\n\n", date("Y-m-d H:i"), $this->query, $elapsed_time, $this->query_id);
-
-                if($fp = fopen($log_file, 'a')) {
-                    fwrite($fp, $buff);
-                    fclose($fp);
-                }
-            }
+            $this->dispatcher->dispatch(DBEvents::QUERY_ENDED, $this->getQueryEvent());
         }
 
         private function getQueryEvent(){
@@ -965,19 +915,13 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
                 $connection = $this->_getConnection('master');
 
             // Start of query execution
-            $query_info = new QueryEvent();
-            $query_info->setQuery($query);
-            $this->dispatcher->dispatch(DBEvents::QUERY_STARTED, $query_info);
-
-            $this->actStart($query); // TODO Remove this - legacy
+            $this->actStart($query);
 
             // Run the query statement
             $result = $this->__query($query, $connection);
 
             // Notify to complete a query execution
-            $this->dispatcher->dispatch(DBEvents::QUERY_ENDED, $this->getQueryEvent());
             $this->actFinish();
-
             // Return result
             return $result;
         }
