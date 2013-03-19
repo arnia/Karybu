@@ -28,17 +28,17 @@ class CMSContainer
 
         $this->register('logger.handler', 'Monolog\Handler\StreamHandler')
             ->setArguments(array('%kernel.logs_dir%/%kernel.environment%.log', Logger::DEBUG));
-        $this->register('db.logger.handler', 'Monolog\Handler\StreamHandler')
+        $this->register('logger.handler.db', 'Monolog\Handler\StreamHandler')
             ->setArguments(array('%kernel.logs_dir%/db_%kernel.environment%.log', Logger::DEBUG));
 
         $this->register('logger', 'Monolog\Logger')
             ->setArguments(array('cms'))
             ->addMethodCall('pushHandler', array(new Reference('logger.handler')));
-        $this->register('db.logger', 'Monolog\Logger')
+        $this->register('logger.db', 'Monolog\Logger')
             ->setArguments(array('db'))
-            ->addMethodCall('pushHandler', array(new Reference('db.logger.handler')));
+            ->addMethodCall('pushHandler', array(new Reference('logger.handler.db')));
 
-        // $this->register("database", "\DB")->addMethodCall("setLogger", new Reference("logger"));
+        //$this->register("database", "DB")->addMethodCall("setLogger", array(new Reference("logger")));
 
         $this->register('cms.config.locator', 'GlCMS\Config\ConfigLocator');
         $this->register('cms.router.loader', 'GlCMS\Routing\Loader\YamlFileLoader')->setArguments(array(new Reference('cms.config.locator')));
@@ -50,15 +50,15 @@ class CMSContainer
         $this->register('listener.exception', 'GlCMS\EventListener\ExceptionListener');
         $this->register('listener.cms', 'GlCMS\EventListener\CMSListener')->setArguments(array(new Reference('cms.context.instance'), new Reference('logger')));
 
-//        $this->register('db.query_info_listener', 'GlCMS\EventListener\Debug\DBQueryInfoListener')
-//            ->setArguments(array(new Reference('db.logger')));
+        $this->register('listener.db.query_info', 'GlCMS\EventListener\Debug\DBQueryInfoListener')
+            ->setArguments(array(new Reference('logger.db')));
 
-//        $this->register('listener.debug', 'GlCMS\EventListener\DebugListener')
-//            ->addMethodCall('addDBListener', array(new Reference("db.query_info_listener")));
+        $this->register('listener.debug', 'GlCMS\EventListener\DebugListener')
+            ->addMethodCall('addDBListener', array(new Reference("listener.db.query_info")));
 
         $this->register('dispatcher', 'Symfony\Component\EventDispatcher\EventDispatcher')
             ->addMethodCall('addSubscriber', array(new Reference('listener.router')))
-//            ->addMethodCall('addSubscriber', array(new Reference('listener.debug')))
+            ->addMethodCall('addSubscriber', array(new Reference('listener.debug')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.cms')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.response')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.exception')));

@@ -160,7 +160,7 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
 		 * @param string $db_type type of db
 		 * @return DB return DB object instance
 		 */
-        function &getInstance($db_type = null) {
+        public static function getInstance($db_type = null) {
             if(!$db_type) $db_type = Context::getDBType();
             if(!$db_type && Context::isInstalled()) return new Object(-1, 'msg_db_not_setted');
 
@@ -387,23 +387,22 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
             }
         }
 
-        private function getQuerySummary(){
-            $summary = array();
-            $summary['query'] = $this->query;
-            $summary['connection'] = $this->connection;
-            $summary['query_id'] = $this->query_id;
-            if ($this->isError()){
+        private function getQueryEvent(){
+            $result = new QueryEvent();
+            $result->setQuery($this->query);
+            $result->setConnection($this->connection);
+            $result->setQueryId($this->query_id);
+            if ($this->isError()) {
                 $site_module_info = Context::get('site_module_info');
-                $summary['module'] = $site_module_info->module;
-                $summary['act'] = Context::get('act');
-                $summary['time'] = date('Y-m-d H:i:s');
-                $summary['result'] = "Failed";
-                $summary['errno'] = $this->errno;
-                $summary['errstr'] = $this->errstr;
+                $result->setModule($site_module_info->module);
+                $result->setAct(Context::get('act'));
+                $result->setResult("Failed");
+                $result->setErrno($this->errno);
+                $result->setErrstr($this->errstr);
             }else{
-                $summary['result'] = "Success";
+                $result->setResult("Success");
             }
-            return $summary;
+            return $result;
          }
 
         /**
@@ -976,7 +975,7 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
             $result = $this->__query($query, $connection);
 
             // Notify to complete a query execution
-            $this->dispatcher->dispatch(DBEvents::QUERY_ENDED, $query_info);
+            $this->dispatcher->dispatch(DBEvents::QUERY_ENDED, $this->getQueryEvent());
             $this->actFinish();
 
             // Return result
@@ -1124,7 +1123,7 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
 
         public static function addSubscribers($subscribers) {
             $db = DB::getInstance();
-            foreach($subscribers as $subscriber) {
+            foreach ($subscribers as $subscriber) {
                 $db->dispatcher->addSubscriber($subscriber);
             }
         }
