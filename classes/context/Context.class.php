@@ -541,9 +541,7 @@ class ContextInstance {
      * @return void
      */
     function init() {
-        $this->linkContextToGlobals(
-            $this->getGlobals('lang'),
-            $this->getGlobalCookies());
+        $this->linkContextToGlobals();
 
         $this->initializeRequestArguments();
         $this->initializeAppSettingsAndCurrentSiteInfo();
@@ -736,10 +734,11 @@ class ContextInstance {
      * @param $global_lang
      * @param $global_cookie
      */
-    public function linkContextToGlobals(&$global_lang, &$global_cookie)
+    public function linkContextToGlobals()
     {
-        $this->context->lang = &$global_lang;
-        $this->context->_COOKIE = &$global_cookie;
+        $this->context = &$this->getGlobals('__Context__');
+        $this->context->lang = &$this->getGlobals('lang');
+        $this->context->_COOKIE = &$this->getGlobalCookies();
     }
 
     /**

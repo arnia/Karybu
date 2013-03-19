@@ -32,7 +32,7 @@ class CMSListener implements EventSubscriberInterface
     {
         return array(
             KernelEvents::REQUEST => array(
-                array('doContextGlobalsLink', 34),
+                array('putContextInGlobals', 34),
                 //32 is router listener
                 array('doContextInit', 30),
                 array('doContextCheckSSO', 28),
@@ -66,12 +66,16 @@ class CMSListener implements EventSubscriberInterface
     /**
      * Set context variables in $GLOBALS (to use in display handler)
      */
-    public function doContextGlobalsLink(GetResponseEvent $event)
+    public function putContextInGlobals(GetResponseEvent $event)
     {
-        $request = $event->getRequest();
-        $this->cmsContext->context = &$GLOBALS['__Context__'];
+        // 1. Put context in GLOBALS
+        $this->cmsContext->linkContextToGlobals();
+
+        // 2. Initialize Context instance for legacy XE static calls
         \Context::setRequestContext($this->cmsContext);
 
+        // 3. Put ContextInstance in Request - //TODO Don't really know why..
+        $request = $event->getRequest();
         // TODO Create a separate list of 'legacy' request attributes: like $request->attributes->legacy->set('oContext',$oContext);
         // Could be done by $request->attributes->set('legacy', new ParametersBag()); or something
         $request->attributes->set('oContext', $this->cmsContext);
