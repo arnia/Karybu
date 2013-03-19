@@ -28,7 +28,7 @@ class DebugListener  implements EventSubscriberInterface{
     {
         return array(
             KernelEvents::REQUEST => array(
-                array('doTriggerDBStatistics', 29)
+                array('doTriggerDBStatistics', 44)
             ));
     }
 
