@@ -541,9 +541,9 @@ class ContextInstance {
      * @return void
      */
     function init() {
-        $this->linkContextToGlobals();
-
-        $this->initializeRequestArguments();
+        // $this->linkContextToGlobals();
+        // $this->initializeRequestArguments();
+        // $this->initializeDatabaseSettings();
         $this->initializeAppSettingsAndCurrentSiteInfo();
         $this->initializeLanguages();
 
@@ -553,7 +553,6 @@ class ContextInstance {
 
         $current_url = $this->getCurrentUrl();
         $this->set('current_url', $current_url);
-
         $this->set('request_uri',Context::getRequestUri());
 	}
 
@@ -808,6 +807,15 @@ class ContextInstance {
         return $global_app_settings;
     }
 
+    public function initializeDatabaseSettings()
+    {
+        if(!$this->isInstalled()) return;
+
+        $custom_global_app_settings = $this->loadDbInfoFromConfigFile();
+        // Set app configuration in db_info for getting current site info, otherwise it won't know db connection info
+        $this->setDBInfo($custom_global_app_settings);
+    }
+
     /**
      * Loads the global app configuration - from the db.config.php file;
      * Initializes other global app settings - like whether to use ssl or not and other
@@ -818,10 +826,7 @@ class ContextInstance {
     public function initializeAppSettingsAndCurrentSiteInfo() {
         if(!$this->isInstalled()) return;
 
-        $custom_global_app_settings = $this->loadDbInfoFromConfigFile();
-        // Set app configuration in db_info for getting current site info, otherwise it won't know db connection info
-        $this->setDBInfo($custom_global_app_settings);
-
+        $custom_global_app_settings = $this->getDBInfo();
         $current_site_info = $this->getCurrentSiteInfo($custom_global_app_settings->default_url);
 
         $global_app_settings = $this->getGlobalAppSettings($custom_global_app_settings, $current_site_info);

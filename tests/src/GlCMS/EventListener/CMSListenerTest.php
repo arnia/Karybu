@@ -16,7 +16,7 @@ class CMSListenerTest extends PHPUnit_Framework_TestCase
         $events = $listener->getSubscribedEvents();
 
         $request_events = array_keys($events[\Symfony\Component\HttpKernel\KernelEvents::REQUEST]);
-        $this->assertTrue(in_array('putContextInGlobals', $request_events));
+        $this->assertTrue(in_array('setupLegacyDependencies', $request_events));
 
         // 2. Check that values are persisted
         // Arrange
@@ -29,7 +29,7 @@ class CMSListenerTest extends PHPUnit_Framework_TestCase
         global $__Context__;
 
         // Act
-        $listener->putContextInGlobals($event);
+        $listener->setupLegacyDependencies($event);
 
         // 3.1. Assert "context" is persisted in globals
         $context->set('name', 'Joe');
