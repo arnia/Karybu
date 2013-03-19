@@ -1,5 +1,5 @@
 {
-    "hash": "12bc16019c9668792803524083ab8953",
+    "hash": "cc2f2f404b7958a3c77703978287be31",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "041aa3930f8d2b466ae897440ec9471d5159c5bf"
+                "reference": "dd0b216e0229a24178c2f0782f8a7172c7ed1c96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/041aa3930f8d2b466ae897440ec9471d5159c5bf",
-                "reference": "041aa3930f8d2b466ae897440ec9471d5159c5bf",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/dd0b216e0229a24178c2f0782f8a7172c7ed1c96",
+                "reference": "dd0b216e0229a24178c2f0782f8a7172c7ed1c96",
                 "shasum": ""
             },
             "require": {
@@ -42,7 +42,7 @@
                     "Monolog": "src/"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -61,7 +61,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2013-02-26 10:18:11"
+            "time": "2013-03-18 18:06:02"
         },
         {
             "name": "psr/log",
@@ -513,7 +513,7 @@
                     "Symfony\\Component\\Stopwatch\\": ""
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
