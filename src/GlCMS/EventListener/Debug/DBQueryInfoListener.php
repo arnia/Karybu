@@ -15,7 +15,7 @@ class DBQueryInfoListener implements EventSubscriberInterface {
     private $logger;
 
     /** @var Stopwatch */
-    private $stopWatch;
+    private $queryStopwatch;
 
     /**
      * Returns an array of event names this subscriber wants to listen to.
@@ -29,25 +29,42 @@ class DBQueryInfoListener implements EventSubscriberInterface {
             ),
             DBEvents::QUERY_ENDED => array(
                 array('queryEnded', 34),
+            ),
+            DBEvents::EXECUTE_QUERY_STARTED => array(
+                array('executeQueryStarted', 34),
+            ),
+            DBEvents::EXECUTE_QUERY_ENDED => array(
+                array('executeQueryEnded', 34),
             )
         );
     }
 
     public function __construct(LoggerInterface $logger) {
         $this->logger = $logger;
-        $this->stopWatch = new Stopwatch();
+        $this->queryStopwatch = new Stopwatch();
     }
 
     public function queryStarted(QueryEvent $event)
     {
         $this->logQueryName($event);
-        $this->stopWatch->start("query");
+        $this->queryStopwatch->start("query");
     }
 
     public function queryEnded(QueryEvent $event)
     {
-        $swEvent = $this->stopWatch->stop("query");
+        $swEvent = $this->queryStopwatch->stop("query");
         $this->logSummary($event, $swEvent);
+    }
+
+    public function executeQueryStarted(QueryEvent $event)
+    {
+        $this->queryStopwatch->start("executeQuery");
+    }
+
+    public function executeQueryEnded(QueryEvent $event)
+    {
+        $swEvent = $this->queryStopwatch->stop("executeQuery");
+        $GLOBALS['__dbclass_elapsed_time__'] += $this->durationInSec($swEvent);
     }
 
     // ************* PRIVATE AREA *****************
@@ -75,6 +92,7 @@ class DBQueryInfoListener implements EventSubscriberInterface {
 
         $GLOBALS['__db_queries__'][] = $this->getSummary($event, $swEvent);//$event->getQuery();
         $GLOBALS['__db_elapsed_time__'] += $durationInSec;
+        $GLOBALS['__db_query_duration__'] = $durationInSec;
 
         // if __LOG_SLOW_QUERY__ if defined, check elapsed time and leave query log
         if(__LOG_SLOW_QUERY__ > 0 && $durationInSec > __LOG_SLOW_QUERY__) {
@@ -84,7 +102,7 @@ class DBQueryInfoListener implements EventSubscriberInterface {
                 $buff = '<?php exit();?>'."\n";
             }
 
-            $buff .= sprintf("%s\t%s\n\t%0.6f sec\tquery_id:%s\n\n",
+            $buff .= sprintf("%s\t%s\n\t%0.3f sec\tquery_id:%s\n\n",
                 date("Y-m-d H:i"), $event->getQuery(),
                 $durationInSec, $event->getQueryId());
 

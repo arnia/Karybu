@@ -106,16 +106,6 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
 		 */
         var $query = '';
         var $connection = '';
-		/**
-		 * elapsed time of latest executed query
-		 * @var int
-		 */
-        var $elapsed_time = 0;
-		/**
-		 * elapsed time of latest executed DB class
-		 * @var int
-		 */
-        var $elapsed_dbclass_time = 0;
 
 		/**
 		 * transaction flag
@@ -508,7 +498,7 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
             if($this->isError()) $output = $this->getError();
             else if(!is_a($output, 'Object') && !is_subclass_of($output, 'Object')) $output = new Object();
             $output->add('_query', $this->query);
-            $output->add('_elapsed_time', sprintf("%0.5f", $this->elapsed_time));
+            $output->add('_elapsed_time', sprintf("%0.5f", $GLOBALS['__db_query_duration__']));
 
             return $output;
         }
@@ -1009,8 +999,7 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
 		 */
         function actDBClassStart() {
             $this->setError(0, 'success');
-            $this->act_dbclass_start = getMicroTime();
-            $this->elapsed_dbclass_time = 0;
+            $this->dispatcher->dispatch(DBEvents::EXECUTE_QUERY_STARTED, new QueryEvent());
         }
 
 		/**
@@ -1018,11 +1007,8 @@ if(!defined('__XE_LOADED_DB_CLASS__')){
 		 * @return void
 		 */
         function actDBClassFinish() {
+            $this->dispatcher->dispatch(DBEvents::EXECUTE_QUERY_ENDED, new QueryEvent());
             if(!$this->query) return;
-            $this->act_dbclass_finish = getMicroTime();
-            $elapsed_dbclass_time = $this->act_dbclass_finish - $this->act_dbclass_start;
-            $this->elapsed_dbclass_time = $elapsed_dbclass_time;
-            $GLOBALS['__dbclass_elapsed_time__'] += $elapsed_dbclass_time;
         }
 
 		/**
