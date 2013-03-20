@@ -66,7 +66,8 @@ class CMSContainer
 
         $this->register('listener.router', 'GlCMS\EventListener\RouterListener')->setArguments(array(new Reference('cms.router')));
         $this->register('listener.response', 'Symfony\Component\HttpKernel\EventListener\ResponseListener')->setArguments(array('%charset%'));
-        $this->register('listener.exception', 'GlCMS\EventListener\ExceptionListener');
+        $this->register('listener.exception', 'GlCMS\EventListener\ExceptionListener')
+            ->setArguments(array(new Reference("logger")));
         $this->register('listener.cms', 'GlCMS\EventListener\CMSListener')->setArguments(array(new Reference('cms.context.instance'), new Reference('logger')));
 
         $this->register('listener.debug.toolbar', 'GlCMS\Module\DebugToolbar\EventListener\DebugToolbarListener')
