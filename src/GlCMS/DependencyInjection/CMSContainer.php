@@ -25,18 +25,31 @@ class CMSContainer
     {
         $this->containerBuilder->setParameter('debug', true);
         $this->containerBuilder->setParameter('charset', 'UTF-8');
+        $this->containerBuilder->setParameter('log_slow_query', __LOG_SLOW_QUERY__);
+        $this->containerBuilder->setParameter('log_slow_query_min_duration', __LOG_SLOW_QUERY__);
+        $this->containerBuilder->setParameter('log_query_errors', __DEBUG_DB_OUTPUT__);
 
         $this->register('logger.handler', 'Monolog\Handler\StreamHandler')
             ->setArguments(array('%kernel.logs_dir%/%kernel.environment%.log', Logger::DEBUG));
-        $this->register('logger.handler.db', 'Monolog\Handler\StreamHandler')
-            ->setArguments(array('%kernel.logs_dir%/db_%kernel.environment%.log', Logger::DEBUG));
+        $this->register('logger.handler.db_info', 'Monolog\Handler\StreamHandler')
+            ->setArguments(array('%kernel.logs_dir%/db_info_%kernel.environment%.log', Logger::DEBUG));
+        $this->register('logger.handler.db_slow_query', 'Monolog\Handler\StreamHandler')
+            ->setArguments(array('%kernel.logs_dir%/db_slow_query_%kernel.environment%.log', Logger::DEBUG));
+        $this->register('logger.handler.db_errors', 'Monolog\Handler\StreamHandler')
+            ->setArguments(array('%kernel.logs_dir%/db_errors_%kernel.environment%.log', Logger::DEBUG));
 
         $this->register('logger', 'Monolog\Logger')
             ->setArguments(array('cms'))
             ->addMethodCall('pushHandler', array(new Reference('logger.handler')));
-        $this->register('logger.db', 'Monolog\Logger')
+        $this->register('logger.db_info', 'Monolog\Logger')
             ->setArguments(array('db'))
-            ->addMethodCall('pushHandler', array(new Reference('logger.handler.db')));
+            ->addMethodCall('pushHandler', array(new Reference('logger.handler.db_info')));
+        $this->register('logger.db_slow_query', 'Monolog\Logger')
+            ->setArguments(array('db'))
+            ->addMethodCall('pushHandler', array(new Reference('logger.handler.db_slow_query')));
+        $this->register('logger.db_errors', 'Monolog\Logger')
+            ->setArguments(array('db'))
+            ->addMethodCall('pushHandler', array(new Reference('logger.handler.db_errors')));
 
         //$this->register("database", "DB")->addMethodCall("setLogger", array(new Reference("logger")));
 
@@ -55,7 +68,12 @@ class CMSContainer
             ->setArguments(array(new Reference('cms.context.instance'), '%debug%'));
 
         $this->register('listener.db.query_info', 'GlCMS\EventListener\Debug\DBQueryInfoListener')
-            ->setArguments(array(new Reference('logger.db')));
+            ->setArguments(array(new Reference('logger.db_info')));
+        $this->register('listener.db.slow_query', 'GlCMS\EventListener\Debug\SlowQueryListener')
+            ->setArguments(array('%log_slow_query_min_duration%', new Reference('logger.db_slow_query')));
+        $this->register('listener.db.errors', 'GlCMS\EventListener\Debug\QueryErrorListener')
+            ->setArguments(array(new Reference('logger.db_errors')));
+
         // listener around Response, used to aggregate summary statistics
         $this->register('listener.response.summary',
             'GlCMS\EventListener\Debug\ResponseSummaryInfoListener');
@@ -67,7 +85,9 @@ class CMSContainer
             ->addMethodCall('addSubscriber', array(new Reference('listener.response')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.response.summary')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.exception')))
-            ->addMethodCall('addSubscriber', array(new Reference("listener.db.query_info")));
+            ->addMethodCall('addSubscriber', array(new Reference("listener.db.query_info")))
+            ->addMethodCall('addSubscriber', array(new Reference("listener.db.slow_query")))
+            ->addMethodCall('addSubscriber', array(new Reference("listener.db.errors")));
 
         $this->register('resolver', 'GlCMS\HttpKernel\Controller\ControllerResolver');
         $this->register('http_kernel', 'GlCMS\HttpKernel\HttpKernel')->setArguments(array(new Reference('dispatcher'), new Reference('resolver')));

@@ -3,6 +3,8 @@
 namespace GlCMS\Event;
 
 use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Component\Stopwatch\StopwatchEvent;
 
 class QueryEvent extends Event {
 
@@ -15,10 +17,38 @@ class QueryEvent extends Event {
     private $result;
     private $errno;
     private $errstr;
+    private $elapsed_time;
 
-    public function __construct()
+    /** @var Stopwatch */
+    private $stopwatch;
+
+    public function __construct($sql_query_text = null)
+    {
+        $this->query = $sql_query_text;
+        $this->stopwatch = new Stopwatch();
+    }
+
+    public function startTiming()
     {
         $this->time = date('Y-m-d H:i:s');
+        $this->stopwatch->start("query");
+    }
+
+    public function stopTiming()
+    {
+        $duration = $this->stopwatch->stop("query");
+        $this->elapsed_time = $this->durationInSec($duration);
+    }
+
+    /**
+     * Gets a StopwatchEvent duration in seconds
+     *
+     * @param StopwatchEvent $swEvent
+     * @return int
+     */
+    private function durationInSec(StopwatchEvent $swEvent){
+        $periods = $swEvent->getPeriods();
+        return end($periods)->getDuration()/1000;
     }
 
     public function setAct($act)
@@ -107,5 +137,42 @@ class QueryEvent extends Event {
 
     public function getQuery() {
         return $this->query;
+    }
+
+    public function getElapsedTime() {
+        return $this->elapsed_time;
+    }
+
+    public function toArray()
+    {
+        if($this->getResult() == 'Failed') {
+            return array(
+                "query_id" => $this->getQueryId(),
+                "sql_text" => $this->getQuery() . PHP_EOL,
+                "error_no" => $this->getErrno(),
+                "error_message" => $this->getErrstr() . PHP_EOL,
+                "module" => $this->getModule(),
+                "act" => $this->getAct(),
+                "connection" => $this->getConnection() . PHP_EOL,
+                "time" => $this->getTime(),
+                "elapsed_time" => $this->getElapsedTime()
+            );
+        }
+
+        return array(
+            $this->getQueryId(),
+            $this->getQuery(),
+            $this->getConnection(),
+            $this->getTime(),
+            $this->getElapsedTime()
+        );
+    }
+
+    public function __toString()
+    {
+        return sprintf("[%0.5f] %s ",
+            $this->elapsed_time,
+            $this->query
+        );
     }
 }

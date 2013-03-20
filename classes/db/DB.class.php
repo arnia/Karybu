@@ -108,6 +108,13 @@ class DB {
     var $connection = '';
 
     /**
+     * Query info of the last query executed
+     *
+     * @var QueryEvent
+     */
+    private $query_event;
+
+    /**
      * transaction flag
      * @var boolean
      */
@@ -313,9 +320,9 @@ class DB {
         $this->setError(0, 'success');
         $this->query = $query;
 
-        $query_info = new QueryEvent();
-        $query_info->setQuery($query);
-        self::$dispatcher->dispatch(DBEvents::QUERY_STARTED, $query_info);
+        $this->query_event = new QueryEvent($query);
+        $this->query_event->startTiming();
+        self::$dispatcher->dispatch(DBEvents::QUERY_STARTED, $this->query_event);
     }
 
     /**
@@ -323,26 +330,23 @@ class DB {
      * @return void
      */
     function actFinish() {
-        self::$dispatcher->dispatch(DBEvents::QUERY_ENDED, $this->getQueryEvent());
-    }
+        $this->query_event->stopTiming();
 
-    private function getQueryEvent(){
-        $result = new QueryEvent();
-        $result->setQuery($this->query);
-        $result->setConnection($this->connection);
-        $result->setQueryId($this->query_id);
+        $this->query_event->setConnection($this->connection);
+        $this->query_event->setQueryId($this->query_id);
         if ($this->isError()) {
             $site_module_info = Context::get('site_module_info');
-            $result->setModule($site_module_info->module);
-            $result->setAct(Context::get('act'));
-            $result->setResult("Failed");
-            $result->setErrno($this->errno);
-            $result->setErrstr($this->errstr);
+            $this->query_event->setModule($site_module_info->module);
+            $this->query_event->setAct(Context::get('act'));
+            $this->query_event->setResult("Failed");
+            $this->query_event->setErrno($this->errno);
+            $this->query_event->setErrstr($this->errstr);
         }else{
-            $result->setResult("Success");
+            $this->query_event->setResult("Success");
         }
-        return $result;
-     }
+
+        self::$dispatcher->dispatch(DBEvents::QUERY_ENDED, $this->query_event);
+    }
 
     /**
      * set error
@@ -497,7 +501,7 @@ class DB {
         if($this->isError()) $output = $this->getError();
         else if(!is_a($output, 'Object') && !is_subclass_of($output, 'Object')) $output = new Object();
         $output->add('_query', $this->query);
-        $output->add('_elapsed_time', sprintf("%0.5f", $GLOBALS['__db_query_duration__']));
+        $output->add('_elapsed_time', sprintf("%0.5f", $this->query_event->getElapsedTime()));
 
         return $output;
     }
@@ -998,7 +1002,7 @@ class DB {
      */
     function actDBClassStart() {
         $this->setError(0, 'success');
-        self::$dispatcher->dispatch(DBEvents::EXECUTE_QUERY_STARTED, new QueryEvent());
+        self::$dispatcher->dispatch(DBEvents::EXECUTE_QUERY_STARTED, new QueryEvent($this->query));
     }
 
     /**
@@ -1006,7 +1010,7 @@ class DB {
      * @return void
      */
     function actDBClassFinish() {
-        self::$dispatcher->dispatch(DBEvents::EXECUTE_QUERY_ENDED, new QueryEvent());
+        self::$dispatcher->dispatch(DBEvents::EXECUTE_QUERY_ENDED, new QueryEvent($this->query));
         if(!$this->query) return;
     }
 
