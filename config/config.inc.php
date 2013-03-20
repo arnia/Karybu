@@ -145,11 +145,11 @@ if(!defined('__LOG_SLOW_QUERY__'))
      *
      * <pre>
      * 0: Do not leave a log
-     * = 0: leave a log when the slow query takes over specified seconds
+     * != 0: leave a log when the slow query takes over specified seconds
      * Log file is saved as ./files/_db_slow_query.php file
      * </pre>
      */
-    define('__LOG_SLOW_QUERY__', 0.0000001);
+    define('__LOG_SLOW_QUERY__', 0);
 }
 
 if(!defined('__DEBUG_QUERY__'))
