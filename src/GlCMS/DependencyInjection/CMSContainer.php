@@ -49,18 +49,22 @@ class CMSContainer
         $this->register('listener.response', 'Symfony\Component\HttpKernel\EventListener\ResponseListener')->setArguments(array('%charset%'));
         $this->register('listener.exception', 'GlCMS\EventListener\ExceptionListener');
         $this->register('listener.cms', 'GlCMS\EventListener\CMSListener')->setArguments(array(new Reference('cms.context.instance'), new Reference('logger')));
-
+        // listener around DB query
         $this->register('listener.db.query_info', 'GlCMS\EventListener\Debug\DBQueryInfoListener')
             ->setArguments(array(new Reference('logger.db')));
-
+        // listener for debugging purposes, around Request
         $this->register('listener.debug', 'GlCMS\EventListener\DebugListener')
             ->addMethodCall('addDBListener', array(new Reference("listener.db.query_info")));
+        // listener around Response, used to aggregate summary statistics
+        $this->register('listener.response.summary',
+            'GlCMS\EventListener\Debug\ResponseSummaryInfoListener');
 
         $this->register('dispatcher', 'Symfony\Component\EventDispatcher\EventDispatcher')
             ->addMethodCall('addSubscriber', array(new Reference('listener.router')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.debug')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.cms')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.response')))
+            ->addMethodCall('addSubscriber', array(new Reference('listener.response.summary')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.exception')));
 
         $this->register('resolver', 'GlCMS\HttpKernel\Controller\ControllerResolver');
