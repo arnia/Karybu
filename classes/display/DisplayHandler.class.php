@@ -214,7 +214,7 @@
                     $buff .= sprintf("\tTemplate compile elapsed time\t: %0.5f sec (%d called)\n", $GLOBALS['__template_elapsed__'], $GLOBALS['__TemplateHandlerCalled__']);
                     $buff .= sprintf("\tXmlParse compile elapsed time\t: %0.5f sec\n", $GLOBALS['__xmlparse_elapsed__']);
                     $buff .= sprintf("\tPHP elapsed time \t\t: %0.5f sec\n", $end-__StartTime__-$GLOBALS['__template_elapsed__']-$GLOBALS['__xmlparse_elapsed__']-$GLOBALS['__db_elapsed_time__']-$GLOBALS['__elapsed_class_load__']);
-		    $buff .= sprintf("\tDB class elapsed time \t\t: %0.5f sec\n", $GLOBALS['__dbclass_elapsed_time__'] -$GLOBALS['__db_elapsed_time__']);
+		            $buff .= sprintf("\tDB class elapsed time \t\t: %0.3f sec\n", $GLOBALS['__dbclass_elapsed_time__'] -$GLOBALS['__db_elapsed_time__']);
                     // widget execution time
                     $buff .= sprintf("\n\tWidgets elapsed time \t\t: %0.5f sec", $GLOBALS['__widget_excute_elapsed__']);
                     // layout execution time
@@ -229,11 +229,11 @@
                     }
 
                     if($GLOBALS['__db_queries__']) {
-                        $buff .= sprintf("\n- DB Queries : %d Queries. %0.5f sec\n", count($GLOBALS['__db_queries__']), $GLOBALS['__db_elapsed_time__']);
+                        $buff .= sprintf("\n- DB Queries : %d Queries. %0.3f sec\n", count($GLOBALS['__db_queries__']), $GLOBALS['__db_elapsed_time__']);
                         $num = 0;
 
                         foreach($GLOBALS['__db_queries__'] as $query) {
-                            $buff .= sprintf("\t%02d. %s\n\t\t%0.6f sec. ", ++$num, $query['query'], $query['elapsed_time']);
+                            $buff .= sprintf("\t%02d. %s\n\t\t%0.3f sec. ", ++$num, $query['query'], $query['elapsed_time']);
                             if($query['result'] == 'Success') {
                                 $buff .= "Query Success\n";
                             } else {
