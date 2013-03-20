@@ -314,7 +314,7 @@ class TemplateHandler {
                 $mesasge .= '<p>You can take a look at the compiled template file at: '
                     . $this->compiled_file . '</p>';
                 $error = error_get_last();
-                $mesasge .= '<p>Error found: ' . print_r($error['message'], true) .'</p>';
+                $mesasge .= '<p>Error found: ' . $error['message'] .'</p>';
                 $mesasge .= '<p>PHP Error: ' . print_r($error, true) .'</p>';
 
                 return $mesasge;
