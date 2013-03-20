@@ -7,6 +7,15 @@ use Psr\Log\LoggerInterface;
 use GlCMS\Event\DBEvents;
 use GlCMS\Event\QueryEvent;
 
+/**
+ * Class QueryErrorListener
+ *
+ * Logs query errors for easier debugging
+ * Provides info about the module and act that caused the problem,
+ *  error message and number
+ *
+ * @package GlCMS\EventListener\Debug
+ */
 class QueryErrorListener implements EventSubscriberInterface
 {
 

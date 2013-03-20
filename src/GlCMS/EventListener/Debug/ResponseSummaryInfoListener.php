@@ -10,31 +10,96 @@
 namespace GlCMS\EventListener\Debug;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use GlCMS\Event\DBEvents;
+use GlCMS\Event\QueryEvent;
+use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Component\Stopwatch\StopwatchEvent;
+use Psr\Log\LoggerInterface;
 use \FirePHP;
 use \Context;
 
-
+/**
+ * Class ResponseSummaryInfoListener
+ *
+ * Logs aggregate info regarding duration of QUB's main events
+ *  - template compiling
+ *  - xml query loading and execution
+ *  - widget compiling
+ * and others.
+ *
+ * Also provides generic request and reponse info.
+ *
+ * // TODO Finish cleaning up this class
+ *
+ * @package GlCMS\EventListener\Debug
+ */
 class ResponseSummaryInfoListener  implements EventSubscriberInterface {
+
+    /** @var LoggerInterface */
+    private $logger;
+
+    /** @var Stopwatch */
+    private $queryStopwatch;
+
+    /**
+     * @var int Sum of the duration of all calls to execute_query
+     *
+     * Includes xml file compilation, loading of the parsed php file and all
+     * legacy: __dbclass_elapsed_time__
+     * */
+    private $total_execute_query_duration = 0;
 
     private $responseLength = 0;
 
     public static function getSubscribedEvents()
     {
         return array(
-            KernelEvents::RESPONSE => array(
+            DBEvents::EXECUTE_QUERY_STARTED => array(array('executeQueryStarted', 34)),
+            DBEvents::EXECUTE_QUERY_ENDED => array(array('executeQueryEnded', 34)),
+            KernelEvents::TERMINATE => array(
                 array('doTriggerResponseStatistics', 0)
             ));
     }
 
-    public function doTriggerResponseStatistics(FilterResponseEvent $event){
+    /**
+     * @param LoggerInterface $logger
+     */
+    public function __construct(LoggerInterface $logger) {
+        $this->logger = $logger;
+        $this->queryStopwatch = new Stopwatch();
+    }
+
+    public function executeQueryStarted(QueryEvent $event)
+    {
+        $this->queryStopwatch->start("executeQuery");
+    }
+
+    public function executeQueryEnded(QueryEvent $event)
+    {
+        $swEvent = $this->queryStopwatch->stop("executeQuery");
+        $this->total_execute_query_duration += $this->durationInSec($swEvent);
+    }
+
+    /**
+     * Gets a StopwatchEvent duration in seconds
+     *
+     * @param StopwatchEvent $swEvent
+     * @return int
+     */
+    private function durationInSec(StopwatchEvent $swEvent){
+        $periods = $swEvent->getPeriods();
+        return end($periods)->getDuration()/1000;
+    }
+
+    public function doTriggerResponseStatistics(PostResponseEvent $event){
         $this->_debugOutput($this->getContentLength($event));
     }
 
     // ************** PRIVATE AREA ****************
 
-    private function getContentLength(FilterResponseEvent $event){
+    private function getContentLength(PostResponseEvent $event){
         if ($event == null)
             return 0;
         $contentLength = $event->getResponse()->headers->get('Content-Length');
@@ -55,137 +120,35 @@ class ResponseSummaryInfoListener  implements EventSubscriberInterface {
      * @return string
      */
     private function _debugOutput($contentLength) {
-        if(!__DEBUG__) return;
         $buff = '';
         $end = getMicroTime();
-        // Firebug console output
-        if(__DEBUG_OUTPUT__ == 2 && version_compare(PHP_VERSION, '6.0.0') === -1) {
-            static $firephp;
-            if(!isset($firephp)) $firephp = FirePHP::getInstance(true);
 
-            if(__DEBUG_PROTECT__ == 1 && __DEBUG_PROTECT_IP__ != $_SERVER['REMOTE_ADDR']) {
-                $firephp->fb('Change the value of __DEBUG_PROTECT_IP__ into your IP address in config/config.user.inc.php or config/config.inc.php', 'The IP address is not allowed.');
-                return;
-            }
-            // display total execution time and Request/Response info
-            if(__DEBUG__ & 2) {
-                $firephp->fb(
-                    array('Request / Response info >>> '.$_SERVER['REQUEST_METHOD'].' / '.Context::getResponseMethod(),
-                        array(
-                            array('Request URI', 'Request method', 'Response method', 'Response contents size'),
-                            array(
-                                sprintf("%s:%s%s%s%s", $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], $_SERVER['PHP_SELF'], $_SERVER['QUERY_STRING']?'?':'', $_SERVER['QUERY_STRING']),
-                                $_SERVER['REQUEST_METHOD'],
-                                Context::getResponseMethod(),
-                                $contentLength.' byte'
-                            )
-                        )
-                    ),
-                    'TABLE'
-                );
-                $firephp->fb(
-                    array('Elapsed time >>> Total : '.sprintf('%0.5f sec', $end - __StartTime__),
-                        array(array('DB queries', 'class file load', 'Template compile', 'XmlParse compile', 'PHP', 'Widgets', 'Trans Content'),
-                            array(
-                                sprintf('%0.5f sec', $GLOBALS['__db_elapsed_time__']),
-                                sprintf('%0.5f sec', $GLOBALS['__elapsed_class_load__']),
-                                sprintf('%0.5f sec (%d called)', $GLOBALS['__template_elapsed__'], $GLOBALS['__TemplateHandlerCalled__']),
-                                sprintf('%0.5f sec', $GLOBALS['__xmlparse_elapsed__']),
-                                sprintf('%0.5f sec', $end-__StartTime__-$GLOBALS['__template_elapsed__']-$GLOBALS['__xmlparse_elapsed__']-$GLOBALS['__db_elapsed_time__']-$GLOBALS['__elapsed_class_load__']),
-                                sprintf('%0.5f sec', $GLOBALS['__widget_excute_elapsed__']),
-                                sprintf('%0.5f sec', $GLOBALS['__trans_content_elapsed__'])
-                            )
-                        )
-                    ),
-                    'TABLE'
-                );
-            }
-            // display DB query history
-            if((__DEBUG__ & 4) && $GLOBALS['__db_queries__']) {
-                $queries_output = array(array('Query', 'Elapsed time', 'Result'));
-                foreach($GLOBALS['__db_queries__'] as $query) {
-                    array_push($queries_output, array($query['query'], sprintf('%0.5f', $query['elapsed_time']), $query['result']));
-                }
-                $firephp->fb(
-                    array(
-                        'DB Queries >>> '.count($GLOBALS['__db_queries__']).' Queries, '.sprintf('%0.5f sec', $GLOBALS['__db_elapsed_time__']),
-                        $queries_output
-                    ),
-                    'TABLE'
-                );
-            }
-            // dislpay the file and HTML comments
-        } else {
-            // display total execution time and Request/Response info
-            if(__DEBUG__ & 2) {
-                if(__DEBUG_PROTECT__ == 1 && __DEBUG_PROTECT_IP__ != $_SERVER['REMOTE_ADDR']) {
-                    return;
-                }
-                // Request/Response information
-                $buff .= "\n- Request/ Response info\n";
-                $buff .= sprintf("\tRequest URI \t\t\t: %s:%s%s%s%s\n", $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], $_SERVER['PHP_SELF'], $_SERVER['QUERY_STRING']?'?':'', $_SERVER['QUERY_STRING']);
-                $buff .= sprintf("\tRequest method \t\t\t: %s\n", $_SERVER['REQUEST_METHOD']);
-                $buff .= sprintf("\tResponse method \t\t: %s\n", Context::getResponseMethod());
-                $buff .= sprintf("\tResponse contents size\t\t: %d byte\n", $contentLength);
-                // total execution time
-                $buff .= sprintf("\n- Total elapsed time : %0.5f sec\n", $end-__StartTime__);
-
-                $buff .= sprintf("\tclass file load elapsed time \t: %0.5f sec\n", $GLOBALS['__elapsed_class_load__']);
-                $buff .= sprintf("\tTemplate compile elapsed time\t: %0.5f sec (%d called)\n", $GLOBALS['__template_elapsed__'], $GLOBALS['__TemplateHandlerCalled__']);
-                $buff .= sprintf("\tXmlParse compile elapsed time\t: %0.5f sec\n", $GLOBALS['__xmlparse_elapsed__']);
-                $buff .= sprintf("\tPHP elapsed time \t\t: %0.5f sec\n", $end-__StartTime__-$GLOBALS['__template_elapsed__']-$GLOBALS['__xmlparse_elapsed__']-$GLOBALS['__db_elapsed_time__']-$GLOBALS['__elapsed_class_load__']);
-                $buff .= sprintf("\tDB class elapsed time \t\t: %0.3f sec\n", $GLOBALS['__dbclass_elapsed_time__'] -$GLOBALS['__db_elapsed_time__']);
-                // widget execution time
-                $buff .= sprintf("\n\tWidgets elapsed time \t\t: %0.5f sec", $GLOBALS['__widget_excute_elapsed__']);
-                // layout execution time
-                $buff .= sprintf("\n\tLayout compile elapsed time \t: %0.5f sec", $GLOBALS['__layout_compile_elapsed__']);
-                // Widgets, the editor component replacement time
-                $buff .= sprintf("\n\tTrans Content \t\t\t: %0.5f sec\n", $GLOBALS['__trans_content_elapsed__']);
-            }
-            // DB Logging
-            if(__DEBUG__ & 4) {
-                if(__DEBUG_PROTECT__ == 1 && __DEBUG_PROTECT_IP__ != $_SERVER['REMOTE_ADDR']) {
-                    return;
-                }
-
-                if($GLOBALS['__db_queries__']) {
-                    $buff .= sprintf("\n- DB Queries : %d Queries. %0.3f sec\n", count($GLOBALS['__db_queries__']), $GLOBALS['__db_elapsed_time__']);
-                    $num = 0;
-
-                    foreach($GLOBALS['__db_queries__'] as $query) {
-                        $buff .= sprintf("\t%02d. %s\n\t\t%0.3f sec. ", ++$num, $query['query'], $query['elapsed_time']);
-                        if($query['result'] == 'Success') {
-                            $buff .= "Query Success\n";
-                        } else {
-                            $buff .= sprintf("Query $s : %d\n\t\t\t   %s\n", $query['result'], $query['errno'], $query['errstr']);
-                        }
-                        $buff .= sprintf("\t\tConnection: %s\n", $query['connection']);
-                    }
-                }
-            }
-            // Output in HTML comments
-            if($buff && __DEBUG_OUTPUT__ == 1 && Context::getResponseMethod() == 'HTML') {
-                $buff = sprintf("[%s %s:%d]\n%s\n", date('Y-m-d H:i:s'), $file_name, $line_num, print_r($buff, true));
-
-                if(__DEBUG_PROTECT__ == 1 && __DEBUG_PROTECT_IP__ != $_SERVER['REMOTE_ADDR']) {
-                    $buff = 'The IP address is not allowed. Change the value of __DEBUG_PROTECT_IP__ into your IP address in config/config.user.inc.php or config/config.inc.php';
-                }
-
-                return "<!--\r\n".$buff."\r\n-->";
-            }
-            // Output to a file
-            if($buff && __DEBUG_OUTPUT__ == 0) {
-                $debug_file = _XE_PATH_.'files/_debug_message.php';
-                $buff = sprintf("[%s %s:%d]\n%s\n", date('Y-m-d H:i:s'), $file_name, $line_num, print_r($buff, true));
-
-                $buff = str_repeat('=', 40)."\n".$buff.str_repeat('-', 40);
-                $buff = "\n<?php\n/*".$buff."*/\n?>\n";
-
-                if(@!$fp = fopen($debug_file, 'a')) return;
-                fwrite($fp, $buff);
-                fclose($fp);
-            }
+        // display total execution time and Request/Response info
+        if(__DEBUG_PROTECT__ == 1 && __DEBUG_PROTECT_IP__ != $_SERVER['REMOTE_ADDR']) {
+            return;
         }
-    }
 
+        // Request/Response information
+        $buff .= "\n- Request/ Response info\n";
+        $buff .= sprintf("\tRequest URI \t\t\t: %s:%s%s%s%s\n", $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], $_SERVER['PHP_SELF'], $_SERVER['QUERY_STRING']?'?':'', $_SERVER['QUERY_STRING']);
+        $buff .= sprintf("\tRequest method \t\t\t: %s\n", $_SERVER['REQUEST_METHOD']);
+        $buff .= sprintf("\tResponse method \t\t: %s\n", Context::getResponseMethod());
+        $buff .= sprintf("\tResponse contents size\t\t: %d byte\n", $contentLength);
+        // total execution time
+        $buff .= sprintf("\n- Total elapsed time : %0.5f sec\n", $end-__StartTime__);
+
+        $buff .= sprintf("\tclass file load elapsed time \t: %0.5f sec\n", $GLOBALS['__elapsed_class_load__']);
+        $buff .= sprintf("\tTemplate compile elapsed time\t: %0.5f sec (%d called)\n", $GLOBALS['__template_elapsed__'], $GLOBALS['__TemplateHandlerCalled__']);
+        $buff .= sprintf("\tXmlParse compile elapsed time\t: %0.5f sec\n", $GLOBALS['__xmlparse_elapsed__']);
+        $buff .= sprintf("\tPHP elapsed time \t\t: %0.5f sec\n", $end-__StartTime__-$GLOBALS['__template_elapsed__']-$GLOBALS['__xmlparse_elapsed__']-$GLOBALS['__db_elapsed_time__']-$GLOBALS['__elapsed_class_load__']);
+        $buff .= sprintf("\tDB class elapsed time \t\t: %0.3f sec\n", $GLOBALS['__dbclass_elapsed_time__'] -$GLOBALS['__db_elapsed_time__']);
+        // widget execution time
+        $buff .= sprintf("\n\tWidgets elapsed time \t\t: %0.5f sec", $GLOBALS['__widget_excute_elapsed__']);
+        // layout execution time
+        $buff .= sprintf("\n\tLayout compile elapsed time \t: %0.5f sec", $GLOBALS['__layout_compile_elapsed__']);
+        // Widgets, the editor component replacement time
+        $buff .= sprintf("\n\tTrans Content \t\t\t: %0.5f sec\n", $GLOBALS['__trans_content_elapsed__']);
+
+        $this->logger->debug($buff);
+    }
 }

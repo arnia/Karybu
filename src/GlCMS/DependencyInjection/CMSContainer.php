@@ -28,7 +28,12 @@ class CMSContainer
         $this->containerBuilder->setParameter('log_slow_query', __LOG_SLOW_QUERY__);
         $this->containerBuilder->setParameter('log_slow_query_min_duration', __LOG_SLOW_QUERY__);
         $this->containerBuilder->setParameter('log_query_errors', __DEBUG_DB_OUTPUT__);
+        $this->containerBuilder->setParameter('show_request_response_info', __DEBUG__ & 2);
+        $this->containerBuilder->setParameter('show_db_queries_info', __DEBUG__ & 4);
+        $this->containerBuilder->setParameter('log_info_in_firebug_console', __DEBUG_OUTPUT__ == 2);
 
+
+        // TODO Enable and disable logging based on the parameters above - maybe load a different container?
         $this->register('logger.handler', 'Monolog\Handler\StreamHandler')
             ->setArguments(array('%kernel.logs_dir%/%kernel.environment%.log', Logger::DEBUG));
         $this->register('logger.handler.db_info', 'Monolog\Handler\StreamHandler')
@@ -75,8 +80,8 @@ class CMSContainer
             ->setArguments(array(new Reference('logger.db_errors')));
 
         // listener around Response, used to aggregate summary statistics
-        $this->register('listener.response.summary',
-            'GlCMS\EventListener\Debug\ResponseSummaryInfoListener');
+        $this->register('listener.response.summary', 'GlCMS\EventListener\Debug\ResponseSummaryInfoListener')
+            ->setArguments(array(new Reference('logger')));
 
         $this->register('dispatcher', 'Symfony\Component\EventDispatcher\EventDispatcher')
             ->addMethodCall('addSubscriber', array(new Reference('listener.router')))

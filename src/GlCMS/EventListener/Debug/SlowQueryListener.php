@@ -10,7 +10,7 @@ use GlCMS\Event\QueryEvent;
 /**
  * Class SlowQueryListener
  *
- * Listens for query duration and logs any query that takes longer than a minimum duration
+ * Checks each query's duration and logs any query that takes longer than a minimum duration
  * given in constructor
  *
  * @package GlCMS\EventListener\Debug
