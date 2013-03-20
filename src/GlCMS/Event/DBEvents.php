@@ -4,8 +4,8 @@ namespace GlCMS\Event;
 
 final class DBEvents
 {
-    const QUERY_STARTED = 1;
-    const QUERY_ENDED = 2;
-    const EXECUTE_QUERY_STARTED = 4;
-    const EXECUTE_QUERY_ENDED = 8;
+    const QUERY_STARTED = 'cms.db.query.start';
+    const QUERY_ENDED = 'cms.db.query.end';
+    const EXECUTE_QUERY_STARTED = 'cms.db.executequery.start';
+    const EXECUTE_QUERY_ENDED = 'cms.db.executequery.end';
 }
