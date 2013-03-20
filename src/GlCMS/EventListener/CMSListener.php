@@ -77,6 +77,7 @@ class CMSListener implements EventSubscriberInterface
      */
     public function setupLegacyDependencies(GetResponseEvent $event)
     {
+        \DB::setDispatcher($event->getDispatcher());
         // 1. Initialize Context instance and Mobile instance for legacy XE static calls
         \Context::setRequestContext($this->cmsContext);
         $mobile = new \MobileInstance();

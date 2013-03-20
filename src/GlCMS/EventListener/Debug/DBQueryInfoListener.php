@@ -24,18 +24,10 @@ class DBQueryInfoListener implements EventSubscriberInterface {
     public static function getSubscribedEvents()
     {
         return array(
-            DBEvents::QUERY_STARTED => array(
-                array('queryStarted', 34),
-            ),
-            DBEvents::QUERY_ENDED => array(
-                array('queryEnded', 34),
-            ),
-            DBEvents::EXECUTE_QUERY_STARTED => array(
-                array('executeQueryStarted', 34),
-            ),
-            DBEvents::EXECUTE_QUERY_ENDED => array(
-                array('executeQueryEnded', 34),
-            )
+            DBEvents::QUERY_STARTED => array(array('queryStarted', 34)),
+            DBEvents::QUERY_ENDED => array(array('queryEnded', 34)),
+            DBEvents::EXECUTE_QUERY_STARTED => array(array('executeQueryStarted', 34)),
+            DBEvents::EXECUTE_QUERY_ENDED => array(array('executeQueryEnded', 34))
         );
     }
 

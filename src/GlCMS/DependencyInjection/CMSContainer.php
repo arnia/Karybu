@@ -44,35 +44,33 @@ class CMSContainer
         $this->register('cms.router.loader', 'GlCMS\Routing\Loader\YamlFileLoader')->setArguments(array(new Reference('cms.config.locator')));
         $this->register('context', 'Symfony\Component\Routing\RequestContext');
         $this->register('cms.router', 'GlCMS\Routing\Router')->setArguments(array(new Reference('cms.router.loader'), new Reference('context'), null, '%debug%'));
+        $this->register('cms.context.instance', 'ContextInstance')->setArguments(array(null, null, null, new Reference('cms.router')));
 
         $this->register('listener.router', 'GlCMS\EventListener\RouterListener')->setArguments(array(new Reference('cms.router')));
         $this->register('listener.response', 'Symfony\Component\HttpKernel\EventListener\ResponseListener')->setArguments(array('%charset%'));
         $this->register('listener.exception', 'GlCMS\EventListener\ExceptionListener');
         $this->register('listener.cms', 'GlCMS\EventListener\CMSListener')->setArguments(array(new Reference('cms.context.instance'), new Reference('logger')));
-        // listener around DB query
+
+        $this->register('listener.debug.toolbar', 'GlCMS\Module\DebugToolbar\EventListener\DebugToolbarListener')
+            ->setArguments(array(new Reference('cms.context.instance'), '%debug%'));
+
         $this->register('listener.db.query_info', 'GlCMS\EventListener\Debug\DBQueryInfoListener')
             ->setArguments(array(new Reference('logger.db')));
-        // listener for debugging purposes, around Request
-        $this->register('listener.debug', 'GlCMS\EventListener\DebugListener')
-            ->addMethodCall('addDBListener', array(new Reference("listener.db.query_info")));
         // listener around Response, used to aggregate summary statistics
         $this->register('listener.response.summary',
             'GlCMS\EventListener\Debug\ResponseSummaryInfoListener');
 
         $this->register('dispatcher', 'Symfony\Component\EventDispatcher\EventDispatcher')
             ->addMethodCall('addSubscriber', array(new Reference('listener.router')))
-            ->addMethodCall('addSubscriber', array(new Reference('listener.debug')))
+            ->addMethodCall('addSubscriber', array(new Reference('listener.debug.toolbar')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.cms')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.response')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.response.summary')))
-            ->addMethodCall('addSubscriber', array(new Reference('listener.exception')));
+            ->addMethodCall('addSubscriber', array(new Reference('listener.exception')))
+            ->addMethodCall('addSubscriber', array(new Reference("listener.db.query_info")));
 
         $this->register('resolver', 'GlCMS\HttpKernel\Controller\ControllerResolver');
         $this->register('http_kernel', 'GlCMS\HttpKernel\HttpKernel')->setArguments(array(new Reference('dispatcher'), new Reference('resolver')));
-        $this->register('cms.context.instance', 'ContextInstance')->setArguments(array(null, null, null, new Reference('cms.router')));
-
-
-
     }
 
     // mirrors
