@@ -1005,6 +1005,7 @@ class ModuleHandler
 
     public static function printInvalidRequest()
     {
-        self::$module_handler->printInvalidRequestHtmlPage();
+        $module_handler = new ModuleHandlerInstance();
+        $module_handler->printInvalidRequestHtmlPage();
     }
 }
