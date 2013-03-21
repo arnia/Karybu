@@ -87,7 +87,7 @@ if(!defined('__DEBUG__'))
      * 4: output DB query history
      * </pre>
      */
-    define('__DEBUG__', 0);
+    define('__DEBUG__', 7);
 }
 
 if(!defined('__DEBUG_OUTPUT__'))
@@ -135,7 +135,7 @@ if(!defined('__DEBUG_DB_OUTPUT__'))
      * 1: files/_debug_db_query.php connected to the output
      * </pre>
      */
-    define('__DEBUG_DB_OUTPUT__', 0);
+    define('__DEBUG_DB_OUTPUT__', 1);
 }
 
 if(!defined('__LOG_SLOW_QUERY__'))
@@ -145,7 +145,7 @@ if(!defined('__LOG_SLOW_QUERY__'))
      *
      * <pre>
      * 0: Do not leave a log
-     * = 0: leave a log when the slow query takes over specified seconds
+     * != 0: leave a log when the slow query takes over specified seconds
      * Log file is saved as ./files/_db_slow_query.php file
      * </pre>
      */
@@ -162,7 +162,7 @@ if(!defined('__DEBUG_QUERY__'))
      * 1: Comment the XML Query ID
      * </pre>
      */
-    define('__DEBUG_QUERY__', 0);
+    define('__DEBUG_QUERY__', 1);
 }
 
 if(!defined('__OB_GZHANDLER_ENABLE__'))

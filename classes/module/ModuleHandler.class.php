@@ -605,8 +605,9 @@ class ModuleHandlerInstance extends Handler
         if (!isset($methodList[$this->context->getRequestMethod()])) {
 
             if ($_SESSION['XE_VALIDATOR_RETURN_URL']) {
-                $display_handler = new DisplayHandler();
-                $display_handler->_debugOutput();
+                //_debugOutput refactored as Response listener
+                // $display_handler = new DisplayHandler();
+                // $display_handler->_debugOutput();
 
                 header('location:' . $_SESSION['XE_VALIDATOR_RETURN_URL']);
                 return;
@@ -1000,5 +1001,10 @@ class ModuleHandler
     {
         $module_handler = new ModuleHandlerInstance();
         return $module_handler->getModuleInstanceFromKeyAndAct($key, $act);
+    }
+
+    public static function printInvalidRequest()
+    {
+        self::$module_handler->printInvalidRequestHtmlPage();
     }
 }

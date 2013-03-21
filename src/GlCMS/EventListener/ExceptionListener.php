@@ -11,7 +11,8 @@
 
 namespace GlCMS\EventListener;
 
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -27,12 +28,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class ExceptionListener implements EventSubscriberInterface
 {
-    private $controller;
+    /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    public function __construct($controller=null, LoggerInterface $logger = null)
+    public function __construct(LoggerInterface $logger = null)
     {
-        $this->controller = $controller;
         $this->logger = $logger;
     }
 
@@ -41,6 +41,12 @@ class ExceptionListener implements EventSubscriberInterface
         /**
          * don't handle the exception until we have the forward feature
          */
+        if($this->logger)
+            $this->logger->error($event->getException()->getMessage());
+        // TODO Forward to mseesageView showing a 500 server error response
+        \ModuleHandler::printInvalidRequest();
+        exit;
+
         throw $event->getException();
 
         static $handling;
@@ -57,9 +63,9 @@ class ExceptionListener implements EventSubscriberInterface
         if (null !== $this->logger) {
             $message = sprintf('%s: %s (uncaught exception) at %s line %s', get_class($exception), $exception->getMessage(), $exception->getFile(), $exception->getLine());
             if (!$exception instanceof HttpExceptionInterface || $exception->getStatusCode() >= 500) {
-                $this->logger->crit($message);
+                $this->logger->critical($message);
             } else {
-                $this->logger->err($message);
+                $this->logger->error($message);
             }
         } else {
             error_log(sprintf('Uncaught PHP Exception %s: "%s" at %s line %s', get_class($exception), $exception->getMessage(), $exception->getFile(), $exception->getLine()));
@@ -68,7 +74,8 @@ class ExceptionListener implements EventSubscriberInterface
         $logger = $this->logger instanceof DebugLoggerInterface ? $this->logger : null;
 
         $attributes = array(
-            '_controller' => $this->controller,
+            'module' => 'message',
+            'act' => 'dispMessageException',
             'exception'   => FlattenException::create($exception),
             'logger'      => $logger,
             'format'      => $request->getRequestFormat(),
@@ -88,9 +95,9 @@ class ExceptionListener implements EventSubscriberInterface
             $message = sprintf('Exception thrown when handling an exception (%s: %s)', get_class($e), $e->getMessage());
             if (null !== $this->logger) {
                 if (!$exception instanceof HttpExceptionInterface || $exception->getStatusCode() >= 500) {
-                    $this->logger->crit($message);
+                    $this->logger->critical($message);
                 } else {
-                    $this->logger->err($message);
+                    $this->logger->error($message);
                 }
             } else {
                 error_log($message);

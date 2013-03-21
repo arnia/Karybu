@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -32,7 +32,9 @@ class CMSListener implements EventSubscriberInterface
     {
         return array(
             KernelEvents::REQUEST => array(
-                array('doContextGlobalsLink', 34),
+                array('setupLegacyDependencies', 50),
+                array('initializeContextRequestArguments', 48),
+                array('initializeDatabaseSettings', 46),
                 //32 is router listener
                 array('doContextInit', 30),
                 array('doContextCheckSSO', 28),
@@ -64,17 +66,52 @@ class CMSListener implements EventSubscriberInterface
     }
 
     /**
-     * Set context variables in $GLOBALS (to use in display handler)
+     * Sets up any dependencies needed for the legacy code to work
+     *
+     * For now, takes care of:
+     *  - initializing a ContextInstance for the Context class, to make static calls work
+     *  - putting certain attributes of the ContextInstance class in $_GLOBALS, to make them accesible for the template files
+     *  - putting the ContextInstance instance in the Request, to make
+     *
+     * @param GetResponseEvent $event
      */
-    public function doContextGlobalsLink(GetResponseEvent $event)
+    public function setupLegacyDependencies(GetResponseEvent $event)
     {
-        $request = $event->getRequest();
-        $this->cmsContext->context = &$GLOBALS['__Context__'];
+        \DB::setDispatcher($event->getDispatcher());
+        // 1. Initialize Context instance and Mobile instance for legacy XE static calls
         \Context::setRequestContext($this->cmsContext);
+        $mobile = new \MobileInstance();
+        \Mobile::setRequestMobileInfo($mobile);
 
-        // TODO Create a seprate list of 'legacy' request attributes: like $request->attributes->legacy->set('oContext',$oContext);
+        // 2. Put context in GLOBALS - needed for template files
+        $this->cmsContext->linkContextToGlobals();
+
+        // 3. Put ContextInstance in Request - so that other listeners could setup context variables
+        // TODO Refactor and remove this
+        $request = $event->getRequest();
+        // TODO Create a separate list of 'legacy' request attributes: like $request->attributes->legacy->set('oContext',$oContext);
         // Could be done by $request->attributes->set('legacy', new ParametersBag()); or something
         $request->attributes->set('oContext', $this->cmsContext);
+    }
+
+    /**
+     * Saves $_GET and $_POST values in Context
+     *
+     * @param GetResponseEvent $event
+     */
+    public function initializeContextRequestArguments(GetResponseEvent $event)
+    {
+        $this->cmsContext->initializeRequestArguments();
+    }
+
+    /**
+     * Loads database settings from db.config.php
+     *
+     * @param GetResponseEvent $event
+     */
+    public function initializeDatabaseSettings(GetResponseEvent $event)
+    {
+        $this->cmsContext->initializeDatabaseSettings();
     }
 
     /**
@@ -82,12 +119,7 @@ class CMSListener implements EventSubscriberInterface
      */
     public function doContextInit(GetResponseEvent $event)
     {
-        /** @var $oContext \Context */
-        $oContext = $event->getRequest()->attributes->get('oContext');
-        $mobile = new \MobileInstance();
-        \Mobile::setRequestMobileInfo($mobile);
-
-        $oContext->init();
+        $this->cmsContext->init();
     }
 
     public function checkModuleHandlerInit(GetResponseEvent $event)

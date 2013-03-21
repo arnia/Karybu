@@ -1,4 +1,6 @@
 <?php
+
+use Psr\Log\LoggerInterface;
 /**
  * Class to use MySQL DBMS
  * mysql handling class
@@ -36,11 +38,15 @@ class DBMysql extends DB {
         'float' => 'float',
     );
 
+    private $logger;
+
     /**
      * Constructor
 	 * @return void
      */
-    function DBMysql() {
+    function DBMysql(LoggerInterface $logger = null) {
+        parent::DB();
+        $this->logger = $logger;
         $this->_setDBInfo();
         $this->_connect();
     }
@@ -49,8 +55,8 @@ class DBMysql extends DB {
 	 * Create an instance of this class
 	 * @return DBMysql return DBMysql object instance
 	 */
-    function create() {
-        return new DBMysql;
+    function create(LoggerInterface $logger = null) {
+        return new DBMysql($logger);
     }
 
 	/**
@@ -70,30 +76,47 @@ class DBMysql extends DB {
 	 * @return resource
 	 */
     function __connect($connection) {
+        if($this->logger) {
+            $this->logger->debug("Attempting to connect to Mysql database ",
+                array(  "host" => $connection["db_hostname"],     "port" => $connection["db_port"],
+                        "name" => $connection["db_database"],     "user" => $connection["db_userid"]));
+        }
+
         // Ignore if no DB information exists
         if (strpos($connection["db_hostname"], ':') === false && $connection["db_port"])
             $connection["db_hostname"] .= ':' . $connection["db_port"];
 
-        // Attempt to connect
-        $result = @mysql_connect($connection["db_hostname"], $connection["db_userid"], $connection["db_password"]);
+        try{
+            // Attempt to connect
+            $result = @mysql_connect($connection["db_hostname"], $connection["db_userid"], $connection["db_password"]);
 
-        if(mysql_error()) {
-            $this->setError(mysql_errno(), mysql_error());
-            return;
-        }
-        // Error appears if the version is lower than 4.1
-        if(mysql_get_server_info($result)<"4.1") {
-            $this->setError(-1, "XE cannot be installed under the version of mysql 4.1. Current mysql version is ".mysql_get_server_info());
-            return;
-        }
-        // select db
-        @mysql_select_db($connection["db_database"], $result);
-        if(mysql_error()) {
-            $this->setError(mysql_errno(), mysql_error());
-            return;
-        }
+            if(mysql_error()) {
+                $this->setError(mysql_errno(), mysql_error());
+                throw new Exception();
+            }
+            // Error appears if the version is lower than 4.1
+            if(mysql_get_server_info($result)<"4.1") {
+                $this->setError(-1, "XE cannot be installed under the version of mysql 4.1. Current mysql version is ".mysql_get_server_info());
+                throw new Exception();
+            }
+            // select db
+            @mysql_select_db($connection["db_database"], $result);
+            if(mysql_error()) {
+                $this->setError(mysql_errno(), mysql_error());
+                throw new Exception();
+            }
 
-        return $result;
+            if($this->logger) {
+                $this->logger->debug("Connection to MySql succeed.");
+            }
+
+            return $result;
+        }catch(Exception $e){
+            if($this->logger) {
+                $this->logger->debug("Connection to MySql failed");
+            }
+            return;
+        }
     }
 
 	/**
