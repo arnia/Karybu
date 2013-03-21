@@ -20,6 +20,8 @@ class DebugToolbarListener implements EventSubscriberInterface
     protected $mode;
     protected $context;
 
+    private $queries;
+
     public function __construct(\ContextInstance $context, $mode = self::ENABLED)
     {
         $this->mode = (integer) $mode;
@@ -30,12 +32,13 @@ class DebugToolbarListener implements EventSubscriberInterface
     {
         return array(
             KernelEvents::RESPONSE => array('onKernelResponse', -128),
-            DBEvents::QUERY_ENDED => array('onQueryEnd', 31)
+            DBEvents::QUERY_ENDED => array('onQueryEnd', 34)
         );
     }
 
     public function onQueryEnd(QueryEvent $event)
     {
+        $this->queries[] = $event;
     }
 
     public function onKernelResponse(FilterResponseEvent $event)
@@ -88,12 +91,11 @@ class DebugToolbarListener implements EventSubscriberInterface
         $content = $response->getContent();
         $pos = $posrFunction($content, '</body>');
         if (false !== $pos) {
-            $this->context->set('queries', array('a', 'b', 'c'));
-
+            $this->context->set('queries', $this->queries);
             $templateHandler = \TemplateHandler::getInstance();
             $toolbar = $templateHandler->compile('./modules/debug_toolbar/tpl', 'toolbar');
-
             $content = $substrFunction($content, 0, $pos).$toolbar.$substrFunction($content, $pos);
+
             $response->setContent($content);
         }
     }
