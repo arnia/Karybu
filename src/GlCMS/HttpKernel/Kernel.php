@@ -4,7 +4,7 @@ namespace GlCMS\HttpKernel;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel as SymfonyKernel;
-use \Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
 use Symfony\Component\DependencyInjection;
@@ -18,7 +18,7 @@ class Kernel extends SymfonyKernel
     public function registerBundles()
     {
         return array(
-            //new \GlCMS\Module\Shop\Shop()
+            new \GlCMS\Module\Debug\DebugModule()
         );
     }
 
@@ -44,7 +44,7 @@ class Kernel extends SymfonyKernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(_XE_PATH_.'/config/config_'.$this->getEnvironment().'.yml');
+        $loader->load(_XE_PATH_.'config/container_'.$this->getEnvironment().'.yml');
     }
 
     /**
@@ -89,11 +89,7 @@ class Kernel extends SymfonyKernel
      */
     public function getName()
     {
-        if (null === $this->name) {
-            //$this->name = preg_replace('/[^a-zA-Z0-9_]+/', '', basename($this->rootDir));
-            $this->name = 'cms';
-        }
-        return $this->name;
+        return 'GlCMS';
     }
 
 }

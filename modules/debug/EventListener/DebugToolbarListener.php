@@ -1,7 +1,7 @@
 <?php
 // florin, 3/19/13, 4:29 PM
 
-namespace GlCMS\Module\DebugToolbar\EventListener;
+namespace GlCMS\Module\Debug\EventListener;
 
 use GlCMS\Event\DBEvents;
 use GlCMS\Event\QueryEvent;
