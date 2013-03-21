@@ -85,6 +85,7 @@ class CMSContainer
             ->setArguments(array('%log_slow_query_min_duration%', new Reference('logger.db_slow_query')));
         $this->register('listener.db.errors', 'GlCMS\EventListener\Debug\QueryErrorListener')
             ->setArguments(array(new Reference('logger.db_errors')));
+        $this->register('listener.error.handler', 'GlCMS\EventListener\CustomErrorHandler');
 
         // listener around Response, used to aggregate summary statistics
         $this->register('listener.response.summary', 'GlCMS\EventListener\Debug\ResponseSummaryInfoListener')
@@ -99,6 +100,7 @@ class CMSContainer
             ->addMethodCall('addSubscriber', array(new Reference('listener.exception')))
             ->addMethodCall('addSubscriber', array(new Reference("listener.db.query_info")))
             ->addMethodCall('addSubscriber', array(new Reference("listener.db.slow_query")))
+            ->addMethodCall('addSubscriber', array(new Reference("listener.error.handler")))
             ->addMethodCall('addSubscriber', array(new Reference("listener.db.errors")));
 
         $this->register('resolver', 'GlCMS\HttpKernel\Controller\ControllerResolver');

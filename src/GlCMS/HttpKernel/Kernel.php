@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\DependencyInjection;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Debug\ErrorHandler;
 
 class Kernel extends SymfonyKernel
 {
@@ -27,7 +28,9 @@ class Kernel extends SymfonyKernel
      */
     public function init()
     {
-        
+        //        if ($this->debug) {
+        //            ErrorHandler::register($this->errorReportingLevel);
+        //        }
     }
 
     /**
