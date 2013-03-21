@@ -8,7 +8,10 @@
     *   is the combination of the variables of oModue and template files/.
     **/
 
-    class DisplayHandler extends Handler {
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
+
+class DisplayHandler extends Handler {
 
         var $content_size = 0; // /< The size of displaying contents
 
@@ -163,6 +166,46 @@
             $this->addHeader("Cache-Control", "post-check=0, pre-check=0", false);
             $this->addHeader("Pragma", "no-cache");
 		}
+
+        /**
+         * Helper function for generating a Response object from a module
+         *
+         * @param ModuleObject $oModule
+         * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+         */
+        function getReponseForModule(ModuleObject $oModule)
+        {
+            $response = new Response();
+
+            // 1. Status code
+            $status_code = $this->getStatusCode($oModule);
+            $response->setStatusCode($status_code[0], $status_code[1]);
+
+            // 2. Headers
+            $headers = $this->getHeaders($oModule);
+            foreach ($headers as $header) {
+                $response->headers->set($header[0], $header[1], $header[2]);
+            }
+
+            // 3. Location header
+            $lookingForLocation = headers_list();
+            foreach ($lookingForLocation as $header) {
+                $hSplit = explode(':', $header, 2);
+                $hTarget = trim($hSplit[1]); $hName = trim($hSplit[0]);
+                if (strtolower($hName) == 'location') {
+                    header_remove('location');
+                    $response = new RedirectResponse($hTarget);
+                }
+            }
+
+            // 4. The content
+            if (!($response instanceof RedirectResponse)) {
+                $content = $this->getContent($oModule);
+                $response->setContent($content);
+            }
+
+            return $response;
+        }
 
     }
 ?>

@@ -1002,10 +1002,4 @@ class ModuleHandler
         $module_handler = new ModuleHandlerInstance();
         return $module_handler->getModuleInstanceFromKeyAndAct($key, $act);
     }
-
-    public static function printInvalidRequest()
-    {
-        $module_handler = new ModuleHandlerInstance();
-        $module_handler->printInvalidRequestHtmlPage();
-    }
 }

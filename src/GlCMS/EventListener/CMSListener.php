@@ -222,34 +222,7 @@ class CMSListener implements EventSubscriberInterface
          * We'll copy from $oDisplayHandler to $response and then set event $response
          */
         $oDisplayHandler = new \DisplayHandler();
-        $response = new Response();
-
-        // 1. Status code
-        $status_code = $oDisplayHandler->getStatusCode($oModule);
-        $response->setStatusCode($status_code[0], $status_code[1]);
-
-        // 2. Headers
-        $headers = $oDisplayHandler->getHeaders($oModule);
-        foreach ($headers as $header) {
-            $response->headers->set($header[0], $header[1], $header[2]);
-        }
-
-        // 3. Location header
-        $lookingForLocation = headers_list();
-        foreach ($lookingForLocation as $header) {
-            $hSplit = explode(':', $header, 2);
-            $hTarget = trim($hSplit[1]); $hName = trim($hSplit[0]);
-            if (strtolower($hName) == 'location') {
-                header_remove('location');
-                $response = new RedirectResponse($hTarget);
-            }
-        }
-
-        // 4. The content
-        if (!($response instanceof RedirectResponse)) {
-            $content = $oDisplayHandler->getContent($oModule);
-            $response->setContent($content);
-        }
+        $response = $oDisplayHandler->getReponseForModule($oModule);
 
         $event->setResponse($response);
     }
