@@ -1,11 +1,41 @@
-<div id="debug-toolbar">
-    <div id="content">
-        <ul cond="!empty($queries)">
-        <!--@foreach ($queries as $query)-->
+<style type="text/css">
+    #debug-toolbar {
+        height: 30%;
+        overflow: scroll;
+        background: black;
+        color: #efefef;
+        padding: 20px;
+    }
+    #debug-toolbar .queries .time {
+        color: coral;
+    }
+    #debug-toolbar .queries li:hover {
+        color: darkorange;
+    }
+</style>
+
+<div id="debug-toolbar" class="navbar-fixed-bottom">
+
+    <div id="debug-content">
+        <ol cond="!empty($queries)" class="queries">
+            <!--@foreach ($queries as $query)-->
             <li>
-                {$query}
+                <span class="time">
+                    {$query->getTime()}
+                </span>
+                {$query->getQuery()}
             </li>
-        <!--@endforeach-->
+            <!--@endforeach-->
+        </ol>
+        <p cond="empty($queries)">No queries?!</p>
+    </div>
+
+    <div class="navbar navbar-fixed-bottom">
+        <ul class="nav nav-pills">
+            <li class="active"><a href="#">Queries</a></li>
+            <li><a href="#">altceva</a></li>
+            <li><a href="#">altceva</a></li>
         </ul>
     </div>
+
 </div>
