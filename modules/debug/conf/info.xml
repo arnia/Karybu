@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+    <title xml:lang="en">Counter</title>
+    <description xml:lang="en">Basic connection statistics program.</description>
+    <version>0.1</version>
+    <date>2013-03-21</date>
+</module>

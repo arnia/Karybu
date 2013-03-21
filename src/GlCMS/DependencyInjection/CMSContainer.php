@@ -76,7 +76,7 @@ class CMSContainer
             ->setArguments(array(new Reference("logger.exceptions")));
         $this->register('listener.cms', 'GlCMS\EventListener\CMSListener')->setArguments(array(new Reference('cms.context.instance'), new Reference('logger')));
 
-        $this->register('listener.debug.toolbar', 'GlCMS\Module\DebugToolbar\EventListener\DebugToolbarListener')
+        $this->register('listener.debug.toolbar', 'GlCMS\Module\Debug\EventListener\DebugToolbarListener')
             ->setArguments(array(new Reference('cms.context.instance'), '%debug%'));
 
         $this->register('listener.db.query_info', 'GlCMS\EventListener\Debug\DBQueryInfoListener')
