@@ -36,6 +36,8 @@ class CMSContainer
         // TODO Enable and disable logging based on the parameters above - maybe load a different container?
         $this->register('logger.handler', 'Monolog\Handler\StreamHandler')
             ->setArguments(array('%kernel.logs_dir%/%kernel.environment%.log', Logger::DEBUG));
+        $this->register('logger.errors', 'Monolog\Handler\StreamHandler')
+            ->setArguments(array('%kernel.logs_dir%/errors_%kernel.environment%.log', Logger::DEBUG));
         $this->register('logger.handler.db_info', 'Monolog\Handler\StreamHandler')
             ->setArguments(array('%kernel.logs_dir%/db_info_%kernel.environment%.log', Logger::DEBUG));
         $this->register('logger.handler.db_slow_query', 'Monolog\Handler\StreamHandler')
@@ -46,6 +48,9 @@ class CMSContainer
         $this->register('logger', 'Monolog\Logger')
             ->setArguments(array('cms'))
             ->addMethodCall('pushHandler', array(new Reference('logger.handler')));
+        $this->register('logger.exceptions', 'Monolog\Logger')
+            ->setArguments(array('cms'))
+            ->addMethodCall('pushHandler', array(new Reference('logger.errors')));
         $this->register('logger.db_info', 'Monolog\Logger')
             ->setArguments(array('db'))
             ->addMethodCall('pushHandler', array(new Reference('logger.handler.db_info')));
@@ -54,7 +59,8 @@ class CMSContainer
             ->addMethodCall('pushHandler', array(new Reference('logger.handler.db_slow_query')));
         $this->register('logger.db_errors', 'Monolog\Logger')
             ->setArguments(array('db'))
-            ->addMethodCall('pushHandler', array(new Reference('logger.handler.db_errors')));
+            ->addMethodCall('pushHandler', array(new Reference('logger.handler.db_errors')))
+            ->addMethodCall('pushHandler', array(new Reference('logger.errors')));
 
         //$this->register("database", "DB")->addMethodCall("setLogger", array(new Reference("logger")));
 
@@ -67,7 +73,7 @@ class CMSContainer
         $this->register('listener.router', 'GlCMS\EventListener\RouterListener')->setArguments(array(new Reference('cms.router')));
         $this->register('listener.response', 'Symfony\Component\HttpKernel\EventListener\ResponseListener')->setArguments(array('%charset%'));
         $this->register('listener.exception', 'GlCMS\EventListener\ExceptionListener')
-            ->setArguments(array(new Reference("logger")));
+            ->setArguments(array(new Reference("logger.exceptions")));
         $this->register('listener.cms', 'GlCMS\EventListener\CMSListener')->setArguments(array(new Reference('cms.context.instance'), new Reference('logger')));
 
         $this->register('listener.debug.toolbar', 'GlCMS\Module\DebugToolbar\EventListener\DebugToolbarListener')

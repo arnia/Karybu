@@ -12,6 +12,14 @@ use Symfony\Component\HttpKernel\Exception\FlattenException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Class ExceptionListener
+ *
+ * Catches all exceptions thrown by app
+ * Returns 500 Server error HTTP Response and logs the exception
+ *
+ * @package GlCMS\EventListener
+ */
 class ExceptionListener implements EventSubscriberInterface
 {
     /** @var \Psr\Log\LoggerInterface */
@@ -25,9 +33,10 @@ class ExceptionListener implements EventSubscriberInterface
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
         $exception = $event->getException();
+        $status_code = $exception instanceof HttpExceptionInterface ? $exception->getStatusCode() : '500';
 
         if($this->logger)
-            $this->logger->error($exception->getMessage());
+            $this->logger->error(sprintf('Uncaught PHP Exception %s: "%s" at %s line %s', get_class($exception), $exception->getMessage(), $exception->getFile(), $exception->getLine()));
 
         // display content with message module instance
         $type = \Mobile::isFromMobilePhone() ? 'mobile' : 'view';
@@ -41,12 +50,10 @@ class ExceptionListener implements EventSubscriberInterface
         }
         $oMessageObject->dispMessage();
 
-        if($exception instanceof HttpExceptionInterface) {
-            $module_handler = $event->getRequest()->attributes->get('oModuleHandler');
-            $module_handler->_setHttpStatusMessage($exception->getStatusCode());
-            $oMessageObject->setHttpStatusCode($exception->getStatusCode());
-            $oMessageObject->setTemplateFile('http_status_code');
-        }
+        $module_handler = $event->getRequest()->attributes->get('oModuleHandler');
+        $module_handler->_setHttpStatusMessage($status_code);
+        $oMessageObject->setHttpStatusCode($status_code);
+        $oMessageObject->setTemplateFile('http_status_code');
 
         $oDisplayHandler = new \DisplayHandler();
         $response = $oDisplayHandler->getReponseForModule($oMessageObject);
