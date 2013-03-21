@@ -4,6 +4,7 @@ namespace GlCMS\EventListener;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
 use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -33,21 +34,24 @@ class ExceptionListener implements EventSubscriberInterface
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
         $exception = $event->getException();
-        $status_code = $exception instanceof HttpExceptionInterface ? $exception->getStatusCode() : '500';
 
         if($this->logger)
             $this->logger->error(sprintf('Uncaught PHP Exception %s: "%s" at %s line %s', get_class($exception), $exception->getMessage(), $exception->getFile(), $exception->getLine()));
 
+        if(__DEBUG__) {
+            $exception_handler = new ExceptionHandler(true);
+            $response = $exception_handler->createResponse($exception);
+            $event->setResponse($response);
+            return;
+        }
+
+        $status_code = $exception instanceof HttpExceptionInterface ? $exception->getStatusCode() : '500';
         // display content with message module instance
         $type = \Mobile::isFromMobilePhone() ? 'mobile' : 'view';
         /** @var $oMessageObject \messageView */
         $oMessageObject = \ModuleHandler::getModuleInstance('message', $type);
         $oMessageObject->setError(-1);
-        if(__DEBUG__) {
-            $oMessageObject->setMessage($exception->getMessage());
-        } else {
-            $oMessageObject->setMessage(null);
-        }
+        $oMessageObject->setMessage(null);
         $oMessageObject->dispMessage();
 
         $module_handler = $event->getRequest()->attributes->get('oModuleHandler');
