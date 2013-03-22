@@ -14,7 +14,9 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Exception\FatalErrorException;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
 
 /**
  * Based on ErrorHandler from Symfony
@@ -52,8 +54,8 @@ class CustomErrorHandler  implements EventSubscriberInterface
     private $template;
 
     public function __construct($level = null, LoggerInterface $logger=null){
-        set_error_handler(array(&$this, "handle"));
-        register_shutdown_function(array(&$this, 'handleFatal'));
+        set_error_handler(array($this, "handle"));
+        register_shutdown_function(array($this, 'handleFatal'));
         $this->logger = $logger;
         $this->setTemplate();
         $this->setLevel($level);
@@ -69,7 +71,7 @@ class CustomErrorHandler  implements EventSubscriberInterface
 
     public function setLevel($level)
     {
-        $this->level = null === $level ? error_reporting() : $level;
+        $this->level = (null === $level ? error_reporting() : $level);
     }
 
     public function setLogger(LoggerInterface $logger)
@@ -81,9 +83,12 @@ class CustomErrorHandler  implements EventSubscriberInterface
         $content = $event->getResponse()->getContent();
         $errorsAsHtml = "";
         foreach($this->errors as $error){
-            $errorInfo =    "Error  : $error->message<br/>".
-                            "File   : $error->file<br/>".
-                            "Line   : $error->line<br/>";
+            $type = $this->levels[$error->level];
+            $errorInfo =
+                "Error  : $error->message<br/>".
+                "Type   : $type<br/>".
+                "File   : $error->file<br/>".
+                "Line   : $error->line<br/>";
             $errorsAsHtml.= sprintf($this->template, $errorInfo);
         }
         $content = str_replace("<body>", "<body>".$errorsAsHtml, $content);
@@ -104,6 +109,7 @@ class CustomErrorHandler  implements EventSubscriberInterface
         $error->context = $context;
 
         if ($level & (E_USER_DEPRECATED | E_DEPRECATED)) {
+        //if ($level & error_reporting()) {
             if (null !== $this->logger) {
                 $stack = version_compare(PHP_VERSION, '5.4', '<') ? array_slice(debug_backtrace(false), 0, 10) : debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 10);
 
@@ -114,14 +120,16 @@ class CustomErrorHandler  implements EventSubscriberInterface
         }
 
         if (error_reporting() & $level && $this->level & $level) {
-            $this->errors = array();
-            throw new \ErrorException(sprintf('%s: %s in %s line %d', isset($this->levels[$level]) ? $this->levels[$level] : $level, $message, $file, $line), 0, $level, $file, $line);
+            if ($level == E_RECOVERABLE_ERROR || $level == E_ERROR){
+                $this->errors = array();
+                throw new \ErrorException(sprintf('%s: %s in %s line %d', isset($this->levels[$level]) ? $this->levels[$level] : $level, $message, $file, $line), 0, $level, $file, $line);
+            }
+            $this->errors[] = $error;
         }
 
-        $this->errors[] = $error;
         return false;
     }
-    
+
     public function handleFatal()
     {
         if (null === $error = error_get_last()) {
@@ -146,12 +154,16 @@ class CustomErrorHandler  implements EventSubscriberInterface
         }
     }
 
+    public function getErrors(){
+        return $this->errors;
+    }
+
     // *************** PRIVATE AREA ***************
 
     private function setTemplate(){
         $this->template =
-                "<div class=\"message error\">\n".
-                    "<p>%s</p>\n".
+            "<div class=\"message error\">\n".
+                "<p>%s</p>\n".
                 "</div>\n";
     }
 

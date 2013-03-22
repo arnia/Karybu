@@ -86,6 +86,7 @@ class CMSContainer
         $this->register('listener.db.errors', 'GlCMS\EventListener\Debug\QueryErrorListener')
             ->setArguments(array(new Reference('logger.db_errors')));
         $this->register('listener.error.handler', 'GlCMS\EventListener\CustomErrorHandler');
+            // ->setArguments(array("E_ALL ^ E_NOTICE", new Reference('logger.db_errors')));
 
         // listener around Response, used to aggregate summary statistics
         $this->register('listener.response.summary', 'GlCMS\EventListener\Debug\ResponseSummaryInfoListener')

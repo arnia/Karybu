@@ -7,6 +7,8 @@
  **/
 
 @error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
+//@error_reporting(-1);
+//@error_reporting(E_DEPRECATED);
 
 if(!defined('__ZBXE__')) exit();
 
