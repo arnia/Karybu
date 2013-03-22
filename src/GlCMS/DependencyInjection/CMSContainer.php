@@ -77,7 +77,9 @@ class CMSContainer
         $this->register('listener.cms', 'GlCMS\EventListener\CMSListener')->setArguments(array(new Reference('cms.context.instance'), new Reference('logger')));
 
         $this->register('listener.debug.toolbar', 'GlCMS\Module\Debug\EventListener\DebugToolbarListener')
-            ->setArguments(array(new Reference('cms.context.instance'), '%debug%'));
+            ->setArguments(array(new Reference('cms.context.instance'), '%debug%'))
+            ->addMethodCall('enableQueriesInfo', array(new Reference("listener.db.query_info")))
+            ->addMethodCall('enableFailedQueriesInfo', array(new Reference("listener.db.errors")));
 
         $this->register('listener.db.query_info', 'GlCMS\EventListener\Debug\DBQueryInfoListener')
             ->setArguments(array(new Reference('logger.db_info')));

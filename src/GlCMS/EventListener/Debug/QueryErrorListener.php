@@ -6,6 +6,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Psr\Log\LoggerInterface;
 use GlCMS\Event\DBEvents;
 use GlCMS\Event\QueryEvent;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 /**
  * Class QueryErrorListener
@@ -21,6 +24,9 @@ class QueryErrorListener implements EventSubscriberInterface
 
     /** @var LoggerInterface */
     private $logger;
+
+    /** @var array */
+    private $failed_queries = array();
 
     /**
      * Returns an array of event names this subscriber wants to listen to.
@@ -50,6 +56,15 @@ class QueryErrorListener implements EventSubscriberInterface
     {
         if ($event->getResult() == 'Failed'){
             $this->logger->debug("Query failed:", $event->toArray());
+            $this->failed_queries[] = $event;
         }
+    }
+
+    /**
+     * Returns a list of information about queries that failed
+     */
+    public function getFailedQueries()
+    {
+        return $this->failed_queries;
     }
 }
