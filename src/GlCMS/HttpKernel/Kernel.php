@@ -79,7 +79,7 @@ class Kernel extends SymfonyKernel
      */
     public function getLogDir()
     {
-        return $this->rootDir.'/files/logs';
+        return $this->rootDir.'files/logs';
     }
 
     /**
