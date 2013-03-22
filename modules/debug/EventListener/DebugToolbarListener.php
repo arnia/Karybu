@@ -5,6 +5,7 @@ namespace GlCMS\Module\Debug\EventListener;
 
 use GlCMS\Event\DBEvents;
 use GlCMS\Event\QueryEvent;
+use GlCMS\EventListener\CustomErrorHandler;
 use GlCMS\EventListener\Debug\DBQueryInfoListener;
 use GlCMS\EventListener\Debug\QueryErrorListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -24,6 +25,7 @@ class DebugToolbarListener implements EventSubscriberInterface
 
     private $queryInfoListener;
     private $queryErrorListener;
+    private $errorListener;
 
     public function __construct(\ContextInstance $context, $mode = self::ENABLED)
     {
@@ -46,6 +48,11 @@ class DebugToolbarListener implements EventSubscriberInterface
     public function enableFailedQueriesInfo(QueryErrorListener $queryErrorListener)
     {
         $this->queryErrorListener = $queryErrorListener;
+    }
+
+    public function enablePHPErrorsInfo(CustomErrorHandler $errorListener)
+    {
+        $this->errorListener = $errorListener;
     }
 
     public function onKernelResponse(FilterResponseEvent $event)
@@ -110,6 +117,11 @@ class DebugToolbarListener implements EventSubscriberInterface
                 $queries = $this->queryErrorListener->getFailedQueries();
                 $this->context->set('failed_queries', $queries);
                 $data['Query errors'] = $this->renderView('failed_queries');
+            }
+            if($this->errorListener) {
+                $errors = $this->errorListener->getErrors();
+                $this->context->set('errors', $errors);
+                $data['PHP Errors'] = $this->renderView('php_errors');
             }
 
             $this->context->set('data', $data);
