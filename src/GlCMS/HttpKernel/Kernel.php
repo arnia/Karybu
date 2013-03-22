@@ -3,6 +3,7 @@
 namespace GlCMS\HttpKernel;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
 use Symfony\Component\HttpKernel\Kernel as SymfonyKernel;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
@@ -10,6 +11,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\DependencyInjection;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Debug\ErrorHandler;
 
 class Kernel extends SymfonyKernel
 {
@@ -27,7 +29,11 @@ class Kernel extends SymfonyKernel
      */
     public function init()
     {
-        
+        if ('cli' !== php_sapi_name()) {
+            ExceptionHandler::register();
+        } else {
+            ini_set('display_errors', 1);
+        }
     }
 
     /**

@@ -5,6 +5,8 @@ namespace GlCMS\Module\Debug\EventListener;
 
 use GlCMS\Event\DBEvents;
 use GlCMS\Event\QueryEvent;
+use GlCMS\EventListener\Debug\DBQueryInfoListener;
+use GlCMS\EventListener\Debug\QueryErrorListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -20,7 +22,8 @@ class DebugToolbarListener implements EventSubscriberInterface
     protected $mode;
     protected $context;
 
-    private $queries;
+    private $queryInfoListener;
+    private $queryErrorListener;
 
     public function __construct(\ContextInstance $context, $mode = self::ENABLED)
     {
@@ -31,14 +34,18 @@ class DebugToolbarListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            KernelEvents::RESPONSE => array('onKernelResponse', -128),
-            DBEvents::QUERY_ENDED => array('onQueryEnd', 34)
+            KernelEvents::RESPONSE => array('onKernelResponse', -128)
         );
     }
 
-    public function onQueryEnd(QueryEvent $event)
+    public function enableQueriesInfo(DBQueryInfoListener $queryInfoListener)
     {
-        $this->queries[] = $event;
+        $this->queryInfoListener = $queryInfoListener;
+    }
+
+    public function enableFailedQueriesInfo(QueryErrorListener $queryErrorListener)
+    {
+        $this->queryErrorListener = $queryErrorListener;
     }
 
     public function onKernelResponse(FilterResponseEvent $event)
@@ -55,7 +62,7 @@ class DebugToolbarListener implements EventSubscriberInterface
             return;
         }
 
-        //TODO treat redirects?
+        //TODO treat redirects here
 
         if (self::DISABLED === $this->mode
             //|| !$response->headers->has('X-Debug-Token')
@@ -91,13 +98,31 @@ class DebugToolbarListener implements EventSubscriberInterface
         $content = $response->getContent();
         $pos = $posrFunction($content, '</body>');
         if (false !== $pos) {
-            $this->context->set('queries', $this->queries);
-            $templateHandler = \TemplateHandler::getInstance();
-            $toolbar = $templateHandler->compile('./modules/debug/tpl', 'toolbar');
+
+            $data = array();
+
+            if($this->queryInfoListener) {
+                $queries = $this->queryInfoListener->getQueries();
+                $this->context->set('queries', $queries);
+                $data['Queries'] = $this->renderView('queries');
+            }
+            if($this->queryErrorListener) {
+                $queries = $this->queryErrorListener->getFailedQueries();
+                $this->context->set('failed_queries', $queries);
+                $data['Query errors'] = $this->renderView('failed_queries');
+            }
+
+            $this->context->set('data', $data);
+            $toolbar = $this->renderView('toolbar');
             $content = $substrFunction($content, 0, $pos).$toolbar.$substrFunction($content, $pos);
 
             $response->setContent($content);
         }
+    }
+
+    private function renderView($template_file) {
+        $templateHandler = \TemplateHandler::getInstance();
+        return $templateHandler->compile('./modules/debug/tpl', $template_file);
     }
 
 }

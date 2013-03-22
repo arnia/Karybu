@@ -6,6 +6,9 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use GlCMS\Event\DBEvents;
 use GlCMS\Event\QueryEvent;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -73,4 +76,23 @@ class DBQueryInfoListener implements EventSubscriberInterface {
         );
     }
 
+    /**
+     * Returns a list of all queries executed, as QueryEvent objects
+     *
+     * @return array|\GlCMS\Event\QueryEvent[]
+     */
+    public function getQueries()
+    {
+        return $this->queries_executed;
+    }
+
+    /**
+     * Total execution time of all queries
+     *
+     * @return int
+     */
+    public function getTotalQueryDuration()
+    {
+        return $this->total_query_duration;
+    }
 }

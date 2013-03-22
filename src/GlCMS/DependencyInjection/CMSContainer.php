@@ -76,7 +76,9 @@ class CMSContainer
         $this->register('listener.cms', 'GlCMS\EventListener\CMSListener')->setArguments(array(new Reference('cms.context.instance'), new Reference('logger')));
 
         $this->register('listener.debug.toolbar', 'GlCMS\Module\Debug\EventListener\DebugToolbarListener')
-            ->setArguments(array(new Reference('cms.context.instance'), '%debug%'));
+            ->setArguments(array(new Reference('cms.context.instance'), '%debug%'))
+            ->addMethodCall('enableQueriesInfo', array(new Reference("listener.db.query_info")))
+            ->addMethodCall('enableFailedQueriesInfo', array(new Reference("listener.db.errors")));
 
         $this->register('listener.db.query_info', 'GlCMS\EventListener\Debug\DBQueryInfoListener')
             ->setArguments(array(new Reference('logger.db_info')));
@@ -84,6 +86,8 @@ class CMSContainer
             ->setArguments(array('%log_slow_query_min_duration%', new Reference('logger.db_slow_query')));
         $this->register('listener.db.errors', 'GlCMS\EventListener\Debug\QueryErrorListener')
             ->setArguments(array(new Reference('logger.db_errors')));
+        $this->register('listener.error.handler', 'GlCMS\EventListener\CustomErrorHandler');
+            // ->setArguments(array("E_ALL ^ E_NOTICE", new Reference('logger.db_errors')));
 
         // listener around Response, used to aggregate summary statistics
         $this->register('listener.response.summary', 'GlCMS\EventListener\Debug\ResponseSummaryInfoListener')
@@ -98,6 +102,7 @@ class CMSContainer
             ->addMethodCall('addSubscriber', array(new Reference('listener.exception')))
             ->addMethodCall('addSubscriber', array(new Reference("listener.db.query_info")))
             ->addMethodCall('addSubscriber', array(new Reference("listener.db.slow_query")))
+            ->addMethodCall('addSubscriber', array(new Reference("listener.error.handler")))
             ->addMethodCall('addSubscriber', array(new Reference("listener.db.errors")));
 
         $this->register('resolver', 'GlCMS\HttpKernel\Controller\ControllerResolver');
