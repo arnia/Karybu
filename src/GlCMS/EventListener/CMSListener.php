@@ -13,6 +13,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use GlCMS\EventListener\ErrorHandler as ErrHandler;
 
 class CMSListener implements EventSubscriberInterface
 {
