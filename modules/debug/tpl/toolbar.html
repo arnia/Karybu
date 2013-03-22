@@ -1,10 +1,13 @@
 <style type="text/css">
     #debug-toolbar {
         height: 30%;
-        overflow: scroll;
         background: black;
         color: #efefef;
         padding: 20px;
+    }
+    #debug-content {
+        height: 80%;
+        overflow: scroll;
     }
     #debug-toolbar .queries .time {
         color: coral;
@@ -15,30 +18,19 @@
 </style>
 
 <div id="debug-toolbar" class="navbar-fixed-bottom">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+        <li><a href="#queries" data-toggle="tab">Queries</a></li>
+        <li><a href="#messages" data-toggle="tab">Messages</a></li>
+        <li><a href="#settings" data-toggle="tab">Settings</a></li>
+    </ul>
 
-    <div id="debug-content">
-        <ol cond="!empty($queries)" class="queries">
-            <!--@foreach ($queries as $query)-->
-            <li>
-                <span class="time">
-                    {$query->getTime()}
-                </span>
-                <span class="elapsed_time">
-                    {$query->getElapsedTime()}
-                </span>
-                {$query->getQuery()}
-            </li>
-            <!--@endforeach-->
-        </ol>
-        <p cond="empty($queries)">No queries?!</p>
+    <div class="tab-content" id="debug-content">
+        <div class="tab-pane active" id="home">...</div>
+        <div class="tab-pane" id="queries">
+            <include target="queries" />
+        </div>
+        <div class="tab-pane" id="messages">Messages</div>
+        <div class="tab-pane" id="settings">Settings</div>
     </div>
-
-    <div class="navbar navbar-fixed-bottom">
-        <ul class="nav nav-pills">
-            <li class="active"><a href="#">Queries</a></li>
-            <li><a href="#">altceva</a></li>
-            <li><a href="#">altceva</a></li>
-        </ul>
-    </div>
-
 </div>

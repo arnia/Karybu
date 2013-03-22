@@ -1,0 +1,14 @@
+<ol cond="!empty($queries)" class="queries">
+    <!--@foreach ($queries as $query)-->
+    <li>
+                <span class="time">
+                    {$query->getTime()}
+                </span>
+                <span class="elapsed_time">
+                    {$query->getElapsedTime()}
+                </span>
+        {$query->getQuery()}
+    </li>
+    <!--@endforeach-->
+</ol>
+<p cond="empty($queries)">No queries?!</p>

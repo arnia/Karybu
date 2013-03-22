@@ -93,7 +93,7 @@ class DebugToolbarListener implements EventSubscriberInterface
         if (false !== $pos) {
             $this->context->set('queries', $this->queries);
             $templateHandler = \TemplateHandler::getInstance();
-            $toolbar = $templateHandler->compile('./modules/debug_toolbar/tpl', 'toolbar');
+            $toolbar = $templateHandler->compile('./modules/debug/tpl', 'toolbar');
             $content = $substrFunction($content, 0, $pos).$toolbar.$substrFunction($content, $pos);
 
             $response->setContent($content);
