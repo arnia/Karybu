@@ -82,27 +82,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test that when variables change in Context they also change in Global context
-     * MUST Have for displaying the templates (for now at least)
-     */
-    public function testChangesInContextAppearInPHPGlobals()
-    {
-        $context = new ContextInstance();
-
-        $context->linkContextToGlobals(
-            $context->getGlobals('lang'),
-            $context->getGlobalCookies());
-
-        global $lang;
-        $lang->module_list='Modules List';
-        $this->assertEquals('Modules List', $context->getGlobals('lang')->module_list);
-
-        $cookies = &$context->getGlobalCookies();
-        $cookies['XDEBUG_SESSION_START'] = '1234';
-        $this->assertEquals('1234', $context->context->_COOKIE['XDEBUG_SESSION_START']);
-    }
-
-    /**
      * Test that request arguments are propely initialized when
      * Request type is XMLRPC
      *

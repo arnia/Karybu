@@ -15,7 +15,7 @@ class PsrLoader extends AbstractLoader
         if (preg_match_all('/^GlCMS\\\\Module\\\\([^\\\\]+)(\\\\.+)?(\\\\.+)$/', $class, $matches, PREG_SET_ORDER)) {
             $matches = $matches[0];
             $matches[3] = ltrim($matches[3], '\\');
-            $moduleName = strtolower($matches[1]);
+            $moduleName = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $matches[1]));
             // only slashes for internal path
             $internalPath = str_replace('\\', '/', $matches[2]);
             // slashes and underscores for class name

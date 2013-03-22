@@ -303,16 +303,53 @@ class TemplateHandler {
 			$__Context->logged_info = Context::get('logged_info');
 		}
 
-		ob_start();
-		if(substr($buff, 0, 7) == 'file://') {
-			include(substr($buff, 7));
-		} else {
-			$eval_str = "?>".$buff;
-			eval($eval_str);
-		}
+        try {
+            ob_start();
+            if(substr($buff, 0, 7) == 'file://') {
+                $result = @include(substr($buff, 7));
+            } else {
+                $eval_str = "?>".$buff;
+                $result = @eval($eval_str);
+            }
+            $template_content = ob_get_clean();
+        } catch(\Exception $e) {
+            return $this->handleErrorMessage($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
+        }
 
-		return ob_get_clean();
+        if($result === false) {
+            $error = error_get_last();
+            return $this->handleErrorMessage(
+                $error['message'],
+                $error['type'],
+                $error['file'],
+                $error['line']
+            );
+        }
+
+		return $template_content;
 	}
+
+    private function handleErrorMessage($error_message, $error_type, $error_file, $error_line)
+    {
+        // TODO Log error
+
+        if(__DEBUG__) {
+            $mesasge = '<fieldset><legend>Template error: ' . $error_message .'</legend>';
+            $mesasge .= '<p><strong>Template file</strong>: ' . $this->path . $this->filename . '</p>';
+            $mesasge .= '<p><strong>Compiled template file</strong>:' . $this->compiled_file . '</p>';
+
+            $mesasge .= '<fieldset><legend>PHP Error info</legend>';
+            $mesasge .= '<p>File: ' . $error_file . '</p>';
+            $mesasge .= '<p>Line: ' . $error_line . '</p>';
+            $mesasge .= '<p>Message: ' . $error_message . '</p>';
+            $mesasge .= '<p>Type: ' . $error_type . '</p>';
+            $mesasge .= '</fieldset>';
+
+            return $mesasge;
+        }
+
+        return '';
+    }
 
 	/**
 	 * preg_replace_callback hanlder

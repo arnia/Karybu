@@ -1,0 +1,40 @@
+<style type="text/css">
+    #debug-toolbar {
+        height: 30%;
+        background: black;
+        color: #efefef;
+        padding: 20px;
+    }
+    #debug-content {
+        height: 80%;
+        overflow: scroll;
+    }
+    #debug-toolbar .queries .time {
+        color: coral;
+    }
+    #debug-toolbar .queries li:hover {
+        color: darkorange;
+    }
+</style>
+
+<div id="debug-toolbar" class="navbar-fixed-bottom">
+    <ul class="nav nav-tabs">
+        {@ $index = 1; }
+        <!--@foreach($data as $tab_name => $tab_content)-->
+            <li>
+                <a href="#debug_tab_{$index}" data-toggle="tab">{$tab_name}</a>
+            </li>
+            {@ $index++; }
+        <!--@end-->
+    </ul>
+
+    <div class="tab-content" id="debug-content">
+        {@ $index = 1; }
+        <!--@foreach($data as $tab_name => $tab_content)-->
+            <div class="tab-pane" id="debug_tab_{$index}">
+                {$tab_content}
+            </div>
+            {@ $index++; }
+        <!--@end-->
+    </div>
+</div>

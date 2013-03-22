@@ -1,4 +1,7 @@
 <?php
+
+    use Psr\Log\LoggerInterface;
+
 	/**
 	 * - DB child class
 	 * - Cubrid DBMS to use the class
@@ -42,13 +45,16 @@
 			'float' => 'float',
 		);
 
+        private $logger;
+
 		/**
 		 * constructor
 		 * @return void
 		 */
-		function DBCubrid()
+		function DBCubrid(LoggerInterface $logger = null)
 		{
-			$this->_setDBInfo();
+			$this->logger = $logger;
+            $this->_setDBInfo();
 			$this->_connect();
 		}
 
@@ -56,9 +62,9 @@
 		 * Create an instance of this class
 		 * @return DBCubrid return DBCubrid object instance
 		 */
-		function create()
+		function create(LoggerInterface $logger = null)
 		{
-			return new DBCubrid;
+			return new DBCubrid($logger);
 		}
 
 		/**
