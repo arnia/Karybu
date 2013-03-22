@@ -23,7 +23,7 @@ class CMSContainer
 
     public function registerCMSContainer()
     {
-        $this->containerBuilder->setParameter('debug', true);
+        //$this->containerBuilder->setParameter('debug', true);
         $this->containerBuilder->setParameter('charset', 'UTF-8');
         $this->containerBuilder->setParameter('log_slow_query', __LOG_SLOW_QUERY__);
         $this->containerBuilder->setParameter('log_slow_query_min_duration', __LOG_SLOW_QUERY__);
@@ -31,7 +31,6 @@ class CMSContainer
         $this->containerBuilder->setParameter('show_request_response_info', __DEBUG__ & 2);
         $this->containerBuilder->setParameter('show_db_queries_info', __DEBUG__ & 4);
         $this->containerBuilder->setParameter('log_info_in_firebug_console', __DEBUG_OUTPUT__ == 2);
-
 
         // TODO Enable and disable logging based on the parameters above - maybe load a different container?
         $this->register('logger.handler', 'Monolog\Handler\StreamHandler')
@@ -111,7 +110,6 @@ class CMSContainer
     }
 
     // mirrors
-
     public function get($id)
     {
         return $this->containerBuilder->get($id);

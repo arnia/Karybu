@@ -1,0 +1,4 @@
+parameters:
+    debug: false
+    charset: UTF-8
+    log_slow_query:

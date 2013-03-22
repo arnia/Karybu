@@ -81,8 +81,6 @@ class DebugToolbarListener implements EventSubscriberInterface
         return self::DISABLED !== $this->mode;
     }
 
-
-
     /**
      * Injects the web debug toolbar into the given Response.
      *
