@@ -1,37 +1,34 @@
 [
     {
-        "name": "symfony/class-loader",
-        "version": "v2.2.0",
-        "version_normalized": "2.2.0.0",
-        "target-dir": "Symfony/Component/ClassLoader",
+        "name": "symfony/stopwatch",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "target-dir": "Symfony/Component/Stopwatch",
         "source": {
             "type": "git",
-            "url": "https://github.com/symfony/ClassLoader.git",
-            "reference": "v2.2.0"
+            "url": "https://github.com/symfony/Stopwatch.git",
+            "reference": "23d6e7b188069d80950cdf96f3d48029f56f11e5"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/v2.2.0",
-            "reference": "v2.2.0",
+            "url": "https://api.github.com/repos/symfony/Stopwatch/zipball/23d6e7b188069d80950cdf96f3d48029f56f11e5",
+            "reference": "23d6e7b188069d80950cdf96f3d48029f56f11e5",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.3"
         },
-        "require-dev": {
-            "symfony/finder": ">=2.0,<3.0"
-        },
-        "time": "2013-03-01 06:43:14",
+        "time": "2013-01-31 21:39:01",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.2-dev"
+                "dev-master": "2.3-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-0": {
-                "Symfony\\Component\\ClassLoader\\": ""
+                "Symfony\\Component\\Stopwatch\\": ""
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -48,7 +45,7 @@
                 "homepage": "http://symfony.com/contributors"
             }
         ],
-        "description": "Symfony ClassLoader Component",
+        "description": "Symfony Stopwatch Component",
         "homepage": "http://symfony.com"
     },
     {
@@ -484,5 +481,121 @@
         ],
         "description": "Symfony Routing Component",
         "homepage": "http://symfony.com"
+    },
+    {
+        "name": "symfony/class-loader",
+        "version": "v2.2.0",
+        "version_normalized": "2.2.0.0",
+        "target-dir": "Symfony/Component/ClassLoader",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/ClassLoader.git",
+            "reference": "v2.2.0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/v2.2.0",
+            "reference": "v2.2.0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "symfony/finder": ">=2.0,<3.0"
+        },
+        "time": "2013-03-01 06:43:14",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\ClassLoader\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "http://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony ClassLoader Component",
+        "homepage": "http://symfony.com"
+    },
+    {
+        "name": "monolog/monolog",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Seldaek/monolog.git",
+            "reference": "dd0b216e0229a24178c2f0782f8a7172c7ed1c96"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/dd0b216e0229a24178c2f0782f8a7172c7ed1c96",
+            "reference": "dd0b216e0229a24178c2f0782f8a7172c7ed1c96",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0",
+            "psr/log": ">=1.0,<2.0"
+        },
+        "require-dev": {
+            "doctrine/couchdb": "dev-master",
+            "mlehner/gelf-php": "1.0.*",
+            "raven/raven": "0.3.*"
+        },
+        "suggest": {
+            "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+            "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
+            "ext-mongo": "Allow sending log messages to a MongoDB server",
+            "mlehner/gelf-php": "Allow sending log messages to a GrayLog2 server",
+            "raven/raven": "Allow sending log messages to a Sentry server"
+        },
+        "time": "2013-03-18 18:06:02",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.4.x-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Monolog": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jordi Boggiano",
+                "email": "j.boggiano@seld.be",
+                "homepage": "http://seld.be",
+                "role": "Developer"
+            }
+        ],
+        "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
+        "homepage": "http://github.com/Seldaek/monolog",
+        "keywords": [
+            "log",
+            "logging",
+            "psr-3"
+        ]
     }
 ]

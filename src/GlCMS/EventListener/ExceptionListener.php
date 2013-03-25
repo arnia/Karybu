@@ -1,17 +1,10 @@
 <?php
 
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace GlCMS\EventListener;
 
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
 use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -21,91 +14,55 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * ExceptionListener.
+ * Class ExceptionListener
  *
- * @author Fabien Potencier <fabien@symfony.com>
+ * Catches all exceptions thrown by app
+ * Returns 500 Server error HTTP Response and logs the exception
+ *
+ * @package GlCMS\EventListener
  */
 class ExceptionListener implements EventSubscriberInterface
 {
-    private $controller;
+    /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    public function __construct($controller=null, LoggerInterface $logger = null)
+    public function __construct(LoggerInterface $logger = null)
     {
-        $this->controller = $controller;
         $this->logger = $logger;
     }
 
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
-        /**
-         * don't handle the exception until we have the forward feature
-         */
-        throw $event->getException();
-
-        static $handling;
-
-        if (true === $handling) {
-            return false;
-        }
-
-        $handling = true;
-
         $exception = $event->getException();
-        $request = $event->getRequest();
 
-        if (null !== $this->logger) {
-            $message = sprintf('%s: %s (uncaught exception) at %s line %s', get_class($exception), $exception->getMessage(), $exception->getFile(), $exception->getLine());
-            if (!$exception instanceof HttpExceptionInterface || $exception->getStatusCode() >= 500) {
-                $this->logger->crit($message);
-            } else {
-                $this->logger->err($message);
-            }
-        } else {
-            error_log(sprintf('Uncaught PHP Exception %s: "%s" at %s line %s', get_class($exception), $exception->getMessage(), $exception->getFile(), $exception->getLine()));
-        }
+        if($this->logger)
+            $this->logger->error(sprintf('Uncaught PHP Exception %s: "%s" at %s line %s', get_class($exception), $exception->getMessage(), $exception->getFile(), $exception->getLine()));
 
-        $logger = $this->logger instanceof DebugLoggerInterface ? $this->logger : null;
-
-        $attributes = array(
-            '_controller' => $this->controller,
-            'exception'   => FlattenException::create($exception),
-            'logger'      => $logger,
-            'format'      => $request->getRequestFormat(),
-        );
-
-        //add XE error object if needed
-        if ($errorObject = $request->attributes->get('error')) {
-            $attributes['error'] = $errorObject;
-        }
-
-        $request = $request->duplicate(null, null, $attributes);
-        $request->setMethod('GET');
-
-        try {
-            $response = $event->getKernel()->handle($request, HttpKernelInterface::SUB_REQUEST, true);
-        } catch (\Exception $e) {
-            $message = sprintf('Exception thrown when handling an exception (%s: %s)', get_class($e), $e->getMessage());
-            if (null !== $this->logger) {
-                if (!$exception instanceof HttpExceptionInterface || $exception->getStatusCode() >= 500) {
-                    $this->logger->crit($message);
-                } else {
-                    $this->logger->err($message);
-                }
-            } else {
-                error_log($message);
-            }
-
-            // set handling to false otherwise it wont be able to handle further more
-            $handling = false;
-
-            // re-throw the exception as this is a catch-all
+        if(__DEBUG__) {
+            $exception_handler = new ExceptionHandler(true);
+            $response = $exception_handler->createResponse($exception);
+            $event->setResponse($response);
             return;
         }
 
-        $event->setResponse($response);
+        $status_code = $exception instanceof HttpExceptionInterface ? $exception->getStatusCode() : '500';
+        // display content with message module instance
+        $type = \Mobile::isFromMobilePhone() ? 'mobile' : 'view';
+        /** @var $oMessageObject \messageView */
+        $oMessageObject = \ModuleHandler::getModuleInstance('message', $type);
+        $oMessageObject->setError(-1);
+        $oMessageObject->setMessage(null);
+        $oMessageObject->dispMessage();
 
-        $handling = false;
+        $module_handler = $event->getRequest()->attributes->get('oModuleHandler');
+        $module_handler->_setHttpStatusMessage($status_code);
+        $oMessageObject->setHttpStatusCode($status_code);
+        $oMessageObject->setTemplateFile('http_status_code');
+
+        $oDisplayHandler = new \DisplayHandler();
+        $response = $oDisplayHandler->getReponseForModule($oMessageObject);
+
+        $event->setResponse($response);
     }
 
     public static function getSubscribedEvents()

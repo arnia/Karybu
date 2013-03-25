@@ -68,17 +68,17 @@ class RouterListener implements EventSubscriberInterface
                 $this->logger->info(sprintf('Matched route "%s" (parameters: %s)', $parameters['_route'], $this->parametersToString($parameters)));
             }
 
-            // add route parameters to XE context as if they came from htaccess
-            foreach ($parameters as $name=>$value) {
-                if (!is_numeric($name)) {
-                    $oContext->set($name, $value);
-                }
-            }
-
             $request->attributes->add($parameters);
             unset($parameters['_route']);
             unset($parameters['_controller']);
             $request->attributes->set('_route_params', $parameters);
+
+            // add route parameters to XE context as if they came from htaccess
+            foreach ($parameters as $name=>$value) {
+                if (!is_numeric($name)) {
+                    $oContext->set($name, $value, true);
+                }
+            }
 
             //TODO solve circular reference for better integration?
             $oContext->set('request', $request);

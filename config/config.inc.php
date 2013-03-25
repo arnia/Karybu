@@ -6,7 +6,7 @@
  * @author NHN (developers@xpressengine.com)
  **/
 
-@error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
+@error_reporting(-1);
 
 if(!defined('__ZBXE__')) exit();
 
@@ -66,7 +66,6 @@ if(file_exists(_XE_PATH_.'config/package.inc.php')) {
  * define('__DEBUG_DB_OUTPUT__', 0);
  * define('__LOG_SLOW_QUERY__', 0);
  * define('__OB_GZHANDLER_ENABLE__', 1);
- * define('__ENABLE_PHPUNIT_TEST__', 0);
  * define('__PROXY_SERVER__', 'http://domain:port/path');
  * define('__XE_CDN_PREFIX__', 'http://yourCdnDomain.com/path/');
  * define('__XE_CDN_VERSION__', 'yourCdnVersion');
@@ -81,13 +80,13 @@ if(!defined('__DEBUG__'))
      * output debug message(bit value)
      *
      * <pre>
-     * 0: generate debug messages/not display
+     * 0: disable debugging
      * 1: display messages through debugPrint() function
      * 2: output execute time, Request/Response info
      * 4: output DB query history
      * </pre>
      */
-    define('__DEBUG__', 0);
+    define('__DEBUG__', 7);
 }
 
 if(!defined('__DEBUG_OUTPUT__'))
@@ -135,7 +134,7 @@ if(!defined('__DEBUG_DB_OUTPUT__'))
      * 1: files/_debug_db_query.php connected to the output
      * </pre>
      */
-    define('__DEBUG_DB_OUTPUT__', 0);
+    define('__DEBUG_DB_OUTPUT__', 1);
 }
 
 if(!defined('__LOG_SLOW_QUERY__'))
@@ -145,7 +144,7 @@ if(!defined('__LOG_SLOW_QUERY__'))
      *
      * <pre>
      * 0: Do not leave a log
-     * = 0: leave a log when the slow query takes over specified seconds
+     * != 0: leave a log when the slow query takes over specified seconds
      * Log file is saved as ./files/_db_slow_query.php file
      * </pre>
      */
@@ -162,7 +161,7 @@ if(!defined('__DEBUG_QUERY__'))
      * 1: Comment the XML Query ID
      * </pre>
      */
-    define('__DEBUG_QUERY__', 0);
+    define('__DEBUG_QUERY__', 1);
 }
 
 if(!defined('__OB_GZHANDLER_ENABLE__'))
@@ -177,19 +176,6 @@ if(!defined('__OB_GZHANDLER_ENABLE__'))
      * </pre>
      */
     define('__OB_GZHANDLER_ENABLE__', 0);
-}
-
-if(!defined('__ENABLE_PHPUNIT_TEST__'))
-{
-    /**
-     * decide to use/not use the php unit test (Path/tests/index.php)
-     *
-     * <pre>
-     * 0: Not used
-     * 1: Enabled
-     * </pre>
-     */
-    define('__ENABLE_PHPUNIT_TEST__', 0);
 }
 
 if(!defined('__PROXY_SERVER__'))

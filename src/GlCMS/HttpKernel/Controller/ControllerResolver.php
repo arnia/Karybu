@@ -22,7 +22,13 @@ class ControllerResolver extends BaseResolver
         $is_installed = $request->attributes->get('is_installed');
         $module_info = $request->attributes->get('module_info');
 
-        if ($request->attributes->has('_controller')) {
+        if ($error) {
+            $module = $error->module;
+            $module_matcher = new \ModuleMatcher();
+            $kind = $module_matcher->getKind('dispMessage', $module);
+            $error->module_key = new \ModuleKey($module, $module_info->module_type, $kind);
+            $oModule = $error;
+        } else if ($request->attributes->has('_controller')) {
             $controller = parent::getController($request);
             $oModule = $controller[0];
             $act = $controller[1];
@@ -39,19 +45,9 @@ class ControllerResolver extends BaseResolver
             $oModule->module_key = new \ModuleKey($module, $module_info->module_type, $kind);
 
             $oModule->setModuleInfo($module_info, $xml_info);
-        }
-        else {
+        } else {
             $module_matcher = new \ModuleMatcher();
-            if ($error) {
-                $module = $error->module;
-                $module_matcher = new \ModuleMatcher();
-                $kind = $module_matcher->getKind('dispMessage', $module);
-                $error->module_key = new \ModuleKey($module, $module_info->module_type, $kind);
-                $oModule = $error;
-            }
-            else {
-                $oModule = $module_matcher->getModuleInstance($act, $module, $oModuleModel, $is_mobile, $is_installed, $module_info);
-            }
+            $oModule = $module_matcher->getModuleInstance($act, $module, $oModuleModel, $is_mobile, $is_installed, $module_info);
         }
 
         if ($oModule instanceof ContainerAwareInterface) {

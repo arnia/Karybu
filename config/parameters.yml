@@ -1,0 +1,3 @@
+parameters:
+    debug: false
+    charset: UTF-8
