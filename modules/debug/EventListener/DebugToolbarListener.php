@@ -4,9 +4,12 @@
 namespace GlCMS\Module\Debug\EventListener;
 
 use GlCMS\Event\DBEvents;
+use GlCMS\Event\ErrorEvent;
 use GlCMS\Event\QueryEvent;
+use GlCMS\EventListener\CustomErrorHandler;
 use GlCMS\EventListener\Debug\DBQueryInfoListener;
 use GlCMS\EventListener\Debug\QueryErrorListener;
+use GlCMS\EventListener\ErrorHandler;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -24,6 +27,9 @@ class DebugToolbarListener implements EventSubscriberInterface
 
     private $queryInfoListener;
     private $queryErrorListener;
+    private $errorHandler;
+
+
 
     public function __construct(\ContextInstance $context, $mode = self::ENABLED)
     {
@@ -46,6 +52,11 @@ class DebugToolbarListener implements EventSubscriberInterface
     public function enableFailedQueriesInfo(QueryErrorListener $queryErrorListener)
     {
         $this->queryErrorListener = $queryErrorListener;
+    }
+
+    public function enablePHPErrorsInfo(ErrorHandler $errorHandler)
+    {
+        $this->errorHandler = $errorHandler;
     }
 
     public function onKernelResponse(FilterResponseEvent $event)
@@ -81,8 +92,6 @@ class DebugToolbarListener implements EventSubscriberInterface
         return self::DISABLED !== $this->mode;
     }
 
-
-
     /**
      * Injects the web debug toolbar into the given Response.
      *
@@ -112,6 +121,11 @@ class DebugToolbarListener implements EventSubscriberInterface
                 $queries = $this->queryErrorListener->getFailedQueries();
                 $this->context->set('failed_queries', $queries);
                 $data['Query errors'] = $this->renderView('failed_queries');
+            }
+            if($this->errorHandler) {
+                $errors = $this->errorHandler->getErrors();
+                $this->context->set('errors', $errors);
+                $data['PHP Errors'] = $this->renderView('php_errors');
             }
 
             $this->context->set('data', $data);

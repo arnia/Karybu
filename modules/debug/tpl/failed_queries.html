@@ -1,7 +1,12 @@
 <ol cond="!empty($failed_queries)">
     <!--@foreach ($failed_queries as $query)-->
     <li>
-        {@ print_r($query->toArray(), true)}
+        <!--@foreach($query->toArray() as $key => $value)-->
+            <p>
+                <strong>{$key} </strong>
+                 {$value}
+            </p>
+        <!--@end-->
     </li>
     <!--@endforeach-->
 </ol>

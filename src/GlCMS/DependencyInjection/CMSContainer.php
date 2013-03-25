@@ -23,7 +23,7 @@ class CMSContainer
 
     public function registerCMSContainer()
     {
-        $this->containerBuilder->setParameter('debug', true);
+        //$this->containerBuilder->setParameter('debug', true);
         $this->containerBuilder->setParameter('charset', 'UTF-8');
         $this->containerBuilder->setParameter('log_slow_query', __LOG_SLOW_QUERY__);
         $this->containerBuilder->setParameter('log_slow_query_min_duration', __LOG_SLOW_QUERY__);
@@ -31,7 +31,6 @@ class CMSContainer
         $this->containerBuilder->setParameter('show_request_response_info', __DEBUG__ & 2);
         $this->containerBuilder->setParameter('show_db_queries_info', __DEBUG__ & 4);
         $this->containerBuilder->setParameter('log_info_in_firebug_console', __DEBUG_OUTPUT__ == 2);
-
 
         // TODO Enable and disable logging based on the parameters above - maybe load a different container?
         $this->register('logger.handler', 'Monolog\Handler\StreamHandler')
@@ -79,7 +78,8 @@ class CMSContainer
         $this->register('listener.debug.toolbar', 'GlCMS\Module\Debug\EventListener\DebugToolbarListener')
             ->setArguments(array(new Reference('cms.context.instance'), '%debug%'))
             ->addMethodCall('enableQueriesInfo', array(new Reference("listener.db.query_info")))
-            ->addMethodCall('enableFailedQueriesInfo', array(new Reference("listener.db.errors")));
+            ->addMethodCall('enableFailedQueriesInfo', array(new Reference("listener.db.errors")))
+            ->addMethodCall('enablePHPErrorsInfo', array(new Reference("listener.error.handler")));
 
         $this->register('listener.db.query_info', 'GlCMS\EventListener\Debug\DBQueryInfoListener')
             ->setArguments(array(new Reference('logger.db_info')));
@@ -87,8 +87,7 @@ class CMSContainer
             ->setArguments(array('%log_slow_query_min_duration%', new Reference('logger.db_slow_query')));
         $this->register('listener.db.errors', 'GlCMS\EventListener\Debug\QueryErrorListener')
             ->setArguments(array(new Reference('logger.db_errors')));
-        $this->register('listener.error.handler', 'GlCMS\EventListener\CustomErrorHandler');
-            // ->setArguments(array("E_ALL ^ E_NOTICE", new Reference('logger.db_errors')));
+        $this->register('listener.error.handler', 'GlCMS\EventListener\ErrorHandler');
 
         // listener around Response, used to aggregate summary statistics
         $this->register('listener.response.summary', 'GlCMS\EventListener\Debug\ResponseSummaryInfoListener')
@@ -103,7 +102,6 @@ class CMSContainer
             ->addMethodCall('addSubscriber', array(new Reference('listener.exception')))
             ->addMethodCall('addSubscriber', array(new Reference("listener.db.query_info")))
             ->addMethodCall('addSubscriber', array(new Reference("listener.db.slow_query")))
-            ->addMethodCall('addSubscriber', array(new Reference("listener.error.handler")))
             ->addMethodCall('addSubscriber', array(new Reference("listener.db.errors")));
 
         $this->register('resolver', 'GlCMS\HttpKernel\Controller\ControllerResolver');
@@ -111,7 +109,6 @@ class CMSContainer
     }
 
     // mirrors
-
     public function get($id)
     {
         return $this->containerBuilder->get($id);

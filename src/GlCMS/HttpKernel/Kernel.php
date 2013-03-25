@@ -2,6 +2,7 @@
 // florin, 2/1/13, 2:32 PM
 namespace GlCMS\HttpKernel;
 
+use GlCMS\EventListener\ErrorHandler as ErrHandler;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
 use Symfony\Component\HttpKernel\Kernel as SymfonyKernel;
@@ -85,7 +86,7 @@ class Kernel extends SymfonyKernel
      */
     public function getLogDir()
     {
-        return $this->rootDir.'/files/logs';
+        return $this->rootDir.'files/logs';
     }
 
     /**
