@@ -7,7 +7,7 @@
 
 /* General Styles*/
 body {
-    padding-top: 60px;
+    padding-top: 40px;
 }
 
 a {
@@ -149,9 +149,8 @@ input[type="color"]:focus,
 }
 
 /* Custom Styles*/
-
-.navbar {
-    min-height: 48px;
+.navbar-coloured-bar {
+    height: 7px;
     background: url("../img/hbg.jpg");
     background-position: center 0;
 }
