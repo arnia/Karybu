@@ -16,7 +16,8 @@ function editorGetContentTextarea_xe(editor_sequence){
 }
 
 function editorGetContent(editor_sequence) {
-    return CKEDITOR.instances.ckeditor_instance.getData()
+    if(!CKEDITOR.instances.ckeditor_instance) return CKEDITOR.instances[editor_sequence.id].getData()
+    else return CKEDITOR.instances.ckeditor_instance.getData()
 }
 
 //Replace html content to editor

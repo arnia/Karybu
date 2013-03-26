@@ -5,7 +5,7 @@ define('RELEASE_SSL',2);
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouteCollection;
-use GlCMS\Routing\Router;
+use Karybu\Routing\Router;
 use Symfony\Component\Routing\Route;
 
 /**
@@ -182,7 +182,7 @@ class ContextInstance {
     /** @var $routes \Symfony\Component\Routing\RouteCollection */
     protected $routes;
 
-    /** @var \GlCMS\Routing\Router */
+    /** @var \Karybu\Routing\Router */
     protected $router;
 
 

@@ -219,9 +219,10 @@ function doSyncPageContent() {
     //setFixedPopupSize();
 }
 
-// 부모창에 위젯을 추가
+// add content to widget
 function addContentWidget(fo_obj) {
     var editor_sequence = fo_obj.getAttribute('editor_sequence');
+    if (!editor_sequence) editor_sequence = fo_obj['ckeditor_instance'];
     var mid = fo_obj.mid.value;
     var module_srl = fo_obj.module_srl.value;
     var document_srl = fo_obj.document_srl.value;

@@ -17,5 +17,5 @@ return array(
     'Symfony\\Component\\ClassLoader\\' => $vendorDir . '/symfony/class-loader/',
     'Psr\\Log\\' => $vendorDir . '/psr/log/',
     'Monolog' => $vendorDir . '/monolog/monolog/src/',
-    'GlCMS' => $baseDir . '/src/',
+    'Karybu' => $baseDir . '/src/',
 );

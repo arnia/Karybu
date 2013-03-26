@@ -1,7 +1,7 @@
 <?php
-namespace GlCMS\Module\Debug;
+namespace Karybu\Module\Debug;
 
-use GlCMS\HttpKernel\Module;
+use Karybu\HttpKernel\Module;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class DebugModule extends Module
