@@ -7,12 +7,11 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
 use Symfony\Component\HttpKernel\Kernel as SymfonyKernel;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
 use Symfony\Component\DependencyInjection;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Debug\ErrorHandler;
+use Symfony\Component\Yaml\Yaml;
 
 class Kernel extends SymfonyKernel
 {
@@ -35,23 +34,12 @@ class Kernel extends SymfonyKernel
         } else {
             ini_set('display_errors', 1);
         }
-    }
-
-    /**
-     * Gets a new ContainerBuilder instance used to build the service container.
-     *
-     * @return
-     */
-    protected function getContainerBuilder()
-    {
-        $this->container = new \Karybu\DependencyInjection\CMSContainer(new ParameterBag($this->getKernelParameters()));
-        $this->container->containerBuilder->set('kernel', $this);
-        return $this->container->containerBuilder;
+        Yaml::enablePhpParsing();
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(_XE_PATH_.'config/container_'.$this->getEnvironment().'.yml');
+        $loader->load(_XE_PATH_.'config/'.$this->getEnvironment().'/config.yml');
     }
 
     /**
@@ -61,7 +49,7 @@ class Kernel extends SymfonyKernel
      */
     protected function getContainerClass()
     {
-        return $this->name.ucfirst($this->environment).($this->debug ? 'Debug' : '').'ProjectContainer';
+        return $this->getName().ucfirst($this->environment).($this->debug ? 'Debug' : '').'ProjectContainer';
     }
 
     public function getCacheDir()
