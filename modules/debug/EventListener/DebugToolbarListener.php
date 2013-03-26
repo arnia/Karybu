@@ -1,15 +1,15 @@
 <?php
 // florin, 3/19/13, 4:29 PM
 
-namespace GlCMS\Module\Debug\EventListener;
+namespace Karybu\Module\Debug\EventListener;
 
-use GlCMS\Event\DBEvents;
-use GlCMS\Event\ErrorEvent;
-use GlCMS\Event\QueryEvent;
-use GlCMS\EventListener\CustomErrorHandler;
-use GlCMS\EventListener\Debug\DBQueryInfoListener;
-use GlCMS\EventListener\Debug\QueryErrorListener;
-use GlCMS\EventListener\ErrorHandler;
+use Karybu\Event\DBEvents;
+use Karybu\Event\ErrorEvent;
+use Karybu\Event\QueryEvent;
+use Karybu\EventListener\CustomErrorHandler;
+use Karybu\EventListener\Debug\DBQueryInfoListener;
+use Karybu\EventListener\Debug\QueryErrorListener;
+use Karybu\EventListener\ErrorHandler;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;

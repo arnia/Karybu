@@ -31,7 +31,7 @@
  **/
 
 use Symfony\Component\HttpFoundation\Request;
-use GlCMS\HttpKernel\Kernel;
+use Karybu\HttpKernel\Kernel;
 
 $isCommandLine = ( php_sapi_name() == 'cli' );
 

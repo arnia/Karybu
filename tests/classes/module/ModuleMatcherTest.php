@@ -118,7 +118,7 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
         $xml_info = new stdClass();
         $xml_info->default_index_act = null;
 
-        $this->setExpectedException("\GlCMS\Exception\ModuleDoesNotExistException");
+        $this->setExpectedException("\Karybu\Exception\ModuleDoesNotExistException");
 
         $module_matcher->getActionName(null, 'page', $xml_info);
     }

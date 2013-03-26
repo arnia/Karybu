@@ -3,8 +3,8 @@
 use \Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use GlCMS\Event\QueryEvent;
-use GlCMS\Event\DBEvents;
+use Karybu\Event\QueryEvent;
+use Karybu\Event\DBEvents;
 
 if(!defined('__XE_LOADED_DB_CLASS__')){
     define('__XE_LOADED_DB_CLASS__', 1);

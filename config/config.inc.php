@@ -227,6 +227,6 @@ if(__DEBUG__) define('__ClassLoadStartTime__', getMicroTime());
  **/
 require_once dirname(__FILE__) . '/../vendor/autoload.php';
 
-$cmsAutoloader = new \GlCMS\Autoloader\Autoloader();
+$cmsAutoloader = new \Karybu\Autoloader\Autoloader();
 
 if(__DEBUG__) $GLOBALS['__elapsed_class_load__'] = getMicroTime() - __ClassLoadStartTime__;
