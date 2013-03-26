@@ -1,4 +1,4 @@
 Karybu
 ======
 
-a new CMS vision
+a new CMS
