@@ -7,8 +7,8 @@ use Karybu\Event\DBEvents;
 use Karybu\Event\ErrorEvent;
 use Karybu\Event\QueryEvent;
 use Karybu\EventListener\CustomErrorHandler;
-use Karybu\EventListener\Debug\DBQueryInfoListener;
-use Karybu\EventListener\Debug\QueryErrorListener;
+use Karybu\Module\Debug\EventListener\DBQueryInfoListener;
+use Karybu\Module\Debug\EventListener\QueryErrorListener;
 use Karybu\EventListener\ErrorHandler;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -70,6 +70,11 @@ class DebugToolbarListener implements EventSubscriberInterface
 
         // do not capture redirects or modify XML HTTP Requests
         if ($request->isXmlHttpRequest()) {
+            return;
+        }
+
+        // do not capture modals (or any other request that includes a no_toolbar parameter)
+        if ($request->query->has('no_toolbar')) {
             return;
         }
 

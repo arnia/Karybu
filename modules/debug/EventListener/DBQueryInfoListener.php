@@ -1,6 +1,6 @@
 <?php
 
-namespace Karybu\EventListener\Debug;
+namespace Karybu\Module\Debug\EventListener;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  * Gathers information about all the queries executed in a request
  * Calculates total query execution duration
  *
- * @package Karybu\EventListener\Debug
+ * @package Karybu\Module\Debug\EventListener
  */
 class DBQueryInfoListener implements EventSubscriberInterface {
 

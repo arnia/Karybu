@@ -180,7 +180,6 @@ function getWidgetCode(childObj, widget) {
 // 팝업 띄움
 function doAddContent(mid) {
     var url = request_uri.setQuery('module','widget').setQuery('act','dispWidgetAdminAddContent').setQuery('module_srl',zoneModuleSrl).setQuery('mid',mid);
-
     showModal(url);
 }
 
@@ -1329,6 +1328,7 @@ function widgetManualEnd() {
 }
 
 function showModal(url) {
+    url = insertParamIntoUrl(url, 'no_toolbar', 'true');
     jQuery("#widget_admin_modal").css("width", "750px");
     jQuery("#widget_admin_modal .modal-body").css("max-height", "800px").css("height", "600px");
     jQuery("#widget_admin_modal .modal-body").html("<iframe src='" + url + "' " +
@@ -1340,4 +1340,14 @@ function showModal(url) {
 
 function triggerClose() {
     jQuery("#widget_admin_modal").modal('hide');
+}
+
+function insertParamIntoUrl(url, key,value)
+{
+    key = encodeURI(key); value = encodeURI(value);
+    var kvp = key+"="+value;
+    var r = new RegExp("(&|\\?)"+key+"=[^\&]*");
+    url = url.replace(r,"$1"+kvp);
+    if(!RegExp.$1) {url += (url.length>0 ? '&' : '?') + kvp;};
+    return url;
 }

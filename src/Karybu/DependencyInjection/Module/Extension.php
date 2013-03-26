@@ -2,8 +2,11 @@
 // florin, 3/4/13, 12:55 PM
 namespace Karybu\DependencyInjection\Module;
 
+use ReflectionClass;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
  * base class for module extensions
@@ -27,19 +30,27 @@ abstract class Extension implements ExtensionInterface
      */
     public function getConfiguration(array $config, ContainerBuilder $container)
     {
-        $reflected = new \ReflectionClass($this);
+        $reflected = new ReflectionClass($this);
         $namespace = $reflected->getNamespaceName();
-
         $class = $namespace . '\\Configuration';
         if (class_exists($class)) {
             if (!method_exists($class, '__construct')) {
                 $configuration = new $class();
-
                 return $configuration;
             }
         }
-
         return null;
+    }
+
+    public function load(array $configs, ContainerBuilder $container)
+    {
+        $reflector = new ReflectionClass($this);
+        $path = dirname($reflector->getFileName());
+        $loader = new YamlFileLoader(
+            $container,
+            new FileLocator($path . '/../conf')
+        );
+        $loader->load('services.yml');
     }
 
 }

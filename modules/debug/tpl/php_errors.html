@@ -6,7 +6,7 @@
         <p>
             {@ $something = $error->getContext(); }
             <!--@foreach($something as $key => $value)-->
-                <p><strong>{$key}: </strong><!--@if(is_string($value))-->{$value}<!--@else-->[Object]<!--@end--></p>
+                <p><strong>{$key}: </strong><!--@if(is_string($value))-->{htmlspecialchars($value)}<!--@else-->[Object]<!--@end--></p>
             <!--@end-->
         </p>
     </li>

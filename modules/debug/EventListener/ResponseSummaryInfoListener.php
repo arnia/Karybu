@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace Karybu\EventListener\Debug;
+namespace Karybu\Module\Debug\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\PostResponseEvent;
@@ -33,7 +33,7 @@ use \Context;
  *
  * // TODO Finish cleaning up this class
  *
- * @package Karybu\EventListener\Debug
+ * @package Karybu\Module\Debug\EventListener
  */
 class ResponseSummaryInfoListener  implements EventSubscriberInterface {
 
