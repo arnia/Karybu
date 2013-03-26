@@ -73,6 +73,11 @@ class DebugToolbarListener implements EventSubscriberInterface
             return;
         }
 
+        // do not capture modals (or any other request that includes a no_toolbar parameter)
+        if ($request->query->has('no_toolbar')) {
+            return;
+        }
+
         //TODO treat redirects here
 
         if (self::DISABLED === $this->mode
