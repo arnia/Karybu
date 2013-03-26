@@ -40,7 +40,8 @@
         /**
          * @brief General request output
          **/
-        function dispPageIndex() {
+        function dispPageIndex()
+        {
             // Variables used in the template Context:: set()
             if($this->module_srl) Context::set('module_srl',$this->module_srl);
 

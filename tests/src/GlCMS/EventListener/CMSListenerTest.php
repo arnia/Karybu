@@ -12,7 +12,7 @@ class CMSListenerTest extends PHPUnit_Framework_TestCase
     {
         // 1. Make sure method is set on the Request event
         $context = new ContextInstance();
-        $listener = new \GlCMS\EventListener\CMSListener($context);
+        $listener = new \Karybu\EventListener\CMSListener($context);
         $events = $listener->getSubscribedEvents();
 
         $request_events = array_keys($events[\Symfony\Component\HttpKernel\KernelEvents::REQUEST]);
