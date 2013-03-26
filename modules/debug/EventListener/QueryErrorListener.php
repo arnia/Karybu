@@ -1,6 +1,6 @@
 <?php
 
-namespace Karybu\EventListener\Debug;
+namespace Karybu\Module\Debug\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Psr\Log\LoggerInterface;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollector;
  * Provides info about the module and act that caused the problem,
  *  error message and number
  *
- * @package Karybu\EventListener\Debug
+ * @package Karybu\Module\Debug\EventListener
  */
 class QueryErrorListener implements EventSubscriberInterface
 {

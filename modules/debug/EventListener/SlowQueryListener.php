@@ -1,6 +1,6 @@
 <?php
 
-namespace Karybu\EventListener\Debug;
+namespace Karybu\Module\Debug\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Psr\Log\LoggerInterface;
@@ -13,7 +13,7 @@ use Karybu\Event\QueryEvent;
  * Checks each query's duration and logs any query that takes longer than a minimum duration
  * given in constructor
  *
- * @package Karybu\EventListener\Debug
+ * @package Karybu\Module\Debug\EventListener
  */
 class SlowQueryListener implements EventSubscriberInterface
 {

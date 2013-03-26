@@ -56,11 +56,11 @@ services:
             - [pushHandler, [@logger.handler.db_errors]]
             - [pushHandler, [@logger.errors]]
 
-    listener.db.query_info: { class: 'Karybu\EventListener\Debug\DBQueryInfoListener', arguments: [ @logger.db_info ] }
-    listener.db.slow_query: { class: 'Karybu\EventListener\Debug\SlowQueryListener', arguments: [ '%log_slow_query_min_duration%', @logger.db_slow_query ] }
-    listener.db.errors: { class: 'Karybu\EventListener\Debug\QueryErrorListener', arguments: [ @logger.db_errors ] }
+    listener.db.query_info: { class: 'Karybu\Module\Debug\EventListener\DBQueryInfoListener', arguments: [ @logger.db_info ] }
+    listener.db.slow_query: { class: 'Karybu\Module\Debug\EventListener\SlowQueryListener', arguments: [ '%log_slow_query_min_duration%', @logger.db_slow_query ] }
+    listener.db.errors: { class: 'Karybu\Module\Debug\EventListener\QueryErrorListener', arguments: [ @logger.db_errors ] }
     listener.error.handler: { class: 'Karybu\EventListener\ErrorHandler' }
-    listener.response.summary: { class: 'Karybu\EventListener\Debug\ResponseSummaryInfoListener', arguments: [@logger] }
+    listener.response.summary: { class: 'Karybu\Module\Debug\EventListener\ResponseSummaryInfoListener', arguments: [@logger] }
 
     listener.debug.toolbar:
         class: 'Karybu\Module\Debug\EventListener\DebugToolbarListener'
