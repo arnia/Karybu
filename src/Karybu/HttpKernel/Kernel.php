@@ -39,7 +39,7 @@ class Kernel extends SymfonyKernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(_XE_PATH_.'config/'.$this->getEnvironment().'/config.yml');
+        $loader->load(_XE_PATH_."config/config_{$this->getEnvironment()}.yml");
     }
 
     /**
