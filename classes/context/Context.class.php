@@ -62,7 +62,7 @@ class ContextInstance {
 	 */
 	var $oFrontEndFileHandler;
     /**
-     * obejct FileHandler()
+     * obejct FileHandlerInstance()
      * @var object
      */
     var $file_handler;
@@ -191,9 +191,9 @@ class ContextInstance {
      *
      * @return void
      */
-    function __construct(FileHandler $file_handler = null, FrontEndFileHandler $frontend_file_handler = null, Validator $validator = null, Router $router = null)
+    function __construct(FileHandlerInstance $file_handler = null, FrontEndFileHandler $frontend_file_handler = null, Validator $validator = null, Router $router = null)
     {
-        if(!isset($file_handler)) $file_handler = new FileHandler();
+        if(!isset($file_handler)) $file_handler = new FileHandlerInstance();
         if(!isset($frontend_file_handler)) $frontend_file_handler = new FrontEndFileHandler();
         if(!isset($validator)) $validator = new Validator();
 
@@ -2421,7 +2421,7 @@ class ContextInstance {
      * @return bool True if the config file exists, otherwise false.
      */
     function isInstalled() {
-        return FileHandler::hasContent($this->getConfigFile());
+        return $this->file_handler->hasContent($this->getConfigFile());
     }
 
     /**

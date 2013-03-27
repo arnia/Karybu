@@ -59,11 +59,14 @@ class CMSListener implements EventSubscriberInterface
     /**
      * @param \ContextInstance $cmsContext CMS context
      * @param \Symfony\Component\HttpKernel\Log\LoggerInterface $logger The logger
+     * @param \MobileInstance $mobile Mobile
      */
-    public function __construct(\ContextInstance $cmsContext, LoggerInterface $logger = null)
+    public function __construct(\ContextInstance $cmsContext, LoggerInterface $logger = null, \MobileInstance $mobile, \FileHandlerInstance $file_handler)
     {
         $this->cmsContext = $cmsContext;
         $this->logger = $logger;
+        $this->mobile = $mobile;
+        $this->file_handler = $file_handler;
     }
 
     /**
@@ -79,10 +82,10 @@ class CMSListener implements EventSubscriberInterface
     public function setupLegacyDependencies(GetResponseEvent $event)
     {
         \DB::setDispatcher($event->getDispatcher());
-        // 1. Initialize Context instance and Mobile instance for legacy XE static calls
+        // 1. Initialize Context instance , Mobile instance and File Handler Instance for legacy XE static calls
         \Context::setRequestContext($this->cmsContext);
-        $mobile = new \MobileInstance();
-        \Mobile::setRequestMobileInfo($mobile);
+        \Mobile::setRequestMobileInfo($this->mobile);
+        \FileHandler::setFileHandlerInstance($this->file_handler);
 
         // 2. Put context in GLOBALS - needed for template files
         $this->cmsContext->linkContextToGlobals();

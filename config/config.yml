@@ -8,11 +8,13 @@ services:
     context: { class: 'Symfony\Component\Routing\RequestContext' }
     cms.router: { class: 'Karybu\Routing\Router', arguments: [ @cms.router.loader, @context, null, '%kernel.debug%' ] }
     cms.context.instance: { class: 'ContextInstance', arguments: [ null, null, null, @cms.router ] }
+    mobile: { class: 'MobileInstance' }
+    file_handler: { class: 'FileHandlerInstance' }
 
     listener.router: { class: 'Karybu\EventListener\RouterListener', arguments: [ @cms.router ] }
     listener.response: { class: 'Symfony\Component\HttpKernel\EventListener\ResponseListener', arguments: [ '%charset%' ] }
     listener.exception: { class: 'Karybu\EventListener\ExceptionListener', arguments: [ @logger.exceptions ] }
-    listener.cms: { class: 'Karybu\EventListener\CMSListener', arguments: [ @cms.context.instance, @logger ] }
+    listener.cms: { class: 'Karybu\EventListener\CMSListener', arguments: [ @cms.context.instance, @logger , @mobile, @file_handler] }
 
     dispatcher:
         class: 'Symfony\Component\EventDispatcher\EventDispatcher'
