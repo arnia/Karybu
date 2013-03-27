@@ -12,6 +12,8 @@
  * 2009.02.13 addColumn() function changes
  **/
 
+use Psr\Log\LoggerInterface;
+
 class DBPostgresql extends DB
 {
 
@@ -38,11 +40,14 @@ class DBPostgresql extends DB
         'float' => 'real',
     );
 
+    private $logger;
+
     /**
      * @brief constructor
      **/
-    function DBPostgresql()
+    function DBPostgresql(LoggerInterface $logger = null)
     {
+        $this->logger = $logger;
         $this->_setDBInfo();
         $this->_connect();
     }
@@ -50,9 +55,9 @@ class DBPostgresql extends DB
 	/**
 	 * @brief create an instance of this class
 	 */
-	function create()
+	function create(LoggerInterface $logger = null)
 	{
-		return new DBPostgresql;
+		return new DBPostgresql($logger);
 	}
 
     /**

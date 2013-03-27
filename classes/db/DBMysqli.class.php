@@ -1,7 +1,9 @@
 <?php
 	require_once('DBMysql.class.php');
 
-	/**
+    use Psr\Log\LoggerInterface;
+
+/**
 	 * Class to use MySQLi DBMS as mysqli_*
 	 * mysql handling class
 	 *
@@ -17,7 +19,8 @@
 		 * Constructor
 		 * @return void
 		 **/
-        function DBMysqli() {
+        function DBMysqli(LoggerInterface $logger = null) {
+            $this->logger = $logger;
             $this->_setDBInfo();
             $this->_connect();
         }
@@ -36,9 +39,9 @@
 		 * Create an instance of this class
 		 * @return DBMysqli return DBMysqli object instance
 		 */
-		function create()
+		function create(LoggerInterface $logger = null)
 		{
-			return new DBMysqli;
+			return new DBMysqli($logger);
 		}
 
 		/**

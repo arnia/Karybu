@@ -1,5 +1,7 @@
 <?php
 
+    use Psr\Log\LoggerInterface;
+
     /**
      * - DBMSSQL
      * - Modified to use MSSQL driver by sol (sol@ngleader.com)
@@ -36,11 +38,14 @@
             'float' => 'float',
         );
 
+        private $logger;
+
         /**
          * Constructor
 		 * @return void
          */
-        function DBMssql() {
+        function DBMssql(LoggerInterface $logger = null) {
+            $this->logger = $logger;
             $this->_setDBInfo();
             $this->_connect();
         }
@@ -49,9 +54,9 @@
 		 * Create an instance of this class
 		 * @return DBMssql return DBMssql object instance
 		 */
-		function create()
+		function create(LoggerInterface $logger = null)
 		{
-			return new DBMssql;
+			return new DBMssql($logger);
 		}
 
 		/**

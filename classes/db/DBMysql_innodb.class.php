@@ -1,7 +1,9 @@
 <?php
 	require_once('DBMysql.class.php');
 
-	/**
+    use Psr\Log\LoggerInterface;
+
+/**
 	 * Class to use MySQL innoDB DBMS
 	 * mysql innodb handling class
 	 *
@@ -17,7 +19,8 @@
 		 * Constructor
 		 * @return void
 		 **/
-        function DBMysql_innodb() {
+        function DBMysql_innodb(LoggerInterface $logger = null) {
+            $this->logger = $logger;
             $this->_setDBInfo();
             $this->_connect();
         }
@@ -26,9 +29,9 @@
 		 * Create an instance of this class
 		 * @return DBMysql_innodb return DBMysql_innodb object instance
 		 */
-		function create()
+		function create(LoggerInterface $logger = null)
 		{
-			return new DBMysql_innodb;
+			return new DBMysql_innodb($logger);
 		}
 
 		/**

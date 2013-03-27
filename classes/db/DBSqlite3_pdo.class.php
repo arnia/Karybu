@@ -6,6 +6,8 @@
      * @version 0.1
      **/
 
+    use Psr\Log\LoggerInterface;
+
     class DBSqlite3_pdo extends DB {
 
         /**
@@ -40,10 +42,13 @@
             'float'     => 'REAL',
         );
 
+        private $logger;
+
         /**
          * @brief constructor
          **/
-        function DBSqlite3_pdo() {
+        function DBSqlite3_pdo(LoggerInterface $logger = null) {
+            $this->logger = $logger;
             $this->_setDBInfo();
             $this->_connect();
         }
@@ -51,9 +56,9 @@
 		/**
 		 * @brief create an instance of this class
 		 */
-		function create()
+		function create(LoggerInterface $logger = null)
 		{
-			return new DBSqlite3_pdo;
+			return new DBSqlite3_pdo($logger);
 		}
 
         /**

@@ -8,6 +8,8 @@
      * firebird handling class
      **/
 
+    use Psr\Log\LoggerInterface;
+
     class DBFireBird extends DB {
 
         /**
@@ -34,10 +36,13 @@
             'float' => 'FLOAT',
         );
 
+        private $logger;
+
         /**
          * @brief constructor
          **/
-        function DBFireBird() {
+        function DBFireBird(LoggerInterface $logger = null) {
+            $this->logger = $logger;
             $this->_setDBInfo();
             $this->_connect();
         }
@@ -45,9 +50,9 @@
 		/**
 		 * @brief create an instance of this class
 		 */
-		function create()
+		function create(LoggerInterface $logger = null)
 		{
-			return new DBFireBird;
+			return new DBFireBird($logger);
 		}
 
         /**

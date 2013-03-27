@@ -38,7 +38,7 @@ class DBMysql extends DB {
         'float' => 'float',
     );
 
-    private $logger;
+    protected $logger;
 
     /**
      * Constructor

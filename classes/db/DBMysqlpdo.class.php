@@ -1,6 +1,8 @@
 <?php
 	require_once('DBMysql.class.php');
 
+    use Psr\Log\LoggerInterface;
+
 	/**
 	 * Class to use MySQLi DBMS as mysqli_*
 	 * mysql handling class
@@ -13,7 +15,6 @@
 	 **/
     class DBMysqlpdo extends DBMysql {
 
-
         /**
          * Variables for using PDO
          **/
@@ -25,7 +26,8 @@
 		 * Constructor
 		 * @return void
 		 **/
-        function DBMysqlpdo() {
+        function DBMysqlpdo(LoggerInterface $logger = null) {
+            $this->logger = $logger;
             $this->_setDBInfo();
             $this->_connect();
         }
@@ -40,9 +42,9 @@
         /**
          * create an instance of this class
          */
-        function create()
+        function create(LoggerInterface $logger = null)
         {
-            return new DBMysqlpdo;
+            return new DBMysqlpdo($logger);
         }
 
 		/**
