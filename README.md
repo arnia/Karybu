@@ -1,4 +1,4 @@
 Karybu
 ======
 
-a new CMS
+An older php cms refactored to use symfony2 components.
