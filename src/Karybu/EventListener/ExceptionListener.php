@@ -5,6 +5,7 @@ namespace Karybu\EventListener;
 use Karybu\Exception\DBConnectionFailedException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
+
 //use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
 use Karybu\EventListener\ExceptionHandler;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -13,6 +14,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\FatalErrorException;
 
 /**
  * Class ExceptionListener
@@ -36,8 +38,16 @@ class ExceptionListener implements EventSubscriberInterface
     {
         $exception = $event->getException();
 
-        if($this->logger){
-            $this->logger->error(sprintf('Uncaught PHP Exception %s: "%s" at %s line %s', get_class($exception), $exception->getMessage(), $exception->getFile(), $exception->getLine()));
+        if ($this->logger) {
+            $this->logger->error(
+                sprintf(
+                    'Uncaught PHP Exception %s: "%s" at %s line %s',
+                    get_class($exception),
+                    $exception->getMessage(),
+                    $exception->getFile(),
+                    $exception->getLine()
+                )
+            );
         }
 
         if ($event->getKernel()->isDebug()) {
@@ -47,9 +57,13 @@ class ExceptionListener implements EventSubscriberInterface
             return;
         }
 
-        if ($exception instanceof DBConnectionFailedException){
-            // do nothing, subsequent calls will came to the same end
-        }else{
+        if ($exception instanceof DBConnectionFailedException) {
+            // this is fatal; no subsequent flow can't be done
+            // without triggering other DB operation
+            $fatalException = new FatalErrorException($exception->getMessage(), $exception->getCode(),
+                1, $exception->getFile(), $exception->getLine(), $exception->getPrevious());
+            throw $fatalException;
+        } else {
             $status_code = $exception instanceof HttpExceptionInterface ? $exception->getStatusCode() : '500';
             // display content with message module instance
             $type = \Mobile::isFromMobilePhone() ? 'mobile' : 'view';
