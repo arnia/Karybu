@@ -6,6 +6,7 @@
 /nbproject
 /.settings
 /.idea
+/composer.lock
 /modules/shop/
 /modules/textyle/
 /config/config.user.inc.php

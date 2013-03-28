@@ -174,6 +174,7 @@ class DB {
         }
 
         return $GLOBALS['__DB__'][$db_type];
+
     }
 
     /**
@@ -210,19 +211,19 @@ class DB {
      */
     function getEnableList()
     {
-            if(!$this->supported_list)
-            {
-                    $oDB = new DB();
-                    $this->supported_list = $oDB->_getSupportedList();
-            }
+        if(!$this->supported_list)
+        {
+            $oDB = new DB();
+            $this->supported_list = $oDB->_getSupportedList();
+        }
 
-            $enableList = array();
-            if(is_array($this->supported_list))
-            {
-                    foreach($this->supported_list AS $key=>$value)
-                            if($value->enable) array_push($enableList, $value);
-            }
-            return $enableList;
+        $enableList = array();
+        if(is_array($this->supported_list))
+        {
+            foreach($this->supported_list AS $key=>$value)
+                if($value->enable) array_push($enableList, $value);
+        }
+        return $enableList;
     }
 
     /**
@@ -232,19 +233,19 @@ class DB {
      */
     function getDisableList()
     {
-            if(!$this->supported_list)
-            {
-                    $oDB = new DB();
-                    $this->supported_list = $oDB->_getSupportedList();
-            }
+        if(!$this->supported_list)
+        {
+            $oDB = new DB();
+            $this->supported_list = $oDB->_getSupportedList();
+        }
 
-            $disableList = array();
-            if(is_array($this->supported_list))
-            {
-                    foreach($this->supported_list AS $key=>$value)
-                            if(!$value->enable) array_push($disableList, $value);
-            }
-            return $disableList;
+        $disableList = array();
+        if(is_array($this->supported_list))
+        {
+            foreach($this->supported_list AS $key=>$value)
+                if(!$value->enable) array_push($disableList, $value);
+        }
+        return $disableList;
     }
 
     /**
@@ -427,7 +428,6 @@ class DB {
         $result = $this->_executeQuery($cache_file[$query_id], $args, $query_id, $arg_columns);
 
         $this->actDBClassFinish();
-        // execute query
         return $result;
     }
 
@@ -479,22 +479,22 @@ class DB {
         switch($output->getAction()) {
             case 'insert' :
             case 'insert-select' :
-                    $this->resetCountCache($output->tables);
-                    $output = $this->_executeInsertAct($output);
+                $this->resetCountCache($output->tables);
+                $output = $this->_executeInsertAct($output);
                 break;
             case 'update' :
-                    $this->resetCountCache($output->tables);
-                    $output = $this->_executeUpdateAct($output);
+                $this->resetCountCache($output->tables);
+                $output = $this->_executeUpdateAct($output);
                 break;
             case 'delete' :
-                    $this->resetCountCache($output->tables);
-                    $output = $this->_executeDeleteAct($output);
+                $this->resetCountCache($output->tables);
+                $output = $this->_executeDeleteAct($output);
                 break;
             case 'select' :
-                    $arg_columns = is_array($arg_columns)?$arg_columns:array();
-                    $output->setColumnList($arg_columns);
-                    $connection = $this->_getConnection('slave');
-                    $output = $this->_executeSelectAct($output, $connection);
+                $arg_columns = is_array($arg_columns)?$arg_columns:array();
+                $output->setColumnList($arg_columns);
+                $connection = $this->_getConnection('slave');
+                $output = $this->_executeSelectAct($output, $connection);
                 break;
         }
 
@@ -633,15 +633,15 @@ class DB {
         $where = $query->getWhereString($with_values);
         if($where != '') $where = ' WHERE ' . $where;
 
-                    $tableObjects = $query->getTables();
-                    $index_hint_list = '';
-                    foreach($tableObjects as $tableObject){
-                        if(is_a($tableObject, 'CubridTableWithHint'))
-                                $index_hint_list .= $tableObject->getIndexHintString() . ', ';
-                    }
-                    $index_hint_list = substr($index_hint_list, 0, -2);
-                    if($index_hint_list != '')
-                        $index_hint_list = 'USING INDEX ' . $index_hint_list;
+        $tableObjects = $query->getTables();
+        $index_hint_list = '';
+        foreach($tableObjects as $tableObject){
+            if(is_a($tableObject, 'CubridTableWithHint'))
+                $index_hint_list .= $tableObject->getIndexHintString() . ', ';
+        }
+        $index_hint_list = substr($index_hint_list, 0, -2);
+        if($index_hint_list != '')
+            $index_hint_list = 'USING INDEX ' . $index_hint_list;
 
         $groupBy = $query->getGroupByString();
         if($groupBy != '') $groupBy = ' GROUP BY ' . $groupBy;
@@ -721,8 +721,8 @@ class DB {
         $columnsList = $query->getUpdateString($with_values);
         if($columnsList == '') return new Object(-1, "Invalid query");
 
-                    $tables = $query->getFromString($with_values);
-                    if($tables == '') return new Object(-1, "Invalid query");
+        $tables = $query->getFromString($with_values);
+        if($tables == '') return new Object(-1, "Invalid query");
 
         $where = $query->getWhereString($with_values);
         if($where != '') $where = ' WHERE ' . $where;
@@ -766,7 +766,7 @@ class DB {
     function _getConnection($type = 'master', $indx = null){
         if($type == 'master'){
             if(!$this->master_db['is_connected'])
-                    $this->_connect($type);
+                $this->_connect($type);
             $this->connection = 'Master ' . $this->master_db['db_hostname'];
             return $this->master_db["resource"];
         }
@@ -775,7 +775,7 @@ class DB {
             $indx = $this->_getSlaveConnectionStringIndex($type);
 
         if(!$this->slave_db[$indx]['is_connected'])
-                $this->_connect($type, $indx);
+            $this->_connect($type, $indx);
 
         $this->connection = 'Slave ' . $this->slave_db[$indx]['db_hostname'];
         return $this->slave_db[$indx]["resource"];
@@ -841,7 +841,7 @@ class DB {
             return;
 
         if($this->_begin())
-             $this->transaction_started = true;
+            $this->transaction_started = true;
     }
 
     /**
@@ -928,14 +928,14 @@ class DB {
         $db_info = Context::getDBInfo();
         $this->master_db = $db_info->master_db;
         if($db_info->master_db["db_hostname"] == $db_info->slave_db[0]["db_hostname"]
-                && $db_info->master_db["db_port"] == $db_info->slave_db[0]["db_port"]
-                && $db_info->master_db["db_userid"] == $db_info->slave_db[0]["db_userid"]
-                && $db_info->master_db["db_password"] == $db_info->slave_db[0]["db_password"]
-                && $db_info->master_db["db_database"] == $db_info->slave_db[0]["db_database"]
-                )
-                $this->slave_db[0] = &$this->master_db;
+            && $db_info->master_db["db_port"] == $db_info->slave_db[0]["db_port"]
+            && $db_info->master_db["db_userid"] == $db_info->slave_db[0]["db_userid"]
+            && $db_info->master_db["db_password"] == $db_info->slave_db[0]["db_password"]
+            && $db_info->master_db["db_database"] == $db_info->slave_db[0]["db_database"]
+        )
+            $this->slave_db[0] = &$this->master_db;
         else
-                $this->slave_db = $db_info->slave_db;
+            $this->slave_db = $db_info->slave_db;
         $this->prefix = $db_info->master_db["db_table_prefix"];
         $this->use_prepared_statements = $db_info->use_prepared_statements;
     }
@@ -965,15 +965,15 @@ class DB {
      * this method is protected
      * @param string $type 'master' or 'slave'
      * @param int $indx number in slave dbms server list
-     * @return void
+     * @return boolean - if connected or not
      */
     function _connect($type = 'master', $indx = 0) {
         if ($this->isConnected($type, $indx))
-            return;
+            return true;
 
         // Ignore if no DB information exists
         if (!$this->_dbInfoExists())
-            return;
+            return false;
 
         if ($type == 'master')
             $connection = &$this->master_db;
@@ -983,7 +983,7 @@ class DB {
         $result = $this->__connect($connection);
         if($result === null || $result === false) {
             $connection["is_connected"] = false;
-            return;
+            return false;
         }
 
         // Check connections
@@ -994,6 +994,7 @@ class DB {
         $this->connection = ucfirst($type) . ' ' . $connection["db_hostname"];
 
         $this->_afterConnect($result);
+        return true;
     }
 
     /**

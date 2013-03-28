@@ -12,6 +12,9 @@
  * 2009.02.13 addColumn() function changes
  **/
 
+use Psr\Log\LoggerInterface;
+use Karybu\Exception\DBConnectionFailedException;
+
 class DBPostgresql extends DB
 {
 
@@ -38,30 +41,37 @@ class DBPostgresql extends DB
         'float' => 'real',
     );
 
+    private $logger;
+
     /**
      * @brief constructor
      **/
-    function DBPostgresql()
+    function DBPostgresql(LoggerInterface $logger = null)
     {
+        $this->logger = $logger;
         $this->_setDBInfo();
-        $this->_connect();
+        $connected = $this->_connect();
+        if (!$connected) {
+            throw new DBConnectionFailedException ("DB connection failed!");
+        }
     }
 
-	/**
-	 * @brief create an instance of this class
-	 */
-	function create()
-	{
-		return new DBPostgresql;
-	}
+    /**
+     * @brief create an instance of this class
+     */
+    function create(LoggerInterface $logger = null)
+    {
+        return new DBPostgresql($logger);
+    }
 
     /**
      * @brief Return if it is installable
      **/
     function isSupported()
     {
-        if (!function_exists('pg_connect'))
+        if (!function_exists('pg_connect')) {
             return false;
+        }
         return true;
     }
 
@@ -73,7 +83,7 @@ class DBPostgresql extends DB
         // the connection string for PG
         $conn_string = "";
         // Create connection string
-        $conn_string .= ($connection["db_hostname"]) ? ' host='.$connection["db_hostname"] : "";
+        $conn_string .= ($connection["db_hostname"]) ? ' host=' . $connection["db_hostname"] : "";
         $conn_string .= ($connection["db_userid"]) ? " user=" . $connection["db_userid"] : "";
         $conn_string .= ($connection["db_password"]) ? " password=" . $connection["db_password"] : "";
         $conn_string .= ($connection["db_database"]) ? " dbname=" . $connection["db_database"] : "";
@@ -101,10 +111,12 @@ class DBPostgresql extends DB
      **/
     function addQuotes($string)
     {
-        if (version_compare(PHP_VERSION, "5.9.0", "<") && get_magic_quotes_gpc())
+        if (version_compare(PHP_VERSION, "5.9.0", "<") && get_magic_quotes_gpc()) {
             $string = stripslashes(str_replace("\\", "\\\\", $string));
-        if (!is_numeric($string))
+        }
+        if (!is_numeric($string)) {
             $string = @pg_escape_string($string);
+        }
         return $string;
     }
 
@@ -114,7 +126,9 @@ class DBPostgresql extends DB
     function _begin()
     {
         $connection = $this->_getConnection('master');
-        if (!$this->_query('BEGIN')) return false;
+        if (!$this->_query('BEGIN')) {
+            return false;
+        }
         return true;
     }
 
@@ -123,7 +137,9 @@ class DBPostgresql extends DB
      **/
     function _rollback()
     {
-        if (!$this->_query('ROLLBACK')) return false;
+        if (!$this->_query('ROLLBACK')) {
+            return false;
+        }
         return true;
     }
 
@@ -132,7 +148,9 @@ class DBPostgresql extends DB
      **/
     function _commit()
     {
-        if (!$this->_query('COMMIT')) return false;
+        if (!$this->_query('COMMIT')) {
+            return false;
+        }
         return true;
     }
 
@@ -147,8 +165,9 @@ class DBPostgresql extends DB
      **/
     function __query($query, $connection)
     {
-        if (!$this->isConnected())
+        if (!$this->isConnected()) {
             return;
+        }
 
         /*
         $l_query_array = explode(" ", $query);
@@ -191,17 +210,26 @@ class DBPostgresql extends DB
      * @brief Fetch results
      **/
     // TODO This is duplicate code - maybe we can find away to abastract the driver
-    function _fetch($result, $arrayIndexEndValue = NULL)
+    function _fetch($result, $arrayIndexEndValue = null)
     {
-        if (!$this->isConnected() || $this->isError() || !$result)
+        if (!$this->isConnected() || $this->isError() || !$result) {
             return;
-        while ($tmp = pg_fetch_object($result)) {
-            if($arrayIndexEndValue) $output[$arrayIndexEndValue--] = $tmp;
-            else $output[] = $tmp;
         }
-        if(count($output)==1){
-          	if(isset($arrayIndexEndValue)) return $output;
-            else return $output[0];
+        while ($tmp = pg_fetch_object($result)) {
+            if ($arrayIndexEndValue) {
+                $output[$arrayIndexEndValue--] = $tmp;
+            }
+            else {
+                $output[] = $tmp;
+            }
+        }
+        if (count($output) == 1) {
+            if (isset($arrayIndexEndValue)) {
+                return $output;
+            }
+            else {
+                return $output[0];
+            }
         }
         return $output;
     }
@@ -222,39 +250,58 @@ class DBPostgresql extends DB
      **/
     function isTableExists($target_name)
     {
-        if ($target_name == "sequence")
+        if ($target_name == "sequence") {
             return true;
-        $query = sprintf("SELECT tablename FROM pg_tables WHERE tablename = '%s%s' AND schemaname = current_schema()",
-            $this->prefix, $this->addQuotes($target_name));
+        }
+        $query = sprintf(
+            "SELECT tablename FROM pg_tables WHERE tablename = '%s%s' AND schemaname = current_schema()",
+            $this->prefix,
+            $this->addQuotes($target_name)
+        );
 
         $result = $this->_query($query);
         $tmp = $this->_fetch($result);
-        if (!$tmp)
+        if (!$tmp) {
             return false;
+        }
         return true;
     }
 
     /**
      * @brief Add a column to a table
      **/
-    function addColumn($table_name, $column_name, $type = 'number', $size = '', $default =
-        NULL, $notnull = false)
-    {
+    function addColumn(
+        $table_name,
+        $column_name,
+        $type = 'number',
+        $size = '',
+        $default =
+        null,
+        $notnull = false
+    ) {
         $type = $this->column_type[$type];
-        if (strtoupper($type) == 'INTEGER' || strtoupper($type) == 'BIGINT')
+        if (strtoupper($type) == 'INTEGER' || strtoupper($type) == 'BIGINT') {
             $size = '';
+        }
 
         $query = sprintf("alter table %s%s add %s ", $this->prefix, $table_name, $column_name);
 
-        if ($size)
+        if ($size) {
             $query .= sprintf(" %s(%s) ", $type, $size);
-        else
+        } else {
             $query .= sprintf(" %s ", $type);
+        }
 
         $this->_query($query);
 
         if (isset($default)) {
-            $query = sprintf("alter table %s%s alter %s  set default '%s' ", $this->prefix, $table_name, $column_name, $default);
+            $query = sprintf(
+                "alter table %s%s alter %s  set default '%s' ",
+                $this->prefix,
+                $table_name,
+                $column_name,
+                $default
+            );
             $this->_query($query);
         }
         if ($notnull) {
@@ -271,8 +318,12 @@ class DBPostgresql extends DB
      **/
     function isColumnExists($table_name, $column_name)
     {
-        $query = sprintf("SELECT attname FROM pg_attribute WHERE attrelid = (SELECT oid FROM pg_class WHERE relname = '%s%s') AND attname = '%s'",
-            $this->prefix, strtolower($table_name), strtolower($column_name));
+        $query = sprintf(
+            "SELECT attname FROM pg_attribute WHERE attrelid = (SELECT oid FROM pg_class WHERE relname = '%s%s') AND attname = '%s'",
+            $this->prefix,
+            strtolower($table_name),
+            strtolower($column_name)
+        );
 
         // $query = sprintf("select column_name from information_schema.columns where table_schema = current_schema() and table_name = '%s%s' and column_name = '%s'", $this->prefix, $this->addQuotes($table_name), strtolower($column_name));
         $result = $this->_query($query);
@@ -293,16 +344,23 @@ class DBPostgresql extends DB
      **/
     function addIndex($table_name, $index_name, $target_columns, $is_unique = false)
     {
-        if (!is_array($target_columns))
+        if (!is_array($target_columns)) {
             $target_columns = array($target_columns);
+        }
 
-        if (strpos($table_name, $this->prefix) === false)
+        if (strpos($table_name, $this->prefix) === false) {
             $table_name = $this->prefix . $table_name;
+        }
         // Use a tablename before an index name to avoid defining the same index
         $index_name = $table_name . $index_name;
 
-        $query = sprintf("create %s index %s on %s (%s);", $is_unique ? 'unique' : '', $index_name,
-            $table_name, implode(',', $target_columns));
+        $query = sprintf(
+            "create %s index %s on %s (%s);",
+            $is_unique ? 'unique' : '',
+            $index_name,
+            $table_name,
+            implode(',', $target_columns)
+        );
         $this->_query($query);
     }
 
@@ -320,8 +378,9 @@ class DBPostgresql extends DB
      **/
     function dropIndex($table_name, $index_name, $is_unique = false)
     {
-        if (strpos($table_name, $this->prefix) === false)
+        if (strpos($table_name, $this->prefix) === false) {
             $table_name = $this->prefix . $table_name;
+        }
         // Use a tablename before an index name to avoid defining the same index
         $index_name = $table_name . $index_name;
 
@@ -335,17 +394,22 @@ class DBPostgresql extends DB
      **/
     function isIndexExists($table_name, $index_name)
     {
-        if (strpos($table_name, $this->prefix) === false)
+        if (strpos($table_name, $this->prefix) === false) {
             $table_name = $this->prefix . $table_name;
+        }
         // Use a tablename before an index name to avoid defining the same index
         $index_name = $table_name . $index_name;
 
         //$query = sprintf("show indexes from %s%s where key_name = '%s' ", $this->prefix, $table_name, $index_name);
-        $query = sprintf("select indexname from pg_indexes where schemaname = current_schema() and tablename = '%s' and indexname = '%s'",
-            $table_name, strtolower($index_name));
+        $query = sprintf(
+            "select indexname from pg_indexes where schemaname = current_schema() and tablename = '%s' and indexname = '%s'",
+            $table_name,
+            strtolower($index_name)
+        );
         $result = $this->_query($query);
-        if ($this->isError())
+        if ($this->isError()) {
             return;
+        }
         $output = $this->_fetch($result);
 
         if ($output) {
@@ -369,8 +433,9 @@ class DBPostgresql extends DB
      **/
     function createTableByXmlFile($file_name)
     {
-        if (!file_exists($file_name))
+        if (!file_exists($file_name)) {
             return;
+        }
         // read xml file
         $buff = FileHandler::readFile($file_name);
         return $this->_createTable($buff);
@@ -396,14 +461,16 @@ class DBPostgresql extends DB
             return $this->_query($query);
         }
 
-        if ($this->isTableExists($table_name))
+        if ($this->isTableExists($table_name)) {
             return;
+        }
         $table_name = $this->prefix . $table_name;
 
-        if (!is_array($xml_obj->table->column))
+        if (!is_array($xml_obj->table->column)) {
             $columns[] = $xml_obj->table->column;
-        else
+        } else {
             $columns = $xml_obj->table->column;
+        }
 
         foreach ($columns as $column) {
             $name = $column->attrs->name;
@@ -416,21 +483,32 @@ class DBPostgresql extends DB
             $default = $column->attrs->default;
             $auto_increment = $column->attrs->auto_increment;
 
-            if ($type == "bignumber" || $type == "number")
+            if ($type == "bignumber" || $type == "number") {
                 $size = 0;
+            }
 
-            $column_schema[] = sprintf('%s %s%s %s %s', $name, $this->column_type[$type], $size ?
-                '(' . $size . ')' : '', isset($default) ? "default '" . $default . "'" : '', $notnull ?
-                'not null' : '');
+            $column_schema[] = sprintf(
+                '%s %s%s %s %s',
+                $name,
+                $this->column_type[$type],
+                $size ?
+                    '(' . $size . ')' : '',
+                isset($default) ? "default '" . $default . "'" : '',
+                $notnull ?
+                    'not null' : ''
+            );
 
-            if ($primary_key)
+            if ($primary_key) {
                 $primary_list[] = $name;
-            else
-                if ($unique)
+            } else {
+                if ($unique) {
                     $unique_list[$unique][] = $name;
-                else
-                    if ($index)
+                } else {
+                    if ($index) {
                         $index_list[$index][] = $name;
+                    }
+                }
+            }
         }
 
         if (count($primary_list)) {
@@ -444,20 +522,26 @@ class DBPostgresql extends DB
         }
 
 
-        $schema = sprintf('create table %s (%s%s);', $this->addQuotes($table_name), "\n",
-            implode($column_schema, ",\n"));
+        $schema = sprintf(
+            'create table %s (%s%s);',
+            $this->addQuotes($table_name),
+            "\n",
+            implode($column_schema, ",\n")
+        );
 
         $output = $this->_query($schema);
 
         if (count($index_list)) {
             foreach ($index_list as $key => $val) {
-                if (!$this->isIndexExists($table_name, $key))
+                if (!$this->isIndexExists($table_name, $key)) {
                     $this->addIndex($table_name, $key, $val);
+                }
             }
         }
 
-        if (!$output)
+        if (!$output) {
             return false;
+        }
 
     }
 
@@ -468,7 +552,9 @@ class DBPostgresql extends DB
     function _executeInsertAct($queryObject)
     {
         $query = $this->getInsertSql($queryObject);
-        if(is_a($query, 'Object')) return;
+        if (is_a($query, 'Object')) {
+            return;
+        }
 
         return $this->_query($query);
     }
@@ -479,7 +565,9 @@ class DBPostgresql extends DB
     function _executeUpdateAct($queryObject)
     {
         $query = $this->getUpdateSql($queryObject);
-        if(is_a($query, 'Object')) return;
+        if (is_a($query, 'Object')) {
+            return;
+        }
         return $this->_query($query);
     }
 
@@ -490,7 +578,9 @@ class DBPostgresql extends DB
     {
         $query = $this->getDeleteSql($queryObject);
 
-      	if(is_a($query, 'Object')) return;
+        if (is_a($query, 'Object')) {
+            return;
+        }
         return $this->_query($query);
     }
 
@@ -499,29 +589,42 @@ class DBPostgresql extends DB
      * override
      * @param $queryObject
      */
-    function getSelectSql($query){
-		$select = $query->getSelectString();
-		if($select == '') return new Object(-1, "Invalid query");
-		$select = 'SELECT ' .$select;
+    function getSelectSql($query)
+    {
+        $select = $query->getSelectString();
+        if ($select == '') {
+            return new Object(-1, "Invalid query");
+        }
+        $select = 'SELECT ' . $select;
 
-		$from = $query->getFromString();
-		if($from == '') return new Object(-1, "Invalid query");
-		$from = ' FROM '.$from;
+        $from = $query->getFromString();
+        if ($from == '') {
+            return new Object(-1, "Invalid query");
+        }
+        $from = ' FROM ' . $from;
 
-		$where = $query->getWhereString();
-		if($where != '') $where = ' WHERE ' . $where;
+        $where = $query->getWhereString();
+        if ($where != '') {
+            $where = ' WHERE ' . $where;
+        }
 
-		$groupBy = $query->getGroupByString();
-		if($groupBy != '') $groupBy = ' GROUP BY ' . $groupBy;
+        $groupBy = $query->getGroupByString();
+        if ($groupBy != '') {
+            $groupBy = ' GROUP BY ' . $groupBy;
+        }
 
-		$orderBy = $query->getOrderByString();
-		if($orderBy != '') $orderBy = ' ORDER BY ' . $orderBy;
+        $orderBy = $query->getOrderByString();
+        if ($orderBy != '') {
+            $orderBy = ' ORDER BY ' . $orderBy;
+        }
 
-	 	$limit = $query->getLimitString();
-                $limitObject = $query->getLimit();
-	 	if($limit != '') $limit = ' LIMIT ' . $limitObject->getLimit() . ' OFFSET ' . $limitObject->getOffset();
+        $limit = $query->getLimitString();
+        $limitObject = $query->getLimit();
+        if ($limit != '') {
+            $limit = ' LIMIT ' . $limitObject->getLimit() . ' OFFSET ' . $limitObject->getOffset();
+        }
 
-	 	return $select . ' ' . $from . ' ' . $where . ' ' . $groupBy . ' ' . $orderBy . ' ' . $limit;
+        return $select . ' ' . $from . ' ' . $where . ' ' . $groupBy . ' ' . $orderBy . ' ' . $limit;
     }
 
     /**
@@ -532,69 +635,90 @@ class DBPostgresql extends DB
      **/
     function _executeSelectAct($queryObject, $connection)
     {
-		$query = $this->getSelectSql($queryObject);
+        $query = $this->getSelectSql($queryObject);
 
-			if(is_a($query, 'Object')) return;
+        if (is_a($query, 'Object')) {
+            return;
+        }
 
-			$query .= (__DEBUG_QUERY__&1 && $queryObject->query_id)?sprintf(' '.$this->comment_syntax,$this->query_id):'';
+        $query .= (__DEBUG_QUERY__ & 1 && $queryObject->query_id) ? sprintf(
+            ' ' . $this->comment_syntax,
+            $this->query_id
+        ) : '';
 
-            // TODO Add support for click count
-            // TODO Add code for pagination
+        // TODO Add support for click count
+        // TODO Add code for pagination
 
-			$result = $this->_query ($query, $connection);
-			if ($this->isError ()) {
-				if ($limit && $output->limit->isPageHandler()){
-					$buff = new Object ();
-					$buff->total_count = 0;
-					$buff->total_page = 0;
-					$buff->page = 1;
-					$buff->data = array ();
-					$buff->page_navigation = new PageHandler (/*$total_count*/0, /*$total_page*/1, /*$page*/1, /*$page_count*/10);//default page handler values
-					return $buff;
-				}else
-					return;
-			}
+        $result = $this->_query($query, $connection);
+        if ($this->isError()) {
+            if ($limit && $output->limit->isPageHandler()) {
+                $buff = new Object ();
+                $buff->total_count = 0;
+                $buff->total_page = 0;
+                $buff->page = 1;
+                $buff->data = array();
+                $buff->page_navigation = new PageHandler ( /*$total_count*/
+                    0, /*$total_page*/
+                    1, /*$page*/
+                    1, /*$page_count*/
+                    10); //default page handler values
+                return $buff;
+            } else {
+                return;
+            }
+        }
 
-                        $limit = $queryObject->getLimit();
-		 	if ($limit && $limit->isPageHandler()) {
-		 		// Total count
-				$temp_where = $queryObject->getWhereString(true, false);
-		 		$count_query = sprintf('select count(*) as "count" %s %s', 'FROM ' . $queryObject->getFromString(), ($temp_where === '' ? '' : ' WHERE '. $temp_where));
-				if ($queryObject->getGroupByString() != '') {
-					$count_query = sprintf('select count(*) as "count" from (%s) xet', $count_query);
-				}
+        $limit = $queryObject->getLimit();
+        if ($limit && $limit->isPageHandler()) {
+            // Total count
+            $temp_where = $queryObject->getWhereString(true, false);
+            $count_query = sprintf(
+                'select count(*) as "count" %s %s',
+                'FROM ' . $queryObject->getFromString(),
+                ($temp_where === '' ? '' : ' WHERE ' . $temp_where)
+            );
+            if ($queryObject->getGroupByString() != '') {
+                $count_query = sprintf('select count(*) as "count" from (%s) xet', $count_query);
+            }
 
-				$count_query .= (__DEBUG_QUERY__&1 && $output->query_id)?sprintf (' '.$this->comment_syntax, $this->query_id):'';
-				$result_count = $this->_query($count_query, $connection);
-				$count_output = $this->_fetch($result_count);
-				$total_count = (int)$count_output->count;
+            $count_query .= (__DEBUG_QUERY__ & 1 && $output->query_id) ? sprintf(
+                ' ' . $this->comment_syntax,
+                $this->query_id
+            ) : '';
+            $result_count = $this->_query($count_query, $connection);
+            $count_output = $this->_fetch($result_count);
+            $total_count = (int)$count_output->count;
 
-				// Total pages
-				if ($total_count) {
-					$total_page = (int) (($total_count - 1) / $limit->list_count) + 1;
-				}	else	$total_page = 1;
+            // Total pages
+            if ($total_count) {
+                $total_page = (int)(($total_count - 1) / $limit->list_count) + 1;
+            } else    {
+                $total_page = 1;
+            }
 
 
-		 		$virtual_no = $total_count - ($limit->page - 1) * $limit->list_count;
-		 		$data = $this->_fetch($result, $virtual_no);
+            $virtual_no = $total_count - ($limit->page - 1) * $limit->list_count;
+            $data = $this->_fetch($result, $virtual_no);
 
-		 		$buff = new Object ();
-				$buff->total_count = $total_count;
-				$buff->total_page = $total_page;
-				$buff->page = $limit->page->getValue();
-				$buff->data = $data;
-				$buff->page_navigation = new PageHandler($total_count, $total_page, $limit->page->getValue(), $limit->page_count);
-			}else{
-				$data = $this->_fetch($result);
-				$buff = new Object ();
-				$buff->data = $data;
-			}
+            $buff = new Object ();
+            $buff->total_count = $total_count;
+            $buff->total_page = $total_page;
+            $buff->page = $limit->page->getValue();
+            $buff->data = $data;
+            $buff->page_navigation = new PageHandler($total_count, $total_page, $limit->page->getValue(
+            ), $limit->page_count);
+        } else {
+            $data = $this->_fetch($result);
+            $buff = new Object ();
+            $buff->data = $data;
+        }
 
-			return $buff;
+        return $buff;
     }
 
-    function getParser(){
-    	return new DBParser('"', '"', $this->prefix);
+    function getParser()
+    {
+        return new DBParser('"', '"', $this->prefix);
     }
 }
 ?>
