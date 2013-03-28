@@ -2,16 +2,17 @@
 
 namespace Karybu\EventListener;
 
+use Karybu\Exception\DBConnectionFailedException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
-use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
+//use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
+use Karybu\EventListener\ExceptionHandler;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\Exception\FlattenException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ExceptionListener
@@ -45,24 +46,28 @@ class ExceptionListener implements EventSubscriberInterface
             return;
         }
 
-        $status_code = $exception instanceof HttpExceptionInterface ? $exception->getStatusCode() : '500';
-        // display content with message module instance
-        $type = \Mobile::isFromMobilePhone() ? 'mobile' : 'view';
-        /** @var $oMessageObject \messageView */
-        $oMessageObject = \ModuleHandler::getModuleInstance('message', $type);
-        $oMessageObject->setError(-1);
-        $oMessageObject->setMessage(null);
-        $oMessageObject->dispMessage();
+        if ($exception instanceof DBConnectionFailedException){
+            // do nothing, subsequent calls will came to the same end
+        }else{
+            $status_code = $exception instanceof HttpExceptionInterface ? $exception->getStatusCode() : '500';
+            // display content with message module instance
+            $type = \Mobile::isFromMobilePhone() ? 'mobile' : 'view';
+            /** @var $oMessageObject \messageView */
+            $oMessageObject = \ModuleHandler::getModuleInstance('message', $type);
+            $oMessageObject->setError(-1);
+            $oMessageObject->setMessage(null);
+            $oMessageObject->dispMessage();
 
-        $module_handler = $event->getRequest()->attributes->get('oModuleHandler');
-        $module_handler->_setHttpStatusMessage($status_code);
-        $oMessageObject->setHttpStatusCode($status_code);
-        $oMessageObject->setTemplateFile('http_status_code');
+            $module_handler = $event->getRequest()->attributes->get('oModuleHandler');
+            $module_handler->_setHttpStatusMessage($status_code);
+            $oMessageObject->setHttpStatusCode($status_code);
+            $oMessageObject->setTemplateFile('http_status_code');
 
-        $oDisplayHandler = new \DisplayHandler();
-        $response = $oDisplayHandler->getReponseForModule($oMessageObject);
+            $oDisplayHandler = new \DisplayHandler();
+            $response = $oDisplayHandler->getReponseForModule($oMessageObject);
 
-        $event->setResponse($response);
+            $event->setResponse($response);
+        }
     }
 
     public static function getSubscribedEvents()

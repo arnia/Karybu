@@ -1,5 +1,5 @@
 parameters:
-    kernel.debug: true
+    kernel.debug: false
     charset: UTF-8
 
 services:

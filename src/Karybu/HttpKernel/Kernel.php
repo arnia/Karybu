@@ -4,7 +4,8 @@ namespace Karybu\HttpKernel;
 
 use Karybu\EventListener\ErrorHandler as ErrHandler;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
+//use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
+use Karybu\EventListener\ExceptionHandler;
 use Symfony\Component\HttpKernel\Kernel as SymfonyKernel;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -30,7 +31,7 @@ class Kernel extends SymfonyKernel
     public function init()
     {
         if ('cli' !== php_sapi_name()) {
-            ExceptionHandler::register();
+            ExceptionHandler::register($this->debug);
         } else {
             ini_set('display_errors', 1);
         }
