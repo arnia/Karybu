@@ -71,10 +71,11 @@
     width: 14px;
     height: 14px;
     position: absolute;
-    bottom: 3px;
+    bottom: 2px;
     right: 3px;
     cursor: pointer;
     z-index: 1000;
+    border: 0;
 }
 
 .widgetOutput .widgetResizeLeft {
@@ -82,10 +83,11 @@
     width: 14px;
     height:14px;
     position: absolute;
-    bottom: 3px;
+    bottom: 2px;
     left: 3px;
     cursor: pointer;
     z-index: 1000;
+    border: 0;
 }
 
 .widgetOutput .widgetBoxResize {
