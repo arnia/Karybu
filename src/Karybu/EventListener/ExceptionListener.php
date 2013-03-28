@@ -5,6 +5,7 @@ namespace Karybu\EventListener;
 use Karybu\Exception\DBConnectionFailedException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
+
 //use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
 use Karybu\EventListener\ExceptionHandler;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -36,19 +37,28 @@ class ExceptionListener implements EventSubscriberInterface
     {
         $exception = $event->getException();
 
-        if($this->logger)
-            $this->logger->error(sprintf('Uncaught PHP Exception %s: "%s" at %s line %s', get_class($exception), $exception->getMessage(), $exception->getFile(), $exception->getLine()));
+        if ($this->logger) {
+            $this->logger->error(
+                sprintf(
+                    'Uncaught PHP Exception %s: "%s" at %s line %s',
+                    get_class($exception),
+                    $exception->getMessage(),
+                    $exception->getFile(),
+                    $exception->getLine()
+                )
+            );
+        }
 
-        if(__DEBUG__) {
+        if ($event->getKernel()->isDebug()) {
             $exception_handler = new ExceptionHandler(true);
             $response = $exception_handler->createResponse($exception);
             $event->setResponse($response);
             return;
         }
 
-        if ($exception instanceof DBConnectionFailedException){
+        if ($exception instanceof DBConnectionFailedException) {
             // do nothing, subsequent calls will came to the same end
-        }else{
+        } else {
             $status_code = $exception instanceof HttpExceptionInterface ? $exception->getStatusCode() : '500';
             // display content with message module instance
             $type = \Mobile::isFromMobilePhone() ? 'mobile' : 'view';
