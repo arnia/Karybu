@@ -31,7 +31,7 @@ class ModuleObject extends Module
      * http status code.
      * @var int
      */
-    var $httpStatusCode = NULL;
+    var $httpStatusCode = null;
 
 
     /**
@@ -138,7 +138,9 @@ class ModuleObject extends Module
      */
     function get($key)
     {
-        return $this->variables[$key];
+        if (isset($this->variables[$key])) {
+            return $this->variables[$key];
+        }
     }
 
 
@@ -147,11 +149,12 @@ class ModuleObject extends Module
      *
      * @return Object Returns an object containing key/value pairs
      */
-    function gets() {
+    function gets()
+    {
         $num_args = func_num_args();
         $args_list = func_get_args();
         $output = new stdClass();
-        for($i=0;$i<$num_args;$i++) {
+        for ($i = 0; $i < $num_args; $i++) {
             $key = $args_list[$i];
             $output->{$key} = $this->get($key);
         }
@@ -203,6 +206,7 @@ class ModuleObject extends Module
     {
         return $this->toBool();
     }
+
     //endregion
 
     var $mid = null; ///< string to represent run-time instance of Module (XE Module)
@@ -247,7 +251,9 @@ class ModuleObject extends Module
      **/
     function setModulePath($path)
     {
-        if(substr($path,-1)!='/') $path.='/';
+        if (substr($path, -1) != '/') {
+            $path .= '/';
+        }
         $this->module_path = $path;
     }
 
@@ -257,14 +263,14 @@ class ModuleObject extends Module
      * @remark redirect_url is used only for ajax requests
      * @return void|mixed
      **/
-    function setRedirectUrl($url='./', $output = null)
+    function setRedirectUrl($url = './', $output = null)
     {
         $ajaxRequestMethod = array_flip($this->ajaxRequestMethod);
         if (!isset($ajaxRequestMethod[Context::getRequestMethod()])) {
             $this->add('redirect_url', $url);
         }
 
-        if($output !== null && is_object($output)) {
+        if ($output !== null && is_object($output)) {
             return $output;
         }
     }
@@ -310,9 +316,9 @@ class ModuleObject extends Module
     function getMessageType()
     {
         $type = $this->get('message_type');
-        $typeList = array('error'=>1, 'info'=>1, 'update'=>1);
+        $typeList = array('error' => 1, 'info' => 1, 'update' => 1);
         if (!isset($typeList[$type])) {
-            $type = $this->getError()?'error':'info';
+            $type = $this->getError() ? 'error' : 'info';
         }
         return $type;
     }
@@ -345,7 +351,7 @@ class ModuleObject extends Module
      * @param object $module_info object containing module information
      * @param object $xml_info object containing module description
      * @return void
-    **/
+     **/
     function setModuleInfo($module_info, $xml_info)
     {
         // The default variable settings
@@ -354,43 +360,48 @@ class ModuleObject extends Module
         $this->module_info = $module_info;
         $this->origin_module_info = $module_info;
         $this->xml_info = $xml_info;
-        $this->skin_vars = $module_info->skin_vars;
+        if (isset($module_info->skin_vars)) {
+            $this->skin_vars = $module_info->skin_vars;
+        }
         // validate certificate info and permission settings necessary in Web-services
         $is_logged = Context::get('is_logged');
         $logged_info = Context::get('logged_info');
         // module model create an object
-        $oModuleModel = &getModel('module');
+        $oModuleModel = & getModel('module');
         // permission settings. access, manager(== is_admin) are fixed and privilege name in XE
         $module_srl = Context::get('module_srl');
-        if(!$module_info->mid && !is_array($module_srl) && preg_match('/^([0-9]+)$/',$module_srl)) {
+        if (!$module_info->mid && !is_array($module_srl) && preg_match('/^([0-9]+)$/', $module_srl)) {
             $request_module = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-            if($request_module->module_srl == $module_srl) {
+            if ($request_module->module_srl == $module_srl) {
                 $grant = $oModuleModel->getGrant($request_module, $logged_info);
             }
         } else {
             $grant = $oModuleModel->getGrant($module_info, $logged_info, $xml_info);
             // have at least access grant
-            if( substr_count($this->act, 'Member') || substr_count($this->act, 'Communication'))
+            if (substr_count($this->act, 'Member') || substr_count($this->act, 'Communication')) {
                 $grant->access = 1;
+            }
         }
         // display no permission if the current module doesn't have an access privilege
         //if(!$grant->access) return $this->stop("msg_not_permitted");
         // checks permission and action if you don't have an admin privilege
-        if(!$grant->manager) {
+        if (!$grant->manager) {
             // get permission types(guest, member, manager, root) of the currently requested action
-            if(isset($xml_info->permission) && isset($xml_info->permission->{$this->act}))
+            if (isset($xml_info->permission) && isset($xml_info->permission->{$this->act})) {
                 $permission_target = $xml_info->permission->{$this->act};
+            }
             // check manager if a permission in module.xml otherwise action if no permission
-            if(!$permission_target && substr_count($this->act, 'Admin')) $permission_target = 'manager';
+            if (!$permission_target && substr_count($this->act, 'Admin')) {
+                $permission_target = 'manager';
+            }
             // Check permissions
-            switch($permission_target) {
+            switch ($permission_target) {
                 case 'root' :
                 case 'manager' :
                     $this->stop('msg_is_not_administrator');
                     return;
                 case 'member' :
-                    if(!$is_logged)
-                    {
+                    if (!$is_logged) {
                         $this->stop('msg_not_permitted_act');
                         return;
                     }
@@ -404,7 +415,9 @@ class ModuleObject extends Module
 
         $this->module_config = $oModuleModel->getModuleConfig($this->module, $module_info->site_srl);
 
-        if(method_exists($this, 'init')) $this->init();
+        if (method_exists($this, 'init')) {
+            $this->init();
+        }
     }
 
     /**
@@ -421,7 +434,7 @@ class ModuleObject extends Module
         $this->setMessage($msg_code);
         // Error message display by message module
         $type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
-        $oMessageObject = &ModuleHandler::getModuleInstance('message',$type);
+        $oMessageObject = & ModuleHandler::getModuleInstance('message', $type);
         $oMessageObject->setError(-1);
         $oMessageObject->setMessage($msg_code);
         $oMessageObject->dispMessage();
@@ -439,7 +452,9 @@ class ModuleObject extends Module
      **/
     function setTemplateFile($filename)
     {
-        if(substr($filename,-5)!='.html') $filename .= '.html';
+        if (substr($filename, -5) != '.html') {
+            $filename .= '.html';
+        }
         $this->template_file = $filename;
     }
 
@@ -459,8 +474,12 @@ class ModuleObject extends Module
      **/
     function setTemplatePath($path)
     {
-        if(substr($path,0,1)!='/' && substr($path,0,2)!='./') $path = './'.$path;
-        if(substr($path,-1)!='/') $path .= '/';
+        if (substr($path, 0, 1) != '/' && substr($path, 0, 2) != './') {
+            $path = './' . $path;
+        }
+        if (substr($path, -1) != '/') {
+            $path .= '/';
+        }
         $this->template_path = $path;
     }
 
@@ -480,7 +499,9 @@ class ModuleObject extends Module
      **/
     function setEditedLayoutFile($filename)
     {
-        if(substr($filename,-5)!='.html') $filename .= '.html';
+        if (substr($filename, -5) != '.html') {
+            $filename .= '.html';
+        }
         $this->edited_layout_file = $filename;
     }
 
@@ -500,7 +521,9 @@ class ModuleObject extends Module
      **/
     function setLayoutFile($filename)
     {
-        if(substr($filename,-5)!='.html') $filename .= '.html';
+        if (substr($filename, -5) != '.html') {
+            $filename .= '.html';
+        }
         $this->layout_file = $filename;
     }
 
@@ -519,8 +542,12 @@ class ModuleObject extends Module
      **/
     function setLayoutPath($path)
     {
-        if(substr($path,0,1)!='/' && substr($path,0,2)!='./') $path = './'.$path;
-        if(substr($path,-1)!='/') $path .= '/';
+        if (substr($path, 0, 1) != '/' && substr($path, 0, 2) != './') {
+            $path = './' . $path;
+        }
+        if (substr($path, -1) != '/') {
+            $path .= '/';
+        }
         $this->layout_path = $path;
     }
 
@@ -528,7 +555,7 @@ class ModuleObject extends Module
      * set the directory path of the layout directory
      * @return string
      **/
-    function getLayoutPath()
+    function getLayoutPath($layout_name = null, $layout_type = "P")
     {
         return $this->layout_path;
     }
@@ -536,11 +563,13 @@ class ModuleObject extends Module
     function preProc()
     {
         // pass if stop_proc is true
-        if($this->stop_proc) return false;
+        if ($this->stop_proc) {
+            return false;
+        }
 
         // trigger call
         $triggerOutput = ModuleHandler::triggerCall('moduleObject.proc', 'before', $this);
-        if(!$triggerOutput->toBool()) {
+        if (!$triggerOutput->toBool()) {
             $this->setError($triggerOutput->getError());
             $this->setMessage($triggerOutput->getMessage());
             return false;
@@ -548,8 +577,8 @@ class ModuleObject extends Module
 
         // execute an addon(call called_position as before_module_proc)
         $called_position = 'before_module_proc';
-        $oAddonController = &getController('addon');
-        $addon_file = $oAddonController->getCacheFilePath(Mobile::isFromMobilePhone()?"mobile":"pc");
+        $oAddonController = & getController('addon');
+        $addon_file = $oAddonController->getCacheFilePath(Mobile::isFromMobilePhone() ? "mobile" : "pc");
         include($addon_file);
 
         // We are checking act again because it might have been overriden in triggers / addons
@@ -560,19 +589,20 @@ class ModuleObject extends Module
                 return false;
             }
             // integrate skin information of the module(change to sync skin info with the target module only by seperating its table)
-            $oModuleModel = &getModel('module');
+            $oModuleModel = & getModel('module');
             $oModuleModel->syncSkinInfoToModuleInfo($this->module_info);
             Context::set('module_info', $this->module_info);
 
+        } else {
+            return false;
         }
-        else return false;
     }
 
     function postProc($output)
     {
         // trigger call
         $triggerOutput = ModuleHandler::triggerCall('moduleObject.proc', 'after', $this);
-        if(!$triggerOutput->toBool()) {
+        if (!$triggerOutput->toBool()) {
             $this->setError($triggerOutput->getError());
             $this->setMessage($triggerOutput->getMessage());
             return false;
@@ -580,21 +610,23 @@ class ModuleObject extends Module
 
         // execute an addon(call called_position as after_module_proc)
         $called_position = 'after_module_proc';
-        $oAddonController = &getController('addon');
-        $addon_file = $oAddonController->getCacheFilePath(Mobile::isFromMobilePhone()?"mobile":"pc");
+        $oAddonController = & getController('addon');
+        $addon_file = $oAddonController->getCacheFilePath(Mobile::isFromMobilePhone() ? "mobile" : "pc");
         include($addon_file);
 
-        if(is_a($output, 'Object') || is_subclass_of($output, 'Object')) {
+        if (is_a($output, 'Object') || is_subclass_of($output, 'Object')) {
             $this->setError($output->getError());
             $this->setMessage($output->getMessage());
 
-            if (!$output->toBool()) return false;
+            if (!$output->toBool()) {
+                return false;
+            }
         }
         // execute api methos of the module if view action is and result is XMLRPC or JSON
-        if($this->module_info->module_type == 'view'){
-            if(Context::getResponseMethod() == 'XMLRPC' || Context::getResponseMethod() == 'JSON') {
+        if ($this->module_info->module_type == 'view') {
+            if (Context::getResponseMethod() == 'XMLRPC' || Context::getResponseMethod() == 'JSON') {
                 $oAPI = getAPI($this->module_info->module, 'api');
-                if(method_exists($oAPI, $this->act)) {
+                if (method_exists($oAPI, $this->act)) {
                     $oAPI->{$this->act}($this);
                 }
             }

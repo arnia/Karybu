@@ -1,77 +1,89 @@
 <?php
+/**
+ * The controller class of rss module
+ *
+ * @author NHN (developers@xpressengine.com)
+ **/
+
+class rssController extends rss
+{
+
     /**
-     * The controller class of rss module
-	 *
-     * @author NHN (developers@xpressengine.com)
+     * Initialization
+     *
+     * @return void
      **/
+    function init()
+    {
+    }
 
-    class rssController extends rss {
+    /**
+     * Check whether to use RSS rss url by adding
+     *
+     * @return Object
+     **/
+    function triggerRssUrlInsert()
+    {
+        $oModuleModel = & getModel('module');
+        $total_config = $oModuleModel->getModuleConfig('rss');
+        $current_module_srl = Context::get('module_srl');
+        $site_module_info = Context::get('site_module_info');
 
-        /**
-         * Initialization
-		 *
-		 * @return void
-         **/
-        function init() {
+        if (is_array($current_module_srl)) {
+            unset($current_module_srl);
+        }
+        if (!$current_module_srl) {
+            $current_module_info = Context::get('current_module_info');
+            $current_module_srl = $current_module_info->module_srl;
         }
 
-        /**
-         * Check whether to use RSS rss url by adding
-		 *
-		 * @return Object
-         **/
-        function triggerRssUrlInsert() {
-            $oModuleModel = &getModel('module');
-            $total_config = $oModuleModel->getModuleConfig('rss');
-            $current_module_srl = Context::get('module_srl');
-            $site_module_info = Context::get('site_module_info');
-
-			if(is_array($current_module_srl))
-			{
-				unset($current_module_srl);
-			}
-            if(!$current_module_srl) {
-                $current_module_info = Context::get('current_module_info');
-                $current_module_srl = $current_module_info->module_srl;
-            }
-
-            if(!$current_module_srl) return new Object();
-            // Imported rss settings of the selected module
-            $oRssModel = &getModel('rss');
-            $rss_config = $oRssModel->getRssModuleConfig($current_module_srl);
-
-            if($rss_config->open_rss != 'N') {
-                Context::set('rss_url', $oRssModel->getModuleFeedUrl(Context::get('vid'), Context::get('mid'), 'rss'));
-                Context::set('atom_url', $oRssModel->getModuleFeedUrl(Context::get('vid'), Context::get('mid'), 'atom'));
-            }
-
-            if(Context::isInstalled() && $site_module_info->mid == Context::get('mid') && $total_config->use_total_feed != 'N') {
-                if(Context::isAllowRewrite() && !Context::get('vid')) {
-                    $request_uri = Context::getRequestUri();
-                    Context::set('general_rss_url', $request_uri.'rss');
-                    Context::set('general_atom_url', $request_uri.'atom');
-                } else {
-                    Context::set('general_rss_url', getUrl('','module','rss','act','rss'));
-                    Context::set('general_atom_url', getUrl('','module','rss','act','atom'));
-                }
-            }
-
+        if (!$current_module_srl) {
             return new Object();
         }
+        // Imported rss settings of the selected module
+        $oRssModel = & getModel('rss');
+        $rss_config = $oRssModel->getRssModuleConfig($current_module_srl);
 
-		function triggerCopyModule(&$obj)
-		{
-			$oModuleModel = &getModel('module');
-			$rssConfig = $oModuleModel->getModulePartConfig('rss', $obj->originModuleSrl);
+        if (isset($rss_config->open_rss)) {
+            if ($rss_config->open_rss != 'N') {
+                Context::set('rss_url', $oRssModel->getModuleFeedUrl(Context::get('vid'), Context::get('mid'), 'rss'));
+                Context::set(
+                    'atom_url',
+                    $oRssModel->getModuleFeedUrl(Context::get('vid'), Context::get('mid'), 'atom')
+                );
+            }
+        }
 
-			$oModuleController = &getController('module');
-			if(is_array($obj->moduleSrlList))
-			{
-				foreach($obj->moduleSrlList AS $key=>$moduleSrl)
-				{
-					$oModuleController->insertModulePartConfig('rss', $moduleSrl, $rssConfig);
-				}
-			}
-		}
+        if (isset($site_module_info->mid) && isset($total_config->use_total_feed)) {
+            if (Context::isInstalled() && $site_module_info->mid == Context::get(
+                'mid'
+            ) && $total_config->use_total_feed != 'N'
+            ) {
+                if (Context::isAllowRewrite() && !Context::get('vid')) {
+                    $request_uri = Context::getRequestUri();
+                    Context::set('general_rss_url', $request_uri . 'rss');
+                    Context::set('general_atom_url', $request_uri . 'atom');
+                } else {
+                    Context::set('general_rss_url', getUrl('', 'module', 'rss', 'act', 'rss'));
+                    Context::set('general_atom_url', getUrl('', 'module', 'rss', 'act', 'atom'));
+                }
+            }
+        }
+
+        return new Object();
     }
+
+    function triggerCopyModule(&$obj)
+    {
+        $oModuleModel = & getModel('module');
+        $rssConfig = $oModuleModel->getModulePartConfig('rss', $obj->originModuleSrl);
+
+        $oModuleController = & getController('module');
+        if (is_array($obj->moduleSrlList)) {
+            foreach ($obj->moduleSrlList AS $key => $moduleSrl) {
+                $oModuleController->insertModulePartConfig('rss', $moduleSrl, $rssConfig);
+            }
+        }
+    }
+}
 ?>

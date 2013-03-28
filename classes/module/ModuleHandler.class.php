@@ -99,15 +99,18 @@ class ModuleHandlerInstance extends Handler
         return getModel('document');
     }
 
-    private function isDisplayAction() {
+    private function isDisplayAction()
+    {
         return isset($this->act) && substr($this->act, 0, 4) == 'disp';
     }
 
-    private function currentRequestIsHttps() {
+    private function currentRequestIsHttps()
+    {
         return $this->context->getServerRequestHttps() == 'on';
     }
 
-    private function sslEnabledAndSslActionExists() {
+    private function sslEnabledAndSslActionExists()
+    {
         if ($this->isDisplayAction()
             && $this->context->get('_use_ssl') == 'optional'
             && $this->context->isExistsSSLAction($this->act)
@@ -120,12 +123,13 @@ class ModuleHandlerInstance extends Handler
         return null;
     }
 
-    private function onMainWebsiteAndDefaultModuleBelongsToVirtualSite($current_site_srl, $default_module_site_srl) {
-        if($current_site_srl == 0 && $default_module_site_srl > 0) {
+    private function onMainWebsiteAndDefaultModuleBelongsToVirtualSite($current_site_srl, $default_module_site_srl)
+    {
+        if ($current_site_srl == 0 && $default_module_site_srl > 0) {
             // Get info of virtual site
             $site_info = $this->getModuleModel()->getSiteInfo($default_module_site_srl);
             // Redirect to its domain
-            $redirect_url = $this->context->getNotEncodedSiteUrl($site_info->domain,'mid',$site_info->mid);
+            $redirect_url = $this->context->getNotEncodedSiteUrl($site_info->domain, 'mid', $site_info->mid);
             return new RedirectResponse($redirect_url);
         }
     }
@@ -140,7 +144,7 @@ class ModuleHandlerInstance extends Handler
         $this->validateVariablesAgainstXSS();
 
         // Exit if ssl is enabled and a ssl action exists for this request
-        if($response = $this->sslEnabledAndSslActionExists()) {
+        if ($response = $this->sslEnabledAndSslActionExists()) {
             return $response;
         }
 
@@ -151,11 +155,17 @@ class ModuleHandlerInstance extends Handler
         $site_module_info = $this->context->get('site_module_info');
 
         try {
-            if(!$this->module) {
+            if (!$this->module) {
                 // Get current module instance properties
-                $moduleInstanceRetriever = new ModuleInstanceRetriever($this->getDocumentModel(), $this->getModuleModel(), $this->context);
-                $result = $moduleInstanceRetriever->findModuleInfo($this->mid, $this->entry, $this->document_srl, $site_module_info);
-                if(!$result->isSuccessful()) {
+                $moduleInstanceRetriever = new ModuleInstanceRetriever($this->getDocumentModel(), $this->getModuleModel(
+                ), $this->context);
+                $result = $moduleInstanceRetriever->findModuleInfo(
+                    $this->mid,
+                    $this->entry,
+                    $this->document_srl,
+                    $site_module_info
+                );
+                if (!$result->isSuccessful()) {
                     return new RedirectResponse($result->getRedirectUrl());
                 }
 
@@ -176,23 +186,25 @@ class ModuleHandlerInstance extends Handler
                     $layoutSrl = $module_info->layout_srl;
                 }
 
-                $part_config= $oModuleModel->getModulePartConfig('layout',$layoutSrl);
-                $this->context->addHtmlHeader($part_config->header_script);
+                $part_config = $oModuleModel->getModulePartConfig('layout', $layoutSrl);
+                if (isset($part_config->header_script)) {
+                    $this->context->addHtmlHeader($part_config->header_script);
+                }
             }
 
-        } catch(ModuleDoesNotExistException $e) {
+        } catch (ModuleDoesNotExistException $e) {
             $this->error = $e->getMessage();
             $this->httpStatusCode = '404';
-        } catch(DefaultUrlNotDefinedException $e) {
+        } catch (DefaultUrlNotDefinedException $e) {
             $this->error = $e->getMessage();
             $this->httpStatusCode = '500';
             return false;
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             $this->error = $e->getMessage();
             $this->httpStatusCode = '500';
         }
 
-        if(!$this->module_info) {
+        if (!$this->module_info) {
             $this->module_info = new stdClass();
             $this->module_info->module = $this->module;
             $this->module_info->mid = $this->mid;
@@ -210,7 +222,7 @@ class ModuleHandlerInstance extends Handler
         // Call a trigger after moduleHandler init
         // TODO Replace with event dispatcher
         $output = $this->triggerCall('moduleHandler.init', 'after', $this->module_info);
-        if(!$output->toBool()) {
+        if (!$output->toBool()) {
             $this->error = $output->getMessage();
             return false;
         }
@@ -275,7 +287,8 @@ class ModuleHandlerInstance extends Handler
     }
 
 
-    function checkForErrorsAndPrepareMobileStatus() {
+    function checkForErrorsAndPrepareMobileStatus()
+    {
         // If error occurred while preparation, return a message instance
         if ($this->error) {
             return $this->showErrorToUser();
@@ -286,7 +299,8 @@ class ModuleHandlerInstance extends Handler
     }
 
 
-    function getController(){
+    function getController()
+    {
         $resolver = new \Karybu\HttpKernel\Controller\ControllerResolver();
         /** @var $request \Symfony\Component\HttpFoundation\Request */
         $request = Context::get('request');
@@ -299,8 +313,7 @@ class ModuleHandlerInstance extends Handler
         try {
             // Get ModuleObject instance
             $controller = $resolver->getController($request);
-        }
-        catch (ModuleDoesNotExistException $e) {
+        } catch (ModuleDoesNotExistException $e) {
             $this->error = 'msg_module_is_not_exists';
             $this->httpStatusCode = '404';
             return $this->showErrorToUser();
@@ -325,26 +338,27 @@ class ModuleHandlerInstance extends Handler
      * - Checks rulesets
      *
      */
-    function filterController($oModule) {
+    function filterController($oModule)
+    {
         $this->act = $oModule->act;
 
         $oModuleModel = getModel('module');
         // Now that we have a module instance and a valid act, do stuff
         $logged_info = Context::get('logged_info');
-        if ($oModule->checkAdminPermission
+        if (isset($oModule->checkAdminPermission)
             && $this->module == "admin"
-            && $oModule->module_key->getType() == "view") {
+            && $oModule->module_key->getType() == "view"
+        ) {
             // This is basically the entry point to the admin interface
-            if ($logged_info->is_admin=='Y') {
+            if ($logged_info->is_admin == 'Y') {
                 // Load the admin layout
                 if ($this->act != 'dispLayoutAdminLayoutModify') {
-                    $oAdminView = &getAdminView('admin');
+                    $oAdminView = & getAdminView('admin');
                     $oAdminView->makeGnbUrl($oModule->module_key->getModule());
                     $oModule->setLayoutPath("./modules/admin/tpl");
                     $oModule->setLayoutFile("layout.html");
                 }
-            }
-            else {
+            } else {
                 $this->error = 'msg_is_not_administrator';
                 return $this->showErrorToUser();
             }
@@ -352,13 +366,12 @@ class ModuleHandlerInstance extends Handler
 
         if ($oModule->module_key->isAdmin()) {
             $this->initAdminMenu();
-            if($_SESSION['denied_admin'] == 'Y') {
+            if ($_SESSION['denied_admin'] == 'Y') {
                 $this->error = "msg_not_permitted_act";
                 return $this->showErrorToUser();
             }
 
-            if($oModule->checkAdminPermission)
-            {
+            if ($oModule->checkAdminPermission) {
                 // Validate current user permissions
                 $grant = $oModuleModel->getGrant($this->module_info, $logged_info);
                 if (!$grant->is_admin && !$grant->manager) {
@@ -404,17 +417,22 @@ class ModuleHandlerInstance extends Handler
             }
         }
 
-        if ($oModule->module_key->getType() == "view" && $this->module_info->use_mobile == "Y" && Mobile::isMobileCheckByAgent()) {
+        if ($oModule->module_key->getType(
+        ) == "view" && $this->module_info->use_mobile == "Y" && Mobile::isMobileCheckByAgent()
+        ) {
             global $lang;
             $header = '<style type="text/css">div.xe_mobile{opacity:0.7;margin:1em 0;padding:.5em;background:#333;border:1px solid #666;border-left:0;border-right:0}p.xe_mobile{text-align:center;margin:1em 0}a.xe_mobile{color:#ff0;font-weight:bold;font-size:24px}@media only screen and (min-width:500px){a.xe_mobile{font-size:15px}}</style>';
-            $footer = '<div class="xe_mobile"><p class="xe_mobile"><a class="xe_mobile" href="'.getUrl('m', '1').'">'.$lang->msg_pc_to_mobile.'</a></p></div>';
+            $footer = '<div class="xe_mobile"><p class="xe_mobile"><a class="xe_mobile" href="' . getUrl(
+                'm',
+                '1'
+            ) . '">' . $lang->msg_pc_to_mobile . '</a></p></div>';
             Context::addHtmlHeader($header);
             Context::addHtmlFooter($footer);
         }
 
-        if ($oModule->module_key->getType() == "view" && $oModule->module_key->getKind() != 'admin'){
-            $module_config= $oModuleModel->getModuleConfig('module');
-            if($module_config->htmlFooter) {
+        if ($oModule->module_key->getType() == "view" && $oModule->module_key->getKind() != 'admin') {
+            $module_config = $oModuleModel->getModuleConfig('module');
+            if (isset($module_config->htmlFooter)) {
                 Context::addHtmlFooter($module_config->htmlFooter);
             }
         }
@@ -427,7 +445,7 @@ class ModuleHandlerInstance extends Handler
 
     function setErrorsToSessionAfterProc($oModule, $procResult)
     {
-        $methodList = array('XMLRPC'=>1, 'JSON'=>1);
+        $methodList = array('XMLRPC' => 1, 'JSON' => 1);
         if (!$oModule->stop_proc && !isset($methodList[Context::getRequestMethod()])) {
             $error = $oModule->getError();
             $message = $oModule->getMessage();
@@ -436,11 +454,12 @@ class ModuleHandlerInstance extends Handler
 
             if ($procResult === false) {
                 $this->error = $message;
-                if (!$redirectUrl && Context::get('error_return_url')) $redirectUrl = Context::get('error_return_url');
+                if (!$redirectUrl && Context::get('error_return_url')) {
+                    $redirectUrl = Context::get('error_return_url');
+                }
                 $this->_setInputValueToSession();
 
-            }
-            else {
+            } else {
                 if (count($_SESSION['INPUT_ERROR'])) {
                     Context::set('INPUT_ERROR', $_SESSION['INPUT_ERROR']);
                     $_SESSION['INPUT_ERROR'] = '';
@@ -458,11 +477,13 @@ class ModuleHandlerInstance extends Handler
             }
         }
     }
+
     /**
      * get a module instance and execute an action
      * @return ModuleObject executed module instance
      **/
-    function procModule() {
+    function procModule()
+    {
 
         $this->checkForErrorsAndPrepareMobileStatus();
 
@@ -473,11 +494,12 @@ class ModuleHandlerInstance extends Handler
         $this->filterController($oModule);
 
         // controller callback: array(get_class($oModule), $this->act)
-        if($oModule->preProc()) {
+        if ($oModule->preProc()) {
             $output = $oModule->proc(); // Controller::execute
             $procResult = (bool)$oModule->postProc($output);
+        } else {
+            $procResult = false;
         }
-        else $procResult = false;
 
         $this->setErrorsToSessionAfterProc($oModule, $procResult);
 
@@ -508,11 +530,11 @@ class ModuleHandlerInstance extends Handler
             if (!$output->menu_srl) {
                 $oAdminClass = & getClass('admin');
                 $oAdminClass->createXeAdminMenu();
-            }
-            else if(!is_readable($output->php_file))
-            {
-                $oMenuAdminController = & getAdminController('menu');
-                $oMenuAdminController->makeXmlFile($output->menu_srl);
+            } else {
+                if (!is_readable($output->php_file)) {
+                    $oMenuAdminController = & getAdminController('menu');
+                    $oMenuAdminController->makeXmlFile($output->menu_srl);
+                }
             }
         }
     }
@@ -731,7 +753,7 @@ class ModuleHandlerInstance extends Handler
 
         $key = $module . '.' . ($kind != 'admin' ? '' : 'admin') . '.' . $type;
 
-        if(isset($GLOBALS['__MODULE_EXTEND__'])){
+        if (isset($GLOBALS['__MODULE_EXTEND__'])) {
             if (is_array($GLOBALS['__MODULE_EXTEND__']) && array_key_exists($key, $GLOBALS['__MODULE_EXTEND__'])) {
                 $module = $extend_module = $GLOBALS['__MODULE_EXTEND__'][$key];
             }
@@ -750,7 +772,7 @@ class ModuleHandlerInstance extends Handler
                 $instance_name
             );
 
-            if(isset($extend_module)){
+            if (isset($extend_module)) {
                 if ($extend_module && (!is_readable($high_class_file) || !is_readable($class_file))) {
                     $module = $parent_module;
                     ModuleHandler::_getModuleFilePath(

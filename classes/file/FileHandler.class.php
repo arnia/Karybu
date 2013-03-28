@@ -5,16 +5,20 @@
  * @author NHN (developers@xpressengine.com)
  **/
 
-class FileHandlerInstance {
+class FileHandlerInstance
+{
     /**
      * Changes path of target file, directory into absolute path
      *
      * @param string $source path to change into absolute path
      * @return string Absolute path
      **/
-    function getRealPath($source) {
+    function getRealPath($source)
+    {
         $temp = explode('/', $source);
-        if($temp[0] == '.') $source = _XE_PATH_.substr($source, 2);
+        if ($temp[0] == '.') {
+            $source = _XE_PATH_ . substr($source, 2);
+        }
         return $source;
     }
 
@@ -29,27 +33,42 @@ class FileHandlerInstance {
      * @param string $type If set as 'force'. Even if the file exists in target, the file is copied.
      * @return void
      **/
-    function copyDir($source_dir, $target_dir, $filter=null,$type=null){
+    function copyDir($source_dir, $target_dir, $filter = null, $type = null)
+    {
         $source_dir = $this->getRealPath($source_dir);
         $target_dir = $this->getRealPath($target_dir);
-        if(!is_dir($source_dir)) return false;
+        if (!is_dir($source_dir)) {
+            return false;
+        }
         // generate when no target exists
-        if(!file_exists($target_dir)) $this->makeDir($target_dir);
+        if (!file_exists($target_dir)) {
+            $this->makeDir($target_dir);
+        }
 
-        if(substr($source_dir, -1) != '/') $source_dir .= '/';
-        if(substr($target_dir, -1) != '/') $target_dir .= '/';
+        if (substr($source_dir, -1) != '/') {
+            $source_dir .= '/';
+        }
+        if (substr($target_dir, -1) != '/') {
+            $target_dir .= '/';
+        }
 
         $oDir = dir($source_dir);
-        while($file = $oDir->read()) {
-            if(substr($file,0,1)=='.') continue;
-            if($filter && preg_match($filter, $file)) continue;
-            if(is_dir($source_dir.$file)){
-                $this->copyDir($source_dir.$file,$target_dir.$file,$type);
-            }else{
-                if($type == 'force'){
-                    @unlink($target_dir.$file);
-                }else{
-                    if(!file_exists($target_dir.$file)) @copy($source_dir.$file,$target_dir.$file);
+        while ($file = $oDir->read()) {
+            if (substr($file, 0, 1) == '.') {
+                continue;
+            }
+            if ($filter && preg_match($filter, $file)) {
+                continue;
+            }
+            if (is_dir($source_dir . $file)) {
+                $this->copyDir($source_dir . $file, $target_dir . $file, $type);
+            } else {
+                if ($type == 'force') {
+                    @unlink($target_dir . $file);
+                } else {
+                    if (!file_exists($target_dir . $file)) {
+                        @copy($source_dir . $file, $target_dir . $file);
+                    }
                 }
             }
         }
@@ -63,14 +82,19 @@ class FileHandlerInstance {
      * @param string $force Y: overwrite
      * @return void
      **/
-    function copyFile($source, $target, $force='Y'){
+    function copyFile($source, $target, $force = 'Y')
+    {
         setlocale(LC_CTYPE, 'en_US.UTF8', 'ko_KR.UTF8');
         $source = $this->getRealPath($source);
         $target_dir = $this->getRealPath(dirname($target));
         $target = basename($target);
-        if(!file_exists($target_dir)) $this->makeDir($target_dir);
-        if($force=='Y') @unlink($target_dir.'/'.$target);
-        @copy($source, $target_dir.'/'.$target);
+        if (!file_exists($target_dir)) {
+            $this->makeDir($target_dir);
+        }
+        if ($force == 'Y') {
+            @unlink($target_dir . '/' . $target);
+        }
+        @copy($source, $target_dir . '/' . $target);
     }
 
     /**
@@ -79,19 +103,26 @@ class FileHandlerInstance {
      * @param string $file_name Path of target file
      * @return string The content of the file. If target file does not exist, this function returns nothing.
      **/
-    function readFile($file_name) {
+    function readFile($file_name)
+    {
         $file_name = $this->getRealPath($file_name);
 
-        if(!file_exists($file_name)) return;
+        if (!file_exists($file_name)) {
+            return;
+        }
         $filesize = filesize($file_name);
-        if($filesize<1) return;
+        if ($filesize < 1) {
+            return;
+        }
 
-        if(function_exists('file_get_contents')) return @file_get_contents($file_name);
+        if (function_exists('file_get_contents')) {
+            return @file_get_contents($file_name);
+        }
 
         $fp = fopen($file_name, "r");
         $buff = '';
-        if($fp) {
-            while(!feof($fp) && strlen($buff)<=$filesize) {
+        if ($fp) {
+            while (!feof($fp) && strlen($buff) <= $filesize) {
                 $str = fgets($fp, 1024);
                 $buff .= $str;
             }
@@ -109,9 +140,13 @@ class FileHandlerInstance {
     {
         $file_name = $this->getRealPath($file_name);
 
-        if(!file_exists($file_name)) return;
+        if (!file_exists($file_name)) {
+            return;
+        }
         $filesize = filesize($file_name);
-        if($filesize<1) return;
+        if ($filesize < 1) {
+            return;
+        }
 
         return @file($file_name);
     }
@@ -124,16 +159,23 @@ class FileHandlerInstance {
      * @param string $mode a(append) / w(write)
      * @return void
      **/
-    function writeFile($file_name, $buff, $mode = "w") {
+    function writeFile($file_name, $buff, $mode = "w")
+    {
         $file_name = $this->getRealPath($file_name);
 
         $pathinfo = pathinfo($file_name);
         $path = $pathinfo['dirname'];
-        if(!is_dir($path)) $this->makeDir($path);
+        if (!is_dir($path)) {
+            $this->makeDir($path);
+        }
 
         $mode = strtolower($mode);
-        if($mode != "a") $mode = "w";
-        if(@!$fp = fopen($file_name,$mode)) return false;
+        if ($mode != "a") {
+            $mode = "w";
+        }
+        if (@!$fp = fopen($file_name, $mode)) {
+            return false;
+        }
         fwrite($fp, $buff);
         fclose($fp);
         @chmod($file_name, 0644);
@@ -145,7 +187,8 @@ class FileHandlerInstance {
      * @param string $file_name path of target file
      * @return bool Returns true on success or false on failure.
      **/
-    function removeFile($file_name) {
+    function removeFile($file_name)
+    {
         $file_name = $this->getRealPath($file_name);
         return (file_exists($file_name) && @unlink($file_name));
     }
@@ -159,7 +202,8 @@ class FileHandlerInstance {
      * @param string $target Path of target file
      * @return bool Returns true on success or false on failure.
      **/
-    function rename($source, $target) {
+    function rename($source, $target)
+    {
         $source = $this->getRealPath($source);
         $target = $this->getRealPath($target);
         return @rename($source, $target);
@@ -172,10 +216,10 @@ class FileHandlerInstance {
      * @param string $target Path of target file
      * @return bool Returns true on success or false on failure.
      */
-    function moveFile($source, $target) {
+    function moveFile($source, $target)
+    {
         $source = $this->getRealPath($source);
-        if(!file_exists($source))
-        {
+        if (!file_exists($source)) {
             return false;
         }
         $this->removeFile($target);
@@ -191,7 +235,8 @@ class FileHandlerInstance {
      * @param string $target_dir Path of target directory
      * @return void
      **/
-    function moveDir($source_dir, $target_dir) {
+    function moveDir($source_dir, $target_dir)
+    {
         $this->rename($source_dir, $target_dir);
     }
 
@@ -206,30 +251,47 @@ class FileHandlerInstance {
      * @param bool $concat_prefix If true, return file name as absolute path
      * @return string[] Array of the filenames in the path
      **/
-    function readDir($path, $filter = '', $to_lower = false, $concat_prefix = false) {
+    function readDir($path, $filter = '', $to_lower = false, $concat_prefix = false)
+    {
         $path = $this->getRealPath($path);
 
-        if(substr($path,-1)!='/') $path .= '/';
-        if(!is_dir($path)) return array();
+        if (substr($path, -1) != '/') {
+            $path .= '/';
+        }
+        if (!is_dir($path)) {
+            return array();
+        }
 
         $oDir = dir($path);
-        while($file = $oDir->read()) {
-            if(substr($file,0,1)=='.') continue;
+        while ($file = $oDir->read()) {
+            if (substr($file, 0, 1) == '.') {
+                continue;
+            }
 
-            if($filter && !preg_match($filter, $file)) continue;
+            if ($filter && !preg_match($filter, $file)) {
+                continue;
+            }
 
-            if($to_lower) $file = strtolower($file);
+            if ($to_lower) {
+                $file = strtolower($file);
+            }
 
-            if($filter) $file = preg_replace($filter, '$1', $file);
-            else $file = $file;
+            if ($filter) {
+                $file = preg_replace($filter, '$1', $file);
+            }
+            else {
+                $file = $file;
+            }
 
-            if($concat_prefix) {
+            if ($concat_prefix) {
                 $file = sprintf('%s%s', str_replace(_XE_PATH_, '', $path), $file);
             }
 
             $output[] = $file;
         }
-        if(!$output) return array();
+        if (!$output) {
+            return array();
+        }
 
         return $output;
     }
@@ -242,41 +304,54 @@ class FileHandlerInstance {
      * @param string $path_string Path of target directory
      * @return bool true if success. It might return nothing when ftp is used and connection to the ftp address failed.
      **/
-    function makeDir($path_string) {
+    function makeDir($path_string)
+    {
         static $oFtp = null;
 
         // if safe_mode is on, use FTP
-        if(ini_get('safe_mode')) {
+        if (ini_get('safe_mode')) {
             $ftp_info = Context::getFTPInfo();
-            if($oFtp == null) {
-                if(!Context::isFTPRegisted()) return;
+            if ($oFtp == null) {
+                if (!Context::isFTPRegisted()) {
+                    return;
+                }
 
-                require_once(_XE_PATH_.'libs/ftp.class.php');
+                require_once(_XE_PATH_ . 'libs/ftp.class.php');
                 $oFtp = new ftp();
-                if(!$ftp_info->ftp_host) $ftp_info->ftp_host = "127.0.0.1";
-                if(!$ftp_info->ftp_port) $ftp_info->ftp_port = 21;
-                if(!$oFtp->ftp_connect($ftp_info->ftp_host, $ftp_info->ftp_port)) return;
-                if(!$oFtp->ftp_login($ftp_info->ftp_user, $ftp_info->ftp_password)) {
+                if (!$ftp_info->ftp_host) {
+                    $ftp_info->ftp_host = "127.0.0.1";
+                }
+                if (!$ftp_info->ftp_port) {
+                    $ftp_info->ftp_port = 21;
+                }
+                if (!$oFtp->ftp_connect($ftp_info->ftp_host, $ftp_info->ftp_port)) {
+                    return;
+                }
+                if (!$oFtp->ftp_login($ftp_info->ftp_user, $ftp_info->ftp_password)) {
                     $oFtp->ftp_quit();
                     return;
                 }
             }
             $ftp_path = $ftp_info->ftp_root_path;
-            if(!$ftp_path) $ftp_path = "/";
+            if (!$ftp_path) {
+                $ftp_path = "/";
+            }
         }
 
-        $path_string = str_replace(_XE_PATH_,'',$path_string);
+        $path_string = str_replace(_XE_PATH_, '', $path_string);
         $path_list = explode('/', $path_string);
 
         $path = _XE_PATH_;
-        for($i=0;$i<count($path_list);$i++) {
-            if(!$path_list[$i]) continue;
-            $path .= $path_list[$i].'/';
-            $ftp_path .= $path_list[$i].'/';
-            if(!is_dir($path)) {
-                if(ini_get('safe_mode')) {
+        for ($i = 0; $i < count($path_list); $i++) {
+            if (!$path_list[$i]) {
+                continue;
+            }
+            $path .= $path_list[$i] . '/';
+            $ftp_path .= $path_list[$i] . '/';
+            if (!is_dir($path)) {
+                if (ini_get('safe_mode')) {
                     $oFtp->ftp_mkdir($ftp_path);
-                    $oFtp->ftp_site("CHMOD 777 ".$ftp_path);
+                    $oFtp->ftp_site("CHMOD 777 " . $ftp_path);
                 } else {
                     @mkdir($path, 0755);
                     @chmod($path, 0755);
@@ -293,16 +368,19 @@ class FileHandlerInstance {
      * @param string $path Path of the target directory
      * @return void
      **/
-    function removeDir($path) {
+    function removeDir($path)
+    {
         $path = $this->getRealPath($path);
-        if(!is_dir($path)) return;
+        if (!is_dir($path)) {
+            return;
+        }
         $directory = dir($path);
-        while($entry = $directory->read()) {
+        while ($entry = $directory->read()) {
             if ($entry != "." && $entry != "..") {
-                if (is_dir($path."/".$entry)) {
-                    $this->removeDir($path."/".$entry);
+                if (is_dir($path . "/" . $entry)) {
+                    $this->removeDir($path . "/" . $entry);
                 } else {
-                    @unlink($path."/".$entry);
+                    @unlink($path . "/" . $entry);
                 }
             }
         }
@@ -316,19 +394,28 @@ class FileHandlerInstance {
      * @param string $path Path of the target directory
      * @return void
      **/
-    function removeBlankDir($path) {
+    function removeBlankDir($path)
+    {
         $item_cnt = 0;
 
         $path = $this->getRealPath($path);
-        if(!is_dir($path)) return;
+        if (!is_dir($path)) {
+            return;
+        }
         $directory = dir($path);
-        while($entry = $directory->read()) {
-            if ($entry == "." || $entry == "..") continue;
-            if (is_dir($path."/".$entry)) $item_cnt = $this->removeBlankDir($path.'/'.$entry);
+        while ($entry = $directory->read()) {
+            if ($entry == "." || $entry == "..") {
+                continue;
+            }
+            if (is_dir($path . "/" . $entry)) {
+                $item_cnt = $this->removeBlankDir($path . '/' . $entry);
+            }
         }
         $directory->close();
 
-        if($item_cnt < 1) @rmdir($path);
+        if ($item_cnt < 1) {
+            @rmdir($path);
+        }
     }
 
 
@@ -340,16 +427,19 @@ class FileHandlerInstance {
      * @param string $path Path of the target directory
      * @return void
      **/
-    function removeFilesInDir($path) {
+    function removeFilesInDir($path)
+    {
         $path = $this->getRealPath($path);
-        if(!is_dir($path)) return;
+        if (!is_dir($path)) {
+            return;
+        }
         $directory = dir($path);
-        while($entry = $directory->read()) {
+        while ($entry = $directory->read()) {
             if ($entry != "." && $entry != "..") {
-                if (is_dir($path."/".$entry)) {
-                    $this->removeFilesInDir($path."/".$entry);
+                if (is_dir($path . "/" . $entry)) {
+                    $this->removeFilesInDir($path . "/" . $entry);
                 } else {
-                    @unlink($path."/".$entry);
+                    @unlink($path . "/" . $entry);
                 }
             }
         }
@@ -363,12 +453,21 @@ class FileHandlerInstance {
      * @param int $size Number of the size
      * @return string File size string
      **/
-    function filesize($size) {
-        if(!$size) return '0Byte';
-        if($size === 1) return '1Byte';
-        if($size < 1024) return $size.'Bytes';
-        if($size >= 1024 && $size < 1024*1024) return sprintf("%0.1fKB",$size / 1024);
-        return sprintf("%0.2fMB",$size / (1024*1024));
+    function filesize($size)
+    {
+        if (!$size) {
+            return '0Byte';
+        }
+        if ($size === 1) {
+            return '1Byte';
+        }
+        if ($size < 1024) {
+            return $size . 'Bytes';
+        }
+        if ($size >= 1024 && $size < 1024 * 1024) {
+            return sprintf("%0.1fKB", $size / 1024);
+        }
+        return sprintf("%0.2fMB", $size / (1024 * 1024));
     }
 
     /**
@@ -386,14 +485,29 @@ class FileHandlerInstance {
      * @param string $post_data Request arguments array for POST method
      * @return string If success, the content of the target file. Otherwise: none
      **/
-    function getRemoteResource($url, $body = null, $timeout = 3, $method = 'GET', $content_type = null, $headers = array(), $cookies = array(), $post_data = array()) {
-        if(version_compare(PHP_VERSION, '5.0.0', '>='))
-        {
+    function getRemoteResource(
+        $url,
+        $body = null,
+        $timeout = 3,
+        $method = 'GET',
+        $content_type = null,
+        $headers = array(),
+        $cookies = array(),
+        $post_data = array()
+    ) {
+        if (version_compare(PHP_VERSION, '5.0.0', '>=')) {
             return include _XE_PATH_ . 'classes/file/getRemoteResourcePHP5.php';
-        }
-        else
-        {
-            return $this->_getRemoteResource($url, $body, $timeout, $method, $content_type, $headers, $cookies, $post_data);
+        } else {
+            return $this->_getRemoteResource(
+                $url,
+                $body,
+                $timeout,
+                $method,
+                $content_type,
+                $headers,
+                $cookies,
+                $post_data
+            );
         }
     }
 
@@ -412,39 +526,66 @@ class FileHandlerInstance {
      * @param string $post_data Request arguments array for POST method
      * @return string If success, the content of the target file. Otherwise: none
      **/
-    function _getRemoteResource($url, $body = null, $timeout = 3, $method = 'GET', $content_type = null, $headers = array(), $cookies = array(), $post_data = array()) {
+    function _getRemoteResource(
+        $url,
+        $body = null,
+        $timeout = 3,
+        $method = 'GET',
+        $content_type = null,
+        $headers = array(),
+        $cookies = array(),
+        $post_data = array()
+    ) {
         requirePear();
         require_once('HTTP/Request.php');
 
         $parsed_url = parse_url(__PROXY_SERVER__);
-        if($parsed_url["host"]) {
+        if ($parsed_url["host"]) {
             $oRequest = new HTTP_Request(__PROXY_SERVER__);
             $oRequest->setMethod('POST');
             $oRequest->_timeout = $timeout;
-            $oRequest->addPostData('arg', serialize(array('Destination'=>$url, 'method'=>$method, 'body'=>$body, 'content_type'=>$content_type, "headers"=>$headers, "post_data"=>$post_data)));
+            $oRequest->addPostData(
+                'arg',
+                serialize(
+                    array(
+                        'Destination' => $url,
+                        'method' => $method,
+                        'body' => $body,
+                        'content_type' => $content_type,
+                        "headers" => $headers,
+                        "post_data" => $post_data
+                    )
+                )
+            );
         } else {
             $oRequest = new HTTP_Request($url);
-            if(count($headers)) {
-                foreach($headers as $key => $val) {
+            if (count($headers)) {
+                foreach ($headers as $key => $val) {
                     $oRequest->addHeader($key, $val);
                 }
             }
-            if(isset($host)){
-                if($cookies[$host]) {
-                    foreach($cookies[$host] as $key => $val) {
+            if (isset($host)) {
+                if ($cookies[$host]) {
+                    foreach ($cookies[$host] as $key => $val) {
                         $oRequest->addCookie($key, $val);
                     }
                 }
             }
-            if(count($post_data)) {
-                foreach($post_data as $key => $val) {
+            if (count($post_data)) {
+                foreach ($post_data as $key => $val) {
                     $oRequest->addPostData($key, $val);
                 }
             }
-            if(!$content_type) $oRequest->addHeader('Content-Type', 'text/html');
-            else $oRequest->addHeader('Content-Type', $content_type);
+            if (!$content_type) {
+                $oRequest->addHeader('Content-Type', 'text/html');
+            }
+            else {
+                $oRequest->addHeader('Content-Type', $content_type);
+            }
             $oRequest->setMethod($method);
-            if($body) $oRequest->setBody($body);
+            if ($body) {
+                $oRequest->setBody($body);
+            }
 
             $oRequest->_timeout = $timeout;
         }
@@ -454,17 +595,28 @@ class FileHandlerInstance {
         $code = $oRequest->getResponseCode();
         $header = $oRequest->getResponseHeader();
         $response = $oRequest->getResponseBody();
-        if($c = $oRequest->getResponseCookies()) {
-            foreach($c as $k => $v) {
+        if ($c = $oRequest->getResponseCookies()) {
+            foreach ($c as $k => $v) {
                 $cookies[$host][$v['name']] = $v['value'];
             }
         }
 
-        if($code > 300 && $code < 399 && $header['location']) {
-            return $this->getRemoteResource($header['location'], $body, $timeout, $method, $content_type, $headers, $cookies, $post_data);
+        if ($code > 300 && $code < 399 && $header['location']) {
+            return $this->getRemoteResource(
+                $header['location'],
+                $body,
+                $timeout,
+                $method,
+                $content_type,
+                $headers,
+                $cookies,
+                $post_data
+            );
         }
 
-        if($code != 200) return;
+        if ($code != 200) {
+            return;
+        }
 
         return $response;
     }
@@ -481,9 +633,19 @@ class FileHandlerInstance {
      * @param string[] $headers Headers key vaule array.
      * @return bool true: success, false: failed
      **/
-    function getRemoteFile($url, $target_filename, $body = null, $timeout = 3, $method = 'GET', $content_type = null, $headers = array()) {
+    function getRemoteFile(
+        $url,
+        $target_filename,
+        $body = null,
+        $timeout = 3,
+        $method = 'GET',
+        $content_type = null,
+        $headers = array()
+    ) {
         $body = $this->getRemoteResource($url, $body, $timeout, $method, $content_type, $headers);
-        if(!$body) return false;
+        if (!$body) {
+            return false;
+        }
         $target_filename = $this->getRealPath($target_filename);
         $this->writeFile($target_filename, $body);
         return true;
@@ -500,10 +662,20 @@ class FileHandlerInstance {
     {
         $val = trim($val);
         $last = strtolower(substr($val, -1));
-        if($last == 'g') $val *= 1024*1024*1024;
-        else if($last == 'm') $val *= 1024*1024;
-        else if($last == 'k') $val *= 1024;
-        else $val *= 1;
+        if ($last == 'g') {
+            $val *= 1024 * 1024 * 1024;
+        }
+        else {
+            if ($last == 'm') {
+                $val *= 1024 * 1024;
+            } else {
+                if ($last == 'k') {
+                    $val *= 1024;
+                } else {
+                    $val *= 1;
+                }
+            }
+        }
 
         return $val;
     }
@@ -516,14 +688,22 @@ class FileHandlerInstance {
      */
     function checkMemoryLoadImage(&$imageInfo)
     {
-        if(!function_exists('memory_get_usage')) return true;
+        if (!function_exists('memory_get_usage')) {
+            return true;
+        }
         $K64 = 65536;
         $TWEAKFACTOR = 2.0;
         $channels = $imageInfo['channels'];
-        if(!$channels) $channels = 6; //for png
-        $memoryNeeded = round( ($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $channels / 8 + $K64 ) * $TWEAKFACTOR );
+        if (!$channels) {
+            $channels = 6;
+        } //for png
+        $memoryNeeded = round(
+            ($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $channels / 8 + $K64) * $TWEAKFACTOR
+        );
         $availableMemory = $this->returnBytes(ini_get('memory_limit')) - memory_get_usage();
-        if($availableMemory < $memoryNeeded) return false;
+        if ($availableMemory < $memoryNeeded) {
+            return false;
+        }
         return true;
     }
 
@@ -538,22 +718,39 @@ class FileHandlerInstance {
      * @param string $thumbnail_type Thumbnail type(crop, ratio)
      * @return bool true: success, false: failed
      **/
-    function createImageFile($source_file, $target_file, $resize_width = 0, $resize_height = 0, $target_type = '', $thumbnail_type = 'crop') {
+    function createImageFile(
+        $source_file,
+        $target_file,
+        $resize_width = 0,
+        $resize_height = 0,
+        $target_type = '',
+        $thumbnail_type = 'crop'
+    ) {
         $source_file = $this->getRealPath($source_file);
         $target_file = $this->getRealPath($target_file);
 
-        if(!file_exists($source_file)) return;
-        if(!$resize_width) $resize_width = 100;
-        if(!$resize_height) $resize_height = $resize_width;
+        if (!file_exists($source_file)) {
+            return;
+        }
+        if (!$resize_width) {
+            $resize_width = 100;
+        }
+        if (!$resize_height) {
+            $resize_height = $resize_width;
+        }
 
         // retrieve source image's information
         $imageInfo = getimagesize($source_file);
-        if(!$this->checkMemoryLoadImage($imageInfo)) return false;
+        if (!$this->checkMemoryLoadImage($imageInfo)) {
+            return false;
+        }
         list($width, $height, $type, $attrs) = $imageInfo;
 
-        if($width<1 || $height<1) return;
+        if ($width < 1 || $height < 1) {
+            return;
+        }
 
-        switch($type) {
+        switch ($type) {
             case '1' :
                 $type = 'gif';
                 break;
@@ -572,58 +769,95 @@ class FileHandlerInstance {
         }
 
         // if original image is larger than specified size to resize, calculate the ratio
-        if($resize_width > 0 && $width >= $resize_width) $width_per = $resize_width / $width;
-        else $width_per = 1;
+        if ($resize_width > 0 && $width >= $resize_width) {
+            $width_per = $resize_width / $width;
+        }
+        else {
+            $width_per = 1;
+        }
 
-        if($resize_height>0 && $height >= $resize_height) $height_per = $resize_height / $height;
-        else $height_per = 1;
+        if ($resize_height > 0 && $height >= $resize_height) {
+            $height_per = $resize_height / $height;
+        }
+        else {
+            $height_per = 1;
+        }
 
-        if($thumbnail_type == 'ratio') {
-            if($width_per>$height_per) $per = $height_per;
-            else $per = $width_per;
+        if ($thumbnail_type == 'ratio') {
+            if ($width_per > $height_per) {
+                $per = $height_per;
+            }
+            else {
+                $per = $width_per;
+            }
             $resize_width = $width * $per;
             $resize_height = $height * $per;
         } else {
-            if($width_per < $height_per) $per = $height_per;
-            else $per = $width_per;
+            if ($width_per < $height_per) {
+                $per = $height_per;
+            }
+            else {
+                $per = $width_per;
+            }
         }
 
-        if(!$per) $per = 1;
+        if (!$per) {
+            $per = 1;
+        }
 
         // get type of target file
-        if(!$target_type) $target_type = $type;
+        if (!$target_type) {
+            $target_type = $type;
+        }
         $target_type = strtolower($target_type);
 
         // create temporary image with target size
-        if(function_exists('imagecreatetruecolor')) $thumb = imagecreatetruecolor($resize_width, $resize_height);
-        else if(function_exists('imagecreate')) $thumb = imagecreate($resize_width, $resize_height);
-        else return false;
-        if(!$thumb) return false;
+        if (function_exists('imagecreatetruecolor')) {
+            $thumb = imagecreatetruecolor($resize_width, $resize_height);
+        }
+        else {
+            if (function_exists('imagecreate')) {
+                $thumb = imagecreate($resize_width, $resize_height);
+            } else {
+                return false;
+            }
+        }
+        if (!$thumb) {
+            return false;
+        }
 
-        $white = imagecolorallocate($thumb, 255,255,255);
-        imagefilledrectangle($thumb,0,0,$resize_width-1,$resize_height-1,$white);
+        $white = imagecolorallocate($thumb, 255, 255, 255);
+        imagefilledrectangle($thumb, 0, 0, $resize_width - 1, $resize_height - 1, $white);
 
         // create temporary image having original type
-        switch($type) {
+        switch ($type) {
             case 'gif' :
-                if(!function_exists('imagecreatefromgif')) return false;
+                if (!function_exists('imagecreatefromgif')) {
+                    return false;
+                }
                 $source = @imagecreatefromgif($source_file);
                 break;
             // jpg
             case 'jpeg' :
             case 'jpg' :
-                if(!function_exists('imagecreatefromjpeg')) return false;
+            if (!function_exists('imagecreatefromjpeg')) {
+                return false;
+            }
                 $source = @imagecreatefromjpeg($source_file);
                 break;
             // png
             case 'png' :
-                if(!function_exists('imagecreatefrompng')) return false;
+                if (!function_exists('imagecreatefrompng')) {
+                    return false;
+                }
                 $source = @imagecreatefrompng($source_file);
                 break;
             // bmp
             case 'wbmp' :
             case 'bmp' :
-                if(!function_exists('imagecreatefromwbmp')) return false;
+            if (!function_exists('imagecreatefromwbmp')) {
+                return false;
+            }
                 $source = @imagecreatefromwbmp($source_file);
                 break;
             default :
@@ -634,41 +868,68 @@ class FileHandlerInstance {
         $new_width = (int)($width * $per);
         $new_height = (int)($height * $per);
 
-        if($thumbnail_type == 'crop') {
-            $x = (int)($resize_width/2 - $new_width/2);
-            $y = (int)($resize_height/2 - $new_height/2);
+        if ($thumbnail_type == 'crop') {
+            $x = (int)($resize_width / 2 - $new_width / 2);
+            $y = (int)($resize_height / 2 - $new_height / 2);
         } else {
             $x = 0;
             $y = 0;
         }
 
-        if($source) {
-            if(function_exists('imagecopyresampled')) imagecopyresampled($thumb, $source, $x, $y, 0, 0, $new_width, $new_height, $width, $height);
-            else imagecopyresized($thumb, $source, $x, $y, 0, 0, $new_width, $new_height, $width, $height);
-        } else return false;
+        if ($source) {
+            if (function_exists('imagecopyresampled')) {
+                imagecopyresampled(
+                    $thumb,
+                    $source,
+                    $x,
+                    $y,
+                    0,
+                    0,
+                    $new_width,
+                    $new_height,
+                    $width,
+                    $height
+                );
+            }
+            else {
+                imagecopyresized($thumb, $source, $x, $y, 0, 0, $new_width, $new_height, $width, $height);
+            }
+        } else {
+            return false;
+        }
 
         // create directory
         $path = dirname($target_file);
-        if(!is_dir($path)) $this->makeDir($path);
+        if (!is_dir($path)) {
+            $this->makeDir($path);
+        }
 
         // write into the file
-        switch($target_type) {
+        switch ($target_type) {
             case 'gif' :
-                if(!function_exists('imagegif')) return false;
+                if (!function_exists('imagegif')) {
+                    return false;
+                }
                 $output = imagegif($thumb, $target_file);
                 break;
             case 'jpeg' :
             case 'jpg' :
-                if(!function_exists('imagejpeg')) return false;
+            if (!function_exists('imagejpeg')) {
+                return false;
+            }
                 $output = imagejpeg($thumb, $target_file, 100);
                 break;
             case 'png' :
-                if(!function_exists('imagepng')) return false;
+                if (!function_exists('imagepng')) {
+                    return false;
+                }
                 $output = imagepng($thumb, $target_file, 9);
                 break;
             case 'wbmp' :
             case 'bmp' :
-                if(!function_exists('imagewbmp')) return false;
+            if (!function_exists('imagewbmp')) {
+                return false;
+            }
                 $output = imagewbmp($thumb, $target_file, 100);
                 break;
         }
@@ -676,7 +937,9 @@ class FileHandlerInstance {
         imagedestroy($thumb);
         imagedestroy($source);
 
-        if(!$output) return false;
+        if (!$output) {
+            return false;
+        }
         @chmod($target_file, 0644);
 
         return true;
@@ -689,31 +952,41 @@ class FileHandlerInstance {
      * @param string $filename Path of the ini file
      * @return array ini array (if the target file does not exist, it returns false)
      **/
-    function readIniFile($filename){
+    function readIniFile($filename)
+    {
         $filename = $this->getRealPath($filename);
-        if(!file_exists($filename)) return false;
+        if (!file_exists($filename)) {
+            return false;
+        }
         $arr = parse_ini_file($filename, true);
-        if(is_array($arr) && count($arr)>0) return $arr;
-        else return array();
+        if (is_array($arr) && count($arr) > 0) {
+            return $arr;
+        }
+        else {
+            return array();
+        }
     }
 
 
     /**
      * Write array into ini file
      *
-     *	$ini['key1'] = 'value1';<br/>
-     *	$ini['key2'] = 'value2';<br/>
-     *	$ini['section']['key1_in_section'] = 'value1_in_section';<br/>
-     *	$ini['section']['key2_in_section'] = 'value2_in_section';<br/>
-     *	FileHandler::writeIniFile('exmple.ini', $ini);
+     *    $ini['key1'] = 'value1';<br/>
+     *    $ini['key2'] = 'value2';<br/>
+     *    $ini['section']['key1_in_section'] = 'value1_in_section';<br/>
+     *    $ini['section']['key2_in_section'] = 'value2_in_section';<br/>
+     *    FileHandler::writeIniFile('exmple.ini', $ini);
      *
      * @see FileHandler::readIniFile()
      * @param string $filename Target ini file name
      * @param array $arr Array
      * @return bool if array contains nothing it returns false, otherwise true
      **/
-    function writeIniFile($filename, $arr){
-        if(count($arr)==0) return false;
+    function writeIniFile($filename, $arr)
+    {
+        if (count($arr) == 0) {
+            return false;
+        }
         $this->writeFile($filename, $this->_makeIniBuff($arr));
         return true;
     }
@@ -724,18 +997,21 @@ class FileHandlerInstance {
      * @param array $arr Array
      * @return string
      */
-    function _makeIniBuff($arr){
+    function _makeIniBuff($arr)
+    {
         $return = '';
-        foreach($arr as $key => $val){
+        foreach ($arr as $key => $val) {
             // section
-            if(is_array($val)){
-                $return .= sprintf("[%s]\n",$key);
-                foreach($val as $k => $v){
-                    $return .= sprintf("%s=\"%s\"\n",$k,$v);
+            if (is_array($val)) {
+                $return .= sprintf("[%s]\n", $key);
+                foreach ($val as $k => $v) {
+                    $return .= sprintf("%s=\"%s\"\n", $k, $v);
                 }
                 // value
-            }else if(is_string($val) || is_int($val)){
-                $return .= sprintf("%s=\"%s\"\n",$key,$val);
+            } else {
+                if (is_string($val) || is_int($val)) {
+                    $return .= sprintf("%s=\"%s\"\n", $key, $val);
+                }
             }
         }
         return $return;
@@ -754,7 +1030,9 @@ class FileHandlerInstance {
     {
         $pathinfo = pathinfo($filename);
         $path = $pathinfo['dirname'];
-        if(!is_dir($path)) $this->makeDir($path);
+        if (!is_dir($path)) {
+            $this->makeDir($path);
+        }
 
         require_once("FileObject.class.php");
         $file_object = new FileObject($filename, $mode);
@@ -778,7 +1056,8 @@ class FileHandlerInstance {
  *
  * @deprecated
  */
-class FileHandler {
+class FileHandler
+{
 
     /** @var FileHandlerInstance */
     private static $file_handler;
@@ -788,114 +1067,197 @@ class FileHandler {
         self::$file_handler = $file_handler;
     }
 
-	public static function getRealPath($source) {
-		return self::$file_handler->getRealPath($source);
-	}
+    public static function getRealPath($source)
+    {
+        return self::$file_handler->getRealPath($source);
+    }
 
-	function copyDir($source_dir, $target_dir, $filter=null,$type=null){
-		self::$file_handler->copyDir($source_dir, $target_dir, $filter, $type);
-	}
+    function copyDir($source_dir, $target_dir, $filter = null, $type = null)
+    {
+        self::$file_handler->copyDir($source_dir, $target_dir, $filter, $type);
+    }
 
-	public static function copyFile($source, $target, $force='Y'){
-		self::$file_handler->copyFile($source, $target, $force);
-	}
+    public static function copyFile($source, $target, $force = 'Y')
+    {
+        self::$file_handler->copyFile($source, $target, $force);
+    }
 
-	function readFile($file_name) {
+    public static function readFile($file_name)
+    {
         return self::$file_handler->readFile($file_name);
-	}
+    }
 
     function readFileAsArray($file_name)
     {
         return self::$file_handler->readFileAsArray($file_name);
     }
 
-	function writeFile($file_name, $buff, $mode = "w") {
-		self::$file_handler->writeFile($file_name, $buff, $mode);
-	}
+    function writeFile($file_name, $buff, $mode = "w")
+    {
+        self::$file_handler->writeFile($file_name, $buff, $mode);
+    }
 
-	function removeFile($file_name) {
-		return self::$file_handler->removeFile($file_name);
-	}
+    function removeFile($file_name)
+    {
+        return self::$file_handler->removeFile($file_name);
+    }
 
-	function rename($source, $target) {
-		return self::$file_handler->rename($source, $target);
-	}
+    function rename($source, $target)
+    {
+        return self::$file_handler->rename($source, $target);
+    }
 
-	function moveFile($source, $target) {
-		return self::$file_handler->moveFile($source, $target);
-	}
+    function moveFile($source, $target)
+    {
+        return self::$file_handler->moveFile($source, $target);
+    }
 
-	function moveDir($source_dir, $target_dir) {
-		self::$file_handler->rename($source_dir, $target_dir);
-	}
+    function moveDir($source_dir, $target_dir)
+    {
+        self::$file_handler->rename($source_dir, $target_dir);
+    }
 
-	public static function readDir($path, $filter = '', $to_lower = false, $concat_prefix = false) {
-		return self::$file_handler->readDir($path, $filter, $to_lower, $concat_prefix);
-	}
+    public static function readDir($path, $filter = '', $to_lower = false, $concat_prefix = false)
+    {
+        return self::$file_handler->readDir($path, $filter, $to_lower, $concat_prefix);
+    }
 
-	function makeDir($path_string) {
-		return self::$file_handler->makeDir($path_string);
-	}
+    function makeDir($path_string)
+    {
+        return self::$file_handler->makeDir($path_string);
+    }
 
-	function removeDir($path) {
-		self::$file_handler->removeDir($path);
-	}
+    function removeDir($path)
+    {
+        self::$file_handler->removeDir($path);
+    }
 
-	function removeBlankDir($path) {
-		self::$file_handler->removeBlankDir($path);
-	}
+    function removeBlankDir($path)
+    {
+        self::$file_handler->removeBlankDir($path);
+    }
 
-	function removeFilesInDir($path) {
-		self::$file_handler->removeFilesInDir($path);
-	}
+    function removeFilesInDir($path)
+    {
+        self::$file_handler->removeFilesInDir($path);
+    }
 
-	function filesize($size) {
-		self::$file_handler->filesize($size);
-	}
+    function filesize($size)
+    {
+        self::$file_handler->filesize($size);
+    }
 
-	function getRemoteResource($url, $body = null, $timeout = 3, $method = 'GET', $content_type = null, $headers = array(), $cookies = array(), $post_data = array()) {
-		return self::$file_handler->getRemoteResource($url, $body, $timeout, $method, $content_type, $headers, $cookies, $post_data);
-	}
+    function getRemoteResource(
+        $url,
+        $body = null,
+        $timeout = 3,
+        $method = 'GET',
+        $content_type = null,
+        $headers = array(),
+        $cookies = array(),
+        $post_data = array()
+    ) {
+        return self::$file_handler->getRemoteResource(
+            $url,
+            $body,
+            $timeout,
+            $method,
+            $content_type,
+            $headers,
+            $cookies,
+            $post_data
+        );
+    }
 
-	function _getRemoteResource($url, $body = null, $timeout = 3, $method = 'GET', $content_type = null, $headers = array(), $cookies = array(), $post_data = array()) {
-		return self::$file_handler->getRemoteResource($url, $body, $timeout, $method, $content_type, $headers, $cookies, $post_data);
-	}
+    function _getRemoteResource(
+        $url,
+        $body = null,
+        $timeout = 3,
+        $method = 'GET',
+        $content_type = null,
+        $headers = array(),
+        $cookies = array(),
+        $post_data = array()
+    ) {
+        return self::$file_handler->getRemoteResource(
+            $url,
+            $body,
+            $timeout,
+            $method,
+            $content_type,
+            $headers,
+            $cookies,
+            $post_data
+        );
+    }
 
-	function getRemoteFile($url, $target_filename, $body = null, $timeout = 3, $method = 'GET', $content_type = null, $headers = array()) {
-		return self::$file_handler->getRemoteFile($url, $target_filename, $body, $timeout, $method, $content_type, $headers);
-	}
+    function getRemoteFile(
+        $url,
+        $target_filename,
+        $body = null,
+        $timeout = 3,
+        $method = 'GET',
+        $content_type = null,
+        $headers = array()
+    ) {
+        return self::$file_handler->getRemoteFile(
+            $url,
+            $target_filename,
+            $body,
+            $timeout,
+            $method,
+            $content_type,
+            $headers
+        );
+    }
 
-	function returnBytes($val)
-	{
-		return self::$file_handler->returnBytes($val);
-	}
+    function returnBytes($val)
+    {
+        return self::$file_handler->returnBytes($val);
+    }
 
-	function checkMemoryLoadImage(&$imageInfo)
-	{
-		return self::$file_handler->checkMemoryLoadImage($imageInfo);
-	}
+    function checkMemoryLoadImage(&$imageInfo)
+    {
+        return self::$file_handler->checkMemoryLoadImage($imageInfo);
+    }
 
-	function createImageFile($source_file, $target_file, $resize_width = 0, $resize_height = 0, $target_type = '', $thumbnail_type = 'crop') {
-		return self::$file_handler->createImageFile($source_file, $target_file, $resize_width, $resize_height, $target_type, $thumbnail_type);
-	}
+    function createImageFile(
+        $source_file,
+        $target_file,
+        $resize_width = 0,
+        $resize_height = 0,
+        $target_type = '',
+        $thumbnail_type = 'crop'
+    ) {
+        return self::$file_handler->createImageFile(
+            $source_file,
+            $target_file,
+            $resize_width,
+            $resize_height,
+            $target_type,
+            $thumbnail_type
+        );
+    }
 
-	function readIniFile($filename){
+    function readIniFile($filename)
+    {
         return self::$file_handler->readIniFile($filename);
-	}
+    }
 
-	function writeIniFile($filename, $arr){
-		return self::$file_handler->writeIniFile($filename, $arr);
-	}
+    function writeIniFile($filename, $arr)
+    {
+        return self::$file_handler->writeIniFile($filename, $arr);
+    }
 
-	function openFile($filename, $mode)
-	{
-		return self::$file_handler->openFile($filename, $mode);
-	}
+    function openFile($filename, $mode)
+    {
+        return self::$file_handler->openFile($filename, $mode);
+    }
 
-	function hasContent($filename)
-	{
-		return self::$file_handler->hasContent($filename);
-	}
+    function hasContent($filename)
+    {
+        return self::$file_handler->hasContent($filename);
+    }
 }
 
 /* End of file FileHandler.class.php */
