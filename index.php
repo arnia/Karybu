@@ -33,12 +33,12 @@
 use Symfony\Component\HttpFoundation\Request;
 use Karybu\HttpKernel\Kernel;
 
-$isCommandLine = (php_sapi_name() == 'cli');
+$isCommandLine = ( php_sapi_name() == 'cli' );
 
 /**
  * Declare constants for generic use and for checking to avoid a direct call from the Web
  **/
-define('__XE__', true);
+define('__XE__',   true);
 define('__ZBXE__', true); // deprecated : __ZBXE__ will be removed. Use __XE__ instead.
 
 require dirname(__FILE__) . '/config/config.inc.php';
