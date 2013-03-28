@@ -28,4 +28,15 @@ services:
             - [addSubscriber, [@listener.db.errors]]
 
     resolver: { class: 'Karybu\HttpKernel\Controller\ControllerResolver' }
-    http_kernel: { class: 'Karybu\HttpKernel\HttpKernel', arguments: [@dispatcher, @resolver] }
+
+    http_kernel:
+        class: 'Karybu\HttpKernel\HttpKernel'
+        arguments: [@dispatcher, @resolver]
+        calls:
+            - [setDebug, ['%kernel.debug%']]
+
+debug:
+    toolbar: true
+    slow_queries_treshold: 800 #ms
+    channels: [file, chrome, firebug]
+    allowed_ips: [ 127.0.0.1 ]
