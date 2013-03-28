@@ -25,12 +25,14 @@
             $dirs[] = 'api';
             if(in_array($id, $dirs)) return true;
             // mid test
+            $args = new stdClass();
             $args->mid = $id;
             $args->site_srl = $site_srl;
             $output = executeQuery('module.isExistsModuleName', $args);
             if($output->data->count) return true;
             // vid test (check mid != vid if site_srl=0, which means it is not a virtual site)
             if(!$site_srl) {
+                $site_args = new stdClass();
                 $site_args->domain = $id;
                 $output = executeQuery('module.isExistsSiteDomain', $site_args);
                 if($output->data->count) return true;
@@ -43,12 +45,14 @@
          * @brief Get site information
          **/
         function getSiteInfo($site_srl, $columnList = array()) {
+            $args = new stdClass();
             $args->site_srl = $site_srl;
             $output = executeQuery('module.getSiteInfo', $args, $columnList);
             return $output->data;
         }
 
         function getSiteInfoByDomain($domain, $columnList = array()) {
+            $args = new stdClass();
             $args->domain= $domain;
             $output = executeQuery('module.getSiteInfoByDomain', $args, $columnList);
             return $output->data;
@@ -59,6 +63,7 @@
          * In this case, it is unable to use the cache file
          **/
         function getModuleInfoByDocumentSrl($document_srl) {
+            $args = new stdClass();
             $args->document_srl = $document_srl;
             $output = executeQuery('module.getModuleInfoByDocument', $args);
             return $this->addModuleExtraVars($output->data);
@@ -93,6 +98,7 @@
             }
 
             $oCacheHandler = &CacheHandler::getInstance('object');
+            $args = new stdClass();
             // If domain is set, look for subsite
             if($domain !== ''){
                 if($oCacheHandler->isSupport()) $output = $oCacheHandler->get('domain_' . $domain);
@@ -110,7 +116,7 @@
             // If no virtual website was found, get default website
             if($domain === '') {
                 if($oCacheHandler->isSupport())	$output = $oCacheHandler->get('default_site');
-                if(!$output){
+                if(!isset($output)){
                     $args->site_srl = 0;
                     $output = executeQuery('module.getSiteInfo', $args);
                     // Update the related informaion if there is no default site info
@@ -125,6 +131,7 @@
                         $domain = Context::getDefaultUrl();
                         $url_info = parse_url($domain);
                         $domain = $url_info['host'].( (!empty($url_info['port'])&&$url_info['port']!=80)?':'.$url_info['port']:'').$url_info['path'];
+                        $site_args = new stdClass();
                         $site_args->site_srl = 0;
                         $site_args->index_module_srl  = $mid_output->data->module_srl;
                         $site_args->domain = $domain;
@@ -155,7 +162,7 @@
 			{
 				return;
 			}
-
+            $args = new stdClass();
             $args->mid = $mid;
             $args->site_srl = (int)$site_srl;
             $oCacheHandler = &CacheHandler::getInstance('object');
@@ -257,7 +264,7 @@
             foreach($target_module_info as $key => $val) {
                 if(!$extra_vars[$val->module_srl] || !count($extra_vars[$val->module_srl])) continue;
                 foreach($extra_vars[$val->module_srl] as $k => $v) {
-                    if($target_module_info[$key]->{$k}) continue;
+                    if(isset($target_module_info[$key]->{$k})) continue;
                     $target_module_info[$key]->{$k} = $v;
                 }
             }
@@ -960,7 +967,7 @@
                     $cache_key = 'object:module_config:module_'.$module.'_site_srl_'.$site_srl;
                     $config = $oCacheHandler->get($cache_key);
             }
-            if(!$config) {
+            if(!isset($config)) {
                 if(!$GLOBALS['__ModuleConfig__'][$site_srl][$module]) {
                     $args->module = $module;
                     $args->site_srl = $site_srl;
@@ -1264,7 +1271,8 @@
                     $cache_key = 'object:module_extra_vars_'.$module_srl;
                     $vars = $oCacheHandler->get($cache_key);
             }
-            if(!$vars) {
+            if(!isset($vars)) {
+                $args = new stdClass();
                 $args->module_srl = $module_srl;
                 $output = executeQueryArray('module.getModuleExtraVars',$args);
                 if(!$output->toBool() || !$output->data) {

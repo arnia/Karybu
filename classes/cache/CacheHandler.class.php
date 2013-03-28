@@ -25,9 +25,9 @@ class CacheHandler extends Handler {
 	 * @param boolean $always_use_file If set true, use a file cache always
 	 * @return CacheHandler
 	 */
-	function &getInstance($target = 'object', $info = null, $always_use_file = false) {
+	public static function &getInstance($target = 'object', $info = null, $always_use_file = false) {
 		$cache_handler_key = $target . ($always_use_file ? '_file' : '');
-		if(!$GLOBALS['__XE_CACHE_HANDLER__'][$cache_handler_key]) {
+		if(!isset($GLOBALS['__XE_CACHE_HANDLER__'][$cache_handler_key])) {
 			$GLOBALS['__XE_CACHE_HANDLER__'][$cache_handler_key] = new CacheHandler($target, $info, $always_use_file);
 		}
 		return $GLOBALS['__XE_CACHE_HANDLER__'][$cache_handler_key];
@@ -48,14 +48,17 @@ class CacheHandler extends Handler {
 		if(!$info) $info = Context::getDBInfo();
 		if($info){
 			if($target == 'object'){
-				if($info->use_object_cache =='apc') $type = 'apc';
-				else if(substr($info->use_object_cache,0,8)=='memcache'){
-					$type = 'memcache';
-					$url = $info->use_object_cache;
-				} else if($info->use_object_cache == 'wincache') $type = 'wincache';
-				else if($info->use_object_cache =='file') $type = 'file';
-				else if($always_use_file) $type = 'file';
-			}else if($target == 'template'){
+                if(isset($info->use_object_cache)){
+                    if($info->use_object_cache =='apc') $type = 'apc';
+                    else if(substr($info->use_object_cache,0,8)=='memcache'){
+                        $type = 'memcache';
+                        $url = $info->use_object_cache;
+                    } else if($info->use_object_cache == 'wincache') $type = 'wincache';
+                    else if($info->use_object_cache =='file') $type = 'file';
+                    else if($always_use_file) $type = 'file';
+                }
+                else if($always_use_file) $type = 'file';
+            }else if($target == 'template'){
 				if($info->use_template_cache =='apc') $type = 'apc';
 				else if(substr($info->use_template_cache,0,8)=='memcache'){
 					$type = 'memcache';
@@ -63,7 +66,7 @@ class CacheHandler extends Handler {
 				} else if($info->use_template_cache == 'wincache') $type = 'wincache';
 			}
 
-			if($type){
+			if(isset($type)){
 				$class = 'Cache' . ucfirst($type);
 				include_once sprintf('%sclasses/cache/%s.class.php', _XE_PATH_, $class);
 				$this->handler = call_user_func(array($class,'getInstance'), $url);

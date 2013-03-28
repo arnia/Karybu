@@ -779,23 +779,23 @@ class ContextInstance {
             $oInstallController->makeConfigFile();
         }
 
-        if(!$global_app_settings->use_prepared_statements) {
+        if(!isset($global_app_settings->use_prepared_statements)) {
             $global_app_settings->use_prepared_statements = 'Y';
         }
 
-        if(!$global_app_settings->time_zone) {
+        if(!isset($global_app_settings->time_zone)) {
             $global_app_settings->time_zone = date('O');
         }
-
-        if($global_app_settings->qmail_compatibility != 'Y') {
-            $global_app_settings->qmail_compatibility = 'N';
+        if(isset($global_app_settings->qmail_compatibility)){
+            if($global_app_settings->qmail_compatibility != 'Y') {
+                $global_app_settings->qmail_compatibility = 'N';
+            }
         }
-
-        if(!$global_app_settings->use_db_session) {
+        if(!isset($global_app_settings->use_db_session)) {
             $global_app_settings->use_db_session = 'N';
         }
 
-        if(!$global_app_settings->use_ssl) {
+        if(!isset($global_app_settings->use_ssl)) {
             $global_app_settings->use_ssl = 'none';
         }
 
@@ -837,16 +837,16 @@ class ContextInstance {
 
         // Set $qmail_compatibility in $GLOBALS['_qmail_compatibility']
         $qmail_compatibility = &$this->getGlobals('_qmail_compatibility');
-        $qmail_compatibility = $global_app_settings->qmail_compatibility;
+        if(isset($global_app_settings->qmail_compatibility)) $qmail_compatibility = $global_app_settings->qmail_compatibility;
 
         // Set some settings as variables in Context
         $this->set('_use_ssl', $global_app_settings->use_ssl);
 
-        if($global_app_settings->http_port)  {
+        if(isset($global_app_settings->http_port))  {
             $this->set('_http_port', $global_app_settings->http_port);
         }
 
-        if($global_app_settings->https_port) {
+        if(isset($global_app_settings->https_port)) {
             $this->set('_https_port', $global_app_settings->https_port);
         }
 
@@ -1268,7 +1268,9 @@ class ContextInstance {
      */
     function getLang($code) {
         if(!$code) return;
-        if($GLOBALS['lang']->{$code}) return $GLOBALS['lang']->{$code};
+        if(isset($GLOBALS['lang']->{$code})){
+            if($GLOBALS['lang']->{$code}) return $GLOBALS['lang']->{$code};
+        }
         return $code;
     }
 

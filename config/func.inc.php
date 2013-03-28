@@ -94,7 +94,8 @@
      * @return mixed Module instance
      */
     function &getModule($module_name, $type = 'view', $kind = '') {
-        return ModuleHandler::getModuleInstance($module_name, $type, $kind);
+        $return = ModuleHandler::getModuleInstance($module_name, $type, $kind);
+        return $return;
     }
 
     /**
@@ -207,7 +208,7 @@
      * @return object Query result data
      **/
     function executeQuery($query_id, $args = null, $arg_columns = null) {
-        $oDB = &DB::getInstance();
+        $oDB = DB::getInstance();
         return $oDB->executeQuery($query_id, $args, $arg_columns);
     }
 
@@ -222,7 +223,7 @@
      * @return object Query result data
      **/
     function executeQueryArray($query_id, $args = null, $arg_columns = null) {
-        $oDB = &DB::getInstance();
+        $oDB = DB::getInstance();
         $output = $oDB->executeQuery($query_id, $args, $arg_columns);
         if(!is_array($output->data) && count($output->data) > 0){
             $output->data = array($output->data);

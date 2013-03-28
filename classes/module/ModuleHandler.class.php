@@ -750,17 +750,19 @@ class ModuleHandlerInstance extends Handler
                 $instance_name
             );
 
-            if ($extend_module && (!is_readable($high_class_file) || !is_readable($class_file))) {
-                $module = $parent_module;
-                ModuleHandler::_getModuleFilePath(
-                    $module,
-                    $type,
-                    $kind,
-                    $class_path,
-                    $high_class_file,
-                    $class_file,
-                    $instance_name
-                );
+            if(isset($extend_module)){
+                if ($extend_module && (!is_readable($high_class_file) || !is_readable($class_file))) {
+                    $module = $parent_module;
+                    ModuleHandler::_getModuleFilePath(
+                        $module,
+                        $type,
+                        $kind,
+                        $class_path,
+                        $high_class_file,
+                        $class_file,
+                        $instance_name
+                    );
+                }
             }
 
             // Get base class name and load the file contains it
@@ -790,7 +792,7 @@ class ModuleHandlerInstance extends Handler
 
             // Load language files for the class
             $this->context->loadLang($class_path . 'lang');
-            if ($extend_module) {
+            if (isset($extend_module)) {
                 $this->context->loadLang(ModuleHandler::getModulePath($parent_module) . 'lang');
             }
 

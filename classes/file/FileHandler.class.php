@@ -829,7 +829,7 @@ class FileHandler {
 		self::$file_handler->rename($source_dir, $target_dir);
 	}
 
-	function readDir($path, $filter = '', $to_lower = false, $concat_prefix = false) {
+	public static function readDir($path, $filter = '', $to_lower = false, $concat_prefix = false) {
 		return self::$file_handler->readDir($path, $filter, $to_lower, $concat_prefix);
 	}
 

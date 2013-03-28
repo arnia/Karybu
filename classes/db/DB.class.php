@@ -307,8 +307,15 @@ class DB {
      * @return boolean true: connected, false: not connected
      */
     function isConnected($type = 'master', $indx = 0) {
-        if($type == 'master') return $this->master_db["is_connected"] ? true : false;
-        else return $this->slave_db[$indx]["is_connected"] ? true : false;
+        if($type == 'master') {
+            if(isset($this->master_db["is_connected"])){
+                return true;
+            } else return false;
+        } else{
+            if(isset($this->slave_db[$indx]["is_connected"])){
+                return true;
+            } else return false;
+        }
     }
 
     /**
@@ -333,7 +340,9 @@ class DB {
         $this->query_event->stopTiming();
 
         $this->query_event->setConnection($this->connection);
-        $this->query_event->setQueryId($this->query_id);
+        if(isset($this->query_id)){
+            $this->query_event->setQueryId($this->query_id);
+        }
         if ($this->isError()) {
             $site_module_info = Context::get('site_module_info');
             $this->query_event->setModule($site_module_info->module);
@@ -937,7 +946,9 @@ class DB {
         else
                 $this->slave_db = $db_info->slave_db;
         $this->prefix = $db_info->master_db["db_table_prefix"];
-        $this->use_prepared_statements = $db_info->use_prepared_statements;
+        if(isset($db_info->use_prepared_statements)){
+            $this->use_prepared_statements = $db_info->use_prepared_statements;
+        }
     }
 
     /**
