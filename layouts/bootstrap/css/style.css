@@ -7,7 +7,7 @@
 
 /* General Styles*/
 body {
-    padding-top: 60px;
+    padding-top: 40px;
 }
 
 a {
@@ -21,7 +21,7 @@ legend {
 
 /* Buttons */
 
-.btn {background-color: #f2f2f2;background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);}
+.btn {background-color: #f2f2f2;background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);vertical-align: top}
 .btn:hover, .btn:active {background-color: #f2f2f2;}
 
 .btn-primary {background-color: #668cb3;background-image: linear-gradient(to bottom, #84a3c2, #668cb3);}
@@ -149,9 +149,8 @@ input[type="color"]:focus,
 }
 
 /* Custom Styles*/
-
-.navbar {
-    min-height: 48px;
+.navbar-coloured-bar {
+    height: 7px;
     background: url("../img/hbg.jpg");
     background-position: center 0;
 }

@@ -13,10 +13,10 @@ require_once 'ModuleMatcher.class.php';
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use GlCMS\ModuleHandler\ModuleInstanceRetriever;
-use GlCMS\Exception\ModuleDoesNotExistException;
-use GlCMS\Exception\DefaultUrlNotDefinedException;
-use GlCMS\Exception\InvalidRequestException;
+use Karybu\ModuleHandler\ModuleInstanceRetriever;
+use Karybu\Exception\ModuleDoesNotExistException;
+use Karybu\Exception\DefaultUrlNotDefinedException;
+use Karybu\Exception\InvalidRequestException;
 
 class ModuleHandlerInstance extends Handler
 {
@@ -287,7 +287,7 @@ class ModuleHandlerInstance extends Handler
 
 
     function getController(){
-        $resolver = new \GlCMS\HttpKernel\Controller\ControllerResolver();
+        $resolver = new \Karybu\HttpKernel\Controller\ControllerResolver();
         /** @var $request \Symfony\Component\HttpFoundation\Request */
         $request = Context::get('request');
         $request->attributes->set("act", $this->act);
@@ -605,8 +605,9 @@ class ModuleHandlerInstance extends Handler
         if (!isset($methodList[$this->context->getRequestMethod()])) {
 
             if ($_SESSION['XE_VALIDATOR_RETURN_URL']) {
-                $display_handler = new DisplayHandler();
-                $display_handler->_debugOutput();
+                //_debugOutput refactored as Response listener
+                // $display_handler = new DisplayHandler();
+                // $display_handler->_debugOutput();
 
                 header('location:' . $_SESSION['XE_VALIDATOR_RETURN_URL']);
                 return;

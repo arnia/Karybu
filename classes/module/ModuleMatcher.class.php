@@ -1,7 +1,7 @@
 <?php
 
-use GlCMS\Exception\ModuleDoesNotExistException;
-use GlCMS\Exception\InvalidRequestException;
+use Karybu\Exception\ModuleDoesNotExistException;
+use Karybu\Exception\InvalidRequestException;
 
 require_once ('ModuleKey.php');
 

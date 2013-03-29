@@ -1,6 +1,6 @@
 <?php
 
-use GlCMS\ModuleHandler\ModuleInstanceRetriever;
+use Karybu\ModuleHandler\ModuleInstanceRetriever;
 
 class ModuleInstanceRetrieverTest extends PHPUnit_Framework_TestCase
 {

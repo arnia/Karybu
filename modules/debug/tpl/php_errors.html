@@ -1,0 +1,15 @@
+<ol cond="!empty($errors)">
+    <!--@foreach ($errors as $error)-->
+    <li>
+        <p><strong>{$error->getLevel()} </strong>{$error->getMessage()}</p>
+        <p>File {$error->getFile()} at line {$error->getLine()}</p>
+        <p>
+            {@ $something = $error->getContext(); }
+            <!--@foreach($something as $key => $value)-->
+                <p><strong>{$key}: </strong><!--@if(is_string($value))-->{htmlspecialchars($value)}<!--@else-->[Object]<!--@end--></p>
+            <!--@end-->
+        </p>
+    </li>
+    <!--@endforeach-->
+</ol>
+<p cond="empty($errors)">No errors.</p>

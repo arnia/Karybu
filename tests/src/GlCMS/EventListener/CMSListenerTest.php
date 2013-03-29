@@ -3,18 +3,23 @@
 
 class CMSListenerTest extends PHPUnit_Framework_TestCase
 {
+
+    /**
+     * Test that when variables change in Context they also change in Global context
+     * MUST Have for displaying the templates (for now at least)
+     */
     public function testContextIsPersistedInGlobals()
     {
         // 1. Make sure method is set on the Request event
-        $listener = new \GlCMS\EventListener\CMSListener();
+        $context = new ContextInstance();
+        $listener = new \Karybu\EventListener\CMSListener($context);
         $events = $listener->getSubscribedEvents();
 
         $request_events = array_keys($events[\Symfony\Component\HttpKernel\KernelEvents::REQUEST]);
-        $this->assertTrue(in_array('doContextGlobalsLink', $request_events));
+        $this->assertTrue(in_array('setupLegacyDependencies', $request_events));
 
         // 2. Check that values are persisted
         // Arrange
-        $context = new ContextInstance();
         $request = new \Symfony\Component\HttpFoundation\Request();
         $request->attributes->set('oContext', $context);
 
@@ -24,13 +29,23 @@ class CMSListenerTest extends PHPUnit_Framework_TestCase
         global $__Context__;
 
         // Act
-        $listener->doContextGlobalsLink($event);
-        $context = $request->attributes->get('oContext');
-        $context->set('name', 'Joe');
+        $listener->setupLegacyDependencies($event);
 
-        // Assert
+        // 3.1. Assert "context" is persisted in globals
+        $context->set('name', 'Joe');
         $this->assertTrue(isset($context->getGlobals('__Context__')->name));
         $this->assertEquals('Joe', $context->getGlobals('__Context__')->name);
         $this->assertEquals('Joe', $__Context__->name);
+
+        // 3.2. Assert "lang" is persisted in globals
+        global $lang;
+        $lang->module_list='Modules List';
+        $this->assertEquals('Modules List', $context->getGlobals('lang')->module_list);
+
+        // 3.3. Assert "_cookie" is persisted in globals
+        $cookies = &$context->getGlobalCookies();
+        $cookies['XDEBUG_SESSION_START'] = '1234';
+        $this->assertEquals('1234', $context->context->_COOKIE['XDEBUG_SESSION_START']);
+
     }
 }

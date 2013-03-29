@@ -1,5 +1,5 @@
 <?php
-use GlCMS\HttpKernel\Module;
+use Karybu\HttpKernel\Module;
 
 class ModuleObject extends Module
 {
@@ -610,7 +610,7 @@ class ModuleObject extends Module
         /** @var $request \Symfony\Component\HttpFoundation\Request */
         $controller = array($this, $this->act);
         $request = Context::get('request');
-        $resolver = new \GlCMS\HttpKernel\Controller\ControllerResolver();
+        $resolver = new \Karybu\HttpKernel\Controller\ControllerResolver();
         $arguments = $resolver->getArguments($request, $controller);
         $output = call_user_func_array($controller, $arguments);
         return $output;

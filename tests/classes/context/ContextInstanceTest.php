@@ -82,27 +82,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test that when variables change in Context they also change in Global context
-     * MUST Have for displaying the templates (for now at least)
-     */
-    public function testChangesInContextAppearInPHPGlobals()
-    {
-        $context = new ContextInstance();
-
-        $context->linkContextToGlobals(
-            $context->getGlobals('lang'),
-            $context->getGlobalCookies());
-
-        global $lang;
-        $lang->module_list='Modules List';
-        $this->assertEquals('Modules List', $context->getGlobals('lang')->module_list);
-
-        $cookies = &$context->getGlobalCookies();
-        $cookies['XDEBUG_SESSION_START'] = '1234';
-        $this->assertEquals('1234', $context->context->_COOKIE['XDEBUG_SESSION_START']);
-    }
-
-    /**
      * Test that request arguments are propely initialized when
      * Request type is XMLRPC
      *
@@ -2024,7 +2003,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     }
 
     public function testGetUrl_RouteBased_WithGetParams(){
-        $router = $this->getMock('GlCMS\Routing\Router', array('getRouteCollection'),
+        $router = $this->getMock('Karybu\Routing\Router', array('getRouteCollection'),
             array(
                 $this->getMock('Symfony\Component\Config\Loader\LoaderInterface'),
                 $this->getMock('Symfony\Component\Routing\RequestContext'),
@@ -2079,7 +2058,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
 
     public function testGetUrl_RouteBased_ModuleAndAct()
     {
-        $router = $this->getMock('GlCMS\Routing\Router', array('getRouteCollection'),
+        $router = $this->getMock('Karybu\Routing\Router', array('getRouteCollection'),
             array(
                 $this->getMock('Symfony\Component\Config\Loader\LoaderInterface'),
                 $this->getMock('Symfony\Component\Routing\RequestContext'),
@@ -2102,7 +2081,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
      */
     public function testGetUrl_RouteBased_MidVidAndAct()
     {
-        $router = $this->getMock('GlCMS\Routing\Router', array('getRouteCollection'),
+        $router = $this->getMock('Karybu\Routing\Router', array('getRouteCollection'),
             array(
                 $this->getMock('Symfony\Component\Config\Loader\LoaderInterface'),
                 $this->getMock('Symfony\Component\Routing\RequestContext'),
@@ -2123,7 +2102,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
 
     public function testGetUrl_RouteBased_Module_Is_Admin()
     {
-        $router = $this->getMock('GlCMS\Routing\Router', array('getRouteCollection'),
+        $router = $this->getMock('Karybu\Routing\Router', array('getRouteCollection'),
             array(
                 $this->getMock('Symfony\Component\Config\Loader\LoaderInterface'),
                 $this->getMock('Symfony\Component\Routing\RequestContext'),
@@ -2148,7 +2127,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $routes = new \Symfony\Component\Routing\RouteCollection();
         $routes->add("mid_act", new \Symfony\Component\Routing\Route('/{mid}/{act}', array(), array("act"=>"[a-zA-Z0-9]+")));
         $routes->add("act_mid", new \Symfony\Component\Routing\Route('/{act}/{mid}'));
-        $router = $this->getMock('GlCMS\Routing\Router', array('getRouteCollection'),
+        $router = $this->getMock('Karybu\Routing\Router', array('getRouteCollection'),
             array(
                 $this->getMock('Symfony\Component\Config\Loader\LoaderInterface'),
                 $this->getMock('Symfony\Component\Routing\RequestContext'),

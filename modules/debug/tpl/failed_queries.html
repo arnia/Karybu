@@ -1,0 +1,13 @@
+<ol cond="!empty($failed_queries)">
+    <!--@foreach ($failed_queries as $query)-->
+    <li>
+        <!--@foreach($query->toArray() as $key => $value)-->
+            <p>
+                <strong>{$key} </strong>
+                 {$value}
+            </p>
+        <!--@end-->
+    </li>
+    <!--@endforeach-->
+</ol>
+<p cond="empty($failed_queries)">No queries failed.</p>

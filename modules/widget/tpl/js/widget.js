@@ -180,7 +180,6 @@ function getWidgetCode(childObj, widget) {
 // 팝업 띄움
 function doAddContent(mid) {
     var url = request_uri.setQuery('module','widget').setQuery('act','dispWidgetAdminAddContent').setQuery('module_srl',zoneModuleSrl).setQuery('mid',mid);
-
     showModal(url);
 }
 
@@ -219,9 +218,10 @@ function doSyncPageContent() {
     //setFixedPopupSize();
 }
 
-// 부모창에 위젯을 추가
+// add content to widget
 function addContentWidget(fo_obj) {
     var editor_sequence = fo_obj.getAttribute('editor_sequence');
+    if (!editor_sequence) editor_sequence = fo_obj['ckeditor_instance'];
     var mid = fo_obj.mid.value;
     var module_srl = fo_obj.module_srl.value;
     var document_srl = fo_obj.document_srl.value;
@@ -287,7 +287,7 @@ function addContentWidget(fo_obj) {
 /* 박스 위젯 추가 */
 function doAddWidgetBox() {
     var tpl = ''+
-    '<div class="widgetOutput" style="float:left;width:100%;height:20px;" widget="widgetBox" >'+
+    '<div class="widgetOutput" style="float:left; width:100%; height:60px;" widget="widgetBox" >'+
         '<button type="button" class="widgetBoxResize"></button>'+
         '<button type="button" class="widgetBoxResizeLeft"></button>'+
         '<div class="widgetBoxBorder">'+
@@ -312,7 +312,7 @@ function doAddWidget(fo) {
 
 // widgetBorder에 height를 widgetOutput와 맞춰줌
 function doFitBorderSize() {
-    var obj_list = jQuery('.widgetBorer', zonePageObj).get();
+    var obj_list = jQuery('.widgetBorder', zonePageObj).get();
     for(var i=0;i<obj_list.length;i++) {
         var obj = obj_list[i];
         var height = xHeight(obj.parentNode);
@@ -1328,6 +1328,7 @@ function widgetManualEnd() {
 }
 
 function showModal(url) {
+    url = insertParamIntoUrl(url, 'no_toolbar', 'true');
     jQuery("#widget_admin_modal").css("width", "750px");
     jQuery("#widget_admin_modal .modal-body").css("max-height", "800px").css("height", "600px");
     jQuery("#widget_admin_modal .modal-body").html("<iframe src='" + url + "' " +
@@ -1339,4 +1340,14 @@ function showModal(url) {
 
 function triggerClose() {
     jQuery("#widget_admin_modal").modal('hide');
+}
+
+function insertParamIntoUrl(url, key,value)
+{
+    key = encodeURI(key); value = encodeURI(value);
+    var kvp = key+"="+value;
+    var r = new RegExp("(&|\\?)"+key+"=[^\&]*");
+    url = url.replace(r,"$1"+kvp);
+    if(!RegExp.$1) {url += (url.length>0 ? '&' : '?') + kvp;};
+    return url;
 }
