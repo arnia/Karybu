@@ -68,6 +68,7 @@ class image_link extends EditorHandler
         if (isset($xml_obj->attrs->open_window)) {
             $open_window = $xml_obj->attrs->open_window;
         }
+        $style = null;
         if (isset($xml_obj->attrs->style)) {
             $style = $xml_obj->attrs->style;
         }
@@ -82,12 +83,10 @@ class image_link extends EditorHandler
         $temp_src = explode('/', $src);
         if (substr($src, 0, 2) == './') {
             $src = Context::getRequestUri() . substr($src, 2);
-        }
-        elseif (substr($src, 0, 1) == '/') {
+        } elseif (substr($src, 0, 1) == '/') {
             if ($_SERVER['HTTPS'] == 'on') {
                 $http_src = 'https://';
-            }
-            else {
+            } else {
                 $http_src = 'http://';
             }
             $src = $http_src . $_SERVER['HTTP_HOST'] . $src;
@@ -97,12 +96,14 @@ class image_link extends EditorHandler
 
         $attr_output = array();
         $attr_output = array("src=\"" . $src . "\"");
-        $attr_output[] = "alt=\"" . $alt . "\"";
+        if (isset($alt)) {
+            $attr_output[] = "alt=\"" . $alt . "\"";
+        }
 
-        if ($title) {
+        if (isset($title)) {
             $attr_output[] = "title=\"" . $title . "\"";
         }
-        if ($margin) {
+        if (isset($margin)) {
             $style = trim(preg_replace('/margin[a-z\-]*[ ]*:[ ]*[0-9 a-z]+(;| )/i', '', $style)) . ';';
             $style = str_replace(';;', ';', $style);
             if ($style == ';') {
@@ -110,7 +111,7 @@ class image_link extends EditorHandler
             }
             $style .= ' margin:' . $margin . 'px;';
         }
-        if ($align) {
+        if (isset($align)) {
             $attr_output[] = "align=\"" . $align . "\"";
         }
 
@@ -118,13 +119,13 @@ class image_link extends EditorHandler
             $attr_output[] = "class=\"iePngFix\"";
         }
 
-        if ($width) {
+        if (isset($width)) {
             $attr_output[] = 'width="' . $width . '"';
         }
-        if ($height) {
+        if (isset($height)) {
             $attr_output[] = 'height="' . $height . '"';
         }
-        if ($border) {
+        if (isset($border)) {
             $style = trim(preg_replace('/border[a-z\-]*[ ]*:[ ]*[0-9 a-z]+(;| )/i', '', $style)) . ';';
             $style = str_replace(';;', ';', $style);
             if ($style == ';') {
@@ -135,19 +136,20 @@ class image_link extends EditorHandler
 
         $code = sprintf("<img %s style=\"%s\" />", implode(' ', $attr_output), $style);
 
-        if ($link_url) {
+        if (isset($link_url)) {
             if ($open_window == 'Y') {
                 $code = sprintf(
                     '<a href="%s" onclick="window.open(this.href);return false;">%s</a>',
                     $link_url,
                     $code
                 );
-            }
-            else {
+            } else {
                 $code = sprintf('<a href="%s" >%s</a>', $link_url, $code);
             }
         }
-        return $code;
+        if (isset($code)) {
+            return $code;
+        }
     }
 
 }

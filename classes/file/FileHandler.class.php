@@ -278,8 +278,7 @@ class FileHandlerInstance
 
             if ($filter) {
                 $file = preg_replace($filter, '$1', $file);
-            }
-            else {
+            } else {
                 $file = $file;
             }
 
@@ -307,7 +306,7 @@ class FileHandlerInstance
     function makeDir($path_string)
     {
         static $oFtp = null;
-
+        $ftp_path = '';
         // if safe_mode is on, use FTP
         if (ini_get('safe_mode')) {
             $ftp_info = Context::getFTPInfo();
@@ -578,8 +577,7 @@ class FileHandlerInstance
             }
             if (!$content_type) {
                 $oRequest->addHeader('Content-Type', 'text/html');
-            }
-            else {
+            } else {
                 $oRequest->addHeader('Content-Type', $content_type);
             }
             $oRequest->setMethod($method);
@@ -664,8 +662,7 @@ class FileHandlerInstance
         $last = strtolower(substr($val, -1));
         if ($last == 'g') {
             $val *= 1024 * 1024 * 1024;
-        }
-        else {
+        } else {
             if ($last == 'm') {
                 $val *= 1024 * 1024;
             } else {
@@ -771,23 +768,20 @@ class FileHandlerInstance
         // if original image is larger than specified size to resize, calculate the ratio
         if ($resize_width > 0 && $width >= $resize_width) {
             $width_per = $resize_width / $width;
-        }
-        else {
+        } else {
             $width_per = 1;
         }
 
         if ($resize_height > 0 && $height >= $resize_height) {
             $height_per = $resize_height / $height;
-        }
-        else {
+        } else {
             $height_per = 1;
         }
 
         if ($thumbnail_type == 'ratio') {
             if ($width_per > $height_per) {
                 $per = $height_per;
-            }
-            else {
+            } else {
                 $per = $width_per;
             }
             $resize_width = $width * $per;
@@ -795,8 +789,7 @@ class FileHandlerInstance
         } else {
             if ($width_per < $height_per) {
                 $per = $height_per;
-            }
-            else {
+            } else {
                 $per = $width_per;
             }
         }
@@ -814,8 +807,7 @@ class FileHandlerInstance
         // create temporary image with target size
         if (function_exists('imagecreatetruecolor')) {
             $thumb = imagecreatetruecolor($resize_width, $resize_height);
-        }
-        else {
+        } else {
             if (function_exists('imagecreate')) {
                 $thumb = imagecreate($resize_width, $resize_height);
             } else {
@@ -840,9 +832,9 @@ class FileHandlerInstance
             // jpg
             case 'jpeg' :
             case 'jpg' :
-            if (!function_exists('imagecreatefromjpeg')) {
-                return false;
-            }
+                if (!function_exists('imagecreatefromjpeg')) {
+                    return false;
+                }
                 $source = @imagecreatefromjpeg($source_file);
                 break;
             // png
@@ -855,9 +847,9 @@ class FileHandlerInstance
             // bmp
             case 'wbmp' :
             case 'bmp' :
-            if (!function_exists('imagecreatefromwbmp')) {
-                return false;
-            }
+                if (!function_exists('imagecreatefromwbmp')) {
+                    return false;
+                }
                 $source = @imagecreatefromwbmp($source_file);
                 break;
             default :
@@ -890,8 +882,7 @@ class FileHandlerInstance
                     $width,
                     $height
                 );
-            }
-            else {
+            } else {
                 imagecopyresized($thumb, $source, $x, $y, 0, 0, $new_width, $new_height, $width, $height);
             }
         } else {
@@ -914,9 +905,9 @@ class FileHandlerInstance
                 break;
             case 'jpeg' :
             case 'jpg' :
-            if (!function_exists('imagejpeg')) {
-                return false;
-            }
+                if (!function_exists('imagejpeg')) {
+                    return false;
+                }
                 $output = imagejpeg($thumb, $target_file, 100);
                 break;
             case 'png' :
@@ -927,9 +918,9 @@ class FileHandlerInstance
                 break;
             case 'wbmp' :
             case 'bmp' :
-            if (!function_exists('imagewbmp')) {
-                return false;
-            }
+                if (!function_exists('imagewbmp')) {
+                    return false;
+                }
                 $output = imagewbmp($thumb, $target_file, 100);
                 break;
         }
@@ -961,8 +952,7 @@ class FileHandlerInstance
         $arr = parse_ini_file($filename, true);
         if (is_array($arr) && count($arr) > 0) {
             return $arr;
-        }
-        else {
+        } else {
             return array();
         }
     }
@@ -1092,7 +1082,7 @@ class FileHandler
         return self::$file_handler->readFileAsArray($file_name);
     }
 
-    function writeFile($file_name, $buff, $mode = "w")
+    public static function writeFile($file_name, $buff, $mode = "w")
     {
         self::$file_handler->writeFile($file_name, $buff, $mode);
     }
@@ -1122,7 +1112,7 @@ class FileHandler
         return self::$file_handler->readDir($path, $filter, $to_lower, $concat_prefix);
     }
 
-    function makeDir($path_string)
+    public static function makeDir($path_string)
     {
         return self::$file_handler->makeDir($path_string);
     }

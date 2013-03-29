@@ -317,8 +317,7 @@ class moduleModel extends module
         // Process although one or more module informaion is requested
         if (!is_array($module_info)) {
             $target_module_info = array($module_info);
-        }
-        else {
+        } else {
             $target_module_info = $module_info;
         }
         // Get module_srl
@@ -443,8 +442,7 @@ class moduleModel extends module
         $args->module = ($module) ? $module : null;
         if (strlen($args->module) > 0) {
             $output = executeQuery('module.getActionForwardWithModule', $args);
-        }
-        else {
+        } else {
             $output = executeQuery('module.getActionForward', $args);
         }
         return $output->data;
@@ -586,8 +584,7 @@ class moduleModel extends module
 
             if (!is_array($xml_obj->author)) {
                 $author_list[] = $xml_obj->author;
-            }
-            else {
+            } else {
                 $author_list = $xml_obj->author;
             }
 
@@ -603,8 +600,7 @@ class moduleModel extends module
             if ($xml_obj->history) {
                 if (!is_array($xml_obj->history)) {
                     $history[] = $xml_obj->history;
-                }
-                else {
+                } else {
                     $history = $xml_obj->history;
                 }
 
@@ -703,7 +699,8 @@ class moduleModel extends module
 
             $buff = ""; // /< Set buff variable to use in the cache file
 
-            $xml_obj = XmlParser::loadXmlFile($xml_file); // /< Read xml file and convert it to xml object
+            $parser = new XmlParser();
+            $xml_obj = $parser->loadXmlFile($xml_file); // /< Read xml file and convert it to xml object
 
             if (!count($xml_obj->module)) {
                 return;
@@ -719,8 +716,7 @@ class moduleModel extends module
             if ($grants) {
                 if (is_array($grants)) {
                     $grant_list = $grants;
-                }
-                else {
+                } else {
                     $grant_list[] = $grants;
                 }
 
@@ -740,8 +736,7 @@ class moduleModel extends module
             if ($permissions) {
                 if (is_array($permissions)) {
                     $permission_list = $permissions;
-                }
-                else {
+                } else {
                     $permission_list[] = $permissions;
                 }
 
@@ -749,7 +744,9 @@ class moduleModel extends module
                     $action = $permission->attrs->action;
                     $target = $permission->attrs->target;
 
-                    $info->permission->{$action} = $target;
+                    if (isset($action)) {
+                        $info->permission->{$action} = $target;
+                    }
 
                     $buff .= sprintf('$info->permission->%s = \'%s\';', $action, $target);
                 }
@@ -758,8 +755,7 @@ class moduleModel extends module
             if ($menus) {
                 if (is_array($menus)) {
                     $menu_list = $menus;
-                }
-                else {
+                } else {
                     $menu_list[] = $menus;
                 }
 
@@ -768,7 +764,9 @@ class moduleModel extends module
                     $menu_title = is_array($menu->title) ? $menu->title[0]->body : $menu->title->body;
                     $menu_type = $menu->attrs->type;
 
-                    $info->menu->{$menu_name}->title = $menu_title;
+                    if (isset($menu_title)) {
+                        $info->menu->{$menu_name}->title = $menu_title;
+                    }
                     $info->menu->{$menu_name}->acts = array();
                     $info->menu->{$menu_name}->type = $menu_type;
 
@@ -781,8 +779,7 @@ class moduleModel extends module
             if ($actions) {
                 if (is_array($actions)) {
                     $action_list = $actions;
-                }
-                else {
+                } else {
                     $action_list[] = $actions;
                 }
 
@@ -799,6 +796,7 @@ class moduleModel extends module
                     $setup_index = $action->attrs->setup_index;
                     $menu_index = $action->attrs->menu_index;
 
+                    $output = new stdClass();
                     $output->action->{$name}->type = $type;
                     $output->action->{$name}->grant = $grant;
                     $output->action->{$name}->standalone = $standalone;
@@ -927,8 +925,7 @@ class moduleModel extends module
 
             if (!is_array($xml_obj->author)) {
                 $author_list[] = $xml_obj->author;
-            }
-            else {
+            } else {
                 $author_list = $xml_obj->author;
             }
 
@@ -999,8 +996,7 @@ class moduleModel extends module
             if ($xml_obj->history) {
                 if (!is_array($xml_obj->history)) {
                     $history[] = $xml_obj->history;
-                }
-                else {
+                } else {
                     $history = $xml_obj->history;
                 }
 
@@ -1728,8 +1724,7 @@ class moduleModel extends module
         if ($member_info->member_srl) {
             if (is_array($member_info->group_list)) {
                 $group_list = array_keys($member_info->group_list);
-            }
-            else {
+            } else {
                 $group_list = array();
             }
         } else {
@@ -1853,11 +1848,11 @@ class moduleModel extends module
                                 break;
                             case 'manager' :
                             case 'root' :
-                            if ($member_info->is_admin == 'Y') {
-                                $grant->{$grant_name} = true;
-                            } else {
-                                $grant->{$grant_name} = false;
-                            }
+                                if ($member_info->is_admin == 'Y') {
+                                    $grant->{$grant_name} = true;
+                                } else {
+                                    $grant->{$grant_name} = false;
+                                }
                                 break;
                         }
                     }

@@ -186,14 +186,19 @@ class addonController extends addon
             }
 
             $extra_vars = unserialize($val->extra_vars);
-            $mid_list = $extra_vars->mid_list;
-            if (!is_array($mid_list) || !count($mid_list)) {
-                $mid_list = null;
+            if (isset($extra_vars->mid_list)) {
+                $mid_list = $extra_vars->mid_list;
             }
-
-            $buff .= '$rm = \'' . $extra_vars->xe_run_method . "';";
+            if (isset($mid_list)) {
+                if (!is_array($mid_list) || !count($mid_list)) {
+                    $mid_list = null;
+                }
+            }
+            if (isset($extra_vars->xe_run_method)) {
+                $buff .= '$rm = \'' . $extra_vars->xe_run_method . "';";
+            }
             $buff .= '$ml = array(';
-            if ($mid_list) {
+            if (isset($mid_list)) {
                 foreach ($mid_list as $mid) {
                     $buff .= "'$mid' => 1,";
                 }
@@ -229,8 +234,7 @@ class addonController extends addon
 
         if ($gtype == 'site') {
             $addon_file = $addon_path . $site_srl . $type . '.acivated_addons.cache.php';
-        }
-        else {
+        } else {
             $addon_file = $addon_path . $type . '.acivated_addons.cache.php';
         }
 

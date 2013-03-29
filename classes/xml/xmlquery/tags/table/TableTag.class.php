@@ -109,7 +109,8 @@ class TableTag
      */
     function getTableString()
     {
-        $dbParser = DB::getParser();
+        $oDB = DB::getInstance();
+        $dbParser = $oDB->getParser();
 
         if ($this->isJoinTable()) {
             return sprintf(

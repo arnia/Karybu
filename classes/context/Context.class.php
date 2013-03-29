@@ -1332,7 +1332,7 @@ class ContextInstance
         $file = sprintf($path_tpl, $this->lang_type);
 
         $langs = array('ko', 'en'); // this will be configurable.
-        while (!$this->is_readable($file) && $langs[0]) {
+        while (!$this->is_readable($file) && isset($langs[0])) {
             $file = sprintf($path_tpl, array_shift($langs));
         }
 
