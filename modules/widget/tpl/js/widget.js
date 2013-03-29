@@ -312,7 +312,7 @@ function doAddWidget(fo) {
 
 // widgetBorder에 height를 widgetOutput와 맞춰줌
 function doFitBorderSize() {
-    var obj_list = jQuery('.widgetBorer', zonePageObj).get();
+    var obj_list = jQuery('.widgetBorder', zonePageObj).get();
     for(var i=0;i<obj_list.length;i++) {
         var obj = obj_list[i];
         var height = xHeight(obj.parentNode);
