@@ -1,5 +1,5 @@
 parameters:
-    kernel.debug: false
+    kernel.debug: true
     charset: UTF-8
 
 services:
@@ -36,7 +36,8 @@ services:
             - [setDebug, ['%kernel.debug%']]
 
 debug:
+    level: <?php echo Monolog\Logger::DEBUG . "\n" ?>
     toolbar: true
-    slow_queries_treshold: 800 #ms
-    channels: [file, chrome, firebug]
-    allowed_ips: [ 127.0.0.1 ]
+    slow_queries_threshold: 800 # ms
+    #handlers: [file, chrome, firebug]
+    #allowed_ips: [ 127.0.0.1 ]
