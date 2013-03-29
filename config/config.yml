@@ -1,5 +1,5 @@
 parameters:
-    kernel.debug: false
+    kernel.debug: true
     charset: UTF-8
 
 services:
@@ -8,13 +8,11 @@ services:
     context: { class: 'Symfony\Component\Routing\RequestContext' }
     cms.router: { class: 'Karybu\Routing\Router', arguments: [ @cms.router.loader, @context, null, '%kernel.debug%' ] }
     cms.context.instance: { class: 'ContextInstance', arguments: [ null, null, null, @cms.router ] }
-    mobile: { class: 'MobileInstance' }
-    file_handler: { class: 'FileHandlerInstance' }
 
     listener.router: { class: 'Karybu\EventListener\RouterListener', arguments: [ @cms.router ] }
     listener.response: { class: 'Symfony\Component\HttpKernel\EventListener\ResponseListener', arguments: [ '%charset%' ] }
     listener.exception: { class: 'Karybu\EventListener\ExceptionListener', arguments: [ @logger.exceptions ] }
-    listener.cms: { class: 'Karybu\EventListener\CMSListener', arguments: [ @cms.context.instance, @logger , @mobile, @file_handler] }
+    listener.cms: { class: 'Karybu\EventListener\CMSListener', arguments: [ @cms.context.instance, @logger ] }
 
     dispatcher:
         class: 'Symfony\Component\EventDispatcher\EventDispatcher'
@@ -38,7 +36,8 @@ services:
             - [setDebug, ['%kernel.debug%']]
 
 debug:
+    level: <?php echo Monolog\Logger::DEBUG . "\n" ?>
     toolbar: true
-    slow_queries_treshold: 800 #ms
-    channels: [file, chrome, firebug]
-    allowed_ips: [ 127.0.0.1 ]
+    slow_queries_threshold: 800 # ms
+    #handlers: [file, chrome, firebug]
+    #allowed_ips: [ 127.0.0.1 ]
