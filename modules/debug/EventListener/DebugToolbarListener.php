@@ -89,7 +89,7 @@ class DebugToolbarListener implements EventSubscriberInterface
             return;
         }
 
-        //$this->injectToolbar($response);
+        $this->injectToolbar($response);
     }
 
     public function isEnabled()
