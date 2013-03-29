@@ -2,7 +2,6 @@
 // florin, 3/27/13, 3:30 PM
 namespace Karybu\Module\Debug\DependencyInjection;
 
-use Monolog\Logger;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -27,17 +26,36 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('debug');
         $rootNode
             ->children()
+
                 ->booleanNode('toolbar')->defaultTrue()->info('show the toolbar or not?')->end()
+
                 ->integerNode('slow_queries_threshold')->defaultValue(800)->min(0)->end()
-                ->integerNode('level')->defaultValue(Logger::DEBUG)->min(0)->end()
-                ->arrayNode('channels')
-                    ->example(array('chrome'))
+
+                ->scalarNode('level')
                     ->beforeNormalization()
-                        ->ifTrue(function($v) { return !is_array($v); })
+                        ->ifTrue(function($v){ return !defined('Monolog\Logger::' . strtoupper($v)); })
+                        ->thenInvalid('Invalid logging level %s')
+                    ->end()
+                    ->beforeNormalization()
+                        ->ifInArray(array('debug', 'notice', 'warning', 'error', 'critical', 'alert', 'emergency'))
+                        ->then(function($v) { return constant('Monolog\Logger::' . strtoupper($v)); })
+                    ->end()
+                    ->defaultValue('debug')
+                ->end()
+
+                ->arrayNode('handlers')
+                    ->example(array('chrome', 'firebug', 'toolbar'))
+                    ->validate()
+                    ->ifNotInArray(array('chrome', 'firebug', 'toolbar'))
+                        ->thenInvalid('Invalid logging handler "%s".')
+                    ->end()
+                    ->beforeNormalization()
+                        ->ifString()
                         ->then(function($v) { return array($v); })
                     ->end()
                     ->prototype('scalar')->end()
                 ->end()
+
                 ->arrayNode('allowed_ips')
                     ->example(array('127.0.0.1', '127.0.0.2'))
                     ->beforeNormalization()
@@ -46,6 +64,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                     ->prototype('scalar')->end()
                 ->end()
+
             ->end();
         return $treeBuilder;
     }

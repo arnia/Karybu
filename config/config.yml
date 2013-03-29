@@ -36,7 +36,7 @@ services:
             - [setDebug, ['%kernel.debug%']]
 
 debug:
-    level: <?php echo Monolog\Logger::DEBUG . "\n" ?>
+    level: debug
     toolbar: true
     slow_queries_threshold: 800 # ms
     #handlers: [file, chrome, firebug]
