@@ -711,6 +711,7 @@ class moduleModel extends module
             $menus = $xml_obj->module->menus->menu;
             $actions = $xml_obj->module->actions->action; // /< Action list (required)
 
+            $info = new stdClass();
             $default_index = $admin_index = '';
             // Arrange permission information
             if ($grants) {
@@ -744,13 +745,13 @@ class moduleModel extends module
                     $action = $permission->attrs->action;
                     $target = $permission->attrs->target;
 
-                    if (isset($action)) {
-                        $info->permission->{$action} = $target;
-                    }
+                    $info->permission = new stdClass();
+                    $info->permission->{$action} = $target;
 
                     $buff .= sprintf('$info->permission->%s = \'%s\';', $action, $target);
                 }
             }
+            $info->menu = new stdClass();
             // for admin menus
             if ($menus) {
                 if (is_array($menus)) {
@@ -765,6 +766,7 @@ class moduleModel extends module
                     $menu_type = $menu->attrs->type;
 
                     if (isset($menu_title)) {
+                        $info->menu->{$menu_name} = new stdClass();
                         $info->menu->{$menu_name}->title = $menu_title;
                     }
                     $info->menu->{$menu_name}->acts = array();
@@ -797,10 +799,14 @@ class moduleModel extends module
                     $menu_index = $action->attrs->menu_index;
 
                     $output = new stdClass();
+                    $output->action = new stdClass();
+                    $output->action->{$name} = new stdClass();
                     $output->action->{$name}->type = $type;
                     $output->action->{$name}->grant = $grant;
                     $output->action->{$name}->standalone = $standalone;
 
+                    $info->action = new stdClass();
+                    $info->action->{$name} = new stdClass();
                     $info->action->{$name}->type = $type;
                     $info->action->{$name}->grant = $grant;
                     $info->action->{$name}->standalone = $standalone == 'true' ? true : false;
@@ -821,7 +827,6 @@ class moduleModel extends module
                             $currentKey,
                             $name
                         );
-                        $i++;
                     }
 
                     $buff .= sprintf('$info->action->%s->type=\'%s\';', $name, $type);

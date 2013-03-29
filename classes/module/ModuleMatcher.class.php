@@ -50,11 +50,13 @@ class ModuleMatcher
 
     public function getType($act, $xml_info, $is_mobile, $is_installed)
     {
-        $type = $xml_info->action->{$act}->type;
-        if ($type == 'view' && $is_mobile && $is_installed) {
-            $type = 'mobile';
+        if(isset($xml_info->action->{$act}->type)) $type = $xml_info->action->{$act}->type;
+        if(isset($type)){
+            if ($type == 'view' && $is_mobile && $is_installed) {
+                $type = 'mobile';
+            }
+            return $type;
         }
-        return $type;
     }
 
     /**
