@@ -2,6 +2,14 @@
 use Symfony\Component\HttpFoundation\Request;
 use Karybu\HttpKernel\Kernel;
 
+/**
+ * dev protection
+ */
+if (isset($_SERVER['HTTP_CLIENT_IP']) || isset($_SERVER['HTTP_X_FORWARDED_FOR']) || !in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', 'fe80::1', '::1'))) {
+    header('HTTP/1.0 403 Forbidden');
+    exit('You are not allowed to access this resource. Check '.basename(__FILE__).' for more information.');
+}
+
 $isCommandLine = ( php_sapi_name() == 'cli' );
 
 /**
@@ -17,7 +25,7 @@ $validCommandLineCall = $isCommandLine && isset($argv[1]) && filter_var($argv[1]
 //create request using first call parameter if the script is called from the console with a valid url as first param
 $request = $validCommandLineCall ? Request::create($argv[1]) : Request::createFromGlobals();
 
-$kernel = new Kernel('prod', false);
+$kernel = new Kernel('dev', true);
 
 $response = $kernel->handle($request);
 $response->send();

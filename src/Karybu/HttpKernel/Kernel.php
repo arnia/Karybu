@@ -4,7 +4,6 @@ namespace Karybu\HttpKernel;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 
-//use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
 use Karybu\EventListener\ExceptionHandler;
 use Symfony\Component\HttpKernel\Kernel as SymfonyKernel;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
