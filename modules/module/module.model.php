@@ -785,6 +785,8 @@ class moduleModel extends module
                     $action_list[] = $actions;
                 }
 
+                $output = new stdClass();
+                $info->action = new stdClass();
                 foreach ($action_list as $action) {
                     $name = $action->attrs->name;
 
@@ -798,14 +800,12 @@ class moduleModel extends module
                     $setup_index = $action->attrs->setup_index;
                     $menu_index = $action->attrs->menu_index;
 
-                    $output = new stdClass();
                     $output->action = new stdClass();
                     $output->action->{$name} = new stdClass();
                     $output->action->{$name}->type = $type;
                     $output->action->{$name}->grant = $grant;
                     $output->action->{$name}->standalone = $standalone;
 
-                    $info->action = new stdClass();
                     $info->action->{$name} = new stdClass();
                     $info->action->{$name}->type = $type;
                     $info->action->{$name}->grant = $grant;
@@ -1246,7 +1246,6 @@ class moduleModel extends module
                 $args->module = $module;
                 $args->module_srl = $module_srl;
                 $output = executeQuery('module.getModulePartConfig', $args);
-                $config = new stdClass();
                 if (isset($output->data->config)) {
                     $config = unserialize($output->data->config);
                 }

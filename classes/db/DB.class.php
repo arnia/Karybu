@@ -1161,7 +1161,7 @@ class DB
 
         // Ignore if no DB information exists
         if (!$this->_dbInfoExists())
-            return false;
+            return true;
 
         if ($type == 'master')
             $connection = &$this->master_db;
