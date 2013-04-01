@@ -104,7 +104,7 @@ class DBSqlite3_pdo extends DB
         // Attempt to access the database file
         try {
             // PDO is only supported with PHP5,
-            // so it is allowed to use try~catch statement in this class.
+            // so it is allowed to use try~catch statment in this class.
             $this->handler = new PDO('sqlite:' . $this->database);
         } catch (PDOException $e) {
             $this->setError(-1, 'Connection failed: ' . $e->getMessage());
@@ -115,6 +115,7 @@ class DBSqlite3_pdo extends DB
         // Check connections
         $this->is_connected = true;
         $this->password = md5($this->password);
+
         return true;
     }
 

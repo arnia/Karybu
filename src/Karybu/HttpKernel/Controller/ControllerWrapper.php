@@ -12,10 +12,9 @@ class ControllerWrapper
 
     function __invoke($arguments = array())
     {
-        if (!$this->oModule->skipAct) {
+        if (!isset($this->oModule->skipAct)) {
             $output = call_user_func_array(array($this->oModule, $this->oModule->act), $arguments);
-        }
-        else {
+        } else {
             $output = null;
         }
         return array('output' => $output, 'oModule' => $this->oModule);
