@@ -54,7 +54,7 @@ class SlowQueryListener implements EventSubscriberInterface
     public function logQueryIfSlow(QueryEvent $event)
     {
         if($event->getElapsedTime() > $this->min_duration) {
-            $this->logger->debug("Slow query", array($event->getQuery()));
+            $this->logger->debug("Slow query\t" . $event->getElapsedTime() . "ms\t" .$event->getQuery());
         }
     }
 
