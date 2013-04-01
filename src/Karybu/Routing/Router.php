@@ -11,11 +11,15 @@ use Symfony\Component\Routing\RequestContext;
 
 class Router extends SymfonyRouter
 {
-    public function __construct(LoaderInterface $loader, RequestContext $context = null, LoggerInterface $logger = null, $debug=false)
-    {
+    public function __construct(
+        LoaderInterface $loader,
+        RequestContext $context = null,
+        LoggerInterface $logger = null,
+        $debug = false
+    ) {
         $options = array(
-            'cache_dir' => _XE_PATH_ . '/files/cache',
-            'debug' => (boolean) $debug,
+            'cache_dir' => (is_writable(_XE_PATH_ . '/files') ? _XE_PATH_ . 'files/cache' : "/dev/null/cache"),
+            'debug' => (boolean)$debug,
             'generator_cache_class' => 'cmsUrlGeneratorCache',
             'matcher_cache_class' => 'cmsUrlMatcherCache'
         );

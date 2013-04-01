@@ -305,8 +305,7 @@ class DBSqlite3_pdo extends DB
         $query = sprintf("alter table %s%s add %s ", $this->prefix, $table_name, $column_name);
         if ($size) {
             $query .= sprintf(" %s(%s) ", $type, $size);
-        }
-        else {
+        } else {
             $query .= sprintf(" %s ", $type);
         }
         if ($default) {
@@ -443,8 +442,7 @@ class DBSqlite3_pdo extends DB
 
         if (!is_array($xml_obj->table->column)) {
             $columns[] = $xml_obj->table->column;
-        }
-        else {
+        } else {
             $columns = $xml_obj->table->column;
         }
 
@@ -453,8 +451,7 @@ class DBSqlite3_pdo extends DB
             $type = $column->attrs->type;
             if (strtoupper($this->column_type[$type]) == 'INTEGER') {
                 $size = '';
-            }
-            else {
+            } else {
                 $size = $column->attrs->size;
             }
             $notnull = $column->attrs->notnull;
@@ -485,8 +482,7 @@ class DBSqlite3_pdo extends DB
 
             if ($unique) {
                 $unique_list[$unique][] = $name;
-            }
-            else {
+            } else {
                 if ($index) {
                     $index_list[$index][] = $name;
                 }

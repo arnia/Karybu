@@ -17,7 +17,7 @@ $validCommandLineCall = $isCommandLine && isset($argv[1]) && filter_var($argv[1]
 //create request using first call parameter if the script is called from the console with a valid url as first param
 $request = $validCommandLineCall ? Request::create($argv[1]) : Request::createFromGlobals();
 
-$kernel = new Kernel('prod', false);
+$kernel = new Kernel('dev', true);
 
 $response = $kernel->handle($request);
 $response->send();
