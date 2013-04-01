@@ -37,18 +37,7 @@ class QueryEvent extends Event {
     public function stopTiming()
     {
         $duration = $this->stopwatch->stop("query");
-        $this->elapsed_time = $this->durationInSec($duration);
-    }
-
-    /**
-     * Gets a StopwatchEvent duration in seconds
-     *
-     * @param StopwatchEvent $swEvent
-     * @return int
-     */
-    private function durationInSec(StopwatchEvent $swEvent){
-        $periods = $swEvent->getPeriods();
-        return end($periods)->getDuration()/1000;
+        $this->elapsed_time = $duration->getDuration();
     }
 
     public function setAct($act)

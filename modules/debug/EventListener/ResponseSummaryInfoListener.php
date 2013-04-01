@@ -79,18 +79,7 @@ class ResponseSummaryInfoListener  implements EventSubscriberInterface {
     public function executeQueryEnded(QueryEvent $event)
     {
         $swEvent = $this->queryStopwatch->stop("executeQuery");
-        $this->total_execute_query_duration += $this->durationInSec($swEvent);
-    }
-
-    /**
-     * Gets a StopwatchEvent duration in seconds
-     *
-     * @param StopwatchEvent $swEvent
-     * @return int
-     */
-    private function durationInSec(StopwatchEvent $swEvent){
-        $periods = $swEvent->getPeriods();
-        return end($periods)->getDuration()/1000;
+        $this->total_execute_query_duration += $swEvent->getDuration();
     }
 
     public function doTriggerResponseStatistics(PostResponseEvent $event){
