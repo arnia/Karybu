@@ -54,11 +54,7 @@ class Kernel extends SymfonyKernel
 
     public function getCacheDir()
     {
-        if (!is_writable($this->rootDir . 'files/')) {
-            return "/dev/null";
-        } else {
-            return $this->rootDir . 'files/cache/' . $this->environment;
-        }
+        return $this->rootDir . 'files/cache/' . $this->environment;
     }
 
     /**
@@ -78,11 +74,7 @@ class Kernel extends SymfonyKernel
      */
     public function getLogDir()
     {
-        if (!is_writable($this->rootDir . 'files/')) {
-            return "/dev/null";
-        } else {
-            return $this->rootDir . 'files/logs';
-        }
+        return $this->rootDir . 'files/logs';
     }
 
     /**
