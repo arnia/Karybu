@@ -4,20 +4,23 @@
 namespace Karybu\Module\Debug\DependencyInjection;
 
 use Karybu\DependencyInjection\Module\Extension;
+use Karybu\Module\Debug\EventListener\DebugToolbarListener;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class DebugExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
-        /**
-         * loads ../conf/services.yml (code in parent class)
-         */
         parent::load($configs, $container);
+        $configuration = $this->getConfiguration($configs, $container);
+        $config = $this->processConfiguration($configuration, $configs);
+        $this->setContainerParameters($config, $container);
     }
 
-    public function getAlias()
+    protected function setContainerParameters(array $sanitizedConfig, ContainerBuilder $container)
     {
-        return 'debug';
+        $container->setParameter('logger.slow_queries_threshold', $sanitizedConfig['slow_queries_threshold']);
+        $toolbarMode = $sanitizedConfig['toolbar'] ? DebugToolbarListener::ENABLED : DebugToolbarListener::DISABLED;
+        $container->setParameter('logger.debug.toolbar', $toolbarMode);
     }
 }

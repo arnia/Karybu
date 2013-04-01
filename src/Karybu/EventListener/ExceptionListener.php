@@ -2,16 +2,19 @@
 
 namespace Karybu\EventListener;
 
+use Karybu\Exception\DBConnectionFailedException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
-use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
+
+//use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
+use Karybu\EventListener\ExceptionHandler;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\Exception\FlattenException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\FatalErrorException;
 
 /**
  * Class ExceptionListener
@@ -35,34 +38,51 @@ class ExceptionListener implements EventSubscriberInterface
     {
         $exception = $event->getException();
 
-        if($this->logger)
-            $this->logger->error(sprintf('Uncaught PHP Exception %s: "%s" at %s line %s', get_class($exception), $exception->getMessage(), $exception->getFile(), $exception->getLine()));
+        if ($this->logger) {
+            $this->logger->error(
+                sprintf(
+                    'Uncaught PHP Exception %s: "%s" at %s line %s',
+                    get_class($exception),
+                    $exception->getMessage(),
+                    $exception->getFile(),
+                    $exception->getLine()
+                )
+            );
+        }
 
-        if(__DEBUG__) {
+        if ($event->getKernel()->isDebug()) {
             $exception_handler = new ExceptionHandler(true);
             $response = $exception_handler->createResponse($exception);
             $event->setResponse($response);
             return;
         }
 
-        $status_code = $exception instanceof HttpExceptionInterface ? $exception->getStatusCode() : '500';
-        // display content with message module instance
-        $type = \Mobile::isFromMobilePhone() ? 'mobile' : 'view';
-        /** @var $oMessageObject \messageView */
-        $oMessageObject = \ModuleHandler::getModuleInstance('message', $type);
-        $oMessageObject->setError(-1);
-        $oMessageObject->setMessage(null);
-        $oMessageObject->dispMessage();
+        if ($exception instanceof DBConnectionFailedException) {
+            // this is fatal; no subsequent flow can't be done
+            // without triggering other DB operation
+            $fatalException = new FatalErrorException($exception->getMessage(), $exception->getCode(),
+                1, $exception->getFile(), $exception->getLine(), $exception->getPrevious());
+            throw $fatalException;
+        } else {
+            $status_code = $exception instanceof HttpExceptionInterface ? $exception->getStatusCode() : '500';
+            // display content with message module instance
+            $type = \Mobile::isFromMobilePhone() ? 'mobile' : 'view';
+            /** @var $oMessageObject \messageView */
+            $oMessageObject = \ModuleHandler::getModuleInstance('message', $type);
+            $oMessageObject->setError(-1);
+            $oMessageObject->setMessage(null);
+            $oMessageObject->dispMessage();
 
-        $module_handler = $event->getRequest()->attributes->get('oModuleHandler');
-        $module_handler->_setHttpStatusMessage($status_code);
-        $oMessageObject->setHttpStatusCode($status_code);
-        $oMessageObject->setTemplateFile('http_status_code');
+            $module_handler = $event->getRequest()->attributes->get('oModuleHandler');
+            $module_handler->_setHttpStatusMessage($status_code);
+            $oMessageObject->setHttpStatusCode($status_code);
+            $oMessageObject->setTemplateFile('http_status_code');
 
-        $oDisplayHandler = new \DisplayHandler();
-        $response = $oDisplayHandler->getReponseForModule($oMessageObject);
+            $oDisplayHandler = new \DisplayHandler();
+            $response = $oDisplayHandler->getReponseForModule($oMessageObject);
 
-        $event->setResponse($response);
+            $event->setResponse($response);
+        }
     }
 
     public static function getSubscribedEvents()
