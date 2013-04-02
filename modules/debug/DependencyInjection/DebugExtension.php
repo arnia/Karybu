@@ -22,5 +22,7 @@ class DebugExtension extends Extension
         $container->setParameter('logger.slow_queries_threshold', $sanitizedConfig['slow_queries_threshold']);
         $toolbarMode = $sanitizedConfig['toolbar'] ? DebugToolbarListener::ENABLED : DebugToolbarListener::DISABLED;
         $container->setParameter('logger.debug.toolbar', $toolbarMode);
+        $container->setParameter('logger.slow_queries_threshold', $sanitizedConfig['slow_queries_threshold']);
+        $container->setParameter('logger.debug.level', $sanitizedConfig['level']);
     }
 }
