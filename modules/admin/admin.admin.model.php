@@ -558,6 +558,13 @@
                 $result->week[date("Y.m.d",$i)]->last = (int)$visitors[date("Ymd",$i-60*60*24*7)];
             }
 
+            // 각종 통계 정보를 구함
+            $output = executeQuery('admin.getTotalVisitors');
+            $result->total_visitor = $output->data->count;
+            $output = executeQuery('admin.getTotalSiteVisitors');
+            $result->total_visitor += $output->data->count;
+            $result->visitor = $visitors[date("Ymd")];
+
             return $result;
         }
 

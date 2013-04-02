@@ -249,6 +249,9 @@
             $visitors = $oAdminAdminModel->getWeeklyVisitors();
             $status->week_max = $visitors->week_max;
             $status->week = $visitors->week;
+            $status->thisWeekSum = $visitors->thisWeekSum;
+            $status->total_visitor = $visitors->total_visitor;
+            $status->visitor = $visitors->visitor;
 
             Context::set('status', $status);
 
