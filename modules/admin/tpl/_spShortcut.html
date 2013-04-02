@@ -1,6 +1,6 @@
-<div class="sct well">
-	<h2>{$lang->favorite}</h2>
-	<ul class="nav nav-list">
+<div class="sct pull-left span2 well">
+	<h4>{$lang->favorite}</h4>
+	<ul class="nav nav-list unstyled">
 		<li loop="$favorite_list => $favorite">
 			<a href="{getUrl('', 'module', 'admin', 'act', $favorite->admin_index_act)}">{$favorite->title}</a>
 			<form class="action" action="./">

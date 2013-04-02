@@ -8,64 +8,76 @@
  */
 class SelectColumnTag extends ColumnTag
 {
-	/**
-	 * Column alias
-	 *
-	 * @var string
-	 */
-	var $alias;
+    /**
+     * Column alias
+     *
+     * @var string
+     */
+    var $alias;
 
-	/**
-	 * Click count status
-	 *
-	 * @var bool
-	 */
-	var $click_count;
+    /**
+     * Click count status
+     *
+     * @var bool
+     */
+    var $click_count;
 
-	/**
-	 * Constructor
-	 *
-	 * @param string|object $column
-	 * @return void
-	 */
-	function SelectColumnTag($column)
-	{
-		if ($column == "*" || $column->attrs->name == '*')
-		{
-			parent::ColumnTag(NULL);
-			$this->name = "*";
-		}
-		else
-		{
-			parent::ColumnTag($column->attrs->name);
-			$dbParser = new DB(); $dbParser = &$dbParser->getParser();
-			$this->name = $dbParser->parseExpression($this->name);
+    /**
+     * Constructor
+     *
+     * @param string|object $column
+     * @return void
+     */
+    function SelectColumnTag($column)
+    {
+        if ($column == "*" || $column->attrs->name == '*') {
+            parent::ColumnTag(null);
+            $this->name = "*";
+        } else {
+            parent::ColumnTag($column->attrs->name);
+            $dbParser = new DB();
+            $dbParser = & $dbParser->getParser();
+            $this->name = $dbParser->parseExpression($this->name);
 
-			$this->alias = $column->attrs->alias;
-			$this->click_count = $column->attrs->click_count;
-		}
-	}
+            $this->alias = $column->attrs->alias;
+            $this->click_count = $column->attrs->click_count;
+        }
+    }
 
-	/**
-	 * Returns the string to be output in the cache file
-	 *
-	 * A select column tag in an XML query can be used for:
-	 * <ul>
-	 *   <li> a star expression: SELECT *
-	 *   <li> a click count expression: SELECT + UPDATE
-	 *   <li> any other select expression (column name, function call etc). </li>
-	 * </ul>
-	 *
-	 * @return string
-	 */
-	function getExpressionString()
-	{
-		if($this->name == '*') return "new StarExpression()";
-		if($this->click_count)
-			return sprintf('new ClickCountExpression(\'%s\', %s, $args->%s)', $this->name, $this->alias ? '\'' . $this->alias . '\'' : "''",$this->click_count);
-		if(strpos($this->name, '$') === 0)
-			return sprintf('new SelectExpression($args->%s)', substr($this->name, 1));
-		$dbParser = DB::getParser();
-		return sprintf('new SelectExpression(\'%s\'%s)', $this->name, $this->alias ? ', \''.$dbParser->escape($this->alias) .'\'': '');
-	}
+    /**
+     * Returns the string to be output in the cache file
+     *
+     * A select column tag in an XML query can be used for:
+     * <ul>
+     *   <li> a star expression: SELECT *
+     *   <li> a click count expression: SELECT + UPDATE
+     *   <li> any other select expression (column name, function call etc). </li>
+     * </ul>
+     *
+     * @return string
+     */
+    function getExpressionString()
+    {
+        if ($this->name == '*') {
+            return "new StarExpression()";
+        }
+        if ($this->click_count) {
+            return sprintf(
+                'new ClickCountExpression(\'%s\', %s, $args->%s)',
+                $this->name,
+                $this->alias ? '\'' . $this->alias . '\'' : "''",
+                $this->click_count
+            );
+        }
+        if (strpos($this->name, '$') === 0) {
+            return sprintf('new SelectExpression($args->%s)', substr($this->name, 1));
+        }
+        $oDB = DB::getInstance();
+        $dbParser = $oDB->getParser();
+        return sprintf(
+            'new SelectExpression(\'%s\'%s)',
+            $this->name,
+            $this->alias ? ', \'' . $dbParser->escape($this->alias) . '\'' : ''
+        );
+    }
 }

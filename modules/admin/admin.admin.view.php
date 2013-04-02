@@ -245,6 +245,11 @@
 			$status->file->todayCount = $oFileAdminModel->getFilesCountByDate($today);
 			$status->file->totalCount = $oFileAdminModel->getFilesCountByDate();
 
+            $oAdminAdminModel = getAdminModel('admin');
+            $visitors = $oAdminAdminModel->getWeeklyVisitors();
+            $status->week_max = $visitors->week_max;
+            $status->week = $visitors->week;
+
             Context::set('status', $status);
 
             // Latest Document

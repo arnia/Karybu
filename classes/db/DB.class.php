@@ -6,37 +6,37 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Karybu\Event\QueryEvent;
 use Karybu\Event\DBEvents;
 
-if (!defined('__XE_LOADED_DB_CLASS__')) {
+if(!defined('__XE_LOADED_DB_CLASS__')){
     define('__XE_LOADED_DB_CLASS__', 1);
 
-    require(_XE_PATH_ . 'classes/xml/xmlquery/DBParser.class.php');
-    require(_XE_PATH_ . 'classes/xml/xmlquery/QueryParser.class.php');
-    require(_XE_PATH_ . 'classes/xml/xmlquery/argument/Argument.class.php');
-    require(_XE_PATH_ . 'classes/xml/xmlquery/argument/SortArgument.class.php');
-    require(_XE_PATH_ . 'classes/xml/xmlquery/argument/ConditionArgument.class.php');
+    require(_XE_PATH_.'classes/xml/xmlquery/DBParser.class.php');
+    require(_XE_PATH_.'classes/xml/xmlquery/QueryParser.class.php');
+    require(_XE_PATH_.'classes/xml/xmlquery/argument/Argument.class.php');
+    require(_XE_PATH_.'classes/xml/xmlquery/argument/SortArgument.class.php');
+    require(_XE_PATH_.'classes/xml/xmlquery/argument/ConditionArgument.class.php');
 
-    require(_XE_PATH_ . 'classes/db/queryparts/expression/Expression.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/expression/SelectExpression.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/expression/InsertExpression.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/expression/UpdateExpression.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/expression/UpdateExpressionWithoutArgument.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/expression/ClickCountExpression.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/table/Table.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/table/JoinTable.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/table/CubridTableWithHint.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/table/MysqlTableWithHint.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/table/MssqlTableWithHint.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/table/IndexHint.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/condition/ConditionGroup.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/condition/Condition.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/condition/ConditionWithArgument.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/condition/ConditionWithoutArgument.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/condition/ConditionSubquery.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/expression/StarExpression.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/order/OrderByColumn.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/limit/Limit.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/Query.class.php');
-    require(_XE_PATH_ . 'classes/db/queryparts/Subquery.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/expression/Expression.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/expression/SelectExpression.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/expression/InsertExpression.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/expression/UpdateExpression.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/expression/UpdateExpressionWithoutArgument.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/expression/ClickCountExpression.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/table/Table.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/table/JoinTable.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/table/CubridTableWithHint.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/table/MysqlTableWithHint.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/table/MssqlTableWithHint.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/table/IndexHint.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/condition/ConditionGroup.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/condition/Condition.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/condition/ConditionWithArgument.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/condition/ConditionWithoutArgument.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/condition/ConditionSubquery.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/expression/StarExpression.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/order/OrderByColumn.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/limit/Limit.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/Query.class.php');
+    require(_XE_PATH_.'classes/db/queryparts/Subquery.class.php');
 }
 
 /**
@@ -170,9 +170,9 @@ class DB
         if (!isset($GLOBALS['__DB__'])) {
             $GLOBALS['__DB__'] = array();
         }
-        if (!isset($GLOBALS['__DB__'][$db_type])) {
-            $class_name = 'DB' . ucfirst($db_type);
-            $class_file = _XE_PATH_ . "classes/db/$class_name.class.php";
+        if(!isset($GLOBALS['__DB__'][$db_type])) {
+            $class_name = 'DB'.ucfirst($db_type);
+            $class_file = _XE_PATH_."classes/db/$class_name.class.php";
             if (!file_exists($class_file)) {
                 return new Object(-1, 'msg_db_not_setted');
             }
@@ -202,7 +202,7 @@ class DB
      */
     function DB()
     {
-        $this->count_cache_path = _XE_PATH_ . $this->count_cache_path;
+        $this->count_cache_path = _XE_PATH_.$this->count_cache_path;
     }
 
     /**
@@ -271,26 +271,26 @@ class DB
     function _getSupportedList()
     {
         static $get_supported_list = '';
-        if (is_array($get_supported_list)) {
+        if(is_array($get_supported_list)) {
             $this->supported_list = $get_supported_list;
             return $this->supported_list;
         }
         $get_supported_list = array();
-        $db_classes_path = _XE_PATH_ . "classes/db/";
+        $db_classes_path = _XE_PATH_."classes/db/";
         $filter = "/^DB([^\.]+)\.class\.php/i";
         $supported_list = FileHandler::readDir($db_classes_path, $filter, true);
         sort($supported_list);
 
         // after creating instance of class, check is supported
-        for ($i = 0; $i < count($supported_list); $i++) {
+        for($i = 0; $i < count($supported_list); $i++) {
             $db_type = $supported_list[$i];
 
             if (version_compare(phpversion(), '5.0') < 0 && preg_match('/pdo/i', $db_type)) {
                 continue;
             }
 
-            $class_name = sprintf("DB%s%s", strtoupper(substr($db_type, 0, 1)), strtolower(substr($db_type, 1)));
-            $class_file = sprintf(_XE_PATH_ . "classes/db/%s.class.php", $class_name);
+            $class_name = sprintf("DB%s%s", strtoupper(substr($db_type,0,1)), strtolower(substr($db_type,1)));
+            $class_file = sprintf(_XE_PATH_."classes/db/%s.class.php", $class_name);
             if (!file_exists($class_file)) {
                 continue;
             }
@@ -298,7 +298,7 @@ class DB
             unset($oDB);
             require_once($class_file);
             $tmp_fn = create_function('', "return new {$class_name}();");
-            $oDB = $tmp_fn();
+            $oDB    = $tmp_fn();
 
             if (!$oDB) {
                 continue;
@@ -333,9 +333,17 @@ class DB
     function isConnected($type = 'master', $indx = 0)
     {
         if ($type == 'master') {
-            return $this->master_db["is_connected"] ? true : false;
+            if (isset($this->master_db["is_connected"])) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return $this->slave_db[$indx]["is_connected"] ? true : false;
+            if (isset($this->slave_db[$indx]["is_connected"])) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -363,7 +371,9 @@ class DB
         $this->query_event->stopTiming();
 
         $this->query_event->setConnection($this->connection);
-        $this->query_event->setQueryId($this->query_id);
+        if (isset($this->query_id)) {
+            $this->query_event->setQueryId($this->query_id);
+        }
         if ($this->isError()) {
             $site_module_info = Context::get('site_module_info');
             $this->query_event->setModule($site_module_info->module);
@@ -371,7 +381,7 @@ class DB
             $this->query_event->setResult("Failed");
             $this->query_event->setErrno($this->errno);
             $this->query_event->setErrstr($this->errstr);
-        } else {
+        }else{
             $this->query_event->setResult("Success");
         }
 
@@ -432,29 +442,29 @@ class DB
 
         $this->query_id = $query_id;
 
-        if (!isset($cache_file[$query_id]) || !file_exists($cache_file[$query_id])) {
+        if(!isset($cache_file[$query_id]) || !file_exists($cache_file[$query_id])) {
             $id_args = explode('.', $query_id);
-            if (count($id_args) == 2) {
+            if(count($id_args) == 2) {
                 $target = 'modules';
                 $module = $id_args[0];
                 $id = $id_args[1];
-            } elseif (count($id_args) == 3) {
+            } elseif(count($id_args) == 3) {
                 $target = $id_args[0];
-                $typeList = array('addons' => 1, 'widgets' => 1);
-                if (!isset($typeList[$target])) {
+                $typeList = array('addons'=>1, 'widgets'=>1);
+                if(!isset($typeList[$target])){
                     $this->actDBClassFinish();
                     return;
                 }
                 $module = $id_args[1];
                 $id = $id_args[2];
             }
-            if (!$target || !$module || !$id) {
+            if(!$target || !$module || !$id){
                 $this->actDBClassFinish();
                 return new Object(-1, 'msg_invalid_queryid');
             }
 
             $xml_file = sprintf('%s%s/%s/queries/%s.xml', _XE_PATH_, $target, $module, $id);
-            if (!file_exists($xml_file)) {
+            if(!file_exists($xml_file)){
                 $this->actDBClassFinish();
                 return new Object(-1, 'msg_invalid_queryid');
             }
@@ -499,7 +509,7 @@ class DB
             _XE_PATH_ . 'classes/db/DB.class.php'
         ) || $cache_time < filemtime(_XE_PATH_ . 'classes/xml/XmlQueryParser.150.class.php')
         ) {
-            require_once(_XE_PATH_ . 'classes/xml/XmlQueryParser.150.class.php');
+            require_once(_XE_PATH_.'classes/xml/XmlQueryParser.150.class.php');
             $oParser = new XmlQueryParser();
             $oParser->parse($query_id, $xml_file, $cache_file);
         }
@@ -535,7 +545,7 @@ class DB
         }
 
         // execute appropriate query
-        switch ($output->getAction()) {
+        switch($output->getAction()) {
             case 'insert' :
             case 'insert-select' :
                 $this->resetCountCache($output->tables);
@@ -550,7 +560,7 @@ class DB
                 $output = $this->_executeDeleteAct($output);
                 break;
             case 'select' :
-                $arg_columns = is_array($arg_columns) ? $arg_columns : array();
+                $arg_columns = is_array($arg_columns)?$arg_columns:array();
                 $output->setColumnList($arg_columns);
                 $connection = $this->_getConnection('slave');
                 $output = $this->_executeSelectAct($output, $connection);
@@ -612,8 +622,8 @@ class DB
         if (!is_array($tables)) {
             $tables = array($tables);
         }
-        foreach ($tables as $alias => $table) {
-            $table_filename = sprintf('%s/cache.%s%s', $this->count_cache_path, $this->prefix, $table);
+        foreach($tables as $alias => $table) {
+            $table_filename = sprintf('%s/cache.%s%s', $this->count_cache_path, $this->prefix, $table) ;
             if (!file_exists($table_filename) || filemtime($table_filename) > $cache_mtime) {
                 return false;
             }
@@ -677,7 +687,7 @@ class DB
         if (!is_array($tables)) {
             $tables = array($tables);
         }
-        foreach ($tables as $alias => $table) {
+        foreach($tables as $alias => $table) {
             $filename = sprintf('%s/cache.%s%s', $this->count_cache_path, $this->prefix, $table);
             FileHandler::removeFile($filename);
             FileHandler::writeFile($filename, '');
@@ -745,13 +755,13 @@ class DB
         if ($select == '') {
             return new Object(-1, "Invalid query");
         }
-        $select = 'SELECT ' . $select;
+        $select = 'SELECT ' .$select;
 
         $from = $query->getFromString($with_values);
         if ($from == '') {
             return new Object(-1, "Invalid query");
         }
-        $from = ' FROM ' . $from;
+        $from = ' FROM '.$from;
 
         $where = $query->getWhereString($with_values);
         if ($where != '') {
@@ -760,7 +770,7 @@ class DB
 
         $tableObjects = $query->getTables();
         $index_hint_list = '';
-        foreach ($tableObjects as $tableObject) {
+        foreach($tableObjects as $tableObject){
             if (is_a($tableObject, 'CubridTableWithHint')) {
                 $index_hint_list .= $tableObject->getIndexHintString() . ', ';
             }
@@ -828,7 +838,7 @@ class DB
     {
         $sql = 'DELETE ';
 
-        $sql .= $with_priority ? $query->getPriority() : '';
+        $sql .= $with_priority?$query->getPriority():'';
         $tables = $query->getTables();
 
         $sql .= $tables[0]->getAlias();
@@ -837,7 +847,7 @@ class DB
         if ($from == '') {
             return new Object(-1, "Invalid query");
         }
-        $sql .= ' FROM ' . $from;
+        $sql .= ' FROM '.$from;
 
         $where = $query->getWhereString($with_values);
         if ($where != '') {
@@ -871,9 +881,9 @@ class DB
             $where = ' WHERE ' . $where;
         }
 
-        $priority = $with_priority ? $query->getPriority() : '';
+        $priority = $with_priority?$query->getPriority():'';
 
-        return "UPDATE $priority $tables SET $columnsList " . $where;
+        return "UPDATE $priority $tables SET $columnsList ".$where;
     }
 
     /**
@@ -887,7 +897,7 @@ class DB
     {
         $tableName = $query->getFirstTableName();
         $values = $query->getInsertString($with_values);
-        $priority = $with_priority ? $query->getPriority() : '';
+        $priority = $with_priority?$query->getPriority():'';
 
         return "INSERT $priority INTO $tableName \n $values";
     }
@@ -911,7 +921,7 @@ class DB
      */
     function _getConnection($type = 'master', $indx = null)
     {
-        if ($type == 'master') {
+        if($type == 'master'){
             if (!$this->master_db['is_connected']) {
                 $this->_connect($type);
             }
@@ -970,9 +980,9 @@ class DB
         }
 
         if ($type == 'master') {
-            $connection = & $this->master_db;
+            $connection = &$this->master_db;
         } else {
-            $connection = & $this->slave_db[$indx];
+            $connection = &$this->slave_db[$indx];
         }
 
         $this->_close($connection["resource"]);
@@ -1100,18 +1110,20 @@ class DB
     {
         $db_info = Context::getDBInfo();
         $this->master_db = $db_info->master_db;
-        if ($db_info->master_db["db_hostname"] == $db_info->slave_db[0]["db_hostname"]
+        if($db_info->master_db["db_hostname"] == $db_info->slave_db[0]["db_hostname"]
             && $db_info->master_db["db_port"] == $db_info->slave_db[0]["db_port"]
             && $db_info->master_db["db_userid"] == $db_info->slave_db[0]["db_userid"]
             && $db_info->master_db["db_password"] == $db_info->slave_db[0]["db_password"]
             && $db_info->master_db["db_database"] == $db_info->slave_db[0]["db_database"]
         ) {
-            $this->slave_db[0] = & $this->master_db;
+            $this->slave_db[0] = &$this->master_db;
         } else {
             $this->slave_db = $db_info->slave_db;
         }
         $this->prefix = $db_info->master_db["db_table_prefix"];
-        $this->use_prepared_statements = $db_info->use_prepared_statements;
+        if (isset($db_info->use_prepared_statements)) {
+            $this->use_prepared_statements = $db_info->use_prepared_statements;
+        }
     }
 
     /**
@@ -1143,25 +1155,21 @@ class DB
      * @param int $indx number in slave dbms server list
      * @return boolean - if connected or not
      */
-    function _connect($type = 'master', $indx = 0)
-    {
-        if ($this->isConnected($type, $indx)) {
+    function _connect($type = 'master', $indx = 0) {
+        if ($this->isConnected($type, $indx))
             return true;
-        }
 
         // Ignore if no DB information exists
-        if (!$this->_dbInfoExists()) {
+        if (!$this->_dbInfoExists())
             return true;
-        }
 
-        if ($type == 'master') {
-            $connection = & $this->master_db;
-        } else {
-            $connection = & $this->slave_db[$indx];
-        }
+        if ($type == 'master')
+            $connection = &$this->master_db;
+        else
+            $connection = &$this->slave_db[$indx];
 
         $result = $this->__connect($connection);
-        if ($result === null || $result === false) {
+        if($result === null || $result === false) {
             $connection["is_connected"] = false;
             return false;
         }
@@ -1212,8 +1220,8 @@ class DB
     function &getParser($force = false)
     {
         static $dbParser = null;
-        if (!$dbParser || $force) {
-            $oDB = & DB::getInstance();
+        if(!$dbParser || $force) {
+            $oDB = DB::getInstance();
             $dbParser = $oDB->getParser();
         }
 

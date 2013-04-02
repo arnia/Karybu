@@ -115,6 +115,7 @@ class DBSqlite3_pdo extends DB
         // Check connections
         $this->is_connected = true;
         $this->password = md5($this->password);
+
         return true;
     }
 
