@@ -65,7 +65,6 @@ if(file_exists(_XE_PATH_.'config/package.inc.php')) {
  * define('__DEBUG_PROTECT_IP__', '127.0.0.1');
  * define('__DEBUG_DB_OUTPUT__', 0);
  * define('__LOG_SLOW_QUERY__', 0);
- * define('__OB_GZHANDLER_ENABLE__', 1);
  * define('__PROXY_SERVER__', 'http://domain:port/path');
  * define('__XE_CDN_PREFIX__', 'http://yourCdnDomain.com/path/');
  * define('__XE_CDN_VERSION__', 'yourCdnVersion');
@@ -162,20 +161,6 @@ if(!defined('__DEBUG_QUERY__'))
      * </pre>
      */
     define('__DEBUG_QUERY__', 1);
-}
-
-if(!defined('__OB_GZHANDLER_ENABLE__'))
-{
-    /**
-     * option to enable/disable a compression feature using ob_gzhandler
-     *
-     * <pre>
-     * 0: Not used
-     * 1: Enabled
-     * Only particular servers may have a problem in IE browser when sending a compression
-     * </pre>
-     */
-    define('__OB_GZHANDLER_ENABLE__', 0);
 }
 
 if(!defined('__PROXY_SERVER__'))

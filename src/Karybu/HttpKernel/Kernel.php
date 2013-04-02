@@ -16,6 +16,7 @@ use Symfony\Component\Yaml\Yaml;
 class Kernel extends SymfonyKernel
 {
     protected $modules = array();
+    protected $gz_encoding;
 
     public function registerBundles()
     {
@@ -35,6 +36,13 @@ class Kernel extends SymfonyKernel
             ini_set('display_errors', 1);
         }
         Yaml::enablePhpParsing();
+    }
+
+    protected function getKernelParameters()
+    {
+        $params = parent::getKernelParameters();
+        $params['cms.gz_encoding'] = !$this->debug;
+        return $params;
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)

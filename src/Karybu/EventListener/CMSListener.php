@@ -22,6 +22,9 @@ class CMSListener implements EventSubscriberInterface
     /** @var \ContextInstance */
     private $cmsContext;
 
+    /** @var \DisplayHandler */
+    private $displayHandler;
+
     /**
      * We're injecting into the HttpKernel's events:
      * http://symfony.com/doc/master/components/http_kernel/introduction.html
@@ -60,9 +63,10 @@ class CMSListener implements EventSubscriberInterface
      * @param \ContextInstance $cmsContext CMS context
      * @param \Symfony\Component\HttpKernel\Log\LoggerInterface $logger The logger
      */
-    public function __construct(\ContextInstance $cmsContext, LoggerInterface $logger = null)
+    public function __construct(\ContextInstance $cmsContext, \DisplayHandler $displayHandler, LoggerInterface $logger = null)
     {
         $this->cmsContext = $cmsContext;
+        $this->displayHandler = $displayHandler;
         $this->logger = $logger;
     }
 
@@ -222,8 +226,7 @@ class CMSListener implements EventSubscriberInterface
          * Prepare Response object and cms display handler (which manages page headers and content)
          * We'll copy from $oDisplayHandler to $response and then set event $response
          */
-        $oDisplayHandler = new \DisplayHandler();
-        $response = $oDisplayHandler->getReponseForModule($oModule);
+        $response = $this->displayHandler->getReponseForModule($oModule);
 
         $event->setResponse($response);
     }
