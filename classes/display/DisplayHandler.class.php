@@ -15,8 +15,6 @@ class DisplayHandler extends Handler {
 
     var $content_size = 0; // /< The size of displaying contents
 
-    var $gz_enabled = false; // / <a flog variable whether to call contents after compressing by gzip
-
     var $global_gz_encoding;
 
     var $handler = null;
@@ -28,8 +26,9 @@ class DisplayHandler extends Handler {
         $this->headers[] = array($key, $header, $replace);
     }
 
-    function isGzipEnabled($module_gz_encoding_enabled)
+    function gzipEnabledForModule($oModule)
     {
+        $module_gz_encoding_enabled = $oModule->gzhandler_enable;
         return $this->global_gz_encoding &&
             $this->gzipIsSupported() &&
             $module_gz_encoding_enabled;
@@ -56,7 +55,9 @@ class DisplayHandler extends Handler {
         else if(Context::getRequestMethod() == 'XMLRPC') {
             require_once("./classes/display/XMLDisplayHandler.php");
             $handler = new XMLDisplayHandler();
-            if(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false) $this->gz_enabled = false;
+            if(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false) {
+                $this->global_gz_encoding = false;
+            }
         }
         else if(Context::getRequestMethod() == 'JSON') {
             require_once("./classes/display/JSONDisplayHandler.php");
@@ -71,16 +72,13 @@ class DisplayHandler extends Handler {
 
     function getContent($oModule)
     {
-        // Check if the gzip encoding supported
-        $this->gz_enabled = $this->isGzipEnabled($oModule->gzhandler_enable);
-
         // Extract contents to display by the request method
         $handler = $this->getHandler();
         $output = $handler->toDoc($oModule);
         $this->modifyOutput($output, $handler);
 
         // Print content
-        if($this->gz_enabled) {
+        if($this->gzipEnabledForModule($oModule)) {
             $output = ob_gzhandler($output, 5);
         }
 
@@ -112,7 +110,9 @@ class DisplayHandler extends Handler {
     function prepareHeaders($oModule)
     {
         // header output
-        if($this->gz_enabled) $this->addHeader("Content-Encoding", "gzip");
+        if($this->gzipEnabledForModule($oModule)) {
+            $this->addHeader("Content-Encoding", "gzip");
+        }
 
         $httpStatusCode = $oModule->getHttpStatusCode();
 
