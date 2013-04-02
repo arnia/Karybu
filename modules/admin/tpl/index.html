@@ -107,6 +107,39 @@
                             <li cond="!is_array($latestTrackbackList) || count($latestTrackbackList) < 1">{$lang->no_data}</li>
                         </ul>
                     </div>
+                    <!-- Visotors Graph -->
+                    <div class="portlet span11">
+
+                        <h4 class="dashboardH4">{$lang->counter} <em>{date("Y.m.d")}</em></h4>
+                        <div class="dashboardWire">
+                            <dl class="legend">
+                                <dt class="past"><img src="../../../common/tpl/images/blank.gif" width="5" height="5" alt="{$lang->yesterday}" /></dt>
+                                <dd>{$lang->last_week}</dd>
+                                <dt class="today"><img src="../../../common/tpl/images/blank.gif" width="5" height="5" alt="{$lang->today}" /></dt>
+                                <dd>{$lang->this_week}</dd>
+
+                            </dl>
+                            <dl class="summary">
+                                <dt>{$lang->today}</dt>
+                                <dd>{number_format($status->visitor)}</dd>
+                                <dt>{$lang->this_week}</dt>
+                                <dd>{number_format($status->thisWeekSum)}</dd>
+                                <dt>{$lang->total}</dt>
+                                <dd>{number_format($status->total_visitor)}</dd>
+                            </dl>
+                            <div class="graph">
+                                <!--@foreach($status->week as $key => $val)-->
+                                <dl>
+                                    <dt><!--@if($key==date("Ymd"))--><strong>{$key}</strong><!--@else-->{$key}<!--@end--></dt>
+                                    <dd class="past" style="height:{$val->last/$status->week_max * 100}%" title="{$lang->last_week}:{number_format($val->last)}"><span>{$lang->last_week}:{number_format($val->last)}</span></dd>
+                                    <dd class="today" style="height:{$val->this/$status->week_max * 100}%" title="{$lang->this_week}:{number_format($val->this)}"><span>{$lang->this_week}:{number_format($val->this)}</span></dd>
+
+                                </dl>
+                                <!--@end-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Visotors Graph -->
                 </div>
             </div>
         </div>

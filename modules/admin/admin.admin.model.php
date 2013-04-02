@@ -510,6 +510,57 @@
             return $siteList;
         }
 
+        /*
+         * get weekly visitor statistics for dashboard display
+         */
+        function getWeeklyVisitors(){
+            $time = time();
+            $w = date("D");
+            while(date("D",$time) != "Sat") {
+                $time += 60*60*24;
+            }
+            $end_time = $time;
+            $end_date = date("Ymd",$time);
+            $time -= 60*60*24;
+            while(date("D",$time)!="Sun") {
+                $thisWeek[] = date("Ymd",$time);
+                $time -= 60*60*24;
+            }
+            $start_time = $time;
+            $start_date = date("Ymd",$time-60*60*24*7);
+
+            $args = new stdClass();
+            $args->start_date = $start_date;
+            $args->end_date = $end_date;
+            $output = executeQueryArray('admin.getVisitors', $args);
+            if(count($output->data)) {
+                foreach($output->data as $key => $val) {
+                    $visitors[$val->regdate] = $val->unique_visitor;
+                }
+            }
+            $output = executeQueryArray('admin.getSiteVisitors', $args);
+            if(count($output->data)) {
+                foreach($output->data as $key => $val) {
+                    $visitors[$val->regdate] += $val->unique_visitor;
+                }
+            }
+            $result = new stdClass();
+            $result->week_max = 0;
+            if(count($visitors)) {
+                foreach($visitors as $key => $val) {
+                    if($val>$result->week_max) $result->week_max = $val;
+                }
+            }
+
+            for($i=$start_time;$i<=$end_time;$i+=60*60*24) {
+                $result->thisWeekSum += $visitors[date("Ymd",$i)];
+                $result->week[date("Y.m.d",$i)]->this = (int)$visitors[date("Ymd",$i)];
+                $result->week[date("Y.m.d",$i)]->last = (int)$visitors[date("Ymd",$i-60*60*24*7)];
+            }
+
+            return $result;
+        }
+
         /**
          * Return site count
 		 * @param string $date
