@@ -59,47 +59,14 @@ if(file_exists(_XE_PATH_.'config/package.inc.php')) {
  * user configuration files which override the default settings
  * save the following information into config/config.user.inc.php
  * <?php
- * define('__DEBUG__', 0);
- * define('__DEBUG_OUTPUT__', 0);
  * define('__DEBUG_PROTECT__', 1);
  * define('__DEBUG_PROTECT_IP__', '127.0.0.1');
- * define('__DEBUG_DB_OUTPUT__', 0);
- * define('__LOG_SLOW_QUERY__', 0);
  * define('__PROXY_SERVER__', 'http://domain:port/path');
  * define('__XE_CDN_PREFIX__', 'http://yourCdnDomain.com/path/');
  * define('__XE_CDN_VERSION__', 'yourCdnVersion');
  */
 if(file_exists(_XE_PATH_.'config/config.user.inc.php')) {
     require _XE_PATH_.'config/config.user.inc.php';
-}
-
-if(!defined('__DEBUG__'))
-{
-    /**
-     * output debug message(bit value)
-     *
-     * <pre>
-     * 0: disable debugging
-     * 1: display messages through debugPrint() function
-     * 2: output execute time, Request/Response info
-     * 4: output DB query history
-     * </pre>
-     */
-    define('__DEBUG__', 7);
-}
-
-if(!defined('__DEBUG_OUTPUT__'))
-{
-    /**
-     * output location of debug message
-     *
-     * <pre>
-     * 0: connect to the files/_debug_message.php and output
-     * 1: HTML output as a comment on the bottom (when response method is the HTML)
-     * 2: Firebug console output (PHP 4 & 5. Firebug/FirePHP plug-in required)
-     * </pre>
-     */
-    define('__DEBUG_OUTPUT__', 0);
 }
 
 if(!defined('__DEBUG_PROTECT__'))
@@ -121,46 +88,6 @@ if(!defined('__DEBUG_PROTECT_IP__'))
      * Set a ip address to allow debug
      */
     define('__DEBUG_PROTECT_IP__', '127.0.0.1');
-}
-
-if(!defined('__DEBUG_DB_OUTPUT__'))
-{
-    /**
-     * DB error message definition
-     *
-     * <pre>
-     * 0: No output
-     * 1: files/_debug_db_query.php connected to the output
-     * </pre>
-     */
-    define('__DEBUG_DB_OUTPUT__', 1);
-}
-
-if(!defined('__LOG_SLOW_QUERY__'))
-{
-    /**
-     * Query log for only timeout query among DB queries
-     *
-     * <pre>
-     * 0: Do not leave a log
-     * != 0: leave a log when the slow query takes over specified seconds
-     * Log file is saved as ./files/_db_slow_query.php file
-     * </pre>
-     */
-    define('__LOG_SLOW_QUERY__', 0);
-}
-
-if(!defined('__DEBUG_QUERY__'))
-{
-    /**
-     * Leave DB query information
-     *
-     * <pre>
-     * 0: Do not add information to the query
-     * 1: Comment the XML Query ID
-     * </pre>
-     */
-    define('__DEBUG_QUERY__', 1);
 }
 
 if(!defined('__PROXY_SERVER__'))
@@ -186,11 +113,6 @@ if(!defined('__XE_CDN_VERSION__'))
      * CDN version
      */
     define('__XE_CDN_VERSION__', '%__XE_CDN_VERSION__%');
-}
-
-// Require specific files when using Firebug console output
-if((__DEBUG_OUTPUT__ == 2) && version_compare(PHP_VERSION, '6.0.0') === -1) {
-    require _XE_PATH_.'libs/FirePHPCore/FirePHP.class.php';
 }
 
 // Set Timezone as server time

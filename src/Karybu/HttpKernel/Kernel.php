@@ -30,6 +30,11 @@ class Kernel extends SymfonyKernel
      */
     public function init()
     {
+        if($this->debug) {
+            define('__DEBUG__', 7); // Enables detailed request info and logs
+            define('__DEBUG_QUERY__', 1); // Adds xml query name to all executed sql code
+        }
+
         if ('cli' !== php_sapi_name()) {
             ExceptionHandler::register($this->debug);
         } else {
