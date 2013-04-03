@@ -17,7 +17,16 @@
             </ul>
         </div>
 		<h1><a href="{getUrl('','module','admin')}"><img src="{getUrl('')}{$gnb_title_info->adminLogo}" alt="{$gnb_title_info->adminTitle}" /> {$gnb_title_info->adminTitle}</a></h1>
-        <p class="site"><a href="{getFullUrl('')}">{getFullUrl('')}</a></p>
+        <div class="kNav navbar pull-right">
+            <ul class="unstyled ">
+                <li>
+                    <a class="big-icon big-icon-preview" href="{getFullUrl('')}"></a>
+                </li>
+                <li class="<!--@if($activeNode == $value['node_srl'])-->active<!--@end-->" loop="$gnbUrlList=>$key,$value" >
+                    <a class="big-icon big-icon-{strtolower($value['text'])}"  href="{getFullUrl('')}{$value['href']}"></a>
+                </li>
+            </ul>
+        </div>
         <div class="navbar">
             <div class="navbar-inner">
                 <ul class="nav">

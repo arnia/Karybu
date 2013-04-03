@@ -1,4 +1,117 @@
-.dashboardWire{ position:relative; margin-bottom:40px; border-top:2px solid #cbd4df; border-left:1px solid #e3e5e7; border-right:1px solid #e3e5e7; border-bottom:1px solid #f1f1f1; background:#fff; *border-bottom:1px solid #d0d1d2; *zoom:1; *filter:progid:DXImageTransform.Microsoft.dropshadow(OffX='0', OffY='1', Color='#f1f1f1', positive='true');}
+html body {
+    height: 100%;
+}
+
+.kWrapper {
+    margin-left: 320px;
+    margin-right: 100px;
+    background-color: #ffffff;
+    z-index: 99;
+    position: relative;
+}
+
+.kSidebar {
+    position: fixed;
+    width: 300px;
+    background-color: #1d212a;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 0;
+}
+
+.kNav {
+    position: fixed;
+    width: 80px;
+    background-color: #1d212a;
+    height: 100%;
+    right: 0;
+    top: 0;
+}
+
+.row-fluid {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #a9dba9;
+}
+
+.toggle-sidebar {
+    background-color: #000000;
+    height: 20px;
+    width: 20px;
+}
+
+.kNav li {
+    height: 80px;
+}
+
+.big-icon {
+    width: 80px;
+    height: 80px;
+    background-image: url("../img/big-nav-icons.png");
+    background-repeat: no-repeat;
+}
+
+.big-icon-preview {background-position: 0 0;}
+a.big-icon-preview:hover {background-position: -80px 0;}
+li.active a.big-icon-preview {background-position: -160px 0;}
+
+.big-icon-dashboard {background-position: 0 -80px;}
+a.big-icon-dashboard:hover {background-position: -80px -80px;}
+li.active a.big-icon-dashboard {background-position: -160px -80px;}
+
+.big-icon-content {background-position: 0 -160px;}
+a.big-icon-content:hover {background-position: -80px -160px;}
+li.active a.big-icon-content {background-position: -160px -160px;}
+
+.big-icon-menu {background-position: 0 -240px;}
+a.big-icon-menu:hover {background-position: -80px -240px;}
+li.active a.big-icon-menu {background-position: -160px -240px;}
+
+.big-icon-theme {background-position: 0 -320px;}
+a.big-icon-theme:hover {background-position: -80px -320px;}
+li.active a.big-icon-theme {background-position: -160px -320px;}
+
+.big-icon-member {background-position: 0 -400px;}
+a.big-icon-member:hover {background-position: -80px -400px;}
+li.active a.big-icon-member {background-position: -160px -400px;}
+
+.big-icon-settings {background-position: 0 -480px;}
+a.big-icon-settings:hover {background-position: -80px -480px;}
+li.active a.big-icon-settings {background-position: -160px -480px;}
+
+li.active {
+    background-color: #80b041;
+}
+
+.kNav li a {
+    display: block;
+    width: 80px;
+    height: 80px;
+}
+
+@media (max-width: 767px) {
+    .kWrapper {
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-bottom: -80px;
+    }
+
+    .kNav {
+        position: fixed;
+        width: 100%;
+        bottom:0px;
+        left: 0;
+        top: auto;
+        height: 80px;
+        z-index: 999;
+    }
+
+    .kNav li {
+        display: inline-block;
+    }
+}
+
+.dashboardWire{ position:relative; margin-bottom:40px; border-top:2px solid #cbd4df; border-left:1px solid #e3e5e7; border-right:1px solid #e3e5e7; border-bottom:1px solid #f1f1f1; background:#fff; *border-bottom:1px solid #d0d1d2; *zoom:1;}
 .dashboardWire:after{ content:""; display:block; height:1px; background:#d0d1d2; overflow:hidden;}
 .dashboardWire .buttonArea{ padding:8px 14px; background:#fafafa; border-top:1px solid #e3e5e7; text-align:right; position:relative;}
 .dashboardWire ul{ position:relative; list-style:none; margin:0; padding:0; font-size:12px; overflow:hidden;}
@@ -19,7 +132,7 @@
 .dashboardWire .summary dt{ margin-left:10px; color:#555;}
 .dashboardWire .summary dd{ margin:0; font-size:11px; font-weight:bold; color:#ea3f22;}
 
-.dashboardWire .graph{ position:relative; height:131px; padding-top:63px; margin:0 20px 26px 20px; background:url(../img/bgDashboardGraph.gif) repeat-x 0 63px;}
+.dashboardWire .graph{ position:relative; height:131px; padding-top:63px; margin:0 20px 26px 20px; }
 .dashboardWire .graph:after{ content:""; display:block; clear:both;}
 .dashboardWire .graph dl{ position:relative; float:left; width:10%; height:100%; margin:0 2%; *margin:0 1.8%; _margin:0 2% 0 1.1%;}
 .dashboardWire .graph dl dt{ position:absolute; width:100%; text-align:center; font-size:9px; bottom:-16px; color:#707070;}

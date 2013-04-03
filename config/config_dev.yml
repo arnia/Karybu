@@ -3,6 +3,6 @@ imports:
 
 debug:
     level: debug # Monolog supports all 8 logging levels defined in RFC 5424, but unless you specifically need syslog compatibility, it is advised to only use DEBUG, INFO, WARNING, ERROR, CRITICAL, ALERT.
-    toolbar: true
+    toolbar: false
     slow_queries_threshold: 800 # ms
     handlers: [files, chrome, firebug] # possible handlers: files, chrome, firebug
