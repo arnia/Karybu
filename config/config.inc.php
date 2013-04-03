@@ -124,10 +124,6 @@ if(version_compare(PHP_VERSION, '5.3.0') >= 0)
 // Require a function-defined-file for simple use
 require(_XE_PATH_.'config/func.inc.php');
 
-if(__DEBUG__) define('__StartTime__', getMicroTime());
-
-if(__DEBUG__) define('__ClassLoadStartTime__', getMicroTime());
-
 /**
  * composer autoloader
  * http://getcomposer.org/doc/04-schema.md#autoload
@@ -135,5 +131,3 @@ if(__DEBUG__) define('__ClassLoadStartTime__', getMicroTime());
 require_once dirname(__FILE__) . '/../vendor/autoload.php';
 
 $cmsAutoloader = new \Karybu\Autoloader\Autoloader();
-
-if(__DEBUG__) $GLOBALS['__elapsed_class_load__'] = getMicroTime() - __ClassLoadStartTime__;
