@@ -10,6 +10,7 @@
 namespace Karybu\Module\Debug\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Karybu\Event\DBEvents;
@@ -36,12 +37,11 @@ use \Context;
  * @package Karybu\Module\Debug\EventListener
  */
 class ResponseSummaryInfoListener  implements EventSubscriberInterface {
-
     /** @var LoggerInterface */
     private $logger;
 
     /** @var Stopwatch */
-    private $queryStopwatch;
+    private $stopwatch;
 
     /**
      * @var int Sum of the duration of all calls to execute_query
@@ -56,10 +56,11 @@ class ResponseSummaryInfoListener  implements EventSubscriberInterface {
     public static function getSubscribedEvents()
     {
         return array(
+            KernelEvents::REQUEST => array('startStopwatchForTotalElapsedTime', 999999),
             DBEvents::EXECUTE_QUERY_STARTED => array(array('executeQueryStarted', 34)),
             DBEvents::EXECUTE_QUERY_ENDED => array(array('executeQueryEnded', 34)),
             KernelEvents::TERMINATE => array(
-                array('doTriggerResponseStatistics', 0)
+                array('doTriggerResponseStatistics', 1)
             ));
     }
 
@@ -68,22 +69,47 @@ class ResponseSummaryInfoListener  implements EventSubscriberInterface {
      */
     public function __construct(LoggerInterface $logger) {
         $this->logger = $logger;
-        $this->queryStopwatch = new Stopwatch();
+        $this->stopwatch = new Stopwatch();
+    }
+
+    /**
+     * Gets total duration for generating the response - takes into account just Kernel code
+     *
+     * To see if we shouldn't just use
+     * (microtime(true) - $_SERVER['REQUEST_TIME']) * 1000
+     * on TERMINATE
+     *
+     * TBD
+     *
+     * @param GetResponseEvent $event
+     */
+    public function startStopwatchForTotalElapsedTime(GetResponseEvent $event)
+    {
+        $this->stopwatch->start('total_elapsed_time');
     }
 
     public function executeQueryStarted(QueryEvent $event)
     {
-        $this->queryStopwatch->start("executeQuery");
+        $this->stopwatch->start("executeQuery");
     }
 
     public function executeQueryEnded(QueryEvent $event)
     {
-        $swEvent = $this->queryStopwatch->stop("executeQuery");
+        $swEvent = $this->stopwatch->stop("executeQuery");
         $this->total_execute_query_duration += $swEvent->getDuration();
     }
 
-    public function doTriggerResponseStatistics(PostResponseEvent $event){
-        $this->_debugOutput($this->getContentLength($event));
+    public function doTriggerResponseStatistics(PostResponseEvent $event)
+    {
+        $request_event = $this->stopwatch->stop('total_elapsed_time');
+
+        $request_info = '';
+        $request_info .= $request_event->getDuration() . "ms\t";
+        $request_info .= $_SERVER['REQUEST_METHOD'] . " ";
+        $request_info .= sprintf("%s:%s%s%s%s", $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], $_SERVER['PHP_SELF'], $_SERVER['QUERY_STRING']?'?':'', $_SERVER['QUERY_STRING']);
+        $this->logger->debug($request_info);
+
+        // $this->_debugOutput($this->getContentLength($event));
     }
 
     // ************** PRIVATE AREA ****************
@@ -109,6 +135,8 @@ class ResponseSummaryInfoListener  implements EventSubscriberInterface {
      * @return string
      */
     private function _debugOutput($contentLength) {
+
+        // TODO Refactor code below this
         $buff = '';
         $end = getMicroTime();
 
