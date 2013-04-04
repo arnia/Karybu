@@ -49,7 +49,7 @@ services:
     logger.db_slow_query:
         parent: logger_template
         arguments: [ 'db' ]
-        calls: [ [pushHandler, [@llogger.handler.stream.db_slow_query]] ]
+        calls: [ [pushHandler, [@logger.handler.stream.db_slow_query]] ]
     logger.db_errors:
         parent: logger_template
         arguments: [ 'db' ]

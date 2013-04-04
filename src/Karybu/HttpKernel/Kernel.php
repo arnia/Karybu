@@ -2,6 +2,7 @@
 // florin, 2/1/13, 2:32 PM
 namespace Karybu\HttpKernel;
 
+use Karybu\Readonly\KarybuReadonlyDebugProjectContainer;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
 use Karybu\EventListener\ExceptionHandler;
@@ -12,6 +13,7 @@ use Symfony\Component\DependencyInjection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Debug\ErrorHandler;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Config\ConfigCache;
 
 class Kernel extends SymfonyKernel
 {
@@ -93,6 +95,47 @@ class Kernel extends SymfonyKernel
     public function getName()
     {
         return 'Karybu';
+    }
+
+    /**
+     * Initializes the service container.
+     *
+     * The cached version of the service container is used when fresh, otherwise the
+     * container is built.
+     */
+    protected function initializeContainer()
+    {
+        if ($this->isFilesFolderAvailable()){
+            $this->initializeOrdinaryContainer();
+        } else{
+            $this->container = new KarybuReadonlyDebugProjectContainer();
+            $this->container->set('kernel', $this);
+        }
+    }
+
+    private function isFilesFolderAvailable(){
+        return is_writable($this->rootDir . 'files');
+    }
+
+    private function initializeOrdinaryContainer(){
+        $class = $this->getContainerClass();
+        $cache = new ConfigCache($this->getCacheDir().'/'.$class.'.php', $this->debug);
+        $fresh = true;
+        if (!$cache->isFresh()) {
+            $container = $this->buildContainer();
+            $this->dumpContainer($cache, $container, $class, $this->getContainerBaseClass());
+
+            $fresh = false;
+        }
+
+        require_once $cache;
+
+        $this->container = new $class();
+        $this->container->set('kernel', $this);
+
+        if (!$fresh && $this->container->has('cache_warmer')) {
+            $this->container->get('cache_warmer')->warmUp($this->container->getParameter('kernel.cache_dir'));
+        }
     }
 
 }
