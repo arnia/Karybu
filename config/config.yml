@@ -20,14 +20,9 @@ services:
         class: 'Symfony\Component\EventDispatcher\EventDispatcher'
         calls:
             - [addSubscriber, [@listener.router]]
-            - [addSubscriber, [@listener.debug.toolbar]]
             - [addSubscriber, [@listener.cms]]
             - [addSubscriber, [@listener.response]]
-            - [addSubscriber, [@listener.response.summary]]
             - [addSubscriber, [@listener.exception]]
-            - [addSubscriber, [@listener.db.query_info]]
-            - [addSubscriber, [@listener.db.slow_query]]
-            - [addSubscriber, [@listener.db.errors]]
 
     resolver: { class: 'Karybu\HttpKernel\Controller\ControllerResolver' }
 

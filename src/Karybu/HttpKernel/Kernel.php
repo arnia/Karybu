@@ -2,6 +2,7 @@
 // florin, 2/1/13, 2:32 PM
 namespace Karybu\HttpKernel;
 
+use Karybu\Bundle\Core\KarybuCoreBundle;
 use Karybu\DependencyInjection\Container\KarybuReadonlyProjectContainer;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
@@ -23,6 +24,7 @@ class Kernel extends SymfonyKernel
     public function registerBundles()
     {
         return array(
+            new \Karybu\Bundle\Core\KarybuCoreBundle(),
             new \Karybu\Module\Debug\DebugModule()
         );
     }
@@ -32,6 +34,11 @@ class Kernel extends SymfonyKernel
      */
     public function init()
     {
+        if($this->debug) {
+            define('__DEBUG__', 7); // Enables detailed request info and logs
+            define('__DEBUG_QUERY__', 1); // Adds xml query name to all executed sql code
+        }
+
         if ('cli' !== php_sapi_name()) {
             ExceptionHandler::register($this->debug);
         } else {
