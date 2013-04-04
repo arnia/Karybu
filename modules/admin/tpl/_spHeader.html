@@ -5,6 +5,42 @@
 <load target="css/graph.css"/>
 <div class="x">
 	<div class="header">
+        <div class="kSidebar dark pull-left">
+            <div class="toggle-sidebar visible-phone"></div>
+            <div class="brand">
+                <a href="#" class="pull-right admin"><img src="img/admin.png"></a>
+                <a href="#"><img src="img/logo.png"></a>
+            </div>
+            <div class="kSearch">
+                <i class="icon-search"></i>
+                <input type="text" placeholder="Type something…" class="pull-left">
+            </div>
+            <div class="kInfo">
+                <h6>DASHBOARD</h6>
+                <p>Using this section you can create, change or update the content of your website</p>
+            </div>
+            <div class="kList">
+                <ul class="unstyled kList">
+                    <h6>DASHBOARD</h6>
+                    <li loop="$main_menu->items=>$key,$value"><a href="#">{$value->name}</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="kNav navbar pull-right">
+            <ul class="unstyled ">
+                <li>
+                    <a class="big-icon big-icon-preview" href="{getFullUrl('')}"></a>
+                </li>
+                <li class="<!--@if($activeNode == $value['node_srl'])-->active<!--@end-->" loop="$gnbUrlList=>$key,$value" >
+                    <a class="big-icon big-icon-{strtolower($value['text'])}"  href="{getFullUrl('')}{$value['href']}"></a>
+                </li>
+            </ul>
+            <div class="small-logo">
+                <a href="#"><img src="img/small-logo.png"></a>
+            </div>
+        </div>
+	</div>
+	<div class="kWrapper container-fluid">
         <div class="account">
             <ul class="nav nav-pills pull-right"">
             <li><a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminInfo', 'is_admin', 'Y', 'member_srl', $logged_info->member_srl)}">{$logged_info->email_address}</a></li>
@@ -16,36 +52,5 @@
             </li>
             </ul>
         </div>
-		<h1><a href="{getUrl('','module','admin')}"><img src="{getUrl('')}{$gnb_title_info->adminLogo}" alt="{$gnb_title_info->adminTitle}" /> {$gnb_title_info->adminTitle}</a></h1>
-        <div class="kNav navbar pull-right">
-            <ul class="unstyled ">
-                <li>
-                    <a class="big-icon big-icon-preview" href="{getFullUrl('')}"></a>
-                </li>
-                <li class="<!--@if($activeNode == $value['node_srl'])-->active<!--@end-->" loop="$gnbUrlList=>$key,$value" >
-                    <a class="big-icon big-icon-{strtolower($value['text'])}"  href="{getFullUrl('')}{$value['href']}"></a>
-                </li>
-            </ul>
-        </div>
-        <div class="navbar">
-            <div class="navbar-inner">
-                <ul class="nav">
-                    <li class="dropdown"|cond="count($value['list'])" loop="$gnbUrlList=>$key,$value">
-                        <a
-                        <!--@if(count($value['list'])!=0)-->
-                            href="#"
-                            class="dropdown-toggle"
-                            data-toggle="dropdown"
-                        <!--@else-->
-                            href="{getFullUrl('')}{$value['href']}"
-                        <!--@end-->
-                        >{$value['text']}</a>
-                        <ul class="dropdown-menu" role="menu" cond="count($value['list'])">
-                            <li loop="$value['list']=>$key2,$value2"><a href="{getFullUrl('')}{$value2['href']}">{$value2['text']}</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-	</div>
-	<div class="body"> 
+        <h1><a href="{getUrl('','module','admin')}"><img src="{getUrl('')}{$gnb_title_info->adminLogo}" alt="{$gnb_title_info->adminTitle}" /> {$gnb_title_info->adminTitle}</a></h1>
+

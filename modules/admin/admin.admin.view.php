@@ -262,6 +262,9 @@
 
             Context::set('status', $status);
 
+            $main_menu = $oAdminAdminModel->getMainMenuItems();
+            Context::set('main_menu',$main_menu);
+
             // Latest Document
 			$oDocumentModel = &getModel('document');
 			$columnList = array('document_srl', 'module_srl', 'category_srl', 'title', 'nick_name', 'member_srl');

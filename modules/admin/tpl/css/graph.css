@@ -20,6 +20,22 @@ html body {
     z-index: 0;
 }
 
+.dark, .dark a {
+    color: #6d7587;
+}
+
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: #80b041;
+}
+
+
+.kSidebar > div {
+    padding: 20px;
+    -webkit-box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .kNav {
     position: fixed;
     width: 80px;
@@ -27,6 +43,49 @@ html body {
     height: 100%;
     right: 0;
     top: 0;
+    z-index: 999;
+}
+
+.kSearch {
+    min-height: 30px;
+}
+
+.kSearch input {
+    padding-left: 28px;
+    width: 85%;
+}
+
+.kSearch i{
+    position: relative;
+    margin-left: -248px;
+    margin-top: 6px;
+}
+
+.kWrapper > div {
+    margin-bottom: 20px;
+}
+
+.page-header {
+    margin: 0px -40px 0px;
+    padding: 16px 40px 0px;
+    border-color: #c7d2db;
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    background-color: #ffffff;
+    height: 88px;
+}
+
+.page-header h1 {
+    line-height: 1.6em;
+    margin-bottom: 6px;
+    font-weight: normal;
+
+}
+
+.page-header i {
+    margin-top: 0;
+    margin-left: -20px;
 }
 
 .row-fluid {
@@ -88,6 +147,51 @@ li.active {
     width: 80px;
     height: 80px;
 }
+
+.small-logo {
+    width: 60px;
+    bottom: 0;
+    text-align: center;
+    padding: 10px;
+}
+
+.swatchBoard {
+    height: auto;
+    background: #d1dbe4; /* Old browsers */
+    background: -moz-linear-gradient(top,  #d1dbe4 0%, #e6f0f9 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d1dbe4), color-stop(100%,#e6f0f9)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #d1dbe4 0%,#e6f0f9 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #d1dbe4 0%,#e6f0f9 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #d1dbe4 0%,#e6f0f9 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #d1dbe4 0%,#e6f0f9 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1dbe4', endColorstr='#e6f0f9',GradientType=0 ); /* IE6-9 */
+    margin: 75px -40px 0px;
+    padding: 40px 40px 20px;
+}
+
+.swatch {
+    padding: 20px;
+    color: #ffffff;
+    height: 142px;
+    margin-bottom: 20px;
+}
+
+.swatch .corner {
+    border-top: 10px solid #d5e0e9;
+    border-left: 10px solid transparent;
+    width: 0px;
+    height: 10px;
+    float: right;
+    margin-top: -20px;
+    margin-right: -20px;
+}
+
+.swatchBoard .turquoise {background-color: #57c5b9;}
+.swatchBoard .red {background-color: #ea6e4c;}
+.swatchBoard .yellow {background-color: #f8b33b;}
+.swatchBoard .blue {background-color: #489de6;}
+.swatchBoard .purple {background-color: #9876e4;}
+.swatchBoard .green {background-color: #73cd46;}
 
 @media (max-width: 767px) {
     .kWrapper {
