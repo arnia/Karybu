@@ -16,6 +16,7 @@ use Symfony\Component\Yaml\Yaml;
 class Kernel extends SymfonyKernel
 {
     protected $modules = array();
+    protected $gz_encoding;
 
     public function registerBundles()
     {
@@ -29,12 +30,24 @@ class Kernel extends SymfonyKernel
      */
     public function init()
     {
+        if($this->debug) {
+            define('__DEBUG__', 7); // Enables detailed request info and logs
+            define('__DEBUG_QUERY__', 1); // Adds xml query name to all executed sql code
+        }
+
         if ('cli' !== php_sapi_name()) {
             ExceptionHandler::register($this->debug);
         } else {
             ini_set('display_errors', 1);
         }
         Yaml::enablePhpParsing();
+    }
+
+    protected function getKernelParameters()
+    {
+        $params = parent::getKernelParameters();
+        $params['cms.gz_encoding'] = !$this->debug;
+        return $params;
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
@@ -54,11 +67,7 @@ class Kernel extends SymfonyKernel
 
     public function getCacheDir()
     {
-        if (!is_writable($this->rootDir . 'files/')) {
-            return "/dev/null";
-        } else {
-            return $this->rootDir . 'files/cache/' . $this->environment;
-        }
+        return $this->rootDir . 'files/cache/' . $this->environment;
     }
 
     /**
@@ -78,11 +87,7 @@ class Kernel extends SymfonyKernel
      */
     public function getLogDir()
     {
-        if (!is_writable($this->rootDir . 'files/')) {
-            return "/dev/null";
-        } else {
-            return $this->rootDir . 'files/logs';
-        }
+        return $this->rootDir . 'files/logs';
     }
 
     /**

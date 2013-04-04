@@ -18,7 +18,7 @@ class Router extends SymfonyRouter
         $debug = false
     ) {
         $options = array(
-            'cache_dir' => (is_writable(_XE_PATH_ . '/files') ? _XE_PATH_ . 'files/cache' : "/dev/null/cache"),
+            'cache_dir' => _XE_PATH_ . 'files/cache',
             'debug' => (boolean)$debug,
             'generator_cache_class' => 'cmsUrlGeneratorCache',
             'matcher_cache_class' => 'cmsUrlMatcherCache'
