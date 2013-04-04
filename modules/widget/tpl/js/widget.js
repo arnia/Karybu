@@ -1342,12 +1342,10 @@ function triggerClose() {
     jQuery("#widget_admin_modal").modal('hide');
 }
 
-function insertParamIntoUrl(url, key,value)
+function insertParamIntoUrl(url, key, value)
 {
     key = encodeURI(key); value = encodeURI(value);
     var kvp = key+"="+value;
-    var r = new RegExp("(&|\\?)"+key+"=[^\&]*");
-    url = url.replace(r,"$1"+kvp);
-    if(!RegExp.$1) {url += (url.length>0 ? '&' : '?') + kvp;};
+    url = url + (url.indexOf('?') ? '&' : '?') + kvp;
     return url;
 }
