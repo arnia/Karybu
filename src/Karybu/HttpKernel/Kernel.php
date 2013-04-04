@@ -3,6 +3,7 @@
 namespace Karybu\HttpKernel;
 
 use Karybu\Bundle\Core\KarybuCoreBundle;
+use Karybu\DependencyInjection\Container\KarybuReadonlyProjectContainer;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
 use Karybu\EventListener\ExceptionHandler;
@@ -13,6 +14,7 @@ use Symfony\Component\DependencyInjection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Debug\ErrorHandler;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Config\ConfigCache;
 
 class Kernel extends SymfonyKernel
 {
@@ -100,6 +102,26 @@ class Kernel extends SymfonyKernel
     public function getName()
     {
         return 'Karybu';
+    }
+
+    /**
+     * Initializes the service container.
+     *
+     * The cached version of the service container is used when fresh, otherwise the
+     * container is built.
+     */
+    protected function initializeContainer()
+    {
+        if ($this->isFilesFolderAvailable()){
+            parent::initializeContainer();
+        } else{
+            $this->container = new KarybuReadonlyProjectContainer();
+            $this->container->set('kernel', $this);
+        }
+    }
+
+    private function isFilesFolderAvailable(){
+        return is_writable($this->rootDir . 'files');
     }
 
 }
