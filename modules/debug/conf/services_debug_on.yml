@@ -1,0 +1,31 @@
+imports:
+    - { resource: services.yml }
+
+services:
+    listener.response.summary:
+        class: 'Karybu\Module\Debug\EventListener\ResponseSummaryInfoListener'
+        arguments: [@logger]
+        tags:
+            - { name: cms.event_listener }
+
+    listener.db.query_info:
+        class: 'Karybu\Module\Debug\EventListener\DBQueryInfoListener'
+        arguments: [ @logger.db_info ]
+        tags:
+            - { name: cms.event_listener }
+
+    listener.db.slow_query:
+        class: 'Karybu\Module\Debug\EventListener\SlowQueryListener'
+        arguments: [ '%logger.slow_queries_threshold%', @logger.db_slow_query ]
+        tags:
+            - { name: cms.event_listener }
+
+    listener.debug.toolbar:
+        class: 'Karybu\Module\Debug\EventListener\DebugToolbarListener'
+        arguments: [ @cms.context.instance, '%logger.debug.toolbar%' ]
+        calls:
+            - [enableQueriesInfo, [@listener.db.query_info]]
+            - [enableFailedQueriesInfo, [@listener.db.errors]]
+            - [enablePHPErrorsInfo, [@listener.error.handler]]
+        tags:
+            - { name: cms.event_listener }

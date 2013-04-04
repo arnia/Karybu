@@ -3,9 +3,6 @@ parameters:
     logger.debug.toolbar: true;
     logger.slow_queries_threshold: 800
 
-#    show_request_response_info: <?php echo (__DEBUG__ & 2 ? 'true' : 'false') . "\n" ?>
-#    show_db_queries_info: <?php echo (__DEBUG__ & 4 ? 'true' : 'false') . "\n" ?>
-
 services:
     logger_handler_template:
         abstract: true
@@ -55,15 +52,8 @@ services:
             - [pushHandler, [@logger.handler.stream.db_errors]]
             - [pushHandler, [@logger.handler.stream.errors]]
 
-    listener.db.query_info: { class: 'Karybu\Module\Debug\EventListener\DBQueryInfoListener', arguments: [ @logger.db_info ] }
-    listener.db.slow_query: { class: 'Karybu\Module\Debug\EventListener\SlowQueryListener', arguments: [ '%logger.slow_queries_threshold%', @logger.db_slow_query ] }
+
     listener.db.errors: { class: 'Karybu\Module\Debug\EventListener\QueryErrorListener', arguments: [ @logger.db_errors ] }
     listener.error.handler: { class: 'Karybu\EventListener\ErrorHandler' }
-    listener.response.summary: { class: 'Karybu\Module\Debug\EventListener\ResponseSummaryInfoListener', arguments: [@logger] }
-    listener.debug.toolbar:
-        class: 'Karybu\Module\Debug\EventListener\DebugToolbarListener'
-        arguments: [ @cms.context.instance, '%logger.debug.toolbar%' ]
-        calls:
-            - [enableQueriesInfo, [@listener.db.query_info]]
-            - [enableFailedQueriesInfo, [@listener.db.errors]]
-            - [enablePHPErrorsInfo, [@listener.error.handler]]
+
+
