@@ -14,8 +14,10 @@ use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 /**
  * KarybuDevDebugProjectContainer
  *
- * This class has been auto-generated
- * by the Symfony Dependency Injection Component.
+ * This class is meant to be used by Karybu install process, first two steps only.
+ * The reason is that "files" folder may not have the right permissions yet, consequently
+ * the normal Symfony cached flow fails.
+ * Also you may notice the stream logs are disabled here, for the same reason
  */
 class KarybuReadonlyProjectContainer extends Container
 {
@@ -59,7 +61,9 @@ class KarybuReadonlyProjectContainer extends Container
      */
     protected function getCms_Context_InstanceService()
     {
-        return $this->services['cms.context.instance'] = new \ContextInstance(NULL, NULL, NULL, $this->get('cms.router.nodebug'));
+        return $this->services['cms.context.instance'] = new \ContextInstance(null, null, null, $this->get(
+            'cms.router.nodebug'
+        ));
     }
 
     /**
@@ -115,12 +119,16 @@ class KarybuReadonlyProjectContainer extends Container
      */
     protected function getCms_RouterService()
     {
-        return $this->services['cms.router'] = new \Karybu\Routing\Router($this->get('cms.router.loader'), $this->get('context'), NULL, true);
+        return $this->services['cms.router'] = new \Karybu\Routing\Router($this->get('cms.router.loader'), $this->get(
+            'context'
+        ), null, true);
     }
 
     protected function getCms_Router_NodebugService()
     {
-        return $this->services['cms.router.nodebug'] = new \Karybu\Routing\Router($this->get('cms.router.loader'), $this->get('context'), NULL, false);
+        return $this->services['cms.router.nodebug'] = new \Karybu\Routing\Router($this->get(
+            'cms.router.loader'
+        ), $this->get('context'), null, false);
     }
 
     /**
@@ -133,7 +141,9 @@ class KarybuReadonlyProjectContainer extends Container
      */
     protected function getCms_Router_LoaderService()
     {
-        return $this->services['cms.router.loader'] = new \Karybu\Routing\Loader\YamlFileLoader($this->get('cms.config.locator'));
+        return $this->services['cms.router.loader'] = new \Karybu\Routing\Loader\YamlFileLoader($this->get(
+            'cms.config.locator'
+        ));
     }
 
     /**
@@ -184,7 +194,9 @@ class KarybuReadonlyProjectContainer extends Container
      */
     protected function getHttpKernelService()
     {
-        $this->services['http_kernel'] = $instance = new \Karybu\HttpKernel\HttpKernel($this->get('dispatcher'), $this->get('resolver'));
+        $this->services['http_kernel'] = $instance = new \Karybu\HttpKernel\HttpKernel($this->get(
+            'dispatcher'
+        ), $this->get('resolver'));
 
         $instance->setDebug(true);
 
@@ -201,7 +213,11 @@ class KarybuReadonlyProjectContainer extends Container
      */
     protected function getListener_CmsService()
     {
-        return $this->services['listener.cms'] = new \Karybu\EventListener\CMSListener($this->get('cms.context.instance'), $this->get('cms.display_handler'), $this->get('cms.mobile.instance'), $this->get('cms.file_handler.instance'), $this->get('logger'));
+        return $this->services['listener.cms'] = new \Karybu\EventListener\CMSListener($this->get(
+            'cms.context.instance'
+        ), $this->get('cms.display_handler'), $this->get('cms.mobile.instance'), $this->get(
+            'cms.file_handler.instance'
+        ), $this->get('logger'));
     }
 
     /**
@@ -214,7 +230,9 @@ class KarybuReadonlyProjectContainer extends Container
      */
     protected function getListener_Db_ErrorsService()
     {
-        return $this->services['listener.db.errors'] = new \Karybu\Module\Debug\EventListener\QueryErrorListener($this->get('logger.db_errors'));
+        return $this->services['listener.db.errors'] = new \Karybu\Module\Debug\EventListener\QueryErrorListener($this->get(
+            'logger.db_errors'
+        ));
     }
 
     /**
@@ -227,7 +245,9 @@ class KarybuReadonlyProjectContainer extends Container
      */
     protected function getListener_Db_QueryInfoService()
     {
-        return $this->services['listener.db.query_info'] = new \Karybu\Module\Debug\EventListener\DBQueryInfoListener($this->get('logger.db_info'));
+        return $this->services['listener.db.query_info'] = new \Karybu\Module\Debug\EventListener\DBQueryInfoListener($this->get(
+            'logger.db_info'
+        ));
     }
 
     /**
@@ -240,7 +260,9 @@ class KarybuReadonlyProjectContainer extends Container
      */
     protected function getListener_Db_SlowQueryService()
     {
-        return $this->services['listener.db.slow_query'] = new \Karybu\Module\Debug\EventListener\SlowQueryListener(800, $this->get('logger.db_slow_query'));
+        return $this->services['listener.db.slow_query'] = new \Karybu\Module\Debug\EventListener\SlowQueryListener(800, $this->get(
+            'logger.db_slow_query'
+        ));
     }
 
     /**
@@ -253,7 +275,9 @@ class KarybuReadonlyProjectContainer extends Container
      */
     protected function getListener_Debug_ToolbarService()
     {
-        $this->services['listener.debug.toolbar'] = $instance = new \Karybu\Module\Debug\EventListener\DebugToolbarListener($this->get('cms.context.instance'), 0);
+        $this->services['listener.debug.toolbar'] = $instance = new \Karybu\Module\Debug\EventListener\DebugToolbarListener($this->get(
+            'cms.context.instance'
+        ), 0);
 
         $instance->enableQueriesInfo($this->get('listener.db.query_info'));
         $instance->enableFailedQueriesInfo($this->get('listener.db.errors'));
@@ -285,7 +309,9 @@ class KarybuReadonlyProjectContainer extends Container
      */
     protected function getListener_ExceptionService()
     {
-        return $this->services['listener.exception'] = new \Karybu\EventListener\ExceptionListener($this->get('logger.exceptions'));
+        return $this->services['listener.exception'] = new \Karybu\EventListener\ExceptionListener($this->get(
+            'logger.exceptions'
+        ));
     }
 
     /**
@@ -311,7 +337,9 @@ class KarybuReadonlyProjectContainer extends Container
      */
     protected function getListener_Response_SummaryService()
     {
-        return $this->services['listener.response.summary'] = new \Karybu\Module\Debug\EventListener\ResponseSummaryInfoListener($this->get('logger'));
+        return $this->services['listener.response.summary'] = new \Karybu\Module\Debug\EventListener\ResponseSummaryInfoListener($this->get(
+            'logger'
+        ));
     }
 
     /**
@@ -324,7 +352,9 @@ class KarybuReadonlyProjectContainer extends Container
      */
     protected function getListener_RouterService()
     {
-        return $this->services['listener.router'] = new \Karybu\EventListener\RouterListener($this->get('cms.router.nodebug'));
+        return $this->services['listener.router'] = new \Karybu\EventListener\RouterListener($this->get(
+            'cms.router.nodebug'
+        ));
     }
 
     /**
@@ -339,7 +369,7 @@ class KarybuReadonlyProjectContainer extends Container
     {
         $this->services['logger'] = $instance = new \Monolog\Logger('cms');
 
-       // $instance->pushHandler($this->get('logger.handler.stream'));
+        // $instance->pushHandler($this->get('logger.handler.stream'));
 
         return $instance;
     }
@@ -534,6 +564,7 @@ class KarybuReadonlyProjectContainer extends Container
 
         return $this->parameterBag;
     }
+
     /**
      * Gets the default parameters.
      *
