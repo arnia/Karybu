@@ -12,9 +12,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 use Symfony\Component\DependencyInjection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\Debug\ErrorHandler;
 use Symfony\Component\Yaml\Yaml;
-use Symfony\Component\Config\ConfigCache;
+
+use Karybu\EventListener\ErrorHandler;
 
 class Kernel extends SymfonyKernel
 {
@@ -38,6 +38,8 @@ class Kernel extends SymfonyKernel
             define('__DEBUG__', 7); // Enables detailed request info and logs
             define('__DEBUG_QUERY__', 1); // Adds xml query name to all executed sql code
         }
+
+        ErrorHandler::register();
 
         if ('cli' !== php_sapi_name()) {
             ExceptionHandler::register($this->debug);

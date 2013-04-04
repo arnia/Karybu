@@ -20,6 +20,12 @@ services:
         tags:
             - { name: cms.event_listener }
 
+    listener.error.handler:
+        class: 'Karybu\EventListener\ErrorHandler'
+        arguments: [ @logger.errors ]
+        tags:
+            - { name: cms.event_listener }
+
     listener.debug.toolbar:
         class: 'Karybu\Module\Debug\EventListener\DebugToolbarListener'
         arguments: [ @cms.context.instance, '%logger.debug.toolbar%' ]
@@ -29,3 +35,4 @@ services:
             - [enablePHPErrorsInfo, [@listener.error.handler]]
         tags:
             - { name: cms.event_listener }
+
