@@ -42,7 +42,7 @@ class Router extends SymfonyRouter
     }
 
     private function isFilesFolderAvailable(){
-        return is_writable($this->rootDir . 'files');
+        return is_writable(_XE_PATH_ . 'files');
     }
 
     private function getNotCacheableMatcher(){
