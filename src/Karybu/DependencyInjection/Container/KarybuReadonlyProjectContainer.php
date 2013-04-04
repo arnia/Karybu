@@ -1,5 +1,5 @@
 <?php
-namespace Karybu\Readonly;
+namespace Karybu\DependencyInjection\Container;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Container;
@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
  * This class has been auto-generated
  * by the Symfony Dependency Injection Component.
  */
-class KarybuReadonlyDebugProjectContainer extends Container
+class KarybuReadonlyProjectContainer extends Container
 {
     /**
      * Constructor.

@@ -35,7 +35,7 @@ class Router extends SymfonyRouter
         }
 
         if ($this->isFilesFolderAvailable()){
-            return $this->getOrdinaryMatcher();
+            return parent::getMatcher();
         } else {
             return $this->getNotCacheableMatcher();
         }
@@ -43,29 +43,6 @@ class Router extends SymfonyRouter
 
     private function isFilesFolderAvailable(){
         return is_writable($this->rootDir . 'files');
-    }
-
-    private function getOrdinaryMatcher(){
-        if (null === $this->options['cache_dir'] || null === $this->options['matcher_cache_class']) {
-            return $this->matcher = new $this->options['matcher_class']($this->getRouteCollection(), $this->context);
-        }
-
-        $class = $this->options['matcher_cache_class'];
-        $cache = new ConfigCache($this->options['cache_dir'].'/'.$class.'.php', $this->options['debug']);
-        if (!$cache->isFresh($class)) {
-            $dumper = new $this->options['matcher_dumper_class']($this->getRouteCollection());
-
-            $options = array(
-                'class'      => $class,
-                'base_class' => $this->options['matcher_base_class'],
-            );
-
-            $cache->write($dumper->dump($options), $this->getRouteCollection()->getResources());
-        }
-
-        require_once $cache;
-
-        return $this->matcher = new $class($this->context);
     }
 
     private function getNotCacheableMatcher(){
