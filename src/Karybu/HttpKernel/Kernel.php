@@ -2,6 +2,7 @@
 // florin, 2/1/13, 2:32 PM
 namespace Karybu\HttpKernel;
 
+use Karybu\Bundle\Core\KarybuCoreBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
 use Karybu\EventListener\ExceptionHandler;
@@ -21,6 +22,7 @@ class Kernel extends SymfonyKernel
     public function registerBundles()
     {
         return array(
+            new \Karybu\Bundle\Core\KarybuCoreBundle(),
             new \Karybu\Module\Debug\DebugModule()
         );
     }
