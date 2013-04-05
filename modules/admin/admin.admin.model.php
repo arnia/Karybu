@@ -605,7 +605,7 @@
 
 		function getFaviconUrl()
 		{
-			return $this->iconUrlCheck('favicon.ico','faviconSample.png');
+			return $this->iconUrlCheck('favicon.ico','faviconSample.ico');
 		}
 
 		function getMobileIconUrl()
