@@ -96,54 +96,14 @@
                         </div>
                     </div>
                     <div class="portlet box span4">
-                        <div class="box-header">
-                            <h3 class="h3"><a href="{getUrl('', 'module', 'admin', 'act', 'dispCommentAdminList')}">{$lang->latest_comments}</a></h3>
-                        </div>
-                        <div class="box-body">
-                            <ul class="unstyled lined">
-                                <!--@foreach($latestCommentList AS $key=>$value)-->
-                                <li>
-                                    <a href="{getUrl('', 'document_srl', $value->document_srl)}#comment_{$value->comment_srl}" target="_blank"><!--@if(trim($value->content))-->{$value->getSummary()}<!--@else--><strong>{$lang->no_text_comment}</strong><!--@end--></a> <span class="side">{$value->nick_name}</span>
-                                    <form class="action">
-                                        <input type="hidden" name="module" value="admin" />
-                                        <input type="hidden" name="act" value="procCommentAdminDeleteChecked" />
-                                        <input type="hidden" name="cart[]" value="{$value->comment_srl}" />
-                                        <input type="hidden" name="success_return_url" value="{getUrl('', 'module', 'admin')}" />
-                                        <button type="submit" name="is_trash" value="true" class="text">{$lang->cmd_trash}</button>
-                                        <button type="submit" name="is_trash" value="false" class="text">{$lang->cmd_delete}</button>
-                                    </form>
-                                </li>
-                                <!--@end-->
-                                <li cond="!is_array($latestCommentList) || count($latestCommentList) < 1">{$lang->no_data}</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="portlet box span4">
                         <div class="box-header"><h3 class="h3"><a href="{getUrl('', 'module', 'admin', 'act', 'dispTrackbackAdminList')}">{$lang->latest_trackbacks}</a></h3></div>
                         <div class="box-body">
-                            <ul class="unstyled lined">
-                                <!--@foreach($latestTrackbackList AS $key=>$value)-->
-                                <li>
-                                    <a href="{$value->url}" target="_blank">{$value->title}</a> <span class="side">{$value->blog_name}</span>
-                                    <form class="action">
-                                        <input type="hidden" name="module" value="admin" />
-                                        <input type="hidden" name="act" value="procTrackbackAdminDeleteChecked" />
-                                        <input type="hidden" name="cart[]" value="{$value->trackback_srl}" />
-                                        <input type="hidden" name="success_return_url" value="{getUrl('', 'module', 'admin')}" />
-                                        <button type="submit" class="text">{$lang->cmd_delete}</button>
-                                    </form>
-                                </li>
-                                <!--@end-->
-                                <li cond="!is_array($latestTrackbackList) || count($latestTrackbackList) < 1">{$lang->no_data}</li>
-                            </ul>
+                            <!-- Visotors Graph -->
+                            <canvas id="chart">[No canvas support]</canvas>
+                            <!-- /Visotors Graph -->
                         </div>
                     </div>
-                    <!-- Visotors Graph -->
 
-                    <div class="graph span11">
-                        <canvas id="chart" width="600" height="250">[No canvas support]</canvas>
-                    </div>
-                    <!-- /Visotors Graph -->
                 </div>
             </div>
             <include target="./_spShortcut.html" />

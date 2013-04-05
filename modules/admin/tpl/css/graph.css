@@ -378,42 +378,6 @@ input[type="color"]:focus,
         height: 80px !important;
     }
 }
-
-
-
-.dashboardWire{ position:relative; margin-bottom:40px; border-top:2px solid #cbd4df; border-left:1px solid #e3e5e7; border-right:1px solid #e3e5e7; border-bottom:1px solid #f1f1f1; background:#fff; *border-bottom:1px solid #d0d1d2; *zoom:1;}
-.dashboardWire:after{ content:""; display:block; height:1px; background:#d0d1d2; overflow:hidden;}
-.dashboardWire .buttonArea{ padding:8px 14px; background:#fafafa; border-top:1px solid #e3e5e7; text-align:right; position:relative;}
-.dashboardWire ul{ position:relative; list-style:none; margin:0; padding:0; font-size:12px; overflow:hidden;}
-.dashboardWire li{ position:relative; top:-1px; border-top:1px solid #e3e5e7;}
-
-.dashboardWire blockquote{ margin:0;}
-.dashboardWire .noData{ color:#767676; padding:0 2em;}
-
-.dashboardWire .legend{ position:absolute; top:15px; left:20px; margin:0; white-space:nowrap; font-size:12px;}
-.dashboardWire .legend *{ display:inline;}
-.dashboardWire .legend dt img{ border:1px solid;}
-.dashboardWire .legend dt.past img{ border-color:#c3d1db;}
-.dashboardWire .legend dt.today img{ border-color:#dc3835;}
-.dashboardWire .legend dd{ font-size:11px; color:#b1b1b1; margin:0 5px 0 0;}
-
-.dashboardWire .summary{ position:absolute; top:15px; right:20px; margin:0; white-space:nowrap; font-size:12px;}
-.dashboardWire .summary *{ display:inline;}
-.dashboardWire .summary dt{ margin-left:10px; color:#555;}
-.dashboardWire .summary dd{ margin:0; font-size:11px; font-weight:bold; color:#ea3f22;}
-
-.dashboardWire .graph{ position:relative; height:131px; padding-top:63px; margin:0 20px 26px 20px; }
-.dashboardWire .graph:after{ content:""; display:block; clear:both;}
-.dashboardWire .graph dl{ position:relative; float:left; width:10%; height:100%; margin:0 2%; *margin:0 1.8%; _margin:0 2% 0 1.1%;}
-.dashboardWire .graph dl dt{ position:absolute; width:100%; text-align:center; font-size:9px; bottom:-16px; color:#707070;}
-.dashboardWire .graph dl dd{ position:absolute; bottom:6px; width:30%; margin:0; border:1px solid; font-size:0; line-height:0; overflow:hidden;}
-.dashboardWire .graph dl dd.past{ left:0; border-color:#c3d1db; background:#d0dde5;}
-.dashboardWire .graph dl dd.today{ right:0; border-color:#dc3835; background:#fe5656;}
-.dashboardWire .graph dl dd span{ position:relative; width:0; height:0; font-size:0; line-height:0; overflow:hidden; z-index:-1; visibility:hidden;}
-.dashboardWire .graph object,
-.dashboardWire .graph embed{ margin-top:-20px;}
-
-.dashboardWire a{ text-decoration:none; color:#648AB9;}
-.dashboardWire a:hover,
-.dashboardWire a:active,
-.dashboardWire a:focus{ text-decoration:underline;}
+.RGraph_tooltip{
+    z-index: 10000; !important
+}
