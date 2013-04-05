@@ -48,25 +48,25 @@ html body {
     margin-bottom: 0;
 }
 
-.dashboard-Search {
+.kSearch {
     min-height: 30px;
 }
 
-.dashboard-Search input {
-    padding-left: 28px !important;
-    background-color: #15181f !important;
-    border: none !important;
-    border-top: 1px solid #000000 !important;
-    width: 224px !important;
-    -webkit-box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3) !important;
-    box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-    color: #6D7587 !important;
-    height: 24px !important;
-    margin-top: -2px !important;
+.kSearch input {
+    padding-left: 28px;
+    background-color: #15181f;
+    border: none;
+    border-top: 1px solid #000000;
+    width: 224px;
+    -webkit-box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #6D7587;
+    height: 24px;
+    margin-top: -2px;
 }
 
-.dashboard-Search i{
+.kSearch i{
     position: relative;
     margin-left: -250px;
     margin-top: 8px;
@@ -76,7 +76,7 @@ html body {
     margin-bottom: 20px;
 }
 
-.dashboard-header {
+.page-header {
     margin: 0px -40px 0px;
     padding: 16px 40px 0px;
     border-color: #c7d2db;
@@ -90,14 +90,14 @@ html body {
 }
 
 
-.dashboard-header h1 {
+.page-header h1 {
     line-height: 1.6em;
     margin-bottom: 6px;
     font-weight: normal;
 
 }
 
-.dashboard-header i {
+.page-header i {
     margin-left: -20px;
     margin-top: -10px;
 }
@@ -225,7 +225,7 @@ li.big-icon {
     background-color: #15181f;
 }
 
-.dashboard-Search {
+.kSearch {
     border-bottom-color: #0a0b0e !important;
 }
 
@@ -379,7 +379,7 @@ input[type="color"]:focus,
         height: 80px !important;
     }
 }
-.chart-tooltip{
+.RGraph_tooltip{
     z-index: 10000; !important
 }
 .visitor-chart{
