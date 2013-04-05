@@ -157,7 +157,7 @@
 			// Admin logo, title setup
 			$objConfig = $oModuleModel->getModuleConfig('admin');
 			$gnbTitleInfo->adminTitle = $objConfig->adminTitle ? $objConfig->adminTitle:'XE Admin';
-			$gnbTitleInfo->adminLogo  = $objConfig->adminLogo ? $objConfig->adminLogo:'modules/admin/tpl/img/xe.h1.png';
+			$gnbTitleInfo->adminLogo  = $objConfig->adminLogo ? $objConfig->adminLogo:'modules/admin/tpl/img/karybu.png';
 
 			$browserTitle = ($subMenuTitle ? $subMenuTitle : 'Dashboard').' - '.$gnbTitleInfo->adminTitle;
 

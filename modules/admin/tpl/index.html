@@ -97,9 +97,9 @@
                     </div>
                     <div class="portlet box span4">
                         <div class="box-header"><h3 class="h3"><a href="{getUrl('', 'module', 'admin', 'act', 'dispTrackbackAdminList')}">{$lang->latest_trackbacks}</a></h3></div>
-                        <div class="box-body">
+                        <div class="box-body visitor">
                             <!-- Visotors Graph -->
-                            <canvas class="visitor-chart" id="chart">[No canvas support]</canvas>
+                            <canvas class="visitor-chart" id="chart"></canvas>
                             <!-- /Visotors Graph -->
                         </div>
                     </div>
@@ -114,15 +114,15 @@
     {
 
         var chart = new RGraph.Line('chart', [
+            <!--@ $max=0;--><!--@end-->
             <!--@foreach($status->week as $key => $val)-->
-            {number_format($val->this)},
+                {number_format($val->this)},
+                <!--@if($val->this > $max)-->
+                    <!--@ $max = $val->this;--><!--@end-->
+                <!--@end-->
             <!--@end-->]);
         chart.Set('chart.colors', ['white']);
         chart.Set('chart.linewidth', 3);
-        chart.Set('chart.labels', [
-            <!--@foreach($status->week as $key => $val)-->
-            '{$key}',
-            <!--@end-->]);
         chart.Set('chart.spline', true);
         chart.Set('chart.background.color', 'rgba(104, 210, 198, 1)');
         chart.Set('chart.filled', true);
@@ -136,6 +136,7 @@
         chart.Set('chart.labels', false);
         chart.Set('chart.noaxes', true);
         chart.Set('chart.hmargin', 1);
+        chart.Set('chart.ymax', {$max*1.2});
         chart.Set('chart.animation.unfold.initial', 0);
         chart.Set('chart.tooltips', [
             <!--@foreach($status->week as $key => $val)-->

@@ -384,3 +384,7 @@ input[type="color"]:focus,
 .visitor-chart{
     width: 100%;
 }
+
+.visitor {
+    padding: 0;
+}
