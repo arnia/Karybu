@@ -379,7 +379,7 @@ input[type="color"]:focus,
         height: 80px !important;
     }
 }
-.RGraph_tooltip{
+.chart-tooltip{
     z-index: 10000; !important
 }
 .visitor-chart{
