@@ -13,8 +13,21 @@
         <div class="kSidebar dark pull-left">
             <div class="toggle-sidebar visible-phone"></div>
             <div class="brand">
-                <a href="#" class="pull-right admin"><img src="img/admin.png"></a>
-                <a href="#"><img src="img/logo.png"></a>
+                <div class="dropdown pull-right">
+                    <a class="dropdown-toggle admin" data-toggle="dropdown" href="#" ><img src="img/admin.png"/></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <ul class="unstyled">
+                        <li><a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminInfo', 'is_admin', 'Y', 'member_srl', $logged_info->member_srl)}">{$logged_info->email_address}</a></li>
+                        <li><a href="#language" class="tgAnchor language" data-effect="slide" data-duration="100">{$lang_supported[$lang_type]}</a>
+
+                            <ul class="tgContent" id="language">
+                                <li loop="$lang_supported=>$key,$val" class="selected"|cond="$key==$lang_type"><a href="{getUrl('l',$key)}" data-langcode="{$key}" onclick="doChangeLangType('{$key}'); return false;">{$val}</a></li></ul>
+                        <li class="divider"></li>
+                        <li><a href="{getUrl('', 'module','admin','act','procAdminLogout')}">Log-out</a></li>
+
+                    </ul>
+                </div>
+                <a href="{getUrl('','module','admin')}"><img src="{getUrl('')}{$gnb_title_info->adminLogo}" alt="{$gnb_title_info->adminTitle}"/></a>
             </div>
             <div class="kSearch">
                 <i class="icon-search"></i>
@@ -32,6 +45,9 @@
             </div>
         </div>
         <div class="kNav navbar pull-right">
+            <div class="small-logo hidden-phone">
+                <a href="#"><img src="img/small-logo.png"/></a>
+            </div>
             <ul class="unstyled ">
                 <li>
                     <a class="big-icon big-icon-preview" href="{getFullUrl('')}"></a>
@@ -40,22 +56,8 @@
                     <a class="big-icon big-icon-{strtolower($value['text'])}"  href="{getFullUrl('')}{$value['href']}"></a>
                 </li>
             </ul>
-            <div class="small-logo">
-                <a href="#"><img src="img/small-logo.png"></a>
-            </div>
         </div>
 	</div>
 	<div class="kWrapper container-fluid">
-        <div class="account">
-            <ul class="nav nav-pills pull-right"">
-            <li><a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminInfo', 'is_admin', 'Y', 'member_srl', $logged_info->member_srl)}">{$logged_info->email_address}</a></li>
-            <li><a href="{getUrl('', 'module','admin','act','procAdminLogout')}">Log-out</a></li>
-            <li><a href="#language" class="tgAnchor language" data-effect="slide" data-duration="100">{$lang_supported[$lang_type]}</a>
-                <ul class="tgContent" id="language">
-                    <li loop="$lang_supported=>$key,$val" class="selected"|cond="$key==$lang_type"><a href="{getUrl('l',$key)}" data-langcode="{$key}" onclick="doChangeLangType('{$key}'); return false;">{$val}</a></li>
-            </ul>
-            </li>
-            </ul>
-        </div>
-        <h1><a href="{getUrl('','module','admin')}"><img src="{getUrl('')}{$gnb_title_info->adminLogo}" alt="{$gnb_title_info->adminTitle}" /> {$gnb_title_info->adminTitle}</a></h1>
+
 
