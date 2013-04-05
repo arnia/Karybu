@@ -33,7 +33,7 @@ Regardless of the environment, Karybu gathers information regarding errors that 
   
 * __PHP errors__
 
-  TODO Not available at the moment
+  Available in the 'deprecated_errors_dev.log' file.
   
 * __Exceptions__
 
