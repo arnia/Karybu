@@ -1,5 +1,8 @@
 RewriteEngine On
 
+RewriteCond %{REQUEST_FILENAME} \.(css|js|gif|ico|jpg|jpeg)$ [NC]
+RewriteRule .* - [L]
+
 # reserve XE Layout Template Source File (*.html)
 RewriteRule ^(layouts|m.layouts)/(.+)\.html$ - [L,F]
 # reserve XE Template Source Files (*.html)
