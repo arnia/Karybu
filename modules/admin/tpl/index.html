@@ -96,17 +96,36 @@
                         </div>
                     </div>
                     <div class="portlet box span4">
-                        <div class="box-header"><h3 class="h3"><a href="{getUrl('', 'module', 'admin', 'act', 'dispTrackbackAdminList')}">{$lang->latest_trackbacks}</a></h3></div>
+                        <div class="box-header"><h3 class="h3"><a href="{getUrl('', 'module', 'admin', 'act', 'dispTrackbackAdminList')}">{$lang->visitors}</a></h3></div>
                         <div class="box-body visitor">
                             <!-- Visotors Graph -->
                             <canvas class="visitor-chart" id="chart"></canvas>
                             <!-- /Visotors Graph -->
                         </div>
                     </div>
-
+                    <div class="portlet box span4">
+                        <div class="box-header">
+                            <h3 class="h3"><h3>{$lang->favorite}</h3></h3>
+                        </div>
+                        <div class="box-body visitor">
+                            <ul class="nav nav-list unstyled">
+                                <li loop="$favorite_list => $favorite">
+                                    <a href="{getUrl('', 'module', 'admin', 'act', $favorite->admin_index_act)}">{$favorite->title}</a>
+                                    <form class="action" action="./">
+                                        <input type="hidden" name="module" value="admin" />
+                                        <input type="hidden" name="act" value="procAdminToggleFavorite" />
+                                        <input type="hidden" name="site_srl" value="0" />
+                                        <input type="hidden" name="module_name" value="{$favorite->module}" />
+                                        <input type="hidden" name="success_return_url" value="{getUrl('', 'module', 'admin')}" />
+                                        <button type="submit" class="text" title="{$lang->cmd_delete}">&times;</button>
+                                    </form>
+                                </li>
+                                <li cond="!is_array($favorite_list) || count($favorite_list) < 1"><a href="{getUrl('', 'module', 'admin', 'act', 'dispModuleAdminContent')}">{$lang->no_data}</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <include target="./_spShortcut.html" />
         </div>
 <include target="./_spFooter.html" />
 <script>
@@ -135,8 +154,11 @@
         chart.Set('chart.gutter.bottom', 0);
         chart.Set('chart.labels', false);
         chart.Set('chart.noaxes', true);
-        chart.Set('chart.hmargin', 1);
+        chart.Set('chart.hmargin', 5);
         chart.Set('chart.ymax', {$max*1.2});
+        chart.Set('chart.tooltips.css.class', 'chart-tooltip');
+        chart.Set('chart.tooltips.hotspot.xonly', true);
+        chart.Set('chart.tickmarks', 'circle');
         chart.Set('chart.animation.unfold.initial', 0);
         chart.Set('chart.tooltips', [
             <!--@foreach($status->week as $key => $val)-->

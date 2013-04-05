@@ -937,7 +937,7 @@
 	</item>
 	<item name="favorite">
 		<value xml:lang="ko"><![CDATA[즐겨찾기]]></value>
-		<value xml:lang="en"><![CDATA[Favorite]]></value>
+		<value xml:lang="en"><![CDATA[Favorites]]></value>
 		<value xml:lang="jp"><![CDATA[お気に入り]]></value>
 		<value xml:lang="zh-CN"><![CDATA[收藏夹]]></value>
 		<value xml:lang="zh-TW"><![CDATA[我的最愛]]></value>
