@@ -86,6 +86,7 @@ html body {
     background-color: #ffffff;
     height: 88px;
     top: 0px;
+    z-index: 999;
 }
 
 
