@@ -210,7 +210,7 @@ li.big-icon {
     box-shadow:  0px 1px 0px 0px rgba(88, 99, 124, 0.5);
     -webkit-border-radius: 4px;
     border-radius: 4px;
-    margin-top: 8px;
+    margin-top: 4px;
     display: block;
     overflow: hidden;
     width: 44px;
@@ -309,9 +309,13 @@ li.active a.big-icon-theme {background-position: -160px -320px;}
 a.big-icon-member:hover {background-position: -80px -400px;}
 li.active a.big-icon-member {background-position: -160px -400px;}
 
-.big-icon-settings {background-position: 0 -480px;}
-a.big-icon-settings:hover {background-position: -80px -480px;}
-li.active a.big-icon-settings {background-position: -160px -480px;}
+.big-icon-extensions {background-position: 0 -480px;}
+a.big-icon-extensions:hover {background-position: -80px -480px;}
+li.active a.big-icon-extensions {background-position: -160px -480px;}
+
+.big-icon-settings {background-position: 0 -560px;}
+a.big-icon-settings:hover {background-position: -80px -560px;}
+li.active a.big-icon-settings {background-position: -160px -560px;}
 
 li.active {
     background-color: #80b041;
