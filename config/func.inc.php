@@ -636,47 +636,26 @@
         $file_name = array_pop(explode(DIRECTORY_SEPARATOR, $first['file']));
         $line_num = $first['line'];
 
-        if(__DEBUG_OUTPUT__ == 2 && version_compare(PHP_VERSION, '6.0.0') === -1) {
-            if(!isset($firephp)) $firephp = FirePHP::getInstance(true);
-            if(function_exists("memory_get_usage"))
-            {
-                $label = sprintf('[%s:%d] (m:%s)', $file_name, $line_num, FileHandler::filesize(memory_get_usage()));
-            }
-            else
-            {
-                $label = sprintf('[%s:%d] ', $file_name, $line_num);
-            }
-            // Check a FirePHP option
-            if($display_option === 'TABLE') $label = $display_option;
-            // Check if the IP specified by __DEBUG_PROTECT__ option is same as the access IP.
-            if(__DEBUG_PROTECT__ === 1 && __DEBUG_PROTECT_IP__ != $_SERVER['REMOTE_ADDR']) {
-                $debug_output = 'The IP address is not allowed. Change the value of __DEBUG_PROTECT_IP__ into your IP address in config/config.user.inc.php or config/config.inc.php';
-                $label = null;
-            }
 
-            $firephp->fb($debug_output, $label);
-
-        } else {
-            if(__DEBUG_PROTECT__ === 1 && __DEBUG_PROTECT_IP__ != $_SERVER['REMOTE_ADDR']) {
-                return;
-            }
-            $debug_file = _XE_PATH_.'files/'.$file;
-            if(function_exists("memory_get_usage"))
-            {
-                $debug_output = sprintf("[%s %s:%d] - mem(%s)\n%s\n", date('Y-m-d H:i:s'), $file_name, $line_num, FileHandler::filesize(memory_get_usage()), print_r($debug_output, true));
-            }
-            else
-            {
-                $debug_output = sprintf("[%s %s:%d]\n%s\n", date('Y-m-d H:i:s'), $file_name, $line_num, print_r($debug_output, true));
-            }
-
-            if($display_option === true) $debug_output = str_repeat('=', 40)."\n".$debug_output.str_repeat('-', 40);
-            $debug_output = "\n<?php\n/*".$debug_output."*/\n?>\n";
-
-            if(@!$fp = fopen($debug_file, 'a')) return;
-            fwrite($fp, $debug_output);
-            fclose($fp);
+        if(__DEBUG_PROTECT__ === 1 && __DEBUG_PROTECT_IP__ != $_SERVER['REMOTE_ADDR']) {
+            return;
         }
+        $debug_file = _XE_PATH_.'files/'.$file;
+        if(function_exists("memory_get_usage"))
+        {
+            $debug_output = sprintf("[%s %s:%d] - mem(%s)\n%s\n", date('Y-m-d H:i:s'), $file_name, $line_num, FileHandler::filesize(memory_get_usage()), print_r($debug_output, true));
+        }
+        else
+        {
+            $debug_output = sprintf("[%s %s:%d]\n%s\n", date('Y-m-d H:i:s'), $file_name, $line_num, print_r($debug_output, true));
+        }
+
+        if($display_option === true) $debug_output = str_repeat('=', 40)."\n".$debug_output.str_repeat('-', 40);
+        $debug_output = "\n<?php\n/*".$debug_output."*/\n?>\n";
+
+        if(@!$fp = fopen($debug_file, 'a')) return;
+        fwrite($fp, $debug_output);
+        fclose($fp);
     }
 
 

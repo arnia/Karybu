@@ -2,6 +2,8 @@
 // florin, 3/5/13, 5:09 PM
 namespace Karybu\Routing;
 
+use Symfony\Component\Config\ConfigCache;
+use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\Router as SymfonyRouter;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -18,11 +20,35 @@ class Router extends SymfonyRouter
         $debug = false
     ) {
         $options = array(
-            'cache_dir' => (is_writable(_XE_PATH_ . '/files') ? _XE_PATH_ . 'files/cache' : "/dev/null/cache"),
+            'cache_dir' => _XE_PATH_ . 'files/cache',
             'debug' => (boolean)$debug,
             'generator_cache_class' => 'cmsUrlGeneratorCache',
             'matcher_cache_class' => 'cmsUrlMatcherCache'
         );
         parent::__construct($loader, 'routes.yml', $options, $context, $logger);
     }
+
+    public function getMatcher()
+    {
+        if (null !== $this->matcher) {
+            return $this->matcher;
+        }
+
+        if ($this->isFilesFolderAvailable()){
+            return parent::getMatcher();
+        } else {
+            return $this->getNotCacheableMatcher();
+        }
+    }
+
+    private function isFilesFolderAvailable(){
+        return is_writable(_XE_PATH_ . 'files');
+    }
+
+    private function getNotCacheableMatcher(){
+        $class = $this->options['matcher_class'];
+        //return $this->matcher = new $class($this->context);
+        return $this->matcher = new UrlMatcher($this->getRouteCollection(), $this->context);
+    }
+
 }

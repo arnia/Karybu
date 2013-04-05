@@ -6,39 +6,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Karybu\Event\QueryEvent;
 use Karybu\Event\DBEvents;
 
-if(!defined('__XE_LOADED_DB_CLASS__')){
-    define('__XE_LOADED_DB_CLASS__', 1);
-
-    require(_XE_PATH_.'classes/xml/xmlquery/DBParser.class.php');
-    require(_XE_PATH_.'classes/xml/xmlquery/QueryParser.class.php');
-    require(_XE_PATH_.'classes/xml/xmlquery/argument/Argument.class.php');
-    require(_XE_PATH_.'classes/xml/xmlquery/argument/SortArgument.class.php');
-    require(_XE_PATH_.'classes/xml/xmlquery/argument/ConditionArgument.class.php');
-
-    require(_XE_PATH_.'classes/db/queryparts/expression/Expression.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/expression/SelectExpression.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/expression/InsertExpression.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/expression/UpdateExpression.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/expression/UpdateExpressionWithoutArgument.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/expression/ClickCountExpression.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/table/Table.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/table/JoinTable.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/table/CubridTableWithHint.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/table/MysqlTableWithHint.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/table/MssqlTableWithHint.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/table/IndexHint.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/condition/ConditionGroup.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/condition/Condition.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/condition/ConditionWithArgument.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/condition/ConditionWithoutArgument.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/condition/ConditionSubquery.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/expression/StarExpression.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/order/OrderByColumn.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/limit/Limit.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/Query.class.php');
-    require(_XE_PATH_.'classes/db/queryparts/Subquery.class.php');
-}
-
 /**
  * - DB parent class
  * - usage of db in XE is via xml

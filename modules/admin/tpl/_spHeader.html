@@ -1,7 +1,4 @@
 {@Context::addHtmlHeader('<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes" />')}
-<load target="css/bootstrap.css"/>
-<load target="css/bootstrap-responsive.css"/>
-<load target="js/bootstrap.js"/>
 <load target="css/graph.css"/>
 <load target="js/RGraph/RGraph.common.core.js"/>
 <load target="js/RGraph/RGraph.line.js"/>
@@ -9,7 +6,7 @@
 <load target="js/RGraph/RGraph.common.tooltips.js"/>
 <!--[if lt IE 9]><load target="js/RGraph/excanvas/excanvas.js"/><![endif]-->
 <div class="x">
-	<div class="header">
+    <div class="header">
         <div class="kSidebar dark pull-left">
             <div class="toggle-sidebar visible-phone"></div>
             <div class="brand">
@@ -17,11 +14,11 @@
                     <a class="dropdown-toggle admin" data-toggle="dropdown" href="#" ><img src="img/admin.png"/></a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                         <ul class="unstyled">
-                        <li><a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminInfo', 'is_admin', 'Y', 'member_srl', $logged_info->member_srl)}">{$logged_info->email_address}</a></li>
-                        <li><a href="#language" class="tgAnchor language" data-effect="slide" data-duration="100">{$lang_supported[$lang_type]}</a>
+                            <li><a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminInfo', 'is_admin', 'Y', 'member_srl', $logged_info->member_srl)}">{$logged_info->email_address}</a></li>
+                            <li><a href="#language" class="tgAnchor language" data-effect="slide" data-duration="100">{$lang_supported[$lang_type]}</a>
 
-                            <ul class="tgContent" id="language">
-                                <li loop="$lang_supported=>$key,$val" class="selected"|cond="$key==$lang_type"><a href="{getUrl('l',$key)}" data-langcode="{$key}" onclick="doChangeLangType('{$key}'); return false;">{$val}</a></li></ul>
+                                <ul class="tgContent" id="language">
+                                    <li loop="$lang_supported=>$key,$val" class="selected"|cond="$key==$lang_type"><a href="{getUrl('l',$key)}" data-langcode="{$key}" onclick="doChangeLangType('{$key}'); return false;">{$val}</a></li></ul>
                         <li class="divider"></li>
                         <li><a href="{getUrl('', 'module','admin','act','procAdminLogout')}">Log-out</a></li>
 
@@ -29,7 +26,7 @@
                 </div>
                 <a href="{getUrl('','module','admin')}"><img src="{getUrl('')}{$gnb_title_info->adminLogo}" alt="{$gnb_title_info->adminTitle}"/></a>
             </div>
-            <div class="kSearch">
+            <div class="dashboard-Search">
                 <i class="icon-search"></i>
                 <input type="text" placeholder="Type something…" class="pull-left">
             </div>
@@ -57,7 +54,7 @@
                 </li>
             </ul>
         </div>
-	</div>
-	<div class="kWrapper container-fluid">
+    </div>
+    <div class="kWrapper container-fluid">
 
 

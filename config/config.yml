@@ -7,26 +7,20 @@ services:
     context: { class: 'Symfony\Component\Routing\RequestContext' }
     cms.router: { class: 'Karybu\Routing\Router', arguments: [ @cms.router.loader, @context, null, '%kernel.debug%' ] }
     cms.context.instance: { class: 'ContextInstance', arguments: [ null, null, null, @cms.router ] }
+    cms.display_handler: { class: 'DisplayHandler', calls: [[setGlobalGzEncoding, ['%cms.gz_encoding%']]] }
     cms.mobile.instance: { class: 'MobileInstance' }
     cms.file_handler.instance: { class: 'FileHandlerInstance' }
 
     listener.router: { class: 'Karybu\EventListener\RouterListener', arguments: [ @cms.router ] }
     listener.response: { class: 'Symfony\Component\HttpKernel\EventListener\ResponseListener', arguments: [ '%charset%' ] }
-    listener.exception: { class: 'Karybu\EventListener\ExceptionListener', arguments: [ @logger.exceptions ] }
-    listener.cms: { class: 'Karybu\EventListener\CMSListener', arguments: [ @cms.context.instance, @logger , @cms.mobile.instance, @cms.file_handler.instance] }
+    listener.cms: { class: 'Karybu\EventListener\CMSListener', arguments: [ @cms.context.instance, @cms.display_handler, @cms.mobile.instance, @cms.file_handler.instance, @logger ] }
 
     dispatcher:
         class: 'Symfony\Component\EventDispatcher\EventDispatcher'
         calls:
             - [addSubscriber, [@listener.router]]
-            - [addSubscriber, [@listener.debug.toolbar]]
             - [addSubscriber, [@listener.cms]]
             - [addSubscriber, [@listener.response]]
-            - [addSubscriber, [@listener.response.summary]]
-            - [addSubscriber, [@listener.exception]]
-            - [addSubscriber, [@listener.db.query_info]]
-            - [addSubscriber, [@listener.db.slow_query]]
-            - [addSubscriber, [@listener.db.errors]]
 
     resolver: { class: 'Karybu\HttpKernel\Controller\ControllerResolver' }
 

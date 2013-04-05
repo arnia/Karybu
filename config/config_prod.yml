@@ -1,6 +1,9 @@
 imports:
     - { resource: config.yml }
 
+parameters:
+    cms.gz_encoding: false
+
 debug:
     level: error #Monolog supports all 8 logging levels defined in RFC 5424, but unless you specifically need syslog compatibility, it is advised to only use DEBUG, INFO, WARNING, ERROR, CRITICAL, ALERT.
     toolbar: false

@@ -308,12 +308,15 @@ class HTMLDisplayHandler {
 		// for admin page, add admin css
 		if(Context::get('module')=='admin' || strpos(Context::get('act'),'Admin')>0){
             if(__DEBUG__) {
+                $oContext->loadFile(array('./modules/admin/tpl/css/bootstrap.css', 'all', '', 100000), true);
+                $oContext->loadFile(array('./modules/admin/tpl/css/bootstrap-responsive.css', 'all', '', 100000), true);
                 $oContext->loadFile(array("./modules/admin/tpl/css/admin_{$lang_type}.css", 'all', '', 100000), true);
-				$oContext->loadFile('./modules/admin/tpl/js/admin.js', true);
+				$oContext->loadFile('./modules/admin/tpl/js/bootstrap.js', true);
 			} else {
-				$oContext->loadFile(array('./modules/admin/tpl/css/admin.min.css', 'all', '', 100000), true);
+				$oContext->loadFile(array('./modules/admin/tpl/css/bootstrap.min.css', 'all', '', 100000), true);
+                $oContext->loadFile(array('./modules/admin/tpl/css/bootstrap-responsive.min.css', 'all', '', 100000), true);
 				$oContext->loadFile(array("./modules/admin/tpl/css/admin_{$lang_type}.css", 'all', '',10000), true);
-				$oContext->loadFile('./modules/admin/tpl/js/admin.min.js', true);
+				$oContext->loadFile('./modules/admin/tpl/js/bootstrap.js', true);
 			}
 		}
 	}

@@ -380,7 +380,7 @@ class installController extends install
             $checklist['php_version'] = true;
         }
         // 1. Check permission
-        if (is_writable('./') && is_writable('./files')) {
+        if (is_writable('./') || is_writable('./files')) {
             $checklist['permission'] = true;
         } else {
             $checklist['permission'] = false;
