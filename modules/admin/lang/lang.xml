@@ -159,6 +159,9 @@
 		<value xml:lang="tr"><![CDATA[Modül]]></value>
 		<value xml:lang="vi"><![CDATA[Module]]></value>
 	</item>
+    <item name="visitors">
+        <value xml:lang="en"><![CDATA[Visitors]]></value>
+    </item>
 	<item name="module_category_title" type="array">
 		<item name="service">
 			 <value xml:lang="ko"><![CDATA[서비스 관리]]></value>
@@ -205,7 +208,7 @@
 			 <value xml:lang="tr"><![CDATA[İstatistikler]]></value>
 			 <value xml:lang="vi"><![CDATA[Thống kê]]></value>
 		</item>
-		<item name="construction">
+        <item name="construction">
 			 <value xml:lang="ko"><![CDATA[사이트 설정]]></value>
 			 <value xml:lang="en"><![CDATA[Construction]]></value>
 			 <value xml:lang="jp"><![CDATA[サイト設定]]></value>

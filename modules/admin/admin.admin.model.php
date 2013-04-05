@@ -568,6 +568,26 @@
             return $result;
         }
 
+        /*
+         * get current layout's main menu for populating left bar on dashboard
+         */
+        function getMainMenuItems(){
+            $oModuleModel = getModel('module');
+            $oLayoutModel = getModel('layout');
+            $oMenuAdminModel = getAdminModel('menu');
+
+            $default_mid = $oModuleModel->getDefaultMid();
+            $default_layout_srl = $default_mid->layout_srl;
+            $default_layout = $oLayoutModel->getLayout($default_layout_srl);
+
+            $main_menu = $oMenuAdminModel->getMenu($default_layout->main_menu);
+            $output = $oMenuAdminModel->getMenuItems($main_menu->menu_srl);
+            $main_menu->items = $output->data;
+
+            return $main_menu;
+
+        }
+
         /**
          * Return site count
 		 * @param string $date
