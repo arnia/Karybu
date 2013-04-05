@@ -128,36 +128,9 @@
                         </ul>
                     </div>
                     <!-- Visotors Graph -->
-                    <div class="portlet span11">
 
-                        <h4 class="dashboardH4">{$lang->counter} <em>{date("Y.m.d")}</em></h4>
-                        <div class="dashboardWire">
-                            <dl class="legend">
-                                <dt class="past"><img src="../../../common/tpl/images/blank.gif" width="5" height="5" alt="{$lang->yesterday}" /></dt>
-                                <dd>{$lang->last_week}</dd>
-                                <dt class="today"><img src="../../../common/tpl/images/blank.gif" width="5" height="5" alt="{$lang->today}" /></dt>
-                                <dd>{$lang->this_week}</dd>
-
-                            </dl>
-                            <dl class="summary">
-                                <dt>{$lang->today}</dt>
-                                <dd>{number_format($status->visitor)}</dd>
-                                <dt>{$lang->this_week}</dt>
-                                <dd>{number_format($status->thisWeekSum)}</dd>
-                                <dt>{$lang->total}</dt>
-                                <dd>{number_format($status->total_visitor)}</dd>
-                            </dl>
-                            <div class="graph">
-                                <!--@foreach($status->week as $key => $val)-->
-                                <dl>
-                                    <dt><!--@if($key==date("Ymd"))--><strong>{$key}</strong><!--@else-->{$key}<!--@end--></dt>
-                                    <dd class="past" style="height:{$val->last/$status->week_max * 100}%" title="{$lang->last_week}:{number_format($val->last)}"><span>{$lang->last_week}:{number_format($val->last)}</span></dd>
-                                    <dd class="today" style="height:{$val->this/$status->week_max * 100}%" title="{$lang->this_week}:{number_format($val->this)}"><span>{$lang->this_week}:{number_format($val->this)}</span></dd>
-
-                                </dl>
-                                <!--@end-->
-                            </div>
-                        </div>
+                    <div class="graph span11">
+                        <canvas id="chart" width="600" height="250">[No canvas support]</canvas>
                     </div>
                     <!-- /Visotors Graph -->
                 </div>
@@ -165,3 +138,40 @@
         </div>
 
 <include target="./_spFooter.html" />
+<script>
+    CreateCharts = function ()
+    {
+
+        var chart = new RGraph.Line('chart', [
+            <!--@foreach($status->week as $key => $val)-->
+            {number_format($val->this)},
+            <!--@end-->]);
+        chart.Set('chart.colors', ['white']);
+        chart.Set('chart.linewidth', 3);
+        chart.Set('chart.labels', [
+            <!--@foreach($status->week as $key => $val)-->
+            '{$key}',
+            <!--@end-->]);
+        chart.Set('chart.spline', true);
+        chart.Set('chart.background.color', 'rgba(104, 210, 198, 1)');
+        chart.Set('chart.filled', true);
+        chart.Set('chart.fillstyle', 'rgba(87, 197, 188, 1)');
+        chart.Set('chart.background.grid', false);
+        chart.Set('chart.ylabels', false);
+        chart.Set('chart.labels', false);
+        chart.Set('chart.noaxes', true);
+        chart.Set('chart.hmargin', 1);
+        chart.Set('chart.animation.unfold.initial', 0);
+        chart.Set('chart.tooltips', [
+            <!--@foreach($status->week as $key => $val)-->
+            '{$key}: <b>{number_format($val->this)}</b> vistors',
+            <!--@end-->]);
+        chart.Draw();
+    }
+
+    if(!RGraph.isOld()) {
+        CreateCharts();
+    }else {
+        window.onload = CreateCharts;
+    }
+</script>
