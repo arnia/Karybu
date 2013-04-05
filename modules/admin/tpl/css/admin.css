@@ -8,7 +8,7 @@ html body {
     background-color: #ffffff;
     z-index: 99;
     position: relative;
-    padding-top: 104px;
+    padding-top: 80px;
 }
 
 .kSidebar {
@@ -57,7 +57,7 @@ html body {
     background-color: #15181f;
     border: none;
     border-top: 1px solid #000000;
-    width: 224px;
+    width: 225px;
     -webkit-box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
     box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -76,28 +76,28 @@ html body {
     margin-bottom: 20px;
 }
 
-.page-header {
+.page-title {
     margin: 0px -40px 0px;
-    padding: 16px 40px 0px;
-    border-color: #c7d2db;
+    padding: 10px 40px;
+    border-bottom: 1px solid #c7d2db;
     position: fixed;
     width: 100%;
     height: 60px;
     background-color: #ffffff;
-    height: 88px;
+    height: 60px;
     top: 0px;
     z-index: 999;
 }
 
 
-.page-header h1 {
+.page-title h1 {
     line-height: 1.6em;
-    margin-bottom: 6px;
+    margin: 0;
     font-weight: normal;
 
 }
 
-.page-header i {
+.page-title i {
     margin-left: -20px;
     margin-top: -10px;
 }
@@ -106,10 +106,6 @@ html body {
     background-color: #000000;
     height: 20px;
     width: 20px;
-}
-
-.kNav li:first-child {
-    height: 104px !important;
 }
 
 .kNav li {
@@ -268,9 +264,9 @@ li.big-icon {
     background: -ms-linear-gradient(top,  #292c35 0%,#1c1f28 51%); /* IE10+ */
     background: linear-gradient(to bottom,  #292c35 0%,#1c1f28 51%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#292c35', endColorstr='#1c1f28',GradientType=0 ); /* IE6-9 */
-    min-height: 64px;
+    min-height: 56px;
+    padding: 12px 20px !important;
 }
-
 
 .swatchBoard .turquoise {background-color: #57c5b9;}
 .swatchBoard .red {background-color: #ea6e4c;}
@@ -280,14 +276,13 @@ li.big-icon {
 .swatchBoard .green {background-color: #73cd46;}
 
 .big-icon-preview {
-    background-position: 0 12px;
+    background-position: 0 0;
     -webkit-box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
     box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    height: 104px !important;
 }
-a.big-icon-preview:hover {background-position: -80px 12px;}
-li.active a.big-icon-preview {background-position: -160px 12px;}
+a.big-icon-preview:hover {background-position: -80px 0;}
+li.active a.big-icon-preview {background-position: -160px 0;}
 
 .big-icon-dashboard {background-position: 0 -80px;}
 a.big-icon-dashboard:hover {background-position: -80px -80px;}
