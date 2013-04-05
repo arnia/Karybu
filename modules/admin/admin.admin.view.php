@@ -157,7 +157,7 @@
 			// Admin logo, title setup
 			$objConfig = $oModuleModel->getModuleConfig('admin');
 			$gnbTitleInfo->adminTitle = $objConfig->adminTitle ? $objConfig->adminTitle:'XE Admin';
-			$gnbTitleInfo->adminLogo  = $objConfig->adminLogo ? $objConfig->adminLogo:'modules/admin/tpl/img/xe.h1.png';
+			$gnbTitleInfo->adminLogo  = $objConfig->adminLogo ? $objConfig->adminLogo:'modules/admin/tpl/img/karybu.png';
 
 			$browserTitle = ($subMenuTitle ? $subMenuTitle : 'Dashboard').' - '.$gnbTitleInfo->adminTitle;
 
@@ -202,8 +202,15 @@
 				Context::set('download_link', $buff->zbxe_news->attrs->download_link);
 			}
 
+            $currentUrl = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+            foreach($menu->list as $item){
+                if(htmlspecialchars_decode(getFullUrl('').$item['href']) == $currentUrl) {
+                    $activeNode = $item['node_srl'];
+                }
+            }
 
-			Context::set('subMenuTitle', $subMenuTitle);
+            Context::set('activeNode', $activeNode);
+            Context::set('subMenuTitle', $subMenuTitle);
 			Context::set('gnbUrlList',   $menu->list);
 			Context::set('parentSrl',    $parentSrl);
 			Context::set('gnb_title_info', $gnbTitleInfo);
@@ -254,6 +261,9 @@
             $status->visitor = $visitors->visitor;
 
             Context::set('status', $status);
+
+            $main_menu = $oAdminAdminModel->getMainMenuItems();
+            Context::set('main_menu',$main_menu);
 
             // Latest Document
 			$oDocumentModel = &getModel('document');

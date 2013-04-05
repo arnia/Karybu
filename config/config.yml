@@ -13,7 +13,6 @@ services:
 
     listener.router: { class: 'Karybu\EventListener\RouterListener', arguments: [ @cms.router ] }
     listener.response: { class: 'Symfony\Component\HttpKernel\EventListener\ResponseListener', arguments: [ '%charset%' ] }
-    listener.exception: { class: 'Karybu\EventListener\ExceptionListener', arguments: [ @logger.exceptions ] }
     listener.cms: { class: 'Karybu\EventListener\CMSListener', arguments: [ @cms.context.instance, @cms.display_handler, @cms.mobile.instance, @cms.file_handler.instance, @logger ] }
 
     dispatcher:
@@ -22,7 +21,6 @@ services:
             - [addSubscriber, [@listener.router]]
             - [addSubscriber, [@listener.cms]]
             - [addSubscriber, [@listener.response]]
-            - [addSubscriber, [@listener.exception]]
 
     resolver: { class: 'Karybu\HttpKernel\Controller\ControllerResolver' }
 

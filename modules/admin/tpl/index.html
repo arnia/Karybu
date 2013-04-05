@@ -1,8 +1,46 @@
 <include target="./_spHeader.html" />
-    <div class="container-fluid">
-    <div class="content dashboard" id="content">
+    <div class="row-fluid dashboard-header">
+        <div class="span12">
+            <div class="">
+                <i class="big-icon big-icon-dashboard pull-left"></i>
+                <h1>Dashboard</h1>
+            </div>
+        </div>
+    </div>
     <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-    <p>{$XE_VALIDATOR_MESSAGE}</p>
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+    <div class="row-fluid swatchBoard">
+        <div class="span2 turquoise swatch">
+            <div class="corner"></div>
+            <h1>{number_format($status->total_visitor)}(<!--@if($status->visitor > 0)-->+<!--@end-->{number_format($status->visitor)})</h1>
+            <a href="{getUrl('', 'module', 'admin', 'act', 'dispCounterAdminIndex')}">{$lang->visitors}</a>
+        </div>
+        <div class="span2 red swatch">
+            <div class="corner"></div>
+            <h1>{number_format($status->member->totalCount)}(<!--@if($status->member->todayCount > 0)-->+<!--@end-->{number_format($status->member->todayCount)})</h1>
+            <a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminList')}">{$lang->menu_gnb['user']}</a>
+        </div>
+        <div class="span2 yellow swatch">
+            <div class="corner"></div>
+            <h1>{number_format($status->document->totalCount)}(<!--@if($status->document->todayCount > 0)-->+<!--@end-->{number_format($status->document->todayCount)})</h1>
+            <a href="{getUrl('', 'module', 'admin', 'act', 'dispDocumentAdminList')}">{$lang->menu_gnb_sub['document']}</a>
+        </div>
+        <div class="span2 blue swatch">
+            <div class="corner"></div>
+            <h1>{number_format($status->comment->totalCount)}(<!--@if($status->comment->todayCount > 0)-->+<!--@end-->{$status->comment->todayCount})</h1>
+            <a href="{getUrl('', 'module', 'admin', 'act', 'dispCommentAdminList')}">{$lang->menu_gnb_sub['comment']}</a>
+        </div>
+        <div class="span2 purple swatch">
+            <div class="corner"></div>
+            <h1>{number_format($status->trackback->totalCount)}(<!--@if($status->trackback->todayCount > 0)-->+<!--@end-->{$status->trackback->todayCount})</h1>
+            <a href="{getUrl('', 'module', 'admin', 'act', 'dispTrackbackAdminList')}">{$lang->menu_gnb_sub['trackback']}</a>
+        </div>
+        <div class="span2 green swatch">
+            <div class="corner"></div>
+            <h1>{number_format($status->file->totalCount)}(<!--@if($status->file->todayCount > 0)-->+<!--@end-->{number_format($status->file->todayCount)})</h1>
+            <a href="{getUrl('', 'module', 'admin', 'act', 'dispFileAdminList')}">{$lang->menu_gnb_sub['file']}</a>
+        </div>
     </div>
         <!--@if(!$isEnviromentGatheringAgreement)-->
         <form action="./" method="post" class="message info alert alert-info">
@@ -33,22 +71,12 @@
         </div>
         <!--@end-->
         <div class="row-fluid">
-            <include target="./_spShortcut.html" />
-            <div class="span10 pull-right section">
+            <div class="span12 pull-right section">
                 <div class="row-fluid">
-                    <div class="portlet span3">
-                        <h3 class="h3">{$lang->current_state}</h3>
-                        <ul class="lined">
-                            <li><a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminList')}">{$lang->menu_gnb['user']}</a> <span class="side">{number_format($status->member->totalCount)}(<!--@if($status->member->todayCount > 0)-->+<!--@end-->{number_format($status->member->todayCount)})</span></li>
-                            <li><a href="{getUrl('', 'module', 'admin', 'act', 'dispDocumentAdminList')}">{$lang->menu_gnb_sub['document']}</a> <span class="side">{number_format($status->document->totalCount)}(<!--@if($status->document->todayCount > 0)-->+<!--@end-->{number_format($status->document->todayCount)})</span></li>
-                            <li><a href="{getUrl('', 'module', 'admin', 'act', 'dispCommentAdminList')}">{$lang->menu_gnb_sub['comment']}</a> <span class="side">{number_format($status->comment->totalCount)}(<!--@if($status->comment->todayCount > 0)-->+<!--@end-->{$status->comment->todayCount})</span></li>
-                            <li><a href="{getUrl('', 'module', 'admin', 'act', 'dispTrackbackAdminList')}">{$lang->menu_gnb_sub['trackback']}</a> <span class="side">{number_format($status->trackback->totalCount)}(<!--@if($status->trackback->todayCount > 0)-->+<!--@end-->{$status->trackback->todayCount})</span></li>
-                            <li><a href="{getUrl('', 'module', 'admin', 'act', 'dispFileAdminList')}">{$lang->menu_gnb_sub['file']}</a> <span class="side">{number_format($status->file->totalCount)}(<!--@if($status->file->todayCount > 0)-->+<!--@end-->{number_format($status->file->todayCount)})</span></li>
-                        </ul>
-                    </div>
-                    <div class="portlet span3">
-                        <h3 class="h3"><a href="{getUrl('', 'module', 'admin', 'act', 'dispDocumentAdminList')}">{$lang->latest_documents}</a></h3>
-                        <ul class="lined">
+                    <div class="portlet box span4">
+                        <div class="box-header"><h3 class="h3"><a href="{getUrl('', 'module', 'admin', 'act', 'dispDocumentAdminList')}">{$lang->latest_documents}</a></h3></div>
+                        <div class="box-body">
+                            <ul class="unstyled lined">
                             <!--@foreach($latestDocumentList AS $key=>$value)-->
                             {@$document = $value->variables}
                             <li>
@@ -65,85 +93,83 @@
                             <!--@end-->
                             <li cond="!is_array($latestDocumentList) || count($latestDocumentList) < 1">{$lang->no_data}</li>
                         </ul>
-                    </div>
-                    <div class="portlet span3">
-                        <div class="modal-header">
-                            <h3 class="h3"><a href="{getUrl('', 'module', 'admin', 'act', 'dispCommentAdminList')}">{$lang->latest_comments}</a></h3>
                         </div>
-                        <div class="modal-body">
-                            <ul class="lined">
-                                <!--@foreach($latestCommentList AS $key=>$value)-->
-                                <li>
-                                    <a href="{getUrl('', 'document_srl', $value->document_srl)}#comment_{$value->comment_srl}" target="_blank"><!--@if(trim($value->content))-->{$value->getSummary()}<!--@else--><strong>{$lang->no_text_comment}</strong><!--@end--></a> <span class="side">{$value->nick_name}</span>
-                                    <form class="action">
+                    </div>
+                    <div class="portlet box span4">
+                        <div class="box-header"><h3 class="h3"><a href="{getUrl('', 'module', 'admin', 'act', 'dispTrackbackAdminList')}">{$lang->visitors}</a></h3></div>
+                        <div class="box-body visitor">
+                            <!-- Visotors Graph -->
+                            <canvas class="visitor-chart" id="chart"></canvas>
+                            <!-- /Visotors Graph -->
+                        </div>
+                    </div>
+                    <div class="portlet box span4">
+                        <div class="box-header">
+                            <h3 class="h3"><h3>{$lang->favorite}</h3></h3>
+                        </div>
+                        <div class="box-body visitor">
+                            <ul class="nav nav-list unstyled">
+                                <li loop="$favorite_list => $favorite">
+                                    <a href="{getUrl('', 'module', 'admin', 'act', $favorite->admin_index_act)}">{$favorite->title}</a>
+                                    <form class="action" action="./">
                                         <input type="hidden" name="module" value="admin" />
-                                        <input type="hidden" name="act" value="procCommentAdminDeleteChecked" />
-                                        <input type="hidden" name="cart[]" value="{$value->comment_srl}" />
+                                        <input type="hidden" name="act" value="procAdminToggleFavorite" />
+                                        <input type="hidden" name="site_srl" value="0" />
+                                        <input type="hidden" name="module_name" value="{$favorite->module}" />
                                         <input type="hidden" name="success_return_url" value="{getUrl('', 'module', 'admin')}" />
-                                        <button type="submit" name="is_trash" value="true" class="text">{$lang->cmd_trash}</button>
-                                        <button type="submit" name="is_trash" value="false" class="text">{$lang->cmd_delete}</button>
+                                        <button type="submit" class="text" title="{$lang->cmd_delete}">&times;</button>
                                     </form>
                                 </li>
-                                <!--@end-->
-                                <li cond="!is_array($latestCommentList) || count($latestCommentList) < 1">{$lang->no_data}</li>
+                                <li cond="!is_array($favorite_list) || count($favorite_list) < 1"><a href="{getUrl('', 'module', 'admin', 'act', 'dispModuleAdminContent')}">{$lang->no_data}</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="portlet span3">
-                        <h3 class="h3"><a href="{getUrl('', 'module', 'admin', 'act', 'dispTrackbackAdminList')}">{$lang->latest_trackbacks}</a></h3>
-                        <ul class="lined">
-                            <!--@foreach($latestTrackbackList AS $key=>$value)-->
-                            <li>
-                                <a href="{$value->url}" target="_blank">{$value->title}</a> <span class="side">{$value->blog_name}</span>
-                                <form class="action">
-                                    <input type="hidden" name="module" value="admin" />
-                                    <input type="hidden" name="act" value="procTrackbackAdminDeleteChecked" />
-                                    <input type="hidden" name="cart[]" value="{$value->trackback_srl}" />
-                                    <input type="hidden" name="success_return_url" value="{getUrl('', 'module', 'admin')}" />
-                                    <button type="submit" class="text">{$lang->cmd_delete}</button>
-                                </form>
-                            </li>
-                            <!--@end-->
-                            <li cond="!is_array($latestTrackbackList) || count($latestTrackbackList) < 1">{$lang->no_data}</li>
-                        </ul>
-                    </div>
-                    <!-- Visotors Graph -->
-                    <div class="portlet span11">
-
-                        <h4 class="dashboardH4">{$lang->counter} <em>{date("Y.m.d")}</em></h4>
-                        <div class="dashboardWire">
-                            <dl class="legend">
-                                <dt class="past"><img src="../../../common/tpl/images/blank.gif" width="5" height="5" alt="{$lang->yesterday}" /></dt>
-                                <dd>{$lang->last_week}</dd>
-                                <dt class="today"><img src="../../../common/tpl/images/blank.gif" width="5" height="5" alt="{$lang->today}" /></dt>
-                                <dd>{$lang->this_week}</dd>
-
-                            </dl>
-                            <dl class="summary">
-                                <dt>{$lang->today}</dt>
-                                <dd>{number_format($status->visitor)}</dd>
-                                <dt>{$lang->this_week}</dt>
-                                <dd>{number_format($status->thisWeekSum)}</dd>
-                                <dt>{$lang->total}</dt>
-                                <dd>{number_format($status->total_visitor)}</dd>
-                            </dl>
-                            <div class="graph">
-                                <!--@foreach($status->week as $key => $val)-->
-                                <dl>
-                                    <dt><!--@if($key==date("Ymd"))--><strong>{$key}</strong><!--@else-->{$key}<!--@end--></dt>
-                                    <dd class="past" style="height:{$val->last/$status->week_max * 100}%" title="{$lang->last_week}:{number_format($val->last)}"><span>{$lang->last_week}:{number_format($val->last)}</span></dd>
-                                    <dd class="today" style="height:{$val->this/$status->week_max * 100}%" title="{$lang->this_week}:{number_format($val->this)}"><span>{$lang->this_week}:{number_format($val->this)}</span></dd>
-
-                                </dl>
-                                <!--@end-->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Visotors Graph -->
                 </div>
             </div>
         </div>
-    </div>
-
-</div>
 <include target="./_spFooter.html" />
+<script>
+    CreateCharts = function ()
+    {
+
+        var chart = new RGraph.Line('chart', [
+            <!--@ $max=0;--><!--@end-->
+            <!--@foreach($status->week as $key => $val)-->
+                {number_format($val->this)},
+                <!--@if($val->this > $max)-->
+                    <!--@ $max = $val->this;--><!--@end-->
+                <!--@end-->
+            <!--@end-->]);
+        chart.Set('chart.colors', ['white']);
+        chart.Set('chart.linewidth', 3);
+        chart.Set('chart.spline', true);
+        chart.Set('chart.background.color', 'rgba(104, 210, 198, 1)');
+        chart.Set('chart.filled', true);
+        chart.Set('chart.fillstyle', 'rgba(87, 197, 188, 1)');
+        chart.Set('chart.background.grid', false);
+        chart.Set('chart.ylabels', false);
+        chart.Set('chart.gutter.left', 0);
+        chart.Set('chart.gutter.right', 0);
+        chart.Set('chart.gutter.top', 0);
+        chart.Set('chart.gutter.bottom', 0);
+        chart.Set('chart.labels', false);
+        chart.Set('chart.noaxes', true);
+        chart.Set('chart.hmargin', 5);
+        chart.Set('chart.ymax', {$max*1.2});
+        chart.Set('chart.tooltips.css.class', 'chart-tooltip');
+        chart.Set('chart.tooltips.hotspot.xonly', true);
+        chart.Set('chart.tickmarks', 'circle');
+        chart.Set('chart.animation.unfold.initial', 0);
+        chart.Set('chart.tooltips', [
+            <!--@foreach($status->week as $key => $val)-->
+            '{$key}: <b>{number_format($val->this)}</b> vistors',
+            <!--@end-->]);
+        chart.Draw();
+    }
+
+    if(!RGraph.isOld()) {
+        CreateCharts();
+    }else {
+        window.onload = CreateCharts;
+    }
+</script>
