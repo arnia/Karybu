@@ -37,6 +37,9 @@ class ErrorHandler extends SymfonyErrorHandler implements EventSubscriberInterfa
             }
         }
 
+        if(!class_exists('Karybu\Event\ErrorEvent')) {
+            require_once _XE_PATH_ . 'src/Karybu/Event/ErrorEvent.php';
+        }
         self::$errors[] = new ErrorEvent($level, $message, $file, $line, $context);
         if(self::$error_handler_logger)
             self::$error_handler_logger->debug("PHP Error", array($level, $message, $file, $line));
