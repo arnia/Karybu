@@ -381,3 +381,6 @@ input[type="color"]:focus,
 .RGraph_tooltip{
     z-index: 10000; !important
 }
+.visitor-chart{
+    width: 100%;
+}
