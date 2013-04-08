@@ -43,7 +43,7 @@ class ErrorHandler extends SymfonyErrorHandler implements EventSubscriberInterfa
             }
 
             // Log errors
-            self::$errors[] = new ErrorEvent($level, $message, $file, $line, $context);
+            self::$errors[] = new ErrorEvent($this->getFriendlyErrorType($level), $message, $file, $line, $context);
             if(self::$error_handler_logger)
                 self::$error_handler_logger->debug("PHP Error", array($this->getFriendlyErrorType($level), $message, $file, $line));
         }
