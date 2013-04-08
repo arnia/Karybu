@@ -438,12 +438,9 @@ class TemplateHandler
      **/
     function _parseInline($buff)
     {
-        if (preg_match_all(
-            '/<([a-zA-Z]+\d?)(?>(?!<[a-z]+\d?[\s>]).)*?(?:[ \|]cond| loop)="/s',
-            $buff,
-            $match
-        ) === false
-        ) {
+        //to bypass bactracking limit error (regexp)
+        preg_match_all('/<([a-zA-Z]+\d?)(?>(?!<[a-z]+\d?[\s>]).)*?(?:[ \|]cond| loop)="/s', $buff, $match);
+        if ( count($match) < 1) {
             return $buff;
         }
 
