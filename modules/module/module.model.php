@@ -833,6 +833,7 @@ class moduleModel extends module
                         );
                     }
 
+                    $buff .= sprintf('$info->action->%s=new stdClass;', $name, $type);
                     $buff .= sprintf('$info->action->%s->type=\'%s\';', $name, $type);
                     $buff .= sprintf('$info->action->%s->grant=\'%s\';', $name, $grant);
                     $buff .= sprintf('$info->action->%s->standalone=%s;', $name, $standalone);
@@ -1774,6 +1775,7 @@ class moduleModel extends module
                 if ($module_info->module == 'planet') {
                     $output = executeQueryArray('module.getPlanetGrants', $args);
                 } else {
+                    $args = new stdClass();
                     $args->module_srl = $module_srl;
                     $output = executeQueryArray('module.getModuleGrants', $args);
                 }
