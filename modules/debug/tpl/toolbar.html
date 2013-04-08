@@ -1,188 +1,324 @@
 <style type="text/css">
+#debug-toolbar {
+    display: none;
+    width: 100%;
+    background-color: #000000;
+    position: fixed;
+    bottom: 0;
+    z-index: 99999;
+    border-top: 3px solid #3d3d3d;
+}
+#debug-toolbar span.time {
+    font-size: 12px;
+    color: coral;
+}
+#debug-toolbar span.elapsed_time {
+    font-size: 12px;
+    color: darkgreen;
+}
+#debug-toolbar .queries li:hover {
+    color: #dc143c;
+}
+.debug-nav ul {
+    margin: 0;
+}
 
-    #debug-toolbar {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background: #000;
-        overflow: hidden;
-        z-index: 1030;
-    }
+.debug-nav ul li {
+    padding: 0;
+}
 
-    #debug-toolbar.closed {
-        height: 40px
-    }
+.debug-nav ul li a{
+    color: #ffffff;
+}
 
-    #debug-toolbar.closed #debug-content {
-        height: 0px;
-    }
+.debug-nav ul a {
+    display: block;
+    padding: 10px 12px;
+}
 
-    #debug-toolbar.open-normal {
-        height: 200px;
-    }
+.debug-nav p {
+    padding: 10px 12px;
+    margin: 0;
+    color: #747474;
+}
 
-    #debug-toolbar.open-normal #debug-content {
-        height: 160px;
-    }
+.debug-nav ul li a:hover {
+    background-color: #181818;
+    text-decoration: none;
+    color: #828282;
+}
 
-    #debug-toolbar.open-wide {
-        height: 400px;
-    }
+.debug-nav ul .active {
+    background-color: #80b041;
+}
 
-    #debug-toolbar.open-wide #debug-content {
-        height: 360px;
-    }
+.debug-nav > a:hover {
+    background-color: #181818;
+    cursor: hand;
+    cursor: pointer;
+}
 
-    #debug-toolbar .queries .time {
-        color: coral;
-    }
+.debug-nav .toggle, .debug-nav .settings, .debug-nav .hide {
+    background: url("modules/debug/tpl/images/debugger.png");
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    display: block;
+}
 
-    #debug-toolbar .queries li:hover {
-        color: darkorange;
-    }
+.debug-nav .settings {
+    background-position: 0 -40px;
+}
 
-    .debug-nav-bar {
-        height: 40px;
-        overflow: hidden;
-        background: #000;
-        line-height: 40px;
-        padding: 0 10px;
-    }
+.debug-nav .hide {
+    background-position: 0 -80px;
+}
 
-    .debug-nav-bar>* {
-        display: inline-block;
-    }
+.debug-content {
+    height: 400px;
+    background-color: white;
+    padding-bottom: 30px;
+    overflow: scroll;
+}
 
-    .debug-nav-bar ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
+.tab-content {
+    display: none;
+    padding: 20px;
+}
 
-    .debug-nav-bar ul li {
-        line-height: 40px;
-        display: inline-block;
-        margin-right: 10px;
-    }
+.debug-nav .toggle {
+    border-right: 1px solid #151515 ;
+}
+.debug-nav .toggle.up {
+    background-position: -40px 0;
+}
+.debug-nav .settings, .debug-nav .hide {
+    border-left: 1px solid #151515 ;
+}
 
+#debug-toolbar .status {
+    width: 100%;
+    height: 20px;
+    padding: 4px 12px;
+    background-color: #e7e7e7;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid #d6d6d6;
+    font-size: 12px;
+    color: #666666;
+}
 </style>
 
 <script type="text/javascript">
+(function($) {
 
-    jQuery(document).ready( function() {
+    $(function() {
 
-        $ = jQuery;
-
-        DeveloperToolbar = function() {
-
-            this.init();
-
-        }
-
-        $.extend( DeveloperToolbar.prototype, {
-
-            init: function() {
-
-                ref = this;
-                status = 0;
-                toolbar = $('#debug-toolbar');
-                navbar = $('#debug-nav-bar');
-                tabs = $('#debug-tabs');
-                view = 0;
-
-                $(document).keypress("d", function(e) {
-
-                    if (e.shiftKey) {
-
-                        ref.changeStatus();
-
-                    }
-
-                });
-
-                $('#debug-open-close').click( function(e) {
-                    e.preventDefault();
-                    ref.changeStatus();
-                });
-
-                this.changeStatus();
-
-            },
-
-            changeStatus: function() {
-
-                toolbar.removeClass();
-
-                switch (status) {
-
-                    case '0':
-                        toolbar.addClass('closed');
-                        break;
-                    case '1':
-                        toolbar.addClass('open-normal');
-                        break;
-                    case '2':
-                        toolbar.addClass('open-wide');
-                        break;
-
-                }
-
-                this.selectFirstOption();
-
-                status++;
-                if ( status > 2 ) {
-                    status = 0;
-                }
-
-            },
-
-            selectFirstOption: function() {
-
-                if (status != 0 && view == 0) {
-
-                    view++;
-                    tabs.find('li:first-child a').click();
-
-                }
-
+        $(document).keypress("d", function(e) {
+            if (e.shiftKey) {
+                $.dToolbar('toggle');
             }
-
         });
 
-        mg = new DeveloperToolbar();
 
+        if ($.dToolbar().data('state')) {
+            $.dToolbar('changeState', $.dToolbar().data('state'));
+        } else {
+            $.dToolbar('changeState', 'full');
+        }
+
+        $.dToolbar('toggleIcon').on('click', function() {
+            $.dToolbar('toggle');
+        });
+
+        $.dToolbar('closeIcon').on('click', function() {
+            $.dToolbar('close');
+            // todo arata patratel in dreapta jos
+        });
+
+        $.dToolbar('tabs').on('click', function(e){
+            var index = $(this).data('debug-index');
+            var contentElement = $.dToolbar('getContent', index);
+            if (!contentElement.is(':visible')) {
+                $.dToolbar('showTab', $(this));
+            }
+            e.preventDefault()
+        });
+
+        if (!$.dToolbar('tabs').hasClass('active')) {
+            $.dToolbar('tab', 0).click();
+        }
+        else {
+            $.dToolbar('tabs').filter('.active').click();
+        }
     });
 
+    var methods = {
+        get : function( options ) {
+            return $('#debug-toolbar');
+        },
+        tab : function( i ) {
+            var tabs = $.dToolbar('tabs');
+            return i != null ? tabs.eq(i) : tabs;
+        },
+        tabs : function() {
+            return $('#debug-tabs', $.dToolbar()).find('li');
+        },
+        tabContent : function( i ) {
+
+        },
+        getActiveTab : function() {
+            var tabs = $.dToolbar('tabs');
+            return tabs.find('li.active');
+        },
+        content : function() {
+            return $('.debug-content', $.dToolbar());
+        },
+        statusBar: function() {
+            return $('.status', $.dToolbar());
+        },
+        toggleIcon : function() {
+            return $('a.toggle', $.dToolbar());
+        },
+        closeIcon : function() {
+            return $('a.hide', $.dToolbar());
+        },
+        isUp : function() {
+            return $.dToolbar('content').is(':visible');
+        },
+        getContent : function(index) {
+            return $('#debug_tab_' + index, $.dToolbar());
+        },
+        checkBottomPadding : function() {
+            if ($.dToolbar().data('padding-added') == 'da') {
+                $('body').css('padding-bottom', '-=' + $('.debug-nav', $.dToolbar()).height() + 'px');
+                $.dToolbar().removeData('padding-added');
+            }
+            else {
+                $.dToolbar().data('padding-added', 'da');
+                $('body').css('padding-bottom', '+=' + $('.debug-nav', $.dToolbar()).height() + 'px');
+            }
+        },
+
+        msg1 : function(msg) {
+            var container = $('.debug-nav p.pull-right', $.dToolbar());
+            if (msg != null) container.text(msg);
+            return container;
+        },
+        msg2 : function(msg) {
+            var container = $('div.status > p', $.dToolbar());
+            if (msg != null) container.text(msg);
+            return container;
+        },
+
+        toggle : function() {
+            if ($.dToolbar('isUp')) $.dToolbar('minimize');
+            else $.dToolbar('maximize');
+            return $.dToolbar();
+        },
+        minimize : function() {
+            $.dToolbar('content').hide();
+            $.dToolbar('statusBar').hide();
+            $.dToolbar('toggleIcon').toggleClass('up');
+            $.dToolbar('checkBottomPadding');
+            $.dToolbar('ajax', {
+                state: 'minimized'
+            });
+            return $.dToolbar();
+        },
+        maximize : function() {
+            $.dToolbar('content').show();
+            $.dToolbar('statusBar').show();
+            $.dToolbar('toggleIcon').toggleClass('up');
+            $.dToolbar('ajax', {
+                state: 'full'
+            });
+            return $.dToolbar();
+        },
+        close : function() {
+            $.dToolbar('checkBottomPadding');
+            $.dToolbar('ajax', {
+                state: 'closed'
+            });
+            return $.dToolbar().hide();
+        },
+        open : function() {
+            return $.dToolbar().show();
+        },
+        setTabActive : function(tab) {
+            $.dToolbar('tabs').removeClass('active');
+            tab.addClass('active');
+        },
+        showTab : function(tab) {
+            $.dToolbar('setTabActive', tab);
+            contentElement = $('#debug_tab_' + tab.data('debug-index'), $.dToolbar());
+            $('.tab-content', $.dToolbar()).fadeOut('fast');
+            contentElement.fadeIn('fast');
+            $.dToolbar('ajax', {
+                tab: tab.data('debug-index')
+            })
+        },
+        changeState : function(state) {
+            if (state == 'full') {
+                $.dToolbar().show();
+            }
+            else if (state == 'minimized') {
+                $.dToolbar('minimize').show();
+            }
+            else if (state == 'closed') {
+                $.dToolbar('close').show();
+            }
+            else $.error('wrong state ' + state);
+            return $.dToolbar();
+        },
+
+        ajax : function(data) {
+            $.exec_json('debug.procDebugSaveToolbarSettings', data, function(ret) {
+                if (ret.message != 'success') {
+                    $.dToolbar('msg1', ret.message);
+                }
+            });
+        }
+    };
+
+    $.dToolbar = function( method ) {
+        // Method calling logic
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.get.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on jQuery.dToolbar' );
+        }
+    };
+
+})(jQuery);
 </script>
 
-<div id="debug-toolbar" class="open-normal">
-
-    <div class="debug-nav-bar">
-
-        <a id="debug-open-close" href="#">open/close</a>
-
-        <ul id="debug-tabs">
+<div class="debug-toolbar" data-state="{$debug_state}"|cond="isset($debug_state)" id="debug-toolbar" style="height: {$debug_height}px"|cond="isset($debug_height)">
+    <div class="debug-nav clearfix">
+        <a class="toggle pull-left up"></a>
+        <ul class="unstyled inline pull-left" id="debug-tabs">
             {@ $index = 1; }
             <!--@foreach($data as $tab_name => $tab_content)-->
-                <li>
-                    <a href="#debug_tab_{$index}" data-toggle="tab">{$tab_name}</a>
-                </li>
-                {@ $index++; }
+            <li data-debug-index="{$index}" class="active"|cond="$debug_tab && ($index == $debug_tab)">
+                <a href="#debug_tab_{$index}">{$tab_name}</a>
+            </li>
+            {@ $index++; }
             <!--@end-->
         </ul>
-
-        <span>Shift + d to toggle developer bar</span>
-
+        <a class="hide pull-right"></a>
+        <a class="settings pull-right"></a>
+        <p class="pull-right">bla</p>
     </div>
-
-    <div class="tab-content" id="debug-content">
+    <div class="debug-content">
         {@ $index = 1; }
         <!--@foreach($data as $tab_name => $tab_content)-->
-            <div class="tab-pane" id="debug_tab_{$index}">
-                {$tab_content}
-            </div>
-            {@ $index++; }
+        <div class="tab-content" id="debug_tab_{$index}">
+            {$tab_content}
+        </div>
+        {@ $index++; }
         <!--@end-->
     </div>
-
+    <div class="status"><p>Current Status: All good!</p></div>
 </div>

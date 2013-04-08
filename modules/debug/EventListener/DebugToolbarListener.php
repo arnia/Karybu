@@ -114,9 +114,7 @@ class DebugToolbarListener implements EventSubscriberInterface
         $content = $response->getContent();
         $pos = $posrFunction($content, '</body>');
         if (false !== $pos) {
-
             $data = array();
-
             if($this->queryInfoListener) {
                 $queries = $this->queryInfoListener->getQueries();
                 $this->context->set('queries', $queries);
@@ -132,8 +130,10 @@ class DebugToolbarListener implements EventSubscriberInterface
                 $this->context->set('errors', $errors);
                 $data['PHP Errors'] = $this->renderView('php_errors');
             }
-
             $this->context->set('data', $data);
+            if (isset($_SESSION['debug_state'])) $this->context->set('debug_state', $_SESSION['debug_state']);
+            if (isset($_SESSION['debug_height'])) $this->context->set('debug_height', $_SESSION['debug_height']);
+            if (isset($_SESSION['debug_tab'])) $this->context->set('debug_tab', $_SESSION['debug_tab']);
             $toolbar = $this->renderView('toolbar');
             $content = $substrFunction($content, 0, $pos).$toolbar.$substrFunction($content, $pos);
 

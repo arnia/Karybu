@@ -33,7 +33,7 @@ Regardless of the environment, Karybu gathers information regarding errors that 
   
 * __PHP errors__
 
-  TODO Not available at the moment
+  Available in the *deprecated_errors_dev.log* file.
   
 * __Exceptions__
 
@@ -63,7 +63,7 @@ Besides all the information that is gathered when debug is on, there are a few o
 
   *Log file name: db_info_dev.log*
 
-* __3. Slow queries information__
+* __Slow queries information__
 
   Provides a list of all queries that took longer than a given duration to execute.
 

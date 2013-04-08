@@ -32,19 +32,62 @@ class ErrorHandler extends SymfonyErrorHandler implements EventSubscriberInterfa
         try {
             parent::handle($level, $message, $file, $line, $context);
         } catch (\ErrorException $e) {
+            // Throw exceptions for fatal errors - for a lats change to handle them
             if ($level == E_RECOVERABLE_ERROR || $level == E_ERROR) {
                 throw $e;
             }
-        }
 
-        self::$errors[] = new ErrorEvent($level, $message, $file, $line, $context);
-        if(self::$error_handler_logger)
-            self::$error_handler_logger->debug("PHP Error", array($level, $message, $file, $line));
+            // Fix for PHP bug that doesn't call the autoloaded in the case of E_STRICT errors
+            if(!class_exists('Karybu\Event\ErrorEvent')) {
+                require_once _XE_PATH_ . 'src/Karybu/Event/ErrorEvent.php';
+            }
+
+            // Log errors
+            self::$errors[] = new ErrorEvent($this->getFriendlyErrorType($level), $message, $file, $line, $context);
+            if(self::$error_handler_logger)
+                self::$error_handler_logger->debug("PHP Error", array($this->getFriendlyErrorType($level), $message, $file, $line));
+        }
     }
 
     public function getErrors()
     {
         return self::$errors;
+    }
+
+    private function getFriendlyErrorType($type)
+    {
+        $return ="";
+        if($type & E_ERROR) // 1 //
+            $return.='& E_ERROR ';
+        if($type & E_WARNING) // 2 //
+            $return.='& E_WARNING ';
+        if($type & E_PARSE) // 4 //
+            $return.='& E_PARSE ';
+        if($type & E_NOTICE) // 8 //
+            $return.='& E_NOTICE ';
+        if($type & E_CORE_ERROR) // 16 //
+            $return.='& E_CORE_ERROR ';
+        if($type & E_CORE_WARNING) // 32 //
+            $return.='& E_CORE_WARNING ';
+        if($type & E_COMPILE_ERROR) // 64 //
+            $return.='& E_COMPILE_ERROR ';
+        if($type & E_COMPILE_WARNING) // 128 //
+            $return.='& E_COMPILE_WARNING ';
+        if($type & E_USER_ERROR) // 256 //
+            $return.='& E_USER_ERROR ';
+        if($type & E_USER_WARNING) // 512 //
+            $return.='& E_USER_WARNING ';
+        if($type & E_USER_NOTICE) // 1024 //
+            $return.='& E_USER_NOTICE ';
+        if($type & E_STRICT) // 2048 //
+            $return.='& E_STRICT ';
+        if($type & E_RECOVERABLE_ERROR) // 4096 //
+            $return.='& E_RECOVERABLE_ERROR ';
+        if($type & E_DEPRECATED) // 8192 //
+            $return.='& E_DEPRECATED ';
+        if($type & E_USER_DEPRECATED) // 16384 //
+            $return.='& E_USER_DEPRECATED ';
+        return substr($return,2);
     }
 
     public static function setLogger(LoggerInterface $logger)
