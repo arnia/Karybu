@@ -721,6 +721,7 @@ class moduleModel extends module
                     $grant_list[] = $grants;
                 }
 
+                $buff .= '$info->grant = new stdClass;';
                 foreach ($grant_list as $grant) {
                     $name = $grant->attrs->name;
                     $default = $grant->attrs->default ? $grant->attrs->default : 'guest';
@@ -741,6 +742,7 @@ class moduleModel extends module
                     $permission_list[] = $permissions;
                 }
 
+                $buff .= '$info->permission = new stdClass;';
                 foreach ($permission_list as $permission) {
                     $action = $permission->attrs->action;
                     $target = $permission->attrs->target;
@@ -760,6 +762,7 @@ class moduleModel extends module
                     $menu_list[] = $menus;
                 }
 
+                $buff .= '$info->menu = new stdClass;';
                 foreach ($menu_list as $menu) {
                     $menu_name = $menu->attrs->name;
                     $menu_title = is_array($menu->title) ? $menu->title[0]->body : $menu->title->body;
@@ -787,6 +790,7 @@ class moduleModel extends module
 
                 $output = new stdClass();
                 $info->action = new stdClass();
+                $buff .= '$info->action = new stdClass;';
                 foreach ($action_list as $action) {
                     $name = $action->attrs->name;
 
@@ -829,6 +833,7 @@ class moduleModel extends module
                         );
                     }
 
+                    $buff .= sprintf('$info->action->%s=new stdClass;', $name, $type);
                     $buff .= sprintf('$info->action->%s->type=\'%s\';', $name, $type);
                     $buff .= sprintf('$info->action->%s->grant=\'%s\';', $name, $grant);
                     $buff .= sprintf('$info->action->%s->standalone=%s;', $name, $standalone);
@@ -849,7 +854,7 @@ class moduleModel extends module
                 }
             }
             $buff = sprintf(
-                '<?php if(!defined("__ZBXE__")) exit();$info->default_index_act = \'%s\';$info->setup_index_act=\'%s\';$info->admin_index_act = \'%s\';%s?>',
+                '<?php if(!defined("__ZBXE__")) exit(); $info = new stdClass; $info->default_index_act = \'%s\';$info->setup_index_act=\'%s\';$info->admin_index_act = \'%s\';%s?>',
                 $default_index_act,
                 $setup_index_act,
                 $admin_index_act,
@@ -1770,6 +1775,7 @@ class moduleModel extends module
                 if ($module_info->module == 'planet') {
                     $output = executeQueryArray('module.getPlanetGrants', $args);
                 } else {
+                    $args = new stdClass();
                     $args->module_srl = $module_srl;
                     $output = executeQueryArray('module.getModuleGrants', $args);
                 }

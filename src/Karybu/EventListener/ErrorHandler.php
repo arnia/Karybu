@@ -32,17 +32,21 @@ class ErrorHandler extends SymfonyErrorHandler implements EventSubscriberInterfa
         try {
             parent::handle($level, $message, $file, $line, $context);
         } catch (\ErrorException $e) {
+            // Throw exceptions for fatal errors - for a lats change to handle them
             if ($level == E_RECOVERABLE_ERROR || $level == E_ERROR) {
                 throw $e;
             }
-        }
 
-        if(!class_exists('Karybu\Event\ErrorEvent')) {
-            require_once _XE_PATH_ . 'src/Karybu/Event/ErrorEvent.php';
+            // Fix for PHP bug that doesn't call the autoloaded in the case of E_STRICT errors
+            if(!class_exists('Karybu\Event\ErrorEvent')) {
+                require_once _XE_PATH_ . 'src/Karybu/Event/ErrorEvent.php';
+            }
+
+            // Log errors
+            self::$errors[] = new ErrorEvent($this->getFriendlyErrorType($level), $message, $file, $line, $context);
+            if(self::$error_handler_logger)
+                self::$error_handler_logger->debug("PHP Error", array($this->getFriendlyErrorType($level), $message, $file, $line));
         }
-        self::$errors[] = new ErrorEvent($level, $message, $file, $line, $context);
-        if(self::$error_handler_logger)
-            self::$error_handler_logger->debug("PHP Error", array($this->getFriendlyErrorType($level), $message, $file, $line));
     }
 
     public function getErrors()
