@@ -8,47 +8,47 @@ services:
         abstract: true
         class: 'Monolog\Handler\StreamHandler'
 
-    # dev.log
-    logger.handler.stream:
+    # dev.requests.log
+    logger.handler.stream.requests:
         parent: logger_handler_template
-        arguments: [ '%kernel.logs_dir%/%kernel.environment%.log', '%logger.debug.level%' ]
-    # errors_dev.log
+        arguments: [ '%kernel.logs_dir%/%kernel.environment%.requests.log', '%logger.debug.level%' ]
+    # dev.errors.log
     logger.handler.stream.errors:
         parent: logger_handler_template
-        arguments: [ '%kernel.logs_dir%/errors_%kernel.environment%.log', '%logger.debug.level%' ]
-    # deprecated_errors_dev.log
-    logger.handler.stream.deprecated_errors:
+        arguments: [ '%kernel.logs_dir%/%kernel.environment%.errors.log', '%logger.debug.level%' ]
+    # dev.php_errors.log
+    logger.handler.stream.php_errors:
         parent: logger_handler_template
-        arguments: [ '%kernel.logs_dir%/deprecated_errors_%kernel.environment%.log', '%logger.debug.level%' ]
-    # db_info_dev.log
+        arguments: [ '%kernel.logs_dir%/%kernel.environment%.php_errors.log', '%logger.debug.level%' ]
+    # dev.queries.log
     logger.handler.stream.db_info:
         parent: logger_handler_template
-        arguments: [ '%kernel.logs_dir%/db_info_%kernel.environment%.log', '%logger.debug.level%' ]
-    # db_slow_query_dev.log
+        arguments: [ '%kernel.logs_dir%/%kernel.environment%.queries.log', '%logger.debug.level%' ]
+    # dev.slow_queries.log
     logger.handler.stream.db_slow_query:
         parent: logger_handler_template
-        arguments: [ '%kernel.logs_dir%/db_slow_query_%kernel.environment%.log', '%logger.debug.level%' ]
-    # db_errors_dev.log
-    logger.handler.stream.db_errors:
-        parent: logger_handler_template
-        arguments: [ '%kernel.logs_dir%/db_errors_%kernel.environment%.log', '%logger.debug.level%' ]
+        arguments: [ '%kernel.logs_dir%/%kernel.environment%.slow_queries.log', '%logger.debug.level%' ]
 
     logger_template:
         abstract: true
         class: 'Monolog\Logger'
 
-    logger:
+
+    logger.db_errors:
         parent: logger_template
-        arguments: [ 'cms' ]
-        calls: [ [pushHandler, [@logger.handler.stream]] ]
-    logger.errors:
-        parent: logger_template
-        arguments: [ 'cms' ]
-        calls: [ [pushHandler, [@logger.handler.stream.deprecated_errors]] ]
+        arguments: [ 'db' ]
+        calls:
+            - [pushHandler, [@logger.handler.stream.errors]]
     logger.exceptions:
         parent: logger_template
         arguments: [ 'cms' ]
         calls: [ [pushHandler, [@logger.handler.stream.errors]] ]
+
+
+    logger.requests:
+        parent: logger_template
+        arguments: [ 'cms' ]
+        calls: [ [pushHandler, [@logger.handler.stream.requests]] ]
     logger.db_info:
         parent: logger_template
         arguments: [ 'db' ]
@@ -57,19 +57,17 @@ services:
         parent: logger_template
         arguments: [ 'db' ]
         calls: [ [pushHandler, [@logger.handler.stream.db_slow_query]] ]
-    logger.db_errors:
+    logger.php_errors:
         parent: logger_template
-        arguments: [ 'db' ]
-        calls:
-            - [pushHandler, [@logger.handler.stream.db_errors]]
-            - [pushHandler, [@logger.handler.stream.errors]]
+        arguments: [ 'cms' ]
+        calls: [ [pushHandler, [@logger.handler.stream.php_errors]] ]
+
 
     listener.db.errors:
         class: 'Karybu\Module\Debug\EventListener\QueryErrorListener'
         arguments: [ @logger.db_errors ]
         tags:
             - { name: cms.event_listener }
-
     listener.exception:
         class: 'Karybu\EventListener\ExceptionListener'
         arguments: [ @logger.exceptions ]
