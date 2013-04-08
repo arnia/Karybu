@@ -4,7 +4,7 @@ imports:
 services:
     listener.response.summary:
         class: 'Karybu\Module\Debug\EventListener\ResponseSummaryInfoListener'
-        arguments: [@logger]
+        arguments: [@logger.requests]
         tags:
             - { name: cms.event_listener }
 
@@ -22,7 +22,7 @@ services:
 
     listener.error.handler:
         class: 'Karybu\EventListener\ErrorHandler'
-        arguments: [ @logger.errors ]
+        arguments: [ @logger.php_errors ]
         tags:
             - { name: cms.event_listener }
 
