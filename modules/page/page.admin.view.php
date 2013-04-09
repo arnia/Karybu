@@ -47,6 +47,7 @@
          * @brief Manage a list of pages showing
          **/
         function dispPageAdminContent() {
+            $args = new stdClass();
             $args->sort_index = "module_srl";
             $args->page = Context::get('page');
             $args->list_count = 40;
