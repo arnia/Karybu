@@ -1,6 +1,13 @@
-<div class="lnb">
-	<h2 class="h2">{$gnbUrlList[$parentSrl]['text']}</h2>
-	<ul>
+<div class="row-fluid page-title">
+    <div class="span12">
+        <div class="">
+            <i class="big-icon big-icon-{strtolower($gnbUrlList[$parentSrl]['text'])} pull-left"></i>
+            <h1 >{$gnbUrlList[$parentSrl]['text']}</h1>
+        </div>
+    </div>
+</div>
+<div>
+	<ul class="nav nav-tabs">
 		<!--@if(count($gnbUrlList[$parentSrl]['list']) > 0)-->
 		<!--@foreach($gnbUrlList[$parentSrl]['list'] AS $key=>$value)-->
 		<li <!--@if($value['text'] == $subMenuTitle)-->class="active"<!--@end-->><a href="{htmlspecialchars(html_entity_decode($value['href']))}">{$value['text']}</a></li>
