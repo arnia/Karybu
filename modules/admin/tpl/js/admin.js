@@ -1276,66 +1276,67 @@ function count(obj) {
 // filebox
 jQuery(function($){
 
-$('.filebox')
-	.bind('before-open.mw', function(){
-		var $this, $list, $parentObj;
-		var anchor;
+    $('.filebox').on('click', function() {
+        var $this, $list, $parentObj;
+        var anchor;
 
-		$this = $(this);
-		anchor = $this.attr('href');
+        $this = $(this);
+        anchor = $this.attr('href');
 
-		$list = $(anchor).find('.filebox_list');
+        $(anchor).on('show', function() {
+            $list = $(anchor).find('.filebox_list');
 
-		function on_complete(data){
-			$list.html(data.html);
+            function on_complete(data){
+                $list.html(data.html);
 
-			$list.find('.lined .select')
-				.bind('click', function(event){
-					var selectedImages = $('input.select_checkbox:checked');
-					if(selectedImages.length == 0) {
-						var selectedImgSrc = $(this).parent().find('img.filebox_item').attr('src');
-						if(!selectedImgSrc){
-							alert("None selected!");
-						}else{
-							$this.trigger('filebox.selected', [selectedImgSrc]);
-							$this.trigger('close.mw');
-						}
-					}else {
-						$this.trigger('filebox.selected', [selectedImages]);
-						$this.trigger('close.mw');
-					}
-					return false;
-				});
+                $list.find('.lined .select')
+                    .bind('click', function(event){
+                        var selectedImages = $('input.select_checkbox:checked');
+                        if(selectedImages.length == 0) {
+                            var selectedImgSrc = $(this).parent().find('img.filebox_item').attr('src');
+                            if(!selectedImgSrc){
+                                alert("None selected!");
+                            }else{
+                                $this.trigger('filebox.selected', [selectedImgSrc]);
+                                $this.trigger('close.mw');
+                            }
+                        }else {
+                            $this.trigger('filebox.selected', [selectedImages]);
+                            $this.trigger('close.mw');
+                        }
+                        return false;
+                    });
 
-			$list.find('.pagination')
-				.find('a')
-				.filter(function(){
-					if ($(this).hasClass('tgAnchor')) return false;
-					return true;
-				})
-				.bind('click', function(){
-					var page = $(this).attr('page');
+                $list.find('.pagination')
+                    .find('a')
+                    .filter(function(){
+                        if ($(this).hasClass('tgAnchor')) return false;
+                        return true;
+                    })
+                    .bind('click', function(){
+                        var page = $(this).attr('page');
 
-					$.exec_json('module.getFileBoxListHtml', {'page': page}, on_complete);
-					$(window).scrollTop($(anchor).find('.modalClose').offset().top);
-					return false;
-				});
+                        $.exec_json('module.getFileBoxListHtml', {'page': page}, on_complete);
+                        $(window).scrollTop($(anchor).find('.modalClose').offset().top);
+                        return false;
+                    });
 
-			$('#FileBoxGoTo')
-				.find('button')
-				.bind('click', function(){
-					var page = $(this).prev('input').val();
+                $('#FileBoxGoTo')
+                    .find('button')
+                    .bind('click', function(){
+                        var page = $(this).prev('input').val();
 
-					$.exec_json('module.getFileBoxListHtml', {'page': page}, on_complete);
-					$(window).scrollTop($(anchor).find('.modalClose').offset().top);
-					return false;
-				});
-		}
+                        $.exec_json('module.getFileBoxListHtml', {'page': page}, on_complete);
+                        $(window).scrollTop($(anchor).find('.modalClose').offset().top);
+                        return false;
+                    });
+            }
 
-		$.exec_json('module.getFileBoxListHtml', {'page': '1'}, on_complete);
-	});
-
+            $.exec_json('module.getFileBoxListHtml', {'page': '1'}, on_complete);
+        });
+    });
 });
+
 
 // insert fog layer
 function showWaitingFogLayer() {

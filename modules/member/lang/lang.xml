@@ -2263,7 +2263,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 	</item>
 	<item name="cmd_selected_user_manage">
 		<value xml:lang="ko"><![CDATA[선택한 회원 관리]]></value>
-		<value xml:lang="en"><![CDATA[Manage selected memter]]></value>
+		<value xml:lang="en"><![CDATA[Manage selected member]]></value>
 		<value xml:lang="jp"><![CDATA[選択した会員管理]]></value>
 		<value xml:lang="zh-TW"><![CDATA[管理所選會員]]></value>
 	</item>
