@@ -139,7 +139,6 @@ class ContextInstance
      */
     var $isSuccessInit = true;
 
-
     public $request;
 
 
@@ -2485,6 +2484,26 @@ class ContextInstance
     }
 
     /**
+     * copied from loadJavascriptPlugin below, with small improvements
+     */
+    public function unloadJavascriptPlugin($name)
+    {
+        $this->loaded_javascript_plugins[$name] = false;
+        $plugin_path = './common/js/plugins/' . $name . '/';
+        $info_file = $plugin_path . 'plugin.load';
+        if ($this->pluginConfigFileExistsAndIsReadable($info_file)) {
+            $list = $this->file_handler->readFileAsArray($info_file);
+            foreach ($list as $filename) {
+                $filename = trim($filename);
+                if (!$filename) continue;
+                if (substr($filename, 0, 2) == './') $filename = substr($filename, 2);
+                if (preg_match('/\.js$/i', $filename)) $this->unloadJsFile($plugin_path . $filename);
+                elseif (preg_match('/\.css$/i', $filename)) $this->unloadCSSFile($plugin_path . $filename);
+            }
+        }
+    }
+
+    /**
      * Load javascript plugin
      *
      * @param string $plugin_name plugin name
@@ -2496,7 +2515,7 @@ class ContextInstance
             $plugin_name = 'ui';
         }
 
-        if ($this->loaded_javascript_plugins[$plugin_name]) {
+        if (isset($this->loaded_javascript_plugins[$plugin_name])) {
             return;
         }
         $this->loaded_javascript_plugins[$plugin_name] = true;
@@ -2519,10 +2538,11 @@ class ContextInstance
                 $filename = substr($filename, 2);
             }
 
+            $path = $plugin_path . $filename;
             if (preg_match('/\.js$/i', $filename)) {
-                $this->loadFile(array($plugin_path . $filename, 'body', '', 0), true);
+                $this->loadFile(array($path, 'body', '', 0), true);
             } elseif (preg_match('/\.css$/i', $filename)) {
-                $this->loadFile(array($plugin_path . $filename, 'all', '', 0), true);
+                $this->loadFile(array($path, 'all', '', 0), true);
             }
         }
 
