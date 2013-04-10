@@ -19,18 +19,20 @@ class QueryEvent extends Event {
     private $errstr;
     private $elapsed_time;
 
+    private $queryName, $sql;
+
     /** @var Stopwatch */
     private $stopwatch;
 
     public function __construct($sql_query_text = null)
     {
-        $this->query = $sql_query_text;
+        $this->setQuery($sql_query_text);
         $this->stopwatch = new Stopwatch();
     }
 
     public function startTiming()
     {
-        $this->time = date('Y-m-d H:i:s');
+        $this->time = time();
         $this->stopwatch->start("query");
     }
 
@@ -126,6 +128,26 @@ class QueryEvent extends Event {
 
     public function getQuery() {
         return $this->query;
+    }
+
+    private function doRegexSplit()
+    {
+        if (preg_match('/\s*\/\*\s*(.*)\s*\*\/\s*/U', $this->getQuery(), $matches)) {
+            $this->queryName = trim($matches[1]);
+            $this->sql = trim(str_replace($matches[0], '', $this->getQuery()));
+        }
+        else $this->sql = $this->getQuery();
+    }
+
+    public function getSql()
+    {
+        if (!$this->sql) $this->doRegexSplit();
+        return $this->sql;
+    }
+
+    public function getQueryName() {
+        if (!$this->queryName) $this->doRegexSplit();
+        return $this->queryName;
     }
 
     public function getElapsedTime() {

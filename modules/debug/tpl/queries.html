@@ -1,13 +1,16 @@
 <ol cond="!empty($queries)" class="queries">
     <!--@foreach ($queries as $query)-->
-    <li>
-        <span class="time">
+    <li title="plm">
+        <span class="meta time">
             {$query->getTime()}
         </span>
-        <span class="elapsed_time">
+        <span class="meta elapsed_time">
             {$query->getElapsedTime()}
         </span>
-        {$query->getQuery()}
+        <span class="meta query_name">
+            {$query->getQueryName()}
+        </span>
+        {$query->getSql()}
     </li>
     <!--@endforeach-->
 </ol>

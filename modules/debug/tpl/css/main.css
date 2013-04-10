@@ -1,0 +1,111 @@
+#debug-toolbar {
+    display: none;
+    width: 100%;
+    background-color: #000000;
+    position: fixed;
+    bottom: 0;
+    z-index: 99999;
+    border-top: 3px solid #3d3d3d;
+}
+#debug-toolbar span.time {
+    font-size: 12px;
+    color: coral;
+}
+#debug-toolbar span.elapsed_time {
+    font-size: 12px;
+    color: darkgreen;
+}
+#debug-toolbar .queries li:hover {
+    color: #dc143c;
+}
+#debug-toolbar .queries .meta {
+    display: none;
+}
+.debug-nav ul {
+    margin: 0;
+}
+
+.debug-nav ul li {
+    padding: 0;
+}
+
+.debug-nav ul li a{
+    color: #ffffff;
+}
+
+.debug-nav ul a {
+    display: block;
+    padding: 10px 12px;
+}
+
+.debug-nav p {
+    padding: 10px 12px;
+    margin: 0;
+    color: #747474;
+}
+
+.debug-nav ul li a:hover {
+    background-color: #181818;
+    text-decoration: none;
+    color: #828282;
+}
+
+.debug-nav ul .active {
+    background-color: #80b041;
+}
+
+.debug-nav > a:hover {
+    background-color: #181818;
+    cursor: hand;
+    cursor: pointer;
+}
+
+.debug-nav .toggle, .debug-nav .settings, .debug-nav .hide {
+    background: url("modules/debug/tpl/images/debugger.png");
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    display: block;
+}
+
+.debug-nav .settings {
+    background-position: 0 -40px;
+}
+
+.debug-nav .hide {
+    background-position: 0 -80px;
+}
+
+.debug-content {
+    height: 400px;
+    background-color: white;
+    padding-bottom: 30px;
+    overflow: scroll;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+}
+
+.debug-nav .toggle {
+    border-right: 1px solid #151515 ;
+}
+.debug-nav .toggle.up {
+    background-position: -40px 0;
+}
+.debug-nav .settings, .debug-nav .hide {
+    border-left: 1px solid #151515 ;
+}
+
+#debug-toolbar .status {
+    width: 100%;
+    height: 20px;
+    padding: 4px 12px;
+    background-color: #e7e7e7;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid #d6d6d6;
+    font-size: 12px;
+    color: #666666;
+}
