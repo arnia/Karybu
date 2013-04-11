@@ -30,7 +30,7 @@
                     <div class="controls">
                         <input type="hidden" name="module" value="{$module}" />
                         <input type="hidden" name="act" value="{$act}" />
-                        <select name="module_category_srl" class="small">
+                        <select name="module_category_srl">
                             <option value="">{$lang->module_category}</option>
                             <option value="0" <!--@if($module_category_srl==="0")-->selected="selected"<!--@end-->>{$lang->not_exists}</option>
                             <!--@foreach($module_category as $key => $val)-->
@@ -39,7 +39,7 @@
                             <option value="">---------</option>
                             <option value="-1">{$lang->cmd_management}</option>
                             </select>
-                        <input type="submit" name="go_button" id="go_button" value="GO" class="btn  " />
+                        <input type="submit" name="go_button" id="go_button" value="GO" class="btn btn-small" />
                     </div>
                 </div>
             </th>
@@ -83,12 +83,12 @@
 
 <!-- 버튼 -->
 <div class="btn-group">
-        <a href="{getUrl('','module','module','act','dispModuleAdminModuleSetup')}" onclick="doCartSetup(this.href); return false;" class="btn"><span>{$lang->cmd_setup}</span></a>
-        <a href="{getUrl('','module','module','act','dispModuleAdminModuleGrantSetup')}" onclick="doCartSetup(this.href); return false;" class="btn"><span>{$lang->cmd_manage_grant}</span></a>
+        <a href="{getUrl('','module','module','act','dispModuleAdminModuleSetup')}" onclick="doCartSetup(this.href); return false;" class="btn">{$lang->cmd_setup}</a>
+        <a href="{getUrl('','module','module','act','dispModuleAdminModuleGrantSetup')}" onclick="doCartSetup(this.href); return false;" class="btn">{$lang->cmd_manage_grant}</a>
 </div>
 
 <div class="btn-group pull-right">
-    <a href="{getUrl('act','dispPageAdminInsert','module_srl','')}" class="btn"><span>{$lang->cmd_page_create}</span></a>
+    <a href="{getUrl('act','dispPageAdminInsert','module_srl','')}" class="btn">{$lang->cmd_page_create}</a>
 </div>
 
 </form>
