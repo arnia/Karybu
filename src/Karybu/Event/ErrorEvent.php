@@ -53,4 +53,19 @@ class ErrorEvent extends Event{
         return $this->message;
     }
 
+    public function toArray()
+    {
+        $arr = array();
+        $arr['message'] = $this->getMessage();
+        $arr['level'] = $this->getLevel();
+        $arr['file'] = $this->getFile();
+        $arr['line'] = $this->getLine();
+        $arr['params'] = array();
+        $context = $this->getContext();
+        foreach ($context as $key => $value) {
+            $arr['params'][$key] = (is_string($value) ? htmlspecialchars($value) : '[Object]');
+        }
+        return $arr;
+    }
+
 }

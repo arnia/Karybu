@@ -15,52 +15,50 @@
     font-size: 12px;
     color: darkgreen;
 }
-#debug-toolbar .queries li:hover {
-    color: #dc143c;
-}
 #debug-toolbar .queries .meta {
     display: none;
 }
-.debug-nav ul {
+
+#debug-toolbar .debug-nav ul {
     margin: 0;
 }
 
-.debug-nav ul li {
+#debug-toolbar .debug-nav ul li {
     padding: 0;
 }
 
-.debug-nav ul li a{
+#debug-toolbar .debug-nav ul li a{
     color: #ffffff;
 }
 
-.debug-nav ul a {
+#debug-toolbar .debug-nav ul a {
     display: block;
     padding: 10px 12px;
 }
 
-.debug-nav p {
+#debug-toolbar .debug-nav p {
     padding: 10px 12px;
     margin: 0;
     color: #747474;
 }
 
-.debug-nav ul li a:hover {
+#debug-toolbar .debug-nav ul li a:hover {
     background-color: #181818;
     text-decoration: none;
     color: #828282;
 }
 
-.debug-nav ul .active {
+#debug-toolbar .debug-nav ul .active {
     background-color: #80b041;
 }
 
-.debug-nav > a:hover {
+#debug-toolbar .debug-nav > a:hover {
     background-color: #181818;
     cursor: hand;
     cursor: pointer;
 }
 
-.debug-nav .toggle, .debug-nav .settings, .debug-nav .hide {
+#debug-toolbar .debug-nav .toggle, .debug-nav .settings, .debug-nav .hide {
     background: url("modules/debug/tpl/images/debugger.png");
     background-repeat: no-repeat;
     width: 40px;
@@ -68,37 +66,52 @@
     display: block;
 }
 
-.debug-nav .settings {
+#debug-toolbar .debug-nav .settings {
     background-position: 0 -40px;
 }
 
-.debug-nav .hide {
+#debug-toolbar .debug-nav .hide {
     background-position: 0 -80px;
 }
 
-.debug-content {
-    height: 400px;
+#debug-toolbar .debug-content {
+    height: 225px;
     background-color: white;
     padding-bottom: 30px;
     overflow: scroll;
+    font-size: 12px;
+    cursor: default;
 }
 
-.tab-content {
+#debug-toolbar .debug-content span.key {
+    font-weight: bold;
+}
+#debug-toolbar .debug-content span.title {
+    font-weight: bold;
+    font-size: 12px;
+    cursor: default;
+}
+
+#debug-toolbar .tab-content {
     display: none;
     padding: 20px;
 }
 
-.debug-nav .toggle {
-    border-right: 1px solid #151515 ;
+#debug-toolbar .debug-content li p:hover, #debug-toolbar .debug-content .queries li:hover, #debug-toolbar .debug-content li li:hover {
+    color: chocolate;
 }
-.debug-nav .toggle.up {
+#debug-toolbar .debug-nav .toggle {
+    border-right: 1px solid #151515;
+}
+#debug-toolbar .debug-nav .toggle.up {
     background-position: -40px 0;
 }
-.debug-nav .settings, .debug-nav .hide {
+#debug-toolbar .debug-nav .settings, .debug-nav .hide {
     border-left: 1px solid #151515 ;
 }
 
 #debug-toolbar .status {
+    display: none;
     width: 100%;
     height: 20px;
     padding: 4px 12px;
@@ -108,4 +121,23 @@
     border-top: 1px solid #d6d6d6;
     font-size: 12px;
     color: #666666;
+}
+
+#debug-toolbar .debug-content .message {
+    display: none;
+}
+
+#debug-toolbar .php_errors li {
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#debug-toolbar .php_errors li li {
+    font-weight: normal;
+    font-size: 10px;
+    cursor: default;
+}
+#debug-toolbar .php_errors .error_description {
+    display: none;
 }

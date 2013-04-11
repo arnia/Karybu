@@ -47,8 +47,8 @@ class DebugToolbarListener implements EventSubscriberInterface
 
     public function loadJavascriptFiles()
     {
-        $this->context->loadJavascriptPlugin('jquery-ui-1.10');
-        $this->context->unloadJavascriptPlugin('ui');
+        /*$this->context->loadJavascriptPlugin('jquery-ui-1.10');
+        $this->context->unloadJavascriptPlugin('ui');*/
         $this->context->addJsFile('modules/debug/tpl/js/main.js');
         $this->context->addCSSFile('modules/debug/tpl/css/main.css');
     }

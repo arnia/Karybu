@@ -1,6 +1,8 @@
+<span class="message bottom" cond="!empty($queries)">{count($queries)} queries.</span>
+
 <ol cond="!empty($queries)" class="queries">
     <!--@foreach ($queries as $query)-->
-    <li title="plm">
+    <li>
         <span class="meta time">
             {$query->getTime()}
         </span>

@@ -1,14 +1,30 @@
-<ol cond="!empty($errors)">
+<span class="message bottom" cond="!empty($errors)">{count($errors)} errors.</span>
+
+<ol cond="!empty($errors)" class="php_errors">
     <!--@foreach ($errors as $error)-->
-    <li>
-        <p><strong>{$error->getLevel()} </strong>{$error->getMessage()}</p>
-        <p>File {$error->getFile()} at line {$error->getLine()}</p>
-        <p>
-            {@ $something = $error->getContext(); }
-            <!--@foreach($something as $key => $value)-->
-                <p><strong>{$key}: </strong><!--@if(is_string($value))-->{htmlspecialchars($value)}<!--@else-->[Object]<!--@end--></p>
-            <!--@end-->
-        </p>
+    {@$arr = $error->toArray()}
+    <li title="{$error->getLevel()}">
+        <p>{$error->getMessage()}</p>
+        <div class="error_description">
+            {@unset($arr['message'])}
+            <ul>
+                <ul>
+                    <!--@foreach ($arr as $key=>$val)-->
+                    <li cond="$key!='params'">
+                        <span class="key">{$key}</span>
+                        <span class="value">{$val}</span>
+                    </li>
+                    <!--@endforeach-->
+                    <span class="title" cond="!empty($arr['params'])">Parameters:</span>
+                    <!--@foreach ($arr['params'] as $key=>$val)-->
+                    <li>
+                        <span class="key">{$key}</span>
+                        <span class="value">{$val}</span>
+                    </li>
+                    <!--@endforeach-->
+                </ul>
+            </ul>
+        </div>
     </li>
     <!--@endforeach-->
 </ol>

@@ -42,7 +42,23 @@
         $.dToolbar('showTab', mustBeShown, true);
 
         $('.queries span.time', $.dToolbar()).stampToTime();
-        $('.queries li').tooltip();
+
+        $('.queries li', $.dToolbar()).each(function(){
+            var title = $(this).attr('title', '').attr('title');
+            //title += $('.meta.time', $(this)).text() + "\n";
+            //title += $('.meta.elapsed_time', $(this)).text() + "\n";
+            title += $('.meta.query_name', $(this)).text();
+            $(this).attr('title', title);
+        }).tooltip();
+        $('.php_errors li > p', $.dToolbar()).on('click', function(){
+            $(this).siblings('.error_description').toggle();
+        });
+        $('.php_errors li li span', $.dToolbar()).on('click', function(){
+            var txt = $(this).parent().children('.value').text();
+            if (txt.length > 3) {
+                prompt("Copy to clipboard: Ctrl+C, Enter", txt);
+            }
+        });
     });
 
     var methods = {
@@ -94,12 +110,16 @@
 
         msg1 : function(msg) {
             var container = $('.debug-nav p.pull-right', $.dToolbar());
-            if (msg != null) container.text(msg);
+            if (typeof(msg) == 'string') {
+                container.text(msg);
+            }
             return container;
         },
         msg2 : function(msg) {
             var container = $('div.status > p', $.dToolbar());
-            if (msg != null) container.text(msg);
+            if (typeof(msg) == 'string') {
+                container.text(msg).show();
+            }
             return container;
         },
 
@@ -142,6 +162,17 @@
             contentElement = $('#debug_tab_' + tab.data('debug-index'), $.dToolbar());
             $('.tab-content', $.dToolbar()).hide();
             contentElement.show();
+            $.dToolbar('msg1', '');
+            $.dToolbar('msg2', '');
+            $('.message', contentElement).each(function(){
+                var messageType;
+                if ($(this).hasClass('top')) {
+                    $.dToolbar('msg1', $(this).text());
+                }
+                else if ($(this).hasClass('bottom')) {
+                    $.dToolbar('msg2', $(this).text());
+                }
+            });
             if (!noAjax) {
                 $.dToolbar('ajax', { tab: tab.data('debug-index') });
             }
