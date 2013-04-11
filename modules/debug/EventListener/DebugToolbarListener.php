@@ -40,8 +40,17 @@ class DebugToolbarListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
+            KernelEvents::REQUEST => array('loadJavascriptFiles'),
             KernelEvents::RESPONSE => array('onKernelResponse', -128)
         );
+    }
+
+    public function loadJavascriptFiles()
+    {
+        $this->context->loadJavascriptPlugin('jquery-ui-1.10');
+        $this->context->unloadJavascriptPlugin('ui');
+        $this->context->addJsFile('modules/debug/tpl/js/main.js');
+        $this->context->addCSSFile('modules/debug/tpl/css/main.css');
     }
 
     public function enableQueriesInfo(DBQueryInfoListener $queryInfoListener)
