@@ -1282,8 +1282,9 @@ jQuery(function($){
 
         $this = $(this);
         anchor = $this.attr('href');
+        $modal = $(anchor);
 
-        $(anchor).on('show', function() {
+        $modal.on('show', function() {
             $list = $(anchor).find('.filebox_list');
 
             function on_complete(data){
@@ -1298,11 +1299,11 @@ jQuery(function($){
                                 alert("None selected!");
                             }else{
                                 $this.trigger('filebox.selected', [selectedImgSrc]);
-                                $this.trigger('close.mw');
+                                $modal.modal('hide');
                             }
                         }else {
                             $this.trigger('filebox.selected', [selectedImages]);
-                            $this.trigger('close.mw');
+                            $modal.modal('hide');
                         }
                         return false;
                     });
