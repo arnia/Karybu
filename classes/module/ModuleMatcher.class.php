@@ -113,7 +113,7 @@ class ModuleMatcher
         $act = $module_matcher->getActionName($request_act, $request_module, $xml_info);
 
         // Get the instance
-        $oModule = ModuleHandler::getModuleInstanceFromKeyAndAct($module_key, $request_act);
+        $oModule = ModuleHandler::getModuleInstanceFromKeyAndAct($module_key, $act);
 
         // If the module still wasn't found, we return
         if (!is_object($oModule)) {
