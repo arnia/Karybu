@@ -1,12 +1,16 @@
-<ol cond="!empty($failed_queries)">
+<ol cond="!empty($failed_queries)" class="failed_queries">
     <!--@foreach ($failed_queries as $query)-->
-    <li>
-        <!--@foreach($query->toArray() as $key => $value)-->
-            <p>
-                <strong>{$key} </strong>
-                 {$value}
-            </p>
-        <!--@end-->
+    {@ $q = $query->toArray() }
+    <li title="{$q['query_id']}">
+        <p>{$q['sql_text']}</p>
+        {@ unset($q['sql_text'], $q['query_id']) }
+        <div class="error_description">
+            <ul>
+                <!--@foreach($q as $key => $value)-->
+                <li><strong>{$key}</strong> <span class="value">{$value}</span></li>
+                <!--@end-->
+            </ul>
+        </div>
     </li>
     <!--@endforeach-->
 </ol>

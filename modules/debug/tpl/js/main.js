@@ -43,6 +43,7 @@
 
         $('.queries span.time', $.dToolbar()).stampToTime();
 
+        // add tooltips (jquery ui is kinda fucked in our cms)
         $('.queries li', $.dToolbar()).each(function(){
             var title = $(this).attr('title', '').attr('title');
             //title += $('.meta.time', $(this)).text() + "\n";
@@ -50,11 +51,22 @@
             title += $('.meta.query_name', $(this)).text();
             $(this).attr('title', title);
         }).tooltip();
-        $('.php_errors li > p', $.dToolbar()).on('click', function(){
+        $('.failed_queries li').tooltip();
+
+        // click on php error line
+        $('.php_errors li > p, .failed_queries li > p', $.dToolbar()).on('click', function() {
             $(this).siblings('.error_description').toggle();
         });
-        $('.php_errors li li span', $.dToolbar()).on('click', function(){
+
+        // show Ctrl+C prompt on click on value
+        $('.php_errors li li span', $.dToolbar()).on('click', function() {
             var txt = $(this).parent().children('.value').text();
+            if (txt.length > 3) {
+                prompt("Copy to clipboard: Ctrl+C, Enter", txt);
+            }
+        });
+        $('.failed_queries .error_description li', $.dToolbar()).on('click', function(){
+            var txt = $(this).find('.value').text().replace(/^\s+|\s+$/g, '');
             if (txt.length > 3) {
                 prompt("Copy to clipboard: Ctrl+C, Enter", txt);
             }

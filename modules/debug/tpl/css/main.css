@@ -138,6 +138,6 @@
     font-size: 10px;
     cursor: default;
 }
-#debug-toolbar .php_errors .error_description {
+#debug-toolbar .error_description {
     display: none;
 }

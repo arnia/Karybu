@@ -25,8 +25,11 @@ class DebugToolbarListener implements EventSubscriberInterface
     protected $mode;
     protected $context;
 
+    /** @var DBQueryInfoListener */
     private $queryInfoListener;
+    /** @var QueryErrorListener */
     private $queryErrorListener;
+    /** @var ErrorHandler */
     private $errorHandler;
 
 
@@ -122,19 +125,20 @@ class DebugToolbarListener implements EventSubscriberInterface
         }
         $content = $response->getContent();
         $pos = $posrFunction($content, '</body>');
+
         if (false !== $pos) {
             $data = array();
-            if($this->queryInfoListener) {
+            if ($this->queryInfoListener) {
                 $queries = $this->queryInfoListener->getQueries();
                 $this->context->set('queries', $queries);
                 $data['Queries'] = $this->renderView('queries');
             }
-            if($this->queryErrorListener) {
+            if ($this->queryErrorListener) {
                 $queries = $this->queryErrorListener->getFailedQueries();
                 $this->context->set('failed_queries', $queries);
                 $data['Query errors'] = $this->renderView('failed_queries');
             }
-            if($this->errorHandler) {
+            if ($this->errorHandler) {
                 $errors = $this->errorHandler->getErrors();
                 $this->context->set('errors', $errors);
                 $data['PHP Errors'] = $this->renderView('php_errors');
@@ -145,7 +149,6 @@ class DebugToolbarListener implements EventSubscriberInterface
             if (isset($_SESSION['debug_tab'])) $this->context->set('debug_tab', $_SESSION['debug_tab']);
             $toolbar = $this->renderView('toolbar');
             $content = $substrFunction($content, 0, $pos).$toolbar.$substrFunction($content, $pos);
-
             $response->setContent($content);
         }
     }
