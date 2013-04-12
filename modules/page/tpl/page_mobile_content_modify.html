@@ -5,43 +5,35 @@
 <load target="../../widget/tpl/js/widget.js" usecdn="true" />
 <load target="../../widget/tpl/css/widget.css" usecdn="true" />
 
-<div id="zonePageContent">{$page_content}</div>
-<div class="adminLayer">
-    <form action="./" method="post" id="pageFo" onsubmit="return doSubmitMPageContent(this);">
-        <input type="hidden" name="mid" value="{$module_info->mid}" />
-        <input type="hidden" name="module" value="page" />
-        <input type="hidden" name="act" value="dispPageAdminContentModify" />
-        <input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
-        <input type="hidden" name="content" value="{htmlspecialchars($content)}" />
-		<input type="hidden" name="type" value="mobile" />
+<div id="zonePageContent" class="clearfix">{$page_content}</div>
 
-        <div class="btnArea" id="pageBtnArea" style="display: none;">
-            <div class="etc">
-                <input type="button" value="{$lang->cmd_box_widget_insert}" onclick="doAddWidgetBox(); return false;" class="btn" />
-                <input type="button" value="{$lang->cmd_content_insert}" onclick="doAddContent('{$module_info->mid}'); return false;" class="btn" />
-                <select name="widget_list">
-                    <!--@foreach($widget_list as $widget)-->
-                    <option value="{$widget->widget}" <!--@if($widget->widget=='content')-->selected="selected"<!--@end-->>{$widget->title}</option>
-                    <!--@end-->
-                </select>
-                <input type="button" value="{$lang->cmd_insert}" onclick="doAddWidget(this.form); return false;" class="btn" />
-            </div>
-			<input type="submit" value="{$lang->cmd_save}" class="btn"/>
-			<input type="button" value="{$lang->cmd_remove_all_widgets}" onclick="removeAllWidget();return false;"class="btn"/>
-    </form>
-</div>
+<form action="./" method="post" id="pageFo" onsubmit="return doSubmitMPageContent(this);">
+    <input type="hidden" name="mid" value="{$module_info->mid}" />
+    <input type="hidden" name="module" value="page" />
+    <input type="hidden" name="act" value="dispPageAdminContentModify" />
+    <input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+    <input type="hidden" name="content" value="{htmlspecialchars($content)}" />
+    <input type="hidden" name="type" value="mobile" />
+
+    <div id="pageBtnArea" style="display: none;">
+        <input type="button" value="{$lang->cmd_box_widget_insert}" onclick="doAddWidgetBox(); return false;" class="btn" />
+        <input type="button" value="{$lang->cmd_content_insert}" onclick="doAddContent('{$module_info->mid}'); return false;" class="btn" />
+        <select name="widget_list">
+            <!--@foreach($widget_list as $widget)-->
+            <option value="{$widget->widget}" <!--@if($widget->widget=='content')-->selected="selected"<!--@end-->>{$widget->title}</option>
+            <!--@end-->
+        </select>
+        <input type="button" value="{$lang->cmd_insert}" onclick="doAddWidget(this.form); return false;" class="btn" />
+        <input type="submit" value="{$lang->cmd_save}" class="btn"/>
+        <input type="button" value="{$lang->cmd_remove_all_widgets}" onclick="removeAllWidget();return false;"class="btn"/>
+    </div>
+</form>
 
 <div id="widgetButton" class="widgetButtons">
-    <div class="widgetStyle"></div>
-    <div class="widgetSetup"></div>
-    <div class="widgetCopy"></div>
-    <div class="widgetSize"></div>
-    <div class="widgetRemove"></div>
+    <img src="images/skin.png" class="widgetStyle" title="Styles"/><img src="images/settings.png" class="widgetSetup" title="Settings"/><img src="images/duplicate.png" class="widgetCopy" title="Duplicate widget" /><img src="images/styles.png" class="widgetSize" title="Styles" /><img src="images/delete.png" class="widgetRemove" title="Delete" />
 </div>
 <div id="widgetBoxButton" class="widgetButtons">
-    <div class="widgetStyle"></div>
-    <div class="widgetBoxSize"></div>
-    <div class="widgetBoxRemove"></div>
+    <img src="images/skin.png" class="widgetStyle" title="Skin" /><!--img src="images/styles.png" class="widgetBoxSize" title="Styles" /--><img src="images/delete.png" class="widgetBoxRemove" title="Remove" />
 </div>
 
 <script type="text/javascript">

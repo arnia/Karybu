@@ -1,16 +1,21 @@
 {$page_content}
 <!--@if($grant->manager)-->
-	<load target="./js/page_admin.js" usecdn="true" />
-    <div class="btnArea">
+    <!--Since this action was not defined as belonging to admin (dispPageIndex) we need to add the admin css by hand-->
+    <load target="../../admin/tpl/css/bootstrap.css" usecdn="true" />
+    <load target="../../admin/tpl/css/admin.css" usecdn="true" />
+
+    <div class="clearfix"></div>
+    <load target="./js/page_admin.js" usecdn="true" />
+    <div>
         <a class="btn" href="#" onclick="doRemoveWidgetCache({$module_info->module_srl}); return false;">{$lang->cmd_remake_cache}</a>
-		<!--@if($logged_info->is_admin=='Y')-->
+        <!--@if($logged_info->is_admin=='Y')-->
         <a class="btn" href="{getUrl('act','dispPageAdminInfo','module_srl',$module_info->module_srl)}">{$lang->cmd_setup}</a>
         <!--@end-->
-		<!--@if($module_info->page_type != 'OUTSIDE')-->
+        <!--@if($module_info->page_type != 'OUTSIDE')-->
         <a class="btn" href="{getUrl('act','dispPageAdminContentModify','document_srl','')}">{$lang->cmd_page_modify}</a>
         <!--@end-->
-		<!--@if($module_info->use_mobile =="Y" && $module_info->page_type != 'OUTSIDE')-->
+        <!--@if($module_info->use_mobile =="Y" && $module_info->page_type != 'OUTSIDE')-->
         <a class="btn" href="{getUrl('act','dispPageAdminMobileContent','module_srl',$module_info->module_srl)}">Mobile</a>
-		<!--@end-->
+        <!--@end-->
     </div>
 <!--@end-->
