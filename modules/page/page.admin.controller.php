@@ -307,12 +307,14 @@
 				}
 
                 $output = $oDocumentController->insertDocument($obj, $bAnonymous);
+                if(!$output->toBool()) return $output;
+
                 $msg_code = 'success_registed';
                 $document_srl = $output->get('document_srl');
 
 				$oModuleController = &getController('module');
 				$this->module_info->{$target} = $document_srl;
-				$oModuleController->updateModule($this->module_info);
+				$output = $oModuleController->updateModule($this->module_info);
             }
 
             // 오류 발생시 멈춤
