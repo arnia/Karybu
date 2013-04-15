@@ -388,3 +388,7 @@ input[type="color"]:focus,
 .visitor {
     padding: 0;
 }
+
+*:focus {
+    outline: none;
+}
