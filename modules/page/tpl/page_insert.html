@@ -27,7 +27,7 @@
                     <option value="ARTICLE">{$lang->page_type_name['ARTICLE']}</option>
                     <option value="OUTSIDE">{$lang->page_type_name['OUTSIDE']}</option>
                 </select>
-                <span class="help-block">{$lang->about_page_type}</span>
+                <div class="help-block">{$lang->about_page_type}</div>
             </div>
         </div>
         <!--@end-->
@@ -40,7 +40,7 @@
             <label class="control-label" for="page_name">{$lang->mid}</label>
             <div class="controls">
                 <input type="text" name="page_name" id="page_name" value="{$module_info->mid}" />
-                <span class="help-block">{$lang->about_mid}</span>
+                <div class="help-block">{$lang->about_mid}</div>
             </div>
         </div>
         <!--@end-->
@@ -55,7 +55,7 @@
                     <option value="{$key}" <!--@if($module_info->module_category_srl==$key)-->selected="selected"<!--@end-->>{$val->title}</option>
                     <!--@end-->
                 </select>
-                <span class="help-block">{$lang->about_module_category}</span>
+                <div class="help-block">{$lang->about_module_category}</div>
             </div>
         </div>
 
@@ -66,7 +66,7 @@
             <div class="controls">
                 <input type="text" id="browser_title" name="browser_title" value="{$module_info->browser_title}" />
                 <a href="{getUrl('','module','module','act','dispModuleAdminLangcode','target','browser_title')}" onclick="popopen(this.href);return false;" class="buttonSet buttonSetting">{$lang->cmd_find_langcode}</a>
-                <span class="help-block">{$lang->about_browser_title}</span>
+                <div class="help-block">{$lang->about_browser_title}</div>
             </div>
         </div>
 
@@ -80,16 +80,18 @@
                     <option value="{$val->layout_srl}" <!--@if($module_info->layout_srl==$val->layout_srl)-->selected="selected"<!--@end-->>{$val->title} ({$val->layout})</option>
                     <!--@end-->
                     </select>
-                <span class="help-block">{$lang->about_layout}</span>
+                <div class="help-block">{$lang->about_layout}</div>
             </div>
         </div>
 
     <!--Mobile view-->
         <div class="control-group">
-            <label class="control-label" for="use_mobile">{$lang->mobile_view}</label>
             <div class="controls">
-                <input type="checkbox" name="use_mobile" id="use_mobile" value="Y" <!--@if($module_info->use_mobile == "Y")-->checked="checked"<!--@end--> />
-                <span class="help-block">{$lang->about_mobile_view}</span>
+                <label class="checkbox" for="use_mobile">
+                    <input type="checkbox" name="use_mobile" id="use_mobile" value="Y" <!--@if($module_info->use_mobile == "Y")-->checked="checked"<!--@end--> />
+                    {$lang->mobile_view}
+                </label>
+                <div class="help-block">{$lang->about_mobile_view}</div>
             </div>
         </div>
 
@@ -103,7 +105,7 @@
                     <option value="{$val->layout_srl}" <!--@if($module_info->mlayout_srl==$val->layout_srl)-->selected="selected"<!--@end-->>{$val->title} ({$val->layout})</option>
                     <!--@end-->
                     </select>
-                <span class="help-block">{$lang->about_layout}</span>
+                <div class="help-block">{$lang->about_layout}</div>
             </div>
         </div>
 
@@ -112,7 +114,7 @@
             <label class="control-label" for="page_caching_interval">{$lang->page_caching_interval}</label>
             <div class="controls">
                 <input type="text" id="page_caching_interval" name="page_caching_interval" value="{(int)$module_info->caching_interval}"  /> {$lang->unit_min}
-                <span class="help-block">{$lang->about_page_caching_interval}</span>
+                <div class="help-block">{$lang->about_page_caching_interval}</div>
             </div>
         </div>
 
@@ -125,7 +127,7 @@
                     <option value="{$key}" <!--@if($module_info->skin==$key ||(!$module_info->skin && $key=='default'))-->selected="selected"<!--@end-->>{$val->title}</option>
                     <!--@end-->
                     </select>
-                <span class="help-block">{$lang->about_skin}</span>
+                <div class="help-block">{$lang->about_skin}</div>
             </div>
         </div>
 
@@ -138,7 +140,7 @@
                     <option value="{$key}" <!--@if($module_info->mskin==$key ||(!$module_info->mskin && $key=='default'))-->selected="selected"<!--@end-->>{$val->title}</option>
                     <!--@end-->
                 </select>
-            <span class="help-block">{$lang->about_skin}</span>
+            <div class="help-block">{$lang->about_skin}</div>
             </div>
         </div>
 
@@ -147,7 +149,7 @@
             <label class="control-label" for="path">{$lang->opage_path}</label>
             <div class="controls">
                 <input type="text" id="path" name="path" value="{htmlspecialchars($module_info->path)}"  />
-                <span class="help-block">{$lang->about_opage_path}<b>{realpath("./")}</b></span>
+                <div class="help-block">{$lang->about_opage_path}<b>{realpath("./")}</b></div>
             </div>
         </div>
 
@@ -156,14 +158,14 @@
             <label class="control-label" for="mpath">{$lang->opage_mobile_path}</label>
             <div class="controls">
                 <input type="text" id="mpath" name="mpath" value="{htmlspecialchars($module_info->mpath)}"  />
-                <span class="help-block">{$lang->about_opage_mobile_path}<b>{realpath("./")}</b></span>
+                <div class="help-block">{$lang->about_opage_mobile_path}<b>{realpath("./")}</b></div>
             </div>
         </div>
 
     <!--Buttons-->
         <div class="control-group">
             <div class="controls">
-                <input type="submit" value="{$lang->cmd_save}" class="btn" />
+                <input type="submit" value="{$lang->cmd_save}" class="btn btn-primary" />
             </div>
         </div>
 </form>

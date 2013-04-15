@@ -129,6 +129,12 @@ function doCartSetup(url) {
     popopen(url,'modulesSetup');
 }
 
-jQuery(function($){
-	$('#pageBtnArea').delay(1000).show(1);
+jQuery(document).ready(function($){
+
+    $("#module_category_srl").on("change", function() {
+        if(doChangeCategory($("#fo_list")[0])) {
+            $("#fo_list").submit();
+        }
+    })
+
 });

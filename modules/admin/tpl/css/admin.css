@@ -1,4 +1,4 @@
-html body {
+﻿html body {
     height: 100%;
 }
 
@@ -387,6 +387,61 @@ input[type="color"]:focus,
 
 .visitor {
     padding: 0;
+}
+
+.langEdit li.en input,
+.langEdit li.en textarea,
+.mLangEdit li.en textarea{background:url(../img/flag.us.gif) no-repeat 95%}
+.langEdit li.ko input,
+.langEdit li.ko textarea,
+.mLangEdit li.ko textarea{background:url(../img/flag.kr.gif) no-repeat 95%}
+.langEdit li.jp input,
+.langEdit li.jp textarea,
+.mLangEdit li.jp textarea{background:url(../img/flag.jp.gif) no-repeat 95%}
+.langEdit li.fr input,
+.langEdit li.fr textarea,
+.mLangEdit li.fr textarea{background:url(../img/flag.fr.gif) no-repeat 95%}
+.langEdit li.de input,
+.langEdit li.de textarea,
+.mLangEdit li.de textarea{background:url(../img/flag.de.gif) no-repeat 95%}
+.langEdit li.ru input,
+.langEdit li.ru textarea,
+.mLangEdit li.ru textarea{background:url(../img/flag.ru.gif) no-repeat 95%}
+.langEdit li.es input,
+.langEdit li.es textarea,
+.mLangEdit li.es textarea{background:url(../img/flag.es.gif) no-repeat 95%}
+.langEdit li.tr input,
+.langEdit li.tr textarea,
+.mLangEdit li.tr textarea{background:url(../img/flag.tr.gif) no-repeat 95%}
+.langEdit li.vi input,
+.langEdit li.vi textarea,
+.mLangEdit li.vi textarea{background:url(../img/flag.vn.gif) no-repeat 95%}
+.langEdit li.mn input,
+.langEdit li.mn textarea,
+.mLangEdit li.mn textarea{background:url(../img/flag.mn.gif) no-repeat 95%}
+.langEdit li.zh-CN input,
+.langEdit li.zh-CN textarea,
+.mLangEdit li.zh-CN textarea{background:url(../img/flag.cn.gif) no-repeat 95%}
+.langEdit li.zh-TW input,
+.langEdit li.zh-TW textarea,
+.mLangEdit li.zh-TW textarea{background:url(../img/flag.tw.gif) no-repeat 95%}
+.mLangEdit.en strong{background:url(../img/flag.us.gif) no-repeat 0 10px}
+.mLangEdit.ko strong{background:url(../img/flag.kr.gif) no-repeat 0 10px}
+.mLangEdit.jp strong{background:url(../img/flag.jp.gif) no-repeat 0 10px}
+.mLangEdit.fr strong{background:url(../img/flag.fr.gif) no-repeat 0 10px}
+.mLangEdit.de strong{background:url(../img/flag.de.gif) no-repeat 0 10px}
+.mLangEdit.ru strong{background:url(../img/flag.ru.gif) no-repeat 0 10px}
+.mLangEdit.es strong{background:url(../img/flag.es.gif) no-repeat 0 10px}
+.mLangEdit.tr strong{background:url(../img/flag.tr.gif) no-repeat 0 10px}
+.mLangEdit.vi strong{background:url(../img/flag.vn.gif) no-repeat 0 10px}
+.mLangEdit.mn strong{background:url(../img/flag.mn.gif) no-repeat 0 10px}
+.mLangEdit.zh-CN strong{background:url(../img/flag.cn.gif) no-repeat 0 10px}
+.mLangEdit.zh-TW strong{background:url(../img/flag.tw.gif) no-repeat 0 10px}
+
+.langEdit {
+    background: #fff;
+    position: absolute;
+    z-index: 10;
 }
 
 *:focus {

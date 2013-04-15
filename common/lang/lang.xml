@@ -3698,6 +3698,9 @@
 		<value xml:lang="de"><![CDATA[Sprache]]></value>
 		<value xml:lang="tr"><![CDATA[Diller]]></value>
 	</item>
+    <item name="multilingual_manager">
+        <value xml:lang="en"><![CDATA[Manage languages]]></value>
+    </item>
 	<item name="find_site">
 		<value xml:lang="ko"><![CDATA[사이트 찾기]]></value>
 		<value xml:lang="en"><![CDATA[Find Site]]></value>

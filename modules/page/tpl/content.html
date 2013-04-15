@@ -12,7 +12,7 @@
         <a class="btn" href="{getUrl('act','dispPageAdminInfo','module_srl',$module_info->module_srl)}">{$lang->cmd_setup}</a>
         <!--@end-->
         <!--@if($module_info->page_type != 'OUTSIDE')-->
-        <a class="btn" href="{getUrl('act','dispPageAdminContentModify','document_srl','')}">{$lang->cmd_page_modify}</a>
+        <a class="btn btn-primary" href="{getUrl('act','dispPageAdminContentModify','document_srl','')}">{$lang->cmd_page_modify}</a>
         <!--@end-->
         <!--@if($module_info->use_mobile =="Y" && $module_info->page_type != 'OUTSIDE')-->
         <a class="btn" href="{getUrl('act','dispPageAdminMobileContent','module_srl',$module_info->module_srl)}">Mobile</a>

@@ -14,20 +14,23 @@
     <h3 class="h3">{$lang->confirm_delete}</h3>
 	<p>{$lang->page_delete_warning}</p>
 
-    <table class="table">
-        <tr>
-            <th scope="row">{$lang->module_name}</th>
-            <td >{$module_info->mid}</td>
-        </tr>
-        <tr>
-            <th scope="row">{$lang->module}</th>
-            <td>{$module_info->module}</td>
-        </tr>
-    </table>
+    <div class="span4">
+        <table class="table">
+            <tr>
+                <th scope="row">{$lang->module_name}</th>
+                <td >{$module_info->mid}</td>
+            </tr>
+            <tr>
+                <th scope="row">{$lang->module}</th>
+                <td>{$module_info->module}</td>
+            </tr>
+        </table>
 
-	<div>
-		<input type="submit" class="btn btn-danger" value="{$lang->cmd_delete}" />
-		<a href="{getUrl('act','dispPageAdminContent')}" class="btn">{$lang->cmd_back}</a>
-	</div>
+        <div class="clearfix"></div>
+	    <div class="pull-right">
+            <input type="submit" class="btn btn-danger" value="{$lang->cmd_delete}" />
+            <a href="{getUrl('act','dispPageAdminContent')}" class="btn">{$lang->cmd_back}</a>
+	    </div>
+    </div>
 </form>
 

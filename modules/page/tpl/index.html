@@ -17,7 +17,7 @@
 </form>
 
 <!-- 목록 -->
-<form action="./" method="get" onsubmit="return doChangeCategory(this);" id="fo_list">
+<form action="./" method="get" id="fo_list" class="form-inline" no-error-return-url="true">
 
 <table class="table table-condensed table-bordered table-hover">
     <caption>Total {number_format($total_count)}, Page {number_format($page)}/{number_format($total_page)}</caption>
@@ -26,22 +26,17 @@
             <th scope="col">{$lang->no}</th>
             <th scope="col"><input type="checkbox" onclick="XE.checkboxToggleAll(); return false;" /></th>
             <th scope="col">
-                <div class="control-group">
-                    <div class="controls">
-                        <input type="hidden" name="module" value="{$module}" />
-                        <input type="hidden" name="act" value="{$act}" />
-                        <select name="module_category_srl">
-                            <option value="">{$lang->module_category}</option>
-                            <option value="0" <!--@if($module_category_srl==="0")-->selected="selected"<!--@end-->>{$lang->not_exists}</option>
-                            <!--@foreach($module_category as $key => $val)-->
-                            <option value="{$key}" <!--@if($module_category_srl==$key)-->selected="selected"<!--@end-->>{$val->title}</option>
-                            <!--@end-->
-                            <option value="">---------</option>
-                            <option value="-1">{$lang->cmd_management}</option>
-                            </select>
-                        <input type="submit" name="go_button" id="go_button" value="GO" class="btn btn-small" />
-                    </div>
-                </div>
+                <input type="hidden" name="module" value="{$module}" />
+                <input type="hidden" name="act" value="{$act}" />
+                <select name="module_category_srl" id="module_category_srl" class="input-small">
+                    <option value="">{$lang->module_category}</option>
+                    <option value="0" <!--@if($module_category_srl==="0")-->selected="selected"<!--@end-->>{$lang->not_exists}</option>
+                    <!--@foreach($module_category as $key => $val)-->
+                    <option value="{$key}" <!--@if($module_category_srl==$key)-->selected="selected"<!--@end-->>{$val->title}</option>
+                    <!--@end-->
+                    <option value="">---------</option>
+                    <option value="-1">{$lang->cmd_management}</option>
+                </select>
             </th>
             <th scope="col">{$lang->page_type}</th>
             <th scope="col">{$lang->mid}</th>
@@ -72,9 +67,9 @@
             <td><a href="{getSiteUrl($val->domain,'','mid',$val->mid)}" target="_blank">{$val->browser_title}</a></td>
             <td>{zdate($val->regdate,"Y-m-d")}</td>
             <td>
-                <a href="{getUrl('act','dispPageAdminInfo','module_srl',$val->module_srl)}">{$lang->cmd_setup}</a>
-                <a href="{getUrl('','module','module','act','dispModuleAdminCopyModule','module_srl',$val->module_srl)}" onclick="popopen(this.href);return false;">{$lang->cmd_copy}</a>
-                <a href="{getUrl('act','dispPageAdminDelete','module_srl', $val->module_srl)}">{$lang->cmd_delete}</a>
+                <a href="{getUrl('act','dispPageAdminInfo','module_srl',$val->module_srl)}" class="kConfigure" title="{$lang->cmd_setup}"><i>{$lang->cmd_setup}</i></a>
+                <a href="{getUrl('','module','module','act','dispModuleAdminCopyModule','module_srl',$val->module_srl)}" class="kCopy" onclick="popopen(this.href);return false;" title="{$lang->cmd_copy}"><i>{$lang->cmd_copy}</i></a>
+                <a href="{getUrl('act','dispPageAdminDelete','module_srl', $val->module_srl)}" class="kDelete" title="{$lang->cmd_delete}"><i>{$lang->cmd_delete}</i></a>
             </td>
         </tr>
         <!--@end-->
