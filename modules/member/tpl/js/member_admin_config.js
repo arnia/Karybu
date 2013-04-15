@@ -88,7 +88,7 @@ jQuery(function($){
 		});
 	});
 
-	$('a.modalAnchor._extendFormEdit').bind('before-open.mw', function(event){
+	$('#userDefine').on('show', function(event){
 		var memberFormSrl = $(event.target).parent().attr('id');
 		var checked = $(event.target).closest('tr').find('input:radio:checked').val();
 

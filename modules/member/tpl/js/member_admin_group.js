@@ -17,7 +17,7 @@ jQuery(function ($){
 	/**
 	 * use dispMemberAdminSiteMemberGroup
 	 **/
-	$('a.modalAnchor._imageMark').bind('before-open.mw', function(e){
+	$('#imageMark').on('show', function(e){
 		var $targetImage = $(e.target).parent().find('img');
 		var $imageMarkHidden = $(e.target).parent().find('._imgMarkHidden');
 		if ($targetImage.length){
@@ -27,7 +27,7 @@ jQuery(function ($){
 				.click(function (){
 					$targetImage.remove();
 					$imageMarkHidden.val('');
-					$('a.modalAnchor._imageMark').trigger('close.mw');
+					$('#imageMark').modal('hide');
 				});
 		}else{
 			$("._useImageMark").hide();

@@ -834,10 +834,9 @@ class ContextInstance
         if (!isset($global_app_settings->time_zone)) {
             $global_app_settings->time_zone = date('O');
         }
-        if (isset($global_app_settings->qmail_compatibility)) {
-            if ($global_app_settings->qmail_compatibility != 'Y') {
+        if (!isset($global_app_settings->qmail_compatibility) ||
+            $global_app_settings->qmail_compatibility != 'Y') {
                 $global_app_settings->qmail_compatibility = 'N';
-            }
         }
         if (!isset($global_app_settings->use_db_session)) {
             $global_app_settings->use_db_session = 'N';

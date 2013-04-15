@@ -1,4 +1,4 @@
-<div class="debug-toolbar" data-state="{$debug_state}"|cond="isset($debug_state)" id="debug-toolbar" style="height: {$debug_height}px"|cond="isset($debug_height)">
+<div id="debug-toolbar" class="debug-toolbar" data-state="{$debug_state}"|cond="isset($debug_state)" style="height: {$debug_height}px"|cond="isset($debug_height)">
     <div class="debug-nav clearfix">
         <a class="toggle pull-left up"></a>
         <ul class="unstyled inline pull-left" id="debug-tabs">
@@ -11,7 +11,7 @@
             <!--@end-->
         </ul>
         <a class="hide pull-right"></a>
-        <a class="settings pull-right"></a>
+        <!--a class="settings pull-right"></a-->
         <p class="pull-right">bla</p>
     </div>
     <div class="debug-content">
@@ -24,4 +24,8 @@
         <!--@end-->
     </div>
     <div class="status"><p>Current Status: All good!</p></div>
+</div>
+
+<div class="bottom-sticky">
+    debug
 </div>

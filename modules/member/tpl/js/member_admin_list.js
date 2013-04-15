@@ -1,6 +1,6 @@
 jQuery(function ($){
 	
-	$('a.modalAnchor._member').bind('before-open.mw', function(){
+    $("#listManager").on("show", function() {
 		var $memberList = $('._memberList input[name=user]:checked');
 		if ($memberList.length == 0){
 			alert(xe.lang.msg_select_user);

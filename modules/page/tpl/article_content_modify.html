@@ -14,7 +14,7 @@
         <input type="text" name="tags" value="{htmlspecialchars($oDocument->get('tags'))}" class="iText" title="Tag" />
 		<p>{$lang->about_tag}</p>
     </div>
-	<div class="btnArea">
+	<div>
         <!--@if($is_logged)-->
 		<!--@if(!$oDocument->isExists() || $oDocument->get('status') == 'TEMP')-->
         <button type="button" onclick="doDocumentSave(this);" class="btn">{$lang->cmd_temp_save}</button>

@@ -23,7 +23,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
      */
     public function testGetInstance()
     {
-        $file_handler = $this->getMock('FileHandler', array('getRealPath'));
+        $file_handler = $this->getMock('FileHandlerInstance', array('getRealPath'));
         $context = new ContextInstance($file_handler);
         Context::setRequestContext($context);
 
