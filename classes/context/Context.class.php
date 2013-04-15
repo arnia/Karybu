@@ -1994,9 +1994,11 @@ class ContextInstance
             }
 
             if (!$query) {
-                // get URL from route definitions
-                $context = new \Symfony\Component\Routing\RequestContext();
-                $query = $this->getUrlFromRoutes($context, $this->routes, $get_vars);
+                // get URL from route definitions - if rewrite mod is active
+                if ($this->allow_rewrite) {
+                    $context = new \Symfony\Component\Routing\RequestContext();
+                    $query = $this->getUrlFromRoutes($context, $this->routes, $get_vars);
+                }
 
                 if ($query == null) {
                     $queries = array();
@@ -2495,10 +2497,18 @@ class ContextInstance
             $list = $this->file_handler->readFileAsArray($info_file);
             foreach ($list as $filename) {
                 $filename = trim($filename);
-                if (!$filename) continue;
-                if (substr($filename, 0, 2) == './') $filename = substr($filename, 2);
-                if (preg_match('/\.js$/i', $filename)) $this->unloadJsFile($plugin_path . $filename);
-                elseif (preg_match('/\.css$/i', $filename)) $this->unloadCSSFile($plugin_path . $filename);
+                if (!$filename) {
+                    continue;
+                }
+                if (substr($filename, 0, 2) == './') {
+                    $filename = substr($filename, 2);
+                }
+                if (preg_match('/\.js$/i', $filename)) {
+                    $this->unloadJsFile($plugin_path . $filename);
+                }
+                elseif (preg_match('/\.css$/i', $filename)) {
+                    $this->unloadCSSFile($plugin_path . $filename);
+                }
             }
         }
     }
