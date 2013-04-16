@@ -44,7 +44,7 @@
     height: 100%;
     right: 0;
     top: 0;
-    z-index: 999;
+    z-index: 100;
     margin-bottom: 0;
 }
 
@@ -86,7 +86,7 @@
     background-color: #ffffff;
     height: 60px;
     top: 0px;
-    z-index: 999;
+    z-index: 100;
 }
 
 
@@ -356,7 +356,7 @@ input[type="color"]:focus,
         left: 0;
         top: auto;
         height: 80px;
-        z-index: 999;
+        z-index: 100;
     }
 
     .swatchBoard {
