@@ -1,7 +1,8 @@
 <!--%import("filter/insert_outside.xml")-->
 <!--#include("header.html")-->
 
-<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+<div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 <form class="form-horizontal" ruleset="insertPage" id="fo_insert_page" action="./" method="post" enctype="multipart/form-data">

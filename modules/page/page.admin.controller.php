@@ -75,7 +75,11 @@
                 $msg_code = 'success_updated';
             }
 
-            if(!$output->toBool()) return $output;
+            if(!$output->toBool()) {
+                $this->setMessage($output->getMessage());
+                $this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'module_srl', Context::get('module_srl'), 'act', 'dispPageAdminInfo'));
+                return $output;
+            }
 
             $this->add("page", Context::get('page'));
             $this->add('module_srl',$output->get('module_srl'));
