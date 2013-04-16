@@ -153,6 +153,7 @@
     display: none;
     cursor: pointer;
     padding: 5px 10px;
+    z-index: 101;
 }
 .bottom-sticky:hover {
     border-color: darkgoldenrod;

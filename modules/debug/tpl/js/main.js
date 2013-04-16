@@ -15,7 +15,8 @@
         }
 
         $.dToolbar('toggleIcon').on('click', function() {
-            $.dToolbar('toggle');
+            if ($.dToolbar('isUp')) $.dToolbar('minimize');
+            else $.dToolbar('maximize');
         });
 
         $.dToolbar('closeIcon').on('click', function() {
@@ -73,7 +74,6 @@
         });
         $.dToolbar('closedButton').on('click', function(){
             $.dToolbar('maximize');
-            $.dToolbar('open');
         });
     });
 
@@ -148,7 +148,7 @@
         toggle : function() {
             if ($.dToolbar('isUp')) return $.dToolbar('minimize');
             if ($.dToolbar('isMinimized')) return $.dToolbar('close');
-            $.dToolbar('open');
+            return $.dToolbar('maximize');
         },
         minimize : function() {
             $.dToolbar('content').hide();
@@ -163,17 +163,14 @@
             $.dToolbar('statusBar').show();
             $.dToolbar('toggleIcon').addClass('up');
             $.dToolbar('ajax', { state: 'full' });
-            return $.dToolbar();
+            $.dToolbar('closedButton').hide();
+            return $.dToolbar().show();
         },
         close : function() {
             $.dToolbar('checkBottomPadding');
             $.dToolbar('closedButton').show();
             $.dToolbar('ajax', { state: 'closed' });
             return $.dToolbar().hide();
-        },
-        open : function() {
-            $.dToolbar('closedButton').hide();
-            return $.dToolbar().show();
         },
         setTabActive : function(tab) {
             $.dToolbar('tabs').removeClass('active');
