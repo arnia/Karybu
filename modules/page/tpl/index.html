@@ -1,6 +1,11 @@
 <load target="js/page_admin.js" usecdn="true" />
 <!--#include("header.html")-->
 
+<div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {$XE_VALIDATOR_MESSAGE}
+</div>
+
 <!-- 검색 -->
 <form action="./" method="get" class="form-inline pull-right">
 	<input type="hidden" name="module" value="{$module}" />
@@ -50,7 +55,7 @@
         <!--@foreach($page_list as $no => $val)-->
         <tr>
             <td>{$no}</td>
-            <td><input type="checkbox" name="cart" value="{$val->module_srl}" /></td>
+            <td><input type="checkbox" class="module_srl" name="cart" value="{$val->module_srl}" /></td>
             <td>
                 <!--@if(!$val->module_category_srl)-->
                 <!--@if($val->site_srl)-->
@@ -63,7 +68,7 @@
                 <!--@end-->
                 </td>
             <td>{$val->page_type}</td>
-            <td>{$val->mid}</td>
+            <td class="mid">{$val->mid}</td>
             <td><a href="{getSiteUrl($val->domain,'','mid',$val->mid)}" target="_blank">{$val->browser_title}</a></td>
             <td>{zdate($val->regdate,"Y-m-d")}</td>
             <td>
@@ -103,3 +108,5 @@
         <li><a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="direction">{$lang->last_page} &rsaquo;</a></li>
     </ul>
 </div>
+
+<!--#include("page_delete.html")-->
