@@ -6,7 +6,7 @@
     <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 
-<!-- 검색 -->
+
 <form action="./" method="get" class="form-inline pull-right">
 	<input type="hidden" name="module" value="{$module}" />
 	<input type="hidden" name="mid" value="{$mid}" />
@@ -21,7 +21,7 @@
         </fieldset>
 </form>
 
-<!-- 목록 -->
+
 <form action="./" method="get" id="fo_list" class="form-inline" no-error-return-url="true">
 
 <table class="table table-condensed table-bordered table-hover">
@@ -71,10 +71,11 @@
             <td class="mid">{$val->mid}</td>
             <td><a href="{getSiteUrl($val->domain,'','mid',$val->mid)}" target="_blank">{$val->browser_title}</a></td>
             <td>{zdate($val->regdate,"Y-m-d")}</td>
-            <td>
-                <a href="{getUrl('act','dispPageAdminInfo','module_srl',$val->module_srl)}" class="kConfigure" title="{$lang->cmd_setup}"><i>{$lang->cmd_setup}</i></a>
-                <a href="{getUrl('','module','module','act','dispModuleAdminCopyModule','module_srl',$val->module_srl)}" class="kCopy" onclick="popopen(this.href);return false;" title="{$lang->cmd_copy}"><i>{$lang->cmd_copy}</i></a>
-                <a href="{getUrl('act','dispPageAdminDelete','module_srl', $val->module_srl)}" class="kDelete" title="{$lang->cmd_delete}"><i>{$lang->cmd_delete}</i></a>
+            <td><div class="kActionIcons">
+                <a href="{getUrl('act','dispPageAdminInfo','module_srl',$val->module_srl)}" data-toggle="tooltip" title="{$lang->cmd_setup}"><i class="kConfigure">{$lang->cmd_setup}</i></a>
+                <a href="{getUrl('','module','module','act','dispModuleAdminCopyModule','module_srl',$val->module_srl)}" onclick="popopen(this.href);return false;" data-toggle="tooltip" title="{$lang->cmd_copy}"><i class="kCopy">{$lang->cmd_copy}</i></a>
+                <a href="{getUrl('act','dispPageAdminDelete','module_srl', $val->module_srl)}" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kDelete">{$lang->cmd_delete}</i></a>
+            </div>
             </td>
         </tr>
         <!--@end-->
@@ -93,7 +94,6 @@
 
 </form>
 
-<!-- 페이지 네비게이션 -->
 <div class="pagination">
     <ul>
         <li><a href="{getUrl('page','','module_srl','')}" class="direction">&lsaquo; {$lang->first_page}</a></li>

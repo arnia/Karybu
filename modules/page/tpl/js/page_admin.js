@@ -137,6 +137,11 @@ jQuery(document).ready(function($){
         }
     })
 
+
+    $('.kActionIcons').tooltip({
+        selector: "a[data-toggle=tooltip]"
+    })
+
     $("a.kDelete").on("click", function() {
         var module_srl = $(this).closest("tr").find(".module_srl").val();
         var mid = $(this).closest("tr").find(".mid").text();
