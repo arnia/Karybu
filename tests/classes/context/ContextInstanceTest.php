@@ -2144,6 +2144,38 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/admin/dispMenuAdminSiteMap', $url);
     }
 
+    public function testGetUrl_RouteBased_NoRewrite_Module_Is_Admin_And_Act()
+    {
+        $router = $this->getMock(
+            'Karybu\Routing\Router',
+            array('getRouteCollection'),
+            array(
+                $this->getMock('Symfony\Component\Config\Loader\LoaderInterface'),
+                $this->getMock('Symfony\Component\Routing\RequestContext'),
+                $this->getMock('Psr\Log\LoggerInterface'),
+                false
+            )
+        );
+        $router->expects($this->any())->method('getRouteCollection')->will($this->returnValue($this->getRoutes()));
+        $context = $this->getMock(
+            'ContextInstance',
+            array('getRequestURI', 'isSiteID')
+            ,
+            array(null, null, null, $router)
+        );
+        $_SERVER['SCRIPT_NAME'] = '/';
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+        $context->site_module_info = new stdClass();
+        $context->site_module_info->domain = null;
+        $context->allow_rewrite = false;
+
+        $url = $context->getUrl(0, array("module", "admin", "act", "dispMenuAdminSiteMap"),
+            null, false);
+        $this->assertEquals('/index.php?module=admin&act=dispMenuAdminSiteMap', $url);
+    }
+
     public function test_GetUrl_RouteBased_Fall2NextValidRequirements(){
         $routes = new \Symfony\Component\Routing\RouteCollection();
         $routes->add("mid_act", new \Symfony\Component\Routing\Route('/{mid}/{act}', array(), array("act"=>"[a-zA-Z0-9]+")));

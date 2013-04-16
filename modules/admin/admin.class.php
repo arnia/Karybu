@@ -88,7 +88,7 @@ class admin extends ModuleObject
             $args->menu_item_srl = getNextSequence();
             $args->name = '{$lang->menu_gnb[\'' . $value . '\']}';
             if ($value == 'dashboard') {
-                $args->url = 'index.php?module=admin';
+                $args->url = getNotEncodedUrl('', 'module', 'admin');
             } else {
                 $args->url = '#';
             }
