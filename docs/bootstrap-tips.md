@@ -10,7 +10,7 @@ How to make form elements fluid
     of 100%)
 
 **Example:**
-```
+```html
 <div class="row-fluid">
         <select class="span6"> <!-- this means half-width of the container -->
             <option>...</option>
