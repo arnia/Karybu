@@ -7,7 +7,7 @@
 
 <div id="zonePageContent" class="clearfix">{$page_content}</div>
 
-<form action="./" method="post" id="pageFo" onsubmit="return doSubmitMPageContent(this);">
+<form action="./" method="post" class="form-inline" id="pageFo" onsubmit="return doSubmitMPageContent(this);">
     <input type="hidden" name="mid" value="{$module_info->mid}" />
     <input type="hidden" name="module" value="page" />
     <input type="hidden" name="act" value="dispPageAdminContentModify" />
@@ -15,18 +15,16 @@
     <input type="hidden" name="content" value="{htmlspecialchars($content)}" />
     <input type="hidden" name="type" value="mobile" />
 
-    <div id="pageBtnArea" style="display: none;">
-        <input type="button" value="{$lang->cmd_box_widget_insert}" onclick="doAddWidgetBox(); return false;" class="btn" />
-        <input type="button" value="{$lang->cmd_content_insert}" onclick="doAddContent('{$module_info->mid}'); return false;" class="btn" />
-        <select name="widget_list">
-            <!--@foreach($widget_list as $widget)-->
-            <option value="{$widget->widget}" <!--@if($widget->widget=='content')-->selected="selected"<!--@end-->>{$widget->title}</option>
-            <!--@end-->
-        </select>
-        <input type="button" value="{$lang->cmd_insert}" onclick="doAddWidget(this.form); return false;" class="btn" />
-        <input type="submit" value="{$lang->cmd_save}" class="btn"/>
-        <input type="button" value="{$lang->cmd_remove_all_widgets}" onclick="removeAllWidget();return false;"class="btn"/>
-    </div>
+    <input type="button" value="{$lang->cmd_box_widget_insert}" onclick="doAddWidgetBox(); return false;" class="btn" />
+    <input type="button" value="{$lang->cmd_content_insert}" onclick="doAddContent('{$module_info->mid}'); return false;" class="btn" />
+    <select name="widget_list">
+        <!--@foreach($widget_list as $widget)-->
+        <option value="{$widget->widget}" <!--@if($widget->widget=='content')-->selected="selected"<!--@end-->>{$widget->title}</option>
+        <!--@end-->
+    </select>
+    <input type="button" value="{$lang->cmd_insert}" onclick="doAddWidget(this.form); return false;" class="btn" />
+    <input type="submit" value="{$lang->cmd_save}" class="btn btn-primary"/>
+    <input type="button" value="{$lang->cmd_remove_all_widgets}" onclick="removeAllWidget();return false;"class="btn btn-danger"/>
 </form>
 
 <div id="widgetButton" class="widgetButtons">

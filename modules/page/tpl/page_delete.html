@@ -1,33 +1,29 @@
-<load target="js/page_admin.js" usecdn="true" />
-<!--#include("header.html")-->
+<div id="delete_page_modal" class="modal hide fade">
+    <form ruleset="deletePage" action="./" method="post">
+        <input type="hidden" name="module" value="page" />
+        <input type="hidden" name="act" value="procPageAdminDelete" />
+        <input type="hidden" name="page" value="{$page}" />
+        <input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
 
-<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-	<p>{$XE_VALIDATOR_MESSAGE}</p>
+        <div class="modal-header">
+            <h3>{$lang->confirm_delete}</h3>
+        </div>
+        <div class="modal-body">
+            <p>{$lang->page_delete_warning}</p>
+            <table class="table">
+                <tr>
+                    <th scope="row">{$lang->module_name}</th>
+                    <td id="page_to_delete_mid">{$module_info->mid}</td>
+                </tr>
+                <tr>
+                    <th scope="row">{$lang->module}</th>
+                    <td>page</td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-danger" value="{$lang->cmd_delete}" />
+            <a href="#" class="btn" data-dismiss="modal">{$lang->cmd_back}</a>
+        </div>
+    </form>
 </div>
-
-<form ruleset="deletePage" action="./" method="post">
-	<input type="hidden" name="module" value="page" />
-	<input type="hidden" name="act" value="procPageAdminDelete" />
-	<input type="hidden" name="page" value="{$page}" />
-	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
-
-    <h3 class="h3">{$lang->confirm_delete}</h3>
-	<p>{$lang->page_delete_warning}</p>
-
-    <table class="table">
-        <tr>
-            <th scope="row">{$lang->module_name}</th>
-            <td >{$module_info->mid}</td>
-        </tr>
-        <tr>
-            <th scope="row">{$lang->module}</th>
-            <td>{$module_info->module}</td>
-        </tr>
-    </table>
-
-	<div>
-		<input type="submit" class="btn btn-danger" value="{$lang->cmd_delete}" />
-		<a href="{getUrl('act','dispPageAdminContent')}" class="btn">{$lang->cmd_back}</a>
-	</div>
-</form>
-

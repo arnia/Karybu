@@ -445,6 +445,9 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('getSiteModuleInfo')
             ->will($this->returnValue($site_module_info));
+
+        $context->initializeDatabaseSettings();
+
         return $context;
     }
 
@@ -469,7 +472,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $db_info->https_port = null;
 
         $context = $this->getContextMockForDbInfoLoading($db_info);
-        $this->assertEquals(null, $context->getDbInfo());
 
         $expected_db_info = clone($db_info);
         $expected_db_info->time_zone = '+0200';
@@ -494,7 +496,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $db_info->master_db = array('something');
 
         $context = $this->getContextMockForDbInfoLoading($db_info);
-        $this->assertEquals(null, $context->getDbInfo());
 
         $expected_db_info = clone($db_info);
         $expected_db_info->use_prepared_statements = 'Y';
@@ -510,7 +511,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $db_info->use_prepared_statements = 'N';
 
         $context = $this->getContextMockForDbInfoLoading($db_info);
-        $this->assertEquals(null, $context->getDbInfo());
 
         $expected_db_info = clone($db_info);
 
@@ -530,7 +530,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $db_info->master_db = array('something');
 
         $context = $this->getContextMockForDbInfoLoading($db_info);
-        $this->assertEquals(null, $context->getDbInfo());
 
         $expected_db_info = clone($db_info);
         $expected_db_info->time_zone = date('O');
@@ -546,7 +545,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $db_info->time_zone = '+0200';
 
         $context = $this->getContextMockForDbInfoLoading($db_info);
-        $this->assertEquals(null, $context->getDbInfo());
 
         $expected_db_info = clone($db_info);
 
@@ -569,7 +567,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $db_info->master_db = array('something');
 
         $context = $this->getContextMockForDbInfoLoading($db_info);
-        $this->assertEquals(null, $context->getDbInfo());
 
         $expected_db_info = clone($db_info);
         $expected_db_info->qmail_compatibility = 'N';
@@ -585,7 +582,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $db_info->qmail_compatibility = 'Y';
 
         $context = $this->getContextMockForDbInfoLoading($db_info);
-        $this->assertEquals(null, $context->getDbInfo());
 
         $expected_db_info = clone($db_info);
 
@@ -608,7 +604,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $db_info->master_db = array('something');
 
         $context = $this->getContextMockForDbInfoLoading($db_info);
-        $this->assertEquals(null, $context->getDbInfo());
 
         $expected_db_info = clone($db_info);
         $expected_db_info->use_db_session = 'N';
@@ -624,7 +619,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $db_info->use_db_session = 'Y';
 
         $context = $this->getContextMockForDbInfoLoading($db_info);
-        $this->assertEquals(null, $context->getDbInfo());
 
         $expected_db_info = clone($db_info);
 
@@ -647,7 +641,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $db_info->master_db = array('something');
 
         $context = $this->getContextMockForDbInfoLoading($db_info);
-        $this->assertEquals(null, $context->getDbInfo());
 
         $expected_db_info = clone($db_info);
         $expected_db_info->use_ssl = 'none';
@@ -662,7 +655,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $db_info->use_ssl = 'always';
 
         $context = $this->getContextMockForDbInfoLoading($db_info);
-        $this->assertEquals(null, $context->getDbInfo());
 
         $expected_db_info = clone($db_info);
 
@@ -684,7 +676,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $db_info->master_db = array('something');
 
         $context = $this->getContextMockForDbInfoLoading($db_info);
-        $this->assertEquals(null, $context->getDbInfo());
 
         $expected_db_info = clone($db_info);
 
@@ -701,7 +692,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $db_info->https_port = '25';
 
         $context = $this->getContextMockForDbInfoLoading($db_info);
-        $this->assertEquals(null, $context->getDbInfo());
 
         $expected_db_info = clone($db_info);
 
@@ -774,7 +764,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             ->method('getInstallController')
             ->will($this->returnValue($installController));
 
-        $this->assertEquals(null, $context->getDbInfo());
+        $context->initializeDatabaseSettings();
 
         $expected_db_info = new stdClass();
         $expected_db_info->master_db = array('db_type' => 'mysql','db_port' => '3306','db_hostname' => 'localhost','db_userid' => 'root','db_password' => 'password','db_database' => 'globalcms','db_table_prefix' => 'xe_');
@@ -915,6 +905,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
+        $context->initializeDatabaseSettings();
 
         // 2. Act
         $context->initializeAppSettingsAndCurrentSiteInfo();
@@ -930,7 +921,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
      */
     public function testLoadEnabledLanguages_LangFileExists()
     {
-        $file_handler = $this->getMock('FileHandler', array('hasContent', 'moveFile', 'readFile', 'writeFile', 'readFileAsArray'));
+        $file_handler = $this->getMock('FileHandlerInstance', array('hasContent', 'moveFile', 'readFile', 'writeFile', 'readFileAsArray'));
         $file_handler->expects($this->any())
             ->method('hasContent')
             ->will($this->returnValue(true));
@@ -953,7 +944,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     public function testLoadEnabledLanguages_OldFile()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler', array('hasContent', 'moveFile', 'readFile', 'writeFile', 'readFileAsArray'));
+        $file_handler = $this->getMock('FileHandlerInstance', array('hasContent', 'moveFile', 'readFile', 'writeFile', 'readFileAsArray'));
 
         // First time it checks for file contents, it will see it's empty
         // Second time it will be true, since the file was moved from the old location
@@ -992,7 +983,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     public function testLoadEnabledLanguages_LangFileDoesNotExist()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler', array('hasContent', 'moveFile', 'readFile', 'writeFile', 'readFileAsArray'));
+        $file_handler = $this->getMock('FileHandlerInstance', array('hasContent', 'moveFile', 'readFile', 'writeFile', 'readFileAsArray'));
         $context = $this->getMock('ContextInstance'
             , array('loadLangSupported')
             , array($file_handler));
@@ -2123,6 +2114,68 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/admin', $url);
     }
 
+    public function testGetUrl_RouteBased_Module_Is_Admin_And_Act()
+    {
+        $router = $this->getMock(
+            'Karybu\Routing\Router',
+            array('getRouteCollection'),
+            array(
+                $this->getMock('Symfony\Component\Config\Loader\LoaderInterface'),
+                $this->getMock('Symfony\Component\Routing\RequestContext'),
+                $this->getMock('Psr\Log\LoggerInterface'),
+                false
+            )
+        );
+        $router->expects($this->any())->method('getRouteCollection')->will($this->returnValue($this->getRoutes()));
+        $context = $this->getMock(
+            'ContextInstance',
+            array('getRequestURI', 'isSiteID')
+            ,
+            array(null, null, null, $router)
+        );
+        $_SERVER['SCRIPT_NAME'] = '/';
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+        $context->site_module_info = new stdClass();
+        $context->site_module_info->domain = null;
+
+        $url = $context->getUrl(0, array("module", "admin", "act", "dispMenuAdminSiteMap"));
+        $this->assertEquals('/admin/dispMenuAdminSiteMap', $url);
+    }
+
+    public function testGetUrl_RouteBased_NoRewrite_Module_Is_Admin_And_Act()
+    {
+        $router = $this->getMock(
+            'Karybu\Routing\Router',
+            array('getRouteCollection'),
+            array(
+                $this->getMock('Symfony\Component\Config\Loader\LoaderInterface'),
+                $this->getMock('Symfony\Component\Routing\RequestContext'),
+                $this->getMock('Psr\Log\LoggerInterface'),
+                false
+            )
+        );
+        $router->expects($this->any())->method('getRouteCollection')->will($this->returnValue($this->getRoutes()));
+        $context = $this->getMock(
+            'ContextInstance',
+            array('getRequestURI', 'isSiteID')
+            ,
+            array(null, null, null, $router)
+        );
+        $_SERVER['SCRIPT_NAME'] = '/';
+        $context->expects($this->any())
+            ->method('isSiteID')
+            ->will($this->returnValue(true));
+        $context->site_module_info = new stdClass();
+        $context->site_module_info->domain = null;
+        $context->allow_rewrite = false;
+
+        $url = $context->getUrl(0, array("module", "admin", "act", "dispMenuAdminSiteMap"),
+            null, false);
+        $this->assertEquals('/index.php?module=admin&act=dispMenuAdminSiteMap', $url);
+    }
+
     public function test_GetUrl_RouteBased_Fall2NextValidRequirements(){
         $routes = new \Symfony\Component\Routing\RouteCollection();
         $routes->add("mid_act", new \Symfony\Component\Routing\Route('/{mid}/{act}', array(), array("act"=>"[a-zA-Z0-9]+")));
@@ -2453,7 +2506,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     public function testLoadJavascriptPlugin_JsFile()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler', array('readFileAsArray'));
+        $file_handler = $this->getMock('FileHandlerInstance', array('readFileAsArray'));
         $file_handler->expects($this->once())
             ->method('readFileAsArray')
             ->will($this->returnValue(array(
@@ -2475,7 +2528,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     public function testLoadJavascriptPlugin_CssFile()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler', array('readFileAsArray'));
+        $file_handler = $this->getMock('FileHandlerInstance', array('readFileAsArray'));
         $file_handler->expects($this->once())
             ->method('readFileAsArray')
             ->will($this->returnValue(array(
@@ -2498,7 +2551,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     public function testLoadJavascriptPlugin_SkipsEmptyRows_SkipsRelativePath()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler', array('readFileAsArray'));
+        $file_handler = $this->getMock('FileHandlerInstance', array('readFileAsArray'));
         $file_handler->expects($this->once())
             ->method('readFileAsArray')
             ->will($this->returnValue(array(
@@ -2521,7 +2574,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     public function testLoadJavascriptPlugin_JsFile_ShouldNotBeLoadedTwice()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler', array('readFileAsArray'));
+        $file_handler = $this->getMock('FileHandlerInstance', array('readFileAsArray'));
         $file_handler->expects($this->once())
             ->method('readFileAsArray')
             ->will($this->returnValue(array(
@@ -2543,7 +2596,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     public function testLoadJavascriptPlugin_JsFile_IsntLoadedIfConfigFileUnavailable()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler', array('readFileAsArray'));
+        $file_handler = $this->getMock('FileHandlerInstance', array('readFileAsArray'));
         $file_handler->expects($this->never())
             ->method('readFileAsArray');
 
@@ -2562,7 +2615,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     public function testLoadJavascriptPlugin_JsFile_WithLanguages()
     {
         // 1. Arrange
-        $file_handler = $this->getMock('FileHandler', array('readFileAsArray'));
+        $file_handler = $this->getMock('FileHandlerInstance', array('readFileAsArray'));
         $file_handler->expects($this->once())
             ->method('readFileAsArray')
             ->will($this->returnValue(array(
@@ -3129,7 +3182,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     public function testLoadLangSupported()
     {
         $supported_languages = array("en" => "English", "ro" => "Romana");
-        $file_handler = $this->getMock('FileHandler', array('readFileAsArray'));
+        $file_handler = $this->getMock('FileHandlerInstance', array('readFileAsArray'));
         $file_handler->expects($this->any())->method('readFileAsArray')
             ->will($this->returnValue(array("en,English", "ro,   Romana")));
 

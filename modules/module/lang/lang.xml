@@ -63,7 +63,7 @@
 	</item>
 	<item name="module_category">
 		<value xml:lang="ko"><![CDATA[모듈 분류]]></value>
-		<value xml:lang="en"><![CDATA[Module Category]]></value>
+		<value xml:lang="en"><![CDATA[Category]]></value>
 		<value xml:lang="jp"><![CDATA[モジュールカテゴリ]]></value>
 		<value xml:lang="zh-CN"><![CDATA[模块分类]]></value>
 		<value xml:lang="zh-TW"><![CDATA[模組分類]]></value>

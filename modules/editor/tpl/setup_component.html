@@ -2,22 +2,22 @@
 <load target="css/editor_admin.css" usecdn="true" />
 <load target="js/editor_admin.js" usecdn="true" />
 <h1 class="h1">{$lang->cmd_setup}</h1>
-<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+<div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 <form ruleset="setupComponent" action="./" method="post">
 	<input type="hidden" name="module" value="editor" />
 	<input type="hidden" name="act" value="procEditorAdminSetupComponent" />
 	<input type="hidden" name="component_name" value="{$component_name}" />
-    <div class="table">
-        <table width="100%" border="1" cellspacing="0">
+    <table class="table">
         <tr>
             <th scope="row"><div>{$lang->component_name}</div></th>
             <td>{$component->title}({$component->component_name}) ver. {$component->version}</td>
         </tr>
         <tr>
             <th scope="row"><div>{$lang->component_author}</div></th>
-            <td class="blue">
+            <td>
             <!--@foreach($component->author as $author)-->
             {$author->name} (<a href="{$author->homepage}" onclick="window.open(this.href);return false;">{$author->homepage}</a>, <a href="mailto:{$author->email_address}">{$author->email_address}</a>)<br />
             <!--@endforeach-->
@@ -44,7 +44,10 @@
             <th scope="row"><div>{$lang->grant}</div></th>
             <td>
             <!--@foreach($group_list as $key => $val)-->
-                <input type="checkbox" name="target_group" value="{$key}" <!--@if(in_array($key, $component->target_group))-->checked="checked"<!--@end--> id="group_{$key}"> <label for="group_{$key}">{$val->title}</label> &nbsp;
+                <label for="group_{$key}" class="checkbox">
+                    <input type="checkbox" name="target_group" value="{$key}" <!--@if(in_array($key, $component->target_group))-->checked="checked"<!--@end--> id="group_{$key}">
+                    {$val->title}
+                </label>
             <!--@end-->
                 <p>{$lang->about_component_grant}</p>
             </td>
@@ -71,8 +74,10 @@
                         <div id="section_{$module_category_srl}">
                         <!--@foreach($modules->list as $key => $val)-->
                             <div class="module_list">
-                                <input type="checkbox" value="{$key}" name="mid_list" id="chk_mid_list_{$key}" <!--@if(in_array($key, $component->mid_list))-->checked="checked"<!--@end--> />
-                                <label for="chk_mid_list_{$key}">{$key} ({$val->browser_title})</label>
+                                <label for="chk_mid_list_{$key}">
+                                    <input type="checkbox" value="{$key}" name="mid_list" id="chk_mid_list_{$key}" <!--@if(in_array($key, $component->mid_list))-->checked="checked"<!--@end--> />
+                                    {$key} ({$val->browser_title})
+                                </label>
                             </div>
                         <!--@end-->
                         </div>
@@ -81,10 +86,9 @@
             </tr>
         <!--@end-->
 
-        </table>
-    </div>
-    <div class="btnArea">
-        <span class="btn"><a href="{getUrl('', 'module', 'admin', 'act', 'dispEditorAdminIndex')}" >{$lang->cmd_back}</a></span>
-        <span class="btn"><input type="submit" value="{$lang->cmd_apply}" /></span>
+    </table>
+    <div>
+        <a href="{getUrl('', 'module', 'admin', 'act', 'dispEditorAdminIndex')}" class="btn">{$lang->cmd_back}</a>
+        <input type="submit" value="{$lang->cmd_apply}" class="btn btn-primary" />
     </div>
 </form>

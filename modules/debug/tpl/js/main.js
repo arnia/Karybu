@@ -15,7 +15,8 @@
         }
 
         $.dToolbar('toggleIcon').on('click', function() {
-            $.dToolbar('toggle');
+            if ($.dToolbar('isUp')) $.dToolbar('minimize');
+            else $.dToolbar('maximize');
         });
 
         $.dToolbar('closeIcon').on('click', function() {
@@ -71,6 +72,9 @@
                 prompt("Copy to clipboard: Ctrl+C, Enter", txt);
             }
         });
+        $.dToolbar('closedButton').on('click', function(){
+            $.dToolbar('maximize');
+        });
     });
 
     var methods = {
@@ -106,8 +110,14 @@
         isUp : function() {
             return $.dToolbar('content').is(':visible');
         },
+        isMinimized : function() {
+            return !$.dToolbar('isUp') && $.dToolbar('tabs').is(':visible');
+        },
         getContent : function(index) {
             return $('#debug_tab_' + index, $.dToolbar());
+        },
+        closedButton : function() {
+            return $.dToolbar().next('.bottom-sticky').show();
         },
         checkBottomPadding : function() {
             if ($.dToolbar().data('padding-added') == 'da') {
@@ -136,9 +146,9 @@
         },
 
         toggle : function() {
-            if ($.dToolbar('isUp')) $.dToolbar('minimize');
-            else $.dToolbar('maximize');
-            return $.dToolbar();
+            if ($.dToolbar('isUp')) return $.dToolbar('minimize');
+            if ($.dToolbar('isMinimized')) return $.dToolbar('close');
+            return $.dToolbar('maximize');
         },
         minimize : function() {
             $.dToolbar('content').hide();
@@ -153,17 +163,14 @@
             $.dToolbar('statusBar').show();
             $.dToolbar('toggleIcon').addClass('up');
             $.dToolbar('ajax', { state: 'full' });
-            return $.dToolbar();
+            $.dToolbar('closedButton').hide();
+            return $.dToolbar().show();
         },
         close : function() {
             $.dToolbar('checkBottomPadding');
-            $.dToolbar('ajax', {
-                state: 'closed'
-            });
+            $.dToolbar('closedButton').show();
+            $.dToolbar('ajax', { state: 'closed' });
             return $.dToolbar().hide();
-        },
-        open : function() {
-            return $.dToolbar().show();
         },
         setTabActive : function(tab) {
             $.dToolbar('tabs').removeClass('active');
@@ -197,7 +204,7 @@
                 $.dToolbar('minimize').show();
             }
             else if (state == 'closed') {
-                $.dToolbar('close').show();
+                $.dToolbar('close');
             }
             else $.error('wrong state ' + state);
             return $.dToolbar();
@@ -219,7 +226,7 @@
         } else if ( typeof method === 'object' || ! method ) {
             return methods.get.apply( this, arguments );
         } else {
-            $.error( 'Method ' +  method + ' does not exist on jQuery.dToolbar' );
+            return $.error( 'Method ' +  method + ' does not exist on jQuery.dToolbar' );
         }
     };
 

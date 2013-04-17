@@ -138,6 +138,23 @@
     font-size: 10px;
     cursor: default;
 }
+
 #debug-toolbar .error_description {
     display: none;
+}
+
+.bottom-sticky {
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    border: 2px solid #80b041;
+    background: #181818;
+    color: #80b041;
+    display: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    z-index: 101;
+}
+.bottom-sticky:hover {
+    border-color: darkgoldenrod;
 }

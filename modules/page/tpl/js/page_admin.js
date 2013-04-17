@@ -129,6 +129,27 @@ function doCartSetup(url) {
     popopen(url,'modulesSetup');
 }
 
-jQuery(function($){
-	$('#pageBtnArea').delay(1000).show(1);
+jQuery(document).ready(function($){
+
+    $("#module_category_srl").on("change", function() {
+        if(doChangeCategory($("#fo_list")[0])) {
+            $("#fo_list").submit();
+        }
+    })
+
+
+    $('.kActionIcons').tooltip({
+        selector: "a[data-toggle=tooltip]"
+    })
+
+    $("a.kDelete").on("click", function() {
+        var module_srl = $(this).closest("tr").find(".module_srl").val();
+        var mid = $(this).closest("tr").find(".mid").text();
+
+        $("#delete_page_modal input[name='module_srl']").val(module_srl);
+        $("#page_to_delete_mid").html(mid);
+
+        $("#delete_page_modal").modal('show');
+        return false;
+    });
 });
