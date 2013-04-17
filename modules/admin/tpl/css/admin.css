@@ -46,6 +46,11 @@
     width: 80px;
     right: 0;
     top: 0;
+    margin:0;
+}
+
+.kNav ul {
+    margin:0; padding:0
 }
 
 .kSearch {
@@ -57,24 +62,23 @@
     background-color: #15181f;
     border: none;
     border-top: 1px solid #000000;
-    width: 225px;
     -webkit-box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
     box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     color: #6D7587;
     height: 24px;
     margin-top: -2px;
+    position:relative;
 }
 
 .kSearch i{
     position: relative;
-    margin-left: -250px;
-    margin-top: 8px;
+    top:-7px;
+    left:9px;
+    margin-right:-14px;
+    z-index:99;
 }
 
-.kWrapper > div {
-    margin-bottom: 20px;
-}
 
 .page-title {
     border-bottom: 1px solid #c7d2db;
@@ -98,11 +102,36 @@
     margin-top: -10px;
 }
 
-.toggle-sidebar {
-    background-color: #000000;
-    height: 20px;
-    width: 20px;
+.content-pad {
+    padding: 40px 40px 20px;
 }
+
+p.power{
+    padding:20px 40px 0;
+}
+
+p.cache{
+    padding:0 40px 40px;
+}
+
+.toggle-sidebar {
+     width:44px; height:44px; background:url("../img/tablet-sprite.png") 0 0 no-repeat; margin-top:5px; margin-right:10px; cursor:pointer;
+ }
+
+.toggle-sidebar:hover, .toggle-sidebar:focus, .toggle-sidebar:active {
+    background-position:0 -44px;
+}
+
+.toggle-search {
+    width:44px; height:44px; background:url("../img/tablet-sprite.png") -44px 0 no-repeat; margin-top:5px; margin-right:10px;cursor:pointer;
+}
+
+.toggle-search:hover, .toggle-search:focus, .toggle-search:active {
+    background-position: -44px -44px;
+}
+
+
+
 
 .kNav li {
     height: 80px;
@@ -330,15 +359,44 @@ input[type="color"]:focus,
 
 
 @media (max-width: 767px) {
-    .kWrapper {
-        margin: 0px 0px -80px -20px;
-        padding: 0px 0px 80px 20px!important;
+
+    body { margin:0; padding:80px 0 }
+
+    #kSidebar {
+        display:block; width:100%; position:fixed; top:0; height:auto!important; overflow:visible!important; z-index:999;
+    }
+
+    .mCSB_container { margin:0!important;}
+
+    .mCSB_scrollTools { display:none!important}
+
+    .kSearch, .kInfo { display:none; }
+
+
+    form.action { display: block!important; position: static!important; margin-bottom:10px;}
+
+
+
+    .kWrapper, .kWrapper-container {
+        margin: 0px;
+        padding: 0px;
+        width:100%;
+        position:static;
+        display:block;
+        float:none;
+        height:auto!important; overflow:visible!important
+    }
+
+    .kList { display:none; }
+
+    .page-title {
+    position:static;
     }
 
     .kNav {
         position: fixed;
         width: 100%;
-        bottom:0px;
+        bottom:0;
         left: 0;
         top: auto;
         height: 80px;
@@ -346,7 +404,7 @@ input[type="color"]:focus,
     }
 
     .swatchBoard {
-        margin-right: 0px; margin-left: -20px; padding-right: 20px; padding-left: 20px;padding-top: 128px;
+        margin:0; padding:20px;
     }
 
     .kNav li {
@@ -363,6 +421,17 @@ input[type="color"]:focus,
     .big-icon-preview {
         height: 80px !important;
     }
+
+    .kNav ul { height:80px; }
+
+    .big-icon-preview {
+        background-position: 0 0;
+        -webkit-box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
+        box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom:none;
+        box-shadow: inset -1px 0px 0px 0px rgba(0, 0, 0, 0.3);
+    }
 }
 .chart-tooltip{
     z-index: 10000; !important
@@ -374,3 +443,4 @@ input[type="color"]:focus,
 .visitor {
     padding: 0;
 }
+

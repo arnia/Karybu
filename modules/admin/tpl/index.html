@@ -3,36 +3,40 @@
     <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
         <p>{$XE_VALIDATOR_MESSAGE}</p>
     </div>
-    <div class="row-fluid swatchBoard">
-        <div class="span2 turquoise swatch">
-            <div class="corner"></div>
-            <h1>{number_format($status->total_visitor)}(<!--@if($status->visitor > 0)-->+<!--@end-->{number_format($status->visitor)})</h1>
-            <a href="{getUrl('', 'module', 'admin', 'act', 'dispCounterAdminIndex')}">{$lang->visitors}</a>
-        </div>
-        <div class="span2 red swatch">
-            <div class="corner"></div>
-            <h1>{number_format($status->member->totalCount)}(<!--@if($status->member->todayCount > 0)-->+<!--@end-->{number_format($status->member->todayCount)})</h1>
-            <a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminList')}">{$lang->menu_gnb['user']}</a>
-        </div>
-        <div class="span2 yellow swatch">
-            <div class="corner"></div>
-            <h1>{number_format($status->document->totalCount)}(<!--@if($status->document->todayCount > 0)-->+<!--@end-->{number_format($status->document->todayCount)})</h1>
-            <a href="{getUrl('', 'module', 'admin', 'act', 'dispDocumentAdminList')}">{$lang->menu_gnb_sub['document']}</a>
-        </div>
-        <div class="span2 blue swatch">
-            <div class="corner"></div>
-            <h1>{number_format($status->comment->totalCount)}(<!--@if($status->comment->todayCount > 0)-->+<!--@end-->{$status->comment->todayCount})</h1>
-            <a href="{getUrl('', 'module', 'admin', 'act', 'dispCommentAdminList')}">{$lang->menu_gnb_sub['comment']}</a>
-        </div>
-        <div class="span2 purple swatch">
-            <div class="corner"></div>
-            <h1>{number_format($status->trackback->totalCount)}(<!--@if($status->trackback->todayCount > 0)-->+<!--@end-->{$status->trackback->todayCount})</h1>
-            <a href="{getUrl('', 'module', 'admin', 'act', 'dispTrackbackAdminList')}">{$lang->menu_gnb_sub['trackback']}</a>
-        </div>
-        <div class="span2 green swatch">
-            <div class="corner"></div>
-            <h1>{number_format($status->file->totalCount)}(<!--@if($status->file->todayCount > 0)-->+<!--@end-->{number_format($status->file->todayCount)})</h1>
-            <a href="{getUrl('', 'module', 'admin', 'act', 'dispFileAdminList')}">{$lang->menu_gnb_sub['file']}</a>
+
+
+    <div class="swatchBoard">
+        <div class="row-fluid">
+            <div class="span2 turquoise swatch">
+                <div class="corner"></div>
+                <h1>{number_format($status->total_visitor)}(<!--@if($status->visitor > 0)-->+<!--@end-->{number_format($status->visitor)})</h1>
+                <a href="{getUrl('', 'module', 'admin', 'act', 'dispCounterAdminIndex')}">{$lang->visitors}</a>
+            </div>
+            <div class="span2 red swatch">
+                <div class="corner"></div>
+                <h1>{number_format($status->member->totalCount)}(<!--@if($status->member->todayCount > 0)-->+<!--@end-->{number_format($status->member->todayCount)})</h1>
+                <a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminList')}">{$lang->menu_gnb['user']}</a>
+            </div>
+            <div class="span2 yellow swatch">
+                <div class="corner"></div>
+                <h1>{number_format($status->document->totalCount)}(<!--@if($status->document->todayCount > 0)-->+<!--@end-->{number_format($status->document->todayCount)})</h1>
+                <a href="{getUrl('', 'module', 'admin', 'act', 'dispDocumentAdminList')}">{$lang->menu_gnb_sub['document']}</a>
+            </div>
+            <div class="span2 blue swatch">
+                <div class="corner"></div>
+                <h1>{number_format($status->comment->totalCount)}(<!--@if($status->comment->todayCount > 0)-->+<!--@end-->{$status->comment->todayCount})</h1>
+                <a href="{getUrl('', 'module', 'admin', 'act', 'dispCommentAdminList')}">{$lang->menu_gnb_sub['comment']}</a>
+            </div>
+            <div class="span2 purple swatch">
+                <div class="corner"></div>
+                <h1>{number_format($status->trackback->totalCount)}(<!--@if($status->trackback->todayCount > 0)-->+<!--@end-->{$status->trackback->todayCount})</h1>
+                <a href="{getUrl('', 'module', 'admin', 'act', 'dispTrackbackAdminList')}">{$lang->menu_gnb_sub['trackback']}</a>
+            </div>
+            <div class="span2 green swatch">
+                <div class="corner"></div>
+                <h1>{number_format($status->file->totalCount)}(<!--@if($status->file->todayCount > 0)-->+<!--@end-->{number_format($status->file->todayCount)})</h1>
+                <a href="{getUrl('', 'module', 'admin', 'act', 'dispFileAdminList')}">{$lang->menu_gnb_sub['file']}</a>
+            </div>
         </div>
     </div>
         <!--@if(!$isEnviromentGatheringAgreement)-->
@@ -64,7 +68,7 @@
         </div>
         <!--@end-->
         <div class="row-fluid">
-            <div class="span12 pull-right section">
+            <div class="content-pad">
                 <div class="row-fluid">
                     <div class="portlet box span4">
                         <div class="box-header"><h3 class="h3"><a href="{getUrl('', 'module', 'admin', 'act', 'dispDocumentAdminList')}">{$lang->latest_documents}</a></h3></div>

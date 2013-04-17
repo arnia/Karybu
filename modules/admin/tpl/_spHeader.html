@@ -34,7 +34,7 @@
 </script>
 <!--[if lt IE 9]><load target="js/RGraph/excanvas/excanvas.js"/><![endif]-->
 <div class="kSidebar dark pull-left" id="kSidebar">
-        <div class="toggle-sidebar visible-phone"></div>
+
         <div class="brand">
             <div class="dropdown pull-right">
                 <a class="dropdown-toggle admin" data-toggle="dropdown" href="#" ><img src="img/admin.png"/></a>
@@ -51,10 +51,12 @@
                 </ul>
             </div>
             <a href="{getUrl('','module','admin')}"><img src="{getUrl('')}{$gnb_title_info->adminLogo}" alt="{$gnb_title_info->adminTitle}"/></a>
+            <div class="toggle-sidebar visible-phone pull-right"></div>
+            <div class="toggle-search visible-phone pull-right"></div>
         </div>
-        <div class="kSearch">
-            <i class="icon-search"></i>
-            <input type="text" placeholder="Type something…" class="pull-left">
+        <div class="kSearch row-fluid">
+
+            <i class="icon-search"></i><input type="text" placeholder="Type something…" class="pull-left span10">
         </div>
         <div class="kInfo">
             <h6>DASHBOARD</h6>
@@ -82,9 +84,9 @@
 </div>
 
 <div class="kWrapper x">
-    <div class="row-fluid page-title">
+    <div class="row-fluid">
         <div class="span12">
-            <div class="">
+            <div class="page-title">
                 <i class="big-icon big-icon-dashboard pull-left"></i>
                 <h1>{$lang->menu_gnb['dashboard']}</h1>
             </div>
