@@ -33,15 +33,17 @@
             <th scope="col">
                 <input type="hidden" name="module" value="{$module}" />
                 <input type="hidden" name="act" value="{$act}" />
-                <select name="module_category_srl" id="module_category_srl" class="input-small">
-                    <option value="">{$lang->module_category}</option>
-                    <option value="0" <!--@if($module_category_srl==="0")-->selected="selected"<!--@end-->>{$lang->not_exists}</option>
-                    <!--@foreach($module_category as $key => $val)-->
-                    <option value="{$key}" <!--@if($module_category_srl==$key)-->selected="selected"<!--@end-->>{$val->title}</option>
-                    <!--@end-->
-                    <option value="">---------</option>
-                    <option value="-1">{$lang->cmd_management}</option>
-                </select>
+                <div class="row-fluid">
+                    <select name="module_category_srl" id="module_category_srl" class="span12">
+                        <option value="">{$lang->module_category}</option>
+                        <option value="0" <!--@if($module_category_srl==="0")-->selected="selected"<!--@end-->>{$lang->not_exists}</option>
+                        <!--@foreach($module_category as $key => $val)-->
+                        <option value="{$key}" <!--@if($module_category_srl==$key)-->selected="selected"<!--@end-->>{$val->title}</option>
+                        <!--@end-->
+                        <option value="">---------</option>
+                        <option value="-1">{$lang->cmd_management}</option>
+                    </select>
+                </div>
             </th>
             <th scope="col">{$lang->page_type}</th>
             <th scope="col">{$lang->mid}</th>
