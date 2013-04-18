@@ -54,7 +54,8 @@
 							$_SESSION['XE_VALIDATOR_MESSAGE'] = Context::getLang('captcha_denied');;
 							$_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] = 'error';
 							$_SESSION['XE_VALIDATOR_RETURN_URL'] = Context::get('error_return_url');
-							$ModuleHandler->_setInputValueToSession();
+                            $validator_session = new \Karybu\Validator\ValidatorSession();
+                            $validator_session->saveRequestVariables();
 						}
 					}  else {
 						Context::addHtmlHeader('<script type="text/javascript"> var captchaTargetAct = new Array("'.implode('","',$target_acts).'"); </script>');

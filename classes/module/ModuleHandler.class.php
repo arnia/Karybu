@@ -11,6 +11,7 @@
 
 require_once 'ModuleMatcher.class.php';
 
+use Karybu\Validator\ValidatorSession;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Karybu\ModuleHandler\ModuleInstanceRetriever;
@@ -38,6 +39,9 @@ class ModuleHandlerInstance extends Handler
     /** @var null MobileInstance */
     private $mobile = null;
 
+    /** @var null Karybu\Validator\ValidatorSession */
+    private $validator_session = null;
+
     /**
      * prepares variables to use in moduleHandler
      * @param string $module name of module
@@ -50,6 +54,7 @@ class ModuleHandlerInstance extends Handler
     function ModuleHandlerInstance(
         ContextInstance $context = null,
         MobileInstance $mobile = null,
+        ValidatorSession $validator_session = null,
         $module = '',
         $act = '',
         $mid = '',
@@ -67,6 +72,12 @@ class ModuleHandlerInstance extends Handler
         }
 
         $this->mobile = $mobile;
+
+        if($validator_session == null) {
+            $validator_session = new \Karybu\Validator\ValidatorSession();
+        }
+
+        $this->validator_session = $validator_session;
 
         // If XE has not installed yet, set module as install
         if (!$this->context->isInstalled()) {
@@ -273,9 +284,9 @@ class ModuleHandlerInstance extends Handler
         htmlFooter();
     }
 
-    private function showErrorToUser()
+    protected function showErrorToUser()
     {
-        $type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
+        $type = $this->mobile->isFromMobilePhone() ? 'mobile' : 'view';
         $oMessageObject = & ModuleHandler::getModuleInstance('message', $type);
         $oMessageObject->setError(-1);
         $oMessageObject->setMessage($this->error);
@@ -332,19 +343,21 @@ class ModuleHandlerInstance extends Handler
         return $controller[0];
     }
 
+    protected function loadAdminLayoutAndMenuForModule(&$oModule)
+    {
+        $oAdminView = & getAdminView('admin');
+        $oAdminView->makeGnbUrl($oModule->module_key->getModule());
+        $oModule->setLayoutPath("./modules/admin/tpl");
+        $oModule->setLayoutFile("layout.html");
+    }
 
-    /**
-     * - Checks user permissions
-     * - Checks rulesets
-     *
-     */
-    function filterController($oModule)
+    public function checkUserPermissions($oModule)
     {
         $this->act = $oModule->act;
 
-        $oModuleModel = getModel('module');
+        $oModuleModel = $this->getModuleModel();
         // Now that we have a module instance and a valid act, do stuff
-        $logged_info = Context::get('logged_info');
+        $logged_info = $this->context->get('logged_info');
         if (isset($oModule->checkAdminPermission)
             && $this->module == "admin"
             && $oModule->module_key->getType() == "view"
@@ -353,10 +366,7 @@ class ModuleHandlerInstance extends Handler
             if ($logged_info->is_admin == 'Y') {
                 // Load the admin layout
                 if ($this->act != 'dispLayoutAdminLayoutModify') {
-                    $oAdminView = & getAdminView('admin');
-                    $oAdminView->makeGnbUrl($oModule->module_key->getModule());
-                    $oModule->setLayoutPath("./modules/admin/tpl");
-                    $oModule->setLayoutFile("layout.html");
+                    $this->loadAdminLayoutAndMenuForModule($oModule);
                 }
             } else {
                 $this->error = 'msg_is_not_administrator';
@@ -380,45 +390,14 @@ class ModuleHandlerInstance extends Handler
                 }
             }
         }
-        $ruleset = $oModule->ruleset;
 
-        // ruleset check...
-        if (!empty($ruleset)) {
-            $rulesetModule = $oModule->module_key->getModule(); // ? $forward->module : $this->module;
-            $rulesetFile = $oModuleModel->getValidatorFilePath($rulesetModule, $ruleset, $this->mid);
-            if (!empty($rulesetFile)) {
-                if ($_SESSION['XE_VALIDATOR_ERROR_LANG']) {
-                    $errorLang = $_SESSION['XE_VALIDATOR_ERROR_LANG'];
-                    foreach ($errorLang as $key => $val) {
-                        Context::setLang($key, $val);
-                    }
-                    unset($_SESSION['XE_VALIDATOR_ERROR_LANG']);
-                }
+        unset($logged_info);
+    }
 
-                $Validator = new Validator($rulesetFile);
-                $result = $Validator->validate();
-                if (!$result) {
-                    $lastError = $Validator->getLastError();
-                    $returnUrl = Context::get('error_return_url');
-                    $errorMsg = $lastError['msg'] ? $lastError['msg'] : 'validation error';
-
-                    //for xml response
-                    $oModule->setError(-1);
-                    $oModule->setMessage($errorMsg);
-                    //for html redirect
-                    $this->error = $errorMsg;
-                    $_SESSION['XE_VALIDATOR_ERROR'] = -1;
-                    $_SESSION['XE_VALIDATOR_MESSAGE'] = $this->error;
-                    $_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] = 'error';
-                    $_SESSION['XE_VALIDATOR_RETURN_URL'] = $returnUrl;
-                    $this->_setInputValueToSession();
-                    return $oModule;
-                }
-            }
-        }
-
+    public function injectCustomHeaderAndFooter($oModule)
+    {
         if ($oModule->module_key->getType(
-        ) == "view" && $this->module_info->use_mobile == "Y" && Mobile::isMobileCheckByAgent()
+        ) == "view" && $this->module_info->use_mobile == "Y" && $this->mobile->isMobileCheckByAgent()
         ) {
             global $lang;
             $header = '<style type="text/css">div.xe_mobile{opacity:0.7;margin:1em 0;padding:.5em;background:#333;border:1px solid #666;border-left:0;border-right:0}p.xe_mobile{text-align:center;margin:1em 0}a.xe_mobile{color:#ff0;font-weight:bold;font-size:24px}@media only screen and (min-width:500px){a.xe_mobile{font-size:15px}}</style>';
@@ -426,21 +405,33 @@ class ModuleHandlerInstance extends Handler
                 'm',
                 '1'
             ) . '">' . $lang->msg_pc_to_mobile . '</a></p></div>';
-            Context::addHtmlHeader($header);
-            Context::addHtmlFooter($footer);
+            $this->context->addHtmlHeader($header);
+            $this->context->addHtmlFooter($footer);
         }
 
         if ($oModule->module_key->getType() == "view" && $oModule->module_key->getKind() != 'admin') {
+            $oModuleModel = $this->getModuleModel();
             $module_config = $oModuleModel->getModuleConfig('module');
             if (isset($module_config->htmlFooter)) {
-                Context::addHtmlFooter($module_config->htmlFooter);
+                $this->context->addHtmlFooter($module_config->htmlFooter);
             }
         }
 
         // if failed message exists in session, set context
-        $this->_setInputErrorToContext();
+        $this->validator_session->setErrorsToContext();
+    }
 
-        unset($logged_info);
+    /**
+     * - Checks user permissions
+     * - Checks rulesets
+     *
+     */
+    function filterController($oModule)
+    {
+        $output = $this->checkUserPermissions($oModule);
+        if($output) return $output;
+
+        $this->injectCustomHeaderAndFooter($oModule);
     }
 
     function setErrorsToSessionAfterProc($oModule, $procResult)
@@ -457,7 +448,7 @@ class ModuleHandlerInstance extends Handler
                 if (!$redirectUrl && Context::get('error_return_url')) {
                     $redirectUrl = Context::get('error_return_url');
                 }
-                $this->_setInputValueToSession();
+                $this->validator_session->saveRequestVariables();
 
             } else {
                 if (count($_SESSION['INPUT_ERROR'])) {
@@ -520,7 +511,7 @@ class ModuleHandlerInstance extends Handler
         return $oModule;
     }
 
-    private function initAdminMenu()
+    protected function initAdminMenu()
     {
         // admin menu check
         if (Context::isInstalled()) {
@@ -539,64 +530,8 @@ class ModuleHandlerInstance extends Handler
         }
     }
 
-    /**
-     * set error message to Session.
-     * @return void
-     **/
-    function _setInputErrorToContext()
-    {
-        if ($_SESSION['XE_VALIDATOR_ERROR'] && !$this->context->get('XE_VALIDATOR_ERROR')) {
-            $this->context->set(
-                'XE_VALIDATOR_ERROR',
-                $_SESSION['XE_VALIDATOR_ERROR']
-            );
-        }
-        if ($_SESSION['XE_VALIDATOR_MESSAGE'] && !$this->context->get('XE_VALIDATOR_MESSAGE')) {
-            $this->context->set(
-                'XE_VALIDATOR_MESSAGE',
-                $_SESSION['XE_VALIDATOR_MESSAGE']
-            );
-        }
-        if ($_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] && !$this->context->get(
-            'XE_VALIDATOR_MESSAGE_TYPE'
-        )
-        ) {
-            $this->context->set('XE_VALIDATOR_MESSAGE_TYPE', $_SESSION['XE_VALIDATOR_MESSAGE_TYPE']);
-        }
-        if ($_SESSION['XE_VALIDATOR_RETURN_URL'] && !$this->context->get(
-            'XE_VALIDATOR_RETURN_URL'
-        )
-        ) {
-            $this->context->set('XE_VALIDATOR_RETURN_URL', $_SESSION['XE_VALIDATOR_RETURN_URL']);
-        }
 
-        $this->_clearErrorSession();
-    }
 
-    /**
-     * clear error message to Session.
-     * @return void
-     **/
-    function _clearErrorSession()
-    {
-        $_SESSION['XE_VALIDATOR_ERROR'] = '';
-        $_SESSION['XE_VALIDATOR_MESSAGE'] = '';
-        $_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] = '';
-        $_SESSION['XE_VALIDATOR_RETURN_URL'] = '';
-    }
-
-    /**
-     * occured error when, set input values to session.
-     * @return void
-     **/
-    function _setInputValueToSession()
-    {
-        $requestVars = $this->context->getRequestVars();
-        unset($requestVars->act, $requestVars->mid, $requestVars->vid, $requestVars->success_return_url, $requestVars->error_return_url);
-        foreach ($requestVars AS $key => $value) {
-            $_SESSION['INPUT_ERROR'][$key] = $value;
-        }
-    }
 
     /**
      * display contents from executed module
@@ -658,7 +593,7 @@ class ModuleHandlerInstance extends Handler
                     $oModule = $oMessageObject;
                 }
 
-                $this->_clearErrorSession();
+                $this->validator_session->clear();
             }
 
             // Check if layout_srl exists for the module

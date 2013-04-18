@@ -47,8 +47,9 @@ class CMSListener implements EventSubscriberInterface
                 array('checkForErrorsAndPrepareMobileStatus', 22)
             ),
             KernelEvents::CONTROLLER => array(
-                array('filterController', 100),
-                array('executeTriggersAddonsAndOthersBefore', 99)
+                array('checkUserPermissions', 100),
+                array('injectCustomHeaderAndFooter', 96),
+                array('executeTriggersAddonsAndOthersBefore', 90)
             ),
             KernelEvents::EXCEPTION => array('onKernelException', -128),
             KernelEvents::TERMINATE => 'onTerminate',
@@ -171,16 +172,30 @@ class CMSListener implements EventSubscriberInterface
         }
     }
 
-    public function filterController(FilterControllerEvent $event)
+    public function checkUserPermissions(FilterControllerEvent $event)
     {
         /** @var $controller Karybu\HttpKernel\Controller\ControllerWrapper */
         $controller = $event->getController();
         $oModule = $controller->getModuleInstance();
         $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
-        if ($errorObject = $oModuleHandler->filterController($oModule)) {
+        if ($errorObject = $oModuleHandler->checkUserPermissions($oModule)) {
             $controller->setModuleInstance($errorObject);
             $event->setController($controller);
         }
+    }
+
+    public function injectCustomHeaderAndFooter(FilterControllerEvent $event)
+    {
+        $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
+        if($oModuleHandler->error) return;
+
+        /** @var $controller Karybu\HttpKernel\Controller\ControllerWrapper */
+        $controller = $event->getController();
+        $oModule = $controller->getModuleInstance();
+
+        if(!$oModule->toBool()) return;
+
+        $oModuleHandler->injectCustomHeaderAndFooter($oModule);
     }
 
     public function executeTriggersAddonsAndOthersBefore(FilterControllerEvent $event)

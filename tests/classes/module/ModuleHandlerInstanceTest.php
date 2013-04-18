@@ -15,6 +15,12 @@ if(!class_exists('FileHandler')){
 if(!class_exists('Validator')){
     class Validator {}
 }
+
+function getUrl()
+{
+    return '';
+}
+
 class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
@@ -919,6 +925,262 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('redirect_url', $result->getTargetUrl());
     }
 
+    private function getModuleInstanceWith($act, $module, $type, $kind)
+    {
+        $oModule = new stdClass;
+        $oModule->act = $act;
+        $oModule->module_key = new ModuleKey($module, $type, $kind);
+        return $oModule;
+    }
+
+    private function getPrivateModuleInstanceWith($act, $module, $type, $kind)
+    {
+        $oModule = $this->getModuleInstanceWith($act, $module, $type, $kind);
+        $oModule->checkAdminPermission = true;
+        return $oModule;
+    }
+
+    public function testFilterController_WhenEverythingIsOk_AnonymousUser()
+    {
+        $mock_helper = new MockHelper($this);
+
+        $mock_helper->method('moduleModel', 'getModuleConfig')->shouldReturn(new stdClass());
+        $module_model = $mock_helper->getMock('moduleModel');
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($module_model);
+        $mock_helper->method('ModuleHandlerInstance', 'initAdminMenu')->shouldReturn(null);
+        $mock_helper->method('ModuleHandlerInstance', '_setInputErrorToContext')->shouldBeCalled("any");
+
+        $context = $mock_helper->getMock('ContextInstance');
+        $mobile = $mock_helper->getMock('MobileInstance');
+
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
+
+        $this->assertNull($module_handler->filterController($this->getModuleInstanceWith("procInstallAdminSaveFTPInfo", "install", "controller", "admin")));
+        $this->assertNull($module_handler->filterController($this->getModuleInstanceWith("dispSomething", "dummymodule", "view", "")));
+    }
+
+
+    public function testFilterController_WhenEverythingIsOk_LoggedInUser_Frontend()
+    {
+        $mock_helper = new MockHelper($this);
+
+        $mock_helper->method('moduleModel', 'getModuleConfig')->shouldReturn(new stdClass());
+
+        $module_info = new stdClass();
+        $module_info->just_testing = true;
+
+        $logged_info = new stdClass();
+
+        $grant = new stdClass();
+        $grant->manager = true;
+
+        $mock_helper->method('moduleModel', 'getGrant')->shouldBeCalledWith($module_info, $logged_info)->shouldReturn($grant);
+        $module_model = $mock_helper->getMock('moduleModel');
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($module_model);
+        $mock_helper->method('ModuleHandlerInstance', 'initAdminMenu')->shouldReturn(null);
+        $mock_helper->method('ModuleHandlerInstance', '_setInputErrorToContext')->shouldBeCalled("any");
+        $mock_helper->method('ModuleHandlerInstance', 'showErrorToUser')->shouldReturn("ERROR");
+        $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+
+        $context = $mock_helper->getMock('ContextInstance');
+        $context->set('logged_info', $logged_info);
+
+        $mobile = $mock_helper->getMock('MobileInstance');
+
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
+        $module_handler->module_info = $module_info;
+
+        $this->assertNull($module_handler->filterController($this->getPrivateModuleInstanceWith("procInstallAdminSaveFTPInfo", "install", "controller", "admin")));
+        $this->assertNull($module_handler->filterController($this->getPrivateModuleInstanceWith("dispSomething", "dummymodule", "view", "")));
+    }
+
+    public function testFilterController_WhenEverythingIsOk_LoggedInUser_Backend()
+    {
+        $mock_helper = new MockHelper($this);
+
+        $mock_helper->method('moduleModel', 'getModuleConfig')->shouldReturn(new stdClass());
+
+        $module_info = new stdClass();
+        $module_info->just_testing = true;
+
+        $logged_info = new stdClass();
+        $logged_info->is_admin = 'Y';
+
+        $grant = new stdClass();
+        $grant->manager = true;
+
+        $mock_helper->method('moduleModel', 'getGrant')->shouldBeCalledWith($module_info, $logged_info)->shouldReturn($grant);
+        $module_model = $mock_helper->getMock('moduleModel');
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($module_model);
+        $mock_helper->method('ModuleHandlerInstance', 'initAdminMenu')->shouldReturn(null);
+        $mock_helper->method('ValidatorSession', 'setErrorsToContext')->shouldBeCalled("once");
+        $mock_helper->method('ModuleHandlerInstance', 'showErrorToUser')->shouldReturn("ERROR");
+        $oModule = $this->getPrivateModuleInstanceWith("dispSomething", "dummymodule", "view", "");
+        $mock_helper->method('ModuleHandlerInstance', 'loadAdminLayoutAndMenuForModule')->shouldBeCalledWith($oModule);
+        $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+
+        $context = $mock_helper->getMock('ContextInstance');
+        $context->set('logged_info', $logged_info);
+
+        $mobile = $mock_helper->getMock('MobileInstance');
+        $validator_session = $mock_helper->getMock('Karybu\Validator\ValidatorSession');
+
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile, null, $validator_session));
+        $module_handler->module_info = $module_info;
+        $module_handler->module = "admin";
+
+        $this->assertNull($module_handler->filterController($oModule));
+    }
+
+    public function testFilterController_ModuleHandlerInstanceProperties()
+    {
+        $mock_helper = new MockHelper($this);
+
+        $mock_helper->method('moduleModel', 'getModuleConfig')->shouldReturn(new stdClass());
+        $module_model = $mock_helper->getMock('moduleModel');
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($module_model);
+        $mock_helper->method('ModuleHandlerInstance', 'initAdminMenu')->shouldReturn(null);
+        $mock_helper->method('ValidatorSession', 'setErrorsToContext')->shouldBeCalled("once");
+
+        $context = $mock_helper->getMock('ContextInstance');
+        $mobile = $mock_helper->getMock('MobileInstance');
+        $validator_session = $mock_helper->getMock('Karybu\Validator\ValidatorSession');
+
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile, null, $validator_session));
+
+        $oModule = $this->getModuleInstanceWith("dispSomething", "dummymodule", "view", "");
+
+        $result = $module_handler->filterController($oModule);
+
+        $this->assertNull($result);
+        $this->assertEquals("dispSomething", $module_handler->act);
+    }
+
+    public function testFilterController_WhenEverythingIsOk_WhenMobileAddsLinkToPc()
+    {
+        $mock_helper = new MockHelper($this);
+
+        $mock_helper->method('moduleModel', 'getModuleConfig')->shouldReturn(new stdClass());
+        $module_model = $mock_helper->getMock('moduleModel');
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($module_model);
+        $mock_helper->method('ModuleHandlerInstance', 'initAdminMenu')->shouldReturn(null);
+        $mock_helper->method('ValidatorSession', 'setErrorsToContext')->shouldBeCalled("once");
+        $mock_helper->method('MobileInstance', 'isMobileCheckByAgent')->shouldReturn(true);
+        $mock_helper->method('ContextInstance', 'addHtmlHeader')->shouldBeCalled("once");
+        $mock_helper->method('ContextInstance', 'addHtmlFooter')->shouldBeCalled("once");
+
+        $context = $mock_helper->getMock('ContextInstance');
+        $mobile = $mock_helper->getMock('MobileInstance');
+        $validator_session = $mock_helper->getMock('Karybu\Validator\ValidatorSession');
+
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile, null, $validator_session));
+        $module_handler->module_info = new stdClass();
+        $module_handler->module_info->use_mobile = "Y";
+
+        $this->assertNull($module_handler->filterController($this->getModuleInstanceWith("dispSomething", "dummymodule", "view", "")));
+    }
+
+    public function testFilterController_WhenEverythingIsOk_AddsUserConfiguredFooterIfAny()
+    {
+        $mock_helper = new MockHelper($this);
+
+        $module_config = new stdClass();
+        $module_config->htmlFooter = "Hello";
+
+        $mock_helper->method('moduleModel', 'getModuleConfig')->shouldReturn($module_config);
+        $module_model = $mock_helper->getMock('moduleModel');
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($module_model);
+        $mock_helper->method('ModuleHandlerInstance', 'initAdminMenu')->shouldReturn(null);
+        $mock_helper->method('ValidatorSession', 'setErrorsToContext')->shouldBeCalled("once");
+        $mock_helper->method('ContextInstance', 'addHtmlFooter')->shouldBeCalledWith("Hello");
+
+        $context = $mock_helper->getMock('ContextInstance');
+        $mobile = $mock_helper->getMock('MobileInstance');
+        $validator_session = $mock_helper->getMock('Karybu\Validator\ValidatorSession');
+
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile, null, $validator_session));
+
+        $this->assertNull($module_handler->filterController($this->getModuleInstanceWith("dispSomething", "dummymodule", "view", "")));
+    }
+
+    public function testFilterController_ReturnsErrorIfUserViewingAdminButIsntAdmin()
+    {
+        $mock_helper = new MockHelper($this);
+
+        $logged_info = new stdClass();
+        $logged_info->is_admin = "N";
+
+        $module_model = $mock_helper->getMock('moduleModel');
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($module_model);
+        $mock_helper->method('ValidatorSession', 'setErrorsToContext')->shouldBeCalled("never");
+        $mock_helper->method('ModuleHandlerInstance', 'showErrorToUser')->shouldReturn("ERROR");
+        $mock_helper->method('ContextInstance', 'isInstalled')->shouldReturn(true);
+
+        $context = $mock_helper->getMock('ContextInstance');
+        $context->set('logged_info', $logged_info);
+
+        $mobile = $mock_helper->getMock('MobileInstance');
+        $validator_session = $mock_helper->getMock('Karybu\Validator\ValidatorSession');
+
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile, null, $validator_session));
+        $module_handler->module = "admin";
+
+        $oModule = $this->getPrivateModuleInstanceWith('dispSomething', "dummymodule", "view", "");
+
+        $result = $module_handler->filterController($oModule);
+
+        $this->assertEquals("ERROR", $result);
+        $this->assertEquals("msg_is_not_administrator", $module_handler->error);
+
+    }
+
+    /**
+     * Karybu allows you to configure the IP's from which you are allowed to access the admin interface
+     */
+    public function testFilterController_ReturnsErrorIfUserAccessesAdminFromUnregisteredIp()
+    {
+        $mock_helper = new MockHelper($this);
+        $mock_helper->method('ModuleHandlerInstance', 'initAdminMenu')->shouldReturn(null);
+        $mock_helper->method('ModuleHandlerInstance', 'showErrorToUser')->shouldReturn("ERROR");
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn(new stdClass());
+        $context = $mock_helper->getMock('ContextInstance');
+        $mobile = $mock_helper->getMock('MobileInstance');
+
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
+        $oModule = $this->getPrivateModuleInstanceWith('dispSomething', "dummymodule", "view", "admin");
+
+        $_SESSION['denied_admin'] = 'Y';
+
+        $result = $module_handler->filterController($oModule);
+
+        $this->assertEquals("ERROR", $result);
+        $this->assertEquals("msg_not_permitted_act", $module_handler->error);
+    }
+
+    public function testFilterController_ReturnsErrorIfUserTriesToAccessAdminActionButIsNotManager()
+    {
+        $mock_helper = new MockHelper($this);
+        $mock_helper->method('ModuleHandlerInstance', 'initAdminMenu')->shouldReturn(null);
+        $mock_helper->method('ModuleHandlerInstance', 'showErrorToUser')->shouldReturn("ERROR");
+
+        $grant = new stdClass();
+        $grant->manager = false;
+        $grant->is_admin = false;
+
+        $mock_helper->method('moduleModel', 'getGrant')->shouldBeCalledWith(null, null)->shouldReturn($grant);
+        $module_model = $mock_helper->getMock('moduleModel');
+        $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($module_model);
+        $context = $mock_helper->getMock('ContextInstance');
+        $mobile = $mock_helper->getMock('MobileInstance');
+
+        $module_handler = $mock_helper->getMock('ModuleHandlerInstance', array($context, $mobile));
+        $oModule = $this->getPrivateModuleInstanceWith('dispSomething', "dummymodule", "view", "admin");
+
+        $result = $module_handler->filterController($oModule);
+
+        $this->assertEquals("ERROR", $result);
+        $this->assertEquals("msg_is_not_manager", $module_handler->error);
+    }
 
 
 }

@@ -11,15 +11,20 @@ services:
     cms.mobile.instance: { class: 'MobileInstance' }
     cms.file_handler.instance: { class: 'FileHandlerInstance' }
 
+    cms.validator: { class: 'Validator' }
+    cms.validator_session: {class: 'Karybu\Validator\ValidatorSession', arguments: [@cms.context.instance] }
+
     listener.router: { class: 'Karybu\EventListener\RouterListener', arguments: [ @cms.router ] }
     listener.response: { class: 'Symfony\Component\HttpKernel\EventListener\ResponseListener', arguments: [ '%charset%' ] }
     listener.cms: { class: 'Karybu\EventListener\CMSListener', arguments: [ @cms.context.instance, @cms.display_handler, @cms.mobile.instance, @cms.file_handler.instance ] }
+    listener.validator: { class: 'Karybu\EventListener\ValidatorListener', arguments: [ @cms.validator, @cms.validator_session ]}
 
     dispatcher:
         class: 'Symfony\Component\EventDispatcher\EventDispatcher'
         calls:
             - [addSubscriber, [@listener.router]]
             - [addSubscriber, [@listener.cms]]
+            - [addSubscriber, [@listener.validator]]
             - [addSubscriber, [@listener.response]]
 
     resolver: { class: 'Karybu\HttpKernel\Controller\ControllerResolver' }
