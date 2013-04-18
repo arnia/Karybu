@@ -150,15 +150,14 @@
             }
 
             $buff = '<?php if(!defined("__ZBXE__")) exit();'."\n";
-            foreach($ftp_info as $key => $val) {
-                if(!$val) continue;
-				if(preg_match('/(<\?|<\?php|\?>|fputs|fopen|fwrite|fgets|fread|\/\*|\*\/|chr\()/xsm', preg_replace('/\s/', '', $val)))
-				{
-					continue;
-				}
+            foreach ($ftp_info as $key => $val) {
+                if (!$val) continue;
+				if (preg_match(
+                    '/(<\?|<\?php|\?>|fputs|fopen|fwrite|fgets|fread|\/\*|\*\/|chr\()/xsm'
+                    , preg_replace('/\s/', '', $val)
+                )) continue;
                 $buff .= sprintf("\$ftp_info->%s = '%s';\n", $key, str_replace("'","\\'",$val));
             }
-            $buff .= "?>";
             $config_file = Context::getFTPConfigFile();
             FileHandler::WriteFile($config_file, $buff);
             if($_SESSION['ftp_password']) {
