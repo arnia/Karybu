@@ -1412,3 +1412,8 @@ jQuery(function($){
 		});
 	});
 });
+jQuery(document).ready(function($){
+    $('.kActionIcons').tooltip({
+        selector: "a[data-toggle=tooltip]"
+    })
+});
