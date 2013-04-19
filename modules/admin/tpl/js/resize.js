@@ -32,6 +32,7 @@ function destroyScrollbar() {
 }
 
 function rebuildHorizontalScrollbar() {
+    destroyScrollbar();
     $("#kNav").mCustomScrollbar({
         horizontalScroll:true,
         scrollButtons: {
@@ -41,11 +42,17 @@ function rebuildHorizontalScrollbar() {
 }
 
 function rebuildVerticalScrollbar() {
+    destroyScrollbar();
     $("#kNav").mCustomScrollbar({
         scrollButtons: {
             enable: true
         }
     });
+}
+
+function isSmallScreen()
+{
+    return parseInt($(window).width()) <= 767;
 }
 
 jQuery(document).ready( function() {
@@ -56,26 +63,25 @@ jQuery(document).ready( function() {
     $(window).load(function(){
         $("#chart").attr('width',$("#chart-container").width());
         RGraph.Redraw();
-        if (parseInt($(window).width()) <= 480) {
-            addStackedToNav()
+        if (isSmallScreen()) {
+            addStackedToNav();
+            rebuildHorizontalScrollbar();
         }
     });
 
     $(window).resize(function(){
         $("#chart").attr('width',$("#chart-container").width());
         RGraph.Redraw();
-        if (parseInt($(window).width()) <= 480) {
+        if (isSmallScreen()) {
             addStackedToNav();
+            rebuildHorizontalScrollbar();
         }
         else{
-            removeStackedFromNav()
+            removeStackedFromNav();
+            rebuildVerticalScrollbar();
         }
 
     });
-
-
-
-
 });
 
 
