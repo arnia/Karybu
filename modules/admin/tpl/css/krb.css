@@ -72,6 +72,15 @@ blockquote.pull-right {
 
 /* TAGS END */
 
+
+#content {
+    padding: 0 40px 20px;
+}
+
+.main-nav {
+    padding: 40px 40px 0;
+}
+
 /* BUTTONS START */
 
 .btn,
@@ -860,6 +869,8 @@ a:hover i.kDelete:hover {
 
 
 /* ACTION ICONS END */
+
+
 
 /* ADMIN CORRECTIONS */
 
