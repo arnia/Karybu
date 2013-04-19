@@ -8,6 +8,7 @@
             <file>./classes/module/ModuleHandlerInstanceTest.php</file>
             <file>./classes/security/SecurityTest.php</file>
             <file>./src/Karybu/EventListener/CMSListenerTest.php</file>
+            <file>./src/Karybu/EventListener/ValidatorListenerTest.php</file>
             <file>./src/Karybu/ModuleHandler/ModuleInstanceRetrieverTest.php</file>
 		</testsuite>
 	</testsuites>

@@ -9,7 +9,8 @@
         "symfony/config": "2.2.*",
         "symfony/yaml": "2.2.*",
         "symfony/stopwatch":"2.2.*",
-        "monolog/monolog": "1.4.*"
+        "monolog/monolog": "1.4.*",
+        "symfony/console": "2.2.*"
     },
     "autoload": {
         "psr-0": {

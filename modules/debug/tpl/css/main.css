@@ -155,6 +155,10 @@
     padding: 5px 10px;
     z-index: 101;
 }
+.bottom-sticky.left {
+    right: inherit;
+    left: 5px;
+}
 .bottom-sticky:hover {
     border-color: darkgoldenrod;
 }
