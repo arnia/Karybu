@@ -8,6 +8,7 @@
 <load target="css/mCustomScrollbar.css"/>
 <load target="js/jquery.mCustomScrollbar.concat.min.js"/>
 <load target="js/resize.js"/>
+<load target="js/jqueryt.fittext.js"/>
 
 <script type="text/javascript">
 
@@ -20,6 +21,8 @@
         body.width(wW);
     }
 
+
+
     jQuery(document).ready(function(){
 
         $ = jQuery;
@@ -30,10 +33,14 @@
             setFullBodySize();
         });
 
+
+
     });
 </script>
+
+
 <!--[if lt IE 9]><load target="js/RGraph/excanvas/excanvas.js"/><![endif]-->
-<div class="kSidebar dark pull-left" id="kSidebar">
+<div class="kSidebar pull-left kDark" id="kSidebar">
 
         <div class="brand">
             <div class="dropdown pull-right">
@@ -52,7 +59,6 @@
             </div>
             <a href="{getUrl('','module','admin')}"><img src="{getUrl('')}{$gnb_title_info->adminLogo}" alt="{$gnb_title_info->adminTitle}"/></a>
             <div class="toggle-sidebar visible-phone pull-right"></div>
-            <div class="toggle-search visible-phone pull-right"></div>
         </div>
         <div class="kSearch row-fluid">
 
@@ -84,14 +90,6 @@
 </div>
 
 <div class="kWrapper x">
-    <div class="row-fluid">
-        <div class="span12">
-            <div class="page-title">
-                <i class="big-icon big-icon-dashboard pull-left"></i>
-                <h1>{$lang->menu_gnb['dashboard']}</h1>
-            </div>
-        </div>
-    </div>
     <div class="kWrapper-container" id="dashboard_content">
 
 
