@@ -50,6 +50,15 @@
 		<value xml:lang="tr"><![CDATA[Editor Option]]></value>
 		<value xml:lang="vi"><![CDATA[Editor Option]]></value>
 	</item>
+    <item name="editor_option_main">
+        <value xml:lang="en"><![CDATA[Main editor]]></value>
+    </item>
+    <item name="editor_option_comment">
+        <value xml:lang="en"><![CDATA[Comments editor]]></value>
+    </item>
+    <item name="editor_option_body">
+        <value xml:lang="en"><![CDATA[HTML body styles]]></value>
+    </item>
 	<item name="guide_choose_main_editor">
 		<value xml:lang="ko"><![CDATA[본문 에디터를 선택하세요.]]></value>
 		<value xml:lang="en"><![CDATA[Choose the main editor.]]></value>

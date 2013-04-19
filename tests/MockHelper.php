@@ -58,7 +58,7 @@ class MockHelper
     }
 
     /**
-     * @param $times once | never | any
+     * @param $times string once | never | any
      * @return MockHelper
      */
     public function shouldBeCalled($times)
@@ -87,7 +87,7 @@ class MockHelper
             {
                 if($method_info == null) continue;
 
-                if($method_info->expects)
+                if(isset($method_info->expects))
                 {
                     if($method_info->expects == 'any')
                         $expects = $this->test->any();
@@ -105,7 +105,7 @@ class MockHelper
                 /** @var $invocation_mocker PHPUnit_Framework_MockObject_Builder_InvocationMocker */
                 $invocation_mocker = $mock->expects($expects)->method($mocked_method);
 
-                if($method_info->with)
+                if(isset($method_info->with))
                 {
                     $args = array();
                     foreach($method_info->with as $value)
@@ -116,7 +116,7 @@ class MockHelper
                     call_user_func_array(array($invocation_mocker, 'with'), $args);
                 }
 
-                if($method_info->return)
+                if(isset($method_info->return))
                 {
                     $invocation_mocker->will($this->test->returnValue($method_info->return));
                 }
