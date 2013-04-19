@@ -21,7 +21,13 @@ xe.lang.confirm_reset_admin_menu = '{$lang->confirm_reset_admin_menu}';
 admin_menu_srl = '{$admin_menu_srl}';
 
 
-
+(function($){
+    $(window).load(function(){
+        $("#kMenuButton").click(function () {
+            $("#kMobileMenu").toggle('fast');
+        });
+    });
+})(jQuery);
 
 (function($){
     $(window).load(function(){
@@ -64,6 +70,8 @@ admin_menu_srl = '{$admin_menu_srl}';
     });
 })(jQuery);
 </script>
+
+
 
 <load target="./js/config.js" usecdn="true" />
 <load target="../../session/tpl/js/session.js" usecdn="true" />

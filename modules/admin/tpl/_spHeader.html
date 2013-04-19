@@ -58,22 +58,30 @@
                 </ul>
             </div>
             <a href="{getUrl('','module','admin')}"><img src="{getUrl('')}{$gnb_title_info->adminLogo}" alt="{$gnb_title_info->adminTitle}"/></a>
-            <div class="toggle-sidebar visible-phone pull-right"></div>
+            <div class="toggle-sidebar visible-phone pull-right" id="kMenuButton"></div>
         </div>
-        <div class="kSearch row-fluid">
 
-            <i class="icon-search"></i><input type="text" placeholder="Type something…" class="pull-left span10">
-        </div>
-        <div class="kInfo">
-            <h6>DASHBOARD</h6>
-            <p>Using this section you can create, change or update the content of your website</p>
-        </div>
-        <div class="kList">
-            <ul class="unstyled kList">
+    <!-- mobile dropdown -->
+
+        <div id="kMobileMenu">
+            <div class="kSearch">
+                <div class="row-fluid">
+                    <i class="icon-search"></i><input type="text" placeholder="Type something…" class="pull-left span12">
+                </div>
+            </div>
+            <div class="kInfo">
                 <h6>DASHBOARD</h6>
-                <li loop="$main_menu->items=>$key,$value"><a href="#">{$value->name}</a></li>
-            </ul>
+                <p>Using this section you can create, change or update the content of your website</p>
+            </div>
+            <div class="kList">
+                <ul class="unstyled kList">
+                    <h6>DASHBOARD</h6>
+                    <li loop="$main_menu->items=>$key,$value"><a href="#">{$value->name}</a></li>
+                </ul>
+            </div>
         </div>
+    <!-- mobile dropdown end -->
+
     </div>
 <div class="kNav navbar pull-right" id="kNav">
     <ul class="unstyled ">
