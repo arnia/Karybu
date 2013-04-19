@@ -133,7 +133,9 @@
             $ftp_info->ftp_port = Context::get('ftp_port');
             $ftp_info->ftp_host = Context::get('ftp_host');
 			$ftp_info->ftp_pasv = Context::get('ftp_pasv');
-			if(!$ftp_info->ftp_pasv) $ftp_info->ftp_pasv = "N";
+			if ($ftp_info->ftp_pasv !== 'Y') {
+                $ftp_info->ftp_pasv = "N";
+            }
             $ftp_info->sftp = Context::get('sftp');
 
 			$ftp_root_path = Context::get('ftp_root_path');
@@ -159,7 +161,9 @@
             $buff .= "?>";
             $config_file = Context::getFTPConfigFile();
             FileHandler::WriteFile($config_file, $buff);
-            if($_SESSION['ftp_password']) unset($_SESSION['ftp_password']);
+            if($_SESSION['ftp_password']) {
+                unset($_SESSION['ftp_password']);
+            }
             $this->setMessage('success_updated');
 			$this->setRedirectUrl(Context::get('error_return_url'));
 		}
