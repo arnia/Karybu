@@ -31,7 +31,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/.
 				horizontalScroll:false, /*scroll horizontally: boolean*/
 				scrollInertia:950, /*scrolling inertia: integer (milliseconds)*/
 				mouseWheel:true, /*mousewheel support: boolean*/
-				mouseWheelPixels:"auto", /*mousewheel pixels amount: integer, "auto"*/
+				mouseWheelPixels:700, /*mousewheel pixels amount: integer, "auto"*/
 				autoDraggerLength:true, /*auto-adjust scrollbar dragger length: boolean*/
 				autoHideScrollbar:false, /*auto-hide scrollbar when idle*/
 				snapAmount:null, /* optional element always snaps to a multiple of this number in pixels */
@@ -47,7 +47,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/.
 					updateOnContentResize:false, /*auto-update scrollbars on content resize (for dynamic content): boolean*/
 					autoExpandHorizontalScroll:false, /*auto-expand width for horizontal scrolling: boolean*/
 					autoScrollOnFocus:true, /*auto-scroll on focused elements: boolean*/
-					normalizeMouseWheelDelta:false /*normalize mouse-wheel delta (-1/1)*/
+					normalizeMouseWheelDelta:true /*normalize mouse-wheel delta (-1/1)*/
 				},
 				contentTouchScroll:true, /*scrolling by touch-swipe content: boolean*/
 				callbacks:{
