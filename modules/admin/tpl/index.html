@@ -109,10 +109,10 @@
                     </div>
                     <div class="portlet box span4">
                         <div class="box-header">
-                            <h3 class="h3"><h3>{$lang->favorite}</h3></h3>
+                            <h3 class="h3">{$lang->favorite}</h3>
                         </div>
                         <div class="box-body visitor">
-                            <ul class="nav nav-list unstyled">
+                            <ul class="unstyled lined">
                                 <li loop="$favorite_list => $favorite">
                                     <a href="{getUrl('', 'module', 'admin', 'act', $favorite->admin_index_act)}">{$favorite->title}</a>
                                     <form class="action" action="./">
