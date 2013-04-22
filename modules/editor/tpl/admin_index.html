@@ -167,7 +167,7 @@
 				<tbody class="uDrag">
 					<!--@foreach($component_list as $component_name => $xml_info)-->
 					<tr>
-						<td><button type="button" class="dragBtn" title="Move to"><i class="icon-move"></i></button></td>
+						<td><div class="kActionIcons"> <button type="button" class="dragBtn" data-toggle="tooltip" title="Move to"><i class="kMove"></i></button></div></td>
 						<td class="title">
 							<input type="hidden" name="component_names[]" value="{$xml_info->component_name}" />
 							<p><b>{$xml_info->title}</b></p>

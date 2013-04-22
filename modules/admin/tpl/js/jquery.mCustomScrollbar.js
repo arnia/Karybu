@@ -31,7 +31,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/.
 				horizontalScroll:false, /*scroll horizontally: boolean*/
 				scrollInertia:950, /*scrolling inertia: integer (milliseconds)*/
 				mouseWheel:true, /*mousewheel support: boolean*/
-				mouseWheelPixels:700, /*mousewheel pixels amount: integer, "auto"*/
+				mouseWheelPixels:300, /*mousewheel pixels amount: integer, "auto"*/
 				autoDraggerLength:true, /*auto-adjust scrollbar dragger length: boolean*/
 				autoHideScrollbar:false, /*auto-hide scrollbar when idle*/
 				snapAmount:null, /* optional element always snaps to a multiple of this number in pixels */
