@@ -28,7 +28,6 @@
 <!-- Editor Preview -->
 <fieldset class="section">
     <h2 class="h2">{$lang->editor_preview}</h2>
-
     <a href="{getUrl('module', 'admin', 'act', 'dispEditorConfigPreview')}" target="_blank">{$lang->cmd_preview}</a>
 </fieldset>
 <!-- /Editor Preview -->
@@ -39,63 +38,69 @@
 	<input type="hidden" name="act" value="procEditorAdminGeneralConfig	" />
 
 	<fieldset class="section">
-		<h2 class="h2">{$lang->editor_option}</h2>
-        <h3>{$lang->editor_option_main}</h3>
-		<ul class="unstyled">
-			<li>
-				<p>{$lang->guide_choose_main_editor}</p>
-				<p>
-                    <ul class="unstyled">
-					<!--@foreach($editor_skin_list as $editor)-->
+
+                <h2 class="h2">{$lang->editor_option}</h2>
+        <div class="row-fluid">
+            <div class="span6">
+                <h3>{$lang->editor_option_main}</h3>
+                <div class="control-group">
+
+                        <p>{$lang->guide_choose_main_editor}</p>
+
+                            <div>
+                            <!--@foreach($editor_skin_list as $editor)-->
+                            <div class="controls">
+                            <label for="doc_{$editor}" class="radio">
+                                <input type="radio" name="editor_skin" value="{$editor}" id="doc_{$editor}" onClick="getEditorSkinColorList(this.value, null, 'document','doc_{$editor}')" <!--@if($editor==$editor_config->editor_skin)-->checked="checked" <!--@end-->/>
+                                {$editor}
+                            </label>
+                            <select name="sel_editor_colorset"  <!--@if($editor==$editor_config->editor_skin)--> >
+                                <!--@foreach($editor_colorset_list as $key => $val)-->
+                                <option value="{$val->name}" <!--@if($editor_config->sel_editor_colorset == $val->name)-->selected="selected"<!--@end-->>{$val->title}</option>
+                                <!--@end-->
+                                <!--@else-->style="display:none"> <!--@end-->
+                            </select>
+                            </div>
+
+                            <!--@end-->
+                            </div>
+                </div>
+                <div class="control-group">
+                        <p><label for="editor_height">{$lang->guide_set_height_main_editor}</label></p>
+                        <p><input type="text" name="editor_height" id="editor_height" value="<!--@if($editor_config->editor_height)-->{$editor_config->editor_height}<!--@else-->{$editor_config_default['editor_height']}<!--@end-->" style="width:30px" /> px</p>
+                </div>
+            </div>
+            <div class="span6">
+                <h3>{$lang->editor_option_comment}</h3>
+                <ul class="unstyled">
                     <li>
-					<label for="doc_{$editor}" class="checkbox">
-                        <input type="radio" name="editor_skin" value="{$editor}" id="doc_{$editor}" onClick="getEditorSkinColorList(this.value, null, 'document','doc_{$editor}')" <!--@if($editor==$editor_config->editor_skin)-->checked="checked" <!--@end-->/>
-                        {$editor}
-                    </label>
-					<select name="sel_editor_colorset"  <!--@if($editor==$editor_config->editor_skin)--> >
-						<!--@foreach($editor_colorset_list as $key => $val)-->
-						<option value="{$val->name}" <!--@if($editor_config->sel_editor_colorset == $val->name)-->selected="selected"<!--@end-->>{$val->title}</option>
-						<!--@end-->
-						<!--@else-->style="display:none"> <!--@end-->
-					</select>
+                        <p>{$lang->guide_choose_comment_editor}</p>
+                        <p>
+                            <ul class="unstyled">
+                            <!--@foreach($editor_skin_list as $editor)-->
+                            <li>
+                            <label for="com_{$editor}">
+                                <input type="radio" name="comment_editor_skin" value="{$editor}" id="com_{$editor}"  onclick="getEditorSkinColorList(this.value, null, 'reply','com_{$editor}')" <!--@if($editor == $editor_config->comment_editor_skin)-->checked="checked" <!--@end-->/>
+                                {$editor}
+                            </label>
+                            <select name="sel_comment_editor_colorset" <!--@if($editor==$editor_config->comment_editor_skin)-->	 >
+                                <!--@foreach($editor_colorset_list as $key => $val)-->
+                                <option value="{$val->name}" <!--@if($editor_config->sel_comment_editor_colorset == $val->name)-->selected="selected"<!--@end-->>{$val->title}</option>
+                                <!--@end-->
+                                <!--@else-->style="display:none"> <!--@end-->
+                            </select>
+                            </li>
+                            <!--@end-->
+                            </ul>
+                        </p>
                     </li>
-					<!--@end-->
-                    </ul>
-				</p>
-			</li>
-			<li>
-				<p><label for="editor_height">{$lang->guide_set_height_main_editor}</label></p>
-				<p><input type="text" name="editor_height" id="editor_height" value="<!--@if($editor_config->editor_height)-->{$editor_config->editor_height}<!--@else-->{$editor_config_default['editor_height']}<!--@end-->" style="width:30px" /> px</p>
-			</li>
-        </ul>
-        <h3>{$lang->editor_option_comment}</h3>
-        <ul class="unstyled">
-			<li>
-				<p>{$lang->guide_choose_comment_editor}</p>
-				<p>
-                    <ul class="unstyled">
-					<!--@foreach($editor_skin_list as $editor)-->
                     <li>
-					<label for="com_{$editor}">
-                        <input type="radio" name="comment_editor_skin" value="{$editor}" id="com_{$editor}"  onclick="getEditorSkinColorList(this.value, null, 'reply','com_{$editor}')" <!--@if($editor == $editor_config->comment_editor_skin)-->checked="checked" <!--@end-->/>
-                        {$editor}
-                    </label>
-					<select name="sel_comment_editor_colorset" <!--@if($editor==$editor_config->comment_editor_skin)-->	 >
-						<!--@foreach($editor_colorset_list as $key => $val)-->
-						<option value="{$val->name}" <!--@if($editor_config->sel_comment_editor_colorset == $val->name)-->selected="selected"<!--@end-->>{$val->title}</option>
-						<!--@end-->
-						<!--@else-->style="display:none"> <!--@end-->
-					</select>
+                        <p><label for="comment_editor_height">{$lang->guide_set_height_comment_editor}</label></p>
+                        <p><input type="text" name="comment_editor_height"id="comment_editor_height" value="<!--@if($editor_config->comment_editor_height)-->{$editor_config->comment_editor_height}<!--@else-->{$editor_config_default['comment_editor_height']}<!--@end-->" style="width:30px" /> px</p>
                     </li>
-					<!--@end-->
-                    </ul>
-				</p>
-			</li>
-			<li>
-				<p><label for="comment_editor_height">{$lang->guide_set_height_comment_editor}</label></p>
-				<p><input type="text" name="comment_editor_height"id="comment_editor_height" value="<!--@if($editor_config->comment_editor_height)-->{$editor_config->comment_editor_height}<!--@else-->{$editor_config_default['comment_editor_height']}<!--@end-->" style="width:30px" /> px</p>
-			</li>
-        </ul>
+                </ul>
+            </div>
+        </div>
         <h3>{$lang->editor_option_body}</h3>
         <ul class="unstyled">
 			<li>

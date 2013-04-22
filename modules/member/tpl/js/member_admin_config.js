@@ -142,7 +142,7 @@ jQuery(function($){
 			if(userIds == '') return;
 			var uids = userIds.split(',');
 			for (var i=0; i<uids.length; i++){
-				tag = '<li id="denied_'+uids[i]+'">'+uids[i]+' <a href="#" class="side" onclick="doUpdateDeniedID(\''+uids[i]+'\', \'delete\', \''+xe.lang.confirm_delete+'\');return false;">'+xe.lang.cmd_delete+'</a></li>';
+				tag = '<tr><td id="denied_'+uids[i]+'">'+uids[i]+' <a href="#" class="close" title="'+xe.lang.cmd_delete+'" onclick="doUpdateDeniedID(\''+uids[i]+'\', \'delete\', \''+xe.lang.confirm_delete+'\');return false;">&times;</a></td></tr>';
 				$('#deniedList').append($(tag));
 			}
 			$('#prohibited_id').val('');
@@ -175,7 +175,7 @@ jQuery(function($){
 			var uids = nickNames.split(',');
 			for (var i=0; i<uids.length; i++)
 			{
-				tag = '<li id="denied_'+uids[i]+'">'+uids[i]+' <a href="#" class="side" onclick="doUpdateDeniedNickName(\''+uids[i]+'\', \'delete\', \''+xe.lang.confirm_delete+'\');return false;">'+xe.lang.cmd_delete+'</a></li>';
+				tag = '<tr><td id="denied_'+uids[i]+'">'+uids[i]+' <a href="#" class="close" title="'+xe.lang.cmd_delete+'" onclick="doUpdateDeniedNickName(\''+uids[i]+'\', \'delete\', \''+xe.lang.confirm_delete+'\');return false;">&times;</a></td></tr>';
 				$('#deniedNickNameList').append($(tag));
 			}
 
