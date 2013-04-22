@@ -940,14 +940,14 @@ jQuery(function($){
 		var $area = $('#popup_menu_area');
 		if(!$area.length) $area = $('<div id="popup_menu_area" style="display:none;z-index:9999" />').appendTo(document.body);
 
-		// 이전에 호출되었을지 모르는 팝업메뉴 숨김
+		// hide popup menu
 		$area.hide();
 
 		var $target = $(evt.target).filter('a,div,span');
 		if(!$target.length) $target = $(evt.target).closest('a,div,span');
 		if(!$target.length) return;
 
-        // 객체의 className값을 구함
+        // get value of className from the object
 		var cls = $target.attr('class'), match;
 		if(cls) match = cls.match(new RegExp('(?:^| )((document|comment|member)_([1-9]\\d*))(?: |$)',''));
 		if(!match) return;

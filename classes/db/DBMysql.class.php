@@ -806,7 +806,7 @@ class DBMysql extends DB
 
         // total pages
         if ($total_count) {
-            $total_page = (int)(($total_count - 1) / $list_count) + 1;
+            $total_page = (int)(($total_count - 1) / $page_count) + 1;
         } else {
             $total_page = 1;
         }
@@ -822,9 +822,9 @@ class DBMysql extends DB
             $buff->page_navigation = new PageHandler($total_count, $total_page, $page, $page_count);
             return $buff;
         }
-        $start_count = ($page - 1) * $list_count;
+        $start_count = ($page - 1) * $page_count;
 
-        $query = $this->getSelectPageSql($queryObject, $with_values, $start_count, $list_count);
+        $query = $this->getSelectPageSql($queryObject, $with_values, $start_count, $page_count);
 
         $query .= (__DEBUG_QUERY__ & 1 && $queryObject->query_id) ? sprintf(
             ' ' . $this->comment_syntax,
