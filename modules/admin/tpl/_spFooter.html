@@ -10,17 +10,64 @@
             <button type="button" class="btn" onclick="doClearSession();">{$lang->cmd_clear_session}</button> <span class="vr">|</span>
             <a href="http://code.google.com/p/xe-core/issues/entry" target="_blank">{$lang->bug_report}</a>
         </p>
-    </div>
-	<div class="footer">
+    </div><!-- end kWrapper-container -->
+</div><!-- end kWrapper & x-->
+<div class="clearfix"></div>
 
-	</div>
-</div>
 <script type="text/javascript">
 xe.current_lang = '{$lang_type}';
 xe.lang.confirm_run = '{$lang->confirm_run}';
 xe.lang.confirm_reset_admin_menu = '{$lang->confirm_reset_admin_menu}';
 admin_menu_srl = '{$admin_menu_srl}';
+
+
+(function($){
+    $(window).load(function(){
+        $("#kMenuButton").click(function () {
+            $("#kMobileMenu").toggle('fast');
+        });
+    });
+})(jQuery);
+
+(function($){
+    $(window).load(function(){
+        $("#dashboard_content").mCustomScrollbar({
+            scrollButtons:{
+                enable:true
+            }
+        });
+    });
+})(jQuery);
+
+(function($){
+    $(document).ready(function(){
+        $(".kNumbers").fitText(.35, { minFontSize: '15px', maxFontSize: '48px' });
+    });
+})(jQuery);
+
+(function($){
+    $(window).load(function(){
+        $("#kSidebar").mCustomScrollbar({
+            scrollButtons:{
+                enable:true
+            }
+
+        });
+    });
+})(jQuery);
+
+(function($){
+    $(window).load(function(){
+        $("#kNav").mCustomScrollbar({
+            scrollButtons:{
+                enable:true
+            }
+        });
+    });
+})(jQuery);
 </script>
+
+
 
 <load target="./js/config.js" usecdn="true" />
 <load target="../../session/tpl/js/session.js" usecdn="true" />
