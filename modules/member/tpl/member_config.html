@@ -12,124 +12,171 @@
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 
-<form action="./" class="form" ruleset="insertConfig" method="post">
+<form action="./" class="form-horizontal" ruleset="insertConfig" method="post">
 <input type="hidden" name="module" value="member" />
 <input type="hidden" name="act" value="procMemberAdminInsertConfig" />
 <input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
 <input type="hidden" name="agreement" value="{$config->agreement}" />
 	<h1 class="h1">{$lang->cmd_member_config}</h1>
 	<fieldset class="section suSetting">
-		<h2 class="h2">{$lang->cmd_module_config}</h2>
+		<h3>{$lang->cmd_module_config}</h3>
+        <div class="control-group form-inline">
+            <label class="control-label">{$lang->enable_join}</label>
+            <div class="controls">
+                <label for="enable_join_yes" class="radio inline"><input type="radio" name="enable_join" id="enable_join_yes" value="Y" checked="checked"|cond="$config->enable_join == 'Y'" /> {$lang->cmd_yes}</label>
+                <label for="enable_join_no" class="radio inline"><input type="radio" name="enable_join" id="enable_join_no" value="N" checked="checked"|cond="$config->enable_join != 'Y'" /> {$lang->cmd_no}</label>
+            </div>
+        </div>
+        <div class="control-group form-inline">
+            <label class="control-label">{$lang->enable_confirm}</label>
+            <div class="controls">
+                <label for="enable_confirm_yes" class="radio inline"><input type="radio" name="enable_confirm" id="enable_confirm_yes" value="Y" checked="checked"|cond="$config->enable_confirm == 'Y'" /> {$lang->cmd_yes}</label>
+                <label for="enable_confirm_no" class="radio inline"><input type="radio" name="enable_confirm" id="enable_confirm_no" value="N" checked="checked"|cond="$config->enable_confirm != 'Y'"/> {$lang->cmd_no}</label>
+            </div>
+        </div>
+        <div class="control-group form-inline">
+            <label class="control-label">{$lang->webmaster_name}</label>
+            <div class="controls">
+                <input type="text" id="webmaster_name" name="webmaster_name" value="{$config->webmaster_name}" size="20" />
+                <div class="help-block">
+                    {$lang->about_webmaster_name}
+                </div>
+            </div>
+        </div>
+        <div class="control-group form-inline">
+            <label class="control-label" for="webmaster_email">{$lang->webmaster_email}</label>
+            <div class="controls">
+                <input type="text" id="webmaster_email" name="webmaster_email" value="{$config->webmaster_email}" size="40" />
+                <div class="help-block">
+                    {$lang->about_webmaster_email}
+                </div>
+            </div>
+        </div>
+        <div class="control-group form-inline">
+            <label class="control-label" for="limit_day">{$lang->limit_day}</label>
+            <div class="controls">
+                <input type="text" id="limit_day" name="limit_day" value="{$config->limit_day}" style="width:30px" /><span class="desc"> {$lang->unit_day}</span>
+                <div class="help-block">
+                    {$lang->about_limit_day}
+                </div>
+            </div>
+        </div>
+        <div class="control-group form-inline">
+            <label class="control-label" for="change_password_date">{$lang->change_password_date}</label>
+            <div class="controls">
+                <input type="text" id="change_password_date" name="change_password_date" value="{$config->change_password_date}" style="width:30px" /><span class="desc"> {$lang->unit_day}</span>
+                <div class="help-block">
+                    {$lang->about_change_password_date}
+                </div>
+            </div>
+        </div>
+        <div class="control-group form-inline">
+            <label class="control-label">{$lang->enable_login_fail_report}</label>
+            <div class="controls">
+                <label for="enable_login_fail_report_yes" class="radio inline"><input type="radio" name="enable_login_fail_report" id="enable_login_fail_report_yes" value="Y" checked="checked"|cond="$config->enable_login_fail_report != 'N'" />{$lang->cmd_yes}</label>
+                <label for="enable_join_no" class="radio inline"><input type="radio" name="enable_login_fail_report" id="enable_login_fail_report_no" value="N" checked="checked"|cond="$config->enable_login_fail_report == 'N'" />{$lang->cmd_no}</label>
+            </div>
+        </div>
+        <div class="control-group form-inline">
+            <label class="control-label" for="max_error_count">{$lang->login_trial_limit1}</label>
+            <div class="controls">
+                <input type="text" id="max_error_count" name="max_error_count" value="{$config->max_error_count}" style="width:30px" />
+                <div class="help-block">
+                    {$lang->about_login_trial_limit1}
+                </div>
+            </div>
+        </div>
+        <div class="control-group form-inline">
+            <label class="control-label" for="max_error_count_time">{$lang->login_trial_limit2}</label>
+            <div class="controls">
+                <input type="text" id="max_error_count_time" name="max_error_count_time" value="{$config->max_error_count_time}" style="width:30px" /><span class="desc"> {$lang->unit_sec}</span>
+                <div class="help-block">
+                    {$lang->about_login_trial_limit2}
+                </div>
+            </div>
+        </div>
+        <div class="control-group form-inline">
+            <label class="control-label" for="agreement">{$lang->agreement}</label>
+            <div class="controls">
+                {$editor}
+            </div>
+        </div>
+        <div class="control-group form-inline">
+            <label class="control-label" for="after_login_url">{$lang->after_login_url}</label>
+            <div class="controls">
+                <input type="text" id="after_login_url" name="after_login_url" value="{$config->after_login_url}" />
+                <div class="help-block">
+                    {$lang->about_after_login_url}
+                </div>
+            </div>
+        </div>
+        <div class="control-group form-inline">
+            <label class="control-label" for="after_logout_url">{$lang->after_logout_url}</label>
+            <div class="controls">
+                <input type="text" id="after_logout_url" name="after_logout_url" value="{$config->after_logout_url}" />
+                <div class="help-block">
+                    {$lang->about_after_logout_url}
+                </div>
+            </div>
+        </div>
+        <div class="control-group form-inline">
+            <label class="control-label" for="redirect_url">{$lang->redirect_url}</label>
+            <div class="controls">
+                <input type="text" id="redirect_url" name="redirect_url" value="{$config->redirect_url}" />
+                <div class="help-block">
+                    {$lang->about_redirect_url}
+                </div>
+            </div>
+        </div>
+        <div class="control-group form-inline">
+            <label class="control-label" for="layout">{$lang->layout}</label>
+            <div class="controls">
+                <select id="layout" name="layout_srl">
+                    <option value="0">{$lang->notuse}</option>
+                    <option loop="$layout_list => $key,$val" value="{$val->layout_srl}" selected="selected"|cond="$val->layout_srl == $config->layout_srl">{$val->title} ({$val->layout})</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group form-inline">
+            <label class="control-label" for="skin">{$lang->skin}</label>
+            <div class="controls">
+                <select id="skin" name="skin" onchange="doGetSkinColorset(this.options[this.selectedIndex].value)">
+                    <option loop="$skin_list=>$key,$val" value="{$key}" selected="selected"|cond="$config->skin==$key">{$val->title} ({$key})</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group form-inline">
+            <label class="control-label" for="skin">{$lang->skin}</label>
+            <div class="controls">
+                <select id="skin" name="skin" onchange="doGetSkinColorset(this.options[this.selectedIndex].value)">
+                    <option loop="$skin_list=>$key,$val" value="{$key}" selected="selected"|cond="$config->skin==$key">{$val->title} ({$key})</option>
+                </select>
+            </div>
+        </div>
+        <div id="colorset" class="control-group form-inline" style="display:none"|cond="!$config->colorset">
+            <label class="control-label" for="member_colorset">{$lang->colorset}</label>
+            <div class="controls">
+                <div id="member_colorset"></div>
+            </div>
+        </div>
+        <div class="control-group form-inline">
+            <label class="control-label" for="mlayout">{$lang->mobile_layout}</label>
+            <div class="controls">
+                <select id="mlayout" name="mlayout_srl">
+                    <option value="0">{$lang->notuse}</option>
+                    <option loop="$mlayout_list => $key,$val" value="{$val->layout_srl}" selected="selected"|cond="$val->layout_srl == $config->mlayout_srl">{$val->title} ({$val->layout})</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group form-inline">
+            <label class="control-label" for="mskin">{$lang->mobile_skin}</label>
+            <div class="controls">
+                <select id="mskin" name="mskin">
+                    <option loop="$mskin_list=>$key,$val" value="{$key}" selected="selected"|cond="$config->mskin==$key">{$val->title} ({$key})</option>
+                </select>
+            </div>
+        </div>
 		<ul>
-			<li>
-				<p class="q">{$lang->enable_join}</p>
-				<p class="a">
-					<input type="radio" name="enable_join" id="enable_join_yes" value="Y" checked="checked"|cond="$config->enable_join == 'Y'" /> <label for="enable_join_yes">{$lang->cmd_yes}</label>
-					<input type="radio" name="enable_join" id="enable_join_no" value="N" checked="checked"|cond="$config->enable_join != 'Y'" /> <label for="enable_join_no">{$lang->cmd_no}</label>
-				</p>
-			</li>
-			<li>
-				<p class="q">{$lang->enable_confirm}</p>
-				<p class="a">
-					<input type="radio" name="enable_confirm" id="enable_confirm_yes" value="Y" checked="checked"|cond="$config->enable_confirm == 'Y'" /> <label for="enable_confirm_yes">{$lang->cmd_yes}</label>
-					<input type="radio" name="enable_confirm" id="enable_confirm_no" value="N" checked="checked"|cond="$config->enable_confirm != 'Y'"/> <label for="enable_confirm_no">{$lang->cmd_no}</label>
-				</p>
-			</li>
-			<li>
-				<p class="q"><label for="webmaster_name">{$lang->webmaster_name}</label></p>
-				<p class="a">
-					<input type="text" id="webmaster_name" name="webmaster_name" value="{$config->webmaster_name}" size="20" /></p>
-				<p class="desc">{$lang->about_webmaster_name}</p>
-			</li>
-			<li>
-				<p class="q"><label for="webmaster_email">{$lang->webmaster_email}</label></p>
-				<p class="a">
-					<input type="text" id="webmaster_email" name="webmaster_email" value="{$config->webmaster_email}" size="40" /></p>
-				<p class="desc">{$lang->about_webmaster_email}</p>
-			</li>
-			<li>
-				<p class="q"><label for="limit_day">{$lang->limit_day}</label></p>
-				<p class="a"><input type="text" id="limit_day" name="limit_day" value="{$config->limit_day}" style="width:30px" /><span class="desc">{$lang->unit_day}({$lang->about_limit_day})</span></p>
-			</li>
-			<li>
-				<p class="q"><label for="change_password_date">{$lang->change_password_date}</label></p>
-				<p class="a"><input type="text" id="change_password_date" name="change_password_date" value="{$config->change_password_date}" style="width:30px" /><span class="desc">{$lang->unit_day}({$lang->about_change_password_date})</span></p>
-			</li>
-			<li>
-				<p class="q">{$lang->enable_login_fail_report}</p>
-				<p class="a">
-					<input type="radio" name="enable_login_fail_report" id="enable_login_fail_report_yes" value="Y" checked="checked"|cond="$config->enable_login_fail_report != 'N'" /><label for="enable_login_fail_report_yes">{$lang->cmd_yes}</label>
-					<input type="radio" name="enable_login_fail_report" id="enable_login_fail_report_no" value="N" checked="checked"|cond="$config->enable_login_fail_report == 'N'" /><label for="enable_join_no">{$lang->cmd_no}</label>
-				</p>
-			</li>
-			<li>
-				<p class="q"><label for="max_error_count">{$lang->login_trial_limit1}</label></p>
-				<p class="a"><input type="text" id="max_error_count" name="max_error_count" value="{$config->max_error_count}" style="width:30px" /><span class="desc">{$lang->about_login_trial_limit1}</span></p>
-			</li>
-			<li>
-				<p class="q"><label for="max_error_count_time">{$lang->login_trial_limit2}</label></p>
-				<input type="text" id="max_error_count_time" name="max_error_count_time" value="{$config->max_error_count_time}" style="width:30px" /><span class="desc">{$lang->unit_sec}({$lang->about_login_trial_limit2})</span></p>
-			</li>
-			<li>
-				<p class="q"><label for="agreement">{$lang->agreement}</label></p>
-				<p class="a">{$editor}</p>
-			</li>
-			<li>
-				<p class="q"><label for="after_login_url">{$lang->after_login_url}</label></p>
-				<p class="a">
-					<input type="text" id="after_login_url" name="after_login_url" value="{$config->after_login_url}" /></p>
-				<p class="desc">{$lang->about_after_login_url}</p>
-			</li>
-			<li>
-				<p class="q"><label for="after_logout_url">{$lang->after_logout_url}</label></p>
-				<p class="a">
-					<input type="text" id="after_logout_url" name="after_logout_url" value="{$config->after_logout_url}" /></p>
-				<p class="desc">{$lang->about_after_logout_url}</p>
-			</li>
-			<li>
-				<p class="q"><label for="redirect_url">{$lang->redirect_url}</label></p>
-				<p class="a">
-					<input type="text" id="redirect_url" name="redirect_url" value="{$config->redirect_url}" /></p>
-				<p class="desc">{$lang->about_redirect_url}</p>
-			</li>
-			<li>
-				<p class="q"><label for="layout">{$lang->layout}</label></p>
-				<p class="a">
-				<select id="layout" name="layout_srl">
-					<option value="0">{$lang->notuse}</option>
-					<option loop="$layout_list => $key,$val" value="{$val->layout_srl}" selected="selected"|cond="$val->layout_srl == $config->layout_srl">{$val->title} ({$val->layout})</option>
-				</select>
-				</p>
-			</li>
-			<li>
-				<p class="q"><label for="skin">{$lang->skin}</label></p>
-				<p class="a">
-					<select id="skin" name="skin" onchange="doGetSkinColorset(this.options[this.selectedIndex].value)">
-						<option loop="$skin_list=>$key,$val" value="{$key}" selected="selected"|cond="$config->skin==$key">{$val->title} ({$key})</option>
-					</select>
-				</p>
-			</li>
-			<li id="colorset" style="display:none"|cond="!$config->colorset">
-				<p class="q"><label for="member_colorset">{$lang->colorset}</label></p>
-				<p class="a"><div id="member_colorset"></div></p>
-			</li>
-			<li>
-				<p class="q"><label for="mlayout">{$lang->mobile_layout}</label></p>
-				<p class="a">
-				<select id="mlayout" name="mlayout_srl">
-					<option value="0">{$lang->notuse}</option>
-					<option loop="$mlayout_list => $key,$val" value="{$val->layout_srl}" selected="selected"|cond="$val->layout_srl == $config->mlayout_srl">{$val->title} ({$val->layout})</option>
-				</select>
-				</p>
-			</li>
-			<li>
-				<p class="q"><label for="mskin">{$lang->mobile_skin}</label></p>
-				<p class="a">
-					<select id="mskin" name="mskin">
-						<option loop="$mskin_list=>$key,$val" value="{$key}" selected="selected"|cond="$config->mskin==$key">{$val->title} ({$key})</option>
-					</select>
-				</p>
-			</li>
 			<li>
 				<p class="q"><label for="prohibited_nick_name">{$lang->cmd_manage_nick_name}({sprintf($lang->count_manage_nick_name, count($deniedNickNames))})</label></p>
 				<div class="a">

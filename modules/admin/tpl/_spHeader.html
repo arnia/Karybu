@@ -89,7 +89,7 @@
             <a class="big-icon big-icon-preview" href="{getFullUrl('')}"></a>
         </li>
         <li class="<!--@if($activeNode == $value['node_srl'])-->active<!--@end-->" loop="$gnbUrlList=>$key,$value" >
-            <a class="big-icon big-icon-{strtolower($value['text'])}"  href="{getFullUrl('')}{$value['href']}"></a>
+            <a class="big-icon big-icon-{strtolower($value['text'])}"  href="{$value['href']}"></a>
         </li>
         <li class="hidden-phone">
             <a class="small-logo" href="#"><img src="img/small-logo.png"/></a>

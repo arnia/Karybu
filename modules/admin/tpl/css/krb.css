@@ -866,6 +866,35 @@ a:hover i.kDelete:hover {
     background:url("../img/sprite-24.png") 0px -24px ;
 }
 
+i.kView {
+
+    background:url("../img/sprite-24.png") -72px 0px ;
+
+}
+
+a:hover i.kView:hover {
+    background:url("../img/sprite-24.png") -72px -24px ;
+}
+
+i.kEdit {
+
+    background:url("../img/sprite-24.png") -96px 0px ;
+
+}
+
+a:hover i.kEdit:hover {
+    background:url("../img/sprite-24.png") -96px -24px ;
+}
+
+i.kInfo {
+
+    background:url("../img/sprite-24.png") -120px 0px ;
+
+}
+
+a:hover i.kInfo:hover {
+    background:url("../img/sprite-24.png") -120px -24px ;
+}
 
 
 /* ACTION ICONS END */
