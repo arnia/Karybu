@@ -21,7 +21,10 @@
     text-decoration:none;
 }
 
+
 /* end layout resets */
+
+
 
 .kWrapper {
     background-color:#ffffff;
@@ -352,7 +355,12 @@ a.swatch:hover {
     min-height:56px;
     padding:12px 20px !important;
     white-space: nowrap;
+
 }
+
+
+
+.brand img {}
 
 .swatchBoard .turquoise {
     background-color:#57c5b9;
@@ -524,6 +532,12 @@ li.active a.big-icon-settings {
         padding:80px 0 120px
     }
 
+    .brand .row-fluid [class*="span"]
+    {
+        display: inline;
+        width: auto;
+    }
+
     .kInfo { display: none; }
 
     .kWrapper {
@@ -543,7 +557,9 @@ li.active a.big-icon-settings {
         overflow:visible !important;
         z-index:999;
         min-width:320px;
-        font-size:12.224pt
+        font-size:12.224pt;
+        -webkit-box-shadow:  0px 0px 8px 5px rgba(0, 0, 0, .5);
+        box-shadow:  0px 0px 8px 5px rgba(0, 0, 0, .5);
     }
 
     #kSidebar input, #kSidebar h6 {
@@ -554,13 +570,15 @@ li.active a.big-icon-settings {
 
     .brand {
         -webkit-box-shadow:  0px 0px 8px 5px rgba(0, 0, 0, .5);
-
         box-shadow:  0px 0px 8px 5px rgba(0, 0, 0, .5);
     }
 
     #kMobileMenu {
         display: none;
+
     }
+
+
 
 
     form.action {
@@ -587,6 +605,15 @@ li.active a.big-icon-settings {
     .pagetitle-fixed {
         position:static;
         margin-top:0;
+    }
+
+    .page-title {
+        padding: 10px 20px;
+    }
+
+    .page-title h1 {
+        font-size: 20pt;
+        line-height: 2.2em;
     }
 
     .swatchBoard {
