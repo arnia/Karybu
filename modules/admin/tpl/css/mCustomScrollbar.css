@@ -1,0 +1,8 @@
+.mCSB_container{
+    width:auto;
+    margin-right:0px !important;
+    overflow:hidden;
+}
+.mCS_destroyed>.mCustomScrollBox>.mCSB_container.mCS_no_scrollbar{
+    margin-right:0px !important;
+}
