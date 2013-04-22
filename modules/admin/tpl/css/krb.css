@@ -910,4 +910,7 @@ a:hover i.kInfo:hover {
 /* ADMIN CORRECTIONS END*/
 
 
-
+#scrollable-denied-id{
+    height: 291px;
+    overflow: auto;
+}
