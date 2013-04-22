@@ -1098,6 +1098,11 @@ button.sTog {padding: 4px 10px 8px;
     width: 6px;
 }
 
+.kDark .mCSB_horizontal .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    height: 6px;
+    width: auto;
+}
+
 .mCSB_scrollTools .mCSB_buttonUp,
 .mCSB_scrollTools .mCSB_buttonDown,
 .mCSB_scrollTools .mCSB_buttonLeft,
