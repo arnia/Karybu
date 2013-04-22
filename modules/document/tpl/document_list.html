@@ -34,7 +34,7 @@
             <!--@end-->
             ({number_format($total_count)})
             <span class="side">
-                <a href="#listManager" class="btn" data-toggle="modal">{$lang->document_manager}...</a>
+                <a href="#listManager" class="btn" data-toggle="modal" onclick="getDocumentList();">{$lang->document_manager}...</a>
             </span>
         </p>
         <table class="table table-condensed table-bordered table-hover" id="documentListTable">
@@ -84,7 +84,7 @@
         </table>
         <p class="pull-right">
             <span class="side">
-                <a href="#listManager" class="btn" data-toggle="modal">{$lang->document_manager}...</a>
+                <a href="#listManager" class="btn" data-toggle="modal" onclick="getDocumentList();">{$lang->document_manager}...</a>
             </span>
             <!--<span class="btn"><a href="#listManager" class="modalAnchor" onclick="getDocumentList();">{$lang->document_manager}...</a></span>-->
         </p>
