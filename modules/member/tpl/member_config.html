@@ -17,7 +17,7 @@
 <input type="hidden" name="act" value="procMemberAdminInsertConfig" />
 <input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
 <input type="hidden" name="agreement" value="{$config->agreement}" />
-	<h1 class="h1">{$lang->cmd_member_config}</h1>
+	<h1>{$lang->cmd_member_config}</h1>
 	<fieldset class="section suSetting">
 		<h3>{$lang->cmd_module_config}</h3>
         <div class="control-group form-inline">
@@ -193,9 +193,9 @@
                 <span class="desc">{$lang->multi_line_input}</span>
             </div>
         </div>
-        <p class="q"><label for="prohibited_id">{$lang->cmd_manage_id}({sprintf($lang->count_manage_id, count($deniedIDs))})</label></p>
-        <div id="scrollable-denied-id" class="table" cond="$useUserID">
-            <div>
+        <div cond="$useUserID">
+            <p class="q"><label for="prohibited_id">{$lang->cmd_manage_id}({sprintf($lang->count_manage_id, count($deniedIDs))})</label></p>
+            <div id="scrollable-denied-id">
                 <table class="table table-hover table-condensed table-striped" id="deniedList">
                     <tr loop="$deniedIDs=>$denied_info" id="denied_{$denied_info->user_id}">
                         <td>
@@ -204,15 +204,15 @@
                     </tr>
                 </table>
             </div>
-            <div class="a">
+            <div>
                 <textarea rows="8" cols="42" id="prohibited_id" title="{$lang->add_prohibited_id}"></textarea>
-                <span class="btn"><button type="button" class="_addDeniedID">{$lang->add}</button></span>
+                <button type="button" class="_addDeniedID btn btn-primary">{$lang->add}</button>
                 <span class="desc">{$lang->multi_line_input}</span>
             </div>
         </div>
 	</fieldset>
 	<fieldset class="section suForm">
-		<h2 class="h2">{$lang->cmd_manage_form}</h2>
+		<h3>{$lang->cmd_manage_form}</h3>
 		<div class="table even">
 			<table width="100%" border="1" cellspacing="0" class="sortable">
 				<thead>
