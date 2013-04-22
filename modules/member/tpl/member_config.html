@@ -96,9 +96,9 @@
             </div>
         </div>
         <div class="control-group form-inline">
-            <label class="control-label" for="agreement">{$lang->agreement}</label>
+            <label class="control-label">{$lang->agreement}</label>
             <div class="controls">
-                {$editor}
+                TO DO add editor
             </div>
         </div>
         <div class="control-group form-inline">
@@ -176,34 +176,40 @@
                 </select>
             </div>
         </div>
-		<ul>
-			<li>
-				<p class="q"><label for="prohibited_nick_name">{$lang->cmd_manage_nick_name}({sprintf($lang->count_manage_nick_name, count($deniedNickNames))})</label></p>
-				<div class="a">
-					<ul class="textList" id="deniedNickNameList">
-						<li loop="$deniedNickNames=>$nicknameInfo" id="denied_{$nicknameInfo->nick_name}">{$nicknameInfo->nick_name} <a href="#" class="side" onclick="doUpdateDeniedNickName('{$nicknameInfo->nick_name}','delete','{$lang->confirm_delete}');return false;">{$lang->delete}</a></li>
-					</ul>
-				</div>
-				<div class="a">
-					<textarea rows="8" cols="42" id="prohibited_nick_name" title="{$lang->add_prohibited_id}"></textarea>
-					<span class="btn"><button type="button" class="_addDeniedNickName">{$lang->add}</button></span>
-					<span class="desc">{$lang->multi_line_input}</span>
-				</div>
-			</li>
-			<li cond="$useUserID">
-				<p class="q"><label for="prohibited_id">{$lang->cmd_manage_id}({sprintf($lang->count_manage_id, count($deniedIDs))})</label></p>
-				<div class="a">
-					<ul class="textList" id="deniedList">
-						<li loop="$deniedIDs=>$denied_info" id="denied_{$denied_info->user_id}">{$denied_info->user_id} <a href="#" class="side" onclick="doUpdateDeniedID('{$denied_info->user_id}','delete','{$lang->confirm_delete}');return false;">{$lang->delete}</a></li>
-					</ul>
-				</div>
-				<div class="a">
-					<textarea rows="8" cols="42" id="prohibited_id" title="{$lang->add_prohibited_id}"></textarea>
-					<span class="btn"><button type="button" class="_addDeniedID">{$lang->add}</button></span>
-					<span class="desc">{$lang->multi_line_input}</span>
-				</div>
-			</li>
-		</ul>
+        <div>
+            <p class="q"><label for="prohibited_nick_name">{$lang->cmd_manage_nick_name}({sprintf($lang->count_manage_nick_name, count($deniedNickNames))})</label></p>
+            <div>
+                <table class="table table-hover table-condensed table-striped" id="deniedNickNameList">
+                    <tr loop="$deniedNickNames=>$nicknameInfo" id="denied_{$nicknameInfo->nick_name}">
+                        <td>
+                            {$nicknameInfo->nick_name} <a href="#" class="close" title="{$lang->delete}" onclick="doUpdateDeniedNickName('{$nicknameInfo->nick_name}','delete','{$lang->confirm_delete}');return false;">&times;</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <textarea rows="8" cols="42" id="prohibited_nick_name" title="{$lang->add_prohibited_id}"></textarea>
+                <button type="button" class="_addDeniedNickName btn btn-primary">{$lang->add}</button>
+                <span class="desc">{$lang->multi_line_input}</span>
+            </div>
+        </div>
+        <p class="q"><label for="prohibited_id">{$lang->cmd_manage_id}({sprintf($lang->count_manage_id, count($deniedIDs))})</label></p>
+        <div id="scrollable-denied-id" class="table" cond="$useUserID">
+            <div>
+                <table class="table table-hover table-condensed table-striped" id="deniedList">
+                    <tr loop="$deniedIDs=>$denied_info" id="denied_{$denied_info->user_id}">
+                        <td>
+                            {$denied_info->user_id} <a href="#" class="close" title="{$lang->delete}" onclick="doUpdateDeniedID('{$denied_info->user_id}','delete','{$lang->confirm_delete}');return false;">&times;</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="a">
+                <textarea rows="8" cols="42" id="prohibited_id" title="{$lang->add_prohibited_id}"></textarea>
+                <span class="btn"><button type="button" class="_addDeniedID">{$lang->add}</button></span>
+                <span class="desc">{$lang->multi_line_input}</span>
+            </div>
+        </div>
 	</fieldset>
 	<fieldset class="section suForm">
 		<h2 class="h2">{$lang->cmd_manage_form}</h2>
@@ -383,3 +389,15 @@
 
 	</form>
 </div>
+
+<script>
+    (function($){
+        $(window).load(function(){
+            $("#scrollable-denied-id").mCustomScrollbar({
+                scrollButtons:{
+                    enable:true
+                }
+            });
+        });
+    })(jQuery);
+</script>
