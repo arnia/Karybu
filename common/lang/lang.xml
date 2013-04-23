@@ -3775,4 +3775,7 @@
 		<value xml:lang="zh-CN"><![CDATA[查看详情]]></value>
 		<value xml:lang="tr"><![CDATA[Detaylı Görünüm]]></value>
 	</item>
+    <item name="actions">
+        <value xml:lang="en"><![CDATA[Actions]]></value>
+    </item>
 </lang>
