@@ -2026,23 +2026,22 @@
          **/
         function deleteMember($member_srl) {
             // Call a trigger (before)
+            $trigger_obj = new stdClass();
             $trigger_obj->member_srl = $member_srl;
             $output = ModuleHandler::triggerCall('member.deleteMember', 'before', $trigger_obj);
             if(!$output->toBool()) return $output;
             // Create a model object
             $oMemberModel = &getModel('member');
-            // Bringing the user's information
-            if(!$this->memberInfo) {
-				$columnList = array('member_srl', 'is_admin');
-				$this->memberInfo = $oMemberModel->getMemberInfoByMemberSrl($member_srl, 0, $columnList);
-			}
-            if(!$this->memberInfo) return new Object(-1, 'msg_not_exists_member');
+            $columnList = array('member_srl', 'is_admin');
+            $this->member_info = $oMemberModel->getMemberInfoByMemberSrl($member_srl, 0, $columnList);
+            if(!$this->member_info) return new Object(-1, 'msg_not_exists_member');
             // If managers can not be deleted
-            if($this->memberInfo->is_admin == 'Y') return new Object(-1, 'msg_cannot_delete_admin');
+            if($this->member_info->is_admin == 'Y') return new Object(-1, 'msg_cannot_delete_admin');
 
             $oDB = &DB::getInstance();
             $oDB->begin();
 
+            $args = new stdClass();
             $args->member_srl = $member_srl;
             // Delete the entries in member_auth_mail
             $output = executeQuery('member.deleteAuthMail', $args);
