@@ -1,6 +1,18 @@
 Karybu admin components
 =======================
 
+- [Modal windows](#modal-windows)
+	- [Filebox](#filebox)
+- [Legacy modal windows](#legacy-modal-windows)
+	- [Basic modal](#basic-modal)
+	- [Differences between Bootstrap and XE modals](#differences-between-bootstrap-and-xe-modals)
+	- [Methods](#methods)
+	- [Events](#events)
+- [Multilanguage inputs](#multilanguage-inputs)
+	- [How this works](#how-this-works)
+- [Tables](#tables)
+	- [Sortable tables)(#sortable-tables)
+
 Modal windows
 ----------------
 Karybu uses [Twitter Bootstrap modals](http://twitter.github.io/bootstrap/javascript.html#modals) for its modal windows. You should first check their documentation in order to get started.
@@ -138,3 +150,42 @@ Say you want to translate the title of one of the pages in your website and that
 If the user doesn't translate the text, but just enters a title in the input, that value will be saved as is for "browser_title".
 
 However, if the user open the "Select language" popup and translates the text, Karybu will generate a unique key for this title, holding the translated value. This is the value that will also be persisted in the database and looks like `$user_lang->abc123`. This is why two inputs are needed: the hidden input contains the value `$user_lang->abc1234` while the text input contains the value assigned to this variable `{$user_lang->abc1234}`;
+
+Tables
+================
+
+Tables in admin should be styled according to [Twitter Bootstrap styles](http://twitter.github.io/bootstrap/base-css.html#tables).
+
+Besides the features Bootstrap offers, Karybu also exposes a custom set of functionality:
+
+### Sortable tables
+
+Here is a sample sortable table:
+
+```html
+<table class="table sortable span4">
+    <caption>Here's a caption</caption>
+    <thead>
+        <th>Column 1 title</th>
+        <th>Column 2 title</th>
+    </thead>
+    <tbody class="uDrag">
+        <tr>
+            <td>
+            	<div class="kActionIcons">
+            		<button type="button" class="dragBtn">
+            			<i class="kMove"></i>
+            		</button>
+            	</div>
+            </td>
+            <td>Row 1</td>
+        </tr>
+        
+        ...
+        
+    </tbody>
+</table>
+```
+
+The only mandatory items for this to work are the `sortable` class on the `table` tag and the button with the `dragBtn` class; all the other ones are for making it look consistent with the rest of the admin.
+
