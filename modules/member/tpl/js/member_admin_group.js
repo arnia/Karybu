@@ -39,7 +39,7 @@ jQuery(function ($){
 	$('._deleteGroup').click(function (event){
 		event.preventDefault();
 		var $target = $(event.target).closest('tr');
-		var group_srl = $(event.target).attr('href').substr(1); 
+		var group_srl = $(this).attr('href').substr(1);
 		if(!confirm(xe.lang.groupDeleteMessage)) return;
 
 		if (group_srl.indexOf("new") >= 0){
