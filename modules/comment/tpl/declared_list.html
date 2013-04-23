@@ -12,11 +12,12 @@
 	
 	<!-- 목록 -->
 	<div class="table">
-		<table width="100%" border="1" cellspacing="0">
+		<table width="100%" border="1" cellspacing="0" class="table-condensed table-bordered table-hover">
 		<caption>{$lang->all} {number_format($total_count)}, {$lang->page} {number_format($page)}/{number_format($total_page)}</caption>
 		<thead>
 			<tr>
-				<th scope="col"><input type="checkbox" onclick="XE.checkboxToggleAll(); return false;" /></th>
+				<th scope="col">{$lang->no}</th>
+                <th scope="col"><input type="checkbox" onclick="XE.checkboxToggleAll(); return false;" /></th>
 				<th scope="col">{$lang->comment}</th>
 				<th scope="col">{$lang->user_name}</th>
 				<th scope="col">{$lang->date}</th>
@@ -28,7 +29,8 @@
 			<!--@foreach($comment_list as $no => $oComment)-->
 			<tr>
 				<td>{$no}</td>
-				<td><input type="checkbox" name="cart" value="{$oComment->get('comment_srl')}" /> <a href="{getUrl('','document_srl',$oComment->get('document_srl'))}#comment_{$oComment->get('comment_srl')}" onclick="window.open(this.href);return false;">{$oComment->getSummary(100)}</a></td>
+				<td><input type="checkbox" name="cart" value="{$oComment->get('comment_srl')}" /></td>
+                <td> <a href="{getUrl('','document_srl',$oComment->get('document_srl'))}#comment_{$oComment->get('comment_srl')}" onclick="window.open(this.href);return false;">{$oComment->getSummary(100)}</a></td>
 				<td><span class="member_{$oComment->getMemberSrl()}">{$oComment->getNickName()}</span></td>
 				<td>{$oComment->getRegdate("Y-m-d")}</td>
 				<td><strong>{$oComment->get('declared_count')}</strong></td>
@@ -39,23 +41,25 @@
 		</table>
 	</div>
 	<div class="btnArea">
-		<span class="btn"><button type="button" onclick="doCancelDeclare();">{$lang->cmd_cancel_declare}</button></span>
-		<span class="btn"><a href="javascript:XE.checkboxToggleAll({ checked:true })">{$lang->cmd_select_all}</a></span>
-		<span class="btn"><a href="javascript:XE.checkboxToggleAll()">{$lang->cmd_reverse_all}</a></span>
-		<span class="btn"><input type="submit" value="{$lang->cmd_delete_checked_comment}" onclick="this.form.is_trash.value=false" /></span>
-		<span class="btn"><input type="submit" name="trash" value="{$lang->cmd_trash}" onclick="this.form.is_trash.value=true" /></span>
+		<button class="btn" type="button" onclick="doCancelDeclare();">{$lang->cmd_cancel_declare}</button>
+		<a class="btn" href="javascript:XE.checkboxToggleAll({ checked:true })">{$lang->cmd_select_all}</a>
+		<a class="btn" href="javascript:XE.checkboxToggleAll()">{$lang->cmd_reverse_all}</a>
+		<input class="btn" type="submit" value="{$lang->cmd_delete_checked_comment}" onclick="this.form.is_trash.value=false" />
+		<input class="btn" type="submit" name="trash" value="{$lang->cmd_trash}" onclick="this.form.is_trash.value=true" />
 	</div>
 </form>
 
 <!-- 페이지 네비게이션 -->
 <div class="pagination">
-    <a href="{getUrl('page','','module_srl','')}" class="direction">&laquo; {$lang->first_page}</a> 
-    <!--@while($page_no = $page_navigation->getNextPage())-->
-        <!--@if($page == $page_no)-->
-            <strong>{$page_no}</strong> 
-        <!--@else-->
-            <a href="{getUrl('page',$page_no,'module_srl','')}">{$page_no}</a> 
+    <ul>
+        <li><a href="{getUrl('page','','module_srl','')}" class="direction">&laquo; {$lang->first_page}</a></li>
+        <!--@while($page_no = $page_navigation->getNextPage())-->
+            <!--@if($page == $page_no)-->
+                <li class="active"><a href="{getUrl('page',$page_no,'module_srl','')}"><strong>{$page_no}</strong></a></li>
+            <!--@else-->
+                <li><a href="{getUrl('page',$page_no,'module_srl','')}">{$page_no}</a></li>
+            <!--@end-->
         <!--@end-->
-    <!--@end-->
-    <a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="direction">{$lang->last_page} &raquo;</a>
+        <li><a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="direction">{$lang->last_page} &raquo;</a></li>
+    </ul>
 </div>

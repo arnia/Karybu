@@ -27,13 +27,13 @@
 
 <!-- Editor Preview -->
 <fieldset class="section">
-    <h2 class="h2">{$lang->editor_preview}</h2>
+    <h2>{$lang->editor_preview}</h2>
     <a href="{getUrl('module', 'admin', 'act', 'dispEditorConfigPreview')}" target="_blank">{$lang->cmd_preview}</a>
 </fieldset>
 <!-- /Editor Preview -->
 
 <!-- Editor Options -->
-<form action="./" method="post" class="form-inline" ruleset="generalConfig">
+<form action="./" method="post" class="form form-inline" ruleset="generalConfig">
 	<input type="hidden" name="module" value="editor" />
 	<input type="hidden" name="act" value="procEditorAdminGeneralConfig	" />
 
@@ -45,7 +45,7 @@
                 <h3>{$lang->editor_option_main}</h3>
                 <div class="control-group">
 
-                        <p>{$lang->guide_choose_main_editor}</p>
+                        <strong>{$lang->guide_choose_main_editor}</strong>
 
                             <div>
                             <!--@foreach($editor_skin_list as $editor)-->
@@ -65,17 +65,17 @@
                             <!--@end-->
                             </div>
                 </div>
-                <div class="control-group">
-                        <p><label for="editor_height">{$lang->guide_set_height_main_editor}</label></p>
-                        <p><input type="text" name="editor_height" id="editor_height" value="<!--@if($editor_config->editor_height)-->{$editor_config->editor_height}<!--@else-->{$editor_config_default['editor_height']}<!--@end-->" style="width:30px" /> px</p>
+                <div class="control-group form-inline">
+                        <label for="editor_height">{$lang->guide_set_height_main_editor}</label>
+                        <input type="text" name="editor_height" id="editor_height" value="<!--@if($editor_config->editor_height)-->{$editor_config->editor_height}<!--@else-->{$editor_config_default['editor_height']}<!--@end-->" style="width:30px" /> px
                 </div>
             </div>
             <div class="span6">
                 <h3>{$lang->editor_option_comment}</h3>
                 <ul class="unstyled">
                     <li>
-                        <p>{$lang->guide_choose_comment_editor}</p>
-                        <p>
+                        <strong>{$lang->guide_choose_comment_editor}</strong>
+
                             <ul class="unstyled">
                             <!--@foreach($editor_skin_list as $editor)-->
                             <li>
@@ -92,51 +92,56 @@
                             </li>
                             <!--@end-->
                             </ul>
-                        </p>
+
                     </li>
-                    <li>
-                        <p><label for="comment_editor_height">{$lang->guide_set_height_comment_editor}</label></p>
-                        <p><input type="text" name="comment_editor_height"id="comment_editor_height" value="<!--@if($editor_config->comment_editor_height)-->{$editor_config->comment_editor_height}<!--@else-->{$editor_config_default['comment_editor_height']}<!--@end-->" style="width:30px" /> px</p>
-                    </li>
+
+
+
                 </ul>
+                <div class="control-group form-inline">
+                        <label for="comment_editor_height">{$lang->guide_set_height_comment_editor}</label>
+                        <input type="text" name="comment_editor_height"id="comment_editor_height" value="<!--@if($editor_config->comment_editor_height)-->{$editor_config->comment_editor_height}<!--@else-->{$editor_config_default['comment_editor_height']}<!--@end-->" style="width:30px" /> px
+                    </div>
             </div>
         </div>
-        <h3>{$lang->editor_option_body}</h3>
-        <ul class="unstyled">
-			<li>
-				<p>{$lang->guide_choose_text_formatting}</p>
-				<p>
-					<!--@foreach($content_style_list as $key => $val)-->
-					<input type="radio" name="content_style" value="{$key}" id="style_{$key}" checked="checked"|cond="$key==$editor_config->content_style||!$editor_config->content_style && $key=='default'"> <label for="style_{$key}">{$key}</label>
-					<!--@end-->
-				</p>
-			</li>
-			<li>
-				<p>{$lang->guide_choose_font_body}</p>
-				<textarea rows="8" cols="42" class="fontPreview" title="Font Preview">{$lang->font_preview}</textarea>
-				<p class="answer fontSelector">
-                    <label for="font_noFont" style="font-family:''">
-                        <input type="radio" name="content_font" id="font_noFont" value="" <!--@if(!$editor_config->content_font)-->checked="checked" <!--@end-->/>
-                        none(inherit)
-                    </label>
+        <div class="row-fluid">
+            <h3>{$lang->editor_option_body}</h3>
+            <ul class="unstyled">
+                <li>
+                    <strong>{$lang->guide_choose_text_formatting}</strong>
 
-					<!--@foreach($lang->edit->fontlist as $name => $detail)-->
-                    <label for="font_{$name}" style="font-family:{$detail}">
-                        <input type="radio" name="content_font" id="font_{$name}" value="{$name}" <!--@if($editor_config->content_font==$name)-->checked="checked" <!--@end-->/>
-                        {$detail}
-                    </label>
-					<!--@end-->
-				</p>
-			</li>
-			<li>
-				<p><label for="fontSize">{$lang->guide_choose_font_size_body}</label></p>
-				<textarea rows="8" cols="42" class="fontPreview" title="Font Preview">{$lang->font_preview}</textarea>
-				<p><input type="text" id="fontSize" name="content_font_size" value="<!--@if($editor_config->content_font_size)-->{str_replace('px','',$editor_config->content_font_size)}<!--@else-->{str_replace('px','',$editor_config_default['content_font_size'])}<!--@end-->" style="width:30px" /> px</p>
-			</li>
-		</ul>
-		<div>
-			<input type="submit" value="{$lang->cmd_save}" class="btn" />
-		</div>
+                        <!--@foreach($content_style_list as $key => $val)-->
+                        <input type="radio" name="content_style" value="{$key}" id="style_{$key}" checked="checked"|cond="$key==$editor_config->content_style||!$editor_config->content_style && $key=='default'"> <label for="style_{$key}">{$key}</label>
+                        <!--@end-->
+
+                </li>
+                <li>
+                    <p>{$lang->guide_choose_font_body}</p>
+                    <textarea rows="8" cols="42" class="fontPreview" title="Font Preview">{$lang->font_preview}</textarea>
+                    <p class="answer fontSelector">
+                        <label for="font_noFont" style="font-family:''">
+                            <input type="radio" name="content_font" id="font_noFont" value="" <!--@if(!$editor_config->content_font)-->checked="checked" <!--@end-->/>
+                            none(inherit)
+                        </label>
+
+                        <!--@foreach($lang->edit->fontlist as $name => $detail)-->
+                        <label for="font_{$name}" style="font-family:{$detail}">
+                            <input type="radio" name="content_font" id="font_{$name}" value="{$name}" <!--@if($editor_config->content_font==$name)-->checked="checked" <!--@end-->/>
+                            {$detail}
+                        </label>
+                        <!--@end-->
+                    </p>
+                </li>
+                <li>
+                    <p><label for="fontSize">{$lang->guide_choose_font_size_body}</label></p>
+                    <textarea rows="8" cols="42" class="fontPreview" title="Font Preview">{$lang->font_preview}</textarea>
+                    <p><input type="text" id="fontSize" name="content_font_size" value="<!--@if($editor_config->content_font_size)-->{str_replace('px','',$editor_config->content_font_size)}<!--@else-->{str_replace('px','',$editor_config_default['content_font_size'])}<!--@end-->" style="width:30px" /> px</p>
+                </li>
+            </ul>
+            <div>
+                <input type="submit" value="{$lang->cmd_save}" class="btn" />
+            </div>
+        </div>
 	</fieldset>
 </form>
 <!-- /Editor Options -->
@@ -167,7 +172,7 @@
 				<tbody class="uDrag">
 					<!--@foreach($component_list as $component_name => $xml_info)-->
 					<tr>
-						<td><button type="button" class="dragBtn" title="Move to"><i class="icon-move"></i></button></td>
+						<td><div class="kActionIcons"> <button type="button" class="dragBtn" data-toggle="tooltip" title="Move to"><i class="kMove"></i></button></div></td>
 						<td class="title">
 							<input type="hidden" name="component_names[]" value="{$xml_info->component_name}" />
 							<p><b>{$xml_info->title}</b></p>

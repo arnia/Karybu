@@ -676,6 +676,7 @@
 	</item>
 	<item name="about_column_id">
 		<value xml:lang="ko"><![CDATA[입력항목의 구분자로 사용될 ID입니다. 영문으로 시작하고 영문 숫자만 사용가능합니다.]]></value>
+		<value xml:lang="ko"><![CDATA[This value will not be displayed on frontend, it will be used as an internal Id.]]></value>
 	</item>
 	<item name="about_keep_signed">
 		<value xml:lang="ko"><![CDATA[브라우저를 닫더라도 로그인이 계속 유지될 수 있습니다.\n\n로그인 유지 기능을 사용할 경우 다음 접속부터는 로그인을 하실 필요가 없습니다.\n\n단, 게임방, 학교 등 공공장소에서 이용 시 개인정보가 유출될 수 있으니 꼭 로그아웃을 해주세요.]]></value>
@@ -2475,12 +2476,15 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 	</item>
 	<item name="cmd_member_sync">
 		<value xml:lang="ko"><![CDATA[회원정보 동기화]]></value>
+		<value xml:lang="en"><![CDATA[Member synchronization]]></value>
 	</item>
 	<item name="about_member_sync">
 		<value xml:lang="ko"><![CDATA[회원정보와 게시물과 댓글 정보를 동기화 합니다. 데이터가 많은 경우 시간이 오래 소요될 수 있습니다. 이용자가 많은 경우 반드시 서비스를 중단하시고 진행하시기 바랍니다.]]></value>
+		<value xml:lang="ko"><![CDATA[Synchronize information between members and imported posts and comments. For a large amount of data it may take a few minutes. ]]></value>
 	</item>
 	<item name="msg_success_modify_email_address">
 		<value xml:lang="ko"><![CDATA[이메일 주소가 정상적으로 변경되었습니다. 변경된 이메일 주소로 로그인 가능합니다.]]></value>
+		<value xml:lang="ko"><![CDATA[The email address has been changed successfully.]]></value>
 	</item>
 	<item name="group">
 		<value xml:lang="ko"><![CDATA[그룹]]></value>

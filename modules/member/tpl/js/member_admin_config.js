@@ -208,7 +208,7 @@ jQuery(function($){
 				$notCheckedTR.find('input[type=checkbox][name="usable_list[]"]').removeAttr('disabled');
 				$notCheckedTR.find('input[type=radio][name='+notName+']').removeAttr('disabled');
 			}
-			$notCheckedTR.find('th').html('<div class="wrap"><button type="button" class="dragBtn">Move to</button><span class="_title" >'+$notCheckedTR.find('th ._title').html()+'</span></div>');
+			$notCheckedTR.find('th').html('<div class="wrap"><button type="button" class="dragBtn"></button><span class="_title" >'+$notCheckedTR.find('th ._title').html()+'</span></div>');
 			$notCheckedTR.removeClass('sticky');
 
 			// add sticky class 
