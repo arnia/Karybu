@@ -72,7 +72,11 @@
 					<td class="_imageMarkButton"><input type="hidden" name="image_marks[]" value="{$group_info->image_mark}" class="_imgMarkHidden" />
 						<img src="{$group_info->image_mark}" alt="{$group_info->title}" cond="$config->group_image_mark == 'Y' && $group_info->image_mark" />
 						<a href="#imageMark" class="_imageMark filebox" data-toggle="modal">{$lang->cmd_modify}...</a></td>
-					<td><div class="_deleteTD" style="display:none"|cond="$group_info->is_default == 'Y'"><a href="#{$group_srl}" class="_deleteGroup">{$lang->cmd_delete}</a></div></td>
+					<td>
+                        <div class="_deleteTD kActionIcons" style="display:none"|cond="$group_info->is_default == 'Y'">
+                            <a href="#{$group_srl}" class="_deleteGroup" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kDelete">{$lang->cmd_delete}</i></a>
+                        </div>
+                    </td>
 				</tr>
 				<tr style="display:none" class="_template">
 					<td class="multiLangEdit"><div class="wrap" style="height:22px"><button type="button" class="dragBtn"></button>
@@ -86,7 +90,11 @@
 					<td><input type="radio" name="defaultGroup" value="" title="Default" disabled="disabled" /></td>
 					<td class="_imageMarkButton"><input type="hidden" name="image_marks[]" value="" class="_imgMarkHidden" disabled="disabled" />
 						<a href="#imageMark" class="_imageMark" data-toggle="modal">{$lang->cmd_modify}...</a></td>
-					<td><div class="_deleteTD"><a href="#new" class="_deleteGroup">{$lang->cmd_delete}</a></div></td>
+					<td>
+                        <div class="_deleteTD kActionIcons">
+                            <a href="#new" class="_deleteGroup" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kDelete">{$lang->cmd_delete}</i></a>
+                        </div>
+                    </td>
 				</tr>
 
 			</tbody>

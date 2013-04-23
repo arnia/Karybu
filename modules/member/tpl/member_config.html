@@ -97,8 +97,7 @@
         </div>
         <div class="control-group form-inline">
             <label class="control-label">{$lang->agreement}</label>
-            <div class="controls">
-                {$editor}
+            <div class="controls">TODO
             </div>
         </div>
         <div class="control-group form-inline">
@@ -346,7 +345,7 @@
 						<th scope="col" class="title">{$lang->sns_name}</th>
                                                 <th scope="col">{$lang->path}</th>
 						<th scope="col">{$lang->use}</th>
-						<th scope="col">{$lang->cmd_setup}</th>
+						<th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody class="uDrag">
@@ -360,7 +359,11 @@
 						</td>
                                                 <td>{$xml_info->path}</td>
 						<td><input type="checkbox" name="enables[]" id="enable" value="{$xml_info->sns_name}" title="Use this SNS " <!--@if($xml_info->enabled=='Y')--> checked="checked"<!--@end--> /></td>
-						<td><a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminSetupSns', 'sns_name', $xml_info->sns_name)}">{$lang->cmd_setup}</a>
+						<td>
+                            <div class="kActionIcons">
+                                <a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminSetupSns', 'sns_name', $xml_info->sns_name)}" data-toggle="tooltip" title="{$lang->cmd_setup}"><i class="kConfigure">{$lang->cmd_setup}</i></a>
+                            </div>
+                        </td>
 					</tr>
 					<!--@end-->
 				</tbody>
