@@ -11,7 +11,7 @@ Karybu admin components
 - [Multilanguage inputs](#multilanguage-inputs)
 	- [How this works](#how-this-works)
 - [Tables](#tables)
-	- [Sortable tables)(#sortable-tables)
+	- [Sortable tables](#sortable-tables)
 
 Modal windows
 ----------------
@@ -189,3 +189,15 @@ Here is a sample sortable table:
 
 The only mandatory items for this to work are the `sortable` class on the `table` tag and the button with the `dragBtn` class; all the other ones are for making it look consistent with the rest of the admin.
 
+Collapsible sections
+--------------------
+
+When viewing an admin page, it is usually divided in sub-sections. For instance, the "Editor settings" view has three sections: "Editor Preview", "Editor Options" and "Editor Components". When sections become too big, it is useful to collapse them, to get faster to the content. 
+
+In order to make a section collapsible, it is enough to add the "h2" or "h3" class to it:
+
+```html
+<h2 class="h2">
+```
+
+// TODO Rename class to something like "toggle-section" or such
