@@ -19,14 +19,21 @@
 	<input type="hidden" name="module" value="member" />
 	<input type="hidden" name="act" value="procMemberAdminGroupConfig" />
 	<div class="table even">
-		<table width="100%" border="1" cellspacing="0" class="sortable">
+		<table class="table table-condensed table-bordered table-hover sortable">
 			<caption>
-				<strong>{count($group_list)}</strong> {$lang->msg_groups_exist}
-				<span class="side">
-					{$lang->use_group_image_mark}: 
-					<input type="radio" name="group_image_mark" id="yes" value="Y" checked="checked"|cond="$config->group_image_mark == 'Y'" /> <label for="yes">{$lang->cmd_yes}</label>
-					<input type="radio" name="group_image_mark" id="no" value="N" checked="checked"|cond="$config->group_image_mark != 'Y'" /> <label for="no">{$lang->cmd_no}</label>
-				</span>
+				<span class="pull-left"><strong>{count($group_list)}</strong> {$lang->msg_groups_exist}</span>
+                <div class="pull-right form-inline">
+                    <label class="radio inline">{$lang->use_group_image_mark}:</label>
+
+                    <label class="radio inline" for="yes">
+                        <input type="radio" name="group_image_mark" id="yes" value="Y" checked="checked"|cond="$config->group_image_mark == 'Y'" />
+                        {$lang->cmd_yes}
+                    </label>
+                    <label class="radio inline" for="no">
+                        <input type="radio" name="group_image_mark" id="no" value="N" checked="checked"|cond="$config->group_image_mark != 'Y'" />
+                        {$lang->cmd_no}
+                    </label>
+                </div>
 			</caption>
 			<thead>
 				<tr>
@@ -53,7 +60,7 @@
 			</tfoot>
 			<tbody class="uDrag _groupList">
 				<tr loop="$group_list=>$group_srl,$group_info">
-					<td class="multiLangEdit"><div class="wrap" style="height:22px"><button type="button" class="dragBtn">Move to</button>
+					<td class="multiLangEdit"><div class="wrap" style="height:22px"><button type="button" class="dragBtn"></button>
 						<input type="hidden" name="group_srls[]" value="{$group_info->group_srl}" />
 						<input type="hidden" name="group_titles[]" value="{htmlspecialchars($group_info->title)}" class="vLang"/>
 						<input type="text" value="{$group_info->title}" class="vLang" />
@@ -68,7 +75,7 @@
 					<td><div class="_deleteTD" style="display:none"|cond="$group_info->is_default == 'Y'"><a href="#{$group_srl}" class="_deleteGroup">{$lang->cmd_delete}</a></div></td>
 				</tr>
 				<tr style="display:none" class="_template">
-					<td class="multiLangEdit"><div class="wrap" style="height:22px"><button type="button" class="dragBtn">Move to</button>
+					<td class="multiLangEdit"><div class="wrap" style="height:22px"><button type="button" class="dragBtn"></button>
 						<input type="hidden" name="group_srls[]" value="new" disabled="disabled"/>
 						<input type="hidden" name="group_titles[]" value=""  disabled="disabled" class="vLang" />
 						<input type="text" value="" class="vLang" />
@@ -86,7 +93,7 @@
 		</table>
 	</div>
 	<div class="btnArea">
-		<span class="btn medium"><input type="submit" value="{$lang->cmd_save}" /></span>
+		<input class="btn btn-primary" type="submit" value="{$lang->cmd_save}" />
 	</div>
 
 	<!-- Multilingual -->
