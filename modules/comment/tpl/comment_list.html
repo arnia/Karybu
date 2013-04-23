@@ -27,7 +27,7 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 			</select></label>
 			</block>
 		</div>
-		<table width="100%" border="1" cellspacing="0" id="commentListTable">
+		<table width="100%" border="1" cellspacing="0" id="commentListTable" class="table-condensed table-bordered table-hover">
 			<caption>
 				<!--@if($search_keyword == '')-->
 				{$lang->all}
@@ -41,8 +41,8 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 				{$published_name_list['Y']}
 				<!--@end-->
 				({number_format($total_count)})
-				<div class="side">
-					<span class="btn"><a href="#listManager" class="modalAnchor" onclick="getCommentList();">{$lang->comment_manager}...</a></span>
+				<div class="side pull-right">
+					<a href="#listManager" class="btn" data-toggle="modal" onclick="getCommentList();">{$lang->comment_manager}...</a>
 				</div>
 			</caption>
 			<thead>
@@ -86,54 +86,61 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 			</tbody>
 		</table>
 		<div class="btnArea">
-			<span class="btn"><a href="#listManager" class="modalAnchor" onclick="getCommentList();">{$lang->comment_manager}...</a></span>
+			<a href="#listManager" class="btn pull-right" data-toggle="modal" onclick="getCommentList();">{$lang->comment_manager}...</a>
 		</div>
 	</div>
 </form>
-<div class="xe-modal" id="listManager">
-	<form ruleset="deleteChecked" action="./" method="post" class="fg form">
-	<input type="hidden" name="module" value="comment" />
-	<input type="hidden" name="act" value="procCommentAdminDeleteChecked" />
-	<input type="hidden" name="page" value="{$page}" />
-	<input type="hidden" name="is_trash" value="false" />
-	<input type="hidden" name="will_publish" value="0" />
-	<input type="hidden" name="search_target" value="{$search_target}" />
-	<input type="hidden" name="search_keyword" value="{$search_keyword}" />
-		<h2 class="h2">{$lang->comment_manager}</h2>
-		<div class="table even">
-			<table width="100%" border="1" cellspacing="0" id="commentManageListTable">
-				<caption>
-				{$lang->selected_comment} <strong id="selectedCommentCount"></strong>
-				</caption>
-				<thead>
-					<tr>
-						<th scope="col" class="title">{$lang->comment}</th>
-						<th scope="col" class="nowr">{$lang->writer}</th>
-						<th scope="col" class="nowr">{$lang->status}</th>
-						<th scope="col">{$lang->published}</th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
-		</div>
-		<p class="q"><label for="message">{$lang->message_notice}</label></p>
-		<p>
-			<textarea rows="8" cols="42" name="message_content" id="message" style="width:98%"></textarea>
-		</p>
-		<div class="btnArea">
-			<!--@if ($search_target=='is_published' && $search_keyword=="N")-->
-				<span class="btn"><button type="submit" name="will_publish" value="1" onclick="doChangePublishedStatus(this.value);">{$lang->cmd_publish}</button></span>
-			<!--@elseif ($search_target=='is_published' && $search_keyword=="Y")-->
-				<span class="btn"><button type="submit" name="will_publish" value="0" onclick="doChangePublishedStatus(this.value);">{$lang->cmd_unpublish}</button></span>
-			<!--@else-->
-				<span class="btn"><button type="submit" name="will_publish" value="1" onclick="doChangePublishedStatus(this.value);">{$lang->cmd_publish}</button></span>
-				<span class="btn"><button type="submit" name="will_publish" value="0" onclick="doChangePublishedStatus(this.value);">{$lang->cmd_unpublish}</button></span>
-			<!--@end-->
-			<span class="btn"><button type="submit" name="is_trash" value="true">{$lang->cmd_trash}</button></span>
-			<span class="btn"><button type="submit" name="is_trash" value="false">{$lang->cmd_delete}</button></span>
-		</div>
-	</form>
+<div class="modal hide fade x in" id="listManager" style="display: block;" aria-hidden="false">
+    <form ruleset="deleteChecked" action="./" method="post" class="fg form">
+        <input type="hidden" name="module" value="comment" />
+        <input type="hidden" name="act" value="procCommentAdminDeleteChecked" />
+        <input type="hidden" name="page" value="{$page}" />
+        <input type="hidden" name="is_trash" value="false" />
+        <input type="hidden" name="will_publish" value="0" />
+        <input type="hidden" name="search_target" value="{$search_target}" />
+        <input type="hidden" name="search_keyword" value="{$search_keyword}" />
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h2>{$lang->comment_manager}</h2>
+        </div>
+
+        <div class="modal-body">
+            <div class="table even">
+                <table class="table-condensed table-bordered table-hover" width="100%" border="1" cellspacing="0" id="commentManageListTable">
+                    <caption>
+                    {$lang->selected_comment} <strong id="selectedCommentCount"></strong>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="title">{$lang->comment}</th>
+                            <th scope="col" class="nowr">{$lang->writer}</th>
+                            <th scope="col" class="nowr">{$lang->status}</th>
+                            <th scope="col">{$lang->published}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <p class="q"><label for="message">{$lang->message_notice}</label></p>
+            <p>
+                <textarea rows="8" cols="42" name="message_content" id="message" style="width:98%"></textarea>
+            </p>
+        </div>
+        <div class="modal-footer">
+            <!--@if ($search_target=='is_published' && $search_keyword=="N")-->
+                <button class="btn" type="submit" name="will_publish" value="1" onclick="doChangePublishedStatus(this.value);">{$lang->cmd_publish}</button>
+            <!--@elseif ($search_target=='is_published' && $search_keyword=="Y")-->
+                <button class="btn" type="submit" name="will_publish" value="0" onclick="doChangePublishedStatus(this.value);">{$lang->cmd_unpublish}</button>
+            <!--@else-->
+                <button class="btn" type="submit" name="will_publish" value="1" onclick="doChangePublishedStatus(this.value);">{$lang->cmd_publish}</button>
+                <button class="btn" type="submit" name="will_publish" value="0" onclick="doChangePublishedStatus(this.value);">{$lang->cmd_unpublish}</button>
+            <!--@end-->
+            <button class="btn" type="submit" name="is_trash" value="true">{$lang->cmd_trash}</button>
+            <button class="btn" type="submit" name="is_trash" value="false">{$lang->cmd_delete}</button>
+        </div>
+    </form>
 </div>
 <div class="search">
 <form action="./" class="pagination">
@@ -143,24 +150,30 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
   	<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
   	<input cond="$search_target" type="hidden" name="search_target" value="{$search_target}" />
 
-	<a href="{getUrl('page', '')}" class="direction">&laquo; {$lang->first_page}</a>
-	<block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
-		{@$isGoTo = true}
-		<a href="{getUrl('page', '')}">1</a>
-		<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-	</block>
-	<!--@while($page_no = $page_navigation->getNextPage())-->
-		{@$last_page = $page_no}
-		<strong cond="$page_no == $page">{$page_no}</strong>
-		<a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a>
-	<!--@end-->
-	<block cond="$last_page != $page_navigation->last_page">
-		{@$isGoTo = true}
-		<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-		<a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
-	</block>
-	<a href="{getUrl('page', $page_navigation->last_page)}" class="direction">{$lang->last_page} &raquo;</a>
-	<span cond="$isGoTo" id="goTo" class="tgContent">
+	<ul>
+        <li><a href="{getUrl('page', '')}" class="direction">&laquo; {$lang->first_page}</a></li>
+        <block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
+            {@$isGoTo = true}
+            <li><a href="{getUrl('page', '')}">1</a></li>
+            <li><a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a></li>
+        </block>
+        <!--@while($page_no = $page_navigation->getNextPage())-->
+            {@$last_page = $page_no}
+            <li <!--@if($page == $page_no)-->
+                class="active"
+                <!--@end-->>
+                <a href="#"><strong cond="$page_no == $page">{$page_no}</strong></a>
+            </li>
+            <li><a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a></li>
+        <!--@end-->
+        <block cond="$last_page != $page_navigation->last_page">
+            {@$isGoTo = true}
+            <li><a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a></li>
+            <li><a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a></li>
+        </block>
+        <li><a href="{getUrl('page', $page_navigation->last_page)}" class="direction">{$lang->last_page} &raquo;</a></li>
+    </ul>
+    <span cond="$isGoTo" id="goTo" class="tgContent">
 		<input name="page" title="{$lang->cmd_go_to_page}" />
 		<button type="submit">Go</button>
 	</span>
@@ -178,7 +191,7 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 			<!--@end-->
 		</select>
 		<input type="text" name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
-		<input type="submit" value="{$lang->cmd_search}" />
+		<input type="submit" class="btn" value="{$lang->cmd_search}" />
 		<a href="{getUrl('','module',$module,'act',$act)}">{$lang->cmd_cancel}</a>
 	</form>
 </div>

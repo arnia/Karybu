@@ -17,10 +17,10 @@
 	<input type="hidden" name="document_srl" value="{$document_srl}" />
 	<input type="hidden" name="module_srl" value="{$oDocument->get('module_srl')}" />
 	
-	<h3 class="h3">{$lang->alias}</h3>
-	<div class="table">
-		<table width="100%" border="1" cellspacing="0">
-			<thead>
+	<h3>{$lang->alias}</h3>
+	<div class="table even">
+		<table class="table table-condensed table-bordered table-hover">
+		<thead>
 		<tr>
 			<th scope="col">{$lang->title}</th>
 			<th scope="col">{$lang->alias}</th>
@@ -36,18 +36,16 @@
 		<tr>
 			{@ $bFirst = false; }
 			<!--@end-->
-			<td>{$val->alias_title}</td>
-			<td><button type="button" onclick="deleteByFilter('{$val->alias_srl}', delete_alias);">Delete</button>
+			<td >{$val->alias_title}</td>
+			<td><div class="kActionIcons"><a href="#"  onclick="deleteByFilter('{$val->alias_srl}');" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kDelete">{$lang->cmd_delete}</i></a></div>
 			</td>
 		</tr>
 			<!--@end-->
 			<!--@if(!$bFirst)-->
 		<tr>
 			<!--@end-->
-			<td>
-			<input type="text" name="alias_title" />
-			</td>
-			<td><span class="btn"><input type="submit" value="{$lang->cmd_registration}" /></span></td>
+			<td><input type="text" name="alias_title" /></td>
+			<td><input type="submit" class="btn btn-primary" value="{$lang->cmd_registration}" /></td>
 		</tr>
 		</tbody>
 		</table>

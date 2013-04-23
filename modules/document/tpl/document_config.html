@@ -4,7 +4,7 @@
 	<input type="hidden" name="module" value="document" />
 	<input type="hidden" name="act" value="procDocumentAdminInsertConfig" />
 	<div class="table">
-		<table width="100%" border="1" cellspacing="0">
+		<table class="table table-condensed table-bordered table-hover" cellspacing="0">
 		<tr>
 			<th scope="col">{$lang->thumbnail_type}</th>
 		</tr>
@@ -17,7 +17,7 @@
 		</table>
 	</div>
     <div class="btnArea">
-		<span class="btn"><input type="submit" value="{$lang->cmd_registration}" /></span>
-		<span class="btn"><input type="button" value="{$lang->cmd_delete_all_thumbnail}" onclick="doDeleteAllThumbnail(); return false;"/></span>
+		<input type="submit" class="btn btn-primary" value="{$lang->cmd_registration}" />
+		<input type="button" class="btn " value="{$lang->cmd_delete_all_thumbnail}" onclick="doDeleteAllThumbnail(); return false;"/>
 	</div>
 </form>
