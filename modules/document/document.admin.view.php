@@ -157,35 +157,5 @@
             $this->setTemplatePath($this->module_path.'tpl');
             $this->setTemplateFile('document_alias');
         }
-
-		/**
-		 * Display a trash list on the admin page
-		 * @return void
-		 */
-        function dispDocumentAdminTrashList() {
-            // options for a list
-            $args->page = Context::get('page'); // /< Page
-            $args->list_count = 30; // /< the number of posts to display on a single page
-            $args->page_count = 10; // /< the number of pages that appear in the page navigation
-
-            $args->sort_index = 'list_order'; // /< sorting values
-            $args->order_type = 'desc'; // /< sorting values by order
-
-            $args->module_srl = Context::get('module_srl');
-
-            // get a list
-            $oDocumentAdminModel = &getAdminModel('document');
-            $output = $oDocumentAdminModel->getDocumentTrashList($args);
-
-            // Set values of document_admin_model::getDocumentTrashList() objects for a template
-            Context::set('total_count', $output->total_count);
-            Context::set('total_page', $output->total_page);
-            Context::set('page', $output->page);
-            Context::set('document_list', $output->data);
-            Context::set('page_navigation', $output->page_navigation);
-            // set the template
-            $this->setTemplatePath($this->module_path.'tpl');
-            $this->setTemplateFile('document_trash_list');
-        }
     }
 ?>
