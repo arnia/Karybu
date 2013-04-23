@@ -208,10 +208,17 @@
                     $activeNode = $item['node_srl'];
                 }
             }
+            if(isset($menu->list[$parentSrl])) {
+                $page_title = $menu->list[$parentSrl]['text'];
+            } else {
+                $page_title = $module;
+            }
+            $page_title = ucfirst($page_title);
 
             Context::set('activeNode', $activeNode);
             Context::set('subMenuTitle', $subMenuTitle);
 			Context::set('gnbUrlList',   $menu->list);
+			Context::set('page_title',   $page_title);
 			Context::set('parentSrl',    $parentSrl);
 			Context::set('gnb_title_info', $gnbTitleInfo);
             Context::setBrowserTitle($browserTitle);

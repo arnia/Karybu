@@ -1054,6 +1054,17 @@ a:hover i.kInfo:hover {
     background:url("../img/sprite-24.png") -120px -24px ;
 }
 
+.x .uDrag .dragBtn {
+
+    background:url("../img/sprite-24.png") -144px 0px ;
+
+}
+
+.x .uDrag .dragBtn:hover {
+    cursor: n-resize;
+    background:url("../img/sprite-24.png") -144px -24px ;
+}
+
 
 /* ACTION ICONS END */
 

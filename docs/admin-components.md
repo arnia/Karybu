@@ -1,6 +1,18 @@
 Karybu admin components
 =======================
 
+- [Modal windows](#modal-windows)
+	- [Filebox](#filebox)
+- [Legacy modal windows](#legacy-modal-windows)
+	- [Basic modal](#basic-modal)
+	- [Differences between Bootstrap and XE modals](#differences-between-bootstrap-and-xe-modals)
+	- [Methods](#methods)
+	- [Events](#events)
+- [Multilanguage inputs](#multilanguage-inputs)
+	- [How this works](#how-this-works)
+- [Tables](#tables)
+	- [Sortable tables](#sortable-tables)
+
 Modal windows
 ----------------
 Karybu uses [Twitter Bootstrap modals](http://twitter.github.io/bootstrap/javascript.html#modals) for its modal windows. You should first check their documentation in order to get started.
@@ -97,3 +109,95 @@ Before open | `before-open.mw` | `show`
 After open  | `after-open.mw` | `shown`
 Before close | `before-close.mw` | `hide`
 After close | `after-close.mw` | `hidden`
+
+Multilanguage inputs
+---------------------
+
+Multilanguage inputs are used when the content edited by the user needs to be saved in several languages. For example, the title of a page, or the text of a product in an e-shop. 
+
+In order to add a multilangauge input the syntax is:
+
+```html
+<!-- Input that will support multiple languages -->
+<div class="multiLangEdit">
+    <input type="hidden" name="browser_title" value="{htmlspecialchars($module_info->browser_title)}" class="vLang" />
+    <input type="text" id="browser_title" value="{$module_info->browser_title}" class="vLang" />
+    <span class="desc"><a href="#langEdit" class="tgAnchor editUserLang" data-effect="slide">{$lang->cmd_set_multilingual}</a></span>
+</div>
+
+<!-- Container showing the list of enabled languages -->
+ {@$use_multilang = true}
+<include target="../../admin/tpl/common/include.multilang.html" />
+```
+
+For textareas, the syntax is very similar:
+```html
+<!-- Textarea that will support multiple languages -->
+<div class="multiLangEdit">
+    <input type="hidden" name="product_description" value="<!--@if(strpos($product_description, '$user_lang->') === false)-->{$product_description}<!--@else-->{htmlspecialchars($product_description)}<!--@end-->" class="vLang" />
+	<textarea rows="8" cols="42" class="vLang">{$product_description}</textarea>
+	<span class="desc"><a href="#langEditTextarea" class="editUserLang tgAnchor">{$lang->cmd_set_multilingual}</a></span>
+</div>
+<!-- Container showing the list of enabled languages -->
+{@$use_multilang_textarea = true}
+<include target="../../admin/tpl/common/include.multilang.textarea.html" />
+```
+
+### How this works
+
+Say you want to translate the title of one of the pages in your website and that the name of the text input is "browser_title".
+
+If the user doesn't translate the text, but just enters a title in the input, that value will be saved as is for "browser_title".
+
+However, if the user open the "Select language" popup and translates the text, Karybu will generate a unique key for this title, holding the translated value. This is the value that will also be persisted in the database and looks like `$user_lang->abc123`. This is why two inputs are needed: the hidden input contains the value `$user_lang->abc1234` while the text input contains the value assigned to this variable `{$user_lang->abc1234}`;
+
+Tables
+================
+
+Tables in admin should be styled according to [Twitter Bootstrap styles](http://twitter.github.io/bootstrap/base-css.html#tables).
+
+Besides the features Bootstrap offers, Karybu also exposes a custom set of functionality:
+
+### Sortable tables
+
+Here is a sample sortable table:
+
+```html
+<table class="table sortable span4">
+    <caption>Here's a caption</caption>
+    <thead>
+        <th>Column 1 title</th>
+        <th>Column 2 title</th>
+    </thead>
+    <tbody class="uDrag">
+        <tr>
+            <td>
+            	<div class="kActionIcons">
+            		<button type="button" class="dragBtn">
+            			<i class="kMove"></i>
+            		</button>
+            	</div>
+            </td>
+            <td>Row 1</td>
+        </tr>
+        
+        ...
+        
+    </tbody>
+</table>
+```
+
+The only mandatory items for this to work are the `sortable` class on the `table` tag and the button with the `dragBtn` class; all the other ones are for making it look consistent with the rest of the admin.
+
+Collapsible sections
+--------------------
+
+When viewing an admin page, it is usually divided in sub-sections. For instance, the "Editor settings" view has three sections: "Editor Preview", "Editor Options" and "Editor Components". When sections become too big, it is useful to collapse them, to get faster to the content. 
+
+In order to make a section collapsible, it is enough to add the "h2" or "h3" class to it:
+
+```html
+<h2 class="h2">
+```
+
+// TODO Rename class to something like "toggle-section" or such
