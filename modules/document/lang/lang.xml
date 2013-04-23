@@ -36,7 +36,7 @@
 	</item>
 	<item name="thumbnail_ratio">
 		<value xml:lang="ko"><![CDATA[비율 맞추기 (원본 이미지의 비율에 맞춥니다. 다만 정해진 크기에 여백이 생깁니다.)]]></value>
-		<value xml:lang="en"><![CDATA[Ratio (keeping the same aspect ratio as the original image)]]></value>
+		<value xml:lang="en"><![CDATA[Ratio (keep the aspect ratio of the original image)]]></value>
 		<value xml:lang="jp"><![CDATA[比率に合わせる]]></value>
 		<value xml:lang="zh-CN"><![CDATA[比例(按原图比例缩略处理)]]></value>
 		<value xml:lang="zh-TW"><![CDATA[比例]]></value>

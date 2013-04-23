@@ -19,7 +19,7 @@
 <input type="hidden" name="agreement" value="{$config->agreement}" />
 	<h1>{$lang->cmd_member_config}</h1>
 	<fieldset class="section suSetting">
-		<h3>{$lang->cmd_module_config}</h3>
+		<h3 class="h3">{$lang->cmd_module_config}</h3>
         <div class="control-group form-inline">
             <label class="control-label">{$lang->enable_join}</label>
             <div class="controls">
@@ -212,9 +212,9 @@
         </div>
 	</fieldset>
 	<fieldset class="section suForm">
-		<h3>{$lang->cmd_manage_form}</h3>
-		<div class="table even">
-			<table width="100%" border="1" cellspacing="0" class="sortable">
+		<h3 class="h3">{$lang->cmd_manage_form}</h3>
+		<div>
+			<table class="sortable table table-hover table-condensed table-striped">
 				<thead>
 				<tr>
 					<th scope="col">{$lang->target}</th>
@@ -243,12 +243,12 @@
 						<input type="hidden" name="list_order[]" value="{$item->name}" />
 						<input type="hidden" name="usable_list[]" value="{$item->name}"/>
 						<input type="hidden" name="{$item->name}" value="requierd"/>
-						<th scope="row">
+						<td scope="row">
 							<span class="_title" style="padding-left:20px">{$item->title}</span>
-						</th>
+						</td>
 						<td><input type="radio" name="identifier" value="{$item->name}" checked="checked" /></td>
 						<td><input type="checkbox" name="usable_list[]" value="{$item->name}" title="{$lang->use}" checked="checked"  disabled="disabled" /></td>
-						<td class="nowr">
+						<td class="form-inline">
 							<input type="radio" id="{$item->name}_re" name="{$item->name}" value="requierd" checked="checked" disabled="disabled" /> <label for="{$item->name}_re">{$lang->cmd_required}</label>
 							<input type="radio" id="{$item->name}_op" name="{$item->name}" value="option" disabled="disabled" /> <label for="{$item->name}_op">{$lang->cmd_optional}</label>
 						</td>
@@ -261,15 +261,15 @@
 						<input type="hidden" name="list_order[]" value="{$item->name}" />
 						<input type="hidden" name="usable_list[]" value="{$item->name}" cond="$item->mustRequired"/>
 						<input type="hidden" name="{$item->name}" value="requierd" cond="$item->mustRequired"/>
-						<th scope="row">
+						<td scope="row">
 							<div class="wrap">
-								<button type="button" class="dragBtn">Move to</button>
+								<button type="button" class="dragBtn"></button>
 								<span class="_title">{$item->title}</span>
 							</div>
-						</th>
+						</td>
 						<td><input type="radio" name="identifier" value="{$item->name}" cond="$item->name== 'email_address' || $item->name=='user_id'" /></td>
 						<td><input type="checkbox" name="usable_list[]" value="{$item->name}" title="{$lang->use}" checked="checked"|cond="$item->mustRequired || $item->isUse" disabled="disabled"|cond="$item->mustRequired" /></td>
-						<td class="nowr">
+						<td class="form-inline">
 							<input type="radio" id="{$item->name}_re" name="{$item->name}" value="required" checked="checked"|cond="$item->mustRequired || $item->required" disabled="disabled"|cond="$item->mustRequired || !$item->isUse" /> <label for="{$item->name}_re">{$lang->cmd_required}</label>
 							<input type="radio" id="{$item->name}_op" name="{$item->name}" value="option" checked="checked"|cond="!$item->mustRequired && ($item->isUse && !$item->required)" disabled="disabled"|cond="$item->mustRequired || !$item->isUse" /> <label for="{$item->name}_op">{$lang->cmd_optional}</label>
 							<div cond="$item->imageType" class="_subItem">
@@ -300,19 +300,22 @@
 						<input type="hidden" name="{$item->name}_member_join_form_srl" value="{$item->member_join_form_srl}" />
 						<th scope="row">
 							<div class="wrap">
-								<button type="button" class="dragBtn">Move to</button>
+								<button type="button" class="dragBtn"></button>
 								<span class="_title">{$item->title}</span>
 							</div>
 						</th>
 						<td></td>
 						<td><input type="checkbox" name="usable_list[]" value="{$item->name}" title="{$lang->use}" checked="checked"|cond="$item->isUse" /></td>
-						<td class="nowr">
+						<td class="form-inline">
 							<input type="radio" id="{$item->name}_re" name="{$item->name}" value="required" checked="checked"|cond="$item->required" disabled="disabled"|cond="!$item->isUse"/> <label for="{$item->name}_re">{$lang->cmd_required}</label>
 							<input type="radio" id="{$item->name}_op" name="{$item->name}" value="option" checked="checked"|cond="$item->isUse && !$item->required" disabled="disabled"|cond="!$item->isUse" /> <label for="{$item->name}_op">{$lang->cmd_optional}</label>
 						</td>
 						<td><input type="checkbox" name="is_{$item->name}_public" value="Y" checked="checked"|cond="$item->isPublic == 'Y'" disabled="disabled"|cond="!$item->isUse" /></td>
 						<td class="text">{$item->description}</td>
-						<td id="{$item->member_join_form_srl}" class="nowr"><a href="#userDefine" data-toggle="modal">{$lang->cmd_edit}</a> | <a href="#" class="_extendFormDelete">{$lang->cmd_delete}</a></td>
+						<td id="{$item->member_join_form_srl}" class="nowr">
+                            <a href="#userDefine" data-toggle="modal">{$lang->cmd_edit}</a> |
+                            <a href="#" class="_extendFormDelete">{$lang->cmd_delete}</a>
+                        </td>
 					</tr>
 					<!--@end-->
 					<!--@end-->
@@ -320,13 +323,10 @@
 			</table>
 		</div>
 		<p class="btnArea">
-			<span class="btn small"><a href="#userDefine" data-toggle="modal">{$lang->add_extend_form}...</a></span>
+			<a class="btn" href="#userDefine" data-toggle="modal">{$lang->add_extend_form}...</a>
+            <input class="btn btn-primary" type="submit" value="{$lang->cmd_save}" />
 		</p>
 	</fieldset>
-        
-        <div class="btnArea">
-		<span class="btn"><input type="submit" value="{$lang->cmd_save}" /></span>
-	</div>
     </form>
         
     <form action="./" method="post" class="form">
@@ -334,10 +334,9 @@
 	<input type="hidden" name="act" value="procMemberAdminSnsCheckUseListOrder" />
         <input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
         <fieldset class="section sns_config">
-		<h2 class="h2">{$lang->sns}</h2>
-                
-                <div class="table">
-			<table id="sortable_table" class="sortable"width="100%" border="1" cellspacing="0">
+		<h3 class="h3">{$lang->sns}</h3>
+            <div class="table">
+			<table id="sortable_table" class="sortable table table-hover table-condensed table-striped">
 				<caption>
                                     {$lang->total_count}({$sns_count})
 				</caption>
@@ -353,7 +352,7 @@
 				<tbody class="uDrag">
 					<!--@foreach($sns_list as $sns_name => $xml_info)-->
 					<tr>
-						<td><div class="wrap" style="height:80px"><button type="button" class="dragBtn">Move to</button></div></td>
+						<td><div class="wrap"><button type="button" class="dragBtn"></button></div></td>
 						<td class="title">
 							<input type="hidden" name="sns_names[]" value="{$xml_info->sns_name}" />
 							<p><b>{$xml_info->title}</b></p>
@@ -368,14 +367,14 @@
 			</table>
 		</div>
                <div class="btnArea">
-                    <span class="btn"><input type="submit" value="{$lang->cmd_save}" /></span>
+                    <input class="btn btn-primary" type="submit" value="{$lang->cmd_save}" />
 		</div>     
         </fieldset>
     </form>
 
-<h2 class="h2">{$lang->cmd_member_sync}</h2>
+<h3 class="h3">{$lang->cmd_member_sync}</h3>
 <div class="form">
-	<span class="btn small"><input type="button" value="{$lang->cmd_member_sync}" class="btn __sync" /></span>
+	<input type="button" value="{$lang->cmd_member_sync}" class="btn btn-primary __sync" />
 	<p class="description">{$lang->about_member_sync}</p>
 </div>
 
@@ -384,9 +383,8 @@
 		<input type="hidden" name="module" value="member" />
 		<input type="hidden" name="act" value="procMemberAdminInsertJoinForm" />
 		<input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
-		<div id="extendForm">
+        <div id="extendForm">
 		</div>
-
 	</form>
 </div>
 
