@@ -1,4 +1,4 @@
-<h1 class="h1">{$lang->cmd_setup}</h1>
+<h3 class="h3">{$lang->cmd_setup}</h3>
 <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
     <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
@@ -8,7 +8,7 @@
     <input type="hidden" name="sns_name" value="{$sns_name}" />
     <input type="hidden" name="success_return_url" value="{getUrl('', 'act', 'dispMemberAdminConfig', 'module', 'admin')}" />
     <div class="table">
-        <table width="100%" border="1" cellspacing="0">
+        <table class="table table-condensed table-bordered table-hover">
             <tr>
                 <th scope="row"><div>{$lang->sns_name}</div></th>
                 <td>{$sns->title}({$sns->sns_name})</td>
@@ -32,7 +32,7 @@
         </table>
     </div>
     <div class="btnArea">
-        <span class="btn"><a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminConfig')}" >{$lang->cmd_back}</a></span>
-        <span class="btn"><input type="submit" value="{$lang->cmd_apply}" /></span>
+        <a class="btn" href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminConfig')}" >{$lang->cmd_back}</a>
+        <input class="btn btn-primary" type="submit" value="{$lang->cmd_apply}" />
     </div>
 </form>

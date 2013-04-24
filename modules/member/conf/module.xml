@@ -26,12 +26,8 @@
         <action name="dispMemberAdminInsert" type="view" menu_name="userList" />
         <action name="dispMemberAdminDeleteForm" type="view" standalone="true" />
         <action name="dispMemberAdminGroupList" type="view" menu_name="userGroup" menu_index="true" />
-        <action name="dispMemberAdminJoinFormList" type="view" standalone="true" />
         <action name="dispMemberAdminInfo" type="view" menu_name="userList" />
         <action name="dispMemberAdminInsertJoinForm" type="view" standalone="true" />
-        <action name="dispMemberAdminDeniedIDList" type="view" standalone="true" />
-        <action name="dispMemberAdminManageGroup" type="view" standalone="true" />
-        <action name="dispMemberAdminDeleteMembers" type="view" standalone="true" />
         <action name="dispMemberAdminSetupSns" menu_name="userSetting" type="view" standalone="true" />
 
         <action name="getMemberMenu" type="model" standalone="true" />

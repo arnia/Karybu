@@ -209,8 +209,6 @@
                 <span class="desc">{$lang->multi_line_input}</span>
             </div>
         </div>
-	</fieldset>
-	<fieldset class="section suForm">
 		<h3 class="h3">{$lang->cmd_manage_form}</h3>
 		<div>
 			<table class="sortable table table-hover table-condensed table-striped">
@@ -374,13 +372,13 @@
 		</div>     
         </fieldset>
     </form>
-
-<h3 class="h3">{$lang->cmd_member_sync}</h3>
-<div class="form">
-	<input type="button" value="{$lang->cmd_member_sync}" class="btn btn-primary __sync" />
-	<p class="description">{$lang->about_member_sync}</p>
-</div>
-
+    <fieldset class="section">
+    <h3 class="h3">{$lang->cmd_member_sync}</h3>
+    <div class="form">
+        <input type="button" value="{$lang->cmd_member_sync}" class="btn btn-primary __sync" />
+        <p class="description">{$lang->about_member_sync}</p>
+    </div>
+    </fieldset>
 <div class="modal hide fade" id="userDefine">
 	<form action="./" class="fg form" ruleset="insertJoinForm" method="post">
 		<input type="hidden" name="module" value="member" />

@@ -54,19 +54,6 @@ function completeUpdateGroup(ret_obj) {
     location.href = current_url.setQuery('group_srl','');
 }
 
-
-/* 금지아이디 추가 */
-function completeInsertDeniedID(ret_obj) {
-    var error = ret_obj['error'];
-    var message = ret_obj['message'];
-    var page = ret_obj['page'];
-
-    alert(message);
-
-    var url = current_url.setQuery('act','dispMemberAdminDeniedIDList');
-    location.href = url;
-}
-
 /* 가입폼 관련 작업들 */
 function doUpdateJoinForm(member_join_form_srl, mode, message) {
     if(typeof(message)!='undefined'&&!confirm(message)) return;
@@ -76,31 +63,6 @@ function doUpdateJoinForm(member_join_form_srl, mode, message) {
     fo_obj.mode.value = mode;
 
     procFilter(fo_obj, update_member_join_form);
-}
-
-function completeUpdateJoinForm(ret_obj) {
-    var error = ret_obj['error'];
-    var message = ret_obj['message'];
-    var page = ret_obj['page'];
-
-    alert(message);
-
-    var url = current_url.setQuery('act','dispMemberAdminJoinFormList');
-
-    location.href = url;
-}
-
-/* 가입폼 추가 */
-function completeInsertJoinForm(ret_obj) {
-    var error = ret_obj['error'];
-    var message = ret_obj['message'];
-    var page = ret_obj['page'];
-
-    alert(message);
-
-    var url = current_url.setQuery('act','dispMemberAdminJoinFormList');
-
-    location.href = url;
 }
 
 /* 가입폼의 기본 값 관리 */
@@ -277,49 +239,11 @@ function doDeleteImageMark(member_srl) {
 	);
 }
 
-
-
-/* 그룹 일괄 변경 */
-function doManageMemberGroup() {
-    var fo_obj = get_by_id("member_fo");
-    var member_srl = new Array();
-
-    if(typeof(fo_obj.cart.length)=='undefined') {
-        if(fo_obj.cart.checked) member_srl[member_srl.length] = fo_obj.cart.value;
-    } else {
-        var length = fo_obj.cart.length;
-        for(var i=0;i<length;i++) {
-            if(fo_obj.cart[i].checked) member_srl[member_srl.length] = fo_obj.cart[i].value;
-        }
-    }
-
-    if(member_srl.length<1) return;
-
-    var url = './?module=member&act=dispMemberAdminManageGroup&member_srls='+member_srl.join(',');
-    winopen(url, 'manageMemberGroup','scrollbars=no,width=400,height=500,toolbars=no');
-}
-
 /* 그룹 일괄 변경 후 */
 function completeUpdateMemberGroup(ret_obj) {
     alert(ret_obj['message']);
     opener.location.href = opener.current_url;
     window.close();
-}
-
-
-/* 일괄 삭제 */
-function doDeleteMembers() {
-    var carts = get_by_id('member_fo').elements['cart'], member_srls = [], i, c, url;
-
-	if(!is_def(carts.length)) carts = [carts];
-	for(i=0,c=carts.length; i < c; i++) {
-		if(carts[i].checked) member_srls.push(carts[i].value);
-	}
-	if(member_srls.length < 1) return;
-
-	url = './?module=member&act=dispMemberAdminDeleteMembers&member_srls=' + member_srls.join(',');
-
-    winopen(url, 'deleteMembers','scrollbars=no,width=400,height=500,toolbars=no');
 }
 
 /* 일괄 삭제 후 */

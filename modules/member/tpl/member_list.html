@@ -6,8 +6,8 @@
 <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
+<h3 class="h3">{$lang->user_list}</h3>
 <form action="" class="form" method="post">
-	<h3>{$lang->user_list}</h3>
     <div class="cnb">
         <ul class="nav nav-tabs">
             <li class="active"|cond="$filter_type==''"><a href="{getUrl('filter_type', '', 'page', '')}">{$lang->cmd_show_all_member}</a></li>
