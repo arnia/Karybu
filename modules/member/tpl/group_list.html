@@ -14,8 +14,8 @@
 <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
-<h1 class="h1">{$lang->member_group}</h1>
-<form action="" class="form" method="post" ruleset="insertGroupConfig">
+<h3 class="h3">{$lang->member_group}</h3>
+<form action="./" class="form" method="post" ruleset="insertGroupConfig">
 	<input type="hidden" name="module" value="member" />
 	<input type="hidden" name="act" value="procMemberAdminGroupConfig" />
 	<div class="table even">
@@ -60,7 +60,8 @@
 			</tfoot>
 			<tbody class="uDrag _groupList">
 				<tr loop="$group_list=>$group_srl,$group_info">
-					<td class="multiLangEdit"><div class="wrap" style="height:22px"><button type="button" class="dragBtn"></button>
+					<td class="multiLangEdit">
+                        <div class="wrap" style="height:22px"><button type="button" class="dragBtn"></button>
 						<input type="hidden" name="group_srls[]" value="{$group_info->group_srl}" />
 						<input type="hidden" name="group_titles[]" value="{htmlspecialchars($group_info->title)}" class="vLang"/>
 						<input type="text" value="{$group_info->title}" class="vLang" />
@@ -71,7 +72,7 @@
 					<td><input type="radio" name="defaultGroup" value="{$group_info->group_srl}" title="Default" checked="checked"|cond="$group_info->is_default=='Y'" /></td>
 					<td class="_imageMarkButton"><input type="hidden" name="image_marks[]" value="{$group_info->image_mark}" class="_imgMarkHidden" />
 						<img src="{$group_info->image_mark}" alt="{$group_info->title}" cond="$config->group_image_mark == 'Y' && $group_info->image_mark" />
-						<a href="#imageMark" class="_imageMark filebox" data-toggle="modal">{$lang->cmd_modify}...</a></td>
+						<a href="#imageMark" class="_imageMark filebox" data-toggle="modal">{$lang->cmd_modify}</a></td>
 					<td>
                         <div class="_deleteTD kActionIcons" style="display:none"|cond="$group_info->is_default == 'Y'">
                             <a href="#{$group_srl}" class="_deleteGroup" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kDelete">{$lang->cmd_delete}</i></a>
@@ -104,28 +105,8 @@
 		<input class="btn btn-primary" type="submit" value="{$lang->cmd_save}" />
 	</div>
 
-	<!-- Multilingual -->
-	<div id="langEdit" class="langEdit tgContent">
-		<ul class="langList"></ul>
-		<div class="langInput">
-			<h2>{$lang->cmd_multilingual} <strong>{$lang->cmd_modify}...</strong> | <a href="#langEdit">{$lang->cmd_insert}</a></h2>
-			<ul>
-				{@
-					/* move current language to the top */
-					$a = array($lang_type=>$lang_supported[$lang_type]);
-					unset($lang_supported[$lang_type]);
-					$lang_supported = array_merge($a, $lang_supported);
-				}
-				<li loop="$lang_supported=>$code,$name" class="{$code}"><label for="{$code}_var1">{$name}</label> <input type="text" value="" id="{$code}_var1" /></li>
-			</ul>
-			<div class="action">
-				<div class="btnArea">
-					<span class="btn small"><input type="submit" value="{$lang->use}|{$lang->use_after_save}" /></span>
-				</div>
-				<p><a href="{getUrl('act','dispModuleAdminLangcode')}">{$lang->multilingual_manager}</a></p>
-			</div>
-		</div>
-	</div>
+    {@$use_multilang = true}
+    <include target="../../admin/tpl/common/include.multilang.html" />
 </form>
 
 <div class="modal hide fade" id="imageMark">

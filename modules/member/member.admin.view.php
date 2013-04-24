@@ -484,23 +484,6 @@ EOD;
 		}
 
         /**
-         * Display a list of member join form
-		 * 
-		 * @return void
-		 **/
-        function dispMemberAdminJoinFormList() {
-            // Create a member model object            
-			$oMemberModel = &getModel('member');
-            // Get join form list which is additionally set            
-			$form_list = $oMemberModel->getJoinFormList();
-            Context::set('form_list', $form_list);
-			$security = new Security($form_list);						
-			$security->encodeHTML('form_list..');
-			
-            $this->setTemplateFile('join_form_list');
-        }
-
-        /**
          * Display an admin page for memebr join forms
 		 *
 		 * @return void
@@ -523,65 +506,6 @@ EOD;
             $this->setTemplateFile('insert_join_form');
         }
 
-        /**
-         * Display denied ID list
-		 *
-		 * @return void
-		 **/
-        function dispMemberAdminDeniedIDList() {
-            // Create a member model object            
-			$oMemberModel = &getModel('member');
-            // Get a denied ID list            
-			$output = $oMemberModel->getDeniedIDList();
-
-            Context::set('total_count', $output->total_count);
-            Context::set('total_page', $output->total_page);
-            Context::set('page', $output->page);
-            Context::set('member_list', $output->data);
-            Context::set('page_navigation', $output->page_navigation);
-			
-			$security = new Security();
-			$security->encodeHTML('member_list..');			
-            $this->setTemplateFile('denied_id_list');
-        }
-
-        /**
-         * Update all the member groups
-		 *
-		 * @return void
-		 **/
-        function dispMemberAdminManageGroup() {
-            // Get a list of the selected member            
-			$args->member_srl = trim(Context::get('member_srls'));
-            $output = executeQueryArray('member.getMembers', $args);
-            Context::set('member_list', $output->data);
-            // Get a list of the selected member            
-			$oMemberModel = &getModel('member');
-            Context::set('member_groups', $oMemberModel->getGroups());
-			
-			$security = new Security();
-			$security->encodeHTML('member_list..');	
-			
-            $this->setLayoutFile('popup_layout');
-            $this->setTemplateFile('manage_member_group');
-        }
-
-        /**
-         * Delete members
-		 *
-		 * @return void
-		 **/
-        function dispMemberAdminDeleteMembers() {
-            // Get a list of the selected member            
-			$args->member_srl = trim(Context::get('member_srls'));
-            $output = executeQueryArray('member.getMembers', $args);
-            Context::set('member_list', $output->data);
-
-			$this->setLayoutFile('popup_layout');
-            $this->setTemplateFile('delete_members');
-        }
-        
-        
         //SNS
         function dispMemberAdminSetupSns(){
             $sns_name = Context::get('sns_name');
