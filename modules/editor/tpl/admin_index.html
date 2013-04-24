@@ -1,28 +1,5 @@
 <load target="js/editor_module_config.js" usecdn="true" />
-<script type="text/javascript">
-	jQuery(function($){
-		var fontPreview = $('.fontPreview');
-		var fontRadio = $('.fontSelector>:radio');
-		var checkedFont = fontRadio.filter(':checked').next('label').css('fontFamily');
-		fontPreview.css('fontFamily',checkedFont);
-		fontRadio.change(function(){
-			var myFont = $(this).next('label').css('fontFamily');
-			fontPreview.css('fontFamily',myFont);
-		});
-		var changedSize = $('#fontSize').val();
-		fontPreview.css('fontSize',changedSize+'px');
-		$('#fontSize').keyup(function(){
-			var mySize = $(this).val();
-			fontPreview.css('fontSize',mySize+'px');
-			if(mySize.length==0){ fontPreview.css('fontSize','') };
-			if(mySize>28){
-				alert('{$lang->msg_font_too_big}');
-				$(this).val('28');
-				fontPreview.css('fontSize','28px');
-			};
-		});
-	});
-</script>
+
 <h1 class="h1">{$lang->editor}</h1>
 
 <!-- Editor Preview -->
@@ -106,40 +83,61 @@
         </div>
         <div class="row-fluid">
             <h3>{$lang->editor_option_body}</h3>
-            <ul class="unstyled">
-                <li>
-                    <strong>{$lang->guide_choose_text_formatting}</strong>
 
-                        <!--@foreach($content_style_list as $key => $val)-->
-                        <input type="radio" name="content_style" value="{$key}" id="style_{$key}" checked="checked"|cond="$key==$editor_config->content_style||!$editor_config->content_style && $key=='default'"> <label for="style_{$key}">{$key}</label>
-                        <!--@end-->
+            <div class="row-fluid">
+                <div class="span6">
+                    <textarea rows="5" cols="42" class="fontPreview span12"
+                              title="Font Preview">{$lang->font_preview}</textarea>
+                    <div>
+                        <div>
+                            <strong>{$lang->guide_choose_font_size_body}</strong><br>
 
-                </li>
-                <li>
-                    <p>{$lang->guide_choose_font_body}</p>
-                    <textarea rows="8" cols="42" class="fontPreview" title="Font Preview">{$lang->font_preview}</textarea>
-                    <p class="answer fontSelector">
+
+                            <input type="text" id="fontSize" name="content_font_size"
+                                   value="<!--@if($editor_config->content_font_size)-->{str_replace('px','',$editor_config->content_font_size)}<!--@else-->{str_replace('px','',$editor_config_default['content_font_size'])}<!--@end-->"
+                                   style="width:30px"/> px
+                        </div>
+                        <div>
+                            <strong>{$lang->guide_choose_text_formatting}</strong>
+
+                            <!--@foreach($content_style_list as $key => $val)-->
+                            <div class="radio"><input type="radio" name="content_style" value="{$key}" id="style_{$key}"
+                                                      checked="checked"|cond="$key==$editor_config->content_style||!$editor_config->content_style
+                                && $key=='default'"> <label for="style_{$key}">{$key}</label></div>
+                            <!--@end-->
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="answer fontSelector span6">
+                    <strong>{$lang->guide_choose_font_body}</strong><br/>
+                    <div class="radio">
                         <label for="font_noFont" style="font-family:''">
-                            <input type="radio" name="content_font" id="font_noFont" value="" <!--@if(!$editor_config->content_font)-->checked="checked" <!--@end-->/>
+                            <input type="radio" name="content_font" id="font_noFont" value=""
+                            <!--@if(!$editor_config->content_font)-->checked="checked" <!--@end-->/>
                             none(inherit)
                         </label>
-
-                        <!--@foreach($lang->edit->fontlist as $name => $detail)-->
+                    </div>
+                    <!--@foreach($lang->edit->fontlist as $name => $detail)-->
+                    <div class="radio">
                         <label for="font_{$name}" style="font-family:{$detail}">
-                            <input type="radio" name="content_font" id="font_{$name}" value="{$name}" <!--@if($editor_config->content_font==$name)-->checked="checked" <!--@end-->/>
+                            <input type="radio" name="content_font" id="font_{$name}" value="{$name}"
+                            <!--@if($editor_config->content_font==$name)-->checked="checked" <!--@end-->/>
                             {$detail}
                         </label>
-                        <!--@end-->
-                    </p>
-                </li>
-                <li>
-                    <p><label for="fontSize">{$lang->guide_choose_font_size_body}</label></p>
-                    <textarea rows="8" cols="42" class="fontPreview" title="Font Preview">{$lang->font_preview}</textarea>
-                    <p><input type="text" id="fontSize" name="content_font_size" value="<!--@if($editor_config->content_font_size)-->{str_replace('px','',$editor_config->content_font_size)}<!--@else-->{str_replace('px','',$editor_config_default['content_font_size'])}<!--@end-->" style="width:30px" /> px</p>
-                </li>
-            </ul>
+                    </div>
+                    <!--@end-->
+                </div>
+            </div>
+            <div class="row-fluid">
+
+
+
+
+            </div>
             <div>
-                <input type="submit" value="{$lang->cmd_save}" class="btn" />
+                <input type="submit" value="{$lang->cmd_save}" class="btn btn-primary"/>
             </div>
         </div>
 	</fieldset>
@@ -153,7 +151,7 @@
         <input type="hidden" name="success_return_url" value="{getUrl('act', $act)}" />
 	<fieldset class="section">
 		<h2 class="h2">{$lang->editor_component}</h2>
-			<table id="sortable_table" class="sortable table table-striped">
+			<table id="sortable_table" class="sortable table table-bordered table-striped">
 				<caption>
                     {$lang->total_count}({$component_count})
 				</caption>
@@ -165,14 +163,14 @@
 						<th scope="col">{$lang->author}</th>
 						<th scope="col">{$lang->path}</th>
 						<th scope="col">{$lang->use}</th>
-						<th scope="col">{$lang->cmd_setup}</th>
-						<th scope="col">{$lang->cmd_delete}</th>
+						<th scope="col">{$lang->actions}</th>
+
 					</tr>
 				</thead>
 				<tbody class="uDrag">
 					<!--@foreach($component_list as $component_name => $xml_info)-->
 					<tr>
-						<td><div class="kActionIcons"> <button type="button" class="dragBtn" data-toggle="tooltip" title="Move to"><i class="kMove"></i></button></div></td>
+						<td><div class="kActionIcons"> <button type="button" class="dragBtn" data-toggle="tooltip" title="{$lang->cmd_move}"><i class="kMove"></i></button></div></td>
 						<td class="title">
 							<input type="hidden" name="component_names[]" value="{$xml_info->component_name}" />
 							<p><b>{$xml_info->title}</b></p>
@@ -189,19 +187,42 @@
 						</td>
 						<td>{$xml_info->path}</td>
 						<td><input type="checkbox" name="enables[]" id="enable" value="{$xml_info->component_name}" title="Use this component " <!--@if($xml_info->enabled=='Y')--> checked="checked"<!--@end--> /></td>
-						<td><a href="{getUrl('', 'module', 'admin', 'act', 'dispEditorAdminSetupComponent', 'component_name', $xml_info->component_name)}">{$lang->cmd_setup}</a>
-						<td>
-							<!--@if($xml_info->version && $xml_info->delete_url)-->
-							<a href="{$xml_info->delete_url}">{$lang->cmd_delete}</a>
-							<!--@end-->
+						<td><div class="kActionIcons"><a href="{getUrl('', 'module', 'admin', 'act', 'dispEditorAdminSetupComponent', 'component_name', $xml_info->component_name)}" data-toggle="tooltip" title="{$lang->cmd_setup}"><i class="kConfigure">{$lang->cmd_setup}</i></a><!--@if($xml_info->version && $xml_info->delete_url)-->
+                            <a href="{$xml_info->delete_url}" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kDelete">{$lang->cmd_delete}</i></a>
+                            <!--@end--></div>
+
 						</td>
 					</tr>
 					<!--@end-->
 				</tbody>
 			</table>
 		<div>
-			<input type="submit" value="{$lang->cmd_save}" class="btn" />
+			<input type="submit" value="{$lang->cmd_save}" class="btn btn-primary" />
 		</div>
 	</fieldset>
 </form>
+<script type="text/javascript">
+    jQuery(function($){
+        var fontPreview = $('.fontPreview');
+        var fontRadio = $('.fontSelector :radio');
+        var checkedFont = fontRadio.filter(':checked').closest('label').css('fontFamily');
+        fontPreview.css('fontFamily',checkedFont);
+        fontRadio.change(function(){
+            var myFont = $(this).closest('label').css('fontFamily');
+            fontPreview.css('fontFamily',myFont);
+        });
+        var changedSize = $('#fontSize').val();
+        fontPreview.css('fontSize',changedSize+'px');
+        $('#fontSize').keyup(function(){
+            var mySize = $(this).val();
+            fontPreview.css('fontSize',mySize+'px');
+            if(mySize.length==0){ fontPreview.css('fontSize','') };
+            if(mySize>28){
+                alert('{$lang->msg_font_too_big}');
+                $(this).val('28');
+                fontPreview.css('fontSize','28px');
+            };
+        });
+    });
+</script>
 <!-- /Editor Components -->

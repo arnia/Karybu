@@ -118,6 +118,10 @@
     z-index:999;
     height:60px;
     padding:10px 40px;
+    -webkit-box-shadow:  0px 0 4px 3px rgba(0, 0, 0, .1);
+
+    box-shadow:  0px 0 4px 3px rgba(0, 0, 0, .1);
+
 }
 
 .page-title h1 {
@@ -691,6 +695,8 @@ li.active a.big-icon-settings {
 }
 
 .visitor {
+
+    margin:-14px -20px -5px; background: none; border: none;
 }
 
 .langEdit li.en input,

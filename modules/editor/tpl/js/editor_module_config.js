@@ -45,3 +45,27 @@ function resultGetEditorSkinColorList(ret_obj,response_tags, params) {
 		}
 	});
 }
+
+
+jQuery(function($){
+    var fontPreview = $('.fontPreview');
+    var fontRadio = $('.fontSelector>:radio');
+    var checkedFont = fontRadio.filter(':checked').next('label').css('fontFamily');
+    fontPreview.css('fontFamily',checkedFont);
+    fontRadio.change(function(){
+        var myFont = $(this).next('label').css('fontFamily');
+        fontPreview.css('fontFamily',myFont);
+    });
+    var changedSize = $('#fontSize').val();
+    fontPreview.css('fontSize',changedSize+'px');
+    $('#fontSize').keyup(function(){
+        var mySize = $(this).val();
+        fontPreview.css('fontSize',mySize+'px');
+        if(mySize.length==0){ fontPreview.css('fontSize','') };
+        if(mySize>28){
+            alert('The font is too big.');
+            $(this).val('28');
+            fontPreview.css('fontSize','28px');
+        };
+    });
+});
