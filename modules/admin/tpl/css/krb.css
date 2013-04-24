@@ -23,6 +23,7 @@ h2 {
     font-size:21.392pt
 }
 
+
 h3 {
     font-size:16.808pt
 }
@@ -92,6 +93,8 @@ blockquote.pull-right {
 }
 
 /* BUTTONS START */
+
+
 
 .btn,
 .btn:visited,
@@ -278,6 +281,35 @@ a.btn-primary, a.btn-danger, a.btn-info, a.btn-inverse, a.btn-success, a.btn-war
     margin-top:3px;
 }
 
+
+.btn-small,
+.btn-small:hover,
+.btn-small:active,
+.btn-small:focus,
+.btn-small.hover,
+.btn-small.active,
+.btn-small.focus
+{
+    font-size: .9em;
+    line-height: 1.3em;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.btn-large,
+.btn-large:hover,
+.btn-large:active,
+.btn-large:focus,
+.btn-large.hover,
+.btn-large.active,
+.btn-large.focus
+{
+    font-size: 1.1em;
+    font-weight: bold;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 /* BUTTONS END */
 
 /* FORMS START */
@@ -358,11 +390,13 @@ fieldset.section {
 /* TOOLTIPS START */
 
 .tooltip {
-    font-size:11px;
+    font-size:11px!important;
     line-height:14px;
     opacity:0;
     filter:alpha(opacity = 0);
     visibility:visible;
+    font-family:'Helvetica Neue', Helvetica, Arial, sans-serif!important;
+    font-weight: normal!important;
 }
 
 .tooltip.in {
@@ -380,6 +414,7 @@ fieldset.section {
     -webkit-box-shadow:0px 1px 0px 0px #2b5800, inset 0px 0px 12px 0px rgba(0, 0, 0, 0.1), inset 0px 1px 0px 0px #78b824, 0 4px 6px rgba(70, 50, 20, 0.4);
     box-shadow:0px 1px 0px 0px #2b5800, inset 0px 0px 12px 0px rgba(0, 0, 0, 0.1), inset 0px 1px 0px 0px #78b824, 0 4px 6px rgba(70, 50, 20, 0.4);
     border:1px solid #6c9b30;
+
 
 }
 
@@ -980,7 +1015,7 @@ ul.nav-tabs {
 
 /* ACTION ICONS */
 
-.kActionIcons { white-space: nowrap}
+.kActionIcons { white-space: nowrap; }
 
 .kActionIcons a { float:left; width:24px;
 }
@@ -1055,16 +1090,24 @@ a:hover i.kInfo:hover {
 }
 
 .x .uDrag .dragBtn {
-
     background:url("../img/sprite-24.png") -144px 0px ;
-
 }
 
 .x .uDrag .dragBtn:hover {
-    cursor: n-resize;
+    cursor: move;
     background:url("../img/sprite-24.png") -144px -24px ;
 }
 
+.x .siteMap .moveTo {
+    width: 24px;
+    height: 30px;
+    background:#ffffdd url("../img/sprite-24.png") -168px 3px ;
+}
+
+.x .siteMap .moveTo:hover, .x .siteMap .active .moveTo {
+    cursor: move;
+    background:url("../img/sprite-24.png") -168px -21px ;
+}
 
 /* ACTION ICONS END */
 
@@ -1334,3 +1377,264 @@ button.sTog {padding: 4px 10px 8px;
 
 }
 
+
+/* OLD VERSION TWEAKS */
+
+.icon-chevron-up {
+    margin-top: .5em; float: right;
+}
+
+.fold .icon-chevron-up {   background-position: -313px -119px;
+}
+
+/* OLD VERSION TWEAKS END */
+
+
+
+/* MENU MANAGER */
+
+
+
+.x .siteMap h2 input {
+    font-size:21.392pt;
+    padding:3px 4px;
+    margin:0;
+    border:0;
+    background:transparent;
+    color: #444444;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.x .siteMap h2:hover input {
+    border:1px solid #c8c2b8;
+    border-top-color:#98938b;
+    border-bottom-color:#c8c2b8;
+    margin:-1px;
+    background:#ffffdd;
+
+}
+
+.x .siteMap h2 input:focus {
+-webkit-box-shadow:0 0 6px 0 #6d7587;
+box-shadow:0 0 6px 0 #6d7587;
+border:1px solid #6d7587;
+outline:0;
+margin:-1px;
+
+}
+.x .siteMap label {
+    cursor:text;
+}
+
+.x .siteMap .lined ul {
+    padding:0;
+    margin:0;
+    border-top:1px solid #eee;
+    zoom:1;
+}
+
+.x .siteMap .lined li {
+    position:relative;
+    margin:-1px 0 0 0;
+    cursor:all-scroll;
+    list-style:none;
+    zoom:1;
+    line-height: 30px
+}
+
+
+
+.x .siteMap .lined li li {
+    border-top:1px solid #eee;
+}
+
+.x .siteMap li li {
+    text-indent:18px;
+}
+
+.x .siteMap li li li {
+    text-indent:36px;
+}
+
+.x .siteMap li li li li {
+    text-indent:54px;
+}
+
+.x .siteMap li li li li li {
+    text-indent:72px;
+}
+
+.x .siteMap li li li li li li {
+    text-indent:90px;
+}
+
+.x .siteMap li li li li li li li {
+    text-indent:108px;
+}
+
+.x .siteMap li li li li li li li li {
+    text-indent:126px;
+}
+
+.x .siteMap li li li li li li li li li {
+    text-indent:144px;
+}
+
+.x .siteMap li li li li li li li li li li {
+    text-indent:162px;
+}
+
+.x .siteMap li li li li li li li li li li li {
+    text-indent:180px;
+}
+
+.x .siteMap li li li li li li li li li li li li {
+    text-indent:198px;
+}
+
+.x .siteMap li * {
+    vertical-align:middle;
+}
+
+.x .siteMap li .moveTo+input {
+    width:200px;
+    border:0;
+    padding:0 .5em;
+}
+
+.x .siteMap li .moveTo+input:hover,.x .siteMap li .moveTo+input:active,.x .siteMap li .moveTo+input:focus {
+    border:1px dotted #ccc;
+    overflow:visible;
+}
+
+.x .siteMap .moveTo {
+    position:relative;
+    z-index:2;
+    margin:0 3px;
+    _margin-top:-1px;
+    overflow:hidden;
+    border:0;
+    cursor:move;
+    text-indent: -9999px;
+}
+
+.x .siteMap li.active,.x .siteMap li.active .moveTo {
+    background-color:#ffffdd;
+}
+
+.x .siteMap li.active li,.x .siteMap li.active ul {
+}
+
+.x .siteMap li.active .moveTo {
+
+}
+
+.x .siteMap .vr,.x .siteMap .hr {
+    display:none;
+    position:absolute;
+    z-index:1;
+    left:14px;
+    border:0 solid #ccc;
+    overflow:hidden;
+}
+
+.x .siteMap .vr {
+    top:12px;
+    height:70%;
+    border-left-width:1px;
+}
+
+
+
+.x .siteMap .hr {
+    top:16px;
+    width:16px;
+    border-top-width:1px;
+}
+
+.x .siteMap li.active .vr,.x .siteMap li.active li .hr {
+    display:block;
+}
+
+.x .siteMap li li .vr,.x .siteMap li li li .hr {
+    left:2.6em;
+}
+
+.x .siteMap li li li .vr,.x .siteMap li li li li .hr {
+    left:3.9em;
+}
+
+.x .siteMap li li li li .vr,.x .siteMap li li li li li .hr {
+    left:5.3em;
+}
+
+.x .siteMap li li li li li .vr,.x .siteMap li li li li li li .hr {
+    left:6.65em;
+}
+
+.x .siteMap li li li li li li .vr,.x .siteMap li li li li li li li .hr {
+    left:8em;
+}
+
+.x .siteMap li li li li li li li .vr,.x .siteMap li li li li li li li li .hr {
+    left:9.35em;
+}
+
+.x .siteMap li li li li li li li li .vr,.x .siteMap li li li li li li li li li .hr {
+    left:10.7;
+}
+
+.x .siteMap li li li li li li li li li .vr,.x .siteMap li li li li li li li li li li .hr {
+    left:12.05em;
+}
+
+.x .siteMap li li li li li li li li li li .vr,.x .siteMap li li li li li li li li li li li .hr {
+    left:13.4em;
+}
+
+.x .siteMap li li li li li li li li li li li .vr,.x .siteMap li li li li li li li li li li li li .hr {
+    left:14.75em;
+}
+
+
+
+.x .siteMap .side button {
+    text-indent:0;
+}
+
+
+
+.x .siteMap.fold .tgMap {
+    width: 24px; height: 24px;
+
+}
+
+.x .siteMap.fold .h2 {
+
+}
+
+.x .siteMap .placeholder {
+    background:#79ad36;
+    padding: 5px 0;
+    margin-bottom: -3px;
+}
+
+.x .siteMap .draggable,.x .siteMap .draggable .moveTo {
+    background-color:#ddd;
+}
+
+.x .siteMap .draggable .summary {
+    border-left:1px solid #ccc;
+    padding-left:10px;
+    margin-left:10px;
+    font-size:11px;
+    color:#999;
+}
+
+.x .siteMap a.ms {
+    text-decoration:underline;
+}
+
+/* MENU MANAGER END */

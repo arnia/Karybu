@@ -4,7 +4,7 @@
 		<input type="hidden" name="module_srl[]" value="{$item['module_srl']}" class="_module_srl_key" />
 		<input type="hidden" name="item_layout_key[]" value="{$item['node_srl']}" class="_item_layout_key" />
 		<!--@if($item['href'])--><a href="{$item['href']}" class="ms" target="_blank">{$item['text']}</a><!--@else-->{$item['text']}<!--@end-->
-		<span class="side">
+		<span class="side pull-right">
 			<block cond="$item['layout_srl']"><a href="{getUrl('act', 'dispLayoutAdminModify', 'layout_srl', $item['layout_srl'])}">{$lang->cmd_layout_management}</a> | </block>
 			<block cond="$item['setup_index_act']"><a href="{getUrl('', 'module', 'admin', 'act', $item['setup_index_act'], 'module_srl', $item['module_srl'])}">{$lang->cmd_module_manangement}</a> | </block>
 			<a href="#editMenu" class="modalAnchor _edit">{$lang->cmd_menu_management}</a> | 
