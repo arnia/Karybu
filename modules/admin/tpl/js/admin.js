@@ -1394,6 +1394,17 @@ jQuery(function($){
 		viewBtn.toggleClass('details');
 		details.slideToggle(200);
 	});
+
+//new details toggle behavior
+    var viewBtnNew = $('.x .dsTg p>a.toggleBtn');
+    viewBtnNew.click(function(){
+        var toShowText = viewBtnNew.find(">span.hide");
+        var toHideText = viewBtnNew.find(">span.show");
+        toShowText.toggleClass("hide").toggleClass("show");
+        toHideText.toggleClass("hide").toggleClass("show");
+
+        details.slideToggle(200);
+    });
 // Toggle Content
 	var $h2h3 = $('.x .content .h2, .x .content .h3').not('.portlet .h2, .xe-modal .h2');
 	$h2h3.each(function(){

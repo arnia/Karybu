@@ -1,17 +1,18 @@
 <include target="header.html" />
 <div class="table even easyList dsTg">
 <include target="sub_tab.html" />
-	<table width="100%" border="1" cellspacing="0">
-		<caption>
-				<span class="side"><button type="button" class="text"><span class="hide">{$lang->simple_view}</span><span class="show">{$lang->detail_view}</span></button></span>
-		</caption>
+
+    <p class="pull-right">
+        <a class="btn toggleBtn"><span class="hide">{$lang->simple_view}</span><span class="show">{$lang->detail_view}</span></a>
+    </p>
+	<table class="table table-condensed table-bordered table-hover">
 		<thead>
 			<tr>
 				<th scope="col" class="title">{$lang->layout_name}</th>
 				<th scope="col" class="nowr">{$lang->version}</th>
 				<th scope="col" class="nowr">{$lang->author}</th>
 				<th scope="col" class="nowr">{$lang->path}</th>
-				<th scope="col" class="nowr">{$lang->cmd_delete}</th>
+				<!--<th scope="col" class="nowr">{$lang->cmd_delete}</th>-->
 			</tr>
 		</thead>
 		<tbody>
@@ -33,7 +34,7 @@
 						</block>
 					</td>
 					<td class="nowr">{$layout->path}</td>
-					<td class="nowr"><a cond="$layout->remove_url" href="{$layout->remove_url}&amp;return_url={urlencode(getRequestUriByServerEnviroment())}">{$lang->cmd_delete}</a></td>
+					<!--<td class="nowr"><a cond="$layout->remove_url" href="{$layout->remove_url}&amp;return_url={urlencode(getRequestUriByServerEnviroment())}">{$lang->cmd_delete}</a></td>-->
 				</block>
 				<block cond="!$layout->title">
 					<td class="title">
@@ -45,7 +46,7 @@
 					<td class="nowr">-</td>
 					<td class="nowr">-</td>
 					<td class="nowr">{$layout->path}</td>
-					<td class="nowr"><a cond="$layout->remove_url" href="{$layout->remove_url}&amp;return_url={urlencodegetRequestUriByServerEnviroment()}">{$lang->cmd_delete}</a></td>
+					<!--<td class="nowr"><a cond="$layout->remove_url" href="{$layout->remove_url}&amp;return_url={urlencodegetRequestUriByServerEnviroment()}">{$lang->cmd_delete}</a></td>-->
 				</block>
 			</tr>
 			</block>
