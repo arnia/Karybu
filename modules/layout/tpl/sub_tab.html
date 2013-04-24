@@ -12,14 +12,14 @@
 </div>
 <div class="cnb">
     <ul class="nav nav-tabs">
+        <li class="active"|cond="$act == 'dispLayoutAdminInstalledList'">
+        <a cond="$act != 'dispLayoutAdminInstalledList'" href="{getUrl('act', 'dispLayoutAdminInstalledList')}">{$lang->installed_layout}</a>
+        <a cond="$act == 'dispLayoutAdminInstalledList'">{$lang->installed_layout}</a>
+        </li>
         <li class="active"|cond="$act != 'dispLayoutAdminInstalledList'">
             <a cond="$act != 'dispLayoutAdminAllInstanceList'"
                href="{getUrl('act', 'dispLayoutAdminAllInstanceList', 'layout_srl', '')}">{$lang->instance_layout}</a>
             <a cond="$act == 'dispLayoutAdminAllInstanceList'">{$lang->instance_layout}</a>
-        </li>
-        <li class="active"|cond="$act == 'dispLayoutAdminInstalledList'">
-            <a cond="$act != 'dispLayoutAdminInstalledList'" href="{getUrl('act', 'dispLayoutAdminInstalledList')}">{$lang->installed_layout}</a>
-            <a cond="$act == 'dispLayoutAdminInstalledList'">{$lang->installed_layout}</a>
         </li>
     </ul>
 </div>
