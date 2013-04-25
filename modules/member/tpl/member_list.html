@@ -6,6 +6,7 @@
 <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
+<fieldset class="section">
 <h3 class="h3">{$lang->user_list}</h3>
 <form action="" class="form" method="post">
     <div class="cnb">
@@ -91,6 +92,68 @@
 		</span>
 	</p>
 </form>
+<div class="pagination">
+    <ul>
+        <li><a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a></li>
+
+        <li cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
+            {@$isGoTo = true}
+            <a href="{getUrl('page', '')}">1</a>
+            <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+        </li>
+
+        <!--@while($page_no = $page_navigation->getNextPage())-->
+        {@$last_page = $page_no}
+        <li <!--@if($page == $page_no)-->
+        class="active"
+        <!--@end-->>
+        <a href="{getUrl('page', $page_no)}">{$page_no}</a>
+        </li>
+        <!--@end-->
+
+        <li cond="$last_page != $page_navigation->last_page">
+            {@$isGoTo = true}
+            <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+            <a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
+        </li>
+
+        <li><a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a></li>
+    </ul>
+</div>
+<div class="search pull-right">
+    <form action="" class="pagination" method="post">
+        <input type="hidden" name="error_return_url" value="" />
+        <input type="hidden" name="module" value="{$module}" />
+        <input type="hidden" name="act" value="{$act}" />
+        <input cond="$order_target" type="hidden" name="order_target" value="{$order_target}" />
+        <input cond="$order_type" type="hidden" name="order_type" value="{$order_type}" />
+        <input cond="$category_srl" type="hidden" name="category_srl" value="{$category_srl}" />
+        <input cond="$childrenList" type="hidden" name="childrenList" value="{$childrenList}" />
+        <input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
+		<span cond="$isGoTo" id="goTo" class="tgContent">
+			<input name="page" title="{$lang->cmd_go_to_page}" />
+			<button type="submit">Go</button>
+		</span>
+    </form>
+    <form action="" method="post" class="form-inline">
+        <input type="hidden" name="module" value="{$module}" />
+        <select name="selected_group_srl">
+            <option value="0">All Groups</option>
+            <!--@foreach($group_list as $key => $val)-->
+            <option value="{$val->group_srl}" <!--@if($selected_group_srl==$val->group_srl)-->selected="selected"<!--@end-->>{$val->title}</option>
+            <!--@end-->
+        </select>
+        <select name="search_target">
+            <option value="">{$lang->search_target}</option>
+            {@$lang->search_target_list = array_merge($lang->search_target_list, $usedIdentifiers)}
+            <option value="{$key}" loop="$lang->search_target_list=>$key,$val" selected="selected"|cond="$search_target==$key">{$val}</option>
+        </select>
+        <input type="text" name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
+        <input class="btn btn-primary"type="submit" value="{$lang->cmd_search}" />
+        <a class="btn" href="{getUrl('search_target', '', 'search_keyword', '')}">{$lang->cmd_cancel}</a>
+    </form>
+</div>
+</fieldset>
 <div class="modal hide fade" id="listManager">
     <form action="./" ruleset="updateSeletecdMemberInfo" class="fg form" method="post">
         <input type="hidden" name="module" value="member" />
@@ -155,67 +218,6 @@
 
 
     </form>
-</div>
-<div class="pagination">
-    <ul>
-        <li><a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a></li>
-
-        <li cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
-            {@$isGoTo = true}
-            <a href="{getUrl('page', '')}">1</a>
-            <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-        </li>
-
-        <!--@while($page_no = $page_navigation->getNextPage())-->
-        {@$last_page = $page_no}
-        <li <!--@if($page == $page_no)-->
-        class="active"
-        <!--@end-->>
-        <a href="{getUrl('page', $page_no)}">{$page_no}</a>
-        </li>
-        <!--@end-->
-
-        <li cond="$last_page != $page_navigation->last_page">
-            {@$isGoTo = true}
-            <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-            <a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
-        </li>
-
-        <li><a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a></li>
-    </ul>
-</div>
-<div class="search pull-right">
-	<form action="" class="pagination" method="post">
-		<input type="hidden" name="error_return_url" value="" />
-		<input type="hidden" name="module" value="{$module}" />
-		<input type="hidden" name="act" value="{$act}" />
-		<input cond="$order_target" type="hidden" name="order_target" value="{$order_target}" />
-		<input cond="$order_type" type="hidden" name="order_type" value="{$order_type}" />
-		<input cond="$category_srl" type="hidden" name="category_srl" value="{$category_srl}" />
-		<input cond="$childrenList" type="hidden" name="childrenList" value="{$childrenList}" />
-		<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
-		<span cond="$isGoTo" id="goTo" class="tgContent">
-			<input name="page" title="{$lang->cmd_go_to_page}" />
-			<button type="submit">Go</button>
-		</span>
-	</form>
-	<form action="" method="post" class="form-inline">
-		<input type="hidden" name="module" value="{$module}" />
-            <select name="selected_group_srl">
-                <option value="0">All Groups</option>
-                <!--@foreach($group_list as $key => $val)-->
-                <option value="{$val->group_srl}" <!--@if($selected_group_srl==$val->group_srl)-->selected="selected"<!--@end-->>{$val->title}</option>
-                <!--@end-->
-            </select>
-            <select name="search_target">
-                <option value="">{$lang->search_target}</option>
-                {@$lang->search_target_list = array_merge($lang->search_target_list, $usedIdentifiers)}
-                <option value="{$key}" loop="$lang->search_target_list=>$key,$val" selected="selected"|cond="$search_target==$key">{$val}</option>
-            </select>
-		<input type="text" name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
-		<input class="btn btn-primary"type="submit" value="{$lang->cmd_search}" />
-		<a class="btn" href="{getUrl('search_target', '', 'search_keyword', '')}">{$lang->cmd_cancel}</a>
-	</form>
 </div>
 <script type="text/javascript">
 jQuery(function($){

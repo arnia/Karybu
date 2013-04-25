@@ -346,7 +346,7 @@
             $layout_info = $oLayoutModel->getLayout($layout_srl);
             if(!$layout_info) return new Object(-1, 'msg_invalid_request');
             // Separately handle the layout if its type is faceoff
-            if($layout_info && $layout_info->type == 'faceoff') $oLayoutModel->doActivateFaceOff($layout_info);
+            //if($layout_info && $layout_info->type == 'faceoff') $oLayoutModel->doActivateFaceOff($layout_info);
             // Apply CSS directly
             Context::addHtmlHeader("<style type=\"text/css\" charset=\"UTF-8\">".$code_css."</style>");
             // Set names and values of extra_vars to $layout_info
@@ -413,7 +413,8 @@
 		 * @deprecated
 		 * @return void
          **/
-        function dispLayoutAdminLayoutModify(){
+        /*faceOff is deprecated for the moment*/
+/*        function dispLayoutAdminLayoutModify(){
             // Get layout_srl
             $current_module_info = Context::get('current_module_info');
             $layout_srl = $current_module_info->layout_srl;
@@ -454,13 +455,15 @@
             $oWidgetController->setWidgetCodeInJavascriptMode();
             // Set a template file
             $this->setTemplateFile('faceoff_layout_edit');
-        }
+        }*/
 
         /**
          * display used images info for faceoff
 		 * @deprecated
 		 * @return void
          **/
+        /* faceoff is deprecated for the moment */
+        /*
         function dispLayoutAdminLayoutImageList(){
             $layout_srl = Context::get('layout_srl');
             $oLayoutModel = &getModel('layout');
@@ -475,6 +478,7 @@
 
             $this->setTemplateFile('layout_image_list');
         }
+        */
 
         /**
          * Copy layout instance

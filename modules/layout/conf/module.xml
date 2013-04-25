@@ -6,8 +6,8 @@
         <action name="dispLayoutInfo" type="view" standalone="true" />
         <action name="dispLayoutAdminContent" type="view" standalone="true" />
         <action name="dispLayoutAdminInfo" type="view" standalone="true" />
-        <action name="dispLayoutAdminLayoutModify" type="view" standalone="true" />
-        <action name="dispLayoutAdminLayoutImageList" type="view" standalone="true" />
+        <!--<action name="dispLayoutAdminLayoutModify" type="view" standalone="true" />-->
+        <!--<action name="dispLayoutAdminLayoutImageList" type="view" standalone="true" />-->
 		<action name="dispLayoutAdminMobileContent" type="view" standalone="true" />
 
 		<action name="dispLayoutAdminInstalledList" type="view" admin_index="true" menu_name="installedLayout" menu_index="true" />

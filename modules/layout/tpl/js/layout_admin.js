@@ -13,21 +13,6 @@ function doDeleteLayout(layout_srl) {
     procFilter(fo_obj, delete_layout);
 }
 
-/* 메뉴 관리로 이동 */
-function doMenuManagement(menu_id) {
-    var menu_srl = jQuery('#fo_layout select[name='+menu_id+']').val();
-    var url = '';
-    // 선택된 메뉴가 없으면
-    if(menu_srl == 0){
-        url = current_url.setQuery('module','admin').setQuery('act','dispMenuAdminInsert');
-    }else{
-        url = current_url.setQuery('act','dispMenuAdminManagement').setQuery('menu_srl',menu_srl);
-    }
-
-    winopen(url);
-}
-
-
 function checkFile(f){
     var filename = jQuery('[name=user_layout_image]',f).val();
     if(/\.(gif|jpg|jpeg|gif|png|swf|flv)$/i.test(filename)){
@@ -53,7 +38,7 @@ function addLayoutCopyInputbox()
 {
 	var html = '<tr>';
 	html += '<td><input type="text" name="title[]" size="50" /></td>';
-	html += '<td><span class="btn"><input type="button" value="'+addLang+'" onclick="addLayoutCopyInputbox()" /></span></td>';
+    html += '<td><input class="btn" type="button" value="'+addLang+'" onclick="addLayoutCopyInputbox()" /></td>';
 	html += '</tr>';
 
 	var it  = jQuery('#inputTable');

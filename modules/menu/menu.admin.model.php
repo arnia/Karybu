@@ -215,50 +215,6 @@
         }
 
 		/**
-		 * Get a template by using the menu_srl and retrun.
-		 * Return html after compiling tpl on the server in order to add menu information on the admin page
-		 * @return void
-		 */
-        function getMenuAdminTplInfo() {
-            // Get information on the menu for the parameter settings
-            $menu_item_srl = Context::get('menu_item_srl');
-            $parent_srl = Context::get('parent_srl');
-            // Get a list of member groups
-            $oMemberModel = &getModel('member');
-            $group_list = $oMemberModel->getGroups();
-            Context::set('group_list', $group_list);
-            // Add a sub-menu if there is parent_srl but not menu_item_srl
-            if(!$menu_item_srl && $parent_srl) {
-                // Get information of the parent menu
-                $parent_info = $this->getMenuItemInfo($parent_srl);
-                // Default parameter settings for a new menu
-                $item_info->menu_item_srl = getNextSequence();
-                $item_info->parent_srl = $parent_srl;
-                $item_info->parent_menu_name = $parent_info->name;
-            // In case of modifying the existing menu or addting a new menu to the root
-            } else {
-                // Get information of the menu if menu_item_srl exists
-                if($menu_item_srl) $item_info = $this->getMenuItemInfo($menu_item_srl);
-                // Get only menu_item_srl if no values found, considering it as adding a new menu
-                if(!$item_info->menu_item_srl) {
-                    $item_info->menu_item_srl = getNextSequence();
-                }
-            }
-            Context::set('item_info', $item_info);
-			//Security
-			$security = new Security();
-			$security->encodeHTML('group_list..title');
-			$security->encodeHTML('item_info.url');
-			$security->encodeHTML('item_info.name');
-
-			// Compile the template file into tpl variable and then return it
-            $oTemplate = &TemplateHandler::getInstance();
-            $tpl = $oTemplate->compile($this->module_path.'tpl', 'menu_item_info');
-
-            $this->add('tpl', str_replace("\n"," ",$tpl));
-        }
-
-		/**
 		 * @brief when menu add in sitemap, select module list
 		 * this menu showing with trigger
 		 * @param int $site_srl

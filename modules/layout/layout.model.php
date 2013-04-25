@@ -973,6 +973,9 @@ class layoutModel extends layout
      * @param object $layout_info
      * @return void
      **/
+    /* faceoff is deprecated for the moment */
+
+    /*
     function doActivateFaceOff(&$layout_info)
     {
         $layout_info->faceoff_ini_config = $this->getUserLayoutIniConfig(
@@ -1025,5 +1028,6 @@ class layoutModel extends layout
             Context::addBodyHeader($oTemplate->compile($this->module_path . '/tpl', 'faceoff_layout_menu'));
         }
     }
+    */
 }
 ?>
