@@ -30,7 +30,7 @@ jQuery( function() { jQuery('.grant_default').change( function(event) { doShowMe
 	</block>
 	</ul>
 	<div class="form-inline">
-		<a href="#editMenu" class="modalAnchor _add btn">{$lang->add_menu}...</a>
+		<a href="#editMenu" class="_add btn" data-toggle="modal">{$lang->add_menu}...</a>
 		<button value="procMenuAdminArrangeItem" name="act" type="submit" class="btn btn-primary">{$lang->cmd_save}</button>
 		<span class="etc">
 			<button value="procMenuAdminDelete" name="act" type="submit" class="btn btn-danger" onclick="return confirmDelete();">{$lang->cmd_delete}</button>
@@ -50,7 +50,7 @@ jQuery( function() { jQuery('.grant_default').change( function(event) { doShowMe
 	<button type="submit" class="btn btn-primary btn-large">{$lang->add_new_sitemap}</button>
 </div>
 </form>
-<div class="xe-modal" id="editMenu">
+<div class="modal hide fade" id="editMenu">
 	<div class="fg">
 		<form ruleset="insertMenuItem" id="editForm" action="./" method="post" enctype="multipart/form-data" class="form">
 		<input type="hidden" name="module" value="menu" />
