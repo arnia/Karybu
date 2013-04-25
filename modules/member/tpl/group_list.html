@@ -14,6 +14,7 @@
 <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
+<fieldset class="section">
 <h3 class="h3">{$lang->member_group}</h3>
 <form action="./" class="form" method="post" ruleset="insertGroupConfig">
 	<input type="hidden" name="module" value="member" />
@@ -108,7 +109,7 @@
     {@$use_multilang = true}
     <include target="../../admin/tpl/common/include.multilang.html" />
 </form>
-
+</fieldset>
 <div class="modal hide fade" id="imageMark">
 	<div class="fg portlet">
 		<div class="_useImageMark" style="display:none">
