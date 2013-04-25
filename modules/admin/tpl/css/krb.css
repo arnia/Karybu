@@ -1113,6 +1113,45 @@ a:hover i.kInfo:hover {
 
 
 
+/* FAVORITE ICON */
+
+button.fvOff, button.fvOn {
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    text-indent: -9999px;
+    background: none;
+    background-image: url('../img/sprite-24-6-states.png');
+}
+
+button.fvOff:hover {
+    background-position: 0 -24px;
+}
+
+button.fvOff:active, button.fvOff:focus {
+    background-position: 0 -48px;
+}
+
+button.fvOn {
+    background-position: 0 -72px;
+}
+
+button.fvOn:hover {
+    background-position: 0 -96px;
+}
+
+button.fvOn:active, button.fvOff:focus {
+    background-position: 0 -120px;
+}
+
+
+/* FAVORITE ICON END */
+
 
 /* OTHER ICONS */
 
@@ -1541,10 +1580,12 @@ margin:-1px;
 }
 
 .x .siteMap .vr {
-    top:12px;
-    height:70%;
+    top:2px;
+    height:48px;
     border-left-width:1px;
 }
+
+
 
 
 
