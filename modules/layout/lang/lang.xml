@@ -2,7 +2,7 @@
 <lang>
 	<item name="cmd_layout_management">
 		<value xml:lang="ko"><![CDATA[레이아웃 설정]]></value>
-		<value xml:lang="en"><![CDATA[Layout Setting]]></value>
+		<value xml:lang="en"><![CDATA[Layout Settings]]></value>
 		<value xml:lang="jp"><![CDATA[レイアウト設定]]></value>
 		<value xml:lang="zh-CN"><![CDATA[布局设置]]></value>
 		<value xml:lang="zh-TW"><![CDATA[版面設置]]></value>

@@ -20,6 +20,8 @@
 
 		/**
 		 * The first page of the menu admin
+         *
+         * @deprecated - used just behind the scenes, no longer viewed on the interface
 		 * @return void
 		 */
         function dispMenuAdminContent() {
@@ -43,81 +45,6 @@
 			$security->encodeHTML('menu_list..title');
 
             $this->setTemplateFile('index');
-        }
-
-		/**
-		 * Page to insert a menu
-		 * @return void
-		 */
-        function dispMenuAdminInsert() {
-            // Set the menu with menu information
-            $menu_srl = Context::get('menu_srl');
-
-            if($menu_srl) {
-                // Get information of the menu
-                $oMenuModel = &getAdminModel('menu');
-                $menu_info = $oMenuModel->getMenu($menu_srl);
-                if($menu_info->menu_srl == $menu_srl) Context::set('menu_info', $menu_info);
-            }
-
-            $this->setTemplateFile('menu_insert');
-        }
-
-		/**
-		 * Menu admin page
-		 * @return void
-		 */
-        function dispMenuAdminManagement() {
-            // Get information of the menu
-            $menu_srl = Context::get('menu_srl');
-
-            if(!$menu_srl) return $this->dispMenuAdminContent();
-            // Get information of the menu
-            $oMenuModel = &getAdminModel('menu');
-            $menu_info = $oMenuModel->getMenu($menu_srl);
-            if($menu_info->menu_srl != $menu_srl) return $this->dispMenuAdminContent();
-
-            Context::set('menu_info', $menu_info);
-
-			//Security
-			$security = new Security();
-			$security->encodeHTML('menu_info..title');
-
-			// Set the layout to be pop-up
-            $this->setTemplateFile('menu_management');
-        }
-
-
-		/**
-		 * Display a mid list to be able to select on the menu
-		 * Perphaps this method not use
-		 * @return void
-		 */
-        function dispMenuAdminMidList() {
-            $oModuleModel = &getModel('module');
-            // Get a list of module categories
-            $module_category = $oModuleModel->getModuleCategories();
-            Context::set('module_category', $module_category);
-            // Get a list of modules
-            $module_list = $oModuleModel->getModuleList();
-            Context::set('module_list', $module_list);
-            // Get a list of mid
-            $args->module_category_srl = Context::get('module_category_srl');
-            $args->module = Context::get('target_module');
-			$columnList = array('module_srl', 'module', 'module_category_srl', 'browser_title');
-            $mid_list = $oModuleModel->getMidList($args, $columnList);
-            Context::set('mid_list', $mid_list);
-            // Set the menu as a pop-up
-            $this->setLayoutFile('popup_layout');
-			//Security
-			$security = new Security();
-			$security->encodeHTML('module_category..title');
-			$security->encodeHTML('module_list..module');
-			$security->encodeHTML('mid_list..module');
-			$security->encodeHTML('mid_list..browser_title');
-
-			// Set a template file
-            $this->setTemplateFile('mid_list');
         }
 
 		/**

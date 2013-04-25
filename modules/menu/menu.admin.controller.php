@@ -54,25 +54,7 @@
             $this->add('menu_srl', $args->menu_srl);
             $this->setMessage('success_registed');
 
-			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'act', 'dispMenuAdminContent');
-			$this->setRedirectUrl($returnUrl);
-        }
-
-		/**
-		 * Change the menu title
-		 * @return void|object
-		 */
-        function procMenuAdminUpdate() {
-            // List variables
-            $args->title = Context::get('title');
-            $args->menu_srl = Context::get('menu_srl');
-
-            $output = executeQuery('menu.updateMenu', $args);
-            if(!$output->toBool()) return $output;
-
-            $this->setMessage('success_registed');
-
-			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'act', 'dispMenuAdminManagement', 'menu_srl', $args->menu_srl);
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'act', 'dispMenuAdminSiteMap');
 			$this->setRedirectUrl($returnUrl);
         }
 
@@ -320,23 +302,8 @@
             $this->add('menu_item_srl', $parent_srl);
             $this->setMessage('success_deleted');
 
-			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'act', 'dispMenuAdminManagement', 'menu_srl', $args->menu_srl);
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'act', 'dispMenuAdminSiteMap') . '#menuTop_' . $args->menu_srl;
 			$this->setRedirectUrl($returnUrl);
-        }
-
-		/**
-		 * Move menu items
-		 * @return void
-		 */
-        function procMenuAdminMoveItem() {
-            $menu_srl = Context::get('menu_srl');
-            $mode = Context::get('mode');
-            $parent_srl = Context::get('parent_srl');
-            $source_srl = Context::get('source_srl');
-            $target_srl = Context::get('target_srl');
-
-            if(!$menu_srl || !$mode || !$target_srl) return new Object(-1,'msg_invalid_request');
-            $this->moveMenuItem($menu_srl,$parent_srl,$source_srl,$target_srl,$mode);
         }
 
 		/**
@@ -398,7 +365,7 @@
 
             $this->setMessage('success_updated', 'info');
 
-			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'act', 'dispMenuAdminManagement', 'menu_srl', $args->menu_srl);
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrlgetNotEncodedUrl('', 'module', 'admin', 'act', 'dispMenuAdminSiteMap') . '#menuTop_' . $args->menu_srl;
 			$this->setRedirectUrl($returnUrl);
 		}
 
@@ -516,36 +483,6 @@
             $this->add('xml_file',$xml_file);
         }
 
-		/**
-		 * Register a menu image button
-		 * @return void
-		 */
-        function procMenuAdminUploadButton() {
-            $menu_srl = Context::get('menu_srl');
-            $menu_item_srl = Context::get('menu_item_srl');
-            $target = Context::get('target');
-            $target_file = Context::get($target);
-            // Error occurs when the target is neither a uploaded file nor a valid file
-            if(!$menu_srl || !$menu_item_srl || !$target_file || !is_uploaded_file($target_file['tmp_name']) || !preg_match('/\.(gif|jpeg|jpg|png)/i',$target_file['name'])) {
-                Context::set('error_messge', Context::getLang('msg_invalid_request'));
-            // Move the file to a specific director if the uploaded file meets requirement
-            } else {
-                $tmp_arr = explode('.',$target_file['name']);
-                $ext = $tmp_arr[count($tmp_arr)-1];
-
-                $path = sprintf('./files/attach/menu_button/%d/', $menu_srl);
-                $filename = sprintf('%s%d.%s.%s', $path, $menu_item_srl, $target, $ext);
-
-                if(!is_dir($path)) FileHandler::makeDir($path);
-
-                move_uploaded_file($target_file['tmp_name'], $filename);
-                Context::set('filename', $filename);
-            }
-
-
-            $this->setTemplatePath($this->module_path.'tpl');
-            $this->setTemplateFile('menu_file_uploaded');
-        }
 
 		/**
 		 * Remove the menu image button
