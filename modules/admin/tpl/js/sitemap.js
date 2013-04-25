@@ -141,7 +141,6 @@ $('form.siteMap')
 	})
 	.find('li')
 		.prepend('<button type="button" class="moveTo">Move to</button>')
-		.append('<span class="vr"></span><span class="hr"></span>')
 		.find('input:text')
 			.focus(function(){
 				var $this = $(this), $label = $this.prev('label'), $par = $this.parent();

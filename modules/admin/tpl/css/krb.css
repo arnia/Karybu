@@ -1101,7 +1101,7 @@ a:hover i.kInfo:hover {
 .x .siteMap .moveTo {
     width: 24px;
     height: 30px;
-    background:#ffffdd url("../img/sprite-24.png") -168px 3px ;
+    background:url("../img/sprite-24.png") -168px 3px ;
 }
 
 .x .siteMap .moveTo:hover, .x .siteMap .active .moveTo {
@@ -1451,7 +1451,6 @@ button.sTog {padding: 4px 10px 8px;
     border-top-color:#98938b;
     border-bottom-color:#c8c2b8;
     margin:-1px;
-    background:#ffffdd;
 
 }
 
@@ -1470,7 +1469,6 @@ margin:-1px;
 .x .siteMap .lined ul {
     padding:0;
     margin:0;
-    border-top:1px solid #eee;
     zoom:1;
 }
 
@@ -1480,73 +1478,8 @@ margin:-1px;
     cursor:all-scroll;
     list-style:none;
     zoom:1;
-    line-height: 30px
 }
 
-
-
-.x .siteMap .lined li li {
-    border-top:1px solid #eee;
-}
-
-.x .siteMap li li {
-    text-indent:18px;
-}
-
-.x .siteMap li li li {
-    text-indent:36px;
-}
-
-.x .siteMap li li li li {
-    text-indent:54px;
-}
-
-.x .siteMap li li li li li {
-    text-indent:72px;
-}
-
-.x .siteMap li li li li li li {
-    text-indent:90px;
-}
-
-.x .siteMap li li li li li li li {
-    text-indent:108px;
-}
-
-.x .siteMap li li li li li li li li {
-    text-indent:126px;
-}
-
-.x .siteMap li li li li li li li li li {
-    text-indent:144px;
-}
-
-.x .siteMap li li li li li li li li li li {
-    text-indent:162px;
-}
-
-.x .siteMap li li li li li li li li li li li {
-    text-indent:180px;
-}
-
-.x .siteMap li li li li li li li li li li li li {
-    text-indent:198px;
-}
-
-.x .siteMap li * {
-    vertical-align:middle;
-}
-
-.x .siteMap li .moveTo+input {
-    width:200px;
-    border:0;
-    padding:0 .5em;
-}
-
-.x .siteMap li .moveTo+input:hover,.x .siteMap li .moveTo+input:active,.x .siteMap li .moveTo+input:focus {
-    border:1px dotted #ccc;
-    overflow:visible;
-}
 
 .x .siteMap .moveTo {
     position:relative;
@@ -1560,7 +1493,6 @@ margin:-1px;
 }
 
 .x .siteMap li.active,.x .siteMap li.active .moveTo {
-    background-color:#ffffdd;
 }
 
 .x .siteMap li.active li,.x .siteMap li.active ul {
@@ -1570,73 +1502,63 @@ margin:-1px;
 
 }
 
-.x .siteMap .vr,.x .siteMap .hr {
-    display:none;
-    position:absolute;
-    z-index:1;
-    left:14px;
-    border:0 solid #ccc;
-    overflow:hidden;
+
+.x .siteMap ul, .x .siteMap .lined ul {
+    list-style-type: none;
+    margin-left:16px;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
 }
 
-.x .siteMap .vr {
-    top:2px;
-    height:48px;
-    border-left-width:1px;
+.x .siteMap ul li {
+    margin: 0;
+    padding: 0 0 0 16px;
+    position: relative;
 }
 
 
 
-
-
-.x .siteMap .hr {
-    top:16px;
-    width:16px;
-    border-top-width:1px;
+.x .siteMap .lined li::after, .x .siteMap .lined li::before, .x .siteMap ul:before {
+    content: '';
+    position: absolute;
+    left: 0;
 }
 
-.x .siteMap li.active .vr,.x .siteMap li.active li .hr {
-    display:block;
+.x .siteMap ul:before {
+    left: 0px;
+    border-left: 1px dotted #a29c93;
+    height: 100%;
 }
 
-.x .siteMap li li .vr,.x .siteMap li li li .hr {
-    left:2.6em;
+.x .siteMap li:after{
+    border-top: 1px dotted #a29c93;
+    top: 16px;
+    width: 16px;
+    height: 0;
 }
 
-.x .siteMap li li li .vr,.x .siteMap li li li li .hr {
-    left:3.9em;
+
+
+.x .siteMap .lined li:last-child:before {
+    top: 17px;
+    border-left: 1px solid white;
+    height: 100%;
+
 }
 
-.x .siteMap li li li li .vr,.x .siteMap li li li li li .hr {
-    left:5.3em;
-}
+.x .siteMap li.draggable:after,
+.x .siteMap li.draggable:before,
+.x .siteMap li.draggable li:after,
+.x .siteMap li.draggable li:before,
+.x .siteMap li.draggable ul:after,
+.x .siteMap li.draggable ul:before
 
-.x .siteMap li li li li li .vr,.x .siteMap li li li li li li .hr {
-    left:6.65em;
-}
+{ display: none }
 
-.x .siteMap li li li li li li .vr,.x .siteMap li li li li li li li .hr {
-    left:8em;
-}
-
-.x .siteMap li li li li li li li .vr,.x .siteMap li li li li li li li li .hr {
-    left:9.35em;
-}
-
-.x .siteMap li li li li li li li li .vr,.x .siteMap li li li li li li li li li .hr {
-    left:10.7;
-}
-
-.x .siteMap li li li li li li li li li .vr,.x .siteMap li li li li li li li li li li .hr {
-    left:12.05em;
-}
-
-.x .siteMap li li li li li li li li li li .vr,.x .siteMap li li li li li li li li li li li .hr {
-    left:13.4em;
-}
-
-.x .siteMap li li li li li li li li li li li .vr,.x .siteMap li li li li li li li li li li li li .hr {
-    left:14.75em;
+.x .siteMap li.draggable {
+    background: #fff;
+    box-shadow:0 3px 5px -3px rgba(0, 0, 0, 0.8);
 }
 
 
@@ -1658,12 +1580,21 @@ margin:-1px;
 
 .x .siteMap .placeholder {
     background:#79ad36;
-    padding: 5px 0;
     margin-bottom: -3px;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%!important;
+    left: 0!important;
+}
+
+.x .siteMap .draggable {
+    width: 100%!important;
+    left: 0!important;
+
 }
 
 .x .siteMap .draggable,.x .siteMap .draggable .moveTo {
-    background-color:#ddd;
+
 }
 
 .x .siteMap .draggable .summary {
