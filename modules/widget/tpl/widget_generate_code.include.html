@@ -4,30 +4,24 @@
 <load target="js/multi_lang.js" usecdn="true" />
 <!--%load_js_plugin("ui.colorpicker")-->
 
-<ul>
+<ul class="unstyled">
 	<li>
-		<p class="q"><label for="skin">{$lang->skin}</label></p>
-		<p class="a">
-			<select name="skin" id="skin" style="width:280px">
-				<option value="">{$lang->select}</option>
-				<option loop="$skin_list => $skin_name, $skin" value="{$skin_name}">{$skin->title} ({$skin_name})</option>
-			</select>
-			<input type="button" value="{$lang->cmd_select}" />
-		</p>
+		<label for="skin">{$lang->skin}</label>
+        <select name="skin" id="skin">
+            <option value="">{$lang->select}</option>
+            <option loop="$skin_list => $skin_name, $skin" value="{$skin_name}">{$skin->title} ({$skin_name})</option>
+        </select>
+        <input type="button" value="{$lang->cmd_select}" class="btn" />
 	</li>
 	<li>
-		<p class="q"><label for="colorset">{$lang->colorset}</label></p>
-		<p class="a">
-			<select name="colorset" id="widget_colorset" style="width:280px">
-			</select>
-		</p>
+		<label for="widget_colorset">{$lang->colorset}</label>>
+        <select name="colorset" id="widget_colorset">
+        </select>
 	</li>
 	<li>
-		<p class="q"><label for="widget_cache">{$lang->widget_cache}</label></p>
-		<p class="a">
-			<input type="text" name="widget_cache" id="widget_cache" value="0" size="2" style="width:auto" /> {$lang->unit_min}
-			({$lang->about_widget_cache})
-		</p>
+		<label for="widget_cache">{$lang->widget_cache}</label>
+        <input type="text" name="widget_cache" id="widget_cache" value="0" size="2" style="width:auto" /> {$lang->unit_min}
+        <span class="help-inline">({$lang->about_widget_cache})</span>
 	</li>
 </ul>
 {@$suggestion_id = 0}
