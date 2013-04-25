@@ -1015,6 +1015,9 @@
 		<value xml:lang="zh-TW"><![CDATA[已安裝版面]]></value>
 
 	</item>
+    <item name="insert_layout_instance">
+        <value xml:lang="en"><![CDATA[Insert Layout Instance]]></value>
+    </item>
 	<item name="faceoff_export">
 		<value xml:lang="ko"><![CDATA[FaceOff 레이아웃 내보내기]]></value>
 		<value xml:lang="en"><![CDATA[Export FaceOff layout]]></value>
