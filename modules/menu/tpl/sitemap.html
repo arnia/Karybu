@@ -14,28 +14,30 @@ jQuery( function() { jQuery('.grant_default').change( function(event) { doShowMe
 <block loop="$menu_list=>$key,$value">
 {@$menuSrl = $value->menuSrl}
 <form class="portlet siteMap" id="menu_{$menuSrl}" method="post" action="#menu_{$menuSrl}">
+<fieldset class="section">
 <input type="hidden" name="module" value="{$module}" />
 <input type="hidden" name="act" value="procMenuAdminArrangeItem" />
 <input type="hidden" name="menu_srl" value="{$menuSrl}" />
 <input type="hidden" name="menu_item_srl" value="" />
 <input type="hidden" name="success_return_url" value="{getUrl('', 'module', ($module ? $module : 'admin'), 'act', 'dispMenuAdminSiteMap')}#menuTop_{$menuSrl}" />
 
-	<h2 class="h2" id="menuTop_{$menuSrl}"><input name="title" value="{$value->title}" /></h2>
-	<a href="#nav_{$key}" class="tgMap">{$lang->collapsing}/{$lang->expanding}</a>
+	<h2 class="h2" id="menuTop_{$menuSrl}"><input name="title" value="{$value->title}" class="span9" /><span class="pull-right"><a href="#nav_{$key}" class="tgMap"><i class="icon-chevron-up"></i></a></span></h2>
+
 	<ul class="lined" id="nav_{$key}" cond="count($value->menuItems->list > 0)" <!--@if($_COOKIE['sitemap_toggle_#nav_'.$key])-->style="display:none;"<!--@end-->>
 	<block loop="$value->menuItems->list=>$key2,$value2">
 	{@$item = $value2}
 	<include target="sitemap.item.html" />
 	</block>
 	</ul>
-	<p class="btnArea">
-		<span class="btn"><a href="#editMenu" class="_add" data-toggle="modal">{$lang->add_menu}...</a></span>
-		<span class="btn"><button value="procMenuAdminArrangeItem" name="act" type="submit">{$lang->cmd_save}</button></span>
+	<div class="form-inline">
+		<a href="#editMenu" class="_add btn" data-toggle="modal">{$lang->add_menu}...</a>
+		<button value="procMenuAdminArrangeItem" name="act" type="submit" class="btn btn-primary">{$lang->cmd_save}</button>
 		<span class="etc">
-			<span class="btn"><button value="procMenuAdminDelete" name="act" type="submit" onclick="return confirmDelete();">{$lang->cmd_delete}</button></span>
-			<span class="btn"><a href="#remakeCache" onclick="doReloadTreeMenu('{$menuSrl}');return false;">{$lang->cmd_remake_cache}</a></span>
+			<button value="procMenuAdminDelete" name="act" type="submit" class="btn btn-danger" onclick="return confirmDelete();">{$lang->cmd_delete}</button>
+			<a href="#remakeCache" class="btn" onclick="doReloadTreeMenu('{$menuSrl}');return false;">{$lang->cmd_remake_cache}</a>
 		</span>
-	</p>
+    </div>
+</fieldset>
 </form>
 </block>
 
@@ -45,11 +47,11 @@ jQuery( function() { jQuery('.grant_default').change( function(event) { doShowMe
 <input type="hidden" name="title" value="{$lang->untitle}" />
 <input type="hidden" name="success_return_url" value="{getUrl('', 'module', ($module ? $module : 'admin'), 'act', 'dispMenuAdminSiteMap')}" />
 <div class="btnArea">
-	<span class="btn medium"><button type="submit">{$lang->add_new_sitemap}</button></span>
+	<button type="submit" class="btn btn-primary btn-large">{$lang->add_new_sitemap}</button>
 </div>
 </form>
 <div class="modal hide fade" id="editMenu">
-	<div class="modal-body">
+	<div class="fg">
 		<form ruleset="insertMenuItem" id="editForm" action="./" method="post" enctype="multipart/form-data" class="form">
 		<input type="hidden" name="module" value="menu" />
 		<input type="hidden" name="act" value="procMenuAdminInsertItem" />

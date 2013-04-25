@@ -155,50 +155,6 @@
 			$security->encodeHTML('layout_list..');
 		}
 
-        /**
-         * Layout setting page
-         * Once select a layout with empty value in the DB, then adjust values
-		 * @return void|Object (void : success, Object : fail)
-         **/
-        function dispLayoutAdminInsert() {
-			$oModel = &getModel('layout');
-			$type = Context::get('type');
-			if (!in_array($type, array('P', 'M'))) $type = 'P';
-			
-			//Security
-			$security = new Security();
-			$security->encodeHTML('layout_list..layout','layout_list..title');
-
-			// Get layout info
-			$layout = Context::get('layout');
-			if ($layout == 'faceoff') return $this->stop('not supported');
-
-			$layout_info = $oModel->getLayoutInfo($layout, null, $type);
-			if (!$layout_info) return $this->stop('msg_invalid_request');
-
-			// get Menu list
-			$oMenuAdminModel = &getAdminModel('menu');
-			$menu_list = $oMenuAdminModel->getMenus();
-			Context::set('menu_list', $menu_list);
-
-			$security = new Security();
-			$security->encodeHTML('menu_list..');
-
-			$security = new Security($layout_info);
-			$layout_info = $security->encodeHTML('.', 'author..', 'extra_var..', 'extra_var....');
-
-			$layout_info->description = nl2br(trim($layout_info->description));
-			if (!is_object($layout_info->extra_var)) $layout_info->extra_var = new StdClass();
-			foreach($layout_info->extra_var as $var_name => $val)
-			{
-				if (isset($layout_info->{$var_name}->description))
-					$layout_info->{$var_name}->description = nl2br(trim($val->description));
-			}
-			Context::set('selected_layout', $layout_info);
-
-			$this->setTemplateFile('layout_modify');
-		}
-
 		/**
          * Insert Layout details
 		 * @return void
@@ -241,38 +197,6 @@
         }
 
         /**
-         * The first page of the layout admin
-		 * @deprecated
-		 * @return void|Object (void : success, Object : fail)
-         **/
-        function dispLayoutAdminContent() {
-			$path = Context::get('path');
-			if (!$path) return $this->stop('msg_invalid_request');
-
-            $oLayoutModel = &getModel('layout');
-			$columnList = array('layout_srl', 'layout', 'module_srl', 'title', 'regdate');
-            $layout_list = $oLayoutModel->getLayoutList(0, 'P', $columnList);
-            Context::set('layout_list', $layout_list);
-
-            $this->setTemplateFile('index');
-        }
-
-        /**
-         * The first page of the mobile layout admin
-		 * @deprecated
-		 * @return void
-         **/
-		function dispLayoutAdminMobileContent() {
-            $oLayoutModel = &getModel('layout');
-			$columnList = array('layout_srl', 'layout', 'module_srl', 'title', 'regdate');
-            $layout_list = $oLayoutModel->getLayoutList(0, 'M', $columnList);
-            Context::set('layout_list', $layout_list);
-
-            $this->setTemplateFile('mindex');
-
-		}
-
-        /**
          * Edit layout codes
 		 * @return void
          **/
@@ -298,6 +222,14 @@
             }
 
             $layout_css_file = $oLayoutModel->getUserLayoutCss($layout_info->layout_srl);
+            if(!file_exists($layout_css_file)){
+                // If faceoff
+                if($oLayoutModel->useDefaultLayout($layout_info->layout_srl)){
+                    $layout_css_file  = $oLayoutModel->getDefaultLayoutCss($layout_info->layout);
+                }else{
+                    $layout_css_file = sprintf('%s%s', $layout_info->path, 'css/style.css');
+                }
+            }
             if(file_exists($layout_css_file)){
                 $layout_code_css = FileHandler::readFile($layout_css_file);
                 Context::set('layout_code_css', $layout_code_css);
@@ -346,7 +278,7 @@
             $layout_info = $oLayoutModel->getLayout($layout_srl);
             if(!$layout_info) return new Object(-1, 'msg_invalid_request');
             // Separately handle the layout if its type is faceoff
-            if($layout_info && $layout_info->type == 'faceoff') $oLayoutModel->doActivateFaceOff($layout_info);
+            //if($layout_info && $layout_info->type == 'faceoff') $oLayoutModel->doActivateFaceOff($layout_info);
             // Apply CSS directly
             Context::addHtmlHeader("<style type=\"text/css\" charset=\"UTF-8\">".$code_css."</style>");
             // Set names and values of extra_vars to $layout_info
@@ -387,33 +319,12 @@
         }
 
         /**
-         * Pop-up details of the layout(conf/info.xml)
-		 * @deprecated
-		 * @return void
-         **/
-        function dispLayoutAdminInfo() {
-            // Get the layout information
-            $oLayoutModel = &getModel('layout');
-            $layout_info = $oLayoutModel->getLayoutInfo(Context::get('selected_layout'));
-            Context::set('layout_info', $layout_info);
-            // Set the layout to be pop-up
-            $this->setLayoutFile('popup_layout');			
-			
-			$security = new Security();
-			$security->encodeHTML('layout_list..');	
-			$security->encodeHTML('layout_list..author..');				
-			$security->encodeHTML('layout_list..history..');
-			$security->encodeHTML('layout_list..history..author..');				
-            // Set a template file
-            $this->setTemplateFile('layout_detail_info');
-        }
-
-        /**
          * Modify admin layout of faceoff
 		 * @deprecated
 		 * @return void
          **/
-        function dispLayoutAdminLayoutModify(){
+        /*faceOff is deprecated for the moment*/
+/*        function dispLayoutAdminLayoutModify(){
             // Get layout_srl
             $current_module_info = Context::get('current_module_info');
             $layout_srl = $current_module_info->layout_srl;
@@ -454,13 +365,15 @@
             $oWidgetController->setWidgetCodeInJavascriptMode();
             // Set a template file
             $this->setTemplateFile('faceoff_layout_edit');
-        }
+        }*/
 
         /**
          * display used images info for faceoff
 		 * @deprecated
 		 * @return void
          **/
+        /* faceoff is deprecated for the moment */
+        /*
         function dispLayoutAdminLayoutImageList(){
             $layout_srl = Context::get('layout_srl');
             $oLayoutModel = &getModel('layout');
@@ -475,6 +388,7 @@
 
             $this->setTemplateFile('layout_image_list');
         }
+        */
 
         /**
          * Copy layout instance

@@ -325,7 +325,7 @@
 	</item>
 	<item name="point_insert_document">
 		<value xml:lang="ko"><![CDATA[글 작성]]></value>
-		<value xml:lang="en"><![CDATA[On Writing]]></value>
+		<value xml:lang="en"><![CDATA[Writing]]></value>
 		<value xml:lang="jp"><![CDATA[書き込み作成]]></value>
 		<value xml:lang="zh-CN"><![CDATA[发表新帖]]></value>
 		<value xml:lang="zh-TW"><![CDATA[發表主題]]></value>
@@ -337,7 +337,7 @@
 	</item>
 	<item name="point_delete_document">
 		<value xml:lang="ko"><![CDATA[글 삭제]]></value>
-		<value xml:lang="en"><![CDATA[On Deleting]]></value>
+		<value xml:lang="en"><![CDATA[Deleting]]></value>
 		<value xml:lang="jp"><![CDATA[書き込み削除]]></value>
 		<value xml:lang="zh-CN"><![CDATA[删除主题]]></value>
 		<value xml:lang="zh-TW"><![CDATA[刪除主題]]></value>
@@ -349,7 +349,7 @@
 	</item>
 	<item name="point_insert_comment">
 		<value xml:lang="ko"><![CDATA[댓글 작성]]></value>
-		<value xml:lang="en"><![CDATA[On Adding Comments]]></value>
+		<value xml:lang="en"><![CDATA[Adding Comments]]></value>
 		<value xml:lang="jp"><![CDATA[コメント作成]]></value>
 		<value xml:lang="zh-CN"><![CDATA[发表评论]]></value>
 		<value xml:lang="zh-TW"><![CDATA[發表評論]]></value>
@@ -361,7 +361,7 @@
 	</item>
 	<item name="point_delete_comment">
 		<value xml:lang="ko"><![CDATA[댓글 삭제]]></value>
-		<value xml:lang="en"><![CDATA[On Deleting Comments]]></value>
+		<value xml:lang="en"><![CDATA[Deleting Comments]]></value>
 		<value xml:lang="jp"><![CDATA[コメント削除]]></value>
 		<value xml:lang="zh-CN"><![CDATA[删除评论]]></value>
 		<value xml:lang="zh-TW"><![CDATA[刪除評論]]></value>
@@ -373,7 +373,7 @@
 	</item>
 	<item name="point_upload_file">
 		<value xml:lang="ko"><![CDATA[파일 업로드]]></value>
-		<value xml:lang="en"><![CDATA[On Uploading]]></value>
+		<value xml:lang="en"><![CDATA[Uploading]]></value>
 		<value xml:lang="jp"><![CDATA[アップロード]]></value>
 		<value xml:lang="zh-CN"><![CDATA[上传文件]]></value>
 		<value xml:lang="zh-TW"><![CDATA[上傳檔案]]></value>
@@ -385,7 +385,7 @@
 	</item>
 	<item name="point_delete_file">
 		<value xml:lang="ko"><![CDATA[파일 삭제]]></value>
-		<value xml:lang="en"><![CDATA[On Deleting Files]]></value>
+		<value xml:lang="en"><![CDATA[Deleting Files]]></value>
 		<value xml:lang="jp"><![CDATA[ファイル削除]]></value>
 		<value xml:lang="zh-CN"><![CDATA[删除文件]]></value>
 		<value xml:lang="zh-TW"><![CDATA[刪除檔案]]></value>
@@ -397,7 +397,7 @@
 	</item>
 	<item name="point_download_file">
 		<value xml:lang="ko"><![CDATA[파일 다운로드(이미지 제외)]]></value>
-		<value xml:lang="en"><![CDATA[On Downloading Files(Exclude images)]]></value>
+		<value xml:lang="en"><![CDATA[Downloading Files]]></value>
 		<value xml:lang="jp"><![CDATA[ダウンロード]]></value>
 		<value xml:lang="zh-CN"><![CDATA[下载文件(图片除外)]]></value>
 		<value xml:lang="zh-TW"><![CDATA[下載檔案(圖片除外)]]></value>
@@ -409,7 +409,7 @@
 	</item>
 	<item name="point_read_document">
 		<value xml:lang="ko"><![CDATA[게시글 조회]]></value>
-		<value xml:lang="en"><![CDATA[On Reading]]></value>
+		<value xml:lang="en"><![CDATA[Reading]]></value>
 		<value xml:lang="jp"><![CDATA[書き込み閲覧]]></value>
 		<value xml:lang="zh-CN"><![CDATA[查看主题]]></value>
 		<value xml:lang="zh-TW"><![CDATA[檢視主題]]></value>
@@ -420,7 +420,7 @@
 	</item>
 	<item name="point_voted">
 		<value xml:lang="ko"><![CDATA[추천 받음]]></value>
-		<value xml:lang="en"><![CDATA[On Recommended]]></value>
+		<value xml:lang="en"><![CDATA[Recommended]]></value>
 		<value xml:lang="jp"><![CDATA[推薦]]></value>
 		<value xml:lang="zh-CN"><![CDATA[推荐]]></value>
 		<value xml:lang="zh-TW"><![CDATA[推薦]]></value>
@@ -430,7 +430,7 @@
 	</item>
 	<item name="point_blamed">
 		<value xml:lang="ko"><![CDATA[비추천 받음]]></value>
-		<value xml:lang="en"><![CDATA[On Not Recommended]]></value>
+		<value xml:lang="en"><![CDATA[Not Recommended]]></value>
 		<value xml:lang="jp"><![CDATA[非推薦]]></value>
 		<value xml:lang="zh-CN"><![CDATA[反对]]></value>
 		<value xml:lang="zh-TW"><![CDATA[反對]]></value>
