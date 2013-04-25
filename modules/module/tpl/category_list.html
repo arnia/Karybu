@@ -5,14 +5,13 @@
 <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
-<!-- 카테고리의 위/아래, 삭제와 관련된 form -->
 <form id="fo_category_info" action="./" method="post">
 	<input type="hidden" name="module" value="module" />
 	<input type="hidden" name="act" value="procModuleAdminDeleteCategory" />
     <input type="hidden" name="module_category_srl" value="" />
 </form>
 <div class="table">
-	<table width="100%" border="1" cellspacing="0">
+	<table class="table table-condensed table-bordered table-hover">
 		<thead>
 			<tr>
 				<th scope="col" class="title">{$lang->category_title}</th>
@@ -31,8 +30,10 @@
 				<td class="title">{$val->title}</td>
 				<td class="nowr">{zdate($val->regdate,"Y-m-d")}</td>
 				<td class="nowr">
-					<a href="{getUrl('module_category_srl',$val->module_category_srl)}">{$lang->cmd_modify}...</a>
-					<button type="button" class="text" onclick="doUpdateCategory('{$val->module_category_srl}','{$lang->confirm_delete}');return false;">{$lang->cmd_delete}</button>
+                    <div class="kActionIcons">
+                        <a href="{getUrl('module_category_srl',$val->module_category_srl)}" data-toggle="tooltip" title="{$lang->cmd_modify}"><i class="kEdit">{$lang->cmd_modify}</i></a>
+                        <a href="#" onclick="doUpdateCategory('{$val->module_category_srl}','{$lang->confirm_delete}');return false;" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kDelete">{$lang->cmd_delete}</i></a>
+                    </div>
 				</td>
 			</tr>
 			<!--@end-->
@@ -40,8 +41,7 @@
 	</table>
 </div>
 
-<!-- 카테고리 추가 -->
-<form ruleset="insertCategory" action="./" method="post" class="form">
+<form ruleset="insertCategory" action="./" method="post" class="form-inline">
 	<input type="hidden" name="module" value="module" />
 	<input type="hidden" name="act" value="procModuleAdminInsertCategory" />
 	<input type="hidden" name="page" value="{$page}" />
@@ -50,6 +50,6 @@
     <div class="btnArea">
 		<label for="category_title">{$lang->category_title}</label>
 		<input type="text" name="title" id="category_title" />
-		<span class="btn"><input type="submit" value="{$lang->cmd_registration}" /></span>
+		<input class="btn btn-primary" type="submit" value="{$lang->cmd_add}" />
 	</div>
 </form>
