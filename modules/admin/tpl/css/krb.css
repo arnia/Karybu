@@ -573,17 +573,18 @@ fieldset.section {
     padding:10px 40px 10px 20px;
     text-shadow:0 1px 0 rgba(255, 255, 255, 0.5);
     background-color:#ffe7ad;
-    border:1px solid #f7c140;
     -webkit-border-radius:5px;
     -moz-border-radius:5px;
     border-radius:5px;
-    -webkit-box-shadow:0px 1px 0px 0px #b5b0a9, inset 0px 1px 0px 0px #ffffff;
-    box-shadow:0px 1px 0px 0px #b5b0a9, inset 0px 1px 0px 0px #ffffff;
+    border: 1px solid;
+    box-shadow:inset 0 1px 1px 0 rgba(255, 255, 255, 0.8), inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
 }
 
 .alert,
-.alert h4 {
+.alert h4, .alert h3 {
     color:#333333;
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .alert h4 {
@@ -612,6 +613,12 @@ fieldset.section {
     color:#333333;
     background-color:#fbc1c1;
     border-color:#ef8989;
+}
+
+.alert-warning {
+    color: #333333;
+    background-color: #ffd97f;
+    border-color: #ffb400;
 }
 
 .alert-danger h4,
@@ -644,8 +651,7 @@ fieldset.section {
 }
 
 .alert {
-    border-top:1px solid #bdb29a;
-    border-bottom:1px solid #ecebe9;
+
 
 }
 
@@ -1228,8 +1234,8 @@ table.sortable tr {
     border-top: none;
 }
 
-table.table, table.table td, table.table th {
-    background: #ffffff;
+table.table tr, table.table, table.table td, table.table th {
+    background: #ffffff!important;
 }
 
 .table caption {

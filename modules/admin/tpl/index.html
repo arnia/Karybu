@@ -47,10 +47,11 @@
         </div>
     </div>
         <!--@if(!$isEnviromentGatheringAgreement)-->
-        <form action="./" method="post" class="message info alert alert-info well">
+        <form action="./" method="post" class="message info alert alert-block alert-warning dashboard">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
         <input type="hidden" name="module" value="admin" />
         <input type="hidden" name="act" value="procAdminEnviromentGatheringAgreement" />
-            <h3>{$lang->install_env_agreement}</h3>
+            <h4>{$lang->install_env_agreement}</h4>
             <p>{$lang->install_env_agreement_desc}</p>
             <div class="btnArea">
                 <button  class="btn" type="submit" name="is_agree" value="false">{$lang->disagree}</button>
