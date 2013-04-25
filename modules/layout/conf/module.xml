@@ -4,16 +4,12 @@
     <permissions />
     <actions>
         <action name="dispLayoutInfo" type="view" standalone="true" />
-        <action name="dispLayoutAdminContent" type="view" standalone="true" />
-        <action name="dispLayoutAdminInfo" type="view" standalone="true" />
-        <action name="dispLayoutAdminLayoutModify" type="view" standalone="true" />
-        <action name="dispLayoutAdminLayoutImageList" type="view" standalone="true" />
-		<action name="dispLayoutAdminMobileContent" type="view" standalone="true" />
+        <!--<action name="dispLayoutAdminLayoutModify" type="view" standalone="true" />-->
+        <!--<action name="dispLayoutAdminLayoutImageList" type="view" standalone="true" />-->
 
 		<action name="dispLayoutAdminInstalledList" type="view" admin_index="true" menu_name="installedLayout" menu_index="true" />
 		<action name="dispLayoutAdminInstanceList" type="view" menu_name="installedLayout" />
 		<action name="dispLayoutAdminAllInstanceList" type="view" menu_name="installedLayout" />
-		<action name="dispLayoutAdminInsert" type="view" menu_name="installedLayout" />
 		<action name="dispLayoutAdminModify" type="view" menu_name="installedLayout" />
 		<action name="dispLayoutAdminEdit" type="view" menu_name="installedLayout" />
 		<action name="dispLayoutAdminCopyLayout" type="view" />
