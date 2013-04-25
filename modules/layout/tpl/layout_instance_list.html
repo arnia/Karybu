@@ -1,3 +1,4 @@
+<fieldset class="section">
 <include target="header.html"/>
 <load target="js/adminList.js" usecdn="true"/>
 <script type="text/javascript">
@@ -43,7 +44,7 @@
     <div class="fg">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h2>Insert Layout Instance</h2>
+            <h2>{$lang->insert_layout_instance}</h2>
         </div>
 
         <form ruleset="insertLayout" action="./" class="form form-horizontal">
@@ -80,7 +81,7 @@
                     </div>
                 </div>
                 <div class="control-group form-inline">
-                    <label class="control-label">{$lang->title} <em>*</em></label>
+                    <label class="control-label">{$lang->title} <em style="color:red">*</em></label>
                     <div class="controls">
                         <input type="text" name="title" value=""/>
                         <div class="help-block">
@@ -96,3 +97,4 @@
         </form>
     </div>
 </div>
+</fieldset>

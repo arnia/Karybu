@@ -12,7 +12,7 @@
 	<div></div>
 </form>
 
-<div id="layout_config" class="form-horizontal">
+<div id="layout_config" class="form-horizontal form-horizontal-small">
     <fieldset class="section">
     <h2 cond="$act == 'dispLayoutAdminModify'">{$selected_layout->layout_title}</h2>
     <div class="control-group form-inline inline">
@@ -40,7 +40,7 @@
         </div>
     </div>
     <div class="control-group form-inline">
-        <label class="control-label">{$lang->title} <em>*</em></label>
+        <label class="control-label">{$lang->title} <em style="color:red">*</em></label>
         <div class="controls">
             <input type="text" name="title" value="{$selected_layout->layout_title}"/>
             <div class="help-block">
@@ -177,11 +177,12 @@
 
 	<div class="btnArea">
 		<!--@if($layout)-->
-		<a class="btn" href="{getUrl('', 'module', 'admin', 'act', 'dispLayoutAdminInstanceList', 'layout', $selected_layout->layout)}">{$lang->cmd_list}</a>
+        <a class="btn" cond="$selected_layout->layout_type != M" href="{getUrl('', 'module', 'admin', 'act', 'dispLayoutAdminInstanceList', 'layout', $selected_layout->layout)}">{$lang->cmd_list}</a>
+		<a class="btn" cond="$selected_layout->layout_type == M" href="{getUrl('', 'module', 'admin', 'act', 'dispLayoutAdminInstanceList', 'type' , 'M', 'layout', $selected_layout->layout)}">{$lang->cmd_list}</a>
 		<!--@else-->
 		<a class="btn" href="{getUrl('', 'module', 'admin', 'act', 'dispLayoutAdminAllInstanceList')}">{$lang->cmd_list}</a>
 		<!--@end-->
-		<input type="submit" class="btn btn-primary" value="{$lang->cmd_insert}"|cond="$act == 'dispLayoutAdminInsert'" value="{$lang->cmd_save}"|cond="$act == 'dispLayoutAdminModify'" onclick="doSubmitConfig()"/>
+		<input type="submit" class="btn btn-primary" value="{$lang->cmd_save}" onclick="doSubmitConfig()"/>
 	</div>
 
 	<include target="../../admin/tpl/common/include.multilang.html" />

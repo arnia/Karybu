@@ -1,5 +1,5 @@
 <load target="js/module_admin.js" usecdn="true" />
-<h1 class="h1">{$lang->module_copy}</h1>
+<h2 class="h2">{$lang->module_copy}</h2>
 <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
@@ -8,7 +8,7 @@
 	<input type="hidden" name="act" value="procModuleAdminCopyModule" />
 	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
 	<div class="table">
-		<table width="100%" border="1" cellspacing="0">
+		<table class="table table-condensed table-bordered table-hover">
 			<tr>
 				<th scope="row">{$lang->module}</th>
 				<td >{$module_info->module}</td>
@@ -24,7 +24,7 @@
 		</table>
 	</div>
 	<div class="table">
-		<table width="100%" border="1" cellspacing="0">
+		<table class="table table-condensed table-bordered table-hover">
 			<tr>
 				<th scope="col"><div>{$lang->mid}<div></th>
 				<th scope="col"><div>{$lang->browser_title}<div></th>
@@ -49,29 +49,9 @@
 				<td><input type="text" name="mid_5" /></td>
 				<td><input type="text" name="browser_title_5" /></td>
 				</tr>
-			<tr>
-				<td><input type="text" name="mid_6" /></td>
-				<td><input type="text" name="browser_title_6" /></td>
-				</tr>
-			<tr>
-				<td><input type="text" name="mid_7" /></td>
-				<td><input type="text" name="browser_title_7" /></td>
-				</tr>
-			<tr>
-				<td><input type="text" name="mid_8" /></td>
-				<td><input type="text" name="browser_title_8" /></td>
-				</tr>
-			<tr>
-				<td><input type="text" name="mid_9" /></td>
-				<td><input type="text" name="browser_title_9" /></td>
-				</tr>
-			<tr>
-				<td><input type="text" name="mid_10" /></td>
-				<td><input type="text" name="browser_title_10" /></td>
-				</tr>
 		</table>
 	</div>
 	<div class="btnArea">
-		<span class="btn"><input type="submit" value="{$lang->cmd_save}" /></span>
+		<input class="btn btn-primary" type="submit" value="{$lang->cmd_save}" />
 	</div>
 </form>

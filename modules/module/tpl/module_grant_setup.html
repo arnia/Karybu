@@ -2,7 +2,7 @@
 <script type="text/javascript">
     jQuery( function() { jQuery('.grant_default').change( function(event) { doShowGrantZone(); } ); doShowGrantZone() } );
 </script>
-<h1 class="h1">{$lang->bundle_grant_setup}</h1>
+<h2 class="h2">{$lang->bundle_grant_setup}</h2>
 <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
@@ -10,10 +10,10 @@
 	<input type="hidden" name="module" value="module" />
 	<input type="hidden" name="act" value="procModuleAdminModuleGrantSetup" />
 	<input type="hidden" name="module_srls" value="{$module_srls}" />
-    <h2 class="h2">{$lang->permission_setting}</h2>
-    <p>{$lang->about_grant_deatil}</p>
+    <h3 class="h3">{$lang->permission_setting}</h3>
+    <p class="well well-small">{$lang->about_grant_deatil}</p>
 	<div class="table">
-		<table width="100%" border="1" cellspacing="0">
+		<table class="table table-condensed table-hover table-bordered">
 			<thead>
 				<tr>
 					<th scope="col">{$lang->grant}</th>
@@ -26,16 +26,18 @@
 				<tr class="row{$cycle_idx}">
 					<th scope="row">{$grant_item->title}</th>
 					<td >
-						<select name="{$grant_name}_default" class="grant_default">
+						<select name="{$grant_name}_default" class="grant_default" class="form-inline">
 							<!--@if($grant_item->default == 'guest')--><option value="0">{$lang->grant_to_all}</option><!--@end-->
 							<!--@if($grant_item->default != 'manager')--><option value="-1">{$lang->grant_to_login_user}</option><!--@end-->
 							<!--@if($grant_item->default != 'manager')--><option value="-2" <!--@if($default_grant[$grant_name]=='site')-->selected="selected"<!--@end-->>{$lang->grant_to_site_user}</option><!--@end-->
 							<option value="">{$lang->grant_to_group}</option>
 						</select>
-						<div id="zone_{$grant_name}" style="display:none">
+						<div id="zone_{$grant_name}" style="display:none" class="form-inline">
 							<!--@foreach($group_list as $group_srl => $group_item)-->
-							<input type="checkbox" class="checkbox" name="{$grant_name}" value="{$group_item->group_srl}" id="grant_{$grant_name}_{$group_srl}" />
-							<label for="grant_{$grant_name}_{$group_srl}">{$group_item->title}</label>
+                            <label for="grant_{$grant_name}_{$group_srl}" class="checkbox inline">
+                                <input type="checkbox" name="{$grant_name}" value="{$group_item->group_srl}" id="grant_{$grant_name}_{$group_srl}" />
+                                {$group_item->title}
+                            </label>
 							<!--@end-->
 						</div>
 					</td>
@@ -45,7 +47,7 @@
 		</table>
 	</div>
 	<div class="btnArea">
-		<span class="btn"><input type="submit" value="{$lang->cmd_registration}" /></span>
+		<input class="btn btn-primary" type="submit" value="{$lang->cmd_registration}" />
 	</div>
 </form>
 

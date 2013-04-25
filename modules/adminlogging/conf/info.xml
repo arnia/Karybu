@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.2">
-    <title xml:lang="ko">관리자 로깅</title>
-    <description xml:lang="ko"></description>
+    <title xml:lang="en">Admin logging</title>
+    <description xml:lang="en"></description>
     <version>0.1</version>
     <date>2011-09-28</date>
     <category>system</category>

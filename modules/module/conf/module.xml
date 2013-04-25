@@ -11,9 +11,7 @@
         <action name="dispModuleAdminContent" type="view" standalone="true"  menu_name="installedModule" menu_index="true" admin_index="true" />
         <action name="dispModuleAdminList" type="view" standalone="true" />
         <action name="dispModuleAdminCategory" type="view" standalone="true" menu_name="installedModule" />
-        <action name="dispModuleAdminInfo" type="view" standalone="true" />
         <action name="dispModuleAdminModuleSetup" type="view" standalone="true" />
-        <action name="dispModuleAdminModuleAdditionSetup" type="view" standalone="true" />
         <action name="dispModuleAdminModuleGrantSetup" type="view" standalone="true" />
         <action name="dispModuleAdminCopyModule" type="view" standalone="true" />
         <action name="dispModuleAdminLangcode" type="view" standalone="true" menu_name="multilingual" menu_index="true" />

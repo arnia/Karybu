@@ -12,6 +12,7 @@ Karybu admin components
 	- [How this works](#how-this-works)
 - [Tables](#tables)
 	- [Sortable tables](#sortable-tables)
+	- [Simple / detailed view tables](#simple--detailed-view-tables)
 
 Modal windows
 ----------------
@@ -189,6 +190,54 @@ Here is a sample sortable table:
 
 The only mandatory items for this to work are the `sortable` class on the `table` tag and the button with the `dragBtn` class; all the other ones are for making it look consistent with the rest of the admin.
 
+### Simple / detailed view tables
+
+Karybu uses this component for displaying a list of modules, addons or widgets, for example. In the "simple" view, just the module name is displayed; when the user toggles the "detailed" view, all module info is displayed.
+
+Here is a sample markup:
+
+```html
+<table class="table dsTg">
+  <caption>
+    Here's a caption
+    <p>
+        <a href="#" class="toggleBtn">
+            <span class="hide">Simple</span>
+            <span class="show">Detailed</span>
+        </a>
+    </p>
+  </caption>
+  <thead>
+    <th>Column 1 title</th>
+    <th class="title">Column 2 title</th>
+  </thead>
+  <tbody>
+    <tr>
+        <td>First row</td>
+        <td class="title">
+            <p>First paragraphs will always be visible</p>
+            <p>Subsequent ones will be hidden</p>
+            <p>when the toggle button is pressed</p>
+        </td>
+    </tr>
+    <tr>
+        <td>Second row</td>
+        <td class="title">
+            <p>This text will also always be visible</p>
+            <p class="update">This needs updating!</p>
+        </td>
+    </tr>
+    <tr>
+        <td>Third row</td>
+        <td class="title">
+            <p>Lorem ipsum</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat varius turpis id auctor. </p>
+        </td>
+    </tr>
+  </tbody>
+</table>
+```
+
 Collapsible sections
 --------------------
 
@@ -201,3 +250,4 @@ In order to make a section collapsible, it is enough to add the "h2" or "h3" cla
 ```
 
 // TODO Rename class to something like "toggle-section" or such
+

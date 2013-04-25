@@ -72,25 +72,6 @@
         }
 
         /**
-         * @brief Pop-up details of the module (conf/info.xml)
-         **/
-        function dispModuleAdminInfo() {
-            // Obtain a list of modules
-            $oModuleModel = &getModel('module');
-            $module_info = $oModuleModel->getModuleInfoXml(Context::get('selected_module'));
-            Context::set('module_info', $module_info);
-
-			$security = new Security();				
-			$security->encodeHTML('module_info...');
-
-			// Set the layout to be pop-up
-			$this->setLayoutPath('./common/tpl');
-            $this->setLayoutFile('popup_layout');
-            // Set a template file
-            $this->setTemplateFile('module_info');
-        }
-
-        /**
          * @brief Module Categories
          **/
         function dispModuleAdminCategory() {
@@ -175,28 +156,6 @@
             $this->setLayoutFile('popup_layout');
             // Set a template file
             $this->setTemplateFile('module_setup');
-        }
-
-        /**
-         * @brief Apply module addition settings to all modules
-         **/
-        function dispModuleAdminModuleAdditionSetup() {
-            $module_srls = Context::get('module_srls');
-
-            $modules = explode(',',$module_srls);
-            if(!count($modules)) if(!$module_srls) return new Object(-1,'msg_invalid_request');
-            // pre-define variables because you can get contents from other module (call by reference)
-            $content = '';
-            // Call a trigger for additional settings
-            // Considering uses in the other modules, trigger name cen be publicly used
-            $output = ModuleHandler::triggerCall('module.dispAdditionSetup', 'before', $content);
-            $output = ModuleHandler::triggerCall('module.dispAdditionSetup', 'after', $content);
-            Context::set('setup_content', $content);
-            // Set the layout to be pop-up
-			$this->setLayoutPath('./common/tpl');
-            $this->setLayoutFile('popup_layout');
-            // Set a template file
-            $this->setTemplateFile('module_addition_setup');
         }
 
         /**
