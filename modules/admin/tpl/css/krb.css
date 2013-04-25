@@ -1678,4 +1678,11 @@ margin:-1px;
     text-decoration:underline;
 }
 
+.x .mLangEdit li strong {
+    display: inline-block;
+    padding: 6px 0px 8px 24px;
+    font-weight: normal;
+    line-height: 1.5;
+}
+
 /* MENU MANAGER END */
