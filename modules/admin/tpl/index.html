@@ -47,10 +47,10 @@
         </div>
     </div>
         <!--@if(!$isEnviromentGatheringAgreement)-->
-        <form action="./" method="post" class="message info alert alert-info">
+        <form action="./" method="post" class="message info alert alert-info well">
         <input type="hidden" name="module" value="admin" />
         <input type="hidden" name="act" value="procAdminEnviromentGatheringAgreement" />
-            <h2>{$lang->install_env_agreement}</h2>
+            <h3>{$lang->install_env_agreement}</h3>
             <p>{$lang->install_env_agreement_desc}</p>
             <div class="btnArea">
                 <button  class="btn" type="submit" name="is_agree" value="false">{$lang->disagree}</button>
@@ -63,12 +63,12 @@
             <h2 cond="$needUpdate && $addTables">{$lang->need_update_and_table}</h2>
             <h2 cond="$needUpdate && !$addTables">{$lang->need_update}</h2>
             <h2 cond="!$needUpdate && $addTables">{$lang->need_table}</h2>
-            <ul>
+            <ul class="unstyled">
             <!--@foreach($module_list AS $key => $value)-->
                 <!--@if($value->need_install)-->
-                <li style="margin:0 0 4px 0;">{$value->module} - <span class="btn"><button type="button" onclick="doInstallModule('{$value->module}')">{$lang->cmd_create_db_table}</button></span></li>
+                <li style="margin:0 0 4px 0;">{$value->module} - <button class="btn btn-primary" type="button" onclick="doInstallModule('{$value->module}')">{$lang->cmd_create_db_table}</button></li>
                 <!--@else if($value->need_update)-->
-                <li style="margin:0 0 4px 0;">{$value->module} - <span class="btn"><button type="button" onclick="doUpdateModule('{$value->module}')">{$lang->cmd_module_update}</button></span></li>
+                <li style="margin:0 0 4px 0;">{$value->module} - <button class="btn btn-primary" type="button" onclick="doUpdateModule('{$value->module}')">{$lang->cmd_module_update}</button></li>
                 <!--@end-->
             <!--@end-->
             </ul>
