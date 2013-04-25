@@ -7,8 +7,9 @@ jQuery( function() { jQuery('.grant_default').change( function(event) { doShowMe
 <load target="../../admin/tpl/js/sitemap.js" usecdn="true" />
 <load target="./js/sitemap.js" usecdn="true" />
 
-<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-	<p>{$XE_VALIDATOR_MESSAGE}</p>
+<div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 <h1 class="h1">{$lang->menu_gnb_sub['siteMap']}</h1>
 <block loop="$menu_list=>$key,$value">
