@@ -1,4 +1,5 @@
-<h1 class="h1">{$lang->installed_widgets}</h1>
-<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+<h1>{$lang->installed_widgets}</h1>
+<div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
