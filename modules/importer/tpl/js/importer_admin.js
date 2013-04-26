@@ -35,7 +35,7 @@ $('.checkxml')
 					
 				// when the file doesn't exists or any other error occurs
 				if(data.error || data.exists != 'true') {
-					$message.attr('class', 'desc error').fadeIn(300);
+					$message.attr('class', 'desc text-error').fadeIn(300);
 					$ttxml = $ttxml.filter(':visible');
 					$ttxml.eq(-1).slideUp(100, function(){
 						$ttxml = $ttxml.slice(0,-1).eq(-1).slideUp(100,arguments.callee);
@@ -44,7 +44,7 @@ $('.checkxml')
 					return restore();
 				}
 
-				$message.attr('class', 'desc success').fadeIn(300);
+				$message.attr('class', 'desc text-success').fadeIn(300);
 				$form.find(':submit').removeAttr('disabled');
 
 				$syncmember = $form.find('.syncmember:hidden');
