@@ -74,13 +74,13 @@
 <form action="./" class="form" method="get" onsubmit="return doPreProcessing(this, 'memberForm')" id="memberForm">
 	<input type="hidden" name="type" value="member" />
 	<input type="hidden" name="unit_count" value="100" />
-	<h2 class="h2">{$lang->type_member}</h2>
-	<ul>
+	<h3 class="h3">{$lang->type_member}</h3>
+	<ul class="unstyled">
 		<li>
 			<p class="q">{$lang->xml_path} {$lang->path_info}</p>
 			<p class="a checkxml">
 				<input type="text" name="xml_file" value="./" />
-				<button type="button">{$lang->cmd_check_path}</button>
+				<button class="btn" type="button">{$lang->cmd_check_path}</button>
 				<em class="desc">{$lang->msg_no_xml_file}</em>
 			</p>
 		</li>
@@ -90,29 +90,29 @@
 		</li>
 	</ul>
 	<div class="btnArea">
-		<span class="btn"><input type="submit" value="{$lang->importer}" /></span>
+		<input class="btn btn-primary" type="submit" value="{$lang->importer}" />
 	</div>
 </form>
 <form action="./" class="form" method="get" onsubmit="return doPreProcessing(this)" id="fo_import">
 	<input type="hidden" name="type" value="message" />
 	<input type="hidden" name="unit_count" value="100" />
-	<h2 class="h2">{$lang->type_message}</h2>
-	<ul>
+	<h3 class="h3">{$lang->type_message}</h3>
+	<ul class="unstyled">
 		<li>
 			<p class="q">{$lang->xml_path} {$lang->path_info}</p>
 			<p class="a checkxml">
 				<input type="text" name="xml_file" value="./" />
-				<button type="button">{$lang->cmd_check_path}</button>
+				<button class="btn" type="button">{$lang->cmd_check_path}</button>
 				<em class="desc"></em><!--//class="error|success"-->
 			</p>
 		</li>
 	</ul>
 	<div class="btnArea">
-		<span class="btn"><input type="submit" value="{$lang->importer}" /></span>
+		<input class="btn btn-primary" type="submit" value="{$lang->importer}" />
 	</div>
 </form>
-<a href="#process" class="modalAnchor"></a>
-<div class="xe-modal" id="process" style="display:none;">
+<a href="#process" data-toggle="modal"></a>
+<div class="modal hide fade" id="process" style="display:none;">
     <form action="./" method="get" onsubmit="return doImport()" id="fo_process" class="fg">
         <input type="hidden" name="type" value="" />
         <input type="hidden" name="total" value="" />
