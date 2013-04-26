@@ -6,58 +6,62 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
-<form action="" class="form">
-	<input type="hidden" name="module" value="poll" />
-	<h1 class="h1">{$lang->poll}</h1>
-	<div class="table even">
-		<table width="100%" border="1" cellspacing="0" id="pollListTable" class="table-condensed table-bordered table-hover">
-			<caption>
-				All({number_format($total_count)})
-				<a href="#listManager" class="btn pull-right" data-toggle="modal" onclick="getPollList();">{$lang->poll_manager}...</a>
-			</caption>
-			<thead>
-				<tr>
-					<th scope="col" class="text">{$lang->title}</th>
-					<th scope="col" class="nowr">{$lang->poll_checkcount}</th>
-					<th scope="col" class="nowr">{$lang->poll_join_count}</th>
-					<th scope="col" class="nowr">{$lang->author}</th>
-					<th scope="col" class="nowr">{$lang->regdate}</th>
-					<th scope="col" class="nowr">{$lang->poll_stop_date}</th>
-					<th scope="col"><input type="checkbox" data-name="cart"title="Check All" /></th>
-				</tr>
-			</thead>
-			<tfoot>
-				<tr>
-					<th scope="col" class="text">{$lang->title}</th>
-					<th scope="col" class="nowr">{$lang->poll_checkcount}</th>
-					<th scope="col" class="nowr">{$lang->poll_join_count}</th>
-					<th scope="col" class="nowr">{$lang->author}</th>
-					<th scope="col" class="nowr">{$lang->regdate}</th>
-					<th scope="col" class="nowr">{$lang->poll_stop_date}</th>
-					<th scope="col"><input type="checkbox" data-name="cart" title="Check All" /></th>
-				</tr>
-			</tfoot>
-			<tbody>
-				<!--@foreach($poll_list as $no => $val)-->
-				<tr>
-					<td class="title"><a href="<!--@if($val->document_srl)-->{getUrl('')}?document_srl={$val->document_srl}<!--@end--><!--@if($val->comment_srl)-->#comment_{$val->comment_srl}<!--@end-->" target="_blank">{$val->title}</a></td>
-					<td class="nowr"><!--@if($val->checkcount == 1)-->{$lang->single_check}<!--@else-->{$lang->multi_check}<!--@end--></td>
-					<td class="nowr">{$val->poll_count}</td>
-					<td class="nowr"><a href="#popup_menu_area" class="member_{$val->member_srl}">{$val->nick_name}</a></td>
-					<td class="nowr">{zdate($val->poll_regdate,"Y-m-d H:i")}</td>
-					<td class="nowr">{zdate($val->poll_stop_date,"Y-m-d")}</td>
-					<td>
-						<input type="checkbox" name="cart" value="{$val->poll_index_srl}" />
-					</td>
-				</tr>
-				<!--@end-->
-			</tbody>
-		</table>
-		<div class="btnArea">
-			<a href="#listManager" class="btn pull-right" data-toggle="modal" onclick="getPollList();">{$lang->poll_manager}...</a>
-		</div>
-	</div>
-</form>
+<fieldset class="section">
+    <h3 class="h3">{$lang->poll}</h3>
+    <form action="./" class="form">
+        <input type="hidden" name="module" value="poll" />
+        <table id="pollListTable" class="table table-condensed table-bordered table-hover">
+            <caption>
+            <p class="pull-right">
+                All({number_format($total_count)})
+            <span class="side">
+                <a href="#listManager" class="btn" data-toggle="modal" onclick="getPollList();">{$lang->poll_manager}</a>
+            </span>
+            </p>
+            </caption>
+            <thead>
+            <tr>
+                <th scope="col" class="text">{$lang->title}</th>
+                <th scope="col" class="nowr">{$lang->poll_checkcount}</th>
+                <th scope="col" class="nowr">{$lang->poll_join_count}</th>
+                <th scope="col" class="nowr">{$lang->author}</th>
+                <th scope="col" class="nowr">{$lang->regdate}</th>
+                <th scope="col" class="nowr">{$lang->poll_stop_date}</th>
+                <th scope="col"><input type="checkbox" data-name="cart"title="Check All" /></th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <th scope="col" class="text">{$lang->title}</th>
+                <th scope="col" class="nowr">{$lang->poll_checkcount}</th>
+                <th scope="col" class="nowr">{$lang->poll_join_count}</th>
+                <th scope="col" class="nowr">{$lang->author}</th>
+                <th scope="col" class="nowr">{$lang->regdate}</th>
+                <th scope="col" class="nowr">{$lang->poll_stop_date}</th>
+                <th scope="col"><input type="checkbox" data-name="cart" title="Check All" /></th>
+            </tr>
+            </tfoot>
+            <tbody>
+            <!--@foreach($poll_list as $no => $val)-->
+            <tr>
+                <td class="title"><a href="<!--@if($val->document_srl)-->{getUrl('')}?document_srl={$val->document_srl}<!--@end--><!--@if($val->comment_srl)-->#comment_{$val->comment_srl}<!--@end-->" target="_blank">{$val->title}</a></td>
+                <td class="nowr"><!--@if($val->checkcount == 1)-->{$lang->single_check}<!--@else-->{$lang->multi_check}<!--@end--></td>
+                <td class="nowr">{$val->poll_count}</td>
+                <td class="nowr"><a href="#popup_menu_area" class="member_{$val->member_srl}">{$val->nick_name}</a></td>
+                <td class="nowr">{zdate($val->poll_regdate,"Y-m-d H:i")}</td>
+                <td class="nowr">{zdate($val->poll_stop_date,"Y-m-d")}</td>
+                <td>
+                    <input type="checkbox" name="cart" value="{$val->poll_index_srl}" />
+                </td>
+            </tr>
+            <!--@end-->
+            </tbody>
+        </table>
+        <div class="btnArea">
+            <a href="#listManager" class="btn pull-right" data-toggle="modal" onclick="getPollList();">{$lang->poll_manager}</a>
+        </div>
+    </form>
+</fieldset>
 <div class="modal hide fade x in" id="listManager" style="display: block;" aria-hidden="false">
 	<form ruleset="deleteChecked" action="./" method="post" class="fg form">
 	<input type="hidden" name="module" value="poll" />
