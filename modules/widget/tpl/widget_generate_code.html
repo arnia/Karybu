@@ -4,7 +4,7 @@
 <h2>{$widget_info->title}</h2>
 <p>{$widget_info->description}</p>
 
-<form id="widget_code_form" class="form" action="./" method="post">
+<form id="widget_code_form" action="./" method="post">
 	<input type="hidden" name="module" value="widget" />
 	<input type="hidden" name="act" value="procWidgetGenerateCode" />
 	<input type="hidden" name="selected_widget" value="{$widget_info->widget}" />
@@ -16,7 +16,7 @@
         <include target="widget_generate_code.include.html" />
 
         <div class="btnArea">
-            <span class="btn small"><input type="submit" value="{$lang->cmd_generate_code}" /></span>
+            <input type="submit" value="{$lang->cmd_generate_code}" class="btn btn-primary" />
         </div>
     </fieldset>
 </form>
