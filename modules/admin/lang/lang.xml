@@ -716,7 +716,7 @@
 	</item>
 	<item name="about_use_ssl">
 		<value xml:lang="ko"><![CDATA['선택적으로'는 회원가입, 정보수정 등의 지정된 동작(action)에서 보안접속(SSL)을 사용합니다.<br /> '항상 사용'은 모든 서비스에 SSL을 사용 합니다.<br /><span style="color:red">SSL 환경이 갖춰지지 않은 상태에서 SSL을 사용할 경우 접속이 되지 않을 수 있으니 주의하시기 바랍니다.</span>]]></value>
-		<value xml:lang="en"><![CDATA[Select 'Optional' to use SSL for the specified actions such as signing up and changing information.<br /> 'Always' to use SSL for all services.<br /><span style="color:red">SSL 환경이 갖춰지지 않은 상태에서 SSL을 사용할 경우 접속이 되지 않을 수 있으니 주의하시기 바랍니다.</span>]]></value>
+		<value xml:lang="en"><![CDATA[Select 'Optional' to use SSL for the specified actions such as signing up and changing information.<br /> 'Always' to use SSL for all services.<br /><span style="color:red">If you use SSL in an environment that doesn't support it you won't be able to use the site anymore</span>]]></value>
 		<value xml:lang="jp"><![CDATA[「部分的に使う」は、「会員登録/会員情報変更」など指定のアクションでSSLを利用する場合。「常に使う」は、すべてのサービスにSSLを使う場合に選択します。<br /><span style="color:red">SSL 환경이 갖춰지지 않은 상태에서 SSL을 사용할 경우 접속이 되지 않을 수 있으니 주의하시기 바랍니다.</span>]]></value>
 		<value xml:lang="zh-CN"><![CDATA[选择性使用选项应用于新用户注册/修改用户信息等已指定的action当中，使用选项应用于所有服务。<br /><span style="color:red">SSL 환경이 갖춰지지 않은 상태에서 SSL을 사용할 경우 접속이 되지 않을 수 있으니 주의하시기 바랍니다.</span>]]></value>
 		<value xml:lang="zh-TW"><![CDATA[選擇手動時，在會員註冊或修改資料等動作時才會使用 SSL功能。<br/>選擇開啟時，所有的服務都會使用 SSL功能。<br /><span style="color:red">SSL 환경이 갖춰지지 않은 상태에서 SSL을 사용할 경우 접속이 되지 않을 수 있으니 주의하시기 바랍니다.</span>]]></value>

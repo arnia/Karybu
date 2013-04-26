@@ -1630,7 +1630,7 @@ margin:-1px;
 
 
 
-.wfsr {
+.wfsr_fog .wfsr {
     display:none;
     position:absolute;
     position:fixed;

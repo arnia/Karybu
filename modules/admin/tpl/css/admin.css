@@ -200,6 +200,7 @@ p.cache {
 .big-icon {
     background-image:url("../img/big-nav-icons.png");
     background-repeat:no-repeat;
+    background-position: 0 -640px;
     width:80px;
     height:80px;
 }
