@@ -204,7 +204,7 @@ jQuery(document).ready(function($){
 	});
 	doHideSkinColorset();
 
-	$('.filebox').bind('before-open.mw', function(){
+	$('#modalFilebox').on('show', function(){
 		$('#filebox_upload').find('input[name=comment], input[name=addfile]').val('');
 	});
 
