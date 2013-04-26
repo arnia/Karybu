@@ -1,9 +1,7 @@
 (function($){
-	$('input[name=allow_outlink]').click(function(){
-		if($(this).val() == 'Y'){
-			$('._outLink').show();
-		}else{
-			$('._outLink').hide();
-		}
+	$('#allow_outlink').on('change', function(){
+        var $outLink = $('._outLink');
+        if(this.checked) $outLink.slideDown();
+        else $outLink.slideUp();
 	});
- }(jQuery))
+ }(jQuery));

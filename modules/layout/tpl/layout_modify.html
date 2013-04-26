@@ -177,7 +177,8 @@
 
 	<div class="btnArea">
 		<!--@if($layout)-->
-		<a class="btn" href="{getUrl('', 'module', 'admin', 'act', 'dispLayoutAdminInstanceList', 'layout', $selected_layout->layout)}">{$lang->cmd_list}</a>
+        <a class="btn" cond="$selected_layout->layout_type != M" href="{getUrl('', 'module', 'admin', 'act', 'dispLayoutAdminInstanceList', 'layout', $selected_layout->layout)}">{$lang->cmd_list}</a>
+		<a class="btn" cond="$selected_layout->layout_type == M" href="{getUrl('', 'module', 'admin', 'act', 'dispLayoutAdminInstanceList', 'type' , 'M', 'layout', $selected_layout->layout)}">{$lang->cmd_list}</a>
 		<!--@else-->
 		<a class="btn" href="{getUrl('', 'module', 'admin', 'act', 'dispLayoutAdminAllInstanceList')}">{$lang->cmd_list}</a>
 		<!--@end-->

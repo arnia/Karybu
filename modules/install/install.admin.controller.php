@@ -73,7 +73,7 @@
             $https_port = Context::get('https_port');
 
 			$use_mobile_view = Context::get('use_mobile_view');
-			if($use_mobile_view!='Y') $use_mobile_view = 'N';
+			if ($use_mobile_view != 'Y') $use_mobile_view = 'N';
 
 			$admin_ip_list = Context::get('admin_ip_list');
 
@@ -170,20 +170,16 @@
 		function procInstallAdminConfig(){
 			$this->procInstallAdminSaveTimeZone();
 
-			//언어 선택
 			$selected_lang = Context::get('selected_lang');
 			$this->saveLangSelected($selected_lang);
 
-			//모듈 설정 저장(썸네일, 풋터스크립트)
 			$config->thumbnail_type = Context::get('thumbnail_type');
 			$config->htmlFooter = Context::get('htmlFooter');
 			$this->setModulesConfig($config);
 
-			//파비콘
 			$favicon = Context::get('favicon');
 			$this->saveIcon($favicon,'favicon.ico');
 
-			//모바일아이콘
 			$mobicon = Context::get('mobicon');
 			$this->saveIcon($mobicon,'mobicon.png');
 

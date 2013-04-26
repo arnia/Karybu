@@ -1,10 +1,12 @@
 <include target="header.html" />
 
 <div class="table even easyList dsTg">
-	<table width="100%" border="1" cellspacing="0">
+	<table class="table table-condensed table-bordered table-hover">
 		<caption>
-		All({count($module_list)})
-		<span class="side"><button type="button" class="text"><span class="hide">{$lang->simple_view}</span><span class="show">{$lang->detail_view}</span></button></span>
+		    All({count($module_list)})
+            <p class="pull-right">
+                <a class="btn toggleBtn"><span class="hide">{$lang->simple_view}</span><span class="show">{$lang->detail_view}</span></a>
+            </p>
 		</caption>
 		<thead>
 			<tr>
@@ -13,7 +15,7 @@
 				<th scope="col" class="nowr">{$lang->version}</th>
 				<th scope="col" class="nowr">{$lang->author}</th>
 				<th scope="col" class="nowr">{$lang->path}</th>
-				<th scope="col" class="nowr">{$lang->cmd_delete}</th>
+				<!--<th scope="col" class="nowr">{$lang->cmd_delete}</th>-->
 			</tr>
 		</thead>
 		<tbody>
@@ -34,10 +36,10 @@
 						<strong>{$val->title}</strong>
 						<!--@end-->
 					</p>
-					<p>{$val->description}</p>
-					<p cond="$val->need_install" class="update">{$lang->msg_avail_install} <button class="text" type="button" onclick="doInstallModule('{$val->module}')">{$lang->msg_do_you_like_install}</button></p>
-					<p cond="$val->need_update" class="update">{$lang->msg_avail_update} <button class="text" type="button" onclick="doUpdateModule('{$val->module}')">{$lang->msg_do_you_like_update}</button></p>
-					<p cond="$val->need_autoinstall_update == 'Y'" class="update">{$lang->msg_avail_easy_update}<a href="{$val->update_url}&amp;return_url={urlencode(getRequestUriByServerEnviroment())}">{$lang->msg_do_you_like_update}</a></p>
+					<p class="well well-small">{$val->description}</p>
+					<p cond="$val->need_install" class="update well well-small inline">{$lang->msg_avail_install}  <button class="btn btn-info btn-small" type="button" onclick="doInstallModule('{$val->module}')">{$lang->msg_do_you_like_install}</button></p>
+					<p cond="$val->need_update" class="update well well-small inline">{$lang->msg_avail_update}  <button class="btn btn-info btn-mini" type="button" onclick="doUpdateModule('{$val->module}')">{$lang->msg_do_you_like_update}</button></p>
+					<p cond="$val->need_autoinstall_update == 'Y'" class="update well well-small inline">{$lang->msg_avail_easy_update}  <a class="btn btn-info btn-mini" href="{$val->update_url}&amp;return_url={urlencode(getRequestUriByServerEnviroment())}">{$lang->msg_do_you_like_update}</a></p>
 				</td>
 				<td class="nowr">{$val->version}</td>
 				<td class="nowr">
@@ -50,11 +52,11 @@
 					<!--@endforeach-->
 				</td>
 				<td class="nowr">{$val->path}</td>
-				<td class="nowr">
-					<!--@if($val->delete_url)-->
+				<!--<td class="nowr">
+					&lt;!&ndash;@if($val->delete_url)&ndash;&gt;
 					<a href="{$val->delete_url}&amp;return_url={urlencode(getRequestUriByServerEnviroment())}">{$lang->cmd_delete}</a>
-					<!--@end-->
-				</td>
+					&lt;!&ndash;@end&ndash;&gt;
+				</td>-->
 			</tr>
 			<!--@end-->
 		</tbody>

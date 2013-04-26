@@ -204,7 +204,7 @@
 
             $currentUrl = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
             foreach($menu->list as $item){
-                if(htmlspecialchars_decode(getFullUrl('').$item['href']) == $currentUrl) {
+                if(strpos($currentUrl,$item['href']) !== false) {
                     $activeNode = $item['node_srl'];
                 }
             }

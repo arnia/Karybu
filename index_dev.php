@@ -28,6 +28,7 @@ $request = $validCommandLineCall ? Request::create($argv[1]) : Request::createFr
 $kernel = new Kernel('dev', true);
 
 $response = $kernel->handle($request);
+$response->prepare($request);
 $response->send();
 
 $kernel->terminate($request, $response);

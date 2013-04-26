@@ -699,6 +699,8 @@ li.active a.big-icon-settings {
     margin:-14px -20px -5px; background: none; border: none;
 }
 
+.alert.dashboard { margin: 20px 40px 0 }
+
 .langEdit li.en input,
 .langEdit li.en textarea,
 .mLangEdit li.en textarea{background:url(../img/flag.us.gif) no-repeat 95%}
