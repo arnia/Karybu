@@ -6,21 +6,21 @@
 .wfsr_fog .ie6{position:absolute;left:0;top:0;width:100%;height:100%;border:0;opacity:0;filter:alpha(opacity=0);z-index:1}
 
 /* General Styles*/
-body {
+body.front {
     padding-top: 40px;
 }
-
+/*
 a {
     color: #4a6d8f;
     text-decoration: none;
-}
+}*/
 
 legend {
     padding: 10px 0px;
 }
 
 /* Buttons */
-
+/*
 .btn {background-color: #f2f2f2;background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);vertical-align: top}
 .btn:hover, .btn:active {background-color: #f2f2f2;}
 
@@ -42,7 +42,7 @@ legend {
 .btn-inverse {background-color: #4a4a4a;background-image: linear-gradient(to bottom, #6e6e6e, #4a4a4a);}
 .btn-inverse:hover, .btn-inverse:active {background-color: #4a4a4a;}
 
-/* Validation Styles*/
+*//* Validation Styles*//*
 
 .control-group.error .control-label, .control-group.error .help-block, .control-group.error .help-inline {
     color: #f43148;
@@ -95,12 +95,12 @@ input[type="color"]:focus,
     border-color: rgba(146, 164, 178, 0.8);
     outline: 0;
     outline: thin dotted \9;
-    /* IE6-9 */
+    *//* IE6-9 *//*
 
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 4px rgba(146,164,178,.6);
     -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 4px rgba(146,164,178,.6);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 4px rgba(146,164,178,.6);
-}
+}*/
 
 /* Carrousel Styles*/
 
@@ -117,18 +117,23 @@ input[type="color"]:focus,
     font-weight: 100;
     height: 60px;
     left: 15px;
-    line-height: 47px;
+    line-height: 40px;
     margin-top: -20px;
     opacity: 0.8;
     position: absolute;
     text-align: center;
-    top: 40%;
+    top: 50%!important;
     width: 60px;
 }
 
 .carousel-control img{
     position: relative;
-    top: 25%;
+    top: 15%!important;
+    margin: 0 0 0 -3px;
+}
+
+.carousel-control.right img {
+    margin: 0 -3px 0 0;
 }
 
 .carousel-control:hover {
@@ -376,3 +381,16 @@ footer {
     margin-top: 1px;
     margin-right: 4px;
 }
+
+
+
+/* FRONT TWEAKS I.A. */
+
+body.front { overflow: auto}
+
+body.front navbar-form {
+
+}
+
+
+/* FRONT TWEAKS I.A. END */
