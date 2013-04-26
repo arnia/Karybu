@@ -9,13 +9,14 @@
 	<input type="hidden" name="act" value="" />
 	<input type="hidden" name="type" value="module" />
 	<input type="hidden" name="unit_count" value="10" />
-	<h2 class="h2">{$lang->type_module}</h2>
-	<ul>
-		<li>
+	<h3 class="h3">{$lang->type_module}</h3>
+
+	<ul class="unstyled">
+		<li class="form-inline">
 			<p class="q">{$lang->xml_path} {$lang->path_info}</p>
 			<p class="a checkxml">
 				<input type="text" name="xml_file" value="./" />
-				<button type="button">{$lang->cmd_check_path}</button>
+				<button class="btn" type="button">{$lang->cmd_check_path}</button>
 				<em class="desc"></em><!--//class="error|success"-->
 			</p>
 		</li>
@@ -67,7 +68,7 @@
 		</li>
 	</ul>
 	<div class="btnArea">
-		<span class="btn"><input type="submit" value="{$lang->importer}" /></span>
+		<input class="btn btn-primary" type="submit" value="{$lang->importer}" />
 	</div>
 </form>
 <form action="./" class="form" method="get" onsubmit="return doPreProcessing(this, 'memberForm')" id="memberForm">
