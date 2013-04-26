@@ -344,7 +344,7 @@
 						$target->node = $srl;
 						$target->child= array();
 
-						while(count($this->map[$srl])){
+						while(isset($this->map[$srl]) && count($this->map[$srl])){
 							$this->_setParent($srl, array_shift($this->map[$srl]), $target);
 						}
 						$result[] = $target;
