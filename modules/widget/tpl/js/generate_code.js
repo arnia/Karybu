@@ -204,7 +204,7 @@ jQuery(document).ready(function($){
 	});
 	doHideSkinColorset();
 
-	$('.filebox').bind('before-open.mw', function(){
+	$('#modalFilebox').on('show', function(){
 		$('#filebox_upload').find('input[name=comment], input[name=addfile]').val('');
 	});
 
@@ -219,7 +219,7 @@ jQuery(document).ready(function($){
 		if(src instanceof Object ) {
 			for(var i=0;i<src.length;i++){
 				if(src[i].id) {
-					htmlCode += '<img src="'+src[i].id+'" alt="" style="border: 1px solid #ccc; padding: 5px; max-height: 200px; max-width: 200px;"><button class="filebox_del text" type="button">'+xe.lang.cmd_delete+'</button>';
+					htmlCode += '<img src="'+src[i].id+'" alt="" style="border: 1px solid #ccc; padding: 5px; max-height: 200px; max-width: 200px;"><button class="filebox_del text btn btn-small btn-danger" type="button">'+xe.lang.cmd_delete+'</button>';
 					if(i==0) $(this).siblings('input').val(src[i].id);
 					else {
 						var aux = $(this).siblings('input').val();
@@ -228,7 +228,7 @@ jQuery(document).ready(function($){
 				}
 				else {
 					if(src[i]){
-						htmlCode += '<img src="'+src[i]+'" alt="" style="border: 1px solid #ccc; padding: 5px; max-height: 200px; max-width: 200px;"><button class="filebox_del text" type="button">'+xe.lang.cmd_delete+'</button>';
+						htmlCode += '<img src="'+src[i]+'" alt="" style="border: 1px solid #ccc; padding: 5px; max-height: 200px; max-width: 200px;"><button class="filebox_del text btn btn-small btn-danger" type="button">'+xe.lang.cmd_delete+'</button>';
 						if(i==0) $(this).siblings('input').val(src[i]);
 						else {
 							var aux = $(this).siblings('input').val();
@@ -238,7 +238,7 @@ jQuery(document).ready(function($){
 				}
 			}
 		} else {
-			htmlCode = '<img src="'+src+'" alt="" style="border: 1px solid #ccc; padding: 5px; max-height: 200px; max-width: 200px;"> <button class="filebox_del text" type="button">'+xe.lang.cmd_delete+'</button>';
+			htmlCode = '<img src="'+src+'" alt="" style="border: 1px solid #ccc; padding: 5px; max-height: 200px; max-width: 200px;"> <button class="filebox_del text btn btn-small btn-danger" type="button">'+xe.lang.cmd_delete+'</button>';
 			$(this).siblings('input').val(src);
 		}
 		$(this).before(htmlCode);
@@ -281,7 +281,7 @@ jQuery(document).ready(function($){
 				}
 
 				$current_filebox.trigger('filebox.selected', [data.save_filename]);
-				$current_filebox.trigger('close.mw');
+                $("#modalFilebox").modal('hide');
 			});
 
 			$('body').append($iframe.get(0));

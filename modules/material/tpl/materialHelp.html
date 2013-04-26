@@ -1,10 +1,15 @@
 <load target="css/material_help.css" />
 
 <script>
-    jQuery(document).ready(function(){
-        jQuery('dl.browserList dt span').click(function(){
-            jQuery(this).parent().next().toggle();
-        });
+    jQuery(document).ready(function($){
+        if (typeof(bugFlag) != 'undefined') {
+            $('dl.browserList dt span').on('click', function(){
+                $(this).parent().next().fadeToggle(function(){
+                    //$("#dashboard_content").mCustomScrollbar('update');
+                });
+            });
+        }
+        bugFlag = true;
     });
 </script>
 

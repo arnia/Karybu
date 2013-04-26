@@ -1,7 +1,7 @@
 <load target="js/communication_admin.js" usecdn="true" />
 <load target="../../editor/tpl/js/editor_module_config.js" usecdn="true" />
-<h1 class="h1">{$lang->communication} <em>{$lang->cmd_management}</em></h1>
-<p>{nl2br($lang->about_communication)}</p>
+<h3 class="h3">{$lang->communication} {$lang->cmd_management}</h3>
+<p class="well well-small">{nl2br($lang->about_communication)}</p>
 <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
@@ -9,7 +9,7 @@
 	<input type="hidden" name="module" value="communication" />
 	<input type="hidden" name="act" value="procCommunicationAdminInsertConfig">
 	<div class="table">
-		<table width="100%" border="1" cellspacing="0">
+		<table class="table table-bordered table-condensed">
 			<tr>
 				<th scope="row">{$lang->editor_skin}</th>
 				<td>
@@ -46,7 +46,7 @@
 			</tr>
 			<tr>
 				<th scope="row">{$lang->colorset}</th>
-				<td><div id="communication_colorset"></div></td>
+				<td><div id="communication_colorset" class="form-inline"></div></td>
 			</tr>
 			<tr>
 				<th>{$lang->mobile_layout}</th>
@@ -68,7 +68,7 @@
 		</table>
 	</div>
 	<div class="btnArea">
-		<span class="btn"><input type="submit" value="{$lang->cmd_registration}" /></span>
+		<input class="btn btn-primary" type="submit" value="{$lang->cmd_registration}" />
 	</div>
 </form>
 <script type="text/javascript">

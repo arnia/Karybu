@@ -87,7 +87,7 @@
             $config->allowed_filesize = Context::get('allowed_filesize');
             $config->allowed_attach_size = Context::get('allowed_attach_size');
             $config->allowed_filetypes = str_replace(' ', '', Context::get('allowed_filetypes'));
-            $config->allow_outlink = Context::get('allow_outlink');
+            $config->allow_outlink = Context::get('allow_outlink') ? 'Y' : 'N';
             $config->allow_outlink_format = Context::get('allow_outlink_format');
             $config->allow_outlink_site = Context::get('allow_outlink_site');
             // Create module Controller object

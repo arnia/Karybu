@@ -3155,5 +3155,9 @@ class Context
         return self::$context->getConfigFile();
     }
 
+    public static function addSSLAction($action)
+    {
+        return self::$context->addSSLAction($action);
+    }
 
 }

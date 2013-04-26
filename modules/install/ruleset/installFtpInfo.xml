@@ -7,6 +7,5 @@
 		<field name="ftp_user" required="true" />
 		<field name="ftp_port" filter="number" />
 		<field name="ftp_root_path" required="true" />
-		<field name="sftp" required="true" />
     </fields>
 </ruleset>
