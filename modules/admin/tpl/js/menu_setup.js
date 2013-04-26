@@ -35,13 +35,14 @@ jQuery(function($){
 		}
 	}
 
-	$('a._parent_delete').click(function() {
+	$('._parent_delete').click(function() {
 		var menu_item_srl = $(this).parent().prevAll('._parent_key').val();
 		listForm.find('input[name=menu_item_srl]').val(menu_item_srl);
 		listForm.submit();
 	});
 
-	$('a._child_delete').click(function() {
+	$('._child_delete').click(function() {
+        if (!confirm('Are you sure?')) return;
 		var menu_item_srl = $(this).parents('li').find('._item_key').val();
 		listForm.find('input[name=menu_item_srl]').val(menu_item_srl);
 		listForm.submit();

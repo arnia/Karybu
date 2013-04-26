@@ -113,7 +113,7 @@
 	</item>
 	<item name="about_start_module">
 		<value xml:lang="ko"><![CDATA[사이트 접속 시 기본으로 호출될 모듈을 지정할 수 있습니다.]]></value>
-		<value xml:lang="en"><![CDATA[You can specify the default module for the site.]]></value>
+		<value xml:lang="en"><![CDATA[Site default module]]></value>
 		<value xml:lang="jp"><![CDATA[サイトへ接続した際にデフォルトで起動するモジュールを指定することができます。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[可指定用户访问网站时的默认首页模块。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[可將所選擇的模組作為預設首頁。]]></value>
@@ -645,14 +645,14 @@
 	</item>
 	<item name="about_lang_select">
 		<value xml:lang="ko"><![CDATA[지원할 언어를 설정하세요.]]></value>
-		<value xml:lang="en"><![CDATA[Select the supporting language(s).]]></value>
+		<value xml:lang="en"><![CDATA[Supported language(s)]]></value>
 		<value xml:lang="jp"><![CDATA[サポート言語を選択してください。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[选择语言]]></value>
 		<value xml:lang="tr"><![CDATA[Yardımcı dilleri seçin.]]></value>
 	</item>
 	<item name="about_default_lang">
 		<value xml:lang="ko"><![CDATA[기본 언어를 선택하세요.]]></value>
-		<value xml:lang="en"><![CDATA[Select default language.]]></value>
+		<value xml:lang="en"><![CDATA[Default language]]></value>
 		<value xml:lang="zh-CN"><![CDATA[默认语言]]></value>
 		<value xml:lang="tr"><![CDATA[Varsayılan dili seçin.]]></value>
 	</item>
@@ -716,7 +716,7 @@
 	</item>
 	<item name="about_use_ssl">
 		<value xml:lang="ko"><![CDATA['선택적으로'는 회원가입, 정보수정 등의 지정된 동작(action)에서 보안접속(SSL)을 사용합니다.<br /> '항상 사용'은 모든 서비스에 SSL을 사용 합니다.<br /><span style="color:red">SSL 환경이 갖춰지지 않은 상태에서 SSL을 사용할 경우 접속이 되지 않을 수 있으니 주의하시기 바랍니다.</span>]]></value>
-		<value xml:lang="en"><![CDATA[Select 'Optional' to use SSL for the specified actions such as signing up and changing information.<br /> 'Always' to use SSL for all services.<br /><span style="color:red">SSL 환경이 갖춰지지 않은 상태에서 SSL을 사용할 경우 접속이 되지 않을 수 있으니 주의하시기 바랍니다.</span>]]></value>
+		<value xml:lang="en"><![CDATA[Select 'Optional' to use SSL for the specified actions such as signing up and changing information.<br /> 'Always' to use SSL for all services.<br /><span style="color:red">If you use SSL in an environment that doesn't support it you won't be able to use the site anymore</span>]]></value>
 		<value xml:lang="jp"><![CDATA[「部分的に使う」は、「会員登録/会員情報変更」など指定のアクションでSSLを利用する場合。「常に使う」は、すべてのサービスにSSLを使う場合に選択します。<br /><span style="color:red">SSL 환경이 갖춰지지 않은 상태에서 SSL을 사용할 경우 접속이 되지 않을 수 있으니 주의하시기 바랍니다.</span>]]></value>
 		<value xml:lang="zh-CN"><![CDATA[选择性使用选项应用于新用户注册/修改用户信息等已指定的action当中，使用选项应用于所有服务。<br /><span style="color:red">SSL 환경이 갖춰지지 않은 상태에서 SSL을 사용할 경우 접속이 되지 않을 수 있으니 주의하시기 바랍니다.</span>]]></value>
 		<value xml:lang="zh-TW"><![CDATA[選擇手動時，在會員註冊或修改資料等動作時才會使用 SSL功能。<br/>選擇開啟時，所有的服務都會使用 SSL功能。<br /><span style="color:red">SSL 환경이 갖춰지지 않은 상태에서 SSL을 사용할 경우 접속이 되지 않을 수 있으니 주의하시기 바랍니다.</span>]]></value>
@@ -915,14 +915,14 @@
 	</item>
 	<item name="about_use_rewrite">
 		<value xml:lang="ko"><![CDATA[짧은 주소를 사용하시겠습니까?]]></value>
-		<value xml:lang="en"><![CDATA[Do you want to use Rewrite Mod?]]></value>
+		<value xml:lang="en"><![CDATA[Use rewrite mod (for friendly urls)]]></value>
 		<value xml:lang="jp"><![CDATA[短縮アドレスを使用しますか？]]></value>
 		<value xml:lang="zh-CN"><![CDATA[是否开启伪静态?]]></value>
 		<value xml:lang="tr"><![CDATA[Kısa bir adres kullanmak istiyor musunuz?]]></value>
 	</item>
 	<item name="about_timezone">
 		<value xml:lang="ko"><![CDATA[현지 표준시를 설정하세요.]]></value>
-		<value xml:lang="en"><![CDATA[Set the local standard time.]]></value>
+		<value xml:lang="en"><![CDATA[Local standard time]]></value>
 		<value xml:lang="jp"><![CDATA[現地の標準時間を設定してください。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[设置本地时间.]]></value>
 		<value xml:lang="tr"><![CDATA[Yerel Zamanı ayarlayın.]]></value>
@@ -948,21 +948,21 @@
 	</item>
 	<item name="about_question_mobile_view">
 		<value xml:lang="ko"><![CDATA[모바일 기기에서 접속할 때 모바일 페이지를 보여줄까요?]]></value>
-		<value xml:lang="en"><![CDATA[Do you want to show the mobile page when users access the website with their mobile phone?]]></value>
+		<value xml:lang="en"><![CDATA[Show the mobile page when users access the website with their mobile phone]]></value>
 		<value xml:lang="jp"><![CDATA[モバイル機器で接続した際にモバイルページを表示しますか？]]></value>
 		<value xml:lang="zh-CN"><![CDATA[当用户使用移动终端访问页面的时候是否使用移动版?]]></value>
 		<value xml:lang="tr"><![CDATA[Kullanıcılar mobil aygıtları ile siteye bağlandıklarında mobil sayfaı bu kullancılara göstermek istiyor musunuz?]]></value>
 	</item>
 	<item name="about_thumbnail_type">
 		<value xml:lang="ko"><![CDATA[썸네일 생성 방식을 선택하세요.]]></value>
-		<value xml:lang="en"><![CDATA[Select thumbnail type.]]></value>
+		<value xml:lang="en"><![CDATA[Thumbnail type]]></value>
 		<value xml:lang="jp"><![CDATA[サムネイルの生成方式を選択してください。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[选择缩略图生成方式]]></value>
 		<value xml:lang="tr"><![CDATA[Bir küçük resim seçiniz.]]></value>
 	</item>
 	<item name="input_footer_script">
 		<value xml:lang="ko"><![CDATA[하단(footer) 스크립트 삽입]]></value>
-		<value xml:lang="en"><![CDATA[Input footer script]]></value>
+		<value xml:lang="en"><![CDATA[Footer script]]></value>
 		<value xml:lang="zh-CN"><![CDATA[输入页脚脚本]]></value>
 		<value xml:lang="tr"><![CDATA[Alt (footer) Script Eklemek]]></value>
 	</item>
@@ -1014,7 +1014,7 @@
 	</item>
 	<item name="allow_use_favicon">
 		<value xml:lang="ko"><![CDATA[파비콘을 사용할까요?]]></value>
-		<value xml:lang="en"><![CDATA[Do you want to use favicon?]]></value>
+		<value xml:lang="en"><![CDATA[Favicon?]]></value>
 		<value xml:lang="jp"><![CDATA[ファビコンを使用しますか?]]></value>
 		<value xml:lang="zh-CN"><![CDATA[是否启用自定义favicon?]]></value>
 		<value xml:lang="tr"><![CDATA[Favicon'u kullanmak istiyor musunuz?]]></value>
@@ -1028,7 +1028,7 @@
 	</item>
 	<item name="allow_use_mobile_icon">
 		<value xml:lang="ko"><![CDATA[모바일 홈 화면 아이콘을 사용할까요?]]></value>
-		<value xml:lang="en"><![CDATA[Do you want to use the mobile home screen icon?]]></value>
+		<value xml:lang="en"><![CDATA[Mobile home screen icon]]></value>
 		<value xml:lang="jp"><![CDATA[モバイル待ち受け画面のアイコンを使用しますか?]]></value>
 		<value xml:lang="zh-CN"><![CDATA[是否启用移动版屏幕图标?]]></value>
 		<value xml:lang="tr"><![CDATA[Mobil Ana Ekran Simgesini kullanmak istiyor musunuz?]]></value>
@@ -1077,7 +1077,7 @@
 	</item>
 	<item name="msg_possible_only_file">
 		<value xml:lang="ko"><![CDATA[파일만 업로드 가능합니다.]]></value>
-		<value xml:lang="en"><![CDATA[You can upload files only.]]></value>
+		<value xml:lang="en"><![CDATA[You can only upload files of this type]]></value>
 		<value xml:lang="jp"><![CDATA[ファイルのみアップロード可能です。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[请上传文件.]]></value>
 		<value xml:lang="tr"><![CDATA[Sadece dosyalarını yükleyebilirsiniz.]]></value>
