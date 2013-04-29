@@ -1,7 +1,6 @@
 <include target="category.html" />
 
-<div class="table even easyList dsTg">
-	<table width="100%" border="1" cellspacing="0">
+	<table class="table table-striped table-hover dsTg">
 		<caption>
 			<block cond="$current_category">{$current_category}</block>
 			<block cond="!$current_category">All</block>
@@ -28,7 +27,12 @@
 				<a href="{getUrl('order_target','download','order_type',$_download_order_type)}">{$lang->order_download}<!--@if($order_target == 'download')--><!--@if($_download_order_type == 'asc')-->▼<!--@else-->▲<!--@end--><!--@end--></a> |
 				<a href="{getUrl('order_target','popular','order_type',$_popular_order_type)}">{$lang->order_popular}<!--@if($order_target == 'popular')--><!--@if($_popular_order_type == 'asc')-->▼<!--@else-->▲<!--@end--><!--@end--></a>
 			</span>
-			<span class="side"><button type="button" class="text"><span class="hide">{$lang->simple_view}</span><span class="show">{$lang->detail_view}</span></button></span>
+            <p class="pull-right">
+                <a href="#" class="toggleBtn">
+                    <span class="hide btn">{$lang->simple_view}</span>
+                    <span class="show btn">{$lang->detail_view}</span>
+                </a>
+            </p>
 		</caption>
 		<thead>
 			<tr>
@@ -75,9 +79,9 @@
 			</tr>
 		</tbody>
 	</table>
-</div>
-<div class="search">
-	<form action="./" class="pagination" cond="$page_navigation">
+
+<div class="search pagination">
+	<form action="./" cond="$page_navigation">
 		<input type="hidden" name="error_return_url" value="" />
 		<input type="hidden" name="module" value="{$module}" />
 		<input type="hidden" name="act" value="{$act}" />
@@ -87,26 +91,29 @@
 		<input cond="$childrenList" type="hidden" name="childrenList" value="{$childrenList}" />
 		<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
 
-		<a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a>
+        <ul>
+		<li><a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a></li>
 		<block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
 			{@$isGoTo = true}
-			<a href="{getUrl('page', '')}">1</a>
-			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+			<li><a href="{getUrl('page', '')}">1</a></li>
+			<li><a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a></li>
 		</block>
 		<!--@while($page_no = $page_navigation->getNextPage())-->
 			{@$last_page = $page_no}
-			<strong cond="$page_no == $page">{$page_no}</strong>
-			<a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a>
+			<li class="disabled"><a cond="$page_no == $page">{$page_no}</a></li>
+			<li><a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a></li>
 		<!--@end-->
 		<block cond="$last_page != $page_navigation->last_page">
 			{@$isGoTo = true}
-			<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-			<a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
+			<li><a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a></li>
+			<li><a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a></li>
 		</block>
-		<a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a>
-		<span cond="$isGoTo" id="goTo" class="tgContent">
+		<li><a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a></li>
+        </ul>
+
+        <span cond="$isGoTo" id="goTo" class="tgContent">
 			<input name="page" title="{$lang->cmd_go_to_page}" />
-			<button type="submit">Go</button>
+			<button type="submit" class="btn btn-small">Go</button>
 		</span>
 	</form>
 	<form  cond="$act == 'dispAutoinstallAdminIndex'" action="./">
@@ -118,6 +125,6 @@
 		<input cond="$category_srl" type="hidden" name="category_srl" value="{$category_srl}" />
 		<input cond="$childrenList" type="hidden" name="childrenList" value="{$childrenList}" />
 		<input name="search_keyword" title="Search" value="{$search_keyword}" />
-		<input type="submit" value="Search" />
+		<input type="submit" class="btn" value="Search" />
 	</form>
 </div>

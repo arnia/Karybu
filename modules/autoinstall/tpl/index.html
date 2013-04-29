@@ -1,16 +1,17 @@
 <include target="header.html" />
-<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+<div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
-<form action="" method="post">
+<form action="./" method="post" class="form-inline">
 	<input type="hidden" name="module" value="autoinstall" />
 	<input type="hidden" name="act" value="procAutoinstallAdminUpdateinfo" />
-	<p>
+	<p class="well">
 		<block cond="$show_ftp_note">
 			{@$ftp_link = sprintf('<a href="%s">%s</a>', getUrl('', 'module', 'admin', 'act', 'dispAdminConfigFtp'), $lang->ftp_setup)}
 			{sprintf($lang->description_ftp_note, $ftp_link)}
 		</block>
-		{@$btnUpdate = sprintf('<input type="submit" value="%s" class="text" />', $lang->status_update)}
+		{@$btnUpdate = sprintf('<input type="submit" value="%s" class="btn" />', $lang->status_update)}
 		{sprintf($lang->description_update, $btnUpdate)}
 	</p>
 </form>
