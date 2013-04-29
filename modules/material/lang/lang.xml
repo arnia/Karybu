@@ -671,7 +671,7 @@
     <!--Ingredient list-->
     <item name="total_materials">
         <value xml:lang="ko"><![CDATA[모두 <strong>%d</strong>개의 글감이 보관되어 있습니다]]></value>
-        <value xml:lang="en"><![CDATA[Total <strong>%d</strong> ingredients are stored.]]></value>
+        <value xml:lang="en"><![CDATA[You have <strong>%d</strong> ingredients.]]></value>
         <value xml:lang="jp"><![CDATA[]]></value>
         <value xml:lang="zh-CN"><![CDATA[]]></value>
         <value xml:lang="zh-TW"><![CDATA[]]></value>
@@ -689,7 +689,7 @@
     </item>
     <item name="cmd_delete_selected_materials">
         <value xml:lang="ko"><![CDATA[선택된 글감 삭제]]></value>
-        <value xml:lang="en"><![CDATA[Deleted the selected ingredient]]></value>
+        <value xml:lang="en"><![CDATA[Delete selected ingredients]]></value>
         <value xml:lang="jp"><![CDATA[]]></value>
         <value xml:lang="zh-CN"><![CDATA[]]></value>
         <value xml:lang="zh-TW"><![CDATA[]]></value>
