@@ -2,54 +2,60 @@
 <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
-<h1 class="h1">RSS</h1>
-<form ruleset="insertRssConfig" id="fo_layout" action="./" method="post" enctype="multipart/form-data" class="form">
+<h2 class="h2">RSS</h2>
+<form ruleset="insertRssConfig" id="fo_layout" action="./" method="post" enctype="multipart/form-data" class="form-horizontal">
 	<input type="hidden" name="module" value="rss" />
 	<input type="hidden" name="act" value="procRssAdminInsertConfig" />
-	<h2 class="h2">{$lang->total_feed} {$lang->cmd_management}</h2>
-	<ul>
-		<li>
-			<p class="q">{$lang->total_feed}</p>
-			<p class="a">
-				<input type="radio" name="use_total_feed" value="Y" id="use_total_feed_yes"  <!--@if(!$total_config->use_total_feed || $total_config->use_total_feed == 'Y')-->checked="checked"<!--@end--> /> <label for="use_total_feed_yes">{$lang->use}(<a href="{getFullSiteUrl()}rss">{getFullSiteUrl()}rss</a>)</label>
-				<input type="radio" name="use_total_feed" value="N" id="use_total_feed_no" <!--@if($total_config->use_total_feed == 'N')-->checked="checked"<!--@end--> /> <label for="use_total_feed_no">{$lang->notuse}</label>
-			</p>
-		</li>
-		<li>
-			<p class="q"><label for="feed_title">{$lang->title}</label></p>
-			<p class="a"><input type="text" name="feed_title" value="{htmlspecialchars($total_config->feed_title)}" id="feed_title" /></p>
-		</li>
-		<li>
-			<p class="q"><label for="feed_description">{$lang->description}</label></p>
-			<p class="a"><textarea name="feed_description" id="feed_description" rows="8" cols="42">{$total_config->feed_description}</textarea></p>
-		</li>
-		<li>
-			<p class="q"><label for="image">{$lang->feed_image}</label></p>
-			<!--@if($total_config->image)-->
-			<p class="a">
-				<img src="../../../{$total_config->image}" alt="image" />
-				<input type="checkbox" name="del_image" value="Y" id="del_image" />
-				<label for="del_image">{$lang->cmd_delete}</label>
-			</p>
-			<!--@end-->
-			<p class="a"><input type="file" name="image" value="" id="image" /></p>
-		</li>
-		<li>
-			<p class="q"><label for="feed_copyright">{$lang->feed_copyright}</label></p>
-			<p class="a"><input type="text" name="feed_copyright" value="{htmlspecialchars($total_config->feed_copyright)}" id="feed_copyright" /></p>
-		</li>
-		<li>
-			<p class="q"><label for="feed_document_count">{$lang->feed_document_count}</label></p>
-			<p class="a"><input type="text" name="feed_document_count" value="{$total_config->feed_document_count}" id="feed_document_count" /></p>
-		</li>
-	</ul>
+	<h3 class="h3">{$lang->total_feed} {$lang->cmd_management}</h3>
+    <div class="control-group form-inline">
+        <label class="control-label">{$lang->total_feed}</label>
+        <div class="controls">
+            <label for="use_total_feed_yes" class="radio inline"><input type="radio" name="use_total_feed" value="Y" id="use_total_feed_yes"  <!--@if(!$total_config->use_total_feed || $total_config->use_total_feed == 'Y')-->checked="checked"<!--@end--> /> {$lang->use}(<a href="{getFullSiteUrl()}rss">{getFullSiteUrl()}rss</a>)</label>
+            <label for="use_total_feed_no" class="radio inline"><input type="radio" name="use_total_feed" value="N" id="use_total_feed_no" <!--@if($total_config->use_total_feed == 'N')-->checked="checked"<!--@end--> /> {$lang->notuse}</label>
+        </div>
+    </div>
+    <div class="control-group form-inline">
+        <label class="control-label" for="feed_title">{$lang->title}</label>
+        <div class="controls">
+            <input type="text" name="feed_title" value="{htmlspecialchars($total_config->feed_title)}" id="feed_title" />
+        </div>
+    </div>
+    <div class="control-group form-inline">
+        <label class="control-label" for="feed_description">{$lang->description}</label>
+        <div class="controls">
+            <textarea name="feed_description" id="feed_description" rows="8" cols="42">{$total_config->feed_description}</textarea>
+        </div>
+    </div>
+    <div class="control-group form-inline">
+        <label class="control-label" for="image">{$lang->feed_image}</label>
+        <div class="controls">
+            <!--@if($total_config->image)-->
+            <img src="../../../{$total_config->image}" alt="image" />
+            <input type="checkbox" name="del_image" value="Y" id="del_image" />
+            <label for="del_image">{$lang->cmd_delete}</label>
+            <!--@end-->
+            <input type="file" name="image" value="" id="image" />
+        </div>
+    </div>
+    <div class="control-group form-inline">
+        <label class="control-label" for="feed_copyright">{$lang->feed_copyright}</label>
+        <div class="controls">
+            <input type="text" name="feed_copyright" value="{htmlspecialchars($total_config->feed_copyright)}" id="feed_copyright" />
+        </div>
+    </div>
+    <div class="control-group form-inline">
+        <label class="control-label" for="feed_document_count">{$lang->feed_document_count}</label>
+        <div class="controls">
+            <input type="text" name="feed_document_count" value="{$total_config->feed_document_count}" id="feed_document_count" />
+        </div>
+    </div>
 	<div class="btnArea">
-		<span class="btn small"><input type="submit" value="{$lang->cmd_save}" /></span>
+		<input class="btn btn-primary" type="submit" value="{$lang->cmd_save}" />
 	</div>
 </form>
 <h2 class="h2">{$lang->feed} {$lang->cmd_management}</h2>
 <div class="table form">
-	<table width="100%" border="1" cellspacing="0">
+	<table class="table table-condensed table-bordered">
 		<thead>
 			<tr>
 				<th scope="col">{$lang->mid}</th>
