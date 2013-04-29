@@ -1,10 +1,26 @@
 function getDashboardContentHeight(){
-    if (parseInt($(window).width()) <= 767) {
-        return Math.floor(($(window).height() - 160))
-    }
-    else{
-        return Math.floor(($(window).height() - 80))
+    if ($('.main-nav').length > 0) {
+
+        if (parseInt($(window).width()) <= 767) {
+            return Math.floor(($(window).height() - 200))
         }
+        else{
+            return Math.floor(($(window).height() - 120))
+        }
+    }
+
+        else {
+
+            if (parseInt($(window).width()) <= 767) {
+                return Math.floor(($(window).height() - 160))
+            }
+            else{
+                    return Math.floor(($(window).height() - 80))
+                }
+        }
+
+
+
 }
 
 
@@ -16,13 +32,13 @@ function dynamicSize() {
 }
 
 function addStackedToNav() {
-    $('.content .nav.nav-tabs').each( function(){
+    $('.nav.nav-tabs').each( function(){
         $(this).addClass('nav-stacked');
     });
 }
 
 function removeStackedFromNav() {
-    $('.content .nav.nav-tabs.nav-stacked').each( function(){
+    $('.nav.nav-tabs.nav-stacked').each( function(){
         $(this).removeClass('nav-stacked');
     });
 }
@@ -50,6 +66,13 @@ function rebuildVerticalScrollbar() {
     });
 }
 
+
+function hasNav()
+{
+    return ($('.main-nav').length > 0);
+}
+
+
 function isSmallScreen()
 {
     return parseInt($(window).width()) <= 767;
@@ -59,6 +82,8 @@ jQuery(document).ready( function() {
     $ = jQuery;
     dynamicSize();
 
+
+
     //trigger special events for phone view
     $(window).load(function(){
         $("#chart").attr('width',$("#chart-container").width());
@@ -66,8 +91,14 @@ jQuery(document).ready( function() {
         if (isSmallScreen()) {
             addStackedToNav();
             rebuildHorizontalScrollbar();
-        }
+        };
+        if (hasNav()){
+            $('body').addClass('kBigHeader')
+        };
+
     });
+
+
 
     $(window).resize(function(){
         $("#chart").attr('width',$("#chart-container").width());

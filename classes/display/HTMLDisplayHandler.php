@@ -160,11 +160,7 @@ class HTMLDisplayHandler {
 		$mobicon_url = $oAdminModel->getMobileIconUrl();
 		Context::set('favicon_url', $favicon_url);
 		Context::set('mobicon_url', $mobicon_url);
-        if(Context::get('module')=='admin' || strpos(Context::get('act'),'Admin')>0){
-            Context::addBodyClass('back');
-        }else{
-            Context::addBodyClass('front');
-        }
+
 		// convert the final layout
 		Context::set('content', $output);
 		$oTemplate = &TemplateHandler::getInstance();

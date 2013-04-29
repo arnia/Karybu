@@ -9,10 +9,15 @@
 		<p>{$XE_VALIDATOR_MESSAGE}</p>
 	</div>
 	<div class="table even easyList dsTg">
-		<table width="100%" border="1" cellspacing="0">
+		<table class="table table-bordered table-condensed">
 			<caption>
 				All({$addon_count})
-				<span class="side"><button type="button" class="text"><span class="hide">{$lang->simple_view}</span><span class="show">{$lang->detail_view}</span></button></span>
+                <p class="pull-right">
+                    <a class="btn toggleBtn">
+                        <span class="hide">{$lang->simple_view}</span>
+                        <span class="show">{$lang->detail_view}</span>
+                    </a>
+                </p>
 			</caption>
 			<thead>
 				<tr>
@@ -23,7 +28,7 @@
 					<th scope="col" class="nowr">{$lang->cmd_setup}</th>
 					<th scope="col" class="nowr">PC</th>
 					<th scope="col" class="nowr">Mobile</th>
-					<th scope="col" class="nowr">{$lang->cmd_delete}</th>
+					<!--<th scope="col" class="nowr">{$lang->cmd_delete}</th>-->
 				</tr>
 			</thead>
 			<tbody>
@@ -46,12 +51,12 @@
 					<td class="nowr"><a href="{getUrl('act', 'dispAddonAdminSetup', 'selected_addon', $addon->addon_name)}">{$lang->cmd_setup}</a></td>
 					<td class="nowr"><input type="checkbox" name="pc_on[]" title="PC" value="{htmlspecialchars($addon->addon_name)}" checked="checked"|cond="$addon->activated" /></td>
 					<td class="nowr"><input type="checkbox" name="mobile_on[]" title="Mobile" value="{htmlspecialchars($addon->addon_name)}" checked="checked"|cond="$addon->mactivated" /></td>
-					<td class="nowr"><a cond="$addon->remove_url" href="{$addon->remove_url}&amp;return_url={urlencode(getRequestUriByServerEnviroment())}">{$lang->cmd_delete}</a></td>
+					<!--<td class="nowr"><a cond="$addon->remove_url" href="{$addon->remove_url}&amp;return_url={urlencode(getRequestUriByServerEnviroment())}">{$lang->cmd_delete}</a></td>-->
 				</tr>
 			</tbody>
 		</table>
 	</div>
 	<div class="btnArea">
-		<span class="btn medium"><input type="submit" value="{$lang->cmd_save}" /></span>
+		<input class="btn btn-primary" type="submit" value="{$lang->cmd_save}" />
 	</div>
 </form>
