@@ -35,6 +35,8 @@
             $this->setLayoutFile('layout.html');
             Context::addBodyClass('x');
 
+            $oAdminView = & getAdminView('admin');
+            $oAdminView->makeDashboardSitemap();
 			$this->makeGnbUrl();
 
             // Retrieve the list of installed modules

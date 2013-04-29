@@ -88,8 +88,13 @@
             <div class="kList">
                 <ul class="unstyled kList">
                     <h6>DASHBOARD</h6>
-                    <li loop="$main_menu->items=>$key,$value"><a href="#">{$value->name}</a></li>
-                </ul>
+                    <li loop="$main_menu->items=>$key,$value">
+                        <!--@if(isset($value->setup_index_act))-->
+                            <a href="{getUrl('', 'module', 'admin', 'act', $value->setup_index_act, 'module_srl', $value->module_srl)}"><!--@if($value->parent_srl)-->&nbsp;&nbsp;<!--@end-->{$value->name}</a>
+                        <!--@else-->
+                            <span>{$value->name}</span>
+                        <!--@end-->
+                </ul</li>
             </div>
         </div>
     <!-- mobile dropdown end -->

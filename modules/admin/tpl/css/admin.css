@@ -207,6 +207,14 @@ p.cache {
     margin:0 -5px;
 }
 
+.kList li span {
+    line-height:28px;
+    display:block;
+    padding:0 5px;
+    margin:0 -5px;
+    color: #dbe6f1;
+}
+
 .big-icon {
     background-image:url("../img/big-nav-icons.png");
     background-repeat:no-repeat;
