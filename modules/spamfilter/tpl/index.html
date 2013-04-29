@@ -9,7 +9,7 @@
 	<input type="hidden" name="word" value="" />
 	<input type="hidden" name="ruleset" value="">
 </form>
-<form action="" id="spamfilterConfig" class="form" ruleset="@insertConfig">	
+<form action="./" id="spamfilterConfig" class="form" ruleset="@insertConfig">
 	<input type="hidden" name="act" value="procSpamfilterAdminInsertConfig" />
 	<input type="hidden" name="module" value="spamfilter" />
 	<input type="hidden" name="ruleset" value="insertConfig" />
@@ -44,40 +44,36 @@
 		<input class="btn btn-primary" type="submit" value="{$lang->cmd_save}" />
 	</div>
 </form>
-<form action="" id="spamfilterInsert" class="form">
+<form action="./" id="spamfilterInsert" class="form">
 	<input type="hidden" name="act" value="" />
 	<input type="hidden" name="module" value="spamfilter" />
 	<input type="hidden" name="ruleset" value="" />
     <div class="control-group form-inline">
         <label class="control-label">{$lang->cmd_denied_ip}</label>
         <div class="controls">
-            <ul class="textList">
+            <ul class="unstyled">
                 <!--@foreach($ip_list as $ipListKey)-->
                 <li>{$ipListKey->ipaddress} <!--@if($ipListKey->description)-->// {$ipListKey->description} <!--@end-->
-                    <a href="#" onclick="doDeleteDeniedIP('{$ipListKey->ipaddress}')" class="side">{$lang->cmd_delete}</a>
+                    <a href="#" onclick="doDeleteDeniedIP('{$ipListKey->ipaddress}')">{$lang->cmd_delete}</a>
                 </li>
                 <!--@endforeach-->
             </ul>
-            <textarea rows="8" cols="42" name="ipaddress_list" title="스팸 IP 추가"></textarea>
-            <button type="button" onclick="doInsertDeniedIP('{$lang->msg_invalid_format}')">{$lang->cmd_insert}</button>
-            <span class="desc">{$lang->about_denied_ip}</span>
+            <textarea rows="8" cols="42" name="ipaddress_list" title="Ip addresses blacklist"></textarea>
+                <button class="btn pull-top" type="button" onclick="doInsertDeniedIP('{$lang->msg_invalid_format}')">{$lang->cmd_insert}</button>
+                <span class="pull-top">{$lang->about_denied_ip}</span>
         </div>
     </div>
-	<ul>
-		<li>
-			<p class="q"><label for="spamKeyword">{$lang->cmd_denied_word}</label></p>
-			<div class="a">
-				<ul class="textList">
-					<!--@foreach($word_list as $wordListKey)-->
-					<li>{$wordListKey->word} <a href="#" onclick="doDeleteDeniedWord('{$wordListKey->word}')" class="side">{$lang->cmd_delete}</a></li>
-					<!--@end-->
-				</ul>
-			</div>
-			<p class="a">
-				<textarea rows="8" cols="42" name="word_list" title="스팸 키워드 추가"></textarea>
-				<span class="btn small"><button type="button" onclick="doInsertDeniedWord('{$lang->msg_invalid_format}')">{$lang->add}</button></span>
-				<span class="desc">{$lang->about_denied_word}</span>
-			</p>
-		</li>
-	</ul>
+    <div class="control-group form-inline">
+        <label class="control-label">{$lang->cmd_denied_word}</label>
+        <div class="controls">
+            <ul class="unstyled">
+                <!--@foreach($word_list as $wordListKey)-->
+                <li>{$wordListKey->word} <a href="#" onclick="doDeleteDeniedWord('{$wordListKey->word}')">{$lang->cmd_delete}</a></li>
+                <!--@end-->
+            </ul>
+            <textarea rows="8" cols="42" name="word_list" title="words blacklist"></textarea>
+            <button class="btn pull-top" type="button" onclick="doInsertDeniedWord('{$lang->msg_invalid_format}')">{$lang->add}</button>
+            <span class="pull-top">{$lang->about_denied_word}</span>
+        </div>
+    </div>
 </form>

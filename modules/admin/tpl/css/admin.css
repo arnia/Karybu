@@ -1248,3 +1248,7 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
     outline: none;
     box-shadow: none;
 }
+
+.pull-top {
+    vertical-align: top;
+}

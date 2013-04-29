@@ -11,14 +11,17 @@ var no_text_comment = '{$lang->no_text_comment}';
 		<input type="hidden" name="act" value="procTrashAdminEmptyTrash" />
 		<input type="hidden" name="page" value="{$page}" />
 		<input type="hidden" name="is_all" value="true" />
-		<h1 class="h1">{$lang->trash}</h1>
+		<h3 class="h3">{$lang->trash}</h3>
 		<div class="table even">
-			<table width="100%" border="1" cellspacing="0" id="trashListTable">
+			<table class="table table-bordered table-condensed table-hover" id="trashListTable">
 				<caption>
-					{$lang->trash}({number_format($total_count)})
-					<span class="side"><span class="btn"><a href="#listManager" class="modalAnchor" onclick="getTrashList();">{$lang->document_manager}</a></span>
-					<span class="btn"><button type="submit" name="is_all" value="true">{$lang->empty_trash_all}</button></span></span>
-
+                    <p class="pull-right">
+                        {$lang->trash}({number_format($total_count)})
+                    <span class="side" >
+                        <a class="btn" href="#listManager" data-toggle="modal" onclick="getTrashList();">{$lang->document_manager}</a>
+					    <button class="btn btn-danger" type="submit" name="is_all" value="true">{$lang->empty_trash_all}</button>
+                    </span>
+                    </p>
 				</caption>
 				<thead>
 					<tr>
@@ -54,21 +57,21 @@ var no_text_comment = '{$lang->no_text_comment}';
 				</tbody>
 			</table>
 		</div>
-		<div class="btnArea">
-			<span class="btn"><a href="#listManager" class="modalAnchor" onclick="getTrashList();">{$lang->document_manager}</a></span>
-			<span class="btn"><button type="submit" name="is_all" value="true">{$lang->empty_trash_all}</button></span>
+		<div class="btnArea pull-right">
+			<a class="btn" href="#listManager" data-toggle="modal" onclick="getTrashList();">{$lang->document_manager}</a>
+			<button class="btn btn-danger" type="submit" name="is_all" value="true">{$lang->empty_trash_all}</button>
 		</div>
 	</form>
-	<div class="xe-modal" id="listManager">
+	<div class="modal hide fade" id="listManager">
 		<form ruleset="emptyTrash" id="fo_list" action="./" method="post" class="fg form">
 		<input type="hidden" name="module" value="trash" />
 		<input type="hidden" name="act" value="procTrashAdminEmptyTrash" />
 		<input type="hidden" name="page" value="{$page}" />
 		<input type="hidden" name="is_all" value="false" />
 		<input type="hidden" name="origin_module" value="{$origin_module}" />
-			<h2 class="h2">{$lang->document_manager}</h2>
+			<h3 class="h3">{$lang->document_manager}</h3>
 			<div class="table even">
-				<table width="100%" border="1" cellspacing="0" id="trashManageListTable">
+				<table  class="table table-bordered table-condensed table-hover" id="trashManageListTable">
 					<caption>{$lang->selected_document} <strong id="selectedTrashCount">0</strong></caption>
 					<thead>
 						<tr>
@@ -82,8 +85,8 @@ var no_text_comment = '{$lang->no_text_comment}';
 				</table>
 			</div>
 			<div class="btnArea">
-				<span class="btn"><button type="submit" name="is_all" value="false">{$lang->cmd_delete}</button></span>
-				<span class="btn"><button type="submit" name="act" value="procTrashAdminRestore">{$lang->cmd_restore}</button></span>
+				<button class="btn btn-danger" type="submit" name="is_all" value="false">{$lang->cmd_delete}</button>
+				<button class="btn btn-primary" type="submit" name="act" value="procTrashAdminRestore">{$lang->cmd_restore}</button>
 			</div>
 		</form>
 	</div>
@@ -95,23 +98,32 @@ var no_text_comment = '{$lang->no_text_comment}';
   	<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
   	<input cond="$search_target" type="hidden" name="search_target" value="{$search_target}" />
 
-	<a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a>
-	<block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
-		{@$isGoTo = true}
-		<a href="{getUrl('page', '')}">1</a>
-		<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-	</block>
-	<!--@while($page_no = $page_navigation->getNextPage())-->
-		{@$last_page = $page_no}
-		<strong cond="$page_no == $page">{$page_no}</strong>
-		<a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a>
-	<!--@end-->
-	<block cond="$last_page != $page_navigation->last_page">
-		{@$isGoTo = true}
-		<a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-		<a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
-	</block>
-	<a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a>
+        <ul>
+            <li><a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a></li>
+
+            <li cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
+                {@$isGoTo = true}
+                <a href="{getUrl('page', '')}">1</a>
+                <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+            </li>
+
+            <!--@while($page_no = $page_navigation->getNextPage())-->
+            {@$last_page = $page_no}
+            <li <!--@if($page == $page_no)-->
+            class="active"
+            <!--@end-->>
+            <a href="{getUrl('page', $page_no)}">{$page_no}</a>
+            </li>
+            <!--@end-->
+
+            <li cond="$last_page != $page_navigation->last_page">
+                {@$isGoTo = true}
+                <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+                <a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
+            </li>
+
+            <li><a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a></li>
+        </ul>
 	<span cond="$isGoTo" id="goTo" class="tgContent">
 		<input name="page" title="{$lang->cmd_go_to_page}" />
 		<button type="submit">Go</button>
