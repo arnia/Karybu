@@ -7,4 +7,11 @@
 .ingredientList .ingredientNav input.ingredientCart{float: left}
 .ingredientList .ingredientNav button._delete_item{float: left; height: 19px; width: 19px; margin: 5px; background: url('../img/buttonTableDataX.gif') no-repeat; border: none}
 
+.ingredientList .ingredientContent img{max-height: 200px}
+
 .tRight{text-align: right}
+
+
+.ingredientContent p strong {
+    display: block;
+}
