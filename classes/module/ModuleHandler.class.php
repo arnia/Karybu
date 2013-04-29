@@ -349,6 +349,7 @@ class ModuleHandlerInstance extends Handler
         $oAdminView->makeGnbUrl($oModule->module_key->getModule());
         $oModule->setLayoutPath("./modules/admin/tpl");
         $oModule->setLayoutFile("layout.html");
+        $this->context->addBodyClass('x');
     }
 
     public function checkUserPermissions($oModule)

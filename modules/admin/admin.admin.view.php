@@ -33,7 +33,6 @@
             $this->setTemplatePath($this->module_path.'tpl');
             $this->setLayoutPath($this->getTemplatePath());
             $this->setLayoutFile('layout.html');
-            Context::addBodyClass("x");
 
 			$this->makeGnbUrl();
 

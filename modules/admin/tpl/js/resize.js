@@ -3,7 +3,15 @@ function getDashboardContentHeight(){
         return Math.floor(($(window).height() - 160))
     }
     else{
-        return Math.floor(($(window).height() - 80))
+        if ($('.main-nav').length > 0) {
+            return Math.floor(($(window).height() - 120)),
+            $('.kWrapper-container').css('marginTop', 120),
+            $('.pagetitle-fixed').css('marginTop', - 120),
+            $('.main-nav-holder').css('marginTop', - 40)
+        }
+        else{
+            return Math.floor(($(window).height() - 80))
+            }
         }
 }
 
@@ -16,13 +24,13 @@ function dynamicSize() {
 }
 
 function addStackedToNav() {
-    $('.content .nav.nav-tabs').each( function(){
+    $('.nav.nav-tabs').each( function(){
         $(this).addClass('nav-stacked');
     });
 }
 
 function removeStackedFromNav() {
-    $('.content .nav.nav-tabs.nav-stacked').each( function(){
+    $('.nav.nav-tabs.nav-stacked').each( function(){
         $(this).removeClass('nav-stacked');
     });
 }
