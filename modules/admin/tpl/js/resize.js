@@ -7,7 +7,8 @@ function getDashboardContentHeight(){
             return Math.floor(($(window).height() - 120)),
             $('.kWrapper-container').css('marginTop', 120),
             $('.pagetitle-fixed').css('marginTop', - 120),
-            $('.main-nav-holder').css('marginTop', - 40)
+            $('.main-nav-holder').css('marginTop', - 40),
+            $('#content').css('paddingTop', 40)
         }
         else{
             return Math.floor(($(window).height() - 80))
