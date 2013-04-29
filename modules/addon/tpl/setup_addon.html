@@ -56,18 +56,26 @@
 				<option value="no_run_selected" selected="selected"|cond="$addon_info->xe_run_method === 'no_run_selected'">{$lang->no_run_selected_module}</option>
 			</select>
 		</p>
-		<p><input type="checkbox" id="check_all" /> <label for="check_all">Check all</label></p>
-		<fieldset loop="$mid_list => $module_category_srl, $modules" style="border: 1px solid #ccc; margin:1em 0; padding:.5em 1em">
+		<p>
+
+            <label for="check_all" class="checkbox">
+                Check all
+                <input type="checkbox" id="check_all" />
+            </label>
+        </p>
+		<fieldset loop="$mid_list => $module_category_srl, $modules">
 			<legend cond="$modules->title">{$modules->title}</legend>
 			<legend cond="!$modules->title">{$lang->none_category}</legend>
 			<div loop="$modules->list => $key, $val">
-				<input type="checkbox" value="{$key}" name="mid_list[]" id="chk_mid_list_{$key}" checked="checked"|cond="in_array($key, $addon_info->mid_list)"/>
-				<label for="chk_mid_list_{$key}">{$key} ({$val->browser_title})</label>
+				<label for="chk_mid_list_{$key}" class="checkbox">
+                    {$key} ({$val->browser_title})
+                    <input type="checkbox" value="{$key}" name="mid_list[]" id="chk_mid_list_{$key}" checked="checked"|cond="in_array($key, $addon_info->mid_list)" />
+                </label>
 			</div>
 		</fieldset>
 	</block>
 	<div class="btnArea">
-		<span class="btn medium"><input type="submit" value="{$lang->cmd_save}" /></span>
+        <input class="btn btn-primary" type="submit" value="{$lang->cmd_save}" />
 	</div>
 </form>
 </block>

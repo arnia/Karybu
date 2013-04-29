@@ -646,6 +646,25 @@ body.front #searchForm input[type="text"]:focus {
         line-height: 2.2em;
     }
 
+
+    .kBigHeader .kWrapper-container {
+        margin-top: 0
+    }
+
+    .kBigHeader .pagetitle-fixed {
+        margin-top: 0
+    }
+
+    .kBigHeader .main-nav-holder {
+        margin-top: -80px;
+    }
+
+    .kBigHeader #content {
+        padding-top: 0;
+    }
+
+
+
     .swatchBoard {
         margin:0;
         padding:20px;
@@ -661,6 +680,7 @@ body.front #searchForm input[type="text"]:focus {
         z-index:999;
         overflow: hidden;
     }
+
 
 
 
@@ -1226,4 +1246,9 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 
 *:focus {
     outline: none;
+    box-shadow: none;
+}
+
+.pull-top {
+    vertical-align: top;
 }

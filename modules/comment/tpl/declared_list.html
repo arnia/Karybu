@@ -11,12 +11,13 @@
         <input type="hidden" name="page" value="{$page}" />
         <input type="hidden" name="is_trash" value="false" />
 
-        <!-- 목록 -->
         <div class="table">
-            <div>
-                {$lang->all} {number_format($total_count)}, {$lang->page} {number_format($page)}/{number_format($total_page)}
-            </div>
-            <table width="100%" border="1" cellspacing="0" class="table-condensed table-bordered table-hover">
+            <table class="table table-condensed table-bordered table-hover">
+                <caption>
+                    <p class="pull-right">
+                        {$lang->all} {number_format($total_count)}, {$lang->page} {number_format($page)}/{number_format($total_page)}
+                    </p>
+                </caption>
                 <thead>
                 <tr>
                     <th scope="col">{$lang->no}</th>
@@ -53,7 +54,6 @@
     </form>
 </fieldset>
 
-<!-- 페이지 네비게이션 -->
 <div class="pagination">
     <ul>
         <li><a href="{getUrl('page','','module_srl','')}" class="direction">&laquo; {$lang->first_page}</a></li>

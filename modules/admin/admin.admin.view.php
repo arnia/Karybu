@@ -102,6 +102,17 @@
 			FileHandler::writeFile($this->easyinstallCheckFile, $currentTime);
 		}
 
+        /*
+         * Include dashboard sitemap on all views of admin
+         */
+        function makeDashboardSitemap()
+        {
+            $oAdminAdminModel = getAdminModel('admin');
+
+            $main_menu = $oAdminAdminModel->getMainMenuItems();
+            Context::set('main_menu',$main_menu);
+        }
+
 		/**
 		 * Include admin menu php file and make menu url
 		 * Setting admin logo, newest news setting
@@ -269,9 +280,6 @@
             $status->visitor = $visitors->visitor;
 
             Context::set('status', $status);
-
-            $main_menu = $oAdminAdminModel->getMainMenuItems();
-            Context::set('main_menu',$main_menu);
 
             // Latest Document
 			$oDocumentModel = &getModel('document');

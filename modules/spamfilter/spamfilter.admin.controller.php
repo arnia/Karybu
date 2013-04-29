@@ -32,7 +32,7 @@
 		}
 
 		function procSpamfilterAdminInsertDeniedIP(){
-			//스팸IP  추가
+			//add ips to blacklist
 			$ipaddress_list = Context::get('ipaddress_list');
             $oSpamfilterController = &getController('spamfilter');
 			if($ipaddress_list){

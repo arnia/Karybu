@@ -110,6 +110,5 @@
 			$security = new Security();
 			$security->encodeHTML('addon_info.', 'addon_info.author..');
         }
-
     }
 ?>

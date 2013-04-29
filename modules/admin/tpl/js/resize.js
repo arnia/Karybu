@@ -1,19 +1,26 @@
 function getDashboardContentHeight(){
-    if (parseInt($(window).width()) <= 767) {
-        return Math.floor(($(window).height() - 160))
-    }
-    else{
-        if ($('.main-nav').length > 0) {
-            return Math.floor(($(window).height() - 120)),
-            $('.kWrapper-container').css('marginTop', 120),
-            $('.pagetitle-fixed').css('marginTop', - 120),
-            $('.main-nav-holder').css('marginTop', - 40),
-            $('#content').css('paddingTop', 40)
+    if ($('.main-nav').length > 0) {
+
+        if (parseInt($(window).width()) <= 767) {
+            return Math.floor(($(window).height() - 200))
         }
         else{
-            return Math.floor(($(window).height() - 80))
-            }
+            return Math.floor(($(window).height() - 120))
         }
+    }
+
+        else {
+
+            if (parseInt($(window).width()) <= 767) {
+                return Math.floor(($(window).height() - 160))
+            }
+            else{
+                    return Math.floor(($(window).height() - 80))
+                }
+        }
+
+
+
 }
 
 
@@ -59,6 +66,13 @@ function rebuildVerticalScrollbar() {
     });
 }
 
+
+function hasNav()
+{
+    return ($('.main-nav').length > 0);
+}
+
+
 function isSmallScreen()
 {
     return parseInt($(window).width()) <= 767;
@@ -68,6 +82,8 @@ jQuery(document).ready( function() {
     $ = jQuery;
     dynamicSize();
 
+
+
     //trigger special events for phone view
     $(window).load(function(){
         $("#chart").attr('width',$("#chart-container").width());
@@ -75,8 +91,14 @@ jQuery(document).ready( function() {
         if (isSmallScreen()) {
             addStackedToNav();
             rebuildHorizontalScrollbar();
-        }
+        };
+        if (hasNav()){
+            $('body').addClass('kBigHeader')
+        };
+
     });
+
+
 
     $(window).resize(function(){
         $("#chart").attr('width',$("#chart-container").width());
