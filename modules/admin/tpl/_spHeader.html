@@ -41,6 +41,7 @@
 
 
 <!--[if lt IE 9]><load target="js/RGraph/excanvas/excanvas.js"/><![endif]-->
+        <div id="kTopLayer"></div>
 <div class="kSidebar pull-left kDark x" id="kSidebar">
 
     <div class="brand">
@@ -100,14 +101,14 @@
                 <ul class="unstyled kList">
                     <h6>{$lang->favorites}</h6>
                         <li loop="$favorite_list => $favorite">
-                            <form class="action" action="./">
-                                <a href="{getUrl('', 'module', 'admin', 'act', $favorite->admin_index_act)}">{$favorite->title}</a>
+                            <a href="{getUrl('', 'module', 'admin', 'act', $favorite->admin_index_act)}">{$favorite->title}</a>
+                            <form class="kActionIcons" action="./">
                                 <input type="hidden" name="module" value="admin" />
                                 <input type="hidden" name="act" value="procAdminToggleFavorite" />
                                 <input type="hidden" name="site_srl" value="0" />
                                 <input type="hidden" name="module_name" value="{$favorite->module}" />
                                 <input type="hidden" name="success_return_url" value="{getUrl('', 'module', 'admin')}" />
-                                <button class="btn btn-primary" type="submit" title="{$lang->cmd_delete}">&times;</button>
+                                <button class="clear" type="submit" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kErase">{$lang->cmd_delete}</i></button>
                             </form>
                         </li>
                         <li cond="!is_array($favorite_list) || count($favorite_list) < 1"><a href="{getUrl('', 'module', 'admin', 'act', 'dispModuleAdminContent')}">{$lang->no_data}</a></li>
@@ -117,13 +118,13 @@
     <!-- mobile dropdown end -->
 
     </div>
-<div class="kNav navbar pull-right kDark" id="kNav">
-    <ul class="unstyled ">
+<div class="kNav navbar pull-right kDark kActionIcons" id="kNav">
+    <ul class="unstyled">
         <li>
-            <a class="big-icon big-icon-preview" title="{$lang->preview}" href="{getFullUrl('')}"></a>
+            <a class="big-icon big-icon-preview" data-toggle="tooltip" data-placement="left" data-container="#kTopLayer" title="{$lang->preview}" href="{getFullUrl('')}"></a>
         </li>
         <li class="<!--@if($activeNode == $value['node_srl'])-->active<!--@end-->" loop="$gnbUrlList=>$key,$value" >
-            <a class="big-icon big-icon-{strtolower($value['text'])}"  href="{$value['href']}" title="{$value['text']}"></a>
+            <a class="big-icon big-icon-{strtolower($value['text'])}" data-toggle="tooltip" data-container="#kTopLayer" data-placement="left" title="{$value['text']}" href="{$value['href']}"></a>
         </li>
         <li class="hidden-phone">
             <a class="small-logo" href="{getUrl('','module','admin')}"><img src="img/small-logo.png"/></a>

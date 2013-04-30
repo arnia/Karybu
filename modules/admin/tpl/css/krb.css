@@ -44,13 +44,7 @@ h6 {
     font-size:9.168pt
 }
 
-a, a:visited {
-    color: #2e5587;
-}
 
-a:hover, a:focus {
-    color: #0e4587
-}
 
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
     color:#444444!important;
@@ -789,9 +783,20 @@ i.kDelete {
 
 }
 
-a:hover i.kDelete:hover {
+a:hover i.kDelete:hover, button:hover i.kDelete:hover {
     background:url("../img/sprite-24.png") 0px -24px ;
 }
+
+
+i.kErase {
+    background:url("../img/sprite-24.png") -218px 0px ;
+}
+
+a:hover i.kErase:hover, button:hover i.kErase:hover {
+    background:url("../img/sprite-24.png") -218px -24px ;
+}
+
+
 
 i.kView {
 
@@ -963,16 +968,18 @@ table.sortable tr {
 }
 
 table.table tr, table.table, table.table td, table.table th {
-    background: #ffffff!important;
+
 }
 
 .table caption {
-    background: #f5f5f5;
-    padding:5px 5px 15px;
-    margin-bottom: -10px;
-    -webkit-border-radius: 6px 6px 0px 0px;
-    border-radius: 6px 6px 0px 0px;
-    border:1px solid #ddd;
+    padding:5px;
+    font-style: italic;
+    color: #777;
+    line-height: 20px;
+}
+table caption span {
+    padding-top: 5px;
+    line-height: 20px;
 }
 
 /* TABLES END */
@@ -1355,6 +1362,37 @@ margin:-1px;
 
 
 /* LOADING OVERLAY */
+
+
+
+.wfsr {
+    display:none;
+    position:absolute;
+    position:fixed;
+    z-index:100;
+    color: #444444;
+    background-color: #ffffff;
+    background-image:url(../img/360.gif);
+    background-position: 1.5em 50%;
+    background-repeat: no-repeat;
+    padding:1em 1.5em 1em 6em;
+    line-height:32px;
+    width: auto;
+    font-size: .8em;
+    font-weight: bold;
+    white-space: nowrap;
+    top:12px;
+    right: 120px;
+    text-align: center;
+    border: none;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2);
+    opacity:0.8;
+    -moz-opacity:0.8;
+    -webkit-opacity:0.8;
+}
 
 
 

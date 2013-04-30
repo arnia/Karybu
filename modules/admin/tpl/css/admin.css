@@ -28,6 +28,26 @@ body.x {
 }
 
 
+a, a:visited {
+    color: #2e5587;
+}
+
+a:hover, a:focus {
+    color: #0e4587
+}
+
+#kTopLayer {
+    position: absolute;
+    z-index: 99999999999;
+
+/*
+    width: 100%;
+    height: 100%;
+    background: red;
+*/
+
+}
+
 /* end layout resets */
 
 
@@ -336,11 +356,76 @@ a.swatch:hover {
     border-bottom-color:#0a0b0e !important;
 }
 
-.box .box-body li {
-    padding-bottom:12px;
-    margin-bottom:12px;
-    border-bottom:1px solid #e0e0e0;
+
+.portlet.box {
+    height: 270px;
+    overflow: hidden;
+    line-height: 15px;
 }
+
+
+.portlet.box .kActionIcons,
+.kList .kActionIcons {
+    position:absolute;
+    right: 0;
+    top:0px;
+    margin: 0;
+    background: #f9f9f9;
+    padding: 5px 0;
+    opacity: 0;
+    margin-right: -80px;
+}
+
+
+.portlet.box .kActionIcons i,
+.kList .kActionIcons i {
+    margin: 0;
+}
+
+.box .box-body ul {
+    margin-top: -10px;
+}
+
+.box .box-body li {
+    padding-top:10px;
+    padding-bottom:10px;
+    border-bottom:1px solid #e0e0e0;
+    line-height: 15px;
+    position: relative;
+
+}
+
+.kList li {
+    position: relative;
+}
+
+.box .box-body li span,
+.box .box-body li form,
+.kList li span,
+.kList li form
+{
+    transition: .3s;
+    -webkit-transition: .3s;
+}
+
+.box .box-body li:hover span.label,
+.kList li:hover span.label
+{
+    opacity: 0;
+    margin-right: -80px;
+}
+
+.box .box-body li:hover form,
+.kList li:hover form
+{
+    margin-right:0;
+    opacity: 1;
+
+}
+
+.kList .kActionIcons { background: none;
+padding: 0}
+
 
 .box .box-body li:last-child {
     border-bottom:none;
@@ -356,14 +441,14 @@ a.swatch:hover {
 
 .box-header {
     border-bottom:1px solid #e0e0e0;
-    padding:14px 20px 10px;
+    padding:12px 20px 8px;
 }
 
 .box-body {
     background-color:#f9f9f9;
     border-bottom:1px solid #e5e5e5;
     margin-bottom:5px;
-    padding:14px 20px 10px;
+    padding:12px 20px 10px;
 }
 
 .x .brand {
@@ -748,6 +833,13 @@ body.front #searchForm input[type="text"]:focus {
 !important
 }
 
+#chart-container {
+    margin-top: 0px;
+    padding-top: 26px;
+    padding-bottom: 0;
+    background-color: rgba(104, 210, 198, 1);
+}
+
 .visitor {
 
     margin:-14px -20px -5px; background: none; border: none;
@@ -940,6 +1032,13 @@ body.front #searchForm input[type="text"]:focus {
 /* BUTTONS START */
 
 
+button.clear {
+    margin: 0;
+    padding: 0;
+    background:none;
+    border: none;
+}
+
 
 .btn,
 .btn:visited,
@@ -1006,6 +1105,7 @@ a.btn-primary, a.btn-danger, a.btn-info, a.btn-inverse, a.btn-success, a.btn-war
 .btn.active,
 .btn.disabled,
 .btn[disabled] {
+    background-color: #ddd;
     background-position:0, 0;
     box-shadow:0 1px 2px 0px rgba(0, 0, 0, 0.4), inset 0 1px 0px 0 rgba(255, 255, 255, .6), inset 0 30px 0 0 rgba(0, 0, 0, 0);
 }
