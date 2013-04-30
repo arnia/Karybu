@@ -270,6 +270,9 @@
 		<value xml:lang="jp"><![CDATA[サーバに接続できませんでした。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[主機連線錯誤。]]></value>
 	</item>
+    <item name="still_in_progress">
+		<value xml:lang="en"><![CDATA[This module is dedicated for installing apps (extensions). At this momment we are working hard to make this feature available for you.]]></value>
+	</item>
 	<item name="msg_not_match_server">
 		<value xml:lang="ko"><![CDATA[서버 설정이 올바르지 않습니다.]]></value>
 		<value xml:lang="en"><![CDATA[Server settings are incorrect.]]></value>

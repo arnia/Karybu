@@ -395,7 +395,9 @@
 
 			if (!$updateDate)
 			{
-				return $this->stop('msg_connection_fail');
+				//return $this->stop('msg_connection_fail');
+                $this->dispAutoinstallStillInProgress();
+                return;
 			}
 
             $oModel = &getModel('autoinstall');
@@ -455,6 +457,10 @@
 			$security = new Security();
 			$security->encodeHTML('package.' , 'package.depends..');
 
+        }
+
+        function dispAutoinstallStillInProgress(){
+            $this->setTemplateFile('still_in_progress');
         }
 
 		/**
