@@ -38,6 +38,7 @@
             $oAdminView = & getAdminView('admin');
             $oAdminView->makeDashboardSitemap();
             $oAdminView->makeFavoriteList();
+            $this->initAdminMenu();
 			$this->makeGnbUrl();
 
             // Retrieve the list of installed modules
@@ -489,6 +490,25 @@
 				unset($_SESSION['enviroment_gather']);
 			}
 		}
+
+        function initAdminMenu()
+        {
+            // admin menu check
+            if (Context::isInstalled()) {
+                $oMenuAdminModel = & getAdminModel('menu');
+                $output = $oMenuAdminModel->getMenuByTitle('__XE_ADMIN__');
+
+                if (!$output->menu_srl) {
+                    $oAdminClass = & getClass('admin');
+                    $oAdminClass->createXeAdminMenu();
+                } else {
+                    if (!is_readable($output->php_file)) {
+                        $oMenuAdminController = & getAdminController('menu');
+                        $oMenuAdminController->makeXmlFile($output->menu_srl);
+                    }
+                }
+            }
+        }
 
 		/**
 		 * Display Admin theme Configuration(settings) page
