@@ -102,6 +102,9 @@
     <item name="about_dashboard">
         <value xml:lang="en"><![CDATA[Using this section you can create, change or update the content of your website]]></value>
     </item>
+    <item name="preview">
+        <value xml:lang="en"><![CDATA[Preview]]></value>
+    </item>
 	<item name="start_module">
 		<value xml:lang="ko"><![CDATA[시작 모듈]]></value>
 		<value xml:lang="en"><![CDATA[Default Module]]></value>

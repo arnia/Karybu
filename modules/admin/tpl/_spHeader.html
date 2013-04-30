@@ -120,7 +120,7 @@
 <div class="kNav navbar pull-right kDark" id="kNav">
     <ul class="unstyled ">
         <li>
-            <a class="big-icon big-icon-preview" href="{getFullUrl('')}"></a>
+            <a class="big-icon big-icon-preview" title="{$lang->preview}" href="{getFullUrl('')}"></a>
         </li>
         <li class="<!--@if($activeNode == $value['node_srl'])-->active<!--@end-->" loop="$gnbUrlList=>$key,$value" >
             <a class="big-icon big-icon-{strtolower($value['text'])}"  href="{$value['href']}" title="{$value['text']}"></a>
