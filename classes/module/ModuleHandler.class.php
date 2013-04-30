@@ -345,7 +345,8 @@ class ModuleHandlerInstance extends Handler
 
     protected function loadAdminLayoutAndMenuForModule(&$oModule)
     {
-        $oAdminView = & getAdminView('admin');
+        $oAdminView = getAdminView('admin');
+        $oAdminView->initAdminMenu();
         $oAdminView->makeGnbUrl($oModule->module_key->getModule());
         $oAdminView->makeDashboardSitemap();
         $oAdminView->makeFavoriteList();

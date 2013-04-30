@@ -491,7 +491,7 @@
 			}
 		}
 
-        protected function initAdminMenu()
+        function initAdminMenu()
         {
             // admin menu check
             if (Context::isInstalled()) {
