@@ -37,5 +37,6 @@ function ckInsertUploadedFile(editorSequence){
             temp_code="<a href=\""+file.download_url+"\">"+file.source_filename+"</a>\n";
         }
     }
-    CKEDITOR.instances.ckeditor_instance.insertHtml(temp_code);
+    cked_instance = 'ckeditor_instance_'+editorSequence;
+    CKEDITOR.instances[cked_instance].insertHtml(temp_code);
 }
