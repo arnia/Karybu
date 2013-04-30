@@ -1,16 +1,32 @@
 <div class="easyNav">
-	<div loop="$categories => $category" cond="$category->depth == 0" class="category">
-		<h2>{$category->title}</h2>
-		<ul>
-			<li loop="$category->children => $children">
-				<block cond="$children->category_srl == $category_srl">
-					{@$current_category = $children->title}
-					<strong>{$children->title}({$children->nPackages})</strong>
-				</block>
-				<block cond="$children->category_srl != $category_srl"><a href="{getUrl('','module','admin','act','dispAutoinstallAdminIndex','category_srl',$children->category_srl,'childrenList','')}">{$children->title}({$children->nPackages})</a></block>
-			</li>
-		</ul>
-	</div>
+    {@ $has_active = ($category_srl != null);}
+	<ul class="category nav nav-tabs">
+		<li loop="$categories => $category" cond="$category->depth == 0"
+            <!--@if(!$has_active)-->class="active" {@ $has_active = true} <!--@end-->
+            <!--@if($current_parent_category == $category->category_srl)-->class="active"<!--@end-->
+                >
+            <a href="#category-{$category->category_srl}" data-toggle="tab">{$category->title}</a>
+        </li>
+	</ul>
+    {@ $has_active = ($category_srl != null);}
+    <div class="tab-content">
+        <div loop="$categories => $category" cond="$category->depth == 0" class="category tab-pane
+            <!--@if(!$has_active)-->active {@ $has_active = true} <!--@end-->
+            <!--@if($current_parent_category == $category->category_srl)-->active<!--@end-->
+        " id="category-{$category->category_srl}">
+            <ul class="nav nav-pills">
+                <li loop="$category->children => $children"
+                    <!--@if($children->category_srl == $category_srl)-->class="active"<!--@end-->
+                        >
+                    <block cond="$children->category_srl == $category_srl">
+                        {@$current_category = $children->title}
+                        <a href="#">{$children->title}({$children->nPackages})</a>
+                    </block>
+                    <block cond="$children->category_srl != $category_srl"><a href="{getUrl('','module','admin','act','dispAutoinstallAdminIndex','category_srl',$children->category_srl,'childrenList','')}">{$children->title}({$children->nPackages})</a></block>
+                </li>
+            </ul>
+        </div>
+    </div>
 	<p class="filter">
 		<a cond="$act != 'dispAutoinstallAdminIndex'" href="{getUrl('', 'module', 'admin', 'act', 'dispAutoinstallAdminIndex')}">All({$tCount})</a>
 		<strong cond="$act == 'dispAutoinstallAdminIndex'">All({$tCount})</strong>

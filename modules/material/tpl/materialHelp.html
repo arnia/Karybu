@@ -4,9 +4,7 @@
     jQuery(document).ready(function($){
         if (typeof(bugFlag) != 'undefined') {
             $('dl.browserList dt span').on('click', function(){
-                $(this).parent().next().fadeToggle(function(){
-                    $("#dashboard_content").mCustomScrollbar('update');
-                });
+                $(this).parent().next().fadeToggle();
             });
         }
         bugFlag = true;
@@ -34,7 +32,7 @@
                     <p class="image"><img src="img/{$img_folder}/bookmarklet1.gif" width="230" height="134" /></p>
             </li>
             <li>
-                        <p class="description">{$lang->browser->ie_step2}</p>
+                    <p class="description">{$lang->browser->ie_step2}</p>
                     <p class="image"><img src="img/{$img_folder}/bookmarkletIE1.gif" width="210" height="245" /></p>
             </li>
             <li>
