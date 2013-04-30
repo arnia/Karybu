@@ -4,14 +4,13 @@
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 
-<form action="{Context::getRequestUri()}" method="post" enctype="multipart/form-data">
+<form action="./" method="post" enctype="multipart/form-data">
     <input type="hidden" name="module" value="integration_search" />
     <input type="hidden" name="act" value="procIntegration_searchAdminInsertSkin" />
 
     <fieldset class="section">
         <h3 class="h3">{$lang->skin_default_info}</h3>
-        <div class="table">
-        <table  class="table-hover table-condensed" width="100%">
+        <table  class="table table-hover table-condensed">
             <tr>
                 <th scope="row">{$lang->skin}</th>
                 <td  >{$skin_info->title}</td>
@@ -47,13 +46,11 @@
                 <td>{nl2br($skin_info->description)}</td>
             </tr>
         </table>
-    </div>
     </fieldset>
 
     <fieldset class="section">
         <h3 class="h3">{$lang->extra_vars}</h3>
-        <div class="table">
-            <table class="table-hover table-condensed" width="100%">
+            <table class="table table-hover table-condensed">
             <tr valign="top">
                 <th scope="row">{$lang->colorset}</th>
                 <td>
@@ -64,8 +61,10 @@
                     {@ $_width = 200; $_height = 20; $_talign = "left"; }
                     <!--@end-->
                     <div style="float:left;text-align:{$_talign};margin-bottom:1em;width:{$_width}px;height:{$_height}px;margin-right:10px;">
-                        <input type="radio" name="colorset" value="{$val->name}" id="colorset_{$key}" <!--@if($module_info->colorset==$val->name)-->checked="checked"<!--@end-->/>
-                        <label for="colorset_{$key}">{$val->title}</label>
+                        <label for="colorset_{$key}" class="radio inline">
+                            <input type="radio" name="colorset" value="{$val->name}" id="colorset_{$key}" <!--@if($module_info->colorset==$val->name)-->checked="checked"<!--@end-->/>
+                            {$val->title}
+                        </label>
                         <!--@if($val->screenshot)-->
                         <br />
                         <img src="{$val->screenshot}" alt="{$val->title}" style="border:1px solid #888888;padding:2px;margin:2px;"/>
@@ -74,18 +73,14 @@
                     <!--@end-->
                 </td>
             </tr>
-        </table>
-        </div>
-    </fieldset>
 
     <!--@foreach($skin_info->extra_vars as $key => $val)-->
 
     <!--@if($val->group && ((!$group) || $group != $val->group))-->
     {@$group = $val->group}
-    <div class="table">
-        <table width="100%" border="1" cellspacing="0">
+        <table class="table table-hover table-striped">
             <caption>{$group}</caption>
-            <!--@end-->
+    <!--@end-->
 
             <tr>
                 <th scope="row">{$val->title}</th>
@@ -106,26 +101,32 @@
 
                     <!--@elseif($val->type=="checkbox")-->
                     <!--@foreach($val->default as $k=>$v)-->
-                <span>
-                    <input type="checkbox" name="{$val->name}[]" value="{$v}" id="ch_{$key}_{$k}" <!--@if(in_array($v, $val->value))-->checked="checked"<!--@end--> class="checkbox" />
-                    <label for="ch_{$key}_{$k}">{$v}</label>
-                </span>
+                    <span>
+                        <label for="ch_{$key}_{$k}" class="checkbox inline">
+                            <input type="checkbox" name="{$val->name}[]" value="{$v}" id="ch_{$key}_{$k}" <!--@if(in_array($v, $val->value))-->checked="checked"<!--@end--> />
+                            {$v}
+                        </label>
+                    </span>
                     <!--@end-->
 
                     <!--@elseif($val->type=="radio")-->
                     <!--@foreach($val->default as $k=>$v)-->
-                <span>
-                    <input type="radio" name="{$val->name}" value="{$v}" id="ch_{$key}_{$k}" <!--@if($v==$val->value)-->checked="checked"<!--@end-->/>
-                    <label for="ch_{$key}_{$k}">{$v}</label>
-                </span>
+                    <span>
+                        <label for="ch_{$key}_{$k}" class="radio inline">
+                            <input type="radio" name="{$val->name}" value="{$v}" id="ch_{$key}_{$k}" <!--@if($v==$val->value)-->checked="checked"<!--@end-->/>
+                            {$v}
+                        </label>
+                    </span>
                     <!--@end-->
 
                     <!--@elseif($val->type=="image")-->
                     <!--@if($val->value)-->
                     <div>
                         <img src="{$val->value}" /><br />
-                        <input type="checkbox" name="del_{$val->name}" value="Y" id="del_{$val->name}" class="checkbox" />
-                        <label for="del_{$val->name}">{$lang->cmd_delete}</label>
+                        <label for="del_{$val->name}" class="checkbox inline">
+                            <input type="checkbox" name="del_{$val->name}" value="Y" id="del_{$val->name}" />
+                            {$lang->cmd_delete}
+                        </label>
                     </div>
                     <!--@end-->
 
@@ -133,18 +134,19 @@
                     <!--@end-->
 
                     <!--@if($val->description)-->
-                    <p>{nl2br(trim($val->description))}</p>
+                    <p class="help-inline">{nl2br(trim($val->description))}</p>
                     <!--@end-->
                 </td>
             </tr>
             <!--@end-->
 
-            <!--@if($group)-->
+    <!--@if($group)-->
         </table>
-    </div>
     <!--@end-->
+            </table>
+    </fieldset>
     <div class="btnArea">
-        <input class="btn" type="submit" value="{$lang->cmd_registration}" />
+        <input class="btn btn-primary" type="submit"  value="{$lang->cmd_registration}" />
     </div>
 </form>
 

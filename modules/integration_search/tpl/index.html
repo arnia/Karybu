@@ -1,15 +1,15 @@
 <!--#include("header.html")-->
-<load target="../../widget/tpl/js/widget_admin.js" usecdn="true" />
+<load target="../../widget/tpl/js/generate_code.js" usecdn="true" />
+<load target="../../widget/tpl/js/module_list.js" usecdn="true" />
 
-<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+<div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 <fieldset class="section">
     <form ruleset="insertConfig" action="./" method="post" class="form">
         <input type="hidden" name="act" value="procIntegration_searchAdminInsertConfig" />
         <input type="hidden" name="module" value="admin" />
-        <input type="hidden" name="target_module_srl" id="target_module_srl" value="{$config->target_module_srl}" />
-        <div class="table">
+
             <table class="table table-hover table-condensed">
                 <tr>
                     <th scope="row">{$lang->sample_code}</th>
@@ -31,26 +31,78 @@
                 </tr>
                 <tr>
                     <th scope="row">{$lang->target}</th>
-                    <td>
-                        <select name="target"  style="width:50%">
+                    <td class="moduleSearch moduleSearch1 modulefinder extra_vars">
+                        <select name="target">
                             <option value="include">{$lang->include_search_target}</option>
                             <option value="exclude" <!--@if($config->target=='exclude')-->selected="selected"<!--@end-->>{$lang->exclude_search_target}</option>
                         </select>
+                        <br/>
 
-                        <select name="_target_module_srl" id="_target_module_srl" size="8" style="display:block;margin:10px 0;width:30%"></select>
-
-                        <a href="{getUrl('','module','module','act','dispModuleSelectList','id','target_module_srl')}" onclick="popopen(this.href, 'ModuleSelect');return false;" class="button blue"><span>{$lang->cmd_insert}</span></a>
-                        <a href="#" onclick="midRemove('target_module_srl');return false;" class="button red"><span>{$lang->cmd_delete}</span></a>
-
+                        <!--@ // List of modules to search in -->
+                        <input type="hidden" id="target_module_srl" name="target_module_srl" value="{$config->target_module_srl}" />
+                        <select class="modulelist_selected" size="8" multiple="multiple"></select>
+                        <br/>
+                        <span><a href="#moduleSearchWindow1" class="tgAnchor moduleSearch btn btn-small btn-primary">{$lang->cmd_add}</a></span>
+                        <button type="button" class="text modulelist_del btn btn-small">{$lang->cmd_delete}</button>
                         <script type="text/javascript">
-                            jQuery( function() { getModuleSrlList('target_module_srl'); } );
+                            xe.registerApp(new xe.ModuleListManager('target_module_srl'));
                         </script>
+
+                        <script>
+                            jQuery(function($){
+                                $('.moduleSearch1').bind('moduleSelect', function(e, aSelected){
+                                    var sType, sName, sSrl;
+
+                                    for(var i=0, nLen=aSelected.length; i<nLen; i++){
+                                        sType = aSelected[i].type;
+                                        sName = aSelected[i].browser_title;
+                                        sSrl = aSelected[i].module_srl;
+                                        xe.broadcast("ADD_MODULE_TO_MODULELIST_MANAGER", [sType, sName, sSrl]);
+                                    }
+                                });
+                            });
+
+                        </script>
+
+                        <!-- new module search -->
+                        <div id="moduleSearchWindow1" class="moduleSearchWindow tgContent">
+                            <div class="siteList sectionDiv">
+                                <h2>{$lang->select_site}</h2>
+                                <div class="siteListSearchBox">
+                                    <div class="siteListSearchBoxBorder">
+                                        <div class="searchImg icon-search"></div>
+                                        <input type="text" class="siteListSearchInput" name="site_filter">
+                                    </div>
+                                </div>
+                                <div class="siteListUL">
+                                    <ul>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="moduleTypeList sectionDiv">
+                                <h2>{$lang->select_module_type}</h2>
+                                <div>
+                                    <ul class="moduleTypeListUL">
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="moduleInstanceList sectionDiv">
+                                <h2>{$lang->select_module_instance}</h2>
+                                <div>
+                                    <select class="moduleInstanceListSelect" multiple="multiple" size="8">
+                                    </select>
+                                </div>
+                                <button class="btn btn_primary moduleSearch_ok">{$lang->cmd_select}</button>
+                            </div>
+                        </div>
+                        <!--// new module search -->
+
+                        <!--@ // END of list of modules -->
                     </td>
                 </tr>
             </table>
-        </div>
         <div class="btnArea">
-            <input class="btn" type="submit" value="{$lang->cmd_registration}" />
+            <input class="btn btn-primary" type="submit" value="{$lang->cmd_registration}" />
         </div>
     </form>
 </fieldset>
