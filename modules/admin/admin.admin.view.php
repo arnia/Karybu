@@ -37,6 +37,7 @@
 
             $oAdminView = & getAdminView('admin');
             $oAdminView->makeDashboardSitemap();
+            $oAdminView->makeFavoriteList();
 			$this->makeGnbUrl();
 
             // Retrieve the list of installed modules
@@ -115,6 +116,16 @@
             Context::set('main_menu',$main_menu);
         }
 
+        /*
+         * set favorite list to context for display on all admin views
+         */
+        function makeFavoriteList(){
+            // Get list of favorite
+            $oAdminAdminModel = &getAdminModel('admin');
+            $output = $oAdminAdminModel->getFavoriteList(0, true);
+            Context::set('favorite_list', $output->get('favoriteList'));
+        }
+
 		/**
 		 * Include admin menu php file and make menu url
 		 * Setting admin logo, newest news setting
@@ -175,10 +186,7 @@
 
 			$browserTitle = ($subMenuTitle ? $subMenuTitle : 'Dashboard').' - '.$gnbTitleInfo->adminTitle;
 
-			// Get list of favorite
-			$oAdminAdminModel = &getAdminModel('admin');
-			$output = $oAdminAdminModel->getFavoriteList(0, true);
-            Context::set('favorite_list', $output->get('favoriteList'));
+			$this->makeFavoriteList();
 
 			// Retrieve recent news and set them into context,
 			// move from index method, because use in admin footer
@@ -219,7 +227,15 @@
             $currentUrl = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
             foreach($menu->list as $item){
                 if(strpos($currentUrl,$item['href']) !== false) {
-                    $activeNode = $item['node_srl'];
+                    if($item['text'] == 'Dashboard'){
+                        $delta = str_replace($item['href'],'',$currentUrl);
+                        $delta = str_replace("http://".$_SERVER['HTTP_HOST'],'',$delta);
+                        if($delta == '/' || $delta == '/index.php'){
+                            $activeNode = $item['node_srl'];
+                        }
+                    }else {
+                        $activeNode = $item['node_srl'];
+                    }
                 }
             }
             if(isset($menu->list[$parentSrl])) {
@@ -287,6 +303,7 @@
 			$oDocumentModel = &getModel('document');
 			$columnList = array('document_srl', 'module_srl', 'category_srl', 'title', 'nick_name', 'member_srl');
 			$args->list_count = 5;;
+            $args->page_count = 5;
 			$output = $oDocumentModel->getDocumentList($args, false, false, $columnList);
             Context::set('latestDocumentList', $output->data);
 			$security = new Security();

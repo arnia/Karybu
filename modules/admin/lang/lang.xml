@@ -99,6 +99,9 @@
 		<value xml:lang="vi"><![CDATA[Bảng điều khiển]]></value>
 		<value xml:lang="tr"><![CDATA[Kontrol Paneli]]></value>
 	</item>
+    <item name="about_dashboard">
+        <value xml:lang="en"><![CDATA[Using this section you can create, change or update the content of your website]]></value>
+    </item>
 	<item name="start_module">
 		<value xml:lang="ko"><![CDATA[시작 모듈]]></value>
 		<value xml:lang="en"><![CDATA[Default Module]]></value>

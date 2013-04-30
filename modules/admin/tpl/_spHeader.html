@@ -76,18 +76,18 @@
     <!-- mobile dropdown -->
 
         <div id="kMobileMenu">
-            <div class="kSearch">
+            <!--<div class="kSearch">
                 <div class="row-fluid">
                     <i class="icon-search"></i><input type="text" placeholder="Type something…" class="pull-left span12">
                 </div>
-            </div>
+            </div>-->
             <div class="kInfo">
-                <h6>DASHBOARD</h6>
-                <p>Using this section you can create, change or update the content of your website</p>
+                <h6>{$lang->dashboard}</h6>
+                <p>{$lang->about_dashboard}</p>
             </div>
             <div class="kList">
                 <ul class="unstyled kList">
-                    <h6>DASHBOARD</h6>
+                    <h6>{$lang->dashboard}</h6>
                     <li loop="$main_menu->items=>$key,$value">
                         <!--@if(isset($value->setup_index_act))-->
                             <a href="{getUrl('', 'module', 'admin', 'act', $value->setup_index_act, 'module_srl', $value->module_srl)}"><!--@if($value->parent_srl)-->&nbsp;&nbsp;<!--@end-->{$value->name}</a>
@@ -95,6 +95,23 @@
                             <span>{$value->name}</span>
                         <!--@end-->
                 </ul</li>
+            </div>
+            <div class="kList">
+                <ul class="unstyled kList">
+                    <h6>{$lang->favorites}</h6>
+                        <li loop="$favorite_list => $favorite">
+                            <form class="action" action="./">
+                                <a href="{getUrl('', 'module', 'admin', 'act', $favorite->admin_index_act)}">{$favorite->title}</a>
+                                <input type="hidden" name="module" value="admin" />
+                                <input type="hidden" name="act" value="procAdminToggleFavorite" />
+                                <input type="hidden" name="site_srl" value="0" />
+                                <input type="hidden" name="module_name" value="{$favorite->module}" />
+                                <input type="hidden" name="success_return_url" value="{getUrl('', 'module', 'admin')}" />
+                                <button class="btn btn-primary" type="submit" title="{$lang->cmd_delete}">&times;</button>
+                            </form>
+                        </li>
+                        <li cond="!is_array($favorite_list) || count($favorite_list) < 1"><a href="{getUrl('', 'module', 'admin', 'act', 'dispModuleAdminContent')}">{$lang->no_data}</a></li>
+                   </ul>
             </div>
         </div>
     <!-- mobile dropdown end -->
@@ -109,7 +126,7 @@
             <a class="big-icon big-icon-{strtolower($value['text'])}"  href="{$value['href']}" title="{$value['text']}"></a>
         </li>
         <li class="hidden-phone">
-            <a class="small-logo" href="#"><img src="img/small-logo.png"/></a>
+            <a class="small-logo" href="{getUrl('','module','admin')}"><img src="img/small-logo.png"/></a>
         </li>
     </ul>
 </div>

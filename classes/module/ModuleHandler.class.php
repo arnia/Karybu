@@ -348,6 +348,7 @@ class ModuleHandlerInstance extends Handler
         $oAdminView = & getAdminView('admin');
         $oAdminView->makeGnbUrl($oModule->module_key->getModule());
         $oAdminView->makeDashboardSitemap();
+        $oAdminView->makeFavoriteList();
         $oModule->setLayoutPath("./modules/admin/tpl");
         $oModule->setLayoutFile("layout.html");
         $this->context->addBodyClass('x');
