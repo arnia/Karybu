@@ -7,9 +7,9 @@
 		<span class="side pull-right">
 			<block cond="$item['layout_srl']"><a href="{getUrl('act', 'dispLayoutAdminModify', 'layout_srl', $item['layout_srl'])}">{$lang->cmd_layout_management}</a> | </block>
 			<block cond="$item['setup_index_act']"><a href="{getUrl('', 'module', 'admin', 'act', $item['setup_index_act'], 'module_srl', $item['module_srl'])}">{$lang->cmd_module_manangement}</a> | </block>
-			<a href="#editMenu" class="modalAnchor _edit">{$lang->cmd_menu_management}</a> | 
+			<a href="#editMenu" class="_edit" data-toggle="modal">{$lang->cmd_menu_management}</a> |
 			<a href="#delete" class="_delete">{$lang->cmd_delete}</a> | 
-			<a href="#editMenu" class="modalAnchor _add _child">{$lang->add}</a>
+			<a href="#editMenu" class="_add _child" data-toggle="modal">{$lang->add}</a>
 		</span>
 		<ul cond="count($item['list']>0)">
 		<block loop="$item['list']=>$idx,$val">
