@@ -2,13 +2,20 @@ function insertSelectedModule(id, module_srl, mid, browser_title) {
     location.href = current_url.setQuery('module_srl',module_srl);
 }
 
-function getFileList() {
+function getFileList(e) {
 	var fileListTable = jQuery('#fileListTable');
 	var cartList = [];
 	fileListTable.find(':checkbox[name=cart]').each(function(){
-		if(this.checked) cartList.push(this.value); 
+		if(this.checked) {
+            cartList.push(this.value);
+        }
 	});
-
+    if (cartList.length == 0){
+        alert(xe.lang.msg_select_file);
+        //prevent modal from showing if nothing is selected
+        e.preventDefault();
+        return false;
+    }
     var params = new Array();
     var response_tags = ['error','message', 'file_list'];
 	params["file_srls"] = cartList.join(",");
@@ -39,6 +46,8 @@ function completeGetFileList(ret_obj, response_tags)
 						'</tr>' +
 						'<input type="hidden" name="cart[]" value="'+objFile.file_srl+'" />';
 		}
+        //remove dummy tr
+        jQuery('tr.dummy-tr').remove();
 		jQuery('#selectedFileCount').html(file_list.length);
 	}
 	jQuery('#fileManageListTable>tbody').html(htmlListBuffer);
@@ -57,3 +66,10 @@ function checkSearch(form)
 		return false;
 	}
 }
+jQuery(document).ready(function($){
+    //set data-toggle to make the code valid
+    $('.modal-trigger').attr('data-toggle', 'modal');
+    $("div#listManager").on("show", function(e) {
+        getFileList(e);
+    })
+})
