@@ -1,23 +1,24 @@
 <!--#include("header.html")-->
 
-<form action="./" method="post">
-	<input type="hidden" name="module" value="document" />
-	<input type="hidden" name="act" value="procDocumentAdminInsertConfig" />
-	<div class="table">
-		<table class="table table-condensed table-bordered table-hover" cellspacing="0">
-		<tr>
-			<th scope="col">{$lang->thumbnail_type}</th>
-		</tr>
-		<tr>
-			<td>
-				<input type="radio" name="thumbnail_type" value="crop" <!--@if($config->thumbnail_type != 'ratio')-->checked="checked"<!--@end-->/> {$lang->thumbnail_crop} <br />
-				<input type="radio" name="thumbnail_type" value="ratio" <!--@if($config->thumbnail_type == 'ratio')-->checked="checked"<!--@end-->/> {$lang->thumbnail_ratio}
-			</td>
-		</tr>
-		</table>
-	</div>
-    <div class="btnArea">
-		<input type="submit" class="btn btn-primary" value="{$lang->cmd_registration}" />
-		<input type="button" class="btn " value="{$lang->cmd_delete_all_thumbnail}" onclick="doDeleteAllThumbnail(); return false;"/>
-	</div>
+<form action="./" method="post" class="form form-horizontal">
+    <input type="hidden" name="module" value="document"/>
+    <input type="hidden" name="act" value="procDocumentAdminInsertConfig"/>
+    <fieldset>
+        <legend>{$lang->thumbnail_type}</legend>
+        <div class="control-group">
+            <label class="radio">
+                <input type="radio" name="thumbnail_type" value="crop" <!--@if($config->thumbnail_type != 'ratio')-->
+                checked="checked"<!--@end-->/> {$lang->thumbnail_crop} <br/>
+            </label>
+            <label class="radio">
+                <input type="radio" name="thumbnail_type" value="ratio" <!--@if($config->thumbnail_type == 'ratio')-->
+                checked="checked"<!--@end-->/> {$lang->thumbnail_ratio}
+            </label>
+        </div>
+        <div class="btnArea">
+            <input type="submit" class="btn btn-primary" value="{$lang->cmd_registration}"/>
+            <input type="button" class="btn " value="{$lang->cmd_delete_all_thumbnail}"
+                   onclick="doDeleteAllThumbnail(); return false;"/>
+        </div>
+    </fieldset>
 </form>
