@@ -53,8 +53,11 @@ function rebuildHorizontalScrollbar() {
         horizontalScroll:true,
         scrollButtons: {
             enable: true
+        },
+        advanced:{
+            updateOnContentResize: true
         }
-        });
+    });
 }
 
 function rebuildVerticalScrollbar() {
@@ -62,6 +65,9 @@ function rebuildVerticalScrollbar() {
     $("#kNav").mCustomScrollbar({
         scrollButtons: {
             enable: true
+        },
+        advanced:{
+            updateOnContentResize: true
         }
     });
 }
@@ -91,10 +97,10 @@ jQuery(document).ready( function() {
         if (isSmallScreen()) {
             addStackedToNav();
             rebuildHorizontalScrollbar();
-        };
+        }
         if (hasNav()){
             $('body').addClass('kBigHeader')
-        };
+        }
 
     });
 

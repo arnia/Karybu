@@ -1,18 +1,11 @@
-<div class="navbar" style="margin-top: 40px" cond="!isset($material_list) || !empty($material_list)">
-    <div class="navbar-inner">
-
-        <ul class="nav">
-            <li class="active"|cond="$act=='dispMaterialAdminIndex'">
-            <a href="{getUrl('act','dispMaterialAdminIndex')}">{$lang->heading->ingredients_list}</a>
-            </li>
-            <li class="divider-vertical"></li>
-            <li class="active"|cond="$act=='dispMaterialAdminTutorial'">
-            <a href="{getUrl('act','dispMaterialAdminTutorial')}">{$lang->heading->tutorial}</a>
-            </li>
-        </ul>
-
-    </div>
+<div class="cnb">
+    <ul class="nav nav-tabs">
+        <li class="active"|cond="$act=='dispMaterialAdminIndex'"><a href="{getUrl('act','dispMaterialAdminIndex')}">{$lang->heading->ingredients_list}</a></li>
+        <li class="divider-vertical"></li>
+        <li class="active"|cond="$act=='dispMaterialAdminTutorial'"><a href="{getUrl('act','dispMaterialAdminTutorial')}">{$lang->heading->tutorial}</a></li>
+    </ul>
 </div>
+
 <!--@if($page_navigation && $page_navigation->total_count>0)-->
         <!--#include('materialList.html')-->
 <!--@else-->

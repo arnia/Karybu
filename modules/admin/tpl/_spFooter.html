@@ -20,59 +20,39 @@ xe.lang.confirm_run = '{$lang->confirm_run}';
 xe.lang.confirm_reset_admin_menu = '{$lang->confirm_reset_admin_menu}';
 admin_menu_srl = '{$admin_menu_srl}';
 
-
 (function($){
-    $(window).load(function(){
-        $("#kMenuButton").click(function () {
-            $("#kMobileMenu").toggle('fast');
-        });
+    $("#kMenuButton").click(function () {
+        $("#kMobileMenu").toggle('fast');
     });
-})(jQuery);
-
-(function($){
-    $(window).load(function(){
-        $("#dashboard_content").mCustomScrollbar({
-            scrollButtons:{
-                enable:true
-            },
-            scrollInertia:200,
-            advanced:{
-                updateOnContentResize: true,
-                normalizeMouseWheelDelta: true
-            }
-        });
+    $(".kNumbers").fitText(.35, { minFontSize: '15px', maxFontSize: '48px' });
+    $("#dashboard_content").mCustomScrollbar({
+        scrollButtons:{
+            enable:true
+        },
+        scrollInertia:200,
+        advanced:{
+            updateOnContentResize: true,
+            normalizeMouseWheelDelta: true
+        }
     });
-})(jQuery);
-
-(function($){
-    $(document).ready(function(){
-        $(".kNumbers").fitText(.35, { minFontSize: '15px', maxFontSize: '48px' });
+    $("#kSidebar").mCustomScrollbar({
+        scrollButtons:{
+            enable:true
+        },
+        advanced:{
+            updateOnContentResize: true
+        }
     });
-})(jQuery);
-
-(function($){
-    $(window).load(function(){
-        $("#kSidebar").mCustomScrollbar({
-            scrollButtons:{
-                enable:true
-            }
-
-        });
-    });
-})(jQuery);
-
-(function($){
-    $(window).load(function(){
-        $("#kNav").mCustomScrollbar({
-            scrollButtons:{
-                enable:true
-            }
-        });
+    $("#kNav").mCustomScrollbar({
+        scrollButtons:{
+            enable:true
+        },
+        advanced:{
+            updateOnContentResize: true
+        }
     });
 })(jQuery);
 </script>
-
-
 
 <load target="./js/config.js" usecdn="true" />
 <load target="../../session/tpl/js/session.js" usecdn="true" />
