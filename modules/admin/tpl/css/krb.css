@@ -114,6 +114,11 @@ fieldset.section {
 
 }
 
+form .controls .align {
+    position: relative;
+    top: 5px;
+}
+
 /* FORMS END */
 
 /* EMPHASIS START */
@@ -994,7 +999,7 @@ table.visitors th { line-height: 30px}
 
 /* WELL */
 
-.well { padding: 8px 10px;
+.well, .module_category_title { padding: 8px 10px;
     background: none;
     background-color: rgba(138, 198, 79, .3);
     box-shadow:none;
@@ -1004,6 +1009,12 @@ table.visitors th { line-height: 30px}
 }
 
 .well-large { padding: 16px 20px; }
+
+.module_category_title label {
+    margin-bottom: 0;
+}
+
+
 
 /* WELL END */
 
