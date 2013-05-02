@@ -351,7 +351,7 @@ fieldset.section {
     background-color:rgba(255, 255, 255, .6);
     -webkit-box-shadow:inset 0px 3px 3px 0px rgba(70, 50, 20, 0.1);
     box-shadow:inset 0px 3px 3px 0px rgba(70, 50, 20, 0.1);
-
+    margin-bottom: 0;
 }
 
 .progress .bar {
@@ -359,6 +359,8 @@ fieldset.section {
     border-radius:15px;
     -webkit-box-shadow:0px 3px 6px 0px rgba(70, 50, 20, 0.4);
     box-shadow:0px 3px 6px 0px rgba(70, 50, 20, 0.4);
+    line-height: 22px;
+    color: #dddd77;
     background:#a2ce62;
     background:-moz-linear-gradient(top, #a2ce62 0%, #82b244 5%, #5f8f24 50%, #4b7e1b 95%, #366e00 100%);
     background:-webkit-gradient(linear, left top, left bottom, color-stop(0%, #a2ce62), color-stop(5%, #82b244), color-stop(50%, #5f8f24), color-stop(95%, #4b7e1b), color-stop(100%, #366e00));
@@ -367,7 +369,7 @@ fieldset.section {
     background:-ms-linear-gradient(top, #a2ce62 0%, #82b244 5%, #5f8f24 50%, #4b7e1b 95%, #366e00 100%);
     background:linear-gradient(to bottom, #a2ce62 0%, #82b244 5%, #5f8f24 50%, #4b7e1b 95%, #366e00 100%);
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr = '#a2ce62', endColorstr = '#366e00', GradientType = 0);
-
+    margin-bottom: 0;
 }
 
 /* PROGRESS BAR end */
@@ -984,6 +986,10 @@ table.sortable tr {
     width:100% ;
 }
 
+table.visitors td, table.visitors th { border: none}
+table.visitors th { line-height: 30px}
+
+
 /* TABLES END */
 
 /* WELL */
@@ -1489,7 +1495,8 @@ margin:-1px;
 /* EXPERIMENTS */
 
 table,
-img
+img,
+.mCSB_scrollTools
 {
     transition: all .5s;
     -webkit-transition: all .5s;
