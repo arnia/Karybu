@@ -84,7 +84,6 @@ blockquote.pull-right {
 
 .main-nav-holder {
     z-index: 99;
-    height: 40px;
     position: fixed;
     width: 100%;
 }
@@ -507,6 +506,7 @@ ul.nav-tabs {
 /* TABS END */
 
 /* TABS FOR SECOND NAV */
+
 
 
 
@@ -1494,7 +1494,7 @@ margin:-1px;
     margin-top: -40px;
 }
 
-.kBigHeader #content {
+#content {
     padding-top: 40px;
 }
 
