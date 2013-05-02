@@ -919,13 +919,7 @@ button.dragBtn {
     background-position: -144px -24px;
 }
 
-table.table .ui-sortable {
-    width: 100%;
-}
 
-table.sortable tr {
-    width:100% ;
-}
 
 /* OTHER ICONS END*/
 
@@ -980,6 +974,14 @@ table.table tr, table.table, table.table td, table.table th {
 table caption span {
     padding-top: 5px;
     line-height: 20px;
+}
+
+table.table .ui-sortable {
+    width: 100%;
+}
+
+table.sortable tr {
+    width:100% ;
 }
 
 /* TABLES END */
@@ -1484,3 +1486,12 @@ margin:-1px;
 
 
 
+/* EXPERIMENTS */
+
+table,
+img
+{
+    transition: all .5s;
+    -webkit-transition: all .5s;
+
+}

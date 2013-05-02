@@ -826,6 +826,10 @@ body.front #searchForm input[type="text"]:focus {
     .swatch {
         height:86px;
     }
+
+    .kSidebar > div.mCustomScrollBox {
+        overflow: visible!important;
+    }
 }
 
 .chart-tooltip {
@@ -1076,6 +1080,7 @@ button.clear {
     color:#333333;
     padding:4px 20px;
     border:#777 1px solid;
+    font-style: normal;
     background:#ddd;
     background:-moz-linear-gradient(top, #fafafa 0%, #ddd 50%, #ccc 99%);
     background:-webkit-gradient(linear, left top, left bottom, color-stop(0%, #fafafa), color-stop(50%, #ddd), color-stop(99%, #ccc));
@@ -1084,6 +1089,11 @@ button.clear {
     background:-ms-linear-gradient(top, #fafafa 0%, #ddd 50%, #ccc 99%);
     background:linear-gradient(to bottom, #fafafa 0%, #ddd 50%, #ccc 99%);
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr = '#fafafa', endColorstr = '#ccc', GradientType = 0);
+}
+
+.btn span {
+    margin: 0;
+    padding: 0;
 }
 
 a.btn {
@@ -1359,4 +1369,8 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 
 .pull-top {
     vertical-align: top;
+}
+
+.mCS_no_scrollbar {
+    overflow: visible!important;
 }
