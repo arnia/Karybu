@@ -518,4 +518,7 @@
 		<value xml:lang="jp"><![CDATA[選択ファイル]]></value>
 		<value xml:lang="zh-TW"><![CDATA[所選擇的附檔]]></value>
 	</item>
+    <item name="msg_select_file">
+        <value xml:lang="en"><![CDATA[Select files]]></value>
+    </item>
 </lang>
