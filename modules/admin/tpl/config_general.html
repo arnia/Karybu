@@ -44,7 +44,7 @@ jQuery(function($){
     <input type="hidden" name="act" value="procInstallAdminConfig" />
 
     <fieldset class="section">
-
+        <h3 class="h3">{$lang->subtitle_basic}</h3>
         <div class="control-group">
             <label class="control-label" for="_target_module">{$lang->about_start_module}</label>
             <div class="controls modulefinder moduleSearch">
@@ -149,7 +149,7 @@ jQuery(function($){
             <label class="control-label" for="htmlFooter">{$lang->input_footer_script}</label>
             <div class="controls">
                 <textarea name="htmlFooter" id="htmlFooter" style="width: 60%; height: 80px;">{$htmlFooter}</textarea>
-                <p>{$lang->detail_input_footer_script}</p>
+                <div class="help-block">{$lang->detail_input_footer_script}</div>
             </div>
         </div>
 
@@ -160,7 +160,7 @@ jQuery(function($){
                 <a href="javascript:deleteIcon('favicon\.ico');">{$lang->cmd_delete}</a>
                 <BR>
                 <input type="file" name="favicon" id="favicon" title="favicon" />
-                <p>{$lang->about_use_favicon}</p>
+                <div class="help-block">{$lang->about_use_favicon}</div>
             </div>
         </div>
 
@@ -171,7 +171,7 @@ jQuery(function($){
                 <a href="javascript:deleteIcon('mobicon\.png');">{$lang->cmd_delete}</a>
                 <BR>
                 <input type="file" name="mobicon" id="mobicon" title="Mobile Home Icon"/>
-                <p>{$lang->detail_use_mobile_icon}</p>
+                <div class="help-block">{$lang->detail_use_mobile_icon}</div>
             </div>
         </div>
 
@@ -188,19 +188,19 @@ jQuery(function($){
         <h3 class="h3">{$lang->subtitle_advanced}</h3>
 
         <div class="control-group">
-            <label class="control-label" for="default_url">{$lang->about_admin_ip_limit}</label>
+            <label class="control-label" for="admin_ip_list">{$lang->about_admin_ip_limit}</label>
             <div class="controls">
                 <textarea name="admin_ip_list" id="admin_ip_list" style="width: 60%; height: 80px;">{$admin_ip_list}</textarea>
-                {$lang->local_ip_address} : {$IP}
-                <p>{$lang->detail_about_admin_ip_limit}</p>
+                <span class="help-inline">{$lang->local_ip_address} : {$IP}</span>
+                <div class="help-block">{$lang->detail_about_admin_ip_limit}</div>
             </div>
         </div>
 
         <div class="control-group">
-            <label class="control-label">{$lang->default_url}</label>
+            <label class="control-label" for="default_url">{$lang->default_url}</label>
             <div class="controls">
                 <input type="text" name="default_url" id="default_url" value="{$default_url}"/>
-                <p>{$lang->about_default_url}</p>
+                <div class="help-block">{$lang->about_default_url}</div>
             </div>
         </div>
 
@@ -213,7 +213,7 @@ jQuery(function($){
                     {$val}
                 </label>
                 <!--@endforeach-->
-                <p>{$lang->about_use_ssl}</p>
+                <div class="help-block">{$lang->about_use_ssl}</div>
             </div>
         </div>
 
@@ -221,11 +221,11 @@ jQuery(function($){
             <label class="control-label">{$lang->server_ports}</label>
             <div class="controls">
                 <div class="input-prepend">
-                    <span class="add-on">http</span>
+                    <span class="add-on">http:</span>
                     <input type="text" placeholder="80" name="http_port" id="http_port" size="5" value="{$http_port}" style="width:40px" />
                 </div>
                 <div class="input-prepend">
-                    <span class="add-on">https</span>
+                    <span class="add-on">https:</span>
                     <input type="text" placeholder="80" name="https_port" id="https_port" size="5" value="{$https_port}" style="width:40px" />
                 </div>
             </div>

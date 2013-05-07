@@ -7,6 +7,9 @@
 		<value xml:lang="zh-CN"><![CDATA[基本]]></value>
 		<value xml:lang="tr"><![CDATA[Temel]]></value>
 	</item>
+    <item name="subtitle_basic">
+        <value xml:lang="en"><![CDATA[Basic]]></value>
+    </item>
 	<item name="subtitle_advanced">
 		<value xml:lang="ko"><![CDATA[고급]]></value>
 		<value xml:lang="en"><![CDATA[Advanced]]></value>

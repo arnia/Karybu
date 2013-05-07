@@ -118,6 +118,13 @@ form .controls .align {
     top: 5px;
 }
 
+form .controls textarea ~ button,
+form .controls textarea ~ table,
+form .controls textarea ~ span
+{
+    vertical-align: top;
+}
+
 /* FORMS END */
 
 /* EMPHASIS START */
@@ -950,7 +957,7 @@ button.dragBtn {
 }
 
 #scrollable-denied-id {
-    height: 289px;
+    height: 173px;
     overflow: auto;
     -webkit-border-radius: 5px;
     border-radius: 5px;
