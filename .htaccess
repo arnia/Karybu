@@ -45,6 +45,7 @@ RewriteRule (.*) ./index.php/$1 [L]
 </Files>
 #restrict access to directory listing
 Options -Indexes
+
 ## document permanent link
 #RewriteRule ^([0-9]+)$ ./index.php?document_srl=$1 [L,QSA]
 #
