@@ -3778,4 +3778,16 @@
     <item name="actions">
         <value xml:lang="en"><![CDATA[Actions]]></value>
     </item>
+    <item name="check_all">
+        <value xml:lang="en"><![CDATA[Check All]]></value>
+    </item>
+    <item name="first_page">
+        <value xml:lang="en"><![CDATA[FIRST]]></value>
+    </item>
+    <item name="last_page">
+        <value xml:lang="en"><![CDATA[LAST]]></value>
+    </item>
+    <item name="go">
+        <value xml:lang="en"><![CDATA[Go]]></value>
+    </item>
 </lang>

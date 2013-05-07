@@ -18,7 +18,7 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 		<table class="table table-bordered table-condensed" id="fileListTable">
 			<caption>
 				<!--@if($search_keyword == '')-->
-				All
+				{$lang->all}
 				<!--@elseif($search_target == 'isvalid' && $search_keyword == 'Y')-->
 				{$lang->is_valid}
 				<!--@elseif($search_target == 'isvalid' && $search_keyword == 'N')-->
@@ -42,7 +42,7 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 					<th scope="col" class="nowr">{$lang->date}</th>
 					<th scope="col" class="nowr">{$lang->ipaddress}</th>
 					<th scope="col" class="nowr">{$lang->status}</th>
-					<th scope="col"><input type="checkbox" data-name="cart" title="Check All" /></th>
+					<th scope="col"><input type="checkbox" data-name="cart" title="{$lang->check_all}" /></th>
 				</tr>
 			</thead>
 			<tfoot>
@@ -54,7 +54,7 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 					<th scope="col" class="nowr">{$lang->date}</th>
 					<th scope="col" class="nowr">{$lang->ipaddress}</th>
 					<th scope="col" class="nowr">{$lang->status}</th>
-					<th scope="col"><input type="checkbox" data-name="cart" title="Check All" /></th>
+					<th scope="col"><input type="checkbox" data-name="cart" title="{$lang->check_all}" /></th>
 				</tr>
 			</tfoot>
 			<tbody>
@@ -159,7 +159,7 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
   	<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
   	<input cond="$search_target" type="hidden" name="search_target" value="{$search_target}" />
     <ul>
-        <li><a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a></li>
+        <li><a href="{getUrl('page', '')}" class="direction">&laquo; {$lang->first_page}</a></li>
 
         <li cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
             {@$isGoTo = true}
@@ -182,11 +182,11 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
             <a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
         </li>
 
-        <li><a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a></li>
+        <li><a href="{getUrl('page', $page_navigation->last_page)}" class="direction">{$lang->last_page} &raquo;</a></li>
     </ul>
 	<span cond="$isGoTo" id="goTo" class="tgContent">
 		<input name="page" title="{$lang->cmd_go_to_page}" />
-		<button type="submit" class="btn">Go</button>
+		<button type="submit" class="btn">{$lang->go}</button>
 	</span>
 </form>
 
@@ -206,3 +206,8 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 		<a href="{getUrl('','module',$module,'act',$act)}"><span>{$lang->cmd_cancel}</span></a>
 	</form>
 </div>
+<script type="text/javascript">
+//<![CDATA[
+    xe.lang.msg_select_file = '{$lang->msg_select_file}'
+//]]>
+</script>

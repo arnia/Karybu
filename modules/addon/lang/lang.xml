@@ -117,11 +117,20 @@
 	</item>
 	<item name="run_method">
 		<value xml:lang="ko"><![CDATA[작동 방식]]></value>
+        <value xml:lang="en"><![CDATA[How does it work?]]></value>
 	</item>
 	<item name="run_selected_module">
 		<value xml:lang="ko"><![CDATA[선택한 모듈에서 사용]]></value>
+        <value xml:lang="en"><![CDATA[Used in the selected module.]]></value>
 	</item>
 	<item name="no_run_selected_module">
 		<value xml:lang="ko"><![CDATA[선택한 모듈에서 사용안함]]></value>
+        <value xml:lang="en"><![CDATA[Not used in the selected module.]]></value>
 	</item>
+    <item name="pc">
+        <value xml:lang="en"><![CDATA[PC]]></value>
+    </item>
+    <item name="mobile">
+        <value xml:lang="en"><![CDATA[Mobile]]></value>
+    </item>
 </lang>
