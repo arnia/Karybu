@@ -2,7 +2,7 @@
 <load target="css/adminEdit.css" usecdn="true" />
 <load target="js/adminEdit.js" usecdn="true" />
 
-<h2>{$selected_layout->layout_title}</h2>
+<h2 cond="isset($layout_srl)" class="h2">{$selected_layout->layout_title}</h2>
 
 <fieldset class="section">
     <h3 class="h3">{$selected_layout->title} ver {$selected_layout->version} ({$selected_layout->layout})</h3>
