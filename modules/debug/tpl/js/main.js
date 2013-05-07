@@ -2,8 +2,8 @@
 
     $(function() {
 
-        $(document).keypress("d", function(e) {
-            if (e.shiftKey) {
+        $(document).keydown(function(e) {
+            if (e.which == '123' /*F12*/ && e.ctrlKey && e.altKey && e.shiftKey) {
                 $.dToolbar('toggle');
             }
         });
