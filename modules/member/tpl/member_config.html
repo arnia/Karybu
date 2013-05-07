@@ -327,10 +327,10 @@
             <td><input type="checkbox" name="usable_list[]" value="{$item->name}" title="{$lang->use}" checked="checked"
                        disabled="disabled"/></td>
             <td class="form-inline">
-                <input type="radio" id="{$item->name}_re" name="{$item->name}" value="requierd" checked="checked"
-                       disabled="disabled"/> <label for="{$item->name}_re">{$lang->cmd_required}</label>
-                <input type="radio" id="{$item->name}_op" name="{$item->name}" value="option" disabled="disabled"/>
-                <label for="{$item->name}_op">{$lang->cmd_optional}</label>
+                <label for="{$item->name}_re" class="radio inline"> <input type="radio" id="{$item->name}_re" name="{$item->name}" value="requierd" checked="checked"
+                       disabled="disabled"/> {$lang->cmd_required}</label>
+                <label for="{$item->name}_op" class="radio inline"><input type="radio" id="{$item->name}_op" name="{$item->name}" value="option" disabled="disabled"/>
+                {$lang->cmd_optional}</label>
             </td>
             <td><input type="checkbox" name="is_{$item->name}_public" value="Y" checked="checked"|cond="$item->isPublic
                 == 'Y'"/>
@@ -356,21 +356,22 @@
             || $item->isUse" disabled="disabled"|cond="$item->mustRequired" />
         </td>
         <td class="form-inline">
+            <label for="{$item->name}_re" class="radio inline">
             <input type="radio" id="{$item->name}_re" name="{$item->name}" value="required" checked="checked"|cond="$item->mustRequired
-            || $item->required" disabled="disabled"|cond="$item->mustRequired || !$item->isUse" /> <label
-                for="{$item->name}_re">{$lang->cmd_required}</label>
+            || $item->required" disabled="disabled"|cond="$item->mustRequired || !$item->isUse" /> {$lang->cmd_required}</label>
+            <label for="{$item->name}_op" class="radio inline">
             <input type="radio" id="{$item->name}_op" name="{$item->name}" value="option" checked="checked"|cond="!$item->mustRequired
             && ($item->isUse && !$item->required)" disabled="disabled"|cond="$item->mustRequired || !$item->isUse" />
-            <label for="{$item->name}_op">{$lang->cmd_optional}</label>
+            {$lang->cmd_optional}</label>
 
             <div cond="$item->imageType" class="_subItem">
-                <label for="{$item->name}_max_width">{$lang->cmd_image_max_width}</label><input type="text"
+                <label for="{$item->name}_max_width">{$lang->cmd_image_max_width}</label> <input type="text"
                                                                                                 name="{$item->name}_max_width"
                                                                                                 id="{$item->name}_max_width"
                                                                                                 value="{$item->max_width}"
                                                                                                 style="width:30px"/> px
                 /
-                <label for="{$item->name}_max_height">{$lang->cmd_image_max_height}</label><input type="text"
+                <label for="{$item->name}_max_height">{$lang->cmd_image_max_height}</label> <input type="text"
                                                                                                   name="{$item->name}_max_height"
                                                                                                   id="{$item->name}_max_height"
                                                                                                   value="{$item->max_height}"
