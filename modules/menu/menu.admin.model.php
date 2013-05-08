@@ -67,7 +67,9 @@
             // Get information from the DB
             $args->menu_srl = $menu_srl;
             $output = executeQuery('menu.getMenu', $args);
-            if(!$output->data) return;
+            if(!$output->data) {
+                return;
+            }
 
             $menu_info = $output->data;
             $menu_info->xml_file = sprintf('./files/cache/menu/%s.xml.php',$menu_srl);

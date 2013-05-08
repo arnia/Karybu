@@ -716,7 +716,9 @@
 		 * @return string
 		 */
         function getXmlTree($source_node, $tree, $site_srl, $domain) {
-            if(!$source_node) return;
+            if(!$source_node) {
+                return;
+            }
 
             $oMenuAdminModel = &getAdminModel('menu');
 
