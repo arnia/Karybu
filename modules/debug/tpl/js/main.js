@@ -44,7 +44,7 @@
 
         $('.queries span.time', $.dToolbar()).stampToTime();
 
-        // add tooltips (jquery ui is kinda fucked in our cms)
+        // add tooltips
         $('.queries li', $.dToolbar()).each(function(){
             var title = $(this).attr('title', '').attr('title');
             //title += $('.meta.time', $(this)).text() + "\n";

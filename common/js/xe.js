@@ -886,7 +886,7 @@ function doDocumentSelect(document_srl) {
     }
 
     // 게시글을 가져와서 등록하기
-    opener.location.href = opener.current_url.setQuery('document_srl', document_srl).setQuery('act', 'dispBoardWrite');
+    opener.location.href = opener.current_url.setQuery('document_srl', document_srl);
     window.close();
 }
 
