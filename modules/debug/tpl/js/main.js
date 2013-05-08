@@ -9,7 +9,7 @@
         });
 
         if ($.dToolbar().data('state')) {
-            $.dToolbar('changeState', $.dToolbar().data('state'));
+            $.dToolbar('changeState', $.dToolbar().data('state'), true);
         } else {
             $.dToolbar('changeState', 'full');
         }
@@ -21,7 +21,6 @@
 
         $.dToolbar('closeIcon').on('click', function() {
             $.dToolbar('close');
-            // todo arata patratel in dreapta jos
         });
 
         $.dToolbar('tabs').on('click', function(e) {
@@ -150,12 +149,14 @@
             if ($.dToolbar('isMinimized')) return $.dToolbar('close');
             return $.dToolbar('maximize');
         },
-        minimize : function() {
+        minimize : function(noAjax) {
             $.dToolbar('content').hide();
             $.dToolbar('statusBar').hide();
             $.dToolbar('toggleIcon').removeClass('up');
             $.dToolbar('checkBottomPadding');
-            $.dToolbar('ajax', { state: 'minimized' });
+            if (!noAjax) {
+                $.dToolbar('ajax', { state: 'minimized' });
+            }
             return $.dToolbar();
         },
         maximize : function() {
@@ -166,10 +167,12 @@
             $.dToolbar('closedButton').hide();
             return $.dToolbar().show();
         },
-        close : function() {
+        close : function(noAjax) {
             $.dToolbar('checkBottomPadding');
             $.dToolbar('closedButton').show();
-            $.dToolbar('ajax', { state: 'closed' });
+            if (!noAjax) {
+                $.dToolbar('ajax', { state: 'closed' });
+            }
             return $.dToolbar().hide();
         },
         setTabActive : function(tab) {
@@ -196,15 +199,15 @@
                 $.dToolbar('ajax', { tab: tab.data('debug-index') });
             }
         },
-        changeState : function(state) {
+        changeState : function(state, noAjax) {
             if (state == 'full') {
                 $.dToolbar().show();
             }
             else if (state == 'minimized') {
-                $.dToolbar('minimize').show();
+                $.dToolbar('minimize', noAjax).show();
             }
             else if (state == 'closed') {
-                $.dToolbar('close');
+                $.dToolbar('close', noAjax);
             }
             else $.error('wrong state ' + state);
             return $.dToolbar();
