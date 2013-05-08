@@ -3,7 +3,7 @@
     /**
      * Karybu admin has three areas:
      *   - sitemap navigation - #kSidebar
-     *   - main content area - #dashboard-content
+     *   - main content area - #dashboard_content
      *   - actions navigation - #kNav (members list, layout info etc)
      *
      */
@@ -168,20 +168,19 @@
             $('body').addClass('kBigHeader')
         }
 
-    });
+        $(window).resize(function(){
+            kAdminContentArea.updateHeight();
+            kDashboardGraph.redraw();
 
-    $(window).resize(function(){
-        kAdminContentArea.updateHeight();
-        kDashboardGraph.redraw();
-
-        if (isSmallScreen()) {
-            kNavigationTabs.stack();
-            kActionsNav.makeHorizontal();
-        }
-        else{
-            kNavigationTabs.unstack();
-            kActionsNav.makeVertical();
-        }
+            if (isSmallScreen()) {
+                kNavigationTabs.stack();
+                kActionsNav.makeHorizontal();
+            }
+            else{
+                kNavigationTabs.unstack();
+                kActionsNav.makeVertical();
+            }
+        });
     });
 
 }(jQuery));
