@@ -33,63 +33,63 @@
             </tr>
             <tr>
                 <th rowspan="3" class="line">{$lang->cmd_widget_margin}</th>
-                <td colspan="2" class="line tCenter"><input type="text" name="margin_top" class="input input-small" value="" />px</td>
+                <td colspan="2" class="line tCenter"><input type="text" name="margin_top" class="input input-small" value="" /> px</td>
             </tr>
             <tr>
-                <td><input type="text" name="margin_left" class="input input-small" value="" />px</td>
-                <td class="tRight"><input type="text" name="margin_right" class="input input-small" value="" />px</td>
+                <td><input type="text" name="margin_left" class="input input-small" value="" /> px</td>
+                <td class="tRight"><input type="text" name="margin_right" class="input input-small" value="" /> px</td>
             </tr>
             <tr>
-                <td colspan="2" class="tCenter"><input type="text" name="margin_bottom" class="input input-small" value="" />px</td>
+                <td colspan="2" class="tCenter"><input type="text" name="margin_bottom" class="input input-small" value="" /> px</td>
             </tr>
             <tr>
                 <th rowspan="3" class="line">{$lang->cmd_widget_padding}</th>
-                <td colspan="2" class="line tCenter"><input type="text" name="padding_top" class="input input-small" value="" />px</td>
+                <td colspan="2" class="line tCenter"><input type="text" name="padding_top" class="input input-small" value="" /> px</td>
             </tr>
             <tr>
-                <td><input type="text" name="padding_left" class="input input-small" value="" />px</td>
-                <td class="tRight"><input type="text" name="padding_right" class="input input-small" value="" />px</td>
+                <td><input type="text" name="padding_left" class="input input-small" value="" /> px</td>
+                <td class="tRight"><input type="text" name="padding_right" class="input input-small" value="" /> px</td>
             </tr>
             <tr>
-                <td colspan="2" class="tCenter"><input type="text" name="padding_bottom" class="input input-small" value="" />px</td>
+                <td colspan="2" class="tCenter"><input type="text" name="padding_bottom" class="input input-small" value="" /> px</td>
             </tr>
             <tr>
                 <th rowspan="3" class="line">{$lang->cmd_widget_border}</th>
                 <td colspan="2" class="tCenter line">
-                    <input type="text" name="border_top_thick" value="" class="input-small" />px
+                    <input type="text" name="border_top_thick" value="" class="input-small" /> px
                     <select name="border_top_type" class="input-small">
                         <option value="solid">{$lang->cmd_widget_border_solid}</option>
                         <option value="dotted">{$lang->cmd_widget_border_dotted}</option>
                     </select>
-                    #<input type="text" name="border_top_color" value="" class="input-mini" maxlength="6"/>
+                    # <input type="text" name="border_top_color" value="" class="input-mini" maxlength="6"/>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="text" name="border_left_thick" value="" class="input-small" />px
+                    <input type="text" name="border_left_thick" value="" class="input-small" /> px
                     <select name="border_left_type"  class="input-small">
                         <option value="solid">{$lang->cmd_widget_border_solid}</option>
                         <option value="dotted">{$lang->cmd_widget_border_dotted}</option>
                     </select>
-                    #<input type="text" name="border_left_color" value="" class="input-mini" maxlength="6"/>
+                    # <input type="text" name="border_left_color" value="" class="input-mini" maxlength="6"/>
                 </td>
                 <td class="tRight">
-                    <input type="text" name="border_right_thick" value="" class="input-small" />px
+                    <input type="text" name="border_right_thick" value="" class="input-small" /> px
                     <select name="border_right_type" class="input-small">
                         <option value="solid">{$lang->cmd_widget_border_solid}</option>
                         <option value="dotted">{$lang->cmd_widget_border_dotted}</option>
                     </select>
-                    #<input type="text" name="border_right_color" value="" class="input-mini" maxlength="6"/>
+                    # <input type="text" name="border_right_color" value="" class="input-mini" maxlength="6"/>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" class="tCenter">
-                    <input type="text" name="border_bottom_thick" value="" class="input-small" />px
+                    <input type="text" name="border_bottom_thick" value="" class="input-small" /> px
                     <select name="border_bottom_type" class="input-small">
                         <option value="solid">{$lang->cmd_widget_border_solid}</option>
                         <option value="dotted">{$lang->cmd_widget_border_dotted}</option>
                     </select>
-                    #<input type="text" name="border_bottom_color" value="" class="input-mini" maxlength="6"/>
+                    # <input type="text" name="border_bottom_color" value="" class="input-mini" maxlength="6"/>
                 </td>
             </tr>
             <tr>
@@ -116,9 +116,15 @@
                     </div>
                 </td>
             </tr>
+            <tr>
+                <th class="line">
+                    <div class="btnArea">
+                        <input class="btn btn-primary" type="submit" value="{$lang->cmd_save}" />
+                    </div>
+                </th>
+                <td colspan="2" class="line"></td>
+            </tr>
         </table>
-		<div class="btnArea">
-			<span class="btn"><input type="submit" value="{$lang->cmd_save}" /></span>
-		</div>
+
 	</form>
 </div>
