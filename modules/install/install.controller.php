@@ -669,6 +669,15 @@ class installController extends install
         $buff = $this->_getDBConfigFileContents($db_info);
 
         FileHandler::writeFile($config_file, $buff);
+        //create config files
+        $files = array('config_dev', 'config_prod');
+        foreach ($files as $file){
+            $destination = './files/config/'.$file.'.yml';
+            $source = '../../config/'.$file.'.base.yml';
+            $content = 'imports:'."\n";
+            $content .= '    - { resource: '.$source.' }';
+            FileHandler::writeFile($destination, $content);
+        }
 
         if (@file_exists($config_file)) {
             FileHandler::removeFile($this->db_tmp_config_file);

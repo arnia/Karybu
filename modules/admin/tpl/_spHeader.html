@@ -6,37 +6,31 @@
 <load target="js/RGraph/RGraph.common.tooltips.js"/>
 <load target="css/jquery.mCustomScrollbar.css"/>
 <load target="css/mCustomScrollbar.css"/>
-<load target="js/jquery.mCustomScrollbar.concat.min.js"/>
+<load target="js/jquery.mCustomScrollbar.js"/>
 <load target="js/resize.js"/>
 <load target="js/jqueryt.fittext.js"/>
 
 <script type="text/javascript">
 
-    function setFullBodySize(){
-        var body = $('body');
-        var wH = $(window).height();
-        var wW = $(window).width();
+    (function($){
+        function setFullBodySize(){
+            var body = $('body');
+            var wH = $(window).height();
+            var wW = $(window).width();
 
-        body.height(wH);
-        body.width(wW);
-    }
+            body.height(wH);
+            body.width(wW);
+        }
 
-
-
-
-    jQuery(document).ready(function(){
-
-        $ = jQuery;
-
-        setFullBodySize();
+        $(document).ready(function(){
+            setFullBodySize();
+        });
 
         $(window).resize(function(){
             setFullBodySize();
         });
+    }(jQuery));
 
-
-
-    });
 </script>
 
 
