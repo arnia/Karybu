@@ -1496,4 +1496,7 @@
 		<value xml:lang="zh-CN"><![CDATA[管理设置]]></value>
 		<value xml:lang="tr"><![CDATA[Yönetici Ayarları]]></value>
 	</item>
+    <item name="subtitle_debug">
+        <value xml:lang="en"><![CDATA[Debug]]></value>
+    </item>
 </lang>

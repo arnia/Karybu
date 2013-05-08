@@ -58,7 +58,12 @@ class Kernel extends SymfonyKernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(_XE_PATH_ . "config/config_{$this->getEnvironment()}.yml");
+        $configFile = _XE_PATH_ . "files/config/config_{$this->getEnvironment()}.yml";
+        //fallback for installer
+        if (!file_exists($configFile)){
+            $configFile = _XE_PATH_ . "config/config_{$this->getEnvironment()}.base.yml";
+        }
+        $loader->load($configFile);
     }
 
     /**

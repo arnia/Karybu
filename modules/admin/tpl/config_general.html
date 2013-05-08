@@ -303,3 +303,73 @@ jQuery(function($){
     </fieldset>
 
 </form>
+
+<fieldset class="section">
+
+    <h3 class="h3">{$lang->subtitle_debug}</h3>
+    <p>Current env is {@ echo KARYBU_ENVIRONMENT}.</p>
+    <div class="tabbable"> <!-- Only required for left/right tabs -->
+        <ul class="nav nav-tabs">
+            <!--@foreach($environments as $key=> $env)-->
+            <li<!--@if($env==KARYBU_ENVIRONMENT)--> class="active"<!--@end-->>
+                <a href="#tab{$key}" data-toggle="tab">{$env}</a>
+            </li>
+            <!--@endforeach-->
+        </ul>
+        <div class="tab-content">
+            <!--@foreach($environments as $key=> $env)-->
+            <div class="tab-pane<!--@if($env==KARYBU_ENVIRONMENT)--> active<!--@end-->" id="tab{$key}" >
+                <form action="./" method="post" id="ftp_form" class="form form-horizontal" enctype="multipart/form-data">
+                    <input type="hidden" name="module" value="install" />
+                    <input type="hidden" name="act" value="procInstallAdminDebug" />
+                    <input type="hidden" name="debug_env" value="{$env}" />
+                    <div class="control-group">
+                        <label class="control-label" for="level{$key}">Level</label>
+                        <div class="controls">
+                            <select name="level" id="level{$key}">
+                                <!--@foreach($debug_levels as $code=>$name)-->
+                                <option value="{$code}">{$name}</option>
+                                <!--@endforeach-->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="toolbar{$key}">Toolbar</label>
+                        <div class="controls">
+                            <select name="toolbar" id="toolbar{$key}">
+                                <option value="false">{$lang->no}</option>
+                                <option value="true">{$lang->yes}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="slow_queries_threshold{$key}">Slow queries threshold (ms)</label>
+                        <div class="controls">
+                            <input type="text" name="slow_queries_threshold" id="slow_queries_threshold{$key}" />
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="handlers{$key}">Toolbar</label>
+                        <div class="controls">
+                            <select name="handlers[]" id="handlers{$key}" multiple="multiple">
+                                <!--@foreach($debug_handlers as $code=>$name)-->
+                                <option value="{$code}">{$name}</option>
+                                <!--@endforeach-->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="control-group" >
+                        <div class="controls">
+                            <input type="submit" value="{$lang->cmd_save}" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--@endforeach-->
+        </div>
+    </div>
+</fieldset>

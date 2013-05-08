@@ -3790,4 +3790,7 @@
     <item name="go">
         <value xml:lang="en"><![CDATA[Go]]></value>
     </item>
+    <item name="yes">
+        <value xml:lang="en"><![CDATA[Yes]]></value>
+    </item>
 </lang>
