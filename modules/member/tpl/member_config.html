@@ -242,14 +242,16 @@
                     <div class="help-block">{$lang->multi_line_input}</div>
                 </div>
                 <div class="span6">
-                    <table class="table table-hover table-condensed table-striped" id="deniedNickNameList">
-                        <tr loop="$deniedNickNames=>$nicknameInfo" id="denied_{$nicknameInfo->nick_name}">
-                            <td>
-                                {$nicknameInfo->nick_name} <a href="#" class="close" title="{$lang->delete}"
-                                                              onclick="doUpdateDeniedNickName('{$nicknameInfo->nick_name}','delete','{$lang->confirm_delete}');return false;">&times;</a>
-                            </td>
-                        </tr>
-                    </table>
+                    <div class="scrollable-table-container">
+                        <table class="table table-hover table-condensed table-striped" id="deniedNickNameList">
+                            <tr loop="$deniedNickNames=>$nicknameInfo" id="denied_{$nicknameInfo->nick_name}">
+                                <td>
+                                    {$nicknameInfo->nick_name} <a href="#" class="close" title="{$lang->delete}"
+                                                                  onclick="doUpdateDeniedNickName('{$nicknameInfo->nick_name}','delete','{$lang->confirm_delete}');return false;">&times;</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
 
             </div>
@@ -272,7 +274,7 @@
                 </div>
 
                 <div class="span6">
-                    <div id="scrollable-denied-id">
+                    <div class="scrollable-table-container">
                         <table class="table table-hover table-condensed table-striped" id="deniedList">
                             <tr loop="$deniedIDs=>$denied_info" id="denied_{$denied_info->user_id}">
                                 <td>
@@ -520,7 +522,7 @@
 <script>
     (function ($) {
         $(window).load(function () {
-            $("#scrollable-denied-id").mCustomScrollbar({
+            $(".scrollable-table-container").mCustomScrollbar({
                 scrollButtons:{
                     enable:true
                 },

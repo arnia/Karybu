@@ -957,7 +957,7 @@ button.dragBtn {
     margin-bottom:20px;
 }
 
-#scrollable-denied-id {
+.scrollable-table-container {
     height: 173px;
     overflow: auto;
     -webkit-border-radius: 5px;
@@ -967,11 +967,11 @@ button.dragBtn {
     border-collapse: separate;
 }
 
-#scrollable-denied-id table td {
+.scrollable-table-container table td {
     padding-right: 20px;
 }
 
-#scrollable-denied-id tr:first-child td
+.scrollable-table-container tr:first-child td
 {
     border-top: none;
 }
@@ -1127,6 +1127,10 @@ button.sTog {padding: 4px 10px 8px;
 
 
 /* TABLETS RESOLUTION */
+
+
+
+
 
 @media (max-width: 767px) {
 
@@ -1514,11 +1518,3 @@ margin:-1px;
 
 /* EXPERIMENTS */
 
-table,
-img,
-.mCSB_scrollTools
-{
-    transition: all .5s;
-    -webkit-transition: all .5s;
-
-}
