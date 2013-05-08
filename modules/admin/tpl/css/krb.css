@@ -86,6 +86,7 @@ blockquote.pull-right {
     z-index: 99;
     position: fixed;
     width: 100%;
+    top:120px;
 }
 
 .main-nav {
@@ -1495,6 +1496,7 @@ margin:-1px;
 
 .kBigHeader .pagetitle-fixed {
     margin-top: -120px;
+    top:120px;
 }
 
 .kBigHeader .main-nav-holder {

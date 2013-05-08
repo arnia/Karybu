@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+    <grants>
+	</grants>
+    <permissions>
+<!-- You can see below some examples for the permissions section -->
+<!--
+	<permission action="procmobile_communicationAdminMethodName" target="manager" />
+	<permission action="dispmobile_communicationAdminMethodName" target="manager" />
+-->
+	</permissions>
+    <actions>
+<!-- You can see below some examples for the actions section -->
+<!--
+	<action name="dispmobile_communicationIndex" type="view" index="true" />
+	<action name="dispmobile_communicationAdminMethodName" type="view" admin_index="true" menu_name="menu_name" menu_index="true" />
+	<action name="dispmobile_communicationAdminMethodName" type="view" menu_name="menu_name" />
+	<action name="dispmobile_communicationAdminMethodName" type="view" menu_name="menu_name" />
+	
+	<action name="procmobile_communicationAdminMethodName" type="controller" standalone="true" />
+	<action name="procmobile_communicationAdminMethodName" type="controller" standalone="true" ruleset="rulesetName" />
+-->
+        <action name="procmobile_communicationLogin" type="controller" standalone="true"/>
+        <action name="procmobile_communicationLogout" type="controller" standalone="true"/>
+        <action name="procmobile_communicationDisplayMenu" type="controller" standalone="true"/>
+        <action name="procmobile_communicationDisplayPages" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationDisplayMembers" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationDisplayMenu2" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationCheckTextyle" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationCheckTextyleAndForum" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationDeleteMenuItem" type="controller"
+        standalone="true"/>
+        <action name="procmobile_communicationMenuDelete" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationMenuInsert" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationPageInsert" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationListModules" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationMenuItem" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationLoadSettings" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationArticleContent" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationArticleTitle" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationTextyleList" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationTextylePostList" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationContentForPost" type = "controller"
+            standalone="true"/>
+        <action name="procmobile_communicationShowComments" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationTextyleStats" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationTextyleSkins" type ="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationExtraMenuList" type = "controller"
+            standalone="true"/>
+        <action name="procmobile_communicationContentPage" type="controller" standalone="true"/>
+        <action name="procmobile_communicationToolConfig" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationGetSkins" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationViewerData" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationEditMember" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationGetLayout" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationPopUpComment" type="controller"
+            standalone="true"/>
+        <action name="procmobile_communicationRegistreForPopUp" type="controller" standalone="true"/>
+        <action name="procmobile_communicationPopUpCommentAndroid" type="controller" standalone="true"/>
+        <action name="procmobile_communicationRegistreForPopUpAndroid" type="controller" standalone="true"/>
+        <action name="procmobile_communicationUnregistreForPopUpAndroid" type="controller" standalone="true" />
+        <action name="procmobile_communicationGetThemes" type="controller" standalone="true" />
+        <action name="procmobile_communicationArrangeMenu" type="controller" standalone="true" />
+	</actions>
+	<menus>
+<!-- You can see below some examples for the menus section -->
+<!--
+	<menu name="menu_name" type="all">
+			<title xml:lang="en">Title english translation value</title>
+			<title xml:lang="ko">???</title>
+			<title xml:lang="zh-CN">???</title>
+			<title xml:lang="jp">???</title>
+			<title xml:lang="es">???</title>
+			<title xml:lang="ru">???</title>
+			<title xml:lang="fr">???</title>
+			<title xml:lang="zh-TW">???</title>
+			<title xml:lang="vi">???</title>
+			<title xml:lang="mn">???</title>
+			<title xml:lang="tr">???</title>
+	</menu>
+-->
+	</menus>
+</module>
