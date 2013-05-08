@@ -307,18 +307,18 @@ jQuery(function($){
 <fieldset class="section">
 
     <h3 class="h3">{$lang->subtitle_debug}</h3>
-    <p>Current env is {_XE_ENV_}</p>
+    <p>Current env is {@ echo KARYBU_ENVIRONMENT}.</p>
     <div class="tabbable"> <!-- Only required for left/right tabs -->
         <ul class="nav nav-tabs">
             <!--@foreach($environments as $key=> $env)-->
-            <li<!--@if($env==_XE_ENV_)--> class="active"<!--@end-->>
+            <li<!--@if($env==KARYBU_ENVIRONMENT)--> class="active"<!--@end-->>
                 <a href="#tab{$key}" data-toggle="tab">{$env}</a>
             </li>
             <!--@endforeach-->
         </ul>
         <div class="tab-content">
             <!--@foreach($environments as $key=> $env)-->
-            <div class="tab-pane<!--@if($env==_XE_ENV_)--> active<!--@end-->" id="tab{$key}" >
+            <div class="tab-pane<!--@if($env==KARYBU_ENVIRONMENT)--> active<!--@end-->" id="tab{$key}" >
                 <form action="./" method="post" id="ftp_form" class="form form-horizontal" enctype="multipart/form-data">
                     <input type="hidden" name="module" value="install" />
                     <input type="hidden" name="act" value="procInstallAdminDebug" />
