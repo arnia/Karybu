@@ -1,5 +1,5 @@
 <?php
-	/**
+    /**
 	 * adminAdminView class
 	 * Admin view class of admin module
 	 *
@@ -407,10 +407,30 @@
 			$config = $oModuleModel->getModuleConfig('module');
        		Context::set('htmlFooter',$config->htmlFooter);
 
-
 			$columnList = array('modules.mid', 'modules.browser_title', 'sites.index_module_srl');
 			$start_module = $oModuleModel->getSiteInfo(0, $columnList);
             Context::set('start_module', $start_module);
+
+            $yaml = new \Symfony\Component\Yaml\Parser();
+            $currentSettings = $yaml->parse(file_get_contents(_XE_PATH_.'files/config/config_dev.yml'));
+//            echo "<pre>"; print_r($currentSettings);exit;
+
+            Context::set('environments', array('dev', 'prod'));
+            //TODO: translate values
+            Context::set('debug_levels', array(
+                'debug'     =>"DEBUG",
+                'info'      =>"INFO",
+                'warning'   =>"WARNING",
+                'error'     =>"ERROR",
+                'critical'  =>"CRITICAL",
+                'alert'     =>"ALERT"
+            ));
+
+            Context::set('debug_handlers', array(
+                'files'     =>"FILES",
+                'chrome'    =>"CHROME",
+                'firebug'   =>"FIREBUG",
+            ));
 
             Context::set('pwd',$pwd);
             $this->setTemplateFile('config_general');
@@ -533,7 +553,7 @@
 
 			// layout list
 			$oLayoutModel = &getModel('layout');
-			// theme 정보 읽기
+
 
 			$oAdminModel = &getAdminModel('admin');
 			$theme_list = $oAdminModel->getThemeList();
@@ -558,7 +578,7 @@
 			Context::set('theme_list', $theme_list);
 			Context::set('layout_list', $layout_list);
 
-			// 설치된module 정보 가져오기
+
 			$module_list = $oAdminModel->getModulesSkinList();
 			Context::set('module_list', $module_list);
 

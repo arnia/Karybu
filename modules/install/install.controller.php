@@ -674,8 +674,10 @@ class installController extends install
         foreach ($files as $file){
             $destination = './files/config/'.$file.'.yml';
             $source = '../../config/'.$file.'.base.yml';
-            $content = 'imports:'."\n";
-            $content .= '    - { resource: '.$source.' }';
+            $values = array();
+            $values['imports'][0][resource] = '../../config/'.$file.'.base.yml';
+            $dumper = new \Symfony\Component\Yaml\Dumper();
+            $content = $dumper->dump($values, 2);
             FileHandler::writeFile($destination, $content);
         }
 
