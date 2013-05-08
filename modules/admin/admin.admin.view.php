@@ -114,6 +114,7 @@
             $oAdminAdminModel = getAdminModel('admin');
 
             $main_menu = $oAdminAdminModel->getMainMenuItems();
+
             Context::set('main_menu',$main_menu);
         }
 
@@ -143,7 +144,9 @@
 			$menu_info = $oMenuAdminModel->getMenuByTitle('__XE_ADMIN__');
 			Context::set('admin_menu_srl', $menu_info->menu_srl);
 
-			if(!is_readable($menu_info->php_file)) return;
+			if(!is_readable($menu_info->php_file)) {
+                return;
+            }
 
 			include $menu_info->php_file;
 

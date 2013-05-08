@@ -610,7 +610,14 @@ class ModuleHandlerInstance extends Handler
                     // Set menus into context
                     if ($layout_info->menu_count) {
                         foreach ($layout_info->menu as $menu_id => $menu) {
-                            if (file_exists($menu->php_file)) {
+                            if (!file_exists($menu->php_file)) {
+                                //create menu cache if it doesn't exist
+                                $oMenuAdminController = getAdminController('menu');
+                                Context::set('menu_srl', $menu->menu_srl);
+                                $oMenuAdminController->procMenuAdminMakeXmlFile();
+                            }
+                            //failsave in case the cache is not created
+                            if (file_exists($menu->php_file)){
                                 include($menu->php_file);
                             }
                             $this->context->set($menu_id, $menu);

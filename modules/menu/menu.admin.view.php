@@ -64,9 +64,11 @@
 				else $site_srl = (int)$site_module_info->site_srl;
 			}
 
-			$oMenuAdminModel = &getAdminModel('menu');
+			$oMenuAdminModel = getAdminModel('menu');
 			$menuListFromDB = $oMenuAdminModel->getMenus();
-			if(is_array($menuListFromDB)) $output = array_reverse($menuListFromDB);
+			if(is_array($menuListFromDB)) {
+                $output = array_reverse($menuListFromDB);
+            }
 
 			$menuList = array();
 			if(is_array($output))
@@ -74,15 +76,25 @@
 				$menuItems = array();
 				foreach($output AS $key=>$value)
 				{
-					if($value->title == '__XE_ADMIN__') unset($output[$key]);
+					if($value->title == '__XE_ADMIN__') {
+                        unset($output[$key]);
+                    }
 					else
 					{
 						unset($menu);
 						unset($menuItems);
 						//$value->xml_file = sprintf('./files/cache/menu/%s.xml.php',$value->menu_srl);
 						$value->php_file = sprintf('./files/cache/menu/%s.php',$value->menu_srl);
-						if(file_exists($value->php_file)) include($value->php_file);
-
+						if(!file_exists($value->php_file)) {
+                            //create menu cache if it doesn't exist
+                            $oMenuAdminController = getAdminController('menu');
+                            Context::set('menu_srl', $value->menu_srl);
+                            $oMenuAdminController->procMenuAdminMakeXmlFile();
+                        }
+                        //failsafe in case the cache is not created
+                        if(file_exists($value->php_file)) {
+                            include($value->php_file);
+                        }
 						if(count($menu->list)>0)
 						{
 							foreach($menu->list AS $key2=>$value2)
