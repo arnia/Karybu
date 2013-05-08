@@ -157,33 +157,36 @@ class admin extends ModuleObject
                 'subMenu' => array('theme'),
             ),
             12 => array(
-                'module' => 'autoinstall',
-                'subMenu' => array('easyInstall'),
+                'module' => 'module',
+                'subMenu' => array('installedModule'),
             ),
             13 => array(
                 'module' => 'layout',
                 'subMenu' => array('installedLayout'),
             ),
+
             14 => array(
-                'module' => 'module',
-                'subMenu' => array('installedModule'),
-            ),
-            15 => array(
                 'module' => 'widget',
                 'subMenu' => array('installedWidget'),
             ),
-            16 => array(
+            15 => array(
                 'module' => 'addon',
                 'subMenu' => array('installedAddon'),
             ),
-            17 => array(
+            16 => array(
                 'module' => 'editor',
                 'subMenu' => array('editor'),
             ),
-            18 => array(
+            17 => array(
                 'module' => 'spamfilter',
                 'subMenu' => array('spamFilter'),
             ),
+
+            18 => array(
+                'module' => 'autoinstall',
+                'subMenu' => array('easyInstall'),
+            ),
+
             19 => array(
                 'module' => 'admin',
                 'subMenu' => array('adminConfigurationGeneral', 'adminConfigurationFtp', 'adminMenuSetup'),
