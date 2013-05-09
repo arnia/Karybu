@@ -308,8 +308,8 @@ class HTMLDisplayHandler {
 		// for admin page, add admin css
 		if(Context::get('module')=='admin' || strpos(Context::get('act'),'Admin')>0){
             if(__DEBUG__) {
-                $oContext->loadFile(array('./common/css/bootstrap.css', 'all', '', 100000), true);
-                $oContext->loadFile(array('./common/css/bootstrap-responsive.css', 'all', '', 100000), true);
+                $oContext->loadFile(array('./common/css/bootstrap.css', 'all', '', -100000), true);
+                $oContext->loadFile(array('./common/css/bootstrap-responsive.css', 'all', '', -100000), true);
                 $oContext->loadFile(array('./modules/admin/tpl/css/admin.css', 'all', '', 100000), true);
                 $oContext->loadFile(array('./modules/admin/tpl/css/krb.css', 'all', '', 100000), true);
                 $oContext->loadFile('./modules/admin/tpl/js/admin.js', true);
