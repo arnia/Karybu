@@ -41,11 +41,14 @@
     <div class="brand">
         <div class="row-fluid">
 
-            <div class="span8"><a href="{getUrl('','module','admin')}" class="logo"><img src="{getUrl('')}{$gnb_title_info->adminLogo}" alt="{$gnb_title_info->adminTitle}"/></a></div>
+            <div class="span8"><a href="{getUrl('','module','admin')}" class="logo"><img src="{$gnb_title_info->adminLogo}" alt="{$gnb_title_info->adminTitle}"/></a></div>
             <div class="toggle-sidebar visible-phone pull-right" id="kMenuButton"></div>
             <div class="span4">
                 <div class="dropdown pull-right">
-                    <a class="dropdown-toggle admin" data-toggle="dropdown" href="#"><img src="img/admin.png"/></a>
+                    <a class="dropdown-toggle admin" data-toggle="dropdown" href="#">
+                        <img src="{$logged_info->profile_image->src}" cond="isset($logged_info->profile_image->src)"/>
+                        <img src="img/admin.png" cond="!isset($logged_info->profile_image->src)"/>
+                    </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                         <ul class="unstyled">
                             <li>
