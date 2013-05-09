@@ -25,6 +25,8 @@ class ModuleInstanceRetriever {
 
         if (!$module_info) {
             $module_info = $this->findModuleInfoByDocumentSrl($document_srl);
+            if(!$module_info && $document_srl)
+                throw new Exception\ModuleDoesNotExistException();
         }
 
         if(!$module_info) {

@@ -622,7 +622,7 @@ class ModuleObject extends Module
                 return false;
             }
         }
-        // execute api methos of the module if view action is and result is XMLRPC or JSON
+        // execute api methods of the module if view action is and result is XMLRPC or JSON
         if ($this->module_info->module_type == 'view') {
             if (Context::getResponseMethod() == 'XMLRPC' || Context::getResponseMethod() == 'JSON') {
                 $oAPI = getAPI($this->module_info->module, 'api');
