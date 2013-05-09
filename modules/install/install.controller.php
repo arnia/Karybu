@@ -105,7 +105,12 @@ class installController extends install
         // Set DB type and information
         Context::setDBInfo($db_info);
         // Create DB Instance
-        $oDB = & DB::getInstance();
+        try {
+            $oDB = & DB::getInstance();
+        } catch(\Karybu\Exception\DBConnectionFailedException $e) {
+            return new Object(-1, $e->getMessage());
+        }
+
         // Check if available to connect to the DB
         $output = $oDB->getError();
         if (!$output->toBool()) {

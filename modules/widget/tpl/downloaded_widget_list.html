@@ -1,14 +1,8 @@
 <include target="header.html" />
 
-<table class="table table-striped table-hover dsTg">
+<table class="table table-condensed table-bordered table-hover easyList dsTg">
     <caption>
-        <p class="pull-left">All({$tCount})</p>
-        <p class="pull-right">
-            <a href="#" class="toggleBtn btn">
-                <span class="hide">{$lang->simple_view}</span>
-                <span class="show">{$lang->detail_view}</span>
-            </a>
-        </p>
+        <span>All({$tCount})</span>
     </caption>
     <thead>
         <tr>
@@ -16,15 +10,13 @@
             <th scope="col" class="nowr">{$lang->version}</th>
             <th scope="col" class="nowr">{$lang->author}</th>
             <th scope="col" class="nowr">{$lang->path}</th>
-            <th scope="col" class="nowr">{$lang->cmd_generate_code}</th>
-            <th scope="col" class="nowr">{$lang->cmd_delete}</th>
+            <th scope="col" class="nowr">{$lang->actions}</th>
         </tr>
     </thead>
     <tbody>
         <tr loop="$widget_list => $widget">
-            <td class="title">
+            <td class="title" data-toggle="tooltip" data-container=".easyList" title="{$widget->description}">
                 <p><strong>{$widget->title}</strong></p>
-                <p>{$widget->description}</p>
                 <p cond="$widget->need_update == 'Y'" class="update">
                     {$lang->msg_avail_easy_update} <a href="{$widget->update_url}&amp;return_url={urlencode(getRequestUriByServerEnviroment())}">{$lang->msg_do_you_like_update}</a>
                 </p>
@@ -37,8 +29,9 @@
                 </block>
             </td>
             <td class="nowr">{$widget->path}</td>
-            <td class="nowr"><a href="{getUrl('act', 'dispWidgetAdminGenerateCode', 'selected_widget', $widget->widget)}">{$lang->cmd_generate_code}</a></td>
-            <td class="nowr"><a cond="$widget->remove_url" href="{$widget->remove_url}&amp;return_url={urlencode(getRequestUriByServerEnviroment())}">{$lang->cmd_delete}</a></td>
+            <td class="nowr"><div class="kActionIcons"><a href="{getUrl('act', 'dispWidgetAdminGenerateCode', 'selected_widget', $widget->widget)}" data-toggle="tooltip" title="{$lang->cmd_generate_code}"><i class="kGenerateCode">{$lang->cmd_generate_code}</i></a>
+                <a cond="$widget->remove_url" href="{$widget->remove_url}&amp;return_url={urlencode(getRequestUriByServerEnviroment())}" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kDelete">{$lang->cmd_delete}</i></a>
+            </div></td>
         </tr>
     </tbody>
 </table>

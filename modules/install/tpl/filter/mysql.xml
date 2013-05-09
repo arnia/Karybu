@@ -4,7 +4,7 @@
         <node target="db_hostname" required="true" minlength="1" maxlength="250" />
         <node target="db_port" minlength="1" maxlength="250" />
         <node target="db_userid" required="true" minlength="1" maxlength="250" />
-        <node target="db_password" required="true" minlength="1" maxlength="250" />
+        <node target="db_password" minlength="0" maxlength="250" />
         <node target="db_database" required="true" minlength="1" maxlength="250" />
         <node target="db_table_prefix" required="true" minlength="2" maxlength="20" filter="alpha" />
     </form>

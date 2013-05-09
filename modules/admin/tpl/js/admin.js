@@ -1424,7 +1424,7 @@ jQuery(function($){
 	});
 });
 jQuery(document).ready(function($){
-    $('.kActionIcons').tooltip({
-        selector: "a[data-toggle=tooltip],button[data-toggle=tooltip]"
+    $('body').tooltip({
+        selector: "a[data-toggle=tooltip],button[data-toggle=tooltip],td[data-toggle=tooltip]"
     })
 });
