@@ -156,7 +156,7 @@
             Context::set('document_list', $output->data);
             Context::set('page_navigation', $output->page_navigation);
 
-            Context::addCssFile('./modules/admin/tpl/css/bootstrap.css');
+            Context::addCssFile('./common/css/bootstrap.css');
             $this->setTemplatePath($this->module_path.'tpl');
             $this->setTemplateFile('saved_list_popup');
 		}
