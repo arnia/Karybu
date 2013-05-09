@@ -16,7 +16,7 @@
     <input type="hidden" name="act" value="{$act}" />
     <input type="hidden" name="selected_date" id="selected_date" value="{zDate('Ymd',$selected_date)}" />
 	<div class="table">
-		<table width="100%" border="1" cellspacing="0">
+		<table class="table table-striped table-condensed">
 			<thead>
 			<tr>
 				<th scope="row">{$lang->total_counter}</th>
@@ -59,7 +59,7 @@
 	</div>
     </form>
 	<div class="cnb">
-		<ul>
+		<ul class="nav nav-tabs">
 			<!--@foreach($lang->cmd_select_counter_type as $key => $val)-->
 			<li <!--@if($type==$key || (!$type && $key == "hour"))-->class="active"<!--@end-->><a href="{getUrl('type',$key)}">{$val}</a></li>
 			<!--@end-->
@@ -67,7 +67,6 @@
 	</div>
 
 
-<!-- 일자를 옮기는 form -->
 <form action="./" method="get" id="fo_counter">
     <input type="hidden" name="module" value="{$module}" />
     <input type="hidden" name="act" value="{$act}" />
@@ -75,9 +74,9 @@
 </form>
 
 
-<!-- unique visitor 그래프 -->
+<!-- unique visitors -->
 <div class="table">
-	<table width="100%" border="1" cellspacing="0">
+	<table class="table table-hover visitors">
 	<!--@foreach($detail_status->list as $key => $val)-->
 		<!--@if($detail_status->sum>0)-->
 			{@$percent   = sprintf("%0.2f", $val / $detail_status->sum * 100 )}
@@ -88,7 +87,7 @@
 		<!--@end-->
 	<tr>
 		<!--@if(Context::getLangType()=='en')-->
-		<th scope="row"> <!--// 시간대별 -->
+		<th scope="row" width="10%"> <!--// 시간대별 -->
 			<!--@if($type == 'year')-->
 				<em>{$key}</em>
 			<!--@elseif($type == 'month')-->
@@ -110,11 +109,11 @@
 				<em>{$key}</em> {$lang->unit_hour}
 			<!--@end-->			</th>
 		<!--@end-->
-		{@ $img_width = (int)$percent; $img_width = $img_width?$img_width.'%':'3px'; }
-		<td >
-			<div class="barContainer">
-				<span class="graphHr" style="width:{$img_width}">
-					<span>{number_format($val)}({$percent}%)</span>
+		{@ $img_width = (int)$percent; $img_width = $img_width?$img_width.'%':'0px'; }
+		<td>
+			<div class="barContainer progress">
+				<span class="graphHr bar" style="width:{$img_width}">
+					<span>{number_format($val)} ({$percent}%)</span>
 				</span>
 			</div>
 		</td>

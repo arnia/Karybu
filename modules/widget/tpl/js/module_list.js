@@ -76,6 +76,9 @@ xe.ModuleListManager = xe.createApp("ModuleListManager", {
 				var obj = $(document.createElement('option'));
 				obj.val(module.module_srl).html(module.browser_title+' ('+module.module_name+')').appendTo(self.$selectedObj);
 			}
+
+            self.removeDuplicated();
+            self.refreshValue();
 		}
 
 		$.exec_json('module.getModuleAdminModuleList', {'module_srls': values}, on_complete);

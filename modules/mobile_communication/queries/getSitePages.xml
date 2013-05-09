@@ -1,0 +1,29 @@
+<query id="getSiteModules" action="select">
+    <tables>
+        <table name="sites" />
+        <table name="modules" />
+        <table name="module_extra_vars" alias="MEV"/>
+    </tables>
+    <columns>
+        <column name="sites.domain" />
+        <column name="modules.site_srl" />
+        <column name="modules.module" />
+        <column name="modules.module_category_srl" />
+        <column name="modules.layout_srl" />
+        <column name="modules.mid" />
+        <column name="modules.browser_title" />
+        <column name="modules.module_srl" />
+        <column name="MEV.value" alias="page_type"/>
+    </columns>
+    <conditions>
+        <condition operation="equal" column="sites.site_srl" var="site_srl" />
+        <condition operation="equal" column="sites.domain" var="site_keyword" pipe="and" />
+        <condition operation="equal" column="sites.site_srl" default="modules.site_srl" pipe="and" />
+        <condition operation="equal" column="MEV.module_srl" default="modules.module_srl" pipe="and" />
+        <condition operation="equal" column="MEV.name" default="page_type" pipe="and" />
+    </conditions>
+    <navigation>
+        <index  var="sort_index1" default="modules.module" order="asc" />
+        <index  var="sort_index2" default="modules.mid" order="asc" />
+    </navigation>
+</query>

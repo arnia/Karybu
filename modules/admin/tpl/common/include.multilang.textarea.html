@@ -7,7 +7,7 @@
 		<ul class="langList"></ul>
 		<div class="langInput form">
 			<h2>{$lang->multilingual} <strong>{$lang->cmd_modify}...</strong> | <a href="#langEdit">{$lang->cmd_insert}</a></h2>
-			<ul>
+			<ul class="unstyled">
 				{@
 					/* move current language to the top */
 					$a = array($lang_type=>$lang_supported[$lang_type]);
@@ -17,9 +17,7 @@
 				<li loop="$lang_supported=>$code,$name" class="{$code}"><label for="{$code}_var1">{$name}</label> <textarea id="{$code}_var1" rows="8" cols="42"></textarea></li>
 			</ul>
 			<div class="action">
-				<div class="btnArea">
-					<span class="btn small"><input type="submit" value="{$lang->use}|{$lang->use_after_save}" /></span>
-				</div>
+	    		<input type="submit" value="{$lang->use}|{$lang->use_after_save}" class="btn btn-primary" />
 				<p><a href="{getUrl('act','dispModuleAdminLangcode')}">{$lang->multilingual_manager}</a></p>
 			</div>
 		</div>

@@ -395,7 +395,9 @@
 
 			if (!$updateDate)
 			{
-				return $this->stop('msg_connection_fail');
+				//return $this->stop('msg_connection_fail');
+                $this->dispAutoinstallStillInProgress();
+                return;
 			}
 
             $oModel = &getModel('autoinstall');
@@ -457,6 +459,10 @@
 
         }
 
+        function dispAutoinstallStillInProgress(){
+            $this->setTemplateFile('still_in_progress');
+        }
+
 		/**
 		 * Display category
 		 *
@@ -467,6 +473,20 @@
             $oModel = &getModel('autoinstall');
             $this->categories = &$oModel->getCategoryList();
             Context::set('categories', $this->categories);
+
+            $current_category = Context::get('category_srl');
+
+            $current_parent_category = null;
+            $tmp_category = $current_category;
+            while(!$current_parent_category) {
+                if($this->categories[$tmp_category]->depth == 0) {
+                    $current_parent_category = $this->categories[$tmp_category]->category_srl;
+                    break;
+                }
+
+                $tmp_category = $this->categories[$tmp_category]->parent_srl;
+            }
+            Context::set('current_parent_category', $current_parent_category);
         }
 
 		/**

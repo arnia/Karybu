@@ -52,7 +52,7 @@ if(file_exists(_XE_PATH_.'config/package.inc.php')) {
     /**
      * Download server
      */
-    define('_XE_DOWNLOAD_SERVER_','http://en.download.xpressengine.org/');
+    define('_XE_DOWNLOAD_SERVER_','http://en.download.karybu.org/');
 }
 
 /*

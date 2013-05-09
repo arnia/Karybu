@@ -297,29 +297,29 @@ class HTMLDisplayHandler {
 			$oContext->loadFile(array('./common/js/js_app.js', 'head', '', -100000), true);
 			$oContext->loadFile(array('./common/js/xml_handler.js', 'head', '', -100000), true);
 			$oContext->loadFile(array('./common/js/xml_js_filter.js', 'head', '', -100000), true);
-			$oContext->loadFile(array('./common/css/xe.css', 'all', '', -100000), true);
+			//$oContext->loadFile(array('./common/css/xe.css', 'all', '', -100000), true);
 		} else {
 			$oContext->loadFile(array('./common/js/jquery.min.js', 'head', '', -100000), true);
 			$oContext->loadFile(array('./common/js/x.min.js', 'head', '', -100000), true);
 			$oContext->loadFile(array('./common/js/xe.min.js', 'head', '', -100000), true);
-			$oContext->loadFile(array('./common/css/xe.min.css', 'all', '', -100000), true);
+			//$oContext->loadFile(array('./common/css/xe.min.css', 'all', '', -100000), true);
 		}
 
 		// for admin page, add admin css
 		if(Context::get('module')=='admin' || strpos(Context::get('act'),'Admin')>0){
             if(__DEBUG__) {
-                $oContext->loadFile(array('./modules/admin/tpl/css/bootstrap.css', 'all', '', 100000), true);
-                $oContext->loadFile(array('./modules/admin/tpl/css/bootstrap-responsive.css', 'all', '', 100000), true);
+                $oContext->loadFile(array('./common/css/bootstrap.css', 'all', '', -100000), true);
+                $oContext->loadFile(array('./common/css/bootstrap-responsive.css', 'all', '', -100000), true);
                 $oContext->loadFile(array('./modules/admin/tpl/css/admin.css', 'all', '', 100000), true);
                 $oContext->loadFile(array('./modules/admin/tpl/css/krb.css', 'all', '', 100000), true);
                 $oContext->loadFile('./modules/admin/tpl/js/admin.js', true);
-				$oContext->loadFile('./modules/admin/tpl/js/bootstrap.js', true);
+				$oContext->loadFile('./common/js/bootstrap.js', true);
 			} else {
-				$oContext->loadFile(array('./modules/admin/tpl/css/bootstrap.min.css', 'all', '', 100000), true);
-                $oContext->loadFile(array('./modules/admin/tpl/css/bootstrap-responsive.min.css', 'all', '', 100000), true);
+				$oContext->loadFile(array('./common/css/bootstrap.min.css', 'all', '', 100000), true);
+                $oContext->loadFile(array('./common/css/bootstrap-responsive.min.css', 'all', '', 100000), true);
                 $oContext->loadFile(array('./modules/admin/tpl/css/admin.css', 'all', '', 100000), true);
                 $oContext->loadFile('./modules/admin/tpl/js/admin.min.js', true);
-				$oContext->loadFile('./modules/admin/tpl/js/bootstrap.js', true);
+				$oContext->loadFile('./common/js/bootstrap.js', true);
 			}
 		}
 	}

@@ -583,9 +583,40 @@
             $main_menu = $oMenuAdminModel->getMenu($default_layout->main_menu);
             $output = $oMenuAdminModel->getMenuItems($main_menu->menu_srl);
             $main_menu->items = $output->data;
+            if(count($main_menu->items)>0)
+            {
+                foreach($main_menu->items AS $key2=>$value2)
+                {
+                    $this->_setMenuIndexUrl($main_menu->items[$key2]);
+                }
+            }
 
             return $main_menu;
 
+        }
+
+        /**
+         * Setting menu information(recursive)
+         * @param array $menu
+         * @return void
+         */
+        function _setMenuIndexUrl($menu)
+        {
+            $oModuleModel = &getModel('module');
+            if($menu->url && !preg_match('/^http/i', $menu->url))
+            {
+                unset($midInfo);
+                unset($moduleInfo);
+                $midInfo = $oModuleModel->getModuleInfoByMid($menu->url, 0);
+                $moduleInfo = $oModuleModel->getModuleInfoXml($midInfo->module);
+                if($moduleInfo->setup_index_act)
+                {
+                    $menu->module_srl = $midInfo->module_srl;
+                    $menu->setup_index_act = $moduleInfo->setup_index_act;
+                }
+                // setting layout srl for layout management
+                $menu->layout_srl = $midInfo->layout_srl;
+            }
         }
 
         /**

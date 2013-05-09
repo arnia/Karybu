@@ -1,4 +1,4 @@
-<load target="css/bootstrap.min.css" xmlns="http://www.w3.org/1999/html"/>
+<load target="../../common/css/bootstrap.min.css" xmlns="http://www.w3.org/1999/html"/>
 <load target="css/style.css"/>
 <load target="css/edit.css"/>
 <div id="header" class="zone">
@@ -40,13 +40,12 @@
                         </ul>
                     </div><!--/.nav-collapse -->
                     <div class="pull-right nav-righthand">
-                        <a class="btn btn-inverse search" role="button" class="btn"><i class="icon-search icon-white"></i></a>
+                        <a class="btn btn-inverse search" data-toggle="tooltip" data-placement="bottom" title="{$lang->cmd_search}"  role="button" class="btn"><i class="icon-search icon-white"></i></a>
                         <div id="searchForm" class="input-append">
-                            <form action="{getUrl()}" method="get">
+                            <form action="{getUrl()}" method="get"><input type="hidden" name="vid" value="{$vid}" />
+                                <input type="hidden" name="mid" value="{$mid}" />
+                                <input type="hidden" name="act" value="IS" />
                                 <div>
-                                    <input type="hidden" name="vid" value="{$vid}" />
-                                    <input type="hidden" name="mid" value="{$mid}" />
-                                    <input type="hidden" name="act" value="IS" />
                                     <input class="span2" type="text" name="is_keyword"  value="{$is_keyword}" />
                                     <button class="btn" type="submit" value="">{$lang->cmd_search}</button>
                                 </div>
@@ -182,4 +181,4 @@
         </div>
     </div>
 
-<load target="js/bootstrap.js" />
+<load target="../../common/js/bootstrap.js" />

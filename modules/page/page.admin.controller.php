@@ -295,8 +295,27 @@
             // 이미 존재하는 경우 수정
             if($oDocument->isExists() && $oDocument->document_srl == $obj->document_srl) 
 			{
-                $output = $oDocumentController->updateDocument($oDocument, $obj);
-                $msg_code = 'success_updated';
+                if($oDocument->variables["status"] == 'TEMP'){
+                    if($obj->ismobile == 'Y')
+                    {
+                        $target = 'mdocument_srl';
+                    }
+                    else
+                    {
+                        $target = 'document_srl';
+                    }
+
+
+                    $oModuleController = &getController('module');
+                    $this->module_info->{$target} = $oDocument->document_srl;
+                    $output = $oModuleController->updateModule($this->module_info);
+                    $oDocument->variables["status"] == 'PUBLIC';
+                    $output = $oDocumentController->updateDocument($oDocument, $obj);
+                    $msg_code = 'success_registed';
+                }else{
+                    $output = $oDocumentController->updateDocument($oDocument, $obj);
+                    $msg_code = 'success_updated';
+                }
             // 그렇지 않으면 신규 등록
             } 
 			else 

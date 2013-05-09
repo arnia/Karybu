@@ -147,3 +147,9 @@ jQuery(document).ready(function($){
         return false;
     });
 });
+
+jQuery(document).ready(function($){
+    $('body').tooltip({
+        selector: "a[data-toggle=tooltip],button[data-toggle=tooltip]"
+    })
+});

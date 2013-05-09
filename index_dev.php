@@ -2,6 +2,8 @@
 use Symfony\Component\HttpFoundation\Request;
 use Karybu\HttpKernel\Kernel;
 
+if(!defined('KARYBU_ENVIRONMENT')) exit();
+
 /**
  * dev protection
  */

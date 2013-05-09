@@ -19,7 +19,7 @@
             <input type="text" id="ftp_host" name="ftp_host" value="{$ftp_info->ftp_host}">
             <span class="help-inline">Default : 127.0.0.1</span>
             <div class="help-block">
-                <p>{$lang->detail_about_ftp_info}</p>
+                {$lang->detail_about_ftp_info}
             </div>
         </div>
     </div>
@@ -53,11 +53,7 @@
                 <input type="checkbox" name="ftp_pasv" id="ftp_pasv" value="Y" checked="checked"|cond="$ftp_info->ftp_pasv == 'Y'">
                 {$lang->about_use_ftp_passive_mode}
             </label>
-        </div>
-    </div>
 
-    <div class="control-group">
-        <div class="controls">
             <label class="checkbox" for="sftp">
                 <input type="checkbox" name="sftp" id="sftp" value="Y" checked="checked"|cond="$ftp_info->sftp == 'Y'">
                 {$lang->about_use_sftp_support}
@@ -74,7 +70,7 @@
                 <a href="#ftpSuggestion" onclick="getFTPList(); return false;" class="tgAnchor">{$lang->ftp_get_list}</a>
             </span>
             <div class="help-block">
-                <p>{$lang->msg_ftp_installed_realpath} : {_XE_PATH_}</p>
+                {$lang->msg_ftp_installed_realpath} : {_XE_PATH_}
             </div>
         </div>
     </div>

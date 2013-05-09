@@ -6,50 +6,49 @@
 <load target="js/RGraph/RGraph.common.tooltips.js"/>
 <load target="css/jquery.mCustomScrollbar.css"/>
 <load target="css/mCustomScrollbar.css"/>
-<load target="js/jquery.mCustomScrollbar.concat.min.js"/>
+<load target="js/jquery.mCustomScrollbar.js"/>
 <load target="js/resize.js"/>
 <load target="js/jqueryt.fittext.js"/>
 
 <script type="text/javascript">
 
-    function setFullBodySize(){
-        var body = $('body');
-        var wH = $(window).height();
-        var wW = $(window).width();
+    (function($){
+        function setFullBodySize(){
+            var body = $('body');
+            var wH = $(window).height();
+            var wW = $(window).width();
 
-        body.height(wH);
-        body.width(wW);
-    }
+            body.height(wH);
+            body.width(wW);
+        }
 
-
-
-    jQuery(document).ready(function(){
-
-        $ = jQuery;
-
-        setFullBodySize();
+        $(document).ready(function(){
+            setFullBodySize();
+        });
 
         $(window).resize(function(){
             setFullBodySize();
         });
+    }(jQuery));
 
-
-
-    });
 </script>
 
 
 <!--[if lt IE 9]><load target="js/RGraph/excanvas/excanvas.js"/><![endif]-->
-<div class="kSidebar pull-left kDark" id="kSidebar">
+        <div id="kTopLayer"></div>
+<div class="kSidebar pull-left kDark x" id="kSidebar">
 
     <div class="brand">
         <div class="row-fluid">
 
-            <div class="span8"><a href="{getUrl('','module','admin')}" class="logo"><img src="{getUrl('')}{$gnb_title_info->adminLogo}" alt="{$gnb_title_info->adminTitle}"/></a></div>
+            <div class="span8"><a href="{getUrl('','module','admin')}" class="logo"><img src="{$gnb_title_info->adminLogo}" alt="{$gnb_title_info->adminTitle}"/></a></div>
             <div class="toggle-sidebar visible-phone pull-right" id="kMenuButton"></div>
             <div class="span4">
                 <div class="dropdown pull-right">
-                    <a class="dropdown-toggle admin" data-toggle="dropdown" href="#"><img src="img/admin.png"/></a>
+                    <a class="dropdown-toggle admin" data-toggle="dropdown" href="#">
+                        <img src="{$logged_info->profile_image->src}" cond="isset($logged_info->profile_image->src)"/>
+                        <img src="img/admin.png" cond="!isset($logged_info->profile_image->src)"/>
+                    </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                         <ul class="unstyled">
                             <li>
@@ -75,40 +74,62 @@
     <!-- mobile dropdown -->
 
         <div id="kMobileMenu">
-            <div class="kSearch">
+            <!--<div class="kSearch">
                 <div class="row-fluid">
                     <i class="icon-search"></i><input type="text" placeholder="Type something…" class="pull-left span12">
                 </div>
-            </div>
+            </div>-->
             <div class="kInfo">
-                <h6>DASHBOARD</h6>
-                <p>Using this section you can create, change or update the content of your website</p>
+                <h6>{$lang->dashboard}</h6>
+                <p>{$lang->about_dashboard}</p>
             </div>
             <div class="kList">
                 <ul class="unstyled kList">
-                    <h6>DASHBOARD</h6>
-                    <li loop="$main_menu->items=>$key,$value"><a href="#">{$value->name}</a></li>
-                </ul>
+                    <h6>{$lang->dashboard}</h6>
+                    <li loop="$main_menu->items=>$key,$value">
+                        <!--@if(isset($value->setup_index_act))-->
+                            <a href="{getUrl('', 'module', 'admin', 'act', $value->setup_index_act, 'module_srl', $value->module_srl)}"><!--@if($value->parent_srl)-->&nbsp;&nbsp;<!--@end-->{$value->name}</a>
+                        <!--@else-->
+                            <span>{$value->name}</span>
+                        <!--@end-->
+                </ul</li>
+            </div>
+            <div class="kList">
+                <ul class="unstyled kList">
+                    <h6>{$lang->favorites}</h6>
+                        <li loop="$favorite_list => $favorite">
+                            <a href="{getUrl('', 'module', 'admin', 'act', $favorite->admin_index_act)}">{$favorite->title}</a>
+                            <form class="kActionIcons" action="./">
+                                <input type="hidden" name="module" value="admin" />
+                                <input type="hidden" name="act" value="procAdminToggleFavorite" />
+                                <input type="hidden" name="site_srl" value="0" />
+                                <input type="hidden" name="module_name" value="{$favorite->module}" />
+                                <input type="hidden" name="success_return_url" value="{getUrl('', 'module', 'admin')}" />
+                                <button class="clear" type="submit" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kErase">{$lang->cmd_delete}</i></button>
+                            </form>
+                        </li>
+                        <li cond="!is_array($favorite_list) || count($favorite_list) < 1"><a href="{getUrl('', 'module', 'admin', 'act', 'dispModuleAdminContent')}">{$lang->no_data}</a></li>
+                   </ul>
             </div>
         </div>
     <!-- mobile dropdown end -->
 
     </div>
-<div class="kNav navbar pull-right kDark" id="kNav">
-    <ul class="unstyled ">
+<div class="kNav navbar pull-right kDark kActionIcons" id="kNav">
+    <ul class="unstyled">
         <li>
-            <a class="big-icon big-icon-preview" href="{getFullUrl('')}"></a>
+            <a class="big-icon big-icon-preview" data-toggle="tooltip" data-placement="left" data-container="#kTopLayer" title="{$lang->preview}" href="{getFullUrl('')}"></a>
         </li>
         <li class="<!--@if($activeNode == $value['node_srl'])-->active<!--@end-->" loop="$gnbUrlList=>$key,$value" >
-            <a class="big-icon big-icon-{strtolower($value['text'])}"  href="{$value['href']}"></a>
+            <a class="big-icon big-icon-{strtolower($value['text'])}" data-toggle="tooltip" data-container="#kTopLayer" data-placement="left" title="{$value['text']}" href="{$value['href']}"></a>
         </li>
         <li class="hidden-phone">
-            <a class="small-logo" href="#"><img src="img/small-logo.png"/></a>
+            <a class="small-logo" href="{getUrl('','module','admin')}"><img src="img/small-logo.png"/></a>
         </li>
     </ul>
 </div>
 
-<div class="kWrapper x">
+<div class="kWrapper">
     <div class="kWrapper-container" id="dashboard_content">
 
 

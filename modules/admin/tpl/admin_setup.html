@@ -67,7 +67,7 @@
                             <input type="hidden" name="item_key[]" value="{$value2['node_srl']}" class="_item_key"/>
                             <span>{$value2['text']}</span>
                             <span class="side">
-                                <a href="#delete" class="_child_delete icon-minus" title="{$lang->delete}" style="outline-width: 0; margin-top: -1px; display: inline-block"></a>
+                                <a href="#delete" class="_child_delete icon-trash" title="{$lang->delete}" style="outline-width: 0; margin-top: -1px; display: inline-block"></a>
                             </span>
                         </li>
                     </ul>
@@ -78,9 +78,9 @@
 
     </fieldset>
 
-    <button value="procMenuAdminArrangeItem" name="act" type="submit" class="btn btn-primary">{$lang->cmd_save}</button>
+    <button value="procAdminMenuReset" name="act" type="submit" class="btn btn-danger" onclick="javascript: if (!confirm('Are you sure?')) return false;">{$lang->cmd_reset}</button>
 
-    <button value="procAdminMenuReset" name="act" type="submit" class="btn btn-inverse" onclick="javascript: if (!confirm('Are you sure?')) return false;">{$lang->cmd_reset}</button>
+    <button value="procMenuAdminArrangeItem" name="act" type="submit" class="btn btn-primary">{$lang->cmd_save}</button>
 
 </form>
 

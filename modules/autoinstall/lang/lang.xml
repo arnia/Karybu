@@ -81,14 +81,14 @@
 	</item>
 	<item name="description_update">
 		<value xml:lang="ko"><![CDATA[쉬운 설치 사용전 %s 해주세요.]]></value>
-		<value xml:lang="en"><![CDATA[Click %s before using EasyInstall.]]></value>
+		<value xml:lang="en"><![CDATA[%s before using EasyInstall.]]></value>
 		<value xml:lang="jp"><![CDATA[新しくインストールしたモジュールバージョン情報などは%sを押すと反映されます。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[使用自動安裝前請先點擊%s]]></value>
 		<value xml:lang="ru"><![CDATA[If you have upgraded or installed programs without EasyInstall module, please press %s to renew new information]]></value>
 	</item>
 	<item name="status_update">
 		<value xml:lang="ko"><![CDATA[상태 업데이트]]></value>
-		<value xml:lang="en"><![CDATA[update button]]></value>
+		<value xml:lang="en"><![CDATA[Update extension info]]></value>
 		<value xml:lang="jp"><![CDATA[アップデート]]></value>
 		<value xml:lang="zh-TW"><![CDATA[更新按鈕]]></value>
 	</item>
@@ -269,6 +269,9 @@
 		<value xml:lang="en"><![CDATA[Failed to connect to server.]]></value>
 		<value xml:lang="jp"><![CDATA[サーバに接続できませんでした。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[主機連線錯誤。]]></value>
+	</item>
+    <item name="still_in_progress">
+		<value xml:lang="en"><![CDATA[This module is dedicated for installing apps (extensions). At this momment we are working hard to make this feature available for you.]]></value>
 	</item>
 	<item name="msg_not_match_server">
 		<value xml:lang="ko"><![CDATA[서버 설정이 올바르지 않습니다.]]></value>

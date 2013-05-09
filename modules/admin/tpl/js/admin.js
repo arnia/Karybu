@@ -59,7 +59,7 @@ jQuery(function($){
 
 	// Portlet Action
 	$('.portlet .action')
-		.css({display:'none',position:'absolute'})
+		.css({display:'none'})
 		.parent()
 			.mouseleave(function(){ $(this).find('>.action').fadeOut(100); })
 			.mouseenter(function(){ $(this).find('>.action').fadeIn(100); })
@@ -1424,7 +1424,7 @@ jQuery(function($){
 	});
 });
 jQuery(document).ready(function($){
-    $('.kActionIcons').tooltip({
-        selector: "a[data-toggle=tooltip],button[data-toggle=tooltip]"
+    $('body').tooltip({
+        selector: "a[data-toggle=tooltip],button[data-toggle=tooltip],td[data-toggle=tooltip]"
     })
 });

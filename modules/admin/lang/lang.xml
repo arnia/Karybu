@@ -7,6 +7,9 @@
 		<value xml:lang="zh-CN"><![CDATA[基本]]></value>
 		<value xml:lang="tr"><![CDATA[Temel]]></value>
 	</item>
+    <item name="subtitle_basic">
+        <value xml:lang="en"><![CDATA[Basic]]></value>
+    </item>
 	<item name="subtitle_advanced">
 		<value xml:lang="ko"><![CDATA[고급]]></value>
 		<value xml:lang="en"><![CDATA[Advanced]]></value>
@@ -99,6 +102,12 @@
 		<value xml:lang="vi"><![CDATA[Bảng điều khiển]]></value>
 		<value xml:lang="tr"><![CDATA[Kontrol Paneli]]></value>
 	</item>
+    <item name="about_dashboard">
+        <value xml:lang="en"><![CDATA[Using this section you can create, change or update the content of your website]]></value>
+    </item>
+    <item name="preview">
+        <value xml:lang="en"><![CDATA[Preview]]></value>
+    </item>
 	<item name="start_module">
 		<value xml:lang="ko"><![CDATA[시작 모듈]]></value>
 		<value xml:lang="en"><![CDATA[Default Module]]></value>
@@ -1487,4 +1496,7 @@
 		<value xml:lang="zh-CN"><![CDATA[管理设置]]></value>
 		<value xml:lang="tr"><![CDATA[Yönetici Ayarları]]></value>
 	</item>
+    <item name="subtitle_debug">
+        <value xml:lang="en"><![CDATA[Debug]]></value>
+    </item>
 </lang>

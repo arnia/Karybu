@@ -1,5 +1,6 @@
 <include target="header.html" />
 <load target="js/layout_modify.js" />
+<h2 cond="$act == 'dispLayoutAdminModify'">{$selected_layout->layout_title}</h2>
 
 <form id="config_form" ruleset="updateLayout"|cond="$act == 'dispLayoutAdminModify'" action="./" class="form" enctype="multipart/form-data" method="post">
 	<input type="hidden" name="module" value="layout" />
@@ -11,14 +12,13 @@
 	<!--// For submit config. Do not delete this division. -->
 	<div></div>
 </form>
-
 <div id="layout_config" class="form-horizontal form-horizontal-small">
     <fieldset class="section">
-    <h2 cond="$act == 'dispLayoutAdminModify'">{$selected_layout->layout_title}</h2>
+
     <div class="control-group form-inline inline">
         <label class="control-label">{$lang->layout}</label>
         <div class="controls">
-            {$selected_layout->title} ver {$selected_layout->version} ({$selected_layout->layout})
+            <div class="align">{$selected_layout->title} ver {$selected_layout->version} ({$selected_layout->layout})</div>
         </div>
     </div>
     <div class="control-group form-inline">

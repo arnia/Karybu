@@ -674,6 +674,17 @@ class installController extends install
         $buff = $this->_getDBConfigFileContents($db_info);
 
         FileHandler::writeFile($config_file, $buff);
+        //create config files
+        $files = array('config_dev', 'config_prod');
+        foreach ($files as $file){
+            $destination = './files/config/'.$file.'.yml';
+            $source = '../../config/'.$file.'.base.yml';
+            $values = array();
+            $values['imports'][0][resource] = '../../config/'.$file.'.base.yml';
+            $dumper = new \Symfony\Component\Yaml\Dumper();
+            $content = $dumper->dump($values, 2);
+            FileHandler::writeFile($destination, $content);
+        }
 
         if (@file_exists($config_file)) {
             FileHandler::removeFile($this->db_tmp_config_file);

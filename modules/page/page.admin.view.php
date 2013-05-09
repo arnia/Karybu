@@ -303,10 +303,14 @@
 			
 			if ($this->module_info->{$target})
 			{
-				$document_srl = $this->module_info->{$target};
-				$oDocument->setDocument($document_srl);
-				Context::set('document_srl', $document_srl);
-			}
+                $document_srl = $this->module_info->{$target};
+                $oDocument->setDocument($document_srl);
+                Context::set('document_srl', $document_srl);
+			} else {
+                $document_srl = Context::get('document_srl');
+                $oDocument->setDocument($document_srl);
+                Context::set('document_srl', $document_srl);
+            }
 
             Context::addJsFilter($this->module_path.'tpl/filter', 'insert_article.xml');
 			Context::set('oDocument', $oDocument);

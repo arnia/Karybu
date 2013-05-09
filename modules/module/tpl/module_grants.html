@@ -11,7 +11,8 @@
 	
 	<h2 class="h2">{$lang->module_admin}</h2>
 	<p>{$lang->about_admin_id}</p>
-	<ul>
+
+	<ul class="unstyled">
 		<li>
 			<p class="q">
 				<!--@if($member_config->identifier == 'email_address')-->
@@ -27,16 +28,18 @@
 					<!--@end-->
 				</select>
 				<br />
-				<input type="text" name="admin_id" />
-				<span class="btn"><button type="button" onclick="doInsertAdmin()">{$lang->cmd_insert}</button></span>
-				<span class="btn"><button type="button" onclick="doDeleteAdmin()">{$lang->cmd_delete}</button></span>
+                <div class="form-inline">
+                    <input type="text" name="admin_id" />
+                    <button class="btn" type="button" onclick="doInsertAdmin()">{$lang->cmd_insert}</button>
+                    <button class="btn btn-danger" type="button" onclick="doDeleteAdmin()">{$lang->cmd_delete}</button>
+                </div>
 			</p>
 		</li>
 	</ul>
 	<h2 class="h2">{$lang->permission_setting}</h2>
 	<p>{$lang->about_grant_deatil}</p>
 	<div class="table">
-		<table width="100%" border="1" cellspacing="0">
+		<table class="table table-bordered table-condensed">
 			<thead>
 				<tr>
 					<th scope="col">{$lang->grant}</th>
@@ -56,11 +59,11 @@
 						</select>
 						<div id="zone_{$grant_name}" style="display:none">
 							<!--@foreach($group_list as $group_srl => $group_item)-->
-							<input type="checkbox" class="checkbox" name="{$grant_name}" value="{$group_item->group_srl}" id="grant_{$grant_name}_{$group_srl}" <!--@if(is_array($selected_group[$grant_name])&&in_array($group_srl,$selected_group[$grant_name]))-->checked="checked"<!--@end-->/>
-							<label for="grant_{$grant_name}_{$group_srl}">{$group_item->title}</label>
+                            <label for="grant_{$grant_name}_{$group_srl}" class="checkbox inline">
+							<input type="checkbox" name="{$grant_name}" value="{$group_item->group_srl}" id="grant_{$grant_name}_{$group_srl}" <!--@if(is_array($selected_group[$grant_name])&&in_array($group_srl,$selected_group[$grant_name]))-->checked="checked"<!--@end-->/>
+							{$group_item->title}</label>
 							<!--@end-->
 						</div>
-						
 						</td>
 					</tr>
 				<!--@end-->
@@ -68,6 +71,6 @@
 		</table>
 	</div>
 	<div class="btnArea">
-		<span class="btn"><input type="submit" value="{$lang->cmd_save}" /></span>
+		<input class="btn btn-primary" type="submit" value="{$lang->cmd_save}" />
 	</div>
 </form>

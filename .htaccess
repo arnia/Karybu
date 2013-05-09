@@ -38,6 +38,14 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule (.*) ./index.php/$1 [L]
 
+#deny access to log files
+<Files  ~ "\.log$">
+  Order allow,deny
+  Deny from all
+</Files>
+#restrict access to directory listing
+Options -Indexes
+
 ## document permanent link
 #RewriteRule ^([0-9]+)$ ./index.php?document_srl=$1 [L,QSA]
 #

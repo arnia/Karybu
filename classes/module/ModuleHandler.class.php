@@ -345,10 +345,14 @@ class ModuleHandlerInstance extends Handler
 
     protected function loadAdminLayoutAndMenuForModule(&$oModule)
     {
-        $oAdminView = & getAdminView('admin');
+        $oAdminView = getAdminView('admin');
+        $oAdminView->initAdminMenu();
         $oAdminView->makeGnbUrl($oModule->module_key->getModule());
+        $oAdminView->makeDashboardSitemap();
+        $oAdminView->makeFavoriteList();
         $oModule->setLayoutPath("./modules/admin/tpl");
         $oModule->setLayoutFile("layout.html");
+        $this->context->addBodyClass('x');
     }
 
     public function checkUserPermissions($oModule)
@@ -375,7 +379,6 @@ class ModuleHandlerInstance extends Handler
         }
 
         if ($oModule->module_key->isAdmin()) {
-            $this->initAdminMenu();
             if ($_SESSION['denied_admin'] == 'Y') {
                 $this->error = "msg_not_permitted_act";
                 return $this->showErrorToUser();
@@ -511,28 +514,6 @@ class ModuleHandlerInstance extends Handler
         return $oModule;
     }
 
-    protected function initAdminMenu()
-    {
-        // admin menu check
-        if (Context::isInstalled()) {
-            $oMenuAdminModel = & getAdminModel('menu');
-            $output = $oMenuAdminModel->getMenuByTitle('__XE_ADMIN__');
-
-            if (!$output->menu_srl) {
-                $oAdminClass = & getClass('admin');
-                $oAdminClass->createXeAdminMenu();
-            } else {
-                if (!is_readable($output->php_file)) {
-                    $oMenuAdminController = & getAdminController('menu');
-                    $oMenuAdminController->makeXmlFile($output->menu_srl);
-                }
-            }
-        }
-    }
-
-
-
-
     /**
      * display contents from executed module
      * @param ModuleObject $oModule module instance
@@ -629,7 +610,14 @@ class ModuleHandlerInstance extends Handler
                     // Set menus into context
                     if ($layout_info->menu_count) {
                         foreach ($layout_info->menu as $menu_id => $menu) {
-                            if (file_exists($menu->php_file)) {
+                            if (!file_exists($menu->php_file)) {
+                                //create menu cache if it doesn't exist
+                                $oMenuAdminController = getAdminController('menu');
+                                Context::set('menu_srl', $menu->menu_srl);
+                                $oMenuAdminController->procMenuAdminMakeXmlFile();
+                            }
+                            //failsave in case the cache is not created
+                            if (file_exists($menu->php_file)){
                                 include($menu->php_file);
                             }
                             $this->context->set($menu_id, $menu);

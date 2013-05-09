@@ -1,5 +1,5 @@
 <?php
-	/**
+    /**
 	 * adminAdminView class
 	 * Admin view class of admin module
 	 *
@@ -33,7 +33,12 @@
             $this->setTemplatePath($this->module_path.'tpl');
             $this->setLayoutPath($this->getTemplatePath());
             $this->setLayoutFile('layout.html');
+            Context::addBodyClass('x');
 
+            $oAdminView = & getAdminView('admin');
+            $oAdminView->makeDashboardSitemap();
+            $oAdminView->makeFavoriteList();
+            $this->initAdminMenu();
 			$this->makeGnbUrl();
 
             // Retrieve the list of installed modules
@@ -101,6 +106,28 @@
 			FileHandler::writeFile($this->easyinstallCheckFile, $currentTime);
 		}
 
+        /*
+         * Include dashboard sitemap on all views of admin
+         */
+        function makeDashboardSitemap()
+        {
+            $oAdminAdminModel = getAdminModel('admin');
+
+            $main_menu = $oAdminAdminModel->getMainMenuItems();
+
+            Context::set('main_menu',$main_menu);
+        }
+
+        /*
+         * set favorite list to context for display on all admin views
+         */
+        function makeFavoriteList(){
+            // Get list of favorite
+            $oAdminAdminModel = &getAdminModel('admin');
+            $output = $oAdminAdminModel->getFavoriteList(0, true);
+            Context::set('favorite_list', $output->get('favoriteList'));
+        }
+
 		/**
 		 * Include admin menu php file and make menu url
 		 * Setting admin logo, newest news setting
@@ -117,7 +144,9 @@
 			$menu_info = $oMenuAdminModel->getMenuByTitle('__XE_ADMIN__');
 			Context::set('admin_menu_srl', $menu_info->menu_srl);
 
-			if(!is_readable($menu_info->php_file)) return;
+			if(!is_readable($menu_info->php_file)) {
+                return;
+            }
 
 			include $menu_info->php_file;
 
@@ -161,10 +190,7 @@
 
 			$browserTitle = ($subMenuTitle ? $subMenuTitle : 'Dashboard').' - '.$gnbTitleInfo->adminTitle;
 
-			// Get list of favorite
-			$oAdminAdminModel = &getAdminModel('admin');
-			$output = $oAdminAdminModel->getFavoriteList(0, true);
-            Context::set('favorite_list', $output->get('favoriteList'));
+			$this->makeFavoriteList();
 
 			// Retrieve recent news and set them into context,
 			// move from index method, because use in admin footer
@@ -205,7 +231,15 @@
             $currentUrl = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
             foreach($menu->list as $item){
                 if(strpos($currentUrl,$item['href']) !== false) {
-                    $activeNode = $item['node_srl'];
+                    if($item['text'] == 'Dashboard'){
+                        $delta = str_replace($item['href'],'',$currentUrl);
+                        $delta = str_replace("http://".$_SERVER['HTTP_HOST'],'',$delta);
+                        if($delta == '/' || $delta == '/index.php'){
+                            $activeNode = $item['node_srl'];
+                        }
+                    }else {
+                        $activeNode = $item['node_srl'];
+                    }
                 }
             }
             if(isset($menu->list[$parentSrl])) {
@@ -269,13 +303,11 @@
 
             Context::set('status', $status);
 
-            $main_menu = $oAdminAdminModel->getMainMenuItems();
-            Context::set('main_menu',$main_menu);
-
             // Latest Document
 			$oDocumentModel = &getModel('document');
 			$columnList = array('document_srl', 'module_srl', 'category_srl', 'title', 'nick_name', 'member_srl');
 			$args->list_count = 5;;
+            $args->page_count = 5;
 			$output = $oDocumentModel->getDocumentList($args, false, false, $columnList);
             Context::set('latestDocumentList', $output->data);
 			$security = new Security();
@@ -375,10 +407,30 @@
 			$config = $oModuleModel->getModuleConfig('module');
        		Context::set('htmlFooter',$config->htmlFooter);
 
-
 			$columnList = array('modules.mid', 'modules.browser_title', 'sites.index_module_srl');
 			$start_module = $oModuleModel->getSiteInfo(0, $columnList);
             Context::set('start_module', $start_module);
+
+            $yaml = new \Symfony\Component\Yaml\Parser();
+            $currentSettings = $yaml->parse(file_get_contents(_XE_PATH_.'files/config/config_dev.yml'));
+//            echo "<pre>"; print_r($currentSettings);exit;
+
+            Context::set('environments', array('dev', 'prod'));
+            //TODO: translate values
+            Context::set('debug_levels', array(
+                'debug'     =>"DEBUG",
+                'info'      =>"INFO",
+                'warning'   =>"WARNING",
+                'error'     =>"ERROR",
+                'critical'  =>"CRITICAL",
+                'alert'     =>"ALERT"
+            ));
+
+            Context::set('debug_handlers', array(
+                'files'     =>"FILES",
+                'chrome'    =>"CHROME",
+                'firebug'   =>"FIREBUG",
+            ));
 
             Context::set('pwd',$pwd);
             $this->setTemplateFile('config_general');
@@ -462,6 +514,25 @@
 			}
 		}
 
+        function initAdminMenu()
+        {
+            // admin menu check
+            if (Context::isInstalled()) {
+                $oMenuAdminModel = & getAdminModel('menu');
+                $output = $oMenuAdminModel->getMenuByTitle('__XE_ADMIN__');
+
+                if (!$output->menu_srl) {
+                    $oAdminClass = & getClass('admin');
+                    $oAdminClass->createXeAdminMenu();
+                } else {
+                    if (!is_readable($output->php_file)) {
+                        $oMenuAdminController = & getAdminController('menu');
+                        $oMenuAdminController->makeXmlFile($output->menu_srl);
+                    }
+                }
+            }
+        }
+
 		/**
 		 * Display Admin theme Configuration(settings) page
 		 * @return void
@@ -482,7 +553,7 @@
 
 			// layout list
 			$oLayoutModel = &getModel('layout');
-			// theme 정보 읽기
+
 
 			$oAdminModel = &getAdminModel('admin');
 			$theme_list = $oAdminModel->getThemeList();
@@ -507,7 +578,7 @@
 			Context::set('theme_list', $theme_list);
 			Context::set('layout_list', $layout_list);
 
-			// 설치된module 정보 가져오기
+
 			$module_list = $oAdminModel->getModulesSkinList();
 			Context::set('module_list', $module_list);
 

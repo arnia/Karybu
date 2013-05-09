@@ -2333,7 +2333,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 	</item>
 	<item name="count_manage_nick_name">
 		<value xml:lang="ko"><![CDATA[<span class="_deniedNickNameCount">%s</span>개의 금지 닉네임이 있습니다.]]></value>
-		<value xml:lang="en"><![CDATA[There are <span class="_deniedNickNameCount">%s</span> prohibited nick name.]]></value>
+		<value xml:lang="en"><![CDATA[There are <span class="_deniedNickNameCount">%s</span> prohibited nicknames.]]></value>
 	</item>
 	<item name="user_list">
 		<value xml:lang="ko"><![CDATA[회원 목록]]></value>
@@ -2544,7 +2544,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="ko"><![CDATA[Please add your email to complete the registraton:]]></value>
 		<value xml:lang="en"><![CDATA[Please add your email to complete the registraton:]]></value>
 	</item>
-        <item name="unexpected_error">
+    <item name="unexpected_error">
 		<value xml:lang="ko"><![CDATA[Unexpected error.]]></value>
 		<value xml:lang="en"><![CDATA[Unexpected error.]]></value>
 	</item>

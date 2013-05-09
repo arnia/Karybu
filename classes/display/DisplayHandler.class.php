@@ -109,11 +109,6 @@ class DisplayHandler extends Handler {
 
     function prepareHeaders($oModule)
     {
-        // header output
-        if($this->gzipEnabledForModule($oModule)) {
-            $this->addHeader("Content-Encoding", "gzip");
-        }
-
         $httpStatusCode = $oModule->getHttpStatusCode();
 
         if(!$httpStatusCode || $httpStatusCode == 200) {
