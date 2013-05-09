@@ -4,10 +4,7 @@
 	<table class="table table-condensed table-bordered table-hover">
 		<caption>
 		    <span>All({count($module_list)})</span>
-            <p class="pull-right">
-                <a class="btn toggleBtn"><span class="hide">{$lang->simple_view}</span><span class="show">{$lang->detail_view}</span></a>
-            </p>
-		</caption>
+            		</caption>
 		<thead>
 			<tr>
 				<th scope="col" class="nowr">{$lang->favorite}</th>
@@ -28,7 +25,7 @@
 					<button type="button" class="fvOff" onclick="doToggleFavoriteModule(this, '{$val->module}'); return false;">{$lang->favorite}({$lang->off})</button>
 					<!--@end-->
 				</td>
-				<td class="title">
+				<td class="title" data-toggle="tooltip" data-container=".easyList" title="{$val->description}">
 					<p>
 						<!--@if($val->admin_index_act)-->	
 						<a href="{getUrl('','module','admin','act',$val->admin_index_act)}">{$val->title}</a>
@@ -36,7 +33,6 @@
 						<strong>{$val->title}</strong>
 						<!--@end-->
 					</p>
-					<p class="well well-small">{$val->description}</p>
 					<p cond="$val->need_install" class="update well well-small inline">{$lang->msg_avail_install}  <button class="btn btn-primary btn-mini" type="button" onclick="doInstallModule('{$val->module}')">{$lang->msg_do_you_like_install}</button></p>
 					<p cond="$val->need_update" class="update well well-small inline">{$lang->msg_avail_update}  <button class="btn btn-primary btn-mini" type="button" onclick="doUpdateModule('{$val->module}')">{$lang->msg_do_you_like_update}</button></p>
 					<p cond="$val->need_autoinstall_update == 'Y'" class="update well well-small inline">{$lang->msg_avail_easy_update}  <info="btn btn-primary btn-mini" href="{$val->update_url}&amp;return_url={urlencode(getRequestUriByServerEnviroment())}">{$lang->msg_do_you_like_update}</a></p>

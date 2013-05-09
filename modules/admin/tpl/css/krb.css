@@ -804,11 +804,11 @@ a:hover i.kDelete:hover, button:hover i.kDelete:hover {
 
 
 i.kErase {
-    background:url("../img/sprite-24.png") -218px 0px ;
+    background:url("../img/sprite-24.png") -216px 0px ;
 }
 
 a:hover i.kErase:hover, button:hover i.kErase:hover {
-    background:url("../img/sprite-24.png") -218px -24px ;
+    background:url("../img/sprite-24.png") -216px -24px ;
 }
 
 
@@ -861,6 +861,15 @@ a:hover i.kInfo:hover {
 .x .siteMap .moveTo:hover, .x .siteMap .active .moveTo {
     cursor: move;
     background:url("../img/sprite-24.png") -168px -21px ;
+}
+
+i.kGenerateCode {
+
+    background:url("../img/sprite-24.png") -240px 0px ;
+}
+
+a:hover i.kGenerateCode:hover {
+    background:url("../img/sprite-24.png") -240px -24px ;
 }
 
 /* ACTION ICONS END */

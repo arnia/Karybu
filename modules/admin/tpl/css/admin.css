@@ -930,6 +930,11 @@ body.front #searchForm input[type="text"]:focus {
     border-width:0 7px 7px;
 }
 
+td.title .tooltip-inner {
+    width: 440px;
+}
+
+
 .popover {
     background-color:#619c14;
     border:1px solid #6c9b30;
