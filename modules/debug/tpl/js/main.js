@@ -8,10 +8,14 @@
             }
         });
 
-        if ($.dToolbar().data('state')) {
-            $.dToolbar('changeState', $.dToolbar().data('state'), true);
+        if (typeof(_isPoped) !== 'undefined') { // make it minimized by default when in a popup
+            $.dToolbar('minimize', true);
         } else {
-            $.dToolbar('changeState', 'full');
+            if ($.dToolbar().data('state')) {
+                $.dToolbar('changeState', $.dToolbar().data('state'), true);
+            } else {
+                $.dToolbar('changeState', 'full');
+            }
         }
 
         $.dToolbar('toggleIcon').on('click', function() {
