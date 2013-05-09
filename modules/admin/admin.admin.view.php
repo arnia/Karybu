@@ -377,6 +377,7 @@
 		 * @return void
 		 */
         function dispAdminConfigGeneral() {
+            global $lang;
 		    Context::loadLang('modules/install/lang');
 
             $db_info = Context::getDBInfo();
@@ -411,30 +412,53 @@
 			$start_module = $oModuleModel->getSiteInfo(0, $columnList);
             Context::set('start_module', $start_module);
 
-            $yaml = new \Symfony\Component\Yaml\Parser();
-            $currentSettings = $yaml->parse(file_get_contents(_XE_PATH_.'files/config/config_dev.yml'));
-//            echo "<pre>"; print_r($currentSettings);exit;
+            //$yaml = new \Symfony\Component\Yaml\Parser();
+            //$currentSettings = $yaml->parse(file_get_contents(_XE_PATH_.'files/config/config_dev.yml'));
 
-            Context::set('environments', array('dev', 'prod'));
-            //TODO: translate values
+            $environments = array('dev', 'prod');
+            Context::set('environments', $environments);
+            Context::set('env_titles', array(
+                'dev'=>$lang->dev,
+                'prod'=>$lang->prod,
+            ));
             Context::set('debug_levels', array(
-                'debug'     =>"DEBUG",
-                'info'      =>"INFO",
-                'warning'   =>"WARNING",
-                'error'     =>"ERROR",
-                'critical'  =>"CRITICAL",
-                'alert'     =>"ALERT"
+                'debug'     => $lang->debug_debug,
+                'info'      => $lang->debug_info,
+                'warning'   => $lang->debug_warning,
+                'error'     => $lang->debug_error,
+                'critical'  => $lang->debug_critical,
+                'alert'     => $lang->debug_alert
             ));
-
             Context::set('debug_handlers', array(
-                'files'     =>"FILES",
-                'chrome'    =>"CHROME",
-                'firebug'   =>"FIREBUG",
+                'files'     => $lang->debug_handler_files,
+                'chrome'    => $lang->debug_handler_chrome,
+                'firebug'   => $lang->debug_handler_firebug,
             ));
+            $debugValues = array();
+            //get current values
+            foreach ($environments as $env) {
+                $debugValues[$env] = array();
+                $configFile = "files/config/config_{$env}.yml";
+                //fallback for installer
+                if (!file_exists($configFile)) {
+                    $configFile = "config/config_{$env}.base.yml";
+                }
+                $container = new \Symfony\Component\DependencyInjection\ContainerBuilder();
+                $extension = new \Karybu\DependencyInjection\Dummy\Extension();
+                $extension->setNamespace('debug');
+                $container->registerExtension($extension);
+                $loader = new \Symfony\Component\DependencyInjection\Loader\YamlFileLoader($container, new \Symfony\Component\Config\FileLocator(array(_XE_PATH_)));
+                $loader->load($configFile);
+                $extensionConfig = $container->getExtensionConfig('debug');
+                if (isset($extensionConfig[0])) {
+                    //merge all config settings
+                    $debugValues[$env] = call_user_func_array('array_merge', $extensionConfig);
+                }
+            }
+            Context::set('current_env', KARYBU_ENVIRONMENT);
 
-            Context::set('pwd',$pwd);
+            Context::set('debug_values', $debugValues);
             $this->setTemplateFile('config_general');
-
 			$security = new Security();
 			$security->encodeHTML('news..', 'released_version', 'download_link', 'selected_lang', 'module_list..', 'module_list..author..', 'addon_list..', 'addon_list..author..', 'start_module.');
         }

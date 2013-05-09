@@ -307,56 +307,56 @@ jQuery(function($){
 <fieldset class="section">
 
     <h3 class="h3">{$lang->subtitle_debug}</h3>
-    <p>Current env is {@ echo KARYBU_ENVIRONMENT}.</p>
+    <p>{sprintf($lang->current_environment, $env_titles[$current_env])}</p>
     <div class="tabbable"> <!-- Only required for left/right tabs -->
         <ul class="nav nav-tabs">
             <!--@foreach($environments as $key=> $env)-->
             <li<!--@if($env==KARYBU_ENVIRONMENT)--> class="active"<!--@end-->>
-                <a href="#tab{$key}" data-toggle="tab">{$env}</a>
+                <a href="#tab{$key}" data-toggle="tab">{$env_titles[$env]}</a>
             </li>
             <!--@endforeach-->
         </ul>
         <div class="tab-content">
             <!--@foreach($environments as $key=> $env)-->
             <div class="tab-pane<!--@if($env==KARYBU_ENVIRONMENT)--> active<!--@end-->" id="tab{$key}" >
-                <form action="./" method="post" id="ftp_form" class="form form-horizontal" enctype="multipart/form-data">
+                <form action="./" method="post" id="ftp_debug_{$key}" class="form form-horizontal" enctype="multipart/form-data">
                     <input type="hidden" name="module" value="install" />
                     <input type="hidden" name="act" value="procInstallAdminDebug" />
                     <input type="hidden" name="debug_env" value="{$env}" />
                     <div class="control-group">
-                        <label class="control-label" for="level{$key}">Level</label>
+                        <label class="control-label" for="level{$key}">{$lang->level}</label>
                         <div class="controls">
                             <select name="level" id="level{$key}">
                                 <!--@foreach($debug_levels as $code=>$name)-->
-                                <option value="{$code}">{$name}</option>
-                                <!--@endforeach-->
+                                <option value="{$code}"<!--@if($code == $debug_values[$env]['level'])--> selected="selected"<!--@end-->>{$name}</option>
+                                <!--@end-->
                             </select>
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="toolbar{$key}">Toolbar</label>
+                        <label class="control-label" for="toolbar{$key}">{$lang->toolbar}</label>
                         <div class="controls">
                             <select name="toolbar" id="toolbar{$key}">
-                                <option value="false">{$lang->no}</option>
-                                <option value="true">{$lang->yes}</option>
+                                <option value="false"<!--@if(!$debug_values[$env]['toolbar'])--> selected="selected"<!--@end-->>{$lang->no}</option>
+                                <option value="true"<!--@if($debug_values[$env]['toolbar'])--> selected="selected"<!--@end-->>{$lang->yes}</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="slow_queries_threshold{$key}">Slow queries threshold (ms)</label>
+                        <label class="control-label" for="slow_queries_threshold{$key}">{$lang->slow_queries_threshold}</label>
                         <div class="controls">
-                            <input type="text" name="slow_queries_threshold" id="slow_queries_threshold{$key}" />
+                            <input type="text" name="slow_queries_threshold" id="slow_queries_threshold{$key}" value="{$debug_values[$env]['slow_queries_threshold']}" />
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="handlers{$key}">Toolbar</label>
+                        <label class="control-label" for="handlers{$key}">{$lang->handlers}</label>
                         <div class="controls">
                             <select name="handlers[]" id="handlers{$key}" multiple="multiple">
                                 <!--@foreach($debug_handlers as $code=>$name)-->
-                                <option value="{$code}">{$name}</option>
+                                <option value="{$code}"<!--@if(in_array($code, $debug_values[$env]['handlers']))--> selected="selected"<!--@end-->>{$name}</option>
                                 <!--@endforeach-->
                             </select>
                         </div>
