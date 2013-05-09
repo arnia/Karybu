@@ -1,5 +1,5 @@
 <?php
 
-define('KARYBU_ENVIRONMENT', 'prod');
+define('KARYBU_ENVIRONMENT', 'dev');
 
 require "index_" . KARYBU_ENVIRONMENT . ".php";
