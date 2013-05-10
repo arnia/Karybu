@@ -244,46 +244,51 @@
          */
         function procInstallAdminDebug(){
             $env = Context::get('debug_env');
-            $allowedSettings = array(
-                    'level',
-                    'toolbar',
-                    'slow_queries_threshold',
-                    'handlers');
-            $values = array();
-            $values['imports'][0][resource] = '../../config/config_'.$env.'.base.yml';
-            $values['debug'] = array();
-            foreach ($allowedSettings as $setting){
-                if (!is_null(Context::get($setting))){
-                    $value = null;
-                    switch ($setting){
-                        case 'level':
-                            $value = Context::get($setting);
-                            break;
-                        case 'toolbar':
-                            $_val = Context::get($setting);
-                            if ($_val === 'false' || !($_val)){
-                                $value = false;
-                            }
-                            else{
-                                $value = true;
-                            }
-                            break;
-                        case 'slow_queries_threshold':
-                            $value = (int)(Context::get($setting));
-                            break;
-                        case 'handlers' :
-                            //$value = '['.implode(', ', Context::get($setting)).']';
-                            $value = Context::get($setting);
-                            break;
-                    }
-                    if (!is_null($value)){
-                        $values['debug'][$setting] = $value;
+            //validate environment
+            $environment = \Karybu\Environment\Environment::getEnvironment($env);
+            if (isset($environment['code'])) {
+                $allowedSettings = array(
+                        'level',
+                        'toolbar',
+                        'slow_queries_threshold',
+                        'handlers');
+                $values = array();
+                $values['imports'][0][resource] = '../../config/config_'.$env.'.base.yml';
+                $values['debug'] = array();
+                foreach ($allowedSettings as $setting){
+                    if (!is_null(Context::get($setting))){
+                        $value = null;
+                        switch ($setting){
+                            case 'level':
+                                $value = Context::get($setting);
+                                break;
+                            case 'toolbar':
+                                $_val = Context::get($setting);
+                                if ($_val === 'false' || !($_val)){
+                                    $value = false;
+                                }
+                                else{
+                                    $value = true;
+                                }
+                                break;
+                            case 'slow_queries_threshold':
+                                $value = (int)(Context::get($setting));
+                                break;
+                            case 'handlers' :
+                                //$value = '['.implode(', ', Context::get($setting)).']';
+                                $value = Context::get($setting);
+                                break;
+                        }
+                        if (!is_null($value)){
+                            $values['debug'][$setting] = $value;
+                        }
                     }
                 }
+                $dumper = new \Symfony\Component\Yaml\Dumper();
+                $yaml = $dumper->dump($values, 2);
+                FileHandler::writeFile(_XE_PATH_.'files/config/config_'.$env.'.yml', $yaml);
+                $this->setMessage('success_updated', 'info');
             }
-            $dumper = new \Symfony\Component\Yaml\Dumper();
-            $yaml = $dumper->dump($values, 2);
-            FileHandler::writeFile(_XE_PATH_.'files/config/config_'.$env.'.yml', $yaml);
             $this->setRedirectUrl(Context::get('error_return_url'));
         }
 
