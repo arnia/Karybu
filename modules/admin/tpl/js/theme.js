@@ -41,7 +41,7 @@ $('#theme,#skin')
 						.append($this.next('.a').find('>li.noDirection:first'));
 				})
 			.end()
-			.after('<a href="#toggle-tp" class="prevToggle">Show</a>')
+			.after('<a href="#toggle-tp" class="prevToggle btn">Change <span class="caret"></span></a>')
 			.next('a.prevToggle')
 				.bind('toggle.tp', function(){
 					var $list = $(this).prev('.a'), $items, duration = 100;
