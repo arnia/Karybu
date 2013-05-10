@@ -21,7 +21,7 @@ jQuery(function($){
 <load target="../install/lang/lang.xml" usecdn="true" />
 <load target="../../session/tpl/js/session.js" usecdn="true" />
 
-<script>
+<script type="text/javascript">
 jQuery(function($){
 	$('.moduleSearch').bind('moduleSelect', function(e, aSelected){
 		var sType, sName, sSrl;
@@ -49,7 +49,7 @@ jQuery(function($){
             <label class="control-label" for="_target_module">{$lang->about_start_module}</label>
             <div class="controls modulefinder moduleSearch">
                 <input type="hidden" name="index_module_srl" id="index_module_srl" value="{$start_module->index_module_srl}" />
-                <input type="text" name="_target_module" id="_target_module" value="{$start_module->browser_title} ({$start_module->mid})" readonly />
+                <input type="text" name="_target_module" id="_target_module" value="{$start_module->browser_title} ({$start_module->mid})" readonly="readonly" />
                 <a href="#moduleSearchWindow" class="tgAnchor moduleSearch" title="{$lang->cmd_find}"><i class="icon-search"></i></a>
                 <div id="moduleSearchWindow" class="moduleSearchWindow tgContent">
                     <div class="siteList sectionDiv">
@@ -57,7 +57,7 @@ jQuery(function($){
                         <div class="siteListSearchBox">
                             <div class="siteListSearchBoxBorder">
                                 <div class="searchImg icon-search"></div>
-                                <input type="text" class="siteListSearchInput" name="site_filter">
+                                <input type="text" class="siteListSearchInput" name="site_filter" />
                             </div>
                         </div>
                         <div class="siteListUL">
@@ -126,7 +126,7 @@ jQuery(function($){
         <div class="control-group">
             <div class="controls">
                 <label class="checkbox" for="use_mobile_view">
-                    <input type="checkbox" name="use_mobile_view" id="use_mobile_view" value="Y" checked="checked"|cond="$use_mobile_view == 'Y'"> {$lang->about_question_mobile_view}
+                    <input type="checkbox" name="use_mobile_view" id="use_mobile_view" value="Y" checked="checked"|cond="$use_mobile_view == 'Y'" /> {$lang->about_question_mobile_view}
                 </label>
             </div>
         </div>
@@ -135,11 +135,11 @@ jQuery(function($){
             <label class="control-label">{$lang->about_thumbnail_type}</label>
             <div class="controls">
                 <label class="radio">
-                    <input type="radio" name="thumbnail_type" id="thumbnail_type_crop" value="corp" checked="checked"|cond="$thumbnail_type != 'ratio'">
+                    <input type="radio" name="thumbnail_type" id="thumbnail_type_crop" value="corp" checked="checked"|cond="$thumbnail_type != 'ratio'" />
                     {$lang->corp}
                 </label>
                 <label class="radio">
-                    <input type="radio" name="thumbnail_type" id="thumbnail_type_ratio" value="ratio" checked="checked"|cond="$thumbnail_type == 'ratio'">
+                    <input type="radio" name="thumbnail_type" id="thumbnail_type_ratio" value="ratio" checked="checked"|cond="$thumbnail_type == 'ratio'" />
                     {$lang->ratio}
                 </label>
             </div>

@@ -88,19 +88,20 @@
                 <p>{$lang->about_dashboard}</p>
             </div>
             <div class="kList">
+                <h6>{$lang->dashboard}</h6>
                 <ul class="unstyled kList">
-                    <h6>{$lang->dashboard}</h6>
                     <li loop="$main_menu->items=>$key,$value">
                         <!--@if(isset($value->setup_index_act))-->
                             <a href="{getUrl('', 'module', 'admin', 'act', $value->setup_index_act, 'module_srl', $value->module_srl)}"><!--@if($value->parent_srl)-->&nbsp;&nbsp;<!--@end-->{$value->name}</a>
                         <!--@else-->
                             <span>{$value->name}</span>
                         <!--@end-->
-                </ul</li>
+                    </li>
+                </ul>
             </div>
             <div class="kList">
+                <h6>{$lang->favorites}</h6>
                 <ul class="unstyled kList">
-                    <h6>{$lang->favorites}</h6>
                         <li loop="$favorite_list => $favorite">
                             <a href="{getUrl('', 'module', 'admin', 'act', $favorite->admin_index_act)}">{$favorite->title}</a>
                             <form class="kActionIcons" action="./">
