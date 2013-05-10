@@ -667,6 +667,10 @@
 		<value xml:lang="tr"><![CDATA[Eğer websunucusu yenidenyazma(rewritemod) destekliyorsa, http://ornek/?dosya_no=123 gibi URLler http://ornek/123 olarak kısaltılabilir]]></value>
 		<value xml:lang="vi"><![CDATA[Nếu Host của bạn hỗ trợ Mod Rewrite, khi địa chỉ có dạng <b>http://blah/?document_srl=123</b> sẽ được rút ngắn thành <b>http://blah/123</b>]]></value>
 	</item>
+    <item name="disabled_rewrite">
+        <value xml:lang="en"><![CDATA[You cannot use this because mod_rewrite is not enabled on your server.]]></value>
+    </item>
+
 	<item name="time_zone">
 		<value xml:lang="ko"><![CDATA[표준 시간대]]></value>
 		<value xml:lang="en"><![CDATA[Time Zone]]></value>
