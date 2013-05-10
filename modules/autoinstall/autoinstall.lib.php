@@ -3,7 +3,7 @@
 
 	/**
 	 * Module installer
-	 * @author NHN (developers@xpressengine.com)
+	 * @author Arnia (developers@xpressengine.com)
 	 */
     class ModuleInstaller {
 		/**
@@ -281,7 +281,7 @@
 
 	/**
 	 * Module installer for SFTP
-	 * @author NHN (developers@xpressengine.com)
+	 * @author Arnia (developers@xpressengine.com)
 	 */
     class SFTPModuleInstaller extends ModuleInstaller {
 		/**
@@ -427,7 +427,7 @@
 
 	/**
 	 * Module installer for PHP FTP
-	 * @author NHN (developers@xpressengine.com)
+	 * @author Arnia (developers@xpressengine.com)
 	 */
     class PHPFTPModuleInstaller extends ModuleInstaller {
 		/**
@@ -614,7 +614,7 @@
 
 	/**
 	 * Module installer for FTP
-	 * @author NHN (developers@xpressengine.com)
+	 * @author Arnia (developers@xpressengine.com)
 	 */
     class FTPModuleInstaller extends ModuleInstaller {
 		/**

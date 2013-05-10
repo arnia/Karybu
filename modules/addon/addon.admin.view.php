@@ -1,7 +1,7 @@
 <?php
     /**
      * Admin view class of addon modules
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      **/
     class addonAdminView extends addon {
 

@@ -1,6 +1,6 @@
 <?php 
 	/**
-	 * @author NHN (developers@xpressengine.com)
+	 * @author Arnia (developers@xpressengine.com)
 	 * @package /classes/db/queryparts/order
 	 * @version 0.1
 	 */

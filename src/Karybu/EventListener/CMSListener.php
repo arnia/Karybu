@@ -186,15 +186,11 @@ class CMSListener implements EventSubscriberInterface
 
     public function injectCustomHeaderAndFooter(FilterControllerEvent $event)
     {
+        $ruleset_failed = $event->getRequest()->attributes->get('ruleset_failed');
+        if ($ruleset_failed) return;
+
         $oModuleHandler = $event->getRequest()->attributes->get('oModuleHandler');
-        if($oModuleHandler->error) return;
-
-        /** @var $controller Karybu\HttpKernel\Controller\ControllerWrapper */
-        $controller = $event->getController();
-        $oModule = $controller->getModuleInstance();
-
-        if(!$oModule->toBool()) return;
-
+        $oModule = $event->getController()->getModuleInstance();
         $oModuleHandler->injectCustomHeaderAndFooter($oModule);
     }
 

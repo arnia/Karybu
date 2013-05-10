@@ -7,7 +7,7 @@ use Karybu\Exception\DBConnectionFailedException;
  * - DBMSSQL
  * - Modified to use MSSQL driver by sol (sol@ngleader.com)
  *
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @package /classes/db
  * @version 0.1
  **/

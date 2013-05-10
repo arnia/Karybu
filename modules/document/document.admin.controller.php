@@ -3,7 +3,7 @@
 	 * documentAdminController class
 	 * Document the module's admin controller class
 	 *
-	 * @author NHN (developers@xpressengine.com)
+	 * @author Arnia (developers@xpressengine.com)
 	 * @package /modules/document
 	 * @version 0.1
 	 */

@@ -1,4 +1,4 @@
-/* NHN (developers@xpressengine.com) */
+/* Arnia (developers@xpressengine.com) */
 jQuery(function($){
 
 var 

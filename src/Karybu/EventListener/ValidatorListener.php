@@ -69,6 +69,7 @@ class ValidatorListener implements EventSubscriberInterface
             $this->validator_session->saveError(-1, $errorMsg);
             $this->validator_session->saveRequestVariables();
 
+            $event->getRequest()->attributes->set("ruleset_failed", true);
             return false;
         }
 

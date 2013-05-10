@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  communicationModel
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * communication module of the Model class
      **/
 

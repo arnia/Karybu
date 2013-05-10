@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  pointController
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * @brief Controller class of point modules
      **/
 

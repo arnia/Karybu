@@ -1,7 +1,7 @@
 <?php
 	/**
 	 * SortQueryArgument class
-	 * @author NHN (developers@xpressengine.com)
+	 * @author Arnia (developers@xpressengine.com)
 	 * @package /classes/xml/xmlquery/queryargument
 	 * @version 0.1
 	 */

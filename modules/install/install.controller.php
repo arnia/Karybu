@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  installController
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @brief install module of the Controller class
  **/
 

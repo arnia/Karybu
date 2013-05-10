@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  tagModel
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * @brief tag model class of the module
      **/
 

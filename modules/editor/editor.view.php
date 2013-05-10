@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  editorView
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * @brief view class of the editor module
      **/
 
