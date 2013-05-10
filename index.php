@@ -2,7 +2,15 @@
 use Symfony\Component\HttpFoundation\Request;
 use Karybu\HttpKernel\Kernel;
 use Karybu\Environment\Environment;
-require_once 'src/Karybu/Environment/Environment.php';
+
+/**
+ * Declare constants for generic use and for checking to avoid a direct call from the Web
+ **/
+define('__XE__',   true);
+define('__ZBXE__', true); // deprecated : __ZBXE__ will be removed. Use __XE__ instead.
+
+require dirname(__FILE__) . '/config/config.inc.php';
+
 //set default environment
 $envCode = Environment::DEFAULT_ENVIRONMENT;
 //check if environment file exists
@@ -23,13 +31,6 @@ if ($env['dev_mode']) {
     }*/
 }
 $isCommandLine = ( php_sapi_name() == 'cli' );
-/**
- * Declare constants for generic use and for checking to avoid a direct call from the Web
- **/
-define('__XE__',   true);
-define('__ZBXE__', true); // deprecated : __ZBXE__ will be removed. Use __XE__ instead.
-
-require dirname(__FILE__) . '/config/config.inc.php';
 
 $validCommandLineCall = $isCommandLine && isset($argv[1]) && filter_var($argv[1], FILTER_VALIDATE_URL);
 
