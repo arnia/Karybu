@@ -41,7 +41,7 @@ $('#theme,#skin')
 						.append($this.next('.a').find('>li.noDirection:first'));
 				})
 			.end()
-			.after('<a href="#toggle-tp" class="prevToggle">Show</a>')
+			.after('<a href="#toggle-tp" class="prevToggle btn">Change <span class="caret"></span></a>')
 			.next('a.prevToggle')
 				.bind('toggle.tp', function(){
 					var $list = $(this).prev('.a'), $items, duration = 100;
@@ -49,7 +49,10 @@ $('#theme,#skin')
 					$items = $list.closest('.thumbPreview').children('li').removeClass('highlight').end();
 
 					if($list.parent().toggleClass('active').hasClass('active')) {
-						$list.slideDown(duration).closest('li').addClass('highlight');
+                        $('#skin').find('>.thumbPreview').children('li')
+                            .removeClass('active highlight')
+                            .find('>ul.a:not(.selected)').slideUp();
+						$list.slideDown(duration).closest('li').addClass('active highlight');
 					} else {
 						$list.slideUp(duration);
 					}

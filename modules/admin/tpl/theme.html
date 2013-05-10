@@ -26,19 +26,21 @@ $('#theme').data('themes', themes);
 <form ruleset="insertThemeInfo" action="./" method="post" class="form">
 	<input type="hidden" name="module" value="admin" />
 	<input type="hidden" name="act" value="procAdminInsertThemeInfo">
-	<fieldset id="theme">
-		<h2 class="h2">{$lang->theme_setting}</h2>
-		<p>{$lang->theme_desc}</p>
+    <p>{$lang->theme_desc}</p>
+	<fieldset id="theme" class="alert alert-block alert-success">
+
+
+
 		<ul class="thumbPreview">
 			<li>
-				<p class="q">{$lang->selected_theme}</p>
+				<strong>{$lang->selected_theme}</strong>
 				<ul class="a">
 					{@$current_theme = ($theme_info)?$theme_info->theme:'user_define'}
 					<li class="i" loop="$theme_list=>$key,$val">
 						<span class="thumb"><!--@if($val->thumbnail)--><img src="{$val->thumbnail}" alt="" /><!--@else-->{$lang->msg_thumbnail_not_exist}<!--@end--></span>
 						<input type="radio" name="themeItem" id="{$key}" value="{$key}" <!--@if($key == $current_theme)-->checked="checked"<!--@end--> />
-						<label for="{$key}">{$val->title}({$key})</label>
-						<ul>
+						<label for="{$key}"">{$val->title}({$key})</label>
+                        <ul>
 							<li>&middot; {$lang->version}: {$val->version}</li>
 							<li>&middot; {$lang->author}:
 								<!--@foreach($val->publisher as $publisher)-->
@@ -49,11 +51,12 @@ $('#theme').data('themes', themes);
 							<li>&middot; {$lang->description}: {$val->description}</li>
 							<li>&middot; {$lang->path}: {$val->path}</li>
 						</ul>
-					</li>
+                    </li>
+
 					<li class="i userDefine">
 						<span class="thumb">{$lang->by_you}</span>
 						<input type="radio" name="themeItem" id="theme_user_define" value="user_define" <!--@if($current_theme == 'user_define')-->checked="checked"<!--@end--> />
-						<label for="theme_user_define">{$lang->user_define}</label>
+						<label for="theme_user_define"">{$lang->user_define}</label>
 						<ul>
 							<li>&middot; {$lang->description}: {$lang->no_selected_theme_desc}</li>
 						</ul>
@@ -61,17 +64,20 @@ $('#theme').data('themes', themes);
 				</ul>
 			</li>
 		</ul>
+
+
 	</fieldset>
 	<fieldset id="skin">
-		<p>{$lang->user_define_skin_select_desc} <button type="button" class="showAll"></button></p>
+        <h3>Skins</h3>
+		<div class="alert alert-info alert-block"><button type="button" class="close" data-dismiss="alert">×</button>{$lang->user_define_skin_select_desc} <!--<button type="button" class="showAll"></button>--></div>
 		<ul class="thumbPreview jx">
 			<li data-skintype="layout">
-				<p class="q">{$lang->selected_layout}</p>
+				<strong class="q">{$lang->selected_layout}</strong>
 				<ul class="a">
 					<li class="i" loop="$layout_list=>$val">
 						<span class="thumb"><span class="frame"><!--@if($val->thumbnail)--><img src="{$val->thumbnail}" alt="" /><!--@else-->{$lang->msg_thumbnail_not_exist}<!--@end--></span></span>
 						<input type="radio" name="layout" id="layout_{$val->layout_srl}" value="{$val->layout_srl}" <!--@if($val->layout_srl == $current_layout)-->checked="checked"<!--@end--> />
-						<label for="layout_{$val->layout_srl}">{$val->layout_title.'('.$val->layout.')'}</label>
+						<label for="layout_{$val->layout_srl}"">{$val->layout_title.'('.$val->layout.')'}</label>
 						<ul>
 							<li>&middot; {$lang->version}: {$val->version}</li>
 							<li>&middot; {$lang->author}:
@@ -88,7 +94,7 @@ $('#theme').data('themes', themes);
 				</ul>
 			</li>
 			<li loop="$module_list=>$mkey,$mval" cond="$mkey!='__IS_PARSE__'" data-skintype="{$mkey}">
-				<p class="q">{sprintf($lang->selected_skin, $mval['title'])}</p>
+				<strong class="q">{sprintf($lang->selected_skin, $mval['title'])}</strong>
 				<ul class="a">
 					<li class="i noDirection" cond="!$theme_info->skin_info[$mkey]">
 						<span class="thumb"><span class="frame"></span></span>
@@ -101,7 +107,7 @@ $('#theme').data('themes', themes);
 						{@ $id = $mkey.'_'.$skey }
 						<span class="thumb"><span class="frame"><!--@if($sval->thumbnail)--><img src="{$sval->thumbnail}" alt="" /><!--@else-->{$lang->msg_thumbnail_not_exist}<!--@end--></span></span>
 						<input type="radio" name="{$mkey}-skin" id="{$id}" value="{$skey}" checked="checked"|cond="$theme_info->skin_info[$mkey]==$skey" />
-						<label for="{$id}">{$sval->title.'('.$skey.')'}</label>
+						<label for="{$id}"">{$sval->title.'('.$skey.')'}</label>
 						<ul>
 							<li>&middot; {$lang->version}: {$sval->version}</li>
 							<li>&middot; {$lang->author}:
@@ -116,13 +122,13 @@ $('#theme').data('themes', themes);
 					<li class="i">
 						<span class="thumb"><span class="frame">{$lang->msg_thumbnail_not_exist}</span></span>
 						<input type="radio" name="{$mkey}-skin" id="{$mkey}_none" value="" checked="checked"|cond="!$theme_info->skin_info[$mkey]" />
-						<label for="{$mkey}_none">{$lang->no_select}</label>
+						<label for="{$mkey}_none"">{$lang->no_select}</label>
 					</li>
 				</ul>
 			</li>
 		</ul>
 	</fieldset>
-	<div class="btnArea">
-		<span class="btn medium"><input type="submit" value="{$lang->cmd_save}" /></span>
+	<div class="btnArea padding">
+		<input type="submit" value="{$lang->cmd_save}" class="btn btn-primary" />
 	</div>
 </form>
