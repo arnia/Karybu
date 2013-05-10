@@ -20,7 +20,6 @@ class MobileInstance
      */
     function isFromMobilePhone()
     {
-        return 'Y';
         if ($this->ismobile !== null) {
             return $this->ismobile;
         }
