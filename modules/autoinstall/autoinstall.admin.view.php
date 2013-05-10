@@ -1,7 +1,7 @@
 <?php
     /**
      * Admin view class in the autoinstall module
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      **/
     class autoinstallAdminView extends autoinstall {
 

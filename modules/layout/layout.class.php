@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  layout
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * high class of the layout module 
      **/
 

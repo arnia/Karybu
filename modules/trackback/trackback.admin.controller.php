@@ -3,7 +3,7 @@
 	 * trackbackAdminController class
 	 * trackback module admin controller class
 	 *
-	 * @author NHN (developers@xpressengine.com)
+	 * @author Arnia (developers@xpressengine.com)
 	 * @package /modules/trackback
 	 * @version 0.1
 	 */

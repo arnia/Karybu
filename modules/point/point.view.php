@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  pointView
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * @brief The view class of the point module
      *
      * POINT 2.0 format document output

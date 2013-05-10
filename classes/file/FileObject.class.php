@@ -2,7 +2,7 @@
 /**
  * File abstraction class 
  *
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  **/
 class FileObject extends Object
 {

@@ -3,7 +3,7 @@
  * set the include of the class file and other environment configurations
  *
  * @file   config/config.inc.php
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  **/
 
 @error_reporting(-1);

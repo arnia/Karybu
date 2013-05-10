@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  multimedia_link
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * @brief The components connected to the body of multimedia data
      **/
 

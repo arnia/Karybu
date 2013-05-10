@@ -3,7 +3,7 @@
 /**
  * Mobile class
  *
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  */
 class MobileInstance
 {
@@ -20,6 +20,7 @@ class MobileInstance
      */
     function isFromMobilePhone()
     {
+        return 'Y';
         if ($this->ismobile !== null) {
             return $this->ismobile;
         }

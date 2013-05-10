@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  image_gallery
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * @brief Making images uploaded to the image gallery
      **/
 

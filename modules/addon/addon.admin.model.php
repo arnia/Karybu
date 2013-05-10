@@ -1,7 +1,7 @@
 <?php
     /**
      * Admin model class of addon module
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      **/
     class addonAdminModel extends addon {
 

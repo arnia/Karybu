@@ -1,7 +1,7 @@
 <?php
 	/**
 	 * XML Generater
-	 * @author NHN (developers@xpressengine.com)
+	 * @author Arnia (developers@xpressengine.com)
 	 */
     class XmlGenerater {
 		/**
@@ -42,7 +42,7 @@
 
     /**
      * High class of the autoinstall module
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      **/
     class autoinstall extends ModuleObject {
 		/**

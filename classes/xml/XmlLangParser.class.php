@@ -2,7 +2,7 @@
 /**
  * XmlLangParser class
  * Change to lang php file from xml.
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @package /classes/xml
  * @version 0.1
  **/
