@@ -9,7 +9,7 @@
         });
 
         if (typeof(_isPoped) !== 'undefined') { // make it minimized by default when in a popup
-            $.dToolbar('minimize', true);
+            $.dToolbar('changeState', 'closed', true);
         } else {
             if ($.dToolbar().data('state')) {
                 $.dToolbar('changeState', $.dToolbar().data('state'), true);
@@ -47,15 +47,9 @@
 
         $('.queries span.time', $.dToolbar()).stampToTime();
 
-        // add tooltips
-        $('.queries li', $.dToolbar()).each(function(){
-            var title = $(this).attr('title', '').attr('title');
-            //title += $('.meta.time', $(this)).text() + "\n";
-            //title += $('.meta.elapsed_time', $(this)).text() + "\n";
-            title += $('.meta.query_name', $(this)).text();
-            $(this).attr('title', title);
-        }).tooltip();
-        $('.failed_queries li').tooltip();
+        $.dToolbar('closedButton').on('click', function(){
+            $.dToolbar('maximize');
+        });
 
         // click on php error line
         $('.php_errors li > p, .failed_queries li > p', $.dToolbar()).on('click', function() {
@@ -75,9 +69,16 @@
                 prompt("Copy to clipboard: Ctrl+C, Enter", txt);
             }
         });
-        $.dToolbar('closedButton').on('click', function(){
-            $.dToolbar('maximize');
-        });
+
+        // add tooltips
+        $('.queries li', $.dToolbar()).each(function(){
+            var title = $(this).attr('title', '').attr('title');
+            //title += $('.meta.time', $(this)).text() + "\n";
+            //title += $('.meta.elapsed_time', $(this)).text() + "\n";
+            title += $('.meta.query_name', $(this)).text();
+            $(this).attr('title', title);
+        }).tooltip();
+        $('.failed_queries li').tooltip();
     });
 
     var methods = {
