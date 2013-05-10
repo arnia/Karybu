@@ -1,7 +1,7 @@
 <?php
     /**
      * @class mcontent
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * @brief widget to display mcontent
      * @version 0.1
      **/

@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Route;
  * Manages Context such as request arguments/environment variables
  * It has dual method structure, easy-to use methods which can be called as Context::methodname(),and methods called with static object.
  *
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  */
 class ContextInstance
 {

@@ -3,7 +3,7 @@
  * - HttpRequest class
  * - a class that is designed to be used for sending out HTTP request to an external server and retrieving response
  * - Connection: keep-alive is not supported
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @package /classes/httprequest
  * @version 0.1
  */

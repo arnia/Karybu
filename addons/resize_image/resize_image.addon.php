@@ -3,7 +3,7 @@ if(!defined('__XE__')) exit();
 
 /**
  * @file resize_image.addon.php
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @brief Add-on to resize images in the body
  **/
 

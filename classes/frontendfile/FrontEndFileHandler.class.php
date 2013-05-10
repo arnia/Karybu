@@ -1,7 +1,7 @@
 <?php
 /**
  * Handle front end files
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  **/
 class FrontEndFileHandler extends Handler
 {

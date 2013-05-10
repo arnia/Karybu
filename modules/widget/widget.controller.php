@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  widgetController
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @brief Controller class for widget modules
  **/
 

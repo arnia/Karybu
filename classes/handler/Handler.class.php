@@ -2,7 +2,7 @@
     /**
      * An abstract class of (*)Handler 
 	 *
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      **/
 
     class Handler {

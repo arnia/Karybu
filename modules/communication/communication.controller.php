@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  communicationController
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * communication module of the Controller class
      **/
 

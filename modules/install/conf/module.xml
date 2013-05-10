@@ -27,5 +27,6 @@
 		<action name="procInstallAdminConfig" type="controller" standalone="true" />
         <action name="getInstallFTPList" type="model" standalone="true" />
         <action name="procInstallAdminDebug" type="controller" standalone="true" />
+        <action name="procInstallAdminEnvironment" type="controller" standalone="true" />
     </actions>
 </module>

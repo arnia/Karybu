@@ -1,7 +1,7 @@
 <?php
 /**
  * Argument class
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @package /classes/xml/xmlquery/argument
  * @version 0.1
  */

@@ -3,7 +3,7 @@
 
     /**
      * @file ./addons/blogapi/blogapi.func.php
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * @brief Function collections for the implementation of blogapi
      **/
     

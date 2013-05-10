@@ -3,7 +3,7 @@
  * trashModel class
  * trash the module's model class
  *
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @package /modules/trash
  * @version 0.1
  */

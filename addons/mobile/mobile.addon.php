@@ -3,7 +3,7 @@ if(!defined('__XE__')) exit();
 
 /**
  * @file mobile.addon.php
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @brief Mobile XE add-on
  *
  * If a mobile connection is made (see the header information), display contents with WAP tags

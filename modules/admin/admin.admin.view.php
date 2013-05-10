@@ -3,7 +3,7 @@
 	 * adminAdminView class
 	 * Admin view class of admin module
 	 *
-	 * @author NHN (developers@xpressengine.com)
+	 * @author Arnia (developers@xpressengine.com)
 	 * @package /modules/admin
 	 * @version 0.1
 	 */
@@ -442,16 +442,18 @@
                 if (!file_exists($configFile)) {
                     $configFile = "config/config_{$env['code']}.base.yml";
                 }
-                $container = new \Symfony\Component\DependencyInjection\ContainerBuilder();
-                $extension = new \Karybu\DependencyInjection\Dummy\Extension();
-                $extension->setNamespace('debug');
-                $container->registerExtension($extension);
-                $loader = new \Symfony\Component\DependencyInjection\Loader\YamlFileLoader($container, new \Symfony\Component\Config\FileLocator(array(_XE_PATH_)));
-                $loader->load($configFile);
-                $extensionConfig = $container->getExtensionConfig('debug');
-                if (isset($extensionConfig[0])) {
-                    //merge all config settings
-                    $debugValues[$env['code']] = call_user_func_array('array_merge', $extensionConfig);
+                if (file_exists($configFile)) {
+                    $container = new \Symfony\Component\DependencyInjection\ContainerBuilder();
+                    $extension = new \Karybu\DependencyInjection\Dummy\Extension();
+                    $extension->setNamespace('debug');
+                    $container->registerExtension($extension);
+                    $loader = new \Symfony\Component\DependencyInjection\Loader\YamlFileLoader($container, new \Symfony\Component\Config\FileLocator(array(_XE_PATH_)));
+                    $loader->load($configFile);
+                    $extensionConfig = $container->getExtensionConfig('debug');
+                    if (isset($extensionConfig[0])) {
+                        //merge all config settings
+                        $debugValues[$env['code']] = call_user_func_array('array_merge', $extensionConfig);
+                    }
                 }
             }
             Context::set('current_env', $environments[KARYBU_ENVIRONMENT]);

@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  pointModel
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * @brief The model class fo the point module
      **/
 

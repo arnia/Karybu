@@ -1496,8 +1496,8 @@
 		<value xml:lang="zh-CN"><![CDATA[管理设置]]></value>
 		<value xml:lang="tr"><![CDATA[Yönetici Ayarları]]></value>
 	</item>
-    <item name="subtitle_debug">
-        <value xml:lang="en"><![CDATA[Debug]]></value>
+    <item name="subtitle_developer_settings">
+        <value xml:lang="en"><![CDATA[Developer settings]]></value>
     </item>
     <item name="debug_debug">
         <value xml:lang="en"><![CDATA[Debug]]></value>
@@ -1543,7 +1543,7 @@
         <value xml:lang="en"><![CDATA[Handlers]]></value>
     </item>
     <item name="current_environment">
-        <value xml:lang="en"><![CDATA[Current environment is %s]]></value>
+        <value xml:lang="en"><![CDATA[Current environment is:]]></value>
     </item>
     <item name="dev">
         <value xml:lang="en"><![CDATA[Development]]></value>

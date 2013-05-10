@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  installAdminController
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * @brief admin controller class of the install module
      **/
     class installAdminController extends install {
@@ -202,7 +202,7 @@
 			//$this->setMessage('success_updated');
 		}
 
-		function setModulesConfig($config){
+		function setModulesConfig($config) {
 
 			if(!$config->thumbnail_type || $config->thumbnail_type != 'ratio' ) $args->thumbnail_type = 'crop';
 			else $args->thumbnail_type = 'ratio';
@@ -218,7 +218,7 @@
 			return $output;
 		}
 
-		function saveIcon($icon,$iconname){
+		function saveIcon($icon,$iconname) {
 			$mobicon_size = array('57','114');
 			$target_file = $icon['tmp_name'];
 			$type = $icon['type'];
@@ -242,7 +242,7 @@
          * @access public
          * @return void
          */
-        function procInstallAdminDebug(){
+        function procInstallAdminDebug() {
             $env = Context::get('debug_env');
             //validate environment
             $environment = \Karybu\Environment\Environment::getEnvironment($env);
@@ -291,6 +291,15 @@
             }
             $this->setRedirectUrl(Context::get('error_return_url'));
         }
-
+        function procInstallAdminEnvironment() {
+            $env = Context::get('environment');
+            $environments = \Karybu\Environment\Environment::getEnvironments();
+            if (isset($environments[$env])){
+                $filename = _XE_PATH_.'files/config/environment.txt';
+                FileHandler::writeFile($filename, $env);
+                $this->setMessage('success_updated', 'info');
+            }
+            $this->setRedirectUrl(Context::get('error_return_url'));
+        }
     }
 ?>

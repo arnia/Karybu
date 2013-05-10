@@ -3,7 +3,7 @@ if(!defined('__XE__')) exit();
 
 /**
  * @file blogapicounter.addon.php
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @brief Add blogAPI
  *
  * It enables to write a post by using an external tool such as ms live writer, firefox performancing, zoundry and so on.

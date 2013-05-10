@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  pointAdminView
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * @brief The admin view class of the point module
      **/
 

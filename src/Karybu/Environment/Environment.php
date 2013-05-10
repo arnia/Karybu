@@ -5,6 +5,7 @@ final class Environment
 {
     const DEV_ENVIRONMENT           = 'dev';
     const PROD_ENVIRONMENT          = 'prod';
+    const DEFAULT_ENVIRONMENT       = 'prod';
     private static $_environments   = array();
 
     /**

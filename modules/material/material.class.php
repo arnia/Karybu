@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  material
-     * @author NHN (developers@xpresseinge.com)
+     * @author Arnia (developers@xpresseinge.com)
      * @brief  material 모듈의 high class
      **/
 

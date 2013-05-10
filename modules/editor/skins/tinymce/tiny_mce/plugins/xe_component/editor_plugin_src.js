@@ -49,7 +49,7 @@
 		getInfo : function() {
 			return {
 				longname : 'XE Components Plugin',
-				author : 'NHN',
+				author : 'Arnia',
 				authorurl : 'http://xpressengine.com/',
 				infourl : '',
 				version : "1.0"

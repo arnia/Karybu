@@ -1,6 +1,6 @@
 /**
  * @brief XE Colorpicker
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  **/
 jQuery(function($){
 

@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  communicationView
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * View class of communication module
      **/
 
