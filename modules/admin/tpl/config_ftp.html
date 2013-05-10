@@ -7,8 +7,7 @@
 </div>
 
 <form action="./" method="post" id="ftp_form" class="form form-horizontal" enctype="multipart/form-data">
-
-    <input type="hidden" name="error_return_url" value="/global/admin/dispAdminConfigFtp">
+    <input type="hidden" name="error_return_url" value="{getUrl('', 'module','admin', 'act', 'dispAdminConfigFtp')}">
     <input type="hidden" name="module" value="install" />
 	<input type="hidden" name="act" value="procInstallAdminSaveFTPInfo" />
     <input type="hidden" name="ruleset" value="installFtpInfo" />
