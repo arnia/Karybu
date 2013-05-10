@@ -139,7 +139,7 @@
 			$info['package'] = _XE_PACKAGE_;
 			$info['host'] = $db_type->default_url ? $db_type->default_url : getFullUrl();
 			$info['app'] = $_SERVER['SERVER_SOFTWARE'];
-			$info['xe_version'] = __ZBXE_VERSION__;
+			$info['xe_version'] = __KARYBU_VERSION__;
 			$info['php'] = phpversion();
 
 			$db_info = Context::getDBInfo();

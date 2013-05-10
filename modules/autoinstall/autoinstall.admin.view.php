@@ -24,7 +24,7 @@
 		 */
 	    function init() {
 		    $template_path = sprintf("%stpl/",$this->module_path);
-            Context::set('original_site', _XE_LOCATION_SITE_);
+            Context::set('original_site', _KARYBU_LOCATION_SITE_);
             Context::set('uri', _XE_DOWNLOAD_SERVER_);
 		    $this->setTemplatePath($template_path);
 

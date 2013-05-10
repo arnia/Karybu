@@ -692,7 +692,7 @@ class moduleModel extends module
             "./files/cache/module_info/%s.%s.%s.php",
             $module,
             Context::getLangType(),
-            __ZBXE_VERSION__
+            __KARYBU_VERSION__
         );
         // Update if no cache file exists or it is older than xml file
         if (!file_exists($cache_file) || filemtime($cache_file) < filemtime($xml_file)) {

@@ -194,7 +194,8 @@
 
 			// Retrieve recent news and set them into context,
 			// move from index method, because use in admin footer
-			$newest_news_url = sprintf("http://news.xpressengine.com/%s/news.php?version=%s&package=%s", _XE_LOCATION_, __ZBXE_VERSION__, _XE_PACKAGE_);
+            // TODO refactor news for karybu
+			/*$newest_news_url = sprintf("http://news.xpressengine.com/%s/news.php?version=%s&package=%s", _XE_LOCATION_, __KARYBU_VERSION__, _XE_PACKAGE_);
 			$cache_file = sprintf("%sfiles/cache/newest_news.%s.cache.php", _XE_PATH_, _XE_LOCATION_);
 			if(!file_exists($cache_file) || filemtime($cache_file)+ 60*60 < time()) {
 				// Considering if data cannot be retrieved due to network problem, modify filemtime to prevent trying to reload again when refreshing administration page
@@ -226,7 +227,7 @@
 				}
 				Context::set('released_version', $buff->zbxe_news->attrs->released_version);
 				Context::set('download_link', $buff->zbxe_news->attrs->download_link);
-			}
+			}*/
 
             $currentUrl = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
             foreach($menu->list as $item){
@@ -362,7 +363,7 @@
             Context::set('needUpdate', $needUpdate);
 
 			// gathering enviroment check
-			$mainVersion = join('.', array_slice(explode('.', __ZBXE_VERSION__), 0, 2));
+			$mainVersion = join('.', array_slice(explode('.', __KARYBU_VERSION__), 0, 2));
 			$path = FileHandler::getRealPath('./files/env/'.$mainVersion);
 			$isEnviromentGatheringAgreement = false;
 			if(file_exists($path)) $isEnviromentGatheringAgreement = true;
@@ -510,7 +511,7 @@
 			$server = 'http://collect.xpressengine.com/env/img.php?';
 			$path = './files/env/';
 			$install_env = $path . 'install';
-			$mainVersion = join('.', array_slice(explode('.', __ZBXE_VERSION__), 0, 2));
+			$mainVersion = join('.', array_slice(explode('.', __KARYBU_VERSION__), 0, 2));
 
 			if(file_exists(FileHandler::getRealPath($install_env))) {
 				$oAdminAdminModel = &getAdminModel('admin');

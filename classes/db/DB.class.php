@@ -460,7 +460,7 @@ class DB
             _XE_PATH_,
             $this->cache_file,
             $query_id,
-            __ZBXE_VERSION__,
+            __KARYBU_VERSION__,
             $this->db_type
         );
 

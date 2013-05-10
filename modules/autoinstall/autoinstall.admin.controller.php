@@ -95,7 +95,7 @@
 				$type = $oModel->getTypeFromPath($package->path);
 				if($type == "core")
 				{
-                    $version = __ZBXE_VERSION__;
+                    $version = __KARYBU_VERSION__;
 				}
                 else
                 {
