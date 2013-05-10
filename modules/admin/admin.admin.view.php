@@ -412,15 +412,13 @@
 			$start_module = $oModuleModel->getSiteInfo(0, $columnList);
             Context::set('start_module', $start_module);
 
-            //$yaml = new \Symfony\Component\Yaml\Parser();
-            //$currentSettings = $yaml->parse(file_get_contents(_XE_PATH_.'files/config/config_dev.yml'));
-
-            $environments = array('dev', 'prod');
+            $environments = \Karybu\Environment\Environment::getEnvironments();
+            //set translated titles
+            foreach ($environments as $key => $env) {
+                $langKey = $env['lang_key'];
+                $environments[$key]['title'] = $lang->$langKey;
+            }
             Context::set('environments', $environments);
-            Context::set('env_titles', array(
-                'dev'=>$lang->dev,
-                'prod'=>$lang->prod,
-            ));
             Context::set('debug_levels', array(
                 'debug'     => $lang->debug_debug,
                 'info'      => $lang->debug_info,
@@ -438,10 +436,10 @@
             //get current values
             foreach ($environments as $env) {
                 $debugValues[$env] = array();
-                $configFile = "files/config/config_{$env}.yml";
+                $configFile = "files/config/config_{$env['code']}.yml";
                 //fallback for installer
                 if (!file_exists($configFile)) {
-                    $configFile = "config/config_{$env}.base.yml";
+                    $configFile = "config/config_{$env['code']}.base.yml";
                 }
                 $container = new \Symfony\Component\DependencyInjection\ContainerBuilder();
                 $extension = new \Karybu\DependencyInjection\Dummy\Extension();
@@ -452,10 +450,10 @@
                 $extensionConfig = $container->getExtensionConfig('debug');
                 if (isset($extensionConfig[0])) {
                     //merge all config settings
-                    $debugValues[$env] = call_user_func_array('array_merge', $extensionConfig);
+                    $debugValues[$env['code']] = call_user_func_array('array_merge', $extensionConfig);
                 }
             }
-            Context::set('current_env', KARYBU_ENVIRONMENT);
+            Context::set('current_env', $environments[KARYBU_ENVIRONMENT]);
 
             Context::set('debug_values', $debugValues);
             $this->setTemplateFile('config_general');
