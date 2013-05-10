@@ -21,7 +21,7 @@ jQuery(function($){
 <load target="../install/lang/lang.xml" usecdn="true" />
 <load target="../../session/tpl/js/session.js" usecdn="true" />
 
-<script>
+<script type="text/javascript">
 jQuery(function($){
 	$('.moduleSearch').bind('moduleSelect', function(e, aSelected){
 		var sType, sName, sSrl;
@@ -49,7 +49,7 @@ jQuery(function($){
             <label class="control-label" for="_target_module">{$lang->about_start_module}</label>
             <div class="controls modulefinder moduleSearch">
                 <input type="hidden" name="index_module_srl" id="index_module_srl" value="{$start_module->index_module_srl}" />
-                <input type="text" name="_target_module" id="_target_module" value="{$start_module->browser_title} ({$start_module->mid})" readonly />
+                <input type="text" name="_target_module" id="_target_module" value="{$start_module->browser_title} ({$start_module->mid})" readonly="readonly" />
                 <a href="#moduleSearchWindow" class="tgAnchor moduleSearch" title="{$lang->cmd_find}"><i class="icon-search"></i></a>
                 <div id="moduleSearchWindow" class="moduleSearchWindow tgContent">
                     <div class="siteList sectionDiv">
@@ -57,7 +57,7 @@ jQuery(function($){
                         <div class="siteListSearchBox">
                             <div class="siteListSearchBoxBorder">
                                 <div class="searchImg icon-search"></div>
-                                <input type="text" class="siteListSearchInput" name="site_filter">
+                                <input type="text" class="siteListSearchInput" name="site_filter" />
                             </div>
                         </div>
                         <div class="siteListUL">
@@ -126,7 +126,7 @@ jQuery(function($){
         <div class="control-group">
             <div class="controls">
                 <label class="checkbox" for="use_mobile_view">
-                    <input type="checkbox" name="use_mobile_view" id="use_mobile_view" value="Y" checked="checked"|cond="$use_mobile_view == 'Y'"> {$lang->about_question_mobile_view}
+                    <input type="checkbox" name="use_mobile_view" id="use_mobile_view" value="Y" checked="checked"|cond="$use_mobile_view == 'Y'" /> {$lang->about_question_mobile_view}
                 </label>
             </div>
         </div>
@@ -135,11 +135,11 @@ jQuery(function($){
             <label class="control-label">{$lang->about_thumbnail_type}</label>
             <div class="controls">
                 <label class="radio">
-                    <input type="radio" name="thumbnail_type" id="thumbnail_type_crop" value="corp" checked="checked"|cond="$thumbnail_type != 'ratio'">
+                    <input type="radio" name="thumbnail_type" id="thumbnail_type_crop" value="corp" checked="checked"|cond="$thumbnail_type != 'ratio'" />
                     {$lang->corp}
                 </label>
                 <label class="radio">
-                    <input type="radio" name="thumbnail_type" id="thumbnail_type_ratio" value="ratio" checked="checked"|cond="$thumbnail_type == 'ratio'">
+                    <input type="radio" name="thumbnail_type" id="thumbnail_type_ratio" value="ratio" checked="checked"|cond="$thumbnail_type == 'ratio'" />
                     {$lang->ratio}
                 </label>
             </div>
@@ -306,29 +306,44 @@ jQuery(function($){
 
 <fieldset class="section">
 
-    <h3 class="h3">{$lang->subtitle_debug}</h3>
-    <p>{sprintf($lang->current_environment, $env_titles[$current_env])}</p>
-    <div class="tabbable"> <!-- Only required for left/right tabs -->
+    <h3 class="h3">{$lang->subtitle_developer_settings}</h3>
+    <form action="./" method="post" id="env_set" class="form form-horizontal" enctype="multipart/form-data">
+        <input type="hidden" name="module" value="install" />
+        <input type="hidden" name="act" value="procInstallAdminEnvironment" />
+        <div class="control-group">
+            <label class="control-label" for="env">{$lang->current_environment}</label>
+            <div class="controls">
+                <select name="environment" id="env">
+                    <!--@foreach($environments as $key=> $env)-->
+                    <option value="{$env['code']}"<!--@if($env['code']==KARYBU_ENVIRONMENT)--> selected="selected"<!--@end-->>{$env['title']}</option>
+                    <!--@end-->
+                </select>
+                <input type="submit" value="{$lang->cmd_save}" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+    <div class="tabbable">
         <ul class="nav nav-tabs">
             <!--@foreach($environments as $key=> $env)-->
-            <li<!--@if($env==KARYBU_ENVIRONMENT)--> class="active"<!--@end-->>
-                <a href="#tab{$key}" data-toggle="tab">{$env_titles[$env]}</a>
+            <li<!--@if($env['code']==KARYBU_ENVIRONMENT)--> class="active"<!--@end-->>
+                <a href="#tab{$key}" data-toggle="tab">{$env['title']}</a>
             </li>
             <!--@endforeach-->
         </ul>
         <div class="tab-content">
             <!--@foreach($environments as $key=> $env)-->
-            <div class="tab-pane<!--@if($env==KARYBU_ENVIRONMENT)--> active<!--@end-->" id="tab{$key}" >
-                <form action="./" method="post" id="ftp_debug_{$key}" class="form form-horizontal" enctype="multipart/form-data">
+            <div class="tab-pane<!--@if($env['code']==KARYBU_ENVIRONMENT)--> active<!--@end-->" id="tab{$key}" >
+                <form action="./" method="post" id="debug_{$key}" class="form form-horizontal" enctype="multipart/form-data">
                     <input type="hidden" name="module" value="install" />
                     <input type="hidden" name="act" value="procInstallAdminDebug" />
-                    <input type="hidden" name="debug_env" value="{$env}" />
+                    <input type="hidden" name="debug_env" value="{$env['code']}" />
+
                     <div class="control-group">
                         <label class="control-label" for="level{$key}">{$lang->level}</label>
                         <div class="controls">
                             <select name="level" id="level{$key}">
                                 <!--@foreach($debug_levels as $code=>$name)-->
-                                <option value="{$code}"<!--@if($code == $debug_values[$env]['level'])--> selected="selected"<!--@end-->>{$name}</option>
+                                <option value="{$code}"<!--@if($code == $debug_values[$key]['level'])--> selected="selected"<!--@end-->>{$name}</option>
                                 <!--@end-->
                             </select>
                         </div>
@@ -338,8 +353,8 @@ jQuery(function($){
                         <label class="control-label" for="toolbar{$key}">{$lang->toolbar}</label>
                         <div class="controls">
                             <select name="toolbar" id="toolbar{$key}">
-                                <option value="false"<!--@if(!$debug_values[$env]['toolbar'])--> selected="selected"<!--@end-->>{$lang->no}</option>
-                                <option value="true"<!--@if($debug_values[$env]['toolbar'])--> selected="selected"<!--@end-->>{$lang->yes}</option>
+                                <option value="false"<!--@if(!$debug_values[$key]['toolbar'])--> selected="selected"<!--@end-->>{$lang->no}</option>
+                                <option value="true"<!--@if($debug_values[$key]['toolbar'])--> selected="selected"<!--@end-->>{$lang->yes}</option>
                             </select>
                         </div>
                     </div>
@@ -347,7 +362,7 @@ jQuery(function($){
                     <div class="control-group">
                         <label class="control-label" for="slow_queries_threshold{$key}">{$lang->slow_queries_threshold}</label>
                         <div class="controls">
-                            <input type="text" name="slow_queries_threshold" id="slow_queries_threshold{$key}" value="{$debug_values[$env]['slow_queries_threshold']}" />
+                            <input type="text" name="slow_queries_threshold" id="slow_queries_threshold{$key}" value="{$debug_values[$key]['slow_queries_threshold']}" />
                         </div>
                     </div>
 
@@ -356,7 +371,7 @@ jQuery(function($){
                         <div class="controls">
                             <select name="handlers[]" id="handlers{$key}" multiple="multiple">
                                 <!--@foreach($debug_handlers as $code=>$name)-->
-                                <option value="{$code}"<!--@if(in_array($code, $debug_values[$env]['handlers']))--> selected="selected"<!--@end-->>{$name}</option>
+                                <option value="{$code}"<!--@if(in_array($code, $debug_values[$key]['handlers']))--> selected="selected"<!--@end-->>{$name}</option>
                                 <!--@endforeach-->
                             </select>
                         </div>

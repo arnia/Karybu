@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  image_link
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @brief Add an image, or to modify the properties of components
  **/
 

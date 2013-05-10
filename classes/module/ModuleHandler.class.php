@@ -1,7 +1,7 @@
 <?php
 /**
  * @class ModuleHandler
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * Handling modules
  *
  * @remarks This class is to excute actions of modules.
@@ -364,7 +364,7 @@ class ModuleHandlerInstance extends Handler
         $logged_info = $this->context->get('logged_info');
         if (isset($oModule->checkAdminPermission)
             && $this->module == "admin"
-            && $oModule->module_key->getType() == "view"
+            && in_array($oModule->module_key->getType(), array("view", "mobile"))
         ) {
             // This is basically the entry point to the admin interface
             if ($logged_info->is_admin == 'Y') {
@@ -580,6 +580,9 @@ class ModuleHandlerInstance extends Handler
             // Check if layout_srl exists for the module
             if ($this->mobile->isFromMobilePhone()) {
                 $layout_srl = $oModule->module_info->mlayout_srl;
+                if(!$layout_srl && $oModule->module_info->use_mobile == "N")
+                    $layout_srl = $oModule->module_info->layout_srl;
+
             } else {
                 $layout_srl = $oModule->module_info->layout_srl;
             }

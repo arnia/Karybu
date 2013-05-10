@@ -5,7 +5,7 @@
     /**
      * autoinstall module admin controller class
 	 *
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      **/
     class autoinstallAdminController extends autoinstall {
 
@@ -95,7 +95,7 @@
 				$type = $oModel->getTypeFromPath($package->path);
 				if($type == "core")
 				{
-                    $version = __ZBXE_VERSION__;
+                    $version = __KARYBU_VERSION__;
 				}
                 else
                 {

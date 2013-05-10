@@ -3,7 +3,7 @@
  * trash class
  * trash the module's high class
  *
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @package /modules/trash
  * @version 0.1
  */

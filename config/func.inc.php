@@ -2,7 +2,7 @@
     /**
      * function library files for convenience
 	 *
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
     **/
 
     if(!defined('__XE__') && !defined('__ZBXE__')) exit();

@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  pageAdminController
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * @brief page of the module admin controller class
      **/
 

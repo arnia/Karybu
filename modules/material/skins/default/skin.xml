@@ -2,12 +2,12 @@
 <skin version="0.2">
     <title xml:lang="en">Default Skin</title>
     <description xml:lang="en">
-        NHN (developers@xpressengine.com)
+        Arnia (developers@xpressengine.com)
     </description>
     <version>0.1</version>
     <date>2008-05-28</date>
 
     <author email_address="developers@xpressengine.com" link="http://xpressengine.com/">
-        <name xml:lang="en">NHN</name>
+        <name xml:lang="en">Arnia</name>
     </author>
 </skin>

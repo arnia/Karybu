@@ -2,7 +2,7 @@
 /**
  * CacheHandler
  *
- * @author NHN (developer@xpressengine.com)
+ * @author Arnia (developer@xpressengine.com)
  **/
 class CacheHandler extends Handler
 {
@@ -244,7 +244,7 @@ class CacheHandler extends Handler
 /**
  * Base class of Cache
  *
- * @author NHN (developer@xpressengine.com)
+ * @author Arnia (developer@xpressengine.com)
  */
 class CacheBase
 {

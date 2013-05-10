@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  materialAPI
-     * @author NHN (developers@xpresseinge.com)
+     * @author Arnia (developers@xpresseinge.com)
      * @brief  material 모듈의 View Action에 대한 API 처리
      **/
 

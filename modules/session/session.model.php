@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  sessionModel
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * @brief The Model class of the session module
      **/
 

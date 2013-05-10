@@ -1,7 +1,7 @@
 <?php
 /**
  * XmlGenerator class
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @package /classes/xml
  * @version 0.1
  */

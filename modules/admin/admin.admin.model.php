@@ -2,7 +2,7 @@
 	/**
 	 * adminAdminModel class
 	 * admin model class of admin module
-	 * @author NHN (developers@xpressengine.com)
+	 * @author Arnia (developers@xpressengine.com)
 	 * @package /modules/admin
 	 * @version 0.1
 	 */
@@ -139,7 +139,7 @@
 			$info['package'] = _XE_PACKAGE_;
 			$info['host'] = $db_type->default_url ? $db_type->default_url : getFullUrl();
 			$info['app'] = $_SERVER['SERVER_SOFTWARE'];
-			$info['xe_version'] = __ZBXE_VERSION__;
+			$info['xe_version'] = __KARYBU_VERSION__;
 			$info['php'] = phpversion();
 
 			$db_info = Context::getDBInfo();
@@ -219,11 +219,10 @@
 
             $xml_obj = $_xml_obj->theme;
 
-            // 스킨이름
-			$theme_info->name = $theme_name;
+            $theme_info->name = $theme_name;
             $theme_info->title = $xml_obj->title->body;
-			$thumbnail = './themes/'.$theme_name.'/thumbnail.png';
-			$theme_info->thumbnail = (file_exists($thumbnail))?$thumbnail:null;
+			$thumbnail = 'themes/'.$theme_name.'/thumbnail.png';
+			$theme_info->thumbnail = (file_exists('./' . $thumbnail)) ? getFullUrl() . $thumbnail : null;
 			$theme_info->version = $xml_obj->version->body;
 			sscanf($xml_obj->date->body, '%d-%d-%d', $date_obj->y, $date_obj->m, $date_obj->d);
 			$theme_info->date = sprintf('%04d%02d%02d', $date_obj->y, $date_obj->m, $date_obj->d);

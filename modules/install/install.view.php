@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  installView
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * @brief View class of install module
      **/
 

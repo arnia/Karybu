@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  installAdminController
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      * @brief admin controller class of the install module
      **/
     class installAdminController extends install {
@@ -202,7 +202,7 @@
 			//$this->setMessage('success_updated');
 		}
 
-		function setModulesConfig($config){
+		function setModulesConfig($config) {
 
 			if(!$config->thumbnail_type || $config->thumbnail_type != 'ratio' ) $args->thumbnail_type = 'crop';
 			else $args->thumbnail_type = 'ratio';
@@ -218,7 +218,7 @@
 			return $output;
 		}
 
-		function saveIcon($icon,$iconname){
+		function saveIcon($icon,$iconname) {
 			$mobicon_size = array('57','114');
 			$target_file = $icon['tmp_name'];
 			$type = $icon['type'];
@@ -242,50 +242,64 @@
          * @access public
          * @return void
          */
-        function procInstallAdminDebug(){
+        function procInstallAdminDebug() {
             $env = Context::get('debug_env');
-            $allowedSettings = array(
-                    'level',
-                    'toolbar',
-                    'slow_queries_threshold',
-                    'handlers');
-            $values = array();
-            $values['imports'][0][resource] = '../../config/config_'.$env.'.base.yml';
-            $values['debug'] = array();
-            foreach ($allowedSettings as $setting){
-                if (!is_null(Context::get($setting))){
-                    $value = null;
-                    switch ($setting){
-                        case 'level':
-                            $value = Context::get($setting);
-                            break;
-                        case 'toolbar':
-                            $_val = Context::get($setting);
-                            if ($_val === 'false' || !($_val)){
-                                $value = false;
-                            }
-                            else{
-                                $value = true;
-                            }
-                            break;
-                        case 'slow_queries_threshold':
-                            $value = (int)(Context::get($setting));
-                            break;
-                        case 'handlers' :
-                            //$value = '['.implode(', ', Context::get($setting)).']';
-                            $value = Context::get($setting);
-                            break;
-                    }
-                    if (!is_null($value)){
-                        $values['debug'][$setting] = $value;
+            //validate environment
+            $environment = \Karybu\Environment\Environment::getEnvironment($env);
+            if (isset($environment['code'])) {
+                $allowedSettings = array(
+                        'level',
+                        'toolbar',
+                        'slow_queries_threshold',
+                        'handlers');
+                $values = array();
+                $values['imports'][0][resource] = '../../config/config_'.$env.'.base.yml';
+                $values['debug'] = array();
+                foreach ($allowedSettings as $setting){
+                    if (!is_null(Context::get($setting))){
+                        $value = null;
+                        switch ($setting){
+                            case 'level':
+                                $value = Context::get($setting);
+                                break;
+                            case 'toolbar':
+                                $_val = Context::get($setting);
+                                if ($_val === 'false' || !($_val)){
+                                    $value = false;
+                                }
+                                else{
+                                    $value = true;
+                                }
+                                break;
+                            case 'slow_queries_threshold':
+                                $value = (int)(Context::get($setting));
+                                break;
+                            case 'handlers' :
+                                //$value = '['.implode(', ', Context::get($setting)).']';
+                                $value = Context::get($setting);
+                                break;
+                        }
+                        if (!is_null($value)){
+                            $values['debug'][$setting] = $value;
+                        }
                     }
                 }
+                $dumper = new \Symfony\Component\Yaml\Dumper();
+                $yaml = $dumper->dump($values, 2);
+                FileHandler::writeFile(_XE_PATH_.'files/config/config_'.$env.'.yml', $yaml);
+                $this->setMessage('success_updated', 'info');
             }
-            $dumper = new \Symfony\Component\Yaml\Dumper();
-            $yaml = $dumper->dump($values, 2);
-            FileHandler::writeFile(_XE_PATH_.'files/config/config_'.$env.'.yml', $yaml);
             $this->setRedirectUrl(Context::get('error_return_url'));
         }
-
+        function procInstallAdminEnvironment() {
+            $env = Context::get('environment');
+            $environments = \Karybu\Environment\Environment::getEnvironments();
+            if (isset($environments[$env])){
+                $filename = _XE_PATH_.'files/config/environment.txt';
+                FileHandler::writeFile($filename, $env);
+                $this->setMessage('success_updated', 'info');
+            }
+            $this->setRedirectUrl(Context::get('error_return_url'));
+        }
     }
 ?>

@@ -1,7 +1,7 @@
 <?php
 /**
  * Validator class
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @package /classes/validator
  * @version 0.1
  */

@@ -3,7 +3,7 @@
  * set the include of the class file and other environment configurations
  *
  * @file   config/config.inc.php
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  **/
 
 @error_reporting(-1);
@@ -14,12 +14,7 @@ if(!defined('__ZBXE__')) exit();
  * Display XE's full version
  * Even The file should be revised when releasing altough no change is made
  */
-define('__XE_VERSION__', '1.5.4.1');
-
-/**
- * @deprecated __ZBXE_VERSION__ will be removed. Use __XE_VERSION__ instead.
- */
-define('__ZBXE_VERSION__', __XE_VERSION__);
+define('__KARYBU_VERSION__', '1.0');
 
 /**
  * The base path to where you installed zbXE Wanted
@@ -47,7 +42,7 @@ if(file_exists(_XE_PATH_.'config/package.inc.php')) {
     /**
      * Location site
      */
-    define('_XE_LOCATION_SITE_','http://www.xpressengine.org/');
+    define('_KARYBU_LOCATION_SITE_','http://www.xpressengine.org/');
 
     /**
      * Download server

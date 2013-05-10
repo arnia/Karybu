@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  installController
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @brief install module of the Controller class
  **/
 
@@ -675,8 +675,10 @@ class installController extends install
 
         FileHandler::writeFile($config_file, $buff);
         //create config files
+        $environments = \Karybu\Environment\Environment::getEnvironments();
         $files = array('config_dev', 'config_prod');
-        foreach ($files as $file){
+        foreach ($environments as $code=>$env){
+            $file = 'config_'.$code;
             $destination = './files/config/'.$file.'.yml';
             $source = '../../config/'.$file.'.base.yml';
             $values = array();

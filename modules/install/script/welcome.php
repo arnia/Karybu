@@ -140,7 +140,7 @@ class DatasetCreator {
         // 2. Insert document associated with this page
         $lang = Context::getLangType();
         $module_srl = $output->get('module_srl');
-        Context::set('version', __ZBXE_VERSION__);
+        Context::set('version', __KARYBU_VERSION__);
         $oTemplateHandler = &TemplateHandler::getInstance();
         $content = $oTemplateHandler->compile('./modules/install/script/welcome_content', $mid.'_'.$lang);
 

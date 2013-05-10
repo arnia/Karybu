@@ -50,18 +50,22 @@
                         <img src="img/admin.png" cond="!isset($logged_info->profile_image->src)"/>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <ul class="unstyled">
-                            <li>
-                                <a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminInfo', 'is_admin', 'Y', 'member_srl', $logged_info->member_srl)}">{$logged_info->email_address}</a>
-                            </li>
-                            <li><a href="#language" class="tgAnchor language" data-effect="slide" data-duration="100">{$lang_supported[$lang_type]}</a>
+                        <li>
+                            <ul class="unstyled">
+                                <li>
+                                    <a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminInfo', 'is_admin', 'Y', 'member_srl', $logged_info->member_srl)}">{$logged_info->email_address}</a>
+                                </li>
+                                <li>
+                                    <a href="#language" class="tgAnchor language" data-effect="slide" data-duration="100">{$lang_supported[$lang_type]}</a>
 
-                                <ul class="tgContent" id="language">
-                                    <li loop="$lang_supported=>$key,$val" class="selected"
-                                    |cond="$key==$lang_type"><a href="{getUrl('l',$key)}" data-langcode="{$key}"
-                                                                onclick="doChangeLangType('{$key}'); return false;">{$val}</a>
-                            </li>
-                        </ul>
+                                    <ul class="tgContent" id="language">
+                                        <li loop="$lang_supported=>$key,$val" class="selected"|cond="$key==$lang_type">
+                                            <a href="{getUrl('l',$key)}" data-langcode="{$key}" onclick="doChangeLangType('{$key}'); return false;">{$val}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="divider"></li>
                         <li><a href="{getUrl('', 'module','admin','act','procAdminLogout')}">Log-out</a></li>
 
@@ -84,19 +88,20 @@
                 <p>{$lang->about_dashboard}</p>
             </div>
             <div class="kList">
+                <h6>{$lang->dashboard}</h6>
                 <ul class="unstyled kList">
-                    <h6>{$lang->dashboard}</h6>
                     <li loop="$main_menu->items=>$key,$value">
                         <!--@if(isset($value->setup_index_act))-->
                             <a href="{getUrl('', 'module', 'admin', 'act', $value->setup_index_act, 'module_srl', $value->module_srl)}"><!--@if($value->parent_srl)-->&nbsp;&nbsp;<!--@end-->{$value->name}</a>
                         <!--@else-->
                             <span>{$value->name}</span>
                         <!--@end-->
-                </ul</li>
+                    </li>
+                </ul>
             </div>
             <div class="kList">
+                <h6>{$lang->favorites}</h6>
                 <ul class="unstyled kList">
-                    <h6>{$lang->favorites}</h6>
                         <li loop="$favorite_list => $favorite">
                             <a href="{getUrl('', 'module', 'admin', 'act', $favorite->admin_index_act)}">{$favorite->title}</a>
                             <form class="kActionIcons" action="./">

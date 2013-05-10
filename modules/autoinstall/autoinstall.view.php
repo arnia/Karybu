@@ -2,7 +2,7 @@
 
     /**
      * View class of the autoinstall module
-     * @author NHN (developers@xpressengine.com)
+     * @author Arnia (developers@xpressengine.com)
      **/
     class autoinstallView extends autoinstall {
 

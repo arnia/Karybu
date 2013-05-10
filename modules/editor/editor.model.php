@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  editorModel
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @brief model class of the editor odule
  **/
 

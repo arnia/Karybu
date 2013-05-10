@@ -8,7 +8,7 @@ use Karybu\Exception\DBConnectionFailedException;
  * - Cubrid DBMS to use the class
  * - Works with CUBRID up to 8.4.1
  *
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @package /classes/db
  * @version 0.1
  */

@@ -3,7 +3,7 @@ if(!defined('__XE__')) exit();
 
 /**
  * @file image_name.addon.php
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @brief Display user image name/image mark
  *
  * Find member_srl in the part with <div class="member_MemberSerialNumber"> .... </div>

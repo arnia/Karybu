@@ -17,7 +17,7 @@ use Karybu\Event\DBEvents;
  * Obs. Here we have a design pattern misuse: DB is the same time a Factory and a parent for specific db classes.
  *      Hopefully this will change in the near future (current date: 14.03.2013)
  *
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * @package /classes/db
  * @version 0.1
  */
@@ -460,7 +460,7 @@ class DB
             _XE_PATH_,
             $this->cache_file,
             $query_id,
-            __ZBXE_VERSION__,
+            __KARYBU_VERSION__,
             $this->db_type
         );
 

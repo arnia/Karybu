@@ -1,7 +1,7 @@
 <?php
 /**
  * @class TemplateHandler
- * @author NHN (developers@xpressengine.com)
+ * @author Arnia (developers@xpressengine.com)
  * template compiler
  * @version 0.1
  * @remarks It compiles template file by using regular expression into php
@@ -97,7 +97,7 @@ class TemplateHandler
         );
 
         // get compiled file name
-        $hash = md5($this->file . __ZBXE_VERSION__);
+        $hash = md5($this->file . __KARYBU_VERSION__);
         $this->compiled_file = "{$this->compiled_path}{$hash}.compiled.php";
 
         // compare various file's modified time for check changed

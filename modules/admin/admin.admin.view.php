@@ -3,7 +3,7 @@
 	 * adminAdminView class
 	 * Admin view class of admin module
 	 *
-	 * @author NHN (developers@xpressengine.com)
+	 * @author Arnia (developers@xpressengine.com)
 	 * @package /modules/admin
 	 * @version 0.1
 	 */
@@ -194,7 +194,8 @@
 
 			// Retrieve recent news and set them into context,
 			// move from index method, because use in admin footer
-			$newest_news_url = sprintf("http://news.xpressengine.com/%s/news.php?version=%s&package=%s", _XE_LOCATION_, __ZBXE_VERSION__, _XE_PACKAGE_);
+            // TODO refactor news for karybu
+			/*$newest_news_url = sprintf("http://news.xpressengine.com/%s/news.php?version=%s&package=%s", _XE_LOCATION_, __KARYBU_VERSION__, _XE_PACKAGE_);
 			$cache_file = sprintf("%sfiles/cache/newest_news.%s.cache.php", _XE_PATH_, _XE_LOCATION_);
 			if(!file_exists($cache_file) || filemtime($cache_file)+ 60*60 < time()) {
 				// Considering if data cannot be retrieved due to network problem, modify filemtime to prevent trying to reload again when refreshing administration page
@@ -226,7 +227,7 @@
 				}
 				Context::set('released_version', $buff->zbxe_news->attrs->released_version);
 				Context::set('download_link', $buff->zbxe_news->attrs->download_link);
-			}
+			}*/
 
             $currentUrl = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
             foreach($menu->list as $item){
@@ -362,7 +363,7 @@
             Context::set('needUpdate', $needUpdate);
 
 			// gathering enviroment check
-			$mainVersion = join('.', array_slice(explode('.', __ZBXE_VERSION__), 0, 2));
+			$mainVersion = join('.', array_slice(explode('.', __KARYBU_VERSION__), 0, 2));
 			$path = FileHandler::getRealPath('./files/env/'.$mainVersion);
 			$isEnviromentGatheringAgreement = false;
 			if(file_exists($path)) $isEnviromentGatheringAgreement = true;
@@ -412,15 +413,13 @@
 			$start_module = $oModuleModel->getSiteInfo(0, $columnList);
             Context::set('start_module', $start_module);
 
-            //$yaml = new \Symfony\Component\Yaml\Parser();
-            //$currentSettings = $yaml->parse(file_get_contents(_XE_PATH_.'files/config/config_dev.yml'));
-
-            $environments = array('dev', 'prod');
+            $environments = \Karybu\Environment\Environment::getEnvironments();
+            //set translated titles
+            foreach ($environments as $key => $env) {
+                $langKey = $env['lang_key'];
+                $environments[$key]['title'] = $lang->$langKey;
+            }
             Context::set('environments', $environments);
-            Context::set('env_titles', array(
-                'dev'=>$lang->dev,
-                'prod'=>$lang->prod,
-            ));
             Context::set('debug_levels', array(
                 'debug'     => $lang->debug_debug,
                 'info'      => $lang->debug_info,
@@ -438,24 +437,26 @@
             //get current values
             foreach ($environments as $env) {
                 $debugValues[$env] = array();
-                $configFile = "files/config/config_{$env}.yml";
+                $configFile = "files/config/config_{$env['code']}.yml";
                 //fallback for installer
                 if (!file_exists($configFile)) {
-                    $configFile = "config/config_{$env}.base.yml";
+                    $configFile = "config/config_{$env['code']}.base.yml";
                 }
-                $container = new \Symfony\Component\DependencyInjection\ContainerBuilder();
-                $extension = new \Karybu\DependencyInjection\Dummy\Extension();
-                $extension->setNamespace('debug');
-                $container->registerExtension($extension);
-                $loader = new \Symfony\Component\DependencyInjection\Loader\YamlFileLoader($container, new \Symfony\Component\Config\FileLocator(array(_XE_PATH_)));
-                $loader->load($configFile);
-                $extensionConfig = $container->getExtensionConfig('debug');
-                if (isset($extensionConfig[0])) {
-                    //merge all config settings
-                    $debugValues[$env] = call_user_func_array('array_merge', $extensionConfig);
+                if (file_exists($configFile)) {
+                    $container = new \Symfony\Component\DependencyInjection\ContainerBuilder();
+                    $extension = new \Karybu\DependencyInjection\Dummy\Extension();
+                    $extension->setNamespace('debug');
+                    $container->registerExtension($extension);
+                    $loader = new \Symfony\Component\DependencyInjection\Loader\YamlFileLoader($container, new \Symfony\Component\Config\FileLocator(array(_XE_PATH_)));
+                    $loader->load($configFile);
+                    $extensionConfig = $container->getExtensionConfig('debug');
+                    if (isset($extensionConfig[0])) {
+                        //merge all config settings
+                        $debugValues[$env['code']] = call_user_func_array('array_merge', $extensionConfig);
+                    }
                 }
             }
-            Context::set('current_env', KARYBU_ENVIRONMENT);
+            Context::set('current_env', $environments[KARYBU_ENVIRONMENT]);
 
             Context::set('debug_values', $debugValues);
             $this->setTemplateFile('config_general');
@@ -510,7 +511,7 @@
 			$server = 'http://collect.xpressengine.com/env/img.php?';
 			$path = './files/env/';
 			$install_env = $path . 'install';
-			$mainVersion = join('.', array_slice(explode('.', __ZBXE_VERSION__), 0, 2));
+			$mainVersion = join('.', array_slice(explode('.', __KARYBU_VERSION__), 0, 2));
 
 			if(file_exists(FileHandler::getRealPath($install_env))) {
 				$oAdminAdminModel = &getAdminModel('admin');
