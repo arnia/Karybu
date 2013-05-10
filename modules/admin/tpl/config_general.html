@@ -306,8 +306,22 @@ jQuery(function($){
 
 <fieldset class="section">
 
-    <h3 class="h3">{$lang->subtitle_debug}</h3>
-    <p>{sprintf($lang->current_environment, $current_env['title'])}</p>
+    <h3 class="h3">{$lang->subtitle_developer_settings}</h3>
+    <form action="./" method="post" id="env_set" class="form form-horizontal" enctype="multipart/form-data">
+        <input type="hidden" name="module" value="install" />
+        <input type="hidden" name="act" value="procInstallAdminEnvironment" />
+        <div class="control-group">
+            <label class="control-label" for="env">{$lang->current_environment}</label>
+            <div class="controls">
+                <select name="environment" id="env">
+                    <!--@foreach($environments as $key=> $env)-->
+                    <option value="{$env['code']}"<!--@if($env['code']==KARYBU_ENVIRONMENT)--> selected="selected"<!--@end-->>{$env['title']}</option>
+                    <!--@end-->
+                </select>
+                <input type="submit" value="{$lang->cmd_save}" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
     <div class="tabbable">
         <ul class="nav nav-tabs">
             <!--@foreach($environments as $key=> $env)-->
@@ -319,10 +333,11 @@ jQuery(function($){
         <div class="tab-content">
             <!--@foreach($environments as $key=> $env)-->
             <div class="tab-pane<!--@if($env['code']==KARYBU_ENVIRONMENT)--> active<!--@end-->" id="tab{$key}" >
-                <form action="./" method="post" id="ftp_debug_{$key}" class="form form-horizontal" enctype="multipart/form-data">
+                <form action="./" method="post" id="debug_{$key}" class="form form-horizontal" enctype="multipart/form-data">
                     <input type="hidden" name="module" value="install" />
                     <input type="hidden" name="act" value="procInstallAdminDebug" />
                     <input type="hidden" name="debug_env" value="{$env['code']}" />
+
                     <div class="control-group">
                         <label class="control-label" for="level{$key}">{$lang->level}</label>
                         <div class="controls">
