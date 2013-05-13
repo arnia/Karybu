@@ -1,4 +1,4 @@
-/* 한국 우편 번호 관련 */
+/* South Korea Zip Code related to */
 function doHideKrZipList(column_name) {
 	var $j = jQuery;
 	$j('#zone_address_list_'+column_name).hide();
