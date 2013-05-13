@@ -3,10 +3,10 @@
  * @author Arnia (dev@karybu.org)
  **/
 
-// 입력이 시작된 것과 입력후 정해진 시간동안 내용이 변하였을 경우 서버에 ajax로 체크를 하기 위한 변수 설정
+// Started as input variables for ajax to the server to check if the content was changed for a fixed amount of time after entering
 var memberCheckObj = { target:null, value:null }
 
-// domready시에 특정 필드들에 대해 이벤트를 걸어 놓음
+// domready Putting down the events for a particular field
 jQuery(document).ready(memberSetEvent);
 
 function memberSetEvent() {

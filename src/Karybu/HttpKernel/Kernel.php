@@ -60,7 +60,7 @@ class Kernel extends SymfonyKernel
     {
         $configFile = _KARYBU_PATH_ . "files/config/config_{$this->getEnvironment()}.yml";
         //fallback for installer
-        if (!file_exists($configFile)){
+        if (!is_readable($configFile)) {
             $configFile = _KARYBU_PATH_ . "config/config_{$this->getEnvironment()}.base.yml";
         }
         $loader->load($configFile);
@@ -88,7 +88,7 @@ class Kernel extends SymfonyKernel
      */
     public function getRootDir()
     {
-        return _KARYBU_PATH_;
+        return _XE_PATH_;
     }
 
     /**
