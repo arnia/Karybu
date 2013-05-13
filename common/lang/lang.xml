@@ -3793,4 +3793,7 @@
     <item name="yes">
         <value xml:lang="en"><![CDATA[Yes]]></value>
     </item>
+    <item name="are_you_sure">
+        <value xml:lang="en"><![CDATA[Are you sure?]]></value>
+    </item>
 </lang>

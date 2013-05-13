@@ -86,7 +86,7 @@
                             {@$document = $value->variables}
                             <li>
                                 <a href="{getUrl('', 'document_srl', $document['document_srl'])}" target="_blank"><!--@if(trim($value->getTitle()))-->{$value->getTitle()}<!--@else--><strong>{$lang->no_title_document}</strong><!--@end--></a> <span class="label label-info pull-right">{$document['nick_name']}</span>
-                                <form class="kActionIcons">
+                                <form class="kActionIcons" action="./" method="post" onsubmit="return confirm('{$lang->are_you_sure}')">
                                     <input type="hidden" name="module" value="admin" />
                                     <input type="hidden" name="act" value="procDocumentManageCheckedDocument" />
                                     <input type="hidden" name="cart[]" value="{$document['document_srl']}" />
@@ -117,7 +117,7 @@
                                 <!--@foreach($latestCommentList AS $key=>$value)-->
                                 <li>
                                     <a href="{getUrl('', 'document_srl', $value->document_srl)}#comment_{$value->comment_srl}" target="_blank"><!--@if(trim($value->content))-->{$value->getSummary()}<!--@else--><strong>{$lang->no_text_comment}</strong><!--@end--></a> <span class="side">{$value->nick_name}</span>
-                                    <form class="kActionIcons">
+                                    <form class="kActionIcons" action="./" method="post" onsubmit="return confirm('{$lang->are_you_sure}')">
                                         <input type="hidden" name="module" value="admin" />
                                         <input type="hidden" name="act" value="procCommentAdminDeleteChecked" />
                                         <input type="hidden" name="cart[]" value="{$value->comment_srl}" />
@@ -135,8 +135,8 @@
             </div>
         </div>
 <include target="./_spFooter.html" />
-<script>
-
+<script type="text/javascript">
+//<![CDATA[
     CreateCharts = function ()
     {
 
@@ -185,7 +185,6 @@
         window.onload = CreateCharts;
     }
 
-
-
+//]]>
 </script>
 
