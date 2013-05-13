@@ -91,25 +91,19 @@ class DebugToolbarListener implements EventSubscriberInterface
         $response = $event->getResponse();
         $request = $event->getRequest();
 
-        // do not capture redirects or modify XML HTTP Requests
-        if ($request->isXmlHttpRequest()) {
-            return;
-        }
-
-        // do not capture modals (or any other request that includes a no_toolbar parameter)
-        if ($request->query->has('no_toolbar')) {
-            return;
-        }
-
-        //TODO treat redirects here
+        //TODO deal with redirects here
 
         if (self::DISABLED === $this->mode
-            //|| !$response->headers->has('X-Debug-Token')
+            || !$response->headers->has('X-Debug-Token')
             || !$response->headers->has('X-Exception')
             || $response->isRedirection()
             || ($response->headers->has('Content-Type') && false === strpos($response->headers->get('Content-Type'), 'html'))
             || 'html' !== $request->getRequestFormat()
-            || $event->getRequestType() == HttpKernelInterface::SUB_REQUEST
+            // do not capture modals (or any other request that includes a no_toolbar parameter)
+            // also, avoid exceptions
+            || $request->query->has('no_toolbar')
+            // do not capture redirects or modify XML HTTP Requests
+            || $request->isXmlHttpRequest()
         ) {
             return;
         }
