@@ -78,9 +78,8 @@ class DebugToolbarListener implements EventSubscriberInterface
 
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
-        $request = $event->getRequest();
         // todo find a better way to mark an exception so that the debug toolbar won't be shown in an exception page
-        $request->query->set('no_toolbar', true);
+        $event->getRequest()->query->set('no_toolbar', true);
     }
 
     public function onKernelResponse(FilterResponseEvent $event)
