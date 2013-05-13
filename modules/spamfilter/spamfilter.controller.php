@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  spamfilterController
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief The controller class for the spamfilter module
      **/
 

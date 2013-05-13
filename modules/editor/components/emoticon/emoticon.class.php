@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  emoticon
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief Emoticons image connected components
      **/
 

@@ -1,7 +1,7 @@
 <?php
     /**
      * High class of addon modules
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      **/
     class addon extends ModuleObject {
 

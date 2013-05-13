@@ -1,7 +1,7 @@
 <?php
     /**
      * WML Library ver 0.1
-     * @author Arnia (developers@xpressengine.com) / lang_select : misol
+     * @author Arnia (dev@karybu.org) / lang_select : misol
      **/
     class wap extends mobileXE {
 

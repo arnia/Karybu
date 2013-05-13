@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  poll_maker
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief Editor provides the ability to link to the url.
      **/
 

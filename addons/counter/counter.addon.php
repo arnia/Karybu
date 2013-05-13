@@ -3,7 +3,7 @@ if(!defined('__XE__')) exit();
 
 /**
  * @file counter.addon.php
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief Counter add-on
  **/
 // Execute if called_position is before_display_content

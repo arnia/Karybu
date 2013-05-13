@@ -3,12 +3,12 @@
     <title xml:lang="ko">XE 커뮤니케이션 모바일 기본 스킨</title>
     <description xml:lang="ko">
         XE 커뮤니케이션 모바일 기본 스킨입니다.
-        Arnia (developers@xpressengine.com)
+        Arnia (dev@karybu.org)
     </description>
     <version>0.1</version>
     <date>2012-08-07</date>
 
-    <author email_address="developers@xpressengine.com" link="http://xpressengine.com/">
+    <author email_address="dev@karybu.org" link="http://www.karybu.org/">
         <name xml:lang="ko">Arnia</name>
         <name xml:lang="en">Arnia</name>
         <name xml:lang="zh-TW">Arnia</name>

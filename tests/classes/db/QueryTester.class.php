@@ -9,7 +9,7 @@
 		}
 		
 		function getQueryPath($type, $name, $query_name){
-			return _XE_PATH_ . $type ."/".$name."/queries/" . $query_name . ".xml";
+			return _KARYBU_PATH_ . $type ."/".$name."/queries/" . $query_name . ".xml";
 		}
 		
 		function getNewParserOutput($xml_file){

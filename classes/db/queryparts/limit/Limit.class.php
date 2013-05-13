@@ -1,6 +1,6 @@
 <?php 
 	/**
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 * @package /classes/db/queryparts/limit
 	 * @version 0.1
 	 */

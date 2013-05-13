@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  editorModel
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief model class of the editor odule
  **/
 
@@ -750,7 +750,7 @@ class editorModel extends editor
     function getCacheFile($filter_enabled = true, $site_srl = 0)
     {
         $lang = Context::getLangType();
-        $cache_path = _XE_PATH_ . 'files/cache/editor/cache/';
+        $cache_path = _KARYBU_PATH_ . 'files/cache/editor/cache/';
         if (!is_dir($cache_path)) {
             FileHandler::makeDir($cache_path);
         }
@@ -792,7 +792,7 @@ class editorModel extends editor
                 if (!trim($key)) {
                     continue;
                 }
-                if (!is_dir(_XE_PATH_ . 'modules/editor/components/' . $key)) {
+                if (!is_dir(_KARYBU_PATH_ . 'modules/editor/components/' . $key)) {
                     FileHandler::removeFile($cache_file);
                     return $this->getComponentList($filter_enabled, $site_srl);
                 }

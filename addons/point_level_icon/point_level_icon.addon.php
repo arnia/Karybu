@@ -3,7 +3,7 @@ if(!defined('__XE__')) exit();
 
 /**
  * @file point.addon.php
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief Icon-on-point level
  *
  * Display point level icon before user name when point system is enabled.

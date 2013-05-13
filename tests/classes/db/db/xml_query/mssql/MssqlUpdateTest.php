@@ -7,7 +7,7 @@ class MssqlUpdateTest extends MssqlTest {
 	}
 
 	function test_counter_updateCounterUnique() {
-		$xml_file = _XE_PATH_ . "modules/counter/queries/updateCounterUnique.xml";
+		$xml_file = _KARYBU_PATH_ . "modules/counter/queries/updateCounterUnique.xml";
 		$argsString = '$args->regdate = 25;';
 		$expected = 'UPDATE [counter_status] 
 						SET [unique_visitor] = [unique_visitor] + ?

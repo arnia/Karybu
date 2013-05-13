@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  installView
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief View class of install module
      **/
 
@@ -98,7 +98,7 @@
             // Display check_env if not installable
             if(!$this->install_enable) return $this->dispInstallCheckEnv();
 
-			include _XE_PATH_.'files/config/tmpDB.config.php';
+			include _KARYBU_PATH_.'files/config/tmpDB.config.php';
 
             Context::set('time_zone', $GLOBALS['time_zone']);
             Context::set('db_type', $db_info->db_type);

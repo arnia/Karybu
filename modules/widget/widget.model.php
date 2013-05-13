@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  widgetModel
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @version 0.1
      * @brief Model class for widget modules
      **/

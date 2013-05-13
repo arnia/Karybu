@@ -2,7 +2,7 @@
 /**
  * XmlLangParser class
  * Change to lang php file from xml.
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @package /classes/xml
  * @version 0.1
  **/
@@ -35,7 +35,7 @@ class XmlLangParser extends XmlParser
     var $lang_types;
     /**
      * language type
-     * @see _XE_PATH_.'/common/lang/lang.info'
+     * @see _KARYBU_PATH_.'/common/lang/lang.info'
      * @var string
      */
     var $lang_type;

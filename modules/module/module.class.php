@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  module
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief high class of the module module
      **/
 
@@ -87,7 +87,7 @@
 				{
 					$skin_path = explode('.', $item->skin);
 					if(count($skin_path) != 2) continue;
-					if(is_dir(sprintf(_XE_PATH_ . 'themes/%s/modules/%s', $skin_path[0], $skin_path[1]))) return true;
+					if(is_dir(sprintf(_KARYBU_PATH_ . 'themes/%s/modules/%s', $skin_path[0], $skin_path[1]))) return true;
 				}
 			}
 
@@ -336,7 +336,7 @@
 				{
 					$skin_path = explode('.', $item->skin);
 					if(count($skin_path) != 2) continue;
-					if(is_dir(sprintf(_XE_PATH_ . 'themes/%s/modules/%s', $skin_path[0], $skin_path[1])))
+					if(is_dir(sprintf(_KARYBU_PATH_ . 'themes/%s/modules/%s', $skin_path[0], $skin_path[1])))
 					{
 						unset($args);
 						$args->skin = $item->skin;

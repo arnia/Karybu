@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  pageAPI
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief View Action page for the module API processing
      **/
 

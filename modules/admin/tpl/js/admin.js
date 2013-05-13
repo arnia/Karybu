@@ -1,4 +1,4 @@
-/* Arnia (developers@xpressengine.com) */
+/* Arnia (dev@karybu.org) */
 jQuery(function($){
 	// Constants
 	var ESC_KEY = 27;

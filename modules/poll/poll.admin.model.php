@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  pollAdminModel
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief The admin model class of the poll module
      **/
 

@@ -3,7 +3,7 @@
  * documentController class
  * document the module's controller class
  *
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @package /modules/document
  * @version 0.1
  */
@@ -654,7 +654,7 @@ class documentController extends document {
 		}*/
 
 		// new trash module
-		require_once(_XE_PATH_.'modules/trash/model/TrashVO.php');
+		require_once(_KARYBU_PATH_.'modules/trash/model/TrashVO.php');
 		$oTrashVO = new TrashVO();
 		$oTrashVO->setTrashSrl(getNextSequence());
 		$oTrashVO->setTitle($oDocument->variables['title']);

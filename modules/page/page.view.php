@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  pageView
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief page view class of the module
  **/
 
@@ -28,7 +28,7 @@ class pageView extends page
             {
                 $this->cache_file = sprintf(
                     "%sfiles/cache/page/%d.%s.%s.cache.php",
-                    _XE_PATH_,
+                    _KARYBU_PATH_,
                     $this->module_info->module_srl,
                     Context::getLangType(),
                     Context::getSslStatus()

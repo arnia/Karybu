@@ -1,6 +1,6 @@
 /**
  * @file js_app.js
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief XE JavaScript Application Framework (JAF)
  * @namespace xe
  * @update 20100701

@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  memberModel
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief Model class of the member module
  **/
 
@@ -111,20 +111,20 @@ class memberModel extends member
 
     function _getAgreement()
     {
-        $agreement_file = _XE_PATH_ . 'files/member_extra_info/agreement_' . Context::get('lang_type') . '.txt';
+        $agreement_file = _KARYBU_PATH_ . 'files/member_extra_info/agreement_' . Context::get('lang_type') . '.txt';
         if (is_readable($agreement_file)) {
             return FileHandler::readFile($agreement_file);
         }
 
         $db_info = Context::getDBInfo();
-        $agreement_file = _XE_PATH_ . 'files/member_extra_info/agreement_' . $db_info->lang_type . '.txt';
+        $agreement_file = _KARYBU_PATH_ . 'files/member_extra_info/agreement_' . $db_info->lang_type . '.txt';
         if (is_readable($agreement_file)) {
             return FileHandler::readFile($agreement_file);
         }
 
         $lang_selected = Context::loadLangSelected();
         foreach ($lang_selected as $key => $val) {
-            $agreement_file = _XE_PATH_ . 'files/member_extra_info/agreement_' . $key . '.txt';
+            $agreement_file = _KARYBU_PATH_ . 'files/member_extra_info/agreement_' . $key . '.txt';
             if (is_readable($agreement_file)) {
                 return FileHandler::readFile($agreement_file);
             }

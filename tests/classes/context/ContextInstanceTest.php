@@ -2,9 +2,9 @@
 
 if(!defined('__XE__')) require dirname(__FILE__).'/../../Bootstrap.php';
 
-require_once _XE_PATH_.'classes/context/Context.class.php';
-require_once _XE_PATH_.'classes/handler/Handler.class.php';
-require_once _XE_PATH_.'classes/xml/XmlParser.class.php';
+require_once _KARYBU_PATH_.'classes/context/Context.class.php';
+require_once _KARYBU_PATH_.'classes/handler/Handler.class.php';
+require_once _KARYBU_PATH_.'classes/xml/XmlParser.class.php';
 
 if(!class_exists('FrontendFileHandler')){
     class FrontendFileHandler {}
@@ -2714,8 +2714,8 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
      */
     public function testLoadFile_WithCDN_DefaultValues()
     {
-        define('__XE_CDN_PREFIX__', 'http://static.xpressengine.com/core/');
-        define('__XE_CDN_VERSION__', '%__XE_CDN_VERSION__%');
+        define('__KARYBU_CDN_PREFIX__', 'http://static.xpressengine.com/core/');
+        define('__KARYBU_CDN_VERSION__', '%__KARYBU_CDN_VERSION__%');
 
         $args = array('filename');
         $useCdn = true;
@@ -2725,7 +2725,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $frontend_file_handler = $this->getMock('FrontendFileHandler', array('loadFile'));
         $frontend_file_handler->expects($this->once())
             ->method('loadFile')
-            ->with($args, $useCdn, __XE_CDN_PREFIX__, __XE_CDN_VERSION__);
+            ->with($args, $useCdn, __KARYBU_CDN_PREFIX__, __KARYBU_CDN_VERSION__);
         $context = new ContextInstance(null, $frontend_file_handler);
 
         $context->loadFile($args, $useCdn, $cdnPrefix, $cdnVersion);
@@ -2736,10 +2736,10 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
      */
     public function testLoadFile_WithCDN_CustomValues()
     {
-        if(!defined('__XE_CDN_PREFIX__'))
-            define('__XE_CDN_PREFIX__', 'http://static.xpressengine.com/core/');
-        if(!defined('__XE_CDN_VERSION__'))
-            define('__XE_CDN_VERSION__', '%__XE_CDN_VERSION__%');
+        if(!defined('__KARYBU_CDN_PREFIX__'))
+            define('__KARYBU_CDN_PREFIX__', 'http://static.xpressengine.com/core/');
+        if(!defined('__KARYBU_CDN_VERSION__'))
+            define('__KARYBU_CDN_VERSION__', '%__KARYBU_CDN_VERSION__%');
 
         $args = array('filename');
         $useCdn = 'Y';
@@ -3367,16 +3367,16 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
 
     public function testPathToUrl()
     {
-        $xe_path = _XE_PATH_; // _XE_PATH_ was defined in Bootstrap file
+        $k_path = _KARYBU_PATH_; // _KARYBU_PATH_ was defined in Bootstrap file
 
-        if (!(strpos($xe_path, '\\') === false)){
+        if (!(strpos($k_path, '\\') === false)){
             $this->markTestSkipped('This doesn\'t work for non UX systems');
         }
 
         $context = $this->getMock('ContextInstance', array('getRequestUri'));
         $context->expects($this->any())->method('getRequestUri')->will($this->returnValue('http://localhost/xe'));
 
-        $web_path = $context->pathToUrl($xe_path);
+        $web_path = $context->pathToUrl($k_path);
 
         $this->assertEquals('/xe/', $web_path);
 

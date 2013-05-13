@@ -2,7 +2,7 @@
 
 if(!defined('__XE__')) require dirname(__FILE__).'/../../Bootstrap.php';
 
-require_once _XE_PATH_.'classes/file/FileHandler.class.php'; 
+require_once _KARYBU_PATH_.'classes/file/FileHandler.class.php';
 
 class FileHandlerTest extends PHPUnit_Framework_TestCase
 {

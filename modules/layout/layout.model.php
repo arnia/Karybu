@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  layoutModel
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @version 0.1
  * Model class of the layout module
  **/

@@ -2,7 +2,7 @@
 /**
  * Cache class for memcache
  *
- * @author Arnia (developer@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  **/
 class CacheMemcache extends CacheBase {
 	/**
@@ -70,7 +70,7 @@ class CacheMemcache extends CacheBase {
 	 * @return string Return unique key
 	 */
 	function getKey($key){
-		return md5(_XE_PATH_.$key);
+		return md5(_KARYBU_PATH_.$key);
 	}
 
 	/**

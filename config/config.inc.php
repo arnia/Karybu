@@ -3,7 +3,7 @@
  * set the include of the class file and other environment configurations
  *
  * @file   config/config.inc.php
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  **/
 
 @error_reporting(-1);
@@ -19,35 +19,35 @@ define('__KARYBU_VERSION__', '1.0');
 /**
  * The base path to where you installed zbXE Wanted
  */
-define('_XE_PATH_', str_replace('config/config.inc.php', '', str_replace('\\', '/', __FILE__)));
+define('_KARYBU_PATH_', str_replace('config/config.inc.php', '', str_replace('\\', '/', __FILE__)));
 
 
 // Set can use other method instead cookie to store session id(for file upload)
 ini_set('session.use_only_cookies', 0);
 
 
-if(file_exists(_XE_PATH_.'config/package.inc.php')) {
-    require _XE_PATH_.'config/package.inc.php';
+if(file_exists(_KARYBU_PATH_.'config/package.inc.php')) {
+    require _KARYBU_PATH_.'config/package.inc.php';
 } else {
     /**
      * Package type
      */
-    define('_XE_PACKAGE_','XE');
+    define('_KARYBU_PACKAGE_','KARYBU');
 
     /**
      * Location
      */
-    define('_XE_LOCATION_','en');
+    define('_KARYBU_LOCATION_','en');
 
     /**
      * Location site
      */
-    define('_KARYBU_LOCATION_SITE_','http://www.xpressengine.org/');
+    define('_KARYBU_LOCATION_SITE_','http://www.karybu.org/');
 
     /**
      * Download server
      */
-    define('_XE_DOWNLOAD_SERVER_','http://en.download.karybu.org/');
+    define('_KARYBU_DOWNLOAD_SERVER_','http://en.download.karybu.org/');
 }
 
 /*
@@ -57,11 +57,11 @@ if(file_exists(_XE_PATH_.'config/package.inc.php')) {
  * define('__DEBUG_PROTECT__', 1);
  * define('__DEBUG_PROTECT_IP__', '127.0.0.1');
  * define('__PROXY_SERVER__', 'http://domain:port/path');
- * define('__XE_CDN_PREFIX__', 'http://yourCdnDomain.com/path/');
- * define('__XE_CDN_VERSION__', 'yourCdnVersion');
+ * define('__KARYBU_CDN_PREFIX__', 'http://yourCdnDomain.com/path/');
+ * define('__KARYBU_CDN_VERSION__', 'yourCdnVersion');
  */
-if(file_exists(_XE_PATH_.'config/config.user.inc.php')) {
-    require _XE_PATH_.'config/config.user.inc.php';
+if(file_exists(_KARYBU_PATH_.'config/config.user.inc.php')) {
+    require _KARYBU_PATH_.'config/config.user.inc.php';
 }
 
 if(!defined('__DEBUG_PROTECT__'))
@@ -94,20 +94,20 @@ if(!defined('__PROXY_SERVER__'))
     define('__PROXY_SERVER__', null);
 }
 
-if(!defined('__XE_CDN_PREFIX__'))
+if(!defined('__KARYBU_CDN_PREFIX__'))
 {
     /**
      * CDN prefix
      */
-    define('__XE_CDN_PREFIX__', 'http://static.xpressengine.com/core/');
+    define('__KARYBU_CDN_PREFIX__', 'http://static.karybu.org/core/');
 }
 
-if(!defined('__XE_CDN_VERSION__'))
+if(!defined('__KARYBU_CDN_VERSION__'))
 {
     /**
      * CDN version
      */
-    define('__XE_CDN_VERSION__', '%__XE_CDN_VERSION__%');
+    define('__KARYBU_CDN_VERSION__', '%__KARYBU_CDN_VERSION__%');
 }
 
 // Set Timezone as server time
@@ -117,7 +117,7 @@ if(version_compare(PHP_VERSION, '5.3.0') >= 0)
 }
 
 // Require a function-defined-file for simple use
-require(_XE_PATH_.'config/func.inc.php');
+require(_KARYBU_PATH_.'config/func.inc.php');
 
 /**
  * composer autoloader

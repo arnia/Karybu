@@ -1,7 +1,7 @@
 <?php
     /**
      * The view class file module
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      **/
     class fileView extends file {
 

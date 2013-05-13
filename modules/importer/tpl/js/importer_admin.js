@@ -1,6 +1,6 @@
 /**
  * @file   modules/importer/js/importer_admin.js
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief  importer에서 사용하는 javascript
  **/
 jQuery(function($){

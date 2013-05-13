@@ -4,7 +4,7 @@
  *
  * Wincache Handler
  *
- * @author Arnia (support@xpressengine.org)
+ * @author Arnia (dev@karybu.org)
  **/
 class CacheWincache extends CacheBase {
 	/**
@@ -56,7 +56,7 @@ class CacheWincache extends CacheBase {
 	 */
 	function put($key, $buff, $valid_time = 0){
 		if($valid_time == 0) $valid_time = $this->valid_time;
-		return wincache_ucache_set(md5(_XE_PATH_.$key), array(time(), $buff), $valid_time);
+		return wincache_ucache_set(md5(_KARYBU_PATH_.$key), array(time(), $buff), $valid_time);
 	}
 
 	/**
@@ -68,7 +68,7 @@ class CacheWincache extends CacheBase {
 	 * @return bool Return true on valid or false on invalid.
 	 */
 	function isValid($key, $modified_time = 0) {
-		$_key = md5(_XE_PATH_.$key);
+		$_key = md5(_KARYBU_PATH_.$key);
 		$obj = wincache_ucache_get($_key, $success);
 		if(!$success || !is_array($obj)) return false;
 		unset($obj[1]);
@@ -90,7 +90,7 @@ class CacheWincache extends CacheBase {
 	 * @return false|mixed Return false on failure or older then modified time. Return the string associated with the $key on success.
 	 */
 	function get($key, $modified_time = 0) {
-		$_key = md5(_XE_PATH_.$key);
+		$_key = md5(_KARYBU_PATH_.$key);
 		$obj = wincache_ucache_get($_key, $success);
 		if(!$success || !is_array($obj)) return false;
 
@@ -119,7 +119,7 @@ class CacheWincache extends CacheBase {
 	 * @return void
 	 */
 	function delete($key) {
-		$_key = md5(_XE_PATH_.$key);
+		$_key = md5(_KARYBU_PATH_.$key);
 		$this->_delete($_key);
 	}
 

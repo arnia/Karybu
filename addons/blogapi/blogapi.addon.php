@@ -3,7 +3,7 @@ if(!defined('__XE__')) exit();
 
 /**
  * @file blogapicounter.addon.php
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief Add blogAPI
  *
  * It enables to write a post by using an external tool such as ms live writer, firefox performancing, zoundry and so on.
@@ -422,8 +422,8 @@ if($called_position == 'before_module_proc') {
 <?xml version="1.0" ?>
 <rsd version="1.0" xmlns="http://archipelago.phrasewise.com/rsd" >
 <service>
-    <engineName>XpressEngine</engineName>
-    <engineLink>http://www.xpressengine.com/ </engineLink>
+    <engineName>Karybu</engineName>
+    <engineLink>http://www.karybu.org/ </engineLink>
     <homePageLink>{$homepagelink}</homePageLink>
     <apis>
         <api name="MetaWeblog" preferred="true" apiLink="{$api_url}" blogID="" />

@@ -2,7 +2,7 @@
     /**
      * Admin view class of counter module
 	 *
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
      **/
 
     class counterAdminView extends counter {

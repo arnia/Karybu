@@ -1,7 +1,7 @@
 <?php
 /**
  * DefaultValue class
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @package /classes/xml/xmlquery/queryargument
  * @version 0.1
  */

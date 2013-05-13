@@ -1,11 +1,11 @@
 <?php
 
-    require_once(_XE_PATH_.'modules/autoinstall/autoinstall.lib.php');
+    require_once(_KARYBU_PATH_.'modules/autoinstall/autoinstall.lib.php');
 
     /**
      * autoinstall module admin controller class
 	 *
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      **/
     class autoinstallAdminController extends autoinstall {
 
@@ -64,7 +64,7 @@
 
             $params["act"] = "getResourceapiUpdate";
             $body = XmlGenerater::generate($params);
-            $buff = FileHandler::getRemoteResource(_XE_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
+            $buff = FileHandler::getRemoteResource(_KARYBU_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
             $xml = new XmlParser();
             $xmlDoc = $xml->parse($buff);
             $this->updateCategory($xmlDoc);
@@ -191,7 +191,7 @@
                     $oModuleInstaller = new FTPModuleInstaller($package);
                 }
 
-				$oModuleInstaller->setServerUrl(_XE_DOWNLOAD_SERVER_);
+				$oModuleInstaller->setServerUrl(_KARYBU_DOWNLOAD_SERVER_);
                 $oModuleInstaller->setPassword($ftp_password);
                 $output = $oModuleInstaller->install();
                 if(!$output->toBool()) return $output;
@@ -311,7 +311,7 @@
 				$oModuleInstaller = new FTPModuleInstaller($package);
 			}
 
-			$oModuleInstaller->setServerUrl(_XE_DOWNLOAD_SERVER_);
+			$oModuleInstaller->setServerUrl(_KARYBU_DOWNLOAD_SERVER_);
 
 			$oModuleInstaller->setPassword($ftp_password);
 			$output = $oModuleInstaller->uninstall();

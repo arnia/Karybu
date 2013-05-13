@@ -2,9 +2,9 @@
 
 if(!defined('__XE__')) require dirname(__FILE__).'/../../Bootstrap.php';
 
-require_once _XE_PATH_.'classes/handler/Handler.class.php';
-require_once _XE_PATH_.'classes/frontendfile/FrontEndFileHandler.class.php';
-require_once _XE_PATH_.'classes/file/FileHandler.class.php';
+require_once _KARYBU_PATH_.'classes/handler/Handler.class.php';
+require_once _KARYBU_PATH_.'classes/frontendfile/FrontEndFileHandler.class.php';
+require_once _KARYBU_PATH_.'classes/file/FileHandler.class.php';
 
 
 class FrontEndFileHandlerTest extends PHPUnit_Framework_TestCase
@@ -213,7 +213,7 @@ class FrontEndFileHandlerTest extends PHPUnit_Framework_TestCase
 
 if(!class_exists('Context'))
 {
-	require _XE_PATH_.'/tests/classes/context/Context.mock.php';
+	require _KARYBU_PATH_.'/tests/classes/context/Context.mock.php';
 }
 
 if(!function_exists('debugPrint'))

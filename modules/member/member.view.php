@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  memberView
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief View class of member module
      **/
 

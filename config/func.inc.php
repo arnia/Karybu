@@ -2,7 +2,7 @@
     /**
      * function library files for convenience
 	 *
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
     **/
 
     if(!defined('__XE__') && !defined('__ZBXE__')) exit();
@@ -640,7 +640,7 @@
         if(__DEBUG_PROTECT__ === 1 && __DEBUG_PROTECT_IP__ != $_SERVER['REMOTE_ADDR']) {
             return;
         }
-        $debug_file = _XE_PATH_.'files/'.$file;
+        $debug_file = _KARYBU_PATH_.'files/'.$file;
         if(function_exists("memory_get_usage"))
         {
             $debug_output = sprintf("[%s %s:%d] - mem(%s)\n%s\n", date('Y-m-d H:i:s'), $file_name, $line_num, FileHandler::filesize(memory_get_usage()), print_r($debug_output, true));
@@ -748,7 +748,7 @@
 	 * @return string
      **/
     function removeHackTag($content) {
-		require_once(_XE_PATH_.'classes/security/EmbedFilter.class.php');
+		require_once(_KARYBU_PATH_.'classes/security/EmbedFilter.class.php');
 		$oEmbedFilter = EmbedFilter::getInstance();
 		$oEmbedFilter->check($content);
 
@@ -1094,11 +1094,11 @@
 	{
 		if(version_compare(PHP_VERSION, "5.3.0") < 0)
 		{
-			set_include_path(_XE_PATH_."libs/PEAR");	
+			set_include_path(_KARYBU_PATH_."libs/PEAR");
 		}
 		else
 		{
-			set_include_path(_XE_PATH_."libs/PEAR.1.9");	
+			set_include_path(_KARYBU_PATH_."libs/PEAR.1.9");
 
 		}
 	}

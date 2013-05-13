@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  installAdminController
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief admin controller class of the install module
      **/
     class installAdminController extends install {
@@ -198,7 +198,7 @@
                 $buff .= sprintf("%s,%s\n", $langs[$i], $lang_supported[$langs[$i]]);
 
             }
-            FileHandler::writeFile(_XE_PATH_.'files/config/lang_selected.info', trim($buff));
+            FileHandler::writeFile(_KARYBU_PATH_.'files/config/lang_selected.info', trim($buff));
 			//$this->setMessage('success_updated');
 		}
 
@@ -222,7 +222,7 @@
 			$mobicon_size = array('57','114');
 			$target_file = $icon['tmp_name'];
 			$type = $icon['type'];
-			$target_filename = _XE_PATH_.'files/attach/xeicon/'.$iconname;
+			$target_filename = _KARYBU_PATH_.'files/attach/xeicon/'.$iconname;
 
 			list($width, $height, $type_no, $attrs) = @getimagesize($target_file);
 			if($iconname == 'favicon.ico' && preg_match('/^.*(icon).*$/',$type)){
@@ -285,7 +285,7 @@
                 }
                 $dumper = new \Symfony\Component\Yaml\Dumper();
                 $yaml = $dumper->dump($values, 2);
-                FileHandler::writeFile(_XE_PATH_.'files/config/config_'.$env.'.yml', $yaml);
+                FileHandler::writeFile(_KARYBU_PATH_.'files/config/config_'.$env.'.yml', $yaml);
                 $this->setMessage('success_updated', 'info');
             }
             catch (Exception $e){
@@ -297,7 +297,7 @@
             $env = Context::get('environment');
             $environments = \Karybu\Environment\Environment::getEnvironments();
             if (isset($environments[$env])){
-                $filename = _XE_PATH_.'files/config/environment.txt';
+                $filename = _KARYBU_PATH_.'files/config/environment.txt';
                 FileHandler::writeFile($filename, $env);
                 $this->setMessage('success_updated', 'info');
             }

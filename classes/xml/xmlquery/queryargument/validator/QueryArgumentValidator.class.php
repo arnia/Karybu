@@ -1,7 +1,7 @@
 <?php
 	/**
 	 * QueryArgumentValidator class
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 * @package /classes/xml/xmlquery/queryargument/validator
 	 * @version 0.1
 	 */

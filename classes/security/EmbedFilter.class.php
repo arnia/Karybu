@@ -1,5 +1,5 @@
 <?php
-include _XE_PATH_ . 'classes/security/phphtmlparser/src/htmlparser.inc';
+include _KARYBU_PATH_ . 'classes/security/phphtmlparser/src/htmlparser.inc';
 
 class EmbedFilter
 {

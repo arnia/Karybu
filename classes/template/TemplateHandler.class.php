@@ -1,7 +1,7 @@
 <?php
 /**
  * @class TemplateHandler
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * template compiler
  * @version 0.1
  * @remarks It compiles template file by using regular expression into php
@@ -16,7 +16,7 @@ class TemplateHandler
     var $path = null; ///< target directory
     var $filename = null; ///< target filename
     var $file = null; ///< target file (fullpath)
-    var $xe_path = null; ///< XpressEngine base path
+    var $k_path = null; ///< Karybu base path
     var $web_path = null; ///< tpl file web path
     var $compiled_file = null; ///< tpl file web path
     var $skipTags = null;
@@ -92,7 +92,7 @@ class TemplateHandler
         $this->file = $tpl_file;
 
         $this->web_path = $this->xe_path . '/' . ltrim(
-            preg_replace('@^' . preg_quote(_XE_PATH_, '@') . '|\./@', '', $this->path),
+            preg_replace('@^' . preg_quote(_KARYBU_PATH_, '@') . '|\./@', '', $this->path),
             '/'
         );
 
@@ -756,7 +756,7 @@ class TemplateHandler
             }
         }
 
-        $path = preg_replace('/^' . preg_quote(_XE_PATH_, '/') . '/', '', $path);
+        $path = preg_replace('/^' . preg_quote(_KARYBU_PATH_, '/') . '/', '', $path);
 
         return $path;
     }

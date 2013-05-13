@@ -3,7 +3,7 @@
 	 * commentAdminController class
 	 * admin controller class of the comment module
 	 *
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 * @package /modules/comment
 	 * @version 0.1
 	 */
@@ -241,7 +241,7 @@
 		 */
 		function _moveCommentToTrash($commentSrlList, &$oCommentController, &$oDB)
 		{
-			require_once(_XE_PATH_.'modules/trash/model/TrashVO.php');
+			require_once(_KARYBU_PATH_.'modules/trash/model/TrashVO.php');
 
 			if(is_array($commentSrlList))
 			{

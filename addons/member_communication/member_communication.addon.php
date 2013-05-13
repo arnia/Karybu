@@ -3,7 +3,7 @@ if(!defined('__XE__')) exit();
 
 /**
  * @file member_communication.addon.php
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief Promote user communication
  *
  * - Pop-up the message if new message comes in

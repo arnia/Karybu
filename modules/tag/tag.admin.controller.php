@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  tagAdminController
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief admin controller class of the tag module
      **/
 

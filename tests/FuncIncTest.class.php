@@ -1,8 +1,8 @@
 <?php
 
 define('__XE__', 1);
-define('_XE_PATH_', realpath(dirname(__FILE__).'/../'));
-require _XE_PATH_.'/config/func.inc.php';
+define('_KARYBU_PATH_', realpath(dirname(__FILE__).'/../'));
+require _KARYBU_PATH_.'/config/func.inc.php';
 
 class FuncIncTest extends PHPUnit_Framework_TestCase
 {

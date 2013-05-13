@@ -7,7 +7,7 @@
 		}
 
 		function test_module_deleteActionForward(){
-			$xml_file = _XE_PATH_ . "modules/module/queries/deleteActionForward.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/module/queries/deleteActionForward.xml";
 			$argsString = '$args->module = "page";
 							$args->type = "page";
 							$args->act = "tata";';

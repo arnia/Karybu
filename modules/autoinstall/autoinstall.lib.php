@@ -1,9 +1,9 @@
 <?php
-	require_once(_XE_PATH_.'libs/ftp.class.php');
+	require_once(_KARYBU_PATH_.'libs/ftp.class.php');
 
 	/**
 	 * Module installer
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 */
     class ModuleInstaller {
 		/**
@@ -227,7 +227,7 @@
 		 * @return array Returns file list
 		 */
 		function _unPack(){
-            require_once(_XE_PATH_.'libs/tar.class.php');
+            require_once(_KARYBU_PATH_.'libs/tar.class.php');
 
             $oTar = new tar();
             $oTar->openTAR($this->download_file);
@@ -281,7 +281,7 @@
 
 	/**
 	 * Module installer for SFTP
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 */
     class SFTPModuleInstaller extends ModuleInstaller {
 		/**
@@ -427,7 +427,7 @@
 
 	/**
 	 * Module installer for PHP FTP
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 */
     class PHPFTPModuleInstaller extends ModuleInstaller {
 		/**
@@ -614,7 +614,7 @@
 
 	/**
 	 * Module installer for FTP
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 */
     class FTPModuleInstaller extends ModuleInstaller {
 		/**

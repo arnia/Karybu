@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  memberAdminController
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * member module of the admin controller class
      **/
 
@@ -170,7 +170,7 @@
 			if(!$args->change_password_date) $args->change_password_date = 0; 
 			if(!trim(strip_tags($args->agreement)))
 			{
-				$agreement_file = _XE_PATH_.'files/member_extra_info/agreement_' . Context::get('lang_type') . '.txt';
+				$agreement_file = _KARYBU_PATH_.'files/member_extra_info/agreement_' . Context::get('lang_type') . '.txt';
 				FileHandler::removeFile($agreement_file);
 				$args->agreement = null;
 			}
@@ -252,7 +252,7 @@
 			// check agreement value exist
 			if($args->agreement)
 			{
-				$agreement_file = _XE_PATH_.'files/member_extra_info/agreement_' . Context::get('lang_type') . '.txt';
+				$agreement_file = _KARYBU_PATH_.'files/member_extra_info/agreement_' . Context::get('lang_type') . '.txt';
 				$output = FileHandler::writeFile($agreement_file, $args->agreement);
 
 				unset($args->agreement);

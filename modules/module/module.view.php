@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  moduleView
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief view class of the module module
      **/
 
