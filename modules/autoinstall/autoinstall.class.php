@@ -1,7 +1,7 @@
 <?php
 	/**
 	 * XML Generater
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 */
     class XmlGenerater {
 		/**
@@ -32,7 +32,7 @@
         function getXmlDoc(&$params)
         {
             $body = XmlGenerater::generate($params);
-            $buff = FileHandler::getRemoteResource(_XE_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
+            $buff = FileHandler::getRemoteResource(_KARYBU_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
             if(!$buff) return;
             $xml = new XmlParser();
             $xmlDoc = $xml->parse($buff);
@@ -42,7 +42,7 @@
 
     /**
      * High class of the autoinstall module
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      **/
     class autoinstall extends ModuleObject {
 		/**
@@ -59,7 +59,7 @@
 		{
 			$oModuleModel = &getModel('module');
 			$config = $oModuleModel->getModuleConfig('autoinstall');
-			if ($config->downloadServer != _XE_DOWNLOAD_SERVER_)
+			if ($config->downloadServer != _KARYBU_DOWNLOAD_SERVER_)
 			{
 				$this->stop('msg_not_match_server');
 			}
@@ -73,7 +73,7 @@
         function moduleInstall() {
 			$oModuleController = &getController('module');
 
-			$config->downloadServer = _XE_DOWNLOAD_SERVER_;
+			$config->downloadServer = _KARYBU_DOWNLOAD_SERVER_;
 			$oModuleController->insertModuleConfig('autoinstall', $config);
         }
 
@@ -100,7 +100,7 @@
 			// 2011.08.08 add column 'list_order' in ai_remote_categories
 			if (!$oDB->isColumnExists('ai_remote_categories', 'list_order'))	return true;
 
-			// 2011.08.08 set _XE_DOWNLOAD_SERVER_ at module config
+			// 2011.08.08 set _KARYBU_DOWNLOAD_SERVER_ at module config
 			$config = $oModuleModel->getModuleConfig('autoinstall');
 			if (!isset($config->downloadServer))	return true;
 
@@ -135,10 +135,10 @@
 				$oDB->addIndex('ai_remote_categories', 'idx_list_order', array('list_order'));
 			}
 
-			// 2011. 08. 08 set _XE_DOWNLOAD_SERVER_ at module config
+			// 2011. 08. 08 set _KARYBU_DOWNLOAD_SERVER_ at module config
 			$config = $oModuleModel->getModuleConfig('autoinstall');
 			if (!isset($config->downloadServer)){
-				$config->downloadServer = _XE_DOWNLOAD_SERVER_;
+				$config->downloadServer = _KARYBU_DOWNLOAD_SERVER_;
 				$oModuleController->insertModuleConfig('autoinstall', $config);
 			}
 

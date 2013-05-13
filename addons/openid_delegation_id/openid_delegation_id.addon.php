@@ -1,9 +1,9 @@
 <?php
-if(!defined('__XE__')) exit();
+if(!defined('__KARYBU__')) exit();
 
 /**
  * @file openid_delegation_id.addon.php
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief OpenID Delegation ID Add-on
  *
  * This enables to use openID as user's homepage or blog url.

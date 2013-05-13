@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Route;
  * Manages Context such as request arguments/environment variables
  * It has dual method structure, easy-to use methods which can be called as Context::methodname(),and methods called with static object.
  *
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  */
 class ContextInstance
 {
@@ -621,9 +621,9 @@ class ContextInstance
 
         $this->lang = & $GLOBALS['lang'];
         // load module module's language file according to language setting
-        $this->loadLang(_XE_PATH_ . 'modules/module/lang');
+        $this->loadLang(_KARYBU_PATH_ . 'modules/module/lang');
         // load common language file
-        $this->loadLang(_XE_PATH_ . 'common/lang/');
+        $this->loadLang(_KARYBU_PATH_ . 'common/lang/');
     }
 
     public function loadModuleExtends()
@@ -913,7 +913,7 @@ class ContextInstance
         }
 
         // check if using rewrite module
-        if (file_exists(_XE_PATH_ . '.htaccess') && $global_app_settings->use_rewrite == 'Y') {
+        if (file_exists(_KARYBU_PATH_ . '.htaccess') && $global_app_settings->use_rewrite == 'Y') {
             $this->allow_rewrite = true;
         } else {
             $this->allow_rewrite = false;
@@ -983,7 +983,7 @@ class ContextInstance
     function loadLangSupported()
     {
         if (!$this->lang_supported) {
-            $langs = $this->file_handler->readFileAsArray(_XE_PATH_ . 'common/lang/lang.info');
+            $langs = $this->file_handler->readFileAsArray(_KARYBU_PATH_ . 'common/lang/lang.info');
             foreach ($langs as $val) {
                 list($lang_prefix, $lang_text) = explode(',', $val);
                 $lang_text = trim($lang_text);
@@ -1003,10 +1003,10 @@ class ContextInstance
         if (!$this->lang_selected) {
             $file_handler = $this->file_handler;
 
-            $orig_lang_file = _XE_PATH_ . 'common/lang/lang.info';
-            $selected_lang_file = _XE_PATH_ . 'files/config/lang_selected.info';
+            $orig_lang_file = _KARYBU_PATH_ . 'common/lang/lang.info';
+            $selected_lang_file = _KARYBU_PATH_ . 'files/config/lang_selected.info';
             if (!$file_handler->hasContent($selected_lang_file)) {
-                $old_selected_lang_file = _XE_PATH_ . 'files/cache/lang_selected.info';
+                $old_selected_lang_file = _KARYBU_PATH_ . 'files/cache/lang_selected.info';
                 $file_handler->moveFile($old_selected_lang_file, $selected_lang_file);
             }
 
@@ -2243,7 +2243,7 @@ class ContextInstance
 
     function createSslActionsFile()
     {
-        $buff = '<?php if(!defined("__XE__"))exit;';
+        $buff = '<?php if(!defined("__KARYBU__"))exit;';
         FileHandler::writeFile($this->file_handler->getRealPath($this->sslActionCacheFile), $buff);
     }
 
@@ -2313,8 +2313,8 @@ class ContextInstance
     function loadFile($args, $useCdn = false, $cdnPrefix = '', $cdnVersion = '')
     {
         if ($useCdn && !$cdnPrefix) {
-            $cdnPrefix = __XE_CDN_PREFIX__;
-            $cdnVersion = __XE_CDN_VERSION__;
+            $cdnPrefix = __KARYBU_CDN_PREFIX__;
+            $cdnVersion = __KARYBU_CDN_VERSION__;
         }
 
         $this->oFrontEndFileHandler->loadFile($args, $useCdn, $cdnPrefix, $cdnVersion);
@@ -2660,7 +2660,7 @@ class ContextInstance
      */
     function getConfigFile()
     {
-        return _XE_PATH_ . 'files/config/db.config.php';
+        return _KARYBU_PATH_ . 'files/config/db.config.php';
     }
 
     /**
@@ -2670,7 +2670,7 @@ class ContextInstance
      */
     function getFTPConfigFile()
     {
-        return _XE_PATH_ . 'files/config/ftp.config.php';
+        return _KARYBU_PATH_ . 'files/config/ftp.config.php';
     }
 
     /**
@@ -2701,7 +2701,7 @@ class ContextInstance
      */
     function pathToUrl($path)
     {
-        $xe = _XE_PATH_;
+        $xe = _KARYBU_PATH_;
         $path = strtr($path, "\\", "/");
 
         $base_url = preg_replace('@^https?://[^/]+/?@', '', $this->getRequestUri());

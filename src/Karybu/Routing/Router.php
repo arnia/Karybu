@@ -20,7 +20,7 @@ class Router extends SymfonyRouter
         $debug = false
     ) {
         $options = array(
-            'cache_dir' => _XE_PATH_ . 'files/cache',
+            'cache_dir' => _KARYBU_PATH_ . 'files/cache',
             'debug' => (boolean)$debug,
             'generator_cache_class' => 'cmsUrlGeneratorCache',
             'matcher_cache_class' => 'cmsUrlMatcherCache'
@@ -42,7 +42,7 @@ class Router extends SymfonyRouter
     }
 
     private function isFilesFolderAvailable(){
-        return is_writable(_XE_PATH_ . 'files');
+        return is_writable(_KARYBU_PATH_ . 'files');
     }
 
     private function getNotCacheableMatcher(){

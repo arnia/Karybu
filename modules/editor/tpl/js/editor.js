@@ -1,5 +1,5 @@
 /**
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @version 0.1
  * @brief 에디터 관련 스크립트
  */

@@ -1,7 +1,7 @@
 <?php
 /**
  * @class ModuleHandler
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * Handling modules
  *
  * @remarks This class is to excute actions of modules.
@@ -715,7 +715,7 @@ class ModuleHandlerInstance extends Handler
 
             // Get base class name and load the file contains it
             if (!class_exists($module)) {
-                $high_class_file = sprintf('%s%s%s.class.php', _XE_PATH_, $class_path, $module);
+                $high_class_file = sprintf('%s%s%s.class.php', _KARYBU_PATH_, $class_path, $module);
                 if (!file_exists($high_class_file)) {
                     return null;
                 }
@@ -772,7 +772,7 @@ class ModuleHandlerInstance extends Handler
     {
         $classPath = ModuleHandler::getModulePath($module);
 
-        $highClassFile = sprintf('%s%s%s.class.php', _XE_PATH_, $classPath, $module);
+        $highClassFile = sprintf('%s%s%s.class.php', _KARYBU_PATH_, $classPath, $module);
         $highClassFile = FileHandler::getRealPath($highClassFile);
 
         $types = explode(' ', 'view controller model api wap mobile class');

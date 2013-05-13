@@ -1,7 +1,7 @@
 <?php
     /**
      * @class content
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief widget to display content
      * @version 0.1
      **/

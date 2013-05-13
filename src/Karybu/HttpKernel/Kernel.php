@@ -58,10 +58,10 @@ class Kernel extends SymfonyKernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $configFile = _XE_PATH_ . "files/config/config_{$this->getEnvironment()}.yml";
+        $configFile = _KARYBU_PATH_ . "files/config/config_{$this->getEnvironment()}.yml";
         //fallback for installer
-        if (!file_exists($configFile)){
-            $configFile = _XE_PATH_ . "config/config_{$this->getEnvironment()}.base.yml";
+        if (!is_readable($configFile)) {
+            $configFile = _KARYBU_PATH_ . "config/config_{$this->getEnvironment()}.base.yml";
         }
         $loader->load($configFile);
     }
@@ -88,7 +88,7 @@ class Kernel extends SymfonyKernel
      */
     public function getRootDir()
     {
-        return _XE_PATH_;
+        return _KARYBU_PATH_;
     }
 
     /**

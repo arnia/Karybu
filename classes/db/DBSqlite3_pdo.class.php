@@ -1,7 +1,7 @@
 <?php
 /**
  * @class DBSqlite3_pdo
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief class to use SQLite3 with PDO
  * @version 0.1
  **/

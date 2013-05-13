@@ -1301,7 +1301,7 @@
 			{
 			if(!Context::get('is_logged')) $this->logout_message();
 				$oModuleModel = &getModel('module');
-			$module_path = _XE_PATH_ . 'modules/textyle/';
+			$module_path = _KARYBU_PATH_ . 'modules/textyle/';
             $skins = $oModuleModel->getSkins($module_path);
             if(count($skins)) {
                 foreach($skins as $skin_name => $info) {
@@ -1560,7 +1560,7 @@
                     if(!Context::get('is_logged')) $this->logout_message();
                     $oAdminModel = &getAdminModel("admin");                    
                     // Get selected layout
-			$theme_file = _XE_PATH_.'files/theme/theme_info.php';
+			$theme_file = _KARYBU_PATH_.'files/theme/theme_info.php';
 			if(is_readable($theme_file)){
 				@include($theme_file);
 				$selected_layout = $theme_info->layout;

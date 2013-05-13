@@ -1,8 +1,8 @@
 <?php
 
-if(!defined('_XE_PATH_')) define('_XE_PATH_', realpath(dirname(__FILE__).'/../../../').'/');
+if(!defined('_KARYBU_PATH_')) define('_KARYBU_PATH_', realpath(dirname(__FILE__).'/../../../').'/');
 
-require_once _XE_PATH_ . 'classes/module/ModuleMatcher.class.php';
+require_once _KARYBU_PATH_ . 'classes/module/ModuleMatcher.class.php';
 
 class moduleModel
 {

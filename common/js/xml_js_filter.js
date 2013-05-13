@@ -1,6 +1,6 @@
 /**
  * @file   common/js/xml_js_filter.js
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief  xml filter (validator) plugin
  * 
  * A rule is a method validate one field.

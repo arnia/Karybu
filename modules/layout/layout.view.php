@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  layoutView
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * admin view class of the layout module
      **/
 

@@ -1,17 +1,17 @@
 <?php
 if(version_compare(PHP_VERSION, '5.0.0', '>='))
 {
-	require_once _XE_PATH_ . "libs/phpmailer/phpmailer.php";
+	require_once _KARYBU_PATH_ . "libs/phpmailer/phpmailer.php";
 }
 else
 {
-	require_once _XE_PATH_ . "libs/phpmailer/class.phpmailer.php";
+	require_once _KARYBU_PATH_ . "libs/phpmailer/class.phpmailer.php";
 }
 
 /**
-* Mailing class for XpressEngine
+* Mailing class for Karybu
 *
-* @author Arnia (developers@xpressengine.com)
+* @author Arnia (dev@karybu.org)
 */
 class Mail extends PHPMailer
 {

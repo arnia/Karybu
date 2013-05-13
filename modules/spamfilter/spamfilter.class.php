@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  spamfilter
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief The parent class of the spamfilter module
      **/
 

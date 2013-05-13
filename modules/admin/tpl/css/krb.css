@@ -661,10 +661,21 @@ background-repeat: no-repeat;}
     background-image: url('../img/main-nav-cursor.png');
     background-position: 50% 100%;
     background-repeat: no-repeat;
-
 }
 
-/* TABS FOR SECOND NAV END */
+
+.main-nav-stacked ul li {
+    display: block;
+    width: 40%;
+    margin-right: 10%;
+}
+
+.main-nav-stacked .navbar .nav > .active {
+    background: none;
+}
+
+
+/* TABS FOR MAIN NAV END */
 
 
 

@@ -1,7 +1,7 @@
 <?php
     /**
      * Admin view class in the autoinstall module
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      **/
     class autoinstallAdminView extends autoinstall {
 
@@ -25,7 +25,7 @@
 	    function init() {
 		    $template_path = sprintf("%stpl/",$this->module_path);
             Context::set('original_site', _KARYBU_LOCATION_SITE_);
-            Context::set('uri', _XE_DOWNLOAD_SERVER_);
+            Context::set('uri', _KARYBU_DOWNLOAD_SERVER_);
 		    $this->setTemplatePath($template_path);
 
             $ftp_info =  Context::getFTPInfo();
@@ -250,7 +250,7 @@
             $params["act"] = "getResourceapiPackages";
             $params["package_srls"] = implode(",", array_keys($package_list));
             $body = XmlGenerater::generate($params);
-            $buff = FileHandler::getRemoteResource(_XE_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
+            $buff = FileHandler::getRemoteResource(_KARYBU_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
             $xml_lUpdate = new XmlParser();
             $xmlDoc = $xml_lUpdate->parse($buff);
             if($xmlDoc && $xmlDoc->response->packagelist->item)
@@ -388,7 +388,7 @@
             $params = array();
             $params["act"] = "getResourceapiLastupdate";
             $body = XmlGenerater::generate($params);
-            $buff = FileHandler::getRemoteResource(_XE_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
+            $buff = FileHandler::getRemoteResource(_KARYBU_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
             $xml_lUpdate = new XmlParser();
             $lUpdateDoc = $xml_lUpdate->parse($buff);
             $updateDate = $lUpdateDoc->response->updatedate->body;
@@ -516,7 +516,7 @@
 			$params["act"] = "getResourceapiPackages";
 			$params["package_srls"] = $package_srl;
 			$body = XmlGenerater::generate($params);
-			$buff = FileHandler::getRemoteResource(_XE_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
+			$buff = FileHandler::getRemoteResource(_KARYBU_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
 			$xml_lUpdate = new XmlParser();
 			$xmlDoc = $xml_lUpdate->parse($buff);
 			if($xmlDoc && $xmlDoc->response->packagelist->item)

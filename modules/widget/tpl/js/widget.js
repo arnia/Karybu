@@ -1,6 +1,6 @@
 /**
  * @file   modules/widget/js/widget.js
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief  위젯 관리용 자바스크립트
  **/
 

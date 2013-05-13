@@ -1,5 +1,5 @@
 <?php
-require_once(_XE_PATH_.'modules/communication/communication.view.php');
+require_once(_KARYBU_PATH_.'modules/communication/communication.view.php');
 class communicationMobile extends communicationView {
 	function init() {
 		$oCommunicationModel = &getModel('communication');

@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  layout
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * high class of the layout module 
      **/
 
@@ -43,7 +43,7 @@
 				{
 					$layout_path = explode('.', $layout->layout);
 					if(count($layout_path) != 2) continue;
-					if(is_dir(sprintf(_XE_PATH_ . 'themes/%s/layouts/%s', $layout_path[0], $layout_path[1]))) return true;
+					if(is_dir(sprintf(_KARYBU_PATH_ . 'themes/%s/layouts/%s', $layout_path[0], $layout_path[1]))) return true;
 				}
 			}
 
@@ -86,7 +86,7 @@
 				{
 					$layout_path = explode('.', $layout->layout);
 					if(count($layout_path) != 2) continue;
-					if(is_dir(sprintf(_XE_PATH_ . 'themes/%s/layouts/%s', $layout_path[0], $layout_path[1])))
+					if(is_dir(sprintf(_KARYBU_PATH_ . 'themes/%s/layouts/%s', $layout_path[0], $layout_path[1])))
 					{
 						$args->layout = implode('|@|', $layout_path);
 						$args->layout_srl = $layout->layout_srl;

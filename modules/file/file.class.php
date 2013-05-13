@@ -1,7 +1,7 @@
 <?php
     /**
      * High class of the file module
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      **/
     class file extends ModuleObject {
 

@@ -6,8 +6,9 @@ use Karybu\Environment\Environment;
 /**
  * Declare constants for generic use and for checking to avoid a direct call from the Web
  **/
-define('__XE__',   true);
-define('__ZBXE__', true); // deprecated : __ZBXE__ will be removed. Use __XE__ instead.
+define('__KARYBU__',   true);
+define('__ZBXE__', true); // deprecated : __ZBXE__ will be removed. Use __KARYBU__ instead.
+define('__XE__', true); // deprecated : __XE__ will be removed. Use __KARYBU__ instead.
 
 require dirname(__FILE__) . '/config/config.inc.php';
 
@@ -15,7 +16,7 @@ require dirname(__FILE__) . '/config/config.inc.php';
 $envCode = Environment::DEFAULT_ENVIRONMENT;
 //check if environment file exists
 $filename = 'files/config/environment.txt';
-if (file_exists($filename)) {
+if (is_readable($filename)) {
     $envCode = file_get_contents($filename);
 }
 //get the current valid environment

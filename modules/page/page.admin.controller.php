@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  pageAdminController
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief page of the module admin controller class
      **/
 
@@ -244,16 +244,16 @@
 
 			if($module_info->page_type == 'WIDGET')
 			{
-				$cache_file = sprintf("%sfiles/cache/page/%d.%s.%s.cache.php", _XE_PATH_, $module_info->module_srl, Context::getLangType(), Context::getSslStatus());
-				$mcacheFile = sprintf("%sfiles/cache/page/%d.%s.%s.m.cache.php", _XE_PATH_, $module_info->module_srl, Context::getLangType(), Context::getSslStatus());
+				$cache_file = sprintf("%sfiles/cache/page/%d.%s.%s.cache.php", _KARYBU_PATH_, $module_info->module_srl, Context::getLangType(), Context::getSslStatus());
+				$mcacheFile = sprintf("%sfiles/cache/page/%d.%s.%s.m.cache.php", _KARYBU_PATH_, $module_info->module_srl, Context::getLangType(), Context::getSslStatus());
 			}
 			else if($module_info->page_type == 'OUTSIDE')
 			{
-				$cache_file = sprintf("%sfiles/cache/opage/%d.cache.php", _XE_PATH_, $module_info->module_srl);
+				$cache_file = sprintf("%sfiles/cache/opage/%d.cache.php", _KARYBU_PATH_, $module_info->module_srl);
 
 				if($module_info->mpath)
 				{
-					$mcacheFile =  sprintf("%sfiles/cache/opage/%d.m.cache.php", _XE_PATH_, $module_info->module_srl);
+					$mcacheFile =  sprintf("%sfiles/cache/opage/%d.m.cache.php", _KARYBU_PATH_, $module_info->module_srl);
 				}
 			}
             if(file_exists($cache_file)) FileHandler::removeFile($cache_file);

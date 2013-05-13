@@ -17,7 +17,7 @@ use Karybu\Event\DBEvents;
  * Obs. Here we have a design pattern misuse: DB is the same time a Factory and a parent for specific db classes.
  *      Hopefully this will change in the near future (current date: 14.03.2013)
  *
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @package /classes/db
  * @version 0.1
  */
@@ -139,7 +139,7 @@ class DB
         }
         if(!isset($GLOBALS['__DB__'][$db_type])) {
             $class_name = 'DB'.ucfirst($db_type);
-            $class_file = _XE_PATH_."classes/db/$class_name.class.php";
+            $class_file = _KARYBU_PATH_."classes/db/$class_name.class.php";
             if (!file_exists($class_file)) {
                 return new Object(-1, 'msg_db_not_setted');
             }
@@ -169,7 +169,7 @@ class DB
      */
     function DB()
     {
-        $this->count_cache_path = _XE_PATH_.$this->count_cache_path;
+        $this->count_cache_path = _KARYBU_PATH_.$this->count_cache_path;
     }
 
     /**
@@ -243,7 +243,7 @@ class DB
             return $this->supported_list;
         }
         $get_supported_list = array();
-        $db_classes_path = _XE_PATH_."classes/db/";
+        $db_classes_path = _KARYBU_PATH_."classes/db/";
         $filter = "/^DB([^\.]+)\.class\.php/i";
         $supported_list = FileHandler::readDir($db_classes_path, $filter, true);
         sort($supported_list);
@@ -257,7 +257,7 @@ class DB
             }
 
             $class_name = sprintf("DB%s%s", strtoupper(substr($db_type,0,1)), strtolower(substr($db_type,1)));
-            $class_file = sprintf(_XE_PATH_."classes/db/%s.class.php", $class_name);
+            $class_file = sprintf(_KARYBU_PATH_."classes/db/%s.class.php", $class_name);
             if (!file_exists($class_file)) {
                 continue;
             }
@@ -430,7 +430,7 @@ class DB
                 return new Object(-1, 'msg_invalid_queryid');
             }
 
-            $xml_file = sprintf('%s%s/%s/queries/%s.xml', _XE_PATH_, $target, $module, $id);
+            $xml_file = sprintf('%s%s/%s/queries/%s.xml', _KARYBU_PATH_, $target, $module, $id);
             if(!file_exists($xml_file)){
                 $this->actDBClassFinish();
                 return new Object(-1, 'msg_invalid_queryid');
@@ -457,7 +457,7 @@ class DB
         // first try finding cache file
         $cache_file = sprintf(
             '%s%s%s.%s.%s.cache.php',
-            _XE_PATH_,
+            _KARYBU_PATH_,
             $this->cache_file,
             $query_id,
             __KARYBU_VERSION__,
@@ -473,10 +473,10 @@ class DB
 
         // if there is no cache file or is not new, find original xml query file and parse it
         if ($cache_time < filemtime($xml_file) || $cache_time < filemtime(
-            _XE_PATH_ . 'classes/db/DB.class.php'
-        ) || $cache_time < filemtime(_XE_PATH_ . 'classes/xml/XmlQueryParser.150.class.php')
+            _KARYBU_PATH_ . 'classes/db/DB.class.php'
+        ) || $cache_time < filemtime(_KARYBU_PATH_ . 'classes/xml/XmlQueryParser.150.class.php')
         ) {
-            require_once(_XE_PATH_.'classes/xml/XmlQueryParser.150.class.php');
+            require_once(_KARYBU_PATH_.'classes/xml/XmlQueryParser.150.class.php');
             $oParser = new XmlQueryParser();
             $oParser->parse($query_id, $xml_file, $cache_file);
         }

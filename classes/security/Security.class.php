@@ -2,7 +2,7 @@
 /**
  * - Security class
  * - This class helps to solve security problems.
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @package /classes/security
  * @version 0.1
  */

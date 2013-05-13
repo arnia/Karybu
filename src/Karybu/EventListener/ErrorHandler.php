@@ -39,7 +39,7 @@ class ErrorHandler extends SymfonyErrorHandler implements EventSubscriberInterfa
 
             // Fix for PHP bug that doesn't call the autoloaded in the case of E_STRICT errors
             if(!class_exists('Karybu\Event\ErrorEvent')) {
-                require_once _XE_PATH_ . 'src/Karybu/Event/ErrorEvent.php';
+                require_once _KARYBU_PATH_ . 'src/Karybu/Event/ErrorEvent.php';
             }
 
             // Log errors

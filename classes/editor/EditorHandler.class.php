@@ -4,7 +4,7 @@
  * Set up the component variables
  *
  * @class EditorHandler
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  **/
 
 class EditorHandler extends Object

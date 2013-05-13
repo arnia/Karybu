@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  memberAdminModel
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * admin model class of member module
      **/
 

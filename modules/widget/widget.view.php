@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  widgetView
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief View class of the widget modules
      **/
 

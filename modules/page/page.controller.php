@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  documentController
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief controller class of the document module
      **/
 

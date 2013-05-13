@@ -3,7 +3,7 @@
 	 * menu class
 	 * high class of the menu module
 	 *
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 * @package /modules/menu
 	 * @version 0.1
 	 */

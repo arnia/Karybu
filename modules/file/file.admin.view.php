@@ -1,7 +1,7 @@
 <?php
     /**
      * Admin view of the module class file
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      **/
     class fileAdminView extends file {
 

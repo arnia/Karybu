@@ -1,8 +1,8 @@
 <?php
 
-if(!defined('__XE__')) require dirname(__FILE__).'/../../Bootstrap.php';
+if(!defined('__KARYBU__')) require dirname(__FILE__).'/../../Bootstrap.php';
 
-require_once _XE_PATH_.'/classes/security/Security.class.php';
+require_once _KARYBU_PATH_.'/classes/security/Security.class.php';
 
 error_reporting(E_ALL & ~E_NOTICE);
 
@@ -127,7 +127,7 @@ class SecurityTest extends PHPUnit_Framework_TestCase
 
 if(!class_exists('Context'))
 {
-	require _XE_PATH_.'/tests/classes/context/Context.mock.php';
+	require _KARYBU_PATH_.'/tests/classes/context/Context.mock.php';
 }
 
 /* End of file SecurityTest.php */

@@ -1,7 +1,7 @@
 <?php
     /**
      * @class login_info
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @version 0.1
      * @brief Widget to display log-in form
      *

@@ -4,7 +4,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * adminAdminController class
  * admin controller class of admin module
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @package /modules/admin
  * @version 0.1
  */
@@ -48,9 +48,9 @@ class adminAdminController extends admin {
         FileHandler::makeDir('./files/cache');
 
         // remove debug files
-        FileHandler::removeFile(_XE_PATH_.'files/_debug_message.php');
-        FileHandler::removeFile(_XE_PATH_.'files/_debug_db_query.php');
-        FileHandler::removeFile(_XE_PATH_.'files/_db_slow_query.php');
+        FileHandler::removeFile(_KARYBU_PATH_.'files/_debug_message.php');
+        FileHandler::removeFile(_KARYBU_PATH_.'files/_debug_db_query.php');
+        FileHandler::removeFile(_KARYBU_PATH_.'files/_db_slow_query.php');
 
         $oModuleModel = &getModel('module');
         $module_list = $oModuleModel->getModuleList();
@@ -118,7 +118,7 @@ class adminAdminController extends admin {
      */
     function procAdminInsertThemeInfo() {
         $vars = Context::getRequestVars();
-        $theme_file = _XE_PATH_.'files/theme/theme_info.php';
+        $theme_file = _KARYBU_PATH_.'files/theme/theme_info.php';
 
         $theme_output = sprintf('$theme_info->theme=\'%s\';', $vars->themeItem);
         $theme_output = $theme_output.sprintf('$theme_info->layout=%s;', $vars->layout);
@@ -171,7 +171,7 @@ class adminAdminController extends admin {
 
         $theme_buff = sprintf(
             '<?php '.
-            'if(!defined("__ZBXE__")) exit(); '.
+            'if(!defined("__KARYBU__")) exit(); '.
             '%s'.
             '?>',
             $theme_output
@@ -334,7 +334,7 @@ class adminAdminController extends admin {
         $oModuleModel = &getModel('module');
         $oAdminConfig = $oModuleModel->getModuleConfig('admin');
 
-        FileHandler::removeFile(_XE_PATH_.$oAdminConfig->adminLogo);
+        FileHandler::removeFile(_KARYBU_PATH_.$oAdminConfig->adminLogo);
         unset($oAdminConfig->adminLogo);
 
         $oModuleController = &getController('module');
@@ -388,9 +388,9 @@ class adminAdminController extends admin {
      */
     function procAdminRemoveIcons(){
         $iconname = Context::get('iconname');
-        $file_exist = FileHandler::readFile(_XE_PATH_.'files/attach/xeicon/'.$iconname);
+        $file_exist = FileHandler::readFile(_KARYBU_PATH_.'files/attach/xeicon/'.$iconname);
         if($file_exist) {
-            @FileHandler::removeFile(_XE_PATH_.'files/attach/xeicon/'.$iconname);
+            @FileHandler::removeFile(_KARYBU_PATH_.'files/attach/xeicon/'.$iconname);
         } else {
             return new Object(-1,'fail_to_delete');
         }

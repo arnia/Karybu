@@ -8,7 +8,7 @@ use Karybu\Exception\DBConnectionFailedException;
  * - Cubrid DBMS to use the class
  * - Works with CUBRID up to 8.4.1
  *
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @package /classes/db
  * @version 0.1
  */
@@ -292,7 +292,7 @@ class DBCubrid extends DB
     /**
      * Retrieve CUBRID error and set to object
      *
-     * @author Corina Udrescu (dev@xpressengine.org)
+     * @author Corina Udrescu (dev@karybu.org)
      */
     function _setError()
     {

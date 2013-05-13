@@ -1,7 +1,7 @@
 <?php
 /**
  * Mobile XE Library Class ver 0.1
- * @author Arnia (developers@xpressengine.com) / lang_select : misol
+ * @author Arnia (dev@karybu.org) / lang_select : misol
  * @brief XE library for WAP tag output
  **/
 
@@ -54,7 +54,7 @@ class mobileXE
                 return;
             }
 
-            $class_file = sprintf('%saddons/mobile/classes/%s.class.php', _XE_PATH_, $browserType);
+            $class_file = sprintf('%saddons/mobile/classes/%s.class.php', _KARYBU_PATH_, $browserType);
             require_once($class_file);
             // Download mobile language settings (cookies, not willing to come up when you click create cache file ...- is initialized ..)
             $this->lang = FileHandler::readFile(
@@ -71,7 +71,7 @@ class mobileXE
                     Context::setLangType($this->lang);
                 }
             }
-            Context::loadLang(_XE_PATH_ . 'addons/mobile/lang');
+            Context::loadLang(_KARYBU_PATH_ . 'addons/mobile/lang');
 
             $instance = new wap();
 
@@ -185,7 +185,7 @@ class mobileXE
         // Save instance
         $this->oModule = $oModule;
         // Of the current module if there is a menu by menu
-        $menu_cache_file = sprintf(_XE_PATH_ . 'files/cache/menu/%d.php', $this->module_info->menu_srl);
+        $menu_cache_file = sprintf(_KARYBU_PATH_ . 'files/cache/menu/%d.php', $this->module_info->menu_srl);
         if (!file_exists($menu_cache_file)) {
             return;
         }

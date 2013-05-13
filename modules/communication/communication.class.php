@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  communication 
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * communication module of the high class
      **/
 
