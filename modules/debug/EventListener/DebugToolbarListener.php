@@ -95,7 +95,6 @@ class DebugToolbarListener implements EventSubscriberInterface
 
         if (self::DISABLED === $this->mode
             || !$response->headers->has('X-Debug-Token')
-            || !$response->headers->has('X-Exception')
             || $response->isRedirection()
             || ($response->headers->has('Content-Type') && false === strpos($response->headers->get('Content-Type'), 'html'))
             || 'html' !== $request->getRequestFormat()
