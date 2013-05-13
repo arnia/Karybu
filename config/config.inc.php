@@ -8,7 +8,7 @@
 
 @error_reporting(-1);
 
-if(!defined('__ZBXE__')) exit();
+if(!defined('__KARYBU__')) exit();
 
 /**
  * Display XE's full version

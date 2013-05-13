@@ -778,7 +778,7 @@
 				{
 					return;
 				}
-                fwrite($fp, "<?php if(!defined('__XE__')) exit(); \r\n");
+                fwrite($fp, "<?php if(!defined('__KARYBU__')) exit(); \r\n");
 
 				foreach($langMap[$langCode] as $code => $value)
 				{

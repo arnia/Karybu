@@ -1767,14 +1767,14 @@ try
 		$lang = new Any_prop_obj_base();	// to return NULL on non-existent properties
 		$lang->filter = New LangArgFilterErrorMessage();
 
-		if(!defined('__XE__'))
+		if(!defined('__KARYBU__'))
 		{
-			define('__XE__', TRUE);
+			define('__KARYBU__', TRUE);
 		}
 
-		if(!defined('__ZBXE__'))
+		if(!defined('__KARYBU__'))
 		{
-			define('__ZBXE__', TRUE);
+			define('__KARYBU__', TRUE);
 		}
 
 		if(!defined('__DEBUG__'))

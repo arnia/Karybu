@@ -28,7 +28,7 @@
 		}
 		
 		function cleanOutputAndAddArgs($outputString, $argsString = ''){
-			$outputString = str_replace("<?php if(!defined('__ZBXE__')) exit();", "", $outputString);
+			$outputString = str_replace("<?php if(!defined('__KARYBU__')) exit();", "", $outputString);
 			$outputString = str_replace("?>", "", $outputString);
 			$outputString = $argsString . $outputString;			
 			return $outputString;

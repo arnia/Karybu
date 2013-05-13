@@ -278,7 +278,7 @@ class installController extends install
             $ftp_info->ftp_root_path = '/';
         }
 
-        $buff = '<?php if(!defined("__ZBXE__")) exit();' . "\n";
+        $buff = '<?php if(!defined("__KARYBU__")) exit();' . "\n";
         foreach ($ftp_info as $key => $val) {
             $buff .= sprintf("\$ftp_info->%s = '%s';\n", $key, str_replace("'", "\\'", $val));
         }
@@ -595,7 +595,7 @@ class installController extends install
 
     function _getDBConfigFileContents($db_info)
     {
-        $buff = '<?php if(!defined("__ZBXE__")) exit();' . "\n";
+        $buff = '<?php if(!defined("__KARYBU__")) exit();' . "\n";
         $db_info = get_object_vars($db_info);
         foreach ($db_info as $key => $val) {
             if ($key == 'master_db') {
@@ -643,7 +643,7 @@ class installController extends install
     {
         $etc_tmp_config_file = $this->etc_tmp_config_file;
 
-        $buff = '<?php if(!defined("__ZBXE__")) exit();' . "\n";
+        $buff = '<?php if(!defined("__KARYBU__")) exit();' . "\n";
         foreach ($config_info as $key => $val) {
             $buff .= sprintf("\$db_info->%s = '%s';\n", $key, str_replace("'", "\\'", $val));
         }

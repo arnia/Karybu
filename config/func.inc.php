@@ -5,7 +5,7 @@
      * @author Arnia (dev@karybu.org)
     **/
 
-    if(!defined('__XE__') && !defined('__ZBXE__')) exit();
+    if(!defined('__KARYBU__') && !defined('__KARYBU__')) exit();
 
     // define clone for php5
     if (version_compare(phpversion(), '5.0') < 0) {

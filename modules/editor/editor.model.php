@@ -205,7 +205,7 @@ class editorModel extends editor
         $component_info->license = $xml_doc->component->license->body;
         $component_info->license_link = $xml_doc->component->license->attrs->link;
 
-        $buff = '<?php if(!defined("__ZBXE__")) exit(); ';
+        $buff = '<?php if(!defined("__KARYBU__")) exit(); ';
         $buff .= sprintf('$xml_info->component_name = "%s";', $component_info->component_name);
         $buff .= sprintf('$xml_info->title = "%s";', $component_info->title);
         $buff .= sprintf('$xml_info->description = "%s";', $component_info->description);
@@ -917,7 +917,7 @@ class editorModel extends editor
             $component_info->license = $xml_doc->component->license->body;
             $component_info->license_link = $xml_doc->component->license->attrs->link;
 
-            $buff = '<?php if(!defined("__ZBXE__")) exit(); ';
+            $buff = '<?php if(!defined("__KARYBU__")) exit(); ';
             $buff .= sprintf('$xml_info->component_name = "%s";', $component_info->component_name);
             $buff .= sprintf('$xml_info->title = "%s";', $component_info->title);
             $buff .= sprintf('$xml_info->description = "%s";', $component_info->description);
@@ -1019,7 +1019,7 @@ class editorModel extends editor
             $xml_info->author->email_address = $xml_doc->component->author->attrs->email_address;
             $xml_info->author->homepage = $xml_doc->component->author->attrs->link;
 
-            $buff = '<?php if(!defined("__ZBXE__")) exit(); ';
+            $buff = '<?php if(!defined("__KARYBU__")) exit(); ';
             $buff .= sprintf('$xml_info->component_name = "%s";', $xml_info->component_name);
             $buff .= sprintf('$xml_info->title = "%s";', $xml_info->title);
             $buff .= sprintf('$xml_info->description = "%s";', $xml_info->description);

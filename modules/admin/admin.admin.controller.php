@@ -171,7 +171,7 @@ class adminAdminController extends admin {
 
         $theme_buff = sprintf(
             '<?php '.
-            'if(!defined("__ZBXE__")) exit(); '.
+            'if(!defined("__KARYBU__")) exit(); '.
             '%s'.
             '?>',
             $theme_output

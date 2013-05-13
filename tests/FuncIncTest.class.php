@@ -1,6 +1,6 @@
 <?php
 
-define('__XE__', 1);
+define('__KARYBU__', 1);
 define('_KARYBU_PATH_', realpath(dirname(__FILE__).'/../'));
 require _KARYBU_PATH_.'/config/func.inc.php';
 

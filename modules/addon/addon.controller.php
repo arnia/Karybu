@@ -225,7 +225,7 @@ class addonController extends addon
             $buff .= '}}}';
         }
 
-        $buff = sprintf('<?php if(!defined("__XE__")) exit(); $_m = Context::get(\'mid\'); %s ?>', $buff);
+        $buff = sprintf('<?php if(!defined("__KARYBU__")) exit(); $_m = Context::get(\'mid\'); %s ?>', $buff);
 
         $addon_path = _KARYBU_PATH_ . 'files/cache/addons/';
         if (!is_dir($addon_path)) {

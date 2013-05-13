@@ -148,7 +148,7 @@
                 $ftp_info->ftp_password = Context::get('ftp_password');
             }
 
-            $buff = '<?php if(!defined("__ZBXE__")) exit();'."\n";
+            $buff = '<?php if(!defined("__KARYBU__")) exit();'."\n";
             foreach ($ftp_info as $key => $val) {
                 if (!$val) continue;
 				if (preg_match(

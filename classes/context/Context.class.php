@@ -2243,7 +2243,7 @@ class ContextInstance
 
     function createSslActionsFile()
     {
-        $buff = '<?php if(!defined("__XE__"))exit;';
+        $buff = '<?php if(!defined("__KARYBU__"))exit;';
         FileHandler::writeFile($this->file_handler->getRealPath($this->sslActionCacheFile), $buff);
     }
 

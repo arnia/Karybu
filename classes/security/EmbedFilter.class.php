@@ -2166,7 +2166,7 @@ class EmbedFilter
             $embedDomainList = $domainListObj->whiteurl->embed->domain;
             $iframeDomainList = $domainListObj->whiteurl->iframe->domain;
 
-            $buff = '<?php if(!defined("__ZBXE__")) exit();';
+            $buff = '<?php if(!defined("__KARYBU__")) exit();';
             if (is_array($embedDomainList)) {
                 foreach ($embedDomainList AS $key => $value) {
                     $patternList = $value->pattern;

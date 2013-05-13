@@ -1,5 +1,5 @@
 <?php
-if(!defined('__XE__')) exit();
+if(!defined('__KARYBU__')) exit();
 
 /**
  * @file image_name.addon.php

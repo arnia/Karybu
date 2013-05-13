@@ -1,5 +1,5 @@
 <?php
-if(!defined('__XE__')) exit();
+if(!defined('__KARYBU__')) exit();
 
 /**
  * @file resize_image.addon.php

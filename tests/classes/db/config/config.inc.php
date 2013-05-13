@@ -4,8 +4,8 @@
 	define('_TEST_PATH_', _KARYBU_PATH_ . 'tests/classes/db/');
 
 	if(!defined('__DEBUG__')) define('__DEBUG__', 4);
-        define('__ZBXE__', true);
-        define('__XE__',   true);
+        define('__KARYBU__', true);
+        define('__KARYBU__',   true);
 
 	require_once(_TEST_PATH_.'Helper.class.php');
         require_once(_TEST_PATH_.'QueryTester.class.php');

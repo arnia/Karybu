@@ -1,5 +1,5 @@
 <?php
-    if(!defined("__ZBXE__")) exit();
+    if(!defined("__KARYBU__")) exit();
 
     /**
      * @file captcha.addon.php

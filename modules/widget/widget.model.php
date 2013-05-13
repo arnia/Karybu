@@ -257,7 +257,7 @@
                 }
             }
 
-            $buff = '<?php if(!defined("__ZBXE__")) exit(); '.$buff.' ?>';
+            $buff = '<?php if(!defined("__KARYBU__")) exit(); '.$buff.' ?>';
             FileHandler::writeFile($cache_file, $buff);
 
             if(file_exists($cache_file)) include($cache_file);
@@ -392,7 +392,7 @@
                 }
             }
 
-            $buff = '<?php if(!defined("__ZBXE__")) exit(); '.$buff.' ?>';
+            $buff = '<?php if(!defined("__KARYBU__")) exit(); '.$buff.' ?>';
             FileHandler::writeFile($cache_file, $buff);
 
             if(file_exists($cache_file)) include($cache_file);

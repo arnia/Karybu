@@ -1,6 +1,6 @@
 <?php
 
-if(!defined('__XE__')) require dirname(__FILE__).'/../../Bootstrap.php';
+if(!defined('__KARYBU__')) require dirname(__FILE__).'/../../Bootstrap.php';
 
 require_once _KARYBU_PATH_.'classes/file/FileHandler.class.php';
 

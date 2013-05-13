@@ -254,7 +254,7 @@ class TemplateHandler
         }
 
         // prevent from calling directly before writing into file
-        $buff = '<?php if(!defined("__XE__"))exit;?>' . $buff;
+        $buff = '<?php if(!defined("__KARYBU__"))exit;?>' . $buff;
 
         // remove php script reopening
         $buff = preg_replace(array('/(\n|\r\n)+/', '/(;)?( )*\?\>\<\?php([\n\t ]+)?/'), array("\n", ";\n"), $buff);

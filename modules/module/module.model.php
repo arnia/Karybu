@@ -854,7 +854,7 @@ class moduleModel extends module
                 }
             }
             $buff = sprintf(
-                '<?php if(!defined("__ZBXE__")) exit(); $info = new stdClass; $info->default_index_act = \'%s\';$info->setup_index_act=\'%s\';$info->admin_index_act = \'%s\';%s?>',
+                '<?php if(!defined("__KARYBU__")) exit(); $info = new stdClass; $info->default_index_act = \'%s\';$info->setup_index_act=\'%s\';$info->admin_index_act = \'%s\';%s?>',
                 $default_index_act,
                 $setup_index_act,
                 $admin_index_act,

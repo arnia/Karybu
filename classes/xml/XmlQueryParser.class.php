@@ -249,7 +249,7 @@
                 }
             }
 
-            $buff = "<?php if(!defined('__ZBXE__')) exit();\n"
+            $buff = "<?php if(!defined('__KARYBU__')) exit();\n"
                   . sprintf('$output->query_id = "%s";%s', $query_id, "\n")
                   . sprintf('$output->action = "%s";%s', $action, "\n")
                   . $pre_buff
