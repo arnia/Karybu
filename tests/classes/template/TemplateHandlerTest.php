@@ -1,13 +1,13 @@
 <?php
 
-if(!defined('__XE__')) require dirname(__FILE__).'/../../Bootstrap.php';
+if(!defined('__KARYBU__')) require dirname(__FILE__).'/../../Bootstrap.php';
 
-require_once _XE_PATH_.'classes/file/FileHandler.class.php';
-require_once _XE_PATH_.'classes/template/TemplateHandler.class.php';
+require_once _KARYBU_PATH_.'classes/file/FileHandler.class.php';
+require_once _KARYBU_PATH_.'classes/template/TemplateHandler.class.php';
 
 class TemplateHandlerTest extends PHPUnit_Framework_TestCase
 {
-	var $prefix = '<?php if(!defined("__XE__"))exit;?>';
+	var $prefix = '<?php if(!defined("__KARYBU__"))exit;?>';
 
 	static public function provider()
 	{

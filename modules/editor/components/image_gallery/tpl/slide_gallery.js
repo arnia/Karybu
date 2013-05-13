@@ -1,7 +1,7 @@
 /**
  * @file  slide_gallery.js
  * @brief Slideshow type image gallery plugin
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  **/
 
 (function($){

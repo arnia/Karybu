@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  pollAdminView
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief The admin view class of the poll module
      **/
 

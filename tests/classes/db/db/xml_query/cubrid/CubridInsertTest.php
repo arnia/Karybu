@@ -12,7 +12,7 @@
                  * regdate from the expected string - a few seconds difference
                  */
 		function test_module_insertModule(){
-			$xml_file = _XE_PATH_ . "modules/module/queries/insertModule.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/module/queries/insertModule.xml";
 			$argsString = ' $args->module_category_srl = 0;
 							$args->browser_title = "test";
 							$args->layout_srl = 0;
@@ -52,7 +52,7 @@
 
                 function test_module_insertSiteTodayStatus(){
 			//\''.date("YmdHis").'\'
-			$xml_file = _XE_PATH_ . "modules/counter/queries/insertTodayStatus.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/counter/queries/insertTodayStatus.xml";
 			$argsString = ' $args->regdate = 0;
 							$args->unique_visitor = 0;
 							$args->pageview = 0;';
@@ -68,7 +68,7 @@
 		}
 
 		function test_module_insertCounterLog(){
-			$xml_file = _XE_PATH_ . "modules/counter/queries/insertCounterLog.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/counter/queries/insertCounterLog.xml";
 			$argsString = ' $args->site_srl = 0;
 							$args->regdate = "20110607120619";
 							$args->ipaddress = "127.0.0.1";
@@ -81,7 +81,7 @@
 		}
 
 		function test_module_insertMember(){
-			$xml_file = _XE_PATH_ . "modules/member/queries/insertMember.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/member/queries/insertMember.xml";
 			$argsString = ' $args->member_srl = 203;
 							$args->user_id = "cacao";
 							$args->email_address = "teta@ar.ro";
@@ -112,7 +112,7 @@
 		}
 
 		function test_module_insertModuleExtraVars(){
-			$xml_file = _XE_PATH_ . "modules/module/queries/insertModuleExtraVars.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/module/queries/insertModuleExtraVars.xml";
 			$argsString = ' $args->module_srl = 202;
 							$args->name = "_filter";
 							$args->value = "insert_page";

@@ -3,7 +3,7 @@
 	 * menuAdminView class
 	 * admin view class of the menu module
 	 *
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 * @package /modules/menu
 	 * @version 0.1
 	 */
@@ -53,8 +53,8 @@
 		 */
 		function dispMenuAdminSiteMap()
 		{
-			Context::loadLang(_XE_PATH_.'modules/document/lang/');
-			Context::loadLang(_XE_PATH_.'modules/layout/lang/');
+			Context::loadLang(_KARYBU_PATH_.'modules/document/lang/');
+			Context::loadLang(_KARYBU_PATH_.'modules/layout/lang/');
             $site_srl = Context::get('site_srl');
 			$site_module_info = Context::get('site_module_info');
 
@@ -123,7 +123,7 @@
             Context::set('layout_list', $layoutList);
 
 			// choice theme file
-			$theme_file = _XE_PATH_.'files/theme/theme_info.php';
+			$theme_file = _KARYBU_PATH_.'files/theme/theme_info.php';
 			if(is_readable($theme_file))
 			{
 				include($theme_file);

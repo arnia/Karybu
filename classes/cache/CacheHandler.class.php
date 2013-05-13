@@ -2,7 +2,7 @@
 /**
  * CacheHandler
  *
- * @author Arnia (developer@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  **/
 class CacheHandler extends Handler
 {
@@ -101,7 +101,7 @@ class CacheHandler extends Handler
 
             if (isset($type)) {
                 $class = 'Cache' . ucfirst($type);
-                include_once sprintf('%sclasses/cache/%s.class.php', _XE_PATH_, $class);
+                include_once sprintf('%sclasses/cache/%s.class.php', _KARYBU_PATH_, $class);
                 $this->handler = call_user_func(array($class, 'getInstance'), $url);
                 $this->keyGroupVersions = $this->handler->get('key_group_versions', 0);
                 if (!$this->keyGroupVersions) {
@@ -244,7 +244,7 @@ class CacheHandler extends Handler
 /**
  * Base class of Cache
  *
- * @author Arnia (developer@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  */
 class CacheBase
 {

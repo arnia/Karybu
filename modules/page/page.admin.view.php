@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  pageAdminView
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief page admin view of the module class
      **/
 

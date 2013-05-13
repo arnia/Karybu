@@ -3,7 +3,7 @@
 	 * commentController class
 	 * controller class of the comment module
 	 *
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 * @package /modules/comment
 	 * @version 0.1
 	 */

@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  memberController
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * Controller class of member module
      **/
 
@@ -1331,7 +1331,7 @@
             $output = $oModuleController->insertModuleConfig('member',$args);
             if(!$output->toBool()) return $output;
 
-            $agreement_file = _XE_PATH_.'files/member_extra_info/agreement.txt';
+            $agreement_file = _KARYBU_PATH_.'files/member_extra_info/agreement.txt';
             FileHandler::writeFile($agreement_file, $agreement);
 
             return new Object();
@@ -1355,7 +1355,7 @@
 
             if(!$check_signature) return FileHandler::removeFile($filename);
 
-            $buff = sprintf('<?php if(!defined("__ZBXE__")) exit();?>%s', $signature);
+            $buff = sprintf('<?php if(!defined("__KARYBU__")) exit();?>%s', $signature);
             FileHandler::makeDir($path);
             FileHandler::writeFile($filename, $buff);
         }

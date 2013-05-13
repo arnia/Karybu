@@ -1,9 +1,9 @@
 <?php
-    require_once(_XE_PATH_.'modules/addon/addon.controller.php');
+    require_once(_KARYBU_PATH_.'modules/addon/addon.controller.php');
 
     /**
      * Admin controller class of addon modules
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      **/
     class addonAdminController extends addonController {
 

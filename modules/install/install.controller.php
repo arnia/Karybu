@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  installController
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief install module of the Controller class
  **/
 
@@ -20,8 +20,8 @@ class installController extends install
             return new Object(-1, 'msg_already_installed');
         }
 
-        $this->db_tmp_config_file = _XE_PATH_ . 'files/config/tmpDB.config.php';
-        $this->etc_tmp_config_file = _XE_PATH_ . 'files/config/tmpEtc.config.php';
+        $this->db_tmp_config_file = _KARYBU_PATH_ . 'files/config/tmpDB.config.php';
+        $this->etc_tmp_config_file = _KARYBU_PATH_ . 'files/config/tmpEtc.config.php';
     }
 
     /**
@@ -186,7 +186,7 @@ class installController extends install
         // check install config
         if (Context::get('install_config')) {
             $db_info = $this->_makeDbInfoByInstallConfig();
-        } // install by default XE UI
+        } // install by default Karybu UI
         else {
             include $this->db_tmp_config_file;
             include $this->etc_tmp_config_file;
@@ -278,7 +278,7 @@ class installController extends install
             $ftp_info->ftp_root_path = '/';
         }
 
-        $buff = '<?php if(!defined("__ZBXE__")) exit();' . "\n";
+        $buff = '<?php if(!defined("__KARYBU__")) exit();' . "\n";
         foreach ($ftp_info as $key => $val) {
             $buff .= sprintf("\$ftp_info->%s = '%s';\n", $key, str_replace("'", "\\'", $val));
         }
@@ -289,7 +289,7 @@ class installController extends install
                 return new Object(-1, 'msg_safe_mode_ftp_needed');
             }
 
-            require_once(_XE_PATH_ . 'libs/ftp.class.php');
+            require_once(_KARYBU_PATH_ . 'libs/ftp.class.php');
             $oFtp = new ftp();
             if (!$oFtp->ftp_connect($ftp_info->ftp_host, $ftp_info->ftp_port)) {
                 return new Object(-1, sprintf(
@@ -303,7 +303,7 @@ class installController extends install
                 return new Object(-1, 'msg_ftp_invalid_auth_info');
             }
 
-            if (!is_dir(_XE_PATH_ . 'files') && !$oFtp->ftp_mkdir($ftp_info->ftp_root_path . 'files')) {
+            if (!is_dir(_KARYBU_PATH_ . 'files') && !$oFtp->ftp_mkdir($ftp_info->ftp_root_path . 'files')) {
                 $oFtp->ftp_quit();
                 return new Object(-1, 'msg_ftp_mkdir_fail');
             }
@@ -313,7 +313,7 @@ class installController extends install
                 return new Object(-1, 'msg_ftp_chmod_fail');
             }
 
-            if (!is_dir(_XE_PATH_ . 'files/config') && !$oFtp->ftp_mkdir($ftp_info->ftp_root_path . 'files/config')) {
+            if (!is_dir(_KARYBU_PATH_ . 'files/config') && !$oFtp->ftp_mkdir($ftp_info->ftp_root_path . 'files/config')) {
                 $oFtp->ftp_quit();
                 return new Object(-1, 'msg_ftp_mkdir_fail');
             }
@@ -351,7 +351,7 @@ class installController extends install
                 return new Object(-1, 'msg_ftp_invalid_auth_info');
             }
         } else {
-            require_once(_XE_PATH_ . 'libs/ftp.class.php');
+            require_once(_KARYBU_PATH_ . 'libs/ftp.class.php');
             $oFtp = new ftp();
             if (!$oFtp->ftp_connect('localhost', $ftp_info->ftp_port)) {
                 return new Object(-1, sprintf(
@@ -595,7 +595,7 @@ class installController extends install
 
     function _getDBConfigFileContents($db_info)
     {
-        $buff = '<?php if(!defined("__ZBXE__")) exit();' . "\n";
+        $buff = '<?php if(!defined("__KARYBU__")) exit();' . "\n";
         $db_info = get_object_vars($db_info);
         foreach ($db_info as $key => $val) {
             if ($key == 'master_db') {
@@ -643,7 +643,7 @@ class installController extends install
     {
         $etc_tmp_config_file = $this->etc_tmp_config_file;
 
-        $buff = '<?php if(!defined("__ZBXE__")) exit();' . "\n";
+        $buff = '<?php if(!defined("__KARYBU__")) exit();' . "\n";
         foreach ($config_info as $key => $val) {
             $buff .= sprintf("\$db_info->%s = '%s';\n", $key, str_replace("'", "\\'", $val));
         }

@@ -1,6 +1,6 @@
 /*
  * jQuery Toolbar Plug-in
- * @author Arnia (developer@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  */
 
 (function($){

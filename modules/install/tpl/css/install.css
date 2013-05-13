@@ -4,3 +4,11 @@ body {
     margin: 0;
     background: #fff;
 }
+
+#languages-list li {
+    position:relative; margin:0 0 4px 0"
+}
+
+#languages-list .selected-language {
+    position:absolute;top:0;left:-16px;font-style:normal;font-weight:bold;color:red
+}

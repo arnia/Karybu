@@ -1,4 +1,4 @@
-/* Arnia (developers@xpressengine.com) */
+/* Arnia (dev@karybu.org) */
 jQuery(function($){
 
 var 

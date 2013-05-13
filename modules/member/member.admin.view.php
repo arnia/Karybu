@@ -1,7 +1,7 @@
 <?php	
     /**
      * @class  memberAdminView
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * member module's admin view class
      **/
 

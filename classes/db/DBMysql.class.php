@@ -9,7 +9,7 @@ use Karybu\Exception\DBConnectionFailedException;
  *
  * Does not use prepared statements, since mysql driver does not support them
  *
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @package /classes/db
  * @version 0.1
  */

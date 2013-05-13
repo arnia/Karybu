@@ -1,6 +1,6 @@
 /**
  * @file     modules/module/js/module_admin.js
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief    module 모듈의 관리자용 javascript
  **/
 /* 모듈 즐겨찾기 */

@@ -1,12 +1,12 @@
 <?php
-require_once(_XE_PATH_.'modules/document/document.item.php');
+require_once(_KARYBU_PATH_.'modules/document/document.item.php');
 
 /**
  * document class
  * @brief document the module's high class
  * {@internal Silently adds one extra Foo to compensate for lack of Foo }
  *
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @package /modules/document
  * @version 0.1
  */

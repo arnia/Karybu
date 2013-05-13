@@ -1,7 +1,7 @@
 <?php
     /**
      * @class language_select 
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief Language selector
      * @version 0.1
      **/

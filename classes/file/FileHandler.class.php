@@ -2,7 +2,7 @@
 /**
  * Contains methods for accessing file system
  *
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  **/
 
 class FileHandlerInstance
@@ -17,7 +17,7 @@ class FileHandlerInstance
     {
         $temp = explode('/', $source);
         if ($temp[0] == '.') {
-            $source = _XE_PATH_ . substr($source, 2);
+            $source = _KARYBU_PATH_ . substr($source, 2);
         }
         return $source;
     }
@@ -283,7 +283,7 @@ class FileHandlerInstance
             }
 
             if ($concat_prefix) {
-                $file = sprintf('%s%s', str_replace(_XE_PATH_, '', $path), $file);
+                $file = sprintf('%s%s', str_replace(_KARYBU_PATH_, '', $path), $file);
             }
 
             $output[] = $file;
@@ -315,7 +315,7 @@ class FileHandlerInstance
                     return;
                 }
 
-                require_once(_XE_PATH_ . 'libs/ftp.class.php');
+                require_once(_KARYBU_PATH_ . 'libs/ftp.class.php');
                 $oFtp = new ftp();
                 if (!$ftp_info->ftp_host) {
                     $ftp_info->ftp_host = "127.0.0.1";
@@ -337,10 +337,10 @@ class FileHandlerInstance
             }
         }
 
-        $path_string = str_replace(_XE_PATH_, '', $path_string);
+        $path_string = str_replace(_KARYBU_PATH_, '', $path_string);
         $path_list = explode('/', $path_string);
 
-        $path = _XE_PATH_;
+        $path = _KARYBU_PATH_;
         for ($i = 0; $i < count($path_list); $i++) {
             if (!$path_list[$i]) {
                 continue;
@@ -495,7 +495,7 @@ class FileHandlerInstance
         $post_data = array()
     ) {
         if (version_compare(PHP_VERSION, '5.0.0', '>=')) {
-            return include _XE_PATH_ . 'classes/file/getRemoteResourcePHP5.php';
+            return include _KARYBU_PATH_ . 'classes/file/getRemoteResourcePHP5.php';
         } else {
             return $this->_getRemoteResource(
                 $url,

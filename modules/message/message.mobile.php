@@ -1,5 +1,5 @@
 <?php
-	require_once(_XE_PATH_.'modules/message/message.view.php');
+	require_once(_KARYBU_PATH_.'modules/message/message.view.php');
 
     class messageMobile extends messageView {
 

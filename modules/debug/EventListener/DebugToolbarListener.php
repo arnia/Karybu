@@ -13,8 +13,10 @@ use Karybu\EventListener\ErrorHandler;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
 
 
 class DebugToolbarListener implements EventSubscriberInterface
@@ -32,19 +34,22 @@ class DebugToolbarListener implements EventSubscriberInterface
     /** @var ErrorHandler */
     private $errorHandler;
 
+    /** @var LoggerInterface */
+    private $logger;
 
-
-    public function __construct(\ContextInstance $context, $mode = self::ENABLED)
+    public function __construct(\ContextInstance $context, $mode = self::ENABLED, LoggerInterface $logger=null)
     {
         $this->mode = (integer) $mode;
         $this->context = $context;
+        $this->logger = $logger;
     }
 
     public static function getSubscribedEvents()
     {
         return array(
             KernelEvents::REQUEST => array('loadJavascriptFiles'),
-            KernelEvents::RESPONSE => array('onKernelResponse', -128)
+            KernelEvents::RESPONSE => array('onKernelResponse', -128),
+            KernelEvents::EXCEPTION => array('onKernelException')
         );
     }
 
@@ -71,6 +76,13 @@ class DebugToolbarListener implements EventSubscriberInterface
         $this->errorHandler = $errorHandler;
     }
 
+    public function onKernelException(GetResponseForExceptionEvent $event)
+    {
+        $request = $event->getRequest();
+        // todo find a better way to mark an exception so that the debug toolbar won't be shown in an exception page
+        $request->query->set('no_toolbar', true);
+    }
+
     public function onKernelResponse(FilterResponseEvent $event)
     {
         if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
@@ -94,9 +106,11 @@ class DebugToolbarListener implements EventSubscriberInterface
 
         if (self::DISABLED === $this->mode
             //|| !$response->headers->has('X-Debug-Token')
+            || !$response->headers->has('X-Exception')
             || $response->isRedirection()
             || ($response->headers->has('Content-Type') && false === strpos($response->headers->get('Content-Type'), 'html'))
             || 'html' !== $request->getRequestFormat()
+            || $event->getRequestType() == HttpKernelInterface::SUB_REQUEST
         ) {
             return;
         }
@@ -150,6 +164,7 @@ class DebugToolbarListener implements EventSubscriberInterface
             $toolbar = $this->renderView('toolbar');
             $content = $substrFunction($content, 0, $pos).$toolbar.$substrFunction($content, $pos);
             $response->setContent($content);
+            $this->logger->info('Showing debug toolbar');
         }
     }
 

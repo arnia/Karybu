@@ -6,7 +6,7 @@
 	 * ttimport class
 	 * ttxml import class
 	 *
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 * @package /modules/importer
 	 * @version 0.1
 	 */

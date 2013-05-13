@@ -1,6 +1,6 @@
 /**
  * @brief XE Calendar
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  *
  * 사용법
  * 

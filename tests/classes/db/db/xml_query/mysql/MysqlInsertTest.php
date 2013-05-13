@@ -56,7 +56,7 @@ class MysqlInsertTest extends MysqlTest
 	
 	function testInsertSelectStatement2()
 	{
-		$xml_file = _XE_PATH_ . "modules/wiki/queries/insertLinkedDocuments.xml";
+		$xml_file = _KARYBU_PATH_ . "modules/wiki/queries/insertLinkedDocuments.xml";
 		$argsString = '$args->document_srl = 7;
 						$args->module_srl = 10;
 						$args->alias_list = array("unu", "doi");

@@ -1,9 +1,9 @@
 <?php
-if(!defined('__XE__')) exit();
+if(!defined('__KARYBU__')) exit();
 
 /**
  * @file adminlogging.addon.php
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief Automatic link add-on
  **/
 $logged_info = Context::get('logged_info');

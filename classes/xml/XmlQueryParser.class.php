@@ -3,7 +3,7 @@
      * XmlQueryParser
      * Case to parse XE xml query 
      *
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @version 0.1
      * @todo need to support extend query such as subquery, union
      */
@@ -69,12 +69,12 @@
                 }
 
                 // 테이블을 찾아서 컬럼의 속성을 구함
-                $table_file = sprintf('%s%s/%s/schemas/%s.xml', _XE_PATH_, 'modules', $module, $table_name);
+                $table_file = sprintf('%s%s/%s/schemas/%s.xml', _KARYBU_PATH_, 'modules', $module, $table_name);
                 if(!file_exists($table_file)) {
-                    $searched_list = FileHandler::readDir(_XE_PATH_.'modules');
+                    $searched_list = FileHandler::readDir(_KARYBU_PATH_.'modules');
                     $searched_count = count($searched_list);
                     for($i=0;$i<$searched_count;$i++) {
-                        $table_file = sprintf('%s%s/%s/schemas/%s.xml', _XE_PATH_, 'modules', $searched_list[$i], $table_name);
+                        $table_file = sprintf('%s%s/%s/schemas/%s.xml', _KARYBU_PATH_, 'modules', $searched_list[$i], $table_name);
                         if(file_exists($table_file)) break;
                     }
                 }
@@ -249,7 +249,7 @@
                 }
             }
 
-            $buff = "<?php if(!defined('__ZBXE__')) exit();\n"
+            $buff = "<?php if(!defined('__KARYBU__')) exit();\n"
                   . sprintf('$output->query_id = "%s";%s', $query_id, "\n")
                   . sprintf('$output->action = "%s";%s', $action, "\n")
                   . $pre_buff

@@ -3,7 +3,7 @@
 	 * commentItem class
 	 * comment Object
 	 *
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 * @package /modules/comment
 	 * @version 0.1
 	 */

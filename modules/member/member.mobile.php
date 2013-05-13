@@ -1,5 +1,5 @@
 <?php
-require_once(_XE_PATH_.'modules/member/member.view.php');
+require_once(_KARYBU_PATH_.'modules/member/member.view.php');
 class memberMobile extends memberView
 {
 	/**

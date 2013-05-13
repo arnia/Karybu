@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  editorView
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief view class of the editor module
      **/
 
@@ -83,7 +83,7 @@
 
             $oModuleModel = &getModel('module');
             // Get a list of editor skin
-            $editor_skin_list = FileHandler::readDir(_XE_PATH_.'modules/editor/skins');
+            $editor_skin_list = FileHandler::readDir(_KARYBU_PATH_.'modules/editor/skins');
             Context::set('editor_skin_list', $editor_skin_list);
 
             $skin_info = $oModuleModel->loadSkinInfo($this->module_path,$editor_config->editor_skin);
@@ -91,7 +91,7 @@
             $skin_info = $oModuleModel->loadSkinInfo($this->module_path,$editor_config->comment_editor_skin);
             Context::set('editor_comment_colorset_list', $skin_info->colorset);
 
-            $contents = FileHandler::readDir(_XE_PATH_.'modules/editor/styles');
+            $contents = FileHandler::readDir(_KARYBU_PATH_.'modules/editor/styles');
             for($i=0,$c=count($contents);$i<$c;$i++) {
                 $style = $contents[$i];
                 $info = $oModuleModel->loadSkinInfo($this->module_path,$style,'styles');

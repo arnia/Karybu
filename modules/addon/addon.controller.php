@@ -1,7 +1,7 @@
 <?php
 /**
  * Addon module's controller class
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  **/
 class addonController extends addon
 {
@@ -31,7 +31,7 @@ class addonController extends addon
         $site_module_info = Context::get('site_module_info');
         $site_srl = $site_module_info->site_srl;
 
-        $addon_path = _XE_PATH_ . 'files/cache/addons/';
+        $addon_path = _KARYBU_PATH_ . 'files/cache/addons/';
 
         $addon_file = $addon_path . $site_srl . $type . '.acivated_addons.cache.php';
 
@@ -178,7 +178,7 @@ class addonController extends addon
             if ($val->addon == "smartphone") {
                 continue;
             }
-            if (!is_dir(_XE_PATH_ . 'addons/' . $addon)) {
+            if (!is_dir(_KARYBU_PATH_ . 'addons/' . $addon)) {
                 continue;
             }
             if (($type == "pc" && $val->is_used != 'Y') || ($type == "mobile" && $val->is_used_m != 'Y') || ($gtype == 'global' && $val->is_fixed != 'Y')) {
@@ -225,9 +225,9 @@ class addonController extends addon
             $buff .= '}}}';
         }
 
-        $buff = sprintf('<?php if(!defined("__XE__")) exit(); $_m = Context::get(\'mid\'); %s ?>', $buff);
+        $buff = sprintf('<?php if(!defined("__KARYBU__")) exit(); $_m = Context::get(\'mid\'); %s ?>', $buff);
 
-        $addon_path = _XE_PATH_ . 'files/cache/addons/';
+        $addon_path = _KARYBU_PATH_ . 'files/cache/addons/';
         if (!is_dir($addon_path)) {
             FileHandler::makeDir($addon_path);
         }
@@ -273,7 +273,7 @@ class addonController extends addon
      **/
     function removeAddonConfig($site_srl)
     {
-        $addon_path = _XE_PATH_ . 'files/cache/addons/';
+        $addon_path = _KARYBU_PATH_ . 'files/cache/addons/';
         $addon_file = $addon_path . $site_srl . '.acivated_addons.cache.php';
         if (file_exists($addon_file)) {
             FileHandler::removeFile($addon_file);

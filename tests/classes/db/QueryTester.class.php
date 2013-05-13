@@ -9,7 +9,7 @@
 		}
 		
 		function getQueryPath($type, $name, $query_name){
-			return _XE_PATH_ . $type ."/".$name."/queries/" . $query_name . ".xml";
+			return _KARYBU_PATH_ . $type ."/".$name."/queries/" . $query_name . ".xml";
 		}
 		
 		function getNewParserOutput($xml_file){
@@ -28,7 +28,7 @@
 		}
 		
 		function cleanOutputAndAddArgs($outputString, $argsString = ''){
-			$outputString = str_replace("<?php if(!defined('__ZBXE__')) exit();", "", $outputString);
+			$outputString = str_replace("<?php if(!defined('__KARYBU__')) exit();", "", $outputString);
 			$outputString = str_replace("?>", "", $outputString);
 			$outputString = $argsString . $outputString;			
 			return $outputString;

@@ -1,10 +1,10 @@
 <?php
 
-if(!defined('__XE__')) require dirname(__FILE__).'/../../Bootstrap.php';
+if(!defined('__KARYBU__')) require dirname(__FILE__).'/../../Bootstrap.php';
 
-require_once _XE_PATH_.'classes/context/Context.class.php';
-require_once _XE_PATH_.'classes/handler/Handler.class.php';
-require_once _XE_PATH_.'classes/xml/XmlParser.class.php';
+require_once _KARYBU_PATH_.'classes/context/Context.class.php';
+require_once _KARYBU_PATH_.'classes/handler/Handler.class.php';
+require_once _KARYBU_PATH_.'classes/xml/XmlParser.class.php';
 
 if(!class_exists('FrontendFileHandler')){
     class FrontendFileHandler {}

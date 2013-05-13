@@ -1228,7 +1228,7 @@ try
 	$auto_schema = NULL;
 	$schema_language = NULL;
 	$skip_query_id = NULL;
-	$xe_path = NULL;
+	$k_path = NULL;
 	$validate_only = NULL;
 	$query_args = NULL;
 	$query_args_file = NULL;
@@ -1277,7 +1277,7 @@ try
 						new SyntaxError("Option '{$option}' requires an argument., see `{$cmdname} --help`");
 				}
 
-				$xe_path = $argv[1];
+				$k_path = $argv[1];
 
 				unset($argv[1]);
 				$argv = array_values($argv);
@@ -1413,24 +1413,24 @@ try
 
 	$query_user_args = array();
 
-	// check $xe_path, $query_args
+	// check $k_path, $query_args
 	if(!$validate_only)
 	{
-		if($xe_path == NULL)
+		if($k_path == NULL)
 		{
 			// assume validator.php is in directory .../xe/tools/dbxml_validator/ in an XE installation
-			$xe_path = dirname(dirname(realpath(__DIR__)));
+			$k_path = dirname(dirname(realpath(__DIR__)));
 		}
 
-		if(!file_exists($xe_path . '/index.php'))
+		if(!file_exists($k_path . '/index.php'))
 		{
 			throw
-				new ErrorMessage("File index.php not found in {$xe_path}.");
+				new ErrorMessage("File index.php not found in {$k_path}.");
 		}
 
-		if(!defined('_XE_PATH_'))
+		if(!defined('_KARYBU_PATH_'))
 		{
-			define('_XE_PATH_', $xe_path . '/');
+			define('_KARYBU_PATH_', $k_path . '/');
 		}
 
 		/**
@@ -1767,14 +1767,14 @@ try
 		$lang = new Any_prop_obj_base();	// to return NULL on non-existent properties
 		$lang->filter = New LangArgFilterErrorMessage();
 
-		if(!defined('__XE__'))
+		if(!defined('__KARYBU__'))
 		{
-			define('__XE__', TRUE);
+			define('__KARYBU__', TRUE);
 		}
 
-		if(!defined('__ZBXE__'))
+		if(!defined('__KARYBU__'))
 		{
-			define('__ZBXE__', TRUE);
+			define('__KARYBU__', TRUE);
 		}
 
 		if(!defined('__DEBUG__'))
@@ -1787,21 +1787,21 @@ try
 			define('__DEBUG_QUERY__', 0);
 		}
 
-		include(_XE_PATH_ . 'classes/object/Object.class.php');
-		include(_XE_PATH_ . 'classes/handler/Handler.class.php');
-		include(_XE_PATH_ . 'classes/file/FileHandler.class.php');
-		include(_XE_PATH_ . 'classes/page/PageHandler.class.php');
+		include(_KARYBU_PATH_ . 'classes/object/Object.class.php');
+		include(_KARYBU_PATH_ . 'classes/handler/Handler.class.php');
+		include(_KARYBU_PATH_ . 'classes/file/FileHandler.class.php');
+		include(_KARYBU_PATH_ . 'classes/page/PageHandler.class.php');
 
 		Context::setNoDBInfo();
 
-		require_once(_XE_PATH_ . 'classes/db/DB.class.php');
-		require_once(_XE_PATH_ . 'classes/db/DBMysql.class.php');
-		require_once(_XE_PATH_ . 'classes/db/DBMysqli.class.php');
-		require_once(_XE_PATH_ . 'classes/db/DBMysql_innodb.class.php');
-		require_once(_XE_PATH_ . 'classes/db/DBCubrid.class.php');
-		require_once(_XE_PATH_ . 'classes/db/DBMssql.class.php');
-		require_once(_XE_PATH_ . 'classes/xml/XmlParser.class.php');
-		require_once(_XE_PATH_ . 'classes/xml/XmlQueryParser.150.class.php');
+		require_once(_KARYBU_PATH_ . 'classes/db/DB.class.php');
+		require_once(_KARYBU_PATH_ . 'classes/db/DBMysql.class.php');
+		require_once(_KARYBU_PATH_ . 'classes/db/DBMysqli.class.php');
+		require_once(_KARYBU_PATH_ . 'classes/db/DBMysql_innodb.class.php');
+		require_once(_KARYBU_PATH_ . 'classes/db/DBCubrid.class.php');
+		require_once(_KARYBU_PATH_ . 'classes/db/DBMssql.class.php');
+		require_once(_KARYBU_PATH_ . 'classes/xml/XmlParser.class.php');
+		require_once(_KARYBU_PATH_ . 'classes/xml/XmlQueryParser.150.class.php');
 
 		require_once(__DIR__ . '/connect_wrapper.php');
 

@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  install
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief install module of the high class
      **/
 

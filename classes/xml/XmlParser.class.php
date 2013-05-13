@@ -2,7 +2,7 @@
 /**
  * Xml_Node_ class
  * Element node or attribute node.
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @package /classes/xml
  * @version 0.1
  */
@@ -27,7 +27,7 @@ class Xml_Node_
  * attributes when kor is only supported language. It seems to work fine now but we did not scrutinze any potential side effects,
  * }</pre>
  *
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @package /classes/xml
  * @version 0.1
  */

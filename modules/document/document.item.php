@@ -3,7 +3,7 @@
  * documentItem class
  * document object
  *
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @package /modules/document
  * @version 0.1
  */

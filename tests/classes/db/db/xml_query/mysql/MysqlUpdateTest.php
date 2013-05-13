@@ -7,7 +7,7 @@
 		}
 
                 function test_document_updateDocumentStatus(){
-                        $xml_file = _XE_PATH_ . "modules/document/queries/updateDocumentStatus.xml";
+                        $xml_file = _KARYBU_PATH_ . "modules/document/queries/updateDocumentStatus.xml";
 			$argsString = '$args->is_secret = \'Y\';
                                        $args->status = \'SECRET\';
                         ';
@@ -53,7 +53,7 @@
                 }
 
                 function test_communication_setMessageReaded(){
-			$xml_file = _XE_PATH_ . "modules/communication/queries/setMessageReaded.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/communication/queries/setMessageReaded.xml";
 			$argsString = '$args->message_srl = 339321; $args->related_srl = 339321;';
 			$expected = 'update `xe_member_message` as `member_message`
                                         set `readed` = \'y\'
@@ -63,7 +63,7 @@
                 }
 
                 function test_session_updateSession(){
-			$xml_file = _XE_PATH_ . "modules/session/queries/updateSession.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/session/queries/updateSession.xml";
 			$argsString = '$args->session_key = 339321; $args->val = "yuhuu";';
 			$expected = 'update `xe_session` as `session`
                                         set `member_srl` = 0, `val` = \'yuhuu\'

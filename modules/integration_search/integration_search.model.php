@@ -2,7 +2,7 @@
     /**
      * The model class of integration module
 	 *
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      **/
 
     class integration_searchModel extends module {

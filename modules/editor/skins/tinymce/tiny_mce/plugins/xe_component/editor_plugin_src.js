@@ -50,7 +50,7 @@
 			return {
 				longname : 'XE Components Plugin',
 				author : 'Arnia',
-				authorurl : 'http://xpressengine.com/',
+				authorurl : 'http://www.karybu.org/',
 				infourl : '',
 				version : "1.0"
 			};

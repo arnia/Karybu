@@ -7,7 +7,7 @@
                  * regdate from the expected string - a few seconds difference
                  */
 		function test_module_insertModule_escapeContent(){
-			$xml_file = _XE_PATH_ . "modules/module/queries/insertModule.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/module/queries/insertModule.xml";
 
                         $args->module_category_srl = 0;
                         $args->browser_title = "test";

@@ -1,9 +1,9 @@
 <?php
-    if(!defined("__ZBXE__")) exit();
+    if(!defined("__KARYBU__")) exit();
 
     /**
      * @file captcha.addon.php
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief Captcha for a particular action
 	 * English alphabets and voice verification added
      **/
@@ -88,7 +88,7 @@
 				if($_SESSION['captcha_authed']) return false;
 				// Load language files
 
-				Context::loadLang(_XE_PATH_.'addons/captcha/lang');
+				Context::loadLang(_KARYBU_PATH_.'addons/captcha/lang');
 				// Generate keywords
 
 				$this->createKeyword();

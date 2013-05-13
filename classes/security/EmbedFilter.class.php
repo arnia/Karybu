@@ -1,5 +1,5 @@
 <?php
-include _XE_PATH_ . 'classes/security/phphtmlparser/src/htmlparser.inc';
+include _KARYBU_PATH_ . 'classes/security/phphtmlparser/src/htmlparser.inc';
 
 class EmbedFilter
 {
@@ -2166,7 +2166,7 @@ class EmbedFilter
             $embedDomainList = $domainListObj->whiteurl->embed->domain;
             $iframeDomainList = $domainListObj->whiteurl->iframe->domain;
 
-            $buff = '<?php if(!defined("__ZBXE__")) exit();';
+            $buff = '<?php if(!defined("__KARYBU__")) exit();';
             if (is_array($embedDomainList)) {
                 foreach ($embedDomainList AS $key => $value) {
                     $patternList = $value->pattern;

@@ -40,7 +40,7 @@
 	 *  tag = key : name of variable that will contain the result of the execution
      * }</pre>
 	 * @class XmlJsFilter
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 * @package /classes/xml
      * @version 0.2
 	 */

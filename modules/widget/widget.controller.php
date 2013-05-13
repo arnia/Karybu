@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  widgetController
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief Controller class for widget modules
  **/
 
@@ -457,7 +457,7 @@ class widgetController extends widget
             $filemtime = filemtime($cache_file);
             // Should be modified compared to the time of the cache or in the future if creating more than widget.controller.php file a return value of the cache
             if ($filemtime + $widget_cache * 60 > time() && $filemtime > filemtime(
-                _XE_PATH_ . 'modules/widget/widget.controller.php'
+                _KARYBU_PATH_ . 'modules/widget/widget.controller.php'
             )
             ) {
                 $cache_body = FileHandler::readFile($cache_file);
@@ -530,7 +530,7 @@ class widgetController extends widget
          **/
         $widget_content = '';
         if ($widget != 'widgetContent' && $widget != 'widgetBox') {
-            if (!is_dir(sprintf(_XE_PATH_ . 'widgets/%s/', $widget))) {
+            if (!is_dir(sprintf(_KARYBU_PATH_ . 'widgets/%s/', $widget))) {
                 return;
             }
             // Hold the contents of the widget parameter

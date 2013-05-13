@@ -2,7 +2,7 @@
     /*********************************************************************
      *
      *    PHP FTP Client Class By TOMO ( groove@spencernetwork.org )
-	 *    Modified By Arnia ( developers@xpressengine.com )
+	 *    Modified By Arnia ( dev@karybu.org )
      *
      *  - Version 0.13 (2010/09/29)
 	 *

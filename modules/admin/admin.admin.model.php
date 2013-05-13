@@ -2,7 +2,7 @@
 	/**
 	 * adminAdminModel class
 	 * admin model class of admin module
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 * @package /modules/admin
 	 * @version 0.1
 	 */
@@ -64,7 +64,7 @@
         {
 			Context::loadLang('./modules/autoinstall/lang');
             set_time_limit(5);
-            require_once(_XE_PATH_.'libs/ftp.class.php');
+            require_once(_KARYBU_PATH_.'libs/ftp.class.php');
             $ftp_info =  Context::getRequestVars();
             if(!$ftp_info->ftp_user || !$ftp_info->ftp_password)
             {
@@ -135,8 +135,8 @@
 
 			$info = array();
 			$info['type'] = ($type !='INSTALL' ? 'WORKING' : 'INSTALL');
-			$info['location'] = _XE_LOCATION_;
-			$info['package'] = _XE_PACKAGE_;
+			$info['location'] = _KARYBU_LOCATION_;
+			$info['package'] = _KARYBU_PACKAGE_;
 			$info['host'] = $db_type->default_url ? $db_type->default_url : getFullUrl();
 			$info['app'] = $_SERVER['SERVER_SOFTWARE'];
 			$info['xe_version'] = __KARYBU_VERSION__;
@@ -188,7 +188,7 @@
 		 * @return array
 		 */
 		function getThemeList(){
-			$path = _XE_PATH_.'themes';
+			$path = _KARYBU_PATH_.'themes';
 			$list = FileHandler::readDir($path);
 
 			$theme_info = array();
@@ -210,7 +210,7 @@
 		function getThemeInfo($theme_name, $layout_list = null){
 			if ($GLOBALS['__ThemeInfo__'][$theme_name]) return $GLOBALS['__ThemeInfo__'][$theme_name];
 
-			$info_file = _XE_PATH_.'themes/'.$theme_name.'/conf/info.xml';
+			$info_file = _KARYBU_PATH_.'themes/'.$theme_name.'/conf/info.xml';
             if(!file_exists($info_file)) return;
 
             $oXmlParser = new XmlParser();
@@ -645,7 +645,7 @@
 
 		function iconUrlCheck($iconname,$default_icon_name)
 		{
-			$file_exsit = FileHandler::readFile(_XE_PATH_.'files/attach/xeicon/'.$iconname);
+			$file_exsit = FileHandler::readFile(_KARYBU_PATH_.'files/attach/xeicon/'.$iconname);
 			if(!$file_exsit){
 				$icon_url = './modules/admin/tpl/img/'.$default_icon_name	;
 			} else {
