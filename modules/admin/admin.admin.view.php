@@ -358,7 +358,8 @@
 				}
 			}
             Context::set('module_list', $module_list);
-            Context::set('needUpdate', $isUpdated);
+            //Context::set('needUpdate', $needUpdate);
+            Context::set('needUpdate', $needUpdate);
             Context::set('addTables', $addTables);
             Context::set('needUpdate', $needUpdate);
 
