@@ -416,8 +416,8 @@
             $environments = \Karybu\Environment\Environment::getEnvironments();
             //set translated titles
             foreach ($environments as $key => $env) {
-                $langKey = $env['lang_key'];
-                $environments[$key]['title'] = $lang->$langKey;
+                $langKey = $env->getLanguageKey();
+                $environments[$key]->setTitle($lang->$langKey);
             }
             Context::set('environments', $environments);
             Context::set('debug_levels', array(
@@ -437,10 +437,10 @@
             //get current values
             foreach ($environments as $env) {
                 $debugValues[$env] = array();
-                $configFile = "files/config/config_{$env['code']}.yml";
+                $configFile = "files/config/config_{$env->getCode()}.yml";
                 //fallback for installer
                 if (!file_exists($configFile)) {
-                    $configFile = "config/config_{$env['code']}.base.yml";
+                    $configFile = "config/config_{$env->getCode()}.base.yml";
                 }
                 if (file_exists($configFile)) {
                     $container = new \Symfony\Component\DependencyInjection\ContainerBuilder();
@@ -452,7 +452,7 @@
                     $extensionConfig = $container->getExtensionConfig('debug');
                     if (isset($extensionConfig[0])) {
                         //merge all config settings
-                        $debugValues[$env['code']] = call_user_func_array('array_merge', $extensionConfig);
+                        $debugValues[$env->getCode()] = call_user_func_array('array_merge', $extensionConfig);
                     }
                 }
             }

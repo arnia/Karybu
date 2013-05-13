@@ -20,8 +20,9 @@ if (file_exists($filename)) {
 }
 //get the current valid environment
 $env = Environment::getEnvironment($envCode, true);
-define('KARYBU_ENVIRONMENT', $env['code']);
-if ($env['dev_mode']) {
+define('KARYBU_ENVIRONMENT', $env->getCode());
+
+if ($env->getDevMode()) {
     /**
      * dev protection
      */
@@ -37,7 +38,7 @@ $validCommandLineCall = $isCommandLine && isset($argv[1]) && filter_var($argv[1]
 //create request using first call parameter if the script is called from the console with a valid url as first param
 $request = $validCommandLineCall ? Request::create($argv[1]) : Request::createFromGlobals();
 
-$kernel = new Kernel($env['code'], $env['dev_mode']);
+$kernel = new Kernel($env->getCode(), $env->getDevMode());
 
 $response = $kernel->handle($request);
 $response->prepare($request);

@@ -315,7 +315,7 @@ jQuery(function($){
             <div class="controls">
                 <select name="environment" id="env">
                     <!--@foreach($environments as $key=> $env)-->
-                    <option value="{$env['code']}"<!--@if($env['code']==KARYBU_ENVIRONMENT)--> selected="selected"<!--@end-->>{$env['title']}</option>
+                    <option value="{$env->getCode()}"<!--@if($env->getCode()==KARYBU_ENVIRONMENT)--> selected="selected"<!--@end-->>{$env->getTitle()}</option>
                     <!--@end-->
                 </select>
                 <input type="submit" value="{$lang->cmd_save}" class="btn btn-primary" />
@@ -325,18 +325,18 @@ jQuery(function($){
     <div class="tabbable">
         <ul class="nav nav-tabs">
             <!--@foreach($environments as $key=> $env)-->
-            <li<!--@if($env['code']==KARYBU_ENVIRONMENT)--> class="active"<!--@end-->>
-                <a href="#tab{$key}" data-toggle="tab">{$env['title']}</a>
+            <li<!--@if($env->getCode()==KARYBU_ENVIRONMENT)--> class="active"<!--@end-->>
+                <a href="#tab{$key}" data-toggle="tab">{$env->getTitle()}</a>
             </li>
             <!--@endforeach-->
         </ul>
         <div class="tab-content">
             <!--@foreach($environments as $key=> $env)-->
-            <div class="tab-pane<!--@if($env['code']==KARYBU_ENVIRONMENT)--> active<!--@end-->" id="tab{$key}" >
+            <div class="tab-pane<!--@if($env->getCode()==KARYBU_ENVIRONMENT)--> active<!--@end-->" id="tab{$key}" >
                 <form action="./" method="post" id="debug_{$key}" class="form form-horizontal" enctype="multipart/form-data">
                     <input type="hidden" name="module" value="install" />
                     <input type="hidden" name="act" value="procInstallAdminDebug" />
-                    <input type="hidden" name="debug_env" value="{$env['code']}" />
+                    <input type="hidden" name="debug_env" value="{$env->getCode()}" />
 
                     <div class="control-group">
                         <label class="control-label" for="level{$key}">{$lang->level}</label>

@@ -245,13 +245,13 @@
         function procInstallAdminDebug() {
             $env = Context::get('debug_env');
             //validate environment
-            $environment = \Karybu\Environment\Environment::getEnvironment($env);
-            if (isset($environment['code'])) {
+            try{
+                $environment = \Karybu\Environment\Environment::getEnvironment($env);
                 $allowedSettings = array(
-                        'level',
-                        'toolbar',
-                        'slow_queries_threshold',
-                        'handlers');
+                    'level',
+                    'toolbar',
+                    'slow_queries_threshold',
+                    'handlers');
                 $values = array();
                 $values['imports'][0][resource] = '../../config/config_'.$env.'.base.yml';
                 $values['debug'] = array();
@@ -275,7 +275,6 @@
                                 $value = (int)(Context::get($setting));
                                 break;
                             case 'handlers' :
-                                //$value = '['.implode(', ', Context::get($setting)).']';
                                 $value = Context::get($setting);
                                 break;
                         }
@@ -288,6 +287,9 @@
                 $yaml = $dumper->dump($values, 2);
                 FileHandler::writeFile(_XE_PATH_.'files/config/config_'.$env.'.yml', $yaml);
                 $this->setMessage('success_updated', 'info');
+            }
+            catch (Exception $e){
+                $this->setMessage($e->getMessage(), 'error');
             }
             $this->setRedirectUrl(Context::get('error_return_url'));
         }
