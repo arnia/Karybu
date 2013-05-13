@@ -1,24 +1,29 @@
-<!--#include("header.html")-->
+<include target="header.html" />
+
 <div id="content" class="span9">
-    <div class="table">
-        <table border="1" cellspacing="0">
-            <tbody>
-                <!--@foreach($checklist as $key => $val)-->
-                <tr>
-                    <th scope="row">{$lang->install_checklist_title[$key]}<!--@if($key == 'php_version')--> (Ver. {$phpversion})<!--@end--></th>
-                    <td><!--@if($val)-->{$lang->enable}<!--@else--><strong>{$lang->disable}</strong><br />{$lang->install_checklist_desc[$key]}<!--@end--></td>
-                </tr>
-                <!--@end-->
-            </tbody>
-        </table>
-    </div>
-    <div class="ibtnArea">
-        <div class="fLeft">
-            <span class="ibtn icon"><span class="back"></span> <a href="{getUrl('')}">{$lang->cmd_back}</a></span>
+    <table class="table">
+        <tbody>
+            <!--@foreach($checklist as $key => $val)-->
+            <tr <!--@if($val)-->class="success"<!--@else-->class="error"<!--@end-->>
+                <td>{$lang->install_checklist_title[$key]}<!--@if($key == 'php_version')--> (Ver. {$phpversion})<!--@end--></td>
+                <td><!--@if($val)-->{$lang->enable}<!--@else--><strong>{$lang->disable}</strong><br />{$lang->install_checklist_desc[$key]}<!--@end--></td>
+            </tr>
+            <!--@end-->
+        </tbody>
+    </table>
+
+    <div>
+        <div class="pull-left">
+            <a href="{getUrl('')}">{$lang->cmd_back}</a>
         </div>
-        <div class="fRight">
-            <span class="ibtn icon"><span class="check"></span><!--@if($install_enable)--><a href="{getUrl('','act','dispInstallSelectDB')}">{$lang->cmd_install_next}</a><!--@else--><a href="{getUrl('','act',$act)}">{$lang->cmd_install_fix_checklist}</a><!--@end--></span>
+        <div class="pull-right">
+            <!--@if($install_enable)-->
+                <a href="{getUrl('','act','dispInstallSelectDB')}" class="btn btn-primary">{$lang->cmd_install_next}</a>
+            <!--@else-->
+                <a href="{getUrl('','act',$act)}" class="btn btn-primary">{$lang->cmd_install_fix_checklist}</a>
+            <!--@end-->
         </div>
     </div>
 </div>
-<!--#include("footer.html")-->
+
+<include target="footer.html" />
