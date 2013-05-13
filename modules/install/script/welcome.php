@@ -296,7 +296,7 @@ $menu->save();
 $layout_srl = $dataset_creator->createNewLayout('bootstrap', 'Default theme', $menu);
 
 // 3. Create new pages
-$welcome_page = $dataset_creator->createNewWidgetPage($layout_srl, 'Welcome to XE', 'welcome');
+$welcome_page = $dataset_creator->createNewWidgetPage($layout_srl, 'Welcome to Karybu', 'welcome');
 $text_styles_page = $dataset_creator->createNewArticlePage($layout_srl, 'Text styles', 'text_styles', 'Text styles');
 $form_styles_page = $dataset_creator->createNewArticlePage($layout_srl, 'Form styles', 'form_styles', 'Form styles');
 $table_styles_page = $dataset_creator->createNewArticlePage($layout_srl, 'Table styles', 'table_styles', 'Table styles');
