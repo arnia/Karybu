@@ -1093,13 +1093,13 @@ button.clear {
     -ms-user-select: none;
     user-select: none;
     background:#ddd;
-    background:-moz-linear-gradient(top, #fafafa 0%, #ddd 50%, #ccc 99%);
-    background:-webkit-gradient(linear, left top, left bottom, color-stop(0%, #fafafa), color-stop(50%, #ddd), color-stop(99%, #ccc));
-    background:-webkit-linear-gradient(top, #fafafa 0%, #ddd 50%, #ccc 99%);
-    background:-o-linear-gradient(top, #fafafa 0%, #ddd 50%, #ccc 99%);
-    background:-ms-linear-gradient(top, #fafafa 0%, #ddd 50%, #ccc 99%);
-    background:linear-gradient(to bottom, #fafafa 0%, #ddd 50%, #ccc 99%);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr = '#fafafa', endColorstr = '#ccc', GradientType = 0);
+    background:-moz-linear-gradient(top, #fafafa 0%, #dddddd 50%, #cccccc 99%);
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0%, #fafafa), color-stop(50%, #dddddd), color-stop(99%, #cccccc));
+    background:-webkit-linear-gradient(top, #fafafa 0%, #dddddd 50%, #cccccc 99%);
+    background:-o-linear-gradient(top, #fafafa 0%, #dddddd 50%, #cccccc 99%);
+    background:-ms-linear-gradient(top, #fafafa 0%, #dddddd 50%, #cccccc 99%);
+    background:linear-gradient(to bottom, #fafafa 0%, #dddddd 50%, #cccccc 99%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr = '#fafafa', endColorstr = '#cccccc', GradientType = 0);
 }
 
 .btn span {

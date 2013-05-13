@@ -18,47 +18,45 @@
 				<label for="accept_agree">{$lang->about_accept_agreement}</label>
 			</div>
 		</div>
-        <form>
-            <fieldset>
-                <legend>Login Information</legend>
-                <label>{$identifierForm->title} <em style="color:red">*</em></label>
-                <input type="text" placeholder="Email address" name="{$identifierForm->name}" value="{$identifierForm->value}">
-                <label>{$lang->password} <em style="color:red">*</em></label>
+        <fieldset>
+            <legend>Login Information</legend>
+            <label>{$identifierForm->title} <em style="color:red">*</em></label>
+            <input type="text" placeholder="Email address" name="{$identifierForm->name}" value="{$identifierForm->value}">
+            <label>{$lang->password} <em style="color:red">*</em></label>
 
-                <input type="password" placeholder="Type password" name="password" value="{$identifierForm->value}">
-                <span class="help-block help-inline">{$lang->about_password}</span>
+            <input type="password" placeholder="Type password" name="password" value="{$identifierForm->value}">
+            <span class="help-block help-inline">{$lang->about_password}</span>
 
-                <label>{$lang->password3} <em style="color:red">*</em></label>
-                <input type="password" placeholder="Retype password" name="password2" value="">
-                <legend>Account Details</legend>
-            </fieldset>
-            <fieldset loop="$formTags=>$formTag" cond="$formTag->name != 'signature'">
-                <label>{$formTag->title}</label>
-                <div>{$formTag->inputTag}</div>
-            </fieldset>
-            <fieldset>
-                <legend>Privacy Options</legend>
-                <label><strong>{$lang->allow_mailing}</strong></label>
-                <div>
+            <label>{$lang->password3} <em style="color:red">*</em></label>
+            <input type="password" placeholder="Retype password" name="password2" value="">
+            <legend>Account Details</legend>
+        </fieldset>
+        <fieldset loop="$formTags=>$formTag" cond="$formTag->name != 'signature'">
+            <label>{$formTag->title}</label>
+            <div>{$formTag->inputTag}</div>
+        </fieldset>
+        <fieldset>
+            <legend>Privacy Options</legend>
+            <label><strong>{$lang->allow_mailing}</strong></label>
+            <div>
+                <label class="radio">
+                    <input type="radio" name="allow_mailing" id="mailingYes" value="Y" checked="checked"|cond="$member_info->allow_mailing == 'Y'" /> <label for="mailingYes">{$lang->cmd_yes}</label>
+                </label>
+                <label class="radio">
+                    <input type="radio" name="allow_mailing" id="mailingNo" value="N" checked="checked"|cond="$member_info->allow_mailing != 'Y'" /> <label for="mailingNo">{$lang->cmd_no}</label>
+                </label>
+            </div>
+        </fieldset>
+        <fieldset>
+            <label><strong>{$lang->allow_message}</strong></label>
+            <div>
+                <block loop="$lang->allow_message_type=>$key,$val">
                     <label class="radio">
-                        <input type="radio" name="allow_mailing" id="mailingYes" value="Y" checked="checked"|cond="$member_info->allow_mailing == 'Y'" /> <label for="mailingYes">{$lang->cmd_yes}</label>
+                    <input type="radio" name="allow_message" value="{$key}" checked="checked"|cond="$member_info->allow_message == $key || (!$member_info && $key == 'Y')" id="allow_{$key}" /> <label for="allow_{$key}">{$val}</label>
                     </label>
-                    <label class="radio">
-                        <input type="radio" name="allow_mailing" id="mailingNo" value="N" checked="checked"|cond="$member_info->allow_mailing != 'Y'" /> <label for="mailingNo">{$lang->cmd_no}</label>
-                    </label>
-                </div>
-            </fieldset>
-            <fieldset>
-                <label><strong>{$lang->allow_message}</strong></label>
-                <div>
-                    <block loop="$lang->allow_message_type=>$key,$val">
-                        <label class="radio">
-                        <input type="radio" name="allow_message" value="{$key}" checked="checked"|cond="$member_info->allow_message == $key || (!$member_info && $key == 'Y')" id="allow_{$key}" /> <label for="allow_{$key}">{$val}</label>
-                        </label>
-                    </block>
-                </div>
-            </fieldset>
-        </form>
+                </block>
+            </div>
+        </fieldset>
 		<div class="btnArea">
 			<input class="btn btn-success" type="submit" value="{$lang->cmd_registration}" />
 			<a class="btn" href="{getUrl('act','','member_srl','')}">{$lang->cmd_cancel}</a>

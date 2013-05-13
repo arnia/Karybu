@@ -60,19 +60,31 @@
         </form>
         <!--@end-->
         <!--@if($addTables || $needUpdate)-->
-        <div class="message update">
-            <h2 cond="$needUpdate && $addTables">{$lang->need_update_and_table}</h2>
-            <h2 cond="$needUpdate && !$addTables">{$lang->need_update}</h2>
-            <h2 cond="!$needUpdate && $addTables">{$lang->need_table}</h2>
-            <ul class="unstyled">
-            <!--@foreach($module_list AS $key => $value)-->
-                <!--@if($value->need_install)-->
-                <li style="margin:0 0 4px 0;">{$value->module} - <button class="btn btn-primary" type="button" onclick="doInstallModule('{$value->module}')">{$lang->cmd_create_db_table}</button></li>
-                <!--@else if($value->need_update)-->
-                <li style="margin:0 0 4px 0;">{$value->module} - <button class="btn btn-primary" type="button" onclick="doUpdateModule('{$value->module}')">{$lang->cmd_module_update}</button></li>
+        <div class="message update info alert alert-block alert-info dashboard">
+            <button data-dismiss="alert" class="close" type="button">×</button>
+            <h4 cond="$needUpdate && $addTables">{$lang->need_update_and_table}</h4>
+            <h4 cond="$needUpdate && !$addTables">{$lang->need_update}</h4>
+            <h4 cond="!$needUpdate && $addTables">{$lang->need_table}</h4>
+            <table class="table">
+                <tbody>
+                <!--@foreach($module_list AS $key => $value)-->
+                    <!--@if($value->need_install || $value->need_update)-->
+                    <tr>
+                        <td>{$value->module}</td>
+                        <td>
+                            <div class="pull-right">
+                                <!--@if($value->need_install)-->
+                                    <button class="btn btn-primary" type="button" onclick="doInstallModule('{$value->module}')">{$lang->cmd_create_db_table}</button>
+                                <!--@else if($value->need_update)-->
+                                    <button class="btn btn-primary" type="button" onclick="doUpdateModule('{$value->module}')">{$lang->cmd_module_update}</button>
+                                <!--@end-->
+                            </div>
+                        </td>
+                    </tr>
+                    <!--@end-->
                 <!--@end-->
-            <!--@end-->
-            </ul>
+                </tbody>
+            </table>
         </div>
         <!--@end-->
         <div class="row-fluid">
