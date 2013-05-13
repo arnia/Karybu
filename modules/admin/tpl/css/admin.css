@@ -1496,6 +1496,7 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
     display: block;
     cursor: pointer;
     background: #fff;
+    border: 2px solid #6d7587;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
