@@ -60,7 +60,7 @@ class Kernel extends SymfonyKernel
     {
         $configFile = _XE_PATH_ . "files/config/config_{$this->getEnvironment()}.yml";
         //fallback for installer
-        if (!file_exists($configFile)){
+        if (!is_readable($configFile)) {
             $configFile = _XE_PATH_ . "config/config_{$this->getEnvironment()}.base.yml";
         }
         $loader->load($configFile);

@@ -15,7 +15,7 @@ require dirname(__FILE__) . '/config/config.inc.php';
 $envCode = Environment::DEFAULT_ENVIRONMENT;
 //check if environment file exists
 $filename = 'files/config/environment.txt';
-if (file_exists($filename)) {
+if (is_readable($filename)) {
     $envCode = file_get_contents($filename);
 }
 //get the current valid environment
