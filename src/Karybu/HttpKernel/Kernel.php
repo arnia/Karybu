@@ -88,7 +88,7 @@ class Kernel extends SymfonyKernel
      */
     public function getRootDir()
     {
-        return _XE_PATH_;
+        return _KARYBU_PATH_;
     }
 
     /**
