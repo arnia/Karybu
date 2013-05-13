@@ -186,7 +186,7 @@ class installController extends install
         // check install config
         if (Context::get('install_config')) {
             $db_info = $this->_makeDbInfoByInstallConfig();
-        } // install by default XE UI
+        } // install by default Karybu UI
         else {
             include $this->db_tmp_config_file;
             include $this->etc_tmp_config_file;
