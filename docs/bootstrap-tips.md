@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Bootstrap tips
+category: docs
 ---
 
 Bootstrap tips

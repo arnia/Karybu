@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Karybu admin components
+category: docs
 ---
 
 Karybu admin components

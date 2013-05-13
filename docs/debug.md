@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Karybu debugging tools
+category: docs
 ---
 
 Karybu debugging tools

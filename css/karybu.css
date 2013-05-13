@@ -1,0 +1,17 @@
+body {
+    background-color: #292c35;
+}
+
+.logo {
+    text-align: center;
+    color: white;
+    font-size: 1.2em;
+    margin-top:10%;
+    position: relative;
+}
+
+.teaser {
+    text-align: center;
+    color: aliceblue;
+    margin-top: 40%;
+}

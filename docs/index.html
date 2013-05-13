@@ -1,0 +1,16 @@
+---
+title: Documentation
+layout: docs
+---
+
+<ul>
+{% for page in site.pages %}
+    {% if page.categories == docs %}
+        <li>
+            <a href="{{ page.url }}">{{ page.title }}</a> {{ page.categories }}
+        </li>
+    {% endif %}
+{% endfor %}
+</ul>
+
+
