@@ -94,7 +94,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
      *        </params>
      *    </methodCall>
      *
-     * Sample data taken from the "Re-create cache file" button in XE Admin Dashboard footer
+     * Sample data taken from the "Re-create cache file" button in Karybu Admin Dashboard footer
      */
     public function testSetArguments_XMLRPC()
     {
@@ -1118,7 +1118,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * When using XML files for lang, XE compiles them to .php to make loading faster
+     * When using XML files for lang, Karybu compiles them to .php to make loading faster
      * However, it is possible for PHP to not have the right to write to disk, so then
      * the compiled result is not written to disk, but just used as is
      */
@@ -2345,12 +2345,12 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     /**
      * STEP 1
      * This represents the first step in the Single Sign On process
-     * The user browses a virtual site with SSO enabled (shop.xe.org)
-     * and is redirected to the main site for the session id to be retrieved (www.xe.org)
+     * The user browses a virtual site with SSO enabled (shop.karybu.org)
+     * and is redirected to the main site for the session id to be retrieved (www.karybu.org)
      *
      * When the redirect is made, an extra parameter 'default_url' is passed, to know
      * where to bring the user back after login. This default_url is the base64 encoded
-     * original url (shop.xe.org/hello/world) - including GET parameters
+     * original url (shop.karybu.org/hello/world) - including GET parameters
      */
     public function testCheckSSO_RequestSSO()
     {
@@ -2390,8 +2390,8 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
 
     /**
      * STEP 2
-     * The user just got on the main site (www.xe.org) from a subdomain
-     * (shop.xe.org). His session id from the main site will be sent back to
+     * The user just got on the main site (www.karybu.org) from a subdomain
+     * (shop.karybu.org). His session id from the main site will be sent back to
      * the subdomain in the SSOID parameter (by doing another redirect)
      */
     public function testCheckSSO_RetrieveSessionId()
@@ -2460,10 +2460,10 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
 
     /**
      * STEP 3
-     * User is back on the url he originally asked for (shop.xe.org)
+     * User is back on the url he originally asked for (shop.karybu.org)
      * only now he knows the session id on the main website,
      * so the session name is updated on this subsite to the same as the main
-     * and then he is redirected to the actual original url (shop.xe.org) without SSOID set
+     * and then he is redirected to the actual original url (shop.karybu.org) without SSOID set
      */
     public function testCheckSSO_UpdateSessionId()
     {

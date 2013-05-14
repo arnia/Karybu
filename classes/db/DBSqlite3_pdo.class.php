@@ -16,7 +16,7 @@ class DBSqlite3_pdo extends DB
      * DB information
      **/
     var $database = null; ///< database
-    var $prefix = 'xe'; // /< prefix of a tablename (many XEs can be installed in a single DB)
+    var $prefix = 'k'; // /< prefix of a tablename (many Karybu's can be installed in a single DB)
     var $comment_syntax = '/* %s */';
 
     /**

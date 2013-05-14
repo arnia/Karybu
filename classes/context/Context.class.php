@@ -1036,7 +1036,7 @@ class ContextInstance
      */
     function checkSSO()
     {
-        // pass if it's not GET request or XE is not yet installed
+        // pass if it's not GET request or Karybu is not yet installed
         if (isset($this->db_info->use_sso)) {
             if ($this->db_info->use_sso != 'Y' || $this->isCrawler()) {
                 return true;
@@ -2674,7 +2674,7 @@ class ContextInstance
     }
 
     /**
-     * Checks whether XE is installed
+     * Checks whether Karybu is installed
      *
      * @return bool True if the config file exists, otherwise false.
      */

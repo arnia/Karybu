@@ -73,7 +73,7 @@ class ModuleInstanceRetrieverTest extends PHPUnit_Framework_TestCase
      * http://shop.karybu.org => http://shop.karybu.org/demo/shop
      *
      * We expect to receive a DeafultModuleSiteSrlMismatchException
-     * which will cause XE to redirect the user to the virtual site URL
+     * which will cause Karybu to redirect the user to the virtual site URL
      */
     public function testGetModuleInfo_DefaultModuleFromVirtualSite()
     {

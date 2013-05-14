@@ -364,10 +364,10 @@
 		<value xml:lang="vi"><![CDATA[URL mặc định]]></value>
 	</item>
 	<item name="about_default_url">
-		<value xml:lang="ko"><![CDATA[여러 사이트를 운영할 때 기본 URL이 필요합니다. XE 설치 경로를 포함한 URL을 입력하세요. (예: http://도메인/설치경로)]]></value>
-		<value xml:lang="en"><![CDATA[Enter a default URL to be used to control multiple websites, including XE installation path. E.g.) http://domain//installation path)]]></value>
+		<value xml:lang="ko"><![CDATA[여러 사이트를 운영할 때 기본 URL이 필요합니다. Karybu 설치 경로를 포함한 URL을 입력하세요. (예: http://도메인/설치경로)]]></value>
+		<value xml:lang="en"><![CDATA[Enter a default URL to be used to control multiple websites, including Karybu installation path. E.g.) http://domain//installation path)]]></value>
 		<value xml:lang="jp"><![CDATA[複数のサイトを運営する際の基本URLが必要です。XEインストールパスを含むURLを入力してください。(例：http://ドメイン/インストールパス)]]></value>
-		<value xml:lang="tr"><![CDATA[Birden fazla siteyi işletirken temel bir URL'ye ihtiyaç vardır. XE yükleme route'unu kapsayana bir URL giriniz.(Örneğin: http:// alan adı / yükleme route'u)]]></value>
+		<value xml:lang="tr"><![CDATA[Birden fazla siteyi işletirken temel bir URL'ye ihtiyaç vardır. Karybu yükleme route'unu kapsayana bir URL giriniz.(Örneğin: http:// alan adı / yükleme route'u)]]></value>
 	</item>
 	<item name="env_information">
 		<value xml:lang="ko"><![CDATA[환경 정보]]></value>
@@ -419,15 +419,15 @@
 	</item>
 	<item name="about_download_link">
 		<value xml:lang="ko"><![CDATA[최신 버전이 배포되었습니다. download 링크를 클릭하시면 다운 받으실 수 있습니다.]]></value>
-		<value xml:lang="en"><![CDATA[New version of XE is now available! Please click the download link to get the latest version.]]></value>
+		<value xml:lang="en"><![CDATA[New version of Karybu is now available! Please click the download link to get the latest version.]]></value>
 		<value xml:lang="jp"><![CDATA[新しいバージョンが配布されています。｢ダウンロード｣リンクをクリックするとダウンロードできます。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[官方网站已发布最新版本XE。请点击[下载]链接下载最新版本。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[官方網站已發佈最新版本。請按[下載]下載最新版本。]]></value>
 		<value xml:lang="fr"><![CDATA[Nouvelle version est disponible. Pour télécharger la dernière version, cliquez le lien.]]></value>
-		<value xml:lang="ru"><![CDATA[Новая версия XE доступна.		   Чтобы скачать последнюю версию, нажмите ссылку закачки]]></value>
-		<value xml:lang="es"><![CDATA[La versión más reciente Zerboard XE está disponible. Para descargar la versión más reciente, haga clic en enlace de descarga.]]></value>
-		<value xml:lang="tr"><![CDATA[Zeroboard XE'nin yeni sürümü yayımlandı! Lütfen son sürümü için indirme linkine tıklayınız.]]></value>
-		<value xml:lang="vi"><![CDATA[Đã có phiên bản mới nhất của XE.  Hãy bấm vào Link để Download.]]></value>
+		<value xml:lang="ru"><![CDATA[Новая версия Karybu доступна.		   Чтобы скачать последнюю версию, нажмите ссылку закачки]]></value>
+		<value xml:lang="es"><![CDATA[La versión más reciente Zerboard Karybu está disponible. Para descargar la versión más reciente, haga clic en enlace de descarga.]]></value>
+		<value xml:lang="tr"><![CDATA[Zeroboard Karybu'nin yeni sürümü yayımlandı! Lütfen son sürümü için indirme linkine tıklayınız.]]></value>
+		<value xml:lang="vi"><![CDATA[Đã có phiên bản mới nhất của Karybu.  Hãy bấm vào Link để Download.]]></value>
 	</item>
 	<item name="item_module">
 		<value xml:lang="ko"><![CDATA[모듈 목록]]></value>
@@ -585,16 +585,16 @@
 		<value xml:lang="vi"><![CDATA[Phím tắt đã không được tạo, bởi vì bạn không được đặt quyền là quản lý toàn diện.]]></value>
 	</item>
 	<item name="welcome_to_xe">
-		<value xml:lang="ko"><![CDATA[XE 관리자]]></value>
-		<value xml:lang="en"><![CDATA[Welcome to the admin page of XE]]></value>
-		<value xml:lang="jp"><![CDATA[XEの管理者ページです。]]></value>
-		<value xml:lang="zh-CN"><![CDATA[XE 管理页面]]></value>
-		<value xml:lang="zh-TW"><![CDATA[XE管理頁面]]></value>
-		<value xml:lang="fr"><![CDATA[Bienvenue sur la Page d'Administration du XE]]></value>
-		<value xml:lang="ru"><![CDATA[Добро пожаловать на страницу администратора XE]]></value>
-		<value xml:lang="es"><![CDATA[Esta es la página del Administrador de XE]]></value>
-		<value xml:lang="tr"><![CDATA[XE Yönetici Sayfasına Hoşgeldiniz]]></value>
-		<value xml:lang="vi"><![CDATA[Chào mừng bạn đến với trang quản lý của XE!]]></value>
+		<value xml:lang="ko"><![CDATA[Karybu 관리자]]></value>
+		<value xml:lang="en"><![CDATA[Welcome to the admin page of Karybu]]></value>
+		<value xml:lang="jp"><![CDATA[Karybuの管理者ページです。]]></value>
+		<value xml:lang="zh-CN"><![CDATA[Karybu 管理页面]]></value>
+		<value xml:lang="zh-TW"><![CDATA[Karybu管理頁面]]></value>
+		<value xml:lang="fr"><![CDATA[Bienvenue sur la Page d'Administration du Karybu]]></value>
+		<value xml:lang="ru"><![CDATA[Добро пожаловать на страницу администратора Karybu]]></value>
+		<value xml:lang="es"><![CDATA[Esta es la página del Administrador de Karybu]]></value>
+		<value xml:lang="tr"><![CDATA[Karybu Yönetici Sayfasına Hoşgeldiniz]]></value>
+		<value xml:lang="vi"><![CDATA[Chào mừng bạn đến với trang quản lý của Karybu!]]></value>
 	</item>
 	<item name="about_lang_env">
 		<value xml:lang="ko"><![CDATA[처음 방문하는 사용자들의 언어 설정을 동일하게 하려면, 원하는 언어로 변경 후 아래 [저장] 버튼을 클릭하시면 됩니다.]]></value>
@@ -609,16 +609,16 @@
 		<value xml:lang="vi"><![CDATA[Để hiển thị ngôn ngữ đã chọn là mặc định. Hãy bấm [Lưu] phía dưới để lưu lại.]]></value>
 	</item>
 	<item name="xe_license">
-		<value xml:lang="ko"><![CDATA[XE는 LGPL을 따릅니다.]]></value>
-		<value xml:lang="en"><![CDATA[XE complies with the LGPL.]]></value>
-		<value xml:lang="jp"><![CDATA[XEのライセンスはLGPLです。]]></value>
-		<value xml:lang="zh-CN"><![CDATA[XE遵循 LGPL协议]]></value>
-		<value xml:lang="zh-TW"><![CDATA[XE遵循 LGPL協議]]></value>
-		<value xml:lang="fr"><![CDATA[XE s'applique la LGPL]]></value>
-		<value xml:lang="ru"><![CDATA[XE подчиняется Стандартной Общественной Лицензии LGPL]]></value>
-		<value xml:lang="es"><![CDATA[XE está bajo la Licencia de LGPL]]></value>
-		<value xml:lang="tr"><![CDATA[XE LGPL ile uyumludur]]></value>
-		<value xml:lang="vi"><![CDATA[XE sử dụng giấy phép LGPL]]></value>
+		<value xml:lang="ko"><![CDATA[Karybu는 LGPL을 따릅니다.]]></value>
+		<value xml:lang="en"><![CDATA[Karybu complies with the LGPL.]]></value>
+		<value xml:lang="jp"><![CDATA[KarybuのライセンスはLGPLです。]]></value>
+		<value xml:lang="zh-CN"><![CDATA[Karybu遵循 LGPL协议]]></value>
+		<value xml:lang="zh-TW"><![CDATA[Karybu遵循 LGPL協議]]></value>
+		<value xml:lang="fr"><![CDATA[Karybu s'applique la LGPL]]></value>
+		<value xml:lang="ru"><![CDATA[Karybu подчиняется Стандартной Общественной Лицензии LGPL]]></value>
+		<value xml:lang="es"><![CDATA[Karybu está bajo la Licencia de LGPL]]></value>
+		<value xml:lang="tr"><![CDATA[Karybu LGPL ile uyumludur]]></value>
+		<value xml:lang="vi"><![CDATA[Karybu sử dụng giấy phép LGPL]]></value>
 	</item>
 	<item name="about_shortcut">
 		<value xml:lang="ko"><![CDATA[자주 사용하는 모듈에 등록된 모듈의 바로가기를 삭제할 수 있습니다.]]></value>
@@ -1057,11 +1057,11 @@
 		<value xml:lang="tr"><![CDATA[SSO(Single Sign On) kullanmak ister misiniz?]]></value>
 	</item>
 	<item name="about_cdn">
-		<value xml:lang="ko"><![CDATA[XE core의 css, js 파일을 CDN으로부터 제공받으려면 체크하세요.]]></value>
-		<value xml:lang="en"><![CDATA[Check this to get css and js files of XE core from CDN.]]></value>
-		<value xml:lang="jp"><![CDATA[XE coreのcss、jsファイルをCDNより取得するには、チェックしてください。]]></value>
-		<value xml:lang="zh-CN"><![CDATA[确认从CDN上获取XE core的css和js文件.]]></value>
-		<value xml:lang="tr"><![CDATA[CSS XE çekirdek, js dosyaları CDN teklif almak için deneyin.]]></value>
+		<value xml:lang="ko"><![CDATA[Karybu core의 css, js 파일을 CDN으로부터 제공받으려면 체크하세요.]]></value>
+		<value xml:lang="en"><![CDATA[Check this to get css and js files of Karybu core from CDN.]]></value>
+		<value xml:lang="jp"><![CDATA[Karybu coreのcss、jsファイルをCDNより取得するには、チェックしてください。]]></value>
+		<value xml:lang="zh-CN"><![CDATA[确认从CDN上获取Karybu core的css和js文件.]]></value>
+		<value xml:lang="tr"><![CDATA[CSS Karybu çekirdek, js dosyaları CDN teklif almak için deneyin.]]></value>
 	</item>
 	<item name="about_arrange_session">
 		<value xml:lang="ko"><![CDATA[세션을 정리하시겠습니까?]]></value>
@@ -1377,16 +1377,16 @@
 	</item>
 	<item name="msg_safe_mode_ftp_needed">
 		<value xml:lang="ko"><![CDATA[PHP의<strong>safe_mode=On</strong>일 경우 XE의 정상적인 동작을 돕습니다.]]></value>
-		<value xml:lang="en"><![CDATA[When safe_mode setting of PHP is On, you should enter FTP account information to install XE.]]></value>
+		<value xml:lang="en"><![CDATA[When safe_mode setting of PHP is On, you should enter FTP account information to install Karybu.]]></value>
 		<value xml:lang="jp"><![CDATA[PHPのsafe_modeがOnの場合、FTP情報を登録することで、XEのインストール及び利用が可能になります。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[当PHP的safe_mode=On时，请必须输入相关FTP信息，否则将无法正常安装或使用XE程序。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[當 PHP 的安全模式(safe_mode)開啟時，請輸入相關 FTP 資訊，否則無法正常安裝或使用程式。]]></value>
 		<value xml:lang="fr"><![CDATA[PHP의 safe_mode가 On일 경우 FTP 정보를 꼭 입력해주셔야 XE의 설치 및 사용이 가능합니다]]></value>
 		<value xml:lang="de"><![CDATA[Zur Installation und Nutzung des XEs muss die Angabe des FTPs festgestellt werden, wenn safe_mode in PHP 'An' ist.]]></value>
-		<value xml:lang="es"><![CDATA[Si la la variable safe_mode está activa[safe_mode=On], debe rellenar los datos de FTP para seguir instalando y usar con normalidad el XE.]]></value>
-		<value xml:lang="tr"><![CDATA[Eğer PHP güvenli mod ayarları etkinse, XE'yi kurmak için FTP hesap bilgilerini girmelisiniz.]]></value>
-		<value xml:lang="vi"><![CDATA[Nếu safe_mode của PHP mở, bạn có thể cài đặt các thành phần bổ xung cho XE một cách tự động qua FTP.]]></value>
-		<value xml:lang="mn"><![CDATA[PHP의 safe_mode가 Onбайх тохиолдолд , FTP мэдээллийг заавал оруулснаар XE идэвжvvлэх болон хэрэглэх боломжтой болно.]]></value>
+		<value xml:lang="es"><![CDATA[Si la la variable safe_mode está activa[safe_mode=On], debe rellenar los datos de FTP para seguir instalando y usar con normalidad el Karybu.]]></value>
+		<value xml:lang="tr"><![CDATA[Eğer PHP güvenli mod ayarları etkinse, Karybu'yi kurmak için FTP hesap bilgilerini girmelisiniz.]]></value>
+		<value xml:lang="vi"><![CDATA[Nếu safe_mode của PHP mở, bạn có thể cài đặt các thành phần bổ xung cho Karybu một cách tự động qua FTP.]]></value>
+		<value xml:lang="mn"><![CDATA[PHP의 safe_mode가 Onбайх тохиолдолд , FTP мэдээллийг заавал оруулснаар Karybu идэвжvvлэх болон хэрэглэх боломжтой болно.]]></value>
 	</item>
 	<item name="msg_safe_mode_ftp_needed2">
 		<value xml:lang="ko"><![CDATA[모듈의 쉬운 설치 또는 업데이트가 가능해 집니다.]]></value>
@@ -1469,26 +1469,26 @@
 		<value xml:lang="vi"><![CDATA[Hãy nhập thông tin đường dẫn của FTP.]]></value>
 	</item>
 	<item name="msg_ftp_installed_realpath">
-		<value xml:lang="ko"><![CDATA[설치된 XE의 절대경로]]></value>
-		<value xml:lang="en"><![CDATA[Absolute Path of XE]]></value>
-		<value xml:lang="jp"><![CDATA[インストールされたXEの絶対パス]]></value>
-		<value xml:lang="zh-CN"><![CDATA[XE绝对路径]]></value>
-		<value xml:lang="zh-TW"><![CDATA[XE絕對路經]]></value>
-		<value xml:lang="de"><![CDATA[absoluter Pfad, in dem XE installiert ist.]]></value>
+		<value xml:lang="ko"><![CDATA[설치된 Karybu의 절대경로]]></value>
+		<value xml:lang="en"><![CDATA[Absolute Path of Karybu]]></value>
+		<value xml:lang="jp"><![CDATA[インストールされたKarybuの絶対パス]]></value>
+		<value xml:lang="zh-CN"><![CDATA[Karybu绝对路径]]></value>
+		<value xml:lang="zh-TW"><![CDATA[Karybu絕對路經]]></value>
+		<value xml:lang="de"><![CDATA[absoluter Pfad, in dem Karybu installiert ist.]]></value>
 		<value xml:lang="tr"><![CDATA[KesinnXE Yolu]]></value>
-		<value xml:lang="vi"><![CDATA[Đường dẫn thư mục đã cài đặt XE]]></value>
+		<value xml:lang="vi"><![CDATA[Đường dẫn thư mục đã cài đặt Karybu]]></value>
 	</item>
 	<item name="msg_ftp_installed_ftp_realpath">
-		<value xml:lang="ko"><![CDATA[설치된 XE의 FTP 경로 설정]]></value>
-		<value xml:lang="en"><![CDATA[Absolute FTP Path of XE]]></value>
-		<value xml:lang="jp"><![CDATA[インストールされたXEのFTP絶対パス設定]]></value>
+		<value xml:lang="ko"><![CDATA[설치된 Karybu의 FTP 경로 설정]]></value>
+		<value xml:lang="en"><![CDATA[Absolute FTP Path of Karybu]]></value>
+		<value xml:lang="jp"><![CDATA[インストールされたKarybuのFTP絶対パス設定]]></value>
 		<value xml:lang="zh-CN"><![CDATA[FTP绝对路径设置]]></value>
-		<value xml:lang="zh-TW"><![CDATA[XE的 FTP 絕對路經]]></value>
-		<value xml:lang="fr"><![CDATA[설치된 XE의 FTP 절대경로 설정]]></value>
-		<value xml:lang="de"><![CDATA[absoluten Pfad des FTPs, in dem XE installiert ist, festlegen.]]></value>
-		<value xml:lang="es"><![CDATA[설치된 XE의 FTP 절대경로 설정]]></value>
-		<value xml:lang="tr"><![CDATA[XE Salt FTP Yolu]]></value>
-		<value xml:lang="vi"><![CDATA[Đường dẫn tuyệt đối của thư mục cài đặt XE trên FTP]]></value>
+		<value xml:lang="zh-TW"><![CDATA[Karybu的 FTP 絕對路經]]></value>
+		<value xml:lang="fr"><![CDATA[설치된 Karybu의 FTP 절대경로 설정]]></value>
+		<value xml:lang="de"><![CDATA[absoluten Pfad des FTPs, in dem Karybu installiert ist, festlegen.]]></value>
+		<value xml:lang="es"><![CDATA[설치된 Karybu의 FTP 절대경로 설정]]></value>
+		<value xml:lang="tr"><![CDATA[Karybu Salt FTP Yolu]]></value>
+		<value xml:lang="vi"><![CDATA[Đường dẫn tuyệt đối của thư mục cài đặt Karybu trên FTP]]></value>
 	</item>
 	<item name="admin_setup">
 		<value xml:lang="ko"><![CDATA[관리자 설정]]></value>

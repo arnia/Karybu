@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skin version="0.2">
     <title xml:lang="ko">회원 기본 모바일 스킨</title>
-    <title xml:lang="en">XE Basic Member Mobile Skin</title>
+    <title xml:lang="en">Karybu Basic Member Mobile Skin</title>
     <description xml:lang="ko">
-		XE 기본 모바일 스킨 입니다.
+        Karybu 기본 모바일 스킨 입니다.
         Arnia (dev@karybu.org)
     </description>
     <version>0.1</version>

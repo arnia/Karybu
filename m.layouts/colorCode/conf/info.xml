@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout version="0.2">
-    <title xml:lang="ko">XE Color Code 모바일 레이아웃</title>
-    <title xml:lang="en">XE Color Code Mobile layout</title>
-    <title xml:lang="jp">XE Color Code レイアウト</title>
-    <title xml:lang="zh-CN">XE Color Code 移动布局</title>
-    <title xml:lang="zh-TW">XE Color Code 移动布局</title>
+    <title xml:lang="ko">Karybu Color Code 모바일 레이아웃</title>
+    <title xml:lang="en">Karybu Color Code Mobile layout</title>
+    <title xml:lang="jp">Karybu Color Code レイアウト</title>
+    <title xml:lang="zh-CN">Karybu Color Code 移动布局</title>
+    <title xml:lang="zh-TW">Karybu Color Code 移动布局</title>
     <description xml:lang="ko">
-        XE Color Code 모바일 레이아웃입니다.
+        Karybu Color Code 모바일 레이아웃입니다.
         Arnia (dev@karybu.org)
     </description>
     <description xml:lang="jp">
-        XEの Color Code レイアウトです。
+        Karybuの Color Code レイアウトです。
         제작 : Arnia
     </description>
     <description xml:lang="en">
-        This layout is the XE Color Code Mobile layout for XE.
+        This layout is the Karybu Color Code Mobile layout for Karybu.
         Arnia (dev@karybu.org)
     </description>
     <description xml:lang="zh-CN">
-        XE Color Code 移动布局
+        Karybu Color Code 移动布局
         Arnia (dev@karybu.org)
     </description>
     <description xml:lang="zh-TW">
-        XE Color Code 官方網站版面。
+        Karybu Color Code 官方網站版面。
         Arnia (dev@karybu.org)
     </description>
     <version>0.1</version>

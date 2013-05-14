@@ -8,7 +8,7 @@ use Karybu\Event\DBEvents;
 
 /**
  * - DB parent class
- * - usage of db in XE is via xml
+ * - usage of db in Karybu is via xml
  * - there are 2 types of xml - query xml, schema xml
  * - in case of query xml, DB::executeQuery() method compiles xml file into php code and then execute it
  * - query xml has unique query id, and will be created in module

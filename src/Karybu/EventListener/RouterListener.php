@@ -77,7 +77,7 @@ class RouterListener implements EventSubscriberInterface
             unset($parameters['_controller']);
             $request->attributes->set('_route_params', $parameters);
 
-            // add route parameters to XE context as if they came from htaccess
+            // add route parameters to Karybu context as if they came from htaccess
             foreach ($parameters as $name=>$value) {
                 if (!is_numeric($name)) {
                     $oContext->set($name, $value, true);

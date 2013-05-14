@@ -207,7 +207,7 @@
             if(!$obj->comment_srl) $obj->comment_srl = getNextSequence();
             // determine the order
             $obj->list_order = getNextSequence() * -1;
-            // remove XE's own tags from the contents
+            // remove Karybu's own tags from the contents
             $obj->content = preg_replace('!<\!--(Before|After)(Document|Comment)\(([0-9]+),([0-9]+)\)-->!is', '', $obj->content);
 			if(Mobile::isFromMobilePhone())
 			{
@@ -369,7 +369,7 @@
 		{
 			$oMail = new Mail();
 			$oMail->setSender($obj->email_address, $obj->email_address);
-			$mail_title = "[XE - ".Context::get('mid')."] A new comment was posted on document: \"".$oDocument->getTitleText()."\"";
+			$mail_title = "[Karybu - ".Context::get('mid')."] A new comment was posted on document: \"".$oDocument->getTitleText()."\"";
 			$oMail->setTitle($mail_title);
 			if ($using_validation)
 			{
@@ -436,7 +436,7 @@
 		/*
 		// send email to author - START
 		$oMail = new Mail();
-		$mail_title = "[XE - ".Context::get('mid')."] your comment on document: \"".$oDocument->getTitleText()."\" have to be approved";
+		$mail_title = "[Karybu - ".Context::get('mid')."] your comment on document: \"".$oDocument->getTitleText()."\" have to be approved";
 		$oMail->setTitle($mail_title);
 		//$mail_content = sprintf("From : <a href=\"%s?document_srl=%s&comment_srl=%s#comment_%d\">%s?document_srl=%s&comment_srl=%s#comment_%d</a><br/>\r\n%s  ", getFullUrl(''),$comment->document_srl,$comment->comment_srl,$comment->comment_srl, getFullUrl(''),$comment->document_srl,$comment->comment_srl,$comment->comment_srl,$comment>content);
 		$mail_content = "
@@ -505,7 +505,7 @@
 
 
 			if(!$obj->content) $obj->content = $source_obj->get('content');
-            // remove XE's wn tags from contents
+            // remove Karybu's wn tags from contents
             $obj->content = preg_replace('!<\!--(Before|After)(Document|Comment)\(([0-9]+),([0-9]+)\)-->!is', '', $obj->content);
             // remove iframe and script if not a top administrator on the session
             if($logged_info->is_admin != 'Y') $obj->content = removeHackTag($obj->content);

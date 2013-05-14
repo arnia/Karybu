@@ -79,7 +79,7 @@ class ModuleHandlerInstance extends Handler
 
         $this->validator_session = $validator_session;
 
-        // If XE has not installed yet, set module as install
+        // If Karybu has not installed yet, set module as install
         if (!$this->context->isInstalled()) {
             $this->module = 'install';
             $this->act = $this->context->get('act');

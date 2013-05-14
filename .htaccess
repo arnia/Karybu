@@ -4,9 +4,9 @@
     RewriteCond %{REQUEST_FILENAME} \.(css|js|gif|ico|jpg|jpeg)$ [NC]
     RewriteRule .* - [L]
 
-    # reserve XE Layout Template Source File (*.html)
+    # reserve Karybu Layout Template Source File (*.html)
     RewriteRule ^(layouts|m.layouts)/(.+)\.html$ - [L,F]
-    # reserve XE Template Source Files (*.html)
+    # reserve Karybu Template Source Files (*.html)
     RewriteCond %{REQUEST_URI} !/modules/editor/
     RewriteRule /(skins|m.skins)/(.+)\.html$ - [L,F]
 

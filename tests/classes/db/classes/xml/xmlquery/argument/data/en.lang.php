@@ -287,13 +287,13 @@ $lang->about_ftp_password = 'FTP password will not be stored';
 $lang->cmd_check_ftp_connect = 'Check FTP Connection';
 $lang->about_ftp_info = "
 	FTP account information can be used in following cases. <br />
-	1. If safe_mode setting of PHP is on, XE will be installed using FTP.  <br />
+	1. If safe_mode setting of PHP is on, Karybu will be installed using FTP.  <br />
 	2. Automatic updates might use FTP information. <br />
 	   This account info will be stored in files/config/ftp.config.php <br />
 	   After installation, you can modify or delete the account info at the administration page. <br />
 ";
 
-$lang->msg_safe_mode_ftp_needed = "If safe_mode setting of PHP is on, you should input FTP account information to install XE.";
+$lang->msg_safe_mode_ftp_needed = "If safe_mode setting of PHP is on, you should input FTP account information to install Karybu.";
 $lang->msg_ftp_not_connected = "Connection to localhost via FTP failed. Please check the port number and if FTP service is available.";
 $lang->msg_ftp_invalid_auth_info = "Authentication failed. Please check the username and password.";
 $lang->msg_ftp_mkdir_fail = "Directory creation failed. Please check the permission of FTP account.";
@@ -301,8 +301,8 @@ $lang->msg_ftp_chmod_fail = "Chmod failed. Please check the permission and confi
 $lang->msg_ftp_connect_success = "Connection and authentication to the FTP server succeeded.";
 
 $lang->ftp_path_title = 'FTP Path Information';
-$lang->msg_ftp_installed_realpath = 'Absolute Path of XE';
-$lang->msg_ftp_installed_ftp_realpath = 'Absolute FTP Path of XE';
+$lang->msg_ftp_installed_realpath = 'Absolute Path of Karybu';
+$lang->msg_ftp_installed_ftp_realpath = 'Absolute FTP Path of Karybu';
 
 // Alert messages for Javascript using by XML filter
 $lang->filter->isnull = 'Please input a value for %s';

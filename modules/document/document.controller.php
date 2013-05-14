@@ -236,7 +236,7 @@ class documentController extends document {
 		if($obj->title == '') $obj->title = cut_str(strip_tags($obj->content),20,'...');
 		// If no tile extracted from the contents, leave it untitled.
 		if($obj->title == '') $obj->title = 'Untitled';
-		// Remove XE's own tags from the contents.
+		// Remove Karybu's own tags from the contents.
 		$obj->content = preg_replace('!<\!--(Before|After)(Document|Comment)\(([0-9]+),([0-9]+)\)-->!is', '', $obj->content);
 		if(Mobile::isFromMobilePhone())
 		{
@@ -402,7 +402,7 @@ class documentController extends document {
 		if($obj->title == '') $obj->title = cut_str(strip_tags($obj->content),20,'...');
 		// If no tile extracted from the contents, leave it untitled.
 		if($obj->title == '') $obj->title = 'Untitled';
-		// Remove XE's own tags from the contents.
+		// Remove Karybu's own tags from the contents.
 		$obj->content = preg_replace('!<\!--(Before|After)(Document|Comment)\(([0-9]+),([0-9]+)\)-->!is', '', $obj->content);
 		// Change not extra vars but language code of the original document if document's lang_code is different from author's setting.
 		if($source_obj->get('lang_code') != Context::getLangType()) {

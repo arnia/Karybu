@@ -67,7 +67,7 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * An invalid act when XE was already installed should be let as is
+     * An invalid act when Karybu was already installed should be let as is
      * That's because the controller action could also be specified as
      * an action forward, so there will be subsequent searches based on
      * this value
@@ -88,7 +88,7 @@ class ModuleMatcherTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * An invalid act while XE wasn't already installed
+     * An invalid act while Karybu wasn't already installed
      * should redirect to the default action for the module
      */
     public function testGetAct_InvalidActDuringInstallation()

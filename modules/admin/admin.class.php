@@ -67,7 +67,7 @@ class admin extends ModuleObject
     }
 
     /**
-     * Regenerate xe admin default menu
+     * Regenerate Karybu admin default menu
      * @return void
      */
     function createXeAdminMenu()

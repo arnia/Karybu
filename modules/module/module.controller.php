@@ -620,7 +620,7 @@
             foreach($obj as $key => $val) {
                 // #17927989 For an old board which used the old blog module
                 // it often saved menu item(stdClass) on the skin info column
-                // When updating the module on XE core 1.2.0 later versions, it occurs an error
+                // When updating the module on Karybu core 1.2.0 later versions, it occurs an error
                 // fixed the error
                 if (is_object($val)) continue;
                 if (is_array($val)) $val = serialize($val);
