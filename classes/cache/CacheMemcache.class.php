@@ -64,7 +64,7 @@ class CacheMemcache extends CacheBase {
 	}
 
 	/**
-	 * Get unique key of given key by path of XE
+	 * Get unique key of given key by path of Karybu
 	 *
 	 * @param string $key Cache key
 	 * @return string Return unique key

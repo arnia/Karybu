@@ -51,7 +51,7 @@ class XmlQueriesTest extends PHPUnit_Framework_TestCase
 	return $aFiles; 
     } 
 
-    /** Tests all XML Query and Schema Language files (in all modules/addons/widgets) in XE */
+    /** Tests all XML Query and Schema Language files (in all modules/addons/widgets) in Karybu */
     public function invoke_testReleasedXMLLangFiles
 	(
 	    $released_files,
@@ -62,7 +62,7 @@ class XmlQueriesTest extends PHPUnit_Framework_TestCase
 	// this file is in tools/dbxml_validator/tests
 	$xe_dir = __DIR__ . '/../../..';
 
-	$this->assertTrue(file_exists($xe_dir . '/index.php'), 'XE directory not found');
+	$this->assertTrue(file_exists($xe_dir . '/index.php'), 'Karybu directory not found');
 
 	$cnt = 0;
 	$cmd = $this->validator_cmd;

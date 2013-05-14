@@ -314,7 +314,7 @@ var oValidator = new Validator;
 // register validator
 xe.registerApp(oValidator);
 
-// 호환성을 위해 추가한 플러그인 - 에디터에서 컨텐트를 가져와서 설정한다.
+// Import content plug-in editor - added for compatibility.
 var EditorStub = xe.createPlugin('editor_stub', {
 	API_BEFORE_VALIDATE : function(sender, params) {
 		var form = params[0];
@@ -361,7 +361,7 @@ function get_bytes(str) {
 
 /**
  * @function filterAlertMessage
- * @brief ajax로 서버에 요청후 결과를 처리할 callback_function을 지정하지 않았을 시 호출되는 기본 함수
+ * @brief ajax로 When you did not specify callback_function of a request to the server to process the results of calling the default function
  **/
 function filterAlertMessage(ret_obj) {
 	var error = ret_obj["error"];

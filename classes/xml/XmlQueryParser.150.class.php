@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing the XE 1.5 XmlQueryParserClass
+ * File containing the Karybu 1.5 XmlQueryParserClass
  */
 
 if(!defined('__XE_LOADED_XML_CLASS__')){
@@ -40,7 +40,7 @@ if(!defined('__XE_LOADED_XML_CLASS__')){
 
 /**
  * New XmlQueryParser class  <br />
- * Parses XE XML query files
+ * Parses Karybu XML query files
  *
  * @author Corina Udrescu (corina.udrescu@arnia.ro)
  * @package classes\xml

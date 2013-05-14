@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout version="0.2" type="faceoff">
-    <title xml:lang="ko">XE Face off 레이아웃</title>
-    <title xml:lang="vi">Giao diện XE FaceOff</title>
-    <title xml:lang="zh-CN">XE Face off官方布局</title>
-    <title xml:lang="zh-TW">XE Face off 版面</title>
-    <title xml:lang="jp">XE Face offレイアウト</title>
-    <title xml:lang="tr">XE Face off Yerleşim Düzeni</title>
-    <description xml:lang="ko">XE FaceOff 레이아웃입니다.</description>
-    <description xml:lang="vi">Giao diện của XE FaceOff.</description>
-    <description xml:lang="zh-CN">XE Face off官方布局。</description>
-    <description xml:lang="zh-TW">XE FaceOff版面</description>
-    <description xml:lang="jp">XE FaceOffレイアウトです。</description>
-    <description xml:lang="tr">XE FaceOff Yerleşim Düzeni</description>
+    <title xml:lang="ko">Karybu Face off 레이아웃</title>
+    <title xml:lang="vi">Giao diện Karybu FaceOff</title>
+    <title xml:lang="zh-CN">Karybu Face off官方布局</title>
+    <title xml:lang="zh-TW">Karybu Face off 版面</title>
+    <title xml:lang="jp">Karybu Face offレイアウト</title>
+    <title xml:lang="tr">Karybu Face off Yerleşim Düzeni</title>
+    <description xml:lang="ko">Karybu FaceOff 레이아웃입니다.</description>
+    <description xml:lang="vi">Giao diện của Karybu FaceOff.</description>
+    <description xml:lang="zh-CN">Karybu Face off官方布局。</description>
+    <description xml:lang="zh-TW">Karybu FaceOff版面</description>
+    <description xml:lang="jp">Karybu FaceOffレイアウトです。</description>
+    <description xml:lang="tr">Karybu FaceOff Yerleşim Düzeni</description>
     <version>0.1</version>
     <date>2009-01-02</date>
     <author email_address="dev@karybu.org" link="http://www.karybu.org/">

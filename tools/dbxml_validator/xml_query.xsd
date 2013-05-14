@@ -114,7 +114,7 @@
 		<xsd:attribute name="order" type="xsd:string">
 		    <xsd:annotation>
 			<xsd:documentation>
-			    XE treats the values "asc" and "desc" as the corresponding SQL
+                Karybu treats the values "asc" and "desc" as the corresponding SQL
 			    keywords, while all the other values are taken as a parameter
 			    name.
 			</xsd:documentation>
@@ -127,7 +127,7 @@
     <xsd:complexType name="MainStatementNavigationType">
 	<xsd:annotation>
 	    <xsd:documentation>
-		XE sorting and paging for a main-statement query.
+            Karybu sorting and paging for a main-statement query.
 
 		Defined as a sequence of choices so that the &lt;index&gt; element
 		can appear more than once.
@@ -317,10 +317,10 @@
 	<xsd:annotation>
 	    <xsd:documentation xmlns:lang="en">
 		There are many more SQL statement types defined by the SQL language, but
-		currently the above 4 types are supported by the XML Query language in XE.
+		currently the above 4 types are supported by the XML Query language in Karybu.
 
 		However certain SQL CREATE statements are also supported in the XML
-		Schema Language in XE.
+		Schema Language in Karybu.
 	    </xsd:documentation>
 	</xsd:annotation>
 	<xsd:restriction base="xsd:Name">
@@ -627,7 +627,7 @@
 			- multiply(int count)
 			- sequence()
 
-		    However these values are only special to XE, while for the schema
+		    However these values are only special to Karybu, while for the schema
 		    definition they are strings.
 		</xsd:documentation>
 	    </xsd:annotation>
@@ -733,7 +733,7 @@
 		Possible values for the "for" attribute on &lt;index&gt; hint
 		elements in &lt;index_hint&gt;.
 
-		Specifies one of the possible databases supported by XE
+		Specifies one of the possible databases supported by Karybu
 		(database targets) or ALL.
 
 		Currently the 'ALL' value must be uppercase, although the database

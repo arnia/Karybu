@@ -1,5 +1,5 @@
 /**
- * @brief XE Calendar
+ * @brief Karybu Calendar
  * @author Arnia (dev@karybu.org)
  *
  * 사용법
@@ -48,7 +48,7 @@ $.extend(Calendar.prototype, {
 		var uid = $.calendar.uuid+'-'+(index++);
 		var c = calendars[uid] = {};
 		
-		// uid 추가
+		// uid Additional
 		obj.addClass('ui-calendar-'+uid).mousedown(function(){return false});
 
 		// default options
@@ -68,7 +68,7 @@ $.extend(Calendar.prototype, {
 		
 		c.lang.weekdays = c.lang.weekdays.split(',');
 
-		// 날짜 설정
+		// Setting the Date
 		var d;
 		if (typeof c.options.activeDate == 'string' && c.options.activeDate) {
 			var s = c.options.activeDate.split('/');
@@ -78,23 +78,23 @@ $.extend(Calendar.prototype, {
 		}
 		this._setDate(obj, d);
 
-		// 토글 버튼
+		// Toggle button
 		if (c.options.button) {
 			(c.button=$(c.options.button)).click(function(){ obj.calendar('toggle') });
 		}
 
-		// 클래스 추가
+		// Adding a Class
 		obj.addClass('ui-calendar');
 
-		// position 설정한 후, 좌표를 (0,0)으로 변경
+		// position After setting the coordinates (0,0).
 		var pos = obj.css({position:'absolute',top:0,left:0}).show().offset();
 
-		// 버튼의 위치 구해서 좌표 조정
+		// Adjust the coordinates, obtain the position of the button
 		var bpos = c.button.offset();
 		var dx  = bpos.left - pos.left;
 		var dy  = bpos.top - pos.top;
 
-		// 좌표 조정 후 레이어 숨김
+		// After adjusting the coordinate hidden layer
 		obj.css({top:(dy+c.button.height())+'px',left:dx+'px'}).hide();
 	},
 	_checkExternalClick : function(e) {
@@ -127,21 +127,21 @@ $.extend(Calendar.prototype, {
 		var tpl = (cal.options.type == 'month')?template.month:template.calendar;
 		var v   = {lang:cal.lang};
 
-		// 날짜 관련 변수
+		// Date-related variables
 		v['yyyy'] = cal.date.getFullYear();
 		v['yy'] = (v['yyyy']+'').substring(2);
 		v['m']  = cal.date.getMonth() + 1;
 		v['mm'] = v['m'] > 9?v['m']:'0'+v['m'];
 
-		// 연간 달력이 아니라면 이 달의 날짜를 구한다.
+		// Annual calendar day of the month, unless obtained.
 		if (cal.options.type != 'month') {
-			// 날짜에 사용할 달력
+			// The date on the calendar that you want to use
 			v['weeks'] = [];
 
 			var d = new Date(cal.date.getTime()), w = [];
 			var last = (v.m!=2)? ((v.m+(v.m>7?1:0))%2?31:30) : ((new Date(v.yyyy,v.m-1,29)).getMonth()==v.m?29:28); // 마지막 날
 
-			d.setDate(1); // 1일로 설정 후 1일의 요일을 가져온다.
+			d.setDate(1); // Set to one day after the 1st day of the week brings.
 			var start = d.getDay(), end = last+start;
 
 			for(var i=0,len=end+(7-(end%7||7));i<len;i++) {
@@ -151,11 +151,11 @@ $.extend(Calendar.prototype, {
 			}
 		}
 		
-		// 템플릿 처리
+		// Template processing
 		tpl = this._processTemplate(tpl, v);
 		obj.html(tpl);
 
-		// 선택한 날짜
+		// Selected date
 		if (cal.options.type == 'month') {
 			
 		} else {
@@ -166,7 +166,7 @@ $.extend(Calendar.prototype, {
 			obj.find('td>button.day'+t.getFullYear()+'-'+(t.getMonth()+1)+'-'+t.getDate()).addClass('active');
 		}
 
-		// 이벤트 핸들러
+		// Event handler
 		obj.find('button.close').click(function(){ $.calendar._hide(obj); });
 		obj.find('button.today').click(function(){ $.calendar._moveToday(obj); });
 		if (cal.options.type == 'month') {

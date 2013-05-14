@@ -22,23 +22,23 @@
         把状态设置为"使用"时，才会记录网站访问信息.
     </description>
     <description xml:lang="en">
-        This addon logs access information based on the basic counter module within XE.
+        This addon logs access information based on the basic counter module within Karybu.
         The access information will be collected only if you enable this addon.
     </description>
     <description xml:lang="vi">
-        Addon này sẽ tổng hợp tất cả những lượt truy cập vào Website qua Module Counter có sẵn bên trong XE.
+        Addon này sẽ tổng hợp tất cả những lượt truy cập vào Website qua Module Counter có sẵn bên trong Karybu.
         Thông tin truy nhập chỉ được tập hợp khi bạn bật Addon này..
     </description>
     <description xml:lang="ge">
-        Dieses Addon-Logs Zugriff auf Informationen basiert auf den grundlegenden Zähler-Modul innerhalb  XE.
+        Dieses Addon-Logs Zugriff auf Informationen basiert auf den grundlegenden Zähler-Modul innerhalb  Karybu.
         Der Zugang zu Informationen wird nur erhoben, wenn Sie über dieses Addon.
     </description>
     <description xml:lang="es">
-        Este addon contador básico de  XE permite llevar la información de acceso a la página web de los visitantes.
+        Este addon contador básico de  Karybu permite llevar la información de acceso a la página web de los visitantes.
         Es necesario activar este addon para agregar la información de acceso.
     </description>
     <description xml:lang="ru">
-        Этот аддон пишет в лог информацию о доступе к сайту, основанную на базовом модуле счетчика в  XE.
+        Этот аддон пишет в лог информацию о доступе к сайту, основанную на базовом модуле счетчика в  Karybu.
         Для сбора информации необходимо включить этот аддон.
     </description>
     <description xml:lang="zh-TW">

@@ -1,8 +1,8 @@
 <?php
 /**
- * Mobile XE Library Class ver 0.1
+ * Mobile Karybu Library Class ver 0.1
  * @author Arnia (dev@karybu.org) / lang_select : misol
- * @brief XE library for WAP tag output
+ * @brief Karybu library for WAP tag output
  **/
 
 class mobileXE
@@ -29,7 +29,7 @@ class mobileXE
     var $index_mid = null;
     // Navigation On/Off status value
     var $navigationMode = 0;
-    // XE module information currently requested
+    // Karybu module information currently requested
     var $module_info = null;
     // Currently running instance of the module
     var $oModule = null;
@@ -570,7 +570,7 @@ class mobileXE
     }
 
     /**
-     * @brief XE is easy to use Menu module is relieved during the function, value
+     * @brief Karybu is easy to use Menu module is relieved during the function, value
      **/
     function getListedItems($menu, &$listed_items, &$node_list)
     {
@@ -591,7 +591,7 @@ class mobileXE
     }
 
     /**
-     * @brief XE navigation output
+     * @brief Karybu navigation output
      **/
     function displayNavigationContent()
     {

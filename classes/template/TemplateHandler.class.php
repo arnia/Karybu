@@ -5,7 +5,7 @@
  * template compiler
  * @version 0.1
  * @remarks It compiles template file by using regular expression into php
- *          code, and XE caches compiled code for further uses
+ *          code, and Karybu caches compiled code for further uses
  **/
 
 class TemplateHandler

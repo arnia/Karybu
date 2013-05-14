@@ -1,5 +1,5 @@
 /**
- * @brief XE Colorpicker
+ * @brief Karybu Colorpicker
  * @author Arnia (dev@karybu.org)
  **/
 jQuery(function($){

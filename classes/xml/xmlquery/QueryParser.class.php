@@ -38,7 +38,7 @@ class QueryParser
      * Returns table information
      *
      * Used for finding column type info (string/numeric) <br />
-     * Obtains the table info from XE's XML schema files
+     * Obtains the table info from Karybu's XML schema files
      *
      * @param object $query_id
      * @param bool $table_name

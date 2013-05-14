@@ -87,7 +87,7 @@ class CMSListener implements EventSubscriberInterface
     public function setupLegacyDependencies(GetResponseEvent $event)
     {
         \DB::setDispatcher($event->getDispatcher());
-        // 1. Initialize Context instance , Mobile instance and File Handler Instance for legacy XE static calls
+        // 1. Initialize Context instance , Mobile instance and File Handler Instance for legacy Karybu static calls
         \Context::setRequestContext($this->cmsContext);
         \Mobile::setRequestMobileInfo($this->mobile);
         \FileHandler::setFileHandlerInstance($this->file_handler);

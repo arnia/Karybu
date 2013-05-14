@@ -4,7 +4,7 @@ if(!defined('__KARYBU__')) exit();
 /**
  * @file mobile.addon.php
  * @author Arnia (dev@karybu.org)
- * @brief Mobile XE add-on
+ * @brief Mobile Karybu add-on
  *
  * If a mobile connection is made (see the header information), display contents with WAP tags
  *

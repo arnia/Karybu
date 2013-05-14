@@ -1,7 +1,7 @@
 <?php
 /**
  * GeneralXmlParser class
- * Generic XML parser for XE
+ * Generic XML parser for Karybu
  * @author Arnia (dev@karybu.org)
  * @package /classes/xml
  * @version 0.1

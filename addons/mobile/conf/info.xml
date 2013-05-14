@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon version="0.2">
-    <title xml:lang="ko">모바일XE 애드온</title>
-    <title xml:lang="jp">モバイルXEアドオン</title>
-    <title xml:lang="zh-CN">手机XE插件</title>
-    <title xml:lang="en">Mobile XE</title>
-    <title xml:lang="vi">Mobile XE</title>
-    <title xml:lang="ru">Mobile XE</title>
-    <title xml:lang="zh-TW">XE行動上網</title>
+    <title xml:lang="ko">모바일Karybu 애드온</title>
+    <title xml:lang="jp">モバイルKarybuアドオン</title>
+    <title xml:lang="zh-CN">手机Karybu插件</title>
+    <title xml:lang="en">Mobile Karybu</title>
+    <title xml:lang="vi">Mobile Karybu</title>
+    <title xml:lang="ru">Mobile Karybu</title>
+    <title xml:lang="zh-TW">Karybu行動上網</title>
     <description xml:lang="ko">
         모바일에서 접속시 헤더 정보를 분석하여 메뉴 - 모듈의 관계를 이용하여 WAP 태그로 출력하는 애드온입니다.
         wml, hdml, mhtml를 지원하고 그 이외의 경우에는 동작하지 않습니다.

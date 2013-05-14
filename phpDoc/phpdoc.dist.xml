@@ -2,7 +2,7 @@
 <phpdoc>
 	<title><![CDATA[Karybu]]></title>
 	<parser>
-		<default-package-name>XE</default-package-name>
+		<default-package-name>Karybu</default-package-name>
 		<target>.</target>
 	</parser>
 	<transformer>

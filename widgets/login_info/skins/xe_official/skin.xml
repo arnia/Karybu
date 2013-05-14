@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skin version="0.2">
-    <title xml:lang="ko">XE 공식 로그인 정보 출력</title>
-    <title xml:lang="jp">XE公式 ログイン情報表示</title>
-    <title xml:lang="en">Display XE Official Login Info</title>
+    <title xml:lang="ko">Karybu 공식 로그인 정보 출력</title>
+    <title xml:lang="jp">Karybu公式 ログイン情報表示</title>
+    <title xml:lang="en">Display Karybu Official Login Info</title>
     <title xml:lang="vi">Skin hiển thị thông tin đăng nhập</title>
-    <title xml:lang="zh-CN">XE 官方网站登陆表单皮肤</title>
-    <title xml:lang="zh-TW">XE 官方網站登入面板</title>
-    <title xml:lang="tr">XE Resmi Giriş Bilgilerini Görüntüle.</title>
+    <title xml:lang="zh-CN">Karybu 官方网站登陆表单皮肤</title>
+    <title xml:lang="zh-TW">Karybu 官方網站登入面板</title>
+    <title xml:lang="tr">Karybu Resmi Giriş Bilgilerini Görüntüle.</title>
     <description xml:lang="ko">
-        XE 공식 레이아웃에 적합한 로그인 정보 출력 위젯입니다.
+        Karybu 공식 레이아웃에 적합한 로그인 정보 출력 위젯입니다.
 		제작 : Arnia
     </description>
     <description xml:lang="jp">
-        XE公式レイアウトに適したログイン情報表示用のウィジェットです。
+        Karybu公式レイアウトに適したログイン情報表示用のウィジェットです。
 		제작 : Arnia
     </description>
     <description xml:lang="en">
-        This widget displays the login information for the Official layout of XE.
+        This widget displays the login information for the Official layout of Karybu.
 		제작 : Arnia
     </description>
     <description xml:lang="vi">
-        Widget hiển thị thông tin đăng nhập với giao diện chính thức của XE.
+        Widget hiển thị thông tin đăng nhập với giao diện chính thức của Karybu.
 		제작 : Arnia
     </description>
     <description xml:lang="zh-CN">
-        适合XE 官房网站布局的登陆表单控件。
+        适合Karybu 官房网站布局的登陆表单控件。
 		제작 : Arnia
     </description>
     <description xml:lang="zh-TW">
-        適合XE 官方網站登入面板。
+        適合Karybu 官方網站登入面板。
 		제작 : Arnia
     </description>
     <description xml:lang="tr">
-        Bu görsel bileşen, XE Resmi yerleşim düzeni için uygun giriş bilgisidir.
+        Bu görsel bileşen, Karybu Resmi yerleşim düzeni için uygun giriş bilgisidir.
 		제작 : Arnia
     </description>
     <version>0.1</version>

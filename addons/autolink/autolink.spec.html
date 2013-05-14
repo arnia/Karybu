@@ -59,7 +59,7 @@ describe('AutoLink functionality', {
 	},
 	"#test9 - don't include parenthesis" : function() {
 		value_of( $('#test9 a').length ).should_be(1);
-		value_of( $('#test9 a').attr('href') ).should_be('http://www.naver.com');
+		value_of( $('#test9 a').attr('href') ).should_be('http://www.karybu.org');
 	},
 	"#test10 - include tild" : function() {
 		value_of( $('#test10 a').length ).should_be(1);
@@ -105,7 +105,7 @@ describe('Autolink trigger', {
 	</div>
 	<div id="test7">http://www.karybu.org</div>
 	<div id="test8">Go to http://www.karybu.org</div>
-	<div id="test9">Naver(http://www.naver.com)</div>
+	<div id="test9">Karybu(http://www.karybu.org)</div>
 	<div id="test10">User homepage : http://www.karybu.org/:8000/~user/?mid=def should be a link.</div>
 </div>
 </body>

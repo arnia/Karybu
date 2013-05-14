@@ -71,7 +71,7 @@
 			    <xsd:pattern value="([^sS].*)|([sS](([^eE].*)|([eE](([^qQ].*)|([qQ](([^uU].*)|([uU](([^eE].*)|([eE](([^nN].*)|([nN](([^cC].*)|([cC](([^eE].*)|([eE].+)?)?)?)?)?)?)?)?)?)?)?)?)?)?)?">
 				<xsd:annotation>
 				    <xsd:documentation>
-					The table name "sequence" is reserved by XE.
+					The table name "sequence" is reserved by Karybu.
 				    </xsd:documentation>
 				</xsd:annotation>
 			    </xsd:pattern>
