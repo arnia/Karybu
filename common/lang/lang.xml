@@ -3556,7 +3556,7 @@
 			<value xml:lang="de"><![CDATA[Das Format von% s ist ungültig. Z.B. http://www.karybu.org/]]></value>
 			<value xml:lang="es"><![CDATA[Formato url inválido en el %s(ej: http://www.karybu.org/)]]></value>
 			<value xml:lang="tr"><![CDATA[%s biçimi geçersiz. örn.) http://www.karybu.org/]]></value>
-			<value xml:lang="vi"><![CDATA[Định dạng của %s không hợp lệ. Đúng sẽ là: http://xpressengine.vn hoặc http://www.xpressengine.vn]]></value>
+			<value xml:lang="vi"><![CDATA[Định dạng của %s không hợp lệ. Đúng sẽ là: http://www.karybu.org hoặc http://www.karybu.org]]></value>
 			<value xml:lang="mn"><![CDATA[%s-ын хэлбэр буруу байна..(Жнь: http://www.karybu.org/)]]></value>
 		</item>
 		<item name="invalid_url">

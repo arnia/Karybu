@@ -5,17 +5,17 @@
 	@file
 
 	Script to validate a query or a SQL statement written in the 
-	XpressEngine XML Query Language or the XML Schema language.
+	Karybu XML Query Language or the XML Schema language.
 	
-	XpressEngine is an open source framework for creating your web sites.
-	http://xpressengine.org/
+	Karybu is an open source framework for creating your web sites.
+	http://www.karybu.org/
 
 	@Author: Arnia Software
 	@Date:   9 apr 2012
 
 	The validation is based on, and is meant to model, the behavior exposed
 	by the php classes in classes/xml/xmlquery/ and class/db/queryparts/
-	in the XE installation directory.
+	in the Karybu installation directory.
 
 	Usage:
 		validate.php query-file.xml query-file.xml ...

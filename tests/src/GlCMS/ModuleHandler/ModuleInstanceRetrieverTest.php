@@ -6,7 +6,7 @@ class ModuleInstanceRetrieverTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test accessing root url directly
-     * http://www.xpressengine.org
+     * http://www.karybu.org
      */
     public function testGetModuleInfo_DefaultModule()
     {
@@ -34,7 +34,7 @@ class ModuleInstanceRetrieverTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test accessing a module by mid
-     * http://www.xpressengine.org/welcome_page
+     * http://www.karybu.org/welcome_page
      */
     public function testGetModuleInfo_ModuleByMid()
     {
@@ -70,7 +70,7 @@ class ModuleInstanceRetrieverTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test default module form virtual site
-     * http://shop.xpressengine.org => http://shop.xpressengine.org/demo/shop
+     * http://shop.karybu.org => http://shop.karybu.org/demo/shop
      *
      * We expect to receive a DeafultModuleSiteSrlMismatchException
      * which will cause XE to redirect the user to the virtual site URL

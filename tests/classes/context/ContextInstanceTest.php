@@ -785,11 +785,11 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     {
         $db_info = new stdClass();
         $db_info->master_db = array('something');
-        $db_info->default_url = 'http://www.xpressengine.org';
+        $db_info->default_url = 'http://www.karybu.org';
 
         $site_module_info = new stdClass();
         $site_module_info->site_srl = 0;
-        $site_module_info->domain = 'http://www.xpressengine.org';
+        $site_module_info->domain = 'http://www.karybu.org';
         $site_module_info->default_language = null;
 
         $context = $this->getContextMockForDbInfoLoading($db_info, $site_module_info);
@@ -809,11 +809,11 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     {
         $db_info = new stdClass();
         $db_info->master_db = array('something');
-        $db_info->default_url = 'http://www.xpressengine.org';
+        $db_info->default_url = 'http://www.karybu.org';
 
         $site_module_info = new stdClass();
         $site_module_info->site_srl = 0;
-        $site_module_info->domain = 'http://www.xpressengine.org';
+        $site_module_info->domain = 'http://www.karybu.org';
         $site_module_info->default_language = null;
 
         // Test that default language is 'en', when nothing else is set
@@ -844,11 +844,11 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Arrange
         $db_info = new stdClass();
         $db_info->master_db = array('something');
-        $db_info->default_url = 'http://demo.xpressengine.org';
+        $db_info->default_url = 'http://demo.karybu.org';
 
         $site_module_info = new stdClass();
         $site_module_info->site_srl = 0;
-        $site_module_info->domain = 'http://www.xpressengine.org';
+        $site_module_info->domain = 'http://www.karybu.org';
         $site_module_info->default_language = null;
 
         $context = $this->getContextMockForDbInfoLoading($db_info, $site_module_info);
@@ -859,7 +859,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 3. Assert
         // Make sure the default_url defined in db.config.php has precedence
         $actual_site_module_info = $context->get('site_module_info');
-        $this->assertEquals('http://demo.xpressengine.org', $actual_site_module_info->domain);
+        $this->assertEquals('http://demo.karybu.org', $actual_site_module_info->domain);
     }
 
     /**
@@ -871,7 +871,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Arrange
         $db_info = new stdClass();
         $db_info->master_db = array('something');
-        $db_info->default_url = 'http://demo.xpressengine.org';
+        $db_info->default_url = 'http://demo.karybu.org';
         $db_info->default_url = null;
         $db_info->use_prepared_statements = null;
         $db_info->use_db_session = null;
@@ -1248,7 +1248,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Arrange
         $context = new ContextInstance();
 
-        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['HTTP_HOST'] = 'www.karybu.org';
         $_SERVER['REQUEST_URI'] = '/';
         $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
         $_SERVER['SCRIPT_NAME'] = '/index.php';
@@ -1257,7 +1257,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $url = $context->getRequestUri();
 
         // 3. Assert
-        $this->assertEquals('http://www.xpressengine.org/', $url);
+        $this->assertEquals('http://www.karybu.org/', $url);
     }
 
     public function testGetRequestURI_DefaultValues_SecondCallShouldNotRecalculateUrl()
@@ -1265,7 +1265,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Arrange
         $context = new ContextInstance();
 
-        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['HTTP_HOST'] = 'www.karybu.org';
         $_SERVER['REQUEST_URI'] = '/';
         $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
         $_SERVER['SCRIPT_NAME'] = '/index.php';
@@ -1277,7 +1277,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // After first requesting the Request URI, the url should be saved in the 'url' property
         $context->getRequestUri();
         $url_at_first_call = $context->url;
-        $this->assertEquals('http://www.xpressengine.org/', $context->url[0]['default']);
+        $this->assertEquals('http://www.karybu.org/', $context->url[0]['default']);
 
         // After second request, the 'url' property should be unchanged
         // This does not necessarily mean the url wasn't recalculated, but i have no idea how to test this otherwise
@@ -1290,7 +1290,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Arrange
         $context = new ContextInstance();
 
-        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['HTTP_HOST'] = 'www.karybu.org';
         $_SERVER['REQUEST_URI'] = '/';
         $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
         $_SERVER['SCRIPT_NAME'] = '/index.php';
@@ -1301,7 +1301,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $url = $context->getRequestUri();
 
         // 3. Assert
-        $this->assertEquals('https://www.xpressengine.org/', $url);
+        $this->assertEquals('https://www.karybu.org/', $url);
     }
 
     public function testGetRequestURI_SkipDefaultSSLPort()
@@ -1309,7 +1309,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Arrange
         $context = new ContextInstance();
 
-        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['HTTP_HOST'] = 'www.karybu.org';
         $_SERVER['REQUEST_URI'] = '/';
         $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
         $_SERVER['SCRIPT_NAME'] = '/index.php';
@@ -1321,7 +1321,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $url = $context->getRequestUri();
 
         // 3. Assert
-        $this->assertEquals('https://www.xpressengine.org/', $url);
+        $this->assertEquals('https://www.karybu.org/', $url);
     }
 
     public function testGetRequestURI_SkipDefaultSSLPort2()
@@ -1329,7 +1329,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Arrange
         $context = new ContextInstance();
 
-        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org:443';
+        $_SERVER['HTTP_HOST'] = 'www.karybu.org:443';
         $_SERVER['REQUEST_URI'] = '/';
         $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
         $_SERVER['SCRIPT_NAME'] = '/index.php';
@@ -1339,7 +1339,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $url = $context->getRequestUri();
 
         // 3. Assert
-        $this->assertEquals('https://www.xpressengine.org/', $url);
+        $this->assertEquals('https://www.karybu.org/', $url);
     }
 
     public function testGetRequestURI_SSLPort()
@@ -1347,7 +1347,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Arrange
         $context = new ContextInstance();
 
-        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['HTTP_HOST'] = 'www.karybu.org';
         $_SERVER['REQUEST_URI'] = '/';
         $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
         $_SERVER['SCRIPT_NAME'] = '/index.php';
@@ -1359,7 +1359,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $url = $context->getRequestUri();
 
         // 3. Assert
-        $this->assertEquals('https://www.xpressengine.org:1234/', $url);
+        $this->assertEquals('https://www.karybu.org:1234/', $url);
     }
 
     public function testGetRequestURI_SkipDefaultPort80()
@@ -1367,7 +1367,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Arrange
         $context = new ContextInstance();
 
-        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['HTTP_HOST'] = 'www.karybu.org';
         $_SERVER['REQUEST_URI'] = '/';
         $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
         $_SERVER['SCRIPT_NAME'] = '/index.php';
@@ -1378,7 +1378,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $url = $context->getRequestUri();
 
         // 3. Assert
-        $this->assertEquals('http://www.xpressengine.org/', $url);
+        $this->assertEquals('http://www.karybu.org/', $url);
     }
 
 
@@ -1387,7 +1387,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Arrange
         $context = new ContextInstance();
 
-        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org:80';
+        $_SERVER['HTTP_HOST'] = 'www.karybu.org:80';
         $_SERVER['REQUEST_URI'] = '/';
         $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
         $_SERVER['SCRIPT_NAME'] = '/index.php';
@@ -1396,7 +1396,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $url = $context->getRequestUri();
 
         // 3. Assert
-        $this->assertEquals('http://www.xpressengine.org/', $url);
+        $this->assertEquals('http://www.karybu.org/', $url);
     }
 
     public function testGetRequestURI_HTTP_Port()
@@ -1404,7 +1404,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Arrange
         $context = new ContextInstance();
 
-        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['HTTP_HOST'] = 'www.karybu.org';
         $_SERVER['REQUEST_URI'] = '/';
         $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
         $_SERVER['SCRIPT_NAME'] = '/index.php';
@@ -1415,7 +1415,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $url = $context->getRequestUri();
 
         // 3. Assert
-        $this->assertEquals('http://www.xpressengine.org:1234/', $url);
+        $this->assertEquals('http://www.karybu.org:1234/', $url);
     }
 
     public function testGetRequestURI_WithDomain()
@@ -1423,17 +1423,17 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Arrange
         $context = new ContextInstance();
 
-        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['HTTP_HOST'] = 'www.karybu.org';
         $_SERVER['REQUEST_URI'] = '/';
         $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
         $_SERVER['SCRIPT_NAME'] = '/index.php';
 
         // 2. Act
-        $domain = 'demo.xpressengine.org';
+        $domain = 'demo.karybu.org';
         $url = $context->getRequestUri(FOLLOW_REQUEST_SSL, $domain);
 
         // 3. Assert
-        $this->assertEquals('http://demo.xpressengine.org/', $url);
+        $this->assertEquals('http://demo.karybu.org/', $url);
     }
 
     public function testGetRequestURI_ReleaseSSL()
@@ -1441,7 +1441,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         // 1. Arrange
         $context = new ContextInstance();
 
-        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['HTTP_HOST'] = 'www.karybu.org';
         $_SERVER['REQUEST_URI'] = '/';
         $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
         $_SERVER['SCRIPT_NAME'] = '/index.php';
@@ -1451,7 +1451,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $url = $context->getRequestUri(RELEASE_SSL);
 
         // 3. Assert
-        $this->assertEquals('http://www.xpressengine.org/', $url);
+        $this->assertEquals('http://www.karybu.org/', $url);
     }
 
     public function testGetUrl_Default()
@@ -1838,21 +1838,21 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'));
         $context->expects($this->once())
             ->method('getRequestURI')
-            ->with($this->equalTo(FOLLOW_REQUEST_SSL), $this->equalTo('shop.xpressengine.org/'))
-            ->will($this->returnValue('http://shop.xpressengine.org/'));
+            ->with($this->equalTo(FOLLOW_REQUEST_SSL), $this->equalTo('shop.karybu.org/'))
+            ->will($this->returnValue('http://shop.karybu.org/'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(false));
         $site_module_info = new stdClass();
-        $site_module_info->domain = 'http://shop.xpressengine.org';
+        $site_module_info->domain = 'http://shop.karybu.org';
         $context->set('site_module_info', $site_module_info);
 
-        $_SERVER['HTTP_HOST'] = 'www.xpressengine.org';
+        $_SERVER['HTTP_HOST'] = 'www.karybu.org';
         $_SERVER['SCRIPT_NAME'] = '/index.php';
 
-        $url = $context->getUrl(2, array('module', 'admin'), 'http://shop.xpressengine.org');
+        $url = $context->getUrl(2, array('module', 'admin'), 'http://shop.karybu.org');
 
-        $this->assertEquals('http://shop.xpressengine.org/index.php?module=admin', $url);
+        $this->assertEquals('http://shop.karybu.org/index.php?module=admin', $url);
     }
 
     public function testGetUrl_WithDomain_Subdomain_SameAsHost()
@@ -1866,10 +1866,10 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $site_module_info->domain = null;
         $context->set('site_module_info', $site_module_info);
 
-        $_SERVER['HTTP_HOST'] = 'shop.xpressengine.org';
+        $_SERVER['HTTP_HOST'] = 'shop.karybu.org';
         $_SERVER['SCRIPT_NAME'] = '/index.php';
 
-        $url = $context->getUrl(2, array('module', 'admin'), 'http://shop.xpressengine.org/');
+        $url = $context->getUrl(2, array('module', 'admin'), 'http://shop.karybu.org/');
 
         $this->assertEquals('/index.php?module=admin', $url);
     }
@@ -1883,7 +1883,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->once())
             ->method('getRequestURI')
             ->with($this->equalTo(ENFORCE_SSL), $this->equalTo(null))
-            ->will($this->returnValue('https://www.xpressengine.org/'));
+            ->will($this->returnValue('https://www.karybu.org/'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1899,7 +1899,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $url = $context->getUrl(4, array('module', 'admin', 'act', 'dispDashboard'));
 
         // 3. Assert
-        $this->assertEquals('https://www.xpressengine.org/index.php?module=admin&amp;act=dispDashboard', $url);
+        $this->assertEquals('https://www.karybu.org/index.php?module=admin&amp;act=dispDashboard', $url);
     }
 
     public function testGetUrl_MainWebsite_UseSSLFalse_HttpsOn()
@@ -1910,7 +1910,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->once())
             ->method('getRequestURI')
             ->with($this->equalTo(ENFORCE_SSL), $this->equalTo(null))
-            ->will($this->returnValue('https://www.xpressengine.org/'));
+            ->will($this->returnValue('https://www.karybu.org/'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
@@ -1926,7 +1926,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $url = $context->getUrl(4, array('module', 'admin', 'act', 'dispDashboard'));
 
         // 3. Assert
-        $this->assertEquals('https://www.xpressengine.org/index.php?module=admin&amp;act=dispDashboard', $url);
+        $this->assertEquals('https://www.karybu.org/index.php?module=admin&amp;act=dispDashboard', $url);
     }
 
     public function testGetUrl_MainWebsite_UseSSL_Optional_SSLActionDoesNotExist()
@@ -1942,7 +1942,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->once())
             ->method('getRequestURI')
             ->with($this->equalTo(RELEASE_SSL), $this->equalTo(null))
-            ->will($this->returnValue('http://www.xpressengine.org/'));
+            ->will($this->returnValue('http://www.karybu.org/'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(false));
@@ -1958,7 +1958,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $url = $context->getUrl(4, array('module', 'admin', 'act', 'dispDashboard'));
 
         // 3. Assert
-        $this->assertEquals('http://www.xpressengine.org/index.php?module=admin&amp;act=dispDashboard', $url);
+        $this->assertEquals('http://www.karybu.org/index.php?module=admin&amp;act=dispDashboard', $url);
     }
 
     public function testGetUrl_MainWebsite_UseSSL_Optional_SSLActionExists()
@@ -1974,7 +1974,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->once())
             ->method('getRequestURI')
             ->with($this->equalTo(ENFORCE_SSL), $this->equalTo(null))
-            ->will($this->returnValue('https://www.xpressengine.org/'));
+            ->will($this->returnValue('https://www.karybu.org/'));
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(false));
@@ -1990,7 +1990,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $url = $context->getUrl(4, array('module', 'admin', 'act', 'dispDashboard'));
 
         // 3. Assert
-        $this->assertEquals('https://www.xpressengine.org/index.php?module=admin&amp;act=dispDashboard', $url);
+        $this->assertEquals('https://www.karybu.org/index.php?module=admin&amp;act=dispDashboard', $url);
     }
 
     public function testGetUrl_RouteBased_WithGetParams(){
@@ -2364,19 +2364,19 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
         $context->expects($this->any())
             ->method('getRequestUri')
-            ->will($this->returnValue('http://shop.xpressengine.org'));
+            ->will($this->returnValue('http://shop.karybu.org'));
         $context->expects($this->once())
             ->method('setCookie')
             ->with(
             $this->equalTo('sso'),
-            $this->equalTo(md5('http://shop.xpressengine.org')) ,
+            $this->equalTo(md5('http://shop.karybu.org')) ,
             $this->equalTo(0),
             $this->equalTo('/')
         );
 
         $context->db_info = new stdClass();
         $context->db_info->use_sso = 'Y';
-        $context->db_info->default_url = 'http://www.xpressengine.org';
+        $context->db_info->default_url = 'http://www.karybu.org';
 
         // 2. Act
         /** @var $result \Symfony\Component\HttpFoundation\RedirectResponse */
@@ -2384,7 +2384,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
 
         // 3. Assert
         $this->assertTrue($result instanceof \Symfony\Component\HttpFoundation\RedirectResponse);
-        $expected_url = 'http://www.xpressengine.org/?default_url=' . base64_encode($context->getRequestUrl());
+        $expected_url = 'http://www.karybu.org/?default_url=' . base64_encode($context->getRequestUrl());
         $this->assertEquals($expected_url, $result->getTargetUrl());
     }
 
@@ -2406,22 +2406,22 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
         $context->expects($this->any())
             ->method('getRequestUri')
-            ->will($this->returnValue('http://www.xpressengine.org/'));
+            ->will($this->returnValue('http://www.karybu.org/'));
         $context->expects($this->once())
             ->method('getSessionId')
             ->will($this->returnValue('here-is-my-session-id'));
 
         $context->db_info = new stdClass();
         $context->db_info->use_sso = 'Y';
-        $context->db_info->default_url = 'http://www.xpressengine.org';
-        $context->set('default_url', base64_encode('http://shop.xpressengine.org/'));
+        $context->db_info->default_url = 'http://www.karybu.org';
+        $context->set('default_url', base64_encode('http://shop.karybu.org/'));
 
         // 2. Act
         $result = $context->checkSSO();
 
         // 3. Assert
         $this->assertTrue($result instanceof \Symfony\Component\HttpFoundation\RedirectResponse);
-        $expected_url = 'http://shop.xpressengine.org/?SSOID=here-is-my-session-id';
+        $expected_url = 'http://shop.karybu.org/?SSOID=here-is-my-session-id';
         $this->assertEquals($expected_url, $result->getTargetUrl());
     }
 
@@ -2441,15 +2441,15 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
         $context->expects($this->any())
             ->method('getRequestUri')
-            ->will($this->returnValue('http://shop.xpressengine.org/'));
+            ->will($this->returnValue('http://shop.karybu.org/'));
         $context->expects($this->once())
             ->method('getGlobalCookie')
-            ->will($this->returnValue(md5('http://shop.xpressengine.org/')));
+            ->will($this->returnValue(md5('http://shop.karybu.org/')));
 
         $context->db_info = new stdClass();
         $context->db_info = new stdClass();
         $context->db_info->use_sso = 'Y';
-        $context->db_info->default_url = 'http://www.xpressengine.org';
+        $context->db_info->default_url = 'http://www.karybu.org';
 
         // 2. Act
         $result = $context->checkSSO();
@@ -2477,7 +2477,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
         $context->expects($this->any())
             ->method('getRequestUri')
-            ->will($this->returnValue('http://shop.xpressengine.org/'));
+            ->will($this->returnValue('http://shop.karybu.org/'));
         $context->expects($this->any())
             ->method('getSessionName')
             ->will($this->returnValue('PHPSESSID'));
@@ -2490,7 +2490,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
 
         $context->db_info = new stdClass();
         $context->db_info->use_sso = 'Y';
-        $context->db_info->default_url = 'http://www.xpressengine.org';
+        $context->db_info->default_url = 'http://www.karybu.org';
         $context->set('SSOID', 'here-is-my-session-id', true);
 
         // 2. Act
@@ -2499,7 +2499,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
 
         // 3. Assert
         $this->assertTrue($result instanceof \Symfony\Component\HttpFoundation\RedirectResponse);
-        $url = 'http://shop.xpressengine.org/';
+        $url = 'http://shop.karybu.org/';
         $this->assertEquals($url, $result->getTargetUrl());
     }
 
@@ -2714,7 +2714,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
      */
     public function testLoadFile_WithCDN_DefaultValues()
     {
-        define('__KARYBU_CDN_PREFIX__', 'http://static.xpressengine.com/core/');
+        define('__KARYBU_CDN_PREFIX__', 'http://static.karybu.org/core/');
         define('__KARYBU_CDN_VERSION__', '%__KARYBU_CDN_VERSION__%');
 
         $args = array('filename');
@@ -2737,7 +2737,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
     public function testLoadFile_WithCDN_CustomValues()
     {
         if(!defined('__KARYBU_CDN_PREFIX__'))
-            define('__KARYBU_CDN_PREFIX__', 'http://static.xpressengine.com/core/');
+            define('__KARYBU_CDN_PREFIX__', 'http://static.karybu.org/core/');
         if(!defined('__KARYBU_CDN_VERSION__'))
             define('__KARYBU_CDN_VERSION__', '%__KARYBU_CDN_VERSION__%');
 
@@ -3156,7 +3156,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
 
     public function testGetRequestUrl_NoParams()
     {
-        $url = 'http://www.xpressengine.org/';
+        $url = 'http://www.karybu.org/';
 
         $context = $this->getMock('ContextInstance', array('getRequestUri'));
         $context->expects($this->any())->method('getRequestUri')->will($this->returnValue($url));
@@ -3166,7 +3166,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
 
     public function testGetRequestUrl_WithParams()
     {
-        $url = 'http://www.xpressengine.org/';
+        $url = 'http://www.karybu.org/';
 
         $context = $this->getMock('ContextInstance', array('getRequestUri', 'getArgumentsForGETRequest', 'convertEncodingStr'));
         $context->expects($this->any())->method('getRequestUri')->will($this->returnValue($url));
@@ -3381,7 +3381,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/xe/', $web_path);
 
         $context = $this->getMock('ContextInstance', array('getRequestUri'));
-        $context->expects($this->any())->method('getRequestUri')->will($this->returnValue('http://www.xpressengine.org'));
+        $context->expects($this->any())->method('getRequestUri')->will($this->returnValue('http://www.karybu.org'));
 
         $web_path = $context->pathToUrl('images');
 

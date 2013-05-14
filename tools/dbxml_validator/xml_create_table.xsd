@@ -1,10 +1,10 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xml:lang="en">
     <xsd:annotation>
 	<xsd:documentation>
-	    XML Schema Definition (.xsd) for the XML Schema Language for XpressEngine.
+	    XML Schema Definition (.xsd) for the XML Schema Language for Karybu.
 
-	    XpressEngine is an open source framework for creating your web sites.
-	    http://xpressengine.org/
+        Karybu is an open source framework for creating your web sites.
+	    http://www.karybu.org/
 
 	    XML Schema Language currently supports SQL CREATE TABLE statements only.
 

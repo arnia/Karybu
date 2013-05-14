@@ -2,10 +2,10 @@
 
     <xsd:annotation>
 	<xsd:documentation xml:lang="en">
-	    XML Schema Definition (.xsd) for the XML Query Language for XpressEngine.
+	    XML Schema Definition (.xsd) for the XML Query Language for Karybu.
 
-	    XpressEngine is an open source framework for creating your web sites.
-	    http://xpressengine.org/
+        Karybu is an open source framework for creating your web sites.
+	    http://www.karybu.org/
 
 	    Author: Adrian Constantin, Arnia Software (adrian.constantin@arnia.ro)
 	    Date:   08 mar 2012

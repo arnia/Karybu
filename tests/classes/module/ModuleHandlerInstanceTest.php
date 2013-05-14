@@ -160,7 +160,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $context->set('_use_ssl', 'optional');
         $context->expects($this->once())->method('isExistsSSLAction')->with('dispSomeAction')->will($this->returnValue(true));
         $context->expects($this->once())->method('getServerRequestHttps')->will($this->returnValue('off'));
-        $context->expects($this->once())->method('getServerHost')->will($this->returnValue('www.xpressengine.org'));
+        $context->expects($this->once())->method('getServerHost')->will($this->returnValue('www.karybu.org'));
         $context->expects($this->once())->method('getServerRequestUri')->will($this->returnValue('/?act=dispSomeAction'));
 
         // Act - call init
@@ -169,7 +169,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $result = $module_handler->init();
 
         $this->assertTrue(is_a($result, '\Symfony\Component\HttpFoundation\RedirectResponse'));
-        $this->assertEquals('https://www.xpressengine.org/?act=dispSomeAction', $result->getTargetUrl());
+        $this->assertEquals('https://www.karybu.org/?act=dispSomeAction', $result->getTargetUrl());
     }
 
     /**
@@ -278,7 +278,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         // 5. Virtual site info
         $virtual_site_info = new stdClass();
         $virtual_site_info->site_srl = 12;
-        $virtual_site_info->domain = 'http://shop.xpressengine.org';
+        $virtual_site_info->domain = 'http://shop.karybu.org';
         $mock_helper->method('moduleModel', 'getSiteInfo')->shouldReturn($virtual_site_info);
 
         // Put mocks together
@@ -294,7 +294,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $mock_helper->method('ModuleHandlerInstance', 'executeAddon_before_module_init')->shouldBeCalled('once');
         // 3. Make sure a redirect is done
         $mock_helper->method('ContextInstance', 'getNotEncodedSiteUrl')
-            ->shouldBeCalledWith('http://shop.xpressengine.org', 'mid', 'wiki_mid', 'document_srl', '1234', 'module_srl', null, 'entry', 'Tutorials')
+            ->shouldBeCalledWith('http://shop.karybu.org', 'mid', 'wiki_mid', 'document_srl', '1234', 'module_srl', null, 'entry', 'Tutorials')
             ->shouldReturn('redirect_url');
 
         // Act - load context, mobile and construct ModuleHandlerInstance
@@ -341,7 +341,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $mock_helper->method('moduleModel', 'getModulePartConfig')->shouldBeCalledWith('layout', 456)->shouldReturn($part_config);
         // 5. Set up default_url
         $db_info = new stdClass();
-        $db_info->default_url = 'http://www.xpressengine.org';
+        $db_info->default_url = 'http://www.karybu.org';
         $mock_helper->method('ContextInstance', 'getDbInfo')->shouldReturn($db_info);
 
         // Put mocks together
@@ -357,7 +357,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $mock_helper->method('ModuleHandlerInstance', 'executeAddon_before_module_init')->shouldBeCalled('once');
         // 3. Make sure a redirect is done
         $mock_helper->method('ContextInstance', 'getNotEncodedSiteUrl')
-            ->shouldBeCalledWith('http://www.xpressengine.org', 'mid', 'wiki_mid', 'document_srl', '1234', 'module_srl', null, 'entry', 'Tutorials')
+            ->shouldBeCalledWith('http://www.karybu.org', 'mid', 'wiki_mid', 'document_srl', '1234', 'module_srl', null, 'entry', 'Tutorials')
             ->shouldReturn('redirect_url');
 
         // Act - load context, mobile and construct ModuleHandlerInstance
@@ -531,7 +531,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $mock_helper->method('moduleModel', 'getModuleInfoByDocumentSrl')->shouldBeCalledWith(1234)->shouldReturn($module_info);
         // 2. Site module info - we are on the main site
         $site_module_info = new stdClass();
-        $site_module_info->domain = 'http://www.xpressengine.org';
+        $site_module_info->domain = 'http://www.karybu.org';
         $site_module_info->site_srl = 0;
         // 3. Current document info (from the database)
         $mock_helper->method('documentModel', 'getDocumentSrlByAlias')->shouldReturn(1234);
@@ -893,7 +893,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $mock_helper->method('ModuleHandlerInstance', 'executeAddon_before_module_init')->shouldBeCalled('once');
         // 3. Make sure we are redirecting to the right thing
         $mock_helper->method('ContextInstance', 'getNotEncodedSiteUrl')
-            ->shouldBeCalledWith('http://shop.xpressengine.org', 'mid', 'default_module_mid')
+            ->shouldBeCalledWith('http://shop.karybu.org', 'mid', 'default_module_mid')
             ->shouldReturn('redirect_url');
 
         // Prepare mocks
@@ -909,7 +909,7 @@ class ModuleHandlerInstanceTest extends PHPUnit_Framework_TestCase
         $context->set('site_module_info', $site_module_info);
         // 2. Module site info - default module belongs to different site
         $module_site_info = new stdClass();
-        $module_site_info->domain = 'http://shop.xpressengine.org';
+        $module_site_info->domain = 'http://shop.karybu.org';
         $mock_helper->method('moduleModel', 'getModulePartConfig')->shouldReturn(null);
         $mock_helper->method('moduleModel', 'getSiteInfo')->shouldBeCalledWith(123)->shouldReturn($module_site_info);
         $mock_helper->method('ModuleHandlerInstance', 'getModuleModel')->shouldReturn($mock_helper->getMock('moduleModel'));
