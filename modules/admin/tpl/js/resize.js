@@ -163,11 +163,7 @@
 
         kDashboardGraph.initialize();
 
-        if($(".main-nav ul.nav").height() > 50) {
-            $(".main-nav-holder").addClass("main-nav-stacked");
-        } else {
-            $(".main-nav-holder").removeClass("main-nav-stacked");
-        }
+        $(".main-nav-holder").stackable();
 
         if (hasNav()){
             $('body').addClass('kBigHeader')
@@ -186,11 +182,6 @@
                 kActionsNav.makeVertical();
             }
 
-            if($(".main-nav ul.nav").height() > 50) {
-                $(".main-nav").addClass("main-nav-stacked");
-            } else {
-                $(".main-nav").removeClass("main-nav-stacked");
-            }
         });
     });
 
