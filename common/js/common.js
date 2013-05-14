@@ -1,10 +1,10 @@
 /**
  * @file common.js
  * @author Arnia (dev@karybu.org)
- * @brief 몇가지 유용한 & 기본적으로 자주 사용되는 자바스크립트 함수들 모음
+ * @brief some useful and frequently used JavaScript functions collection
  **/
 
-/* jQuery 참조변수($) 제거 */
+/* jQuery Remove the reference variable ($) */
 if(jQuery) jQuery.noConflict();
 
 (function($) {
@@ -22,14 +22,14 @@ if(jQuery) jQuery.noConflict();
         ($.os.Mac) ? 'Mac' : '';
 
     /**
-     * @brief XE 공용 유틸리티 함수
+     * @brief XE Public utility function
      * @namespace XE
      */
     window.XE = {
         loaded_popup_menus : new Array(),
         addedDocument : new Array(),
         /**
-         * @brief 특정 name을 가진 체크박스들의 checked 속성 변경
+         * @brief Change of the check box is checked attribute with a specific name
          * @param [itemName='cart',][options={}]
          */
         checkboxToggleAll : function(itemName) {
@@ -73,7 +73,7 @@ if(jQuery) jQuery.noConflict();
         },
 
         /**
-         * @brief 문서/회원 등 팝업 메뉴 출력
+         * @brief Output documents / members, including the pop-up menu
          */
         displayPopupMenu : function(ret_obj, response_tags, params) {
             var target_srl = params["target_srl"];
@@ -118,7 +118,7 @@ if(jQuery) jQuery.noConflict();
                 this.loaded_popup_menus[menu_id] =  html;
             }
 
-            /* 레이어 출력 */
+            /* The output layer */
             if(html) {
                 var area = $('#popup_menu_area').html('<ul>'+html+'</ul>');
                 var areaOffset = {top:params['page_y'], left:params['page_x']};
@@ -140,7 +140,7 @@ if(jQuery) jQuery.noConflict();
 /* jQuery(document).ready() */
 jQuery(function($) {
 
-    /* select - option의 disabled=disabled 속성을 IE에서도 체크하기 위한 함수 */
+    /* select - option disabled=disabled Check in the IE properties for the function */
     if($.browser.msie) {
         $('select').each(function(i, sels) {
             var disabled_exists = false;
@@ -178,7 +178,7 @@ jQuery(function($) {
         });
     }
 
-    /* 단락에디터 fold 컴포넌트 펼치기/접기 */
+    /* Expand / Collapse paragraph Editor fold components */
     var drEditorFold = $('.xe_content .fold_button');
     if(drEditorFold.size()) {
         var fold_container = $('div.fold_container', drEditorFold);
@@ -216,7 +216,7 @@ function isSameUrl(a,b) {
 var isArray = Array.isArray || function(obj){ return Object.prototype.toString.call(obj)=='[object Array]' };
 
 /**
- * @brief location.href에서 특정 key의 값을 return
+ * @brief location.href return the value of a specific key
  **/
 String.prototype.getQuery = function(key) {
 	var loc = isSameUrl(this, window.location.href) ? current_url : this;
@@ -232,7 +232,7 @@ String.prototype.getQuery = function(key) {
 }
 
 /**
- * @brief location.href에서 특정 key의 값을 return
+ * @brief location.href The value of a specific key
  **/
 String.prototype.setQuery = function(key, val) {
 	var loc = isSameUrl(this, window.location.href) ? current_url : this;
@@ -292,7 +292,7 @@ String.prototype.setQuery = function(key, val) {
 }
 
 /**
- * @brief string prototype으로 trim 함수 추가
+ * @brief string prototype Add trim function
  **/
 String.prototype.trim = function() {
     return this.replace(/(^\s*)|(\s*$)/g, "");
@@ -313,7 +313,7 @@ function xSleep(sec) {
 }
 
 /**
- * @brief 주어진 인자가 하나라도 defined되어 있지 않으면 false return
+ * @brief Any of the given argument If it is not defined return false
  **/
 function isDef() {
     for(var i=0; i < arguments.length; ++i) {
@@ -323,8 +323,8 @@ function isDef() {
 }
 
 /**
- * @brief 윈도우 오픈
- * 열려진 윈도우의 관리를 통해 window.focus()등을 FF에서도 비슷하게 구현함
+ * @brief Open Windows
+ * Implementation similar on FF window.focus (), through the management of the open window
  **/
 var winopen_list = new Array();
 function winopen(url, target, attribute) {
@@ -345,8 +345,8 @@ function winopen(url, target, attribute) {
 }
 
 /**
- * @brief 팝업으로만 띄우기
- * common/tpl/popup_layout.html이 요청되는 XE내의 팝업일 경우에 사용
+ * @brief Offset pop-up only
+ * common/tpl/popup_layout.html The XE in the pop-up is requested.
  **/
 function popopen(url, target) {
     if(typeof(target) == "undefined") target = "_blank";
@@ -355,14 +355,14 @@ function popopen(url, target) {
 }
 
 /**
- * @brief 메일 보내기용
+ * @brief Send mail to
  **/
 function sendMailTo(to) {
     location.href="mailto:"+to;
 }
 
 /**
- * @brief url이동 (open_window 값이 N 가 아니면 새창으로 띄움)
+ * @brief url Movement (open_window If the value of N Float in a new window.)
  **/
 function move_url(url, open_window) {
     if(!url) return false;
@@ -385,7 +385,7 @@ function move_url(url, open_window) {
 }
 
 /**
- * @brief 멀티미디어 출력용 (IE에서 플래쉬/동영상 주변에 점선 생김 방지용)
+ * @brief Multimedia output (IEFlash / Video bands dotted around)
  **/
 function displayMultimedia(src, width, height, options) {
     var html = _displayMultimedia(src, width, height, options);
@@ -445,7 +445,7 @@ function _displayMultimedia(src, width, height, options) {
 }
 
 /**
- * @brief 에디터에서 사용되는 내용 여닫는 코드 (고정, zbxe용)
+ * @brief The content in the editor code and close (fixed for zbxe)
  **/
 function zbxe_folder_open(id) {
     jQuery("#folder_open_"+id).hide();
@@ -459,9 +459,9 @@ function zbxe_folder_close(id) {
 }
 
 /**
- * @brief 팝업의 경우 내용에 맞춰 현 윈도우의 크기를 조절해줌
- * 팝업의 내용에 맞게 크기를 늘리는 것은... 쉽게 되지는 않음.. ㅡ.ㅜ
- * popup_layout 에서 window.onload 시 자동 요청됨.
+ * @brief Adjust the size of the current window to fit the contents of the pop-up ongoing
+ * Increasing the size to fit the contents of the pop-up ... Not easily
+ * popup_layout nn the window.onload automatically when requested
  **/
 function setFixedPopupSize() {
 	var $ = jQuery, $win = $(window), $pc = $('body>.popup'), w, h, dw, dh, offset;
@@ -483,7 +483,7 @@ function setFixedPopupSize() {
 }
 
 /**
- * @brief 추천/비추천,스크랩,신고기능등 특정 srl에 대한 특정 module/action을 호출하는 함수
+ * @brief Srl specific recommendations / negative, scrap, and reporting functions for a particular module / action to call the function
  **/
 function doCallModuleAction(module, action, target_srl) {
     var params = {
@@ -506,7 +506,7 @@ function completeMessage(ret_obj) {
 
 
 
-/* 언어코드 (lang_type) 쿠키값 변경 */
+/* change the cookie value language code (lang_type)*/
 function doChangeLangType(obj) {
     if(typeof(obj) == "string") {
         setLangType(obj);
@@ -522,7 +522,7 @@ function setLangType(lang_type) {
     setCookie('lang_type', lang_type, expire, '/');
 }
 
-/* 미리보기 */
+/* Preview */
 function doDocumentPreview(obj) {
     var fo_obj = obj;
     while(fo_obj.nodeName != "FORM") {
@@ -557,7 +557,7 @@ function doDocumentPreview(obj) {
     }
 }
 
-/* 게시글 저장 */
+/* Save posts */
 function doDocumentSave(obj) {
     var editor_sequence = obj.form.getAttribute('editor_sequence');
     var prev_content = editorRelKeys[editor_sequence]['content'].value;
@@ -586,34 +586,34 @@ function completeDocumentSave(ret_obj) {
     alert(ret_obj['message']);
 }
 
-/* 저장된 게시글 불러오기 */
+/* Recalling Stored posts. */
 var objForSavedDoc = null;
 function doDocumentLoad(obj) {
-    // 저장된 게시글 목록 불러오기
+    // Import a list of saved posts
     objForSavedDoc = obj.form;
     popopen(request_uri.setQuery('module','document').setQuery('act','dispTempSavedList'));
 }
 
-/* 저장된 게시글의 선택 */
+/* Select the saved posts */
 function doDocumentSelect(document_srl) {
     if(!opener || !opener.objForSavedDoc) {
         window.close();
         return;
     }
 
-    // 게시글을 가져와서 등록하기
+    // Posts importing register.
     opener.location.href = opener.current_url.setQuery('document_srl', document_srl);
     window.close();
 }
 
 
-/* 스킨 정보 */
+/* Skin */
 function viewSkinInfo(module, skin) {
     popopen("./?module=module&act=dispModuleSkinInfo&selected_module="+module+"&skin="+skin, 'SkinInfo');
 }
 
 
-/* 관리자가 문서를 관리하기 위해서 선택시 세션에 넣음 */
+/* Into the session when selecting an administrator to manage documents */
 var addedDocument = new Array();
 function doAddDocumentCart(obj) {
     var srl = obj.value;
@@ -629,7 +629,7 @@ function callAddDocumentCart(document_length) {
     addedDocument = new Array();
 }
 
-/* ff의 rgb(a,b,c)를 #... 로 변경 */
+/* Change to # ff rgb (a, b, c) ...  */
 function transRGB2Hex(value) {
     if(!value) return value;
     if(value.indexOf('#') > -1) return value.replace(/^#/, '');
@@ -647,7 +647,7 @@ function transRGB2Hex(value) {
     return hex;
 }
 
-/* 보안 로그인 모드로 전환 */
+/* Login security mode */
 function toggleSecuritySignIn() {
     var href = location.href;
     if(/https:\/\//i.test(href)) location.href = href.replace(/^https/i,'http');
@@ -809,7 +809,7 @@ var Base64 = {
 
 /* ----------------------------------------------
  * DEPRECATED
- * 하위호환용으로 남겨 놓음
+ * Reserved for backward compatibility and dropping
  * ------------------------------------------- */
 
 if(typeof(resizeImageContents) == 'undefined') {
@@ -823,13 +823,13 @@ if(typeof(activateOptionDisabled) == 'undefined') {
 objectExtend = jQuery.extend;
 
 /**
- * @brief 특정 Element의 display 옵션 토글
+ * @brief Options toggle the display of a particular Element
  **/
 function toggleDisplay(objId) {
     jQuery('#'+objId).toggle();
 }
 
-/* 체크박스 선택 */
+/* Select the check box */
 function checkboxSelectAll(formObj, name, checked) {
     var itemName = name;
     var option = {};
@@ -839,7 +839,7 @@ function checkboxSelectAll(formObj, name, checked) {
     XE.checkboxToggleAll(itemName, option);
 }
 
-/* 체크박스를 실행 */
+/* If the check box is checked */
 function clickCheckBoxAll(formObj, name) {
     var itemName = name;
     var option = { doClick:true };
@@ -849,7 +849,7 @@ function clickCheckBoxAll(formObj, name) {
 }
 
 /**
- * @brief 에디터에서 사용하되 내용 여닫는 코드 (zb5beta beta 호환용으로 남겨 놓음)
+ * @brief The contents and close the code editor, but leave it as for the beta zb5beta compatible (release)
  **/
 function svc_folder_open(id) {
     jQuery("#_folder_open_"+id).hide();
@@ -863,7 +863,7 @@ function svc_folder_close(id) {
 }
 
 /**
- * @brief 날짜 선택 (달력 열기)
+ * @brief Date picker (calendar Open)
  **/
 function open_calendar(fo_id, day_str, callback_func) {
     if(typeof(day_str)=="undefined") day_str = "";
