@@ -94,7 +94,7 @@ class DebugToolbarListener implements EventSubscriberInterface
         //TODO deal with redirects here
 
         if (self::DISABLED === $this->mode
-            || !$response->headers->has('X-Debug-Token')
+            //|| !$response->headers->has('X-Debug-Token')
             || $response->isRedirection()
             || ($response->headers->has('Content-Type') && false === strpos($response->headers->get('Content-Type'), 'html'))
             || 'html' !== $request->getRequestFormat()
@@ -156,7 +156,9 @@ class DebugToolbarListener implements EventSubscriberInterface
             $toolbar = $this->renderView('toolbar');
             $content = $substrFunction($content, 0, $pos).$toolbar.$substrFunction($content, $pos);
             $response->setContent($content);
-            $this->logger->info('Showing debug toolbar');
+            if ($this->logger) {
+                $this->logger->info('Showing debug toolbar');
+            }
         }
     }
 
