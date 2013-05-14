@@ -6,7 +6,7 @@
 	 * importerAdminController class
 	 * admin controller class of importer module
 	 *
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 * @package /modules/importer
 	 * @version 0.1
 	 */
@@ -435,7 +435,7 @@
                     // Signiture
                     if($obj->signature) {
                         $signature = removeHackTag($obj->signature);
-                        $signature_buff = sprintf('<?php if(!defined("__ZBXE__")) exit();?>%s', $signature);
+                        $signature_buff = sprintf('<?php if(!defined("__KARYBU__")) exit();?>%s', $signature);
 
                         $target_path = sprintf('files/member_extra_info/signature/%s/', getNumberingPath($obj->member_srl));
                         if(!is_dir($target_path)) FileHandler::makeDir($target_path);

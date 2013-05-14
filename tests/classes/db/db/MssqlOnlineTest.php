@@ -34,7 +34,7 @@
             $oContext->setDbInfo($db_info);
 
             // remove cache dir
-            FileHandler::removeDir( _XE_PATH_ . 'files/cache');
+            FileHandler::removeDir( _KARYBU_PATH_ . 'files/cache');
 
             DB::getParser(true);
         }

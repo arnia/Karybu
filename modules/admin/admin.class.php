@@ -3,7 +3,7 @@
  * admin class
  * Base class of admin module
  *
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @package /modules/admin
  * @version 0.1
  */

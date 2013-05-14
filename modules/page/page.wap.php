@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  pageWap
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief wap class page of the module
      **/
 

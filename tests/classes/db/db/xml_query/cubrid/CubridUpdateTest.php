@@ -7,7 +7,7 @@
 		}
 
 		function test_module_updateModule(){
-			$xml_file = _XE_PATH_ . "modules/module/queries/updateModule.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/module/queries/updateModule.xml";
 			$argsString = ' $args->module_category_srl = 0;
 							$args->browser_title = "test";
 							$args->layout_srl = 0;
@@ -46,7 +46,7 @@
 			$this->_test($xml_file, $argsString, $expected);
 		}
 		function test_member_updateLastLogin(){
-			$xml_file = _XE_PATH_ . "modules/member/queries/updateLastLogin.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/member/queries/updateLastLogin.xml";
 			$argsString = ' $args->member_srl = 4;
 							$args->last_login = "20110607120549";';
 			$expected = 'UPDATE "xe_member" as "member" SET "member_srl" = 4, "last_login" = \'20110607120549\'  WHERE  "member_srl" = 4';
@@ -54,7 +54,7 @@
 		}
 
 		function test_module_updatePoint(){
-			$xml_file = _XE_PATH_ . "modules/point/queries/updatePoint.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/point/queries/updatePoint.xml";
 			$argsString = ' $args->member_srl = 4;
 							$args->point = 105;';
 			$expected = 'UPDATE "xe_point" as "point" SET "point" = 105  WHERE  "member_srl" = 4';
@@ -62,7 +62,7 @@
 		}
 
 		function test_module_updateCounterUnique(){
-			$xml_file = _XE_PATH_ . "modules/counter/queries/updateCounterUnique.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/counter/queries/updateCounterUnique.xml";
 			$argsString = '$args->regdate = 20110607;
 							';
 			$expected = 'UPDATE "xe_counter_status" as "counter_status" SET "unique_visitor" = "unique_visitor" + 1,
@@ -71,7 +71,7 @@
 		}
 
 		function test_module_updateMenu(){
-			$xml_file = _XE_PATH_ . "modules/menu/queries/updateMenu.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/menu/queries/updateMenu.xml";
 			$argsString = '$args->menu_srl = 204;
 						$args->title = "test_menu";
 						';
@@ -81,7 +81,7 @@
 
 
 		function test_menu_updateMenuItemNode(){
-			$xml_file = _XE_PATH_ . "modules/menu/queries/updateMenuItemNode.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/menu/queries/updateMenuItemNode.xml";
 			$argsString = '$args->parent_srl = 0;
                             $args->menu_srl = 237423;
                             $args->listorder = -8;

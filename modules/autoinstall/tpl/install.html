@@ -15,7 +15,7 @@
 		<block cond="$dep->installed">{$lang->current_version}: {$dep->cur_version} <block cond="$dep->need_update">({$lang->require_update})</block></block>
 		<block cond="!$dep->installed">{$lang->require_installation}</block>
 		<block cond="$show_ftp_note && ($dep->need_update || !$dep->installed)">
-			<a href="{_XE_DOWNLOAD_SERVER_}?module=resourceapi&act=procResourceapiDownload&package_srl={$dep->package_srl}">{$lang->cmd_download}</a> ({$lang->path}: {$dep->path})
+			<a href="{_KARYBU_DOWNLOAD_SERVER_}?module=resourceapi&act=procResourceapiDownload&package_srl={$dep->package_srl}">{$lang->cmd_download}</a> ({$lang->path}: {$dep->path})
 		</block>
 	</li>
 	</ul>
@@ -25,7 +25,7 @@
 	<block cond="$show_ftp_note">
 		<p>{$lang->description_download}. (<a href="{getUrl('', 'module', 'admin', 'act', 'dispAdminConfigFtp')}">FTP Setup</a>)</p>
 		<p>{$lang->path}: {$package->path}</p>
-		<p><a href="{_XE_DOWNLOAD_SERVER_}?module=resourceapi&act=procResourceapiDownload&package_srl={$package->package_srl}">{$lang->cmd_download}</a>
+		<p><a href="{_KARYBU_DOWNLOAD_SERVER_}?module=resourceapi&act=procResourceapiDownload&package_srl={$package->package_srl}">{$lang->cmd_download}</a>
 	</block>
 	<block cond="!$show_ftp_note">
 		<p>{$lang->description_install}</p>

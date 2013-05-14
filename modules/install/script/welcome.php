@@ -1,6 +1,6 @@
 <?php
 
-if(!defined('__XE__')) {
+if(!defined('__KARYBU__')) {
     return;
 }
 

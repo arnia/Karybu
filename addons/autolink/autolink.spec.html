@@ -63,7 +63,7 @@ describe('AutoLink functionality', {
 	},
 	"#test10 - include tild" : function() {
 		value_of( $('#test10 a').length ).should_be(1);
-		value_of( $('#test10 a').attr('href') ).should_be('http://www.xpressengine.com:8000/~user/?mid=def');
+		value_of( $('#test10 a').attr('href') ).should_be('http://www.karybu.org/:8000/~user/?mid=def');
 	}
 });
 
@@ -106,7 +106,7 @@ describe('Autolink trigger', {
 	<div id="test7">http://mygony.com</div>
 	<div id="test8">Go to http://mygony.com</div>
 	<div id="test9">Naver(http://www.naver.com)</div>
-	<div id="test10">User homepage : http://www.xpressengine.com:8000/~user/?mid=def should be a link.</div>
+	<div id="test10">User homepage : http://www.karybu.org/:8000/~user/?mid=def should be a link.</div>
 </div>
 </body>
 </html>

@@ -3,7 +3,7 @@
 	 * @class  trackbackAdminModel
 	 * @brief trackback module admin model class
 	 *
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 * @package /modules/trackback
 	 * @version 0.1
 	 */

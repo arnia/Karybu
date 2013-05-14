@@ -1,7 +1,7 @@
 /**
  * @file  list_gallery.js
  * @brief List-type image gallery
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  **/
 
 (function($){

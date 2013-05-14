@@ -3,7 +3,7 @@
 	 * menuAdminController class
 	 * admin controller class of the menu module
 	 *
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 * @package /modules/menu
 	 * @version 0.1
 	 */
@@ -626,7 +626,7 @@
             if(!$list) {
                 $xml_buff = "<root />";
                 FileHandler::writeFile($xml_file, $xml_buff);
-                FileHandler::writeFile($php_file, '<?php if(!defined("__ZBXE__")) exit(); ?>');
+                FileHandler::writeFile($php_file, '<?php if(!defined("__KARYBU__")) exit(); ?>');
                 return $xml_file;
             }
             // Change to an array if only a single data is obtained
@@ -666,8 +666,8 @@
             // Create the xml cache file (a separate session is needed for xml cache)
             $xml_buff = sprintf(
                 '<?php '.
-                'define(\'__ZBXE__\', true); '.
-                'define(\'__XE__\', true); '.
+                'define(\'__KARYBU__\', true); '.
+                'define(\'__KARYBU__\', true); '.
                 'require_once(\''.FileHandler::getRealPath('./config/config.inc.php').'\'); '.
                 '$oContext = &Context::getInstance(); '.
                 '$oContext->init(); '.
@@ -688,8 +688,8 @@
             $php_output = $this->getPhpCacheCode($tree[0], $tree, $site_srl, $domain);
             $php_buff = sprintf(
                 '<?php '.
-                'if(!defined("__ZBXE__")) exit(); '.
-                'if(!defined("__XE__")) exit(); '.
+                'if(!defined("__KARYBU__")) exit(); '.
+                'if(!defined("__KARYBU__")) exit(); '.
                 '%s; '.
                 '%s; '.
                 '$menu->list = array(%s); '.

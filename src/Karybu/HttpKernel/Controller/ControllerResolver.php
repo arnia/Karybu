@@ -5,7 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver as BaseResolver;
 
-require_once _XE_PATH_ . 'classes/module/ModuleMatcher.class.php';
+require_once _KARYBU_PATH_ . 'classes/module/ModuleMatcher.class.php';
 
 class ControllerResolver extends BaseResolver
 {
@@ -88,7 +88,7 @@ class ControllerResolver extends BaseResolver
             throw new \InvalidArgumentException(sprintf('Invalid class name "%s".', $class));
         }
 
-        require_once _XE_PATH_ . 'classes/module/ModuleHandler.class.php';
+        require_once _KARYBU_PATH_ . 'classes/module/ModuleHandler.class.php';
         $oModule = \ModuleHandler::getModuleInstance($module, $type, $kind);
 
         return array($oModule, $method);

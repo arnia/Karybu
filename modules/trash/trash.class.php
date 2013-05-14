@@ -3,12 +3,12 @@
  * trash class
  * trash the module's high class
  *
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @package /modules/trash
  * @version 0.1
  */
 
-require_once(_XE_PATH_.'modules/trash/model/TrashVO.php');
+require_once(_KARYBU_PATH_.'modules/trash/model/TrashVO.php');
 
 class trash extends ModuleObject {
 	/**

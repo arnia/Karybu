@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  moduleModel
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief Model class of module module
  **/
 
@@ -24,7 +24,7 @@ class moduleModel extends module
             return true;
         }
         // directory and rss/atom/api reserved checking, etc.
-        $dirs = FileHandler::readDir(_XE_PATH_);
+        $dirs = FileHandler::readDir(_KARYBU_PATH_);
         $dirs[] = 'rss';
         $dirs[] = 'atom';
         $dirs[] = 'api';
@@ -162,7 +162,7 @@ class moduleModel extends module
                     $oDB = & DB::getInstance();
                     if (!$oDB->isTableExists('sites')) {
                         $oDB->createTableByXmlFile(
-                            _XE_PATH_ . 'modules/module/schemas/sites.xml'
+                            _KARYBU_PATH_ . 'modules/module/schemas/sites.xml'
                         );
                     }
                     if (!$oDB->isTableExists('sites')) {
@@ -854,7 +854,7 @@ class moduleModel extends module
                 }
             }
             $buff = sprintf(
-                '<?php if(!defined("__ZBXE__")) exit(); $info = new stdClass; $info->default_index_act = \'%s\';$info->setup_index_act=\'%s\';$info->admin_index_act = \'%s\';%s?>',
+                '<?php if(!defined("__KARYBU__")) exit(); $info = new stdClass; $info->default_index_act = \'%s\';$info->setup_index_act=\'%s\';$info->admin_index_act = \'%s\';%s?>',
                 $default_index_act,
                 $setup_index_act,
                 $admin_index_act,

@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  tag
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief high class of the tag module
      **/
 

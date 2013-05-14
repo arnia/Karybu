@@ -3,7 +3,7 @@
 	 * importerAdminView class
 	 * admin view class of the importer module 
 	 *
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 * @package /modules/importer
 	 * @version 0.1
 	 */

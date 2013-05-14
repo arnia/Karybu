@@ -3,7 +3,7 @@
  * trashAdminView class
  * Admin view class of the trash module
  *
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @package /modules/trash
  * @version 0.1
  */

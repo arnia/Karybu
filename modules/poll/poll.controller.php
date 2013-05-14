@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  pollController
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief Controller class for poll module
      **/
 

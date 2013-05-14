@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  widget
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief widget module's high class
      **/
 

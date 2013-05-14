@@ -1,31 +1,39 @@
-<!--%import("js/install_admin.js")-->
-<!--#include("header.html")-->
+<load target="js/install_admin.js" />
+<include target="header.html" />
+
 <div id="content">
     <form method="post" action="./">
     <input type="hidden" name="module" value="{$module}" />
     <input type="hidden" name="act" value="dispInstallDBForm" />
-        <ul class="form formDbSelect">
+        <ul class="formDbSelect unstyled">
             <!--@foreach(DB::getEnableList() as $key => $val)-->
             <li>
-                <input name="db_type" type="radio" value="{$val->db_type}" <!--@if(!$val->enable)-->disabled="disabled"<!--@end--> id="db_type_{$val->db_type}" <!--@if($val->db_type=="mysql")-->checked="checked"<!--@end--> class="iRadio" id="cubrid" /> <label for="db_type_{$val->db_type}">{$val->db_type}</label>
-                <p>{$lang->db_desc[$val->db_type]}</p>
+                <label for="db_type_{$val->db_type}" class="radio inline">
+                    <input name="db_type" type="radio" value="{$val->db_type}" <!--@if(!$val->enable)-->disabled="disabled"<!--@end--> id="db_type_{$val->db_type}" <!--@if($val->db_type=="mysql")-->checked="checked"<!--@end--> class="iRadio" id="cubrid" />
+                    {$val->db_type}
+                </label>
+                <p class="help-block">{$lang->db_desc[$val->db_type]}</p>
             </li>
             <!--@end-->
             <!--@foreach(DB::getDisableList() as $key => $val)-->
             <li>
-                <input name="db_type" type="radio" value="{$val->db_type}" <!--@if(!$val->enable)-->disabled="disabled"<!--@end--> id="db_type_{$val->db_type}" <!--@if($val->db_type=="mysql")-->checked="checked"<!--@end--> class="iRadio" id="cubrid" /> <label for="db_type_{$val->db_type}">{$val->db_type}</label>
-                <p>{$lang->db_desc[$val->db_type]}</p>
+                <label for="db_type_{$val->db_type}" class="radio inline">
+                    <input name="db_type" type="radio" value="{$val->db_type}" <!--@if(!$val->enable)-->disabled="disabled"<!--@end--> id="db_type_{$val->db_type}" <!--@if($val->db_type=="mysql")-->checked="checked"<!--@end--> class="iRadio" id="cubrid" />
+                    {$val->db_type}
+                </label>
+                <p class="help-block">{$lang->db_desc[$val->db_type]}</p>
             </li>
             <!--@end-->
         </ul>
-        <div class="ibtnArea">
-            <div class="fLeft">
-                <span class="ibtn icon"><span class="back"></span> <a href="{getUrl('', 'act', 'dispInstallCheckEnv')}">{$lang->cmd_back}</a></span>
+        <div>
+            <div class="pull-left">
+                <a href="{getUrl('', 'act', 'dispInstallCheckEnv')}" class="btn">{$lang->cmd_back}</a>
             </div>
-            <div class="fRight">
-                <span class="ibtn icon"><span class="check"></span> <input name="" type="submit" value="{$lang->cmd_next}" /></span>
+            <div class="pull-right">
+                <input name="" type="submit" value="{$lang->cmd_next}" class="btn btn-primary" />
             </div>
         </div>
     </form>
 </div>
-<!--#include("footer.html")-->
+
+<include target="footer.html" />

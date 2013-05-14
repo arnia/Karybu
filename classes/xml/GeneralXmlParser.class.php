@@ -2,7 +2,7 @@
 /**
  * GeneralXmlParser class
  * Generic XML parser for XE
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @package /classes/xml
  * @version 0.1
  */

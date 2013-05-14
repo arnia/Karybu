@@ -7,29 +7,29 @@
     <title xml:lang="tr">XE Resmi Hareketli Yerleşim Düzeni</title>
     <description xml:lang="ko">
         XE 공식 모바일 레이아웃입니다.
-        Arnia (developers@xpressengine.com)
+        Arnia (dev@karybu.org)
     </description>
     <description xml:lang="en">
         This layout is the Official website layout for XE.
-        Arnia (developers@xpressengine.com)
+        Arnia (dev@karybu.org)
     </description>
     <description xml:lang="zh-CN">
         官方移动版布局。
-        Arnia (developers@xpressengine.com)
+        Arnia (dev@karybu.org)
     </description>
     <description xml:lang="zh-TW">
         XE Mobile 官方網站版面。
-        Arnia (developers@xpressengine.com)
+        Arnia (dev@karybu.org)
     </description>
     <description xml:lang="tr">
         Bu yerleşim düzeni, XE Resmi website yerleşim düzenidir.
-        Arnia (developers@xpressengine.com)
+        Arnia (dev@karybu.org)
     </description>
     <version>0.1</version>
     <date>2010-08-20</date>
-    <link>http://xpressengine.com/</link>
+    <link>http://www.karybu.org/</link>
 
-    <author email_address="developers@xpressengine.com" link="http://xpressengine.com/">
+    <author email_address="dev@karybu.org" link="http://www.karybu.org/">
         <name xml:lang="ko">Arnia</name>
         <name xml:lang="en">Arnia</name>
 		<name xml:lang="zh-CN">Arnia</name>

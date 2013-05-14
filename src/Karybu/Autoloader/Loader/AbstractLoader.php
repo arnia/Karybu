@@ -13,7 +13,7 @@ abstract class AbstractLoader implements LoaderInterface
 
     public function __construct($whatToLoad=null, $modulesPath=null)
     {
-        $this->modulesPath = ( $modulesPath ? $modulesPath : _XE_PATH_.'modules' );
+        $this->modulesPath = ( $modulesPath ? $modulesPath : _KARYBU_PATH_.'modules' );
         if ($whatToLoad) {
             $this->className = $whatToLoad;
             $this->loaded = $this->load($this->className);

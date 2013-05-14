@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  widgetModel
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @version 0.1
      * @brief Model class for widget modules
      **/
@@ -257,7 +257,7 @@
                 }
             }
 
-            $buff = '<?php if(!defined("__ZBXE__")) exit(); '.$buff.' ?>';
+            $buff = '<?php if(!defined("__KARYBU__")) exit(); '.$buff.' ?>';
             FileHandler::writeFile($cache_file, $buff);
 
             if(file_exists($cache_file)) include($cache_file);
@@ -392,7 +392,7 @@
                 }
             }
 
-            $buff = '<?php if(!defined("__ZBXE__")) exit(); '.$buff.' ?>';
+            $buff = '<?php if(!defined("__KARYBU__")) exit(); '.$buff.' ?>';
             FileHandler::writeFile($cache_file, $buff);
 
             if(file_exists($cache_file)) include($cache_file);

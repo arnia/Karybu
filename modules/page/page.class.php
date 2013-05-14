@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  page
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief high class of the module page
      **/
 

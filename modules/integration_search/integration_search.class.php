@@ -2,7 +2,7 @@
     /**
      * The view class of the integration_search module
 	 *
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      **/
 
     class integration_search extends ModuleObject {

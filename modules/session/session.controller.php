@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  sessionController
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief The controller class of the session module
      **/
 

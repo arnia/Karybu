@@ -11,61 +11,61 @@
 <script type="text/javascript">// <![CDATA[
 describe('SetQuery', {
     'should satisfy basic uri condition' : function() {
-        target = "http://xpressengine.com/";
-        value_of(target.setQuery("q","r")).should_be("http://xpressengine.com/?q=r");
+        target = "http://www.karybu.org/";
+        value_of(target.setQuery("q","r")).should_be("http://www.karybu.org/?q=r");
     },
     'should work when ssl is on' : function() {
-        target = "http://xpressengine.com/";
+        target = "http://www.karybu.org/";
         ssl_actions = new Array("dispLogin");
-        value_of(target.setQuery("act","dispLogin")).should_be("https://xpressengine.com/?act=dispLogin");
+        value_of(target.setQuery("act","dispLogin")).should_be("https://www.karybu.org/?act=dispLogin");
     },
     'should work when ssl is on and https_port is set (not 443)' : function() {
-        target = "http://xpressengine.com/";
+        target = "http://www.karybu.org/";
         https_port = 445;
         ssl_actions = new Array("dispLogin");
-        value_of(target.setQuery("act","dispLogin")).should_be("https://xpressengine.com:445/?act=dispLogin");
+        value_of(target.setQuery("act","dispLogin")).should_be("https://www.karybu.org:445/?act=dispLogin");
     },
     'should work when ssl is on and https_port is set as 443' : function() {
-        target = "http://xpressengine.com/";
+        target = "http://www.karybu.org/";
         https_port = 443;
         ssl_actions = new Array("dispLogin");
-        value_of(target.setQuery("act","dispLogin")).should_be("https://xpressengine.com/?act=dispLogin");
+        value_of(target.setQuery("act","dispLogin")).should_be("https://www.karybu.org/?act=dispLogin");
     },
     'should replace https to http if act is not a member of ssl_actions': function() {
-        targets = "https://xpressengine.com/";
+        targets = "https://www.karybu.org/";
         ssl_actions = new Array("dispLogin");
-        value_of(targets.setQuery("act","dispLogin2")).should_be("http://xpressengine.com/?act=dispLogin2");
+        value_of(targets.setQuery("act","dispLogin2")).should_be("http://www.karybu.org/?act=dispLogin2");
     },
     'should remove https port' : function() {
-        targetsp = "https://xpressengine.com:443/?q=r";
-        value_of(targetsp.setQuery("act","dispLogin2")).should_be("http://xpressengine.com/?q=r&act=dispLogin2");
+        targetsp = "https://www.karybu.org:443/?q=r";
+        value_of(targetsp.setQuery("act","dispLogin2")).should_be("http://www.karybu.org/?q=r&act=dispLogin2");
     },
     'should remove https port and add http port if http port is defined' : function() {
-        targetsp = "https://xpressengine.com:443/?q=r";
+        targetsp = "https://www.karybu.org:443/?q=r";
         http_port = 8000;
-        value_of(targetsp.setQuery("act","dispLogin2")).should_be("http://xpressengine.com:8000/?q=r&act=dispLogin2");
+        value_of(targetsp.setQuery("act","dispLogin2")).should_be("http://www.karybu.org:8000/?q=r&act=dispLogin2");
     },
     'should only remove https port and if http port is defined as 80' : function() {
-        targetsp = "https://xpressengine.com:443/?q=r";
+        targetsp = "https://www.karybu.org:443/?q=r";
         http_port = 80;
-        value_of(targetsp.setQuery("act","dispLogin2")).should_be("http://xpressengine.com/?q=r&act=dispLogin2");
+        value_of(targetsp.setQuery("act","dispLogin2")).should_be("http://www.karybu.org/?q=r&act=dispLogin2");
     },
     'should work if enforce_ssl is set' : function() {
-        target = "http://xpressengine.com/";
+        target = "http://www.karybu.org/";
         enforce_ssl = true;
-        value_of(target.setQuery("act","dispLogin")).should_be("https://xpressengine.com/?act=dispLogin");
+        value_of(target.setQuery("act","dispLogin")).should_be("https://www.karybu.org/?act=dispLogin");
     },
     'should work if enforce_ssl is set with 443 port' : function() {
-        target = "http://xpressengine.com/";
+        target = "http://www.karybu.org/";
         enforce_ssl = true;
         https_port = 443;
-        value_of(target.setQuery("act","dispLogin")).should_be("https://xpressengine.com/?act=dispLogin");
+        value_of(target.setQuery("act","dispLogin")).should_be("https://www.karybu.org/?act=dispLogin");
     },
     'should work if enforce_ssl is set with none-443 port' : function() {
-        target = "http://xpressengine.com/";
+        target = "http://www.karybu.org/";
         enforce_ssl = true;
         https_port = 445;
-        value_of(target.setQuery("act","dispLogin")).should_be("https://xpressengine.com:445/?act=dispLogin");
+        value_of(target.setQuery("act","dispLogin")).should_be("https://www.karybu.org:445/?act=dispLogin");
     }
 })
 // ]]></script>

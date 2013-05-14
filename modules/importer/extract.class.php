@@ -3,7 +3,7 @@
 	 * extract class
 	 * Class to save each file by using tags in the large xml
 	 *
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 * @package /modules/importer
 	 * @version 0.1
 	 */

@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  layoutAdminController
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * admin controller class of the layout module
      **/
 
@@ -490,7 +490,7 @@
             $layout_srl = Context::get('layout_srl');
             if(!$layout_srl) return new Object('-1','msg_invalid_request');
 
-            require_once(_XE_PATH_.'libs/tar.class.php');
+            require_once(_KARYBU_PATH_.'libs/tar.class.php');
             $oLayoutModel = &getModel('layout');
 			
 			// Copy files to temp path
@@ -751,7 +751,7 @@
                 FileHandler::removeFile($user_layout_path . $file);
             }
 
-            require_once(_XE_PATH_.'libs/tar.class.php');
+            require_once(_KARYBU_PATH_.'libs/tar.class.php');
             $image_path = $oLayoutModel->getUserLayoutImagePath($layout_srl);
             FileHandler::makeDir($image_path);
             $tar = new tar();

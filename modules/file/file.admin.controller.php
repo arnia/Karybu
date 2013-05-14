@@ -1,7 +1,7 @@
 <?php
     /**
      * admin controller class of the file module
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      **/
     class fileAdminController extends file {
 

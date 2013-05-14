@@ -1,6 +1,6 @@
 /**
  * @file   modules/page/js/page_admin.js
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief  page모듈의 관리자용 javascript
  **/
 

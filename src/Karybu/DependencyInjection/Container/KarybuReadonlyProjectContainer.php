@@ -453,7 +453,7 @@ class KarybuReadonlyProjectContainer extends Container
      */
     protected function getLogger_Handler_StreamService()
     {
-        return $this->services['logger.handler.stream'] = new \Monolog\Handler\StreamHandler('/home/razvan/www/karybu/files/logs/dev.log', 100);
+        return $this->services['logger.handler.stream'] = null;
     }
 
     /**
@@ -466,7 +466,7 @@ class KarybuReadonlyProjectContainer extends Container
      */
     protected function getLogger_Handler_Stream_DbErrorsService()
     {
-        return $this->services['logger.handler.stream.db_errors'] = new \Monolog\Handler\StreamHandler('/home/razvan/www/karybu/files/logs/db_errors_dev.log', 100);
+        return $this->services['logger.handler.stream.db_errors'] = null;
     }
 
     /**
@@ -479,7 +479,7 @@ class KarybuReadonlyProjectContainer extends Container
      */
     protected function getLogger_Handler_Stream_DbInfoService()
     {
-        return $this->services['logger.handler.stream.db_info'] = new \Monolog\Handler\StreamHandler('/home/razvan/www/karybu/files/logs/db_info_dev.log', 100);
+        return $this->services['logger.handler.stream.db_info'] = null;
     }
 
     /**
@@ -492,7 +492,7 @@ class KarybuReadonlyProjectContainer extends Container
      */
     protected function getLogger_Handler_Stream_DbSlowQueryService()
     {
-        return $this->services['logger.handler.stream.db_slow_query'] = new \Monolog\Handler\StreamHandler('/home/razvan/www/karybu/files/logs/db_slow_query_dev.log', 100);
+        return $this->services['logger.handler.stream.db_slow_query'] = null;
     }
 
     /**
@@ -505,7 +505,7 @@ class KarybuReadonlyProjectContainer extends Container
      */
     protected function getLogger_Handler_Stream_ErrorsService()
     {
-        return $this->services['logger.handler.stream.errors'] = new \Monolog\Handler\StreamHandler('/home/razvan/www/karybu/files/logs/errors_dev.log', 100);
+        return $this->services['logger.handler.stream.errors'] = null;
     }
 
     /**
@@ -573,12 +573,12 @@ class KarybuReadonlyProjectContainer extends Container
     protected function getDefaultParameters()
     {
         return array(
-            'kernel.root_dir' => '/home/razvan/www/karybu/',
+            'kernel.root_dir' => '',
             'kernel.environment' => 'dev',
             'kernel.debug' => false,
             'kernel.name' => 'Karybu',
-            'kernel.cache_dir' => '/home/razvan/www/karybu/files/cache/dev',
-            'kernel.logs_dir' => '/home/razvan/www/karybu/files/logs',
+            'kernel.cache_dir' => '',
+            'kernel.logs_dir' => '',
             'kernel.bundles' => array(
                 'DebugModule' => 'Karybu\\Module\\Debug\\DebugModule',
             ),

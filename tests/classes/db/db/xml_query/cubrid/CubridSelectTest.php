@@ -7,28 +7,28 @@
 		}
 
 		function testSelectStar(){
-			$xml_file = _XE_PATH_ . "modules/module/queries/getAdminId.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/module/queries/getAdminId.xml";
 			$argsString = '$args->module_srl = 10;';
 			$expected = 'SELECT * FROM "xe_module_admins" as "module_admins" , "xe_member" as "member" WHERE "module_srl" = 10 and "member"."member_srl" = "module_admins"."member_srl"';
 			$this->_test($xml_file, $argsString, $expected);
 		}
 
 		function testRequiredParameter(){
-			$xml_file = _XE_PATH_ . "modules/module/queries/getAdminId.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/module/queries/getAdminId.xml";
 			$argsString = '';
 			$expected = 'Date incorecte! Query-ul nu a putut fi executat.';
 			$this->_test($xml_file, $argsString, $expected);
 		}
 
 		function testWithoutCategoriesTag(){
-			$xml_file = _XE_PATH_ . "modules/module/queries/getModuleCategories.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/module/queries/getModuleCategories.xml";
 			$argsString = '';
 			$expected = 'SELECT * FROM "xe_module_categories" as "module_categories" ORDER BY "title" asc';
 			$this->_test($xml_file, $argsString, $expected);
 		}
 
 		function test_module_getDefaultModules(){
-			$xml_file = _XE_PATH_ . "modules/module/queries/getDefaultModules.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/module/queries/getDefaultModules.xml";
 			$argsString = '$args->site_srl = 0;';
 			$expected = 'SELECT "modules"."site_srl"
 							, "modules"."module"
@@ -45,7 +45,7 @@
 		}
 
 		function test_module_getSiteInfo(){
-			$xml_file = _XE_PATH_ . "modules/module/queries/getSiteInfo.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/module/queries/getSiteInfo.xml";
 			$argsString = '$args->site_srl = 0;';
 			$expected = 'SELECT "modules"."site_srl" as "module_site_srl"
 							, "modules"."module_srl" as "module_srl"
@@ -78,7 +78,7 @@
 		}
 
 		function test_addon_getAddonInfo(){
-			$xml_file = _XE_PATH_ . "modules/addon/queries/getAddonInfo.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/addon/queries/getAddonInfo.xml";
 			$argsString = '$args->addon = "captcha";';
 			$expected = 'SELECT *
 						FROM "xe_addons" as "addons"
@@ -87,7 +87,7 @@
 		}
 
 		function test_addon_getAddons(){
-			$xml_file = _XE_PATH_ . "modules/addon/queries/getAddons.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/addon/queries/getAddons.xml";
 			$argsString = '';
 			$expected = 'SELECT *
 						FROM "xe_addons" as "addons"
@@ -96,7 +96,7 @@
 		}
 
 		function test_admin_getCommentCount(){
-			$xml_file = _XE_PATH_ . "modules/admin/queries/getCommentCount.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/admin/queries/getCommentCount.xml";
 			$argsString = '';
 			$expected = 'SELECT count(*) as "count"
 						FROM "xe_comments" as "comments"';
@@ -104,7 +104,7 @@
 		}
 
 		function test_admin_getCommentDeclaredStatus(){
-			$xml_file = _XE_PATH_ . "modules/admin/queries/getCommentDeclaredStatus.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/admin/queries/getCommentDeclaredStatus.xml";
 			$argsString = '$args->date = "20110411";';
 			$expected = 'SELECT substr("regdate",1,8) as "date", count(*) as "count"
 				FROM "xe_comment_declared_log" as "comment_declared_log"
@@ -115,7 +115,7 @@
 		}
 
 		function test_member_getAutoLogin(){
-			$xml_file = _XE_PATH_ . "modules/member/queries/getAutoLogin.xml";
+			$xml_file = _KARYBU_PATH_ . "modules/member/queries/getAutoLogin.xml";
 			$argsString = '$args->autologin_key = 10;';
 			$expected = 'SELECT "member"."user_id" as "user_id"
 							, "member"."password" as "password"
@@ -153,7 +153,7 @@
 		}
 
                 function test_document_getDocumentList(){
-                    $xml_file = _XE_PATH_ . "modules/document/queries/getDocumentList.xml";
+                    $xml_file = _KARYBU_PATH_ . "modules/document/queries/getDocumentList.xml";
                     $argsString = '$args->sort_index = \'list_order\';
                                     $args->order_type = \'asc\';
                                     $args->page = 1;
@@ -175,7 +175,7 @@
                  * Test column list
                  */
                 function test_session_getSession(){
-                    $xml_file = _XE_PATH_ . "modules/session/queries/getSession.xml";
+                    $xml_file = _KARYBU_PATH_ . "modules/session/queries/getSession.xml";
                     $argsString = '$args->session_key = \'session_key\';';
                     $columnList = array('session_key', 'cur_mid', 'val');
 
@@ -187,7 +187,7 @@
                 }
 
                 function test_module_getModuleInfoByDocument(){
-                    $xml_file = _XE_PATH_ . "modules/module/queries/getModuleInfoByDocument.xml";
+                    $xml_file = _KARYBU_PATH_ . "modules/module/queries/getModuleInfoByDocument.xml";
                     $argsString = '$args->document_srl = 10;';
                     $expected = 'SELECT "modules".*
                         FROM "xe_modules" as "modules"
@@ -198,7 +198,7 @@
                 }
 
                 function test_member_getMemberList(){
-                    $xml_file = _XE_PATH_ . "modules/member/queries/getMemberList.xml";
+                    $xml_file = _KARYBU_PATH_ . "modules/member/queries/getMemberList.xml";
                     $argsString = '$args->is_admin = \'\';
                                     $args->is_denied = \'\';
                                     $args->sort_index = "list_order";
@@ -338,7 +338,7 @@
                 }
 
                 function test_module_getModuleSrlByMid_In_Multiple_Value_Array_Strings(){
-                    $xml_file = _XE_PATH_ . "modules/module/queries/getModuleSrlByMid.xml";
+                    $xml_file = _KARYBU_PATH_ . "modules/module/queries/getModuleSrlByMid.xml";
                     $argsString = '$args->mid = "\'mid1\', \'mid2\'";';
                     $expected = 'select "module_srl" from "xe_modules" as "modules" where "mid" in (\'mid1\',\'mid2\')';
                     $this->_test($xml_file, $argsString, $expected);
@@ -346,7 +346,7 @@
 
 
                function test_file_getFileList_In_Empty_Array_Value(){
-                    $xml_file = _XE_PATH_ . "modules/file/queries/getFileList.xml";
+                    $xml_file = _KARYBU_PATH_ . "modules/file/queries/getFileList.xml";
                     $argsString = '$args->exclude_module_srl = 12; $args->s_module_srl = array(); ';
                     $expected = 'select "files".*
                                     from "xe_files" as "files"
@@ -358,7 +358,7 @@
                 }
 
                function test_file_getFileList_Not_In_Empty_String_Value(){
-                    $xml_file = _XE_PATH_ . "modules/file/queries/getFileList.xml";
+                    $xml_file = _KARYBU_PATH_ . "modules/file/queries/getFileList.xml";
                     $argsString = '$args->exclude_module_srl = ""; $args->s_module_srl = array(12); ';
                     $expected = 'select "files".*
                                     from "xe_files" as "files"
@@ -370,7 +370,7 @@
                 }
 
                 function test_document_getDeclaredList_In_Query(){
-                    $xml_file = _XE_PATH_ . "modules/document/queries/getDeclaredList.xml";
+                    $xml_file = _KARYBU_PATH_ . "modules/document/queries/getDeclaredList.xml";
                     $argsString = "\$args->list_count = 30;
                                     \$args->page_count = 10;
                                     \$args->sort_index = 'document_declared.declared_count';
@@ -385,7 +385,7 @@
                 }
 
                 function test_getExpiredSession_curdate(){
-                    $xml_file = _XE_PATH_ . "modules/session/queries/getExpiredSessions.xml";
+                    $xml_file = _KARYBU_PATH_ . "modules/session/queries/getExpiredSessions.xml";
                     $argsString = '';
                     $expected = 'select "session_key"
                                         from "xe_session" as "session"

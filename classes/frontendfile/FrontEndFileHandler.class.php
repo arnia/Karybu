@@ -1,7 +1,7 @@
 <?php
 /**
  * Handle front end files
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  **/
 class FrontEndFileHandler extends Handler
 {
@@ -81,17 +81,11 @@ class FrontEndFileHandler extends Handler
      * </pre>
      *
      * If $useCdn set true, use CDN instead local file.
-     * CDN path = $cdnPrefix . $cdnVersion . $args[0]<br />
-     *<br />
-     * i.e.<br />
-     * $cdnPrefix = 'http://static.xpressengine.com/core/';<br />
-     * $cdnVersion = 'ardent1';<br />
-     * $args[0] = './common/js/xe.js';<br />
-     * The CDN path is http://static.xprssengine.com/core/ardent1/common/js/xe.js.<br />
+     * CDN path = $cdnPrefix . $cdnVersion . $args[0]
      *
      * @param array $args Arguments
      * @param bool $useCdn If set true, use cdn instead local file
-     * @param string $cdnPrefix CDN url prefix. (http://static.xpressengine.com/core/)
+     * @param string $cdnPrefix CDN url prefix.
      * @param string $cdnVersion CDN version string (ardent1)
      * @return void
      **/
@@ -255,7 +249,7 @@ class FrontEndFileHandler extends Handler
         foreach ($map as $indexedMap) {
             foreach ($indexedMap as $file) {
                 if ($this->isSsl(
-                ) == false && $useCdn == 'Y' && $file->useCdn && $file->cdnVersion != '%__XE_CDN_VERSION__%'
+                ) == false && $useCdn == 'Y' && $file->useCdn && $file->cdnVersion != '%__KARYBU_CDN_VERSION__%'
                 ) {
                     $fullFilePath = $file->cdnPrefix . $file->cdnVersion . '/' . substr(
                         $file->cdnPath,
@@ -303,7 +297,7 @@ class FrontEndFileHandler extends Handler
         foreach ($map as $indexedMap) {
             foreach ($indexedMap as $file) {
                 if ($this->isSsl(
-                ) == false && $useCdn == 'Y' && $file->useCdn && $file->cdnVersion != '%__XE_CDN_VERSION__%'
+                ) == false && $useCdn == 'Y' && $file->useCdn && $file->cdnVersion != '%__KARYBU_CDN_VERSION__%'
                 ) {
                     $fullFilePath = $file->cdnPrefix . $file->cdnVersion . '/' . substr(
                         $file->cdnPath,

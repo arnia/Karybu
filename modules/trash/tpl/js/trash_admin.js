@@ -1,6 +1,6 @@
 /**
  * @file   modules/trash/js/trash_admin.js
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief  trash 모듈의 관리자용 javascript
  **/
 

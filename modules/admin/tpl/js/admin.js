@@ -1,4 +1,4 @@
-/* Arnia (developers@xpressengine.com) */
+/* Arnia (dev@karybu.org) */
 jQuery(function($){
 	// Constants
 	var ESC_KEY = 27;
@@ -593,8 +593,8 @@ _xeModuleSearch = function(){
 
 			$li = $('<li />').appendTo($siteList);
 			$('<a>').attr('href', '#').html(
-				'<div>' + sDomain + '</div>' +
-				'<span class="icon-circle-arrow-right" style="display:inline-block;float:right;width:16px;height:16px;"></span>'
+				sDomain +
+				'<i class="icon-circle-arrow-right"></i>'
 			).data('site_srl', list[i].site_srl).appendTo($li);
 		}
 
@@ -657,8 +657,8 @@ _xeModuleSearch = function(){
 						if(!list.hasOwnProperty(x)) continue;
 						$li = $('<li />').appendTo($moduleTypeList);
 						$('<a>').attr('href', '#').html(
-							'<div>'+list[x].title+'</div>' +
-							'<span class="icon-circle-arrow-right" style="display:inline-block;float:right;width:16px;height:16px;"></span>'
+							list[x].title +
+							'<i class="icon-circle-arrow-right"></i>'
 						).data('moduleInstanceList', list[x].list).appendTo($li);
 						//$('<option />').attr('value', x).text(list[x].title).appendTo($mod_select);
 					}

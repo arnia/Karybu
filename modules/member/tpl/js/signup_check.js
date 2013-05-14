@@ -1,6 +1,6 @@
 /**
  * @brief 회원 가입시나 정보 수정시 각 항목의 중복 검사등을 하는 기능을 구현
- * @author Arnia (developer@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  **/
 
 // Started as input variables for ajax to the server to check if the content was changed for a fixed amount of time after entering

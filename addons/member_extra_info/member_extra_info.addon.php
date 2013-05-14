@@ -1,9 +1,9 @@
 <?php
-if(!defined('__XE__')) exit();
+if(!defined('__KARYBU__')) exit();
 
 /**
  * @file image_name.addon.php
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief Display user image name/image mark
  *
  * Find member_srl in the part with <div class="member_MemberSerialNumber"> .... </div>

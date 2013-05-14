@@ -3,7 +3,7 @@
 	 * adminAdminView class
 	 * Admin view class of admin module
 	 *
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 * @package /modules/admin
 	 * @version 0.1
 	 */
@@ -76,7 +76,7 @@
 			$params = array();
 			$params["act"] = "getResourceapiLastupdate";
 			$body = XmlGenerater::generate($params);
-			$buff = FileHandler::getRemoteResource(_XE_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
+			$buff = FileHandler::getRemoteResource(_KARYBU_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
 			$xml_lUpdate = new XmlParser();
 			$lUpdateDoc = $xml_lUpdate->parse($buff);
 			$updateDate = $lUpdateDoc->response->updatedate->body;
@@ -195,8 +195,8 @@
 			// Retrieve recent news and set them into context,
 			// move from index method, because use in admin footer
             // TODO refactor news for karybu
-			/*$newest_news_url = sprintf("http://news.xpressengine.com/%s/news.php?version=%s&package=%s", _XE_LOCATION_, __KARYBU_VERSION__, _XE_PACKAGE_);
-			$cache_file = sprintf("%sfiles/cache/newest_news.%s.cache.php", _XE_PATH_, _XE_LOCATION_);
+			/*$newest_news_url = sprintf("http://news.karybu.org/%s/news.php?version=%s&package=%s", _KARYBU_LOCATION_, __KARYBU_VERSION__, _KARYBU_PACKAGE_);
+			$cache_file = sprintf("%sfiles/cache/newest_news.%s.cache.php", _KARYBU_PATH_, _KARYBU_LOCATION_);
 			if(!file_exists($cache_file) || filemtime($cache_file)+ 60*60 < time()) {
 				// Considering if data cannot be retrieved due to network problem, modify filemtime to prevent trying to reload again when refreshing administration page
 				// Ensure to access the administration page even though news cannot be displayed
@@ -447,7 +447,7 @@
                     $extension = new \Karybu\DependencyInjection\Dummy\Extension();
                     $extension->setNamespace('debug');
                     $container->registerExtension($extension);
-                    $loader = new \Symfony\Component\DependencyInjection\Loader\YamlFileLoader($container, new \Symfony\Component\Config\FileLocator(array(_XE_PATH_)));
+                    $loader = new \Symfony\Component\DependencyInjection\Loader\YamlFileLoader($container, new \Symfony\Component\Config\FileLocator(array(_KARYBU_PATH_)));
                     $loader->load($configFile);
                     $extensionConfig = $container->getExtensionConfig('debug');
                     if (isset($extensionConfig[0])) {
@@ -502,13 +502,13 @@
 
 
 		/**
-		 * Enviroment information send to XE collect server
+         * //TODO collet Karybu Server Information
 		 * @return void
 		 */
 		function showSendEnv() {
 			if(Context::getResponseMethod() != 'HTML') return;
 
-			$server = 'http://collect.xpressengine.com/env/img.php?';
+			$server = 'http://collect.karybu.org/env/img.php?';
 			$path = './files/env/';
 			$install_env = $path . 'install';
 			$mainVersion = join('.', array_slice(explode('.', __KARYBU_VERSION__), 0, 2));
@@ -564,7 +564,7 @@
 		 */
 		function dispAdminTheme(){
 			// choice theme file
-			$theme_file = _XE_PATH_.'files/theme/theme_info.php';
+			$theme_file = _KARYBU_PATH_.'files/theme/theme_info.php';
 			if(is_readable($theme_file)){
 				include($theme_file);
 				Context::set('current_layout', $theme_info->layout);

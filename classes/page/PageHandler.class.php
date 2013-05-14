@@ -1,7 +1,7 @@
 <?php
     /**
      * @class PageHandler
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * handles page navigation
      * @version 0.1
      *

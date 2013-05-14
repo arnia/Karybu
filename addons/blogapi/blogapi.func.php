@@ -1,9 +1,9 @@
 <?php
-    if(!defined('__XE__')) exit();
+    if(!defined('__KARYBU__')) exit();
 
     /**
      * @file ./addons/blogapi/blogapi.func.php
-     * @author Arnia (developers@xpressengine.com)
+     * @author Arnia (dev@karybu.org)
      * @brief Function collections for the implementation of blogapi
      **/
     

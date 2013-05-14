@@ -1,5 +1,5 @@
 /**
  * @file   common/js/xe.min.js
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @brief  XE Common JavaScript
  **/

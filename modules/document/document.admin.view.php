@@ -3,7 +3,7 @@
 	 * documentAdminView class
 	 * Document admin view of the module class
 	 *
-	 * @author Arnia (developers@xpressengine.com)
+	 * @author Arnia (dev@karybu.org)
 	 * @package /modules/document
 	 * @version 0.1
 	 */

@@ -2,7 +2,7 @@
 /**
  * Counter module's controller class
  *
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  **/
 
 class counterController extends counter

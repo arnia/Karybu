@@ -3,7 +3,7 @@
  * documentController class
  * document the module's controller class
  *
- * @author Arnia (developers@xpressengine.com)
+ * @author Arnia (dev@karybu.org)
  * @package /modules/document
  * @version 0.1
  */
@@ -654,7 +654,7 @@ class documentController extends document {
 		}*/
 
 		// new trash module
-		require_once(_XE_PATH_.'modules/trash/model/TrashVO.php');
+		require_once(_KARYBU_PATH_.'modules/trash/model/TrashVO.php');
 		$oTrashVO = new TrashVO();
 		$oTrashVO->setTrashSrl(getNextSequence());
 		$oTrashVO->setTitle($oDocument->variables['title']);
@@ -1597,7 +1597,7 @@ class documentController extends document {
 		if(!$list) {
 			$xml_buff = "<root />";
 			FileHandler::writeFile($xml_file, $xml_buff);
-			FileHandler::writeFile($php_file, '<?php if(!defined("__ZBXE__")) exit(); ?>');
+			FileHandler::writeFile($php_file, '<?php if(!defined("__KARYBU__")) exit(); ?>');
 			return $xml_file;
 		}
 		// Change to an array if only a single data is obtained
@@ -1627,8 +1627,8 @@ class documentController extends document {
 		$xml_body_buff = $this->getXmlTree($tree[0], $tree, $module_info->site_srl, $xml_header_buff);
 		$xml_buff = sprintf(
 				'<?php '.
-				'define(\'__ZBXE__\', true); '.
-				'define(\'__XE__\', true); '.
+				'define(\'__KARYBU__\', true); '.
+				'define(\'__KARYBU__\', true); '.
 				'require_once(\''.FileHandler::getRealPath('./config/config.inc.php').'\'); '.
 				'$oContext = &Context::getInstance(); '.
 				'$oContext->init(); '.
@@ -1651,7 +1651,7 @@ class documentController extends document {
 		$php_output = $this->getPhpCacheCode($tree[0], $tree, $module_info->site_srl, $php_header_buff);
 		$php_buff = sprintf(
 				'<?php '.
-				'if(!defined("__ZBXE__")) exit(); '.
+				'if(!defined("__KARYBU__")) exit(); '.
 				'%s; '.
 				'%s; '.
 				'$menu->list = array(%s); '.
