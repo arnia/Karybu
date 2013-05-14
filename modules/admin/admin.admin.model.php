@@ -121,7 +121,7 @@
         }
 
 		/**
-		 * Parameter arrange for send to XE collect server
+		 * Parameter arrange for send to Karybu collect server
 		 * @param string $type 'WORKING', 'INSTALL'
 		 * @return string
 		 */

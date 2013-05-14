@@ -1,7 +1,7 @@
 <?php
     /**
      * XmlQueryParser
-     * Case to parse XE xml query 
+     * Case to parse Karybu xml query
      *
      * @author Arnia (dev@karybu.org)
      * @version 0.1

@@ -3,10 +3,10 @@
     <xsd:annotation>
 	<xsd:documentation>
 	    Add a ColumnAssignmentType to the schema definition for SQL data-change
-	    statements in XML Query Language in XpressEngine.
+	    statements in XML Query Language in Karybu.
 
-	    XpressEngine is an open source framework for creating web sites.
-	    http://xpressengine.org/
+	    Karybu is an open source framework for creating web sites.
+	    http://www.karybu.org/
 
 	    Author: Adrian Constantin, Arnia Software (adrian.constantin@arnia.ro)
 	    Date:   08 mar 2012

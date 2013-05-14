@@ -3,10 +3,10 @@
     <xsd:annotation>
 	<xsd:documentation>
 	    Add a DataChangeStatementTablesType to the main schema definition
-	    for XML Query Language in XpressEngine.
+	    for XML Query Language in Karybu.
 
-	    XpressEngine is an open source framework for creating your web sites.
-	    http://xpressengine.org/
+        Karybu is an open source framework for creating your web sites.
+	    http://www.karybu.org/
 
 	    File:   tools/xml_datachange.xsd
 	    Author: Adrian Constantin, Arnia Software (adrian.constantin@arnia.ro)

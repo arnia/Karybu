@@ -2,7 +2,7 @@
 /** @file
 	vi: ts=4
 
-	Extends XE db classes to allow parsing methods to work in the absence of
+	Extends Karybu db classes to allow parsing methods to work in the absence of
 	a real db connection for the db type.
 
 	Included by XML Query/Schema Language validator

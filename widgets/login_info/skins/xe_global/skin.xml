@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skin version="0.2">
-    <title xml:lang="ko">XE 그레이 스톤 로그인 위젯 스킨</title>
-    <title xml:lang="jp">XE Login Info Widget Global Skin</title>
-    <title xml:lang="zh-CN">XE Login Info Widget Global Skin</title>
-    <title xml:lang="en">XE Login Info Widget Global Skin</title>
-    <title xml:lang="zh-TW">XE Login Info Widget Global Skin</title>
-    <description xml:lang="ko">XE Login Info Widget Global Skin.</description>
-    <description xml:lang="jp">XE Login Info Widget Global Skin.</description>
-    <description xml:lang="zh-CN">XE灰石系登录皮肤</description>
-    <description xml:lang="en">XE Login Info Widget Global Skin.</description>
-    <description xml:lang="zh-TW">XE Login Info Widget Global Skin.</description>
+    <title xml:lang="ko">Karybu 그레이 스톤 로그인 위젯 스킨</title>
+    <title xml:lang="jp">Karybu Login Info Widget Global Skin</title>
+    <title xml:lang="zh-CN">Karybu Login Info Widget Global Skin</title>
+    <title xml:lang="en">Karybu Login Info Widget Global Skin</title>
+    <title xml:lang="zh-TW">Karybu Login Info Widget Global Skin</title>
+    <description xml:lang="ko">Karybu Login Info Widget Global Skin.</description>
+    <description xml:lang="jp">Karybu Login Info Widget Global Skin.</description>
+    <description xml:lang="zh-CN">Karybu灰石系登录皮肤</description>
+    <description xml:lang="en">Karybu Login Info Widget Global Skin.</description>
+    <description xml:lang="zh-TW">Karybu Login Info Widget Global Skin.</description>
     <version>0.1</version>
     <date>2011-06-20</date>
     <link>http://www.karybu.org/</link>

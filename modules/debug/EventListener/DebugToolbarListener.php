@@ -78,9 +78,8 @@ class DebugToolbarListener implements EventSubscriberInterface
 
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
-        $request = $event->getRequest();
         // todo find a better way to mark an exception so that the debug toolbar won't be shown in an exception page
-        $request->query->set('no_toolbar', true);
+        $event->getRequest()->query->set('no_toolbar', true);
     }
 
     public function onKernelResponse(FilterResponseEvent $event)
@@ -92,25 +91,18 @@ class DebugToolbarListener implements EventSubscriberInterface
         $response = $event->getResponse();
         $request = $event->getRequest();
 
-        // do not capture redirects or modify XML HTTP Requests
-        if ($request->isXmlHttpRequest()) {
-            return;
-        }
-
-        // do not capture modals (or any other request that includes a no_toolbar parameter)
-        if ($request->query->has('no_toolbar')) {
-            return;
-        }
-
-        //TODO treat redirects here
+        //TODO deal with redirects here
 
         if (self::DISABLED === $this->mode
             //|| !$response->headers->has('X-Debug-Token')
-            || !$response->headers->has('X-Exception')
             || $response->isRedirection()
             || ($response->headers->has('Content-Type') && false === strpos($response->headers->get('Content-Type'), 'html'))
             || 'html' !== $request->getRequestFormat()
-            || $event->getRequestType() == HttpKernelInterface::SUB_REQUEST
+            // do not capture modals (or any other request that includes a no_toolbar parameter)
+            // also, avoid exceptions
+            || $request->query->has('no_toolbar')
+            // do not capture redirects or modify XML HTTP Requests
+            || $request->isXmlHttpRequest()
         ) {
             return;
         }
@@ -164,7 +156,9 @@ class DebugToolbarListener implements EventSubscriberInterface
             $toolbar = $this->renderView('toolbar');
             $content = $substrFunction($content, 0, $pos).$toolbar.$substrFunction($content, $pos);
             $response->setContent($content);
-            $this->logger->info('Showing debug toolbar');
+            if ($this->logger) {
+                $this->logger->info('Showing debug toolbar');
+            }
         }
     }
 

@@ -33,7 +33,7 @@ class MobileInstance
 
         $xe_web_path = Context::pathToUrl(_KARYBU_PATH_);
 
-        // default setting. if there is cookie for a device, XE do not have to check if it is mobile or not and it will enhance performace of the server.
+        // default setting. if there is cookie for a device, Karybu do not have to check if it is mobile or not and it will enhance performace of the server.
         $this->ismobile = false;
 
         $m = Context::get('m');

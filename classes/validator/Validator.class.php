@@ -458,7 +458,7 @@ class Validator
 	}
 
 	/**
-	 * Returns compiled javascript file path. The path begins from XE root directory.
+	 * Returns compiled javascript file path. The path begins from Karybu root directory.
 	 * @return string Compiled JavaScript file path
 	 */
 	function getJsPath(){

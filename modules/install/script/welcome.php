@@ -288,7 +288,7 @@ $form_styles_srl = $menu->addItem('Form styles', 'form_styles', $styles_srl);
 $table_styles_srl = $menu->addItem('Table styles', 'table_styles', $styles_srl);
 $icon_glyphs_srl = $menu->addItem('Icon glyphs', 'icon_glyphs', $styles_srl);
 $documentation_srl = $menu->addItem('Documentation', 'documentation');
-$codebook_srl = $menu->addItem('Codebook', 'http://www.xpressengine.org/help_and_support');
+$codebook_srl = $menu->addItem('Codebook', 'http://www.karybu.org/');
 
 $menu->save();
 

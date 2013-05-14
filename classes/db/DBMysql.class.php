@@ -117,7 +117,7 @@ class DBMysql extends DB
             if (mysql_get_server_info($result) < "4.1") {
                 $this->setError(
                     -1,
-                    "XE cannot be installed under the version of mysql 4.1. Current mysql version is " . mysql_get_server_info(
+                    "Karybu cannot be installed under the version of mysql 4.1. Current mysql version is " . mysql_get_server_info(
                     )
                 );
                 throw new Exception();

@@ -1466,7 +1466,7 @@ class moduleModel extends module
 
     /**
      * @brief Combine module_srls with domain of sites
-     * Because XE DBHandler doesn't support left outer join,
+     * Because Karybu DBHandler doesn't support left outer join,
      * it should be as same as $Output->data[]->module_srl.
      **/
     function syncModuleToSite(&$data)

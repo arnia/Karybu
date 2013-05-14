@@ -1,13 +1,13 @@
 /**
  * @file   common/js/xe.min.js
  * @author Arnia (dev@karybu.org)
- * @brief  XE Common JavaScript
+ * @brief  Karybu Common JavaScript
  **/
 /**
  * @file js_app.js
  * @author Arnia (dev@karybu.org)
- * @brief XE JavaScript Application Framework (JAF)
- * @namespace xe
+ * @brief Karybu JavaScript Application Framework (JAF)
+ * @namespace Karybu
  * @update 20100701
  */
 (function($){
