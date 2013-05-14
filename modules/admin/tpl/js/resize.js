@@ -164,9 +164,9 @@
         kDashboardGraph.initialize();
 
         if($(".main-nav ul.nav").height() > 50) {
-            $(".main-nav").addClass("main-nav-stacked");
+            $(".main-nav-holder").addClass("main-nav-stacked");
         } else {
-            $(".main-nav").removeClass("main-nav-stacked");
+            $(".main-nav-holder").removeClass("main-nav-stacked");
         }
 
         if (hasNav()){
