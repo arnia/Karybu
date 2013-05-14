@@ -1,4 +1,4 @@
-/* procFilter 함수를 가로채서 captcha 이미지 및 폼을 출력 */
+/* procFilter Intercepts function captcha and output the form image */
 var oldExecXml = null;
 var calledArgs = null;
 (function($){

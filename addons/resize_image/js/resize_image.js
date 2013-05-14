@@ -1,18 +1,18 @@
 /**
- * @brief 화면내에서 상위 영역보다 이미지가 크면 리사이즈를 하고 클릭시 원본을 보여줄수 있도록 변경
+ * @brief Changed so that the image is larger than the top area of the screen, when clicked, show him the original and resize
  **/
 (function($){
 
 var xScreen = null;
 
-// 슬라이드를 위한 블랙 스크린을 만들거나 반환하는 함수
+// Or create a function that returns a black screen for a slide.
 function getScreen() {
 	var body    = $(document.body);
 	var controls, imgframe, closebtn, prevbtn, nextbtn;
 
-	// 스크린이 없으면 스크린을 만든다.
+	// If screen.
 	if (!xScreen) {
-		// 검은 스크린
+		// Black screen
 		xScreen = $("<div>")
 			.attr("id","xe_gallery_screen")
 			.css({
@@ -23,7 +23,7 @@ function getScreen() {
 				opacity:0.5
 			});
 
-		// 이미지를 보여주고 컨트롤 버튼을 다룰 레이어
+		// Dealing with the control button shows the image layer
 		controls = $("<div>")
 			.attr("id","xe_gallery_controls")
 			.css({
@@ -33,7 +33,7 @@ function getScreen() {
 				zIndex:510
 			});
 
-		// 닫기 버튼
+		// Close button
 		closebtn = $("<img>")
 			.attr("id", "xe_gallery_closebtn")
 			.attr("src", request_uri+"addons/resize_image/iconClose.png")
@@ -43,7 +43,7 @@ function getScreen() {
 			.click(function(){xScreen.xeHide()})
 			.appendTo(controls);
 
-		// 이전 버튼
+		// Previous button
 		prevbtn = $("<img>")
 			.attr("id", "xe_gallery_prevbtn")
 			.attr("src", request_uri+"addons/resize_image/iconLeft.png")
@@ -51,7 +51,7 @@ function getScreen() {
 			.click(function(){xScreen.xePrev()})
 			.appendTo(controls);
 
-		// 다음 버튼
+		// Next button
 		nextbtn = $("<img>")
 			.attr("id", "xe_gallery_nextbtn")
 			.attr("src", request_uri+"addons/resize_image/iconRight.png")
@@ -59,7 +59,7 @@ function getScreen() {
 			.click(function(){xScreen.xeNext()})
 			.appendTo(controls);
 
-		// 버튼 공통 속성
+		// Button on the Common Properties
 		controls.find("img")
 			.attr({
 				width  : 60,
@@ -74,7 +74,7 @@ function getScreen() {
 				cursor : "pointer"
 			});
 
-		// 이미지 홀더
+		// Image holder
 		imgframe = $("<img>")
 			.attr("id", "xe_gallery_holder")
 			.css("border", "7px solid white")
@@ -83,7 +83,7 @@ function getScreen() {
 
 		body.append(xScreen).append(controls);
 
-		// xScreen 객체를 확장한다.
+		// xScreen Extended objects.
 		xScreen.xeShow = function() {
 			var clientWidth  = $(window).width();
 			var clientHeight = $(window).height();
@@ -125,7 +125,7 @@ function getScreen() {
 			prevbtn.css("visibility", (this.index>0)?"visible":"hidden");
 			nextbtn.css("visibility", (this.index<this.list.size()-1)?"visible":"hidden");
 
-            //textyle 이미지 리사이즈 처리
+            //textyle Resize the image processing
             var src = this.list.eq(this.index).attr("rawsrc");
             if(!src) src = this.list.eq(this.index).attr("src");
 
@@ -140,7 +140,7 @@ function getScreen() {
 			});
 		};
 
-		// 스크린을 닫는 상황
+		// Situation of closing the screen
 		$(document).keydown(xScreen.xeHide);
 	} else {
 		controls = $("#xe_gallery_controls");
@@ -153,14 +153,14 @@ function getScreen() {
 	return xScreen;
 }
 
-// 이미지 슬라이드를 보는 함수
+// The image to see a slide function
 function slideshow(event) {
 	var container  = $(this).closest('.xe_content');
 	var imglist    = container.find("img[rel=xe_gallery]");
 	var currentIdx = $.inArray($(this).get(0), imglist.get());
 	var xScreen    = getScreen();
 
-	// 스크린을 보여주고
+	// Screen shows
 	xScreen.list  = imglist;
 	xScreen.index = currentIdx;
 	xScreen.xeShow();
@@ -171,23 +171,23 @@ $(function() {
 	var regx_skip = /(?:(modules|addons|classes|common|layouts|libs|widgets|widgetstyles)\/)/i;
 	var regx_allow_i6pngfix = /(?:common\/tpl\/images\/blank\.gif$)/i;
 	/**
-	 * 본문 폭 구하기 위한 개체
-	 * IE6에서 본문폭을 넘는 이미지가 있으면 그 크기로 구해지는 문제 우회용
+	 * Object to save the body width.
+	 * IE6 If the image more than the width of the body in its size, which is saved as a problem for bypass
 	 **/
 	var dummy = $('<div style="height:1; overflow:hidden; opacity:0; display:block; clear:both;"></div>');
 
 	/**
-	 * 리사이즈 실행 함수
+	 * Resize execution function
 	 **/
 	function doResize(contentWidth, count) {
-		// 재시도 회수 제한
+		// A maximum number of retry
 		if(!count) count = 0;
 		if(count >= 10) return;
 
 		var $img = this;
 		var beforSize = {'width':$img.width(), 'height':$img.height()};
 
-		// 이미지 사이즈를 구하지 못했을 때 재시도
+		// Retry when you can not save the image size.
 		if(!beforSize.width || !beforSize.height) {
 			setTimeout(function() {
 				doResize.call($img, contentWidth, ++count)
@@ -195,7 +195,7 @@ $(function() {
 			return;
 		}
 
-		// 리사이즈 필요 없으면 리턴
+		// If no need to resize then return
 		if(beforSize.width <= contentWidth) return;
 
 		var resize_ratio = contentWidth / beforSize.width;
@@ -223,7 +223,7 @@ $(function() {
 			doResize.call($img, contentWidth);
 		});
 
-		/* live 이벤트로 적용 (image_gallery 컴포넌트와의 호환 위함) */
+		/* live Events apply (image_gallery components and compatible to), */
 		$('img[rel=xe_gallery]', this).live('mouseover', function() {
 			var $img = $(this);
 			if(!$img.parent('a').length && !$img.attr('onclick')) {

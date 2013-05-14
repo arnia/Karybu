@@ -1,12 +1,12 @@
-
-
 <div class="navbar-form pull-right" xmlns="http://www.w3.org/1999/html">
-    <a href="{getUrl('act','dispMemberLogout')}" class="btn">Log out</a>
+    <a href="{getUrl('act','dispMemberLogout')}" class="btn">{$lang->logout}</a>
+    <!--@if($logged_info->is_admin=='Y')-->
     <a class="btn admin" data-toggle="tooltip" data-placement="bottom" title="{$lang->cmd_management}" href="{getUrl('','module','admin')}"><i class="icon-cog"></i></a>
-
+    <!--@end-->
 </div>
 <div class="user-info navbar-form pull-right">
-<a href="{getUrl('act','dispMemberInfo')}">Welcome <strong>{$logged_info->nick_name}</strong></a>
+    <a href="{getUrl('act','dispMemberInfo')}">{$lang->welcome} <strong>{$logged_info->nick_name}</strong></a>
 </div>
+
 
 
