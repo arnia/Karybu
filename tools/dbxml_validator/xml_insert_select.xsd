@@ -1,12 +1,12 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xml:lang="en">
     <xsd:annotation>
 	<xsd:documentation>
-	    Redefines the main XML Query Language schema in XpressEngine to
+	    Redefines the main XML Query Language schema in Karybu to
 	    validate SQL INSERT.. SELECT.. statements (as opposed to a plain
 	    INSERT INTO.. VALUES.. statement).
 
-	    XpressEngine is an open source framework for creating your web sites.
-	    http://xpressengine.org/
+        Karybu is an open source framework for creating your web sites.
+	    http://www.karybu.org/
 
 	    Author: Adrian Constantin, Arnia Software (adrian.constantin@arnia.ro)
 	    Date:   09 mar 2012

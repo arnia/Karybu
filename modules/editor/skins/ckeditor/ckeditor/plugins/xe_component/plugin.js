@@ -7,7 +7,7 @@ CKEDITOR.plugins.add('xe_component', {
     init: function(editor){
         var config=editor.config;
         editor.ui.addRichCombo('Xe_component', {
-            label: 'XE',
+            label: 'Karybu',
             title: 'Extension Components',
             panel: {
                 css: [CKEDITOR.skin.getPath('editor')].concat(config.contentsCss),

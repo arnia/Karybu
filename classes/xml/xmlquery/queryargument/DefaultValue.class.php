@@ -33,7 +33,7 @@ class DefaultValue
      */
     var $operation = '';
     /**
-     * Checks if value is plain string or name of XE function (ipaddress, plus, etc).
+     * Checks if value is plain string or name of Karybu function (ipaddress, plus, etc).
      * @var bool
      */
     var $_is_string = false;

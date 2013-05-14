@@ -11,7 +11,7 @@
 if(!defined('__KARYBU__')) exit();
 
 /**
- * Display XE's full version
+ * Display Karybu's full version
  * Even The file should be revised when releasing altough no change is made
  */
 define('__KARYBU_VERSION__', '1.0');

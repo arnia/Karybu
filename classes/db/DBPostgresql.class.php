@@ -21,7 +21,7 @@ class DBPostgresql extends DB
     /**
      * @brief Connection information for PostgreSQL DB
      **/
-    var $prefix = 'xe'; // / <prefix of a tablename (One or more XEs can be installed in a single DB)
+    var $prefix = 'k'; // / <prefix of a tablename (One or more Karybu's can be installed in a single DB)
     var $comment_syntax = '/* %s */';
 
     /**

@@ -315,7 +315,7 @@ class editorController extends editor
     }
 
     /**
-     * @brief Load the srl of autosaved document - for those who uses XE older versions.
+     * @brief Load the srl of autosaved document - for those who uses Karybu older versions.
      **/
     function procEditorLoadSavedDocument()
     {

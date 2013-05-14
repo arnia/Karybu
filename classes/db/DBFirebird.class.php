@@ -17,7 +17,7 @@ class DBFireBird extends DB
     /**
      * @brief connection to Firebird DB
      **/
-    var $prefix = 'xe_'; // / <prefix of XE tables(One more XE can be installed on a single DB)
+    var $prefix = 'k_'; // / <prefix of Karybu tables(One more XE can be installed on a single DB)
     var $idx_no = 0; // counter for creating an index
     var $comment_syntax = '/* %s */';
 
@@ -111,7 +111,7 @@ class DBFireBird extends DB
         if ($ver < "2.0") {
             $this->setError(
                 -1,
-                "XE cannot be installed under the version of firebird 2.0. Current firebird version is " . $ver
+                "Karybu cannot be installed under the version of firebird 2.0. Current firebird version is " . $ver
             );
             ibase_close($result);
             return;
@@ -832,7 +832,7 @@ class DBFireBird extends DB
         // the generator increases the value of the generator and then insert to the table
         // The trigger below acts like auto_increment however I commented the below because the trigger cannot be defined by a query statement
         // php api has a function to increase a generator, so
-        // no need to use auto increment in XE
+        // no need to use auto increment in Karybu
         /*
         $schema = 'SET TERM ^ ; ';
         $schema .= sprintf('CREATE TRIGGER "%s_BI" FOR "%s" ', $table_name, $table_name);

@@ -22,8 +22,8 @@ if(jQuery) jQuery.noConflict();
         ($.os.Mac) ? 'Mac' : '';
 
     /**
-     * @brief XE 공용 유틸리티 함수
-     * @namespace XE
+     * @brief Karybu 공용 유틸리티 함수
+     * @namespace Karybu
      */
     window.XE = {
         loaded_popup_menus : new Array(),

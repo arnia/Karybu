@@ -454,7 +454,7 @@
 	}
 
 	/**
-	 * Get a time gap between server's timezone and XE's timezone
+	 * Get a time gap between server's timezone and Karybu's timezone
 	 *
 	 * @return int
 	 */

@@ -50,7 +50,7 @@ class documentModel extends document
     function setToAllDocumentExtraVars()
     {
         static $checked_documents = array();
-        // XE XE_DOCUMENT_LIST all documents that the object referred to the global variable settings
+        // Karybu XE_DOCUMENT_LIST all documents that the object referred to the global variable settings
         if (!count($GLOBALS['XE_DOCUMENT_LIST'])) {
             return;
         }

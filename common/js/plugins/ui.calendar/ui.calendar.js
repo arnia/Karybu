@@ -1,5 +1,5 @@
 /**
- * @brief XE Calendar
+ * @brief Karybu Calendar
  * @author Arnia (dev@karybu.org)
  *
  * 사용법

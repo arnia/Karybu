@@ -11,13 +11,13 @@
     <title xml:lang="zh-TW">垃圾過濾</title>
     <description xml:lang="ko">XE의 기본 스팸필터입니다.</description>
     <description xml:lang="zh-CN">XE的基本垃圾过滤模块。</description>
-    <description xml:lang="en">The default spam filter of XE.</description>
-    <description xml:lang="vi">Bộ lọc Spam mặc định của XE.</description>
-    <description xml:lang="es">Filtro de Span predefinido de XE.</description>
-    <description xml:lang="jp">XEのスパムフィルターです。</description>
-    <description xml:lang="ru">Стандартный фильтр спама XE.</description>
-    <description xml:lang="zh-TW">XE的基本垃圾過濾模組。</description>
-    <description xml:lang="tr">XE\'nin varsayılan spam filtreleyicisidir.</description>
+    <description xml:lang="en">The default spam filter of Karybu.</description>
+    <description xml:lang="vi">Bộ lọc Spam mặc định của Karybu.</description>
+    <description xml:lang="es">Filtro de Span predefinido de Karybu.</description>
+    <description xml:lang="jp">Karybuのスパムフィルターです。</description>
+    <description xml:lang="ru">Стандартный фильтр спама Karybu.</description>
+    <description xml:lang="zh-TW">Karybu的基本垃圾過濾模組。</description>
+    <description xml:lang="tr">Karybu\'nin varsayılan spam filtreleyicisidir.</description>
     <version>0.1</version>
     <date>2007-02-28</date>
     <category>accessory</category>

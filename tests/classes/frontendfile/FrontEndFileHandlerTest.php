@@ -166,9 +166,9 @@ class FrontEndFileHandlerTest extends PHPUnit_Framework_TestCase
 		unset($expected);
 		$handler = new FrontEndFileHandler();
 
-		$handler->loadFile(array('./common/css/common.css'), true, 'http://static.xpressengine.com/core/', 'v');
+		$handler->loadFile(array('./common/css/common.css'), true, 'http://static.karybu.org/core/', 'v');
 
-		$expected[] = array('file' => 'http://static.xpressengine.com/core/v/common/css/common.css', 'media'=>'all', 'targetie' => '');
+		$expected[] = array('file' => 'http://static.karybu.org/core/v/common/css/common.css', 'media'=>'all', 'targetie' => '');
 		$this->assertEquals($handler->getCssFileList(), $expected);
 
 		// CDN(no cdn setting)
@@ -177,7 +177,7 @@ class FrontEndFileHandlerTest extends PHPUnit_Framework_TestCase
 		Context::setUseCdn('N');
 		$handler = new FrontEndFileHandler();
 
-		$handler->loadFile(array('./common/css/common.css'), true, 'http://static.xpressengine.com/core/', 'v');
+		$handler->loadFile(array('./common/css/common.css'), true, 'http://static.karybu.org/core/', 'v');
 
 		$expected[] = array('file' => '/xe/common/css/common.css', 'media'=>'all', 'targetie' => '');
 		$this->assertEquals($handler->getCssFileList(), $expected);
@@ -189,7 +189,7 @@ class FrontEndFileHandlerTest extends PHPUnit_Framework_TestCase
 		Context::setRequestUrl('https://test.com');
 		$handler = new FrontEndFileHandler();
 
-		$handler->loadFile(array('./common/css/common.css'), true, 'http://static.xpressengine.com/core/', 'v');
+		$handler->loadFile(array('./common/css/common.css'), true, 'http://static.karybu.org/core/', 'v');
 
 		$expected[] = array('file' => '/xe/common/css/common.css', 'media'=>'all', 'targetie' => '');
 		$this->assertEquals($handler->getCssFileList(), $expected);
@@ -202,7 +202,7 @@ class FrontEndFileHandlerTest extends PHPUnit_Framework_TestCase
 		$handler = new FrontEndFileHandler();
 
 		$handler->loadFile(array('http://external.com/css/style2.css'));
-		$handler->loadFile(array('http://external.com/css/style.css'), true, 'http://static.xpressengine.com/core/', 'v');
+		$handler->loadFile(array('http://external.com/css/style.css'), true, 'http://static.karybu.org/core/', 'v');
 
 		$expected[] = array('file' => 'http://external.com/css/style2.css', 'media'=>'all', 'targetie' => '');
 		$expected[] = array('file' => 'http://external.com/css/style.css', 'media'=>'all', 'targetie' => '');

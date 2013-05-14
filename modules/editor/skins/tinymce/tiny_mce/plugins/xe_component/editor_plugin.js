@@ -49,7 +49,7 @@
 	
 		getInfo : function() {
 			return {
-				longname : 'XE Components Plugin',
+				longname : 'Karybu Components Plugin',
 				author : 'Arnia',
 				authorurl : 'http://www.karybu.org/',
 				infourl : '',

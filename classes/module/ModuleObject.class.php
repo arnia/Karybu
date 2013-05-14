@@ -209,9 +209,9 @@ class ModuleObject extends Module
 
     //endregion
 
-    var $mid = null; ///< string to represent run-time instance of Module (XE Module)
-    var $module = null; ///< Class name of Xe Module that is identified by mid
-    var $module_srl = null; ///< integer value to represent a run-time instance of Module (XE Module)
+    var $mid = null; ///< string to represent run-time instance of Module (Karybu Module)
+    var $module = null; ///< Class name of Karybu Module that is identified by mid
+    var $module_srl = null; ///< integer value to represent a run-time instance of Module (Karybu Module)
     var $module_info = null; ///< an object containing the module information
     var $origin_module_info = null;
     var $xml_info = null; ///< an object containing the module description extracted from XML file
@@ -368,7 +368,7 @@ class ModuleObject extends Module
         $logged_info = Context::get('logged_info');
         // module model create an object
         $oModuleModel = & getModel('module');
-        // permission settings. access, manager(== is_admin) are fixed and privilege name in XE
+        // permission settings. access, manager(== is_admin) are fixed and privilege name in Karybu
         $module_srl = Context::get('module_srl');
         if (!$module_info->mid && !is_array($module_srl) && preg_match('/^([0-9]+)$/', $module_srl)) {
             $request_module = $oModuleModel->getModuleInfoByModuleSrl($module_srl);

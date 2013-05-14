@@ -5,17 +5,17 @@
 	@file
 
 	Script to validate a query or a SQL statement written in the 
-	XpressEngine XML Query Language or the XML Schema language.
+	Karybu XML Query Language or the XML Schema language.
 	
-	XpressEngine is an open source framework for creating your web sites.
-	http://xpressengine.org/
+	Karybu is an open source framework for creating your web sites.
+	http://www.karybu.org/
 
 	@Author: Arnia Software
 	@Date:   9 apr 2012
 
 	The validation is based on, and is meant to model, the behavior exposed
 	by the php classes in classes/xml/xmlquery/ and class/db/queryparts/
-	in the XE installation directory.
+	in the Karybu installation directory.
 
 	Usage:
 		validate.php query-file.xml query-file.xml ...
@@ -1373,15 +1373,15 @@ try
 				"	--schema-language\n" .
 				"	--schema\n" .
 				"	-s\n" .
-				"		If given, the document(s) are validated against XE XML Schema Language,\n" .
-				"		otherwise document(s) are validated against XE XML Query Language.\n" .
+				"		If given, the document(s) are validated against Karybu XML Schema Language,\n" .
+				"		otherwise document(s) are validated against Karybu XML Query Language.\n" .
 				"\n" .
 				"	--skip-query-id\n" .
 				"		Do not check the query id, which should normally match the file name.\n" .
 				"\n" .
 				"	--xe-path\n" .
 				"	--xe\n" .
-				"		Path to XE installation. Used to load the database-specific parsers to generate\n" .
+				"		Path to Karybu installation. Used to load the database-specific parsers to generate\n" .
 				"		SQL from the XML language files.\n" .
 				"\n" .
 				"	--validate-only\n" .
@@ -1418,7 +1418,7 @@ try
 	{
 		if($k_path == NULL)
 		{
-			// assume validator.php is in directory .../xe/tools/dbxml_validator/ in an XE installation
+			// assume validator.php is in directory .../xe/tools/dbxml_validator/ in an Karybu installation
 			$k_path = dirname(dirname(realpath(__DIR__)));
 		}
 
@@ -1434,7 +1434,7 @@ try
 		}
 
 		/**
-			Replaces the Context class in XE.
+			Replaces the Context class in Karybu.
 
 			@brief
 			@developer

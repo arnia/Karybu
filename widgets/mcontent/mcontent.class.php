@@ -410,7 +410,7 @@
                     $content_items[] = $content_item;
                 }
             } elseif($xml_doc->{'rdf:rdf'}) {
-                // rss1.0 supported (XE's XML is case-insensitive because XML parser converts all to small letters) Fixed by misol
+                // rss1.0 supported (Karybu's XML is case-insensitive because XML parser converts all to small letters) Fixed by misol
                 $rss->title = $xml_doc->{'rdf:rdf'}->channel->title->body;
                 $rss->link = $xml_doc->{'rdf:rdf'}->channel->link->body;
 

@@ -30,7 +30,7 @@ class Kernel extends SymfonyKernel
     }
 
     /**
-     * Don't execute parent init because it messes with XE's settings
+     * Don't execute parent init because it messes with Karybu's settings
      */
     public function init()
     {

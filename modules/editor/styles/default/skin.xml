@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skin version="0.2">
-    <title xml:lang="ko">XE 기본 서식</title>
-    <title xml:lang="en">XE Default Form</title>
-    <title xml:lang="zh-CN">XE默认样式</title>
-    <title xml:lang="vi">XE Mặc định</title>
-    <title xml:lang="jp">XEデフォルトスタイル</title>
-    <title xml:lang="zh-TW">XE預設樣式</title>
-    <title xml:lang="tr">XE Varsayılan Form</title>
+    <title xml:lang="ko">Karybu 기본 서식</title>
+    <title xml:lang="en">Karybu Default Form</title>
+    <title xml:lang="zh-CN">Karybu默认样式</title>
+    <title xml:lang="vi">Karybu Mặc định</title>
+    <title xml:lang="jp">Karybuデフォルトスタイル</title>
+    <title xml:lang="zh-TW">Karybu預設樣式</title>
+    <title xml:lang="tr">Karybu Varsayılan Form</title>
     <description xml:lang="ko">
-        XE 기본 문서 서식입니다.
+        Karybu 기본 문서 서식입니다.
         있는 그대로 표시가 될 뿐 편집/ 출력시 아무런 영향을 끼치지 않습니다.
     </description>
     <description xml:lang="en">
-        XE's default document style.
+        Karybu's default document style.
         It displays as it is, and does not affect during editing/printing.
     </description>
     <description xml:lang="zh-CN">
-        XE默认样式。
+        Karybu默认样式。
         主题显示及编辑不会受到任何影响，即原样输出。
     </description>
     <description xml:lang="zh-TW">
-        XE預設樣式。
+        Karybu預設樣式。
         主題顯示和編輯不會受到影響。
     </description>
     <description xml:lang="jp">
-        XEの基本ドキュメント書式です。
+        Karybuの基本ドキュメント書式です。
         そのまま表示されるだけで、編集・出力には影響しません。
     </description>
     <description xml:lang="tr">
-        XE varsayılan belge tarzı.
+        Karybu varsayılan belge tarzı.
        Olduğu gibi gösterir, düzenlemeye / yazdırmaya etki etmez.
     </description>
     <description xml:lang="vi">
-        Trang mẫu mặc định của XE.
+        Trang mẫu mặc định của Karybu.
         Nó sẽ hiển thị trong phần sửa đổi bài viết và không ảnh hưởng đến bất cứ chức năng nào cả.
     </description>
     <version>0.0.1</version>

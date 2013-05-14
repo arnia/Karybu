@@ -1,13 +1,13 @@
 /**
  * @file   common/js/xe.min.js
  * @author Arnia (dev@karybu.org)
- * @brief  XE Common JavaScript
+ * @brief  Karybu Common JavaScript
  **/
 /**
  * @file js_app.js
  * @author Arnia (dev@karybu.org)
- * @brief XE JavaScript Application Framework (JAF)
- * @namespace xe
+ * @brief Karybu JavaScript Application Framework (JAF)
+ * @namespace Karybu
  * @update 20100701
  */
 (function($){
@@ -306,8 +306,8 @@ if(jQuery) jQuery.noConflict();
         ($.os.Mac) ? 'Mac' : '';
 
     /**
-     * @brief XE 공용 유틸리티 함수
-     * @namespace XE
+     * @brief Karybu 공용 유틸리티 함수
+     * @namespace Karybu
      */
     window.XE = {
         loaded_popup_menus : new Array(),
