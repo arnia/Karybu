@@ -3796,4 +3796,10 @@
     <item name="are_you_sure">
         <value xml:lang="en"><![CDATA[Are you sure?]]></value>
     </item>
+    <item name="welcome">
+        <value xml:lang="en"><![CDATA[Welcome]]></value>
+    </item>
+    <item name="logout">
+        <value xml:lang="en"><![CDATA[Log out]]></value>
+    </item>
 </lang>

@@ -559,7 +559,7 @@
             // Get information of member_srl
 			$columnList = array('member_srl', 'password');
             $member_info = $oMemberModel->getMemberInfoByMemberSrl($member_srl, 0, $columnList);
-            // Verify the cuttent password
+            // Verify the current password
             if(!$oMemberModel->isValidPassword($member_info->password, $current_password, $member_srl)) return new Object(-1, 'invalid_password');
 
             // Check if a new password is as same as the previous password
