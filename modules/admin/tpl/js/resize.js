@@ -119,9 +119,33 @@
     }
 
     /**
+     * Vertical scrollbars
+     */
+
+    function kVScroll() {}
+    kVScroll.initializeScrollbar = function() {
+        if(!$(".kVScroll").length) return;
+
+        $(".kVScroll").mCustomScrollbar({
+            horizontalScroll:true,
+            autoHideScrollbar: true,
+            scrollButtons: {
+                enable: false
+            },
+            advanced:{
+                autoScrollOnFocus: true
+            }
+        });
+        $(".kVScroll").mCustomScrollbar("scrollTo", ".active");
+    }
+
+
+
+    /**
      * Generic functions
      */
     function getDashboardContentHeight() {
+
         if ($('.main-nav').length > 0) {
             if (parseInt($(window).width()) <= 767) {
                 return Math.floor(($(window).height() - 200))
@@ -188,6 +212,7 @@
         }
 
         kMainNav.initializeScrollbar();
+        kVScroll.initializeScrollbar();
 
         $(window).resize(function(){
             initializeScreenResolution();
