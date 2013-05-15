@@ -145,7 +145,10 @@ class Object {
 	 * @return string Returns value to a given key
 	 */
 	function get($key) {
-		return $this->variables[$key];
+        if (isset($this->variables[$key])) {
+		    return $this->variables[$key];
+        }
+        return null;
 	}
 
 

@@ -94,7 +94,12 @@ class FrontEndFileHandler extends Handler
         if (!is_array($args)) {
             $args = array($args);
         }
-
+        //initialize args
+        for ($i = 1;$i<=3;$i++) {
+            if (!isset($args[$i])) {
+                $args[$i] = null;
+            }
+        }
         $pathInfo = pathinfo($args[0]);
         $file = new stdClass();
         $file->fileName = $pathInfo['basename'];

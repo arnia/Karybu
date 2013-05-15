@@ -65,6 +65,7 @@
 		 */
         function getMenu($menu_srl) {
             // Get information from the DB
+            $args = new stdClass();
             $args->menu_srl = $menu_srl;
             $output = executeQuery('menu.getMenu', $args);
             if(!$output->data) {
@@ -85,9 +86,12 @@
 		 */
         function getMenuByTitle($title) {
             // Get information from the DB
+            $args = new stdClass();
             $args->title = $title;
             $output = executeQuery('menu.getMenuByTitle', $args);
-            if(!$output->data) return;
+            if(!$output->data) {
+                return null;
+            }
 
 			if(is_array($output->data)) $menu_info = $output->data[0];
 			else $menu_info = $output->data;
@@ -193,6 +197,7 @@
 		 */
 		function getMenuItems($menu_srl, $parent_srl = null, $columnList = array())
 		{
+            $args = new stdClass();
 			$args->menu_srl = $menu_srl;
 			$args->parent_srl = $parent_srl;
 

@@ -47,17 +47,21 @@
 
             Context::set('time_zone_list', $GLOBALS['time_zone']);
             Context::set('time_zone', $GLOBALS['_time_zone']);
-            Context::set('use_rewrite', $db_info->use_rewrite=='Y'?'Y':'N');
-            Context::set('use_sso', $db_info->use_sso=='Y'?'Y':'N');
-            Context::set('use_html5', $db_info->use_html5=='Y'?'Y':'N');
-            Context::set('use_spaceremover', $db_info->use_spaceremover?$db_info->use_spaceremover:'Y');//not use
-            Context::set('qmail_compatibility', $db_info->qmail_compatibility=='Y'?'Y':'N');
-            Context::set('use_db_session', $db_info->use_db_session=='N'?'N':'Y');
-            Context::set('use_mobile_view', $db_info->use_mobile_view =='Y'?'Y':'N');
-            Context::set('use_ssl', $db_info->use_ssl?$db_info->use_ssl:"none");
-			Context::set('use_cdn', $db_info->use_cdn?$db_info->use_cdn:"none");
-            if($db_info->http_port) Context::set('http_port', $db_info->http_port);
-            if($db_info->https_port) Context::set('https_port', $db_info->https_port);
+            Context::set('use_rewrite', (isset($db_info->use_rewrite) && $db_info->use_rewrite == 'Y') ? 'Y' : 'N');
+            Context::set('use_sso', (isset($db_info->use_sso) && $db_info->use_sso=='Y') ? 'Y' : 'N');
+            Context::set('use_html5', (isset($db_info->use_html5) && $db_info->use_html5=='Y') ? 'Y' : 'N');
+            Context::set('use_spaceremover', isset($db_info->use_spaceremover) ? $db_info->use_spaceremover : 'Y');//not use
+            Context::set('qmail_compatibility', (isset($db_info->qmail_compatibility) && $db_info->qmail_compatibility=='Y') ? 'Y' : 'N');
+            Context::set('use_db_session', (isset($db_info->use_db_session) && $db_info->use_db_session=='N') ? 'N' : 'Y');
+            Context::set('use_mobile_view', (isset($db_info->use_mobile_view) && $db_info->use_mobile_view) =='Y' ? 'Y' : 'N');
+            Context::set('use_ssl', (isset($db_info->use_ssl) && $db_info->use_ssl) ? $db_info->use_ssl:"none");
+			Context::set('use_cdn', (isset($db_info->use_cdn) && $db_info->use_cdn) ? $db_info->use_cdn:"none");
+            if(isset($db_info->http_port)) {
+                Context::set('http_port', $db_info->http_port);
+            }
+            if(isset($db_info->https_port)) {
+                Context::set('https_port', $db_info->https_port);
+            }
 
 			$this->showSendEnv();
 			$this->checkEasyinstall();
@@ -184,9 +188,10 @@
 			}
 
 			// Admin logo, title setup
+            $gnbTitleInfo = new stdClass();
 			$objConfig = $oModuleModel->getModuleConfig('admin');
-			$gnbTitleInfo->adminTitle = $objConfig->adminTitle ? $objConfig->adminTitle:'Karybu Admin';
-			$gnbTitleInfo->adminLogo  = $objConfig->adminLogo ? $objConfig->adminLogo:'modules/admin/tpl/img/karybu.png';
+			$gnbTitleInfo->adminTitle = isset($objConfig->adminTitle) ? $objConfig->adminTitle:'Karybu Admin';
+			$gnbTitleInfo->adminLogo  = isset($objConfig->adminLogo) ? $objConfig->adminLogo:'modules/admin/tpl/img/karybu.png';
 
 			$browserTitle = ($subMenuTitle ? $subMenuTitle : 'Dashboard').' - '.$gnbTitleInfo->adminTitle;
 
@@ -230,6 +235,7 @@
 			}*/
 
             $currentUrl = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+            $activeNode = null;
             foreach($menu->list as $item){
                 if(strpos($currentUrl,$item['href']) !== false) {
                     if($item['text'] == 'Dashboard'){
@@ -265,15 +271,19 @@
 		 */
         function dispAdminIndex() {
             // Get statistics
+            $args = new stdClass();
             $args->date = date("Ymd000000", time()-60*60*24);
             $today = date("Ymd");
 
             // Member Status
+            $status = new stdClass();
+            $status->member = new stdClass();
 			$oMemberAdminModel = &getAdminModel('member');
 			$status->member->todayCount = $oMemberAdminModel->getMemberCountByDate($today);
 			$status->member->totalCount = $oMemberAdminModel->getMemberCountByDate();
 
             // Document Status
+            $status->document = new stdClass();
 			$oDocumentAdminModel = &getAdminModel('document');
 			$statusList = array('PUBLIC', 'SECRET');
 			$status->document->todayCount = $oDocumentAdminModel->getDocumentCountByDate($today, array(), $statusList);
@@ -281,16 +291,19 @@
 
             // Comment Status
 			$oCommentModel = &getModel('comment');
+            $status->comment = new stdClass();
 			$status->comment->todayCount = $oCommentModel->getCommentCountByDate($today);
 			$status->comment->totalCount = $oCommentModel->getCommentCountByDate();
 
             // Trackback Status
 			$oTrackbackAdminModel = &getAdminModel('trackback');
+            $status->trackback = new stdClass();
 			$status->trackback->todayCount = $oTrackbackAdminModel->getTrackbackCountByDate($today);
 			$status->trackback->totalCount = $oTrackbackAdminModel->getTrackbackCountByDate();
 
             // Attached files Status
 			$oFileAdminModel = &getAdminModel('file');
+            $status->file = new stdClass();
 			$status->file->todayCount = $oFileAdminModel->getFilesCountByDate($today);
 			$status->file->totalCount = $oFileAdminModel->getFilesCountByDate();
 

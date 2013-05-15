@@ -407,10 +407,15 @@
 		 */
 		function getFavoriteList($siteSrl = 0, $isGetModuleInfo = false)
 		{
+            $args = new stdClass();
 			$args->site_srl = $siteSrl;
 			$output = executeQueryArray('admin.getFavoriteList', $args);
-			if (!$output->toBool()) return $output;
-			if (!$output->data) return new Object();
+			if (!$output->toBool()) {
+                return $output;
+            }
+			if (!$output->data) {
+                return new Object();
+            }
 
 			if($isGetModuleInfo && is_array($output->data))
 			{
@@ -550,14 +555,26 @@
                     if($val>$result->week_max) $result->week_max = $val;
                 }
             }
-
+            $result->thisWeekSum = 0;
             for($i=$start_time;$i<=$end_time;$i+=60*60*24) {
-                $result->thisWeekSum += $visitors[date("Ymd",$i)];
-                $result->week[date("Y.m.d",$i)]->this = (int)$visitors[date("Ymd",$i)];
-                $result->week[date("Y.m.d",$i)]->last = (int)$visitors[date("Ymd",$i-60*60*24*7)];
+                if (isset($visitors[date("Ymd",$i)])){
+                    $result->thisWeekSum += $visitors[date("Ymd",$i)];
+                }
+                if (!isset($result->week[date("Y.m.d",$i)])) {
+                    $result->week[date("Y.m.d",$i)] = new stdClass();
+                }
+                if (isset($visitors[date("Ymd",$i)])) {
+                    $result->week[date("Y.m.d",$i)]->this = (int)$visitors[date("Ymd",$i)];
+                }
+                else {
+                    $result->week[date("Y.m.d",$i)]->this = 0;
+                }
+                if (isset($visitors[date("Ymd",$i-60*60*24*7)])) {
+                    $result->week[date("Y.m.d",$i)]->last = (int)$visitors[date("Ymd",$i-60*60*24*7)];
+                }
             }
 
-            // 각종 통계 정보를 구함
+            // Various statistical information wanted
             $output = executeQuery('admin.getTotalVisitors');
             $result->total_visitor = $output->data->count;
             $output = executeQuery('admin.getTotalSiteVisitors');

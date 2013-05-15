@@ -228,14 +228,8 @@ class installController extends install
         $oInstallAdminController = & getAdminController('install');
         $oInstallAdminController->saveLangSelected(array(Context::getLangType()));
 
-        // Display a message that installation is completed
-        $this->setMessage('msg_install_completed');
-
-        if (!in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON'))) {
-            $returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('');
-            header('location:' . $returnUrl);
-            return;
-        }
+        $url = getNotEncodedUrl('', 'module', 'install', 'act', 'dispInstallFinal');
+        $this->setRedirectUrl($url);
     }
 
     /**

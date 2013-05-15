@@ -39,5 +39,9 @@
             {@ $url = ($current_step <7 ? '#' : getUrl('act', 'dispInstallManagerForm')); }
             <a href="{$url}">{$lang->install_progress_menu['adminInfo']}</a>
         </li>
+        <li class="active"|cond="$act=='dispInstallFinal'" class="disabled"|cond="$current_step<8">
+            {@ $url = ($current_step <8 ? '#' : getUrl('act', 'dispInstallFinal')); }
+            <a href="{$url}">{$lang->install_progress_menu['finish']}</a>
+        </li>
 	</ul>
 </div>

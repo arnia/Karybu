@@ -72,7 +72,7 @@ class DBSqlite3_pdo extends DB
      **/
     function isSupported()
     {
-        return class_exists('PDO');
+        return class_exists('PDO') && extension_loaded('pdo_sqlite');
     }
 
     function isConnected()
@@ -97,7 +97,7 @@ class DBSqlite3_pdo extends DB
     function _connect()
     {
         // override if db information not exists
-        if (!$this->database) {
+        if (!$this->database || !$this->isSupported()) {
             return true;
         }
 

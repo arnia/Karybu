@@ -184,4 +184,19 @@ Nếu chọn là mặc định, nó sẽ là trang chủ của Website.]]></valu
 		<value xml:lang="en"><![CDATA[If you delete a page, the files of the page will be removed also.]]></value>
 		<value xml:lang="zh-TW"><![CDATA[如果刪除頁面，頁面標題將會一起被刪除。]]></value>
 	</item>
+    <item name="widget_skin">
+        <value xml:lang="en"><![CDATA[Widget Skin]]></value>
+    </item>
+    <item name="widget_settings">
+        <value xml:lang="en"><![CDATA[Widget Settings]]></value>
+    </item>
+    <item name="widget_duplicate">
+        <value xml:lang="en"><![CDATA[Duplicate Widget]]></value>
+    </item>
+    <item name="widget_styles">
+        <value xml:lang="en"><![CDATA[Widget Styles]]></value>
+    </item>
+    <item name="widget_delete">
+        <value xml:lang="en"><![CDATA[Delete Widget]]></value>
+    </item>
 </lang>
