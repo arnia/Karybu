@@ -22,34 +22,35 @@ class pageView extends page
     {
         // Get a template path (page in the administrative template tpl putting together)
         $this->setTemplatePath($this->module_path . 'tpl');
-
-        switch ($this->module_info->page_type) {
-            case 'WIDGET' :
-            {
-                $this->cache_file = sprintf(
-                    "%sfiles/cache/page/%d.%s.%s.cache.php",
-                    _KARYBU_PATH_,
-                    $this->module_info->module_srl,
-                    Context::getLangType(),
-                    Context::getSslStatus()
-                );
-                if (isset($this->module_info->page_caching_interval)) {
-                    $this->interval = (int)($this->module_info->page_caching_interval);
+        if (isset($this->module_info->page_type)) {
+            switch ($this->module_info->page_type) {
+                case 'WIDGET' :
+                {
+                    $this->cache_file = sprintf(
+                        "%sfiles/cache/page/%d.%s.%s.cache.php",
+                        _KARYBU_PATH_,
+                        $this->module_info->module_srl,
+                        Context::getLangType(),
+                        Context::getSslStatus()
+                    );
+                    if (isset($this->module_info->page_caching_interval)) {
+                        $this->interval = (int)($this->module_info->page_caching_interval);
+                    }
+                    break;
                 }
-                break;
-            }
-            case 'OUTSIDE' :
-            {
-                $this->cache_file = sprintf(
-                    "./files/cache/opage/%d.%s.cache.php",
-                    $this->module_info->module_srl,
-                    Context::getSslStatus()
-                );
-                if (isset($this->module_info->page_caching_interval)) {
-                    $this->interval = (int)($this->module_info->page_caching_interval);
+                case 'OUTSIDE' :
+                {
+                    $this->cache_file = sprintf(
+                        "./files/cache/opage/%d.%s.cache.php",
+                        $this->module_info->module_srl,
+                        Context::getSslStatus()
+                    );
+                    if (isset($this->module_info->page_caching_interval)) {
+                        $this->interval = (int)($this->module_info->page_caching_interval);
+                    }
+                    $this->path = $this->module_info->path;
+                    break;
                 }
-                $this->path = $this->module_info->path;
-                break;
             }
         }
     }

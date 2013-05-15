@@ -126,7 +126,7 @@ class moduleModel extends module
             if ($oCacheHandler->isSupport()) {
                 $output = $oCacheHandler->get('domain_' . $domain);
             }
-            if (!$output) {
+            if (!isset($output)) {
                 $args->domain = $domain;
                 $output = executeQuery('module.getSiteInfoByDomain', $args);
                 if ($oCacheHandler->isSupport() && $output->data) {
@@ -225,7 +225,7 @@ class moduleModel extends module
                 $output = $oCacheHandler->get($cache_key);
             }
         }
-        if (!$output) {
+        if (!isset($output)) {
             $output = executeQuery('module.getMidInfo', $args);
             if ($oCacheHandler->isSupport()) {
                 $cache_key = 'object:' . $mid . '_' . $site_srl;
@@ -1250,6 +1250,7 @@ class moduleModel extends module
                 $args = new stdClass();
                 $args->module = $module;
                 $args->module_srl = $module_srl;
+                $config = null;
                 $output = executeQuery('module.getModulePartConfig', $args);
                 if (isset($output->data->config)) {
                     $config = unserialize($output->data->config);
@@ -1588,6 +1589,9 @@ class moduleModel extends module
             foreach ($output->data as $key => $val) {
                 if (in_array($val->name, array('mid', 'module')) || $val->value == 'Array') {
                     continue;
+                }
+                if (!isset($vars[$val->module_srl])) {
+                    $vars[$val->module_srl] = new stdClass();
                 }
                 $vars[$val->module_srl]->{$val->name} = $val->value;
             }

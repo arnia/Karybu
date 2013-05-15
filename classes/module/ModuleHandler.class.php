@@ -304,7 +304,7 @@ class ModuleHandlerInstance extends Handler
         if ($this->error) {
             return $this->showErrorToUser();
         }
-        if ($this->module_info->use_mobile != "Y") {
+        if (!isset($this->module_info->use_mobile) || $this->module_info->use_mobile != "Y") {
             Mobile::setMobile(false);
         }
     }
@@ -454,7 +454,7 @@ class ModuleHandlerInstance extends Handler
                 $this->validator_session->saveRequestVariables();
 
             } else {
-                if (count($_SESSION['INPUT_ERROR'])) {
+                if (isset($_SESSION['INPUT_ERROR']) && count($_SESSION['INPUT_ERROR'])) {
                     Context::set('INPUT_ERROR', $_SESSION['INPUT_ERROR']);
                     $_SESSION['INPUT_ERROR'] = '';
                 }
