@@ -34,7 +34,12 @@ class rssController extends rss
         }
         if (!$current_module_srl) {
             $current_module_info = Context::get('current_module_info');
-            $current_module_srl = $current_module_info->module_srl;
+            if (isset($current_module_info->module_srl)) {
+                $current_module_srl = $current_module_info->module_srl;
+            }
+            else{
+                $current_module_srl = null;
+            }
         }
 
         if (!$current_module_srl) {

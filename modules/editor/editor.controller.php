@@ -193,7 +193,12 @@ class editorController extends editor
         }
 
         $module_info = Context::get('module_info');
-        $module_srl = $module_info->module_srl;
+        if (isset($module_info->module_srl)){
+            $module_srl = $module_info->module_srl;
+        }
+        else {
+            $module_srl = null;
+        }
         if ($module_srl) {
             $oEditorModel = & getModel('editor');
             $editor_config = $oEditorModel->getEditorConfig($module_srl);

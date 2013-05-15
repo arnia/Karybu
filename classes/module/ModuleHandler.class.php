@@ -583,12 +583,22 @@ class ModuleHandlerInstance extends Handler
 
             // Check if layout_srl exists for the module
             if ($this->mobile->isFromMobilePhone()) {
-                $layout_srl = $oModule->module_info->mlayout_srl;
+                if (isset($oModule->module_info->mlayout_srl)) {
+                    $layout_srl = $oModule->module_info->mlayout_srl;
+                }
+                else{
+                    $layout_srl = null;
+                }
                 if(!$layout_srl && $oModule->module_info->use_mobile == "N")
                     $layout_srl = $oModule->module_info->layout_srl;
 
             } else {
-                $layout_srl = $oModule->module_info->layout_srl;
+                if (isset($oModule->module_info->layout_srl)) {
+                    $layout_srl = $oModule->module_info->layout_srl;
+                }
+                else {
+                    $layout_srl = null;
+                }
             }
 
             if ($layout_srl && !$oModule->getLayoutFile()) {
