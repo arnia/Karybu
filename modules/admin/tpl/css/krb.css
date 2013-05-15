@@ -1402,6 +1402,7 @@ margin:-1px;
     top:35%;
     z-index:100;
     color: #ffffff;
+    background-color: transparent;
     background-image:url(../img/msg.loading.gif);
     background-position: 50% 0;
     background-repeat: no-repeat;
