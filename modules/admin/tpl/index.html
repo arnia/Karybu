@@ -1,16 +1,17 @@
 <include target="./_spHeader.html" />
-
+<div id="dashboard_content">
     <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
         <p>{$XE_VALIDATOR_MESSAGE}</p>
     </div>
-<div class="row-fluid pagetitle-fixed">
-    <div class="span12">
-        <div class="page-title">
-            <i class="big-icon big-icon-dashboard pull-left"></i>
-            <h1>{$lang->menu_gnb['dashboard']}</h1>
+
+    <div class="row-fluid pagetitle-fixed">
+        <div class="span12">
+            <div class="page-title">
+                <i class="big-icon big-icon-dashboard pull-left"></i>
+                <h1>{$lang->menu_gnb['dashboard']}</h1>
+            </div>
         </div>
     </div>
-</div>
 
     <div class="swatchBoard">
         <div class="row-fluid">
@@ -200,3 +201,4 @@
 //]]>
 </script>
 
+</div>
