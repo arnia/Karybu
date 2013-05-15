@@ -356,7 +356,7 @@ class ModuleObject extends Module
     {
         // The default variable settings
         $this->mid = $module_info->mid;
-        $this->module_srl = $module_info->module_srl;
+        $this->module_srl = @$module_info->module_srl;
         $this->module_info = $module_info;
         $this->origin_module_info = $module_info;
         $this->xml_info = $xml_info;

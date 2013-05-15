@@ -68,7 +68,7 @@
 			$oMenuAdminModel = &getAdminModel('menu');
 			$menu_info = $oMenuAdminModel->getMenu($menu_srl);
 
-			if($menu_info->title == '__XE_ADMIN__')
+			if($menu_info->title == '__KARYBU_ADMIN__')
 				return new Object(-1, 'msg_adminmenu_cannot_delete');
 
             $this->deleteMenu($menu_srl);
@@ -280,7 +280,7 @@
             // Get original information
             $item_info = $oMenuAdminModel->getMenuItemInfo($args->menu_item_srl);
 
-			if($menu_title == '__XE_ADMIN__' && $item_info->parent_srl == 0)return $this->stop('msg_cannot_delete_for_admin_topmenu');
+			if($menu_title == '__KARYBU_ADMIN__' && $item_info->parent_srl == 0)return $this->stop('msg_cannot_delete_for_admin_topmenu');
 
             if($item_info->parent_srl) $parent_srl = $item_info->parent_srl;
             // Display an error that the category cannot be deleted if it has a child node
@@ -600,8 +600,11 @@
 		 */
         function makeXmlFile($menu_srl) {
             // Return if there is no information when creating the xml file
-            if(!$menu_srl) return;
+            if(!$menu_srl) {
+                return;
+            }
             // Get menu informaton
+            $args = new stdClass();
             $args->menu_srl = $menu_srl;
             $output = executeQuery('menu.getMenu', $args);
             if(!$output->toBool() || !$output->data) return $output;

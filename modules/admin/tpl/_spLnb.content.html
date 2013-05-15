@@ -8,22 +8,17 @@
 </div>
 <div class="main-nav-holder">
     <div class="row-fluid">
-        <div class="main-nav span12" cond="count($gnbUrlList[$parentSrl]['list']) > 0">
+        <div id="kMainNav" class="main-nav span12" cond="count($gnbUrlList[$parentSrl]['list']) > 0">
             <div class="navbar">
                 <div class="navbar-inner">
                     <div class="container">
-                        <a class="main-drop">
-                            DROP
-                        </a>
-                        <div class="nav">
-                            <ul class="nav">
-                                <!--@if(count($gnbUrlList[$parentSrl]['list']) > 0)-->
-                                <!--@foreach($gnbUrlList[$parentSrl]['list'] AS $key=>$value)-->
-                                <li <!--@if($value['text'] == $subMenuTitle)-->class="active"<!--@end-->><a href="{htmlspecialchars(html_entity_decode($value['href']))}">{$value['text']}</a></li>
-                                <!--@end-->
-                                <!--@end-->
-                            </ul>
-                        </div>
+                        <ul class="nav">
+                            <!--@if(count($gnbUrlList[$parentSrl]['list']) > 0)-->
+                            <!--@foreach($gnbUrlList[$parentSrl]['list'] AS $key=>$value)-->
+                            <li <!--@if($value['text'] == $subMenuTitle)-->class="active"<!--@end-->><a href="{htmlspecialchars(html_entity_decode($value['href']))}">{$value['text']}</a></li>
+                            <!--@end-->
+                            <!--@end-->
+                        </ul>
                     </div>
                 </div>
             </div>

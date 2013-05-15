@@ -29,10 +29,10 @@ class CacheHandler extends Handler
     public static function &getInstance($target = 'object', $info = null, $always_use_file = false)
     {
         $cache_handler_key = $target . ($always_use_file ? '_file' : '');
-        if (!isset($GLOBALS['__XE_CACHE_HANDLER__'][$cache_handler_key])) {
-            $GLOBALS['__XE_CACHE_HANDLER__'][$cache_handler_key] = new CacheHandler($target, $info, $always_use_file);
+        if (!isset($GLOBALS['__KARYBU_CACHE_HANDLER__'][$cache_handler_key])) {
+            $GLOBALS['__KARYBU_CACHE_HANDLER__'][$cache_handler_key] = new CacheHandler($target, $info, $always_use_file);
         }
-        return $GLOBALS['__XE_CACHE_HANDLER__'][$cache_handler_key];
+        return $GLOBALS['__KARYBU_CACHE_HANDLER__'][$cache_handler_key];
     }
 
     /**

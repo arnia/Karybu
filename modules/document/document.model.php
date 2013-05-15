@@ -24,7 +24,10 @@ class documentModel extends document
      */
     function isGranted($document_srl)
     {
-        return $_SESSION['own_document'][$document_srl];
+        if (isset($_SESSION['own_document'][$document_srl])) {
+            return $_SESSION['own_document'][$document_srl];
+        }
+        return null;
     }
 
     /**
@@ -1336,7 +1339,12 @@ class documentModel extends document
      */
     function _setSortIndex($obj, $load_extra_vars)
     {
-        $sortIndex = $obj->sort_index;
+        if (isset($obj->sort_index)) {
+            $sortIndex = $obj->sort_index;
+        }
+        else {
+            $sortIndex = null;
+        }
         $isExtraVars = false;
         if (!in_array(
             $sortIndex,
@@ -1378,6 +1386,7 @@ class documentModel extends document
                 $sortIndex = 'list_order';
             }
         }
+        $returnObj = new stdClass();
         $returnObj->sort_index = $sortIndex;
         $returnObj->isExtraVars = $isExtraVars;
 
@@ -1385,9 +1394,9 @@ class documentModel extends document
     }
 
     /**
-     * 게시물 목록의 검색 옵션을 Setting함(2011.03.08 - cherryfilter)
-     * page변수가 없는 상태에서 page 값을 알아오는 method(getDocumentPage)는 검색하지 않은 값을 return해서 검색한 값을 가져오도록 검색옵션이 추가 됨.
-     * 검색옵션의 중복으로 인해 private method로 별도 분리
+     * Setting search options in the list of posts(2011.03.08 - cherryfilter)
+     * The page page value from the variable does not exist come method (getDocumentPage,) search option to bring the value of search and return values ​​that are not.
+     * Separate private method to separate due to the duplication of search options
      * @param object $searchOpt
      * @param object $args
      * @param string $query_id
@@ -1397,16 +1406,18 @@ class documentModel extends document
     function _setSearchOption($searchOpt, &$args, &$query_id, &$use_division)
     {
         // Variable check
-        $args->category_srl = $searchOpt->category_srl ? $searchOpt->category_srl : null;
-        $args->order_type = $searchOpt->order_type;
-        $args->page = $searchOpt->page ? $searchOpt->page : 1;
-        $args->list_count = $searchOpt->list_count ? $searchOpt->list_count : 20;
-        $args->page_count = $searchOpt->page_count ? $searchOpt->page_count : 10;
-        $args->start_date = $searchOpt->start_date ? $searchOpt->start_date : null;
-        $args->end_date = $searchOpt->end_date ? $searchOpt->end_date : null;
-        $args->member_srl = $searchOpt->member_srl;
+        $args = new stdClass();
+        $args->category_srl = isset($searchOpt->category_srl) ? $searchOpt->category_srl : null;
+        $args->order_type = isset($searchOpt->order_type) ? $searchOpt->order_type : null;
+        $args->page = isset($searchOpt->page) ? $searchOpt->page : 1;
+        $args->list_count = isset($searchOpt->list_count) ? $searchOpt->list_count : 20;
+        $args->page_count = isset($searchOpt->page_count) ? $searchOpt->page_count : 10;
+        $args->start_date = isset($searchOpt->start_date) ? $searchOpt->start_date : null;
+        $args->end_date = isset($searchOpt->end_date) ? $searchOpt->end_date : null;
+        $args->member_srl = isset($searchOpt->member_srl) ? $searchOpt->member_srl : null;
 
         $logged_info = Context::get('logged_info');
+        $load_extra_vars = null;
         $sort_check = $this->_setSortIndex($searchOpt, $load_extra_vars);
 
         $args->sort_index = $sort_check->sort_index;
@@ -1418,38 +1429,42 @@ class documentModel extends document
         }
 
         // If that came across mid module_srl instead of a direct module_srl guhaejum
-        if ($searchOpt->mid) {
+        if (!empty($searchOpt->mid)) {
             $oModuleModel = & getModel('module');
-            $args->module_srl = $oModuleModel->getModuleSrlByMid($obj->mid);
+            $args->module_srl = $oModuleModel->getModuleSrlByMid($searchOpt->mid);
             unset($searchOpt->mid);
         }
 
         // Module_srl passed the array may be a check whether the array
-        if (is_array($searchOpt->module_srl)) {
-            $args->module_srl = implode(',', $searchOpt->module_srl);
-        }
-        else {
-            $args->module_srl = $searchOpt->module_srl;
+        if (isset($searchOpt->module_srl)) {
+            if (is_array($searchOpt->module_srl)) {
+                $args->module_srl = implode(',', $searchOpt->module_srl);
+            }
+            else {
+                $args->module_srl = $searchOpt->module_srl;
+            }
         }
 
         // Except for the test module_srl
-        if (is_array($searchOpt->exclude_module_srl)) {
-            $args->exclude_module_srl = implode(
-                ',',
-                $searchOpt->exclude_module_srl
-            );
-        }
-        else {
-            $args->exclude_module_srl = $searchOpt->exclude_module_srl;
+        if (isset($searchOpt->exclude_module_srl)) {
+            if (is_array($searchOpt->exclude_module_srl)) {
+                $args->exclude_module_srl = implode(
+                    ',',
+                    $searchOpt->exclude_module_srl
+                );
+            }
+            else {
+                $args->exclude_module_srl = $searchOpt->exclude_module_srl;
+            }
         }
 
 
         // only admin document list, temp document showing
-        if ($searchOpt->statusList) {
+        if (isset($searchOpt->statusList)) {
             $args->statusList = $searchOpt->statusList;
         }
         else {
-            if ($logged_info->is_admin == 'Y' && !$searchOpt->module_srl) {
+            if ($logged_info->is_admin == 'Y' && !empty($searchOpt->module_srl)) {
                 $args->statusList = array(
                     $this->getConfigStatus('secret'),
                     $this->getConfigStatus('public'),
@@ -1475,8 +1490,8 @@ class documentModel extends document
         $use_division = false;
 
         // Search options
-        $search_target = $searchOpt->search_target;
-        $search_keyword = $searchOpt->search_keyword;
+        $search_target = isset($searchOpt->search_target) ? $searchOpt->search_target : null;
+        $search_keyword = isset($searchOpt->search_keyword) ? $searchOpt->search_keyword : null;
 
         if ($search_target && $search_keyword) {
             switch ($search_target) {

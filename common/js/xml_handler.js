@@ -1,9 +1,9 @@
 /**
  * @file   common/js/xml_handler.js
- * @brief  XE에서 ajax기능을 이용함에 있어 module, act를 잘 사용하기 위한 자바스크립트
+ * @brief  XEct in yiyongham ajax function from module, JavaScript
  **/
 
-// xml handler을 이용하는 user function
+// xml handler Using user function
 var show_waiting_message = true;
 
 /*  This work is licensed under Creative Commons GNU LGPL License.
@@ -278,7 +278,7 @@ $.exec_xml = window.exec_xml = function(module, act, params, callback_func, resp
 		if($.isFunction(callback_func)) callback_func(ret, response_tags, callback_func_arg, fo_obj);
 	}
 
-	// 모든 xml데이터는 POST방식으로 전송. try-catch문으로 오류 발생시 대처
+	// Xml data sent by the POST method. cope in case of an error by a try-catch statement
 	try {
 		$.ajax({
 			url         : xml_path,
@@ -310,7 +310,7 @@ $.exec_xml = window.exec_xml = function(module, act, params, callback_func, resp
 		return;
 	}
 
-	// ajax 통신중 대기 메세지 출력 (show_waiting_message값을 false로 세팅시 보이지 않음)
+	// ajax Waiting for communication of messages output when setting the value to false (show_waiting_message not shown)
 	var waiting_obj = $('.wfsr');
 	if(show_waiting_message && waiting_obj.length) {
 		waiting_obj.html(waiting_message).show();
@@ -352,7 +352,7 @@ function arr2obj(arr) {
 
 
 /**
- * @brief exec_json (exec_xml와 같은 용도)
+ * @brief exec_json (Applications such as exec_xml)
  **/
 $.exec_json = function(action,data,func){
     if(typeof(data) == 'undefined') data = {};

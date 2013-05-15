@@ -48,18 +48,18 @@ class FrontEndFileHandler extends Handler
      */
     function isSsl()
     {
-        if (isset($GLOBAL['__XE_IS_SSL__'])) {
-            return $GLOBAL['__XE_IS_SSL__'];
+        if (isset($GLOBAL['__KARYBU_IS_SSL__'])) {
+            return $GLOBAL['__KARYBU_IS_SSL__'];
         }
 
         $url_info = parse_url(Context::getRequestUrl());
         if ($url_info['scheme'] == 'https') {
-            $GLOBAL['__XE_IS_SSL__'] = true;
+            $GLOBAL['__KARYBU_IS_SSL__'] = true;
         } else {
-            $GLOBAL['__XE_IS_SSL__'] = false;
+            $GLOBAL['__KARYBU_IS_SSL__'] = false;
         }
 
-        return $GLOBAL['__XE_IS_SSL__'];
+        return $GLOBAL['__KARYBU_IS_SSL__'];
     }
 
     /**
@@ -94,7 +94,12 @@ class FrontEndFileHandler extends Handler
         if (!is_array($args)) {
             $args = array($args);
         }
-
+        //initialize args
+        for ($i = 1;$i<=3;$i++) {
+            if (!isset($args[$i])) {
+                $args[$i] = null;
+            }
+        }
         $pathInfo = pathinfo($args[0]);
         $file = new stdClass();
         $file->fileName = $pathInfo['basename'];

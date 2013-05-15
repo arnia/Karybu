@@ -1127,7 +1127,7 @@ class DB
             return true;
 
         // Ignore if no DB information exists
-        if (!$this->_dbInfoExists())
+        if (!$this->_dbInfoExists() || !$this->isSupported())
             return true;
 
         if ($type == 'master')

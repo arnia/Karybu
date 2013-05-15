@@ -304,7 +304,7 @@ class ModuleHandlerInstance extends Handler
         if ($this->error) {
             return $this->showErrorToUser();
         }
-        if ($this->module_info->use_mobile != "Y") {
+        if (!isset($this->module_info->use_mobile) || $this->module_info->use_mobile != "Y") {
             Mobile::setMobile(false);
         }
     }
@@ -379,12 +379,12 @@ class ModuleHandlerInstance extends Handler
         }
 
         if ($oModule->module_key->isAdmin()) {
-            if ($_SESSION['denied_admin'] == 'Y') {
+            if (isset($_SESSION['denied_admin']) && $_SESSION['denied_admin'] == 'Y') {
                 $this->error = "msg_not_permitted_act";
                 return $this->showErrorToUser();
             }
 
-            if ($oModule->checkAdminPermission) {
+            if (isset($oModule->checkAdminPermission)) {
                 // Validate current user permissions
                 $grant = $oModuleModel->getGrant($this->module_info, $logged_info);
                 if (!$grant->is_admin && !$grant->manager) {
@@ -399,8 +399,12 @@ class ModuleHandlerInstance extends Handler
 
     public function injectCustomHeaderAndFooter($oModule)
     {
-        if ($oModule->module_key->getType(
-        ) == "view" && $this->module_info->use_mobile == "Y" && $this->mobile->isMobileCheckByAgent()
+        $useMobile = false;
+        if (isset($this->module_info->use_mobile) && $this->module_info->use_mobile == 'Y') {
+            $useMobile = true;
+        }
+        if ($oModule->module_key->getType() == "view" &&
+            $useMobile && $this->mobile->isMobileCheckByAgent()
         ) {
             global $lang;
             $header = '<style type="text/css">div.xe_mobile{opacity:0.7;margin:1em 0;padding:.5em;background:#333;border:1px solid #666;border-left:0;border-right:0}p.xe_mobile{text-align:center;margin:1em 0}a.xe_mobile{color:#ff0;font-weight:bold;font-size:24px}@media only screen and (min-width:500px){a.xe_mobile{font-size:15px}}</style>';
@@ -454,7 +458,7 @@ class ModuleHandlerInstance extends Handler
                 $this->validator_session->saveRequestVariables();
 
             } else {
-                if (count($_SESSION['INPUT_ERROR'])) {
+                if (isset($_SESSION['INPUT_ERROR']) && count($_SESSION['INPUT_ERROR'])) {
                     Context::set('INPUT_ERROR', $_SESSION['INPUT_ERROR']);
                     $_SESSION['INPUT_ERROR'] = '';
                 }

@@ -126,7 +126,7 @@ class moduleModel extends module
             if ($oCacheHandler->isSupport()) {
                 $output = $oCacheHandler->get('domain_' . $domain);
             }
-            if (!$output) {
+            if (!isset($output)) {
                 $args->domain = $domain;
                 $output = executeQuery('module.getSiteInfoByDomain', $args);
                 if ($oCacheHandler->isSupport() && $output->data) {
@@ -225,7 +225,7 @@ class moduleModel extends module
                 $output = $oCacheHandler->get($cache_key);
             }
         }
-        if (!$output) {
+        if (!isset($output)) {
             $output = executeQuery('module.getMidInfo', $args);
             if ($oCacheHandler->isSupport()) {
                 $cache_key = 'object:' . $mid . '_' . $site_srl;
@@ -408,7 +408,7 @@ class moduleModel extends module
         }
 
         $site_module_info = Context::get('site_module_info');
-
+        $args = new stdClass();
         $args->mid = $mid;
         if ($site_module_info) {
             $args->site_srl = $site_module_info->site_srl;
@@ -569,35 +569,96 @@ class moduleModel extends module
         // Module Information
         if ($xml_obj->version && $xml_obj->attrs->version == '0.2') {
             // module format 0.2
-            $module_info->title = $xml_obj->title->body;
-            $module_info->description = $xml_obj->description->body;
-            $module_info->version = $xml_obj->version->body;
-            $module_info->homepage = $xml_obj->link->body;
-            $module_info->category = $xml_obj->category->body;
-            if (!$module_info->category) {
+            $module_info = new stdClass();
+            if (isset($xml_obj->title->body)) {
+                $module_info->title = $xml_obj->title->body;
+            }
+            else {
+                $module_info->title = null;
+            }
+            if (isset($xml_obj->description->body)) {
+                $module_info->description = $xml_obj->description->body;
+            }
+            else {
+                $module_info->description = null;
+            }
+            if (isset($xml_obj->version->body)) {
+                $module_info->version = $xml_obj->version->body;
+            }
+            else {
+                $module_info->version = null;
+            }
+            if (isset($xml_obj->link->body)) {
+                $module_info->homepage = $xml_obj->link->body;
+            }
+            else {
+                $module_info->homepage = null;
+            }
+            if (isset($xml_obj->category->body)) {
+                $module_info->category = $xml_obj->category->body;
+            }
+            else {
                 $module_info->category = 'service';
             }
-            sscanf($xml_obj->date->body, '%d-%d-%d', $date_obj->y, $date_obj->m, $date_obj->d);
-            $module_info->date = sprintf('%04d%02d%02d', $date_obj->y, $date_obj->m, $date_obj->d);
-            $module_info->license = $xml_obj->license->body;
-            $module_info->license_link = $xml_obj->license->attrs->link;
+            if (isset($xml_obj->date->body)) {
+                list ($y, $m, $d) = sscanf($xml_obj->date->body, '%d-%d-%d');
+                $module_info->date = sprintf('%04d%02d%02d', $y, $m, $d);
+            }
+            else {
+                $module_info->date = null;
+            }
 
-            if (!is_array($xml_obj->author)) {
-                $author_list[] = $xml_obj->author;
-            } else {
-                $author_list = $xml_obj->author;
+            if (isset($xml_obj->license->body)) {
+                $module_info->license = $xml_obj->license->body;
+            }
+            else {
+                $module_info->license = null;
+            }
+            if (isset($xml_obj->license->attrs->link)) {
+                $module_info->license_link = $xml_obj->license->attrs->link;
+            }
+            else{
+                $module_info->license_link = null;
+            }
+            if (isset($xml_obj->author)) {
+                if (!is_array($xml_obj->author)) {
+                    $author_list[] = $xml_obj->author;
+                } else {
+                    $author_list = $xml_obj->author;
+                }
+            }
+            else {
+                $author_list = array();
             }
 
             foreach ($author_list as $author) {
                 unset($author_obj);
-                $author_obj->name = $author->name->body;
-                $author_obj->email_address = $author->attrs->email_address;
-                $author_obj->homepage = $author->attrs->link;
+                $author_obj = new stdClass();
+                if (isset($author->name->body)) {
+                    $author_obj->name = $author->name->body;
+                }
+                else {
+                    $author_obj->name = null;
+                }
+
+                if (isset($author->attrs->email_address)) {
+                    $author_obj->email_address = $author->attrs->email_address;
+                }
+                else {
+                    $author_obj->email_address = null;
+                }
+
+                if (isset($author->attrs->link)) {
+                    $author_obj->homepage = $author->attrs->link;
+                }
+                else {
+                    $author_obj->homepage = null;
+                }
                 $module_info->author[] = $author_obj;
             }
 
             // history
-            if ($xml_obj->history) {
+            if (isset($xml_obj->history)) {
                 if (!is_array($xml_obj->history)) {
                     $history[] = $xml_obj->history;
                 } else {
@@ -606,35 +667,100 @@ class moduleModel extends module
 
                 foreach ($history as $item) {
                     unset($obj);
-
-                    if ($item->author) {
-                        (!is_array(
-                            $item->author
-                        )) ? $obj->author_list[] = $item->author : $obj->author_list = $item->author;
-
+                    $obj = new stdClass();
+                    if (isset($item->author)) {
+                        if (!is_array($item->author)) {
+                            $obj->author_list[] = $item->author;
+                        }
+                        else{
+                            $obj->author_list = $item->author;
+                        }
                         foreach ($obj->author_list as $author) {
                             unset($author_obj);
-                            $author_obj->name = $author->name->body;
-                            $author_obj->email_address = $author->attrs->email_address;
-                            $author_obj->homepage = $author->attrs->link;
+                            $author_obj = new stdClass();
+                            if (isset($author->name->body)) {
+                                $author_obj->name = $author->name->body;
+                            }
+                            else {
+                                $author_obj->name = null;
+                            }
+                            if (isset($author->attrs->email_address)) {
+                                $author_obj->email_address = $author->attrs->email_address;
+                            }
+                            else {
+                                $author_obj->email_address = null;
+                            }
+                            if (isset($author->attrs->link)) {
+                                $author_obj->homepage = $author->attrs->link;
+                            }
                             $obj->author[] = $author_obj;
                         }
                     }
+                    if (isset($item->name->body)) {
+                        $obj->name = $item->name->body;
+                    }
+                    else {
+                        $obj->name = null;
+                    }
 
-                    $obj->name = $item->name->body;
-                    $obj->email_address = $item->attrs->email_address;
-                    $obj->homepage = $item->attrs->link;
-                    $obj->version = $item->attrs->version;
-                    $obj->date = $item->attrs->date;
-                    $obj->description = $item->description->body;
+                    if (isset($item->attrs->email_address)) {
+                        $obj->email_address = $item->attrs->email_address;
+                    }
+                    else {
+                        $obj->email_address = null;
+                    }
 
-                    if ($item->log) {
-                        (!is_array($item->log)) ? $obj->log[] = $item->log : $obj->log = $item->log;
+                    if (isset($item->attrs->link)) {
+                        $obj->homepage = $item->attrs->link;
+                    }
+                    else {
+                        $obj->homepage = null;
+                    }
 
+                    if (isset($item->attrs->version)) {
+                        $obj->version = $item->attrs->version;
+                    }
+                    else {
+                        $obj->version = null;
+                    }
+
+                    if (isset($item->attrs->date)) {
+                        $obj->date = $item->attrs->date;
+                    }
+                    else {
+                        $obj->date = null;
+                    }
+
+                    if (isset($item->description->body)) {
+                        $obj->description = $item->description->body;
+                    }
+                    else {
+                        $obj->description = null;
+                    }
+
+                    if (isset($item->log)) {
+                        $obj->log = array();
+                        if (!is_array($item->log)){
+                            $obj->log[] = $item->log;
+                        }
+                        else {
+                            $obj->log = $item->log;
+                        }
                         foreach ($obj->log as $log) {
                             unset($logs_obj);
-                            $logs_obj->text = $log->body;
-                            $logs_obj->link = $log->attrs->link;
+                            $logs_obj = new stdClass();
+                            if (isset($log->body)) {
+                                $logs_obj->text = $log->body;
+                            }
+                            else {
+                                $logs_obj->text = null;
+                            }
+                            if (isset($log->attrs->link)) {
+                                $logs_obj->link = $log->attrs->link;
+                            }
+                            else {
+                                $logs_obj->link = null;
+                            }
                             $obj->logs[] = $logs_obj;
                         }
                     }
@@ -646,26 +772,78 @@ class moduleModel extends module
 
         } else {
             // module format 0.1
-            $module_info->title = $xml_obj->title->body;
-            $module_info->description = $xml_obj->author->description->body;
-            $module_info->version = $xml_obj->attrs->version;
-            $module_info->category = $xml_obj->attrs->category;
-            if (!$module_info->category) {
+            if (isset($xml_obj->title->body)) {
+                $module_info->title = $xml_obj->title->body;
+            }
+            else {
+                $module_info->title = null;
+            }
+            if (isset($xml_obj->author->description->body)) {
+                $module_info->description = $xml_obj->author->description->body;
+            }
+            else {
+                $module_info->description = null;
+            }
+
+            if (isset($xml_obj->attrs->version)) {
+                $module_info->version = $xml_obj->attrs->version;
+            }
+            if (isset($xml_obj->attrs->category)) {
+                $module_info->category = $xml_obj->attrs->category;
+            }
+            else {
                 $module_info->category = 'service';
             }
-            sscanf($xml_obj->author->attrs->date, '%d. %d. %d', $date_obj->y, $date_obj->m, $date_obj->d);
-            $module_info->date = sprintf('%04d%02d%02d', $date_obj->y, $date_obj->m, $date_obj->d);
-            $author_obj->name = $xml_obj->author->name->body;
-            $author_obj->email_address = $xml_obj->author->attrs->email_address;
-            $author_obj->homepage = $xml_obj->author->attrs->link;
+
+            if (isset($xml_obj->author->attrs->date)) {
+                list ($y, $m, $d) = sscanf($xml_obj->author->attrs->date, '%d. %d. %d');
+                $module_info->date = sprintf('%04d%02d%02d', $y, $m, $d);
+            }
+            else {
+                $module_info->date = null;
+            }
+            if (isset($xml_obj->author->name->body)) {
+                $author_obj->name = $xml_obj->author->name->body;
+            }
+            else {
+                $author_obj->name = null;
+            }
+            if (isset($xml_obj->author->attrs->email_address)) {
+                $author_obj->email_address = $xml_obj->author->attrs->email_address;
+            }
+            else {
+                $author_obj->email_address = null;
+            }
+
+            if (isset($xml_obj->author->attrs->link)) {
+                $author_obj->homepage = $xml_obj->author->attrs->link;
+            }
+            else {
+                $author_obj->homepage = null;
+            }
             $module_info->author[] = $author_obj;
         }
         // Add admin_index by using action information
         $action_info = $this->getModuleActionXml($module);
-        $module_info->admin_index_act = $action_info->admin_index_act;
-        $module_info->default_index_act = $action_info->default_index_act;
-        $module_info->setup_index_act = $action_info->setup_index_act;
+        if (isset($action_info->admin_index_act)) {
+            $module_info->admin_index_act = $action_info->admin_index_act;
+        }
+        else {
+            $module_info->admin_index_act = null;
+        }
+        if (isset($action_info->default_index_act)) {
+            $module_info->default_index_act = $action_info->default_index_act;
+        }
+        else {
+            $module_info->default_index_act = null;
+        }
 
+        if (isset($action_info->setup_index_act)) {
+            $module_info->setup_index_act = $action_info->setup_index_act;
+        }
+        else {
+            $module_info->setup_index_act = null;
+        }
         return $module_info;
     }
 
@@ -680,12 +858,12 @@ class moduleModel extends module
         // Get a path of the requested module. Return if not exists.
         $class_path = ModuleHandler::getModulePath($module);
         if (!$class_path) {
-            return;
+            return null;
         }
         // Check if module.xml exists in the path. Return if not exist
         $xml_file = sprintf("%sconf/module.xml", $class_path);
         if (!file_exists($xml_file)) {
-            return;
+            return null;
         }
         // Check if cached file exists
         $cache_file = sprintf(
@@ -703,7 +881,7 @@ class moduleModel extends module
             $xml_obj = $parser->loadXmlFile($xml_file); // /< Read xml file and convert it to xml object
 
             if (!count($xml_obj->module)) {
-                return;
+                return null;
             } // /< Error occurs if module tag doesn't included in the xml
 
             $grants = $xml_obj->module->grants->grant; // /< Permission information
@@ -1250,6 +1428,7 @@ class moduleModel extends module
                 $args = new stdClass();
                 $args->module = $module;
                 $args->module_srl = $module_srl;
+                $config = null;
                 $output = executeQuery('module.getModulePartConfig', $args);
                 if (isset($output->data->config)) {
                     $config = unserialize($output->data->config);
@@ -1589,6 +1768,9 @@ class moduleModel extends module
                 if (in_array($val->name, array('mid', 'module')) || $val->value == 'Array') {
                     continue;
                 }
+                if (!isset($vars[$val->module_srl])) {
+                    $vars[$val->module_srl] = new stdClass();
+                }
                 $vars[$val->module_srl]->{$val->name} = $val->value;
             }
             if ($oCacheHandler->isSupport()) {
@@ -1623,7 +1805,7 @@ class moduleModel extends module
      **/
     function syncSkinInfoToModuleInfo(&$module_info)
     {
-        if (!$module_info->module_srl) {
+        if (!isset($module_info->module_srl) || !$module_info->module_srl) {
             return;
         }
 
@@ -1726,7 +1908,12 @@ class moduleModel extends module
             $xml_info = $this->getModuleActionXml($module);
         }
         // Set variables to grant group permission
-        $module_srl = $module_info->module_srl;
+        if (isset($module_info->module_srl)){
+            $module_srl = $module_info->module_srl;
+        }
+        else{
+            $module_srl = null;
+        }
         if (isset($xml_info->grant)) {
             $grant_info = $xml_info->grant;
         }

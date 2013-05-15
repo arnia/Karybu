@@ -1551,4 +1551,8 @@
     <item name="prod">
         <value xml:lang="en"><![CDATA[Production]]></value>
     </item>
+    <item name="toolbar_disabled_gzip">
+        <value xml:lang="en"><![CDATA[Debug toolbar cannot be used when gzip compression is enabled]]></value>
+    </item>
+
 </lang>
