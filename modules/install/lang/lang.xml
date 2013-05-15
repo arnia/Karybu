@@ -914,9 +914,12 @@
 		<value xml:lang="vi"><![CDATA[Kiểm tra kết nối bằng FTP]]></value>
 		<value xml:lang="mn"><![CDATA[FTP холболт шалгах]]></value>
 	</item>
+    <item name="msg_why_is_ftp_needed">
+        <value xml:lang="en"><![CDATA[When do you need to enable FTP?]]></value>
+    </item>
 	<item name="msg_safe_mode_ftp_needed">
 		<value xml:lang="ko"><![CDATA[PHP의 <strong>safe_mode=On</strong>일 경우 XE의 정상적인 동작을 돕습니다.]]></value>
-		<value xml:lang="en"><![CDATA[When safe_mode setting of PHP is On, you should enter FTP account information to install Karybu.]]></value>
+		<value xml:lang="en"><![CDATA[When PHP's safe_mode setting is On, you should enter FTP account information to install Karybu.]]></value>
 		<value xml:lang="jp"><![CDATA[PHPのsafe_modeがOnの場合、FTP情報を登録することで、XEのインストール及び利用が可能になります。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[当PHP的safe_mode=On时，请必须输入相关FTP信息，否则将无法正常安装或使用XE程序。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[當 PHP 的安全模式(safe_mode)開啟時，請輸入相關 FTP 資訊，否則無法正常安裝或使用程式。]]></value>
@@ -929,7 +932,7 @@
 	</item>
 	<item name="msg_safe_mode_ftp_needed2">
 		<value xml:lang="ko"><![CDATA[모듈의 쉬운 설치 또는 업데이트가 가능해 집니다.]]></value>
-		<value xml:lang="en"><![CDATA[Easy installation or update of module is enabled.]]></value>
+		<value xml:lang="en"><![CDATA[When the Easy installation module is enabled.]]></value>
 		<value xml:lang="jp"><![CDATA[モジュールのイージーインストール、または更新が可能になります。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[可用的安裝或更新。]]></value>
 	</item>
