@@ -18,7 +18,7 @@
             // Specify the template path
             $this->setTemplatePath($this->module_path.'tpl');
             // Error occurs if already installed
-            if(Context::isInstalled()) return $this->stop('msg_already_installed');
+            if(Context::isInstalled() && Context::get('act') != 'dispInstallFinal') return $this->stop('msg_already_installed');
             // Install a controller
             $oInstallController = &getController('install');
             $this->install_enable = $oInstallController->checkInstallEnv();
@@ -115,6 +115,13 @@
 			}
 
             $this->setTemplateFile('admin_form');
+        }
+
+        /**
+         * @brief Display the final instalation screen
+         **/
+        function dispInstallFinal() {
+            $this->setTemplateFile('final_message');
         }
     }
 ?>

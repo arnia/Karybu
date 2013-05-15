@@ -1,0 +1,17 @@
+<include target="header.html" />
+
+<div id="content">
+    <div class="xe-ui-panel cleared">
+        <div class="xe-ui-panel-content">
+            <h2>{$lang->final_title}</h2>
+            <p>{$lang->final_description}</p>
+            <p>
+                {$lang->final_site_desc} <a href="{getURL('')}">{$lang->here}</a> .<br />
+                {$lang->final_admin_desc} <a href="{getURL('','module','admin')}">{$lang->here}</a>.
+            </p>
+        </div>
+    </div>
+    <p id="version">{$lang->version} {__KARYBU_VERSION__}</p>
+</div>
+
+<include target="footer.html" />

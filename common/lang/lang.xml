@@ -891,7 +891,7 @@
 	</item>
 	<item name="enable">
 		<value xml:lang="ko"><![CDATA[가능]]></value>
-		<value xml:lang="en"><![CDATA[Enable]]></value>
+		<value xml:lang="en"><![CDATA[Enabled]]></value>
 		<value xml:lang="jp"><![CDATA[可能]]></value>
 		<value xml:lang="zh-CN"><![CDATA[可用]]></value>
 		<value xml:lang="zh-TW"><![CDATA[可用]]></value>
@@ -905,7 +905,7 @@
 	</item>
 	<item name="disable">
 		<value xml:lang="ko"><![CDATA[불가능]]></value>
-		<value xml:lang="en"><![CDATA[Disable]]></value>
+		<value xml:lang="en"><![CDATA[Disabled]]></value>
 		<value xml:lang="jp"><![CDATA[不可]]></value>
 		<value xml:lang="zh-CN"><![CDATA[禁用]]></value>
 		<value xml:lang="zh-TW"><![CDATA[禁用]]></value>
