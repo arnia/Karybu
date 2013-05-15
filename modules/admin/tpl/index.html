@@ -42,7 +42,7 @@
             </a>
             <a class="span2 green swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispFileAdminList')}">
                 <span class="corner"></span>
-                <b class="kNumbers">{number_format($status->file->totalCount)}(<!--@if($status->file->todayCount > 0)-->+<!--@end-->{number_format($status->file->todayCount)})</b>
+                <b class="kNumbers">{number_format($status->file->totalCount)} (<!--@if($status->file->todayCount > 0)-->+<!--@end-->{number_format($status->file->todayCount)})</b>
                 <strong>{$lang->files}</strong>
             </a>
         </div>
