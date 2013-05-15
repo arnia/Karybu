@@ -103,6 +103,8 @@
      */
     function kMainNav() {}
     kMainNav.initializeScrollbar = function() {
+        if(!$("#kMainNav").length) return;
+
         $("#kMainNav").mCustomScrollbar({
             horizontalScroll:true,
             autoHideScrollbar: true,
@@ -110,7 +112,6 @@
                 enable: false
             },
             advanced:{
-                updateOnContentResize: true,
                 autoScrollOnFocus: true
             }
         });
@@ -200,9 +201,6 @@
             else{
                 kActionsNav.makeVertical();
             }
-
-            kMainNav.initializeScrollbar();
-
         });
     });
 
