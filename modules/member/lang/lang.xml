@@ -220,7 +220,7 @@
 	</item>
 	<item name="member_group">
 		<value xml:lang="ko"><![CDATA[회원 그룹]]></value>
-		<value xml:lang="en"><![CDATA[Member Group]]></value>
+		<value xml:lang="en"><![CDATA[Member Groups]]></value>
 		<value xml:lang="jp"><![CDATA[所属グループ]]></value>
 		<value xml:lang="zh-CN"><![CDATA[用户组]]></value>
 		<value xml:lang="zh-TW"><![CDATA[群組]]></value>
@@ -441,7 +441,7 @@
 	</item>
 	<item name="enable_confirm">
 		<value xml:lang="ko"><![CDATA[메일 인증 사용]]></value>
-		<value xml:lang="en"><![CDATA[Email Activation]]></value>
+		<value xml:lang="en"><![CDATA[Require Email Activation]]></value>
 		<value xml:lang="jp"><![CDATA[メール認証機能を使用]]></value>
 		<value xml:lang="zh-CN"><![CDATA[使用邮件认证]]></value>
 		<value xml:lang="zh-TW"><![CDATA[使用郵件認證]]></value>
@@ -957,7 +957,7 @@
 	</item>
 	<item name="cmd_member_list">
 		<value xml:lang="ko"><![CDATA[회원 목록]]></value>
-		<value xml:lang="en"><![CDATA[Member List]]></value>
+		<value xml:lang="en"><![CDATA[Members]]></value>
 		<value xml:lang="jp"><![CDATA[会員リスト]]></value>
 		<value xml:lang="zh-CN"><![CDATA[会员目录]]></value>
 		<value xml:lang="zh-TW"><![CDATA[會員列表]]></value>
@@ -969,7 +969,7 @@
 	</item>
 	<item name="cmd_module_config">
 		<value xml:lang="ko"><![CDATA[기본 설정]]></value>
-		<value xml:lang="en"><![CDATA[Default Setting]]></value>
+		<value xml:lang="en"><![CDATA[Default Settings]]></value>
 		<value xml:lang="jp"><![CDATA[基本設定]]></value>
 		<value xml:lang="zh-CN"><![CDATA[常规选项]]></value>
 		<value xml:lang="zh-TW"><![CDATA[基本設置]]></value>
@@ -1021,7 +1021,7 @@
 	</item>
 	<item name="cmd_manage_form">
 		<value xml:lang="ko"><![CDATA[가입 폼 관리]]></value>
-		<value xml:lang="en"><![CDATA[Signup Form]]></value>
+		<value xml:lang="en"><![CDATA[Signup Form Fields]]></value>
 		<value xml:lang="jp"><![CDATA[会員登録フォーム管理]]></value>
 		<value xml:lang="zh-CN"><![CDATA[扩展注册表单]]></value>
 		<value xml:lang="zh-TW"><![CDATA[註冊表單管理]]></value>
@@ -1033,7 +1033,7 @@
 	</item>
 	<item name="cmd_view_own_document">
 		<value xml:lang="ko"><![CDATA[작성 글 보기]]></value>
-		<value xml:lang="en"><![CDATA[Written Articles]]></value>
+		<value xml:lang="en"><![CDATA[Written Documents]]></value>
 		<value xml:lang="jp"><![CDATA[書き込み履歴]]></value>
 		<value xml:lang="zh-CN"><![CDATA[会员话题]]></value>
 		<value xml:lang="zh-TW"><![CDATA[發表主題]]></value>
@@ -1055,7 +1055,7 @@
 	</item>
 	<item name="cmd_trace_document">
 		<value xml:lang="ko"><![CDATA[작성글 추적]]></value>
-		<value xml:lang="en"><![CDATA[Trace Written Articles]]></value>
+		<value xml:lang="en"><![CDATA[Trace Written Documents]]></value>
 		<value xml:lang="jp"><![CDATA[書き込みの追跡]]></value>
 		<value xml:lang="zh-CN"><![CDATA[主题追踪]]></value>
 		<value xml:lang="zh-TW"><![CDATA[主題追蹤]]></value>
@@ -1087,7 +1087,7 @@
 	</item>
 	<item name="cmd_view_saved_document">
 		<value xml:lang="ko"><![CDATA[저장함 보기]]></value>
-		<value xml:lang="en"><![CDATA[Saved Articles]]></value>
+		<value xml:lang="en"><![CDATA[Saved Documents]]></value>
 		<value xml:lang="jp"><![CDATA[保存ドキュメント]]></value>
 		<value xml:lang="zh-CN"><![CDATA[临时保存箱]]></value>
 		<value xml:lang="zh-TW"><![CDATA[儲存主題]]></value>
@@ -1123,7 +1123,7 @@
 	</item>
 	<item name="msg_alreay_scrapped">
 		<value xml:lang="ko"><![CDATA[이미 스크랩된 게시물입니다.]]></value>
-		<value xml:lang="en"><![CDATA[This article is already scrapped.]]></value>
+		<value xml:lang="en"><![CDATA[This document is already scrapped.]]></value>
 		<value xml:lang="jp"><![CDATA[既にスクラップされたコンテンツです。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[已收藏的主题！]]></value>
 		<value xml:lang="zh-TW"><![CDATA[已收藏的主題！]]></value>
@@ -2073,7 +2073,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 	</item>
 	<item name="no_article">
 		<value xml:lang="ko"><![CDATA[글이 없습니다.]]></value>
-		<value xml:lang="en"><![CDATA[No articles]]></value>
+		<value xml:lang="en"><![CDATA[No documents]]></value>
 		<value xml:lang="jp"><![CDATA[書き込みがありません。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[主題不存在]]></value>
 		<value xml:lang="fr"><![CDATA[There exists no article]]></value>
@@ -2343,13 +2343,13 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 	</item>
 	<item name="cmd_show_all_member">
 		<value xml:lang="ko"><![CDATA[모든 회원]]></value>
-		<value xml:lang="en"><![CDATA[All Member]]></value>
+		<value xml:lang="en"><![CDATA[All Members]]></value>
 		<value xml:lang="jp"><![CDATA[すべての会員]]></value>
 		<value xml:lang="zh-TW"><![CDATA[所有會員]]></value>
 	</item>
 	<item name="cmd_show_super_admin_member">
 		<value xml:lang="ko"><![CDATA[최고 관리자]]></value>
-		<value xml:lang="en"><![CDATA[Super Admin]]></value>
+		<value xml:lang="en"><![CDATA[Super Admins]]></value>
 		<value xml:lang="jp"><![CDATA[最高管理者]]></value>
 		<value xml:lang="zh-TW"><![CDATA[最高管理員]]></value>
 	</item>
@@ -2361,7 +2361,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 	</item>
 	<item name="approval">
 		<value xml:lang="ko"><![CDATA[승인]]></value>
-		<value xml:lang="en"><![CDATA[Approval]]></value>
+		<value xml:lang="en"><![CDATA[Approved]]></value>
 		<value xml:lang="jp"><![CDATA[承認]]></value>
 		<value xml:lang="zh-TW"><![CDATA[承認]]></value>
 	</item>
@@ -2513,8 +2513,8 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
         
         <!--SNS-->
         <item name="sns">
-		<value xml:lang="ko"><![CDATA[SNS]]></value>
-		<value xml:lang="en"><![CDATA[SNS]]></value>
+		<value xml:lang="ko"><![CDATA[Login with a Social Network]]></value>
+		<value xml:lang="en"><![CDATA[Login with a Social Network]]></value>
 	</item>
         <item name="msg_sns_is_not_founded">
 		<value xml:lang="ko"><![CDATA[Cannot find SNS %s.]]></value>

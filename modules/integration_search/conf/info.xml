@@ -23,7 +23,7 @@
     </description>
     <description xml:lang="en">
         It supports the integrated search for chosen modules.
-        All articles except secret articles will be searched, so you need to be careful not to include secret module to target.
+        All documents except secret documents will be searched, so you need to be careful not to include secret module to target.
     </description>
     <description xml:lang="vi">
         Hỗ trợ tìm kiếm tích hợp cho những Module được chọn.

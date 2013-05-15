@@ -784,7 +784,7 @@
 	</item>
 	<item name="cmd_remake_cache">
 		<value xml:lang="ko"><![CDATA[캐시파일 재생성]]></value>
-		<value xml:lang="en"><![CDATA[Re-create cache file]]></value>
+		<value xml:lang="en"><![CDATA[Flush cache]]></value>
 		<value xml:lang="jp"><![CDATA[キャッシュファイル再生成]]></value>
 		<value xml:lang="zh-CN"><![CDATA[更新缓冲]]></value>
 		<value xml:lang="zh-TW"><![CDATA[重新建立暫存檔]]></value>
@@ -1047,7 +1047,7 @@
 	</item>
 	<item name="document_srl">
 		<value xml:lang="ko"><![CDATA[문서번호]]></value>
-		<value xml:lang="en"><![CDATA[Article No.]]></value>
+		<value xml:lang="en"><![CDATA[Document No.]]></value>
 		<value xml:lang="jp"><![CDATA[書き込み番号]]></value>
 		<value xml:lang="zh-CN"><![CDATA[文章编号]]></value>
 		<value xml:lang="zh-TW"><![CDATA[文章編號]]></value>
@@ -1344,7 +1344,7 @@
 	</item>
 	<item name="document">
 		<value xml:lang="ko"><![CDATA[문서]]></value>
-		<value xml:lang="en"><![CDATA[Article]]></value>
+		<value xml:lang="en"><![CDATA[Document]]></value>
 		<value xml:lang="jp"><![CDATA[書き込み]]></value>
 		<value xml:lang="zh-CN"><![CDATA[文章]]></value>
 		<value xml:lang="zh-TW"><![CDATA[文章]]></value>
@@ -1798,7 +1798,7 @@
 	</item>
 	<item name="document_url">
 		<value xml:lang="ko"><![CDATA[게시글 주소]]></value>
-		<value xml:lang="en"><![CDATA[Article URL]]></value>
+		<value xml:lang="en"><![CDATA[Document URL]]></value>
 		<value xml:lang="jp"><![CDATA[書き込みＵＲＬ]]></value>
 		<value xml:lang="zh-CN"><![CDATA[文章地址]]></value>
 		<value xml:lang="zh-TW"><![CDATA[連結網址]]></value>
@@ -1854,7 +1854,7 @@
 	</item>
 	<item name="document_count">
 		<value xml:lang="ko"><![CDATA[글 수]]></value>
-		<value xml:lang="en"><![CDATA[Articles]]></value>
+		<value xml:lang="en"><![CDATA[Documents]]></value>
 		<value xml:lang="jp"><![CDATA[書き込み数]]></value>
 		<value xml:lang="zh-CN"><![CDATA[帖子数]]></value>
 		<value xml:lang="zh-TW"><![CDATA[文章數量]]></value>
@@ -2084,7 +2084,7 @@
 	</item>
 	<item name="search_target">
 		<value xml:lang="ko"><![CDATA[검색대상]]></value>
-		<value xml:lang="en"><![CDATA[Target for Search]]></value>
+		<value xml:lang="en"><![CDATA[Search target]]></value>
 		<value xml:lang="jp"><![CDATA[検索対象]]></value>
 		<value xml:lang="zh-CN"><![CDATA[搜索目标]]></value>
 		<value xml:lang="zh-TW"><![CDATA[搜尋目標]]></value>
@@ -2126,7 +2126,7 @@
 	</item>
 	<item name="no_documents">
 		<value xml:lang="ko"><![CDATA[등록된 글이 없습니다.]]></value>
-		<value xml:lang="en"><![CDATA[No Articles]]></value>
+		<value xml:lang="en"><![CDATA[No Documents]]></value>
 		<value xml:lang="jp"><![CDATA[登録された書き込みがありません。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[现没有主题。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[目前沒有主題]]></value>
@@ -2672,7 +2672,7 @@
 	</item>
 	<item name="msg_invalid_document">
 		<value xml:lang="ko"><![CDATA[잘못된 문서번호입니다.]]></value>
-		<value xml:lang="en"><![CDATA[Invalid Article Number]]></value>
+		<value xml:lang="en"><![CDATA[Invalid Document Number]]></value>
 		<value xml:lang="jp"><![CDATA[無効な書き込み番号です。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[出错的文章编号]]></value>
 		<value xml:lang="zh-TW"><![CDATA[錯誤的文章編號]]></value>
@@ -3095,7 +3095,7 @@
 	</item>
 	<item name="fail_to_delete_have_children">
 		<value xml:lang="ko"><![CDATA[댓글이 있어서 삭제할 수 없습니다.]]></value>
-		<value xml:lang="en"><![CDATA[Cannot delete the article with comments.]]></value>
+		<value xml:lang="en"><![CDATA[Cannot delete the document with comments.]]></value>
 		<value xml:lang="jp"><![CDATA[返信の書き込みがあり、削除できません。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[不能删除有回复的评论！]]></value>
 		<value xml:lang="zh-TW"><![CDATA[不能刪除有回覆的主題！]]></value>

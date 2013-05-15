@@ -533,39 +533,39 @@ li.active a.big-icon-content {
     background-position:-160px -160px;
 }
 
-.big-icon-menu {
+.big-icon-menus {
     background-position:0 -240px;
 }
 
-a.big-icon-menu:hover {
+a.big-icon-menus:hover {
     background-position:-80px -240px;
 }
 
-li.active a.big-icon-menu {
+li.active a.big-icon-menus {
     background-position:-160px -240px;
 }
 
-.big-icon-theme {
+.big-icon-themes {
     background-position:0 -320px;
 }
 
-a.big-icon-theme:hover {
+a.big-icon-themes:hover {
     background-position:-80px -320px;
 }
 
-li.active a.big-icon-theme {
+li.active a.big-icon-themes {
     background-position:-160px -320px;
 }
 
-.big-icon-member {
+.big-icon-members {
     background-position:0 -400px;
 }
 
-a.big-icon-member:hover {
+a.big-icon-members:hover {
     background-position:-80px -400px;
 }
 
-li.active a.big-icon-member {
+li.active a.big-icon-members {
     background-position:-160px -400px;
 }
 
@@ -1441,7 +1441,6 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
     border-color: #97bc66;
 }
 
-}
 
 .x .thumbPreview .prevToggle {
     position: absolute;

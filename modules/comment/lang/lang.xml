@@ -83,7 +83,7 @@
 	</item>
 	<item name="msg_cart_is_null">
 		<value xml:lang="ko"><![CDATA[삭제할 글을 선택해주세요.]]></value>
-		<value xml:lang="en"><![CDATA[Please select an article to delete.]]></value>
+		<value xml:lang="en"><![CDATA[Please select a document to delete.]]></value>
 		<value xml:lang="jp"><![CDATA[削除するコメントを選択してください。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[请选择要删除的评论。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[請選擇要刪除的回覆。]]></value>

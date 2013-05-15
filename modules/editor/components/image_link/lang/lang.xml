@@ -57,7 +57,7 @@
 	</item>
 	<item name="image_align_left">
 		<value xml:lang="ko"><![CDATA[글의 왼쪽으로]]></value>
-		<value xml:lang="en"><![CDATA[Left of Article]]></value>
+		<value xml:lang="en"><![CDATA[Left of Document]]></value>
 		<value xml:lang="jp"><![CDATA[左揃え]]></value>
 		<value xml:lang="zh-CN"><![CDATA[内容左侧]]></value>
 		<value xml:lang="zh-TW"><![CDATA[靠左]]></value>
@@ -79,7 +79,7 @@
 	</item>
 	<item name="image_align_right">
 		<value xml:lang="ko"><![CDATA[글의 우측으로]]></value>
-		<value xml:lang="en"><![CDATA[Right of Article]]></value>
+		<value xml:lang="en"><![CDATA[Right of Document]]></value>
 		<value xml:lang="jp"><![CDATA[右揃え]]></value>
 		<value xml:lang="zh-CN"><![CDATA[内容右侧]]></value>
 		<value xml:lang="zh-TW"><![CDATA[靠右]]></value>

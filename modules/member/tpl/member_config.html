@@ -192,16 +192,6 @@
         </select>
     </div>
 </div>
-<div class="control-group form-inline">
-    <label class="control-label" for="skin">{$lang->skin}</label>
-
-    <div class="controls">
-        <select id="skin" name="skin" onchange="doGetSkinColorset(this.options[this.selectedIndex].value)">
-            <option loop="$skin_list=>$key,$val" value="{$key}" selected="selected"
-            |cond="$config->skin==$key">{$val->title} ({$key})</option>
-        </select>
-    </div>
-</div>
 <div id="colorset" class="control-group form-inline" style="display:none"
 |cond="!$config->colorset">
 <label class="control-label" for="member_colorset">{$lang->colorset}</label>

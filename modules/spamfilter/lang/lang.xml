@@ -113,7 +113,7 @@
 	</item>
 	<item name="about_interval">
 		<value xml:lang="ko"><![CDATA[지정된 시간 내에 글을 등록하지 못하게 합니다.]]></value>
-		<value xml:lang="en"><![CDATA[All articles attempted for posting within the assigned time will be blocked.]]></value>
+		<value xml:lang="en"><![CDATA[All documents attempted for posting within the assigned time will be blocked.]]></value>
 		<value xml:lang="jp"><![CDATA[指定された時間に書き込みが行えないようにします。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[指定的时间内禁止发表新主题。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[指定的時間內禁止發表新主題。]]></value>
@@ -173,7 +173,7 @@ l'article qui comporte le mot ne sera pas affichagé.]]></value>
 	</item>
 	<item name="about_check_trackback">
 		<value xml:lang="ko"><![CDATA[한 글에 한 IP에만 트랙백을 허용할 수 있습니다.]]></value>
-		<value xml:lang="en"><![CDATA[A single IP per article is allowed for trackbacks.]]></value>
+		<value xml:lang="en"><![CDATA[A single IP per document is allowed for trackbacks.]]></value>
 		<value xml:lang="jp"><![CDATA[ひとつのIPからのみトラックバックを受信するようにします。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[对一个主题只允许一个IP引用。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[對一個主題只允許一個IP引用。]]></value>
@@ -185,7 +185,7 @@ l'article qui comporte le mot ne sera pas affichagé.]]></value>
 	</item>
 	<item name="msg_alert_limited_by_config">
 		<value xml:lang="ko"><![CDATA[%s 초 이내에 글 작성은 금지 됩니다. 계속 시도하시면 금지 IP에 등록되실 수 있습니다.]]></value>
-		<value xml:lang="en"><![CDATA[Posting an article within %s seconda is not allowed.\n If you keep trying, your IP address will be blacklisted.]]></value>
+		<value xml:lang="en"><![CDATA[Posting an document within %s seconda is not allowed.\n If you keep trying, your IP address will be blacklisted.]]></value>
 		<value xml:lang="jp"><![CDATA[%s秒以内の書き込みは禁止されます。続けて行うとスパムとして認識され、禁止IPに登録されます。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[%s秒之内不能连续发表新主题。如您继续再试系统将自动禁止您的IP。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[%s秒之內不能連續發表新主題。如您繼續再試系統將自動禁止您的IP。]]></value>
@@ -221,7 +221,7 @@ l'article qui comporte le mot ne sera pas affichagé.]]></value>
 	</item>
 	<item name="msg_alert_trackback_denied">
 		<value xml:lang="ko"><![CDATA[한 글에는 하나의 트랙백만 허용됩니다.]]></value>
-		<value xml:lang="en"><![CDATA[Only one trackback per an article is allowed.]]></value>
+		<value xml:lang="en"><![CDATA[Only one trackback per a document is allowed.]]></value>
 		<value xml:lang="jp"><![CDATA[ひとつの書き込みには、１つのトラックバックしか受け取れません。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[一个主题只允许一个引用。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[一個主題只允許一個引用。]]></value>
@@ -233,12 +233,12 @@ l'article qui comporte le mot ne sera pas affichagé.]]></value>
 	</item>
 	<item name="cmd_interval">
 		<value xml:lang="ko"><![CDATA[10초 동안 3회 이상 글을 작성하면 스패머로 간주할까요? 글, 댓글 작성과 엮인글 발송을 차단합니다.]]></value>
-		<value xml:lang="en"><![CDATA[Do you want to blacklist the users who attempt to post articles more than 3 times for 10 seconds? The blacklisted users cannot write articles or comments and send trackbacks.]]></value>
+		<value xml:lang="en"><![CDATA[Do you want to blacklist the users who attempt to post documents more than 3 times for 10 seconds? The blacklisted users cannot write documents or comments and send trackbacks.]]></value>
 	　　<value xml:lang="jp"><![CDATA[10秒の間3回以上書き込みをすると、スパムとみなしますか？書き込み、コメント作成とトラックバックの送信をブロックします。]]></value>
 	</item>
 	<item name="cmd_check_trackback">
 		<value xml:lang="ko"><![CDATA[하나의 글에 2회 이상 엮인글을 등록하면 스패머로 간주할까요? 엮인글을 차단합니다.]]></value>
-		<value xml:lang="en"><![CDATA[Do you want to blacklist the users who attempt to post more than 2 trackbacks to one article? The blacklisted users cannot post trackbacks.]]></value>
+		<value xml:lang="en"><![CDATA[Do you want to blacklist the users who attempt to post more than 2 trackbacks to one document? The blacklisted users cannot post trackbacks.]]></value>
 	　　<value xml:lang="jp"><![CDATA[ひとつの書き込みに2回以上トラックバックを登録するとスパムとみなしますか？トラックバックをブロックします。]]></value>
 	</item>
 	<item name="add">

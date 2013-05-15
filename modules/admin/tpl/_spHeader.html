@@ -89,7 +89,7 @@
                 <p>{$lang->about_dashboard}</p>
             </div>
             <div class="kList">
-                <h6>{$lang->dashboard}</h6>
+                <h6>{$lang->sitemap}</h6>
                 <ul class="unstyled kList">
                     <li loop="$main_menu->items=>$key,$value">
                         <!--@if(isset($value->setup_index_act))-->
@@ -114,7 +114,7 @@
                                 <button class="clear" type="submit" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kErase">{$lang->cmd_delete}</i></button>
                             </form>
                         </li>
-                        <li cond="!is_array($favorite_list) || count($favorite_list) < 1"><a href="{getUrl('', 'module', 'admin', 'act', 'dispModuleAdminContent')}">{$lang->no_data}</a></li>
+                        <li cond="!is_array($favorite_list) || count($favorite_list) < 1"><a href="{getUrl('', 'module', 'admin', 'act', 'dispModuleAdminContent')}">{$lang->no_favorites}</a></li>
                    </ul>
             </div>
         </div>

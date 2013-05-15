@@ -59,7 +59,7 @@
 	    	<description xml:lang="zh-CN">可以指定验证码应用对象(管理员除外)。</description>
 		    <description xml:lang="jp">管理者を除き、書き込み・コメントを入力する際にcaptchaイメージを見せる対象を設定します。</description>
 		    <description xml:lang="zh-TW">除了管理員，可以選擇圖形驗證應用的對象。</description>
-            <description xml:lang="en">You can specify if CAPTCHA should be displayed when posting an article or comment. It will not apply to administrators.</description>
+            <description xml:lang="en">You can specify if CAPTCHA should be displayed when posting an article/document or comment. It will not apply to administrators.</description>
             <description xml:lang="ru">You may specify targets CAPTCHA work. It's not applied when administrator writes.</description>
             <description xml:lang="vi">Khi gửi bài, bình luận, Capcha sẽ hiển thị để xác nhận hành động của người sử dụng. Chức năng này không hoạt động với người quản lý.</description>
             <options value="">

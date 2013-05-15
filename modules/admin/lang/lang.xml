@@ -108,6 +108,12 @@
     <item name="preview">
         <value xml:lang="en"><![CDATA[Preview]]></value>
     </item>
+    <item name="sitemap">
+        <value xml:lang="en"><![CDATA[Sitemap]]></value>
+    </item>
+    <item name="no_favorites">
+        <value xml:lang="en"><![CDATA[Favorites list is empty. Click to add some]]></value>
+    </item>
 	<item name="start_module">
 		<value xml:lang="ko"><![CDATA[시작 모듈]]></value>
 		<value xml:lang="en"><![CDATA[Default Module]]></value>
@@ -288,14 +294,14 @@
 		</item>
 		<item name="menu">
 			 <value xml:lang="ko"><![CDATA[사이트]]></value>
-			 <value xml:lang="en"><![CDATA[Menu]]></value>
+			 <value xml:lang="en"><![CDATA[Menus]]></value>
 			 <value xml:lang="jp"><![CDATA[サイト]]></value>
 			 <value xml:lang="zh-CN"><![CDATA[目录]]></value>
 			 <value xml:lang="tr"><![CDATA[Menü]]></value>
 		</item>
 		<item name="user">
 			 <value xml:lang="ko"><![CDATA[회원]]></value>
-			 <value xml:lang="en"><![CDATA[Member]]></value>
+			 <value xml:lang="en"><![CDATA[Members]]></value>
 			 <value xml:lang="jp"><![CDATA[会員]]></value>
 			 <value xml:lang="zh-CN"><![CDATA[会员]]></value>
 			 <value xml:lang="tr"><![CDATA[Üye]]></value>
@@ -309,7 +315,7 @@
 		</item>
 		<item name="theme">
 			 <value xml:lang="ko"><![CDATA[테마]]></value>
-			 <value xml:lang="en"><![CDATA[Theme]]></value>
+			 <value xml:lang="en"><![CDATA[Themes]]></value>
 			 <value xml:lang="jp"><![CDATA[テーマ]]></value>
 			 <value xml:lang="zh-CN"><![CDATA[主题]]></value>
 			 <value xml:lang="tr"><![CDATA[Tema]]></value>
@@ -1554,5 +1560,16 @@
     <item name="toolbar_disabled_gzip">
         <value xml:lang="en"><![CDATA[Debug toolbar cannot be used when gzip compression is enabled]]></value>
     </item>
-
+    <item name="documents">
+        <value xml:lang="en"><![CDATA[Documents]]></value>
+    </item>
+    <item name="comments">
+        <value xml:lang="en"><![CDATA[Comments]]></value>
+    </item>
+    <item name="trackbacks">
+        <value xml:lang="en"><![CDATA[Trackbacks]]></value>
+    </item>
+    <item name="files">
+        <value xml:lang="en"><![CDATA[Files]]></value>
+    </item>
 </lang>

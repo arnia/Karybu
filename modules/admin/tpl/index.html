@@ -27,22 +27,22 @@
             <a class="span2 yellow swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispDocumentAdminList')}">
                 <span class="corner"></span>
                 <b class="kNumbers">{number_format($status->document->totalCount)}(<!--@if($status->document->todayCount > 0)-->+<!--@end-->{number_format($status->document->todayCount)})</b>
-                <strong>{$lang->menu_gnb_sub['document']}</strong>
+                <strong>{$lang->documents}</strong>
             </a>
             <a class="span2 blue swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispCommentAdminList')}">
                 <span class="corner"></span>
                 <b class="kNumbers">{number_format($status->comment->totalCount)}(<!--@if($status->comment->todayCount > 0)-->+<!--@end-->{$status->comment->todayCount})</b>
-                <strong>{$lang->menu_gnb_sub['comment']}</strong>
+                <strong>{$lang->comments}</strong>
             </a>
             <a class="span2 purple swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispTrackbackAdminList')}">
                 <span class="corner"></span>
                 <b class="kNumbers">{number_format($status->trackback->totalCount)}(<!--@if($status->trackback->todayCount > 0)-->+<!--@end-->{$status->trackback->todayCount})</b>
-                <strong>{$lang->menu_gnb_sub['trackback']}</strong>
+                <strong>{$lang->trackbacks}</strong>
             </a>
             <a class="span2 green swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispFileAdminList')}">
                 <span class="corner"></span>
                 <b class="kNumbers">{number_format($status->file->totalCount)}(<!--@if($status->file->todayCount > 0)-->+<!--@end-->{number_format($status->file->todayCount)})</b>
-                <strong>{$lang->menu_gnb_sub['file']}</strong>
+                <strong>{$lang->files}</strong>
             </a>
         </div>
     </div>
