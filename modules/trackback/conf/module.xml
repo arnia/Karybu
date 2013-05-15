@@ -17,7 +17,7 @@
     </actions>
 	<menus>
 		<menu name="trackback">
-			<title xml:lang="en">Trackback</title>
+			<title xml:lang="en">Trackbacks</title>
 			<title xml:lang="ko">엮인글</title>
 			<title xml:lang="zh-CN">Trackback</title>
 			<title xml:lang="jp">Trackback</title>

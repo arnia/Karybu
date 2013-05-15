@@ -24,7 +24,7 @@
 	</actions>
 	<menus>
 		<menu name="comment">
-			<title xml:lang="en">Comment</title>
+			<title xml:lang="en">Comments</title>
 			<title xml:lang="ko">댓글</title>
 			<title xml:lang="zh-CN">Comment</title>
 			<title xml:lang="jp">Comment</title>

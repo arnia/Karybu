@@ -61,7 +61,7 @@
     </actions>
 	<menus>
 		<menu name="document">
-			<title xml:lang="en">Document</title>
+			<title xml:lang="en">Documents</title>
 			<title xml:lang="ko">문서</title>
 			<title xml:lang="zh-CN">Document</title>
 			<title xml:lang="jp">Document</title>

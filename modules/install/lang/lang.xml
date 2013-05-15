@@ -1040,5 +1040,118 @@
 		<value xml:lang="es"><![CDATA[설치된 XE의 FTP 절대경로 설정]]></value>
 		<value xml:lang="tr"><![CDATA[Karybu Salt FTP Yolu]]></value>
 		<value xml:lang="vi"><![CDATA[Đường dẫn tuyệt đối của thư mục cài đặt Karybu trên FTP]]></value>
+    </item>
+    <item name="read_all">
+        <value xml:lang="ko"><![CDATA[전문 읽기]]></value>
+        <value xml:lang="en"><![CDATA[Read Full Text]]></value>
+        <value xml:lang="jp"><![CDATA[フルテキスト読み込み]]></value>
+    </item>
+    <item name="msg_license_agreement_alert">
+        <value xml:lang="en"><![CDATA[You must agree to the terms of use.]]></value>
+    </item>
+    <!--item name="license_agreement_desc">
+            <value xml:lang="ko"><![CDATA[XE를 사용하려면 <em>이 항목에 반드시 동의해야 합니다</em>.]]></value>
+            <value xml:lang="en"><![CDATA[To use XE, <em>you have to agree to this</em>.]]></value>
+            <value xml:lang="jp"><![CDATA[XEを使用するには、<em>この項目に必ず同意しなければなりません。</em>]]></value>
+    </item-->
+    <item name="license_agreement_alert">
+        <value xml:lang="ko"><![CDATA[XE를 사용하려면 'GNU 약소 일반 공중 사용 허가서(LGPL v2)'에 반드시 동의해야 합니다.]]></value>
+        <value xml:lang="en"><![CDATA[To use XE, <em>you have to agree to the GNU Lesser General Public License(LGPL v2)</em>.]]></value>
+        <value xml:lang="jp"><![CDATA[XEを使用するには、LGPL v2に必ず同意しなければなりません。]]></value>
+    </item>
+    <item name="install_email_address">
+        <value xml:lang="en"><![CDATA[Admin email]]></value>
+    </item>
+    <item name="install_password">
+        <value xml:lang="en"><![CDATA[Admin password]]></value>
+    </item>
+    <item name="install_retype_password">
+        <value xml:lang="en"><![CDATA[Retype password]]></value>
+    </item>
+    <item name="install_username">
+        <value xml:lang="en"><![CDATA[Admin username]]></value>
+    </item>
+    <item name="install_env_agreement">
+        <value xml:lang="ko"><![CDATA[설치 환경 수집 동의]]></value>
+        <value xml:lang="en"><![CDATA[Help us improve XE by contributing anonymously to our server statistics program.]]></value>
+        <value xml:lang="jp"><![CDATA[インストール環境収集に同意する]]></value>
+    </item>
+    <item name="enviroment_gather">
+        <value xml:lang="ko"><![CDATA[설치 환경 수집 동의]]></value>
+        <value xml:lang="en"><![CDATA[Agreement on gathering installation environment information]]></value>
+        <value xml:lang="jp"><![CDATA[インストール環境収集に同意する]]></value>
+    </item>
+    <item name="install_env_agreement_desc">
+        <value xml:lang="ko"><![CDATA['<em>웹 서버, DBMS, PHP 버전 및 Extension, XE 모듈 및 애드온</em>' 정보가 XE 통계 수집 서버로 전송됩니다. 더 나은 SW를 제작하기 위한 목적으로 활용합니다. 익명으로 수집되며 이 정보를 외부에 공개하지 않습니다. <em>이 항목에 동의하지 않아도 됩니다.</em>]]></value>
+        <value xml:lang="en"><![CDATA[Information on '<em>web server, DBMS, PHP version and extension, XE modules and addons</em>' is sent to the XE statistics collection server. This information is collected anonymously and used to improve our software only.<em> You don't have to agree to this.</em>]]></value>
+        　　<value xml:lang="jp"><![CDATA['<em>ウェブサーバー、DBMS、PHPバージョンおよびExtension、XEモジュール、およびアドオン</em>'情報が、XE統計収集サーバーへ転送されます。より良いソフトウェアを製作するための目的で活用されます。情報は、匿名で収集され、外部へ公開することはありません。<em>この項目は、同意しなくても構いません。</em>]]></value>
+    </item>
+    <!--item name="lgpl_license_url">
+            <value xml:lang="ko"><![CDATA[http://korea.gnu.org/people/chsong/copyleft/lgpl.ko.html]]></value>
+            <value xml:lang="en"><![CDATA[http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html]]></value>
+            <value xml:lang="jp"><![CDATA[http://www.gnu.org/licenses/old-licenses/lgpl-2.1.ja.html]]></value>
+    </item-->
+    <item name="version">
+        <value xml:lang="en"><![CDATA[version]]></value>
+    </item>
+    <item name="introduce_title">
+        <value xml:lang="en"><![CDATA[Welcome to Xpress Engine CMS Installation wizard]]></value>
+    </item>
+    <item name="introduce_desc">
+        <value xml:lang="en"><![CDATA[<p><b>Hello there!</b></p><p>If this is your first installation of XE, before we get started, you should know that we will need some information from you regarding your database setup.</p><p>These items should have been provided to you by your web service provider or your web admin, if not you can always ask for them and resume this installation later on.</p><p>Also, in general, we will refer to Xpress Engine as XE.</p>]]></value>
+    </item>
+    <item name="introduce_start">
+        <value xml:lang="en"><![CDATA[Let's start!]]></value>
+    </item>
+    <item name="lang_select_label">
+        <value xml:lang="en"><![CDATA[Select language:]]></value>
+    </item>
+    <item name="licence_title">
+        <value xml:lang="en"><![CDATA[Licence Agreement]]></value>
+    </item>
+    <item name="licence_desc">
+        <value xml:lang="en"><![CDATA[XE is released unde the LGPLv2 licence. You can read more about this licence <a href="http://www.gnu.org/licenses/lgpl-2.1.html">here</a>.]]></value>
+    </item>
+    <item name="check_title">
+        <value xml:lang="en"><![CDATA[Setup check]]></value>
+    </item>
+    <item name="check_description">
+        <value xml:lang="en"><![CDATA[In order for XE to function correctly all the items in the table below must be marked with <b><span class="yes">yes</span></b>. If any of them are marked with <b><span class="no">no</span></b> please take the necesarry actions to correct them. If you do not know how to do this contact your web service provider.]]></value>
+    </item>
+    <item name="select_db_title">
+        <value xml:lang="en"><![CDATA[Choose database type]]></value>
+    </item>
+    <item name="select_db_description">
+        <value xml:lang="en"><![CDATA[XE uses a database to store all it’s data.<br /> Choose the database you wish to use from the ones liste below:]]></value>
+    </item>
+    <item name="db_title">
+        <value xml:lang="en"><![CDATA[Input database info]]></value>
+    </item>
+    <item name="db_description">
+        <value xml:lang="en"><![CDATA[In order for XE to connect to your previously selected database please fill out the fields below. Don’t worry, you can change these anytime later on.]]></value>
+    </item>
+    <item name="misc_title">
+        <value xml:lang="en"><![CDATA[Miscellaneous settings]]></value>
+    </item>
+    <item name="misc_timezone">
+        <value xml:lang="en"><![CDATA[Timezone:]]></value>
+    </item>
+    <item name="admin_title">
+        <value xml:lang="en"><![CDATA[Administrator account]]></value>
+    </item>
+    <item name="final_title">
+        <value xml:lang="en"><![CDATA[Wrap up and go!]]></value>
+    </item>
+    <item name="final_description">
+        <value xml:lang="en"><![CDATA[Congratulations, you’ve successfully set up your XE site!]]></value>
+    </item>
+    <item name="final_site_desc">
+        <value xml:lang="en"><![CDATA[Go ahead, check out your brand new site:]]></value>
+    </item>
+    <item name="final_admin_desc">
+        <value xml:lang="en"><![CDATA[You can access your administrators panel:]]></value>
+    </item>
+    <item name="here">
+        <value xml:lang="en"><![CDATA[here]]></value>
 	</item>
 </lang>
