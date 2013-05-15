@@ -197,6 +197,9 @@ class addonController extends addon
             if (isset($extra_vars->xe_run_method)) {
                 $buff .= '$rm = \'' . $extra_vars->xe_run_method . "';";
             }
+            else{
+                $buff .= '$rm = \''. "';";
+            }
             $buff .= '$ml = array(';
             if (isset($mid_list)) {
                 foreach ($mid_list as $mid) {

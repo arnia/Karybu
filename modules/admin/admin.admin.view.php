@@ -434,6 +434,7 @@
                 'firebug'   => $lang->debug_handler_firebug,
             ));
             $debugValues = array();
+            $toolbarDisable = array();
             //get current values
             foreach ($environments as $env) {
                 $debugValues[$env] = array();
@@ -454,9 +455,19 @@
                         //merge all config settings
                         $debugValues[$env->getCode()] = call_user_func_array('array_merge', $extensionConfig);
                     }
+                    $gzEnabled = $container->getParameterBag()->get('cms.gz_encoding');
+                    if ($gzEnabled) {
+                        if (strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')!==false &&
+                            function_exists('ob_gzhandler') &&
+                            extension_loaded('zlib')) {
+                            $toolbarDisable[$env->getCode()] = true;
+                            $debugValues[$env->getCode()]['toolbar'] = false;
+                        }
+                    }
                 }
             }
             Context::set('current_env', $environments[KARYBU_ENVIRONMENT]);
+            Context::set('toolbar_disable', $toolbarDisable);
 
             Context::set('debug_values', $debugValues);
             $this->setTemplateFile('config_general');

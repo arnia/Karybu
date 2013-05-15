@@ -39,7 +39,7 @@ class editorModel extends editor
         $editor_default_config = $oModuleModel->getModuleConfig('editor');
 
         if (!is_object($editor_config)) {
-            $editor_config = null;
+            $editor_config = new stdClass();
         }
 
         if (isset($editor_config->enable_html_grant)) {

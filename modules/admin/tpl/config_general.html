@@ -352,11 +352,18 @@ jQuery(function($){
                     <div class="control-group">
                         <label class="control-label" for="toolbar{$key}">{$lang->toolbar}</label>
                         <div class="controls">
-                            <select name="toolbar" id="toolbar{$key}">
+                            <select name="toolbar" id="toolbar{$key}"<!--@if($toolbar_disable[$key])--> disabled="disabled"<!--@end-->>
                                 <option value="false"<!--@if(!$debug_values[$key]['toolbar'])--> selected="selected"<!--@end-->>{$lang->no}</option>
                                 <option value="true"<!--@if($debug_values[$key]['toolbar'])--> selected="selected"<!--@end-->>{$lang->yes}</option>
                             </select>
+                            <!--@if($toolbar_disable[$key])-->
+                            <div class="clearfix"></div>
+                            <br />
+                            <p class="alert-warning pull-left">{$lang->toolbar_disabled_gzip}</p>
+                            <div class="clearfix"></div>
+                            <!--@end-->
                         </div>
+
                     </div>
 
                     <div class="control-group">
