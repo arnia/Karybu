@@ -11,28 +11,37 @@
 {@ $current_step = $steps[$act.$progressMenu]; }
 
 <div id="progress" class="span3">
-    <p>{$steps[$act.$progressMenu]}</p>
 	<ul class="nav nav-tabs nav-stacked">
 		<li class="active"|cond="$act==''">
-            <a href="{getUrl('act', 'dispInstallIntroduce')}">{$lang->install_progress_menu['language']}<i class="icon-chevron-right" cond="$act==''"></i></a>
+            <a href="{getUrl('act', '')}">{$lang->install_progress_menu['language']}<i class="icon-chevron-right" cond="$act==''"></i></a>
         </li>
 		<li class="active"|cond="$act=='dispInstallCheckEnv'" class="disabled"|cond="$current_step<2">
-            <a href="{getUrl('act', 'dispInstallCheckEnv')}">{$lang->install_progress_menu['condition']}</a>
+            {@ $url = ($current_step <2 ? '#' : getUrl('act', 'dispInstallCheckEnv')); }
+            <a href="{$url}">{$lang->install_progress_menu['condition']}</a>
         </li>
 		<li class="active"|cond="$act=='dispInstallSelectDB' && $progressMenu == '3'" class="disabled"|cond="$current_step<3">
-            <a href="{getUrl('act', 'dispInstallSelectDB')}">{$lang->install_progress_menu['ftp']}</a>
+            {@ $url = ($current_step <3 ? '#' : getUrl('act', 'dispInstallSelectDB')); }
+            <a href="{$url}">{$lang->install_progress_menu['ftp']}</a>
         </li>
 		<li class="active"|cond="$act=='dispInstallSelectDB' && $progressMenu == '4'" class="disabled"|cond="$current_step<4">
-            <a href="{getUrl('act', 'dispInstallSelectDB')}">{$lang->install_progress_menu['dbSelect']}</a>
+            {@ $url = ($current_step <4 ? '#' : getUrl('act', 'dispInstallSelectDB')); }
+            <a href="{$url}">{$lang->install_progress_menu['dbSelect']}</a>
         </li>
 		<li class="active"|cond="$act=='dispInstallDBForm'" class="disabled"|cond="$current_step<5">
-            <a href="{getUrl('act', 'dispInstallDBForm')}">{$lang->install_progress_menu['dbInfo']}</a>
+            {@ $url = ($current_step <5 ? '#' : getUrl('act', 'dispInstallDBForm')); }
+            <a href="{$url}">{$lang->install_progress_menu['dbInfo']}</a>
         </li>
 		<li class="active"|cond="$act=='dispInstallConfigForm'" class="disabled"|cond="$current_step<6">
-            <a href="{getUrl('act', 'dispInstallConfigForm')}">{$lang->install_progress_menu['configInfo']}</a>
+            {@ $url = ($current_step <6 ? '#' : getUrl('act', 'dispInstallConfigForm')); }
+            <a href="{$url}">{$lang->install_progress_menu['configInfo']}</a>
         </li>
 		<li class="active"|cond="$act=='dispInstallManagerForm'" class="disabled"|cond="$current_step<7">
-            <a href="{getUrl('act', 'dispInstallManagerForm')}">{$lang->install_progress_menu['adminInfo']}</a>
+            {@ $url = ($current_step <7 ? '#' : getUrl('act', 'dispInstallManagerForm')); }
+            <a href="{$url}">{$lang->install_progress_menu['adminInfo']}</a>
+        </li>
+        <li class="active"|cond="$act=='dispInstallFinal'" class="disabled"|cond="$current_step<8">
+            {@ $url = ($current_step <8 ? '#' : getUrl('act', 'dispInstallFinal')); }
+            <a href="{$url}">{$lang->install_progress_menu['finish']}</a>
         </li>
 	</ul>
 </div>

@@ -76,7 +76,7 @@
 				$menuItems = array();
 				foreach($output AS $key=>$value)
 				{
-					if($value->title == '__XE_ADMIN__') {
+					if($value->title == '__KARYBU_ADMIN__') {
                         unset($output[$key]);
                     }
 					else

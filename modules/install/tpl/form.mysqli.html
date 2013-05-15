@@ -11,12 +11,12 @@
     <input type="hidden" name="act" value="procMysqlDBSetting" />
     <input type="hidden" name="db_type" value="{$db_type}" />
         <h2>{$db_type}</h2>
-        <ul class="formDbInfo">
+        <ul class="formDbInfo unstyled">
             <li><label for="dbHostName">{$lang->db_hostname}</label><input name="db_hostname" value="localhost" type="text" class="iText" id="dbHostName" /></li>
             <li><label for="dbPort">{$lang->db_port}</label><input name="db_port" value="3306" type="text" class="iText" id="dbPort" /></li>
             <li><label for="dbId">{$lang->db_userid}</label><input name="db_userid" type="text" class="iText" id="dbId" /></li>
             <li><label for="dbPw">{$lang->db_password}</label><input name="db_password" type="password" class="iText" id="dbPw" /></li>
-            <li><label for="dbName">{$lang->db_name}</label><input name="db_database" type="text" class="iText" id="dbName" /></li>
+            <li><label for="dbName">{$lang->db_database}</label><input name="db_database" type="text" class="iText" id="dbName" /></li>
             <li><label for="dbPrefix">{$lang->db_table_prefix}</label><input name="db_table_prefix" type="text" class="iText" id="dbPrefix" value="k" /></li>
         </ul>
         <div class="help-block">{$lang->db_info_desc}</div>

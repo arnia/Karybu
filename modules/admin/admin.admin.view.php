@@ -145,7 +145,7 @@
 			$lang->menu_gnb_sub = $oAdminAdminModel->getAdminMenuLang();
 
 			$oMenuAdminModel = &getAdminModel('menu');
-			$menu_info = $oMenuAdminModel->getMenuByTitle('__XE_ADMIN__');
+			$menu_info = $oMenuAdminModel->getMenuByTitle('__KARYBU_ADMIN__');
 			Context::set('admin_menu_srl', $menu_info->menu_srl);
 
 			if(!is_readable($menu_info->php_file)) {
@@ -516,7 +516,7 @@
 			$configObject = $oModuleModel->getModuleConfig('admin');
 
 			$oMenuAdminModel = &getAdminModel('menu');
-			$output = $oMenuAdminModel->getMenuByTitle('__XE_ADMIN__');
+			$output = $oMenuAdminModel->getMenuByTitle('__KARYBU_ADMIN__');
 
 			Context::set('menu_srl', $output->menu_srl);
 			Context::set('menu_title', $output->title);
@@ -568,7 +568,7 @@
             // admin menu check
             if (Context::isInstalled()) {
                 $oMenuAdminModel = & getAdminModel('menu');
-                $output = $oMenuAdminModel->getMenuByTitle('__XE_ADMIN__');
+                $output = $oMenuAdminModel->getMenuByTitle('__KARYBU_ADMIN__');
 
                 if (!$output->menu_srl) {
                     $oAdminClass = & getClass('admin');

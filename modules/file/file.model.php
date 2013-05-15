@@ -264,7 +264,7 @@
 		function getFileGrant($file_info, $member_info){
 			if (!$file_info) return null;
 
-			if ($_SESSION['__XE_UPLOADING_FILES_INFO__'][$file_info->file_srl]) {
+			if ($_SESSION['__KARYBU_UPLOADING_FILES_INFO__'][$file_info->file_srl]) {
 				$file_grant->is_deletable = true;
 				return $file_grant;
 			}

@@ -73,7 +73,7 @@ class admin extends ModuleObject
     function createXeAdminMenu()
     {
         //insert menu
-        $args->title = '__XE_ADMIN__';
+        $args->title = '__KARYBU_ADMIN__';
         $args->menu_srl = getNextSequence();
         $args->listorder = $args->menu_srl * -1;
         $output = executeQuery('menu.insertMenu', $args);
