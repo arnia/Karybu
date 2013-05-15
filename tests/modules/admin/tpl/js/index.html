@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Admin js tests</title>
+    <link rel="stylesheet" href="../../../../../common/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.11.0.css">
+</head>
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture">
+        <div class="main-nav span12">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <a class="main-drop">
+                            DROP
+                        </a>
+                        <div class="nav">
+                            <ul class="nav">
+                                <li class="active"><a href="/admin/dispModuleAdminContent">Modules</a></li>
+                                <li ><a href="/admin/dispLayoutAdminInstalledList">Layouts</a></li>
+                                <li ><a href="/admin/dispWidgetAdminDownloadedList">Widgets</a></li>
+                                <li ><a href="/admin/dispAddonAdminIndex">Add-ons</a></li>
+                                <li ><a href="/admin/dispEditorAdminIndex">WYSIWYG Editor</a></li>
+                                <li ><a href="/admin/dispSpamfilterAdminSetting">Spam Filter</a></li>
+                                <li ><a href="/admin/dispAutoinstallAdminIndex">Easy Install</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="http://code.jquery.com/qunit/qunit-1.11.0.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="../../../../../modules/admin/tpl/js/plugins.js"></script>
+    <script src="plugins.test.js"></script>
+</body>
+</html>

@@ -85,8 +85,28 @@ blockquote.pull-right {
 .main-nav-holder {
     z-index: 99;
     position: fixed;
-    width: 100%;
+    width: 80%;
     top:120px;
+}
+
+.main-nav-holder.main-nav-stacked {
+    width: 100%;
+}
+
+
+
+.main-nav-holder.main-nav-stacked .main-nav .navbar .nav > .active  {
+    background: none;
+}
+
+
+.main-nav a.main-drop {
+    position: relative;
+    float: right;
+    margin-right: 112px;
+    width: 24px;
+    height: 24px;
+    background:url('../img/sprite-24.png') -264px 0px no-repeat;
 }
 
 .main-nav {
@@ -99,6 +119,11 @@ blockquote.pull-right {
 .main-nav .nav {
     margin: 0 5px; padding: 0;
 }
+
+
+
+
+
 
 /* FORMS START */
 
@@ -638,7 +663,6 @@ background-repeat: no-repeat;}
     border-radius: 0;
     color: #444;
 
-
 }
 
 .main-nav .nav-tabs > li > a:hover,
@@ -664,15 +688,6 @@ background-repeat: no-repeat;}
 }
 
 
-.main-nav-stacked ul li {
-    display: block;
-    width: 40%;
-    margin-right: 10%;
-}
-
-.main-nav-stacked .navbar .nav > .active {
-    background: none;
-}
 
 
 /* TABS FOR MAIN NAV END */
