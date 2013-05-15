@@ -69,7 +69,12 @@ class HTMLDisplayHandler {
 				// get the layout information currently requested
 				$oLayoutModel = &getModel('layout');
 				$layout_info = Context::get('layout_info');
-				$layout_srl = $layout_info->layout_srl;
+                if (isset($layout_info->layout_srl)) {
+				    $layout_srl = $layout_info->layout_srl;
+                }
+                else{
+                    $layout_srl = null;
+                }
 
 				// compile if connected to the layout
 				if($layout_srl > 0){

@@ -970,10 +970,10 @@ class documentModel extends document
      */
     function getDocumentConfig()
     {
-        if (!$GLOBALS['__document_config__']) {
+        if (empty($GLOBALS['__document_config__'])) {
             $oModuleModel = & getModel('module');
             $config = $oModuleModel->getModuleConfig('document');
-            if (!$config->thumbnail_type) {
+            if (empty($config->thumbnail_type)) {
                 $config->thumbnail_type = 'crop';
             }
             $GLOBALS['__document_config__'] = $config;

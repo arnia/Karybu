@@ -402,8 +402,12 @@
             Context::set('langs', Context::loadLangSupported());
 
             Context::set('lang_selected', Context::loadLangSelected());
-
-			$admin_ip_list = preg_replace("/[,]+/","\r\n",$db_info->admin_ip_list);
+            if (isset($db_info->admin_ip_list)) {
+			    $admin_ip_list = preg_replace("/[,]+/","\r\n",$db_info->admin_ip_list);
+            }
+            else{
+                $admin_ip_list = null;
+            }
             Context::set('admin_ip_list', $admin_ip_list);
 
 			$oAdminModel = &getAdminModel('admin');
@@ -414,13 +418,23 @@
 
 			$oDocumentModel = &getModel('document');
 			$config = $oDocumentModel->getDocumentConfig();
-       		Context::set('thumbnail_type',$config->thumbnail_type);
+            if (!empty($config->thumbnail_type)) {
+       		    Context::set('thumbnail_type',$config->thumbnail_type);
+            }
+            else {
+                Context::set('thumbnail_type',null);
+            }
 			
 			Context::set('IP',$_SERVER['REMOTE_ADDR']);
 			
 			$oModuleModel = &getModel('module');
 			$config = $oModuleModel->getModuleConfig('module');
-       		Context::set('htmlFooter',$config->htmlFooter);
+            if (!empty($config->htmlFooter)) {
+       		    Context::set('htmlFooter',$config->htmlFooter);
+            }
+            else {
+                Context::set('htmlFooter',null);
+            }
 
 			$columnList = array('modules.mid', 'modules.browser_title', 'sites.index_module_srl');
 			$start_module = $oModuleModel->getSiteInfo(0, $columnList);
@@ -450,7 +464,7 @@
             $toolbarDisable = array();
             //get current values
             foreach ($environments as $env) {
-                $debugValues[$env] = array();
+                $debugValues[$env->getCode()] = array();
                 $configFile = "files/config/config_{$env->getCode()}.yml";
                 //fallback for installer
                 if (!file_exists($configFile)) {
