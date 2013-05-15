@@ -125,10 +125,15 @@
 		 * @return int
          **/
         function getFilesCountByDate($date = '') {
-			if($date) $args->regDate = date('Ymd', strtotime($date));
+            $args = new stdClass();
+			if($date) {
+                $args->regDate = date('Ymd', strtotime($date));
+            }
 
             $output = executeQuery('file.getFilesCount', $args);
-			if(!$output->toBool()) return 0;
+			if(!$output->toBool()) {
+                return 0;
+            }
 
 			return $output->data->count;
         }

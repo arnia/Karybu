@@ -90,12 +90,21 @@
 		 * @return int
 		 */
         function getDocumentCountByDate($date = '', $moduleSrlList = array(), $statusList = array()) {
-			if($date) $args->regDate = date('Ymd', strtotime($date));
-			if(count($moduleSrlList)>0) $args->moduleSrlList = $moduleSrlList;
-			if(count($statusList)>0) $args->statusList = $statusList;
+            $args = new stdClass();
+			if($date) {
+                $args->regDate = date('Ymd', strtotime($date));
+            }
+			if(count($moduleSrlList)>0) {
+                $args->moduleSrlList = $moduleSrlList;
+            }
+			if(count($statusList)>0) {
+                $args->statusList = $statusList;
+            }
 
 			$output = executeQuery('document.getDocumentCountByDate', $args);
-			if(!$output->toBool()) return 0;
+			if(!$output->toBool()) {
+                return 0;
+            }
 
 			return $output->data->count;
         }
