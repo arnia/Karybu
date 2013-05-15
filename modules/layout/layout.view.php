@@ -23,7 +23,9 @@
             // Get the layout information
             $oLayoutModel = &getModel('layout');
             $layout_info = $oLayoutModel->getLayoutInfo(Context::get('selected_layout'));
-            if(!$layout_info) exit();
+            if(!$layout_info) {
+                exit();
+            }
             Context::set('layout_info', $layout_info);
             // Set the layout to be pop-up
             $this->setLayoutFile('popup_layout');
@@ -67,7 +69,6 @@
                     Context::set($menu_id, $menu);
                 }
             }
-
             Context::set('layout_info', $layout_info);
             Context::set('content', Context::getLang('layout_preview_content'));
             // Temporary save the codes
