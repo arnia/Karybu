@@ -281,7 +281,7 @@
 	</item>
 	<item name="msg_cart_is_null">
 		<value xml:lang="ko"><![CDATA[삭제할 글을 선택해주세요.]]></value>
-		<value xml:lang="en"><![CDATA[Please select the articles to delete.]]></value>
+		<value xml:lang="en"><![CDATA[Please select the documents you want to delete.]]></value>
 		<value xml:lang="jp"><![CDATA[削除する書き込みを選択してください。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[请选择要删除的文章。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[請選擇要刪除的文章。]]></value>
@@ -317,7 +317,7 @@
 	</item>
 	<item name="msg_checked_document_is_deleted">
 		<value xml:lang="ko"><![CDATA[%d개의 글이 삭제되었습니다.]]></value>
-		<value xml:lang="en"><![CDATA[%d article(s) was(were) deleted.]]></value>
+		<value xml:lang="en"><![CDATA[%d document(s) was(were) deleted.]]></value>
 		<value xml:lang="jp"><![CDATA[%d個の書き込みが削除されました。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[删除了%d个文章。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[刪除 %d 個文章。]]></value>
@@ -788,7 +788,7 @@
 	</item>
 	<item name="msg_not_selected_document">
 		<value xml:lang="ko"><![CDATA[선택된 문서가 없습니다.]]></value>
-		<value xml:lang="en"><![CDATA[There are no selected articles.]]></value>
+		<value xml:lang="en"><![CDATA[There are no selected documents.]]></value>
 		<value xml:lang="jp"><![CDATA[選択された書き込みがありません。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[尚未選擇文章]]></value>
 		<value xml:lang="tr"><![CDATA[Hiçbir makale seçilmedi.]]></value>
@@ -827,19 +827,19 @@
 	</item>
 	<item name="document_manager">
 		<value xml:lang="ko"><![CDATA[선택한 글 관리]]></value>
-		<value xml:lang="en"><![CDATA[Manage selected articles]]></value>
+		<value xml:lang="en"><![CDATA[Manage selected documents]]></value>
 		<value xml:lang="jp"><![CDATA[選択した書き込みを管理]]></value>
 		<value xml:lang="zh-TW"><![CDATA[管理所選主題]]></value>
 	</item>
 	<item name="selected_document">
 		<value xml:lang="ko"><![CDATA[선택한 글]]></value>
-		<value xml:lang="en"><![CDATA[Selected articles]]></value>
+		<value xml:lang="en"><![CDATA[Selected documents]]></value>
 		<value xml:lang="jp"><![CDATA[選択した書き込み]]></value>
 		<value xml:lang="zh-TW"><![CDATA[已選文章數]]></value>
 	</item>
 	<item name="selected_document_move">
 		<value xml:lang="ko"><![CDATA[선택한 글을 다음 위치로 옮기거나 복사할 수 있습니다.]]></value>
-		<value xml:lang="en"><![CDATA[You can move or copy the selected articles to the following position.]]></value>
+		<value xml:lang="en"><![CDATA[You can move or copy the selected documents to the following position.]]></value>
 		<value xml:lang="jp"><![CDATA[選択した書き込みを次の位置へ移動したり、コピーしたりできます。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[可移動或複製所選擇的文章到下列位置。]]></value>
 	</item>

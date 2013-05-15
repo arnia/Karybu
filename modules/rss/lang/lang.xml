@@ -38,7 +38,7 @@
 	</item>
 	<item name="feed_document_count">
 		<value xml:lang="ko"><![CDATA[한 페이지당 글 수]]></value>
-		<value xml:lang="en"><![CDATA[Number of articles per page]]></value>
+		<value xml:lang="en"><![CDATA[Number of documents per page]]></value>
 		<value xml:lang="jp"><![CDATA[RSSコンテンツ数]]></value>
 		<value xml:lang="zh-CN"><![CDATA[每页主题数]]></value>
 		<value xml:lang="zh-TW"><![CDATA[每頁主題數]]></value>
@@ -174,7 +174,7 @@
 	</item>
 	<item name="about_feed_document_count">
 		<value xml:lang="ko"><![CDATA[피드 한 페이지에 공개되는 글 수. (기본 값 : 15)]]></value>
-		<value xml:lang="en"><![CDATA[Number of articles to be displayed on one feed page (default: 15)]]></value>
+		<value xml:lang="en"><![CDATA[Number of documents to be displayed on one feed page (default: 15)]]></value>
 		<value xml:lang="jp"><![CDATA[RSSに配信するコンテンツの数 (デフォルト : 15)]]></value>
 		<value xml:lang="zh-CN"><![CDATA[每页要显示的主题数(默认: 15)。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[每頁要顯示的主題數。(預設: 15)]]></value>

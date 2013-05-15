@@ -187,7 +187,7 @@
 		</item>
 		<item name="3">
 			<value xml:lang="ko"><![CDATA[Step 2. 회원정보와 게시물의 정보 동기화]]></value>
-			<value xml:lang="en"><![CDATA[Step 2. Synchronize Member and Article Data]]></value>
+			<value xml:lang="en"><![CDATA[Step 2. Synchronize Member and Document Data]]></value>
 			<value xml:lang="jp"><![CDATA[Step 2. 会員情報と書き込みデータの同期化]]></value>
 			<value xml:lang="zh-CN"><![CDATA[Step 2. 同步会员信息和文章信息]]></value>
 			<value xml:lang="zh-TW"><![CDATA[Step 2. 同步會員資料與文章]]></value>
@@ -289,7 +289,7 @@ Hãy nhập đường dẫn cho File chứa Data trên Host dưới dạng http:
 		</item>
 		<item name="3">
 			<value xml:lang="ko"><![CDATA[회원정보와 게시물 정보가 이전 후에 맞지 않을 수 있습니다. 이때 동기화를 하시면 user_id를 기반으로 올바르게 동작하도록 합니다.]]></value>
-			<value xml:lang="en"><![CDATA[Member and article data may not be corrected after the import. If so, please synchronize to recover them with user_id.]]></value>
+			<value xml:lang="en"><![CDATA[Member and document data may not be corrected after the import. If so, please synchronize to recover them with user_id.]]></value>
 			<value xml:lang="jp"><![CDATA[会員情報と変換後の書き込みデータが一致しない場合があります。この場合は、同期化を行うと「user_id」をもとに正しく動作するようになります。]]></value>
 			<value xml:lang="zh-CN"><![CDATA[数据导入后可能会导致会员信息和文章内容信息的误差。这时以user_id进行同步即可解决问题。]]></value>
 			<value xml:lang="zh-TW"><![CDATA[資料匯入後，可能會導致會員資料和文章內容產生誤差。請以『user_id』進行同步即可解決。]]></value>
@@ -430,7 +430,7 @@ Hãy nhập đường dẫn cho File chứa Data trên Host dưới dạng http:
 	</item>
 	<item name="msg_sync_completed">
 		<value xml:lang="ko"><![CDATA[회원과 게시물, 댓글의 동기화가 완료되었습니다.]]></value>
-		<value xml:lang="en"><![CDATA[Completed synchronzing member article and comments.]]></value>
+		<value xml:lang="en"><![CDATA[Completed synchronization of members,documents and comments.]]></value>
 		<value xml:lang="jp"><![CDATA[会員情報、書き込みデータ、コメントのデータの同期化（変換）が完了しました。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[已完成会员和文章，评论的同步。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[已完成會員和文章，評論的同步。]]></value>
@@ -490,7 +490,7 @@ Hãy nhập đường dẫn cho File chứa Data trên Host dưới dạng http:
 	</item>
 	<item name="about_type_module">
 		<value xml:lang="ko"><![CDATA[데이터 이전 대상이 게시판 등의 게시물 정보일 경우 선택해주세요.]]></value>
-		<value xml:lang="en"><![CDATA[If you are to import an article data, please select this option]]></value>
+		<value xml:lang="en"><![CDATA[If you are to import document data, please select this option]]></value>
 		<value xml:lang="jp"><![CDATA[データ変換の対象が書き込みデータである場合は選択してください。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[数据导入对象为版面主题时请选择此项。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[資料匯入目標為討論板主題時，請選擇此項。]]></value>
@@ -502,7 +502,7 @@ Hãy nhập đường dẫn cho File chứa Data trên Host dưới dạng http:
 	</item>
 	<item name="about_type_syncmember">
 		<value xml:lang="ko"><![CDATA[회원정보와 게시물정보 등을 이전 후, 회원정보를 동기화해야 할 때 선택해주세요.]]></value>
-		<value xml:lang="en"><![CDATA[If you are to import and synchronize member and article data, please select this option.]]></value>
+		<value xml:lang="en"><![CDATA[If you are to import and synchronize member and document data, please select this option.]]></value>
 		<value xml:lang="jp"><![CDATA[会員情報と書き込みデータなどの変換を行った後、会員情報を同期化する必要がある場合は、選択してください。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[导入会员信息和文章信息后需要同步会员信息时请选择此项。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[匯入會員和文章資料後，需要同步會員資料時，請選擇此項。]]></value>

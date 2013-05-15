@@ -178,7 +178,7 @@
 	</item>
 	<item name="about_disable_read_document">
 		<value xml:lang="ko"><![CDATA[포인트가 부족할 경우 글 열람을 금지 합니다]]></value>
-		<value xml:lang="en"><![CDATA[Users will be unable to read articles when they do not have enough points]]></value>
+		<value xml:lang="en"><![CDATA[Users will be unable to read documents when they do not have enough points]]></value>
 		<value xml:lang="jp"><![CDATA[ポイントがない場合、閲覧を禁止します。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[没有积分时，将禁止查看主题。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[沒有點數時，將禁止閱讀文章。]]></value>
@@ -244,7 +244,7 @@
 	</item>
 	<item name="about_cmd_point_recal">
 		<value xml:lang="ko"><![CDATA[게시글/댓글/첨부파일/회원가입 점수만 이용하여 모든 포인트 점수를 초기화합니다. 회원 가입 점수는 초기화 후 해당 회원이 활동을 하면 부여되고 그 전에는 부여되지 않습니다. 데이터 이전 등을 하여 포인트를 완전히 초기화해야 할 경우에만 사용하세요.]]></value>
-		<value xml:lang="en"><![CDATA[All point will be initialized only with articles/comments/attachments/join points. Only members who do website activities will get signup points after reset. Please use this function when complete initialization is required in case of data transferring or other situations.]]></value>
+		<value xml:lang="en"><![CDATA[All point will be initialized only with documents/comments/attachments/join points. Only members who do website activities will get signup points after reset. Please use this function when complete initialization is required in case of data transferring or other situations.]]></value>
 		<value xml:lang="jp"><![CDATA[書き込み/コメント/添付ファイル/会員登録のポイントのみを利用し、すべての他のポイントを初期化します。<br />会員登録ポイントは、初期化後に該当会員の活動がスタートしたときにポイントが付けられます。<br />データ移転などによるポイントを完全に初期化するのみ使用し、利用は慎重に行ってください。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[积分初始化。即只保留文章/评论/附件/新会员注册的相关积分项。<br />其中，初始化后的新会员注册积分项，将在会员有相关动作(发表主题/评论等)时，才付与其相应的积分。<br />此项功能请务必慎用！此项功能只能在数据转移或真的需要初始化所有积分时才可以使用。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[重置點數。即只保留文章/評論/附加檔案/新會員註冊的相關點數項目。<br />其中，重置後的新會員註冊點數，將在會員有相關動作(例如:發表主題/評論等)時，才付與其相對應的點數。<br />此項功能請務必慎用！此項功能只能在資料轉移或真的需要重置所有點數時才可以使用。]]></value>
@@ -500,7 +500,7 @@
 	</item>
 	<item name="msg_disallow_by_point">
 		<value xml:lang="ko"><![CDATA[포인트가 부족하여 글을 읽으실 수 없습니다. (필요한 포인트 : %d, 현재 포인트 : %d)]]></value>
-		<value xml:lang="en"><![CDATA[You need more points to read the article (You need %d, but you have %d).]]></value>
+		<value xml:lang="en"><![CDATA[You need more points to read the document (You need %d, but you have %d).]]></value>
 		<value xml:lang="jp"><![CDATA[ポイントが不足しているため、閲覧ができません。(必要なポイント : %d、 現在のポイント : %d)]]></value>
 		<value xml:lang="zh-CN"><![CDATA[积分不够，无法查看主题。(所需积分 : %d, 当前积分 : %d)]]></value>
 		<value xml:lang="zh-TW"><![CDATA[點數不足無法閱讀文章 (需要 : %d, 目前 : %d)]]></value>

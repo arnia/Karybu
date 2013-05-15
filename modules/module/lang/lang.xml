@@ -193,7 +193,7 @@
 	</item>
 	<item name="checked_count">
 		<value xml:lang="ko"><![CDATA[선택된 글 수]]></value>
-		<value xml:lang="en"><![CDATA[Number of Checked Articles]]></value>
+		<value xml:lang="en"><![CDATA[Number of Checked Documents]]></value>
 		<value xml:lang="jp"><![CDATA[選択された書き込み数]]></value>
 		<value xml:lang="zh-CN"><![CDATA[所选主题数]]></value>
 		<value xml:lang="zh-TW"><![CDATA[所選擇的主題數]]></value>
@@ -573,7 +573,7 @@
 	</item>
 	<item name="cmd_manage_document">
 		<value xml:lang="ko"><![CDATA[게시글 관리]]></value>
-		<value xml:lang="en"><![CDATA[Manage Articles]]></value>
+		<value xml:lang="en"><![CDATA[Manage Documents]]></value>
 		<value xml:lang="jp"><![CDATA[書き込み管理]]></value>
 		<value xml:lang="zh-CN"><![CDATA[主题管理]]></value>
 		<value xml:lang="zh-TW"><![CDATA[主題管理]]></value>
@@ -664,7 +664,7 @@
 	</item>
 	<item name="msg_no_checked_document">
 		<value xml:lang="ko"><![CDATA[선택된 게시물이 없습니다.]]></value>
-		<value xml:lang="en"><![CDATA[No checked articles exist.]]></value>
+		<value xml:lang="en"><![CDATA[There are no checked documents.]]></value>
 		<value xml:lang="jp"><![CDATA[選択した書き込みがありません。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[没有被选择的主题]]></value>
 		<value xml:lang="zh-TW"><![CDATA[沒有被選擇的主題]]></value>
@@ -854,7 +854,7 @@ URL для менеджера модулей <a href="./?module=admin&amp;act=di
 	</item>
 	<item name="about_list_count">
 		<value xml:lang="ko"><![CDATA[한 페이지에 표시될 글 수를 지정하실 수 있습니다. (기본 20개)]]></value>
-		<value xml:lang="en"><![CDATA[You can limit the number of article to show on one page. The default is 20.]]></value>
+		<value xml:lang="en"><![CDATA[You can limit the number of documents to show on one page. The default is 20.]]></value>
 		<value xml:lang="jp"><![CDATA[１ページ当たりに表示される書き込み数を指定できます（デフォルト20個）。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[可以指定每页显示的主题数。(默认为20个)]]></value>
 		<value xml:lang="zh-TW"><![CDATA[可以指定每頁顯示的主題數。(預設為 20 個)]]></value>
@@ -866,7 +866,7 @@ URL для менеджера модулей <a href="./?module=admin&amp;act=di
 	</item>
 	<item name="about_search_list_count">
 		<value xml:lang="ko"><![CDATA[검색, 카테고리 선택 등을 할 경우 표시될 글 수를 지정하실 수 있습니다. (기본 20개)]]></value>
-		<value xml:lang="en"><![CDATA[You may set the number of articles to be exposed when you use search or category function. (default is 20)]]></value>
+		<value xml:lang="en"><![CDATA[You may set the number of documents to be exposed when you use search or category function. (default is 20)]]></value>
 		<value xml:lang="jp"><![CDATA[検索、カテゴリ選択などを行う場合に表示する書き込みの数を指定できます。（デフォルトは20件 ）]]></value>
 		<value xml:lang="zh-CN"><![CDATA[可以指定搜索或选择分类时每页要显示的帖子数(默认为20个)。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[可以指定搜尋或選擇分類時，每頁要顯示的文章數(預設為 20 個)。]]></value>

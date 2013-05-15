@@ -99,6 +99,26 @@
     }
 
     /**
+     * Main navigation scrollbars
+     */
+    function kMainNav() {}
+    kMainNav.initializeScrollbar = function() {
+        if(!$("#kMainNav").length) return;
+
+        $("#kMainNav").mCustomScrollbar({
+            horizontalScroll:true,
+            autoHideScrollbar: true,
+            scrollButtons: {
+                enable: false
+            },
+            advanced:{
+                autoScrollOnFocus: true
+            }
+        });
+        $("#kMainNav").mCustomScrollbar("scrollTo", ".active");
+    }
+
+    /**
      * Generic functions
      */
     function getDashboardContentHeight() {
@@ -163,11 +183,11 @@
 
         kDashboardGraph.initialize();
 
-        $(".main-nav-holder").stackable();
-
         if (hasNav()){
             $('body').addClass('kBigHeader')
         }
+
+        kMainNav.initializeScrollbar();
 
         $(window).resize(function(){
             initializeScreenResolution();
@@ -181,7 +201,6 @@
             else{
                 kActionsNav.makeVertical();
             }
-
         });
     });
 

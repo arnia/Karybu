@@ -94,7 +94,7 @@
     </actions>
 	<menus>
 		<menu name="userList">
-			<title xml:lang="en">Member List</title>
+			<title xml:lang="en">Members</title>
 			<title xml:lang="ko">회원 목록</title>
 			<title xml:lang="zh-CN">Member List</title>
 			<title xml:lang="jp">Member List</title>
@@ -107,7 +107,7 @@
 			<title xml:lang="tr">Member List</title>
 		</menu>
 		<menu name="userGroup">
-			<title xml:lang="en">Member Group</title>
+			<title xml:lang="en">Member Groups</title>
 			<title xml:lang="ko">회원 그룹</title>
 			<title xml:lang="zh-CN">Member Group</title>
 			<title xml:lang="jp">Member Group</title>
@@ -120,7 +120,7 @@
 			<title xml:lang="tr">Member Group</title>
 		</menu>
 		<menu name="userSetting">
-			<title xml:lang="en">Member Setting</title>
+			<title xml:lang="en">Member Settings</title>
 			<title xml:lang="ko">회원 설정</title>
 			<title xml:lang="zh-CN">Member Setting</title>
 			<title xml:lang="jp">Member Setting</title>
