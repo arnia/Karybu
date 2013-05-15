@@ -7,7 +7,7 @@
 
                 // console.log(nav_container.width() + ' - ' + navbar.width() + ' = ' + (nav_container.width() - navbar.width()));
 
-                if(nav_container.width() - navbar.width() <= 52) {
+                if(nav_container.width() - navbar.width() <= 110) {
                     nav_container.addClass("main-nav-stacked");
                 } else {
                     nav_container.removeClass("main-nav-stacked");

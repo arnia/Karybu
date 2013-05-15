@@ -122,10 +122,8 @@ blockquote.pull-right {
 }
 
 .k-nav-collapse.collapse {
-    height: 30px;
     overflow: visible;
     width: 100%;
-position: relative
 }
 
 .k-navbar .brand {
@@ -543,7 +541,7 @@ position: relative
 .main-nav a.main-drop {
     position: relative;
     float: right;
-    margin-right: 32px;
+    margin-right: 260px;
     width: 24px;
     height: 24px;
     background:url('../img/sprite-24.png') -264px 0px no-repeat;
@@ -553,6 +551,11 @@ position: relative
 
 .main-nav-stacked .main-nav a.main-drop {
     visibility: visible;
+}
+
+.tablet-screen .main-nav a.main-drop,
+.phone-screen .main-nav a.main-drop {
+    margin-right: 32px;
 }
 
 .main-nav {
