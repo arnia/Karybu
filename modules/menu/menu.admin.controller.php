@@ -600,8 +600,11 @@
 		 */
         function makeXmlFile($menu_srl) {
             // Return if there is no information when creating the xml file
-            if(!$menu_srl) return;
+            if(!$menu_srl) {
+                return;
+            }
             // Get menu informaton
+            $args = new stdClass();
             $args->menu_srl = $menu_srl;
             $output = executeQuery('menu.getMenu', $args);
             if(!$output->toBool() || !$output->data) return $output;

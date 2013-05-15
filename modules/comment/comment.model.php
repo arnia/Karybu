@@ -197,11 +197,18 @@
 		 * @return int
 		 */
         function getCommentCountByDate($date = '', $moduleSrlList = array()) {
-			if($date) $args->regDate = date('Ymd', strtotime($date));
-			if(count($moduleSrlList)>0) $args->module_srl = $moduleSrlList;
+            $args = new stdClass();
+			if($date) {
+                $args->regDate = date('Ymd', strtotime($date));
+            }
+			if(count($moduleSrlList)>0) {
+                $args->module_srl = $moduleSrlList;
+            }
 
             $output = executeQuery('comment.getCommentCount', $args);
-			if(!$output->toBool()) return 0;
+			if(!$output->toBool()) {
+                return 0;
+            }
 
 			return $output->data->count;
         }
