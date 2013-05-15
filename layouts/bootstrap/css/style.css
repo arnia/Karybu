@@ -388,7 +388,11 @@ footer {
 }
 
 .admin {
-    padding: 7px 7px 6px 7px !important;
+    padding: 8px 8px 7px 8px !important;
+}
+
+.btn.admin i {
+    margin-top:-1px;
 }
 
 .navbar-form {
@@ -397,8 +401,24 @@ footer {
 }
 
 .user-info {
-    margin-top: 12px;
+
 }
+
+.btn.image-holder {
+    padding: 0;
+}
+
+.btn.image-holder img {
+    border-radius: 4px;
+    opacity: .8;
+}
+
+a.image-holder:hover img {
+    opacity: 1;
+}
+
+
+
 
 .user-info a {
     color: white;
@@ -431,6 +451,8 @@ footer {
     margin-top: 1px;
     margin-right: 4px;
 }
+
+
 
 /* FRONT TWEAKS I.A. */
 
