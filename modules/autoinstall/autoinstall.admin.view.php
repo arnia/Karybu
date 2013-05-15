@@ -407,14 +407,14 @@
 				$oController = &getAdminController('autoinstall');
 				$oController->_updateinfo();
 
-				if (!$_SESSION['__XE_EASYINSTALL_REDIRECT__'])
+				if (!$_SESSION['__KARYBU_EASYINSTALL_REDIRECT__'])
 				{
 					header('location: ' . getNotEncodedUrl('', 'module', 'admin', 'act', 'dispAutoinstallAdminIndex'));
-					$_SESSION['__XE_EASYINSTALL_REDIRECT__'] = true;
+					$_SESSION['__KARYBU_EASYINSTALL_REDIRECT__'] = true;
 					return;
 				}
             }
-			unset($_SESSION['__XE_EASYINSTALL_REDIRECT__']);
+			unset($_SESSION['__KARYBU_EASYINSTALL_REDIRECT__']);
 
             $page = Context::get('page');
             if(!$page) $page = 1;
