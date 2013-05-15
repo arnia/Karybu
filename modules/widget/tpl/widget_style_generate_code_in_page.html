@@ -1,5 +1,8 @@
+<load target="../../../common/js/bootstrap.js" usecdn="true" />
 <load target="../../admin/tpl/js/admin.js" usecdn="true" />
-<load target="../../admin/tpl/css/admin.css" usecdn="true" />
+<load target="../../../common/css/bootstrap.min.css" usecdn="true" />
+<load target="../../../common/css/bootstrap-responsive.min.css" usecdn="true" />
+<load target="../../admin/tpl/css/krb.css" usecdn="true" />
 <load cond="$lang_type=='ko'" target="../../admin/tpl/css/admin_ko.css" usecdn="true" />
 <load cond="$lang_type=='en'" target="../../admin/tpl/css/admin_en.css" usecdn="true" />
 <load target="css/widget.css" usecdn="true" />
@@ -13,10 +16,10 @@
 	});
 </script>
 
-<div class="x" style="padding: 0 10px;">
-	<h1 class="h1">{$lang->widgetstyle}</h1>
+<div class="x">
+	<h1>{$lang->widgetstyle}</h1>
 
-	<form class="form" action="./" method="post" id="fo_widget">
+	<form action="./" method="post" id="fo_widget">
 		<input type="hidden" name="module_srl" value="{$module_srl}" />
 		<input type="hidden" name="widget_sequence" value="" />
 		<input type="hidden" name="style" value="" />
@@ -31,10 +34,10 @@
 
 		<a href="{getUrl('widgetstyle','none')}" class="widgetStyle"><img src="images/widgetstyle_none.gif" title="{$lang->notuse}" /></a>
 		<a loop="$widgetStyle_list => $key, $widgetStyle" cond="$widgetStyle->preview" href="{getUrl('widgetstyle',$widgetStyle->widgetStyle)}" class="widgetStyle <!--@if($widgetStyle->widgetStyle==$widgetstyle)-->selected<!--@end-->"><img src="{getUrl()}{$widgetStyle->preview}" title="{$widgetStyle->title}" /><span>{$widgetStyle->title}</span></a>
-		<block cond="$widgetstyle_info">
 
-			<h2 class="h2">{$widgetstyle_info->title} ver {$widgetstyle_info->version}</h2>
-			<ul>
+        <block cond="$widgetstyle_info">
+			<h2>{$widgetstyle_info->title} ver {$widgetstyle_info->version}</h2>
+			<ul class="unstyled">
 				<li>
 					<p class="q">{$lang->description}</p>
 					<p class="a">{$widgetstyle_info->description}</p>
@@ -55,11 +58,11 @@
 
 			<block loop="$widgetstyle_info->extra_var => $id, $var">
 				{@$suggestion_id++}
-				<block cond="!$not_first && !$var->group"><ul></block>
+				<block cond="!$not_first && !$var->group"><ul class="unstyled"></block>
 				<block cond="$group != $var->group">
 					<block cond="$not_first"></ul></block>
-					<h3 class="h3">{$var->group}</h3>
-					<ul>
+					<h3>{$var->group}</h3>
+					<ul class="unstyled">
 					{@$group = $var->group}
 				</block>
 				{@$not_first = true}
@@ -98,21 +101,21 @@
 							{@$use_filebox = TRUE}
 						</block>
 					</div>
-					<p class="desc">{$var->description}</p>
+					<p class="help-block">{$var->description}</p>
 				</li>
 			</block>
 			</ul>
 		</block>
 
-		<div class="btnArea">
-			<span class="btn small"><input type="submit" value="{$lang->cmd_setup}"  /></span>
+		<div>
+			<input type="submit" value="{$lang->cmd_setup}" class="btn" />
 		</div>
 	</form>
 <script>
 	xe.current_lang = "{$lang_type}";
 </script>
 	<include target="widget_generate_code.filebox.html" />
-	<include target="widget_generate_code.multilang.html" />
-	<include target="widget_generate_code.multilang.textarea.html" />
+    <include target="../../admin/tpl/common/include.multilang.html" />
+    <include target="../../admin/tpl/common/include.multilang.textarea.html" />
 
 </div>
