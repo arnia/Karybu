@@ -610,7 +610,7 @@
             if(!$trigger_output->toBool()) return $trigger_output;
 
 
-			$_SESSION['__XE_UPLOADING_FILES_INFO__'][$args->file_srl] = true;
+			$_SESSION['__KARYBU_UPLOADING_FILES_INFO__'][$args->file_srl] = true;
 
             $output->add('file_srl', $args->file_srl);
             $output->add('file_size', $args->file_size);

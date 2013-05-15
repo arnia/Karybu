@@ -3,8 +3,8 @@
  * File containing the Karybu 1.5 XmlQueryParserClass
  */
 
-if(!defined('__XE_LOADED_XML_CLASS__')){
-	define('__XE_LOADED_XML_CLASS__', 1);
+if(!defined('__KARYBU_LOADED_XML_CLASS__')){
+	define('__KARYBU_LOADED_XML_CLASS__', 1);
 
 	require(_KARYBU_PATH_.'classes/xml/xmlquery/tags/query/QueryTag.class.php');
 
