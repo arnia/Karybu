@@ -291,6 +291,7 @@ class ModuleHandlerInstance extends Handler
         $oMessageObject->setError(-1);
         $oMessageObject->setMessage($this->error);
         $oMessageObject->dispMessage();
+        $oMessageObject->module_key = new ModuleKey('message', $type, null);
         if ($this->httpStatusCode) {
             $oMessageObject->setHttpStatusCode($this->httpStatusCode);
         }
