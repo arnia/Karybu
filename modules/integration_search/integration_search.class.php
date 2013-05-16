@@ -30,7 +30,7 @@
 			$oModuleModel = &getModel('module');
 			$config = $oModuleModel->getModuleConfig('integration_search');
 
-			if($config->skin)
+			if(!empty($config->skin))
 			{
 				$config_parse = explode('.', $config->skin);
 				if (count($config_parse) > 1)

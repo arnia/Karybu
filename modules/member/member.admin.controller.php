@@ -631,7 +631,7 @@
 			$groups = $var->groups;
 			$members = $var->member_srls;
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
 
 			$oMemberController = &getController('member');
@@ -730,7 +730,7 @@
             if(!is_array($group_srl)) $group_srls = explode('|@|', $group_srl);
 			else $group_srls = $group_srl;
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
             // Delete a group of selected members
             $args->member_srl = $member_srl;

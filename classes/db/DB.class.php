@@ -408,7 +408,6 @@ class DB
         $this->actDBClassStart();
 
         $this->query_id = $query_id;
-
         if(!isset($cache_file[$query_id]) || !file_exists($cache_file[$query_id])) {
             $id_args = explode('.', $query_id);
             if(count($id_args) == 2) {

@@ -111,7 +111,7 @@ class trashAdminController extends trash
 		if(is_array($trashSrlList))
 		{
 			// begin transaction
-			$oDB = &DB::getInstance();
+			$oDB = DB::getInstance();
 			$oDB->begin();
 			// eache restore method call in each classfile
 			foreach($trashSrlList AS $key=>$value)

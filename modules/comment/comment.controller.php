@@ -226,7 +226,7 @@
             if(!$obj->is_secret) $obj->is_secret = 'N';
 
             // begin transaction
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
             // Enter a list of comments first
             $list_args->comment_srl = $obj->comment_srl;
@@ -512,7 +512,7 @@
             if($logged_info->is_admin != 'Y') $obj->content = removeHackTag($obj->content);
 
             // begin transaction
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
             // Update
             $output = executeQuery('comment.updateComment', $obj);
@@ -606,7 +606,7 @@
 			}
 
             // begin transaction
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
             // Delete
             $args->comment_srl = $comment_srl;

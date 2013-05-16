@@ -83,7 +83,7 @@
 		 * @return bool
          **/
         function checkUpdate() {
-            $oDB =& DB::getInstance();
+            $oDB = DB::getInstance();
 			$oModuleModel = &getModel('module');
 
             if(!file_exists(FileHandler::getRealPath("./modules/autoinstall/schemas/autoinstall_installed_packages.xml"))
@@ -113,7 +113,7 @@
 		 * @return Object
          **/
         function moduleUpdate() {
-            $oDB =& DB::getInstance();
+            $oDB = DB::getInstance();
 			$oModuleModel = &getModel('module');
 			$oModuleController = &getController('module');
 

@@ -277,7 +277,7 @@ class TemplateHandler
         // form ruleset attribute move to hidden tag
         if ($matches[1]) {
             preg_match('/ruleset="([^"]*?)"/is', $matches[1], $m);
-            if ($m[0]) {
+            if (!empty($m[0])) {
                 $matches[1] = preg_replace('/' . addcslashes($m[0], '?$') . '/i', '', $matches[1]);
 
                 if (strpos($m[1], '@') !== false) {
@@ -302,7 +302,9 @@ class TemplateHandler
                         }
                     }
                 }
-
+                if (!isset($autoPath)){
+                    $autoPath = '';
+                }
                 $matches[2] = '<input type="hidden" name="ruleset" value="' . $m[1] . '" />' . $matches[2];
                 //assign to addJsFile method for js dynamic recache
                 $matches[1] = '<?php Context::addJsFile("' . $path . '", false, "", 0, "head", true, "' . $autoPath . '") ?' . '>' . $matches[1];
@@ -324,7 +326,7 @@ class TemplateHandler
         // return url generate
         if (!preg_match('/no-error-return-url="true"/i', $matches[1])) {
             preg_match('/<input[^>]*name="error_return_url"[^>]*>/is', $matches[2], $m3);
-            if (!$m3[0]) {
+            if (empty($m3[0])) {
                 $matches[2] = '<input type="hidden" name="error_return_url" value="<?php echo htmlspecialchars(getRequestUriByServerEnviroment()) ?>" />' . $matches[2];
             }
         } else {
@@ -662,6 +664,24 @@ class TemplateHandler
                                 $result = "Context::unloadFile('{$attr['target']}','{$attr['targetie']}');";
                             } else {
                                 $metafile = $attr['target'];
+                                if (!isset($attr['type'])){
+                                    $attr['type'] = null;
+                                }
+                                if (!isset($attr['targetie'])){
+                                    $attr['targetie'] = null;
+                                }
+                                if (!isset($attr['index'])){
+                                    $attr['index'] = null;
+                                }
+                                if (!isset($attr['cdnprefix'])){
+                                    $attr['cdnprefix'] = null;
+                                }
+                                if (!isset($attr['cdnversion'])){
+                                    $attr['cdnversion'] = null;
+                                }
+                                if (!isset($attr['usecdn'])){
+                                    $attr['usecdn'] = null;
+                                }
                                 $result = "\$__tmp=array('{$attr['target']}','{$attr['type']}','{$attr['targetie']}','{$attr['index']}');Context::loadFile(\$__tmp,'{$attr['usecdn']}','{$attr['cdnprefix']}','{$attr['cdnversion']}');unset(\$__tmp);";
                             }
                             break;
@@ -670,6 +690,25 @@ class TemplateHandler
                                 $result = "Context::unloadFile('{$attr['target']}','{$attr['targetie']}','{$attr['media']}');";
                             } else {
                                 $metafile = $attr['target'];
+                                if (!isset($attr['media'])){
+                                    $attr['media'] = null;
+                                }
+                                if (!isset($attr['targetie'])){
+                                    $attr['targetie'] = null;
+                                }
+                                if (!isset($attr['index'])){
+                                    $attr['index'] = null;
+                                }
+                                if (!isset($attr['cdnprefix'])){
+                                    $attr['cdnprefix'] = null;
+                                }
+                                if (!isset($attr['cdnversion'])){
+                                    $attr['cdnversion'] = null;
+                                }
+                                if (!isset($attr['usecdn'])){
+                                    $attr['usecdn'] = null;
+                                }
+
                                 $result = "\$__tmp=array('{$attr['target']}','{$attr['media']}','{$attr['targetie']}','{$attr['index']}');Context::loadFile(\$__tmp,'{$attr['usecdn']}','{$attr['cdnprefix']}','{$attr['cdnversion']}');unset(\$__tmp);";
                             }
                             break;

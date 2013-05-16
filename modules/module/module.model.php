@@ -159,7 +159,7 @@ class moduleModel extends module
                 // Update the related informaion if there is no default site info
                 if (!$output->data) {
                     // Create a table if sites table doesn't exist
-                    $oDB = & DB::getInstance();
+                    $oDB = DB::getInstance();
                     if (!$oDB->isTableExists('sites')) {
                         $oDB->createTableByXmlFile(
                             _KARYBU_PATH_ . 'modules/module/schemas/sites.xml'
@@ -479,6 +479,7 @@ class moduleModel extends module
      **/
     function getTrigger($trigger_name, $module, $type, $called_method, $called_position)
     {
+        $args = new stdClass();
         $args->trigger_name = $trigger_name;
         $args->module = $module;
         $args->type = $type;
@@ -1035,6 +1036,15 @@ class moduleModel extends module
                     }
                 }
             }
+            if (!isset($default_index_act)) {
+                $default_index_act = '';
+            }
+            if (!isset($setup_index_act)) {
+                $setup_index_act = '';
+            }
+            if (!isset($admin_index_act)) {
+                $admin_index_act = '';
+            }
             $buff = sprintf(
                 '<?php if(!defined("__KARYBU__")) exit(); $info = new stdClass; $info->default_index_act = \'%s\';$info->setup_index_act=\'%s\';$info->admin_index_act = \'%s\';%s?>',
                 $default_index_act,
@@ -1103,29 +1113,43 @@ class moduleModel extends module
         }
         $xml_obj = $_xml_obj->skin;
         // Skin Name
-        $skin_info->title = $xml_obj->title->body;
+        $skin_info = new stdClass();
+        $skin_info->title = isset($xml_obj->title->body) ? $xml_obj->title->body : null;
         // Author information
         if ($xml_obj->version && $xml_obj->attrs->version == '0.2') {
             // skin format v0.2
-            sscanf($xml_obj->date->body, '%d-%d-%d', $date_obj->y, $date_obj->m, $date_obj->d);
-            $skin_info->version = $xml_obj->version->body;
-            $skin_info->date = sprintf('%04d%02d%02d', $date_obj->y, $date_obj->m, $date_obj->d);
-            $skin_info->homepage = $xml_obj->link->body;
-            $skin_info->license = $xml_obj->license->body;
-            $skin_info->license_link = $xml_obj->license->attrs->link;
-            $skin_info->description = $xml_obj->description->body;
-
-            if (!is_array($xml_obj->author)) {
-                $author_list[] = $xml_obj->author;
-            } else {
-                $author_list = $xml_obj->author;
+            $skin_info->version = isset($xml_obj->version->body) ? $xml_obj->version->body : null;
+            if (!empty($xml_obj->date->body)) {
+                list($y, $m, $d) = sscanf($xml_obj->date->body, '%d-%d-%d');
+                $skin_info->date = sprintf('%04d%02d%02d', $y, $m, $d);
+            }
+            else{
+                $skin_info->date = null;
             }
 
+            $skin_info->homepage = isset($xml_obj->link->body) ? $xml_obj->link->body : null;
+            $skin_info->license = isset($xml_obj->license->body) ? $xml_obj->license->body : null;
+            $skin_info->license_link = isset($xml_obj->license->attrs->link) ? $xml_obj->license->attrs->link : null;
+            $skin_info->description = isset($xml_obj->description->body) ? $xml_obj->description->body : null;
+            if (isset($xml_obj->author)) {
+                if (!is_array($xml_obj->author)) {
+                    $author_list[] = $xml_obj->author;
+                } else {
+                    $author_list = $xml_obj->author;
+                }
+            }
+            else{
+                $author_list = array();
+            }
+            if (count($author_list)) {
+                $skin_info->author = array();
+            }
             foreach ($author_list as $author) {
                 unset($author_obj);
-                $author_obj->name = $author->name->body;
-                $author_obj->email_address = $author->attrs->email_address;
-                $author_obj->homepage = $author->attrs->link;
+                $author_obj = new stdClass();
+                $author_obj->name = isset($author->name->body) ? $author->name->body: null;
+                $author_obj->email_address = isset($author->attrs->email_address) ? $author->attrs->email_address : null;
+                $author_obj->homepage = isset($author->attrs->link) ? $author->attrs->link : null;
                 $skin_info->author[] = $author_obj;
             }
             // List extra vars
@@ -1308,7 +1332,7 @@ class moduleModel extends module
         }
 
         // colorset
-        $colorset = $xml_obj->colorset->color;
+        $colorset = isset($xml_obj->colorset->color) ? $xml_obj->colorset->color : null;
         if ($colorset) {
             if (!is_array($colorset)) {
                 $colorset = array($colorset);
@@ -1328,6 +1352,7 @@ class moduleModel extends module
                 }
 
                 unset($obj);
+                $obj = new stdClass();
                 $obj->name = $name;
                 $obj->title = $title;
                 $obj->screenshot = $screenshot;
@@ -1335,7 +1360,7 @@ class moduleModel extends module
             }
         }
         // Menu type (settings for layout)
-        if ($xml_obj->menus->menu) {
+        if (!empty($xml_obj->menus->menu)) {
             $menus = $xml_obj->menus->menu;
             if (!is_array($menus)) {
                 $menus = array($menus);
@@ -1457,6 +1482,7 @@ class moduleModel extends module
      **/
     function getModulePartConfigs($module, $site_srl = 0)
     {
+        $args = new stdClass();
         $args->module = $module;
         if ($site_srl) {
             $args->site_srl = $site_srl;
@@ -1535,8 +1561,8 @@ class moduleModel extends module
             unset($obj);
 
             $info->module = $module_name;
-            $info->created_table_count = $created_table_count;
-            $info->table_count = $table_count;
+            $info->created_table_count = null;
+            $info->table_count = null;
             $info->path = $path;
             $info->admin_index_act = $info->admin_index_act;
             $list[] = $info;
@@ -1546,7 +1572,7 @@ class moduleModel extends module
 
     function checkNeedInstall($module_name)
     {
-        $oDB = & DB::getInstance();
+        $oDB = DB::getInstance();
         $info = null;
 
         $moduledir = ModuleHandler::getModulePath($module_name);
@@ -1587,7 +1613,7 @@ class moduleModel extends module
     function getModuleList()
     {
         // Create DB Object
-        $oDB = & DB::getInstance();
+        $oDB = DB::getInstance();
         // Get a list of downloaded and installed modules
         $searched_list = FileHandler::readDir('./modules', '/^([a-zA-Z0-9_-]+)$/');
         sort($searched_list);
@@ -2084,7 +2110,7 @@ class moduleModel extends module
     function getModuleFileBoxList()
     {
         $oModuleModel = & getModel('module');
-
+        $args = new stdClass();
         $args->page = Context::get('page');
         $args->list_count = 5;
         $args->page_count = 5;
@@ -2230,6 +2256,7 @@ class moduleModel extends module
      **/
     function getModuleListByInstance($site_srl = 0, $columnList = array())
     {
+        $args = new stdClass();
         $args->site_srl = $site_srl;
         $output = executeQueryArray('module.getModuleListByInstance', $args, $columnList);
         return $output;

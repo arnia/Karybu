@@ -605,6 +605,7 @@
             }
             // Get menu informaton
             $args = new stdClass();
+            $domain = null;
             $args->menu_srl = $menu_srl;
             $output = executeQuery('menu.getMenu', $args);
             if(!$output->toBool() || !$output->data) return $output;
@@ -695,6 +696,7 @@
                 'if(!defined("__KARYBU__")) exit(); '.
                 '%s; '.
                 '%s; '.
+                '$menu = new stdClass();'.
                 '$menu->list = array(%s); '.
 				'Context::set("included_menu", $menu); '.
                 '?>',
@@ -722,15 +724,18 @@
             if(!$source_node) {
                 return;
             }
-
+            $buff = '';
             $oMenuAdminModel = &getAdminModel('menu');
 
             foreach($source_node as $menu_item_srl => $node) {
                 $child_buff = "";
                 // Get data of the child nodes
-                if($menu_item_srl&&$tree[$menu_item_srl]) $child_buff = $this->getXmlTree($tree[$menu_item_srl], $tree, $site_srl, $domain);
+                if($menu_item_srl && !empty($tree[$menu_item_srl])) {
+                    $child_buff = $this->getXmlTree($tree[$menu_item_srl], $tree, $site_srl, $domain);
+                }
                 // List variables
                 $names = $oMenuAdminModel->getMenuItemNames($node->name, $site_srl);
+                $name_arr_str = '';
                 foreach($names as $key => $val) {
                     $name_arr_str .= sprintf('"%s"=>"%s",',$key, str_replace('\\','\\\\',htmlspecialchars($val)));
                 }
@@ -788,8 +793,12 @@
                     $link
                 );
 
-                if($child_buff) $buff .= sprintf('<node %s>%s</node>', $attribute, $child_buff);
-                else $buff .=  sprintf('<node %s />', $attribute);
+                if($child_buff) {
+                    $buff .= sprintf('<node %s>%s</node>', $attribute, $child_buff);
+                }
+                else {
+                    $buff .=  sprintf('<node %s />', $attribute);
+                }
             }
             return $buff;
         }
@@ -807,39 +816,86 @@
 		 */
         function getPhpCacheCode($source_node, $tree, $site_srl, $domain) {
             $output = array("buff"=>"", "url_list"=>array());
-            if(!$source_node) return $output;
+            if(!$source_node) {
+                return $output;
+            }
 
             $oMenuAdminModel = &getAdminModel('menu');
 
             foreach($source_node as $menu_item_srl => $node) {
                 // Get data from child nodes if exist.
-                if($menu_item_srl&&$tree[$menu_item_srl]) $child_output = $this->getPhpCacheCode($tree[$menu_item_srl], $tree, $site_srl, $domain);
-                else $child_output = array("buff"=>"", "url_list"=>array());
+                if($menu_item_srl && !empty($tree[$menu_item_srl])) {
+                    $child_output = $this->getPhpCacheCode($tree[$menu_item_srl], $tree, $site_srl, $domain);
+                }
+                else {
+                    $child_output = array("buff"=>"", "url_list"=>array());
+                }
                 // List variables
                 $names = $oMenuAdminModel->getMenuItemNames($node->name, $site_srl);
 				unset($name_arr_str);
+                $name_arr_str = '';
                 foreach($names as $key => $val) {
                     $name_arr_str .= sprintf('"%s"=>"%s",',$key, str_replace(array('\\','"'),array('\\\\','&quot;'),$val));
                 }
-                $name_str = sprintf('$_menu_names[%d] = array(%s); %s', $node->menu_item_srl, $name_arr_str, $child_output['name']);
+                $name_str = sprintf('$_menu_names[%d] = array(%s); %s',
+                    $node->menu_item_srl,
+                    $name_arr_str,
+                    !empty($child_output['name']) ? $child_output['name'] : ''
+                );
                 // If url value is not empty in the current node, put the value into an array url_list
-                if($node->url) $child_output['url_list'][] = $node->url;
+                if($node->url) {
+                    $child_output['url_list'][] = $node->url;
+                }
                 $output['url_list'] = array_merge($output['url_list'], $child_output['url_list']);
                 // If node->group_srls value exists
-                if($node->group_srls)$group_check_code = sprintf('($is_admin==true||(is_array($group_srls)&&count(array_intersect($group_srls, array(%s))))||($is_logged && %s))',$node->group_srls,$node->group_srls == -1?1:0);
-                else $group_check_code = "true";
+                if(!empty($node->group_srls)){
+                    $group_check_code = sprintf('($is_admin==true||(is_array($group_srls)&&count(array_intersect($group_srls, array(%s))))||($is_logged && %s))',$node->group_srls,$node->group_srls == -1?1:0);
+                }
+                else {
+                    $group_check_code = "true";
+                }
                 // List variables
-                $href = str_replace(array('&','"','<','>'),array('&amp;','&quot;','&lt;','&gt;'),$node->href);
-                $url = str_replace(array('&','"','<','>'),array('&amp;','&quot;','&lt;','&gt;'),$node->url);
-                if(preg_match('/^([0-9a-zA-Z\_\-]+)$/i', $node->url)) {
-                    $href = getSiteUrl($domain, '','mid',$node->url);
-                    $pos = strpos($href, $_SERVER['HTTP_HOST']);
-                    if($pos !== false) $href = substr($href, $pos+strlen($_SERVER['HTTP_HOST']));
-                } else $href = $url;
-                $open_window = $node->open_window;
-                $normal_btn = str_replace(array('&','"','<','>'),array('&amp;','&quot;','&lt;','&gt;'),$node->normal_btn);
-                $hover_btn = str_replace(array('&','"','<','>'),array('&amp;','&quot;','&lt;','&gt;'),$node->hover_btn);
-                $active_btn = str_replace(array('&','"','<','>'),array('&amp;','&quot;','&lt;','&gt;'),$node->active_btn);
+                if (!empty($node->href)) {
+                    $href = str_replace(array('&','"','<','>'),array('&amp;','&quot;','&lt;','&gt;'),$node->href);
+                }
+                else{
+                    $href = '';
+                }
+                if (!empty($node->url)){
+                    $url = str_replace(array('&','"','<','>'),array('&amp;','&quot;','&lt;','&gt;'),$node->url);
+                    if(preg_match('/^([0-9a-zA-Z\_\-]+)$/i', $node->url)) {
+                        $href = getSiteUrl($domain, '','mid',$node->url);
+                        $pos = strpos($href, $_SERVER['HTTP_HOST']);
+                        if($pos !== false) {
+                            $href = substr($href, $pos+strlen($_SERVER['HTTP_HOST']));
+                        }
+                    }
+                    else {
+                        $href = $url;
+                    }
+                }
+                else {
+                    $url = '';
+                }
+                $open_window = !empty($node->open_window) ? $node->open_window : null;
+                if (!empty($node->normal_btn)) {
+                    $normal_btn = str_replace(array('&','"','<','>'),array('&amp;','&quot;','&lt;','&gt;'),$node->normal_btn);
+                }
+                else {
+                    $normal_btn = null;
+                }
+                if (!empty($node->hover_btn)) {
+                    $hover_btn = str_replace(array('&','"','<','>'),array('&amp;','&quot;','&lt;','&gt;'),$node->hover_btn);
+                }
+                else {
+                    $hover_btn = null;
+                }
+                if (!empty($node->active_btn)) {
+                    $active_btn = str_replace(array('&','"','<','>'),array('&amp;','&quot;','&lt;','&gt;'),$node->active_btn);
+                }
+                else {
+                    $active_btn = null;
+                }
 				
 				foreach($child_output['url_list'] as $key =>$val)
 				{
@@ -851,18 +907,30 @@
                 $expand = $node->expand;
 
                 $normal_btn = $node->normal_btn;
-                if($normal_btn && preg_match('/^\.\/files\/attach\/menu_button/i',$normal_btn)) $normal_btn = str_replace(array('&','"','<','>'),array('&amp;','&quot;','&lt;','&gt;'),$normal_btn);
-                else $normal_btn = '';
+                if($normal_btn && preg_match('/^\.\/files\/attach\/menu_button/i',$normal_btn)) {
+                    $normal_btn = str_replace(array('&','"','<','>'),array('&amp;','&quot;','&lt;','&gt;'),$normal_btn);
+                }
+                else {
+                    $normal_btn = '';
+                }
 
-                $hover_btn = $node->hover_btn;
-                if($hover_btn && preg_match('/^\.\/files\/attach\/menu_button/i',$hover_btn)) $hover_btn = str_replace(array('&','"','<','>'),array('&amp;','&quot;','&lt;','&gt;'),$hover_btn);
-                else $hover_btn = '';
+                $hover_btn = !empty($node->hover_btn) ? $node->hover_btn : null;
+                if($hover_btn && preg_match('/^\.\/files\/attach\/menu_button/i',$hover_btn)) {
+                    $hover_btn = str_replace(array('&','"','<','>'),array('&amp;','&quot;','&lt;','&gt;'),$hover_btn);
+                }
+                else {
+                    $hover_btn = '';
+                }
 
-                $active_btn = $node->active_btn;
-                if($active_btn && preg_match('/^\.\/files\/attach\/menu_button/i',$active_btn)) $active_btn = str_replace(array('&','"','<','>'),array('&amp;','&quot;','&lt;','&gt;'),$active_btn);
-                else $active_btn = '';
+                $active_btn = !empty($node->active_btn) ? $node->active_btn : null;
+                if($active_btn && preg_match('/^\.\/files\/attach\/menu_button/i',$active_btn)) {
+                    $active_btn = str_replace(array('&','"','<','>'),array('&amp;','&quot;','&lt;','&gt;'),$active_btn);
+                }
+                else {
+                    $active_btn = '';
+                }
 
-                $group_srls = $node->group_srls;
+                $group_srls = !empty($node->group_srls) ? $node->group_srls : null;
 
                 if($normal_btn) {
                     if(preg_match('/\.png$/',$normal_btn)) $classname = 'class=\"iePngFix\"';
@@ -902,6 +970,9 @@
                 );
                 // Generate buff data
                 $output['buff'] .=  sprintf('%s=>array(%s),', $node->menu_item_srl, $attribute);
+                if (!isset($output['name'])){
+                    $output['name'] = '';
+                }
                 $output['name'] .= $name_str;
             }
             return $output;

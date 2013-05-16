@@ -80,7 +80,13 @@
          **/
         function getLevel($point, $level_step) {
             $level_count = count($level_step);
-            for($level=0;$level<=$level_count;$level++) if($point < $level_step[$level]) break;
+            for($level=0;$level<=$level_count;$level++) {
+                if (isset($level_step[$level])){
+                    if($point < $level_step[$level]) {
+                        break;
+                    }
+                }
+            }
             $level --;
             return $level;
         }

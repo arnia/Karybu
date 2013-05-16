@@ -90,7 +90,7 @@
 			if(isset($this->default_value)){
                                 $this->default_value = new DefaultValue($this->argument_name, $this->default_value);
                                 if($this->default_value->isSequence())
-                                        $validator .= '$db = &DB::getInstance(); $sequence = $db->getNextSequence(); ';
+                                        $validator .= '$db = DB::getInstance(); $sequence = $db->getNextSequence(); ';
                                 if($this->default_value->isOperation())
                                         $validator .= sprintf('${\'%s_argument\'}->setColumnOperation(\'%s\');' . "\n"
                                                 , $this->argument_name

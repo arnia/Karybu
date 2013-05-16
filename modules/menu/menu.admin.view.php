@@ -57,11 +57,15 @@
 			Context::loadLang(_KARYBU_PATH_.'modules/layout/lang/');
             $site_srl = Context::get('site_srl');
 			$site_module_info = Context::get('site_module_info');
-
+            $logged_info = Context::get('logged_info');
 			if(!$site_srl)
 			{
-				if($logged_info->is_admin == 'Y' && !$site_keyword) $site_srl = 0;
-				else $site_srl = (int)$site_module_info->site_srl;
+				if($logged_info->is_admin == 'Y') {
+                    $site_srl = 0;
+                }
+				else {
+                    $site_srl = (int)$site_module_info->site_srl;
+                }
 			}
 
 			$oMenuAdminModel = getAdminModel('menu');
@@ -102,10 +106,10 @@
 								$this->_menuInfoSetting($menu->list[$key2]);
 							}
 						}
-
+                        $menuItems = new stdClass();
 						//array_push($menuList, $value->xml_file);
-						$menuItems->menuSrl = $value->menu_srl;
-						$menuItems->title = $value->title;
+						$menuItems->menuSrl = isset($value->menu_srl) ? $value->menu_srl : null;
+						$menuItems->title = isset($value->title) ? $value->title : null;
 						$menuItems->menuItems = $menu;
 						array_push($menuList, $menuItems);
 					}
@@ -144,6 +148,7 @@
 				$groupList = array();
 				foreach($output AS $key=>$value)
 				{
+                    $groupList[$value->group_srl] = new stdClass();
 					$groupList[$value->group_srl]->group_srl = $value->group_srl;
 					$groupList[$value->group_srl]->title = $value->title;
 				}

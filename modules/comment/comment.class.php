@@ -15,7 +15,7 @@
 		 * @return Object
 		 */
         function moduleInstall() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
 
             // register the action forward (for using on the admin mode)
             $oModuleController = &getController('module');
@@ -43,7 +43,7 @@
 		 * @return bool
 		 */
         function checkUpdate() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oModuleModel = &getModel('module');
             // 2007. 10. 17 add a trigger to delete comments together with posting deleted
             if(!$oModuleModel->getTrigger('document.deleteDocument', 'comment', 'controller', 'triggerDeleteDocumentComments', 'after')) return true;
@@ -81,7 +81,7 @@
 		 * @return Object
 		 */
         function moduleUpdate() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oModuleModel = &getModel('module');
             $oModuleController = &getController('module');
             // 2007. 10. 17 add a trigger to delete comments together with posting deleted

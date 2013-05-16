@@ -72,7 +72,7 @@
              }
 
                 protected function tearDown() {
-                    $db = &DB::getInstance();
+                    $db = DB::getInstance();
                     $db->_query("DELETE FROM xe_modules WHERE module_srl = 47374");
                     $db->_query("DELETE FROM xe_documents WHERE document_srl = 9200");
                     $db->_query("DELETE FROM xe_member_friend_group WHERE member_srl = 202");

@@ -55,7 +55,7 @@
             $logged_info = Context::get('logged_info');
             $member_srl = $logged_info->member_srl?$logged_info->member_srl:0;
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
             // Register the poll
             unset($poll_args);
@@ -126,7 +126,7 @@
             $oPollModel = &getModel('poll');
             if($oPollModel->isPolled($poll_srl)) return new Object(-1, 'msg_already_poll');
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
 
             $args->poll_srl = $poll_srl;

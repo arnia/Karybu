@@ -317,7 +317,7 @@
             if($oModuleModel->isIDExists($args->mid, $args->site_srl)) return new Object(-1, 'msg_module_name_exists');
 
             // begin transaction
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
             // Get colorset from the skin information
             $module_path = ModuleHandler::getModulePath($args->module);
@@ -353,7 +353,7 @@
             if(!$output->toBool()) return $output;
 
             // begin transaction
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
 
 			if(!$args->site_srl || !$args->browser_title)
@@ -430,7 +430,7 @@
             if(!$output->toBool()) return $output;
 
             // begin transaction
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
 
             $args->module_srl = $module_srl;

@@ -38,6 +38,7 @@ class layoutModel extends layout
             $site_module_info = Context::get('site_module_info');
             $site_srl = (int)$site_module_info->site_srl;
         }
+        $args = new stdClass();
         $args->site_srl = $site_srl;
         $args->layout_type = $layout_type;
         $output = executeQueryArray('layout.getLayoutList', $args, $columnList);

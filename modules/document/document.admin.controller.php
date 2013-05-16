@@ -51,7 +51,7 @@
             $oDocumentModel = &getModel('document');
             $oDocumentController = &getController('document');
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
 
             $triggerObj->document_srls = implode(',',$document_srl_list);
@@ -191,7 +191,7 @@
 
             $oFileModel = &getModel('file');
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
 
             $triggerObj->document_srls = implode(',',$document_srl_list);
@@ -641,7 +641,7 @@
         }
 
 		/*function restoreTrash($trash_srl){
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDocumentModel = &getModel('document');
 
             $trash_args->trash_srl = $trash_srl;
@@ -706,7 +706,7 @@
 			$oDocumentController = &getController('document');
             $oDocumentModel = &getModel('document');
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
 
 			//DB restore

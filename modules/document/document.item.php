@@ -97,12 +97,17 @@ class documentItem extends Object
 
     function setAttribute($attribute, $load_extra_vars = true)
     {
-        if (!$attribute->document_srl) {
+        if (!isset($attribute->document_srl)) {
             $this->document_srl = null;
             return;
         }
         $this->document_srl = $attribute->document_srl;
-        $this->lang_code = $attribute->lang_code;
+        if (isset($attribute->lang_code)) {
+            $this->lang_code = $attribute->lang_code;
+        }
+        else{
+            $this->lang_code = null;
+        }
         $this->adds($attribute);
         // Tags
         if ($this->get('tags')) {

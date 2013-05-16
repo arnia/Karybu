@@ -132,6 +132,7 @@
             Context::set('editor_skin_list', $oEditorModel->getEditorSkinList());
 
             // get an editor
+            $option = new stdClass();
             $option->primary_key_name = 'temp_srl';
             $option->content_key_name = 'agreement';
             $option->allow_fileupload = false;
@@ -226,6 +227,7 @@
 			// get an editor for the signature
             if($memberInfo->member_srl) {                
 				$oEditorModel = &getModel('editor');
+                $option = new stdClass();
                 $option->primary_key_name = 'member_srl';
                 $option->content_key_name = 'signature';
                 $option->allow_fileupload = false;
@@ -246,7 +248,8 @@
 			Context::set('formTags', $formTags);			
 			$member_config = $oMemberModel->getMemberConfig();			
 			
-			global $lang;			
+			global $lang;
+            $identifierForm = new stdClass();
 			$identifierForm->title = $lang->{$member_config->identifier};			
 			$identifierForm->name = $member_config->identifier;			
 			$identifierForm->value = $memberInfo->{$member_config->identifier};			
@@ -277,6 +280,7 @@
 				if ($formInfo->name == $member_config->identifier || $formInfo->name == 'password') continue;
 				unset($formTag);
 				$inputTag = '';
+                $formTag = new stdClass();
 				$formTag->title = ($formInfo->isDefaultForm) ? $lang->{$formInfo->name} : $formInfo->title;
 				if($isAdmin)
 				{

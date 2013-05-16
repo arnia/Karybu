@@ -640,7 +640,7 @@
 			$args->layout_type = $layout->type;
 			if(!$args->layout_type) $args->layout_type = "P";
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
 
 			if(is_array($sourceArgs->title))

@@ -327,7 +327,7 @@
 			$security = new Security();
 			$security->encodeHTML('latestDocumentList..variables.nick_name');
 			unset($args, $output, $columnList);
-
+            $args = new stdClass();
 			// Latest Comment
 			$oCommentModel = &getModel('comment');
 			$columnList = array('comment_srl', 'module_srl', 'document_srl', 'content', 'nick_name', 'member_srl');
@@ -342,7 +342,7 @@
 			}
             Context::set('latestCommentList', $output);
 			unset($args, $output, $columnList);
-
+            $args = new stdClass();
 			//Latest Trackback
 			$oTrackbackModel = &getModel('trackback');
 			$columnList = array();

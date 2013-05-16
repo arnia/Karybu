@@ -19,6 +19,7 @@
          **/
         function dispFileAdminList() {
             // Options to get a list
+            $args = new stdClass();
             $args->page = Context::get('page'); // /< Page
             $args->list_count = 30; // /< Number of documents that appear on a single page
             $args->page_count = 10; // /< Number of pages that appear in the page navigation
@@ -32,19 +33,19 @@
 					, 'source_filename', 'isvalid', 'file_size', 'download_count', 'files.regdate', 'ipaddress');
             $output = $oFileAdminModel->getFileList($args, $columnList);
             // Get the document for looping a list
+            $file_list = array();
+            $document_list = array();
+            $comment_list = array();
+            $module_list= array();
+
+            $doc_srls = array();
+            $com_srls = array();
+            $mod_srls= array();
             if($output->data) {
                 $oCommentModel = &getModel('comment');
                 $oDocumentModel = &getModel('document');
                 $oModuleModel = &getModel('module');
 
-                $file_list = array();
-                $document_list = array();
-                $comment_list = array();
-                $module_list= array();
-
-                $doc_srls = array();
-                $com_srls = array();
-                $mod_srls= array();
 
                 foreach($output->data as $file) {
                     $file_srl = $file->file_srl;

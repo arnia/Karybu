@@ -253,7 +253,8 @@
          **/
         function getLangCode($site_srl, $name) {
             $lang_supported = Context::get('lang_supported');
-
+            $args = new stdClass();
+            $selected_lang = array();
             if(substr($name,0,12)=='$user_lang->') {
                 $args->site_srl = (int)$site_srl;
                 $args->name = substr($name,12);
@@ -264,7 +265,8 @@
                     }
                 }
             } else {
-                $tmp = unserialize($name);
+                //no way to check if the parameter is unserializable so just hide the error
+                $tmp = @unserialize($name);
                 if($tmp) {
                     $selected_lang = array();
                     $rand_name = $tmp[Context::getLangType()];
@@ -281,7 +283,7 @@
 			if(is_array($lang_supported))
 			{
 				foreach($lang_supported as $key => $val)
-					$output[$key] = $selected_lang[$key]?$selected_lang[$key]:$name;
+					$output[$key] = !empty($selected_lang[$key])?$selected_lang[$key]:$name;
 			}
             return $output;
         }

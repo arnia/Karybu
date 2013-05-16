@@ -84,7 +84,7 @@
 		{
             $args->poll_index_srl = $poll_index_srl;
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
 
 			$output = executeQueryArray('poll.getPollByDeletePollTitle', $args);
@@ -130,7 +130,7 @@
         function deletePoll($poll_srl) {
             $args->poll_srl = $poll_srl;
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
 
             $output = $oDB->executeQuery('poll.deletePoll', $args);

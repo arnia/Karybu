@@ -22,6 +22,7 @@
 		 * @return object
 		 */
         function getTrackback($trackback_srl, $columnList = array()) {
+            $args = new stdClass();
             $args->trackback_srl = $trackback_srl;
             $output = executeQuery('trackback.getTrackback', $args, $columnList);
             return $output;
@@ -33,6 +34,7 @@
 		 * @return int
 		 */
         function getTrackbackCount($document_srl) {
+            $args = new stdClass();
             $args->document_srl = $document_srl;
             $output = executeQuery('trackback.getTrackbackCount', $args);
             $total_count = $output->data->count;
@@ -96,16 +98,31 @@
 		 * @return object
 		 */
         function getNewestTrackbackList($obj) {
-            if($obj->mid) {
+            if(!empty($obj->mid)) {
                 $oModuleModel = &getModel('module');
                 $obj->module_srl = $oModuleModel->getModuleSrlByMid($obj->mid);
                 unset($obj->mid);
             }
             // Module_srl passed the array may be a check whether the array
-            if(is_array($obj->module_srl)) $args->module_srl = implode(',', $obj->module_srl);
-            else $args->module_srl = $obj->module_srl;
-            $args->list_count = $obj->list_count;
-            if($obj->site_srl) $args->site_srl = (int)$obj->site_srl;
+            $args = new stdClass();
+            if (isset($obj->module_srl)) {
+                if(is_array($obj->module_srl)) {
+                    $args->module_srl = implode(',', $obj->module_srl);
+                }
+                else {
+                    $args->module_srl = $obj->module_srl;
+                }
+            }
+            else {
+                $args->module_srl = null;
+            }
+            $args->list_count = isset($obj->list_count) ? $obj->list_count : null;
+            if(!empty($obj->site_srl)) {
+                $args->site_srl = (int)$obj->site_srl;
+            }
+            else{
+                $args->site_srl = 0;
+            }
             $args->sort_index = 'trackbacks.list_order';
             $args->order = 'asc';
 

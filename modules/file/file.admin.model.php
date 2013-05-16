@@ -61,14 +61,23 @@
 		 * @return Object Object contains query result
          **/
         function getFileList($obj, $columnList = array()) {
+            $args = new stdClass();
 			$this->_makeSearchParam($obj, $args);
 
             // Set valid/invalid state
-            if($obj->isvalid == 'Y') $args->isvalid = 'Y';
-            elseif($obj->isvalid == 'N') $args->isvalid = 'N';
+            if($obj->isvalid == 'Y') {
+                $args->isvalid = 'Y';
+            }
+            elseif($obj->isvalid == 'N') {
+                $args->isvalid = 'N';
+            }
             // Set multimedia/common file
-            if($obj->direct_download == 'Y') $args->direct_download = 'Y';
-            elseif($obj->direct_download == 'N') $args->direct_download= 'N';
+            if(isset($obj->direct_download) && $obj->direct_download == 'Y') {
+                $args->direct_download = 'Y';
+            }
+            elseif(isset($obj->direct_download) && $obj->direct_download == 'N') {
+                $args->direct_download= 'N';
+            }
             // Set variables
             $args->sort_index = !empty($obj->sort_index) ? $obj->sort_index : null;
             $args->page = !empty($obj->page) ? $obj->page : 1;
@@ -155,8 +164,8 @@
                 $args = new stdClass();
             }
             // Search options
-            $search_target = $obj->search_target?$obj->search_target:trim(Context::get('search_target'));
-            $search_keyword = $obj->search_keyword?$obj->search_keyword:trim(Context::get('search_keyword'));
+            $search_target = isset($obj->search_target)?$obj->search_target:trim(Context::get('search_target'));
+            $search_keyword = isset($obj->search_keyword)?$obj->search_keyword:trim(Context::get('search_keyword'));
             if($search_target && $search_keyword) {
                 switch($search_target) {
                     case 'filename' :

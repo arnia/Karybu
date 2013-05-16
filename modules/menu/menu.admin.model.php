@@ -48,11 +48,14 @@
                 $site_module_info = Context::get('site_module_info');
                 $site_srl = (int)$site_module_info->site_srl;
             }
+            $args = new stdClass();
             // Get information from the DB
             $args->site_srl = $site_srl ;
-            $args->menu_srl = $menu_srl;
+            $args->menu_srl = null;
             $output = executeQueryArray('menu.getMenus', $args);
-            if(!$output->data) return;
+            if(!$output->data) {
+                return;
+            }
             $menus = $output->data;
             return $menus;
         }

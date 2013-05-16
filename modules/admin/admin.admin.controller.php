@@ -94,7 +94,7 @@ class adminAdminController extends admin {
         $db_type = &Context::getDBType();
         if($db_type == 'cubrid')
         {
-            $db = &DB::getInstance();
+            $db = DB::getInstance();
             $db->deleteDuplicateIndexes();
         }
 

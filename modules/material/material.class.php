@@ -25,7 +25,7 @@
 		 **/
 		function checkUpdate() {
             $oModuleModel = &getModel('module');
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
 			
 			if(!$oModuleModel->getTrigger('material.deleteMaterial', 'file', 'controller', 'triggerDeleteAttached', 'after')){
 				return true;
@@ -48,7 +48,7 @@
 		function moduleUpdate() {
 			$oModuleModel = &getModel('module');
             $oModuleController = &getController('module');
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
 
 			if(!$oModuleModel->getTrigger('material.deleteMaterial', 'file', 'controller', 'triggerDeleteAttached', 'after')){
 				$oModuleController->insertTrigger('material.deleteMaterial', 'file', 'controller', 'triggerDeleteAttached', 'after');

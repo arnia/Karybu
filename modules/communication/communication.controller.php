@@ -127,7 +127,7 @@
             $receiver_args->readed = 'N';
             $receiver_args->regdate = date("YmdHis");
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
             // messages to save in the sendor's message box
             if($sender_srl && $sender_log) {

@@ -24,7 +24,7 @@ class trash extends ModuleObject {
 	 * @return bool
 	 */
 	function checkUpdate() {
-		//$oDB = &DB::getInstance();
+		//$oDB = DB::getInstance();
 		//$oModuleModel = &getModel('module');
 
 		return false;
@@ -35,7 +35,7 @@ class trash extends ModuleObject {
 	 * @return Object
 	 */
 	function moduleUpdate() {
-		//$oDB = &DB::getInstance();
+		//$oDB = DB::getInstance();
 		//$oModuleModel = &getModel('module');
 
 		return new Object(0,'success_updated');

@@ -208,7 +208,9 @@
 		 * @return object
 		 */
 		function getThemeInfo($theme_name, $layout_list = null){
-			if ($GLOBALS['__ThemeInfo__'][$theme_name]) return $GLOBALS['__ThemeInfo__'][$theme_name];
+			if (isset($GLOBALS['__ThemeInfo__'][$theme_name])) {
+                return $GLOBALS['__ThemeInfo__'][$theme_name];
+            }
 
 			$info_file = _KARYBU_PATH_.'themes/'.$theme_name.'/conf/info.xml';
             if(!file_exists($info_file)) return;
@@ -382,7 +384,7 @@
 				foreach($installed_module_list AS $key=>$value)
 				{
 					$moduleActionInfo = $oModuleModel->getModuleActionXml($value->module);
-					if(is_object($moduleActionInfo->menu))
+					if(isset ($moduleActionInfo->menu) && is_object($moduleActionInfo->menu))
 					{
 						foreach($moduleActionInfo->menu AS $key2=>$value2)
 						{
