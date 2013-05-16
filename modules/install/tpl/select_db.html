@@ -5,25 +5,29 @@
     <form method="post" action="./">
     <input type="hidden" name="module" value="{$module}" />
     <input type="hidden" name="act" value="dispInstallDBForm" />
-        <ul class="formDbSelect unstyled">
+        <div class="row-fluid">
+        <ul class="formDbSelect unstyled span12">
             <!--@foreach(DB::getEnableList() as $key => $val)-->
-            <li>
-                <label for="db_type_{$val->db_type}" class="radio inline">
+            <li class="span3">
+                <label for="db_type_{$val->db_type}" class="radio inline span12"  data-toggle="tooltip" data-html="true" data-placement="top" title="{$lang->db_desc[$val->db_type]}">
+                    <i class="selected-language" title="Selected Database">&#10004;</i>
                     <input name="db_type" type="radio" value="{$val->db_type}" <!--@if(!$val->enable)-->disabled="disabled"<!--@end--> id="db_type_{$val->db_type}" <!--@if($val->db_type=="mysql")-->checked="checked"<!--@end--> class="iRadio" id="cubrid" />
                     {$val->db_type}
                 </label>
-                <p class="help-block">{$lang->db_desc[$val->db_type]}</p>
+
             </li>
             <!--@end-->
             <!--@foreach(DB::getDisableList() as $key => $val)-->
-            <li>
-                <label for="db_type_{$val->db_type}" class="radio inline">
+            <li class="span3">
+                <label for="db_type_{$val->db_type}" class="radio inline span12">
                     <input name="db_type" type="radio" value="{$val->db_type}" <!--@if(!$val->enable)-->disabled="disabled"<!--@end--> id="db_type_{$val->db_type}" <!--@if($val->db_type=="mysql")-->checked="checked"<!--@end--> class="iRadio" id="cubrid" />
                     {$val->db_type}
                 </label>
-                <p class="help-block">{$lang->db_desc[$val->db_type]}</p>
+
             </li>
+
             <!--@end-->
+        </div>
         </ul>
         <div>
             <div class="pull-left">
@@ -35,5 +39,4 @@
         </div>
     </form>
 </div>
-
 <include target="footer.html" />

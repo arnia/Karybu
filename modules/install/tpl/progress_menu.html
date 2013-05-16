@@ -10,10 +10,10 @@
 
 {@ $current_step = $steps[$act.$progressMenu]; }
 
-<div id="progress" class="span3">
+<div id="progress" class="span3 cnb">
 	<ul class="nav nav-tabs nav-stacked">
 		<li class="active"|cond="$act==''">
-            <a href="{getUrl('act', '')}">{$lang->install_progress_menu['language']}<i class="icon-chevron-right" cond="$act==''"></i></a>
+            <a href="{getUrl('act', '')}">{$lang->install_progress_menu['language']}</a>
         </li>
 		<li class="active"|cond="$act=='dispInstallCheckEnv'" class="disabled"|cond="$current_step<2">
             {@ $url = ($current_step <2 ? '#' : getUrl('act', 'dispInstallCheckEnv')); }

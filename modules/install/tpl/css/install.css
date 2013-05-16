@@ -2,13 +2,171 @@
 
 body {
     margin: 0;
+    background: #1d212a url("../img/install-bg.png");
+}
+
+#progress,
+#content {
+    text-shadow: 0px -1px 0px #ffffff;
+}
+
+#languages-list li,
+.formDbSelect li {
+    position:relative;
+    margin:0 1.527659574468085% 10px 0!important;
+}
+
+#languages-list li a,
+#languages-list li strong,
+.formDbSelect li label {
+    display: block;
+    padding: 16px 16px 16px 24px!important;
+    border: 1px solid #ddd;
+    border-radius: 5px;;
+    font-size: 14px;
+    line-height: 20px;
+    color: #2e5587;
+}
+
+.formDbSelect li label.disabled {
+    color: #999999!important;
+    font-weight: normal!important;
+    background: none!important;
+    cursor: default;
+}
+
+
+
+#languages-list li strong {
     background: #fff;
 }
 
-#languages-list li {
-    position:relative; margin:0 0 4px 0"
+.formDbSelect li .active {
+    background: #ffffff;
+    color: #000000;
+    font-weight: bold;
 }
 
-#languages-list .selected-language {
-    position:absolute;top:0;left:-16px;font-style:normal;font-weight:bold;color:red
+.formDbSelect li i {
+    display: none;
+}
+
+.formDbSelect li .active i {
+    display: inline;
+}
+
+#languages-list .selected-language,
+.formDbSelect .selected-language {
+    position:absolute;
+    top:17px;
+    left:10px;
+    font-style:normal;
+    font-weight:normal;
+}
+
+input[type="radio"].js {
+    display: none;
+}
+
+#header {
+    background: #1d212a url("../img/install-bg.png");
+    margin: 0 0 20px;
+    padding: 20px;
+    color: #ffffff;
+    box-shadow:inset 0px 0px 10px 0px rgba(0,0,0,0.4)
+}
+
+
+#header em {
+    padding-top: 30px;
+    display: block;
+    color: #8ac64f;
+}
+
+
+
+.container {
+    padding: 20px;
+    background: rgba(255,255,255,0.95);
+    margin: 40px auto;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 5px 40px 0px rgba(0, 0, 0, .2);
+}
+
+
+.table-bordered,
+.table-bordered td,
+.table-bordered th {
+    border-color: #cccccc;
+}
+
+.table .success .status {
+    color: #45a211;
+}
+
+.table .error .status {
+    color: #c40202;
+}
+
+.table .warning .status {
+    color: #983e08;
+}
+
+
+
+#progress li {
+    position: relative;
+}
+
+#progress li.active:after {
+    position: absolute;
+    content:"";
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 8px 0 8px 8px;
+    border-color: transparent transparent transparent #007bff;
+    margin-top: -26px;
+    right: -7px;
+}
+
+#progress li.active:before {
+    position: absolute;
+    content:"";
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 9px 0 9px 9px;
+    border-color: transparent transparent transparent #dddddd;
+    margin-top: 11px;
+    right: -9px;
+}
+
+#progress li.active:after {
+    position: absolute;
+    content:"";
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 8px 0 8px 8px;
+    border-color: transparent transparent transparent #ffffff;
+    margin-top: -26px;
+    right: -7px;
+
+}
+
+
+#progress > ul {
+
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    background: #f9f9f9;
+}
+
+.tooltip-inner {
+    -moz-text-shadow: none;
+    -webkit-text-shadow: none;
+    text-shadow: none;
 }

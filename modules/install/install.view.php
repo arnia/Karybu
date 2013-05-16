@@ -24,6 +24,7 @@
             $oInstallController = &getController('install');
             $this->install_enable = $oInstallController->checkInstallEnv();
             // If the environment is installable, execute installController::makeDefaultDirectory()
+            Context::addBodyClass('installer');
             if($this->install_enable) $oInstallController->makeDefaultDirectory();
         }
 

@@ -143,3 +143,26 @@ function completeGetFtpInfo(ret_obj)
     //list = "<td><ul>"+list+"</ul></td>";
     e.append(jQuery(list));
 }
+jQuery(document).ready(function($){
+    $('body').tooltip({
+        selector: "label[data-toggle=tooltip]"
+    })
+
+    $('.formDbSelect input[type="radio"], .formDbSelect label').addClass('js');
+
+
+
+    $(".formDbSelect input:disabled").closest('label').addClass("disabled");
+
+    $(".formDbSelect input:enabled").closest('label').addClass("enabled");
+
+
+    $('.formDbSelect label.enabled').on('click', function() {
+        $('.formDbSelect label').removeClass('active');
+        $(this).addClass('active');
+    });
+
+});
+
+
+

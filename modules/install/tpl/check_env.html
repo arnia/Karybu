@@ -1,12 +1,11 @@
 <include target="header.html" />
 
-<div id="content" class="span9">
-    <table class="table">
+    <table class="table table-bordered">
         <tbody>
             <!--@foreach($checklist as $key => $val)-->
             <tr <!--@if($val)-->class="success"<!--@else-->class="error"<!--@end-->>
                 <td>{$lang->install_checklist_title[$key]}<!--@if($key == 'php_version')--> (Ver. {$phpversion})<!--@end--></td>
-                <td><!--@if($val)-->{$lang->enable}<!--@else--><strong>{$lang->disable}</strong><br />{$lang->install_checklist_desc[$key]}<!--@end--></td>
+                <td class="status"><!--@if($val)-->{$lang->enable}<!--@else--><strong>{$lang->disable}</strong><br />{$lang->install_checklist_desc[$key]}<!--@end--></td>
             </tr>
             <!--@end-->
         </tbody>
@@ -25,5 +24,7 @@
         </div>
     </div>
 </div>
-
+<script>
+    $("a.active").parents('li').css("property", "value");
+</script>
 <include target="footer.html" />

@@ -1,12 +1,19 @@
 <load target="css/bootstrap.min.css" xmlns="http://www.w3.org/1999/html"/>
 <load target="js/bootstrap.js" />
 <load target="css/install.css" />
+<load target="../../admin/tpl/css/admin.css" />
 
 <div class="container">
-	<div id="header" class="span12">
-		<h1><img src="img/karybu.png" alt="Karybu" />Karybu</h1>
-		<em>Version <strong>{__KARYBU_VERSION__}</strong> {$lang->introduce_title}</em>
+	<div id="header">
+        <div class="row-fluid">
+            <div class="span3">
+                <h1><img src="img/karybu.png" alt="Karybu" /></h1>
+            </div>
+            <div class="span9">
+                <em>Version <strong>{__KARYBU_VERSION__}</strong> {$lang->introduce_title}</em>
+            </div>
+        </div>
 	</div>
-    <div class="row">
+    <div class="row-fluid">
         <include target="progress_menu.html" />
         <div id="content" class="span9">
