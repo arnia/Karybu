@@ -11,8 +11,9 @@
 	.x .multiLangEdit input.vLang { width:120px }
 	.x .multiLangEdit input.vLang.loading { padding-right:24px;width:100px;background:transparent url(./modules/admin/tpl/img/preLoader16.gif) no-repeat 96px center }
 </style>
-<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-	<p>{$XE_VALIDATOR_MESSAGE}</p>
+<div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 <fieldset class="section">
 <h3 class="h3">{$lang->member_group}</h3>

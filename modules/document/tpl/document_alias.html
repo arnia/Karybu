@@ -8,8 +8,9 @@
 	<input type="hidden" name="document_srl" value="{$document_srl}" />
 </form>
 
-<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-	<p>{$XE_VALIDATOR_MESSAGE}</p>
+<div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 <form ruleset="insertAlias" action="{Context::getRequestUri()}" method="post">
 	<input type="hidden" name="module" value="document" />

@@ -2,8 +2,9 @@
 <load target="./filter/openid_login.xml" />
 <load target="./message.css" />
 <load target="./message.js" />
-<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-	<p>{$XE_VALIDATOR_MESSAGE}</p>
+<div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 <div id="loginAccess" class="gLogin">
 	<h1>{$system_message}</h1>

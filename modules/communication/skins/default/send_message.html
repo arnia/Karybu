@@ -1,7 +1,8 @@
 <load target="js/communication.js" />
 <h3>{$lang->cmd_send_message}</h3>
-<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-	<p>{$XE_VALIDATOR_MESSAGE}</p>
+<div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 <form ruleset="sendMessage" action="./" method="post">
 	<input type="hidden" name="module" value="communication" />
