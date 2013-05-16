@@ -27,11 +27,16 @@
 		 * @return Object output document list
          **/
         function getDocuments($target, $module_srls_list, $search_target, $search_keyword, $page=1, $list_count = 20) {
-            if(is_array($module_srls_list)) $module_srls_list = implode(',',$module_srls_list);
+            $args = new stdClass();
+            if(is_array($module_srls_list)) {
+                $module_srls_list = implode(',',$module_srls_list);
+            }
 
             if($target == 'exclude') {
 				$module_srls_list .= ',0'; // exclude 'trash'
-				if ($module_srls_list{0} == ',') $module_srls_list = substr($module_srls_list, 1);
+				if ($module_srls_list{0} == ',') {
+                    $module_srls_list = substr($module_srls_list, 1);
+                }
             	$args->exclude_module_srl = $module_srls_list;
             } else {
             	$args->module_srl = $module_srls_list;
@@ -65,15 +70,24 @@
 		 * @return Object output comment list
          **/
         function getComments($target, $module_srls_list, $search_keyword, $page=1, $list_count = 20) {
+            $args = new stdClass();
             if(is_array($module_srls_list)){
-				if (count($module_srls_list) > 0) $module_srls = implode(',',$module_srls_list); 
-				else $module_srls = 0; 
+				if (count($module_srls_list) > 0) {
+                    $module_srls = implode(',',$module_srls_list);
+                }
+				else {
+                    $module_srls = 0;
+                }
 			}
             else {
 				$module_srls = ($module_srls_list)?$module_srls_list:0;
 			}
-            if($target == 'exclude') $args->exclude_module_srl = $module_srls;
-            else $args->module_srl = $module_srls;
+            if($target == 'exclude') {
+                $args->exclude_module_srl = $module_srls;
+            }
+            else {
+                $args->module_srl = $module_srls;
+            }
 
             $args->page = $page;
             $args->list_count = $list_count;
@@ -102,10 +116,19 @@
 		 * @return Object output trackback list
          **/
         function getTrackbacks($target, $module_srls_list, $search_target = "title", $search_keyword, $page=1, $list_count = 20) {
-            if(is_array($module_srls_list)) $module_srls = implode(',',$module_srls_list);
-            else $module_srls = $module_srls_list;
-            if($target == 'exclude') $args->exclude_module_srl = $module_srls;
-            else $args->module_srl = $module_srls;
+            $args = new stdClass();
+            if(is_array($module_srls_list)) {
+                $module_srls = implode(',',$module_srls_list);
+            }
+            else {
+                $module_srls = $module_srls_list;
+            }
+            if($target == 'exclude') {
+                $args->exclude_module_srl = $module_srls;
+            }
+            else {
+                $args->module_srl = $module_srls;
+            }
             $args->page = $page;
             $args->list_count = $list_count;
             $args->page_count = 10;
@@ -133,10 +156,19 @@
 		 * @return Object output file list
          **/
         function _getFiles($target, $module_srls_list, $search_keyword, $page, $list_count, $direct_download = 'Y') {
-            if(is_array($module_srls_list)) $module_srls = implode(',',$module_srls_list);
-            else $module_srls = $module_srls_list;
-            if($target == 'exclude') $args->exclude_module_srl = $module_srls;
-            else $args->module_srl = $module_srls;
+            $args = new stdClass();
+            if(is_array($module_srls_list)) {
+                $module_srls = implode(',',$module_srls_list);
+            }
+            else {
+                $module_srls = $module_srls_list;
+            }
+            if($target == 'exclude') {
+                $args->exclude_module_srl = $module_srls;
+            }
+            else {
+                $args->module_srl = $module_srls;
+            }
             $args->page = $page;
             $args->list_count = $list_count;
             $args->page_count = 10;
@@ -149,7 +181,9 @@
             // Get a list of documents
             $oFileAdminModel = &getAdminModel('file');
             $output = $oFileAdminModel->getFileList($args);
-            if(!$output->toBool() || !$output->data) return $output;
+            if(!$output->toBool() || !$output->data) {
+                return $output;
+            }
 
             $list = array();
             foreach($output->data as $key => $val) {

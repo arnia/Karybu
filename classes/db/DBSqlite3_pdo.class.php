@@ -62,7 +62,7 @@ class DBSqlite3_pdo extends DB
     /**
      * @brief create an instance of this class
      */
-    function create(LoggerInterface $logger = null)
+    static function create(LoggerInterface $logger = null)
     {
         return new DBSqlite3_pdo($logger);
     }

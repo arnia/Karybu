@@ -60,7 +60,7 @@ class DBMssql extends DB
      * Create an instance of this class
      * @return DBMssql return DBMssql object instance
      */
-    function create(LoggerInterface $logger = null)
+    static function create(LoggerInterface $logger = null)
     {
         return new DBMssql($logger);
     }

@@ -158,7 +158,7 @@ class DB
      * returns instance of db
      * @return DB return DB object instance
      */
-    function create()
+    static function create()
     {
         return new DB;
     }

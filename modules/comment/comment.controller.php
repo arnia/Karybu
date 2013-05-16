@@ -121,7 +121,8 @@
 
 		$oModuleModel = &getModel('module');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-		$module_part_config = $oModuleModel->getModulePartConfig('comment',$module_info->module_srl);
+        $srl = !empty($module_info->module_srl) ? $module_info->module_srl : null;
+		$module_part_config = $oModuleModel->getModulePartConfig('comment', $srl);
 		$use_validation = false;
 		if (isset($module_part_config->use_comment_validation) && $module_part_config->use_comment_validation == "Y")
 		{
