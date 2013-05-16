@@ -146,11 +146,6 @@ jQuery(document).ready(function($){
         $("#delete_page_modal").modal('show');
         return false;
     });
-    $("a:contains('Modify button')").click(function(){
-        $('html, body').animate({
-            scrollTop: $(".container a:last").offset().top
-        }, 2000);
-    });
 });
 
 jQuery(document).ready(function($){
