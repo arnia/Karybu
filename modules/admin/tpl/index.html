@@ -1,5 +1,5 @@
 <include target="./_spHeader.html" />
-<div id="dashboard_content">
+
     <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
         <p>{$XE_VALIDATOR_MESSAGE}</p>
     </div>
@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-
+<div id="dashboard_content">
     <div class="swatchBoard">
         <div class="row-fluid">
             <a class="span2 turquoise swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispCounterAdminIndex')}">
@@ -42,11 +42,12 @@
             </a>
             <a class="span2 green swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispFileAdminList')}">
                 <span class="corner"></span>
-                <b class="kNumbers">{number_format($status->file->totalCount)}(<!--@if($status->file->todayCount > 0)-->+<!--@end-->{number_format($status->file->todayCount)})</b>
+                <b class="kNumbers">{number_format($status->file->totalCount)} (<!--@if($status->file->todayCount > 0)-->+<!--@end-->{number_format($status->file->todayCount)})</b>
                 <strong>{$lang->files}</strong>
             </a>
         </div>
     </div>
+
         <!--@if(!$isEnviromentGatheringAgreement)-->
         <form action="./" method="post" class="message info alert alert-block alert-warning dashboard">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
