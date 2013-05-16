@@ -1104,63 +1104,8 @@ button.sTog {padding: 4px 10px 8px;
 
 @media (max-width: 767px) {
 
-/* DARK TABS */
-  /*
-    ul.nav-tabs {
-        padding: 0;
-        background:none;
-        border: none;
-        border-color: transparent;
-        -webkit-border-radius: 4px 4px 4px 4px;
-        border-radius: 4px 4px 4px 4px;
-    }
 
-    .nav-tabs li a {
-        background: #292c35;
-        color: #fff;
-        border-color: transparent;
-        cursor: pointer;
-        margin: 0;
 
-    }
-    .nav-tabs > li:last-child > a {
-        -moz-border-radius: 0px, 0px, 4px, 4px;
-        border-radius: 0px 0px 4px 4px;
-    }
-
-    .nav-tabs li a:hover,
-    .nav-tabs li a:focus,
-    .nav-tabs li a:active
-    {
-        cursor:default;
-        background-color: #3c404d;
-        color: #fff;
-        border:none;
-        cursor: pointer;
-
-    }
-
-    .nav-tabs > .active > a,
-    .nav-tabs > .active > a:hover,
-    .nav-tabs > .active > a:focus {
-        cursor:default;
-        background-color:#8ac64f;
-        color: #fff;
-        border-color: transparent;
-
-    }
-
-    .nav-tabs > li > a {
-        border: none;
-    }
-    .nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
-
-        border: none;
-    }
-
-*/
-
-/* END DARK TABS */
 
     .nav-tabs > li {
         float:none;
@@ -1221,6 +1166,70 @@ button.sTog {padding: 4px 10px 8px;
         margin-bottom: 0;
     }
 
+
+
+    /* DARK TABS */
+
+    .cnb ul.nav-tabs {
+        padding: 0;
+        background:none;
+        border: none;
+        border-color: transparent;
+        -webkit-border-radius: 4px 4px 4px 4px;
+        border-radius: 4px 4px 4px 4px;
+    }
+
+    .cnb .nav-tabs li a {
+        background: #292c35;
+        color: #fff;
+        border-color: transparent;
+        cursor: pointer;
+        margin: 0;
+        border-radius: 0;
+
+    }
+
+    .cnb .nav-tabs > li:first-child > a {
+        -moz-border-radius: 4px, 4px, 0px, 0px ;
+        border-radius: 4px 4px 0px 0px ;
+    }
+
+    .cnb .nav-tabs > li:last-child > a {
+        -moz-border-radius: 0px, 0px, 4px, 4px;
+        border-radius: 0px 0px 4px 4px;
+    }
+
+    .cnb .nav-tabs li a:hover,
+    .cnb .nav-tabs li a:focus,
+    .cnb .nav-tabs li a:active
+    {
+        cursor:default;
+        background-color: #3c404d;
+        color: #fff;
+        border:none;
+        cursor: pointer;
+
+    }
+
+    .cnb .nav-tabs > .active > a,
+    .cnb .nav-tabs > .active > a:hover,
+    .cnb .nav-tabs > .active > a:focus {
+        cursor:default;
+        background-color:#8ac64f;
+        color: #fff;
+        border-color: transparent;
+
+    }
+
+    .cnb .nav-tabs > li > a {
+        border: none;
+    }
+    .cnb .nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
+
+        border: none;
+    }
+
+    /* END DARK TABS */
 
 
 }
