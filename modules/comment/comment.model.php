@@ -499,13 +499,14 @@
 		 */
         function getTotalCommentList($obj, $columnList = array()) {
             $query_id = 'comment.getTotalCommentList';
+            $args = new stdClass();
             // Variables
             $args->sort_index = 'list_order';
-            $args->page = $obj->page?$obj->page:1;
-            $args->list_count = $obj->list_count?$obj->list_count:20;
-            $args->page_count = $obj->page_count?$obj->page_count:10;
-            $args->s_module_srl = $obj->module_srl;
-            $args->exclude_module_srl = $obj->exclude_module_srl;
+            $args->page = !empty($obj->page) ? $obj->page : 1;
+            $args->list_count = !empty($obj->list_count) ? $obj->list_count : 20;
+            $args->page_count = !empty($obj->page_count) ? $obj->page_count : 10;
+            $args->s_module_srl = !empty($obj->module_srl) ? $obj->module_srl : null;
+            $args->exclude_module_srl = !empty($obj->exclude_module_srl) ? $obj->exclude_module_srl : null;
 			
 			// check if module is using comment validation system
 			$oCommentController = &getController("comment");

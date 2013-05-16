@@ -38,8 +38,10 @@
             if(!$this->grant->access) return new Object(-1,'msg_not_permitted');
 
             $config = $oModuleModel->getModuleConfig('integration_search');
-			if(!$config->skin)
-			{
+            if (!is_object($config)){
+                $config = new stdClass();
+            }
+			if(empty($config->skin)) {
 				$config->skin = 'default';
 				$template_path = sprintf('%sskins/%s', $this->module_path, $config->skin);
 			}
@@ -58,15 +60,24 @@
 			}
 			// Template path
 			$this->setTemplatePath($template_path);
+            if (empty($config->skin_vars)) {
+                $config->skin_vars = serialize(new stdClass());
+            }
             Context::set('module_info', unserialize($config->skin_vars));
 
-            $target = $config->target;
-            if(!$target) $target = 'include';
+            if (!empty($config->target)) {
+                $target = $config->target;
+            }
+            else {
+                $target = 'include';
+            }
 			
-			if (empty($config->target_module_srl))
+			if (empty($config->target_module_srl)) {
 				$module_srl_list = array();
-			else
+            }
+			else {
 	            $module_srl_list = explode(',',$config->target_module_srl);
+            }
 
             // Set a variable for search keyword
             $is_keyword = Context::get('is_keyword');

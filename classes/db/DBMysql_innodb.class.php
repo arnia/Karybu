@@ -35,7 +35,7 @@ class DBMysql_innodb extends DBMysql
      * Create an instance of this class
      * @return DBMysql_innodb return DBMysql_innodb object instance
      */
-    function create(LoggerInterface $logger = null)
+    static function create(LoggerInterface $logger = null)
     {
         return new DBMysql_innodb($logger);
     }

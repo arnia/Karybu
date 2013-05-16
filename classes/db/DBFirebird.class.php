@@ -56,7 +56,7 @@ class DBFireBird extends DB
     /**
      * @brief create an instance of this class
      */
-    function create(LoggerInterface $logger = null)
+    static function create(LoggerInterface $logger = null)
     {
         return new DBFireBird($logger);
     }
