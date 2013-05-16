@@ -6,8 +6,9 @@
     .sns_sign_in a:hover{border: 1px solid red}
 </style>
 
-<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-	<p>{$XE_VALIDATOR_MESSAGE}</p>
+<div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 <h3>{$lang->cmd_login}</h3>
 <form ruleset="@login" action="./" method="post" id="fo_member_login" class="form">

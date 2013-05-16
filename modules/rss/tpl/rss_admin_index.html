@@ -1,6 +1,7 @@
 <load target="js/rss.js" usecdn="true" />
-<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-	<p>{$XE_VALIDATOR_MESSAGE}</p>
+<div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 <h2 class="h2">RSS</h2>
 <form ruleset="insertRssConfig" id="fo_layout" action="./" method="post" enctype="multipart/form-data" class="form-horizontal">

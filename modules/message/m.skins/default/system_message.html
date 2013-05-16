@@ -3,10 +3,11 @@
 	<div class="hx h2">
 		<h2>{$system_message}</h2>
 	</div>
-	<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-		<p>{$XE_VALIDATOR_MESSAGE}</p>
-	</div>
-	<div class="co">
+    <div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+    <div class="co">
 		<!--@if(!$is_logged)-->
         {@ Context::addJsFile("./common/js/jquery.js", true, '', -100000) }
         {@ Context::addJsFile("./common/js/js_app.js", true, '', -100000) }

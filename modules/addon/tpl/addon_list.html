@@ -5,7 +5,8 @@
 
 	<h1 class="h1">{$lang->installed_addons}</h1>
 	<p>{$lang->about_installed_addon}</p>
-	<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
 		<p>{$XE_VALIDATOR_MESSAGE}</p>
 	</div>
 	<div class="table even easyList dsTg">
