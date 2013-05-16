@@ -1596,7 +1596,7 @@
             $output = executeQuery('member.updateLastLogin', $args);
 
 			// Check if there is recoding table.
-			$oDB = &DB::getInstance();
+			$oDB = DB::getInstance();
 			if($oDB->isTableExists('member_count_history') && $config->enable_login_fail_report != 'N')
 			{
 				// check if there is login fail records.
@@ -1788,7 +1788,7 @@
             $member_srl = $oMemberModel->getMemberSrlByEmailAddress($args->email_address);
             if($member_srl) return new Object(-1,'msg_exists_email_address');
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
             // Insert data into the DB
             $args->list_order = -1 * $args->member_srl;
@@ -1923,7 +1923,7 @@
             if($args->blog && !preg_match("/^[a-z]+:\/\//is",$args->blog)) $args->blog = 'http://'.$args->blog;
 
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
             // DB in the update
 
@@ -2038,7 +2038,7 @@
             // If managers can not be deleted
             if($this->member_info->is_admin == 'Y') return new Object(-1, 'msg_cannot_delete_admin');
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
 
             $args = new stdClass();

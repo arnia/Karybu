@@ -52,55 +52,55 @@ class memberModel extends member
         // Get terms of user
         $config->agreement = memberModel::_getAgreement();
 
-        if (!$config->webmaster_name) {
+        if (empty($config->webmaster_name)) {
             $config->webmaster_name = 'webmaster';
         }
-        if (!$config->image_name_max_width) {
+        if (empty($config->image_name_max_width)) {
             $config->image_name_max_width = 90;
         }
-        if (!$config->image_name_max_height) {
+        if (empty($config->image_name_max_height)) {
             $config->image_name_max_height = 20;
         }
-        if (!$config->image_mark_max_width) {
+        if (empty($config->image_mark_max_width)) {
             $config->image_mark_max_width = 20;
         }
-        if (!$config->image_mark_max_height) {
+        if (empty($config->image_mark_max_height)) {
             $config->image_mark_max_height = 20;
         }
-        if (!$config->profile_image_max_width) {
+        if (empty($config->profile_image_max_width)) {
             $config->profile_image_max_width = 80;
         }
-        if (!$config->profile_image_max_height) {
+        if (empty($config->profile_image_max_height)) {
             $config->profile_image_max_height = 80;
         }
-        if (!$config->skin) {
+        if (empty($config->skin)) {
             $config->skin = 'default';
         }
-        if (!$config->colorset) {
+        if (empty($config->colorset)) {
             $config->colorset = 'white';
         }
-        if (!$config->editor_skin || $config->editor_skin == 'default') {
+        if (empty($config->editor_skin) || (!empty($config->editor_skin) && $config->editor_skin == 'default')) {
             $config->editor_skin = 'xpresseditor';
         }
-        if (!$config->group_image_mark) {
+        if (empty($config->group_image_mark)) {
             $config->group_image_mark = "N";
         }
 
-        if (!$config->identifier) {
+        if (empty($config->identifier)) {
             $config->identifier = 'user_id';
         }
 
-        if (!$config->max_error_count) {
+        if (empty($config->max_error_count)) {
             $config->max_error_count = 10;
         }
-        if (!$config->max_error_count_time) {
+        if (empty($config->max_error_count_time)) {
             $config->max_error_count_time = 300;
         }
 
-        if (!$config->signature_editor_skin || $config->signature_editor_skin == 'default') {
+        if (empty($config->signature_editor_skin) || (!empty($config->signature_editor_skin) && $config->signature_editor_skin == 'default')) {
             $config->signature_editor_skin = 'xpresseditor';
         }
-        if (!$config->sel_editor_colorset) {
+        if (empty($config->sel_editor_colorset)) {
             $config->sel_editor_colorset = 'white';
         }
 
@@ -585,12 +585,13 @@ class memberModel extends member
      **/
     function getGroups($site_srl = 0)
     {
-        if (!$GLOBALS['__group_info__'][$site_srl]) {
+        if (empty($GLOBALS['__group_info__'][$site_srl])) {
             $result = array();
 
             if (!isset($site_srl)) {
                 $site_srl = 0;
             }
+            $args = new stdClass();
             $args->site_srl = $site_srl;
             $args->sort_index = 'list_order';
             $args->order_type = 'asc';
@@ -622,7 +623,7 @@ class memberModel extends member
         global $lang;
         // Set to ignore if a super administrator.
         $logged_info = Context::get('logged_info');
-
+        $args = new stdClass();
         if (!$this->join_form_list) {
             // Argument setting to sort list_order column
             $args->sort_index = "list_order";
@@ -1037,7 +1038,7 @@ class memberModel extends member
 
         // Verify the password by using old_password if the current db is MySQL. If correct, return true.
         if (substr(Context::getDBType(), 0, 5) == 'mysql') {
-            $oDB = & DB::getInstance();
+            $oDB = DB::getInstance();
             if ($oDB->isValidOldPassword($password_text, $hashed_password)) {
                 if ($isSha1 && $member_srl > 0) {
                     $args = new stdClass();
@@ -1075,6 +1076,7 @@ class memberModel extends member
 
     function getSnsList($filter_enabled = true)
     {
+        $args = new stdClass();
         if ($filter_enabled) {
             $args->enabled = "Y";
         }
@@ -1085,7 +1087,7 @@ class memberModel extends member
         if (!is_array($db_list)) {
             $db_list = array($db_list);
         }
-
+        $sns_list = new stdClass();
         //SNS list from SNS directory
         $downloaded_list = FileHandler::readDir(sprintf('%s/sns', $this->module_path));
 
@@ -1154,12 +1156,13 @@ class memberModel extends member
         $oParser = new XmlParser();
         $xml_doc = $oParser->loadXmlFile($xml_file);
         // SNS information listed
+        $xml_info = new stdClass();
         $xml_info->sns_name = $sns;
         $xml_info->title = $xml_doc->sns->title->body;
         $xml_info->description = str_replace('\n', "\n", $xml_doc->sns->description->body);
-        $xml_info->regdate = $xml_doc->component->regdate->body;
+        $xml_info->regdate = isset($xml_doc->component->regdate->body) ? $xml_doc->component->regdate->body : null;
         if ($includeConfig) {
-            $config = $xml_doc->sns->config->item;
+            $config = isset($xml_doc->sns->config->item) ? $xml_doc->sns->config->item : null;
             if ($config) {
                 if (!is_array($config)) {
                     $config = array($config);

@@ -23,18 +23,22 @@
 		 * @return boolean
          **/
         function checkUpdate() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             // 2009. 02. 11 Add site_srl to layout table
             if(!$oDB->isColumnExists('layouts', 'site_srl')) return true;
             // 2009. 02. 26 Move the previous layout for faceoff
             $files = FileHandler::readDir('./files/cache/layout');
             for($i=0,$c=count($files);$i<$c;$i++) {
                 $filename = $files[$i];
-                if(preg_match('/([0-9]+)\.html/i',$filename)) return true;
+                if(preg_match('/([0-9]+)\.html/i',$filename)) {
+                    return true;
+                }
             }
 
-			if(!$oDB->isColumnExists('layouts', 'layout_type')) return true;
-
+			if(!$oDB->isColumnExists('layouts', 'layout_type')) {
+                return true;
+            }
+            $args = new stdClass();
 			$args->layout = '.';
 			$output = executeQueryArray('layout.getLayoutDotList', $args);
 			if($output->data && count($output->data) > 0)
@@ -55,7 +59,7 @@
 		 * @return Object
          **/
         function moduleUpdate() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             // 2009. 02. 11 Add site_srl to menu table
             if(!$oDB->isColumnExists('layouts', 'site_srl')) {
                 $oDB->addColumn('layouts','site_srl','number',11,0,true);

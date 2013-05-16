@@ -33,7 +33,7 @@
 		 * @return bool
          **/
         function checkUpdate() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
 			if(!$oDB->isColumnExists("addons", "is_used_m")) return true;
 			if(!$oDB->isColumnExists("addons_site", "is_used_m")) return true;
 
@@ -49,7 +49,7 @@
 		 * @return Object
          **/
         function moduleUpdate() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
 			if(!$oDB->isColumnExists("addons", "is_used_m")) {
 				$oDB->addColumn("addons", "is_used_m", "char", 1, "N", true);
 			}

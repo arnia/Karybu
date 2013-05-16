@@ -149,7 +149,7 @@
 
             $schema_dir = sprintf('%s/schemas/', $this->package->path);
             $schema_files = FileHandler::readDir($schema_dir);
-			$oDB =& DB::getInstance();
+			$oDB = DB::getInstance();
 			if(is_array($schema_files))
 			{
 				foreach($schema_files as $file)

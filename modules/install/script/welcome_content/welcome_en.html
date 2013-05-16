@@ -52,8 +52,27 @@
 -->
 
 <!--meet_zones
-<h2 class="zheadline">Meet what we call <a href="#">zones</a>.<br />
-<small>Click the <a>Modify button</a> at the bottom of the page to enter Edit mode.</small></h2>
+<script>
+    jQuery(function($){
+        $("a:contains('Modify button')").click(function(){
+            var signInButton = $(".login-form a:contains('Sign in')");
+            var signedIn = ( signInButton.length > 0 ? false : true );
+            if (signedIn) {
+                var modify = $(".container a").filter(function() {
+                    return $(this).text() === 'Modify'
+                });
+                $('html, body').animate({
+                    scrollTop: modify.offset().top
+                }, 1000);
+            }
+            else {
+                $(".login-form a:contains('Sign in')").click();
+            }
+        });
+    });
+</script>
+<h2 class="zheadline">Meet what we call zones.<br />
+<small>Click the <a style="cursor: pointer">Modify button</a> at the bottom of the page to enter Edit mode.</small></h2>
 -->
 
 <!--features

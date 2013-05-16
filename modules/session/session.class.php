@@ -21,7 +21,7 @@
          * @brief Additional tasks required to accomplish during the installation
          **/
         function moduleInstall() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->addIndex("session","idx_session_update_mid", array("member_srl","last_update","cur_mid"));
 
             return new Object();
@@ -31,7 +31,7 @@
          * @brief A method to check if the installation has been successful
          **/
         function checkUpdate() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             if(!$oDB->isTableExists('session')) return true;
             if(!$oDB->isColumnExists("session","cur_mid")) return true;
             if(!$oDB->isIndexExists("session","idx_session_update_mid")) return true;
@@ -42,7 +42,7 @@
          * @brief Execute update
          **/
         function moduleUpdate() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oModuleModel = &getModel('module');
             
             if(!$oDB->isTableExists('session')) $oDB->createTableByXmlFile($this->module_path.'schemas/session.xml');

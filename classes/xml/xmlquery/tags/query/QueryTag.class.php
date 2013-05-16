@@ -239,12 +239,14 @@ class QueryTag {
 		$buff .= sprintf('$query->setAction("%s");%s', $this->action, "\n");
 		$buff .= sprintf('$query->setPriority("%s");%s', $this->priority, "\n");
 		$buff .= $this->preBuff;
-		if ($this->columns)
+		if ($this->columns) {
 			$buff .= '$query->setColumns(' . $this->columns->toString() . ');' . PHP_EOL;
+        }
 
         $buff .= '$query->setTables(' . $this->tables->toString() .');'.PHP_EOL;
-		if($this->action == 'insert-select')
-				$buff .= '$query->setSubquery(' . $this->subquery->toString() .');'.PHP_EOL;
+		if($this->action == 'insert-select'){
+            $buff .= '$query->setSubquery(' . $this->subquery->toString() .');'.PHP_EOL;
+        }
         $buff .= '$query->setConditions('.$this->conditions->toString() .');'.PHP_EOL;
        	$buff .= '$query->setGroups(' . $this->groups->toString() . ');'.PHP_EOL;
        	$buff .= '$query->setOrder(' . $this->navigation->getOrderByString() .');'.PHP_EOL;

@@ -32,7 +32,7 @@ class document extends ModuleObject
 		// Register action forward (to use in administrator mode)
 		$oModuleController = &getController('module');
 
-		$oDB = &DB::getInstance();
+		$oDB = DB::getInstance();
 		$oDB->addIndex("documents","idx_module_list_order", array("module_srl","list_order"));
 		$oDB->addIndex("documents","idx_module_update_order", array("module_srl","update_order"));
 		$oDB->addIndex("documents","idx_module_readed_count", array("module_srl","readed_count"));
@@ -56,7 +56,7 @@ class document extends ModuleObject
 	 * @return bool
 	 */
 	function checkUpdate() {
-		$oDB = &DB::getInstance();
+		$oDB = DB::getInstance();
 		$oModuleModel = &getModel('module');
 
 		// 2007. 7. 25: Add a column(notify_message) for notification
@@ -131,7 +131,7 @@ class document extends ModuleObject
 	 * @return Object
 	 */
 	function moduleUpdate() {
-		$oDB = &DB::getInstance();
+		$oDB = DB::getInstance();
 		$oModuleModel = &getModel('module');
 		$oModuleController = &getController('module');
 

@@ -181,7 +181,7 @@ class documentController extends document {
 		}
 
 		// begin transaction
-		$oDB = &DB::getInstance();
+		$oDB = DB::getInstance();
 		$oDB->begin();
 		// List variables
 		if($obj->comment_status) $obj->commentStatus = $obj->comment_status;
@@ -328,7 +328,7 @@ class documentController extends document {
 		if(!$output->toBool()) return $output;
 
 		// begin transaction
-		$oDB = &DB::getInstance();
+		$oDB = DB::getInstance();
 		$oDB->begin();
 
 		$oModuleModel = &getModel('module');
@@ -507,7 +507,7 @@ class documentController extends document {
 		if(!$output->toBool()) return $output;
 
 		// begin transaction
-		$oDB = &DB::getInstance();
+		$oDB = DB::getInstance();
 		$oDB->begin();
 
 		if(!$isEmptyTrash)
@@ -644,7 +644,7 @@ class documentController extends document {
 		$document_args->document_srl = $obj->document_srl;
 
 		// begin transaction
-		$oDB = &DB::getInstance();
+		$oDB = DB::getInstance();
 		$oDB->begin();
 
 		/*$output = executeQuery('document.insertTrash', $trash_args);
@@ -1061,7 +1061,7 @@ class documentController extends document {
 		}
 
 		// begin transaction
-		$oDB = &DB::getInstance();
+		$oDB = DB::getInstance();
 		$oDB->begin();
 
 		// Add the declared document
@@ -1398,7 +1398,7 @@ class documentController extends document {
 
 		$oDocumentModel = &getModel('document');
 
-		$oDB = &DB::getInstance();
+		$oDB = DB::getInstance();
 		$oDB->begin();
 		// Check if already exists
 		if($args->category_srl) {
@@ -1502,7 +1502,7 @@ class documentController extends document {
 		// List variables
 		$args = Context::gets('module_srl','category_srl');
 
-		$oDB = &DB::getInstance();
+		$oDB = DB::getInstance();
 		$oDB->begin();
 		// Check permissions
 		$oModuleModel = &getModel('module');
@@ -1946,7 +1946,7 @@ class documentController extends document {
 			$msg_code = 'success_copied';
 		}
 		elseif($type =='delete') {
-			$oDB = &DB::getInstance();
+			$oDB = DB::getInstance();
 			$oDB->begin();
 			for($i=0;$i<$document_srl_count;$i++) {
 				$document_srl = $document_srl_list[$i];
@@ -1959,7 +1959,7 @@ class documentController extends document {
 		elseif($type == 'trash') {
 			$args->description = $message_content;
 
-			$oDB = &DB::getInstance();
+			$oDB = DB::getInstance();
 			$oDB->begin();
 			for($i=0;$i<$document_srl_count;$i++) {
 				$args->document_srl = $document_srl_list[$i];

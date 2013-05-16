@@ -133,7 +133,7 @@
 				}
 			}
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->begin();
             // Copy a module
 			$triggerObj->originModuleSrl = $module_srl;

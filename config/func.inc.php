@@ -225,8 +225,10 @@
     function executeQueryArray($query_id, $args = null, $arg_columns = null) {
         $oDB = DB::getInstance();
         $output = $oDB->executeQuery($query_id, $args, $arg_columns);
-        if(!is_array($output->data) && count($output->data) > 0){
-            $output->data = array($output->data);
+        if (isset($output->data)){
+            if(!is_array($output->data) && count($output->data) > 0){
+                $output->data = array($output->data);
+            }
         }
         return $output;
     }
@@ -238,7 +240,7 @@
      * @return int
      **/
     function getNextSequence() {
-        $oDB = &DB::getInstance();
+        $oDB = DB::getInstance();
         return $oDB->getNextSequence();
     }
 

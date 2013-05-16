@@ -24,7 +24,7 @@
 		 * @return bool
 		 */
         function checkUpdate() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             // 2009. 02. 11 menu added to the table site_srl
             if(!$oDB->isColumnExists('menu', 'site_srl')) return true;
 
@@ -38,7 +38,7 @@
 		 * @return Object
 		 */
         function moduleUpdate() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             // 2009. 02. 11 menu added to the table site_srl
             if(!$oDB->isColumnExists('menu', 'site_srl')) {
                 $oDB->addColumn('menu','site_srl','number',11,0,true);

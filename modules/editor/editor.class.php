@@ -45,7 +45,7 @@
         function checkUpdate() {
             $oModuleModel = &getModel('module');
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             // 2009. 06. 15 Save module_srl when auto-saving
             if(!$oDB->isColumnExists("editor_autosave","module_srl")) return true;
             if(!$oDB->isIndexExists("editor_autosave","idx_module_srl")) return true;
@@ -74,7 +74,7 @@
             $oModuleModel = &getModel('module');
             $oModuleController = &getController('module');
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             // Save module_srl when auto-saving 15/06/2009
             if(!$oDB->isColumnExists("editor_autosave","module_srl")) 
                 $oDB->addColumn("editor_autosave","module_srl","number",11);

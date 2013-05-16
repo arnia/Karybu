@@ -132,6 +132,7 @@ class ModuleMatcher
             $forward = null;
             // 1. Look for the module specified in the action name (dispPageIndex -> page)
             if (preg_match('/^([a-z]+)([A-Z])([a-z0-9\_]+)(.*)$/', $act, $matches)) {
+                $forward = new stdClass();
                 $module = strtolower($matches[2] . $matches[3]);
                 $xml_info = $oModuleModel->getModuleActionXml($module);
                 if ($xml_info->action->{$act}) {

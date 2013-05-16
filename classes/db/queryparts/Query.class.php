@@ -121,20 +121,20 @@
 			$this->priority = $priority;
 		}
 
-                function setColumnList($columnList){
-                        $this->columnList = $columnList;
-                        if(count($this->columnList) > 0) {
-                            $selectColumns = array();
-                            $dbParser = DB::getParser();
+        function setColumnList($columnList){
+                $this->columnList = $columnList;
+                if(count($this->columnList) > 0) {
+                    $selectColumns = array();
+                    $dbParser = DB::getParser();
 
-                            foreach($this->columnList as $columnName){
-                                    $columnName = $dbParser->escapeColumn($columnName);
-                                    $selectColumns[] = new SelectExpression($columnName);
-                            }
-                            unset($this->columns);
-                            $this->columns = $selectColumns;
-                        }
+                    foreach($this->columnList as $columnName){
+                            $columnName = $dbParser->escapeColumn($columnName);
+                            $selectColumns[] = new SelectExpression($columnName);
+                    }
+                    unset($this->columns);
+                    $this->columns = $selectColumns;
                 }
+        }
 
 		function setColumns($columns){
 			if(!isset($columns) || count($columns) === 0){

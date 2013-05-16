@@ -170,7 +170,7 @@
 
 			$oCommentController = &getController('comment');
 			// begin transaction
-			$oDB = &DB::getInstance();
+			$oDB = DB::getInstance();
 			$oDB->begin();
 
 			// for message send - start

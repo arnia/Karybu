@@ -48,7 +48,7 @@
 		 * @return bool
          **/
         function checkUpdate() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oModuleModel = &getModel('module');
             // 2007. 10. 17 Create a trigger to insert, update, delete documents and comments
             if(!$oModuleModel->getTrigger('document.insertDocument', 'file', 'controller', 'triggerCheckAttached', 'before')) return true;
@@ -82,7 +82,7 @@
 		 * @return Object
          **/
         function moduleUpdate() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oModuleModel = &getModel('module');
             $oModuleController = &getController('module');
             // 2007. 10. 17 Create a trigger to insert, update, delete documents and comments

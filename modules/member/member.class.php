@@ -56,7 +56,7 @@
             // Register action forward (to use in administrator mode)
             $oModuleController = &getController('module');
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->addIndex("member_group","idx_site_title", array("site_srl","title"),true);
 
             $oModuleModel = &getModel('module');
@@ -160,7 +160,7 @@
 		 * @return boolean
          **/
         function checkUpdate() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oModuleModel = &getModel('module');
             // check member directory (11/08/2007 added)
             if(!is_dir("./files/member_extra_info")) return true;
@@ -192,12 +192,16 @@
             $oModuleModel = &getModel('module');
             $config = $oModuleModel->getModuleConfig('member');
 			// check signup form ordering info
-			if (!$config->signupForm) return true;
+			if (!$config->signupForm) {
+                return true;
+            }
 
 			// check agreement field exist
-			if ($config->agreement) return true;
+			if (!empty($config->agreement)) {
+                return true;
+            }
 
-			if($config->skin)
+			if(!empty($config->skin))
 			{
 				$config_parse = explode('.', $config->skin);
 				if (count($config_parse) > 1)
@@ -228,7 +232,7 @@
 		 * @return Object
          **/
         function moduleUpdate() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oModuleController = &getController('module');
             // Check member directory
             FileHandler::makeDir('./files/member_extra_info/image_name');
@@ -374,7 +378,7 @@
 			$config = $oMemberModel->getMemberConfig();
 
 			// Check if there is recoding table.
-			$oDB = &DB::getInstance();
+			$oDB = DB::getInstance();
 			if(!$oDB->isTableExists('member_login_count') || $config->enable_login_fail_report == 'N') return new Object($error, $message);
 
 			$args->ipaddress = $_SERVER['REMOTE_ADDR'];
@@ -418,7 +422,7 @@
 			$config = $oMemberModel->getMemberConfig();
 
 			// Check if there is recoding table.
-			$oDB = &DB::getInstance();
+			$oDB = DB::getInstance();
 			if(!$oDB->isTableExists('member_count_history') || $config->enable_login_fail_report == 'N') return new Object($error, $message);
 
 			$output = executeQuery('member.getLoginCountHistoryByMemberSrl', $args);

@@ -15,7 +15,7 @@ class DBTest extends PHPUnit_Framework_TestCase {
                 if(!is_a($output, 'Query')){
                         if(!$output->toBool()) $querySql = "Date incorecte! Query-ul nu a putut fi executat.";
                 }else {
-                        $db = &DB::getInstance();
+                        $db = DB::getInstance();
                         if($columnList) $output->setColumnList($columnList);
                         $querySql = $db->{$methodName}($output);
 
@@ -43,7 +43,7 @@ class DBTest extends PHPUnit_Framework_TestCase {
                 if(!is_a($output, 'Query')){
                         if(!$output->toBool()) $querySql = "Date incorecte! Query-ul nu a putut fi executat.";
                 }else {
-                        $db = &DB::getInstance();
+                        $db = DB::getInstance();
                         $querySql = $db->{$methodName}($output, false);
                         $queryArguments = $output->getArguments();
 

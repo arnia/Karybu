@@ -24,7 +24,7 @@ class admin extends ModuleObject
      */
     function checkUpdate()
     {
-        $oDB = & DB::getInstance();
+        $oDB = DB::getInstance();
         if (!$oDB->isColumnExists("admin_favorite", "type")) {
             return true;
         }
@@ -38,7 +38,7 @@ class admin extends ModuleObject
      */
     function moduleUpdate()
     {
-        $oDB = & DB::getInstance();
+        $oDB = DB::getInstance();
         if (!$oDB->isColumnExists("admin_favorite", "type")) {
             $oAdminAdminModel = & getAdminModel('admin');
             $output = $oAdminAdminModel->getFavoriteList();

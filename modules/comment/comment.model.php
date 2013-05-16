@@ -139,7 +139,10 @@
 		 * @return array
 		 */
         function getComments($comment_srl_list, $columnList = array()) {
-            if(is_array($comment_srl_list)) $comment_srls = implode(',',$comment_srl_list);
+            if(is_array($comment_srl_list)) {
+                $comment_srls = implode(',',$comment_srl_list);
+            }
+            $args = new stdClass();
             // fetch from a database
             $args->comment_srls = $comment_srls;
 			$output = executeQuery('comment.getComments', $args, $columnList);
@@ -278,17 +281,28 @@
 		 * @return array
 		 */
         function getNewestCommentList($obj, $columnList = array()) {
-            if($obj->mid) {
+            if(!empty($obj->mid)) {
                 $oModuleModel = &getModel('module');
                 $obj->module_srl = $oModuleModel->getModuleSrlByMid($obj->mid);
                 unset($obj->mid);
             }
-            // check if module_srl is an arrary.
-            if(is_array($obj->module_srl)) $args->module_srl = implode(',', $obj->module_srl);
-            else $args->module_srl = $obj->module_srl;
-            $args->list_count = $obj->list_count;
+            $args = new stdClass();
+            // check if module_srl is an array.
+            if (isset($obj->module_srl)) {
+                if(is_array($obj->module_srl)) {
+                    $args->module_srl = implode(',', $obj->module_srl);
+                }
+                else {
+                    $args->module_srl = $obj->module_srl;
+                }
+            }
+            else {
+                $args->module_srl = null;
+            }
+            $args->list_count = !empty($obj->list_count) ? $obj->list_count : null;
 			// cache controll
 			$oCacheHandler = &CacheHandler::getInstance('object');
+            $output = null;
 			if($oCacheHandler->isSupport()){
 				$object_key = 'object_newest_comment_list:'.$obj->module_srl;
 				$cache_key = $oCacheHandler->getGroupKey('newestCommentsList', $object_key);
@@ -310,16 +324,25 @@
 					}
 				}
 				$output = executeQuery('comment.getNewestCommentList', $args, $columnList);
-				if($oCacheHandler->isSupport()) $oCacheHandler->put($cache_key,$output);
+				if($oCacheHandler->isSupport()) {
+                    $oCacheHandler->put($cache_key,$output);
+                }
 			}
-            if(!$output->toBool()) return $output;
+            if(!$output->toBool()) {
+                return $output;
+            }
 
             $comment_list = $output->data;
+            $result = array();
             if($comment_list) {
-                if(!is_array($comment_list)) $comment_list = array($comment_list);
+                if(!is_array($comment_list)) {
+                    $comment_list = array($comment_list);
+                }
                 $comment_count = count($comment_list);
                 foreach($comment_list as $key => $attribute) {
-                    if(!$attribute->comment_srl) continue;
+                    if(empty($attribute->comment_srl)) {
+                        continue;
+                    }
                     $oComment = null;
                     $oComment = new commentItem();
                     $oComment->setAttribute($attribute);
@@ -517,34 +540,46 @@
 			}
 			
             // Search options
-            $search_target = $obj->search_target?$obj->search_target:trim(Context::get('search_target'));
-            $search_keyword = $obj->search_keyword?$obj->search_keyword:trim(Context::get('search_keyword'));
+            $search_target = isset($obj->search_target)?$obj->search_target:trim(Context::get('search_target'));
+            $search_keyword = isset($obj->search_keyword)?$obj->search_keyword:trim(Context::get('search_keyword'));
             if($search_target && $search_keyword) {
                 switch($search_target) {
                     case 'content' :
-                            if($search_keyword) $search_keyword = str_replace(' ','%',$search_keyword);
+                            if($search_keyword) {
+                                $search_keyword = str_replace(' ','%',$search_keyword);
+                            }
                             $args->s_content = $search_keyword;
                         break;
                     case 'user_id' :
-                            if($search_keyword) $search_keyword = str_replace(' ','%',$search_keyword);
+                            if($search_keyword) {
+                                $search_keyword = str_replace(' ','%',$search_keyword);
+                            }
                             $args->s_user_id = $search_keyword;
                             $query_id = 'comment.getTotalCommentListWithinMember';
                             $args->sort_index = 'comments.list_order';
                         break;
                     case 'user_name' :
-                            if($search_keyword) $search_keyword = str_replace(' ','%',$search_keyword);
+                            if($search_keyword) {
+                                $search_keyword = str_replace(' ','%',$search_keyword);
+                            }
                             $args->s_user_name = $search_keyword;
                         break;
                     case 'nick_name' :
-                            if($search_keyword) $search_keyword = str_replace(' ','%',$search_keyword);
+                            if($search_keyword) {
+                                $search_keyword = str_replace(' ','%',$search_keyword);
+                            }
                             $args->s_nick_name = $search_keyword;
                         break;
                     case 'email_address' :
-                            if($search_keyword) $search_keyword = str_replace(' ','%',$search_keyword);
+                            if($search_keyword) {
+                                $search_keyword = str_replace(' ','%',$search_keyword);
+                            }
                             $args->s_email_address = $search_keyword;
                         break;
                     case 'homepage' :
-                            if($search_keyword) $search_keyword = str_replace(' ','%',$search_keyword);
+                            if($search_keyword) {
+                                $search_keyword = str_replace(' ','%',$search_keyword);
+                            }
                             $args->s_homepage = $search_keyword;
                         break;
                     case 'regdate' :

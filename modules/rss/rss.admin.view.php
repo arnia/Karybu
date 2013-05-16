@@ -27,7 +27,7 @@
 			$rss_config = $oModuleModel->getModulePartConfigs('rss');
 			$total_config = $oModuleModel->getModuleConfig('rss');
 			$oRssModel = &getModel('rss');
-
+            $feed_config = array();
 			if($rss_config) {
 				foreach($rss_config as $module_srl => $config) {
 					if($config) {
@@ -36,7 +36,9 @@
 						$site = $oModuleModel->getSiteInfo($module_info->site_srl, $columnList);
 						if(!strpos($site->domain, '.')) $vid = $site->domain;
 						else $site = null;
-						if($site) $feed_config[$module_srl]['url'] = $oRssModel->getModuleFeedUrl($vid, $module_info->mid, 'rss');
+						if($site) {
+                            $feed_config[$module_srl]['url'] = $oRssModel->getModuleFeedUrl($vid, $module_info->mid, 'rss');
+                        }
 						$feed_config[$module_srl]['mid'] = $module_info->mid;
 						$feed_config[$module_srl]['open_feed'] = $config->open_rss;
 						$feed_config[$module_srl]['open_total_feed'] = $config->open_total_feed;
@@ -44,7 +46,12 @@
 					}
 				}
 			}
-			if(!$total_config->feed_document_count) $total_config->feed_document_count = 15;
+            if (!is_object($total_config)) {
+                $total_config = new stdClass();
+            }
+			if(empty($total_config->feed_document_count)) {
+                $total_config->feed_document_count = 15;
+            }
 
 			Context::set('feed_config', $feed_config);
 			Context::set('total_config', $total_config);

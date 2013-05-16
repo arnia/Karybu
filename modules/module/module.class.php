@@ -14,7 +14,7 @@
             // Register action forward (to use in administrator mode)
             $oModuleController = &getController('module');
 
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             $oDB->addIndex("modules","idx_site_mid", array("site_srl","mid"), true);
 			$oDB->addIndex('sites','unique_domain',array('domain'),true);
             // Create a directory to use in the module module
@@ -45,7 +45,7 @@
          * @brief a method to check if successfully installed
          **/
         function checkUpdate() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             // 2008. 10. 27 Add multi-index in the table, the module_part_config
             if(!$oDB->isIndexExists("module_part_config","idx_module_part_config")) return true;
             // 2008. 11. 13 Delete unique constraint on mid in modules. Add site_srl and then create unique index on site_srl and mid
@@ -59,6 +59,7 @@
                 if($oDB->isColumnExists("documents","extra_vars".$i)) return true;
             }
             // Insert site information to the table, sites
+            $args = new stdClass();
             $args->site_srl = 0;
             $output = $oDB->executeQuery('module.getSite', $args);
             if(!$output->data) return true;
@@ -98,7 +99,7 @@
          * @brief Execute update
          **/
         function moduleUpdate() {
-            $oDB = &DB::getInstance();
+            $oDB = DB::getInstance();
             // 2008. 10. 27 module_part_config Add a multi-index to the table and check all information of module_configg
             if(!$oDB->isIndexExists("module_part_config","idx_module_part_config")) {
                 $oModuleModel = &getModel('module');

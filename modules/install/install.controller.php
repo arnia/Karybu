@@ -106,7 +106,7 @@ class installController extends install
         Context::setDBInfo($db_info);
         // Create DB Instance
         try {
-            $oDB = & DB::getInstance();
+            $oDB =  DB::getInstance();
         } catch(\Karybu\Exception\DBConnectionFailedException $e) {
             return new Object(-1, $e->getMessage());
         }
@@ -195,7 +195,7 @@ class installController extends install
         // Set DB type and information
         Context::setDBInfo($db_info);
         // Create DB Instance
-        $oDB = & DB::getInstance();
+        $oDB =  DB::getInstance();
         // Check if available to connect to the DB
         if (!$oDB->isConnected()) {
             return $oDB->getError();
@@ -529,7 +529,7 @@ class installController extends install
     function installModule($module, $module_path)
     {
         // create db instance
-        $oDB = & DB::getInstance();
+        $oDB = DB::getInstance();
         // Create a table if the schema xml exists in the "schemas" directory of the module
         $schema_dir = sprintf('%s/schemas/', $module_path);
         $schema_files = FileHandler::readDir($schema_dir, null, false, true);

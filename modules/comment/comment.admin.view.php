@@ -21,6 +21,7 @@
 		 */
         function dispCommentAdminList() {
             // option to get a list
+            $args = new stdClass();
             $args->page = Context::get('page'); // /< Page
             $args->list_count = 30; // / the number of postings to appear on a single page
             $args->page_count = 5; // / the number of pages to appear on the page navigation
@@ -70,6 +71,7 @@
 		 */
         function dispCommentAdminDeclared() {
             // option to get a blacklist
+            $args = new stdClass();
             $args->page = Context::get('page'); // /< Page
             $args->list_count = 30; // /< the number of comment postings to appear on a single page
             $args->page_count = 10; // /< the number of pages to appear on the page navigation

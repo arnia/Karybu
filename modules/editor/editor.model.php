@@ -331,22 +331,28 @@ class editorModel extends editor
          */
         $oModuleModel = & getModel('module');
         $editor_config = $editor_config = $oModuleModel->getModuleConfig('editor');
-        if (!$editor_config->editor_height) {
+        if (!is_object($editor_config)) {
+            $editor_config = new stdClass();
+        }
+        if (!is_object($option)) {
+            $option = new stdClass();
+        }
+        if (empty($editor_config->editor_height)) {
             $editor_config->editor_height = 400;
         }
-        if (!$editor_config->comment_editor_height) {
+        if (empty($editor_config->comment_editor_height)) {
             $editor_config->comment_editor_height = 100;
         }
-        if (!$editor_config->editor_skin) {
+        if (empty($editor_config->editor_skin)) {
             $editor_config->editor_skin = 'ckeditor';
         }
-        if (!$editor_config->comment_editor_skin) {
+        if (empty($editor_config->comment_editor_skin)) {
             $editor_config->comment_editor_skin = 'ckeditor';
         }
-        if (!$editor_config->sel_editor_colorset) {
+        if (empty($editor_config->sel_editor_colorset)) {
             $editor_config->sel_editor_colorset = 'default';
         }
-        if (!$editor_config->sel_comment_editor_colorset) {
+        if (empty($editor_config->sel_comment_editor_colorset)) {
             $editor_config->sel_comment_editor_colorset = 'default';
         }
 
@@ -354,68 +360,68 @@ class editorModel extends editor
         if ($upload_target_srl) {
             $option->editor_sequence = $upload_target_srl;
         }
-        if (!$option->skin) {
+        if (empty($option->skin)) {
             $option->skin = $editor_config->editor_skin;
         }
-        if (!$option->colorset) {
+        if (empty($option->colorset)) {
             $option->colorset = $editor_config->sel_editor_colorset;
         }
-        if (!$option->height) {
+        if (empty($option->height)) {
             $option->height = $editor_config->editor_height;
         }
-        if (!$option->comment_skin) {
+        if (empty($option->comment_skin)) {
             $option->comment_skin = $editor_config->comment_editor_skin;
         }
-        if (!$option->comment_colorset) {
+        if (empty($option->comment_colorset)) {
             $option->comment_colorset = $editor_config->sel_comment_editor_colorset;
         }
-        if (!$option->comment_height) {
+        if (empty($option->comment_height)) {
             $option->comment_height = $editor_config->comment_editor_height;
         }
-        if (!$option->content_style) {
-            $option->content_style = $editor_config->content_style;
+        if (empty($option->content_style)) {
+            $option->content_style = !empty($editor_config->content_style) ? $editor_config->content_style : null;
         }
 
-        if (!$option->allow_fileupload) {
+        if (empty($option->allow_fileupload)) {
             $allow_fileupload = false;
         } else {
             $allow_fileupload = true;
         }
 
-        Context::set('content_style', $option->content_style);
-        Context::set('content_font', $option->content_font);
-        Context::set('content_font_size', $option->content_font_size);
+        Context::set('content_style', !empty($option->content_style) ? $option->content_style : null);
+        Context::set('content_font', !empty($option->content_font) ? $option->content_font : null);
+        Context::set('content_font_size', !empty($option->content_font_size) ? $option->content_font_size : null);
 
         // Option setting to allow auto-save
-        if (!$option->enable_autosave) {
+        if (empty($option->enable_autosave)) {
             $enable_autosave = false;
-        } elseif (Context::get($option->primary_key_name)) {
+        } elseif (Context::get(isset($option->primary_key_name) ? $option->primary_key_name : null)) {
             $enable_autosave = false;
         } else {
             $enable_autosave = true;
         }
         // Option setting to allow the default editor component
-        if (!$option->enable_default_component) {
+        if (empty($option->enable_default_component)) {
             $enable_default_component = false;
         } else {
             $enable_default_component = true;
         }
         // Option setting to allow other extended components
-        if (!$option->enable_component) {
+        if (empty($option->enable_component)) {
             $enable_component = false;
         } else {
             $enable_component = true;
         }
         // Setting for html-mode
-        if ($option->disable_html) {
+        if (!empty($option->disable_html)) {
             $html_mode = false;
         } else {
             $html_mode = true;
         }
         // Set Height
-        $editor_height = $option->height;
+        $editor_height = !empty($option->height) ? $option->height : null;
         // Skin Setting
-        $skin = $option->skin;
+        $skin = !empty ($option->skin) ? $option->skin : null;
         Context::set('colorset', $option->colorset);
         Context::set('skin', $option->skin);
 
@@ -437,11 +443,11 @@ class editorModel extends editor
         /**
          * Extract editor's unique number (in order to display multiple editors on a single page)
          **/
-        if ($option->editor_sequence) {
+        if (!empty($option->editor_sequence)) {
             $editor_sequence = $option->editor_sequence;
         }
         else {
-            if (!$_SESSION['_editor_sequence_']) {
+            if (empty($_SESSION['_editor_sequence_'])) {
                 $_SESSION['_editor_sequence_'] = 1;
             }
             $editor_sequence = $_SESSION['_editor_sequence_']++;
@@ -508,7 +514,7 @@ class editorModel extends editor
          **/
         Context::set('editor_height', $editor_height);
         // Check an option whether to start the editor manually
-        Context::set('editor_manual_start', $option->manual_start);
+        Context::set('editor_manual_start', !empty($option->manual_start) ? $option->manual_start : null);
 
         /**
          * Set a skin path to pre-compile the template
@@ -908,14 +914,15 @@ class editorModel extends editor
         $xml_doc = $oParser->loadXmlFile($xml_file);
         // Component information listed
         if ($xml_doc->component->version && $xml_doc->component->attrs->version == '0.2') {
+            $component_info = new stdClass();
             $component_info->component_name = $component;
-            $component_info->title = $xml_doc->component->title->body;
-            $component_info->description = str_replace('\n', "\n", $xml_doc->component->description->body);
-            $component_info->version = $xml_doc->component->version->body;
-            $component_info->date = $xml_doc->component->date->body;
-            $component_info->homepage = $xml_doc->component->link->body;
-            $component_info->license = $xml_doc->component->license->body;
-            $component_info->license_link = $xml_doc->component->license->attrs->link;
+            $component_info->title = !empty($xml_doc->component->title->body) ? $xml_doc->component->title->body : null;
+            $component_info->description = !empty($xml_doc->component->description->body) ? str_replace('\n', "\n", $xml_doc->component->description->body) : null;
+            $component_info->version = !empty($xml_doc->component->version->body) ? $xml_doc->component->version->body : null;
+            $component_info->date = !empty($xml_doc->component->date->body) ? $xml_doc->component->date->body : null;
+            $component_info->homepage = !empty($xml_doc->component->link->body) ? $xml_doc->component->link->body : null;
+            $component_info->license = !empty($xml_doc->component->license->body) ? $xml_doc->component->license->body : null;
+            $component_info->license_link = !empty($xml_doc->component->license->attrs->link) ? $xml_doc->component->license->attrs->link : null;
 
             $buff = '<?php if(!defined("__KARYBU__")) exit(); ';
             $buff .= sprintf('$xml_info = new stdClass;');
@@ -1034,7 +1041,12 @@ class editorModel extends editor
             $buff .= sprintf('$xml_info->author[0]->homepage = "%s";', $xml_info->author->homepage);
         }
         // List extra variables (text type only for editor component)
-        $extra_vars = $xml_doc->component->extra_vars->var;
+        if (isset($xml_doc->component->extra_vars->var)) {
+            $extra_vars = $xml_doc->component->extra_vars->var;
+        }
+        else {
+            $extra_vars = null;
+        }
         if ($extra_vars) {
             if (!is_array($extra_vars)) {
                 $extra_vars = array($extra_vars);

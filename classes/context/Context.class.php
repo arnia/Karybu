@@ -783,7 +783,7 @@ class ContextInstance
         }
 
         // DB close
-        $oDB = & DB::getInstance();
+        $oDB = DB::getInstance();
         if (is_object($oDB) && method_exists($oDB, 'close')) {
             $oDB->close();
         }

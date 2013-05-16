@@ -39,6 +39,7 @@
          **/
         function getMemberList() {
             // Search option
+            $args = new stdClass();
             $args->is_admin = Context::get('is_admin')=='Y'?'Y':'';
             $args->is_denied = Context::get('is_denied')=='Y'?'Y':'';
             $args->selected_group_srl = Context::get('selected_group_srl');

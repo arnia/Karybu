@@ -202,6 +202,7 @@ class documentModel extends document
         } else {
             $list_count = 1;
         }
+        $args = new stdClass();
         $args->document_srls = $document_srls;
         $args->list_count = $list_count;
         $args->order_type = 'asc';
@@ -214,7 +215,8 @@ class documentModel extends document
         if (!is_array($document_list)) {
             $document_list = array($document_list);
         }
-
+        $logged_info = Context::get('logged_info');
+        $is_admin = (isset($logged_info->is_admin) && $logged_info->is_admin == 'Y');
         $document_count = count($document_list);
         foreach ($document_list as $key => $attribute) {
             $document_srl = $attribute->document_srl;
@@ -222,7 +224,7 @@ class documentModel extends document
                 continue;
             }
 
-            if (!$GLOBALS['XE_DOCUMENT_LIST'][$document_srl]) {
+            if (empty($GLOBALS['XE_DOCUMENT_LIST'][$document_srl])) {
                 $oDocument = null;
                 $oDocument = new documentItem();
                 $oDocument->setAttribute($attribute, false);
@@ -342,11 +344,12 @@ class documentModel extends document
                 continue;
             }
             $document_srl = $attribute->document_srl;
-            if (!$GLOBALS['XE_DOCUMENT_LIST'][$document_srl]) {
+            if (empty($GLOBALS['XE_DOCUMENT_LIST'][$document_srl])) {
                 $oDocument = null;
                 $oDocument = new documentItem();
                 $oDocument->setAttribute($attribute, false);
-                if ($is_admin) {
+                $loggedInfo = Context::get('logged_info');
+                if (isset($loggedInfo->is_admin) && $loggedInfo->is_admin == 'Y') {
                     $oDocument->setGrant();
                 }
                 $GLOBALS['XE_DOCUMENT_LIST'][$document_srl] = $oDocument;
@@ -430,7 +433,7 @@ class documentModel extends document
 
             // correcting index order
             $isFixed = false;
-            if (is_array($output->data)) {
+            if (isset($output->data) && is_array($output->data)) {
                 $prevIdx = 0;
                 foreach ($output->data as $no => $value) {
                     // case first
@@ -466,8 +469,9 @@ class documentModel extends document
             if ($isFixed) {
                 $output = executeQueryArray('document.getDocumentExtraKeys', $obj);
             }
-
-            $oExtraVar->setExtraVarKeys($output->data);
+            if (isset($output->data)) {
+                $oExtraVar->setExtraVarKeys($output->data);
+            }
             $keys = $oExtraVar->getExtraVars();
             if (!$keys) {
                 $keys = array();
