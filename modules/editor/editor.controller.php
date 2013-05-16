@@ -229,7 +229,7 @@ class editorController extends editor
             if (isset($editor_config->content_font)) {
                 $content_font = $editor_config->content_font;
             }
-            $content_font_size = $editor_config->content_font_size;
+            $content_font_size = !empty($editor_config->content_font_size) ? $editor_config->content_font_size : null;
             if (isset($content_font) || $content_font_size) {
                 $buff = '<style type="text/css"> .xe_content { ';
                 if (isset($content_font)) {

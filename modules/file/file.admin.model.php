@@ -70,21 +70,25 @@
             if($obj->direct_download == 'Y') $args->direct_download = 'Y';
             elseif($obj->direct_download == 'N') $args->direct_download= 'N';
             // Set variables
-            $args->sort_index = $obj->sort_index;
-            $args->page = $obj->page?$obj->page:1;
-            $args->list_count = $obj->list_count?$obj->list_count:20;
-            $args->page_count = $obj->page_count?$obj->page_count:10;
-            $args->s_module_srl = $obj->module_srl;
-            $args->exclude_module_srl = $obj->exclude_module_srl;
+            $args->sort_index = !empty($obj->sort_index) ? $obj->sort_index : null;
+            $args->page = !empty($obj->page) ? $obj->page : 1;
+            $args->list_count = !empty($obj->list_count) ? $obj->list_count : 20;
+            $args->page_count = !empty($obj->page_count) ? $obj->page_count:10;
+            $args->s_module_srl = !empty($obj->module_srl) ? $obj->module_srl : null;
+            $args->exclude_module_srl = !empty($obj->exclude_module_srl) ? $obj->exclude_module_srl : null;
             // Execute the file.getFileList query
             $output = executeQuery('file.getFileList', $args, $columnList);
             // Return if no result or an error occurs
-            if(!$output->toBool()||!count($output->data)) return $output;
+            if(!$output->toBool()||!count($output->data)) {
+                return $output;
+            }
 
             $oFileModel = &getModel('file');
 
             foreach($output->data as $key => $file) {
-				if($_SESSION['file_management'][$file->file_srl]) $file->isCarted = true;
+				if($_SESSION['file_management'][$file->file_srl]) {
+                    $file->isCarted = true;
+                }
 				else $file->isCarted = false;
 
                 $file->download_url = $oFileModel->getDownloadUrl($file->file_srl, $file->sid);
@@ -147,14 +151,18 @@
 		 */
 		function _makeSearchParam(&$obj, &$args)
 		{
+            if (!is_object($args)) {
+                $args = new stdClass();
+            }
             // Search options
             $search_target = $obj->search_target?$obj->search_target:trim(Context::get('search_target'));
             $search_keyword = $obj->search_keyword?$obj->search_keyword:trim(Context::get('search_keyword'));
-
             if($search_target && $search_keyword) {
                 switch($search_target) {
                     case 'filename' :
-                            if($search_keyword) $search_keyword = str_replace(' ','%',$search_keyword);
+                            if($search_keyword) {
+                                $search_keyword = str_replace(' ','%',$search_keyword);
+                            }
                             $args->s_filename = $search_keyword;
                         break;
                     case 'filesize_more' :

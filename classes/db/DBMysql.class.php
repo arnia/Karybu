@@ -62,7 +62,7 @@ class DBMysql extends DB
      * Create an instance of this class
      * @return DBMysql return DBMysql object instance
      */
-    function create(LoggerInterface $logger = null)
+    static function create(LoggerInterface $logger = null)
     {
         return new DBMysql($logger);
     }
@@ -826,7 +826,7 @@ class DBMysql extends DB
 
         $query = $this->getSelectPageSql($queryObject, $with_values, $start_count, $page_count);
 
-        $query .= (__DEBUG_QUERY__ & 1 && $queryObject->query_id) ? sprintf(
+        $query .= (__DEBUG_QUERY__ & 1 && !empty($queryObject->query_id)) ? sprintf(
             ' ' . $this->comment_syntax,
             $this->query_id
         ) : '';

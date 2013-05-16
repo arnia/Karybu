@@ -66,7 +66,7 @@ class DBCubrid extends DB
      * Create an instance of this class
      * @return DBCubrid return DBCubrid object instance
      */
-    function create(LoggerInterface $logger = null)
+    static function create(LoggerInterface $logger = null)
     {
         return new DBCubrid($logger);
     }

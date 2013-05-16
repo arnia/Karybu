@@ -49,7 +49,7 @@ class DBMysqlpdo extends DBMysql
     /**
      * create an instance of this class
      */
-    function create(LoggerInterface $logger = null)
+    static function create(LoggerInterface $logger = null)
     {
         return new DBMysqlpdo($logger);
     }

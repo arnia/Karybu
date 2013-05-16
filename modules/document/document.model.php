@@ -974,6 +974,9 @@ class documentModel extends document
             $oModuleModel = & getModel('module');
             $config = $oModuleModel->getModuleConfig('document');
             if (empty($config->thumbnail_type)) {
+                if (!is_object($config)){
+                    $config = new stdClass();
+                }
                 $config->thumbnail_type = 'crop';
             }
             $GLOBALS['__document_config__'] = $config;
@@ -1609,12 +1612,13 @@ class documentModel extends document
 
                 // If you do not value the best division top
                 if (!$division) {
-                    $division_args->module_srl = $args->module_srl;
-                    $division_args->exclude_module_srl = $args->exclude_module_srl;
+                    $division_args = new stdClass();
+                    $division_args->module_srl = !empty($args->module_srl) ? $args->module_srl : null;
+                    $division_args->exclude_module_srl = !empty($args->exclude_module_srl) ? $args->exclude_module_srl : null;
                     $division_args->list_count = 1;
-                    $division_args->sort_index = $args->sort_index;
-                    $division_args->order_type = $args->order_type;
-                    $division_args->statusList = $args->statusList;
+                    $division_args->sort_index = !empty($args->sort_index) ? $args->sort_index : null;
+                    $division_args->order_type = !empty($args->order_type) ? $args->order_type : null;
+                    $division_args->statusList = !empty($args->statusList) ? $args->statusList : null;
 
                     $output = executeQuery($divisionSqlID, $division_args, array('list_order'));
                     if ($output->data) {
@@ -1629,11 +1633,12 @@ class documentModel extends document
 
                 // Division after division from the 5000 value of the specified Wanted
                 if (!$last_division) {
-                    $last_division_args->module_srl = $args->module_srl;
-                    $last_division_args->exclude_module_srl = $args->exclude_module_srl;
+                    $last_division_args = new stdClass();
+                    $last_division_args->module_srl = !empty($args->module_srl) ? $args->module_srl : null;
+                    $last_division_args->exclude_module_srl = !empty($args->exclude_module_srl) ? $args->exclude_module_srl : null;
                     $last_division_args->list_count = 1;
-                    $last_division_args->sort_index = $args->sort_index;
-                    $last_division_args->order_type = $args->order_type;
+                    $last_division_args->sort_index = !empty($args->sort_index) ? $args->sort_index : null;
+                    $last_division_args->order_type = !empty($args->order_type) ? $args->order_type : null;
                     $last_division_args->list_order = $division;
                     $last_division_args->page = 5001;
 

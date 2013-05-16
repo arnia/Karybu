@@ -354,7 +354,7 @@ class Argument
             global $lang;
             $this->isValid = false;
             $key = $this->name;
-            $this->errorMessage = new Object(-1, sprintf($lang->filter->isnull, $lang->{$key} ? $lang->{$key} : $key));
+            $this->errorMessage = new Object(-1, sprintf($lang->filter->isnull, !empty($lang->{$key}) ? $lang->{$key} : $key));
         }
     }
 

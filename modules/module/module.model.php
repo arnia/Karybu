@@ -248,6 +248,8 @@ class moduleModel extends module
     function getModuleInfoByModuleSrl($module_srl, $columnList = array())
     {
         // Get data
+        $args = new stdClass();
+        $output = null;
         $args->module_srl = $module_srl;
         $oCacheHandler = & CacheHandler::getInstance('object');
         if ($oCacheHandler->isSupport()) {
@@ -438,6 +440,7 @@ class moduleModel extends module
      **/
     function getActionForward($act, $module = "")
     {
+        $args = new stdClass();
         $args->act = $act;
         $args->module = ($module) ? $module : null;
         if (strlen($args->module) > 0) {
@@ -884,10 +887,10 @@ class moduleModel extends module
                 return null;
             } // /< Error occurs if module tag doesn't included in the xml
 
-            $grants = $xml_obj->module->grants->grant; // /< Permission information
-            $permissions = $xml_obj->module->permissions->permission; // /<  Acting permission
-            $menus = $xml_obj->module->menus->menu;
-            $actions = $xml_obj->module->actions->action; // /< Action list (required)
+            $grants = isset($xml_obj->module->grants->grant) ? $xml_obj->module->grants->grant : null; // /< Permission information
+            $permissions = isset($xml_obj->module->permissions->permission) ? $xml_obj->module->permissions->permission : null; // /<  Acting permission
+            $menus = isset($xml_obj->module->menus->menu) ? $xml_obj->module->menus->menu : null;
+            $actions = isset($xml_obj->module->actions->action) ? $xml_obj->module->actions->action : null; // /< Action list (required)
 
             $info = new stdClass();
             $default_index = $admin_index = '';
@@ -953,6 +956,7 @@ class moduleModel extends module
                     $info->menu->{$menu_name}->acts = array();
                     $info->menu->{$menu_name}->type = $menu_type;
 
+                    $buff .= sprintf('$info->menu->%s=new stdClass;', $menu_name, $menu_title);
                     $buff .= sprintf('$info->menu->%s->title=\'%s\';', $menu_name, $menu_title);
                     $buff .= sprintf('$info->menu->%s->type=\'%s\';', $menu_name, $menu_type);
                 }

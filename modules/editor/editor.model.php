@@ -114,27 +114,27 @@ class editorModel extends editor
         }
 
         if (!isset($editor_config->editor_height)) {
-            if ($editor_default_config->editor_height ? $editor_config->editor_height = $editor_default_config->editor_height : $editor_config->editor_height = 400) {
+            if (!empty($editor_default_config->editor_height) ? $editor_config->editor_height = $editor_default_config->editor_height : $editor_config->editor_height = 400) {
                 ;
             }
         }
         if (!isset($editor_config->comment_editor_height)) {
-            if ($editor_default_config->comment_editor_height ? $editor_config->comment_editor_height = $editor_default_config->comment_editor_height : $editor_config->comment_editor_height = 100) {
+            if (!empty($editor_default_config->comment_editor_height) ? $editor_config->comment_editor_height = $editor_default_config->comment_editor_height : $editor_config->comment_editor_height = 100) {
                 ;
             }
         }
         if (!isset($editor_config->editor_skin)) {
-            if ($editor_default_config->editor_skin ? $editor_config->editor_skin = $editor_default_config->editor_skin : $editor_config->editor_skin = 'ckeditor') {
+            if (!empty($editor_default_config->editor_skin) ? $editor_config->editor_skin = $editor_default_config->editor_skin : $editor_config->editor_skin = 'ckeditor') {
                 ;
             }
         }
         if (!isset($editor_config->comment_editor_skin)) {
-            if ($editor_default_config->comment_editor_skin ? $editor_config->comment_editor_skin = $editor_default_config->comment_editor_skin : $editor_config->comment_editor_skin = 'ckeditor') {
+            if (!empty($editor_default_config->comment_editor_skin) ? $editor_config->comment_editor_skin = $editor_default_config->comment_editor_skin : $editor_config->comment_editor_skin = 'ckeditor') {
                 ;
             }
         }
         if (!isset($editor_config->content_style)) {
-            if ($editor_default_config->content_style ? $editor_config->content_style = $editor_default_config->content_style : $editor_config->content_style = 'default') {
+            if (!empty($editor_default_config->content_style) ? $editor_config->content_style = $editor_default_config->content_style : $editor_config->content_style = 'default') {
                 ;
             }
         }
@@ -918,6 +918,7 @@ class editorModel extends editor
             $component_info->license_link = $xml_doc->component->license->attrs->link;
 
             $buff = '<?php if(!defined("__KARYBU__")) exit(); ';
+            $buff .= sprintf('$xml_info = new stdClass;');
             $buff .= sprintf('$xml_info->component_name = "%s";', $component_info->component_name);
             $buff .= sprintf('$xml_info->title = "%s";', $component_info->title);
             $buff .= sprintf('$xml_info->description = "%s";', $component_info->description);
@@ -933,8 +934,11 @@ class editorModel extends editor
             else {
                 $author_list = $xml_doc->component->author;
             }
-
+            if (count($author_list) > 0) {
+                $buff .= sprintf('$xml_info->author = array();');
+            }
             for ($i = 0; $i < count($author_list); $i++) {
+                $buff .= sprintf('$xml_info->author[' . $i . '] = new stdClass;');
                 $buff .= sprintf('$xml_info->author[' . $i . ']->name = "%s";', $author_list[$i]->name->body);
                 $buff .= sprintf(
                     '$xml_info->author[' . $i . ']->email_address = "%s";',
