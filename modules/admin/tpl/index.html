@@ -1,6 +1,7 @@
 <include target="./_spHeader.html" />
 
     <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
         <p>{$XE_VALIDATOR_MESSAGE}</p>
     </div>
 
@@ -130,14 +131,14 @@
                             <ul class="unstyled lined">
                                 <!--@foreach($latestCommentList AS $key=>$value)-->
                                 <li>
-                                    <a href="{getUrl('', 'document_srl', $value->document_srl)}#comment_{$value->comment_srl}" target="_blank"><!--@if(trim($value->content))-->{$value->getSummary()}<!--@else--><strong>{$lang->no_text_comment}</strong><!--@end--></a> <span class="side">{$value->nick_name}</span>
+                                    <a href="{getUrl('', 'document_srl', $value->document_srl)}#comment_{$value->comment_srl}" target="_blank"><!--@if(trim($value->content))-->{$value->getSummary()}<!--@else--><strong>{$lang->no_text_comment}</strong><!--@end--></a> <span class="label label-info pull-right">{$value->nick_name}</span>
                                     <form class="kActionIcons" action="./" method="post" onsubmit="return confirm('{$lang->are_you_sure}')">
                                         <input type="hidden" name="module" value="admin" />
                                         <input type="hidden" name="act" value="procCommentAdminDeleteChecked" />
                                         <input type="hidden" name="cart[]" value="{$value->comment_srl}" />
                                         <input type="hidden" name="success_return_url" value="{getUrl('', 'module', 'admin')}" />
-                                        <button type="submit" name="is_trash" value="true" class="clear" data-toggle="tooltip" title="{$lang->cmd_trash}"><i class="kDelete">{$lang->cmd_trash}</i></button>
-                                        <button type="submit" name="is_trash" value="false" class="clear" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kDelete">{$lang->cmd_delete}</i></button>
+                                        <button type="submit" name="type" value="trash" class="clear" data-toggle="tooltip" title="{$lang->cmd_trash}"><i class="kDelete">{$lang->cmd_trash}</i></button>
+                                        <button type="submit" name="type" value="delete" class="clear" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kErase">{$lang->cmd_delete}</i></button>
                                     </form>
                                 </li>
                                 <!--@end-->

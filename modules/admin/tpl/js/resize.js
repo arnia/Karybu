@@ -43,6 +43,8 @@
                 updateOnContentResize: true
             }
         });
+
+        $("#kNav").mCustomScrollbar("scrollTo", ".active");
     }
     kActionsNav.initializeHorizontalScrollbar = function() {
         $("#kNav").mCustomScrollbar({
@@ -54,6 +56,8 @@
                 updateOnContentResize: true
             }
         });
+
+        $("#kNav").mCustomScrollbar("scrollTo", ".active");
     }
     kActionsNav.makeHorizontal = function() {
         $("#kNav").mCustomScrollbar("destroy");

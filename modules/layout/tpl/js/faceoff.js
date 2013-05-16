@@ -413,7 +413,7 @@ var FaceOff = {
             // modify widget
             if (cur.attr('widget') == 'widgetContent') {
                 // content widget
-                url += '&act=dispWidgetAdminAddContent&module_srl='+$('#layout_srl').val()+'&document_srl='+cur.attr('document_srl');
+                url += '&act=dispWidgetAddContent&module_srl='+$('#layout_srl').val()+'&document_srl='+cur.attr('document_srl');
                 popopen(url, 'addContent');
             } else {
                 // widget
@@ -427,7 +427,7 @@ var FaceOff = {
         }
     },
     popupAddContent : function() {
-        var url = request_uri.replace(/\?.+$/,'')+'?module=widget&act=dispWidgetAdminAddContent&type=faceoff&mid=current_mid&module_srl='+$('#layout_srl').val();
+        var url = request_uri.replace(/\?.+$/,'')+'?module=widget&act=dispWidgetAddContent&type=faceoff&mid=current_mid&module_srl='+$('#layout_srl').val();
 
         this._widgetParent = this.curElement;
 

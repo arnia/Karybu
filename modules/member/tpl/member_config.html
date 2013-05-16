@@ -8,7 +8,8 @@
     xe.lang.msg_null_prohibited_nick_name = '{$lang->msg_null_prohibited_nick_name}';
     xe.lang.msg_exists_user_id = '{$lang->msg_exists_user_id}';
 </script>
-<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+<div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 

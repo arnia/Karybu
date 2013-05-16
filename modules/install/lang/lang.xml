@@ -56,6 +56,9 @@
 			<value xml:lang="en"><![CDATA[Enter Administrator information]]></value>
 			<value xml:lang="jp"><![CDATA[管理者情報入力]]></value>
 		</item>
+        <item name="finish">
+            <value xml:lang="en"><![CDATA[Wrap up and go!]]></value>
+        </item>
 	</item>
 	<item name="install_condition_title">
 		<value xml:lang="ko"><![CDATA[필수 설치조건을 확인하세요.]]></value>
@@ -461,124 +464,130 @@
 		<value xml:lang="tr"><![CDATA[Veritabanı &amp; Yönetici Bilgisi]]></value>
 		<value xml:lang="vi"><![CDATA[Hãy nhập thông tin Database và thông tin Administrator]]></value>
 	</item>
-	<item name="db_title">
-		<value xml:lang="ko"><![CDATA[DB 정보 입력]]></value>
-		<value xml:lang="en"><![CDATA[Please input DB information]]></value>
-		<value xml:lang="jp"><![CDATA[データベース情報入力]]></value>
-		<value xml:lang="zh-CN"><![CDATA[输入数据库信息]]></value>
-		<value xml:lang="zh-TW"><![CDATA[輸入資料庫資訊]]></value>
-		<value xml:lang="fr"><![CDATA[Entrez l'information de Base de Données, S.V.P.]]></value>
-		<value xml:lang="ru"><![CDATA[Пожалуйста, введите информацию базы данных]]></value>
-		<value xml:lang="es"><![CDATA[Por favor escribir información de BD]]></value>
-		<value xml:lang="tr"><![CDATA[Lütfen Veritabanı bilgisini giriniz]]></value>
-		<value xml:lang="vi"><![CDATA[Xin hãy nhập thông tin Database]]></value>
-	</item>
-	<item name="db_type">
-		<value xml:lang="ko"><![CDATA[DB 종류]]></value>
-		<value xml:lang="en"><![CDATA[DB Type]]></value>
-		<value xml:lang="jp"><![CDATA[データベースの種類]]></value>
-		<value xml:lang="zh-CN"><![CDATA[数据库类型]]></value>
-		<value xml:lang="zh-TW"><![CDATA[資料庫類型]]></value>
-		<value xml:lang="fr"><![CDATA[Sorte de Base de Données]]></value>
-		<value xml:lang="ru"><![CDATA[Тип базы данных]]></value>
-		<value xml:lang="es"><![CDATA[Tipo de BD]]></value>
-		<value xml:lang="tr"><![CDATA[Veritabanı Tipi]]></value>
-		<value xml:lang="vi"><![CDATA[Định dạng Database]]></value>
-	</item>
-	<item name="select_db_type">
-		<value xml:lang="ko"><![CDATA[사용하시려는 DB를 선택해주세요.]]></value>
-		<value xml:lang="en"><![CDATA[Please select the DB you want to use.]]></value>
-		<value xml:lang="jp"><![CDATA[使用するデータベース種類を選択してください。]]></value>
-		<value xml:lang="zh-CN"><![CDATA[选择数据库]]></value>
-		<value xml:lang="zh-TW"><![CDATA[請選擇要使用的資料庫。]]></value>
-		<value xml:lang="fr"><![CDATA[Choisissez la Base de Données que vous voulez utiliser.]]></value>
-		<value xml:lang="ru"><![CDATA[Пожалуйста, выберите базу данных, которую Вы хотите использовать.]]></value>
-		<value xml:lang="es"><![CDATA[Seleccione el tipo de BD que desea usar.]]></value>
-		<value xml:lang="tr"><![CDATA[Lütfen kullanmak istediğiniz Veritabanını seçiniz.]]></value>
-		<value xml:lang="vi"><![CDATA[Xin hãy chọn Database bạn muốn sử dụng.]]></value>
-	</item>
-	<item name="db_hostname">
-		<value xml:lang="ko"><![CDATA[DB 호스트네임]]></value>
-		<value xml:lang="en"><![CDATA[DB Hostname]]></value>
-		<value xml:lang="jp"><![CDATA[ホスト名]]></value>
-		<value xml:lang="zh-CN"><![CDATA[服务器名]]></value>
-		<value xml:lang="zh-TW"><![CDATA[主機名稱]]></value>
-		<value xml:lang="fr"><![CDATA[Hostname(Nom de l'ordinateur central) de Base de Données (LOCALHOST généralement)]]></value>
-		<value xml:lang="ru"><![CDATA[Хост базы данных]]></value>
-		<value xml:lang="es"><![CDATA[Hostname de BD]]></value>
-		<value xml:lang="tr"><![CDATA[Veritabanı Sunucuadı]]></value>
-		<value xml:lang="vi"><![CDATA[Hostname]]></value>
-	</item>
-	<item name="db_port">
-		<value xml:lang="ko"><![CDATA[DB Port]]></value>
-		<value xml:lang="en"><![CDATA[DB Port]]></value>
-		<value xml:lang="jp"><![CDATA[ポート番号]]></value>
-		<value xml:lang="zh-CN"><![CDATA[数据库端口]]></value>
-		<value xml:lang="zh-TW"><![CDATA[埠口]]></value>
-		<value xml:lang="fr"><![CDATA[Port de Base de Données]]></value>
-		<value xml:lang="ru"><![CDATA[Порт базы данных]]></value>
-		<value xml:lang="es"><![CDATA[Port de BD]]></value>
-		<value xml:lang="tr"><![CDATA[Veritabanı Portu]]></value>
-		<value xml:lang="vi"><![CDATA[Port]]></value>
-	</item>
-	<item name="db_userid">
-		<value xml:lang="ko"><![CDATA[DB 아이디]]></value>
-		<value xml:lang="en"><![CDATA[DB ID]]></value>
-		<value xml:lang="jp"><![CDATA[ユーザーID]]></value>
-		<value xml:lang="zh-CN"><![CDATA[DB用户名]]></value>
-		<value xml:lang="zh-TW"><![CDATA[使用者名稱]]></value>
-		<value xml:lang="fr"><![CDATA[Compte(ID) pour le Base de Données]]></value>
-		<value xml:lang="ru"><![CDATA[ID базы данных]]></value>
-		<value xml:lang="es"><![CDATA[ID de BD]]></value>
-		<value xml:lang="tr"><![CDATA[Veritabanı ID]]></value>
-		<value xml:lang="vi"><![CDATA[Tên truy cập]]></value>
-	</item>
-	<item name="db_password">
-		<value xml:lang="ko"><![CDATA[DB 비밀번호]]></value>
-		<value xml:lang="en"><![CDATA[DB Password]]></value>
-		<value xml:lang="jp"><![CDATA[パスワード]]></value>
-		<value xml:lang="zh-CN"><![CDATA[DB密码]]></value>
-		<value xml:lang="zh-TW"><![CDATA[密碼]]></value>
-		<value xml:lang="fr"><![CDATA[Mot de passe pour le Base de Données]]></value>
-		<value xml:lang="ru"><![CDATA[Пароль базы данных]]></value>
-		<value xml:lang="es"><![CDATA[Contraseña de BD]]></value>
-		<value xml:lang="tr"><![CDATA[Veritabanı Şifresi]]></value>
-		<value xml:lang="vi"><![CDATA[Mật khẩu]]></value>
-	</item>
-	<item name="db_name">
-		<value xml:lang="ko"><![CDATA[DB 이름]]></value>
-		<value xml:lang="en"><![CDATA[DB Name]]></value>
-		<value xml:lang="jp"><![CDATA[DB 名前]]></value>
-		<value xml:lang="zh-CN"><![CDATA[DB 姓名]]></value>
-		<value xml:lang="zh-TW"><![CDATA[DB 姓名]]></value>
-		<value xml:lang="fr"><![CDATA[DB Nom]]></value>
-		<value xml:lang="ru"><![CDATA[DB Имя]]></value>
-		<value xml:lang="es"><![CDATA[DB Nombre]]></value>
-		<value xml:lang="vi"><![CDATA[DB Tên]]></value>
-	</item>
-	<item name="db_database_file">
-		<value xml:lang="ko"><![CDATA[DB 데이터베이스 파일]]></value>
-		<value xml:lang="en"><![CDATA[DB Database File]]></value>
-		<value xml:lang="jp"><![CDATA[データベースファイル]]></value>
-		<value xml:lang="zh-CN"><![CDATA[数据库文件]]></value>
-		<value xml:lang="zh-TW"><![CDATA[資料庫檔案]]></value>
-		<value xml:lang="fr"><![CDATA[Fichier de Base de Données]]></value>
-		<value xml:lang="ru"><![CDATA[Файл базы данных]]></value>
-		<value xml:lang="es"><![CDATA[Archivo de base de datos BD]]></value>
-		<value xml:lang="vi"><![CDATA[File Database]]></value>
-	</item>
-	<item name="db_table_prefix">
-		<value xml:lang="ko"><![CDATA[테이블 머리말]]></value>
-		<value xml:lang="en"><![CDATA[Table Header]]></value>
-		<value xml:lang="jp"><![CDATA[テーブルプレフィックス]]></value>
-		<value xml:lang="zh-CN"><![CDATA[前缀]]></value>
-		<value xml:lang="zh-TW"><![CDATA[前置字元]]></value>
-		<value xml:lang="fr"><![CDATA[En-tête de la table]]></value>
-		<value xml:lang="ru"><![CDATA[Префикс таблиц]]></value>
-		<value xml:lang="es"><![CDATA[Encabezado de la tabla]]></value>
-		<value xml:lang="tr"><![CDATA[Tablo Başlığı]]></value>
-		<value xml:lang="vi"><![CDATA[Tên Table]]></value>
-	</item>
+    <item name="db_title">
+        <value xml:lang="ko"><![CDATA[DB 정보 입력]]></value>
+        <value xml:lang="en"><![CDATA[Please input database information]]></value>
+        <value xml:lang="jp"><![CDATA[データベース情報入力]]></value>
+        <value xml:lang="zh-CN"><![CDATA[输入数据库信息]]></value>
+        <value xml:lang="zh-TW"><![CDATA[輸入資料庫資訊]]></value>
+        <value xml:lang="fr"><![CDATA[Entrez l'information de Base de Données, S.V.P.]]></value>
+        <value xml:lang="ru"><![CDATA[Пожалуйста, введите информацию базы данных]]></value>
+        <value xml:lang="es"><![CDATA[Por favor escribir información de BD]]></value>
+        <value xml:lang="tr"><![CDATA[Lütfen Veritabanı bilgisini giriniz]]></value>
+        <value xml:lang="vi"><![CDATA[Xin hãy nhập thông tin Database]]></value>
+    </item>
+    <item name="db_type">
+        <value xml:lang="ko"><![CDATA[DB 종류]]></value>
+        <value xml:lang="en"><![CDATA[Database type]]></value>
+        <value xml:lang="jp"><![CDATA[データベースの種類]]></value>
+        <value xml:lang="zh-CN"><![CDATA[数据库类型]]></value>
+        <value xml:lang="zh-TW"><![CDATA[資料庫類型]]></value>
+        <value xml:lang="fr"><![CDATA[Sorte de Base de Données]]></value>
+        <value xml:lang="ru"><![CDATA[Тип базы данных]]></value>
+        <value xml:lang="es"><![CDATA[Tipo de BD]]></value>
+        <value xml:lang="tr"><![CDATA[Veritabanı Tipi]]></value>
+        <value xml:lang="vi"><![CDATA[Định dạng Database]]></value>
+    </item>
+    <item name="select_db_type">
+        <value xml:lang="ko"><![CDATA[사용하시려는 DB를 선택해주세요.]]></value>
+        <value xml:lang="en"><![CDATA[Please select the database you want to use.]]></value>
+        <value xml:lang="jp"><![CDATA[使用するデータベース種類を選択してください。]]></value>
+        <value xml:lang="zh-CN"><![CDATA[选择数据库]]></value>
+        <value xml:lang="zh-TW"><![CDATA[請選擇要使用的資料庫。]]></value>
+        <value xml:lang="fr"><![CDATA[Choisissez la Base de Données que vous voulez utiliser.]]></value>
+        <value xml:lang="ru"><![CDATA[Пожалуйста, выберите базу данных, которую Вы хотите использовать.]]></value>
+        <value xml:lang="es"><![CDATA[Seleccione el tipo de BD que desea usar.]]></value>
+        <value xml:lang="tr"><![CDATA[Lütfen kullanmak istediğiniz Veritabanını seçiniz.]]></value>
+        <value xml:lang="vi"><![CDATA[Xin hãy chọn Database bạn muốn sử dụng.]]></value>
+    </item>
+    <item name="db_hostname">
+        <value xml:lang="ko"><![CDATA[DB 호스트네임]]></value>
+        <value xml:lang="en"><![CDATA[Database hostname]]></value>
+        <value xml:lang="jp"><![CDATA[ホスト名]]></value>
+        <value xml:lang="zh-CN"><![CDATA[服务器名]]></value>
+        <value xml:lang="zh-TW"><![CDATA[主機名稱]]></value>
+        <value xml:lang="fr"><![CDATA[Hostname(Nom de l'ordinateur central) de Base de Données (LOCALHOST généralement)]]></value>
+        <value xml:lang="ru"><![CDATA[Хост базы данных]]></value>
+        <value xml:lang="es"><![CDATA[Hostname de BD]]></value>
+        <value xml:lang="tr"><![CDATA[Veritabanı Sunucuadı]]></value>
+        <value xml:lang="vi"><![CDATA[Hostname]]></value>
+    </item>
+    <item name="db_hostname_desc">
+        <value xml:lang="en"><![CDATA[99% you won’t have to change this.]]></value>
+    </item>
+    <item name="db_port">
+        <value xml:lang="ko"><![CDATA[Database port]]></value>
+        <value xml:lang="en"><![CDATA[Database port]]></value>
+        <value xml:lang="jp"><![CDATA[ポート番号]]></value>
+        <value xml:lang="zh-CN"><![CDATA[数据库端口]]></value>
+        <value xml:lang="zh-TW"><![CDATA[埠口]]></value>
+        <value xml:lang="fr"><![CDATA[Port de Base de Données]]></value>
+        <value xml:lang="ru"><![CDATA[Порт базы данных]]></value>
+        <value xml:lang="es"><![CDATA[Port de BD]]></value>
+        <value xml:lang="tr"><![CDATA[Veritabanı Portu]]></value>
+        <value xml:lang="vi"><![CDATA[Port]]></value>
+    </item>
+    <item name="db_userid">
+        <value xml:lang="ko"><![CDATA[DB 아이디]]></value>
+        <value xml:lang="en"><![CDATA[Database user]]></value>
+        <value xml:lang="jp"><![CDATA[ユーザーID]]></value>
+        <value xml:lang="zh-CN"><![CDATA[DB用户名]]></value>
+        <value xml:lang="zh-TW"><![CDATA[使用者名稱]]></value>
+        <value xml:lang="fr"><![CDATA[Compte(ID) pour le Base de Données]]></value>
+        <value xml:lang="ru"><![CDATA[ID базы данных]]></value>
+        <value xml:lang="es"><![CDATA[ID de BD]]></value>
+        <value xml:lang="tr"><![CDATA[Veritabanı ID]]></value>
+        <value xml:lang="vi"><![CDATA[Tên truy cập]]></value>
+    </item>
+    <item name="db_password">
+        <value xml:lang="ko"><![CDATA[DB 비밀번호]]></value>
+        <value xml:lang="en"><![CDATA[Database password]]></value>
+        <value xml:lang="jp"><![CDATA[パスワード]]></value>
+        <value xml:lang="zh-CN"><![CDATA[DB密码]]></value>
+        <value xml:lang="zh-TW"><![CDATA[密碼]]></value>
+        <value xml:lang="fr"><![CDATA[Mot de passe pour le Base de Données]]></value>
+        <value xml:lang="ru"><![CDATA[Пароль базы данных]]></value>
+        <value xml:lang="es"><![CDATA[Contraseña de BD]]></value>
+        <value xml:lang="tr"><![CDATA[Veritabanı Şifresi]]></value>
+        <value xml:lang="vi"><![CDATA[Mật khẩu]]></value>
+    </item>
+    <item name="db_password_desc">
+        <value xml:lang="en"><![CDATA[Must not be empty.]]></value>
+    </item>
+    <item name="db_database">
+        <value xml:lang="ko"><![CDATA[DB 데이터베이스]]></value>
+        <value xml:lang="en"><![CDATA[Database name]]></value>
+        <value xml:lang="jp"><![CDATA[データベース名]]></value>
+        <value xml:lang="zh-CN"><![CDATA[数据库名]]></value>
+        <value xml:lang="zh-TW"><![CDATA[資料庫名稱]]></value>
+        <value xml:lang="fr"><![CDATA[Nom de Base de Données]]></value>
+        <value xml:lang="ru"><![CDATA[Имя базы данных]]></value>
+        <value xml:lang="es"><![CDATA[Base de datos BD]]></value>
+        <value xml:lang="vi"><![CDATA[Tên Database]]></value>
+    </item>
+    <item name="db_database_file">
+        <value xml:lang="ko"><![CDATA[DB 데이터베이스 파일]]></value>
+        <value xml:lang="en"><![CDATA[DB Database File]]></value>
+        <value xml:lang="jp"><![CDATA[データベースファイル]]></value>
+        <value xml:lang="zh-CN"><![CDATA[数据库文件]]></value>
+        <value xml:lang="zh-TW"><![CDATA[資料庫檔案]]></value>
+        <value xml:lang="fr"><![CDATA[Fichier de Base de Données]]></value>
+        <value xml:lang="ru"><![CDATA[Файл базы данных]]></value>
+        <value xml:lang="es"><![CDATA[Archivo de base de datos BD]]></value>
+        <value xml:lang="vi"><![CDATA[File Database]]></value>
+    </item>
+    <item name="db_table_prefix">
+        <value xml:lang="ko"><![CDATA[테이블 머리말]]></value>
+        <value xml:lang="en"><![CDATA[Table prefix]]></value>
+        <value xml:lang="jp"><![CDATA[テーブルプレフィックス]]></value>
+        <value xml:lang="zh-CN"><![CDATA[前缀]]></value>
+        <value xml:lang="zh-TW"><![CDATA[前置字元]]></value>
+        <value xml:lang="fr"><![CDATA[En-tête de la table]]></value>
+        <value xml:lang="ru"><![CDATA[Префикс таблиц]]></value>
+        <value xml:lang="es"><![CDATA[Encabezado de la tabla]]></value>
+        <value xml:lang="tr"><![CDATA[Tablo Başlığı]]></value>
+        <value xml:lang="vi"><![CDATA[Tên Table]]></value>
+    </item>
 	<item name="db_info_desc">
 		<value xml:lang="ko"><![CDATA[<p><strong>DB 호스트 네임</strong>, <strong>DB Port</strong>, <strong>DB 아이디</strong>, <strong>DB 비밀번호</strong>, <strong>DB 이름</strong> 정보는 서버 호스팅 관리자로부터 정보를 확인 하세요.</p><p><strong>DB 테이블 머리말</strong> 정보는 사용자 정의 할 수 있습니다. 영문 소문자를 권장 합니다. 숫자를 포함할 수 있습니다. 특수 문자를 사용할 수 없습니다.</p>]]></value>
 		<value xml:lang="en"><![CDATA[<p>Please check <strong>database information</strong> to server master.</p><p>You can modify database <strong>table preface</strong>, and can use small letters(small letter is recommended), and numbers, but you can not use special letters.</p>]]></value>
