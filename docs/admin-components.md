@@ -1,24 +1,25 @@
 ---
 layout: docs
-title: Karybu admin components
+title: Admin components
 category: docs
 ---
 
 Karybu admin components
 =======================
 
-- [Modal windows](#modal-windows)
-	- [Filebox](#filebox)
-- [Legacy modal windows](#legacy-modal-windows)
-	- [Basic modal](#basic-modal)
-	- [Differences between Bootstrap and XE modals](#differences-between-bootstrap-and-xe-modals)
-	- [Methods](#methods)
-	- [Events](#events)
-- [Multilanguage inputs](#multilanguage-inputs)
-	- [How this works](#how-this-works)
-- [Tables](#tables)
-	- [Sortable tables](#sortable-tables)
-	- [Simple / detailed view tables](#simple--detailed-view-tables)
+- [Modal windows](#toc_1)
+	- [Filebox](#toc_2)
+- [Legacy modal windows](#toc_3)
+	- [Basic modal](#toc_4)
+	- [Differences between Bootstrap and XE modals](#toc_5)
+	- [Methods](#toc_6)
+	- [Events](#toc_7)
+- [Multilanguage inputs](#toc_8)
+	- [How this works](#toc_9)
+- [Tables](#toc_10)
+	- [Sortable tables](#toc_11)
+	- [Simple / detailed view tables](#toc_12)
+- [Collapsible sections](#toc_13)
 
 Modal windows
 ----------------
@@ -96,6 +97,7 @@ Hide | `close` | `hide`
 ### Events
 
 Binding an event in XE
+
 ```javascript
 $("a.modalAnchor").bind('before-open.mw', function() {
   alert("just opening ...");
@@ -138,6 +140,7 @@ In order to add a multilangauge input the syntax is:
 ```
 
 For textareas, the syntax is very similar:
+
 ```html
 <!-- Textarea that will support multiple languages -->
 <div class="multiLangEdit">

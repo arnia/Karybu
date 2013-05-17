@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: Karybu debugging tools
+title: Debugging tools
 category: docs
 ---
 
@@ -23,6 +23,7 @@ There are mainly two configuration settings that influence the app's behaviour:
   Depending on this settings, certain features are enabled/disabled, like detailed debug information or gzip compression.
 
 These are set in the `index.php`, right at the beggining of each request, when the kernel is created:
+
 ```
 $kernel = new Kernel('prod', false)
 ```
@@ -83,6 +84,7 @@ Global configuration settings
 * __gzip compression__
 
 Depends on `kernel.debug` - when debugging is on, gzip is off and vice-versa. This settings can be manually overriden in *config_&lt;env&gt;.yml*:
+
 ```
          parameters: 
             cms.gz_encoding: false 

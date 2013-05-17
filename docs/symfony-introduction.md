@@ -39,6 +39,7 @@ We're using Symfony\Component\HttpKernel as our implementation of HttpKernelInte
 In order to convert [HttpFoundation](http://symfony.com/doc/master/components/http_foundation/index.html)'s $request to $response we're using EventDispatcher to inject our cms code into kernel [events](http://symfony.com/doc/master/components/http_kernel/introduction.html#httpkernel-driven-by-events), so if you've already parsed the EventDispatcher's [docs](http://symfony.com/doc/master/components/event_dispatcher/index.html), you should feel comfortable observing how we injected our old code into HttpKernel.
 
 ./src/Karybu/EventListener/[CMSListener.php](https://github.com/arnia/Karybu/blob/master/src/Karybu/EventListener/CMSListener.php) :
+
 ```php
     public static function getSubscribedEvents()
     {
@@ -79,6 +80,7 @@ Next we could do (or already did) the following:
 * routes, actual friendly urls, which were flawed in the old cms
 
 Here are the components/libs we're using, as an extract from [composer.json](https://github.com/arnia/Karybu/blob/master/composer.json):
+
 ```php
 {
     "require": {

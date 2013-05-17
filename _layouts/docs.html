@@ -1,45 +1,66 @@
 <!DOCTYPE html>
-<html>
-  <head>
-      <title> {% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-      <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
-      <link href="../assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
-      <style>
-          body {
-              padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-          }
-      </style>
-  </head>
-  <body>
-      <div class="navbar navbar-inverse navbar-fixed-top">
-          <div class="navbar-inner">
-              <div class="container">
-                  <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                  </button>
-                  <a class="brand" href="#">Karybu Documentation</a>
-                  <div class="nav-collapse collapse">
-                      <ul class="nav">
-                          {% for node in site.pages %}
-                          {% if node.categories == docs %}
-                          <li {%if page.url == node.url %}class="active"{% endif %} >
-                              <a href="{{ node.url }}">{{ node.title }}</a>
-                          </li>
-                          {% endif %}
-                          {% endfor %}
-                      </ul>
-                  </div><!--/.nav-collapse -->
-              </div>
-          </div>
-      </div>
-      <div class="container">
-          {{ content }}
-      </div>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Karybu docs &middot; {{ page.title }}</title>
 
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-      <script src="../assets/js/bootstrap.min.js"></script>
-  </body>
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../assets/css/karybu_upcoming.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
+</head>
+<body>
+    <div class="container-narrow">
+    <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+            <li{% if page.title == 'Homepage' %} class="active" {% endif %}><a href="../upcoming.html">Home</a></li>
+            <li{% if page.title == 'Getting started' %} class="active" {% endif %}><a href="../getting-started.html">Get started</a></li>
+            <li{% if page.title == 'Features' %} class="active" {% endif %}><a href="../features.html">Features</a></li>
+            <li{% if page.title == 'Documentation' or page.category == "docs" %} class="active" {% endif %}><a href="../docs">Docs</a></li>
+            <li{% if page.title == 'Contribute' %} class="active" {% endif %}><a href="../contribute.html">Contribute</a></li>
+            <li{% if page.title == 'About' %} class="active" {% endif %}><a href="../about.html">About</a></li>
+        </ul>
+        <h3 class="muted"><a href="../upcoming.html"><img src="../assets/img/karybu.png" alt="Karybu" /></a></h3>
+    </div>
+    <hr>
+    </div>
+
+    <div class="span3">
+        <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+                <li class="nav-header">Documentation</li>
+                {% for node in site.pages %}
+                {% if node.category == "docs" %}
+                <li{%if page.url == node.url %} class="active"{% endif %}>
+                    <a href="{{ node.url }}">{{ node.title }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="span9">
+
+        {{ content }}
+
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="container-narrow">
+    <hr>
+
+    <div class="footer">
+        <p>&copy; Arnia 2013</p>
+    </div>
+    </div>
+
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
 </html>
