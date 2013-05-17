@@ -1081,7 +1081,8 @@ class moduleModel extends module
         foreach ($list as $skin_name) {
             unset($skin_info);
             $skin_info = $this->loadSkinInfo($path, $skin_name, $dir);
-            if (!$skin_info) {
+            if (empty($skin_info)) {
+                $skin_info = new stdClass();
                 $skin_info->title = $skin_name;
             }
 

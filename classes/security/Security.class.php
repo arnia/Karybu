@@ -112,9 +112,21 @@ class Security
 
         $is_object = is_object($var);
         $name0 = array_shift($name);
-
-        if (strlen($name0)) {
-            $target = $is_object ? $var->{$name0} : $var[$name0];
+        if ($name0) {
+            if ($is_object){
+                if (!empty($var->{$name0})){
+                    $target = $var->{$name0};
+                }
+                else {
+                    $target = '';
+                }
+            }
+            elseif (isset($var[$name0])) {
+                $target = $var[$name0];
+            }
+            else {
+                $target = '';
+            }
             $target = $this->_encodeHTML($target, $name);
 
             if ($target === false) {

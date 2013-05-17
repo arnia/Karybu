@@ -288,7 +288,7 @@ class FileHandlerInstance
 
             $output[] = $file;
         }
-        if (!$output) {
+        if (empty($output)) {
             return array();
         }
 
@@ -539,7 +539,7 @@ class FileHandlerInstance
         require_once('HTTP/Request.php');
 
         $parsed_url = parse_url(__PROXY_SERVER__);
-        if ($parsed_url["host"]) {
+        if (!empty($parsed_url["host"])) {
             $oRequest = new HTTP_Request(__PROXY_SERVER__);
             $oRequest->setMethod('POST');
             $oRequest->_timeout = $timeout;

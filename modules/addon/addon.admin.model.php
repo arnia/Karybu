@@ -91,7 +91,7 @@
                 // Check if a permossion is granted entered in DB
                 if(!in_array($addon_name, array_keys($inserted_addons))) {
                     // If not, type in the DB type (model, perhaps because of the hate doing this haneungeo .. ㅡ. ㅜ)
-                    $oAddonAdminController->doInsert($addon_name, $site_srl, $type);
+                    $oAddonAdminController->doInsert($addon_name, $site_srl, null);
                 // Is activated
                 } else {
                     if($inserted_addons[$addon_name]->is_used=='Y') $info->activated = true;

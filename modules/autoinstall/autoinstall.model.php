@@ -104,6 +104,7 @@
 		 */
         function getPackageCount($category_srl)
         {
+            $args = new stdClass();
             $args->category_srl = $category_srl;
             $output = executeQuery("autoinstall.getPackageCount", $args);
             if(!$output->data) return 0;
@@ -117,7 +118,7 @@
 		 */
         function getInstalledPackageCount()
         {
-            $output = executeQuery("autoinstall.getInstalledPackageCount", $args);
+            $output = executeQuery("autoinstall.getInstalledPackageCount", new stdClass());
             if(!$output->data) return 0;
             return $output->data->count;
         }

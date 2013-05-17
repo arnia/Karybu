@@ -119,7 +119,7 @@
             Context::set('group_list', $group_list);
             // Get a mid list
             $oModuleModel = &getModel('module');
-
+            $args = new stdClass();
             $args->site_srl = $site_srl;
 			$columnList = array('module_srl', 'mid', 'module_category_srl', 'browser_title');
             $mid_list = $oModuleModel->getMidList($args, $columnList);

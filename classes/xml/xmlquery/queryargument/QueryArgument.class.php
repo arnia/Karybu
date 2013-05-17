@@ -107,9 +107,13 @@ class QueryArgument {
 	 * @return string
 	 */
 	function toString() {
+        $arg = sprintf("\n".'if (!isset($args->{\'%s\'})) {'."\n", $this->variable_name);
+        $arg .= sprintf('$args->{\'%s\'} = null;'."\n", $this->variable_name);
+        $arg .= '}';
 		if ($this->isConditionArgument()) {
 			// Instantiation
-			$arg = sprintf("\n" . '${\'%s_argument\'} = new ConditionArgument(\'%s\', %s, \'%s\');' . "\n"
+
+			$arg .= sprintf("\n" . '${\'%s_argument\'} = new ConditionArgument(\'%s\', %s, \'%s\');' . "\n"
 					, $this->argument_name
 					, $this->variable_name
 					, '$args->' . $this->variable_name
@@ -129,7 +133,7 @@ class QueryArgument {
 					, $this->argument_name
 			);
 		} else {
-			$arg = sprintf("\n" . '${\'%s_argument\'} = new Argument(\'%s\', %s);' . "\n"
+			$arg .= sprintf("\n" . '${\'%s_argument\'} = new Argument(\'%s\', %s);' . "\n"
 					, $this->argument_name
 					, $this->variable_name
 					, $this->ignore_value ? 'null' : '$args->{\'' . $this->variable_name . '\'}');

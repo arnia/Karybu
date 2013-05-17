@@ -88,7 +88,7 @@
 			$layout_list = array();
 			foreach($_layout_list as $item)
 			{
-				if(!$layout_list[$item->layout])
+				if(empty($layout_list[$item->layout]))
 				{
 					$layout_list[$item->layout] = array();
 					$layout_info = $oLayoutModel->getLayoutInfo($item->layout, null, $type);

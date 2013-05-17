@@ -102,32 +102,61 @@
 
             $file_module_config = $oModuleModel->getModuleConfig('file');
 
-            if($module_srl) $file_config = $oModuleModel->getModulePartConfig('file',$module_srl);
-            if(!$file_config) $file_config = $file_module_config;
+            if($module_srl) {
+                $file_config = $oModuleModel->getModulePartConfig('file',$module_srl);
+            }
+            if(empty($file_config)) {
+                $file_config = $file_module_config;
+            }
 
             if($file_config) {
-                $config->allowed_filesize = $file_config->allowed_filesize;
-                $config->allowed_attach_size = $file_config->allowed_attach_size;
-                $config->allowed_filetypes = $file_config->allowed_filetypes;
-                $config->download_grant = $file_config->download_grant;
-                $config->allow_outlink = $file_config->allow_outlink;
-                $config->allow_outlink_site = $file_config->allow_outlink_site;
-                $config->allow_outlink_format = $file_config->allow_outlink_format;
+                $config = new stdClass();
+                $config->allowed_filesize = isset($file_config->allowed_filesize) ? $file_config->allowed_filesize : null;
+                $config->allowed_attach_size = isset($file_config->allowed_attach_size) ? $file_config->allowed_attach_size : null;
+                $config->allowed_filetypes = isset($file_config->allowed_filetypes) ? $file_config->allowed_filetypes : null;
+                $config->download_grant = isset($file_config->download_grant) ? $file_config->download_grant : null;
+                $config->allow_outlink = isset($file_config->allow_outlink) ? $file_config->allow_outlink : null;
+                $config->allow_outlink_site = isset($file_config->allow_outlink_site) ? $file_config->allow_outlink_site : null;
+                $config->allow_outlink_format = isset($file_config->allow_outlink_format) ? $file_config->allow_outlink_format : null;
             }
             // Property for all files comes first than each property
-            if(!$config->allowed_filesize) $config->allowed_filesize = $file_module_config->allowed_filesize;
-            if(!$config->allowed_attach_size) $config->allowed_attach_size = $file_module_config->allowed_attach_size;
-            if(!$config->allowed_filetypes) $config->allowed_filetypes = $file_module_config->allowed_filetypes;
-            if(!$config->allow_outlink) $config->allow_outlink = $file_module_config->allow_outlink;
-            if(!$config->allow_outlink_site) $config->allow_outlink_site = $file_module_config->allow_outlink_site;
-            if(!$config->allow_outlink_format) $config->allow_outlink_format = $file_module_config->allow_outlink_format;
-            if(!$config->download_grant) $config->download_grant = $file_module_config->download_grant;
+            if(!$config->allowed_filesize) {
+                $config->allowed_filesize = isset($file_module_config->allowed_filesize) ? $file_module_config->allowed_filesize : null;
+            }
+            if(!$config->allowed_attach_size) {
+                $config->allowed_attach_size = isset($file_module_config->allowed_attach_size) ? $file_module_config->allowed_attach_size : null;
+            }
+            if(!$config->allowed_filetypes) {
+                $config->allowed_filetypes = isset($file_module_config->allowed_filetypes) ? $file_module_config->allowed_filetypes : null;
+            }
+            if(!$config->allow_outlink) {
+                $config->allow_outlink = isset($file_module_config->allow_outlink) ? $file_module_config->allow_outlink : null;
+            }
+            if(!$config->allow_outlink_site) {
+                $config->allow_outlink_site = isset($file_module_config->allow_outlink_site) ? $file_module_config->allow_outlink_site : null;
+            }
+            if(!$config->allow_outlink_format) {
+                $config->allow_outlink_format = isset($file_module_config->allow_outlink_format) ? $file_module_config->allow_outlink_format : null;
+            }
+            if(!$config->download_grant) {
+                $config->download_grant = isset($file_module_config->download_grant) ? $file_module_config->download_grant : null;
+            }
             // Default setting if not exists
-            if(!$config->allowed_filesize) $config->allowed_filesize = '2';
-            if(!$config->allowed_attach_size) $config->allowed_attach_size = '3';
-            if(!$config->allowed_filetypes) $config->allowed_filetypes = '*.*';
-            if(!$config->allow_outlink) $config->allow_outlink = 'Y';
-            if(!$config->download_grant) $config->download_grant = array();
+            if(!$config->allowed_filesize) {
+                $config->allowed_filesize = '2';
+            }
+            if(!$config->allowed_attach_size) {
+                $config->allowed_attach_size = '3';
+            }
+            if(!$config->allowed_filetypes) {
+                $config->allowed_filetypes = '*.*';
+            }
+            if(!$config->allow_outlink) {
+                $config->allow_outlink = 'Y';
+            }
+            if(!$config->download_grant) {
+                $config->download_grant = array();
+            }
 
             return $config;
         }

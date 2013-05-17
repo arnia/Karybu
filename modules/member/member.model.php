@@ -1124,7 +1124,7 @@ class memberModel extends member
                     continue;
                 }
                 // Pass if configured
-                if ($sns_list->{$sns_name}) {
+                if (!empty($sns_list->{$sns_name})) {
                     continue;
                 }
                 // Insert data into the DB
@@ -1183,6 +1183,7 @@ class memberModel extends member
      **/
     function getSns($sns_name)
     {
+        $args = new stdClass();
         $args->sns_name = $sns_name;
         $output = executeQuery('member.getSns', $args);
         $sns = $output->data;

@@ -29,7 +29,9 @@
 		    $this->setTemplatePath($template_path);
 
             $ftp_info =  Context::getFTPInfo();
-            if(!$ftp_info->ftp_root_path) Context::set('show_ftp_note', true);
+            if(empty($ftp_info->ftp_root_path)) {
+                Context::set('show_ftp_note', true);
+            }
 			else $this->ftp_set = true;
 
 
@@ -381,17 +383,21 @@
             $oModuleModel = &getModel('module');
 			$config = $oModuleModel->getModuleConfig('autoinstall');
             $ftp_info =  Context::getFTPInfo();
-            if(!$ftp_info->ftp_root_path) Context::set('show_ftp_note', true);
+            if(empty($ftp_info->ftp_root_path)) {
+                Context::set('show_ftp_note', true);
+            }
 
             $this->setTemplateFile('index');
 
             $params = array();
             $params["act"] = "getResourceapiLastupdate";
-            $body = XmlGenerater::generate($params);
-            $buff = FileHandler::getRemoteResource(_KARYBU_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
+            $generator = new XmlGenerater();
+            $body = $generator->generate($params);
+            $handler = new FileHandler();
+            $buff = $handler->getRemoteResource(_KARYBU_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
             $xml_lUpdate = new XmlParser();
             $lUpdateDoc = $xml_lUpdate->parse($buff);
-            $updateDate = $lUpdateDoc->response->updatedate->body;
+            $updateDate = isset($lUpdateDoc->response->updatedate->body) ? $lUpdateDoc->response->updatedate->body : null;
 
 			if (!$updateDate)
 			{
@@ -471,7 +477,7 @@
         function dispCategory()
         {
             $oModel = &getModel('autoinstall');
-            $this->categories = &$oModel->getCategoryList();
+            $this->categories = $oModel->getCategoryList();
             Context::set('categories', $this->categories);
 
             $current_category = Context::get('category_srl');
@@ -479,8 +485,8 @@
             $current_parent_category = null;
             $tmp_category = $current_category;
             while(!$current_parent_category) {
-                if($this->categories[$tmp_category]->depth == 0) {
-                    $current_parent_category = $this->categories[$tmp_category]->category_srl;
+                if(empty($this->categories[$tmp_category]->depth)) {
+                    $current_parent_category = isset($this->categories[$tmp_category]->category_srl) ? $this->categories[$tmp_category]->category_srl : null;
                     break;
                 }
 

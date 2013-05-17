@@ -1019,26 +1019,36 @@ class editorModel extends editor
 
 
         } else {
-            sscanf($xml_doc->component->author->attrs->date, '%d. %d. %d', $date_obj->y, $date_obj->m, $date_obj->d);
-            $date = sprintf('%04d%02d%02d', $date_obj->y, $date_obj->m, $date_obj->d);
+            if (!empty($xml_doc->component->author->attrs->date)) {
+                list ($y, $m, $d) = sscanf($xml_doc->component->author->attrs->date, '%d. %d. %d');
+                $date = sprintf('%04d%02d%02d', $y, $m, $d);
+            }
+            else {
+                $date = null;
+            }
+            $xml_info = new stdClass();
             $xml_info->component_name = $component;
-            $xml_info->title = $xml_doc->component->title->body;
-            $xml_info->description = str_replace('\n', "\n", $xml_doc->component->author->description->body);
-            $xml_info->version = $xml_doc->component->attrs->version;
+            $xml_info->title = isset($xml_doc->component->title->body) ? $xml_doc->component->title->body : null;
+            $xml_info->description = isset($xml_doc->component->author->description->body) ? str_replace('\n', "\n", $xml_doc->component->author->description->body) : null;
+            $xml_info->version = isset($xml_doc->component->attrs->version) ? $xml_doc->component->attrs->version : null;
             $xml_info->date = $date;
-            $xml_info->author->name = $xml_doc->component->author->name->body;
-            $xml_info->author->email_address = $xml_doc->component->author->attrs->email_address;
-            $xml_info->author->homepage = $xml_doc->component->author->attrs->link;
+            $xml_info->author = new stdClass();
+            $xml_info->author->name = isset($xml_doc->component->author->name->body) ? $xml_doc->component->author->name->body : null;
+            $xml_info->author->email_address = isset($xml_doc->component->author->attrs->email_address) ? $xml_doc->component->author->attrs->email_address : null;
+            $xml_info->author->homepage = isset($xml_doc->component->author->attrs->link) ? $xml_doc->component->author->attrs->link : null;
 
             $buff = '<?php if(!defined("__KARYBU__")) exit(); ';
-            $buff .= sprintf('$xml_info->component_name = "%s";', $xml_info->component_name);
-            $buff .= sprintf('$xml_info->title = "%s";', $xml_info->title);
-            $buff .= sprintf('$xml_info->description = "%s";', $xml_info->description);
-            $buff .= sprintf('$xml_info->version = "%s";', $xml_info->version);
-            $buff .= sprintf('$xml_info->date = "%s";', $xml_info->date);
-            $buff .= sprintf('$xml_info->author[0]->name = "%s";', $xml_info->author->name);
-            $buff .= sprintf('$xml_info->author[0]->email_address = "%s";', $xml_info->author->email_address);
-            $buff .= sprintf('$xml_info->author[0]->homepage = "%s";', $xml_info->author->homepage);
+            $buff .= sprintf('$xml_info = new stdClass;');
+            $buff .= sprintf('$xml_info->component_name = "%s";', isset($xml_info->component_name) ? $xml_info->component_name : '');
+            $buff .= sprintf('$xml_info->title = "%s";', isset($xml_info->title) ? $xml_info->title : '');
+            $buff .= sprintf('$xml_info->description = "%s";', isset($xml_info->description) ? $xml_info->description : '');
+            $buff .= sprintf('$xml_info->version = "%s";', isset($xml_info->version) ? $xml_info->version : '');
+            $buff .= sprintf('$xml_info->date = "%s";', isset($xml_info->date) ? $xml_info->date : '');
+            $buff .= sprintf('$xml_info->author = array();');
+            $buff .= sprintf('$xml_info->author[0] = new stdClass;');
+            $buff .= sprintf('$xml_info->author[0]->name = "%s";', isset($xml_info->author->name) ? $xml_info->author->name : '');
+            $buff .= sprintf('$xml_info->author[0]->email_address = "%s";', isset($xml_info->author->email_address) ? $xml_info->author->email_address : '');
+            $buff .= sprintf('$xml_info->author[0]->homepage = "%s";', isset($xml_info->author->homepage) ? $xml_info->author->homepage : '');
         }
         // List extra variables (text type only for editor component)
         if (isset($xml_doc->component->extra_vars->var)) {
@@ -1051,16 +1061,20 @@ class editorModel extends editor
             if (!is_array($extra_vars)) {
                 $extra_vars = array($extra_vars);
             }
+            $xml_info->extra_vars = new stdClass();
             foreach ($extra_vars as $key => $val) {
                 unset($obj);
-                $key = $val->attrs->name;
-                $title = $val->title->body;
-                $description = $val->description->body;
-                $xml_info->extra_vars->{$key}->title = $title;
-                $xml_info->extra_vars->{$key}->description = $description;
+                $key = isset($val->attrs->name) ? $val->attrs->name : null;
+                if ($key) {
+                    $title = isset($val->title->body) ? $val->title->body : null;
+                    $description = isset($val->description->body) ? $val->description->body : null;
+                    $xml_info->extra_vars->{$key} = new stdClass();
+                    $xml_info->extra_vars->{$key}->title = $title;
+                    $xml_info->extra_vars->{$key}->description = $description;
 
-                $buff .= sprintf('$xml_info->extra_vars->%s->%s = "%s";', $key, 'title', $title);
-                $buff .= sprintf('$xml_info->extra_vars->%s->%s = "%s";', $key, 'description', $description);
+                    $buff .= sprintf('$xml_info->extra_vars->%s->%s = "%s";', $key, 'title', $title);
+                    $buff .= sprintf('$xml_info->extra_vars->%s->%s = "%s";', $key, 'description', $description);
+                }
             }
         }
 

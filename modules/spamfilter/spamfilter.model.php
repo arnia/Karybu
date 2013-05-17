@@ -26,6 +26,7 @@
          * @brief Return the list of registered IP addresses which were banned
          **/
         function getDeniedIPList() {
+            $args = new stdClass();
             $args->sort_index = "regdate";
             $args->page = Context::get('page')?Context::get('page'):1;
             $output = executeQuery('spamfilter.getDeniedIPList', $args);
@@ -56,6 +57,7 @@
          * @brief Return the list of registered Words which were banned
          **/
         function getDeniedWordList() {
+            $args = new stdClass();
             $args->sort_index = "hit";
             $output = executeQuery('spamfilter.getDeniedWordList', $args);
             if(!$output->data) return;

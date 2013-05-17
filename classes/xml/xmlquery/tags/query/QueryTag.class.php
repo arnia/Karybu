@@ -175,8 +175,7 @@ class QueryTag {
 		if($this->isSubQuery) return;
 		// TODO Check if this work with arguments in join clause
 		$arguments = $this->getArguments();
-
-		$prebuff = '';
+        $prebuff = '';
 		foreach ($arguments as $argument) {
 			if (isset($argument)) {
 				$arg_name = $argument->getArgumentName();
@@ -233,7 +232,9 @@ class QueryTag {
 			$this->buff = $buff;
 			return $this->buff;
 		}
-
+        $buff = 'if (!isset($args)) {'.PHP_EOL;
+        $buff .= '    $args = new stdClass();'.PHP_EOL;
+        $buff .= '}'.PHP_EOL;
 		$buff .= '$query = new Query();' . PHP_EOL;
 		$buff .= sprintf('$query->setQueryId("%s");%s', $this->query_id, "\n");
 		$buff .= sprintf('$query->setAction("%s");%s', $this->action, "\n");

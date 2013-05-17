@@ -81,9 +81,11 @@
             // module_category and module combination
             if($module_categories) {
                 foreach($mid_list as $module_srl => $module) {
+                    $module_categories[$module->module_category_srl] = new stdClass();
                     $module_categories[$module->module_category_srl]->list[$module_srl] = $module;
                 }
             } else {
+                $module_categories[0] = new stdClass();
                 $module_categories[0]->list = $mid_list;
             }
 

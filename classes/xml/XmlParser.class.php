@@ -85,8 +85,15 @@ class XmlParser
         }
 
         $this->lang = Context::getLangType();
-
-        $this->input = $input ? $input : $GLOBALS['HTTP_RAW_POST_DATA'];
+        if ($input){
+            $this->input = $input;
+        }
+        elseif (!empty($GLOBALS['HTTP_RAW_POST_DATA'])) {
+            $this->input = $input ? $input : $GLOBALS['HTTP_RAW_POST_DATA'];
+        }
+        else {
+            $input = '';
+        }
         $this->input = str_replace(array('', ''), array('', ''), $this->input);
 
         // extracts a supported language

@@ -159,33 +159,37 @@
 
 			$currentAct   = Context::get('act');
 			$subMenuTitle = '';
-			foreach((array)$moduleActionInfo->menu as $key=>$value)
-			{
-				if(isset($value->acts) && is_array($value->acts) && in_array($currentAct, $value->acts))
-				{
-					$subMenuTitle = $value->title;
-					break;
-				}
-			}
+            if (isset($moduleActionInfo->menu)) {
+                foreach((array)$moduleActionInfo->menu as $key=>$value)
+                {
+                    if(isset($value->acts) && is_array($value->acts) && in_array($currentAct, $value->acts))
+                    {
+                        $subMenuTitle = $value->title;
+                        break;
+                    }
+                }
+            }
 
 			$parentSrl = 0;
-			foreach((array)$menu->list as $parentKey=>$parentMenu)
-			{
-				if(!is_array($parentMenu['list']) || !count($parentMenu['list'])) continue;
-				if($parentMenu['href'] == '#' && count($parentMenu['list'])) {
-					$firstChild = current($parentMenu['list']);
- 					$menu->list[$parentKey]['href'] = $firstChild['href'];
-				}
+            if (isset($menu->list)) {
+                foreach((array)$menu->list as $parentKey=>$parentMenu)
+                {
+                    if(!is_array($parentMenu['list']) || !count($parentMenu['list'])) continue;
+                    if($parentMenu['href'] == '#' && count($parentMenu['list'])) {
+                        $firstChild = current($parentMenu['list']);
+                        $menu->list[$parentKey]['href'] = $firstChild['href'];
+                    }
 
-				foreach($parentMenu['list'] as $childKey=>$childMenu)
-				{
-					if($subMenuTitle == $childMenu['text'])
-					{
-						$parentSrl = $childMenu['parent_srl'];
-						break;
-					}
-				}
-			}
+                    foreach($parentMenu['list'] as $childKey=>$childMenu)
+                    {
+                        if($subMenuTitle == $childMenu['text'])
+                        {
+                            $parentSrl = $childMenu['parent_srl'];
+                            break;
+                        }
+                    }
+                }
+            }
 
 			// Admin logo, title setup
             $gnbTitleInfo = new stdClass();
@@ -511,7 +515,7 @@
 
             $ftp_info = Context::getFTPInfo();
             Context::set('ftp_info', $ftp_info);
-			Context::set('sftp_support', function_exists(ssh2_sftp));
+			Context::set('sftp_support', function_exists('ssh2_sftp'));
 
             $this->setTemplateFile('config_ftp');
 

@@ -936,7 +936,7 @@ class layoutModel extends layout
     function useDefaultLayout($layout_name)
     {
         $info = $this->getLayoutInfo($layout_name);
-        if ($info->type == 'faceoff') {
+        if (isset($info->type) && $info->type == 'faceoff') {
             return true;
         } else {
             return false;
