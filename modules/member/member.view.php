@@ -44,7 +44,7 @@
 			$this->setTemplatePath($template_path);
 
 			$oLayoutModel = &getModel('layout');
-			$layout_info = $oLayoutModel->getLayout($this->member_config->layout_srl);
+			$layout_info = $oLayoutModel->getLayout(isset($this->member_config->layout_srl) ? $this->member_config->layout_srl : null);
 			if($layout_info)
 			{
 				$this->module_info->layout_srl = $this->member_config->layout_srl;
@@ -341,6 +341,7 @@
          **/
         function dispMemberScrappedDocument() {
             $oMemberModel = &getModel('member');
+            $args = new stdClass();
             // A message appears if the user is not logged-in
             if(!$oMemberModel->isLogged()) return $this->stop('msg_not_logged');
 
@@ -363,6 +364,7 @@
          **/
         function dispMemberSavedDocument() {
             $oMemberModel = &getModel('member');
+            $args = new stdClass();
             // A message appears if the user is not logged-in
             if(!$oMemberModel->isLogged()) return $this->stop('msg_not_logged');
             // Get the saved document(module_srl is set to member_srl instead)
@@ -395,8 +397,8 @@
 
 			// get member module configuration.
 			$oMemberModel = &getModel('member');
-			$config = $this->member_config;
-			Context::set('identifier', $config->identifier);
+			$config = isset($this->member_config) ? $this->member_config : null;
+			Context::set('identifier', isset($config->identifier) ? $config->identifier : null);
 
             //SNS
             $oMemberModel=&getModel('member');

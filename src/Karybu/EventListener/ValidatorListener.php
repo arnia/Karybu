@@ -45,9 +45,11 @@ class ValidatorListener implements EventSubscriberInterface
     public function checkRuleset(FilterControllerEvent $event)
     {
         $oModule = $event->getController()->getModuleInstance();
-        $ruleset = $oModule->ruleset;
+        $ruleset = isset($oModule->ruleset) ? $oModule->ruleset : null;
 
-        if(empty($ruleset)) return true;
+        if(empty($ruleset)) {
+            return true;
+        }
 
         $rulesetModule = $oModule->module_key->getModule(); // ? $forward->module : $this->module;
         $mid = $event->getRequest()->attributes->get('mid'); // TODO Make sure this is the same as ModuleHandler->mid

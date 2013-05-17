@@ -486,7 +486,7 @@ class moduleModel extends module
         $args->called_method = $called_method;
         $args->called_position = $called_position;
         $output = executeQuery('module.getTrigger', $args);
-        return $output->data;
+        return !empty($output->data) ? $output->data : null;
     }
 
     /**
@@ -1736,13 +1736,13 @@ class moduleModel extends module
      **/
     function isSiteAdmin($member_info, $site_srl = null)
     {
-        if (!$member_info->member_srl) {
+        if (empty($member_info->member_srl)) {
             return false;
         }
-        if ($member_info->is_admin == 'Y') {
+        if (isset($member_info->is_admin) && $member_info->is_admin == 'Y') {
             return true;
         }
-
+        $args = new stdClass();
         if (!isset($site_srl)) {
             $site_module_info = Context::get('site_module_info');
             if (!$site_module_info) {
@@ -1965,7 +1965,7 @@ class moduleModel extends module
         if (isset($xml_info->grant)) {
             $grant_info = $xml_info->grant;
         }
-        if ($member_info->member_srl) {
+        if (!empty($member_info->member_srl)) {
             if (is_array($member_info->group_list)) {
                 $group_list = array_keys($member_info->group_list);
             } else {
@@ -1985,7 +1985,8 @@ class moduleModel extends module
             ) {
                 $grant->access = $grant->is_admin = $grant->manager = $grant->is_site_admin = true;
             } else {
-                $grant->is_admin = $grant->manager = $member_info->is_admin == 'Y' ? true : false;
+                $grant->is_admin = (isset($member_info->is_admin) &&  $member_info->is_admin== 'Y') ? true : false;
+                $grant->manager = $grant->is_admin;
             }
             // If module_srl exists
         } else {

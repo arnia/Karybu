@@ -27,7 +27,7 @@
 		}
 
 		function getTableString(){
-			$dbParser = DB::getParser();
+			$dbParser = DB::getDbParser();
                         $dbType = ucfirst(Context::getDBType());
 
                         $result = sprintf('new %sTableWithHint(\'%s\'%s, array('

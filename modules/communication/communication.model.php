@@ -21,11 +21,21 @@
         function getConfig() {
             $oModuleModel = &getModel('module');
             $communication_config = $oModuleModel->getModuleConfig('communication');
-
-            if(!$communication_config->skin) $communication_config->skin = 'default';
-            if(!$communication_config->colorset) $communication_config->colorset = 'white';
-            if(!$communication_config->editor_skin) $communication_config->editor_skin = 'default';
-            if(!$communication_config->mskin) $communication_config->mskin = 'default';
+            if (!is_object($communication_config)){
+                $communication_config = new stdClass();
+            }
+            if(empty($communication_config->skin)) {
+                $communication_config->skin = 'default';
+            }
+            if(empty($communication_config->colorset)) {
+                $communication_config->colorset = 'white';
+            }
+            if(empty($communication_config->editor_skin)) {
+                $communication_config->editor_skin = 'default';
+            }
+            if(empty($communication_config->mskin)) {
+                $communication_config->mskin = 'default';
+            }
 
             return $communication_config;
         }
@@ -91,7 +101,7 @@
          **/
         function getMessages($message_type = "R", $columnList = array()) {
             $logged_info = Context::get('logged_info');
-
+            $args = new stdClass();
             switch($message_type) {
                 case 'R' :
                         $args->member_srl = $logged_info->member_srl;
@@ -126,7 +136,7 @@
          **/
         function getFriends($friend_group_srl = 0, $columnList = array()) {
             $logged_info = Context::get('logged_info');
-
+            $args = new stdClass();
             $args->friend_group_srl = $friend_group_srl;
             $args->member_srl = $logged_info->member_srl;
             // Other variables
@@ -173,6 +183,7 @@
          **/
         function getFriendGroups() {
             $logged_info = Context::get('logged_info');
+            $args = new stdClass();
             $args->member_srl = $logged_info->member_srl;
 
             $output = executeQueryArray('communication.getFriendGroups', $args);

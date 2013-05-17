@@ -125,7 +125,7 @@
                 $this->columnList = $columnList;
                 if(count($this->columnList) > 0) {
                     $selectColumns = array();
-                    $dbParser = DB::getParser();
+                    $dbParser = DB::getDbParser();
 
                     foreach($this->columnList as $columnName){
                             $columnName = $dbParser->escapeColumn($columnName);

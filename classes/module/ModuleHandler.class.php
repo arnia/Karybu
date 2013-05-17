@@ -287,7 +287,7 @@ class ModuleHandlerInstance extends Handler
     protected function showErrorToUser()
     {
         $type = $this->mobile->isFromMobilePhone() ? 'mobile' : 'view';
-        $oMessageObject = & ModuleHandler::getModuleInstance('message', $type);
+        $oMessageObject = ModuleHandler::getModuleInstance('message', $type);
         $oMessageObject->setError(-1);
         $oMessageObject->setMessage($this->error);
         $oMessageObject->dispMessage();
@@ -368,7 +368,7 @@ class ModuleHandlerInstance extends Handler
             && in_array($oModule->module_key->getType(), array("view", "mobile"))
         ) {
             // This is basically the entry point to the admin interface
-            if ($logged_info->is_admin == 'Y') {
+            if (isset($logged_info->is_admin) && $logged_info->is_admin == 'Y') {
                 // Load the admin layout
                 if ($this->act != 'dispLayoutAdminLayoutModify') {
                     $this->loadAdminLayoutAndMenuForModule($oModule);
@@ -560,7 +560,7 @@ class ModuleHandlerInstance extends Handler
             if ($this->error) {
                 // display content with message module instance
                 $type = $this->mobile->isFromMobilePhone() ? 'mobile' : 'view';
-                $oMessageObject = & ModuleHandler::getModuleInstance('message', $type);
+                $oMessageObject = ModuleHandler::getModuleInstance('message', $type);
                 $oMessageObject->setError(-1);
                 $oMessageObject->setMessage($this->error);
                 $oMessageObject->dispMessage();

@@ -237,7 +237,7 @@ class memberModel extends member
      **/
     function isLogged()
     {
-        if ($_SESSION['is_logged'] && $_SESSION['ipaddress'] == $_SERVER['REMOTE_ADDR']) {
+        if (!empty($_SESSION['is_logged']) && $_SESSION['ipaddress'] == $_SERVER['REMOTE_ADDR']) {
             return true;
         }
 

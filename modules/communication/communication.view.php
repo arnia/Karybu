@@ -28,7 +28,7 @@
             $this->setTemplatePath($tpl_path);
 
 			$oLayoutModel = &getModel('layout');
-			$layout_info = $oLayoutModel->getLayout($this->communication_config->layout_srl);
+			$layout_info = $oLayoutModel->getLayout(isset($this->communication_config->layout_srl) ? $this->communication_config->layout_srl : null);
 			if($layout_info)
 			{
 				$this->module_info->layout_srl = $this->communication_config->layout_srl;
@@ -183,7 +183,7 @@
             $option->disable_html = true;
             $option->height = 300;
             $option->skin = $this->communication_config->editor_skin;
-            $option->colorset = $this->communication_config->editor_colorset;
+            $option->colorset = isset($this->communication_config->editor_colorset) ? $this->communication_config->editor_colorset : null;
             $editor = $oEditorModel->getEditor($logged_info->member_srl, $option);
             Context::set('editor', $editor);
 
@@ -202,7 +202,10 @@
             // get a group list
             $tmp_group_list = $oCommunicationModel->getFriendGroups();
             $group_count = count($tmp_group_list);
-            for($i=0;$i<$group_count;$i++) $friend_group_list[$tmp_group_list[$i]->friend_group_srl] = $tmp_group_list[$i];
+            $friend_group_list = array();
+            for($i=0;$i<$group_count;$i++) {
+                $friend_group_list[$tmp_group_list[$i]->friend_group_srl] = $tmp_group_list[$i];
+            }
             Context::set('friend_group_list', $friend_group_list);
             // get a list of friends
             $friend_group_srl = Context::get('friend_group_srl');

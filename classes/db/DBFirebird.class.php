@@ -1026,7 +1026,7 @@ class DBFireBird extends DB
         return $buff;
     }
 
-    function getParser()
+    function getParser($force = false)
     {
         return new DBParser('"', '"', $this->prefix);
     }

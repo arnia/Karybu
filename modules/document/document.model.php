@@ -1373,9 +1373,10 @@ class documentModel extends document
         ) {
             // get module_srl extra_vars list
             if ($load_extra_vars) {
-                $extra_args->module_srl = $obj->module_srl;
+                $extra_args = new stdClass();
+                $extra_args->module_srl = isset($obj->module_srl) ? $obj->module_srl : null;
                 $extra_output = executeQueryArray('document.getGroupsExtraVars', $extra_args);
-                if (!$extra_output->data || !$extra_output->toBool()) {
+                if (empty($extra_output->data) || !$extra_output->toBool()) {
                     $sortIndex = 'list_order';
                 } else {
                     $check_array = array();

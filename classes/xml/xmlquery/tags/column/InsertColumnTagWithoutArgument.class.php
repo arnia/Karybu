@@ -17,7 +17,7 @@ class InsertColumnTagWithoutArgument extends ColumnTag
 	function InsertColumnTagWithoutArgument($column)
 	{
 		parent::ColumnTag($column->attrs->name);
-		$dbParser = DB::getParser();
+		$dbParser = DB::getDbParser();
 		$this->name = $dbParser->parseColumnName($this->name);
 	}
 

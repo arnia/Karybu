@@ -22,9 +22,11 @@ class messageView extends message {
 	{
 		// Get configurations (using module model object)
 		$oModuleModel = &getModel('module');
-		$this->module_config = $config = $oModuleModel->getModuleConfig('message', $this->module_info->site_srl);
-		
-		if(!$config->skin)
+		$this->module_config = $config = $oModuleModel->getModuleConfig('message', isset($this->module_info->site_srl) ? $this->module_info->site_srl : null);
+		if (!is_object($config)){
+            $config = new stdClass();
+        }
+		if(empty($config->skin))
 		{
 			$config->skin = 'default';
 			$template_path = sprintf('%sskins/%s', $this->module_path, $config->skin);
@@ -50,8 +52,10 @@ class messageView extends message {
 		Context::set('member_config', $member_config);
 		// Set a flag to check if the https connection is made when using SSL and create https url 
 		$ssl_mode = false;
-		if($member_config->enable_ssl == 'Y') {
-			if(preg_match('/^https:\/\//i',Context::getRequestUri())) $ssl_mode = true;
+		if(isset($member_config->enable_ssl) && $member_config->enable_ssl == 'Y') {
+			if(preg_match('/^https:\/\//i',Context::getRequestUri())) {
+                $ssl_mode = true;
+            }
 		}
 		Context::set('ssl_mode',$ssl_mode);
 

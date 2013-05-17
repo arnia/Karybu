@@ -1194,6 +1194,15 @@ class DB
         return $dbParser;
     }
 
+    static function getDbParser($force = false){
+        static $dbParser = null;
+        if(!$dbParser || $force) {
+            $oDB = DB::getInstance();
+            $dbParser = $oDB->getParser();
+        }
+        return $dbParser;
+    }
+
     /**
      * Sets the Logger which will be passed to specific DB instances.
      *

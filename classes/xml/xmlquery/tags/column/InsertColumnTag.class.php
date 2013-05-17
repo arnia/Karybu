@@ -25,7 +25,7 @@ class InsertColumnTag extends ColumnTag
 	function InsertColumnTag($column)
 	{
 		parent::ColumnTag($column->attrs->name);
-		$dbParser = DB::getParser();
+		$dbParser = DB::getDbParser();
 		$this->name = $dbParser->parseColumnName($this->name);
 		$this->argument = new QueryArgument($column);
 	}

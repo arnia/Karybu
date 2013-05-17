@@ -108,7 +108,7 @@ class QueryTag {
 		if ($this->isSubQuery)
 			$this->action = 'select';
 		if ($query->attrs->alias) {
-			$dbParser = DB::getParser();
+			$dbParser = DB::getDbParser();
 			$this->alias = $dbParser->escape($query->attrs->alias);
 		}
 		$this->join_type = $query->attrs->join_type;

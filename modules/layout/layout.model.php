@@ -86,7 +86,7 @@ class layoutModel extends layout
             $args = new stdClass();
             $args->layout_srl = $layout_srl;
             $output = executeQuery('layout.getLayout', $args);
-            if (!$output->data) {
+            if (empty($output->data)) {
                 return;
             }
             // Return xml file informaton after listing up the layout and extra_vars

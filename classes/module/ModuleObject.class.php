@@ -391,7 +391,7 @@ class ModuleObject extends Module
                 $permission_target = $xml_info->permission->{$this->act};
             }
             // check manager if a permission in module.xml otherwise action if no permission
-            if (!$permission_target && substr_count($this->act, 'Admin')) {
+            if (empty($permission_target) && substr_count($this->act, 'Admin')) {
                 $permission_target = 'manager';
             }
             // Check permissions
@@ -434,7 +434,7 @@ class ModuleObject extends Module
         $this->setMessage($msg_code);
         // Error message display by message module
         $type = Mobile::isFromMobilePhone() ? 'mobile' : 'view';
-        $oMessageObject = & ModuleHandler::getModuleInstance('message', $type);
+        $oMessageObject = ModuleHandler::getModuleInstance('message', $type);
         $oMessageObject->setError(-1);
         $oMessageObject->setMessage($msg_code);
         $oMessageObject->dispMessage();
@@ -623,7 +623,7 @@ class ModuleObject extends Module
             }
         }
         // execute api methods of the module if view action is and result is XMLRPC or JSON
-        if ($this->module_info->module_type == 'view') {
+        if (isset($this->module_info->module_type) && $this->module_info->module_type == 'view') {
             if (Context::getResponseMethod() == 'XMLRPC' || Context::getResponseMethod() == 'JSON') {
                 $oAPI = getAPI($this->module_info->module, 'api');
                 if (method_exists($oAPI, $this->act)) {
