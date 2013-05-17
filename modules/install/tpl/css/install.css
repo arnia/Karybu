@@ -3,7 +3,17 @@
 body {
     margin: 0;
     background: #1d212a url("../img/install-bg.png");
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif ;
 }
+
+@media (max-width: 767px) {
+    body {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+
 
 #progress,
 #content {
@@ -86,7 +96,7 @@ input[type="radio"].js {
 
 
 .container {
-    padding: 20px;
+    padding: 10px;
     background: rgba(255,255,255,0.95);
     margin: 40px auto;
     -moz-border-radius: 5px;
@@ -170,3 +180,56 @@ input[type="radio"].js {
     -webkit-text-shadow: none;
     text-shadow: none;
 }
+
+
+#ftplist, #ftplist li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#ftplist {margin-top: 10px}
+
+#ftplist li a {
+
+    border-bottom: 1px solid #dddddd;
+
+line-height: 25px;
+    padding: 4px;
+}
+
+#ftplist li a:hover,
+#ftplist li a:active,
+#ftplist li a:focus {
+    background: #ffffff;
+}
+
+.final-actions a {
+    font-size: 1.1em;
+    text-align: left;
+    white-space: normal;
+    word-wrap: normal;
+    margin-bottom: 10px;
+    padding-left: 50px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    display: block;
+}
+
+.final-actions [class^="icon-"] {
+    position: absolute;
+    margin-left: -35px;
+    margin-top:-2px;
+    width: 24px;
+    height: 24px;
+}
+
+i.icon-btn-home {
+    background: url("../img/sprite-24.png") 0 0 no-repeat;
+}
+
+i.icon-btn-admin {
+    background: url("../img/sprite-24.png") -24px 0 no-repeat;
+}
+
+
