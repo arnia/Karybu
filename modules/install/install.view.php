@@ -69,6 +69,7 @@
         function dispInstallSelectDB() {
             // Display check_env if it is not installable
             if(!$this->install_enable) return $this->dispInstallCheckEnv();
+
             // Enter ftp information
             if(ini_get('safe_mode') && !Context::isFTPRegisted()) {
 				Context::set('progressMenu', '3');

@@ -1122,12 +1122,17 @@ a.btn-primary, a.btn-danger, a.btn-info, a.btn-inverse, a.btn-success, a.btn-war
 .btn:hover,
 .btn:focus,
 .btn:active,
-.btn.active,
-.btn.disabled,
-.btn[disabled] {
+.btn.active {
     background-color: #ddd;
     background-position:0, 0;
     box-shadow:0 1px 2px 0px rgba(0, 0, 0, 0.4), inset 0 1px 0px 0 rgba(255, 255, 255, .6), inset 0 30px 0 0 rgba(0, 0, 0, 0);
+}
+
+.btn.disabled,
+.btn[disabled] {
+    -moz-opacity: 0.5;
+    -webkit-opacity: 0.5;
+    opacity: 0.5;
 }
 
 .btn.active,
@@ -1137,6 +1142,8 @@ a.btn-primary, a.btn-danger, a.btn-info, a.btn-inverse, a.btn-success, a.btn-war
     box-shadow:0 0 0 0 rgba(0, 0, 0, 0), inset 0 2px 0 0 rgba(0, 0, 0, .5), inset 0 30px 0 0 rgba(0, 0, 0, .2);
 }
 
+.btn-primary.disabled,
+.btn-primary[disabled],
 .btn-primary,
 .btn-primary:active,
 .btn-primary.active,
@@ -1144,7 +1151,6 @@ a.btn-primary, a.btn-danger, a.btn-info, a.btn-inverse, a.btn-success, a.btn-war
 .btn-group > .btn-primary + .dropdown-toggle.active{
     color:#ffffff;
     text-shadow:0 -1px 0 rgba(0, 0, 0, 0.4);
-    font-size:10pt;
     border:1px solid #2b5800;
     background:#699332;
     background:-moz-linear-gradient(top, #90bb59 0%, #65902e 100%);
@@ -1157,8 +1163,13 @@ a.btn-primary, a.btn-danger, a.btn-info, a.btn-inverse, a.btn-success, a.btn-war
 
 }
 
-
-.btn-danger {
+.btn-danger.disabled,
+.btn-danger[disabled],
+.btn-danger,
+.btn-danger:active,
+.btn-danger.active,
+.btn-group > .btn-danger + .dropdown-toggle:active,
+.btn-group > .btn-danger + .dropdown-toggle.active {
     color:#ffffff;
     text-shadow:0 -1px 0 rgba(0, 0, 0, 0.4);
     border:1px solid #8a0000;
@@ -1173,7 +1184,13 @@ a.btn-primary, a.btn-danger, a.btn-info, a.btn-inverse, a.btn-success, a.btn-war
 
 }
 
-.btn-warning {
+.btn-warning.disabled,
+.btn-warning[disabled],
+.btn-warning,
+.btn-warning:active,
+.btn-warning.active,
+.btn-group > .btn-warning + .dropdown-toggle:active,
+.btn-group > .btn-warning + .dropdown-toggle.active {
     color:#ffffff;
     text-shadow:0 -1px 0 rgba(0, 0, 0, 0.4);
     border:1px solid #af6600;
@@ -1187,8 +1204,13 @@ a.btn-primary, a.btn-danger, a.btn-info, a.btn-inverse, a.btn-success, a.btn-war
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr = '#fec12d', endColorstr = '#d39502', GradientType = 0);
 }
 
-
-.btn-success {
+.btn-success.disabled,
+.btn-success[disabled],
+.btn-success,
+.btn-success:active,
+.btn-success.active,
+.btn-group > .btn-success + .dropdown-toggle:active,
+.btn-group > .btn-success + .dropdown-toggle.active {
     color:#ffffff;
     text-shadow:0 -1px 0 rgba(0, 0, 0, 0.4);
     border:1px solid #2b5800;
@@ -1203,7 +1225,13 @@ a.btn-primary, a.btn-danger, a.btn-info, a.btn-inverse, a.btn-success, a.btn-war
 
 }
 
-.btn-info {
+.btn-info.disabled,
+.btn-info[disabled],
+.btn-info,
+.btn-info:active,
+.btn-info.active,
+.btn-group > .btn-info + .dropdown-toggle:active,
+.btn-group > .btn-info + .dropdown-toggle.active {
     color:#ffffff;
     text-shadow:0 -1px 0 rgba(0, 0, 0, 0.4);
     border:1px solid #002564;
@@ -1218,8 +1246,13 @@ a.btn-primary, a.btn-danger, a.btn-info, a.btn-inverse, a.btn-success, a.btn-war
 
 }
 
-
-.btn-inverse {
+.btn-inverse.disabled,
+.btn-inverse[disabled],
+.btn-inverse,
+.btn-inverse:active,
+.btn-inverse.active,
+.btn-group > .btn-inverse + .dropdown-toggle:active,
+.btn-group > .btn-inverse + .dropdown-toggle.active {
     color:#ffffff;
     text-shadow:0 -1px 0 rgba(0, 0, 0, 0.4);
     border:1px solid #222222;

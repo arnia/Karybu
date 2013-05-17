@@ -1,14 +1,18 @@
 <include target="header.html" />
 
 <div id="content">
-    <div class="xe-ui-panel cleared">
+    <div class="xe-ui-panel cleared row-fluid">
         <div class="xe-ui-panel-content">
             <h2>{$lang->final_title}</h2>
             <p>{$lang->final_description}</p>
-            <p>
-                {$lang->final_site_desc} <a href="{getURL('')}">{$lang->here}</a> .<br />
-                {$lang->final_admin_desc} <a href="{getURL('','module','admin')}">{$lang->here}</a>.
-            </p>
+            <div class="final-actions">
+                <div class="span6">
+                    <a href="{getURL('')}" class="btn btn-primary go-to-site"><i class="icon-btn-home"></i>{$lang->final_site_desc} {$lang->here}</a>
+                </div>
+                <div class="span6">
+                    <a href="{getURL('','module','admin')}" class="btn btn-inverse go-to-admin"><i class="icon-btn-admin"></i>{$lang->final_admin_desc} {$lang->here}</a>.
+                </div>
+            </div>
         </div>
     </div>
     <p id="version">{$lang->version} {__KARYBU_VERSION__}</p>
