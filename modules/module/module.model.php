@@ -1173,17 +1173,22 @@ class moduleModel extends module
 
                     foreach ($extra_vars as $key => $val) {
                         unset($obj);
-                        if (!$val->attrs->type) {
+                        if (empty($val->attrs->type)) {
                             $val->attrs->type = 'text';
                         }
-
-                        $obj->group = $group->title->body;
-                        $obj->name = $val->attrs->name;
-                        $obj->title = $val->title->body;
-                        $obj->type = $val->attrs->type;
-                        $obj->description = $val->description->body;
-                        $obj->value = $extra_vals->{$obj->name};
-                        $obj->default = $val->attrs->default;
+                        $obj = new stdClass();
+                        $obj->group = isset($group->title->body) ? $group->title->body : null;
+                        $obj->name = isset($val->attrs->name) ? $val->attrs->name : null;
+                        $obj->title = isset($val->title->body) ? $val->title->body : null;
+                        $obj->type = isset($val->attrs->type) ? $val->attrs->type : null;
+                        $obj->description = isset($val->description->body) ? $val->description->body : null;
+                        if (isset($obj->name) && isset($extra_vals->{$obj->name})) {
+                            $obj->value = $extra_vals->{$obj->name};
+                        }
+                        else {
+                            $obj->value = null;
+                        }
+                        $obj->default = isset($val->attrs->default) ? $val->attrs->default : null;
                         if (strpos($obj->value, '|@|') != false) {
                             $obj->value = explode('|@|', $obj->value);
                         }
@@ -1193,14 +1198,17 @@ class moduleModel extends module
                         // Get an option list from 'select'type
                         if (is_array($val->options)) {
                             $option_count = count($val->options);
-
+                            $obj->options = array();
                             for ($i = 0; $i < $option_count; $i++) {
-                                $obj->options[$i]->title = $val->options[$i]->title->body;
-                                $obj->options[$i]->value = $val->options[$i]->attrs->value;
+                                $obj->options[$i] = new stdClass();
+                                $obj->options[$i]->title = isset($val->options[$i]->title->body) ? $val->options[$i]->title->body : null;
+                                $obj->options[$i]->value = isset($val->options[$i]->attrs->value) ? $val->options[$i]->attrs->value : null;
                             }
                         } else {
-                            $obj->options[0]->title = $val->options->title->body;
-                            $obj->options[0]->value = $val->options->attrs->value;
+                            $obj->options = array();
+                            $obj->options[0] = new stdClass();
+                            $obj->options[0]->title = isset($val->options->title->body) ? $val->options->title->body : null;
+                            $obj->options[0]->value = isset($val->options->attrs->value) ? $val->options->attrs->value : null;
                         }
 
                         $skin_info->extra_vars[] = $obj;
@@ -1259,22 +1267,29 @@ class moduleModel extends module
         } else {
 
             // skin format v0.1
-            sscanf($xml_obj->maker->attrs->date, '%d-%d-%d', $date_obj->y, $date_obj->m, $date_obj->d);
+            if (isset($xml_obj->maker->attrs->date)) {
+                list ($y, $m, $d) = sscanf($xml_obj->maker->attrs->date, '%d-%d-%d');
+                $skin_info->date = sprintf('%04d%02d%02d', $y, $m, $d);
+            }
+            else {
+                $skin_info->date = null;
+            }
 
-            $skin_info->version = $xml_obj->version->body;
-            $skin_info->date = sprintf('%04d%02d%02d', $date_obj->y, $date_obj->m, $date_obj->d);
-            $skin_info->homepage = $xml_obj->link->body;
-            $skin_info->license = $xml_obj->license->body;
-            $skin_info->license_link = $xml_obj->license->attrs->link;
-            $skin_info->description = $xml_obj->maker->description->body;
+            $skin_info->version = isset($xml_obj->version->body) ? $xml_obj->version->body : null;
 
-            $skin_info->author[0]->name = $xml_obj->maker->name->body;
-            $skin_info->author[0]->email_address = $xml_obj->maker->attrs->email_address;
-            $skin_info->author[0]->homepage = $xml_obj->maker->attrs->link;
+            $skin_info->homepage = isset($xml_obj->link->body) ? $xml_obj->link->body : null;
+            $skin_info->license = isset($xml_obj->license->body) ? $xml_obj->license->body : null;
+            $skin_info->license_link = isset($xml_obj->license->attrs->link) ? $xml_obj->license->attrs->link : null;
+            $skin_info->description = isset($xml_obj->maker->description->body) ? $xml_obj->maker->description->body : null;
+            $skin_info->author = array();
+            $skin_info->author[0] = new stdClass();
+            $skin_info->author[0]->name = isset($xml_obj->maker->name->body) ? $xml_obj->maker->name->body : null;
+            $skin_info->author[0]->email_address = isset($xml_obj->maker->attrs->email_address) ? $xml_obj->maker->attrs->email_address : null;
+            $skin_info->author[0]->homepage = isset($xml_obj->maker->attrs->link) ? $xml_obj->maker->attrs->link : null;
             // Variables used in the skin
-            $extra_var_groups = $xml_obj->extra_vars->group;
+            $extra_var_groups = isset($xml_obj->extra_vars->group) ? $xml_obj->extra_vars->group : null;
             if (!$extra_var_groups) {
-                $extra_var_groups = $xml_obj->extra_vars;
+                $extra_var_groups = isset($xml_obj->extra_vars) ? $xml_obj->extra_vars : array();
             }
             if (!is_array($extra_var_groups)) {
                 $extra_var_groups = array($extra_var_groups);
@@ -1504,6 +1519,7 @@ class moduleModel extends module
      **/
     function getModuleCategories($moduleCategorySrl = array())
     {
+        $args = new stdClass();
         $args->moduleCategorySrl = $moduleCategorySrl;
         // Get data from the DB
         $output = executeQuery('module.getModuleCategories', $args);
@@ -1530,6 +1546,7 @@ class moduleModel extends module
     function getModuleCategory($module_category_srl)
     {
         // Get data from the DB
+        $args = new stdClass();
         $args->module_category_srl = $module_category_srl;
         $output = executeQuery('module.getModuleCategory', $args);
         if (!$output->toBool()) {

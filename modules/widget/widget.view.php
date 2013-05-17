@@ -55,7 +55,7 @@
         function dispWidgetGenerateCode() {
             // Wanted widget is selected information
             $oWidgetModel = &getModel('widget');
-
+            $args = new stdClass();
             $widget_list = $oWidgetModel->getDownloadedWidgetList();
             $selected_widget = Context::get('selected_widget');
             if(!$selected_widget) $selected_widget = $widget_list[0]->widget;

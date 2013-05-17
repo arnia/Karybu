@@ -149,9 +149,13 @@
          * @brief Add a component to DB
          **/
         function insertComponent($component_name, $enabled = false, $site_srl = 0) {
-            if($enabled) $enabled = 'Y';
-            else $enabled = 'N';
-
+            if($enabled) {
+                $enabled = 'Y';
+            }
+            else {
+                $enabled = 'N';
+            }
+            $args = new stdClass();
             $args->component_name = $component_name;
             $args->enabled = $enabled;
             $args->site_srl = $site_srl;

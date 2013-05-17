@@ -166,10 +166,13 @@
 		 * @return array Returns array contains pacakge information. If no result returns empty array.
 		 */
         function getInstalledPackages($package_list) {
+            $args = new stdClass();
             $args->package_list = $package_list;
             $output = executeQueryArray("autoinstall.getInstalledPackages", $args);
             $result = array();
-            if(!$output->data) return $result;
+            if(empty($output->data)) {
+                return $result;
+            }
             foreach($output->data as $value)
             {
                 $result[$value->package_srl] = $value;
@@ -279,15 +282,14 @@
 
 			if(substr($path,-1) == '/') $path = substr($path, 0, strlen($path)-1);
 
-			if (!$GLOBLAS['XE_AUTOINSTALL_PACKAGE_SRL_BY_PATH'][$path])
-			{
+			if (empty($GLOBALS['XE_AUTOINSTALL_PACKAGE_SRL_BY_PATH'][$path])){
+                $args = new stdClass();
 				$args->path = $path;
 				$output = executeQuery('autoinstall.getPackageSrlByPath', $args);
-
-				$GLOBLAS['XE_AUTOINSTALL_PACKAGE_SRL_BY_PATH'][$path] = $output->data->package_srl;
+                $GLOBALS['XE_AUTOINSTALL_PACKAGE_SRL_BY_PATH'][$path] = isset($output->data->package_srl) ? $output->data->package_srl : null;
 			}
 
-			return $GLOBLAS['XE_AUTOINSTALL_PACKAGE_SRL_BY_PATH'][$path];
+			return $GLOBALS['XE_AUTOINSTALL_PACKAGE_SRL_BY_PATH'][$path];
 		}
 
 		/**
@@ -299,7 +301,9 @@
 		function getRemoveUrlByPackageSrl($packageSrl)
 		{
             $ftp_info =  Context::getFTPInfo();
-            if (!$ftp_info->ftp_root_path) return;
+            if (empty($ftp_info->ftp_root_path)) {
+                return;
+            }
 			
 			if (!$packageSrl) return;
 
@@ -317,7 +321,9 @@
 			if (!$path) return;
 
             $ftp_info =  Context::getFTPInfo();
-            if (!$ftp_info->ftp_root_path) return;
+            if (empty($ftp_info->ftp_root_path)) {
+                return;
+            }
 
 			$packageSrl = $this->getPackageSrlByPath($path);
 			if (!$packageSrl) return;

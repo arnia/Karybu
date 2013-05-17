@@ -403,7 +403,7 @@ class editorController extends editor
     function makeCache($filter_enabled = true, $site_srl)
     {
         $oEditorModel = & getModel('editor');
-
+        $args = new stdClass();
         if ($filter_enabled) {
             $args->enabled = "Y";
         }
@@ -487,7 +487,7 @@ class editorController extends editor
                     }
                 }
             }
-
+            $component_list = new stdClass();
             $component_list->{$component_name} = $xml_info;
             // Get buttons, icons, images
             $icon_file = _KARYBU_PATH_ . 'modules/editor/components/' . $component_name . '/icon.gif';
@@ -515,7 +515,7 @@ class editorController extends editor
                 continue;
             }
             // Pass if configured
-            if ($component_list->{$component_name}) {
+            if (empty($component_list->{$component_name})) {
                 continue;
             }
             // Insert data into the DB

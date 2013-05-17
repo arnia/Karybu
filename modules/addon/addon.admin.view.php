@@ -56,8 +56,10 @@
             // Get a mid list
             $oModuleModel = &getModel('module');
             $oModuleAdminModel = &getAdminModel('module');
-
-            if($site_module_info->site_srl) $args->site_srl = $site_module_info->site_srl;
+            $args = new stdClass();
+            if($site_module_info->site_srl) {
+                $args->site_srl = $site_module_info->site_srl;
+            }
 			$columnList = array('module_srl', 'module_category_srl', 'mid', 'browser_title');
             $mid_list = $oModuleModel->getMidList($args, $columnList);
             // module_category and module combination

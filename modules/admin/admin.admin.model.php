@@ -220,7 +220,7 @@
             if(!$_xml_obj->theme) return;
 
             $xml_obj = $_xml_obj->theme;
-
+            $theme_info = new stdClass();
             $theme_info->name = $theme_name;
             $theme_info->title = $xml_obj->title->body;
 			$thumbnail = 'themes/'.$theme_name.'/thumbnail.png';
@@ -231,11 +231,16 @@
 			$theme_info->description = $xml_obj->description->body;
 			$theme_info->path = './themes/'.$theme_name.'/';
 
-			if(!is_array($xml_obj->publisher)) $publisher_list[] = $xml_obj->publisher;
-			else $publisher_list = $xml_obj->publisher;
+			if(!is_array($xml_obj->publisher)) {
+                $publisher_list[] = $xml_obj->publisher;
+            }
+			else {
+                $publisher_list = $xml_obj->publisher;
+            }
 
 			foreach($publisher_list as $publisher) {
 				unset($publisher_obj);
+                $publisher_obj = new stdClass();
 				$publisher_obj->name = $publisher->name->body;
 				$publisher_obj->email_address = $publisher->attrs->email_address;
 				$publisher_obj->homepage = $publisher->attrs->link;
@@ -245,15 +250,14 @@
 			$layout = $xml_obj->layout;
 			$layout_path = $layout->directory->attrs->path;
 			$layout_parse = explode('/',$layout_path);
+            $layout_info = new stdClass();
 			switch($layout_parse[1]){
-				case 'themes' : {
-									$layout_info->name = $theme_name.'|@|'.$layout_parse[count($layout_parse)-1];
-									break;
-								}
-				case 'layouts' : {
-									$layout_info->name = $layout_parse[count($layout_parse)-1];
-									 break;
-								}
+				case 'themes' :
+                    $layout_info->name = $theme_name.'|@|'.$layout_parse[count($layout_parse)-1];
+					break;
+				case 'layouts' :
+                    $layout_info->name = isset($layout_parse[count($layout_parse)-1]) ? $layout_parse[count($layout_parse)-1] : null;
+					break;
 			}
 			$layout_info->title = $layout_parse[count($layout_parse)-1];
 			$layout_info->path = $layout_path;
@@ -289,35 +293,42 @@
 
 			$theme_info->layout_info = $layout_info;
 
-			$skin_infos = $xml_obj->skininfos;
-			if(is_array($skin_infos->skininfo))$skin_list = $skin_infos->skininfo;
-			else $skin_list = array($skin_infos->skininfo);
-
+			$skin_infos = isset($xml_obj->skininfos) ? $xml_obj->skininfos : null;
+            if (isset($skin_infos->skininfo)) {
+                if(is_array($skin_infos->skininfo)){
+                    $skin_list = $skin_infos->skininfo;
+                }
+                else {
+                    $skin_list = array($skin_infos->skininfo);
+                }
+            }
+            else{
+                $skin_list = array();
+            }
 			$oModuleModel = &getModel('module');
 			$skins = array();
 			foreach($skin_list as $val){
 				unset($skin_info);
 				unset($skin_parse);
+                $skin_info = new stdClass();
 				$skin_parse = explode('/',$val->directory->attrs->path);
 				switch($skin_parse[1]){
-					case 'themes' : {
-										$is_theme = true;
-										$module_name = $skin_parse[count($skin_parse)-1];
-										$skin_info->name = $theme_name.'|@|'.$module_name;
-										break;
-									}
-					case 'modules' : {
-										$is_theme = false;
-										 $module_name = $skin_parse[2];
-										 $skin_info->name = $skin_parse[count($skin_parse)-1];
-										 break;
-									}
+					case 'themes' :
+                        $is_theme = true;
+						$module_name = $skin_parse[count($skin_parse)-1];
+						$skin_info->name = $theme_name.'|@|'.$module_name;
+						break;
+					case 'modules' :
+                        $is_theme = false;
+						$module_name = $skin_parse[2];
+						$skin_info->name = $skin_parse[count($skin_parse)-1];
+						break;
 				}
 				$skin_info->path = $val->directory->attrs->path;
 				$skins[$module_name] = $skin_info;
 
 				if ($is_theme){
-					if (!$GLOBALS['__ThemeModuleSkin__'][$module_name]){
+					if (empty($GLOBALS['__ThemeModuleSkin__'][$module_name])){
 						$GLOBALS['__ThemeModuleSkin__'][$module_name] = array();
 						$GLOBALS['__ThemeModuleSkin__'][$module_name]['skins'] = array();
 						$moduleInfo = $oModuleModel->getModuleInfoXml($module_name);
@@ -337,7 +348,9 @@
 		 * @return array
 		 */
 		function getModulesSkinList(){
-			if ($GLOBALS['__ThemeModuleSkin__']['__IS_PARSE__']) return $GLOBALS['__ThemeModuleSkin__'];
+			if (isset($GLOBALS['__ThemeModuleSkin__']['__IS_PARSE__'])) {
+                return $GLOBALS['__ThemeModuleSkin__'];
+            }
             $searched_list = FileHandler::readDir('./modules');
             sort($searched_list);
 
@@ -351,7 +364,7 @@
 				$skin_list = $oModuleModel->getSkins('./modules/'.$val);
 
 				if (is_array($skin_list) && count($skin_list) > 0 && !in_array($val, $exceptionModule)){
-					if(!$GLOBALS['__ThemeModuleSkin__'][$val]){
+					if(empty($GLOBALS['__ThemeModuleSkin__'][$val])){
 						$GLOBALS['__ThemeModuleSkin__'][$val] = array();
 						$moduleInfo = $oModuleModel->getModuleInfoXml($val);
 						$GLOBALS['__ThemeModuleSkin__'][$val]['title'] = $moduleInfo->title;

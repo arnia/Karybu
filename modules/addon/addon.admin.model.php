@@ -43,7 +43,7 @@
 
 				// get easyinstall need update
 				$package = $oAutoinstallModel->getInstalledPackages($packageSrl);
-				$addonList[$key]->need_update = $package[$packageSrl]->need_update;
+				$addonList[$key]->need_update = isset($package[$packageSrl]->need_update) ? $package[$packageSrl]->need_update : null;
 
 				// get easyinstall update url
 				if ($addonList[$key]->need_update == 'Y')
@@ -115,10 +115,14 @@
         function getAddonInfoXml($addon, $site_srl = 0, $gtype = 'site') {
             // Get a path of the requested module. Return if not exists.
             $addon_path = $this->getAddonPath($addon);
-            if(!$addon_path) return;
+            if(!$addon_path) {
+                return;
+            }
             // Read the xml file for module skin information
             $xml_file = sprintf("%sconf/info.xml", $addon_path);
-            if(!file_exists($xml_file)) return;
+            if(!file_exists($xml_file)) {
+                return;
+            }
 
             $oXmlParser = new XmlParser();
             $tmp_xml_obj = $oXmlParser->loadXmlFile($xml_file);
@@ -128,127 +132,187 @@
 
 
             // DB is set to bring history
+            $db_args = new stdClass();
             $db_args->addon = $addon;
             if($gtype == 'global') $output = executeQuery('addon.getAddonInfo',$db_args);
             else {
                 $db_args->site_srl = $site_srl;
                 $output = executeQuery('addon.getSiteAddonInfo',$db_args);
             }
-            $extra_vals = unserialize($output->data->extra_vars);
-
-            if($extra_vals->mid_list) {
+            if (!empty($output->data->extra_vars)) {
+                $extra_vals = @unserialize($output->data->extra_vars);
+            }
+            else {
+                $extra_vals = new stdClass();
+            }
+            $addon_info = new stdClass();
+            if(!empty($extra_vals->mid_list)) {
                 $addon_info->mid_list = $extra_vals->mid_list;
             } else {
                 $addon_info->mid_list = array();
             }
 
-			if($extra_vals->xe_run_method)
+			if(!empty($extra_vals->xe_run_method))
 			{
 				$addon_info->xe_run_method = $extra_vals->xe_run_method;
 			}
 
 
             // Add information
-            if($xml_obj->version && $xml_obj->attrs->version == '0.2') {
+            if(!empty($xml_obj->version) && !empty($xml_obj->attrs->version) && $xml_obj->attrs->version == '0.2') {
                 // addon format v0.2
-                sscanf($xml_obj->date->body, '%d-%d-%d', $date_obj->y, $date_obj->m, $date_obj->d);
-                $addon_info->date = sprintf('%04d%02d%02d', $date_obj->y, $date_obj->m, $date_obj->d);
+                if (isset($xml_obj->date->body)) {
+                    list($y, $m, $d) = sscanf($xml_obj->date->body, '%d-%d-%d');
+                    $addon_info->date = sprintf('%04d%02d%02d', $y, $m, $d);
+                }
+                else {
+                    $addon_info->date = null;
+                }
 
                 $addon_info->addon_name = $addon;
-                $addon_info->title = $xml_obj->title->body;
-                $addon_info->description = trim($xml_obj->description->body);
-                $addon_info->version = $xml_obj->version->body;
-                $addon_info->homepage = $xml_obj->link->body;
-                $addon_info->license = $xml_obj->license->body;
-                $addon_info->license_link = $xml_obj->license->attrs->link;
-
-                if(!is_array($xml_obj->author)) $author_list[] = $xml_obj->author;
-                else $author_list = $xml_obj->author;
-
+                $addon_info->title = isset($xml_obj->title->body) ? $xml_obj->title->body : '';
+                $addon_info->description = isset($xml_obj->description->body) ? trim($xml_obj->description->body) : null;
+                $addon_info->version = isset($xml_obj->version->body) ? $xml_obj->version->body : null;
+                $addon_info->homepage = isset($xml_obj->link->body) ? $xml_obj->link->body : null;
+                $addon_info->license = isset($xml_obj->license->body) ? $xml_obj->license->body : null;
+                $addon_info->license_link = isset($xml_obj->license->attrs->link) ? $xml_obj->license->attrs->link : null;
+                if (isset($xml_obj->author)) {
+                    if(!is_array($xml_obj->author)) {
+                        $author_list[] = $xml_obj->author;
+                    }
+                    else {
+                        $author_list = $xml_obj->author;
+                    }
+                }
+                else {
+                    $author_list = array();
+                }
+                $addon_info->author = array();
                 foreach($author_list as $author) {
                     unset($author_obj);
-                    $author_obj->name = $author->name->body;
-                    $author_obj->email_address = $author->attrs->email_address;
-                    $author_obj->homepage = $author->attrs->link;
+                    $author_obj = new stdClass();
+                    $author_obj->name = isset($author->name->body) ? $author->name->body : null;
+                    $author_obj->email_address = isset($author->attrs->email_address) ? $author->attrs->email_address : null;
+                    $author_obj->homepage = isset($author->attrs->link) ? $author->attrs->link : null;
                     $addon_info->author[] = $author_obj;
                 }
 
                 // Expand the variable order
-                if($xml_obj->extra_vars) {
-                    $extra_var_groups = $xml_obj->extra_vars->group;
-                    if(!$extra_var_groups) $extra_var_groups = $xml_obj->extra_vars;
-                    if(!is_array($extra_var_groups)) $extra_var_groups = array($extra_var_groups);
+                if(!empty($xml_obj->extra_vars)) {
+                    $extra_var_groups = isset($xml_obj->extra_vars->group) ? $xml_obj->extra_vars->group : null;
+                    if(!$extra_var_groups) {
+                        $extra_var_groups = $xml_obj->extra_vars;
+                    }
+                    if(!is_array($extra_var_groups)) {
+                        $extra_var_groups = array($extra_var_groups);
+                    }
 
                     foreach($extra_var_groups as $group) {
-                        $extra_vars = $group->var;
-                        if(!is_array($group->var)) $extra_vars = array($group->var);
+                        $extra_vars = isset($group->var) ? $group->var : null;
+                        if(!is_null($extra_vars) && !is_array($group->var)) {
+                            $extra_vars = array($group->var);
+                        }
+                        if (!is_null($extra_vars)) {
+                            foreach($extra_vars as $key => $val) {
+                                unset($obj);
+                                $obj = new stdClass();
+                                if(empty($val->attrs->type)) {
+                                    $val->attrs->type = 'text';
+                                }
 
-                        foreach($extra_vars as $key => $val) {
-                            unset($obj);
-                            if(!$val->attrs->type) { $val->attrs->type = 'text'; }
+                                $obj->group = isset($group->title->body) ? $group->title->body : null;
+                                $obj->name = isset($val->attrs->name) ? $val->attrs->name : null;
+                                $obj->title = isset($val->title->body) ? $val->title->body : null;
+                                $obj->type = isset($val->attrs->type) ? $val->attrs->type : null;
+                                $obj->description = isset($val->description->body) ? $val->description->body : null;
+                                if($obj->name && isset($extra_vals->{$obj->name})) {
+                                    $obj->value = $extra_vals->{$obj->name};
+                                }
+                                else {
+                                    $obj->value = null;
+                                }
+                                if(strpos($obj->value, '|@|') != false) {
+                                    $obj->value = explode('|@|', $obj->value);
+                                }
+                                if($obj->type == 'mid_list' && !is_array($obj->value)) {
+                                    $obj->value = array($obj->value);
+                                }
 
-                            $obj->group = $group->title->body;
-                            $obj->name = $val->attrs->name;
-                            $obj->title = $val->title->body;
-                            $obj->type = $val->attrs->type;
-                            $obj->description = $val->description->body;
-							if($obj->name)
-							{
-                            	$obj->value = $extra_vals->{$obj->name};
-							}
-                            if(strpos($obj->value, '|@|') != false) { $obj->value = explode('|@|', $obj->value); }
-                            if($obj->type == 'mid_list' && !is_array($obj->value)) { $obj->value = array($obj->value); }
+                                // 'Select'type obtained from the option list.
+                                if(!empty($val->options) && !is_array($val->options))
+                                {
+                                    $val->options = array($val->options);
+                                }
+                                else {
+                                    $val->options = array();
+                                }
+                                if (count($val->options)) {
+                                    $obj->options = array();
+                                }
+                                for($i = 0, $c = count($val->options); $i < $c; $i++) {
+                                    $obj->options[$i] = new stdClass();
+                                    $obj->options[$i]->title = $val->options[$i]->title->body;
+                                    $obj->options[$i]->value = $val->options[$i]->attrs->value;
+                                }
 
-                            // 'Select'type obtained from the option list.
-                            if($val->options && !is_array($val->options))
-							{
-								$val->options = array($val->options);
-							}
-
-							for($i = 0, $c = count($val->options); $i < $c; $i++) {
-								$obj->options[$i]->title = $val->options[$i]->title->body;
-								$obj->options[$i]->value = $val->options[$i]->attrs->value;
-							}
-
-                            $addon_info->extra_vars[] = $obj;
+                                $addon_info->extra_vars[] = $obj;
+                            }
                         }
                     }
                 }
 
                 // history
-                if($xml_obj->history) {
-                    if(!is_array($xml_obj->history)) $history[] = $xml_obj->history;
-                    else $history = $xml_obj->history;
+                if(!empty($xml_obj->history)) {
+                    if(!is_array($xml_obj->history)) {
+                        $history[] = $xml_obj->history;
+                    }
+                    else {
+                        $history = $xml_obj->history;
+                    }
 
                     foreach($history as $item) {
                         unset($obj);
-
-                        if($item->author) {
-                            (!is_array($item->author)) ? $obj->author_list[] = $item->author : $obj->author_list = $item->author;
-
-                            foreach($obj->author_list as $author) {
-                                unset($author_obj);
-                                $author_obj->name = $author->name->body;
-                                $author_obj->email_address = $author->attrs->email_address;
-                                $author_obj->homepage = $author->attrs->link;
-                                $obj->author[] = $author_obj;
+                        $obj = new stdClass();
+                        if(!empty($item->author)) {
+                            if (!is_array($item->author)) {
+                                $obj->author_list[] = $item->author;
+                            }
+                            else {
+                                $obj->author_list = $item->author;
+                            }
+                            if (count($obj->author_list)) {
+                                $obj->author[] = array();
+                                foreach($obj->author_list as $author) {
+                                    unset($author_obj);
+                                    $author_obj = new stdClass();
+                                    $author_obj->name = isset($author->name->body) ? $author->name->body : null;
+                                    $author_obj->email_address = isset($author->attrs->email_address) ? $author->attrs->email_address : null;
+                                    $author_obj->homepage = isset($author->attrs->link) ? $author->attrs->link : null;
+                                    $obj->author[] = $author_obj;
+                                }
                             }
                         }
 
-                        $obj->name = $item->name->body;
-                        $obj->email_address = $item->attrs->email_address;
-                        $obj->homepage = $item->attrs->link;
-                        $obj->version = $item->attrs->version;
-                        $obj->date = $item->attrs->date;
-                        $obj->description = $item->description->body;
+                        $obj->name = isset($item->name->body) ? $item->name->body : null;
+                        $obj->email_address = isset($item->attrs->email_address) ? $item->attrs->email_address : null;
+                        $obj->homepage = isset($item->attrs->link) ? $item->attrs->link : null;
+                        $obj->version = isset($item->attrs->version) ? $item->attrs->version : null;
+                        $obj->date = isset($item->attrs->date) ? $item->attrs->date : null;
+                        $obj->description = isset($item->description->body) ? $item->description->body : null;
 
-                        if($item->log) {
-                            (!is_array($item->log)) ? $obj->log[] = $item->log : $obj->log = $item->log;
+                        if(!empty($item->log)) {
+                            if (!is_array($item->log)) {
+                                $obj->log[] = $item->log;
+                            }
+                            else {
+                                $obj->log = $item->log;
+                            }
 
                             foreach($obj->log as $log) {
                                 unset($log_obj);
-                                $log_obj->text = $log->body;
-                                $log_obj->link = $log->attrs->link;
+                                $log_obj = new stdClass();
+                                $log_obj->text = isset($log->body) ? $log->body : null;
+                                $log_obj->link = isset($log->attrs->link) ? $log->attrs->link : null;
                                 $obj->logs[] = $log_obj;
                             }
                         }

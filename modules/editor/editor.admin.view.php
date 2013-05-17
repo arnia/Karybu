@@ -26,14 +26,28 @@
             $oEditorModel = &getModel('editor');
 			$oModuleModel = &getModel('module');
 			$editor_config = $oModuleModel->getModuleConfig('editor');		
-
+            if (!is_object($editor_config)) {
+                $editor_config= new stdClass();
+            }
 			//editor_config init
-			if(!$editor_config->editor_height) $editor_config->editor_height = 400;
-                        if(!$editor_config->comment_editor_height) $editor_config->comment_editor_height = 100;
-			if(!$editor_config->editor_skin) $editor_config->editor_skin = 'ckeditor';
-			if(!$editor_config->comment_editor_skin) $editor_config->comment_editor_skin = 'ckeditor';
-			if(!$editor_config->sel_editor_colorset) $editor_config->sel_editor_colorset= 'default';
-			if(!$editor_config->sel_comment_editor_colorset) $editor_config->sel_comment_editor_colorset= 'default';
+			if(empty($editor_config->editor_height)) {
+                $editor_config->editor_height = 400;
+            }
+            if(empty($editor_config->comment_editor_height)) {
+                $editor_config->comment_editor_height = 100;
+            }
+			if(empty($editor_config->editor_skin)) {
+                $editor_config->editor_skin = 'ckeditor';
+            }
+			if(empty($editor_config->comment_editor_skin)) {
+                $editor_config->comment_editor_skin = 'ckeditor';
+            }
+			if(empty($editor_config->sel_editor_colorset)) {
+                $editor_config->sel_editor_colorset= 'default';
+            }
+			if(empty($editor_config->sel_comment_editor_colorset)) {
+                $editor_config->sel_comment_editor_colorset= 'default';
+            }
             
 			$component_list = $oEditorModel->getComponentList(false, $site_srl, true);			
 			$editor_skin_list = FileHandler::readDir(_KARYBU_PATH_.'modules/editor/skins');
@@ -41,9 +55,11 @@
 			$skin_info = $oModuleModel->loadSkinInfo($this->module_path,$editor_config->editor_skin);
 			
 			$contents = FileHandler::readDir(_KARYBU_PATH_.'modules/editor/styles');
+            $content_style_list = array();
             for($i=0,$c=count($contents);$i<$c;$i++) {
                 $style = $contents[$i];
                 $info = $oModuleModel->loadSkinInfo($this->module_path,$style,'styles');
+                $content_style_list[$style] = new stdClass();
                 $content_style_list[$style]->title = $info->title;
             }			
 			
@@ -54,13 +70,19 @@
 				$xml_info->path = './modules/editor/components/'.$xml_info->component_name;				
 				$xml_info->delete_url = $oAutoinstallModel->getRemoveUrlByPath($xml_info->path);								
 				$xml_info->package_srl = $oAutoinstallModel->getPackageSrlByPath($xml_info->path);
-				if($xml_info->package_srl) $targetpackages[$xml_info->package_srl] = 0;
+				if($xml_info->package_srl) {
+                    $targetpackages[$xml_info->package_srl] = 0;
+                }
             }	
 			
-			if(is_array($targetpackages))	$packages = $oAutoinstallModel->getInstalledPackages(array_keys($targetpackages));			
+			if(isset($targetpackages) && is_array($targetpackages))	{
+                $packages = $oAutoinstallModel->getInstalledPackages(array_keys($targetpackages));
+            }
 			
 			foreach($component_list as $component_name => $xml_info) {
-				if($packages[$xml_info->package_srl])	$xml_info->need_update = $packages[$xml_info->package_srl]->need_update;
+				if(!empty($packages[$xml_info->package_srl])) {
+                    $xml_info->need_update = isset($packages[$xml_info->package_srl]->need_update) ? $packages[$xml_info->package_srl]->need_update : null;
+                }
 			}
 			$editor_config_default = array( "editor_height" => "400", "comment_editor_height" => "100","content_font_size"=>"12");
 			
