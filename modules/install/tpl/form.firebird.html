@@ -1,24 +1,52 @@
 <load target="js/install_admin.js" />
 <include target="header.html" />
 
-<div id="content">
+<div id="_content">
     <div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <p>{$XE_VALIDATOR_MESSAGE}</p>
     </div>
-    <form rule="firebird" action="./" method="post">
-    <input type="hidden" value="{getUrl('', 'act', $act, 'db_type', $db_type)}" name="error_return_url">
+    <form rule="firebird" action="./" method="post" class="form form-horizontal">
+    <input type="hidden" value="{getUrl('', 'act', $act, 'db_type', $db_type)}" name="error_return_url" />
     <input type="hidden" name="act" value="procFirebirdDBSetting" />
     <input type="hidden" name="db_type" value="{$db_type}" />
         <h2>{$db_type}</h2>
-        <ul class="formDbInfo unstyled">
-            <li><label for="dbHostName">{$lang->db_hostname}</label><input name="db_hostname" value="localhost" type="text" class="iText" id="dbHostName" /></li>
-            <li><label for="dbPort">{$lang->db_port}</label><input name="db_port" value="3306" type="text" class="iText" id="dbPort" /></li>
-            <li><label for="dbId">{$lang->db_userid}</label><input name="db_userid" type="text" class="iText" id="dbId" /></li>
-            <li><label for="dbPw">{$lang->db_password}</label><input name="db_password" type="password" class="iText" id="dbPw" /></li>
-            <li><label for="dbName">{$lang->db_database}</label><input name="db_database" type="text" class="iText" id="dbName" /></li>
-            <li><label for="dbPrefix">{$lang->db_table_prefix}</label><input name="db_table_prefix" type="text" class="iText" id="dbPrefix" value="k" /></li>
-        </ul>
+        <div class="control-group">
+            <label for="dbHostName" class="control-label">{$lang->db_hostname}</label>
+            <div class="controls">
+                <input name="db_hostname" value="localhost" type="text" class="iText" id="dbHostName" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="dbPort" class="control-label">{$lang->db_port}</label>
+            <div class="controls">
+                <input name="db_port" value="3306" type="text" class="iText" id="dbPort" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="dbId" class="control-label">{$lang->db_userid}</label>
+            <div class="controls">
+                <input name="db_userid" type="text" class="iText" id="dbId" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="dbPw" class="control-label">{$lang->db_password}</label>
+            <div class="controls">
+                <input name="db_password" type="password" class="iText" id="dbPw" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="dbName" class="control-label">{$lang->db_database}</label>
+            <div class="controls">
+                <input name="db_database" type="text" class="iText" id="dbName" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="dbPrefix" class="control-label">{$lang->db_table_prefix}</label>
+            <div class="controls">
+                <input name="db_table_prefix" value="k" type="text" class="iText" id="dbPrefix" />
+            </div>
+        </div>
         <div class="help-block">{$lang->db_info_desc}</div>
         <div>
             <div class="pull-left">

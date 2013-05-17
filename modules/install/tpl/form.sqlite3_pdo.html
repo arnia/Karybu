@@ -1,20 +1,29 @@
 <load target="js/install_admin.js" />
 <include target="header.html" />
 
-<div id="content">
+<div id="_content">
     <div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <p>{$XE_VALIDATOR_MESSAGE}</p>
     </div>
-    <form rule="sqlite" action="./" method="post">
-    <input type="hidden" value="{getUrl('', 'act', $act, 'db_type', $db_type)}" name="error_return_url">
+    <form rule="sqlite" action="./" method="post" class="form form-horizontal">
+    <input type="hidden" value="{getUrl('', 'act', $act, 'db_type', $db_type)}" name="error_return_url" />
     <input type="hidden" name="act" value="procSqliteDBSetting" />
     <input type="hidden" name="db_type" value="{$db_type}" />
         <h2>{$db_type}</h2>
-        <ul class="formDbInfo unstyled">
-            <li><label for="dbDatabaseFile">{$lang->db_database_file}</label><input name="db_database" value="./files/karybu.sqlite" type="text" class="iText" id="dbDatabaseFile" /><p>{$lang->about_database_file}</p></li>
-            <li><label for="dbPrefix">{$lang->db_table_prefix}</label><input name="db_table_prefix" type="text" class="iText" id="dbPrefix" value="k" /></li>
-        </ul>
+        <div class="control-group">
+            <label for="dbDatabaseFile" class="control-label">{$lang->db_database_file}</label>
+            <div class="controls">
+                <input name="db_database" value="./files/karybu.sqlite"  type="text" class="iText" id="dbDatabaseFile" />
+                <p>{$lang->about_database_file}</p>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="dbPrefix" class="control-label">{$lang->db_table_prefix}</label>
+            <div class="controls">
+                <input name="db_table_prefix" value="k"  type="text" class="iText" id="dbPrefix" />
+            </div>
+        </div>
         <div class="help-block">{$lang->db_info_desc}</div>
         <div>
             <div class="pull-left">

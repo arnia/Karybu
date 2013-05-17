@@ -5,15 +5,38 @@
     <div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
         <p>{$XE_VALIDATOR_MESSAGE}</p>
     </div>
-    <form rule="install" action="./" method="post">
+    <form rule="install" action="./" method="post" class="form form-horizontal">
     <input type="hidden" name="act" value="procInstall" />
-        <ul class="formAdmin unstyled">
-            <li><label for="aMail">{$lang->email_address}</label><input name="email_address" type="text" class="iText" id="aMail" /></li>
-            <li><label for="aPw1">{$lang->password1}</label><input name="password" type="password" class="iText" id="aPw1" /></li>
-            <li><label for="aPw2">{$lang->password2}</label><input name="password2" type="password" class="iText" id="aPw2" /></li>
-            <li><label for="aId">{$lang->user_id}</label><input name="user_id" type="text" value="admin" class="iText" id="aId" /></li>
-            <li><label for="aNick">{$lang->nick_name}</label><input name="nick_name" type="text" class="iText" id="aNick" /></li>
-        </ul>
+        <div class="control-group">
+            <label for="aMail" class="control-label">{$lang->email_address}</label>
+            <div class="controls">
+                <input name="email_address" type="text" class="iText" id="aMail" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="aPw1" class="control-label">{$lang->password1}</label>
+            <div class="controls">
+                <input name="password" type="password" class="iText" id="aPw1" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="aPwd" class="control-label">{$lang->password2}</label>
+            <div class="controls">
+                <input name="password2" type="password" class="iText" id="aPws" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="aId" class="control-label">{$lang->user_id}</label>
+            <div class="controls">
+                <input name="user_id" type="text" class="iText" id="aId" value="admin" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="aNick" class="control-label">{$lang->nick_name}</label>
+            <div class="controls">
+                <input name="nick_name" type="text" class="iText" id="aNick" />
+            </div>
+        </div>
         <div class="help-block">
             <p>{$lang->install_notandum}</p>
         </div>
