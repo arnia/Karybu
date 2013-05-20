@@ -304,7 +304,7 @@ a.swatch.hover {
 
 
 .swatch .corner {
-    border-top:10px solid #d5e0e9;
+    border-top:10px dashed #d5e0e9;
     border-left:10px solid transparent;
     width:0px;
     height:10px;
@@ -1690,3 +1690,14 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 }
 
 .x .btnArea.padding { padding: 20px; border-top: 1px solid #ddd}
+
+
+/* FIREFOX RESETS */
+
+button:active,
+button:focus {
+    border: none;
+    outline:none;
+    -mox-box-shadow:none;
+    box-shadow:none;
+}

@@ -581,12 +581,6 @@ ul.nav-tabs {
     border-radius:0;
 }
 
-.main-nav .navbar .nav > .active,
-.main-nav .navbar .nav > .active,
-.main-nav .navbar .nav > .active {
-background-image: url('../img/main-nav-cursor.png');
-background-position: 50% 100%;
-background-repeat: no-repeat;}
 
 .main-nav .nav-tabs .open .dropdown-toggle,
 .main-nav .nav-pills .open .dropdown-toggle,
