@@ -91,18 +91,6 @@
     }
 
     /**
-     * Dashboard visitors graph
-     */
-    function kDashboardGraph() {}
-    kDashboardGraph.initialize = function(){
-        $("#chart").attr('width',$("#chart-container").width());
-        RGraph.Redraw();
-    };
-    kDashboardGraph.redraw = function() {
-        kDashboardGraph.initialize();
-    }
-
-    /**
      * Main navigation scrollbars
      */
     function kMainNav() {}
@@ -209,8 +197,6 @@
         kSitemapNav.initializeScrollbar();
         kActionsNav.initializeScrollbar();
 
-        kDashboardGraph.initialize();
-
         if (hasNav()){
             $('body').addClass('kBigHeader')
         }
@@ -222,7 +208,6 @@
             initializeScreenResolution();
 
             kAdminContentArea.updateHeight();
-            kDashboardGraph.redraw();
 
             if (isSmallScreen()) {
                 kActionsNav.makeHorizontal();

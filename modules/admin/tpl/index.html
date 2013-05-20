@@ -102,14 +102,14 @@
                             {@$document = $value->variables}
                             <li>
                                 <a href="{getUrl('', 'document_srl', $document['document_srl'])}" target="_blank"><!--@if(trim($value->getTitle()))-->{$value->getTitle()}<!--@else--><strong>{$lang->no_title_document}</strong><!--@end--></a> <span class="label label-info pull-right">{$document['nick_name']}</span>
-                                <form class="kActionIcons" action="./" method="post" onsubmit="return confirm('{$lang->are_you_sure}')" id="latest_documents">
+                                <form class="kActionIcons latest_documents" action="./" method="post" onsubmit="return confirm('{$lang->are_you_sure}')">
                                     <input type="hidden" name="module" value="admin" />
                                     <input type="hidden" name="act" value="procDocumentManageCheckedDocument" />
                                     <input type="hidden" name="cart[]" value="{$document['document_srl']}" />
                                     <input type="hidden" name="success_return_url" value="{getUrl('', 'module', 'admin')}" />
                                     <input type="hidden" name="type" value="" />
-                                    <a class="clear" data-toggle="tooltip" title="{$lang->cmd_trash}" id="trash_document"><i class="kDelete">{$lang->cmd_trash}</i></a>
-                                    <a class="clear" data-toggle="tooltip" title="{$lang->cmd_delete}" id="delete_document"><i class="kErase">{$lang->cmd_delete}</i></a>
+                                    <a class="clear trash_document" data-toggle="tooltip" title="{$lang->cmd_trash}"><i class="kDelete">{$lang->cmd_trash}</i></a>
+                                    <a class="clear delete_document" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kErase">{$lang->cmd_delete}</i></a>
                                 </form>
                             </li>
                             <!--@end-->
