@@ -307,7 +307,7 @@ a.swatch.hover {
     border-top:10px dashed #d5e0e9;
     border-left:10px solid transparent;
     width:0px;
-    height:10px;
+    height:0px;
     float:right;
     margin-top:-20px;
     margin-right:-20px;
