@@ -416,6 +416,8 @@ footer {
 .btn.image-holder img {
     border-radius: 4px;
     opacity: .8;
+    -webkit-box-shadow: inset 0px 0px 3px 0px rgba(255, 255, 255, 1);
+    box-shadow: inset 0px 0px 3px 0px rgba(255, 255, 255, 1);
 }
 
 a.image-holder:hover img {
@@ -475,7 +477,8 @@ a.image-holder:hover img {
     padding: 0 15px;
 }
 
-.dropdown-menu > li > a:hover {
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li.active > a {
     background: #38b5c8;
     text-shadow: 0px -1px 0px rgba(0,0,0,0.3);
 }
