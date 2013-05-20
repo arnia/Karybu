@@ -161,7 +161,7 @@
 	</item>
 	<item name="invalid_email_address">
 		<value xml:lang="ko"><![CDATA[이메일 주소와 일치하는 회원이 없습니다.]]></value>
-		<value xml:lang="en"><![CDATA[You have entered an invalid email address. There is no member who has the email, entered.]]></value>
+		<value xml:lang="en"><![CDATA[Wrong credentials]]></value>
 	</item>
 	<item name="invalid_user_id">
 		<value xml:lang="ko"><![CDATA[존재하지 않는 회원 아이디입니다.]]></value>

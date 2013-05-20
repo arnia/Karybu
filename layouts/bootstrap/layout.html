@@ -51,9 +51,7 @@
                                 </div>
                             </form>
                             <script type="text/javascript">
-                                jQuery(document).ready(function(){
-
-                                    $ = jQuery;
+                                jQuery(document).ready(function($){
 
                                     var searchForm = $('#searchForm');
                                     var searchButton = $('a.search') ;
@@ -65,11 +63,10 @@
                                             searchForm.focusForm();
                                             $(this).stop(true).animate({
                                                     top: barHeight
-                                                }
+                                                },
+                                                200
                                             );
                                             searchForm.status = true;
-                                        } else {
-                                            searchForm.close();
                                         }
                                     }
 
@@ -78,13 +75,12 @@
                                             $(this).stop(true).animate({
                                                     top: barHeight - $(this).outerHeight()
                                                 },
+                                                200,
                                                 function(){
                                                     $(this).hide();
                                                 }
                                             );
                                             searchForm.status = false;
-                                        } else {
-                                            searchForm.open();
                                         }
                                     }
 
@@ -96,14 +92,31 @@
                                         top: barHeight - searchForm.outerHeight()
                                     });
 
-                                    searchButton.click(function(){
-                                        searchForm.open();
+                                    $(document).keydown(function(e) {
+                                        if (e.keyCode == 27) {
+                                            searchForm.close();
+                                        }
+                                        if (e.keyCode == 70 /* F */ && e.ctrlKey && e.shiftKey) {
+                                            if (searchForm.status) {
+                                                searchForm.close();
+                                            }
+                                            else {
+                                                searchForm.open();
+                                            }
+                                        }
                                     });
 
-                                    // bind ctrl+shift+f event for quick search
-                                    $(document).keypress("f",function(e) {
-                                        if(e.ctrlKey && e.shiftKey) {
+                                    $(document).on('click', function(event) {
+                                        var target = event.target;
+                                        var triggerOpen = ($(target).closest(searchButton).length > 0);
+                                        var triggerClose = (!$(target).closest(searchForm).length && !triggerOpen);
+                                        if (triggerOpen) {
                                             searchForm.open();
+                                        }
+                                        else {
+                                            if (triggerClose) {
+                                                searchForm.close();
+                                            }
                                         }
                                     });
 
