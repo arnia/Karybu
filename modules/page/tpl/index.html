@@ -6,7 +6,7 @@
     <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 
-
+<div class="row-fluid">
 <form action="./" method="get" class="form-inline pull-right">
 	<input type="hidden" name="module" value="{$module}" />
 	<input type="hidden" name="mid" value="{$mid}" />
@@ -20,9 +20,9 @@
             <a href="{getUrl('s_mid','','s_browser_title','','page','')}">{$lang->cmd_cancel}</a>
         </fieldset>
 </form>
+</div>
 
-
-<form action="./" method="get" id="fo_list" class="form-inline" no-error-return-url="true">
+<form action="./" method="get" id="fo_list" class="form" no-error-return-url="true">
 
 <table class="table table-condensed table-bordered table-hover">
     <caption>Total {number_format($total_count)}, Page {number_format($page)}/{number_format($total_page)}</caption>
