@@ -1,18 +1,20 @@
 <load target="../../../../common/js/jquery.min.js" usecdn="true" index="-1000000" xmlns="http://www.w3.org/1999/html"/>
 <load target="./filter/openid_login.xml" />
-<load target="../../../admin/tpl/css/bootstrap.min.css" />
 <load target="../../../admin/tpl/css/admin.css" />
 <load target="./css/message.css" />
-<load target="./message.js" />
 <load target="../../../admin/tpl/js/bootstrap.min.js" />
+<load target="../../../admin/tpl/js/bootstrap-responsive.min.js" />
+<load target="./message.js" />
 
+<div class="container">
 <div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
-<div id="loginAccess" class="gLogin row-fluid">
+</div>
+<div id="loginAccess" class="gLogin">
 	<h3>{$system_message}</h3>
-	<div class="mLogin" id="gLogin" cond="!$is_logged && $module == 'admin'">
+	<div class="mLogin row-fluid" id="gLogin" cond="!$is_logged && $module == 'admin'">
 		<form ruleset="@login" action="{getUrl('','act','procMemberLogin')}" method="post" id="gForm" class="form form-horizontal">
 		<input type="hidden" name="module" value="member" />
 		<input type="hidden" name="act" value="procMemberLogin" />
