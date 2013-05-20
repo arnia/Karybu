@@ -16,7 +16,7 @@
         <fieldset>
 			<input type="text" name="s_mid" value="{htmlspecialchars($s_mid)}"  placeholder="{$lang->mid}" />
 			<input type="text" name="s_browser_title" value="{htmlspecialchars($s_browser_title)}" placeholder="{$lang->browser_title}" />
-            <input type="submit" class="btn" value="{$lang->cmd_search}" />
+            <button type="submit" class="btn">{$lang->cmd_search}</button>
             <a href="{getUrl('s_mid','','s_browser_title','','page','')}">{$lang->cmd_cancel}</a>
         </fieldset>
 </form>

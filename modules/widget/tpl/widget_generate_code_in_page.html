@@ -29,7 +29,7 @@
 					<select name="selected_widget">
 						<option loop="$widget_list => $list_widget_info" value="{$list_widget_info->widget}">{$list_widget_info->title}</option>
 					</select>
-					<input type="submit" value="{$lang->cmd_select}" />
+					<button type="submit">{$lang->cmd_select}</button>
 				</p>
 			</li>
 		</ul>
@@ -56,7 +56,7 @@
 		<include target="widget_generate_code.include.html" />
 
 		<div class="btnArea">
-			<input type="submit" value="{$lang->cmd_generate_code}" class="btn" />
+			<button type="submit" class="btn">{$lang->cmd_generate_code}</button>
 		</div>
 	</form>
 

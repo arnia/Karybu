@@ -11,7 +11,7 @@
 			{@$ftp_link = sprintf('<a href="%s">%s</a>', getUrl('', 'module', 'admin', 'act', 'dispAdminConfigFtp'), $lang->ftp_setup)}
 			{sprintf($lang->description_ftp_note, $ftp_link)}
 		</block>
-		{@$btnUpdate = sprintf('<input type="submit" value="%s" class="btn" />', $lang->status_update)}
+		{@$btnUpdate = sprintf('<button type="submit" class="btn">%s</button>', $lang->status_update)}
 		{sprintf($lang->description_update, $btnUpdate)}
 	</p>
 </form>

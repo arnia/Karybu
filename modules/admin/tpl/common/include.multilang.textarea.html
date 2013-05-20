@@ -17,7 +17,7 @@
 				<li loop="$lang_supported=>$code,$name" class="{$code}"><label for="{$code}_var1">{$name}</label> <textarea id="{$code}_var1" rows="8" cols="42"></textarea></li>
 			</ul>
 			<div class="action">
-	    		<input type="submit" value="{$lang->use}|{$lang->use_after_save}" class="btn btn-primary" />
+	    		<button type="submit" class="btn btn-primary">{$lang->use}|{$lang->use_after_save}</button>
 				<p><a href="{getUrl('act','dispModuleAdminLangcode')}">{$lang->multilingual_manager}</a></p>
 			</div>
 		</div>

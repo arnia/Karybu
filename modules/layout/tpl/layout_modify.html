@@ -182,7 +182,7 @@
 		<!--@else-->
 		<a class="btn" href="{getUrl('', 'module', 'admin', 'act', 'dispLayoutAdminAllInstanceList')}">{$lang->cmd_list}</a>
 		<!--@end-->
-		<input type="submit" class="btn btn-primary" value="{$lang->cmd_save}" onclick="doSubmitConfig()"/>
+		<button type="submit" class="btn btn-primary" onclick="doSubmitConfig()">{$lang->cmd_save}</button>
 	</div>
 
 	<include target="../../admin/tpl/common/include.multilang.html" />

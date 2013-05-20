@@ -45,7 +45,7 @@
 				<input type="password" name="ftp_password" id="ftp_password" value="" /> <span class="help-inline">{$lang->about_ftp_password}</span>
 			</block>
 			<div>
-				<input type="submit" class="btn btn-primary" value="{$package->installed?$lang->update:$lang->install}" />
+				<button type="submit" class="btn btn-primary">{$package->installed?$lang->update:$lang->install}</button>
 			</div>
 		</form>
 	</block>
