@@ -1004,7 +1004,7 @@
         } else if (e.layerX && e.layerY) {
 
             // Give the canvas position if it has none
-            if (!ca.style.position) {
+            if (ca.tagName.toLowerCase() == "canvas" && !ca.style.position) {
                 ca.style.position = 'relative';
                 ca.style.top = 0;
                 ca.style.left = 0;
