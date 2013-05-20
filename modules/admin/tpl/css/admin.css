@@ -10,6 +10,77 @@ body.x {
 
 }
 
+
+h1, h2, h3, h4, h5, h6 {
+    font-family:"Helvetica Neue", Arial, sans-serif;
+    color:#444444;
+    text-shadow:0 1px 0 #ffffff;
+}
+
+
+
+h1 {
+    font-size:27.504pt
+}
+
+h2 {
+    font-size:21.392pt
+}
+
+
+h3 {
+    font-size:16.808pt
+}
+
+#content h3 {
+    border-bottom: 1px solid #ddd;
+}
+
+h4 {
+    font-size:12.224pt
+}
+
+h5 {
+    font-size:10.696pt
+}
+
+h6 {
+    font-size:9.168pt
+}
+
+
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    color:#444444!important;
+}
+
+blockquote p {
+    font-size:inherit
+}
+
+blockquote {
+    border:1px solid #c7c4be;
+    background-color:rgba(255, 255, 255, .6);
+    -webkit-border-radius:15px 15px 15px 0px;
+    border-radius:15px 15px 15px 0px;
+    -webkit-box-shadow:inset 0px 3px 3px 0px rgba(70, 50, 20, 0.1);
+    box-shadow:inset 0px 3px 3px 0px rgba(70, 50, 20, 0.1);
+    padding:15px 30px;
+    color:#726c63;
+    font-size:14px;
+    font-style:italic;
+    font-family:Georgia, sans-serif;
+}
+
+blockquote.pull-right {
+    float:right;
+    padding:15px 30px;
+    border:1px solid #c7c4be;
+
+}
+
+
+
 /* layout resets */
 
 .kDark h1, .kDark h2, .kDark h3, .kDark h4, .kDark h5, .kDark h6,
