@@ -1062,7 +1062,7 @@ class FileHandler
         return self::$file_handler->getRealPath($source);
     }
 
-    function copyDir($source_dir, $target_dir, $filter = null, $type = null)
+    static function copyDir($source_dir, $target_dir, $filter = null, $type = null)
     {
         self::$file_handler->copyDir($source_dir, $target_dir, $filter, $type);
     }
@@ -1077,7 +1077,7 @@ class FileHandler
         return self::$file_handler->readFile($file_name);
     }
 
-    function readFileAsArray($file_name)
+    static function readFileAsArray($file_name)
     {
         return self::$file_handler->readFileAsArray($file_name);
     }
@@ -1137,7 +1137,7 @@ class FileHandler
         self::$file_handler->filesize($size);
     }
 
-    function getRemoteResource(
+    static function getRemoteResource(
         $url,
         $body = null,
         $timeout = 3,

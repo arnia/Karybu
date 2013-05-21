@@ -23,12 +23,10 @@
 	function procCommentAdminChangePublishedStatusChecked()
 	{	// Error display if none is selected
 		$cart = Context::get('cart');
-		if(!is_array($cart))
-		{
+		if(!is_array($cart)) {
 			$comment_srl_list= explode('|@|', $cart);
 		}
-		else
-		{
+		else {
 			$comment_srl_list = $cart;
 		}
 		
@@ -48,28 +46,23 @@
 
 		// Error display if none is selected
 		$cart = Context::get('cart');
-		if(!$cart)
-		{
+		if(!$cart) {
 			return $this->stop('msg_cart_is_null');
 		}
-		if(!is_array($cart))
-		{
+		if(!is_array($cart)) {
 			$comment_srl_list= explode('|@|', $cart);
 		}
-		else
-		{
+		else {
 			$comment_srl_list = $cart;
 		}
-
+        $args = new stdClass();
 		$args->status = $will_publish;
 		$args->comment_srls_list = $comment_srl_list;
 		$output = executeQuery('comment.updatePublishedStatus', $args);
-		if(!$output->toBool())
-		{
+		if(!$output->toBool()) {
 			return $output;
 		}
-		else 
-		{
+		else {
 			//update comment count for document
 			$updated_documents_arr = array();
 			// create the controller object of the document
@@ -83,14 +76,12 @@
 			//$oMemberModule = &getModel("member");
 			//$logged_info = $oMemberModule->getMemberInfoByMemberSrl($logged_member_srl);
 			$new_status = ($will_publish) ? "published" : "unpublished";
-			foreach($comment_srl_list as $comment_srl)
-			{
+			foreach($comment_srl_list as $comment_srl) {
 				// check if comment already exists
 				$comment = $oCommentModel->getComment($comment_srl);
 				if($comment->comment_srl != $comment_srl) return new Object(-1, 'msg_invalid_request');
 				$document_srl = $comment->document_srl;
-				if (!in_array($document_srl,$updated_documents_arr))
-				{
+				if (!in_array($document_srl,$updated_documents_arr)) {
 					$updated_documents_arr[] = $document_srl;
 					// update the number of comments
 					$comment_count = $oCommentModel->getCommentCount($document_srl);

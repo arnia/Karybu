@@ -76,11 +76,15 @@
 			$type = $oModel->getTypeFromPath($this->package->path);
 			if($type == "module") {
 				$output = $this->uninstallModule();
-				if(!$output->toBool()) return $output;
+				if(!$output->toBool()) {
+                    return $output;
+                }
 			}
 
             $output = $this->_connect();
-            if(!$output->toBool()) return $output;
+            if(!$output->toBool()) {
+                return $output;
+            }
 
 			$output = $this->_removeDir($this->package->path);
 			$this->_close();
@@ -105,14 +109,12 @@
 		 */
         function _download()
         {
-            if($this->package->path == ".")
-            {
+            if($this->package->path == ".") {
                 $this->download_file = $this->temp_dir."xe.tar";
                 $this->target_path = "";
                 $this->download_path = $this->temp_dir;
             }
-            else
-            {
+            else {
                 $subpath = substr($this->package->path,2);
                 $this->download_file = $this->temp_dir.$subpath.".tar";
                 $subpatharr = explode("/", $subpath);
