@@ -10,18 +10,30 @@
     <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
 </head>
 <body>
-    <div class="container-narrow">
-    <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-            <li{% if page.title == 'Homepage' %} class="active" {% endif %}><a href="../upcoming.html">Home</a></li>
-            <li{% if page.title == 'Getting started' %} class="active" {% endif %}><a href="../getting-started.html">Get started</a></li>
-            <li{% if page.title == 'Features' %} class="active" {% endif %}><a href="../features.html">Features</a></li>
-            <li{% if page.title == 'Documentation' or page.category == "docs" %} class="active" {% endif %}><a href="../docs">Docs</a></li>
-            <li{% if page.title == 'Contribute' %} class="active" {% endif %}><a href="../contribute.html">Contribute</a></li>
-            <li{% if page.title == 'About' %} class="active" {% endif %}><a href="../about.html">About</a></li>
-        </ul>
-        <h3 class="muted"><a href="../upcoming.html"><img src="../assets/img/karybu.png" alt="Karybu" /></a></h3>
-    </div>
+    <div class="container">
+    <div class="masthead"><div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="../upcoming.html"><img src="../assets/img/karybu.png" alt="Karybu"/></a>
+                <ul class="nav pull-right">
+                    <li
+                    {% if page.title == 'Homepage' %} class="active" {% endif %}><a href="../upcoming.html">Home</a></li>
+                    <li
+                    {% if page.title == 'Getting started' %} class="active" {% endif %}><a href="../getting-started.html">Get
+                    started</a></li>
+                    <li
+                    {% if page.title == 'Features' %} class="active" {% endif %}><a href="../features.html">Features</a></li>
+                    <li
+                    {% if page.title == 'Documentation' %} class="active" {% endif %}><a href="#">Docs</a></li>
+                    <li
+                    {% if page.title == 'Contribute' %} class="active" {% endif %}><a
+                        href="../contribute.html">Contribute</a></li>
+                    <li
+                    {% if page.title == 'About' %} class="active" {% endif %}><a href="about.html">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </div></div>
     <hr>
     </div>
 
