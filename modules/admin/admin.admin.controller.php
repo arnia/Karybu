@@ -17,7 +17,9 @@ class adminAdminController extends admin {
         // forbit access if the user is not an administrator
         $oMemberModel = &getModel('member');
         $logged_info = $oMemberModel->getLoggedInfo();
-        if($logged_info->is_admin!='Y') return $this->stop("msg_is_not_administrator");
+        if(empty($logged_info->is_admin) || $logged_info->is_admin != 'Y') {
+            return $this->stop("msg_is_not_administrator");
+        }
     }
 
     /**
@@ -26,14 +28,17 @@ class adminAdminController extends admin {
      */
     function procAdminMenuReset(){
         $menuSrl = Context::get('menu_srl');
-        if (!$menuSrl) return $this->stop('msg_invalid_request');
+        if (!$menuSrl) {
+            return $this->stop('msg_invalid_request');
+        }
 
         $oMenuAdminController = &getAdminController('menu');
         $output = $oMenuAdminController->deleteMenu($menuSrl);
-        if (!$output->toBool()) return $output;
+        if (!$output->toBool()) {
+            return $output;
+        }
 
         FileHandler::removeDir('./files/cache/menu/admin_lang/');
-
         $this->setRedirectUrl(Context::get('error_return_url'));
     }
 
@@ -59,7 +64,9 @@ class adminAdminController extends admin {
         foreach ($module_list as $module) {
             $oModule = null;
             $oModule = &getClass($module->module);
-            if(method_exists($oModule, 'recompileCache')) $oModule->recompileCache();
+            if(method_exists($oModule, 'recompileCache')) {
+                $oModule->recompileCache();
+            }
         }
 
         // remove cache
@@ -92,8 +99,7 @@ class adminAdminController extends admin {
 
         // remove duplicate indexes (only for CUBRID)
         $db_type = Context::getDBType();
-        if($db_type == 'cubrid')
-        {
+        if($db_type == 'cubrid') {
             $db = DB::getInstance();
             $db->deleteDuplicateIndexes();
         }
@@ -118,15 +124,22 @@ class adminAdminController extends admin {
      */
     function procAdminInsertThemeInfo() {
         $vars = Context::getRequestVars();
+        $args = new stdClass();
         $theme_file = _KARYBU_PATH_.'files/theme/theme_info.php';
 
-        $theme_output = sprintf('$theme_info->theme=\'%s\';', $vars->themeItem);
-        $theme_output = $theme_output.sprintf('$theme_info->layout=%s;', $vars->layout);
+        $theme_output = sprintf('$theme_info = new stdClass();');
+        $theme_output .= sprintf('$theme_info->theme=\'%s\';', $vars->themeItem);
+        $theme_output .= sprintf('$theme_info->layout=%s;', $vars->layout);
 
         $site_info = Context::get('site_module_info');
 
-        $args->site_srl = $site_info->site_srl;
-        $args->layout_srl = $vars->layout;
+        $site_srl = null;
+        if (!empty($site_info->site_srl)) {
+            $site_srl = $site_info->site_srl;
+        }
+
+        $args->site_srl = $site_srl;
+        $args->layout_srl = !empty($vars->layout) ? $vars->layout : null;
 
         // layout submit
         $output = executeQuery('layout.updateAllLayoutInSiteWithTheme', $args);
@@ -134,17 +147,17 @@ class adminAdminController extends admin {
 
         // set layout info member
         $oModuleController = &getController('module');
-        $memberConfig->layout_srl = $vars->layout;
+        $memberConfig->layout_srl = !empty($vars->layout) ? $vars->layout : null;
         $oModuleController->updateModuleConfig('member', $memberConfig);
-
-        $skin_args->site_srl = $site_info->site_srl;
+        $skin_args = new stdClass();
+        $skin_args->site_srl = $site_srl;
 
         foreach($vars as $key=>$val){
             $pos = strpos($key, '-skin');
             if ($pos === false) continue;
             if ($val != '__skin_none__'){
                 $module = substr($key, 0, $pos);
-                $theme_output = $theme_output.sprintf('$theme_info->skin_info[%s]=\'%s\';', $module, $val);
+                $theme_output .= sprintf('$theme_info->skin_info[%s]=\'%s\';', $module, $val);
                 $skin_args->skin = $val;
                 $skin_args->module = $module;
                 if ($module == 'page')
@@ -160,12 +173,14 @@ class adminAdminController extends admin {
                 }
 
                 $skin_output = executeQuery('module.updateAllModuleSkinInSiteWithTheme', $skin_args);
-                if (!$skin_output->toBool()) return $skin_output;
+                if (!$skin_output->toBool()) {
+                    return $skin_output;
+                }
 
                 $oModuleModel = &getModel('module');
-                $module_config = $oModuleModel->getModuleConfig($module, $site_info->site_srl);
+                $module_config = $oModuleModel->getModuleConfig($module, $site_srl);
                 $module_config->skin = $val;
-                $oModuleController->insertModuleConfig($module, $module_config, $site_info->site_srl);
+                $oModuleController->insertModuleConfig($module, $module_config, site_srl);
             }
         }
 
@@ -196,27 +211,27 @@ class adminAdminController extends admin {
         // check favorite exists
         $oModel = &getAdminModel('admin');
         $output = $oModel->isExistsFavorite($siteSrl, $moduleName);
-        if (!$output->toBool()) return $output;
+        if (!$output->toBool()) {
+            return $output;
+        }
 
         // if exists, delete favorite
-        if ($output->get('result'))
-        {
+        if ($output->get('result')) {
             $favoriteSrl = $output->get('favoriteSrl');
             $output = $this->_deleteFavorite($favoriteSrl);
             $result = 'off';
         }
 
         // if not exists, insert favorite
-        else
-        {
+        else {
             $output = $this->_insertFavorite($siteSrl, $moduleName);
             $result = 'on';
         }
 
-        if (!$output->toBool()) return $output;
-
+        if (!$output->toBool()) {
+            return $output;
+        }
         $this->add('result', $result);
-
         return $this->setRedirectUrl(Context::get('error_return_url'), $output);
     }
 
@@ -228,14 +243,13 @@ class adminAdminController extends admin {
     {
         $oModel = getAdminModel('admin');
         $output = $oModel->getFavoriteList();
-        if(!$output->toBool())
-        {
+        $args = new stdClass();
+        if(!$output->toBool()) {
             return $output;
         }
 
         $favoriteList = $output->get('favoriteList');
-        if(!$favoriteList)
-        {
+        if(!$favoriteList) {
             return new Object();
         }
 
@@ -246,22 +260,19 @@ class adminAdminController extends admin {
             {
                 $modulePath = './modules/' . $favorite->module;
                 $modulePath = FileHandler::getRealPath($modulePath);
-                if(!is_dir($modulePath))
-                {
+                if(!is_dir($modulePath)) {
                     $deleteTargets[] = $favorite->admin_favorite_srl;
                 }
             }
         }
 
-        if(!count($deleteTargets))
-        {
+        if(!count($deleteTargets)) {
             return new Object();
         }
 
         $args->admin_favorite_srls = $deleteTargets;
         $output = executeQuery('admin.deleteFavorites', $args);
-        if(!$output->toBool())
-        {
+        if(!$output->toBool()) {
             return $output;
         }
 
@@ -275,8 +286,12 @@ class adminAdminController extends admin {
     function procAdminEnviromentGatheringAgreement()
     {
         $isAgree = Context::get('is_agree');
-        if($isAgree == 'true') $_SESSION['enviroment_gather'] = 'Y';
-        else $_SESSION['enviroment_gather'] = 'N';
+        if($isAgree == 'true') {
+            $_SESSION['enviroment_gather'] = 'Y';
+        }
+        else {
+            $_SESSION['enviroment_gather'] = 'N';
+        }
 
         $redirectUrl = getUrl('', 'module', 'admin');
         $this->setRedirectUrl($redirectUrl);
@@ -289,32 +304,41 @@ class adminAdminController extends admin {
     function procAdminUpdateConfig()
     {
         $adminTitle = Context::get('adminTitle');
-        $file = $_FILES['adminLogo'];
+        $file = isset($_FILES['adminLogo']) ? $_FILES['adminLogo'] : null;
 
         $oModuleModel = &getModel('module');
         $oAdminConfig = $oModuleModel->getModuleConfig('admin');
 
-        if($file['tmp_name'])
+        if(!empty($file['tmp_name']))
         {
             $target_path = 'files/attach/images/admin/';
             FileHandler::makeDir($target_path);
 
             // Get file information
             list($width, $height, $type, $attrs) = @getimagesize($file['tmp_name']);
-            if($type == 3) $ext = 'png';
-            elseif($type == 2) $ext = 'jpg';
-            else $ext = 'gif';
+            if($type == 3) {
+                $ext = 'png';
+            }
+            elseif($type == 2) {
+                $ext = 'jpg';
+            }
+            else {
+                $ext = 'gif';
+            }
 
             $target_filename = sprintf('%s%s.%s.%s', $target_path, 'adminLogo', date('YmdHis'), $ext);
             @move_uploaded_file($file['tmp_name'], $target_filename);
 
             $oAdminConfig->adminLogo = $target_filename;
         }
-        if($adminTitle) $oAdminConfig->adminTitle = strip_tags($adminTitle);
-        else unset($oAdminConfig->adminTitle);
+        if($adminTitle) {
+            $oAdminConfig->adminTitle = strip_tags($adminTitle);
+        }
+        else {
+            unset($oAdminConfig->adminTitle);
+        }
 
-        if($oAdminConfig)
-        {
+        if($oAdminConfig) {
             $oModuleController = &getController('module');
             $oModuleController->insertModuleConfig('admin', $oAdminConfig);
         }
@@ -352,6 +376,7 @@ class adminAdminController extends admin {
      */
     function _insertFavorite($siteSrl, $module, $type = 'module')
     {
+        $args = new stdClass();
         $args->adminFavoriteSrl = getNextSequence();
         $args->site_srl = $siteSrl;
         $args->module = $module;
@@ -366,6 +391,7 @@ class adminAdminController extends admin {
      */
     function _deleteFavorite($favoriteSrl)
     {
+        $args = new stdClass();
         $args->admin_favorite_srl = $favoriteSrl;
         $output = executeQuery('admin.deleteFavorite', $args);
         return $output;

@@ -26,7 +26,10 @@
         function getSFTPList()
         {
             $ftp_info =  Context::getRequestVars();
-            if(!$ftp_info->ftp_host)
+            if (!is_object($ftp_info)) {
+                $ftp_info = new stdClass();
+            }
+            if(empty($ftp_info->ftp_host))
             {
                 $ftp_info->ftp_host = "127.0.0.1";
             }
@@ -39,15 +42,15 @@
             $sftp = ssh2_sftp($connection);
             $curpwd = "ssh2.sftp://$sftp".$this->pwd;
             $dh = @opendir($curpwd);
-			if(!$dh) return new Object(-1, 'msg_ftp_invalid_path');
+			if(!$dh) {
+                return new Object(-1, 'msg_ftp_invalid_path');
+            }
             $list = array();
             while(($file = readdir($dh)) !== false) {
-                if(is_dir($curpwd.$file))
-                {
+                if(is_dir($curpwd.$file)) {
                     $file .= "/";
                 }
-                else
-                {
+                else {
                     continue;
                 }
                 $list[] = $file;
@@ -66,26 +69,25 @@
             set_time_limit(5);
             require_once(_KARYBU_PATH_.'libs/ftp.class.php');
             $ftp_info =  Context::getRequestVars();
-            if(!$ftp_info->ftp_user || !$ftp_info->ftp_password)
-            {
+            if (!is_object($ftp_info)) {
+                $ftp_info = new stdClass();
+            }
+            if(empty($ftp_info->ftp_user) || empty($ftp_info->ftp_password)) {
                 return new Object(-1, 'msg_ftp_invalid_auth_info');
             }
 
             $this->pwd = $ftp_info->ftp_root_path;
 
-            if(!$ftp_info->ftp_host)
-            {
+            if(empty($ftp_info->ftp_host)) {
                 $ftp_info->ftp_host = "127.0.0.1";
             }
 
-			if (!$ftp_info->ftp_port || !is_numeric ($ftp_info->ftp_port)) {
+			if (empty($ftp_info->ftp_port) || !is_numeric ($ftp_info->ftp_port)) {
 				$ftp_info->ftp_port = "21";
 			}
 
-            if($ftp_info->sftp == 'Y')
-            {
-				if(!function_exists(ssh2_sftp))
-				{
+            if(!empty($ftp_info->sftp) && $ftp_info->sftp == 'Y') {
+				if(!function_exists(ssh2_sftp)) {
                     return new Object(-1,'disable_sftp_support');
 				}
                 return $this->getSFTPList();
@@ -97,8 +99,7 @@
 					$_list = $oFtp->ftp_rawlist($this->pwd);
 					$oFtp->ftp_quit();
 				}
-                else
-                {
+                else {
                     return new Object(-1,'msg_ftp_invalid_auth_info');
                 }
 			}
@@ -106,15 +107,16 @@
 
 			if($_list){
                 foreach($_list as $k => $v){
-					$src = null;
+					$src = new stdClass();
 					$src->data = $v;
 					$res = Context::convertEncoding($src);
 					$v = $res->data;
-                    if(strpos($v,'d') === 0 || strpos($v, '<DIR>')) $list[] = substr(strrchr($v,' '),1) . '/';
+                    if(strpos($v,'d') === 0 || strpos($v, '<DIR>')) {
+                        $list[] = substr(strrchr($v,' '),1) . '/';
+                    }
                 }
             }
-			else
-			{
+			else {
 				return new Object(-1,'msg_ftp_no_directory');
 			}
             $this->add('list', $list);
@@ -144,14 +146,16 @@
 
 			$db_info = Context::getDBInfo();
 			$info['db_type'] = Context::getDBType();
-			$info['use_rewrite'] = $db_info->use_rewrite;
-			$info['use_db_session'] = $db_info->use_db_session == 'Y' ?'Y':'N';
-			$info['use_ssl'] = $db_info->use_ssl;
+			$info['use_rewrite'] = isset($db_info->use_rewrite) ? $db_info->use_rewrite: null;
+			$info['use_db_session'] = (isset($db_info->use_db_session) && $db_info->use_db_session == 'Y' ?'Y':'N');
+			$info['use_ssl'] = isset($db_info->use_ssl) ? $db_info->use_ssl : null;
 
 			$info['phpext'] = '';
 			foreach (get_loaded_extensions() as $ext) {
 				$ext = strtolower($ext);
-				if(in_array($ext, $skip['ext'])) continue;
+				if(in_array($ext, $skip['ext'])) {
+                    continue;
+                }
 				$info['phpext'] .= '|'. $ext;
 			}
 			$info['phpext'] = substr($info['phpext'],1);
@@ -160,7 +164,9 @@
 			$oModuleModel = &getModel('module');
 			$module_list = $oModuleModel->getModuleList();
 			foreach($module_list as $module){
-				if(in_array($module->module, $skip['module'])) continue;
+				if(in_array($module->module, $skip['module'])) {
+                    continue;
+                }
 				$info['module']  .= '|'.$module->module;
 			}
 			$info['module'] = substr($info['module'],1);
@@ -169,14 +175,18 @@
 			$oAddonAdminModel = &getAdminModel('addon');
 			$addon_list = $oAddonAdminModel->getAddonList();
 			foreach($addon_list as $addon){
-				if(in_array($addon->addon, $skip['addon'])) continue;
+				if(in_array($addon->addon, $skip['addon'])) {
+                    continue;
+                }
 				$info['addon'] .= '|'.$addon->addon;
 			}
 			$info['addon'] = substr($info['addon'],1);
 
 			$param = '';
 			foreach($info as $k => $v){
-				if($v) $param .= sprintf('&%s=%s',$k,urlencode($v));
+				if($v) {
+                    $param .= sprintf('&%s=%s',$k,urlencode($v));
+                }
 			}
 			$param = substr($param, 1);
 
@@ -192,8 +202,8 @@
 			$list = FileHandler::readDir($path);
 
 			$theme_info = array();
-			if(count($list) > 0){
-				foreach($list as $val){
+			if(count($list) > 0) {
+				foreach($list as $val) {
 					$theme_info[$val] = $this->getThemeInfo($val);
 				}
 			}
@@ -213,33 +223,48 @@
             }
 
 			$info_file = _KARYBU_PATH_.'themes/'.$theme_name.'/conf/info.xml';
-            if(!file_exists($info_file)) return;
+            if(!file_exists($info_file)) {
+                return;
+            }
 
             $oXmlParser = new XmlParser();
             $_xml_obj = $oXmlParser->loadXmlFile($info_file);
-            if(!$_xml_obj->theme) return;
+            if(empty($_xml_obj->theme)) {
+                return;
+            }
 
             $xml_obj = $_xml_obj->theme;
             $theme_info = new stdClass();
             $theme_info->name = $theme_name;
-            $theme_info->title = $xml_obj->title->body;
+            $theme_info->title = isset($xml_obj->title->body) ? $xml_obj->title->body : null;
 			$thumbnail = 'themes/'.$theme_name.'/thumbnail.png';
 			$theme_info->thumbnail = (file_exists('./' . $thumbnail)) ? getFullUrl() . $thumbnail : null;
-			$theme_info->version = $xml_obj->version->body;
-			sscanf($xml_obj->date->body, '%d-%d-%d', $date_obj->y, $date_obj->m, $date_obj->d);
-			$theme_info->date = sprintf('%04d%02d%02d', $date_obj->y, $date_obj->m, $date_obj->d);
-			$theme_info->description = $xml_obj->description->body;
+			$theme_info->version = isset($xml_obj->version->body) ? $xml_obj->version->body : null;
+            if (isset($xml_obj->date->body)) {
+                list($y, $m, $d) = sscanf($xml_obj->date->body, '%d-%d-%d');
+                $theme_info->date = sprintf('%04d%02d%02d', $y, $m, $d);
+            }
+            else {
+                $theme_info->date = null;
+            }
+			$theme_info->description = isset($xml_obj->description->body) ? $xml_obj->description->body : null;
 			$theme_info->path = './themes/'.$theme_name.'/';
 
-			if(!is_array($xml_obj->publisher)) {
-                $publisher_list[] = $xml_obj->publisher;
+            if (isset($xml_obj->publisher)) {
+                if(!is_array($xml_obj->publisher)) {
+                    $publisher_list[] = $xml_obj->publisher;
+                }
+                else {
+                    $publisher_list = $xml_obj->publisher;
+                }
             }
-			else {
-                $publisher_list = $xml_obj->publisher;
+            else {
+                $publisher_list = array();
             }
-
+            $theme_info->publisher = array();
 			foreach($publisher_list as $publisher) {
 				unset($publisher_obj);
+                $publisher_obj = new stdClass();
                 $publisher_obj = new stdClass();
 				$publisher_obj->name = $publisher->name->body;
 				$publisher_obj->email_address = $publisher->attrs->email_address;
@@ -247,8 +272,8 @@
 				$theme_info->publisher[] = $publisher_obj;
 			}
 
-			$layout = $xml_obj->layout;
-			$layout_path = $layout->directory->attrs->path;
+			$layout = isset($xml_obj->layout) ? $xml_obj->layout : null;
+			$layout_path = isset($layout->directory->attrs->path) ? $layout->directory->attrs->path : null;
 			$layout_parse = explode('/',$layout_path);
             $layout_info = new stdClass();
 			switch($layout_parse[1]){
@@ -267,12 +292,12 @@
 			$is_new_layout = true;
 			$oLayoutModel = &getModel('layout');
 			$layout_info_list = array();
-			$layout_list = $oLayoutModel->getLayoutList($site_info->site_srl);
+			$layout_list = $oLayoutModel->getLayoutList(isset($site_info->site_srl) ? $site_info->site_srl : null);
 			if ($layout_list){
 				foreach($layout_list as $val){
 					if ($val->layout == $layout_info->name){
 						$is_new_layout = false;
-						$layout_info->layout_srl = $val->layout_srl;
+						$layout_info->layout_srl = isset($val->layout_srl) ? $val->layout_srl : null;
 						break;
 					}
 				}
@@ -280,6 +305,7 @@
 
 			if ($is_new_layout){
 				$site_module_info = Context::get('site_module_info');
+                $args = new stdClass();
 				$args->site_srl = (int)$site_module_info->site_srl;
 				$args->layout_srl = getNextSequence();
 				$args->layout = $layout_info->name;
@@ -311,20 +337,27 @@
 				unset($skin_info);
 				unset($skin_parse);
                 $skin_info = new stdClass();
-				$skin_parse = explode('/',$val->directory->attrs->path);
-				switch($skin_parse[1]){
-					case 'themes' :
-                        $is_theme = true;
-						$module_name = $skin_parse[count($skin_parse)-1];
-						$skin_info->name = $theme_name.'|@|'.$module_name;
-						break;
-					case 'modules' :
-                        $is_theme = false;
-						$module_name = $skin_parse[2];
-						$skin_info->name = $skin_parse[count($skin_parse)-1];
-						break;
-				}
-				$skin_info->path = $val->directory->attrs->path;
+                if (isset($val->directory->attrs->path)) {
+                    $skin_parse = explode('/', $val->directory->attrs->path);
+                }
+				else {
+                    $skin_parse = array();
+                }
+                if (isset($skin_parse[1])) {
+                    switch($skin_parse[1]){
+                        case 'themes' :
+                            $is_theme = true;
+                            $module_name = $skin_parse[count($skin_parse)-1];
+                            $skin_info->name = $theme_name.'|@|'.$module_name;
+                            break;
+                        case 'modules' :
+                            $is_theme = false;
+                            $module_name = $skin_parse[2];
+                            $skin_info->name = $skin_parse[count($skin_parse)-1];
+                            break;
+                    }
+                }
+				$skin_info->path = isset($val->directory->attrs->path) ? $val->directory->attrs->path : null;
 				$skins[$module_name] = $skin_info;
 
 				if ($is_theme){
@@ -355,7 +388,9 @@
             sort($searched_list);
 
             $searched_count = count($searched_list);
-            if(!$searched_count) return;
+            if(!$searched_count) {
+                return;
+            }
 
 			$exceptionModule = array('editor', 'poll', 'homepage', 'textyle');
 
@@ -386,30 +421,27 @@
 		{
 			$currentLang = Context::getLangType();
 			$cacheFile = sprintf('./files/cache/menu/admin_lang/adminMenu.%s.lang.php', $currentLang);
-
+            $lang = new stdClass();
             // Update if no cache file exists or it is older than xml file
-            if(!is_readable($cacheFile))
-			{
+            if(!is_readable($cacheFile)) {
 				$oModuleModel = &getModel('module');
 				$installed_module_list = $oModuleModel->getModulesXmlInfo();
-
 				$this->gnbLangBuffer = '<?php ';
-				foreach($installed_module_list AS $key=>$value)
-				{
+				foreach($installed_module_list AS $key=>$value)	{
 					$moduleActionInfo = $oModuleModel->getModuleActionXml($value->module);
-					if(isset ($moduleActionInfo->menu) && is_object($moduleActionInfo->menu))
-					{
-						foreach($moduleActionInfo->menu AS $key2=>$value2)
-						{
+					if(isset($moduleActionInfo->menu) && is_object($moduleActionInfo->menu)) {
+						foreach($moduleActionInfo->menu AS $key2=>$value2) {
 							$lang->menu_gnb_sub[$key2] = $value2->title;
-							$this->gnbLangBuffer .=sprintf('$lang->menu_gnb_sub[\'%s\'] = \'%s\';', $key2, $value2->title);
+							$this->gnbLangBuffer .= sprintf('$lang->menu_gnb_sub[\'%s\'] = \'%s\';', $key2, $value2->title);
 						}
 					}
 				}
 				$this->gnbLangBuffer .= ' ?>';
 				FileHandler::writeFile($cacheFile, $this->gnbLangBuffer);
 			}
-			else include $cacheFile;
+			else {
+                include $cacheFile;
+            }
 
 			return $lang->menu_gnb_sub;
 		}
@@ -435,8 +467,7 @@
 			if($isGetModuleInfo && is_array($output->data))
 			{
 				$oModuleModel = &getModel('module');
-				foreach($output->data AS $key=>$value)
-				{
+				foreach($output->data AS $key=>$value) {
 					$moduleInfo = $oModuleModel->getModuleInfoXml($value->module);
 					$output->data[$key]->admin_index_act = $moduleInfo->admin_index_act;
 					$output->data[$key]->title = $moduleInfo->title;
@@ -456,19 +487,20 @@
 		 */
 		function isExistsFavorite($siteSrl, $module)
 		{
+            $args = new stdClass();
 			$args->site_srl = $siteSrl;
 			$args->module = $module;
 			$output = executeQuery('admin.getFavorite', $args);
-			if (!$output->toBool()) return $output;
+			if (!$output->toBool()) {
+                return $output;
+            }
 
 			$returnObject = new Object();
-			if ($output->data)
-			{
+			if (!empty($output->data)) {
 				$returnObject->add('result', true);
-				$returnObject->add('favoriteSrl', $output->data->admin_favorite_srl);
+				$returnObject->add('favoriteSrl', isset($output->data->admin_favorite_srl) ? $output->data->admin_favorite_srl : null);
 			}
-			else
-			{
+			else {
 				$returnObject->add('result', false);
 			}
 
@@ -481,7 +513,10 @@
          */
 		function getSiteAllList()
 		{
-			if(Context::get('domain')) $domain = Context::get('domain');
+            $domain = null;
+			if(Context::get('domain')) {
+                $domain = Context::get('domain');
+            }
             $siteList = $this->getAllSitesThatHaveModules($domain);
     		$this->add('site_list', $siteList);
 		}
@@ -495,34 +530,33 @@
         function getAllSitesThatHaveModules($domain = null)
         {
             $args = new stdClass();
-            if($domain) $args->domain = $domain;
+            if($domain) {
+                $args->domain = $domain;
+            }
             $columnList = array('domain', 'site_srl');
 
             $siteList = array();
             $output = executeQueryArray('admin.getSiteAllList', $args, $columnList);
-            if($output->toBool()) $siteList = $output->data;
+            if($output->toBool()) {
+                $siteList = $output->data;
+            }
 
             $oModuleModel = &getModel('module');
-            foreach($siteList as $key => $value)
-            {
+            foreach($siteList as $key => $value) {
                 $args->site_srl = $value->site_srl;
                 $list = $oModuleModel->getModuleSrlList($args);
-
-                if(!is_array($list))
-                {
+                if(!is_array($list)) {
                     $list = array($list);
                 }
-
-                foreach($list as $k => $v)
-                {
-                    if(!is_dir('./modules/' . $v->module))
-                    {
-                        unset($list[$k]);
+                foreach($list as $k => $v) {
+                    if (isset($v->module)) {
+                        if(!is_dir('./modules/' . $v->module)) {
+                            unset($list[$k]);
+                        }
                     }
                 }
 
-                if(!count($list))
-                {
+                if(!count($list)) {
                     unset($siteList[$key]);
                 }
             }
@@ -591,7 +625,7 @@
 
             // Various statistical information wanted
             $output = executeQuery('admin.getTotalVisitors');
-            $result->total_visitor = $output->data->count;
+            $result->total_visitor = isset($output->data->count) ? $output->data->count : 0;
             $output = executeQuery('admin.getTotalSiteVisitors');
             $result->total_visitor += $output->data->count;
             $result->visitor = $visitors[date("Ymd")];
@@ -608,16 +642,14 @@
             $oMenuAdminModel = getAdminModel('menu');
 
             $default_mid = $oModuleModel->getDefaultMid();
-            $default_layout_srl = $default_mid->layout_srl;
+            $default_layout_srl = isset($default_mid->layout_srl) ? $default_mid->layout_srl : null;
             $default_layout = $oLayoutModel->getLayout($default_layout_srl);
 
             $main_menu = $oMenuAdminModel->getMenu($default_layout->main_menu);
             $output = $oMenuAdminModel->getMenuItems($main_menu->menu_srl);
             $main_menu->items = $output->data;
-            if(count($main_menu->items)>0)
-            {
-                foreach($main_menu->items AS $key2=>$value2)
-                {
+            if(count($main_menu->items)>0) {
+                foreach($main_menu->items AS $key2=>$value2) {
                     $this->_setMenuIndexUrl($main_menu->items[$key2]);
                 }
             }
@@ -634,19 +666,17 @@
         function _setMenuIndexUrl($menu)
         {
             $oModuleModel = &getModel('module');
-            if($menu->url && !preg_match('/^http/i', $menu->url))
-            {
+            if(!empty($menu->url) && !preg_match('/^http/i', $menu->url)) {
                 unset($midInfo);
                 unset($moduleInfo);
                 $midInfo = $oModuleModel->getModuleInfoByMid($menu->url, 0);
                 $moduleInfo = $oModuleModel->getModuleInfoXml($midInfo->module);
-                if($moduleInfo->setup_index_act)
-                {
-                    $menu->module_srl = $midInfo->module_srl;
+                if(!empty($moduleInfo->setup_index_act)) {
+                    $menu->module_srl = isset($midInfo->module_srl) ? $midInfo->module_srl : null;
                     $menu->setup_index_act = $moduleInfo->setup_index_act;
                 }
                 // setting layout srl for layout management
-                $menu->layout_srl = $midInfo->layout_srl;
+                $menu->layout_srl = isset($midInfo->layout_srl) ? $midInfo->layout_srl : null;
             }
         }
 
@@ -657,10 +687,15 @@
          */
 		function getSiteCountByDate($date = '')
 		{
-			if($date) $args->regDate = date('Ymd', strtotime($date));
+            $args = new stdClass();
+			if($date) {
+                $args->regDate = date('Ymd', strtotime($date));
+            }
 
 			$output = executeQuery('admin.getSiteCountByDate', $args);
-			if(!$output->toBool()) return 0;
+			if(!$output->toBool()) {
+                return 0;
+            }
 
 			return $output->data->count;
 		}
@@ -677,8 +712,8 @@
 
 		function iconUrlCheck($iconname,$default_icon_name)
 		{
-			$file_exsit = FileHandler::readFile(_KARYBU_PATH_.'files/attach/xeicon/'.$iconname);
-			if(!$file_exsit){
+			$file_exist = FileHandler::readFile(_KARYBU_PATH_.'files/attach/xeicon/'.$iconname);
+			if(!$file_exist){
 				$icon_url = './modules/admin/tpl/img/'.$default_icon_name	;
 			} else {
 				$icon_url = $db_info->default_url.'files/attach/xeicon/'.$iconname;
