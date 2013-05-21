@@ -6,7 +6,7 @@
 
     <div class="clearfix"></div>
     <load target="./js/page_admin.js" usecdn="true" />
-    <div>
+    <div class="control-buttons">
         <a class="btn" href="#" onclick="doRemoveWidgetCache({$module_info->module_srl}); return false;">{$lang->cmd_remake_cache}</a>
         <!--@if($logged_info->is_admin=='Y')-->
         <a class="btn" href="{getUrl('act','dispPageAdminInfo','module_srl',$module_info->module_srl)}">{$lang->cmd_setup}</a>

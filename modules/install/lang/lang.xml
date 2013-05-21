@@ -304,7 +304,7 @@
 	</item>
 	<item name="install_notandum">
 		<value xml:lang="ko"><![CDATA[모든 항목을 반드시 작성해야 합니다. 모든 항목을 관리자 환경에서 수정할 수 있습니다.]]></value>
-		<value xml:lang="en"><![CDATA[All the fields must be completed, but you can modify all of settings after you finish the installation.]]></value>
+		<value xml:lang="en"><![CDATA[All the fields must be completed, but you can modify all of the settings after you finish the installation.]]></value>
 		<value xml:lang="jp"><![CDATA[すべての項目を必ず作成してください。すべての項目を管理者環境にて修正できます。]]></value>
 	</item>
 	<item name="cmd_install_fix_checklist">

@@ -282,26 +282,17 @@ $dataset_creator = new DatasetCreator();
 // 1. Create the new menu
 $menu = $dataset_creator->createNewMenu('welcome_menu');
 
-$styles_srl = $menu->addItem('Styles');
-$text_styles_srl = $menu->addItem('Text styles', 'text_styles', $styles_srl);
-$form_styles_srl = $menu->addItem('Form styles', 'form_styles', $styles_srl);
-$table_styles_srl = $menu->addItem('Table styles', 'table_styles', $styles_srl);
-$icon_glyphs_srl = $menu->addItem('Icon glyphs', 'icon_glyphs', $styles_srl);
-$documentation_srl = $menu->addItem('Documentation', 'documentation');
-$codebook_srl = $menu->addItem('Codebook', 'http://www.karybu.org/');
+$documentation_srl = $menu->addItem('Get Started', 'get_started');
+$codebook_srl = $menu->addItem('Karybu Website', 'http://www.karybu.org/');
 
 $menu->save();
 
 // 2. Create a new layout
-$layout_srl = $dataset_creator->createNewLayout('bootstrap', 'Default theme', $menu);
+$layout_srl = $dataset_creator->createNewLayout('bootstrap', 'Karybu layout', $menu);
 
 // 3. Create new pages
 $welcome_page = $dataset_creator->createNewWidgetPage($layout_srl, 'Welcome to Karybu', 'welcome');
-$text_styles_page = $dataset_creator->createNewArticlePage($layout_srl, 'Text styles', 'text_styles', 'Text styles');
-$form_styles_page = $dataset_creator->createNewArticlePage($layout_srl, 'Form styles', 'form_styles', 'Form styles');
-$table_styles_page = $dataset_creator->createNewArticlePage($layout_srl, 'Table styles', 'table_styles', 'Table styles');
-$icon_glyphs_page = $dataset_creator->createNewArticlePage($layout_srl, 'Icon glyphs', 'icon_glyphs', 'Icon glyphs');
-$documentation_page = $dataset_creator->createNewArticlePage($layout_srl, 'Documentation', 'documentation', 'Documentation');
+$documentation_page = $dataset_creator->createNewArticlePage($layout_srl, 'Get Started', 'get_started', 'Get Started');
 
 // 4. Set homepage
 $dataset_creator->setHomepage($welcome_page);
