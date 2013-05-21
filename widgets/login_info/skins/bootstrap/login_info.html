@@ -1,8 +1,8 @@
 <div class="navbar-form pull-right" xmlns="http://www.w3.org/1999/html">
-    <a href="{getUrl('act','dispMemberLogout')}" class="btn admin" data-toggle="tooltip" data-placement="bottom" title="{$lang->logout}" ><i class="icon-off"></i></a>
     <!--@if($logged_info->is_admin=='Y')-->
     <a class="btn" data-toggle="tooltip" data-placement="bottom" title="{$lang->cmd_management}" href="{getUrl('','module','admin')}"><i class="icon-cog"></i> {$lang->cmd_management}</a>
     <!--@end-->
+    <a href="{getUrl('act','dispMemberLogout')}" class="btn admin" data-toggle="tooltip" data-placement="bottom" title="{$lang->logout}" ><i class="icon-off"></i></a>
 </div>
 <div class="user-info navbar-form pull-right">
     <a class="btn image-holder" href="{getUrl('act','dispMemberInfo')}" title="{$lang->welcome} {$logged_info->nick_name}"><img src="http://placekitten.com/g/28/28" alt="{$lang->welcome} {$logged_info->nick_name}" /> </a>
