@@ -1,8 +1,9 @@
 <include target="header.html" />
 <load target="../../module/tpl/js/multi_order.js" />
-<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/board/tpl/board_insert/1'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/board/tpl/board_insert/1'" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
+
 <form ruleset="insertBoard" class="form-horizontal" action="./" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="module" value="board" />
 	<input type="hidden" name="act" value="procBoardAdminInsertBoard" />
@@ -221,7 +222,7 @@
 			<a href="{getUrl('act', 'dispBoardAdminContent')}" type="button" class="btn">{$lang->cmd_cancel}</a>
 		</div>
 		<div class="pull-right">
-			<button class="btn x_btn-primary" type="submit">{$lang->cmd_registration}</button>
+			<button class="btn btn-primary" type="submit">{$lang->cmd_registration}</button>
 		</div>
 	</div>
 </form>

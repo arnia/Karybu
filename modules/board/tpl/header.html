@@ -8,8 +8,8 @@
 		<a href="#aboutModule" data-toggle class="icon-question-sign">{$lang->help}</a>
 	</h1>
 </div>
-<p class="alert x_alert-info" id="aboutModule" hidden>{$lang->about_board}</p>
-<ul class="nav x_nav-tabs" cond="$module_info && $act != 'dispBoardAdminContent' && $act != 'dispBoardAdminDeleteBoard'">
+<p class="alert alert-info" id="aboutModule" hidden>{$lang->about_board}</p>
+<ul class="nav nav-tabs" cond="$module_info && $act != 'dispBoardAdminContent' && $act != 'dispBoardAdminDeleteBoard'">
 	<li cond="$module=='admin'" class="active"|cond="$act=='dispBoardAdminContent'"><a href="{getUrl('act','dispBoardAdminContent','module_srl','', 'selected_var_idx', '', 'type', '')}">{$lang->cmd_board_list}</a></li>
 	<!--<li class="active" cond="$act=='dispBoardAdminInsertBoard'"><a href="{getUrl('act','dispBoardAdminInsertBoard', 'selected_var_idx', '', 'type', '')}">{$lang->cmd_create_board}</a></li>-->
 	<li cond="$module_srl" class="active"|cond="$act=='dispBoardAdminBoardInfo'"><a href="{getUrl('act','dispBoardAdminBoardInfo', 'selected_var_idx', '', 'type', '')}">{$lang->cmd_board_info}</a></li>
