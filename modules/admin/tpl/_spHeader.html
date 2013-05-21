@@ -43,8 +43,8 @@
         <div class="row-fluid">
 
             <div class="span8"><a href="{getUrl('','module','admin')}" class="logo"><img src="{$gnb_title_info->adminLogo}" alt="{$gnb_title_info->adminTitle}"/></a></div>
-            <div class="toggle-sidebar visible-phone pull-right" id="kMenuButton"></div>
             <div class="span4">
+                <div class="toggle-sidebar visible-phone pull-right" id="kMenuButton"></div>
                 <div class="dropdown pull-right">
                     <a class="dropdown-toggle admin" data-toggle="dropdown" href="#">
                         <img src="{$logged_info->profile_image->src}" cond="isset($logged_info->profile_image->src)" alt=""/>
@@ -56,8 +56,10 @@
                                 <li>
                                     <a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminInfo', 'is_admin', 'Y', 'member_srl', $logged_info->member_srl)}">{$logged_info->email_address}</a>
                                 </li>
+                                <li class="divider"></li>
+                                <li><strong>{$lang->cmd_multilingual}:</strong></li>
                                 <li>
-                                    <a href="#language" class="tgAnchor language" data-effect="slide" data-duration="100">{$lang_supported[$lang_type]}</a>
+                                    <a href="#language" class="tgAnchor language" data-effect="slide" data-duration="100">» {$lang_supported[$lang_type]}</a>
 
                                     <ul class="tgContent" id="language">
                                         <li loop="$lang_supported=>$key,$val" class="selected"|cond="$key==$lang_type">

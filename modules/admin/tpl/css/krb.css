@@ -14,9 +14,7 @@ html body {
 /* TAGS END */
 
 
-#content {
-    padding: 20px 40px;
-}
+
 
 .main-nav-holder {
     z-index: 99;
@@ -47,33 +45,7 @@ html body {
 
 
 
-/* FORMS START */
 
-
-
-fieldset.section {
-    padding: 10px 20px 20px;
-    margin-bottom: 20px;
-    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.3);
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-
-}
-
-form .controls .align {
-    position: relative;
-    top: 5px;
-}
-
-form .controls textarea ~ button,
-form .controls textarea ~ table,
-form .controls textarea ~ span
-{
-    vertical-align: top;
-}
-
-/* FORMS END */
 
 /* EMPHASIS START */
 
@@ -528,6 +500,7 @@ ul.nav-tabs {
     float:left;
     text-indent:-9999px;
     margin-right:10px;
+    cursor: pointer;
 }
 
 i.kConfigure {
