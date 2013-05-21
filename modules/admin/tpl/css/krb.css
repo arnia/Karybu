@@ -528,6 +528,7 @@ ul.nav-tabs {
     float:left;
     text-indent:-9999px;
     margin-right:10px;
+    cursor: pointer;
 }
 
 i.kConfigure {
