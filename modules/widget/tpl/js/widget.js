@@ -4,8 +4,22 @@
  * @brief  위젯 관리용 자바스크립트
  **/
 
-/* DOM 속성을 구하기 위한 몇가지 함수들.. */
-// style의 값을 구하는게 IE랑 그외가 다름.
+
+jQuery(function($){
+    $(document)
+        .keydown(function(e) {
+            if (e.keyCode == 27) {
+                $('.layer').hide();
+            }
+        })
+        .on('click', function(event) {
+            var target = event.target;
+            if (!$(target).closest('.layer').length && !$(target).is('#widgetButton > img')) {
+                $('.layer').hide();
+            }
+        })
+});
+
 function getStyle(obj) {
     var style = obj.getAttribute("style");
     if(!style)
@@ -25,7 +39,6 @@ function setFloat(obj, fl) {
 	jQuery(obj).css('float', fl);
 }
 
-// padding값을 구하는 함수 (없을 경우 0으로 세팅), zbxe의 위젯에서만 사용
 function getPadding(obj, direct) {
     var padding = obj.getAttribute("widget_padding_"+direct);
     if(!padding || padding == null) padding = 0;
@@ -33,14 +46,12 @@ function getPadding(obj, direct) {
 }
 
 
-/* 위젯 핸들링 시작 */
 var zonePageObj = null;
 var zoneModuleSrl = 0;
 function doStartPageModify(zoneID, module_srl) {
     zonePageObj = get_by_id(zoneID);
     zoneModuleSrl = module_srl;
 
-    // 위젯 크기/여백 조절 레이어를 가장 밖으로 뺌
 	jQuery('#tmpPageSizeLayer')
 		.attr('id', 'pageSizeLayer')
 		.css({position:'absolute',left:0,top:0})
@@ -49,26 +60,20 @@ function doStartPageModify(zoneID, module_srl) {
 		.find('>form')
 		.submit(function(){ doApplyWidgetSize(this); return false; });
 
-    // 모든 위젯들의 크기를 정해진 크기로 맞춤
     doFitBorderSize();
 
-    // 드래그와 리사이즈와 관련된 이벤트 리스너 생성
 	xAddEventListener(document.getElementById('zonePageContent'), "click",doCheckWidget);
 	xAddEventListener(document.getElementById('zonePageContent'), "mousedown",doCheckWidgetDrag);
 	xAddEventListener(document.getElementById('zonePageContent'), 'mouseover',widgetSetup);
 }
 
 
-// 내용 모두 삭제
 function removeAllWidget() {
     if(!confirm(confirm_delete_msg)) return;
 	restoreWidgetButtons();
 	jQuery(zonePageObj).html('');
 }
 
-/**
- * 특정 영역에 편집된 위젯들을 약속된 태그로 변환하여 return
- **/
 function getWidgetContent(obj) {
     var html = "";
     if(typeof(obj)=='undefined' || !obj) obj = zonePageObj;
@@ -610,8 +615,11 @@ function _getInt(val) {
     return parseInt(val,10);
 }
 
-// 위젯 크기 조절 레이어를 보여줌
+
+//show widget size setup
+
 var selectedSizeWidget = null;
+
 function doShowWidgetSizeSetup(px, py, obj) {
     var layer = jQuery('#pageSizeLayer');
     var form  = layer.find('>form:first');
@@ -690,7 +698,7 @@ function doShowWidgetSizeSetup(px, py, obj) {
         }
 	});
 
-	try { form[0].elements[0].focus() } catch(e) {};
+	try { form[0].elements[0].focus() } catch(e) {}
 }
 
 function doHideWidgetSizeSetup() {
