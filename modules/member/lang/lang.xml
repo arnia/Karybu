@@ -582,7 +582,7 @@
 	</item>
 	<item name="allow_message">
 		<value xml:lang="ko"><![CDATA[쪽지 허용]]></value>
-		<value xml:lang="en"><![CDATA[Allow Messages]]></value>
+		<value xml:lang="en"><![CDATA[Messages]]></value>
 		<value xml:lang="jp"><![CDATA[メッセージ許可]]></value>
 		<value xml:lang="zh-CN"><![CDATA[接收短消息]]></value>
 		<value xml:lang="zh-TW"><![CDATA[接收短訊息]]></value>
@@ -593,7 +593,7 @@
 	<item name="allow_message_type" type="array">
 		<item name="Y">
 			<value xml:lang="ko"><![CDATA[모두 허용]]></value>
-			<value xml:lang="en"><![CDATA[Allow All]]></value>
+			<value xml:lang="en"><![CDATA[allow all]]></value>
 			<value xml:lang="jp"><![CDATA[すべて許可]]></value>
 			<value xml:lang="zh-CN"><![CDATA[全部接收]]></value>
 			<value xml:lang="zh-TW"><![CDATA[全部允許]]></value>
@@ -603,7 +603,7 @@
 		</item>
 		<item name="F">
 			<value xml:lang="ko"><![CDATA[등록된 친구들만 허용]]></value>
-			<value xml:lang="en"><![CDATA[Allow for Friends only]]></value>
+			<value xml:lang="en"><![CDATA[allow from friends only]]></value>
 			<value xml:lang="jp"><![CDATA[登録した友達のみ許可]]></value>
 			<value xml:lang="zh-CN"><![CDATA[拒收]]></value>
 			<value xml:lang="zh-TW"><![CDATA[允許好友]]></value>
@@ -613,7 +613,7 @@
 		</item>
 		<item name="N">
 			<value xml:lang="ko"><![CDATA[모두 금지]]></value>
-			<value xml:lang="en"><![CDATA[Reject All]]></value>
+			<value xml:lang="en"><![CDATA[reject all]]></value>
 			<value xml:lang="jp"><![CDATA[すべて禁止]]></value>
 			<value xml:lang="zh-CN"><![CDATA[只允许好友]]></value>
 			<value xml:lang="zh-TW"><![CDATA[全部禁止]]></value>

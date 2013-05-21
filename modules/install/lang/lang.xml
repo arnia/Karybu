@@ -1104,7 +1104,7 @@
         <value xml:lang="en"><![CDATA[version]]></value>
     </item>
     <item name="introduce_title">
-        <value xml:lang="en"><![CDATA[Welcome to Karybu CMS Installation wizard]]></value>
+        <value xml:lang="en"><![CDATA[Installation Wizard]]></value>
     </item>
     <item name="introduce_desc">
         <value xml:lang="en"><![CDATA[<p><b>Hello there!</b></p><p>If this is your first installation of XE, before we get started, you should know that we will need some information from you regarding your database setup.</p><p>These items should have been provided to you by your web service provider or your web admin, if not you can always ask for them and resume this installation later on.</p><p>Also, in general, we will refer to Xpress Engine as XE.</p>]]></value>
@@ -1149,16 +1149,16 @@
         <value xml:lang="en"><![CDATA[Administrator account]]></value>
     </item>
     <item name="final_title">
-        <value xml:lang="en"><![CDATA[Wrap up and go!]]></value>
+        <value xml:lang="en"><![CDATA[Ready to go]]></value>
     </item>
     <item name="final_description">
         <value xml:lang="en"><![CDATA[Congratulations, you’ve successfully set up your Karybu site!]]></value>
     </item>
     <item name="final_site_desc">
-        <value xml:lang="en"><![CDATA[Go ahead, check out your brand new site:]]></value>
+        <value xml:lang="en"><![CDATA[Go to your fresh new site]]></value>
     </item>
     <item name="final_admin_desc">
-        <value xml:lang="en"><![CDATA[You can access your administrators panel:]]></value>
+        <value xml:lang="en"><![CDATA[... or to the admin panel]]></value>
     </item>
     <item name="here">
         <value xml:lang="en"><![CDATA[here]]></value>
