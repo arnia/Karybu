@@ -14,6 +14,7 @@
     function kSitemapNav() {}
     kSitemapNav.initializeScrollbar = function() {
         $("#kSidebar").mCustomScrollbar({
+            scrollInertia:300,
             scrollButtons:{
                 enable:true
             },
@@ -36,6 +37,7 @@
     }
     kActionsNav.initializeVerticalScrollbar = function() {
         $("#kNav").mCustomScrollbar({
+            scrollInertia:300,
             scrollButtons:{
                 enable:true
             },
@@ -48,6 +50,7 @@
     }
     kActionsNav.initializeHorizontalScrollbar = function() {
         $("#kNav").mCustomScrollbar({
+            scrollInertia:300,
             horizontalScroll:true,
             scrollButtons: {
                 enable: true
@@ -77,7 +80,7 @@
             scrollButtons:{
                 enable:true
             },
-            scrollInertia:200,
+            scrollInertia:300,
             advanced:{
                 updateOnContentResize: true,
                 normalizeMouseWheelDelta: true
@@ -98,6 +101,7 @@
         if(!$("#kMainNav").length) return;
 
         $("#kMainNav").mCustomScrollbar({
+            scrollInertia:300,
             horizontalScroll:true,
             autoHideScrollbar: true,
             scrollButtons: {
@@ -119,6 +123,7 @@
         if(!$(".kVScroll").length) return;
 
         $(".kVScroll").mCustomScrollbar({
+            scrollInertia:300,
             horizontalScroll:true,
             autoHideScrollbar: true,
             scrollButtons: {
@@ -140,18 +145,18 @@
 
         if ($('.main-nav').length > 0) {
             if (parseInt($(window).width()) <= 767) {
-                return Math.floor(($(window).height() - 200))
+                return Math.floor(($(window).height() - 160))
             }
             else{
-                return Math.floor(($(window).height() - 120))
+                return Math.floor(($(window).height() - 100))
             }
         }
         else {
             if (parseInt($(window).width()) <= 767) {
-                return Math.floor(($(window).height() - 160))
+                return Math.floor(($(window).height() - 120))
             }
             else{
-                    return Math.floor(($(window).height() - 80))
+                    return Math.floor(($(window).height() - 60))
                 }
         }
     }
