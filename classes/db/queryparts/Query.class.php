@@ -322,7 +322,7 @@
 		 */
 		function getInsertString($with_values = TRUE){
 			$columnsList = '';
-			if($this->subquery){ // means we have insert-select
+			if(!empty($this->subquery)){ // means we have insert-select
 				
 				foreach($this->columns as $column){
 					$columnsList .= $column->getColumnName() . ', ';

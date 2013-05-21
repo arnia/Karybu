@@ -566,6 +566,7 @@ class memberModel extends member
      **/
     function getAdminGroup($columnList = array())
     {
+        $args = new stdClass();
         $output = executeQuery('member.getAdminGroup', $args, $columnList);
         return $output->data;
     }

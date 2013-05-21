@@ -21,7 +21,9 @@
          **/
         function getAddonPath($addon_name) {
             $class_path = sprintf('./addons/%s/', $addon_name);
-            if(is_dir($class_path)) return $class_path;
+            if(is_dir($class_path)) {
+                return $class_path;
+            }
             return "";
         }
 
@@ -68,7 +70,9 @@
             // Downloaded and installed add-on to the list of Wanted
             $searched_list = FileHandler::readDir('./addons','/^([a-zA-Z0-9-_]+)$/');
             $searched_count = count($searched_list);
-            if(!$searched_count) return;
+            if(!$searched_count) {
+                return;
+            }
             sort($searched_list);
 
 			$oAddonAdminController = &getAdminController('addon');
@@ -76,7 +80,9 @@
             for($i=0;$i<$searched_count;$i++) {
                 // Add the name of
                 $addon_name = $searched_list[$i];
-				if($addon_name == "smartphone") continue;
+				if($addon_name == "smartphone") {
+                    continue;
+                }
                 // Add the path (files/addons precedence)
                 $path = $this->getAddonPath($addon_name);
                 // Wanted information on the add-on
@@ -94,9 +100,15 @@
                     $oAddonAdminController->doInsert($addon_name, $site_srl, null);
                 // Is activated
                 } else {
-                    if($inserted_addons[$addon_name]->is_used=='Y') $info->activated = true;
-                    if($inserted_addons[$addon_name]->is_used_m=='Y') $info->mactivated = true;
-					if ($gtype == 'global' && $inserted_addons[$addon_name]->is_fixed == 'Y') $info->fixed = true;
+                    if($inserted_addons[$addon_name]->is_used=='Y') {
+                        $info->activated = true;
+                    }
+                    if($inserted_addons[$addon_name]->is_used_m=='Y') {
+                        $info->mactivated = true;
+                    }
+					if ($gtype == 'global' && $inserted_addons[$addon_name]->is_fixed == 'Y') {
+                        $info->fixed = true;
+                    }
                 }
 
                 $list[] = $info;
@@ -126,15 +138,19 @@
 
             $oXmlParser = new XmlParser();
             $tmp_xml_obj = $oXmlParser->loadXmlFile($xml_file);
-            $xml_obj = $tmp_xml_obj->addon;
+            $xml_obj = isset($tmp_xml_obj->addon) ? $tmp_xml_obj->addon : null;
 
-            if(!$xml_obj) return;
+            if(!$xml_obj) {
+                return;
+            }
 
 
             // DB is set to bring history
             $db_args = new stdClass();
             $db_args->addon = $addon;
-            if($gtype == 'global') $output = executeQuery('addon.getAddonInfo',$db_args);
+            if($gtype == 'global') {
+                $output = executeQuery('addon.getAddonInfo',$db_args);
+            }
             else {
                 $db_args->site_srl = $site_srl;
                 $output = executeQuery('addon.getSiteAddonInfo',$db_args);
@@ -152,8 +168,7 @@
                 $addon_info->mid_list = array();
             }
 
-			if(!empty($extra_vals->xe_run_method))
-			{
+			if(!empty($extra_vals->xe_run_method)) {
 				$addon_info->xe_run_method = $extra_vals->xe_run_method;
 			}
 
@@ -396,8 +411,12 @@
                 $args->site_srl = $site_srl;
                 $output = executeQuery('addon.getSiteAddons', $args);
             }
-            if(!$output->data) return array();
-            if(!is_array($output->data)) $output->data = array($output->data);
+            if(!$output->data) {
+                return array();
+            }
+            if(!is_array($output->data)) {
+                $output->data = array($output->data);
+            }
 
             $activated_count = count($output->data);
             $addon_list = array();
@@ -425,10 +444,16 @@
 			}
             else {
                 $args->site_srl = $site_srl;
-				if($type == "pc") $output = executeQuery('addon.getSiteAddonIsActivated', $args);
-				else $output = executeQuery('addon.getSiteMAddonIsActivated', $args);
+				if($type == "pc") {
+                    $output = executeQuery('addon.getSiteAddonIsActivated', $args);
+                }
+				else {
+                    $output = executeQuery('addon.getSiteMAddonIsActivated', $args);
+                }
             }
-            if($output->data->count>0) return true;
+            if($output->data->count>0) {
+                return true;
+            }
             return false;
         }
 

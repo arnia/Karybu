@@ -30,6 +30,10 @@
     RewriteRule ^([a-zA-Z0-9_]+)/([0-9]+)/(.+)/trackback$ ./index.php?vid=$1&document_srl=$2&key=$3&act=trackback [L]
     RewriteRule ^([a-zA-Z0-9_]+)/([a-zA-Z0-9_]+)/([0-9]+)/(.+)/trackback$ ./index.php?vid=$1&mid=$2&document_srl=$3&key=$4&act=trackback [L]
 
+    # redirect missing images to 404 without passing through the internal router.
+    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f
+    RewriteRule \.(jpg|jpeg|png|gif|ico|swf|bmp)$ - [nocase,redirect=404,last]
+
     # admin needs to be treated separately, because there is also a folder named admin
     RewriteRule ^admin$ ./index.php/admin [L]
     RewriteRule ^admin/(.*)$ ./index.php/admin/$1 [L]

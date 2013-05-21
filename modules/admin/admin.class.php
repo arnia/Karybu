@@ -72,6 +72,7 @@ class admin extends ModuleObject
      */
     function createXeAdminMenu()
     {
+        $args = new stdClass();
         //insert menu
         $args->title = '__KARYBU_ADMIN__';
         $args->menu_srl = getNextSequence();
@@ -83,6 +84,7 @@ class admin extends ModuleObject
         // gnb item create
         $gnbList = array('dashboard', 'menu', 'user', 'content', 'theme', 'extensions', 'configuration');
         foreach ($gnbList AS $key => $value) {
+            $args = new stdClass();
             //insert menu item
             $args->menu_srl = $menuSrl;
             $args->menu_item_srl = getNextSequence();
@@ -208,7 +210,7 @@ class admin extends ModuleObject
         $oMemberModel = & getModel('member');
         $output = $oMemberModel->getAdminGroup(array('group_srl'));
         $adminGroupSrl = $output->group_srl;
-
+        $args = new stdClass();
         // gnb sub item create
         // common argument setting
         $args->menu_srl = $menuSrl;

@@ -202,7 +202,7 @@ class FileHandlerInstance
      * @param string $target Path of target file
      * @return bool Returns true on success or false on failure.
      **/
-    function rename($source, $target)
+    static function rename($source, $target)
     {
         $source = $this->getRealPath($source);
         $target = $this->getRealPath($target);
@@ -1087,22 +1087,22 @@ class FileHandler
         self::$file_handler->writeFile($file_name, $buff, $mode);
     }
 
-    function removeFile($file_name)
+    static function removeFile($file_name)
     {
         return self::$file_handler->removeFile($file_name);
     }
 
-    function rename($source, $target)
+    static function rename($source, $target)
     {
         return self::$file_handler->rename($source, $target);
     }
 
-    function moveFile($source, $target)
+    static function moveFile($source, $target)
     {
         return self::$file_handler->moveFile($source, $target);
     }
 
-    function moveDir($source_dir, $target_dir)
+    static function moveDir($source_dir, $target_dir)
     {
         self::$file_handler->rename($source_dir, $target_dir);
     }
@@ -1117,22 +1117,22 @@ class FileHandler
         return self::$file_handler->makeDir($path_string);
     }
 
-    function removeDir($path)
+    static function removeDir($path)
     {
         self::$file_handler->removeDir($path);
     }
 
-    function removeBlankDir($path)
+    static function removeBlankDir($path)
     {
         self::$file_handler->removeBlankDir($path);
     }
 
-    function removeFilesInDir($path)
+    static function removeFilesInDir($path)
     {
         self::$file_handler->removeFilesInDir($path);
     }
 
-    function filesize($size)
+    static function filesize($size)
     {
         self::$file_handler->filesize($size);
     }

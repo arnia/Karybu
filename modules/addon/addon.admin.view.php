@@ -31,7 +31,12 @@
 
 			foreach($addon_list as $no => $addon_info)
 			{
-				$addon_list[$no]->description = nl2br(trim($addon_info->description));
+                if (!empty($addon_info->description)) {
+				    $addon_list[$no]->description = nl2br(trim($addon_info->description));
+                }
+                else {
+                    $addon_list[$no]->description = '';
+                }
 			}
 
             Context::set('addon_list', $addon_list);
@@ -57,13 +62,16 @@
             $oModuleModel = &getModel('module');
             $oModuleAdminModel = &getAdminModel('module');
             $args = new stdClass();
-            if($site_module_info->site_srl) {
+            if(!empty($site_module_info->site_srl)) {
                 $args->site_srl = $site_module_info->site_srl;
+            }
+            else {
+                $args->site_srl = null;
             }
 			$columnList = array('module_srl', 'module_category_srl', 'mid', 'browser_title');
             $mid_list = $oModuleModel->getMidList($args, $columnList);
             // module_category and module combination
-            if(!$site_module_info->site_srl) {
+            if(empty($site_module_info->site_srl)) {
                 // Get a list of module categories
                 $module_categories = $oModuleModel->getModuleCategories();
 
@@ -72,7 +80,10 @@
                         $module_categories[$module->module_category_srl]->list[$module_srl] = $module;
                     }
                 }
-            } else {
+            }
+            else {
+                $module_categories = array();
+                $module_categories[0] = new stdClass();
                 $module_categories[0]->list = $mid_list;
             }
 
@@ -102,7 +113,11 @@
             $selected_addon = Context::get('selected_addon');
             // Wanted to add the requested information
             $oAddonModel = &getAdminModel('addon');
-            $addon_info = $oAddonModel->getAddonInfoXml($selected_addon, $site_module_info->site_srl);
+            $site_srl = null;
+            if (!empty($site_module_info->site_srl)) {
+                $site_srl = $site_module_info->site_srl;
+            }
+            $addon_info = $oAddonModel->getAddonInfoXml($selected_addon, $site_srl);
             Context::set('addon_info', $addon_info);
             // Set the layout to be pop-up
             $this->setLayoutFile('popup_layout');

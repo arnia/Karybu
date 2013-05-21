@@ -67,25 +67,25 @@ class ValidatorSession
      **/
     function setErrorsToContext()
     {
-        if ($_SESSION['XE_VALIDATOR_ERROR'] && !$this->context->get('XE_VALIDATOR_ERROR')) {
+        if (!empty($_SESSION['XE_VALIDATOR_ERROR']) && !$this->context->get('XE_VALIDATOR_ERROR')) {
             $this->context->set(
                 'XE_VALIDATOR_ERROR',
                 $_SESSION['XE_VALIDATOR_ERROR']
             );
         }
-        if ($_SESSION['XE_VALIDATOR_MESSAGE'] && !$this->context->get('XE_VALIDATOR_MESSAGE')) {
+        if (!empty($_SESSION['XE_VALIDATOR_MESSAGE']) && !$this->context->get('XE_VALIDATOR_MESSAGE')) {
             $this->context->set(
                 'XE_VALIDATOR_MESSAGE',
                 $_SESSION['XE_VALIDATOR_MESSAGE']
             );
         }
-        if ($_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] && !$this->context->get(
+        if (!empty($_SESSION['XE_VALIDATOR_MESSAGE_TYPE']) && !$this->context->get(
             'XE_VALIDATOR_MESSAGE_TYPE'
         )
         ) {
             $this->context->set('XE_VALIDATOR_MESSAGE_TYPE', $_SESSION['XE_VALIDATOR_MESSAGE_TYPE']);
         }
-        if ($_SESSION['XE_VALIDATOR_RETURN_URL'] && !$this->context->get(
+        if (!empty($_SESSION['XE_VALIDATOR_RETURN_URL']) && !$this->context->get(
             'XE_VALIDATOR_RETURN_URL'
         )
         ) {
@@ -100,7 +100,7 @@ class ValidatorSession
      */
     public function setupCustomErrorMessages()
     {
-        if ($_SESSION['XE_VALIDATOR_ERROR_LANG']) {
+        if (!empty($_SESSION['XE_VALIDATOR_ERROR_LANG'])) {
             $errorLang = $_SESSION['XE_VALIDATOR_ERROR_LANG'];
             foreach ($errorLang as $key => $val) {
                 $this->context->setLang($key, $val);

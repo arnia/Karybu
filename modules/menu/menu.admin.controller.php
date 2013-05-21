@@ -96,7 +96,7 @@
             // Delete images of menu buttons
             $image_path = sprintf('./files/attach/menu_button/%s', $menu_srl);
             FileHandler::removeDir($image_path);
-
+            $args = new stdClass();
             $args->menu_srl = $menu_srl;
             // Delete menu items
             $output = executeQuery("menu.deleteMenuItems", $args);

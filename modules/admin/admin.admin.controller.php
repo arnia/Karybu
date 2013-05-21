@@ -91,7 +91,7 @@ class adminAdminController extends admin {
         }
 
         // remove duplicate indexes (only for CUBRID)
-        $db_type = &Context::getDBType();
+        $db_type = Context::getDBType();
         if($db_type == 'cubrid')
         {
             $db = DB::getInstance();

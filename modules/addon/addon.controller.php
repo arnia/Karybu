@@ -29,7 +29,10 @@ class addonController extends addon
         }
 
         $site_module_info = Context::get('site_module_info');
-        $site_srl = $site_module_info->site_srl;
+        $site_srl = null;
+        if (!empty($site_module_info->site_srl)) {
+            $site_srl = $site_module_info->site_srl;
+        }
 
         $addon_path = _KARYBU_PATH_ . 'files/cache/addons/';
 
