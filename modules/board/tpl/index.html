@@ -4,7 +4,7 @@
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 
-<table id="boardList" class="x_table x_table-striped x_table-hover">
+<table id="boardList" class="table x_table-striped x_table-hover">
 	<caption>
 		<strong>Total: {number_format($total_count)}, Page: {number_format($page)}/{number_format($total_page)}</strong>
 	</caption>
@@ -33,9 +33,9 @@
 			<td><a href="{getSiteUrl($val->domain,'','mid',$val->mid)}">{$val->browser_title}</a></td>
 			<td>{zdate($val->regdate,"Y-m-d")}</td>
 			<td>
-				<a href="{getUrl('act','dispBoardAdminBoardInfo','module_srl',$val->module_srl)}" class="x_icon-cog" title="{$lang->cmd_setup}">{$lang->cmd_setup}</a>
-				<a href="{getUrl('','module','module','act','dispModuleAdminCopyModule','module_srl',$val->module_srl)}" class="x_icon-plus" onclick="popopen(this.href);return false;" title="{$lang->cmd_copy}">{$lang->cmd_copy}</a>
-				<a href="{getUrl('act','dispBoardAdminDeleteBoard','module_srl', $val->module_srl)}" class="x_icon-remove" title="{$lang->cmd_delete}">{$lang->cmd_delete}</a>
+				<a href="{getUrl('act','dispBoardAdminBoardInfo','module_srl',$val->module_srl)}" class="icon-cog" title="{$lang->cmd_setup}">{$lang->cmd_setup}</a>
+				<a href="{getUrl('','module','module','act','dispModuleAdminCopyModule','module_srl',$val->module_srl)}" class="icon-plus" onclick="popopen(this.href);return false;" title="{$lang->cmd_copy}">{$lang->cmd_copy}</a>
+				<a href="{getUrl('act','dispBoardAdminDeleteBoard','module_srl', $val->module_srl)}" class="icon-remove" title="{$lang->cmd_delete}">{$lang->cmd_delete}</a>
 			</td>
 			<td><input type="checkbox" name="cart" value="{$val->module_srl}" class="selectedModule" data-mid="{$val->mid}" data-browser_title="{$val->browser_title}" /></td>
 		</tr>
@@ -45,45 +45,45 @@
 	</tbody>
 </table>
 
-<div class="x_clearfix">
-	<form cond="$page_navigation" action="./" class="x_pagination x_pull-left" no-error-return-url="true" style="margin-top:0">
+<div class="clearfix">
+	<form cond="$page_navigation" action="./" class="pagination x_pull-left" no-error-return-url="true" style="margin-top:0">
 		{@
 			$urlInfo = parse_url(getRequestUriByServerEnviroment());
 			parse_str($urlInfo['query'], $param);
 		}
 		<input loop="$param => $key, $val" cond="!in_array($key, array('mid', 'vid', 'act'))" type="hidden" name="{$key}" value="{$val}" />
 		<ul>
-			<li class="x_disabled"|cond="!$page || $page == 1"><a href="{getUrl('page', '')}">&laquo; {$lang->first_page}</a></li>
+			<li class="disabled"|cond="!$page || $page == 1"><a href="{getUrl('page', '')}">&laquo; {$lang->first_page}</a></li>
 			<block cond="$page_navigation->first_page != 1 && $page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page - 1 && $page_navigation->page_count != $page_navigation->total_page">
 			{@$isGoTo = true}
 			<li>
 				<a href="#goTo" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
-				<span cond="$isGoTo" id="goTo" class="x_input-append">
+				<span cond="$isGoTo" id="goTo" class="input-append">
 					<input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
-					<button type="submit" class="x_add-on">Go</button>
+					<button type="submit" class="add-on">Go</button>
 				</span>
 			</li>
 			</block>
 			<!--@while($page_no = $page_navigation->getNextPage())-->
 			{@$last_page = $page_no}
-			<li class="x_active"|cond="$page_no == $page"><a  href="{getUrl('page', $page_no)}">{$page_no}</a></li>
+			<li class="active"|cond="$page_no == $page"><a  href="{getUrl('page', $page_no)}">{$page_no}</a></li>
 			<!--@end-->
 			<block cond="$last_page != $page_navigation->last_page && $last_page + 1 != $page_navigation->last_page">
 			{@$isGoTo = true}
 			<li>
 				<a href="#goTo" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
-				<span cond="$isGoTo" id="goTo" class="x_input-append">
+				<span cond="$isGoTo" id="goTo" class="input-append">
 					<input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
-					<button type="submit" class="x_add-on">Go</button>
+					<button type="submit" class="add-on">Go</button>
 				</span>
 			</li>
 			</block>
-			<li class="x_disabled"|cond="$page == $page_navigation->last_page"><a href="{getUrl('page', $page_navigation->last_page)}" title="{$page_navigation->last_page}">{$lang->last_page} &raquo;</a></li>
+			<li class="disabled"|cond="$page == $page_navigation->last_page"><a href="{getUrl('page', $page_navigation->last_page)}" title="{$page_navigation->last_page}">{$lang->last_page} &raquo;</a></li>
 		</ul>
 	</form>
-	<span class="x_pull-right x_btn-group">
-		<!--<a class="x_btn x_btn-inverse" href="{getUrl('act','dispBoardAdminInsertBoard','module_srl','')}">{$lang->cmd_create_board}</a>-->
-		<a class="x_btn modalAnchor _manage_selected" href="#manageSelectedModule">{$lang->cmd_manage_selected_board}</a>
+	<span class="pull-right x_btn-group">
+		<!--<a class="btn x_btn-inverse" href="{getUrl('act','dispBoardAdminInsertBoard','module_srl','')}">{$lang->cmd_create_board}</a>-->
+		<a class="btn modalAnchor _manage_selected" href="#manageSelectedModule">{$lang->cmd_manage_selected_board}</a>
 	</span>
 </div>
 <form action="" class="search x_input-append center" no-error-return-url="true">
@@ -97,8 +97,8 @@
 		<option value="browser_title" selected="selected"|cond="$search_target=='browser_title'">{$lang->browser_title}</option>
 	</select>
 	<input type="search" required name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
-	<button class="x_btn x_btn-inverse" type="submit">{$lang->cmd_search}</button>
-	<a class="x_btn" href="{getUrl('', 'module', $module, 'act', $act)}">{$lang->cmd_cancel}</a>
+	<button class="btn x_btn-inverse" type="submit">{$lang->cmd_search}</button>
+	<a class="btn" href="{getUrl('', 'module', $module, 'act', $act)}">{$lang->cmd_cancel}</a>
 </form>
 
 {$selected_manage_content}

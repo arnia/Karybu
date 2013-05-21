@@ -5,7 +5,7 @@
 	<input type="hidden" name="page" value="{$page}" />
 	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
     <h1>{$lang->confirm_delete}</h1>
-	<dl class="x_dl-horizontal">
+	<dl class="dl-horizontal">
 		<dt>{$lang->module_name}</dt>
 		<dd>{$module_info->mid}</dd>
 		<dt>{$lang->module}</dt>
@@ -14,7 +14,7 @@
 		<dd>{$module_info->document_count}</dd>
 	</dl>
 	<div class="btnArea">
-		<a href="{getUrl('act','dispBoardAdminContent')}" class="x_btn x_pull-left">{$lang->cmd_back}</a>
-		<span><input class="x_btn x_btn-danger" type="submit" value="{$lang->cmd_delete}" /></span>
+		<a href="{getUrl('act','dispBoardAdminContent')}" class="btn x_pull-left">{$lang->cmd_back}</a>
+		<span><input class="btn x_btn-danger" type="submit" value="{$lang->cmd_delete}" /></span>
 	</div>
 </form>
