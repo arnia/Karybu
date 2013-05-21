@@ -545,14 +545,6 @@ a.swatch:hover {
     margin: 0;
 }
 
-.x .brand img {
-    max-height: 36px;
-}
-
-.x .admin {
-    width: 32px;
-    height: 32px;
-}
 
 .x .brand #language {
     margin: 0 10px;
@@ -774,6 +766,16 @@ form .controls textarea ~ span
 /* FORMS END */
 
 @media (max-width: 767px) {
+
+    .x .brand img {
+        max-height: 36px;
+    }
+
+    .x .admin {
+        width: 32px;
+        height: 32px;
+    }
+
 
     .tooltip {
         display: none!important;
