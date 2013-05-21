@@ -482,6 +482,7 @@
 		 * @return Object
          **/
         function setFilesValid($upload_target_srl) {
+            $args = new stdClass();
             $args->upload_target_srl = $upload_target_srl;
             return executeQuery('file.updateFileValid', $args);
         }
@@ -519,6 +520,7 @@
          **/
         function insertFile($file_info, $module_srl, $upload_target_srl, $download_count = 0, $manual_insert = false) {
             // Call a trigger (before)
+            $trigger_obj = new stdClass();
             $trigger_obj->module_srl = $module_srl;
             $trigger_obj->upload_target_srl = $upload_target_srl;
             $output = ModuleHandler::triggerCall('file.insertFile', 'before', $trigger_obj);
@@ -591,6 +593,7 @@
             $oMemberModel = &getModel('member');
             $member_srl = $oMemberModel->getLoggedMemberSrl();
             // List file information
+            $args = new stdClass();
             $args->file_srl = getNextSequence();
             $args->upload_target_srl = $upload_target_srl;
             $args->module_srl = $module_srl;

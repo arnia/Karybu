@@ -90,8 +90,7 @@
          * Available when using module instance in all the modules
          **/
         function getModuleGrantHTML($module_srl, $source_grant_list) {
-			if(!$module_srl)
-			{
+			if(!$module_srl){
 				return;
 			}
 
@@ -104,6 +103,8 @@
 			$columnList = array('module_srl', 'site_srl');
             $module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl, $columnList);
             // Grant virtual permission for access and manager
+            $grant_list = new stdClass();
+            $grant_list->access = new stdClass();
             $grant_list->access->title = Context::getLang('grant_access');
             $grant_list->access->default = 'guest';
             if(count($source_grant_list)) {
@@ -113,13 +114,16 @@
                     $grant_list->{$key} = $val;
                 }
             }
+            $grant_list->manager = new stdClass();
             $grant_list->manager->title = Context::getLang('grant_manager');
             $grant_list->manager->default = 'manager';
             Context::set('grant_list', $grant_list);
             // Get a permission group granted to the current module
             $default_grant = array();
+            $args = new stdClass();
             $args->module_srl = $module_srl;
             $output = executeQueryArray('module.getModuleGrants', $args);
+            $selected_group = array();
             if($output->data) {
                 foreach($output->data as $val) {
                     if($val->group_srl == 0) $default_grant[$val->name] = 'all';
@@ -209,7 +213,7 @@
 				$skin_vars = $oModuleModel->getModuleMobileSkinVars($module_srl);
 			}
 
-            if(count($skin_info->extra_vars)) 
+            if(isset($skin_info->extra_vars) && count($skin_info->extra_vars))
 			{
                 foreach($skin_info->extra_vars as $key => $val) 
 				{

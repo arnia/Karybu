@@ -57,8 +57,8 @@
 		function _updateinfo(){
             $oModel = &getModel('autoinstall');
             $item = $oModel->getLatestPackage();
-            if($item)
-            {
+            $params = array();
+            if($item) {
                 $params["updatedate"] = $item->updatedate;
             }
 
@@ -93,15 +93,12 @@
                 }
 
 				$type = $oModel->getTypeFromPath($package->path);
-				if($type == "core")
-				{
+				if($type == "core")	{
                     $version = __KARYBU_VERSION__;
 				}
-                else
-                {
+                else {
 					$config_file = null;
-                    switch($type)
-                    {
+                    switch($type) {
 						case "m.layout":
 							$type = "layout";
 						case "module":
@@ -129,23 +126,25 @@
                             $type = "theme";
                         break;
                     }
-					if(!$config_file) continue;
+					if(!$config_file) {
+                        continue;
+                    }
                     $xml = new XmlParser();
                     $xmlDoc = $xml->loadXmlFile($real_path.$config_file);
-                    if(!$xmlDoc) continue;
-                    $version = $xmlDoc->{$type}->version->body;
+                    if(!$xmlDoc) {
+                        continue;
+                    }
+                    $version = isset($xmlDoc->{$type}->version->body) ? $xmlDoc->{$type}->version->body : null;
                 }
 
-                $args = null;
-                $args->package_srl = $package->package_srl;
-                $args->version = $package->version;
+                $args = new stdClass();
+                $args->package_srl = isset($package->package_srl) ? $package->package_srl : null;
+                $args->version = isset($package->version) ? $package->version : null;
                 $args->current_version = $version;
-                if(version_compare($args->version, $args->current_version, ">"))
-                {
+                if(version_compare($args->version, $args->current_version, ">")) {
                     $args->need_update="Y";
                 }
-                else
-                {
+                else {
                     $args->need_update="N";
                 }
 
@@ -158,55 +157,45 @@
 		 *
 		 * @return Object
 		 */
-        function procAutoinstallAdminPackageinstall()
-        {
+        function procAutoinstallAdminPackageinstall() {
             @set_time_limit(0);
             $package_srls = Context::get('package_srl');
             $oModel =& getModel('autoinstall');
             $packages = explode(',', $package_srls);
             $ftp_info =  Context::getFTPInfo();
-            if(!$_SESSION['ftp_password'])
-            {
+            if(empty($_SESSION['ftp_password'])) {
                 $ftp_password = Context::get('ftp_password');
             }
-            else
-            {
+            else {
                 $ftp_password = $_SESSION['ftp_password'];
             }
 
 			$isSftpSupported = function_exists(ssh2_sftp);
-            foreach($packages as $package_srl)
-            {
+            foreach($packages as $package_srl) {
                 $package = $oModel->getPackage($package_srl);
-                if($ftp_info->sftp && $ftp_info->sftp == 'Y' && $isSftpSupported)
-                {
+                if(!empty($ftp_info->sftp) && $ftp_info->sftp == 'Y' && $isSftpSupported) {
                     $oModuleInstaller = new SFTPModuleInstaller($package);
                 }
-                else if(function_exists(ftp_connect))
-                {
+                else if(function_exists(ftp_connect)) {
                     $oModuleInstaller = new PHPFTPModuleInstaller($package);
                 }
-                else
-                {
+                else {
                     $oModuleInstaller = new FTPModuleInstaller($package);
                 }
 
 				$oModuleInstaller->setServerUrl(_KARYBU_DOWNLOAD_SERVER_);
                 $oModuleInstaller->setPassword($ftp_password);
                 $output = $oModuleInstaller->install();
-                if(!$output->toBool()) return $output;
+                if(!$output->toBool()) {
+                    return $output;
+                }
             }
-
 			$this->_updateinfo();
-
             $this->setMessage('success_installed', 'update');
-
-			if (Context::get('return_url'))
-			{
+			if (Context::get('return_url')) {
 				$this->setRedirectUrl(Context::get('return_url'));
 			}
-			else
-			{
+			else {
 				$this->setRedirectUrl(preg_replace('/act=[^&]*/', 'act=dispAutoinstallAdminIndex', Context::get('error_return_url')));
 			}
         }
@@ -220,28 +209,24 @@
         function updatePackages(&$xmlDoc)
         {
             $oModel =& getModel('autoinstall');
-            if(!$xmlDoc->response->packages->item) return;
-            if(!is_array($xmlDoc->response->packages->item))
-            {
+            if(empty($xmlDoc->response->packages->item)) {
+                return;
+            }
+            if(!is_array($xmlDoc->response->packages->item)) {
                 $xmlDoc->response->packages->item = array($xmlDoc->response->packages->item);
             }
             $targets = array('package_srl', 'updatedate', 'latest_item_srl', 'path', 'version', 'category_srl');
-            foreach($xmlDoc->response->packages->item as $item)
-            {
-                $args = null;
-                foreach($targets as $target)
-                {
-                    $args->{$target} = $item->{$target}->body;
+            foreach($xmlDoc->response->packages->item as $item) {
+                $args = new stdClass();
+                foreach($targets as $target) {
+                    $args->{$target} = isset($item->{$target}->body) ? $item->{$target}->body : null;
                 }
-                if($oModel->getPackage($args->package_srl))
-                {
+                if($oModel->getPackage($args->package_srl)) {
                     $output = executeQuery("autoinstall.updatePackage", $args);
                 }
-                else
-                {
+                else {
                     $output = executeQuery("autoinstall.insertPackage", $args);
-					if(!$output->toBool())
-					{
+					if(!$output->toBool()) {
 						$output = executeQuery("autoinstall.deletePackage", $args);
 						$output = executeQuery("autoinstall.insertPackage", $args);
 					}
@@ -259,19 +244,19 @@
         {
             executeQuery("autoinstall.deleteCategory");
             $oModel =& getModel('autoinstall');
-            if(!is_array($xmlDoc->response->categorylist->item))
-            {
-                $xmlDoc->response->categorylist->item = array($xmlDoc->response->categorylist->item);
-            }
-			$list_order = 0;
-            foreach($xmlDoc->response->categorylist->item as $item)
-            {
-                $args = null;
-                $args->category_srl = $item->category_srl->body;
-                $args->parent_srl = $item->parent_srl->body;
-                $args->title = $item->title->body;
-				$args->list_order = $list_order++;
-                $output = executeQuery("autoinstall.insertCategory", $args);
+            if (isset($xmlDoc->response->categorylist->item)){
+                if(!is_array($xmlDoc->response->categorylist->item)) {
+                    $xmlDoc->response->categorylist->item = array($xmlDoc->response->categorylist->item);
+                }
+                $list_order = 0;
+                foreach($xmlDoc->response->categorylist->item as $item) {
+                    $args = new stdClass();
+                    $args->category_srl = $item->category_srl->body;
+                    $args->parent_srl = $item->parent_srl->body;
+                    $args->title = $item->title->body;
+                    $args->list_order = $list_order++;
+                    $output = executeQuery("autoinstall.insertCategory", $args);
+                }
             }
         }
 
@@ -285,29 +270,24 @@
 			$package_srl = Context::get('package_srl');
             $oModel =& getModel('autoinstall');
 			$package = $oModel->getPackage($package_srl);
-			$path = $package->path;
+			$path = isset($package->path) ? $package->path : null;
 
-            if(!$_SESSION['ftp_password'])
-            {
+            if(empty($_SESSION['ftp_password'])) {
                 $ftp_password = Context::get('ftp_password');
             }
-            else
-            {
+            else {
                 $ftp_password = $_SESSION['ftp_password'];
             }
             $ftp_info =  Context::getFTPInfo();
 
 			$isSftpSupported = function_exists(ssh2_sftp);
-			if($ftp_info->sftp && $ftp_info->sftp == 'Y' && $isSftpSupported)
-			{
+			if(!empty($ftp_info->sftp) && $ftp_info->sftp == 'Y' && $isSftpSupported) {
 				$oModuleInstaller = new SFTPModuleInstaller($package);
 			}
-			else if(function_exists('ftp_connect'))
-			{
+			else if(function_exists('ftp_connect')) {
 				$oModuleInstaller = new PHPFTPModuleInstaller($package);
 			}
-			else
-			{
+			else {
 				$oModuleInstaller = new FTPModuleInstaller($package);
 			}
 
@@ -315,18 +295,18 @@
 
 			$oModuleInstaller->setPassword($ftp_password);
 			$output = $oModuleInstaller->uninstall();
-			if(!$output->toBool()) return $output;
+			if(!$output->toBool()) {
+                return $output;
+            }
 
 			$this->_updateinfo();
 
 			$this->setMessage('success_deleted', 'update');
 
-			if (Context::get('return_url'))
-			{
+			if (Context::get('return_url')) {
 				$this->setRedirectUrl(Context::get('return_url'));
 			}
-			else
-			{
+			else {
 				$this->setRedirectUrl(getNotEncodedUrl('', 'module', 'admin', 'act', 'dispAutoinstallAdminInstalledPackages'));
 			}
 		}

@@ -26,7 +26,9 @@
                     Context::set('module_srl','');
                     $this->act = 'list';
                 } else {
-                    ModuleModel::syncModuleToSite($module_info);
+                    $moduleModel = new ModuleModel();
+                    $moduleModel->syncModuleToSite($module_info);
+                    //ModuleModel::syncModuleToSite($module_info);
                     $this->module_info = $module_info;
                     Context::set('module_info',$module_info);
                 }
@@ -342,7 +344,9 @@
         function dispPageAdminGrantInfo() {
             // Common module settings page, call rights
             $oModuleAdminModel = &getAdminModel('module');
-            $grant_content = $oModuleAdminModel->getModuleGrantHTML($this->module_info->module_srl, $this->xml_info->grant);
+            $moduleSrl = isset($this->module_info->module_srl) ? $this->module_info->module_srl : null;
+            $grant = isset($this->xml_info->grant) ? $this->xml_info->grant : null;
+            $grant_content = $oModuleAdminModel->getModuleGrantHTML($moduleSrl, $grant);
             Context::set('grant_content', $grant_content);
 
             $this->setTemplateFile('grant_list');

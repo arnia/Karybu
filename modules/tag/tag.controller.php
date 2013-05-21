@@ -17,7 +17,9 @@
          * @brief , (Comma) to clean up the tags attached to the trigger
          **/
         function triggerArrangeTag(&$obj) {
-            if(!$obj->tags) return new Object();
+            if(!$obj->tags) {
+                return new Object();
+            }
             // tags by variable
             $tag_list = explode(',', $obj->tags);
             $tag_count = count($tag_list);
@@ -25,11 +27,17 @@
             if(!count($tag_list)) return new Object();
 
             foreach($tag_list as $tag) {
-                if(!trim($tag)) continue;
+                if(!trim($tag)) {
+                    continue;
+                }
                 $arranged_tag_list[] = trim($tag); 
             }
-            if(!count($arranged_tag_list)) $obj->tags = null;
-            else $obj->tags = implode(',',$arranged_tag_list);
+            if(!count($arranged_tag_list)) {
+                $obj->tags = null;
+            }
+            else {
+                $obj->tags = implode(',',$arranged_tag_list);
+            }
             return new Object();
         }
 
@@ -38,14 +46,19 @@
          * Enter a Tag to delete that article and then re-enter all the tags using a method
          **/
         function triggerInsertTag(&$obj) {
-            $module_srl = $obj->module_srl;
-            $document_srl = $obj->document_srl;
-            $tags = $obj->tags;
-            if(!$document_srl) return new Object();
+            $module_srl = isset($obj->module_srl) ? $obj->module_srl : null;
+            $document_srl = isset($obj->document_srl) ? $obj->document_srl : null;
+            $tags = isset($obj->tags) ? $obj->tags : null;
+            if(!$document_srl) {
+                return new Object();
+            }
             // Remove all tags that article
             $output = $this->triggerDeleteTag($obj);
-            if(!$output->toBool()) return $output;
+            if(!$output->toBool()) {
+                return $output;
+            }
             // Re-enter the tag
+            $args = new stdClass();
             $args->module_srl = $module_srl;
             $args->document_srl = $document_srl;
 
@@ -54,9 +67,13 @@
             for($i=0;$i<$tag_count;$i++) {
                 unset($args->tag);
                 $args->tag = trim($tag_list[$i]);
-                if(!$args->tag) continue;
+                if(!$args->tag) {
+                    continue;
+                }
                 $output = executeQuery('tag.insertTag', $args);
-                if(!$output->toBool()) return $output;
+                if(!$output->toBool()) {
+                    return $output;
+                }
             }
 
             return new Object();
@@ -68,8 +85,10 @@
          **/
         function triggerDeleteTag(&$obj) {
             $document_srl = $obj->document_srl;
-            if(!$document_srl) return new Object();
-
+            if(!$document_srl) {
+                return new Object();
+            }
+            $args = new stdClass();
             $args->document_srl = $document_srl;
             return executeQuery('tag.deleteTag', $args);
         }
