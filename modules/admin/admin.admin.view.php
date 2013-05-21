@@ -27,7 +27,9 @@
             // forbit access if the user is not an administrator
             $oMemberModel = &getModel('member');
             $logged_info = $oMemberModel->getLoggedInfo();
-            if($logged_info->is_admin!='Y') return $this->stop("msg_is_not_administrator");
+            if(empty($logged_info->is_admin) || $logged_info->is_admin != 'Y') {
+                return $this->stop("msg_is_not_administrator");
+            }
 
             // change into administration layout
             $this->setTemplatePath($this->module_path.'tpl');
@@ -74,7 +76,9 @@
 		function checkEasyinstall()
 		{
 			$lastTime = (int)FileHandler::readFile($this->easyinstallCheckFile);
-			if ($lastTime > time() - 60*60*24*30) return;
+			if ($lastTime > time() - 60*60*24*30) {
+                return;
+            }
 
 			$oAutoinstallModel = &getModel('autoinstall');
 			$params = array();
@@ -83,7 +87,7 @@
 			$buff = FileHandler::getRemoteResource(_KARYBU_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
 			$xml_lUpdate = new XmlParser();
 			$lUpdateDoc = $xml_lUpdate->parse($buff);
-			$updateDate = $lUpdateDoc->response->updatedate->body;
+			$updateDate = isset($lUpdateDoc->response->updatedate->body) ? $lUpdateDoc->response->updatedate->body : null;
 
 			if (!$updateDate)
 			{
