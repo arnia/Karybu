@@ -89,15 +89,13 @@
 			$lUpdateDoc = $xml_lUpdate->parse($buff);
 			$updateDate = isset($lUpdateDoc->response->updatedate->body) ? $lUpdateDoc->response->updatedate->body : null;
 
-			if (!$updateDate)
-			{
+			if (!$updateDate) {
 				$this->_markingCheckEasyinstall();
 				return;
 			}
 
 			$item = $oAutoinstallModel->getLatestPackage();
-			if(!$item || $item->updatedate < $updateDate)
-			{
+			if(!$item || $item->updatedate < $updateDate) {
 				$oController = &getAdminController('autoinstall');
 				$oController->_updateinfo();
 			}
@@ -120,9 +118,7 @@
         function makeDashboardSitemap()
         {
             $oAdminAdminModel = getAdminModel('admin');
-
             $main_menu = $oAdminAdminModel->getMainMenuItems();
-
             Context::set('main_menu',$main_menu);
         }
 
@@ -164,10 +160,8 @@
 			$currentAct   = Context::get('act');
 			$subMenuTitle = '';
             if (isset($moduleActionInfo->menu)) {
-                foreach((array)$moduleActionInfo->menu as $key=>$value)
-                {
-                    if(isset($value->acts) && is_array($value->acts) && in_array($currentAct, $value->acts))
-                    {
+                foreach((array)$moduleActionInfo->menu as $key=>$value) {
+                    if(isset($value->acts) && is_array($value->acts) && in_array($currentAct, $value->acts)) {
                         $subMenuTitle = $value->title;
                         break;
                     }
@@ -176,18 +170,15 @@
 
 			$parentSrl = 0;
             if (isset($menu->list)) {
-                foreach((array)$menu->list as $parentKey=>$parentMenu)
-                {
+                foreach((array)$menu->list as $parentKey=>$parentMenu) {
                     if(!is_array($parentMenu['list']) || !count($parentMenu['list'])) continue;
                     if($parentMenu['href'] == '#' && count($parentMenu['list'])) {
                         $firstChild = current($parentMenu['list']);
                         $menu->list[$parentKey]['href'] = $firstChild['href'];
                     }
 
-                    foreach($parentMenu['list'] as $childKey=>$childMenu)
-                    {
-                        if($subMenuTitle == $childMenu['text'])
-                        {
+                    foreach($parentMenu['list'] as $childKey=>$childMenu) {
+                        if($subMenuTitle == $childMenu['text']) {
                             $parentSrl = $childMenu['parent_srl'];
                             break;
                         }
@@ -341,10 +332,8 @@
 			$columnList = array('comment_srl', 'module_srl', 'document_srl', 'content', 'nick_name', 'member_srl');
 			$args->list_count = 5;
 			$output = $oCommentModel->getNewestCommentList($args, $columnList);
-			if(is_array($output))
-			{
-				foreach($output AS $key=>$value)
-				{
+			if(is_array($output)) {
+				foreach($output AS $key=>$value) {
 					$value->content = strip_tags($value->content);
 				}
 			}
@@ -362,18 +351,14 @@
             // Get list of modules
             $oModuleModel = &getModel('module');
             $module_list = $oModuleModel->getModuleList();
-			if(is_array($module_list))
-			{
+			if(is_array($module_list)) {
 				$needUpdate = false;
 				$addTables = false;
-				foreach($module_list AS $key=>$value)
-				{
-					if($value->need_install)
-					{
+				foreach($module_list AS $key=>$value) {
+					if($value->need_install) {
 						$addTables = true;
 					}
-					if($value->need_update)
-					{
+					if($value->need_update) {
 						$needUpdate = true;
 					}
 				}
@@ -552,7 +537,9 @@
 		 * @return void
 		 */
 		function showSendEnv() {
-			if(Context::getResponseMethod() != 'HTML') return;
+			if(Context::getResponseMethod() != 'HTML') {
+                return;
+            }
 
 			$server = 'http://collect.karybu.org/env/img.php?';
 			$path = './files/env/';

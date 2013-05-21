@@ -32,7 +32,9 @@
             if(empty($ftp_info->ftp_root_path)) {
                 Context::set('show_ftp_note', true);
             }
-			else $this->ftp_set = true;
+			else {
+                $this->ftp_set = true;
+            }
 
 
             $this->dispCategory();
@@ -82,9 +84,8 @@
 		 */
         function rearrange(&$item, &$targets)
         {
-            $ret = null;
-            foreach($targets as $target)
-            {
+            $ret = new stdClass();
+            foreach($targets as $target) {
                 $ret->{$target} = $item->{$target}->body;
             }
             return $ret;
@@ -162,35 +163,40 @@
 		 */
         function rearranges($items, $packages = null)
         {
-            if(!is_array($items)) $items = array($items);
+            if(!is_array($items)) {
+                $items = array($items);
+            }
             $item_list = array();
             $targets = array('category_srl', 'package_srl', 'item_screenshot_url', 'package_voted', 'package_voter', 'package_description', 'package_downloaded', 'item_regdate', 'title', 'item_version', 'package_star', 'depfrom');
             $targetpackages = array();
-            foreach($items as $item)
-            {
-                $targetpackages[$item->package_srl->body] = 0;
+            foreach($items as $item) {
+                if (isset($item->package_srl->body)) {
+                    $targetpackages[$item->package_srl->body] = 0;
+                }
             }
             $oModel = &getModel('autoinstall');
-            if($package == null)
+            if($package == null) {
                 $packages = $oModel->getInstalledPackages(array_keys($targetpackages));
+            }
 			$depto = array();
-            foreach($items as $item)
-            {
+            foreach($items as $item) {
                 $v = $this->rearrange($item, $targets);
-				$v->category = $this->categories[$v->category_srl]->title;
-                if($packages[$v->package_srl])
-                {
-                    $v->current_version = $packages[$v->package_srl]->current_version;
-                    $v->need_update = $packages[$v->package_srl]->need_update;
-					$v->type = $oModel->getTypeFromPath($packages[$v->package_srl]->path);
-					if($this->ftp_set && $v->depfrom) {
+				$v->category = isset($this->categories[$v->category_srl]->title) ? $this->categories[$v->category_srl]->title : null;
+                if($packages[$v->package_srl]) {
+                    $v->current_version = isset($packages[$v->package_srl]->current_version) ? $packages[$v->package_srl]->current_version : null;
+                    $v->need_update = isset($packages[$v->package_srl]->need_update) ? $packages[$v->package_srl]->need_update : null;
+                    if (isset($packages[$v->package_srl]->path)) {
+					    $v->type = $oModel->getTypeFromPath($packages[$v->package_srl]->path);
+                    }
+					if(!empty($this->ftp_set) && !empty($v->depfrom)) {
 						$depfrom = explode("," , $v->depfrom);
-						foreach($depfrom as $package_srl)
-						{
+						foreach($depfrom as $package_srl) {
 							$depto[$package_srl][] = $v->package_srl;
 						}
 					}
-					if($v->type == "core") $v->avail_remove = false;
+					if($v->type == "core") {
+                        $v->avail_remove = false;
+                    }
 					else if($v->type == "module") {
 						$v->avail_remove = $oModel->checkRemovable($packages[$v->package_srl]->path);
 					}
@@ -199,33 +205,44 @@
                 $item_list[$v->package_srl] = $v;
             }
 
-			if(count($depto) > 0)
-			{
+			if(count($depto) > 0) {
 				$installed = $oModel->getInstalledPackages(implode(",", array_keys($depto)));
-				foreach($installed as $key=>$val)
-				{
-					$path = $val->path;
+				foreach($installed as $key=>$val) {
+					$path = isset($val->path) ? $val->path : null;
 					$type = $oModel->getTypeFromPath($path);
-					if(!$type || $type == "core") continue;
+					if(empty($type) || $type == "core") {
+                        continue;
+                    }
 					$config_file = $oModel->getConfigFilePath($type);
-					if(!$config_file) continue;
+					if(!$config_file) {
+                        continue;
+                    }
 
                     $xml = new XmlParser();
                     $xmlDoc = $xml->loadXmlFile(FileHandler::getRealPath($path).$config_file);
-					if(!$xmlDoc) continue;
-					if($type == "drcomponent") $type = "component";
-					if($type == "style" || $type == "m.skin") $type = "skin";
-					if($type == "m.layout") $type = "layout";
-                    $title = $xmlDoc->{$type}->title->body;
+					if(!$xmlDoc) {
+                        continue;
+                    }
+					if($type == "drcomponent") {
+                        $type = "component";
+                    }
+					if($type == "style" || $type == "m.skin") {
+                        $type = "skin";
+                    }
+					if($type == "m.layout") {
+                        $type = "layout";
+                    }
+                    $title = isset($xmlDoc->{$type}->title->body) ? $xmlDoc->{$type}->title->body : null;
 					$installed[$key]->title = $title;
 				}
 
 				Context::set('installed', $installed);
 
-				foreach($installed as $key=>$val)
-				{
-					foreach($depto[$key] as $package_srl)
-					{
+				foreach($installed as $key=>$val) {
+					foreach($depto[$key] as $package_srl) {
+                        if (empty($item_list[$package_srl])) {
+                            $item_list[$package_srl] = new stdClass();
+                        }
 						$item_list[$package_srl]->avail_remove = false;
 						$item_list[$package_srl]->deps[] = $key;
 					}
@@ -243,12 +260,14 @@
         function dispAutoinstallAdminInstalledPackages()
         {
             $page = Context::get('page');
-            if(!$page) $page = 1;
+            if(!$page) {
+                $page = 1;
+            }
             Context::set('page', $page);
             $oModel = &getModel('autoinstall');
             $output = $oModel->getInstalledPackageList($page);
             $package_list = $output->data;
-
+            $params = array();
             $params["act"] = "getResourceapiPackages";
             $params["package_srls"] = implode(",", array_keys($package_list));
             $body = XmlGenerater::generate($params);
@@ -293,8 +312,10 @@
 		 */
         function dispAutoinstallAdminInstall() {
             $package_srl = Context::get('package_srl');
-            if(!$package_srl) return $this->dispAutoinstallAdminIndex();
-
+            if(!$package_srl) {
+                return $this->dispAutoinstallAdminIndex();
+            }
+            $params = array();
             $params["act"] = "getResourceapiInstallInfo";
             $params["package_srl"] = $package_srl;
             $xmlDoc = XmlGenerater::getXmlDoc($params);
@@ -364,8 +385,7 @@
 					Context::set('contain_core', TRUE);
 				}
             }
-            if(!$_SESSION['ftp_password'])
-            {
+            if(empty($_SESSION['ftp_password'])) {
                 Context::set('need_password', true);
             }
             $this->setTemplateFile('install');
@@ -399,8 +419,7 @@
             $lUpdateDoc = $xml_lUpdate->parse($buff);
             $updateDate = isset($lUpdateDoc->response->updatedate->body) ? $lUpdateDoc->response->updatedate->body : null;
 
-			if (!$updateDate)
-			{
+			if (!$updateDate) {
 				//return $this->stop('msg_connection_fail');
                 $this->dispAutoinstallStillInProgress();
                 return;
@@ -408,13 +427,11 @@
 
             $oModel = &getModel('autoinstall');
             $item = $oModel->getLatestPackage();
-            if(!$item || $item->updatedate < $updateDate || count($this->categories) < 1)
-            {
+            if(!$item || $item->updatedate < $updateDate || count($this->categories) < 1) {
 				$oController = &getAdminController('autoinstall');
 				$oController->_updateinfo();
 
-				if (!$_SESSION['__KARYBU_EASYINSTALL_REDIRECT__'])
-				{
+				if (empty($_SESSION['__KARYBU_EASYINSTALL_REDIRECT__'])) {
 					header('location: ' . getNotEncodedUrl('', 'module', 'admin', 'act', 'dispAutoinstallAdminIndex'));
 					$_SESSION['__KARYBU_EASYINSTALL_REDIRECT__'] = true;
 					return;
@@ -423,35 +440,43 @@
 			unset($_SESSION['__KARYBU_EASYINSTALL_REDIRECT__']);
 
             $page = Context::get('page');
-            if(!$page) $page = 1;
+            if(!$page) {
+                $page = 1;
+            }
             Context::set('page', $page);
 
             $order_type = Context::get('order_type');
-            if(!in_array($order_type, array('asc', 'desc'))) $order_type = 'desc';
+            if(!in_array($order_type, array('asc', 'desc'))) {
+                $order_type = 'desc';
+            }
             Context::set('order_type', $order_type);
 
             $order_target = Context::get('order_target');
-            if(!in_array($order_target, array('newest', 'download', 'popular'))) $order_target = 'newest';
+            if(!in_array($order_target, array('newest', 'download', 'popular'))) {
+                $order_target = 'newest';
+            }
             Context::set('order_target', $order_target);
 
             $search_keyword = Context::get('search_keyword');
 
             $childrenList = Context::get('childrenList');
             $category_srl = Context::get('category_srl');
-            if($childrenList) $params["category_srl"] = $childrenList;
-            else if($category_srl) $params["category_srl"] = $category_srl;
+            if($childrenList) {
+                $params["category_srl"] = $childrenList;
+            }
+            elseif($category_srl) {
+                $params["category_srl"] = $category_srl;
+            }
 
             $params["act"] = "getResourceapiPackagelist";
             $params["order_target"] = $order_target;
             $params["order_type"] = $order_type;
             $params["page"] = $page;
-            if($search_keyword)
-            {
+            if($search_keyword) {
                 $params["search_keyword"] = $search_keyword;
             }
             $xmlDoc = XmlGenerater::getXmlDoc($params);
-            if($xmlDoc && $xmlDoc->response->packagelist->item)
-            {
+            if($xmlDoc && $xmlDoc->response->packagelist->item) {
                 $item_list = $this->rearranges($xmlDoc->response->packagelist->item);
                 Context::set('item_list', $item_list);
                 $array = array('total_count', 'total_page', 'cur_page', 'page_count', 'first_page', 'last_page');
@@ -503,30 +528,36 @@
 		function dispAutoinstallAdminUninstall()
 		{
             $package_srl = Context::get('package_srl');
-            if(!$package_srl) return $this->dispAutoinstallAdminIndex();
+            if(!$package_srl) {
+                return $this->dispAutoinstallAdminIndex();
+            }
 			$oModel =& getModel('autoinstall');
 			$installedPackage = $oModel->getInstalledPackage($package_srl);
-			if(!$installedPackage) return $this->dispAutoinstallAdminInstalledPackages();
+			if(!$installedPackage) {
+                return $this->dispAutoinstallAdminInstalledPackages();
+            }
 
-            if(!$_SESSION['ftp_password'])
-            {
+            if(empty($_SESSION['ftp_password'])) {
                 Context::set('need_password', true);
             }
 			$installedPackage = $oModel->getPackage($package_srl);
 			$path = $installedPackage->path;
 			$type = $oModel->getTypeFromPath($path);
-			if(!$type || $type == "core") return $this->stop("msg_invalid_request");
+			if(!$type || $type == "core") {
+                return $this->stop("msg_invalid_request");
+            }
 			$config_file = $oModel->getConfigFilePath($type);
-			if(!$config_file) return $this->stop("msg_invalid_request");
-
+			if(!$config_file) {
+                return $this->stop("msg_invalid_request");
+            }
+            $params = array();
 			$params["act"] = "getResourceapiPackages";
 			$params["package_srls"] = $package_srl;
 			$body = XmlGenerater::generate($params);
 			$buff = FileHandler::getRemoteResource(_KARYBU_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
 			$xml_lUpdate = new XmlParser();
 			$xmlDoc = $xml_lUpdate->parse($buff);
-			if($xmlDoc && $xmlDoc->response->packagelist->item)
-			{
+			if($xmlDoc && isset($xmlDoc->response->packagelist->item)) {
 				$item_list = $this->rearranges($xmlDoc->response->packagelist->item);
 				$installedPackage->title = $item_list[$package_srl]->title;
 				$installedPackage->type = $item_list[$package_srl]->category;

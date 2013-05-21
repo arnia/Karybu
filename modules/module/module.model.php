@@ -265,6 +265,7 @@ class moduleModel extends module
                 $oCacheHandler->put($cache_key, $output);
             }
         }
+        $module_info = new stdClass();
         if (count($columnList)) {
             foreach ($output->data as $key => $item) {
                 if (in_array($key, $columnList)) {
@@ -1712,7 +1713,7 @@ class moduleModel extends module
         } else {
             $module_srls[] = $data->module_srl;
         }
-
+        $args = new stdClass();
         $args->module_srls = implode(',', $module_srls);
         $output = executeQueryArray('module.getModuleSites', $args);
         if (!$output->data) {
@@ -1755,7 +1756,7 @@ class moduleModel extends module
 
         $args->member_srl = $member_info->member_srl;
         $output = executeQuery('module.isSiteAdmin', $args);
-        if ($output->data->member_srl == $args->member_srl) {
+        if (isset($output->data->member_srl) && $output->data->member_srl == $args->member_srl) {
             return true;
         }
         return false;
@@ -1777,6 +1778,7 @@ class moduleModel extends module
      **/
     function getAdminId($module_srl)
     {
+        $obj = new stdClass();
         $obj->module_srl = $module_srl;
         $output = executeQueryArray('module.getAdminID', $obj);
         if (!$output->toBool() || !$output->data) {
@@ -1835,6 +1837,7 @@ class moduleModel extends module
      **/
     function getModuleSkinVars($module_srl)
     {
+        $args = new stdClass();
         $args->module_srl = $module_srl;
         $output = executeQueryArray('module.getModuleSkinVars', $args);
         if (!$output->toBool() || !$output->data) {
@@ -1898,6 +1901,7 @@ class moduleModel extends module
      **/
     function getModuleMobileSkinVars($module_srl)
     {
+        $args = new stdClass();
         $args->module_srl = $module_srl;
         $output = executeQueryArray('module.getModuleMobileSkinVars', $args);
         if (!$output->toBool() || !$output->data) {
@@ -1991,12 +1995,17 @@ class moduleModel extends module
             // If module_srl exists
         } else {
             // Get a type of granted permission
-            $grant->access = $grant->is_admin = $grant->manager = $grant->is_site_admin = ($member_info->is_admin == 'Y' || $this->isSiteAdmin(
+            $grant->is_site_admin = (isset($member_info->is_admin) && $member_info->is_admin == 'Y' || $this->isSiteAdmin(
                 $member_info,
                 $module_info->site_srl
             )) ? true : false;
+            $grant->access = $grant->is_site_admin;
+            $grant->is_admin = $grant->is_site_admin;
+            $grant->manager = $grant->is_site_admin;
+
             // If a just logged-in member is, check if the member is a module administrator
-            if (!$grant->manager && $member_info->member_srl) {
+            if (empty($grant->manager) && !empty($member_info->member_srl)) {
+                $args = new stdClass();
                 $args->module_srl = $module_srl;
                 $args->member_srl = $member_info->member_srl;
                 $output = executeQuery('module.getModuleAdmin', $args);
@@ -2062,10 +2071,10 @@ class moduleModel extends module
                     }
                 }
                 // Separate processing for the virtual group access
-                if (!$grant_exists['access']) {
+                if (empty($grant_exists['access'])) {
                     $grant->access = true;
                 }
-                if (count($grant_info)) {
+                if (isset($grant_info) && count($grant_info)) {
                     foreach ($grant_info as $grant_name => $grant_item) {
                         if ($grant_exists[$grant_name]) {
                             continue;

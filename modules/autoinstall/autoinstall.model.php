@@ -13,9 +13,12 @@
 		 */
         function getCategory($category_srl)
         {
+            $args = new stdClass();
             $args->category_srl = $category_srl;
             $output = executeQueryArray("autoinstall.getCategory", $args);
-            if(!$output->data) return null;
+            if(!$output->data) {
+                return null;
+            }
             return array_shift($output->data);
         }
 
@@ -27,7 +30,9 @@
         function getPackages()
         {
             $output = executeQueryArray("autoinstall.getPackages");
-            if(!$output->data) return array();
+            if(!$output->data) {
+                return array();
+            }
             return $output->data;
         }
 
@@ -39,9 +44,12 @@
 		 */
         function getInstalledPackage($package_srl)
         {
+            $args = new stdClass();
             $args->package_srl = $package_srl;
             $output = executeQueryArray("autoinstall.getInstalledPackage", $args);
-            if(!$output->data) return null;
+            if(!$output->data) {
+                return null;
+            }
             return array_shift($output->data);
         }
 
@@ -53,9 +61,12 @@
 		 */
         function getPackage($package_srl)
         {
+            $args = new stdClass();
             $args->package_srl = $package_srl;
             $output = executeQueryArray("autoinstall.getPackage", $args);
-            if(!$output->data) return null;
+            if(!$output->data) {
+                return null;
+            }
             return array_shift($output->data);
         }
 
@@ -67,30 +78,27 @@
         function getCategoryList()
         {
             $output = executeQueryArray("autoinstall.getCategories");
-            if(!$output->toBool() || !$output->data) return array();
+            if(!$output->toBool() || !$output->data) {
+                return array();
+            }
 
             $categoryList = array();
-            foreach($output->data as $category)
-            {
+            foreach($output->data as $category) {
                 $category->children = array();
                 $categoryList[$category->category_srl] = $category;
             }
 
             $depth0 = array();
-            foreach($categoryList as $key => $category)
-            {
-                if($category->parent_srl)
-                {
+            foreach($categoryList as $key => $category) {
+                if($category->parent_srl) {
                     $categoryList[$category->parent_srl]->children[] =& $categoryList[$key];
                 }
-                else
-                {
+                else {
                     $depth0[] = $key;
                 }
             }
             $resultList = array();
-            foreach($depth0 as $category_srl)
-            {
+            foreach($depth0 as $category_srl) {
                 $this->setDepth($categoryList[$category_srl], 0, $categoryList, $resultList);
             }
             return $resultList;
@@ -107,7 +115,9 @@
             $args = new stdClass();
             $args->category_srl = $category_srl;
             $output = executeQuery("autoinstall.getPackageCount", $args);
-            if(!$output->data) return 0;
+            if(!$output->data) {
+                return 0;
+            }
             return $output->data->count;
         }
 
@@ -119,7 +129,9 @@
         function getInstalledPackageCount()
         {
             $output = executeQuery("autoinstall.getInstalledPackageCount", new stdClass());
-            if(!$output->data) return 0;
+            if(!$output->data) {
+                return 0;
+            }
             return $output->data->count;
         }
 
@@ -156,7 +168,9 @@
 		 */
         function getLatestPackage() {
             $output = executeQueryArray("autoinstall.getLatestPackage");
-            if(!$output->data) return null;
+            if(!$output->data) {
+                return null;
+            }
             return array_shift($output->data);
         }
 
@@ -174,8 +188,7 @@
             if(empty($output->data)) {
                 return $result;
             }
-            foreach($output->data as $value)
-            {
+            foreach($output->data as $value) {
                 $result[$value->package_srl] = $value;
             }
             return $result;
@@ -194,10 +207,8 @@
 			$args->page_count = 5;
             $output = executeQueryArray("autoinstall.getInstalledPackageList", $args);
             $res = array();
-			if ($output->data)
-			{
-				foreach($output->data as $val)
-				{
+			if ($output->data) {
+				foreach($output->data as $val) {
 					$res[$val->package_srl] = $val;
 				}
 			}
@@ -214,7 +225,9 @@
 		function getTypeFromPath($path)
 		{
 			if(!$path) return null;
-			if($path == ".") return "core";
+			if($path == ".") {
+                return "core";
+            }
 			$path_array = explode("/", $path);
             $target_name = array_pop($path_array);
             $type = substr(array_pop($path_array), 0, -1);
@@ -230,8 +243,7 @@
 		function getConfigFilePath($type)
 		{
 			$config_file = null;
-			switch($type)
-			{
+			switch($type) {
 				case "m.layout":
 				case "module":
 					case "addon":
@@ -266,7 +278,9 @@
 			$path_array = explode("/", $path);
             $target_name = array_pop($path_array);
 			$oModule =& getModule($target_name, "class");
-			if(!$oModule) return false;
+			if(!$oModule) {
+                return false;
+            }
 			if(method_exists($oModule, "moduleUninstall")) return true;
 			else return false;
 		}
@@ -279,9 +293,13 @@
 		 */
 		function getPackageSrlByPath($path)
 		{
-			if (!$path) return;
+			if (!$path) {
+                return;
+            }
 
-			if(substr($path,-1) == '/') $path = substr($path, 0, strlen($path)-1);
+			if(substr($path,-1) == '/') {
+                $path = substr($path, 0, strlen($path)-1);
+            }
 
 			if (empty($GLOBALS['XE_AUTOINSTALL_PACKAGE_SRL_BY_PATH'][$path])){
                 $args = new stdClass();
@@ -306,7 +324,9 @@
                 return;
             }
 			
-			if (!$packageSrl) return;
+			if (!$packageSrl) {
+                return;
+            }
 
 			return getNotEncodedUrl('', 'module', 'admin', 'act', 'dispAutoinstallAdminUninstall', 'package_srl', $packageSrl);
 		}
@@ -327,7 +347,9 @@
             }
 
 			$packageSrl = $this->getPackageSrlByPath($path);
-			if (!$packageSrl) return;
+			if (!$packageSrl) {
+                return;
+            }
 
 			return getNotEncodedUrl('', 'module', 'admin', 'act', 'dispAutoinstallAdminUninstall', 'package_srl', $packageSrl);
 		}
@@ -340,7 +362,9 @@
 		 */
 		function getUpdateUrlByPackageSrl($packageSrl)
 		{
-			if (!$packageSrl) return;
+			if (!$packageSrl) {
+                return;
+            }
 
 			return getNotEncodedUrl('', 'module', 'admin', 'act', 'dispAutoinstallAdminInstall', 'package_srl', $packageSrl);
 		}
@@ -353,10 +377,14 @@
 		 */
 		function getUpdateUrlByPath($path)
 		{
-			if (!$path) return;
+			if (!$path) {
+                return;
+            }
 
 			$packageSrl = $this->getPackageSrlByPath($path);
-			if (!$packageSrl) return;
+			if (!$packageSrl) {
+                return;
+            }
 
 			return getNotEncodedUrl('', 'module', 'admin', 'act', 'dispAutoinstallAdminInstall', 'package_srl', $packageSrl);
 		}
