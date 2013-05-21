@@ -50,7 +50,7 @@
             // Variable setting for site keyword
             $site_keyword = Context::get('site_keyword');
             // If there is no site keyword, use as information of the current virtual site
-            $args = null;
+            $args = new stdClass();
             $logged_info = Context::get('logged_info');
             if($logged_info->is_admin == 'Y') {
                 $query_id = 'module.getSiteModules';
@@ -85,7 +85,7 @@
                     if(!$module) continue;
 
                     $category = $val->category;
-                    $obj = null;
+                    $obj = new stdClass();
                     $obj->module_srl = $val->module_srl;
                     $obj->browser_title = $val->browser_title;
                     $mid_list[$module]->list[$category][$val->mid] = $obj;
@@ -103,7 +103,7 @@
 
             Context::set('mid_list', $mid_list);
             Context::set('selected_module', $selected_module);
-            Context::set('selected_mids', $mid_list[$selected_module]->list);
+            Context::set('selected_mids', isset($mid_list[$selected_module]->list) ? $mid_list[$selected_module]->list : null);
             Context::set('module_category_exists', $module_category_exists);
 
 			$security = new Security();

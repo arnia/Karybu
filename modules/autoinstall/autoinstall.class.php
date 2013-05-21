@@ -13,10 +13,11 @@
         function generate(&$params)
         {
             $xmlDoc = '<?xml version="1.0" encoding="utf-8" ?><methodCall><params>';
-            if(!is_array($params)) return null;
+            if(!is_array($params)) {
+                return null;
+            }
             $params["module"] = "resourceapi";
-            foreach($params as $key => $val)
-            {
+            foreach($params as $key => $val) {
                 $xmlDoc .= sprintf("<%s><![CDATA[%s]]></%s>", $key, $val, $key);
             }
             $xmlDoc .= "</params></methodCall>";
@@ -33,7 +34,9 @@
         {
             $body = XmlGenerater::generate($params);
             $buff = FileHandler::getRemoteResource(_KARYBU_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
-            if(!$buff) return;
+            if(!$buff) {
+                return;
+            }
             $xml = new XmlParser();
             $xmlDoc = $xml->parse($buff);
             return $xmlDoc;
@@ -59,8 +62,7 @@
 		{
 			$oModuleModel = &getModel('module');
 			$config = $oModuleModel->getModuleConfig('autoinstall');
-			if ($config->downloadServer != _KARYBU_DOWNLOAD_SERVER_)
-			{
+			if ($config->downloadServer != _KARYBU_DOWNLOAD_SERVER_) {
 				$this->stop('msg_not_match_server');
 			}
 		}
@@ -72,7 +74,6 @@
          **/
         function moduleInstall() {
 			$oModuleController = &getController('module');
-
 			$config->downloadServer = _KARYBU_DOWNLOAD_SERVER_;
 			$oModuleController->insertModuleConfig('autoinstall', $config);
         }
@@ -87,22 +88,24 @@
 			$oModuleModel = &getModel('module');
 
             if(!file_exists(FileHandler::getRealPath("./modules/autoinstall/schemas/autoinstall_installed_packages.xml"))
-                && $oDB->isTableExists("autoinstall_installed_packages"))
-            {
+                && $oDB->isTableExists("autoinstall_installed_packages")) {
                 return true;
             }
             if(!file_exists(FileHandler::getRealPath("./modules/autoinstall/schemas/autoinstall_remote_categories.xml"))
-                && $oDB->isTableExists("autoinstall_remote_categories"))
-            {
+                && $oDB->isTableExists("autoinstall_remote_categories")) {
                 return true;
             }
 
 			// 2011.08.08 add column 'list_order' in ai_remote_categories
-			if (!$oDB->isColumnExists('ai_remote_categories', 'list_order'))	return true;
+			if (!$oDB->isColumnExists('ai_remote_categories', 'list_order')) {
+                return true;
+            }
 
 			// 2011.08.08 set _KARYBU_DOWNLOAD_SERVER_ at module config
 			$config = $oModuleModel->getModuleConfig('autoinstall');
-			if (!isset($config->downloadServer))	return true;
+			if (!isset($config->downloadServer)) {
+                return true;
+            }
 
             return false;
         }

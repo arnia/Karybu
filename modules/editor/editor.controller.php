@@ -22,7 +22,7 @@ class editorController extends editor
     {
 
         $this->deleteSavedDoc(false);
-
+        $args = new stdClass();
         $args->document_srl = Context::get('document_srl');
         $args->content = Context::get('content');
         $args->title = Context::get('title');
@@ -356,6 +356,7 @@ class editorController extends editor
      **/
     function deleteSavedDoc($mode = false)
     {
+        $args = new stdClass();
         if (Context::get('is_logged')) {
             $logged_info = Context::get('logged_info');
             $args->member_srl = $logged_info->member_srl;
