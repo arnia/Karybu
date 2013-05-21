@@ -395,17 +395,19 @@ class ModuleObject extends Module
                 $permission_target = 'manager';
             }
             // Check permissions
-            switch ($permission_target) {
-                case 'root' :
-                case 'manager' :
-                    $this->stop('msg_is_not_administrator');
-                    return;
-                case 'member' :
-                    if (!$is_logged) {
-                        $this->stop('msg_not_permitted_act');
+            if (isset($permission_target)) {
+                switch ($permission_target) {
+                    case 'root' :
+                    case 'manager' :
+                        $this->stop('msg_is_not_administrator');
                         return;
-                    }
-                    break;
+                    case 'member' :
+                        if (!$is_logged) {
+                            $this->stop('msg_not_permitted_act');
+                            return;
+                        }
+                        break;
+                }
             }
         }
         // permission variable settings

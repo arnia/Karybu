@@ -17,22 +17,21 @@ class HTMLDisplayHandler {
 
 		if(!is_dir($template_path))
 		{
-			if ($oModule->module_info->module == $oModule->module)
+			if ($oModule->module_info->module == $oModule->module) {
 				$skin = $oModule->origin_module_info->skin;
-			else
-				$skin = $oModule->module_config->skin;
+            }
+			else {
+				$skin = isset($oModule->module_config->skin) ? $oModule->module_config->skin : null;
+            }
 
-			if(Context::get('module')!='admin' && strpos(Context::get('act'),'Admin') === false)
-			{
-				if ($skin && is_string($skin))
-				{
+			if(Context::get('module')!='admin' && strpos(Context::get('act'),'Admin') === false) {
+				if ($skin && is_string($skin)) {
 					$theme_skin = explode('|@|', $skin);
 					$template_path = $oModule->getTemplatePath();
 					if (count($theme_skin) == 2) 
 					{
 						$theme_path = sprintf('./themes/%s',$theme_skin[0]);
-						if(substr($theme_path,0,strlen($theme_path)) != $theme_path)
-						{
+						if(substr($theme_path,0,strlen($theme_path)) != $theme_path) {
 							$template_path = sprintf('%s/modules/%s/', $theme_path, $theme_skin[1]);
 						}
 					}	

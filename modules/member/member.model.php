@@ -442,6 +442,7 @@ class memberModel extends member
      **/
     function getMemberSrlByUserID($user_id)
     {
+        $args = new stdClass();
         $args->user_id = $user_id;
         $output = executeQuery('member.getMemberSrl', $args);
         return $output->data->member_srl;
@@ -452,9 +453,10 @@ class memberModel extends member
      **/
     function getMemberSrlByEmailAddress($email_address)
     {
+        $args = new stdClass();
         $args->email_address = $email_address;
         $output = executeQuery('member.getMemberSrl', $args);
-        return $output->data->member_srl;
+        return isset($output->data->member_srl) ? $output->data->member_srl : null;
     }
 
     /**
@@ -462,6 +464,7 @@ class memberModel extends member
      **/
     function getMemberSrlByNickName($nick_name)
     {
+        $args = new stdClass();
         $args->nick_name = $nick_name;
         $output = executeQuery('member.getMemberSrl', $args);
         return $output->data->member_srl;
@@ -701,6 +704,7 @@ class memberModel extends member
      **/
     function getUsedJoinFormList()
     {
+        $args = new stdClass();
         $args->sort_index = "list_order";
         $output = executeQueryArray('member.getJoinFormList', $args);
 
@@ -846,6 +850,7 @@ class memberModel extends member
      **/
     function isDeniedNickName($nickName)
     {
+        $args = new stdClass();
         $args->nick_name = $nickName;
         $output = executeQuery('member.chkDeniedNickName', $args);
         if ($output->data->count) {

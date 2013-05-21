@@ -314,54 +314,82 @@ class documentController extends document {
 	 * @return object
 	 */
 	function updateDocument($source_obj, $obj) {
-		if(!checkCSRF())
-		{
+		if(!checkCSRF()) {
 			return new Object(-1, 'msg_invalid_request');
 		}
 
-		if(!$source_obj->document_srl || !$obj->document_srl) return new Object(-1,'msg_invalied_request');
-		if(!$obj->status && $obj->is_secret == 'Y') $obj->status = 'SECRET';
-		if(!$obj->status) $obj->status = 'PUBLIC';
+		if(empty($source_obj->document_srl) || empty($obj->document_srl)) {
+            return new Object(-1,'msg_invalied_request');
+        }
+		if(empty($obj->status) && isset($obj->is_secret) && $obj->is_secret == 'Y') {
+            $obj->status = 'SECRET';
+        }
+		if(empty($obj->status)) {
+            $obj->status = 'PUBLIC';
+        }
 
 		// Call a trigger (before)
 		$output = ModuleHandler::triggerCall('document.updateDocument', 'before', $obj);
-		if(!$output->toBool()) return $output;
+		if(!$output->toBool()) {
+            return $output;
+        }
 
 		// begin transaction
 		$oDB = DB::getInstance();
 		$oDB->begin();
 
 		$oModuleModel = &getModel('module');
-		if(!$obj->module_srl) $obj->module_srl = $source_obj->get('module_srl');
+		if(empty($obj->module_srl)) {
+            $obj->module_srl = $source_obj->get('module_srl');
+        }
 		$module_srl = $obj->module_srl;
 		$document_config = $oModuleModel->getModulePartConfig('document', $module_srl);
-		if(!isset($document_config->use_history)) $document_config->use_history = 'N';
+        if (!is_object($document_config)){
+            $document_config = new stdClass();
+        }
+		if(!isset($document_config->use_history)) {
+            $document_config->use_history = 'N';
+        }
 		$bUseHistory = $document_config->use_history == 'Y' || $document_config->use_history == 'Trace';
 
 		if($bUseHistory) {
+            $args = new stdClass();
 			$args->history_srl = getNextSequence();
-			$args->document_srl = $obj->document_srl;
+			$args->document_srl = isset($obj->document_srl) ? $obj->document_srl : null;
 			$args->module_srl = $module_srl;
-			if($document_config->use_history == 'Y') $args->content = $source_obj->get('content');
+			if($document_config->use_history == 'Y') {
+                $args->content = $source_obj->get('content');
+            }
 			$args->nick_name = $source_obj->get('nick_name');
 			$args->member_srl = $source_obj->get('member_srl');
 			$args->regdate = $source_obj->get('last_update');
 			$args->ipaddress = $source_obj->get('ipaddress');
 			$output = executeQuery("document.insertHistory", $args);
 		}
-		else
-		{
+		else {
 			$obj->ipaddress = $source_obj->get('ipaddress');
 		}
 		// List variables
-		if($obj->comment_status) $obj->commentStatus = $obj->comment_status;
-		if(!$obj->commentStatus) $obj->commentStatus = 'DENY';
-		if($obj->commentStatus == 'DENY') $this->_checkCommentStatusForOldVersion($obj);
-		if($obj->allow_trackback!='Y') $obj->allow_trackback = 'N';
-		if($obj->homepage &&  !preg_match('/^[a-z]+:\/\//i',$obj->homepage)) $obj->homepage = 'http://'.$obj->homepage;
-		if($obj->notify_message != 'Y') $obj->notify_message = 'N';
+		if(!empty($obj->comment_status)) {
+            $obj->commentStatus = $obj->comment_status;
+        }
+		if(empty($obj->commentStatus)) {
+            $obj->commentStatus = 'DENY';
+        }
+		if($obj->commentStatus == 'DENY') {
+            $this->_checkCommentStatusForOldVersion($obj);
+        }
+		if(isset($obj->allow_trackback) && $obj->allow_trackback!='Y') {
+            $obj->allow_trackback = 'N';
+        }
+		if(!empty($obj->homepage) &&  !preg_match('/^[a-z]+:\/\//i',$obj->homepage)) {
+            $obj->homepage = 'http://'.$obj->homepage;
+        }
+		if(!isset($obj->notify_message) || $obj->notify_message != 'Y') {
+            $obj->notify_message = 'N';
+        }
 		// Serialize the $extra_vars
-		$obj->extra_vars = serialize($obj->extra_vars);
+		$obj->extra_vars = @serialize($obj->extra_vars);
 		// Remove the columns for automatic saving
 		unset($obj->_saved_doc_srl);
 		unset($obj->_saved_doc_title);
@@ -369,28 +397,33 @@ class documentController extends document {
 		unset($obj->_saved_doc_message);
 
 		$oDocumentModel = &getModel('document');
+        $categorySrl = isset($obj->category_srl) ? $obj->category_srl : null;
 		// Set the category_srl to 0 if the changed category is not exsiting.
-		if($source_obj->get('category_srl')!=$obj->category_srl) {
+		if($source_obj->get('category_srl') != $categorySrl) {
 			$category_list = $oDocumentModel->getCategoryList($obj->module_srl);
-			if(!$category_list[$obj->category_srl]) $obj->category_srl = 0;
+			if(empty($category_list[$categorySrl])) {
+                $obj->category_srl = 0;
+            }
 		}
 		// Change the update order
 		$obj->update_order = getNextSequence() * -1;
 		// Hash by md5 if the password exists
-		if($obj->password) $obj->password = md5($obj->password);
+		if(isset($obj->password)) {
+            $obj->password = md5($obj->password);
+        }
 		// If an author is identical to the modifier or history is used, use the logged-in user's information.
 		if(Context::get('is_logged')) {
 			$logged_info = Context::get('logged_info');
-			if($source_obj->get('member_srl')==$logged_info->member_srl || $bUseHistory) {
-				$obj->member_srl = $logged_info->member_srl;
-				$obj->user_name = $logged_info->user_name;
-				$obj->nick_name = $logged_info->nick_name;
-				$obj->email_address = $logged_info->email_address;
-				$obj->homepage = $logged_info->homepage;
+			if($source_obj->get('member_srl') == $logged_info->member_srl || $bUseHistory) {
+				$obj->member_srl = isset($logged_info->member_srl) ? $logged_info->member_srl : null;
+				$obj->user_name = isset($logged_info->user_name) ? $logged_info->user_name : null;
+				$obj->nick_name = isset($logged_info->nick_name) ? $logged_info->nick_name : null;
+				$obj->email_address = isset($logged_info->email_address) ? $logged_info->email_address : null;
+				$obj->homepage = isset($logged_info->homepage) ? $logged_info->homepage : null;
 			}
 		}
 		// For the document written by logged-in user however no nick_name exists
-		if($source_obj->get('member_srl')&& !$obj->nick_name) {
+		if($source_obj->get('member_srl') && empty($obj->nick_name)) {
 			$obj->member_srl = $source_obj->get('member_srl');
 			$obj->user_name = $source_obj->get('user_name');
 			$obj->nick_name = $source_obj->get('nick_name');
@@ -399,9 +432,13 @@ class documentController extends document {
 		}
 		// If the tile is empty, extract string from the contents.
 		settype($obj->title, "string");
-		if($obj->title == '') $obj->title = cut_str(strip_tags($obj->content),20,'...');
+		if($obj->title == '') {
+            $obj->title = cut_str(strip_tags($obj->content),20,'...');
+        }
 		// If no tile extracted from the contents, leave it untitled.
-		if($obj->title == '') $obj->title = 'Untitled';
+		if($obj->title == '') {
+            $obj->title = 'Untitled';
+        }
 		// Remove Karybu's own tags from the contents.
 		$obj->content = preg_replace('!<\!--(Before|After)(Document|Comment)\(([0-9]+),([0-9]+)\)-->!is', '', $obj->content);
 		// Change not extra vars but language code of the original document if document's lang_code is different from author's setting.
@@ -455,8 +492,12 @@ class documentController extends document {
 			}
 		}
 		// Inert extra vars for multi-language support of title and contents.
-		if($extra_content->title) $this->insertDocumentExtraVar($obj->module_srl, $obj->document_srl, -1, $extra_content->title, 'title_'.Context::getLangType());
-		if($extra_content->content) $this->insertDocumentExtraVar($obj->module_srl, $obj->document_srl, -2, $extra_content->content, 'content_'.Context::getLangType());
+		if(!empty($extra_content->title)) {
+            $this->insertDocumentExtraVar($obj->module_srl, $obj->document_srl, -1, $extra_content->title, 'title_'.Context::getLangType());
+        }
+		if(!empty($extra_content->content)) {
+            $this->insertDocumentExtraVar($obj->module_srl, $obj->document_srl, -2, $extra_content->content, 'content_'.Context::getLangType());
+        }
 		// Update the category if the category_srl exists.
 		if($source_obj->get('category_srl') != $obj->category_srl || $source_obj->get('module_srl') == $logged_info->member_srl) {
 			if($source_obj->get('category_srl') != $obj->category_srl) $this->updateCategoryCount($obj->module_srl, $source_obj->get('category_srl'));
@@ -881,11 +922,20 @@ class documentController extends document {
 	 * @return $output
 	 */
 	function deleteDocumentExtraVars($module_srl, $document_srl = null, $var_idx = null, $lang_code = null, $eid = null) {
+        $obj = new stdClass();
 		$obj->module_srl = $module_srl;
-		if(!is_null($document_srl)) $obj->document_srl = $document_srl;
-		if(!is_null($var_idx)) $obj->var_idx = $var_idx;
-		if(!is_null($lang_code)) $obj->lang_code = $lang_code;
-		if(!is_null($eid)) $obj->eid = $eid;
+		if(!is_null($document_srl)) {
+            $obj->document_srl = $document_srl;
+        }
+		if(!is_null($var_idx)) {
+            $obj->var_idx = $var_idx;
+        }
+		if(!is_null($lang_code)) {
+            $obj->lang_code = $lang_code;
+        }
+		if(!is_null($eid)) {
+            $obj->eid = $eid;
+        }
 		$output = executeQuery('document.deleteDocumentExtraVars', $obj);
 		return $output;
 	}
@@ -1562,7 +1612,10 @@ class documentController extends document {
 	 */
 	function makeCategoryFile($module_srl) {
 		// Return if there is no information you need for creating a cache file
-		if(!$module_srl) return false;
+		if(!$module_srl) {
+            return false;
+        }
+        $args = new stdClass();
 		// Get module information (to obtain mid)
 		$oModuleModel = &getModel('module');
 		$columnList = array('module_srl', 'mid', 'site_srl');

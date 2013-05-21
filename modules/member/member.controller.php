@@ -451,7 +451,7 @@
 				return $this->stop('msg_not_logged');
 			}
 
-			if($_SESSION['rechecked_password_step'] != 'INPUT_DATA')
+			if(isset($_SESSION['rechecked_password_step']) && $_SESSION['rechecked_password_step'] != 'INPUT_DATA')
 			{
 				return $this->stop('msg_invalid_request');
 			}
@@ -461,6 +461,7 @@
             $oMemberModel = &getModel ('member');
             $config = $oMemberModel->getMemberConfig ();
 			$getVars = array('find_account_answer','allow_mailing','allow_message');
+            $args = new stdClass();
 			if ($config->signupForm){
 				foreach($config->signupForm as $formInfo){
 					if($formInfo->isDefaultForm && ($formInfo->isUse || $formInfo->required || $formInfo->mustRequired)){
@@ -508,18 +509,18 @@
             $output = $this->updateMember($args);
             if(!$output->toBool()) return $output;
 
-			$profile_image = $_FILES['profile_image'];
-			if (is_uploaded_file($profile_image['tmp_name'])){
+			$profile_image = isset($_FILES['profile_image']) ? $_FILES['profile_image'] : null;
+			if (isset($profile_image['tmp_name']) && is_uploaded_file($profile_image['tmp_name'])){
 				$this->insertProfileImage($args->member_srl, $profile_image['tmp_name']);
 			}
 
-			$image_mark = $_FILES['image_mark'];
-			if (is_uploaded_file($image_mark['tmp_name'])){
+			$image_mark = isset($_FILES['image_mark']) ? $_FILES['image_mark'] : null;
+			if (isset($image_mark['tmp_name']) && is_uploaded_file($image_mark['tmp_name'])){
 				$this->insertImageMark($args->member_srl, $image_mark['tmp_name']);
 			}
 
-			$image_name = $_FILES['image_name'];
-			if (is_uploaded_file($image_name['tmp_name'])){
+			$image_name = isset($_FILES['image_name']) ? $_FILES['image_name'] : null;
+			if (isset($image_name['tmp_name']) && is_uploaded_file($image_name['tmp_name'])){
 				$this->insertImageName($args->member_srl, $image_name['tmp_name']);
 			}
 
@@ -564,7 +565,7 @@
 
             // Check if a new password is as same as the previous password
             if ($current_password == $password) return new Object(-1, 'invalid_new_password');
-
+            $args = new stdClass();
             // Execute insert or update depending on the value of member_srl
             $args->member_srl = $member_srl;
             $args->password = $password;
@@ -1873,6 +1874,9 @@
          **/
         function updateMember($args) 
 		{
+            if (!is_object($args)) {
+                $args = new stdClass();
+            }
             // Call a trigger (before)
             $output = ModuleHandler::triggerCall('member.updateMember', 'before', $args);
             if(!$output->toBool()) return $output;
@@ -1883,12 +1887,20 @@
             // Get what you want to modify the original information
 			if(!$this->memberInfo) $this->memberInfo = $oMemberModel->getMemberInfoByMemberSrl($args->member_srl);
             // Control of essential parameters
-            if($args->allow_mailing!='Y') $args->allow_mailing = 'N';
-            if($args->allow_message && !in_array($args->allow_message, array('Y','N','F'))) $args->allow_message = 'Y';
+            if($args->allow_mailing!='Y') {
+                $args->allow_mailing = 'N';
+            }
+            if($args->allow_message && !in_array($args->allow_message, array('Y','N','F'))) {
+                $args->allow_message = 'Y';
+            }
 
             if($logged_info->is_admin == 'Y') {
-                if($args->denied!='Y') $args->denied = 'N';
-                if($args->is_admin!='Y' && $logged_info->member_srl != $args->member_srl) $args->is_admin = 'N';
+                if(empty($args->denied) || $args->denied!='Y') {
+                    $args->denied = 'N';
+                }
+                if((!isset($args->is_admin) || $args->is_admin!='Y') && $logged_info->member_srl != $args->member_srl) {
+                    $args->is_admin = 'N';
+                }
             } else {
                 unset($args->is_admin);
                 unset($args->denied);
@@ -1927,13 +1939,27 @@
             $oDB->begin();
             // DB in the update
 
-            if($args->password) $args->password = md5($args->password);
-            else $args->password = $orgMemberInfo->password;
-			if(!$args->user_name) $args->user_name = $orgMemberInfo->user_name;
-			if(!$args->user_id) $args->user_id = $orgMemberInfo->user_id;
-			if(!$args->nick_name) $args->nick_name = $orgMemberInfo->nick_name;
-			if(!$args->description) $args->description = '';
-			if(!$args->birthday) $args->birthday = '';
+            if(!empty($args->password)) {
+                $args->password = md5($args->password);
+            }
+            else {
+                $args->password = $orgMemberInfo->password;
+            }
+			if(empty($args->user_name)) {
+                $args->user_name = $orgMemberInfo->user_name;
+            }
+			if(empty($args->user_id)) {
+                $args->user_id = $orgMemberInfo->user_id;
+            }
+			if(empty($args->nick_name)) {
+                $args->nick_name = $orgMemberInfo->nick_name;
+            }
+			if(empty($args->description)) {
+                $args->description = '';
+            }
+			if(empty($args->birthday)) {
+                $args->birthday = '';
+            }
 
             $output = executeQuery('member.updateMember', $args);
             if(!$output->toBool()) {
@@ -1941,9 +1967,13 @@
                 return $output;
             }
 
-			if ($args->group_srl_list){
-				if(is_array($args->group_srl_list)) $group_srl_list = $args->group_srl_list;
-				else $group_srl_list = explode('|@|', $args->group_srl_list);
+			if (!empty($args->group_srl_list)){
+				if(is_array($args->group_srl_list)) {
+                    $group_srl_list = $args->group_srl_list;
+                }
+				else {
+                    $group_srl_list = explode('|@|', $args->group_srl_list);
+                }
 				// If the group information, group information changes
 				if(count($group_srl_list) > 0) {
 					$args->site_srl = 0;
@@ -2141,17 +2171,23 @@
 			}
 		}
 		function procMemberModifyEmailAddress(){
-            if(!Context::get('is_logged')) return $this->stop('msg_not_logged');
+            if(!Context::get('is_logged')) {
+                return $this->stop('msg_not_logged');
+            }
 
 			$member_info = Context::get('logged_info');
 			$newEmail = Context::get('email_address');
 
-            if(!$newEmail) return $this->stop('msg_invalid_request');
+            if(!$newEmail) {
+                return $this->stop('msg_invalid_request');
+            }
 
 			$oMemberModel = &getModel('member');
             $member_srl = $oMemberModel->getMemberSrlByEmailAddress($newEmail);
-            if($member_srl) return new Object(-1,'msg_exists_email_address');
-
+            if($member_srl) {
+                return new Object(-1,'msg_exists_email_address');
+            }
+            $auth_args = new stdClass();
 			$auth_args->user_id = $newEmail;
 			$auth_args->member_srl = $member_info->member_srl;
 			$auth_args->auth_key = md5(rand(0, 999999));
@@ -2166,13 +2202,13 @@
             $oModuleModel = &getModel('module');
             $member_config = $oModuleModel->getModuleConfig('member');
 
-            $tpl_path = sprintf('%sskins/%s', $this->module_path, $member_config->skin);
+            $tpl_path = sprintf('%sskins/%s', isset($this->module_path) ? $this->module_path : '', isset($member_config->skin) ? $member_config->skin : null);
             if(!is_dir($tpl_path)) $tpl_path = sprintf('%sskins/%s', $this->module_path, 'default');
 
 			global $lang;
 
-			$memberInfo[$lang->email_address] = $member_info->email_address;
-			$memberInfo[$lang->nick_name] = $member_info->nick_name;
+			$memberInfo[$lang->email_address] = isset($member_info->email_address) ? $member_info->email_address : null;
+			$memberInfo[$lang->nick_name] = isset($member_info->nick_name) ? $member_info->nick_name : null;
 
 			Context::set('memberInfo', $memberInfo);
 
@@ -2187,7 +2223,7 @@
             $oMail = new Mail();
             $oMail->setTitle( Context::getLang('title_modify_email_address') );
             $oMail->setContent($content);
-            $oMail->setSender( $member_config->webmaster_name?$member_config->webmaster_name:'webmaster', $member_config->webmaster_email);
+            $oMail->setSender( isset($member_config->webmaster_name)?$member_config->webmaster_name:'webmaster', isset($member_config->webmaster_email) ? $member_config->webmaster_email : null);
             $oMail->setReceiptor( $member_info->nick_name, $newEmail );
             $result = $oMail->send();
 
