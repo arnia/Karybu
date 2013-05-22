@@ -8,7 +8,6 @@
 		<caption>
 			{$lang->total}: {number_format($total_count)}, {$lang->page} {number_format($page)}/{number_format($total_page)}
 			<span class="side">
-                <a href="{getUrl('','module','module','act','dispModuleSelectList','id','target_module','type','single')}" onclick="popopen(this.href,'ModuleSelect');return false;">{$lang->cmd_find_module} OLD</a>
 				<a data-toggle="modal" data-target="#moduleSelect" href="{getUrl('','module','module','act','dispModuleSelectList','id','target_module','type','single', 'modal', '1')}">{$lang->cmd_find_module}</a>
 				<a href="{getUrl('selected_module_srl','')}" cond="$selected_module_srl">{$lang->cmd_cancel}</a>
 			</span>
