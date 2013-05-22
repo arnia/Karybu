@@ -23,23 +23,23 @@
             // Set board module
             $args = Context::getRequestVars();
             $args->module = 'page';
-            $args->mid = $args->page_name;	//because if mid is empty in context, set start page mid
-			$args->path = (!$args->path) ? '' : $args->path;
-			$args->mpath = (!$args->mpath) ? '' : $args->mpath;
+            $args->mid = isset($args->page_name) ? $args->page_name : null;	//because if mid is empty in context, set start page mid
+			$args->path = (empty($args->path)) ? '' : $args->path;
+			$args->mpath = (empty($args->mpath)) ? '' : $args->mpath;
             unset($args->page_name);
 
-			if($args->use_mobile != 'Y') $args->use_mobile = '';
+			if(!isset($args->use_mobile) || $args->use_mobile != 'Y') {
+                $args->use_mobile = '';
+            }
             // Check if an original module exists by using module_srl
-            if($args->module_srl) {
+            if(!empty($args->module_srl)) {
 				$columnList = array('module_srl');
                 $module_info = $oModuleModel->getModuleInfoByModuleSrl($args->module_srl, $columnList);
                 if($module_info->module_srl != $args->module_srl) {
 					unset($args->module_srl);
 				}
-				else
-				{
-					foreach($args as $key=>$val)
-					{
+				else {
+					foreach($args as $key=>$val) {
 						$module_info->{$key} = $val;
 					}
 					$args = $module_info;
@@ -256,8 +256,12 @@
 					$mcacheFile =  sprintf("%sfiles/cache/opage/%d.m.cache.php", _KARYBU_PATH_, $module_info->module_srl);
 				}
 			}
-            if(file_exists($cache_file)) FileHandler::removeFile($cache_file);
-			if(file_exists($mcacheFile)) FileHandler::removeFile($mcacheFile);
+            if(isset($cache_file) && file_exists($cache_file)) {
+                FileHandler::removeFile($cache_file);
+            }
+			if(isset($mcacheFile) && file_exists($mcacheFile)) {
+                FileHandler::removeFile($mcacheFile);
+            }
         }
 
 		function procPageAdminArticleDocumentInsert()

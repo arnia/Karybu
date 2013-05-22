@@ -262,6 +262,7 @@
 		 */
         function deleteTrackbacks($document_srl) {
             // Delete
+            $args = new stdClass();
             $args->document_srl = $document_srl;
             $output = executeQuery('trackback.deleteTrackbacks', $args);
 

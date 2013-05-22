@@ -102,7 +102,7 @@ class editorController extends editor
             $module_srl = array($module_srl);
         }
 
-        $editor_config = null;
+        $editor_config = new stdClass();
 
         $editor_config->editor_skin = Context::get('editor_skin');
         $editor_config->comment_editor_skin = Context::get('comment_editor_skin');

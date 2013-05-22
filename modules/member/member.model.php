@@ -388,8 +388,12 @@ class memberModel extends member
             }
             $info->signature = $this->getSignature($info->member_srl);
             $info->group_list = $this->getMemberGroups($info->member_srl, $site_srl);
-
-            $extra_vars = unserialize($info->extra_vars);
+            if (isset($info->extra_vars)){
+                $extra_vars = @unserialize($info->extra_vars);
+            }
+            if (empty($extra_vars)) {
+                $extra_vars = array();
+            }
             unset($info->extra_vars);
             if ($extra_vars) {
                 foreach ($extra_vars as $key => $val) {
@@ -404,7 +408,7 @@ class memberModel extends member
                 }
             }
 
-            if (strlen($info->find_account_answer) == 32 && preg_match('/[a-zA-Z0-9]+/', $info->find_account_answer)) {
+            if (isset($info->find_account_answer) && strlen($info->find_account_answer) == 32 && preg_match('/[a-zA-Z0-9]+/', $info->find_account_answer)) {
                 $info->find_account_answer = null;
             }
 
@@ -427,7 +431,7 @@ class memberModel extends member
 
             // Check format.
             $oValidator = new Validator();
-            if (!$oValidator->applyRule('url', $info->homepage)) {
+            if (!$oValidator->applyRule('url', isset($info->homepage) ? $info->homepage : null)) {
                 $info->homepage = '';
             }
 
@@ -445,7 +449,7 @@ class memberModel extends member
         $args = new stdClass();
         $args->user_id = $user_id;
         $output = executeQuery('member.getMemberSrl', $args);
-        return $output->data->member_srl;
+        return isset($output->data->member_srl) ? $output->data->member_srl : null;
     }
 
     /**
@@ -467,7 +471,7 @@ class memberModel extends member
         $args = new stdClass();
         $args->nick_name = $nick_name;
         $output = executeQuery('member.getMemberSrl', $args);
-        return $output->data->member_srl;
+        return isset($output->data->member_srl) ? $output->data->member_srl : null;
     }
 
     /**
@@ -559,6 +563,7 @@ class memberModel extends member
      **/
     function getDefaultGroup($site_srl = 0, $columnList = array())
     {
+        $args = new stdClass();
         $args->site_srl = $site_srl;
         $output = executeQuery('member.getDefaultGroup', $args, $columnList);
         return $output->data;
@@ -837,6 +842,7 @@ class memberModel extends member
      **/
     function isDeniedID($user_id)
     {
+        $args = new stdClass();
         $args->user_id = $user_id;
         $output = executeQuery('member.chkDeniedID', $args);
         if ($output->data->count) {

@@ -13,7 +13,7 @@ class FileHandlerInstance
      * @param string $source path to change into absolute path
      * @return string Absolute path
      **/
-    function getRealPath($source)
+    static function getRealPath($source)
     {
         $temp = explode('/', $source);
         if ($temp[0] == '.') {

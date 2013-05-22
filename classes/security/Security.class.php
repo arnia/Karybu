@@ -66,7 +66,12 @@ class Security
             } else {
                 $var = $this->_targetVar;
             }
-            $var = $this->_encodeHTML($var, $varName);
+            if (isset($var)){
+                $var = $this->_encodeHTML($var, $varName);
+            }
+            else {
+                $var = false;
+            }
 
             if ($var === false) {
                 continue;

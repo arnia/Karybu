@@ -109,6 +109,7 @@ class documentController extends document {
 	 */
 	function deleteDocumentAliasByDocument($document_srl)
 	{
+        $args = new stdClass();
 		$args->document_srl = $document_srl;
 		executeQuery("document.deleteAlias", $args);
 	}
@@ -122,6 +123,7 @@ class documentController extends document {
 	 */
 	function deleteDocumentHistory($history_srl, $document_srl, $module_srl)
 	{
+        $args = new stdClass();
 		$args->history_srl = $history_srl;
 		$args->module_srl = $module_srl;
 		$args->document_srl = $document_srl;
@@ -543,6 +545,7 @@ class documentController extends document {
 	 */
 	function deleteDocument($document_srl, $is_admin = false, $isEmptyTrash = false, $oDocument = null) {
 		// Call a trigger (before)
+        $trigger_obj = new stdClass();
 		$trigger_obj->document_srl = $document_srl;
 		$output = ModuleHandler::triggerCall('document.deleteDocument', 'before', $trigger_obj);
 		if(!$output->toBool()) return $output;
@@ -565,6 +568,7 @@ class documentController extends document {
 		if(!$oDocument->isGranted()) return new Object(-1, 'msg_not_permitted');
 
 		//if empty trash, document already deleted, therefore document not delete
+        $args = new stdClass();
 		$args->document_srl = $document_srl;
 		if(!$isEmptyTrash)
 		{
@@ -659,8 +663,13 @@ class documentController extends document {
 	 */
 	function moveDocumentToTrash($obj) {
 		// Get trash_srl if a given trash_srl doesn't exist
-		if(!$obj->trash_srl) $trash_args->trash_srl = getNextSequence();
-		else $trash_args->trash_srl = $obj->trash_srl;
+        $trash_args = new stdClass();
+		if(empty($obj->trash_srl)) {
+            $trash_args->trash_srl = getNextSequence();
+        }
+		else {
+            $trash_args->trash_srl = $obj->trash_srl;
+        }
 		// Get its module_srl which the document belongs to
 		$oDocumentModel = &getModel('document');
 		$oDocument = $oDocumentModel->getDocument($obj->document_srl);
@@ -673,7 +682,7 @@ class documentController extends document {
 		$trash_args->document_srl = $obj->document_srl;
 		$trash_args->description = $obj->description;
 		// Insert member's information only if the member is logged-in and not manually registered.
-		if(Context::get('is_logged')&&!$manual_inserted) {
+		if(Context::get('is_logged') && empty($manual_inserted)) {
 			$logged_info = Context::get('logged_info');
 			$trash_args->member_srl = $logged_info->member_srl;
 			$trash_args->user_id = $logged_info->user_id;
@@ -681,6 +690,7 @@ class documentController extends document {
 			$trash_args->nick_name = $logged_info->nick_name;
 		}
 		// Date setting for updating documents
+        $document_args = new stdClass();
 		$document_args->module_srl = 0;
 		$document_args->document_srl = $obj->document_srl;
 
@@ -729,6 +739,7 @@ class documentController extends document {
 		FileHandler::removeDir(sprintf('files/cache/thumbnails/%s',getNumberingPath($obj->document_srl, 3)));
 		// Set the attachment to be invalid state
 		if($oDocument->hasUploadedFiles()) {
+            $args = new stdClass();
 			$args->upload_target_srl = $oDocument->document_srl;
 			$args->isvalid = 'N';
 			executeQuery('file.updateFileValid', $args);
@@ -2010,6 +2021,7 @@ class documentController extends document {
 			$msg_code = 'success_deleted';
 		}
 		elseif($type == 'trash') {
+            $args = new stdClass();
 			$args->description = $message_content;
 
 			$oDB = DB::getInstance();

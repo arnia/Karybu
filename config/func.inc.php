@@ -687,14 +687,18 @@
 
         $target = array_keys($target_vars);
         $del = array_keys($del_vars);
-        if(!count($target)||!count($del)) return $target_obj;
+        if(!count($target)||!count($del)) {
+            return $target_obj;
+        }
 
-        $return_obj = NULL;
+        $return_obj = new stdClass();
 
         $target_count = count($target);
         for($i = 0; $i < $target_count; $i++) {
             $target_key = $target[$i];
-            if(!in_array($target_key, $del)) $return_obj->{$target_key} = $target_obj->{$target_key};
+            if(!in_array($target_key, $del)) {
+                $return_obj->{$target_key} = $target_obj->{$target_key};
+            }
         }
 
         return $return_obj;

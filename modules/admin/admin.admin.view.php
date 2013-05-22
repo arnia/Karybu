@@ -83,7 +83,8 @@
 			$oAutoinstallModel = &getModel('autoinstall');
 			$params = array();
 			$params["act"] = "getResourceapiLastupdate";
-			$body = XmlGenerater::generate($params);
+            $generator = new XmlGenerater();
+			$body = $generator->generate($params);
 			$buff = FileHandler::getRemoteResource(_KARYBU_DOWNLOAD_SERVER_, $body, 3, "POST", "application/xml");
 			$xml_lUpdate = new XmlParser();
 			$lUpdateDoc = $xml_lUpdate->parse($buff);

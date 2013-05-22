@@ -245,9 +245,10 @@
             // List permissions
             $xml_info = $oModuleModel->getModuleActionXML($module_info->module);
 
-            $grant_list = $xml_info->grant;
-
+            $grant_list = isset($xml_info->grant) ? $xml_info->grant : new stdClass();
+            $grant_list->access = new stdClass();
             $grant_list->access->default = 'guest';
+            $grant_list->manager = new stdClass();
             $grant_list->manager->default = 'manager';
 
             foreach($grant_list as $grant_name => $grant_info) {
@@ -272,14 +273,17 @@
             }
 
             // Stored in the DB
+            $args = new stdClass();
             $args->module_srl = $module_srl;
             $output = executeQuery('module.deleteModuleGrants', $args);
-            if(!$output->toBool()) return $output;
+            if(!$output->toBool()) {
+                return $output;
+            }
             // Permissions stored in the DB
 			if ($grant){
 				foreach($grant as $grant_name => $group_srls) {
 					foreach($group_srls as $key => $val) {
-						$args = null;
+						$args = new stdClass();
 						$args->module_srl = $module_srl;
 						$args->name = $grant_name;
 						$args->group_srl = $val;

@@ -139,7 +139,7 @@
 			$info['type'] = ($type !='INSTALL' ? 'WORKING' : 'INSTALL');
 			$info['location'] = _KARYBU_LOCATION_;
 			$info['package'] = _KARYBU_PACKAGE_;
-			$info['host'] = $db_type->default_url ? $db_type->default_url : getFullUrl();
+			$info['host'] = getFullUrl();
 			$info['app'] = $_SERVER['SERVER_SOFTWARE'];
 			$info['xe_version'] = __KARYBU_VERSION__;
 			$info['php'] = phpversion();

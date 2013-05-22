@@ -181,6 +181,7 @@
          * Manage mid configurations depending on module
          **/
         function insertModulePartConfig($module, $module_srl, $config) {
+            $args = new stdClass();
             $args->module = $module;
             $args->module_srl = $module_srl;
             $args->config = serialize($config);
@@ -350,20 +351,26 @@
          **/
         function updateModule($args) {
             $output = $this->arrangeModuleInfo($args, $extra_vars);
-            if(!$output->toBool()) return $output;
+            if(!$output->toBool()) {
+                return $output;
+            }
 
             // begin transaction
             $oDB = DB::getInstance();
             $oDB->begin();
 
-			if(!$args->site_srl || !$args->browser_title)
+			if(empty($args->site_srl) || empty($args->browser_title))
 			{
 				$oModuleModel = &getModel('module');
 				$columnList = array('module_srl', 'site_srl', 'browser_title');
 				$module_info = $oModuleModel->getModuleInfoByModuleSrl($args->module_srl);
 
-				if(!$args->site_srl) $args->site_srl = (int)$module_info->site_srl;
-				if(!$args->browser_title) $args->browser_title = $module_info->browser_title;
+				if(empty($args->site_srl)) {
+                    $args->site_srl = (int)$module_info->site_srl;
+                }
+				if(empty($args->browser_title)) {
+                    $args->browser_title = $module_info->browser_title;
+                }
 			}
 
             $output = executeQuery('module.isExistsModuleName', $args);
@@ -373,7 +380,7 @@
             }
 
 			// default value
-			$args->is_skin_fix = (!$args->is_skin_fix) ? 'N' : 'Y';
+			$args->is_skin_fix = (empty($args->is_skin_fix)) ? 'N' : 'Y';
 
             $output = executeQuery('module.updateModule', $args);
             if(!$output->toBool()) {
@@ -557,7 +564,10 @@
 			else
 	            $member_info = $oMemberModel->getMemberInfoByUserID($admin_id);
 
-            if(!$member_info->member_srl) return;
+            if(empty($member_info->member_srl)) {
+                return;
+            }
+            $args = new stdClass();
             $args->module_srl = $module_srl;
             $args->member_srl = $member_info->member_srl;
             return executeQuery('module.insertAdminId', $args);
@@ -567,12 +577,15 @@
          * @brief Remove the admin ID from a module
          **/
         function deleteAdminId($module_srl, $admin_id = '') {
+            $args = new stdClass();
             $args->module_srl = $module_srl;
 
             if($admin_id) {
                 $oMemberModel = &getModel('member');
                 $member_info = $oMemberModel->getMemberInfoByUserID($admin_id);
-                if($member_info->member_srl) $args->member_srl = $member_info->member_srl;
+                if($member_info->member_srl) {
+                    $args->member_srl = $member_info->member_srl;
+                }
             }
             return executeQuery('module.deleteAdminId', $args);
         }
@@ -615,7 +628,7 @@
 			}
 
             if(!$obj || !count($obj)) return new Object();
-
+            $args = new stdClass();
             $args->module_srl = $module_srl;
             foreach($obj as $key => $val) {
                 // #17927989 For an old board which used the old blog module
@@ -644,7 +657,7 @@
 				}
             }
 
-			$oDB->commit;
+			$oDB->commit();
 			return new Object();
         }
 
@@ -670,6 +683,7 @@
          * @brief Remove skin vars of a module
          **/
         function _deleteModuleSkinVars($module_srl, $mode) {
+            $args = new stdClass();
             $args->module_srl = $module_srl;
 			$mode = $mode === 'P' ? 'P' : 'M';
 
@@ -702,7 +716,7 @@
             if(!$obj || !count($obj)) return;
 
             foreach($obj as $key => $val) {
-                $args = null;
+                $args = new stdClass();
                 $args->module_srl = $module_srl;
                 $args->name = trim($key);
                 $args->value = trim($val);
@@ -715,6 +729,7 @@
          * @brief Remove extra vars from the module
          **/
         function deleteModuleExtraVars($module_srl) {
+            $args = new stdClass();
             $args->module_srl = $module_srl;
             return executeQuery('module.deleteModuleExtraVars', $args);
             //remove from cache

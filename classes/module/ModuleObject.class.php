@@ -614,7 +614,9 @@ class ModuleObject extends Module
         $called_position = 'after_module_proc';
         $oAddonController = & getController('addon');
         $addon_file = $oAddonController->getCacheFilePath(Mobile::isFromMobilePhone() ? "mobile" : "pc");
-        include($addon_file);
+        if (file_exists($addon_file)) {
+            include($addon_file);
+        }
 
         if (is_a($output, 'Object') || is_subclass_of($output, 'Object')) {
             $this->setError($output->getError());

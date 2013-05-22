@@ -2640,7 +2640,7 @@ class ContextInstance
      */
     function addHtmlFooter($footer)
     {
-        $this->html_footer .= ($this->Htmlfooter ? "\n" : '') . $footer;
+        $this->html_footer .= (!empty($this->html_footer) ? "\n" : '') . $footer;
     }
 
     /**

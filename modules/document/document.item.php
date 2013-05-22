@@ -88,7 +88,7 @@ class documentItem extends Object
             $args->document_srl = $this->document_srl;
             $output = executeQuery('document.getDocument', $args, $this->columnList);
             //insert in cache
-            if ($output->data->document_srl && $oCacheHandler->isSupport()) {
+            if (!empty($output->data->document_srl) && $oCacheHandler->isSupport()) {
                 $oCacheHandler->put($cache_key, $output);
             }
         }

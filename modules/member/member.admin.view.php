@@ -220,12 +220,20 @@
             // retrieve extend form
             $oMemberModel = &getModel('member');
 
-            $memberInfo = Context::get('member_info');            
-			$memberInfo->signature = $oMemberModel->getSignature($this->memberInfo->member_srl);            
+            $memberInfo = Context::get('member_info');
+            if (!is_object($memberInfo)){
+                $memberInfo = new stdClass();
+            }
+            if (isset($this->memberInfo->member_srl)) {
+			    $memberInfo->signature = $oMemberModel->getSignature($this->memberInfo->member_srl);
+            }
+            else {
+                $memberInfo->signature = '';
+            }
 			Context::set('member_info', $memberInfo);
             
 			// get an editor for the signature
-            if($memberInfo->member_srl) {                
+            if(!empty($memberInfo->member_srl)) {
 				$oEditorModel = &getModel('editor');
                 $option = new stdClass();
                 $option->primary_key_name = 'member_srl';
@@ -252,7 +260,7 @@
             $identifierForm = new stdClass();
 			$identifierForm->title = $lang->{$member_config->identifier};			
 			$identifierForm->name = $member_config->identifier;			
-			$identifierForm->value = $memberInfo->{$member_config->identifier};			
+			$identifierForm->value = isset($memberInfo->{$member_config->identifier}) ? $memberInfo->{$member_config->identifier} : null;
 			Context::set('identifierForm', $identifierForm);            
 			$this->setTemplateFile('insert_member');
         }
@@ -328,29 +336,33 @@
 					elseif($formInfo->name == 'birthday'){
 						$formTag->type = 'date';
 						$inputTag = sprintf('<input type="hidden" name="birthday" id="date_birthday" value="%s" /><input type="text" class="inputDate" id="birthday" value="%s" /> <input type="button" value="%s" class="btn dateRemover" />'
-								,$memberInfo['birthday']
-								,zdate($memberInfo['birthday'], 'Y-m-d', false)
+								,isset($memberInfo['birthday']) ? $memberInfo['birthday'] : null
+								,isset($memberInfo['birthday']) ? zdate($memberInfo['birthday'], 'Y-m-d', false) : false
 								,$lang->cmd_delete);
 					}elseif($formInfo->name == 'find_account_question'){
 						$formTag->type = 'select';
 						$inputTag = '<select name="find_account_question" id="find_account_question" style="width:290px; display:block;">%s</select>';
 						$optionTag = array();
 						foreach($lang->find_account_question_items as $key=>$val){
-							if($key == $memberInfo['find_account_question']) $selected = 'selected="selected"';
-							else $selected = '';
+							if(isset($memberInfo['find_account_question']) && $key == $memberInfo['find_account_question']) {
+                                $selected = 'selected="selected"';
+                            }
+							else {
+                                $selected = '';
+                            }
 							$optionTag[] = sprintf('<option value="%s" %s >%s</option>'
 													,$key
 													,$selected
 													,$val);
 						}
 						$inputTag = sprintf($inputTag, implode('', $optionTag));
-						$inputTag .= '<input type="text" name="find_account_answer" id="find_account_answer" title="'.Context::getLang('find_account_answer').'" value="'.$memberInfo['find_account_answer'].'" class="inputText long tall" />';
+						$inputTag .= '<input type="text" name="find_account_answer" id="find_account_answer" title="'.Context::getLang('find_account_answer').'" value="'.(isset($memberInfo['find_account_answer']) ? $memberInfo['find_account_answer'] : '').'" class="inputText long tall" />';
 					}else{
 						$formTag->type = 'text';
 						$inputTag = sprintf('<input type="text" name="%s" id="%s" value="%s" class="inputText long tall" />'
 									,$formInfo->name
 									,$formInfo->name
-									,$memberInfo[$formInfo->name]);
+									,isset($memberInfo[$formInfo->name]) ? $memberInfo[$formInfo->name] : null);
 					}
 				}//end isDefaultForm
 				else{

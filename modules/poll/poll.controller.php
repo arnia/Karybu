@@ -260,19 +260,28 @@
          **/
         function triggerDeleteDocumentPoll(&$obj) {
             $document_srl = $obj->document_srl;
-            if(!$document_srl) return new Object();
+            if(!$document_srl) {
+                return new Object();
+            }
             // Get the poll
+            $args = new stdClass();
             $args->upload_target_srl = $document_srl;
             $output = executeQuery('poll.getPollByTargetSrl', $args);
-            if(!$output->data) return new Object();
+            if(!$output->data) {
+                return new Object();
+            }
 
             $poll_srl = $output->data->poll_srl;
-            if(!$poll_srl) return new Object();
+            if(!$poll_srl) {
+                return new Object();
+            }
 
             $args->poll_srl = $poll_srl;
 
             $output = executeQuery('poll.deletePoll', $args);
-            if(!$output->toBool()) return $output;
+            if(!$output->toBool()) {
+                return $output;
+            }
 
             $output = executeQuery('poll.deletePollItem', $args);
             if(!$output->toBool()) return $output;

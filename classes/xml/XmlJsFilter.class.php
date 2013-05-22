@@ -102,25 +102,31 @@
 			// xml parsing
 			$xml_obj = parent::parse($buff);
 
-			$attrs = $xml_obj->filter->attrs;
-			$rules = $xml_obj->filter->rules;
+			$attrs = isset($xml_obj->filter->attrs) ? $xml_obj->filter->attrs : null;
+			$rules = isset($xml_obj->filter->rules) ? $xml_obj->filter->rules : null;
 
 			// XmlJsFilter handles three data; filter_name, field, and parameter
-			$filter_name       = $attrs->name;
-			$confirm_msg_code  = $attrs->confirm_msg_code;
-			$module            = $attrs->module;
-			$act               = $attrs->act;
-			$extend_filter     = $attrs->extend_filter;
+			$filter_name       = isset($attrs->name) ? $attrs->name : null;
+			$confirm_msg_code  = isset($attrs->confirm_msg_code) ? $attrs->confirm_msg_code : null;
+			$module            = isset($attrs->module) ? $attrs->module : null;
+			$act               = isset($attrs->act) ? $attrs->act : null;
+			$extend_filter     = isset($attrs->extend_filter) ? $attrs->extend_filter : null;
 
 
-			$field_node = $xml_obj->filter->form->node;
-			if($field_node && !is_array($field_node)) $field_node = array($field_node);
+			$field_node = isset($xml_obj->filter->form->node) ? $xml_obj->filter->form->node : null;
+			if($field_node && !is_array($field_node)) {
+                $field_node = array($field_node);
+            }
 
-			$parameter_param = $xml_obj->filter->parameter->param;
-			if($parameter_param && !is_array($parameter_param)) $parameter_param = array($parameter_param);
+			$parameter_param = isset($xml_obj->filter->parameter->param) ? $xml_obj->filter->parameter->param : null;
+			if($parameter_param && !is_array($parameter_param)) {
+                $parameter_param = array($parameter_param);
+            }
 
-			$response_tag = $xml_obj->filter->response->tag;
-			if($response_tag && !is_array($response_tag)) $response_tag = array($response_tag);
+			$response_tag = isset($xml_obj->filter->response->tag) ? $xml_obj->filter->response->tag : null;
+			if($response_tag && !is_array($response_tag)) {
+                $response_tag = array($response_tag);
+            }
 
 			// If extend_filter exists, result returned by calling the method
 			if($extend_filter) {

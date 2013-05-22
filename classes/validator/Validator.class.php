@@ -248,12 +248,16 @@ class Validator
 
 			// conditional statement
 			foreach($filter['if'] as $cond) {
-				if(!isset($cond['test']) || !isset($cond['attr'])) continue;
+				if(!isset($cond['test']) || !isset($cond['attr'])) {
+                    continue;
+                }
 
 				$func_body = preg_replace('/\\$(\w+)/', '$c[\'$1\']', $cond['test']);
 				$func = create_function('$c', "return !!({$func_body});");
 
-				if($func($fields)) $filter[$cond['attr']] = $cond['value'];
+				if($func($fields)) {
+                    $filter[$cond['attr']] = $cond['value'];
+                }
 			}
 
 			// attr : default

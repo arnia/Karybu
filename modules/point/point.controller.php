@@ -131,12 +131,14 @@
          * @brief The trigger which deducts the points related to post comments before deleting the post itself
          **/
         function triggerBeforeDeleteDocument(&$obj) {
-            $document_srl = $obj->document_srl;
-            $member_srl = $obj->member_srl;
+            $document_srl = isset($obj->document_srl) ? $obj->document_srl : null;
+            $member_srl = isset($obj->member_srl) ? $obj->member_srl : null;
 
             $oDocumentModel = &getModel('document');
             $oDocument = $oDocumentModel->getDocument($document_srl);
-            if(!$oDocument->isExists()) return new Object();
+            if(!$oDocument->isExists()) {
+                return new Object();
+            }
             // Get the point module information
             $oModuleModel = &getModel('module');
             $config = $oModuleModel->getModuleConfig('point');
@@ -466,6 +468,7 @@
             $prev_point = $oPointModel->getPoint($member_srl, true);
             $prev_level = $oPointModel->getLevel($prev_point, $config->level_step);
             // Change points
+            $args = new stdClass();
             $args->member_srl = $member_srl;
             $args->point = $prev_point;
 
@@ -579,7 +582,7 @@
 				$oCacheHandler->delete($gcache_key);
 			}
 
-            return $output;
+            return null;
         }
 
 		function triggerCopyModule(&$obj)

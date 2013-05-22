@@ -182,7 +182,10 @@ class Object {
 	 * @return Object
 	 */
 	function getObjectVars() {
-		foreach($this->variables as $key => $val) $output->{$key} = $val;
+        $output = new stdClass();
+		foreach($this->variables as $key => $val) {
+            $output->{$key} = $val;
+        }
 		return $output;
 	}
 

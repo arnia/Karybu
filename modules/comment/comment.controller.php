@@ -689,6 +689,7 @@
 			}
             if(!$oDocument->isExists() || !$oDocument->isGranted()) return new Object(-1, 'msg_not_permitted');
             // get a list of comments and then execute a trigger(way to reduce the processing cost for delete all)
+            $args = new stdClass();
             $args->document_srl = $document_srl;
             $comments = executeQueryArray('comment.getAllComments',$args);
             if($comments->data) {
@@ -711,7 +712,7 @@
             $output = executeQuery('comment.deleteCommentsList', $args);
 
 			//delete declared, declared_log, voted_log
-			if(is_array($commentSrlList) && count($commentSrlList)>0)
+			if(isset($commentSrlList) && is_array($commentSrlList) && count($commentSrlList)>0)
 			{
 				unset($args);
 				$args->comment_srl = join(',', $commentSrlList);

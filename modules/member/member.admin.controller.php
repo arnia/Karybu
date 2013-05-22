@@ -23,7 +23,7 @@
             // Extract the necessary information in advance
             $args = Context::gets('member_srl','email_address','find_account_answer', 'allow_mailing','allow_message','denied','is_admin','description','group_srl_list','limit_date');
             $oMemberModel = &getModel ('member');
-            $config = $oMemberModel->getMemberConfig ();
+            $config = $oMemberModel->getMemberConfig();
 			$getVars = array();
 			if ($config->signupForm){
 				foreach($config->signupForm as $formInfo) {
@@ -36,9 +36,12 @@
 				$args->{$val} = Context::get($val);
 			}
 			$args->member_srl = Context::get('member_srl');
-			if (Context::get('reset_password'))
+			if (Context::get('reset_password')) {
 				$args->password = Context::get('reset_password');
-			else unset($args->password);
+            }
+			else {
+                unset($args->password);
+            }
 
 			// Remove some unnecessary variables from all the vars
 			$all_args = Context::getRequestVars();
@@ -91,18 +94,18 @@
 			$this->add('member_srl', $args->member_srl);
 			$this->setMessage($msg_code);
 
-			$profile_image = $_FILES['profile_image'];
-			if (is_uploaded_file($profile_image['tmp_name'])){
+			$profile_image = isset($_FILES['profile_image']) ? $_FILES['profile_image'] : null;
+			if ($profile_image && is_uploaded_file($profile_image['tmp_name'])){
 				$oMemberController->insertProfileImage($args->member_srl, $profile_image['tmp_name']);
 			}
 
-			$image_mark = $_FILES['image_mark'];
-			if (is_uploaded_file($image_mark['tmp_name'])){
+			$image_mark = isset($_FILES['image_mark']) ? $_FILES['image_mark'] : null;
+			if ($image_mark && is_uploaded_file($image_mark['tmp_name'])){
 				$oMemberController->insertImageMark($args->member_srl, $image_mark['tmp_name']);
 			}
 
-			$image_name = $_FILES['image_name'];
-			if (is_uploaded_file($image_name['tmp_name'])){
+			$image_name = isset($_FILES['image_name']) ? $_FILES['image_name'] : null;
+			if ($image_name && is_uploaded_file($image_name['tmp_name'])){
 				$oMemberController->insertImageName($args->member_srl, $image_name['tmp_name']);
 			}
 
@@ -628,15 +631,15 @@
 		 **/
 		function procMemberAdminSelectedMemberManage(){
 			$var = Context::getRequestVars();
-			$groups = $var->groups;
-			$members = $var->member_srls;
+			$groups = isset($var->groups) ? $var->groups : array();
+			$members = isset($var->member_srls) ? $var->member_srls : array();
 
             $oDB = DB::getInstance();
             $oDB->begin();
 
 			$oMemberController = &getController('member');
 			foreach($members as $key=>$member_srl){
-				unset($args);
+				$args = new stdClass();
 				$args->member_srl = $member_srl; 
 				switch($var->type){
 					case 'modify':{
@@ -678,7 +681,7 @@
 				}
 			}
 
-			$message = $var->message;
+			$message = isset($var->message) ? $var->message : null;
 			// Send a message
 			if($message) {
 				$oCommunicationController = &getController('communication');

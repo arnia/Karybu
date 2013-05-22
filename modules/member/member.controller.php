@@ -750,7 +750,9 @@
 			{
 				$oMemberModel = &getModel('member');
                 $profile_image = $oMemberModel->getProfileImage($member_srl);
-                FileHandler::removeFile($profile_image->file);
+                if ($profile_image) {
+                    FileHandler::removeFile($profile_image->file);
+                }
             }
             return new Object(0,'success');
         }
@@ -774,7 +776,9 @@
 			{
 				$oMemberModel = &getModel('member');
                 $image_name = $oMemberModel->getImageName($member_srl);
-                FileHandler::removeFile($image_name->file);
+                if ($image_name) {
+                    FileHandler::removeFile($image_name->file);
+                }
             }
             return new Object(0,'success');
         }
@@ -854,7 +858,9 @@
 			{
 				$oMemberModel = &getModel('member');
                 $image_mark = $oMemberModel->getImageMark($member_srl);
-                FileHandler::removeFile($image_mark->file);
+                if ($image_mark) {
+                    FileHandler::removeFile($image_mark->file);
+                }
             }
             return new Object(0,'success');
         }
@@ -1386,13 +1392,16 @@
 		 * @return Object
          **/
         function addMemberToGroup($member_srl,$group_srl,$site_srl=0) {
+            $args = new stdClass();
             $args->member_srl = $member_srl;
             $args->group_srl = $group_srl;
             if($site_srl) $args->site_srl = $site_srl;
 
             $oModel =& getModel('member');
             $groups = $oModel->getMemberGroups($member_srl, $site_srl, true);
-            if($groups[$group_srl]) return new Object();
+            if(!empty($groups[$group_srl])) {
+                return new Object();
+            }
 
             // Add
             $output = executeQuery('member.addMemberToGroup',$args);
@@ -1548,7 +1557,7 @@
             $args = new stdClass();
 			$args->ipaddress = $_SERVER['REMOTE_ADDR'];
 			$output = executeQuery('member.getLoginCountByIp', $args);
-			$count = (int)$output->data->count;
+			$count = isset($output->data->count) ? (int)$output->data->count : 0;
 			if($config->max_error_count < $count)
 			{
 				$last_update = strtotime($output->data->last_update);
@@ -1756,19 +1765,31 @@
 
             $logged_info = Context::get('logged_info');
             // If the date of the temporary restrictions limit further information on the date of
-            if($config->limit_day) $args->limit_date = date("YmdHis", time()+$config->limit_day*60*60*24);
+            if(!empty($config->limit_day)) {
+                $args->limit_date = date("YmdHis", time()+$config->limit_day*60*60*24);
+            }
 
             $args->member_srl = getNextSequence();
             // Enter the user's identity changed to lowercase
-			if (!$args->user_id) $args->user_id = 't'.$args->member_srl;
-			else $args->user_id = strtolower($args->user_id);
+			if (empty($args->user_id)) {
+                $args->user_id = 't'.$args->member_srl;
+            }
+			else {
+                $args->user_id = strtolower($args->user_id);
+            }
             // Control of essential parameters
-            if($args->allow_mailing!='Y') $args->allow_mailing = 'N';
-            if($args->denied!='Y') $args->denied = 'N';
+            if(!isset($args->allow_mailing) || $args->allow_mailing!='Y') {
+                $args->allow_mailing = 'N';
+            }
+            if(!isset($args->denied) || $args->denied!='Y') {
+                $args->denied = 'N';
+            }
             $args->allow_message= 'Y';
 
-            if($logged_info->is_admin == 'Y') {
-                if($args->is_admin!='Y') $args->is_admin = 'N';
+            if(isset($logged_info->is_admin) && $logged_info->is_admin == 'Y') {
+                if(!isset($args->is_admin) || $args->is_admin!='Y') {
+                    $args->is_admin = 'N';
+                }
             } else {
                 unset($args->is_admin);
             }
@@ -2153,7 +2174,7 @@
 		{
 			$oModuleModel = &getModel('module');
 			$pointModuleConfig = $oModuleModel->getModuleConfig('point');
-			$pointGroup = $pointModuleConfig->point_group;
+			$pointGroup = isset($pointModuleConfig->point_group) ? $pointModuleConfig->point_group : null;
 
 			$levelGroup = array();
 			if(is_array($pointGroup) && count($pointGroup)>0)
