@@ -317,7 +317,7 @@ class memberModel extends member
         if (!$email_address) {
             return;
         }
-
+        $args = new stdClass();
         $args->email_address = $email_address;
         $output = executeQuery('member.getMemberInfoByEmailAddress', $args);
         if (!$output->toBool()) {

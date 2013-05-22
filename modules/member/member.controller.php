@@ -131,14 +131,17 @@
             $this->destroySessionInfo();
             // Call a trigger after log-out (after)
             $trigger_output = ModuleHandler::triggerCall('member.doLogout', 'after', $logged_info);
-            if(!$trigger_output->toBool()) return $trigger_output;
+            if(!$trigger_output->toBool()) {
+                return $trigger_output;
+            }
 
             $output = new Object();
 
             $oModuleModel = &getModel('module');
             $config = $oModuleModel->getModuleConfig('member');
-            if($config->after_logout_url) 
+            if(!empty($config->after_logout_url)) {
 				$output->redirect_url = $config->after_logout_url;
+            }
 
             return $output;
         }
@@ -1528,8 +1531,11 @@
          **/
 		function doLogin($user_id, $password = '', $keep_signed = false) {
 			$user_id = strtolower($user_id);
-			if(!$user_id) return new Object(-1, 'null_user_id');
+			if(!$user_id) {
+                return new Object(-1, 'null_user_id');
+            }
 			// Call a trigger before log-in (before)
+            $trigger_obj = new stdClass();
 			$trigger_obj->user_id = $user_id;
 			$trigger_obj->password = $password;
 			$trigger_output = ModuleHandler::triggerCall('member.doLogin', 'before', $trigger_obj);
@@ -1539,6 +1545,7 @@
 
 			// check IP access count.
 			$config = $oMemberModel->getMemberConfig();
+            $args = new stdClass();
 			$args->ipaddress = $_SERVER['REMOTE_ADDR'];
 			$output = executeQuery('member.getLoginCountByIp', $args);
 			$count = (int)$output->data->count;
@@ -1598,7 +1605,7 @@
 
 			// Check if there is recoding table.
 			$oDB = DB::getInstance();
-			if($oDB->isTableExists('member_count_history') && $config->enable_login_fail_report != 'N')
+			if($oDB->isTableExists('member_count_history') && (!isset($config->enable_login_fail_report) || $config->enable_login_fail_report != 'N'))
 			{
 				// check if there is login fail records.
 				$output = executeQuery('member.getLoginCountHistoryByMemberSrl', $args);
@@ -2136,6 +2143,7 @@
 
 			if($memberSrl)
 			{
+                $args = new stdClass();
 				$args->member_srl = $memberSrl;
 				$output = executeQuery('member.deleteAutologin', $args);
 			}

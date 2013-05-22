@@ -922,7 +922,21 @@ function ucfirst(str) {
 function get_by_id(id) {
 	return document.getElementById(id);
 }
-
+function submitAndLoadArea(formSelector, areaSelector, replace){
+    jQuery.ajax({
+        type: "POST",
+        url: jQuery(formSelector).attr('action'),
+        data: jQuery(formSelector).serialize(),
+        success: function(response){
+            if (replace) {
+                jQuery(areaSelector).replaceWith(response);
+            }
+            else {
+                jQuery(areaSelector).html(response);
+            }
+        }
+    })
+}
 jQuery(function($){
     $('.lang_code').each(
 		function() 

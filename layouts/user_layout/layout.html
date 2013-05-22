@@ -11,7 +11,6 @@
 		</form>
 		<hr />
 		<div class="gnb">
-			.gnb
 			<ul>
 				<li loop="$global_menu->list=>$key1,$val1" class="active"|cond="$val1['selected']"><a href="{$val1['href']}" target="_blank"|cond="$val1['open_window']=='Y'">{$val1['link']}</a>
 					<ul cond="$val1['list']">

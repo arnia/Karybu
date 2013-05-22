@@ -40,7 +40,9 @@
          * @brief Select a module
          **/
         function dispModuleSelectList() {
-            if(!Context::get('is_logged')) return new Object(-1, 'msg_not_permitted');
+            if(!Context::get('is_logged')) {
+                return new Object(-1, 'msg_not_permitted');
+            }
 
             $oModuleModel = &getModel('module');
             // Extract the number of virtual sites
@@ -100,17 +102,22 @@
                     $mid_list[$module]->title = $xml_info->title;
                 }
             }
-
+            $isModal = (bool)Context::get('modal');
             Context::set('mid_list', $mid_list);
             Context::set('selected_module', $selected_module);
             Context::set('selected_mids', isset($mid_list[$selected_module]->list) ? $mid_list[$selected_module]->list : null);
             Context::set('module_category_exists', $module_category_exists);
-
+            Context::set('is_modal', $isModal);
 			$security = new Security();
 			$security->encodeHTML('id', 'type');
 
             // Set the layout to be pop-up
-            $this->setLayoutFile('popup_layout');
+            //if ($isModal){
+                //$this->setLayoutFile('default_layout');
+            //}
+            //else{
+                $this->setLayoutFile('popup_layout');
+            //}
             // Set a template file
             $this->setTemplateFile('module_selector');
         }

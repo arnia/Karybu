@@ -3802,4 +3802,7 @@
     <item name="logout">
         <value xml:lang="en"><![CDATA[Log out]]></value>
     </item>
+    <item name="close">
+        <value xml:lang="en"><![CDATA[Close]]></value>
+    </item>
 </lang>

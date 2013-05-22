@@ -321,7 +321,9 @@
         function dispMemberOwnDocument() {
             $oMemberModel = &getModel('member');
             // A message appears if the user is not logged-in
-            if(!$oMemberModel->isLogged()) return $this->stop('msg_not_logged');
+            if(!$oMemberModel->isLogged()) {
+                return $this->stop('msg_not_logged');
+            }
 
             $logged_info = Context::get('logged_info');
             $member_srl = $logged_info->member_srl;
@@ -345,7 +347,9 @@
             $oMemberModel = &getModel('member');
             $args = new stdClass();
             // A message appears if the user is not logged-in
-            if(!$oMemberModel->isLogged()) return $this->stop('msg_not_logged');
+            if(!$oMemberModel->isLogged()) {
+                return $this->stop('msg_not_logged');
+            }
 
             $logged_info = Context::get('logged_info');
             $args->member_srl = $logged_info->member_srl;
@@ -480,11 +484,12 @@
         function dispMemberLogout() {
             $oMemberController = &getController('member');
             $output = $oMemberController->procMemberLogout();
-			if(!$output->redirect_url)
+			if(empty($output->redirect_url)) {
 				$this->setRedirectUrl(getNotEncodedUrl('act', ''));
-			else
+            }
+			else {
 				$this->setRedirectUrl($output->redirect_url);
-		
+            }
 			return;
         }
 
@@ -500,7 +505,9 @@
          * @brief Find user ID and password
          **/
         function dispMemberFindAccount() {
-            if(Context::get('is_logged')) return $this->stop('already_logged');
+            if(Context::get('is_logged')) {
+                return $this->stop('already_logged');
+            }
 
 			$oMemberModel = &getModel('member');
 			$config = $this->member_config;

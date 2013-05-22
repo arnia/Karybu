@@ -10,15 +10,15 @@
 <form id="fo_list" action="./" method="get" onsubmit="return procFilter(this, delete_checked)">
 <input type="hidden" name="page" value="{$page}" />
 
-<!-- 모듈 선택 -->
+<!-- Select the module -->
 <div class="btnArea">
     <span class="btn"><a href="{getUrl('','module','module','act','dispModuleSelectList','id','target_module','type','single')}" onclick="popopen(this.href,'ModuleSelect');return false;">{$lang->cmd_find_module}</a></span>
 </div>
 
-<!-- 목록 -->
+<!-- List -->
 <div class="table">
 	<table width="100%" border="1" cellspacing="0">
-		<caption>Total {number_format($total_count)}, Page {number_format($page)}/{number_format($total_page)}</caption>
+		<caption>{$lang->total} {number_format($total_count)}, {$lang->page} {number_format($page)}/{number_format($total_page)}</caption>
 		<thead>
 			<tr>
 				<th scope="col">{$lang->no}</th>

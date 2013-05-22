@@ -89,8 +89,12 @@ class HTMLDisplayHandler {
 
 					if(file_exists($edited_layout_css)) Context::loadFile(array($edited_layout_css,'all','',100));
 				}
-				if(!$layout_path) $layout_path = './common/tpl';
-				if(!$layout_file) $layout_file = 'default_layout';
+				if(!$layout_path) {
+                    $layout_path = './common/tpl';
+                }
+				if(!$layout_file) {
+                    $layout_file = 'default_layout';
+                }
 				$output = $oTemplate->compile($layout_path, $layout_file, $edited_layout_file);
 
 				if(__DEBUG__==3) $GLOBALS['__layout_compile_elapsed__'] = getMicroTime()-$start;

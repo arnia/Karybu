@@ -3,7 +3,7 @@
  * @author Arnia (dev@karybu.org)
  * @brief    module 모듈의 관리자용 javascript
  **/
-/* 모듈 즐겨찾기 */
+/* Module favorites */
 function doToggleFavoriteModule(obj, module_name) {
 	function on_complete(data){
 		if (data.result == 'on')
@@ -15,7 +15,7 @@ function doToggleFavoriteModule(obj, module_name) {
 	jQuery.exec_json('admin.procAdminToggleFavorite', {'module_name': module_name, 'site_srl': 0}, on_complete);
 }
 
-/* 카테고리 관련 작업들 */
+/* Categories related tasks */
 function doUpdateCategory(module_category_srl, message) {
     if(typeof(message)!='undefined'&&!confirm(message)) return;
 
@@ -24,7 +24,7 @@ function doUpdateCategory(module_category_srl, message) {
 	fo_obj.submit();
 }
 
-/* 카테고리 정보 수정 후 */
+/* Revised Category */
 function completeUpdateCategory(ret_obj) {
     var error = ret_obj['error'];
     var message = ret_obj['message'];
@@ -34,14 +34,14 @@ function completeUpdateCategory(ret_obj) {
     location.href =  current_url.setQuery('module_category_srl','');
 }
 
-/* 선택된 모듈을 관리자 메뉴의 바로가기에 등록 */
+/* The shortcut menu for the selected module manager registered in */
 function doAddShortCut(module) {
     var fo_obj = get_by_id("fo_shortcut");
     fo_obj.selected_module.value = module;
     procFilter(fo_obj, insert_shortcut);
 }
 
-/* 모듈 설치 */
+/* Module */
 function doInstallModule(module) {
     var params = new Array();
     params['module_name'] = module;
@@ -53,23 +53,25 @@ function completeInstallModule(ret_obj) {
     location.reload();
 }
 
-/* 모듈 업그레이드 */
+/* Module Upgrade */
 function doUpdateModule(module) {
     var params = new Array();
     params['module_name'] = module;
     exec_xml('install','procInstallAdminUpdate',params, completeInstallModule);
 }
 
-/* 모듈 복사후 */
+/* Modules after copying */
 function completeCopyModule() {
     if(typeof(opener)!='undefined') opener.location.href = opener.location.href;
     window.close();
 }
 
-/* 모듈 선택기에서 선택된 모듈의 입력 */
+/* Selected modules from the module's input selector */
 function insertModule(id, module_srl, mid, browser_title, multi_select) {
     if(typeof(multi_select)=='undefined') multi_select = true;
-    if(!window.opener) window.close();
+    if(!window.opener) {
+        window.close();
+    }
 
     if(multi_select) {
         if(typeof(opener.insertSelectedModules)=='undefined') return;
@@ -81,7 +83,22 @@ function insertModule(id, module_srl, mid, browser_title, multi_select) {
     }
 }
 
-/* 권한 선택용 */
+function insertModuleModal(id, module_srl, mid, browser_title, multi_select) {
+    var separator = '';
+    documentListHref.replace(/#$/, '');
+    if (documentListHref.indexOf('?') == -1) {
+        separator = '?';
+    }
+    else {
+        separator = '&';
+    }
+    var newHref = documentListHref + separator + 'selected_module_srl=' + module_srl;
+    window.location.href = newHref;
+}
+
+
+
+/* Authorization for selecting */
 function doShowGrantZone() {
     jQuery(".grant_default").each( function() {
         var id = "#zone_"+this.name.replace(/_default$/,'');
@@ -90,13 +107,13 @@ function doShowGrantZone() {
     } );
 }
 
-/* 권한 등록 후 알림 메세지 */
+/* After registration rights notices */
 function completeInsertGrant(ret_obj) {
     alert(ret_obj['message']);
     location.reload();
 }
 
-/* 관리자 아이디 등록/ 제거 */
+/* The administrator user ID registration / Remove */
 function doInsertAdmin() {
     var fo_obj = get_by_id("fo_obj");
     var sel_obj = fo_obj._admin_member;
@@ -143,7 +160,7 @@ function completeModuleSetup(ret_obj) {
 }
 
 /**
- * 언어 관련
+ * Language-related
  **/
 function doInsertLangCode(name) {
     var fo_obj = get_by_id("menu_fo");
