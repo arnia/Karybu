@@ -8,7 +8,7 @@
 		<caption>
 			{$lang->total}: {number_format($total_count)}, {$lang->page} {number_format($page)}/{number_format($total_page)}
 			<span class="side">
-				<a data-toggle="modal" data-target="#moduleSelect" href="{getUrl('','module','module','act','dispModuleSelectList','id','target_module','type','single', 'modal', '1')}">{$lang->cmd_find_module}</a>
+				<a data-toggle="modal" data-target="#moduleSelect" href="#">{$lang->cmd_find_module}</a>
 				<a href="{getUrl('selected_module_srl','')}" cond="$selected_module_srl">{$lang->cmd_cancel}</a>
 			</span>
             <div id="moduleSelect" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -67,4 +67,9 @@
         <li><a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="direction">{$lang->last_page} &rsaquo;</a></li>
     </ul>
 </div>
+<script type="text/javascript">
+    jQuery('#moduleSelect').on('show', function () {
+        jQuery.exec_json('module.dispModuleSelectList',{id:'target_module', type:'single', modal:1}, function(response){jQuery('.modal-body').html(response.content)});
+    })
+</script>
 <include target="./common_footer.html" />
