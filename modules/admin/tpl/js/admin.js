@@ -8,7 +8,6 @@ jQuery(function($){
  		.filter('input[value!=""],textarea:not(:empty)').prev('label').css('visibility','hidden').end().end()
 		.prev('label')
 			.addClass('overlap')
-			.css({top:'15px',left:'5px'})
 			.next()
 				.focus(function(){
 					var $label = $(this).prev().stop().animate({opacity:0, left:'25px'},'fast',function(){ $label.css('visibility','hidden') });
