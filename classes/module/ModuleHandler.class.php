@@ -547,7 +547,7 @@ class ModuleHandlerInstance extends Handler
         $methodList = array('XMLRPC' => 1, 'JSON' => 1);
         if (!isset($methodList[$this->context->getRequestMethod()])) {
 
-            if ($_SESSION['XE_VALIDATOR_RETURN_URL']) {
+            if (!empty($_SESSION['XE_VALIDATOR_RETURN_URL'])) {
                 //_debugOutput refactored as Response listener
                 // $display_handler = new DisplayHandler();
                 // $display_handler->_debugOutput();

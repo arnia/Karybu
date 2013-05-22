@@ -112,14 +112,15 @@
 			$security->encodeHTML('id', 'type');
 
             // Set the layout to be pop-up
-            //if ($isModal){
-                //$this->setLayoutFile('default_layout');
-            //}
-            //else{
+            if (!$isModal){
+                $this->setTemplateFile('module_selector');
                 $this->setLayoutFile('popup_layout');
-            //}
-            // Set a template file
-            $this->setTemplateFile('module_selector');
+            }
+            else {
+                $oTemplate = TemplateHandler::getInstance();
+                $tpl = $oTemplate->compile($this->module_path.'tpl', 'module_selector');
+                $this->add('content', $tpl);
+            }
         }
         // See the file box
         function dispModuleFileBox(){

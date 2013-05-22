@@ -83,21 +83,6 @@ function insertModule(id, module_srl, mid, browser_title, multi_select) {
     }
 }
 
-function insertModuleModal(id, module_srl, mid, browser_title, multi_select) {
-    var separator = '';
-    documentListHref.replace(/#$/, '');
-    if (documentListHref.indexOf('?') == -1) {
-        separator = '?';
-    }
-    else {
-        separator = '&';
-    }
-    var newHref = documentListHref + separator + 'selected_module_srl=' + module_srl;
-    window.location.href = newHref;
-}
-
-
-
 /* Authorization for selecting */
 function doShowGrantZone() {
     jQuery(".grant_default").each( function() {

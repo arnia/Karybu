@@ -24,7 +24,7 @@
                                 <!--@if(!$is_modal)-->
                                 <button type="submit" class="btn btn-primary">{$lang->cmd_search}</button>
                                 <!--@else-->
-                                <button type="button" class="btn btn-primary" onclick="submitAndLoadArea('#moduleSelectorSearchForm', '#moduleSelectorContainer', true)">{$lang->cmd_search}</button>
+                                <button type="button" class="btn btn-primary" onclick="submitAndLoadArea('module.dispModuleSelectList', '#moduleSelectorSearchForm', '#moduleSelectorContainer', true, 'json')">{$lang->cmd_search}</button>
                                 <!--@end-->
                             </span>
                             <p>{$lang->about_search_virtual_site}</p>
