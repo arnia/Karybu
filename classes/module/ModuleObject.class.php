@@ -385,7 +385,7 @@ class ModuleObject extends Module
         // display no permission if the current module doesn't have an access privilege
         //if(!$grant->access) return $this->stop("msg_not_permitted");
         // checks permission and action if you don't have an admin privilege
-        if (!$grant->manager) {
+        if (empty($grant->manager)) {
             // get permission types(guest, member, manager, root) of the currently requested action
             if (isset($xml_info->permission) && isset($xml_info->permission->{$this->act})) {
                 $permission_target = $xml_info->permission->{$this->act};
@@ -395,17 +395,19 @@ class ModuleObject extends Module
                 $permission_target = 'manager';
             }
             // Check permissions
-            switch ($permission_target) {
-                case 'root' :
-                case 'manager' :
-                    $this->stop('msg_is_not_administrator');
-                    return;
-                case 'member' :
-                    if (!$is_logged) {
-                        $this->stop('msg_not_permitted_act');
+            if (isset($permission_target)) {
+                switch ($permission_target) {
+                    case 'root' :
+                    case 'manager' :
+                        $this->stop('msg_is_not_administrator');
                         return;
-                    }
-                    break;
+                    case 'member' :
+                        if (!$is_logged) {
+                            $this->stop('msg_not_permitted_act');
+                            return;
+                        }
+                        break;
+                }
             }
         }
         // permission variable settings

@@ -93,6 +93,13 @@
             <div class="kList">
                 <h6>{$lang->sitemap}</h6>
                 <ul class="unstyled kList">
+                    <li cond="isset($main_menu->default_mid)">
+                        <!--@if(isset($main_menu->default_mid->setup_index_act))-->
+                        <a href="{getUrl('', 'module', 'admin', 'act', $main_menu->default_mid->setup_index_act, 'module_srl', $main_menu->default_mid->module_srl)}">{$main_menu->default_mid->browser_title}</a>
+                        <!--@else-->
+                        <span>{$value->name}</span>
+                        <!--@end-->
+                    </li>
                     <li loop="$main_menu->items=>$key,$value">
                         <!--@if(isset($value->setup_index_act))-->
                             <a href="{getUrl('', 'module', 'admin', 'act', $value->setup_index_act, 'module_srl', $value->module_srl)}"><!--@if($value->parent_srl)-->&nbsp;&nbsp;<!--@end-->{$value->name}</a>

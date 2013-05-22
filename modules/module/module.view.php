@@ -40,7 +40,9 @@
          * @brief Select a module
          **/
         function dispModuleSelectList() {
-            if(!Context::get('is_logged')) return new Object(-1, 'msg_not_permitted');
+            if(!Context::get('is_logged')) {
+                return new Object(-1, 'msg_not_permitted');
+            }
 
             $oModuleModel = &getModel('module');
             // Extract the number of virtual sites
@@ -50,7 +52,7 @@
             // Variable setting for site keyword
             $site_keyword = Context::get('site_keyword');
             // If there is no site keyword, use as information of the current virtual site
-            $args = null;
+            $args = new stdClass();
             $logged_info = Context::get('logged_info');
             if($logged_info->is_admin == 'Y') {
                 $query_id = 'module.getSiteModules';
@@ -85,7 +87,7 @@
                     if(!$module) continue;
 
                     $category = $val->category;
-                    $obj = null;
+                    $obj = new stdClass();
                     $obj->module_srl = $val->module_srl;
                     $obj->browser_title = $val->browser_title;
                     $mid_list[$module]->list[$category][$val->mid] = $obj;
@@ -100,19 +102,25 @@
                     $mid_list[$module]->title = $xml_info->title;
                 }
             }
-
+            $isModal = (bool)Context::get('modal');
             Context::set('mid_list', $mid_list);
             Context::set('selected_module', $selected_module);
-            Context::set('selected_mids', $mid_list[$selected_module]->list);
+            Context::set('selected_mids', isset($mid_list[$selected_module]->list) ? $mid_list[$selected_module]->list : null);
             Context::set('module_category_exists', $module_category_exists);
-
+            Context::set('is_modal', $isModal);
 			$security = new Security();
 			$security->encodeHTML('id', 'type');
 
             // Set the layout to be pop-up
-            $this->setLayoutFile('popup_layout');
-            // Set a template file
-            $this->setTemplateFile('module_selector');
+            if (!$isModal){
+                $this->setTemplateFile('module_selector');
+                $this->setLayoutFile('popup_layout');
+            }
+            else {
+                $oTemplate = TemplateHandler::getInstance();
+                $tpl = $oTemplate->compile($this->module_path.'tpl', 'module_selector');
+                $this->add('content', $tpl);
+            }
         }
         // See the file box
         function dispModuleFileBox(){

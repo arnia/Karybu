@@ -28,7 +28,7 @@
 		</item>
 		<item name="condition">
 			<value xml:lang="ko"><![CDATA[설치 조건 확인]]></value>
-			<value xml:lang="en"><![CDATA[Check the installation conditions]]></value>
+			<value xml:lang="en"><![CDATA[Check installation dependencies]]></value>
 			<value xml:lang="jp"><![CDATA[インストール条件確認]]></value>
 		</item>
 		<item name="ftp">
@@ -304,7 +304,7 @@
 	</item>
 	<item name="install_notandum">
 		<value xml:lang="ko"><![CDATA[모든 항목을 반드시 작성해야 합니다. 모든 항목을 관리자 환경에서 수정할 수 있습니다.]]></value>
-		<value xml:lang="en"><![CDATA[All the fields must be completed, but you can modify all of settings after you finish the installation.]]></value>
+		<value xml:lang="en"><![CDATA[All the fields must be completed, but you can modify all of the settings after you finish the installation.]]></value>
 		<value xml:lang="jp"><![CDATA[すべての項目を必ず作成してください。すべての項目を管理者環境にて修正できます。]]></value>
 	</item>
 	<item name="cmd_install_fix_checklist">
@@ -590,7 +590,7 @@
     </item>
 	<item name="db_info_desc">
 		<value xml:lang="ko"><![CDATA[<p><strong>DB 호스트 네임</strong>, <strong>DB Port</strong>, <strong>DB 아이디</strong>, <strong>DB 비밀번호</strong>, <strong>DB 이름</strong> 정보는 서버 호스팅 관리자로부터 정보를 확인 하세요.</p><p><strong>DB 테이블 머리말</strong> 정보는 사용자 정의 할 수 있습니다. 영문 소문자를 권장 합니다. 숫자를 포함할 수 있습니다. 특수 문자를 사용할 수 없습니다.</p>]]></value>
-		<value xml:lang="en"><![CDATA[<p>Please check <strong>database information</strong> with your server administrator.</p><p>You can modify database <strong>table prefix</strong>, and can use small letters (small letters are recommended) and numbers, but you can not use special letters.</p>]]></value>
+		<value xml:lang="en"><![CDATA[<p>Please check <strong>database information</strong> with your server administrator.</p><p>You can modify database <strong>table prefix</strong>, and can use only small letters (recommended) and numbers.</p>]]></value>
 	　　<value xml:lang="jp"><![CDATA[<p><strong>DBホスト名</strong>, <strong>DB Port</strong>, <strong>DB ID</strong>, <strong>DB パスワード</strong>, <strong>DB 名稱</strong> 情報は、サーバーホスティング管理者に情報を確認してください。</p><p><strong>DBテーブルプレフィックス</strong> 情報は、ユーザーが定義できます。英文小文字の使用を推奨します。数字を含めることができます。特殊文字は、使用できません。</p>]]></value>
 	</item>
 	<item name="admin_title">
@@ -1104,7 +1104,7 @@
         <value xml:lang="en"><![CDATA[version]]></value>
     </item>
     <item name="introduce_title">
-        <value xml:lang="en"><![CDATA[Welcome to Karybu CMS Installation wizard]]></value>
+        <value xml:lang="en"><![CDATA[Installation Wizard]]></value>
     </item>
     <item name="introduce_desc">
         <value xml:lang="en"><![CDATA[<p><b>Hello there!</b></p><p>If this is your first installation of XE, before we get started, you should know that we will need some information from you regarding your database setup.</p><p>These items should have been provided to you by your web service provider or your web admin, if not you can always ask for them and resume this installation later on.</p><p>Also, in general, we will refer to Xpress Engine as XE.</p>]]></value>
@@ -1149,16 +1149,16 @@
         <value xml:lang="en"><![CDATA[Administrator account]]></value>
     </item>
     <item name="final_title">
-        <value xml:lang="en"><![CDATA[Wrap up and go!]]></value>
+        <value xml:lang="en"><![CDATA[Ready to go]]></value>
     </item>
     <item name="final_description">
         <value xml:lang="en"><![CDATA[Congratulations, you’ve successfully set up your Karybu site!]]></value>
     </item>
     <item name="final_site_desc">
-        <value xml:lang="en"><![CDATA[Go ahead, check out your brand new site:]]></value>
+        <value xml:lang="en"><![CDATA[Go to your fresh new site]]></value>
     </item>
     <item name="final_admin_desc">
-        <value xml:lang="en"><![CDATA[You can access your administrators panel:]]></value>
+        <value xml:lang="en"><![CDATA[... or to the admin panel]]></value>
     </item>
     <item name="here">
         <value xml:lang="en"><![CDATA[here]]></value>

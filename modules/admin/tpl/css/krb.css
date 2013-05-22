@@ -1481,7 +1481,9 @@ button._btnLang:hover, a.langItem:hover, .active a.langItem {
     opacity: 1;
 }
 
-
+.control-buttons{
+    padding-top: 20px;
+}
 
 
 

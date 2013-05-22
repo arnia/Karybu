@@ -1,39 +1,40 @@
 <load target="js/install_admin.js" />
 <include target="header.html" />
 
-<div id="content">
+<div>
     <form action="./" method="post" onsubmit="return doInstallFTPInfo(this);" id="ftp_form" class="form form-horizontal">
         <div class="row-fluid">
             <div class="span6">
-            <div class="control-group">
-                <label for="ftphost" class="control-label">{$lang->ftp_host}</label>
-                <div class="controls">
-                    <input name="ftp_host" value="localhost" type="text" id="ftphost" class="iText" />
+                <div class="control-group">
+                    <label for="ftphost" class="control-label">{$lang->ftp_host}</label>
+                    <div class="controls">
+                        <input name="ftp_host" value="localhost" type="text" id="ftphost" class="iText" />
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <label for="ftpid" class="control-label">{$lang->user_id}</label>
-                <div class="controls">
-                    <input name="ftp_user" type="text" id="ftpid" class="iText" value="tester" />
-            </div> </div>
-            <div class="control-group">
-                <label for="ftppw" class="control-label">{$lang->password}</label>
-                <div class="controls">
-                    <input name="ftp_password" type="password" id="ftppw" class="iText" value="tester" />
-            </div> </div>
-            <div class="control-group">
-                <label for="ftpport" class="control-label">{$lang->ftp_port}</label>
-                <div class="controls">
-                    <input name="ftp_port" type="text" id="ftpport" class="iText" />
-            </div> </div>
-
+                <div class="control-group">
+                    <label for="ftpid" class="control-label">{$lang->user_id}</label>
+                    <div class="controls">
+                        <input name="ftp_user" type="text" id="ftpid" class="iText" value="tester" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="ftppw" class="control-label">{$lang->password}</label>
+                    <div class="controls">
+                        <input name="ftp_password" type="password" id="ftppw" class="iText" value="tester" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="ftpport" class="control-label">{$lang->ftp_port}</label>
+                    <div class="controls">
+                        <input name="ftp_port" type="text" id="ftpport" class="iText" />
+                    </div>
+                </div>
                 <div class="control-group">
                     <label for="ftppath" class="control-label">{$lang->msg_ftp_installed_ftp_realpath}</label>
                     <div class="controls">
                         <input name="ftp_root_path" value="{$ftp_info->ftp_root_path}" type="text" id="ftppath" class="iText" />
-                        </div>
                     </div>
-
+                </div>
             </div>
             <div class="span6">
                 <div class="help-block">
@@ -45,35 +46,31 @@
                     <p>{$lang->msg_safe_mode_ftp_config}</p>
                 </div>
 
-            </div></div>
-            <div class="row-fluid">
-<div class="control-group">
-    <div class="controls">
-
-                        <div class="help-block">
-                            <p>{$lang->msg_ftp_installed_realpath}:<br/> {_KARYBU_PATH_}</p>
-                            <button type="button" onclick="getFTPList(); return false;" class="btn">{$lang->ftp_get_list}</button>
-                            <ul id="ftplist">
-                            </ul>
-                        </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="control-group">
+                <div class="controls">
+                    <div class="help-block">
+                        <p>{$lang->msg_ftp_installed_realpath}:<br/> {_KARYBU_PATH_}</p>
+                        <button type="button" onclick="getFTPList(); return false;" class="btn">{$lang->ftp_get_list}</button>
+                        <ul id="ftplist">
+                        </ul>
                     </div>
-
-
-                </div>
-
-            </div>
-
-
-            <div>
-                <div class="pull-left">
-                    <a href="{getUrl('', 'act', 'dispInstallCheckEnv')}" class="btn">{$lang->cmd_back}</a>
-                </div>
-                <div class="pull-right">
-                    <input name="" type="submit" value="{$lang->cmd_pass_step}" class="btn" />
-                    <button type="button" onclick="doCheckFTPInfo(); return false;" class="btn">{$lang->cmd_check_ftp_connect}</button>
-                    <input name="" type="submit" value="{$lang->cmd_next}" class="btn btn-primary" />
                 </div>
             </div>
+        </div>
+
+        <div>
+            <div class="pull-left">
+                <a href="{getUrl('', 'act', 'dispInstallCheckEnv')}" class="btn">{$lang->cmd_back}</a>
+            </div>
+            <div class="pull-right">
+                <input name="" type="submit" value="{$lang->cmd_pass_step}" class="btn" />
+                <button type="button" onclick="doCheckFTPInfo(); return false;" class="btn">{$lang->cmd_check_ftp_connect}</button>
+                <input name="" type="submit" value="{$lang->cmd_next}" class="btn btn-primary" />
+            </div>
+        </div>
     </form>
 </div>
 

@@ -922,7 +922,42 @@ function ucfirst(str) {
 function get_by_id(id) {
 	return document.getElementById(id);
 }
-
+function submitAndLoadArea(action, formSelector, areaSelector, replace, dataType){
+    if (typeof  dataType == "undefined"){
+        dataType = "html"
+    }
+    if (dataType == 'json'){
+        jQuery.exec_json(
+            action,
+            jQuery(formSelector).serializeArray(),
+            function(response){
+                var html = response.content;
+                if (replace) {
+                    jQuery(areaSelector).replaceWith(html);
+                }
+                else {
+                    jQuery(areaSelector).html(html);
+                }
+            }
+        )
+    }
+    else {
+        jQuery.ajax({
+            type: "POST",
+            url: jQuery(formSelector).attr('action'),
+            data: jQuery(formSelector).serialize(),
+            dataType: dataType,
+            success: function(response){
+                if (replace) {
+                    jQuery(areaSelector).replaceWith(response);
+                }
+                else {
+                    jQuery(areaSelector).html(response);
+                }
+            }
+        })
+    }
+}
 jQuery(function($){
     $('.lang_code').each(
 		function() 
@@ -999,3 +1034,19 @@ jQuery(function($){
 		});
 	}
 });
+function insertModuleModal(id, module_srl, mid, browser_title, multi_select) {
+    var separator = '';
+    if (typeof  documentListHref == "undefined"){
+        documentListHref = window.location.href;
+    }
+    var parts = documentListHref.split('#');
+    documentListHref = parts[0];
+    if (documentListHref.indexOf('?') == -1) {
+        separator = '?';
+    }
+    else {
+        separator = '&';
+    }
+    var newHref = documentListHref + separator + 'selected_module_srl=' + module_srl;
+    window.location.href = newHref;
+}

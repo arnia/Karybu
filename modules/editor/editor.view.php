@@ -92,8 +92,10 @@
             Context::set('editor_comment_colorset_list', $skin_info->colorset);
 
             $contents = FileHandler::readDir(_KARYBU_PATH_.'modules/editor/styles');
+            $content_style_list = array();
             for($i=0,$c=count($contents);$i<$c;$i++) {
                 $style = $contents[$i];
+                $content_style_list[$style] = new stdClass();
                 $info = $oModuleModel->loadSkinInfo($this->module_path,$style,'styles');
                 $content_style_list[$style]->title = $info->title;
             }			

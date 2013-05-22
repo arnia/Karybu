@@ -40,7 +40,7 @@
             if(!Context::get('is_logged')){
                 $oMemberModel=&getModel('member');
                 $sns_list=$oMemberModel->getSnsList();
-                Context::set('sns_list',$sns_list);
+                Context::set('sns_list',(array) $sns_list);
             }
 
             // Compile a template

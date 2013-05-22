@@ -204,8 +204,8 @@ class FileHandlerInstance
      **/
     static function rename($source, $target)
     {
-        $source = $this->getRealPath($source);
-        $target = $this->getRealPath($target);
+        $source = self::getRealPath($source);
+        $target = self::getRealPath($target);
         return @rename($source, $target);
     }
 
@@ -216,14 +216,14 @@ class FileHandlerInstance
      * @param string $target Path of target file
      * @return bool Returns true on success or false on failure.
      */
-    function moveFile($source, $target)
+    static function moveFile($source, $target)
     {
-        $source = $this->getRealPath($source);
+        $source = self::getRealPath($source);
         if (!file_exists($source)) {
             return false;
         }
-        $this->removeFile($target);
-        return $this->rename($source, $target);
+        self::removeFile($target);
+        return self::rename($source, $target);
     }
 
     /**
@@ -1062,7 +1062,7 @@ class FileHandler
         return self::$file_handler->getRealPath($source);
     }
 
-    function copyDir($source_dir, $target_dir, $filter = null, $type = null)
+    static function copyDir($source_dir, $target_dir, $filter = null, $type = null)
     {
         self::$file_handler->copyDir($source_dir, $target_dir, $filter, $type);
     }
@@ -1077,7 +1077,7 @@ class FileHandler
         return self::$file_handler->readFile($file_name);
     }
 
-    function readFileAsArray($file_name)
+    static function readFileAsArray($file_name)
     {
         return self::$file_handler->readFileAsArray($file_name);
     }
@@ -1137,7 +1137,7 @@ class FileHandler
         self::$file_handler->filesize($size);
     }
 
-    function getRemoteResource(
+    static function getRemoteResource(
         $url,
         $body = null,
         $timeout = 3,

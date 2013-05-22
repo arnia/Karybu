@@ -46,8 +46,8 @@
                     <p class="keep_msg">{$lang->about_keep_warning}</p>
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label" cond="!empty($sns_list)">Sign in with</label>
+            <div class="control-group" cond="isset($sns_list) && !empty($sns_list)">
+                <label class="control-label">Sign in with</label>
                 <div class="controls">
                     <a class="sns-options pull-left" loop="$sns_list => $sns" href="{getUrl('act','procMemberSnsSignIn','sns',$sns->sns_name)}"><div class="{$sns->sns_name}"></div></a>
                 </div>

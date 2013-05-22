@@ -29,6 +29,7 @@
             if(!$upload_target_srl) $upload_target_srl = $_SESSION['upload_info'][$editor_sequence]->upload_target_srl;
 
             if($upload_target_srl) {
+                $attached_size = 0;
                 $tmp_files = $this->getFiles($upload_target_srl);
                 $file_count = count($tmp_files);
 
@@ -36,7 +37,7 @@
                     $file_info = $tmp_files[$i];
                     if(!$file_info->file_srl) continue;
 
-                    $obj = null;
+                    $obj = new stdClass();
                     $obj->file_srl = $file_info->file_srl;
                     $obj->source_filename = $file_info->source_filename;
                     $obj->file_size = $file_info->file_size;
@@ -74,6 +75,7 @@
 		 * @return int Returns a number of files
          **/
         function getFilesCount($upload_target_srl) {
+            $args = new stdClass();
             $args->upload_target_srl = $upload_target_srl;
             $output = executeQuery('file.getFilesCount', $args);
             return (int)$output->data->count;
@@ -207,6 +209,7 @@
 		 * @return array Returns array of object that contains file information. If no result returns null.
          **/
         function getFiles($upload_target_srl, $columnList = array(), $sortIndex = 'file_srl', $ckValid = false) {
+            $args = new stdClass();
             $args->upload_target_srl = $upload_target_srl;
             $args->sort_index = $sortIndex;
 			if($ckValid) $args->isvalid = 'Y';
@@ -235,6 +238,7 @@
          **/
         function getUploadConfig() {
             $logged_info = Context::get('logged_info');
+            $file_config = new stdClass();
             if($logged_info->is_admin == 'Y') {
                 $file_config->allowed_filesize = preg_replace("/[a-z]/is","",ini_get('upload_max_filesize'));
                 $file_config->allowed_attach_size = preg_replace("/[a-z]/is","",ini_get('upload_max_filesize'));

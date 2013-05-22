@@ -16,7 +16,9 @@
             // forbit access if the user is not an administrator
             $oMemberModel = &getModel('member');
             $logged_info = $oMemberModel->getLoggedInfo();
-            if($logged_info->is_admin!='Y') return $this->stop("msg_is_not_administrator");
+            if(empty($logged_info->is_admin) || $logged_info->is_admin != 'Y') {
+                return $this->stop("msg_is_not_administrator");
+            }
         }
 
 		/**
@@ -25,8 +27,10 @@
 		 */
 		function insertLog($module, $act)
 		{
-			if(!$module || !$act) return;
-
+			if(!$module || !$act) {
+                return;
+            }
+            $args = new stdClass();
 			$args->module = $module;
 			$args->act = $act;
 			$args->ipaddress = $_SERVER['REMOTE_ADDR'];

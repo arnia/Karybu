@@ -251,8 +251,8 @@
         function dispMemberModifyInfo() 
 		{
             $logged_info = Context::get('logged_info');
-            $auth_type=$logged_info->auth_type;
-			if($auth_type == 'xe' && $_SESSION['rechecked_password_step'] != 'VALIDATE_PASSWORD')
+            $auth_type = $logged_info->auth_type;
+			if($auth_type == 'xe' && (!isset($_SESSION['rechecked_password_step']) ||  $_SESSION['rechecked_password_step'] != 'VALIDATE_PASSWORD'))
 			{
 				$this->dispMemberModifyInfoBefore();
 				return;
@@ -279,6 +279,7 @@
             // Editor of the module set for signing by calling getEditor
             if($member_info->member_srl) {
                 $oEditorModel = &getModel('editor');
+                $option = new stdClass();
                 $option->primary_key_name = 'member_srl';
                 $option->content_key_name = 'signature';
                 $option->allow_fileupload = false;
@@ -301,6 +302,7 @@
 			Context::set('formTags', $formTags);
 
 			global $lang;
+            $identifierForm = new stdClass();
 			$identifierForm->title = $lang->{$member_config->identifier};
 			$identifierForm->name = $member_config->identifier;
 			$identifierForm->value = $member_info->{$member_config->identifier};
@@ -319,7 +321,9 @@
         function dispMemberOwnDocument() {
             $oMemberModel = &getModel('member');
             // A message appears if the user is not logged-in
-            if(!$oMemberModel->isLogged()) return $this->stop('msg_not_logged');
+            if(!$oMemberModel->isLogged()) {
+                return $this->stop('msg_not_logged');
+            }
 
             $logged_info = Context::get('logged_info');
             $member_srl = $logged_info->member_srl;
@@ -343,7 +347,9 @@
             $oMemberModel = &getModel('member');
             $args = new stdClass();
             // A message appears if the user is not logged-in
-            if(!$oMemberModel->isLogged()) return $this->stop('msg_not_logged');
+            if(!$oMemberModel->isLogged()) {
+                return $this->stop('msg_not_logged');
+            }
 
             $logged_info = Context::get('logged_info');
             $args->member_srl = $logged_info->member_srl;
@@ -478,11 +484,12 @@
         function dispMemberLogout() {
             $oMemberController = &getController('member');
             $output = $oMemberController->procMemberLogout();
-			if(!$output->redirect_url)
+			if(empty($output->redirect_url)) {
 				$this->setRedirectUrl(getNotEncodedUrl('act', ''));
-			else
+            }
+			else {
 				$this->setRedirectUrl($output->redirect_url);
-		
+            }
 			return;
         }
 
@@ -498,7 +505,9 @@
          * @brief Find user ID and password
          **/
         function dispMemberFindAccount() {
-            if(Context::get('is_logged')) return $this->stop('already_logged');
+            if(Context::get('is_logged')) {
+                return $this->stop('already_logged');
+            }
 
 			$oMemberModel = &getModel('member');
 			$config = $this->member_config;
