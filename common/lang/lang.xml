@@ -3805,4 +3805,7 @@
     <item name="close">
         <value xml:lang="en"><![CDATA[Close]]></value>
     </item>
+    <item name="mobile_settings">
+        <value xml:lang="en"><![CDATA[Mobile settings]]></value>
+    </item>
 </lang>

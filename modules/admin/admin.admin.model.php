@@ -642,6 +642,9 @@
             $oMenuAdminModel = getAdminModel('menu');
 
             $default_mid = $oModuleModel->getDefaultMid();
+            $moduleInfo = $oModuleModel->getModuleInfoXml($default_mid->module);
+            $default_mid->setup_index_act = $moduleInfo->setup_index_act;
+
             $default_layout_srl = isset($default_mid->layout_srl) ? $default_mid->layout_srl : null;
             $default_layout = $oLayoutModel->getLayout($default_layout_srl);
 
@@ -653,7 +656,7 @@
                     $this->_setMenuIndexUrl($main_menu->items[$key2]);
                 }
             }
-
+            $main_menu->default_mid = $default_mid;
             return $main_menu;
 
         }

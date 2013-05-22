@@ -8,7 +8,6 @@ jQuery(function($){
  		.filter('input[value!=""],textarea:not(:empty)').prev('label').css('visibility','hidden').end().end()
 		.prev('label')
 			.addClass('overlap')
-			.css({top:'15px',left:'5px'})
 			.next()
 				.focus(function(){
 					var $label = $(this).prev().stop().animate({opacity:0, left:'25px'},'fast',function(){ $label.css('visibility','hidden') });
@@ -1141,7 +1140,7 @@ function initLayer($layer) {
 			mode = MODE_SAVE;
 			setTitleText();
 		})
-		.find('h2 a')
+		.find('h5 a')
 			.click(function(){
 				mode = !mode;
 				setTitleText();
@@ -1185,8 +1184,8 @@ function initLayer($layer) {
 		.data('layer_index', layer_index)
 		.find('.langInput').attr('id', 'langInput_' + layer_index++);
 
-	cmd_edit = $layer.find('h2 strong').text();
-	cmd_add  = $layer.find('h2 a').text();
+	cmd_edit = $layer.find('h5 strong').text();
+	cmd_add  = $layer.find('h5 a').text();
 
 	$input = $layer.find('input:text,textarea')
 		.change(function(){
@@ -1205,9 +1204,9 @@ function initLayer($layer) {
 
 	function setTitleText() {
 		if(!$layer.data('multilang-current-name')) {
-			$layer.find('h2').find('strong').text(cmd_add).end().find('a').hide();
+			$layer.find('h5').find('strong').text(cmd_add).end().find('a').hide();
 		} else {
-			$layer.find('h2')
+			$layer.find('h5')
 				.find('strong').text(mode==MODE_SAVE?cmd_add:cmd_edit).end()
 				.find('a').text(mode==MODE_SAVE?cmd_edit:cmd_add).show().end();
 		}

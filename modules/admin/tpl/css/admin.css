@@ -793,11 +793,16 @@ form .controls textarea ~ span
     }
 
     body {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    body.portrait  {
         margin: 0;
         padding: 60px 0 120px
     }
 
-    .brand .row-fluid [class*="span"] {
+    .portrait .brand .row-fluid [class*="span"] {
         display: inline;
         width: auto;
     }
@@ -806,7 +811,7 @@ form .controls textarea ~ span
         display: none;
     }
 
-    .kWrapper {
+    .portrait .kWrapper {
         padding-bottom: 80px !important;
     }
 
@@ -814,7 +819,11 @@ form .controls textarea ~ span
         height: 40px;
     }
 
-    #kSidebar {
+    #kSidebar .brand .span8 {
+        display: none;
+    }
+
+    .portrait #kSidebar {
         display: block;
         width: 100%;
         position: fixed;
@@ -828,7 +837,15 @@ form .controls textarea ~ span
         box-shadow:  0px 0px 8px 5px rgba(0, 0, 0, .5);*/
     }
 
-    #kSidebar input, #kSidebar h6 {
+    .kSidebarOpen {
+        width: 50%;
+        margin-right: -30%;
+        z-index: 2;
+        position: relative;
+    }
+
+    #kSidebar input,
+    #kSidebar h6 {
         font-size: 12.224pt
 
     }
@@ -945,22 +962,31 @@ form .controls textarea ~ span
     /* SMALL NAV END */
 
     .kNav li a {
-        display: block;
         height: 60px;
         width: 60px;
     }
 
-    form.action {
+    .portrait .kNav li a {
+        display: block;
+    }
+
+    .portrait form.action {
         display: block !important;
         position: static !important;
         margin-bottom: 10px;
     }
 
-    .kDark li a:active, .kDark li a:focus {
+    .kDark li a:active,
+    .kDark li a:focus {
         outline: 2px solid rgba(128, 176, 65, 0.9);
     }
 
-    .kWrapper, .kWrapper-container {
+    .kWrapper-container {
+        margin-right: 60px;
+    }
+
+    .portrait .kWrapper,
+    .portrait .kWrapper-container {
         margin: 0px;
         padding: 0px;
         width: 100%;
@@ -982,11 +1008,11 @@ form .controls textarea ~ span
         line-height: 2.2em;
     }
 
-    .kBigHeader .kWrapper-container {
+    .portrait .kBigHeader .kWrapper-container {
         margin-top: 0
     }
 
-    .kBigHeader .pagetitle-fixed {
+    .portrait .kBigHeader .pagetitle-fixed {
         margin-top: 0
     }
 
@@ -1006,7 +1032,7 @@ form .controls textarea ~ span
         padding: 20px;
     }
 
-    #kNav {
+    .portrait #kNav {
         position: fixed;
         width: 100%;
         bottom: 0;
@@ -1017,7 +1043,17 @@ form .controls textarea ~ span
         overflow: hidden;
     }
 
+    #kNav {
+        width: 60px;
+    }
+
     #kNav ul {
+        width: 60px;
+        height: 482px;
+
+    }
+
+    .portrait #kNav ul {
         height: 60px;
         width: 482px;
         text-wrap: none;
@@ -1025,11 +1061,17 @@ form .controls textarea ~ span
     }
 
     #kNav li {
+        height: 60px;
+    }
+
+    .portrait #kNav li {
         display: inline-block;
         height: 60px;
     }
 
-    #kNav li:first-child {
+
+
+    .portrait #kNav li:first-child {
         height: 60px !important;
     }
 
@@ -1053,11 +1095,11 @@ form .controls textarea ~ span
         background-position: -170px -10px;
     }
 
-    .big-icon-preview {
+    .portrait .big-icon-preview {
         height: 60px !important;
     }
 
-    .big-icon-preview {
+    .portrait .big-icon-preview {
         background-position: 0 0;
         -webkit-box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
         box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
@@ -1070,14 +1112,13 @@ form .controls textarea ~ span
         height: 86px;
     }
 
-    .kSidebar > div.mCustomScrollBox {
+    .portrait .kSidebar > div.mCustomScrollBox {
         overflow: visible !important;
     }
 }
 
 .chart-tooltip {
     z-index: 10000;
-!important
 }
 
 #chart-container {
@@ -1379,7 +1420,7 @@ a.btn-primary, a.btn-danger, a.btn-info, a.btn-inverse, a.btn-success, a.btn-war
 .btn:active,
 .btn-group > .btn + .dropdown-toggle:active,
 .btn-group > .btn + .dropdown-toggle.active {
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), inset 0 2px 0 0 rgba(0, 0, 0, .5), inset 0 30px 0 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), inset 0 2px 0 0 rgba(0, 0, 0, .5), inset 0 60px 0 0 rgba(0, 0, 0, .2);
 }
 
 .btn-primary.disabled,
@@ -2090,6 +2131,11 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 }
 
 /* NAV PILLS END */
+
+
+
+
+
 
 /* FIREFOX RESETS */
 

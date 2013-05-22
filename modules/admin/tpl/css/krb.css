@@ -836,11 +836,21 @@ button.sTog {padding: 4px 10px 8px;
 
 /* OLD MEMBERS POPUP */
 
+
+
 #langEdit .overlap {
     position: absolute;
+    left: 8px;
+    top: 13px;
+    cursor: text;
+    color: #999999;
 }
 
-#langedit h5 a {
+#langEdit ul li {
+    line-height: 40px;
+}
+
+#langEdit h5 a {
     color: #2e5587!important
 }
 
