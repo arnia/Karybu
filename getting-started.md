@@ -63,21 +63,16 @@ This is done using [Composer](getcomposer.org) - if don"t already have it instal
 
 <div class="tab-pane"></div>
 
-<p>Download the <strong>zip</strong>, the latest version of the <strong>source code</strong> or install
-    with <strong>composer</strong></strong></p>
-
-<p>You can find details <a href="docs/installation.html">here</a></p>
-
 ## 2. Install
 
 1. Move / copy the Karybu files to your web server
 2. Create a database for Karybu
 3. Navigate to Karybu in your web browser and follow the installation steps!
 
-If you run into any trouble, take a look at the [Troubleshooting](docs/troubleshooting) page.
+If you run into any trouble, take a look at the [Troubleshooting](docs/troubleshooting.html) page.
 
 ## 3. Create your website
 
 Go ahead and start adding content and customizing your website!
 
-[Drop us a line](contribute) for any suggestions, ideas or issues you might have.
+[Drop us a line](contribute.html) for any suggestions, ideas or issues you might have.
