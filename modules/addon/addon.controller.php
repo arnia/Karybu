@@ -30,7 +30,7 @@ class addonController extends addon
 
         $site_module_info = Context::get('site_module_info');
         $site_srl = null;
-        if (!empty($site_module_info->site_srl)) {
+        if (isset($site_module_info->site_srl)) {
             $site_srl = $site_module_info->site_srl;
         }
 
