@@ -1,66 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Karybu &middot; {{ page.title }}</title>
+{% include html_header.html %}
 
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="assets/css/karybu_upcoming.css" rel="stylesheet">
-</head>
-<body>
-<div class="navbar-placeholder visible-desktop"></div>
-<div class="wrapper">
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-
-                <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-
-                <a class="brand" href="upcoming.html"><img src="assets/img/karybu.png" alt="Karybu"/></a>
-                <div class="nav-collapse collapse">
-                    <ul class="nav pull-right">
-                        <li
-                        {% if page.title == 'Homepage' %} class="active" {% endif %}><a
-                            href="upcoming.html">Home</a></li>
-                        <li
-                        {% if page.title == 'Getting started' %} class="active" {% endif %}><a
-                            href="getting-started.html">Get
-                        started</a></li>
-                        <li
-                        {% if page.title == 'Features' %} class="active" {% endif %}><a
-                            href="features.html">Features</a></li>
-                        <li
-                        {% if page.title == 'Documentation' %} class="active" {% endif %}><a href="docs">Docs</a></li>
-                        <li
-                        {% if page.title == 'Contribute' %} class="active" {% endif %}><a
-                            href="contribute.html">Contribute</a></li>
-                        <li
-                        {% if page.title == 'About' %} class="active" {% endif %}><a href="about.html">About</a></li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-    {{ content }}
-
-    <div class="container">
-        <div class="footer">
-            <p>&copy; Arnia 2013</p>
+<div class="container">
+    <div class="marketing">
+        <div class="row-fluid">
+        {{ content }}
         </div>
     </div>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-
-</body>
-</html>
+{% include html_footer.html %}
