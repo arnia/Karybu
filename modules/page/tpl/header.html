@@ -1,11 +1,11 @@
 <load target="js/page_admin.js" usecdn="true" />
-<h1 class="h1">{$lang->page_management}</h1>
+<h1>{$lang->page_management}</h1>
 
 <p class="well well-large">{nl2br($lang->about_page)}</p>
 
 <!--@if($module_info)-->
     <!--@if($module_info->mid)-->
-    <h2 class="h2">
+    <h2>
         {$module_info->mid}<block cond="$module_info->is_default=='Y'">({$lang->is_default})</block>
         |
         <a href="{getSiteUrl($module_info->domain,'','mid',$module_info->mid)}">{$lang->view}</a>

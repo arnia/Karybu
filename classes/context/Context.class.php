@@ -3160,4 +3160,9 @@ class Context
         return self::$context->addSSLAction($action);
     }
 
+    public static function addBrowserTitle($title)
+    {
+        return self::$context->addBrowserTitle($title);
+    }
+
 }
