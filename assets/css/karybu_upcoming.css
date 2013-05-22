@@ -1,9 +1,20 @@
 body {
     padding-top: 20px;
     padding-bottom: 40px;
-    background: #1d212a url("../../assets/img/install-bg.png") 0 0 repeat;
+    background: #111111 url("../../assets/img/site-bg.png") 0 0 repeat;;
     color: #ffffff;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 13px;
 }
+
+a, a:visited, a:hover, a:focus {
+    color: #588933
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #444444;
+}
+
 
 /* Custom container */
 .container {
@@ -17,9 +28,8 @@ body {
 /* Main marketing message and sign up button */
 .jumbotron {
     padding: 60px 40px;
-    margin: 0 -40px;
     text-align: center;
-    color: #444444;
+    color: #fff;
     -webkit-box-shadow: inset 0 -1px 10px rgba(0,0,0,0.4);
     -moz-box-shadow: inset 0 -1px 10px rgba(0,0,0,0.4);
     box-shadow: inset 0 -1px 10px rgba(0,0,0,0.4);
@@ -31,10 +41,12 @@ body {
     background: -ms-linear-gradient(top, #d1dbe4 0%, #e6f0f9 100%);
     background: linear-gradient(to bottom, #d1dbe4 0%, #e6f0f9 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#d1dbe4', endColorstr = '#e6f0f9', GradientType = 0);
+    background: #1d212a url("../../assets/img/install-bg.png") 0 0 repeat;
 }
 .jumbotron h1 {
     font-size: 72px;
     line-height: 1;
+    color: #ffffff;
 }
 .jumbotron .btn {
     font-size: 21px;
@@ -43,15 +55,38 @@ body {
 
 /* Supporting marketing content */
 .marketing {
-    margin: 60px 0;
+    padding: 40px 40px;
+    background: #e5e5e5;
+    color: #333333;
+    text-shadow: 0px 1px 0px #ffffff;
+    border-radius: 0 0 10px 10px;
+
 }
 .marketing p + h4 {
     margin-top: 28px;
 }
-.sidebar-nav {
-    margin-top: 10px;
-    padding: 9px 0;
+
+/* Custom sidebar */
+.well {
+    border: none;
+    box-shadow: none;
 }
+
+.nav-list>.active>a, .nav-list>.active>a:hover, .nav-list>.active>a:focus {
+
+    background-color: #79ad36;
+}
+
+.nav-header {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+    color: #444;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    text-transform: uppercase;
+}
+
+
 
 /* Custom Navbar */
 
@@ -319,3 +354,50 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 }
 
 /* FORM ELEMENTS END */
+
+/* Footer */
+
+.footer {
+    padding: 40px;
+}
+
+
+
+
+/* Mobile views */
+
+@media (max-width: 979px) {
+    body {
+        padding: 0;
+    }
+    .navbar-fixed-top {
+        margin-bottom: 0px;
+    }
+    .navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {
+        padding: 0px;
+    }
+
+    .marketing {
+        padding: 30px;
+    }
+
+    .navbar ul {
+        background: #000;
+        margin-top: -2px;
+    }
+
+    .navbar li {
+        line-height: 20px;
+        background: #000000;
+    }
+
+}
+
+@media (max-width: 767px) {
+    .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
+        margin: 0;
+    }
+    .marketing {
+        padding: 15px;
+    }
+}
