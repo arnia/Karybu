@@ -538,7 +538,13 @@ a:hover i.kErase:hover, button:hover i.kErase:hover {
     background:url("../img/sprite-24.png") -216px -24px ;
 }
 
+i.kLanguage {
+    background:url("../img/sprite-24.png") -192px 0px ;
+}
 
+a:hover i.kLanguage:hover, button:hover i.kLanguage:hover {
+    background:url("../img/sprite-24.png") -192px -24px ;
+}
 
 i.kView {
 
@@ -1649,3 +1655,24 @@ button._btnLang:hover, a.langItem:hover, .active a.langItem {
 }
 
 */
+
+td.multiLangEdit {
+    white-space: nowrap;
+    text-wrap: none;
+    padding-right: 36px;
+}
+
+td.multiLangEdit .kActionIcons {
+    position: absolute;
+    margin-left: 8px;
+}
+
+.horizontal-scroll-table {
+overflow: auto;
+
+}
+
+.horizontal-scroll-table table {
+    table-layout: fixed;
+    width: 100%;
+}

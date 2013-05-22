@@ -18,6 +18,10 @@
             <li  class="active"|cond="$filter_type==disable"><a href="{getUrl('filter_type', 'disable', 'page', '')}">{$lang->denied}</a></li>
         </ul>
     </div>
+
+    <div class="row-fluid">
+        <div class="span12 horizontal-scroll-table">
+
     <p class="pull-right">
         {$filter_type_title}({$total_count})
         <span class="side">
@@ -25,6 +29,13 @@
             <a href="#listManager" class="btn" data-toggle="modal">{$lang->cmd_selected_user_manage}...</a>
         </span>
     </p>
+
+    </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+
     <table class="table table-condensed table-bordered table-hover _memberList">
         <thead>
             <tr>
@@ -86,12 +97,23 @@
             </tr>
         </tbody>
     </table>
-	<p class="pull-right">
+
+        </div>
+        </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+
+    <p class="pull-right">
 		<span class="side">
 			<a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminInsert')}" class="btn">{$lang->cmd_make}</a></span>
 			<a href="#listManager" class="btn" data-toggle="modal">{$lang->cmd_selected_user_manage}...</a></span>
 		</span>
 	</p>
+
+</div>
+</div>
+
 </form>
 <div class="pagination">
     <ul>
