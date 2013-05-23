@@ -698,7 +698,12 @@
         function getCommentConfig($module_srl) {
             $oModuleModel = &getModel('module');
             $comment_config = $oModuleModel->getModulePartConfig('comment', $module_srl);
-            if(!isset($comment_config->comment_count)) $comment_config->comment_count = 50;
+            if (!is_object($comment_config)) {
+                $comment_config = new stdClass();
+            }
+            if(!isset($comment_config->comment_count)) {
+                $comment_config->comment_count = 50;
+            }
             return $comment_config;
         }
 

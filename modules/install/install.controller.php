@@ -273,6 +273,7 @@ class installController extends install
         }
 
         $buff = '<?php if(!defined("__KARYBU__")) exit();' . "\n";
+        $buff .= '$ftp_info = new stdClass()' . "\n";
         foreach ($ftp_info as $key => $val) {
             $buff .= sprintf("\$ftp_info->%s = '%s';\n", $key, str_replace("'", "\\'", $val));
         }

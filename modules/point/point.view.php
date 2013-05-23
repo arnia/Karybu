@@ -47,7 +47,7 @@
             }
 
             $module_config['module_srl'] = $current_module_srl;
-            $module_config['point_name'] = $config->point_name;
+            $module_config['point_name'] = isset($config->point_name) ? $config->point_name : null;
             Context::set('module_config', $module_config);
             // Set the template file
             $oTemplate = &TemplateHandler::getInstance();

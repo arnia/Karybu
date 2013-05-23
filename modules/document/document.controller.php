@@ -98,6 +98,7 @@ class documentController extends document {
 	 */
 	function deleteDocumentAliasByModule($module_srl)
 	{
+        $args = new stdClass();
 		$args->module_srl = $module_srl;
 		executeQuery("document.deleteAlias", $args);
 	}
@@ -853,7 +854,10 @@ class documentController extends document {
 	 * @return Object
 	 */
 	function deleteDocumentExtraKeys($module_srl, $var_idx = null) {
-		if(!$module_srl) return new Object(-1,'msg_invalid_request');
+		if(!$module_srl) {
+            return new Object(-1,'msg_invalid_request');
+        }
+        $obj = new stdClass();
 		$obj->module_srl = $module_srl;
 		if(!is_null($var_idx)) $obj->var_idx = $var_idx;
 
@@ -1305,6 +1309,7 @@ class documentController extends document {
 	 * @return object
 	 */
 	function deleteModuleCategory($module_srl) {
+        $args = new stdClass();
 		$args->module_srl = $module_srl;
 		$output = executeQuery('document.deleteModuleCategory', $args);
 		return $output;

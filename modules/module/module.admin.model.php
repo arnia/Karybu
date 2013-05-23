@@ -53,16 +53,30 @@
 		function getSelectedManageHTML($grantList)
 		{
 			// Grant virtual permission for access and manager
+            if (!is_object($grantList)){
+                $grantList = new stdClass();
+            }
+            if (!isset($grantList->access) || !is_object($grantList->access)) {
+                $grantList->access = new stdClass();
+            }
 			$grantList->access->title = Context::getLang('grant_access');
 			$grantList->access->default = 'guest';
 			if(count($grantList))
 			{
+                $grant_list = new stdClass();
 				foreach($grantList as $key => $val) {
-					if(!$val->default) $val->default = 'guest';
-					if($val->default == 'root') $val->default = 'manager';
+					if(!$val->default) {
+                        $val->default = 'guest';
+                    }
+					if($val->default == 'root') {
+                        $val->default = 'manager';
+                    }
 					$grant_list->{$key} = $val;
 				}
 			}
+            if (!isset($grant_list->manager)) {
+                $grant_list->manager = new stdClass();
+            }
 			$grant_list->manager->title = Context::getLang('grant_manager');
 			$grant_list->manager->default = 'manager';
 			Context::set('grant_list', $grant_list);

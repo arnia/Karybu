@@ -120,7 +120,12 @@
             {
                 $document_config = $oModuleModel->getModulePartConfig('document', $current_module_srl);
             }
-            if(!isset($document_config->use_history)) $document_config->use_history = 'N';
+            if (!isset($document_config) || !is_object($document_config)) {
+                $document_config = new stdClass();
+            }
+            if(!isset($document_config->use_history)) {
+                $document_config->use_history = 'N';
+            }
             Context::set('document_config', $document_config);
 
             $oTemplate = &TemplateHandler::getInstance();

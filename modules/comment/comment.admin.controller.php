@@ -301,6 +301,7 @@
 		 * @return object
 		 */
         function deleteModuleComments($module_srl) {
+            $args = new stdClass();
             $args->module_srl = $module_srl;
             $output = executeQuery('comment.deleteModuleComments', $args);
             if(!$output->toBool()) return $output;

@@ -82,12 +82,20 @@
             $clones = array();
             $args = Context::getAll();
             for($i=1;$i<=10;$i++) {
-                $mid = trim($args->{"mid_".$i});
-                if(!$mid) continue;
-                if(!preg_match("/^[a-zA-Z]([a-zA-Z0-9_]*)$/i", $mid)) return new Object(-1, 'msg_limit_mid');
+                $mid = isset($args->{"mid_".$i}) ? trim($args->{"mid_".$i}) : null;
+                if(!$mid) {
+                    continue;
+                }
+                if(!preg_match("/^[a-zA-Z]([a-zA-Z0-9_]*)$/i", $mid)) {
+                    return new Object(-1, 'msg_limit_mid');
+                }
                 $browser_title = $args->{"browser_title_".$i};
-                if(!$mid) continue;
-                if($mid && !$browser_title) $browser_title = $mid;
+                if(!$mid) {
+                    continue;
+                }
+                if($mid && !$browser_title) {
+                    $browser_title = $mid;
+                }
                 $clones[$mid] = $browser_title;
             }
             if(!count($clones)) return;
@@ -98,6 +106,7 @@
 			$columnList = array('module', 'module_category_srl', 'layout_srl', 'use_mobile', 'mlayout_srl', 'menu_srl', 'site_srl', 'skin', 'mskin', 'description', 'mcontent', 'open_rss', 'header_text', 'footer_text', 'regdate');
             $module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl, $columnList);
             // Get permission information
+            $module_args = new stdClass();
             $module_args->module_srl = $module_srl;
             $output = executeQueryArray('module.getModuleGrants', $module_args);
             $grant = array();
@@ -106,9 +115,11 @@
             }
 
 			// get Extra Vars
+            $extra_args = new stdClass();
 			$extra_args->module_srl = $module_srl;
 			$extra_output = executeQueryArray('module.getModuleExtraVars', $extra_args);
 			if ($extra_output->toBool() && is_array($extra_output->data)){
+                $extra_vars = new stdClass();
 				foreach($extra_output->data as $info){
 					$extra_vars->{$info->name} = $info->value;
 				}
@@ -136,6 +147,7 @@
             $oDB = DB::getInstance();
             $oDB->begin();
             // Copy a module
+            $triggerObj = new stdClass();
 			$triggerObj->originModuleSrl = $module_srl;
 			$triggerObj->moduleSrlList = array();
 
@@ -185,8 +197,12 @@
                 if(count($grant)) $oModuleController->insertModuleGrants($module_srl, $grant);
 				if ($extra_vars) $oModuleController->insertModuleExtraVars($module_srl, $extra_vars);
 
-				if($moduleSkinVars) $oModuleController->insertModuleSkinVars($module_srl, $moduleSkinVars);
-				if($moduleMobileSkinVars) $oModuleController->insertModuleMobileSkinVars($module_srl, $moduleMobileSkinVars);
+				if(!empty($moduleSkinVars)) {
+                    $oModuleController->insertModuleSkinVars($module_srl, $moduleSkinVars);
+                }
+				if(!empty($moduleMobileSkinVars)) {
+                    $oModuleController->insertModuleMobileSkinVars($module_srl, $moduleMobileSkinVars);
+                }
 
 				array_push($triggerObj->moduleSrlList, $module_srl);
             }
@@ -202,14 +218,14 @@
 			}
 			else
 			{
-				$mseeage = $lang->success_registed;
+                $message = isset($lang->success_registed) ? $lang->success_registed : '';
             	$this->setMessage('success_registed');
 			}
 
 			if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON'))) {
 				global $lang;
 				htmlHeader();
-				alertScript($message);
+				alertScript(isset($message) ? $message : null);
 				reload(true);
 				closePopupScript();
 				htmlFooter();

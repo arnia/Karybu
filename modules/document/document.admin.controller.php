@@ -381,6 +381,7 @@
 		 * @return object
 		 */
         function deleteModuleDocument($module_srl) {
+            $args = new stdClass();
             $args->module_srl = $module_srl;
 			$oDocumentModel = &getModel('document');
             $args->module_srl = $module_srl;

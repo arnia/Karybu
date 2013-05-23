@@ -311,11 +311,17 @@
          **/
         function insertModule($args) {
             $output = $this->arrangeModuleInfo($args, $extra_vars);
-            if(!$output->toBool()) return $output;
+            if(!$output->toBool()) {
+                return $output;
+            }
             // Check whether the module name already exists
-            if(!$args->site_srl) $args->site_srl = 0;
+            if(empty($args->site_srl)) {
+                $args->site_srl = 0;
+            }
             $oModuleModel = &getModel('module');
-            if($oModuleModel->isIDExists($args->mid, $args->site_srl)) return new Object(-1, 'msg_module_name_exists');
+            if($oModuleModel->isIDExists($args->mid, $args->site_srl)) {
+                return new Object(-1, 'msg_module_name_exists');
+            }
 
             // begin transaction
             $oDB = DB::getInstance();
@@ -323,12 +329,15 @@
             // Get colorset from the skin information
             $module_path = ModuleHandler::getModulePath($args->module);
             $skin_info = $oModuleModel->loadSkinInfo($module_path, $args->skin);
-            $skin_vars->colorset = $skin_info->colorset[0]->name;
+            $skin_vars = new stdClass();
+            $skin_vars->colorset = isset($skin_info->colorset[0]->name) ? $skin_info->colorset[0]->name : null;
             // Arrange variables and then execute a query
-            if(!$args->module_srl) $args->module_srl = getNextSequence();
+            if(empty($args->module_srl)) {
+                $args->module_srl = getNextSequence();
+            }
 
 			// default value
-			$args->is_skin_fix = (!$args->is_skin_fix) ? 'N' : 'Y';
+			$args->is_skin_fix = (empty($args->is_skin_fix)) ? 'N' : 'Y';
 
             // Insert a module
             $output = executeQuery('module.insertModule', $args);
@@ -432,6 +441,7 @@
 			if($module_srl == $start_module->index_module_srl) return new Object(-1, 'msg_cannot_delete_startmodule');
 
             // Call a trigger (before)
+            $trigger_obj = new stdClass();
             $trigger_obj->module_srl = $module_srl;
             $output = ModuleHandler::triggerCall('module.deleteModule', 'before', $trigger_obj);
             if(!$output->toBool()) return $output;
@@ -439,7 +449,7 @@
             // begin transaction
             $oDB = DB::getInstance();
             $oDB->begin();
-
+            $args = new stdClass();
             $args->module_srl = $module_srl;
             // Delete module information from the DB
             $output = executeQuery('module.deleteModule', $args);
@@ -767,6 +777,7 @@
          * @brief Remove permission from the module
          **/
         function deleteModuleGrants($module_srl) {
+            $args = new stdClass();
             $args->module_srl = $module_srl;
             return executeQuery('module.deleteModuleGrants', $args);
         }

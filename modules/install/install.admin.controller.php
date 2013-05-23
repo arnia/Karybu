@@ -128,6 +128,9 @@
 
         function procInstallAdminSaveFTPInfo() {
             $ftp_info = Context::getFTPInfo();
+            if (!is_object($ftp_info)) {
+                $ftp_info = new stdClass();
+            }
             $ftp_info->ftp_user = Context::get('ftp_user');
             $ftp_info->ftp_port = Context::get('ftp_port');
             $ftp_info->ftp_host = Context::get('ftp_host');
@@ -149,6 +152,7 @@
             }
 
             $buff = '<?php if(!defined("__KARYBU__")) exit();'."\n";
+            $buff .= '$ftp_info = new stdClass();' . "\n";
             foreach ($ftp_info as $key => $val) {
                 if (!$val) continue;
 				if (preg_match(
@@ -159,7 +163,7 @@
             }
             $config_file = Context::getFTPConfigFile();
             FileHandler::WriteFile($config_file, $buff);
-            if($_SESSION['ftp_password']) {
+            if(!empty($_SESSION['ftp_password'])) {
                 unset($_SESSION['ftp_password']);
             }
             $this->setMessage('success_updated');
@@ -253,7 +257,7 @@
                     'slow_queries_threshold',
                     'handlers');
                 $values = array();
-                $values['imports'][0][resource] = '../../config/config_'.$env.'.base.yml';
+                $values['imports'][0]['resource'] = '../../config/config_'.$env.'.base.yml';
                 $values['debug'] = array();
                 foreach ($allowedSettings as $setting){
                     if (!is_null(Context::get($setting))){

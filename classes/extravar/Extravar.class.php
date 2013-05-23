@@ -55,7 +55,17 @@ class ExtraVar
         }
         foreach ($extra_keys as $key => $val) {
             $obj = null;
-            $obj = new ExtraItem($val->module_srl, $val->idx, $val->name, $val->type, $val->default, $val->desc, $val->is_required, $val->search, $val->value, $val->eid);
+            $module_srl = isset($val->module_srl) ? $val->module_srl : null;
+            $idx = isset($val->idx) ? $val->idx : null;
+            $name = isset($val->name) ? $val->name : null;
+            $type = isset($val->type) ? $val->type : null;
+            $default = isset($val->default) ? $val->default : null;
+            $desc = isset($val->desc) ? $val->desc : null;
+            $required = isset($val->is_required) ? $val->is_required : null;
+            $search = isset($val->search) ? $val->search : null;
+            $value = isset($val->value) ? $val->value : null;
+            $eid = isset($val->eid) ? $val->eid : null;
+            $obj = new ExtraItem($module_srl, $idx, $name, $type, $default, $desc, $required, $search, $value, $eid);
             $this->keys[$val->idx] = $obj;
         }
     }

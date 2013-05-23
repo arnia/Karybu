@@ -23,36 +23,55 @@
 
             // setup the board module infortmation
             $args = Context::getRequestVars();
+            if (!is_object($args)) {
+                $args = new stdClass();
+            }
             $args->module = 'board';
             $args->mid = $args->board_name;
-			if(is_array($args->use_status)) $args->use_status = implode('|@|', $args->use_status);
+			if(isset($args->use_status) && is_array($args->use_status)) {
+                $args->use_status = implode('|@|', $args->use_status);
+            }
             unset($args->board_name);
 
             // setup other variables
-            if($args->except_notice!='Y') $args->except_notice = 'N';
-            if($args->use_anonymous!='Y') $args->use_anonymous= 'N';
-            if($args->consultation!='Y') $args->consultation = 'N';
-            if(!in_array($args->order_target,$this->order_target)) $args->order_target = 'list_order';
-            if(!in_array($args->order_type,array('asc','desc'))) $args->order_type = 'asc';
+            if(!isset($args->except_notice) || $args->except_notice!='Y') {
+                $args->except_notice = 'N';
+            }
+            if(!isset($args->use_anonymous) || $args->use_anonymous!='Y') {
+                $args->use_anonymous= 'N';
+            }
+            if(!isset($args->consultation) || $args->consultation!='Y') {
+                $args->consultation = 'N';
+            }
+            if(!isset($args->order_target) || !in_array($args->order_target,$this->order_target)) {
+                $args->order_target = 'list_order';
+            }
+            if(!isset($args->order_type) || !in_array($args->order_type,array('asc','desc'))) {
+                $args->order_type = 'asc';
+            }
 
             // if there is an existed module
-            if($args->module_srl) {
+            if(!empty($args->module_srl)) {
                 $module_info = $oModuleModel->getModuleInfoByModuleSrl($args->module_srl);
-                if($module_info->module_srl != $args->module_srl) unset($args->module_srl);
+                if($module_info->module_srl != $args->module_srl) {
+                    unset($args->module_srl);
+                }
             }
 
             // insert/update the board module based on module_srl
-            if(!$args->module_srl) {
+            if(empty($args->module_srl)) {
             	$args->hide_category = 'N';
                 $output = $oModuleController->insertModule($args);
                 $msg_code = 'success_registed';
             } else {
-            	$args->hide_category = $module_info->hide_category;
+            	$args->hide_category = isset($module_info->hide_category) ? $module_info->hide_category : null;
                 $output = $oModuleController->updateModule($args);
                 $msg_code = 'success_updated';
             }
 
-            if(!$output->toBool()) return $output;
+            if(!$output->toBool()) {
+                return $output;
+            }
 
 			// setup list config
 			$list = explode(',',Context::get('list'));
@@ -62,7 +81,9 @@
 				foreach($list as $val)
 				{
 					$val = trim($val);
-					if(!$val) continue;
+					if(!$val) {
+                        continue;
+                    }
 					if(substr($val,0,10)=='extra_vars') $val = substr($val,10);
 					$list_arr[] = $val;
 				}
@@ -86,21 +107,23 @@
 		public function procBoardAdminUpdateBoardFroBasic()
 		{
 			$args = Context::getRequestVars();
-
+            if (!is_object($args)) {
+                $args = new stdClass();
+            }
 			// for board info
 			$args->module = 'board';
 			$args->mid = $args->board_name;
-			if(is_array($args->use_status))
+			if(isset($args->use_status) && is_array($args->use_status))
 			{
 				$args->use_status = implode('|@|', $args->use_status);
 			}
 			unset($args->board_name);
 
-			if(!in_array($args->order_target, $this->order_target))
+			if(!isset($args->order_target) || !in_array($args->order_target, $this->order_target))
 			{
 				$args->order_target = 'list_order';
 			}
-			if(!in_array($args->order_type, array('asc', 'desc')))
+			if(!isset($args->order_type) || !in_array($args->order_type, array('asc', 'desc')))
 			{
 				$args->order_type = 'asc';
 			}
@@ -110,7 +133,7 @@
 
 			// for grant info, Register Admin ID
 			$oModuleController->deleteAdminId($args->module_srl);
-			if($args->admin_member)
+			if(!empty($args->admin_member))
 			{
 				$admin_members = explode(',',$args->admin_member);
 				for($i=0;$i<count($admin_members);$i++)
@@ -131,7 +154,9 @@
             // get the current module
             $oModuleController = &getController('module');
             $output = $oModuleController->deleteModule($module_srl);
-            if(!$output->toBool()) return $output;
+            if(!$output->toBool()) {
+                return $output;
+            }
 
             $this->add('module','board');
             $this->add('page',Context::get('page'));

@@ -131,6 +131,7 @@
 		 */
         function deleteModuleTrackbacks($module_srl) {
             // Delete
+            $args = new stdClass();
             $args->module_srl = $module_srl;
             $output = executeQuery('trackback.deleteModuleTrackbacks', $args);
 

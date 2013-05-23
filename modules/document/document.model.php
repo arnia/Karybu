@@ -610,14 +610,15 @@ class documentModel extends document
     function getDocumentCount($module_srl, $search_obj = null)
     {
         // Additional search options
+        $args = new stdClass();
         $args->module_srl = $module_srl;
-        $args->s_title = $search_obj->s_title;
-        $args->s_content = $search_obj->s_content;
-        $args->s_user_name = $search_obj->s_user_name;
-        $args->s_member_srl = $search_obj->s_member_srl;
-        $args->s_ipaddress = $search_obj->s_ipaddress;
-        $args->s_regdate = $search_obj->s_regdate;
-        $args->category_srl = $search_obj->category_srl;
+        $args->s_title = isset($search_obj->s_title) ? $search_obj->s_title : null;
+        $args->s_content = isset($search_obj->s_content) ? $search_obj->s_content : null;
+        $args->s_user_name = isset($search_obj->s_user_name) ? $search_obj->s_user_name : null;
+        $args->s_member_srl = isset($search_obj->s_member_srl) ? $search_obj->s_member_srl : null;
+        $args->s_ipaddress = isset($search_obj->s_ipaddress) ? $search_obj->s_ipaddress : null;
+        $args->s_regdate = isset($search_obj->s_regdate) ? $search_obj->s_regdate : null;
+        $args->category_srl = isset($search_obj->category_srl) ? $search_obj->category_srl : null;
 
         $output = executeQuery('document.getDocumentCount', $args);
         // Return total number of

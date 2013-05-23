@@ -140,6 +140,9 @@
             // Bringing trackback module config
             $oModuleModel = &getModel('module');
             $module_trackback_config = $oModuleModel->getModulePartConfig('trackback', $module_srl);
+            if (!is_object($module_trackback_config)) {
+                $module_trackback_config = new stdClass();
+            }
             if(!$module_trackback_config) {
                 $trackback_config = $oModuleModel->getModuleConfig('trackback');
                 $module_trackback_config->enable_trackback = $trackback_config->enable_trackback!='N'?'Y':'N';

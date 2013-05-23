@@ -326,7 +326,7 @@ class moduleModel extends module
         // Get module_srl
         $module_srls = array();
         foreach ($target_module_info as $key => $val) {
-            $module_srl = $val->module_srl;
+            $module_srl = isset($val->module_srl) ? $val->module_srl : null;
             if (!$module_srl) {
                 continue;
             }
@@ -906,13 +906,14 @@ class moduleModel extends module
 
                 $buff .= '$info->grant = new stdClass;';
                 foreach ($grant_list as $grant) {
-                    $name = $grant->attrs->name;
-                    $default = $grant->attrs->default ? $grant->attrs->default : 'guest';
-                    $title = $grant->title->body;
-
+                    $name = isset($grant->attrs->name) ? $grant->attrs->name : null;
+                    $default = !empty($grant->attrs->default) ? $grant->attrs->default : 'guest';
+                    $title = isset($grant->title->body) ? $grant->title->body : null;
+                    $info->grant = new stdClass();
+                    $info->grant->{$name} = new stdClass();
                     $info->grant->{$name}->title = $title;
                     $info->grant->{$name}->default = $default;
-
+                    $buff .= sprintf('$info->grant->%s=new stdClass;', $name);
                     $buff .= sprintf('$info->grant->%s->title=\'%s\';', $name, $title);
                     $buff .= sprintf('$info->grant->%s->default=\'%s\';', $name, $default);
                 }
@@ -1017,7 +1018,7 @@ class moduleModel extends module
                         );
                     }
 
-                    $buff .= sprintf('$info->action->%s=new stdClass;', $name, $type);
+                    $buff .= sprintf('$info->action->%s=new stdClass;', $name);
                     $buff .= sprintf('$info->action->%s->type=\'%s\';', $name, $type);
                     $buff .= sprintf('$info->action->%s->grant=\'%s\';', $name, $grant);
                     $buff .= sprintf('$info->action->%s->standalone=%s;', $name, $standalone);

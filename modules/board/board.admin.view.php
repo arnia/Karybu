@@ -30,14 +30,18 @@
                     Context::set('module_srl','');
                     $this->act = 'list';
                 } else {
-                    ModuleModel::syncModuleToSite($module_info);
+                    //ModuleModel::syncModuleToSite($module_info);
+                    $model = new ModuleModel();
+                    $model->syncModuleToSite($module_info);
                     $this->module_info = $module_info;
-					$this->module_info->use_status = explode('|@|', $module_info->use_status);
+					$this->module_info->use_status = isset($module_info->use_status) ? explode('|@|', $module_info->use_status) : array();
                     Context::set('module_info',$module_info);
                 }
             }
 
-            if($module_info && $module_info->module != 'board') return $this->stop("msg_invalid_request");
+            if(isset($module_info) && $module_info->module != 'board') {
+                return $this->stop("msg_invalid_request");
+            }
 
             // get the module category list
             $module_category = $oModuleModel->getModuleCategories();
@@ -52,7 +56,9 @@
             $this->setTemplatePath($template_path);
 
             // install order (sorting) options
-            foreach($this->order_target as $key) $order_target[$key] = Context::getLang($key);
+            foreach($this->order_target as $key) {
+                $order_target[$key] = Context::getLang($key);
+            }
             $order_target['list_order'] = Context::getLang('document_srl');
             $order_target['update_order'] = Context::getLang('last_update');
             Context::set('order_target', $order_target);
@@ -83,7 +89,8 @@
 			}
 
             $output = executeQueryArray('board.getBoardList', $args);
-            ModuleModel::syncModuleToSite($output->data);
+            $model = new ModuleModel();
+            $model->syncModuleToSite($output->data);
 
 			// get the skins path
             $oModuleModel = &getModel('module');
@@ -166,10 +173,16 @@
             $oBoardModel = &getModel('board');
 
             // setup the extra vaiables
-            Context::set('extra_vars', $oBoardModel->getDefaultListConfig($this->module_info->module_srl));
+            if (isset($this->module_info->module_srl)) {
+                $srl = $this->module_info->module_srl;
+            }
+            else{
+                $srl = null;
+            }
+            Context::set('extra_vars', $oBoardModel->getDefaultListConfig($srl));
 
             // setup the list config (install the default value if there is no list config)
-            Context::set('list_config', $oBoardModel->getListConfig($this->module_info->module_srl));
+            Context::set('list_config', $oBoardModel->getListConfig($srl));
 
 			$security = new Security();
 			$security->encodeHTML('extra_vars..name','list_config..name');

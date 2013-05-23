@@ -33,7 +33,7 @@ class editorModel extends editor
                 $module_srl
             );
         }
-        $editor_config = $GLOBALS['__editor_module_config__'][$module_srl];
+        $editor_config = isset($GLOBALS['__editor_module_config__'][$module_srl]) ? $GLOBALS['__editor_module_config__'][$module_srl] : null;
 
         $oModuleModel = & getModel('module');
         $editor_default_config = $oModuleModel->getModuleConfig('editor');
