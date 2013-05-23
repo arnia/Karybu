@@ -490,3 +490,18 @@ ul.nav-tabs {
         padding: 15px;
     }
 }
+
+/* Github ribbon */
+
+a.forkme {
+    display: block;
+    position: fixed;
+    width: 149px;
+    height: 149px;
+    background: url("../img/forkme_right_bottom_red.png") 100% 100% no-repeat;
+    bottom: 0px;
+    right: 0px
+}
+
+
+
