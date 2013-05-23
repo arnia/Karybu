@@ -199,7 +199,6 @@
      */
     $(window).load(function(){
         initializeScreenResolution();
-
         kAdminContentArea.updateHeight();
         kAdminContentArea.initializeScrollbar();
 

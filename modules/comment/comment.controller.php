@@ -925,9 +925,11 @@
             $module_srl = Context::get('target_module_srl');
             if(preg_match('/^([0-9,]+)$/',$module_srl)) $module_srl = explode(',',$module_srl);
             else $module_srl = array($module_srl);
-
+            $comment_config = new stdClass();
             $comment_config->comment_count = (int)Context::get('comment_count');
-			if(!$comment_config->comment_count) $comment_config->comment_count = 50;
+			if(!$comment_config->comment_count) {
+                $comment_config->comment_count = 50;
+            }
 
 			$comment_config->use_vote_up = Context::get('use_vote_up');
 			if(!$comment_config->use_vote_up) $comment_config->use_vote_up = 'Y';
