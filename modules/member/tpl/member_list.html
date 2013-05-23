@@ -7,9 +7,8 @@
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
-<fieldset class="section">
-<h3 class="h3">{$lang->user_list}</h3>
 <form action="./" class="form" method="post">
+    <h2>{$lang->user_list}</h2>
     <div class="cnb">
         <ul class="nav nav-tabs">
             <li class="active"|cond="$filter_type==''"><a href="{getUrl('filter_type', '', 'page', '')}">{$lang->cmd_show_all_member}</a></li>
@@ -176,7 +175,6 @@
         <a class="btn" href="{getUrl('search_target', '', 'search_keyword', '')}">{$lang->cmd_cancel}</a>
     </form>
 </div>
-</fieldset>
 <div class="modal hide fade" id="listManager">
     <form action="./" ruleset="updateSeletecdMemberInfo" class="fg form" method="post">
         <input type="hidden" name="module" value="member" />
