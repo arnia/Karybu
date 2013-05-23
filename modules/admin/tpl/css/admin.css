@@ -1548,6 +1548,21 @@ a.btn-primary, a.btn-danger, a.btn-info, a.btn-inverse, a.btn-success, a.btn-war
 
 }
 
+
+.btn-primary [class^="icon-"],
+.btn-primary [class*=" icon-"] {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+    margin-right: .4em;
+    *margin-right: .4em;
+    margin-left: -7px;
+    line-height: 14px;
+    vertical-align: text-top;
+    background-image: url("../img/glyphicons-halflings-white.png");
+}
+
 .btn .caret {
     margin-right: -5px;
 }
@@ -2132,9 +2147,34 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 
 /* NAV PILLS END */
 
+/* ALERTS */
+
+
+.alert-info table {
+    -webkit-box-shadow: inset 0px 1px 1px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0px 1px 1px 0px rgba(0, 0, 0, 0.3);
+}
+
+
+.alert-info table,
+.alert-info table td,
+.alert-info table th {
+    background: rgba(255,255,255,0.1);
+    border: none;
+}
+
+.alert-info table tr:hover td,
+.alert-info table tr:hover th {
+    background: rgba(255,255,255,0.4);
+}
 
 
 
+/* TABLES */
+
+table th[scope=row] {
+    vertical-align: middle;
+}
 
 
 /* FIREFOX RESETS */

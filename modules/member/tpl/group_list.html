@@ -57,7 +57,7 @@
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 					<td class="_imageMarkButton">&nbsp;</td>
-					<td><a href="#" class="_addGroup">{$lang->cmd_add_group}</a></td>
+					<td><a href="#" class="_addGroup btn btn-primary btn-small">{$lang->cmd_add_group}</a></td>
 				</tr>
 			</tfoot>
 			<tbody class="uDrag _groupList">
@@ -67,7 +67,7 @@
 						<input type="hidden" name="group_srls[]" value="{$group_info->group_srl}" />
 						<input type="hidden" name="group_titles[]" value="{htmlspecialchars($group_info->title)}" class="vLang"/>
 						<input type="text" value="{$group_info->title}" class="vLang" />
-						<span class="desc"><a href="#langEdit" class="tgAnchor editUserLang" data-effect="slide">{$lang->cmd_set_multilingual}</a></span>
+						<span class="desc kActionIcons pull-right"><a href="#langEdit" class="tgAnchor editUserLang" data-effect="slide" data-toggle="tooltip" title="{$lang->cmd_set_multilingual}"><i class="kLanguage">{$lang->cmd_set_multilingual}</i></a></span>
 						</div>
 					</td>
 					<td><input type="text" name="descriptions[]" value="{$group_info->description}" style="width:240px" /></td>
@@ -86,7 +86,7 @@
 						<input type="hidden" name="group_srls[]" value="new" disabled="disabled"/>
 						<input type="hidden" name="group_titles[]" value=""  disabled="disabled" class="vLang" />
 						<input type="text" value="" class="vLang" />
-						<span class="desc"><a href="#langEdit" class="tgAnchor editUserLang">{$lang->cmd_set_multilingual}</a></span>
+						<span class="desc kActionIcons"><a href="#langEdit" class="tgAnchor editUserLang" data-toggle="tooltip" title="{$lang->cmd_set_multilingual}"><i class="kLanguage">{$lang->cmd_set_multilingual}</i></a></span>
 						</div>
 					</td>
 					<td><input type="text" name="descriptions[]" value="" style="width:240px" disabled="disabled" /></td>

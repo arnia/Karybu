@@ -69,18 +69,18 @@
             <h4 cond="$needUpdate && $addTables">{$lang->need_update_and_table}</h4>
             <h4 cond="$needUpdate && !$addTables">{$lang->need_update}</h4>
             <h4 cond="!$needUpdate && $addTables">{$lang->need_table}</h4>
-            <table class="table">
+            <table class="table table-bordered table-hover">
                 <tbody>
                 <!--@foreach($module_list AS $key => $value)-->
                     <!--@if($value->need_install || $value->need_update)-->
                     <tr>
-                        <td>{$value->module}</td>
+                        <th scope="row">{$value->module}</th>
                         <td>
                             <div class="pull-right">
                                 <!--@if($value->need_install)-->
                                     <button class="btn btn-primary" type="button" onclick="doInstallModule('{$value->module}')">{$lang->cmd_create_db_table}</button>
                                 <!--@else if($value->need_update)-->
-                                    <button class="btn btn-primary" type="button" onclick="doUpdateModule('{$value->module}')">{$lang->cmd_module_update}</button>
+                                    <button class="btn btn-primary" type="button" onclick="doUpdateModule('{$value->module}')"><i class="icon-refresh"></i>{$lang->cmd_module_update}</button>
                                 <!--@end-->
                             </div>
                         </td>
