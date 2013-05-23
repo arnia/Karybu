@@ -51,6 +51,13 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1;
     color: #ffffff;
 }
+
+.jumbotron h2 {
+    font-size: 60px;
+    line-height: 1;
+    color: #ffffff;
+}
+
 .jumbotron .btn {
     font-size: 21px;
     padding: 14px 24px;
