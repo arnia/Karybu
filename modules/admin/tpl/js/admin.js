@@ -1289,8 +1289,8 @@ jQuery(function($){
             function on_complete(data){
                 $list.html(data.html);
 
-                $list.find('.lined .select')
-                    .bind('click', function(event){
+                $list.on('click', '.lined .select',
+                    function(event){
                         var selectedImages = $('input.select_checkbox:checked');
                         if(selectedImages.length == 0) {
                             var selectedImgSrc = $(this).parent().find('img.filebox_item').attr('src');

@@ -880,18 +880,7 @@
 			}
 			else
 			{
-                $response = $output->get('save_filename');
-                //$values = json_decode($response);
-                //echo "<pre>"; print_r($response);exit;
-                $template = '<li style="position:relative;float:left">';
-                $template .= '<div class="thumbnail">';
-                $template .= '<a class="select" href="#"><img src="'.$response.'" class="filebox_item" style="max-height:150px"></a>';
-                $template .= '</div>';
-                $template .= '</li>';
-                $tmp = "<script>parent.document.getElementById('thumbnails').innerHTML += '".$template."';</script>";
-				//$this->add('save_filename', $output->get('save_filename'));
-                echo $tmp;exit;
-                $this->add('save_filename', $tmp);
+                $this->add('save_filename', $output->get('save_filename'));
 			}
         }
 

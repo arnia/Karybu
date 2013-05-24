@@ -629,5 +629,18 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
     <item name="select_uploaded_file">
         <value xml:lang="en"><![CDATA[Select an already uploaded file]]></value>
     </item>
-
+    <item name="delete">
+        <value xml:lang="ko"><![CDATA[삭제]]></value>
+        <value xml:lang="en"><![CDATA[Delete]]></value>
+        <value xml:lang="jp"><![CDATA[削除]]></value>
+        <value xml:lang="zh-CN"><![CDATA[删除]]></value>
+        <value xml:lang="tr"><![CDATA[Sil]]></value>
+    </item>
+    <item name="add">
+        <value xml:lang="ko"><![CDATA[추가]]></value>
+        <value xml:lang="en"><![CDATA[Add]]></value>
+        <value xml:lang="jp"><![CDATA[追加]]></value>
+        <value xml:lang="zh-CN"><![CDATA[添加]]></value>
+        <value xml:lang="tr"><![CDATA[Ekle]]></value>
+    </item>
 </lang>

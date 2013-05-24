@@ -265,7 +265,7 @@ jQuery(document).ready(function($){
 		$current_filebox = $(this);
 	});
 
-	$('#filebox_upload').find('input[type=submit]').click(function(){
+	$('#filebox_upload').find('button[type=submit], input[type=submit]').click(function(){
 		if ($('iframe[name=iframeTarget]').length < 1){
 			var $iframe = $(document.createElement('iframe'));
 
