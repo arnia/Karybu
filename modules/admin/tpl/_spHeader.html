@@ -52,7 +52,8 @@
                         <img src="{$logged_info->profile_image->src}" cond="isset($logged_info->profile_image->src)" alt=""/>
                         <img src="img/admin.png" cond="!isset($logged_info->profile_image->src)" alt=""/>
                     </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+
+                    <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
                         <li>
                             <ul class="unstyled">
                                 <li>
@@ -73,6 +74,9 @@
                         <li><a href="{getUrl('', 'module','admin','act','procAdminLogout')}">Log-out</a></li>
 
                     </ul>
+
+
+
                 </div>
             </div>
         </div>
