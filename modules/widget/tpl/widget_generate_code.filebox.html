@@ -8,7 +8,7 @@
 			<div class="filebox_list"></div>
 
 			<h3>{$lang->upload_new_file}</h3>
-			<form id="filebox_upload" class="form" action="./" method="post" enctype="multipart/form-data" target="iframeSave">
+			<form id="filebox_upload" class="form" action="./" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="module" value="module" />
                 <input type="hidden" name="act" value="procModuleFileBoxAdd" />
                 <input type="hidden" name="ajax" value="true" />
@@ -36,7 +36,6 @@
 					<button type="submit" class="btn btn-primary">{$lang->cmd_submit}</button>
 				</div>
 			</form>
-            <iframe name="iframeSave"></iframe>
         </div>
         <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
