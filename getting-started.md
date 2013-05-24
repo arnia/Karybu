@@ -1,6 +1,6 @@
 ---
 title: Getting started
-layout: upcoming
+layout: default
 ---
 
 <script type="text/javascript">

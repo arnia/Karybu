@@ -1,6 +1,6 @@
 ---
 title: Contribute
-layout: upcoming
+layout: default
 ---
 
 # Contribute
