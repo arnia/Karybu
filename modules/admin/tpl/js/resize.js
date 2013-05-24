@@ -188,7 +188,7 @@
         var browserWidth = $(window).width();
         var browserHeight = $(window).height();
 
-        $("body").removeClass("phone-screen tablet-screen desktop-screen large-desktop-screen portrait");
+        $("body").removeClass("phone-screen tablet-screen desktop-screen large-desktop-screen portrait landscape");
 
         if(browserWidth > 1200) {
             $("body").addClass("large-desktop-screen");
@@ -203,6 +203,10 @@
         if(browserWidth < browserHeight) {
             $("body").addClass("portrait");
         }
+        if(browserWidth >= browserHeight) {
+            $("body").addClass("landscape");
+        }
+
     }
 
     /**

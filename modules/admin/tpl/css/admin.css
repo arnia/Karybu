@@ -523,14 +523,6 @@ a.swatch:hover {
 }
 
 .x .brand {
-    background: #292c35; /* Old browsers */
-    background: -moz-linear-gradient(top, #292c35 0%, #1c1f28 51%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #292c35), color-stop(51%, #1c1f28)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #292c35 0%, #1c1f28 51%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #292c35 0%, #1c1f28 51%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #292c35 0%, #1c1f28 51%); /* IE10+ */
-    background: linear-gradient(to bottom, #292c35 0%, #1c1f28 51%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#292c35', endColorstr = '#1c1f28', GradientType = 0); /* IE6-9 */
     min-height:36px;
     padding: 12px 20px !important;
     white-space: nowrap;
@@ -777,6 +769,79 @@ form .controls textarea ~ span
         height: 32px;
     }
 
+    .landscape #kSidebar {
+        width: 80px;
+    }
+
+    .landscape #kSidebar {
+        width: 80px;
+    }
+
+    .landscape .kSidebarOpen {
+        width: 300px!important;
+        margin-right: -220px!important;
+        z-index: 999;
+        position: relative;
+        transition:.3s
+    }
+
+
+    #kSidebar .span8 {
+        width: 60px;
+        margin: 0 -10px!important;
+        position: relative;
+        float: left;
+        clear: none;
+        display: block!important;
+    }
+
+    .landscape #ksidebar .span8 {
+        float: right;
+    }
+
+    .portrait #kSidebar .span8 {
+        width: 70%;
+
+    }
+
+
+
+
+    .landscape .kWrapper {
+        width: calc(100% - 80px);
+    }
+
+    .landscape #kSidebar .mCustomScrollBox {
+        overflow: visible!important;
+    }
+
+    .landscape .dropdown-menu.pull-right {
+        left: 0!important;
+        right: auto;
+    }
+
+    .landscape .dropdown.pull-right {
+        margin: 10px auto!important;
+        display: block!important;
+        clear: both;
+        position: static;
+        float: right;
+        width: 36px;
+    }
+
+    .landscape .toggle-sidebar.pull-right {
+        margin: 10px auto!important;
+        display: block!important;
+        clear: both;
+        position: static;
+        float: right;
+    }
+
+
+    .dropdown-menu.pull-right {
+        z-index: 999999999999999!important;
+    }
+
 
     .tooltip {
         display: none!important;
@@ -841,7 +906,7 @@ form .controls textarea ~ span
     .kSidebarOpen {
         width: 50%;
         margin-right: -30%;
-        z-index: 2;
+        z-index: 999;
         position: relative;
     }
 
@@ -2186,11 +2251,8 @@ table th[scope=row] {
 }
 
 
-.portrait .dropdown-menu.pull-right {
-    z-index: 999999999999999!important;
-    position: absolute;
 
-}
+
 
 
 /* FIREFOX RESETS */
@@ -2206,17 +2268,29 @@ button:focus {
 /* FIREFOX RESETS END */
 
 
+
 .portrait .dropdown.open {
     overflow: visible;
     z-index: 9999999999999999999;
-
 }
 
-.portrait .dropdown.open>ul {
+.portrait .dropdown.open > ul {
     z-index: 999999999999999999;
-    position: relative;
-    margin-left: -600px;
+
 }
 
 table.table {
+}
+
+.horizontal-scroll {
+    margin-bottom: 15px;
+}
+
+.horizontal-scroll table {
+    margin-bottom: 0!important;
+
+}
+
+.mCSB_container {
+
 }
