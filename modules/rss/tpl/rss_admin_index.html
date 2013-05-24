@@ -51,7 +51,7 @@
         </div>
     </div>
 	<div class="btnArea">
-		<input class="btn btn-primary" type="submit" value="{$lang->cmd_save}" />
+		<button class="btn btn-primary" type="submit">{$lang->cmd_save}</button>
 	</div>
 </form>
 <h2 class="h2">{$lang->feed} {$lang->cmd_management}</h2>
@@ -89,7 +89,7 @@
 						<input type="radio" name="open_total_feed" value="T_N" id="open_total_feed_T_N" <!--@if($value['open_total_feed'] == 'T_N')-->checked="checked"<!--@end--> />
 						<label for="open_total_feed_T_N">{$lang->notuse}</label>
 					</td>
-					<td class="nowr"><input type="submit" value="{$lang->cmd_save}" class="text" /></td>
+					<td class="nowr"><button type="submit" class="text btn">{$lang->cmd_save}</button></td>
 				</form>
 			</tr>
 		</tbody>

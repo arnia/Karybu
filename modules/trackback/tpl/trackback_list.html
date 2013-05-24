@@ -80,7 +80,7 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 			</table>
 		</div>
 		<div class="btnArea">
-			<input class="btn" type="submit" value="Delete" class="delete" />
+			<button class="btn" type="submit" class="delete">Delete</button>
 		</div>
 	</form>
 </div>
@@ -135,7 +135,7 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 			<!--@end-->
 		</select>
 		<input type="text" name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
-		<input class="btn btn-primary" type="submit" value="{$lang->cmd_search}" />
+		<button class="btn btn-primary" type="submit">{$lang->cmd_search}</button>
 		<a class="btn" href="{getUrl('','module',$module,'act',$act)}">{$lang->cmd_cancel}</a>
 	</form>
 </div>

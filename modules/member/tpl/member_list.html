@@ -171,7 +171,7 @@
             <option value="{$key}" loop="$lang->search_target_list=>$key,$val" selected="selected"|cond="$search_target==$key">{$val}</option>
         </select>
         <input type="text" name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
-        <input class="btn btn-primary"type="submit" value="{$lang->cmd_search}" />
+        <button class="btn btn-primary" type="submit">{$lang->cmd_search}</button>
         <a class="btn" href="{getUrl('search_target', '', 'search_keyword', '')}">{$lang->cmd_cancel}</a>
     </form>
 </div>

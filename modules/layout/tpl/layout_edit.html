@@ -30,7 +30,7 @@
                     //]]>
                 </script>
                 <img cond="$ext != 'swf' && $ext != 'flv'" src="{getUrl('')}{$layout_image_path}{$file}"/>
-                <input class="btn btn-primary" type="submit" value="{$lang->cmd_delete}"/>
+                <button class="btn btn-primary" type="submit">{$lang->cmd_delete}</button>
                 <div class="uploaded_image_path">{$layout_image_path}{$file}X</div>
             </div>
         </form>
@@ -43,7 +43,7 @@
         <div>
             <div>
                 <input type="file" name="user_layout_image" value="" />
-                <input class="btn btn-primary" type="submit" value="{$lang->cmd_submit}" />
+                <button class="btn btn-primary" type="submit">{$lang->cmd_submit}</button>
                 <p></p>
             </div>
             <div class="help-block">

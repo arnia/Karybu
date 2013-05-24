@@ -102,7 +102,7 @@
 		<option value="browser_title" selected="selected"|cond="$search_target=='browser_title'">{$lang->browser_title}</option>
 	</select>
 	<input type="search" required name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
-	<button class="btn btn-inverse" type="submit">{$lang->cmd_search}</button>
+	<button type="submit" class="btn btn-inverse">{$lang->cmd_search}</button>
 	<a class="btn" href="{getUrl('', 'module', $module, 'act', $act)}">{$lang->cmd_cancel}</a>
 </form>
 

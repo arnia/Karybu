@@ -49,8 +49,8 @@
             <button class="btn" type="button" onclick="doCancelDeclare();">{$lang->cmd_cancel_declare}</button>
             <a class="btn" href="javascript:XE.checkboxToggleAll({ checked:true })">{$lang->cmd_select_all}</a>
             <a class="btn" href="javascript:XE.checkboxToggleAll()">{$lang->cmd_reverse_all}</a>
-            <input class="btn" type="submit" value="{$lang->cmd_delete_checked_comment}" onclick="this.form.is_trash.value=false" />
-            <input class="btn" type="submit" name="trash" value="{$lang->cmd_trash}" onclick="this.form.is_trash.value=true" />
+            <button class="btn" type="submit" onclick="this.form.is_trash.value=false">{$lang->cmd_delete_checked_comment}</button>
+            <button class="btn" type="submit" name="trash" onclick="this.form.is_trash.value=true">{$lang->cmd_trash}</button>
         </div>
     </form>
 </fieldset>
