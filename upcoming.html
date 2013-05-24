@@ -2,6 +2,31 @@
 title: Homepage
 layout: homepage
 ---
+<script>
+    $(document).ready(function() {
+        $('#sns').delay(800).fadeIn(400);
+    });
+</script>
+
+<!-- facebook script -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- google plus script -->
+<script type="text/javascript">
+    (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>
+<!-- twitter script -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
 <div class="jumbotron">
     <div class="container">
@@ -19,8 +44,21 @@ layout: homepage
         </div>
     </div>
 </div>
+<div class="SNS_buttons">
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span4"></div>
+            <div class="span8" id="sns"><iframe src="http://ghbtns.com/github-btn.html?user=arnia&repo=karybu&type=watch&count=true"
+                                       allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+                <div class="fb-like" data-href="http://www.facebook.com/karybuCMS" data-send="false" data-layout="button_count" data-width="100" data-show-faces="true"></div>
+                <div class="g-plusone" data-size="medium" data-href="https://plus.google.com/b/114442128765065666877/114442128765065666877/"></div>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-via="karybuCMS">Tweet</a></div>
+        </div>
 
+    </div>
+</div>
 <div class="container">
+
     <div class="marketing">
     <div class="row-fluid">
         <div class="span6">
