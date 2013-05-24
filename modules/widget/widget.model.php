@@ -117,7 +117,9 @@
             if(!$widget_path) return;
             // Read the xml file for module skin information
             $xml_file = sprintf("%sconf/info.xml", $widget_path);
-            if(!file_exists($xml_file)) return;
+            if(!file_exists($xml_file)) {
+                return;
+            }
             // If the problem by comparing the cache file and include the return variable $widget_info
             $cache_file = sprintf('./files/cache/widget/%s.%s.cache.php', $widget, Context::getLangType());
 
@@ -172,8 +174,12 @@
 
                 // history
                 if($xml_obj->history) {
-                    if(!is_array($xml_obj->history)) $history_list[] = $xml_obj->history;
-                    else $history_list = $xml_obj->history;
+                    if(!is_array($xml_obj->history)) {
+                        $history_list[] = $xml_obj->history;
+                    }
+                    else {
+                        $history_list = $xml_obj->history;
+                    }
 
                     for($i=0; $i < count($history_list); $i++) {
                         sscanf($history_list[$i]->attrs->date, '%d-%d-%d', $date_obj->y, $date_obj->m, $date_obj->d);
@@ -250,7 +256,7 @@
                         $buff .= sprintf('$widget_info->extra_var->%s->group = "%s";', $id, isset($group->title->body) ? $group->title->body : '');
                         $buff .= sprintf('$widget_info->extra_var->%s->name = "%s";', $id, $name);
                         $buff .= sprintf('$widget_info->extra_var->%s->type = "%s";', $id, $type);
-                        $buff .= sprintf('$widget_info->extra_var->%s->value = $vars->%s;', $id, $id);
+                        //$buff .= sprintf('$widget_info->extra_var->%s->value = $vars->%s;', $id, $id);
                         $buff .= sprintf('$widget_info->extra_var->%s->description = "%s";', $id, isset($var->description->body) ? str_replace('"','\"',$var->description->body) : '');
 
                         $options = $var->options;
