@@ -8,13 +8,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
+            {% if page.title == 'Homepage' %}
+            <a class="brand" href="index.html"><img src="assets/img/karybu-name.png" alt="Karybu"/></a>
+            {% else %}
+            <a class="brand" href="index.html"><img src="assets/img/karybu.png" alt="Karybu"/></a>
+            {% endif %}
 
-            <a class="brand" href="upcoming.html"><img src="assets/img/karybu.png" alt="Karybu"/></a>
+
             <div class="nav-collapse collapse">
                 <ul class="nav pull-right">
                     <li
                     {% if page.title == 'Homepage' %} class="active" {% endif %}><a
-                        href="upcoming.html">Home</a></li>
+                        href="index.html">Home</a></li>
                     <li
                     {% if page.title == 'Getting started' %} class="active" {% endif %}><a
                         href="getting-started.html">Get
