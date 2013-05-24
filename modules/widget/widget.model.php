@@ -62,14 +62,16 @@
                 $widget = $searched_list[$i];
                 // Wanted information on the Widget
                 $widget_info = $this->getWidgetInfo($widget);
-
+                if (!is_object($widget_info)) {
+                    $widget_info = new stdClass();
+                }
 				// get easyinstall remove url
 				$packageSrl = $oAutoinstallModel->getPackageSrlByPath($widget_info->path);
 				$widget_info->remove_url = $oAutoinstallModel->getRemoveUrlByPackageSrl($packageSrl);
 
 				// get easyinstall need update
 				$package = $oAutoinstallModel->getInstalledPackages($packageSrl);
-				$widget_info->need_update = $package[$packageSrl]->need_update;
+				$widget_info->need_update = isset($package[$packageSrl]->need_update) ? $package[$packageSrl]->need_update : null;
 
 				// get easyinstall update url
 				if ($widget_info->need_update == 'Y')
@@ -134,27 +136,38 @@
 
             if($xml_obj->version && $xml_obj->attrs->version == '0.2') {
                 // Title of the widget, version
+                $buff .= sprintf('$widget_info = new stdClass();', $widget);
                 $buff .= sprintf('$widget_info->widget = "%s";', $widget);
                 $buff .= sprintf('$widget_info->path = "%s";', $widget_path);
                 $buff .= sprintf('$widget_info->title = "%s";', $xml_obj->title->body);
                 $buff .= sprintf('$widget_info->description = "%s";', $xml_obj->description->body);
                 $buff .= sprintf('$widget_info->version = "%s";', $xml_obj->version->body);
-                sscanf($xml_obj->date->body, '%d-%d-%d', $date_obj->y, $date_obj->m, $date_obj->d);
-                $date = sprintf('%04d%02d%02d', $date_obj->y, $date_obj->m, $date_obj->d);
+                if (isset($xml_obj->date->body)) {
+                    list($y, $m, $d) = sscanf($xml_obj->date->body, '%d-%d-%d');
+                    $date = sprintf('%04d%02d%02d', $y, $m, $d);
+                }
+                else {
+                    $date = '';
+                }
                 $buff .= sprintf('$widget_info->date = "%s";', $date);
-                $buff .= sprintf('$widget_info->homepage = "%s";', $xml_obj->link->body);
-                $buff .= sprintf('$widget_info->license = "%s";', $xml_obj->license->body);
-                $buff .= sprintf('$widget_info->license_link = "%s";', $xml_obj->license->attrs->link);
-                $buff .= sprintf('$widget_info->widget_srl = $widget_srl;');
-                $buff .= sprintf('$widget_info->widget_title = $widget_title;');
+                $buff .= sprintf('$widget_info->homepage = "%s";', isset($xml_obj->link->body) ? $xml_obj->link->body : '');
+                $buff .= sprintf('$widget_info->license = "%s";', isset($xml_obj->license->body) ? $xml_obj->license->body : '');
+                $buff .= sprintf('$widget_info->license_link = "%s";', isset($xml_obj->license->attrs->link) ? $xml_obj->license->attrs->link : '');
                 // Author information
-                if(!is_array($xml_obj->author)) $author_list[] = $xml_obj->author;
-                else $author_list = $xml_obj->author;
-
-                for($i=0; $i < count($author_list); $i++) {
-                    $buff .= sprintf('$widget_info->author['.$i.']->name = "%s";', $author_list[$i]->name->body);
-                    $buff .= sprintf('$widget_info->author['.$i.']->email_address = "%s";', $author_list[$i]->attrs->email_address);
-                    $buff .= sprintf('$widget_info->author['.$i.']->homepage = "%s";', $author_list[$i]->attrs->link);
+                if (isset($xml_obj->author)) {
+                    if(!is_array($xml_obj->author)) {
+                        $author_list[] = $xml_obj->author;
+                    }
+                    else {
+                        $author_list = $xml_obj->author;
+                    }
+                    $buff .= sprintf('$widget_info->author = array();');
+                    for($i=0; $i < count($author_list); $i++) {
+                        $buff .= sprintf('$widget_info->author['.$i.'] = new stdClass();');
+                        $buff .= sprintf('$widget_info->author['.$i.']->name = "%s";', $author_list[$i]->name->body);
+                        $buff .= sprintf('$widget_info->author['.$i.']->email_address = "%s";', $author_list[$i]->attrs->email_address);
+                        $buff .= sprintf('$widget_info->author['.$i.']->homepage = "%s";', $author_list[$i]->attrs->link);
+                    }
                 }
 
                 // history
@@ -200,8 +213,6 @@
                 sscanf($xml_obj->author->attrs->date, '%d. %d. %d', $date_obj->y, $date_obj->m, $date_obj->d);
                 $date = sprintf('%04d%02d%02d', $date_obj->y, $date_obj->m, $date_obj->d);
                 $buff .= sprintf('$widget_info->date = "%s";', $date);
-                $buff .= sprintf('$widget_info->widget_srl = $widget_srl;');
-                $buff .= sprintf('$widget_info->widget_title = $widget_title;');
                 // Author information
                 $buff .= sprintf('$widget_info->author[0]->name = "%s";', $xml_obj->author->name->body);
                 $buff .= sprintf('$widget_info->author[0]->email_address = "%s";', $xml_obj->author->attrs->email_address);
@@ -219,22 +230,28 @@
                     $extra_var_count = count($extra_vars);
 
                     $buff .= sprintf('$widget_info->extra_var_count = "%s";', $extra_var_count);
+                    $buff .= sprintf('$widget_info->extra_var = new stdClass();');
                     for($i=0;$i<$extra_var_count;$i++) {
                         unset($var);
                         unset($options);
                         $var = $extra_vars[$i];
 
-                        $id = $var->attrs->id?$var->attrs->id:$var->attrs->name;
-                        $name = $var->name->body?$var->name->body:$var->title->body;
-                        $type = $var->attrs->type?$var->attrs->type:$var->type->body;
-                        if($type =='filebox') $buff .= sprintf('$widget_info->extra_var->%s->filter = "%s";', $id, $var->type->attrs->filter);
-                        if($type =='filebox') $buff .= sprintf('$widget_info->extra_var->%s->allow_multiple = "%s";', $id, $var->type->attrs->allow_multiple);
+                        $id = !empty($var->attrs->id) ? $var->attrs->id : $var->attrs->name;
+                        $name = !empty($var->name->body)? $var->name->body : $var->title->body;
+                        $type = !empty($var->attrs->type) ? $var->attrs->type : $var->type->body;
+                        $buff .= sprintf('$widget_info->extra_var->%s = new stdClass();', $id);
+                        if($type =='filebox') {
+                            $buff .= sprintf('$widget_info->extra_var->%s->filter = "%s";', $id, $var->type->attrs->filter);
+                        }
+                        if($type =='filebox') {
+                            $buff .= sprintf('$widget_info->extra_var->%s->allow_multiple = "%s";', $id, $var->type->attrs->allow_multiple);
+                        }
 
-                        $buff .= sprintf('$widget_info->extra_var->%s->group = "%s";', $id, $group->title->body);
+                        $buff .= sprintf('$widget_info->extra_var->%s->group = "%s";', $id, isset($group->title->body) ? $group->title->body : '');
                         $buff .= sprintf('$widget_info->extra_var->%s->name = "%s";', $id, $name);
                         $buff .= sprintf('$widget_info->extra_var->%s->type = "%s";', $id, $type);
                         $buff .= sprintf('$widget_info->extra_var->%s->value = $vars->%s;', $id, $id);
-                        $buff .= sprintf('$widget_info->extra_var->%s->description = "%s";', $id, str_replace('"','\"',$var->description->body));
+                        $buff .= sprintf('$widget_info->extra_var->%s->description = "%s";', $id, isset($var->description->body) ? str_replace('"','\"',$var->description->body) : '');
 
                         $options = $var->options;
                         if(!$options) continue;
