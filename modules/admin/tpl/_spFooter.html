@@ -25,6 +25,7 @@ jQuery(function($){
     $(document).ready(function(){
         $("#kMenuButton").click(function () {
             $("#kMobileMenu").toggle('fast');
+            $("#kSidebar").toggleClass("kSidebarOpen");
         });
         $(".kNumbers").fitText(.35, { minFontSize: '15px', maxFontSize: '48px' });
     });
