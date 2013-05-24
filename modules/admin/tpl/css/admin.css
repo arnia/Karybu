@@ -2216,3 +2216,6 @@ button:focus {
     position: relative;
     margin-left: -600px;
 }
+
+table.table {
+}
