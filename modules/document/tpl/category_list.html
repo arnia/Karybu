@@ -10,17 +10,18 @@
     var category_title = "{$lang->category}";
 </script>
 
-
 <div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
+
 <form ruleset="insertCategory" id="fo_category" action="./" method="post">
-<input type="hidden" name="module" value="document" />
-<input type="hidden" name="act" value="procDocumentInsertCategory" />
-<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
-<input type="hidden" name="xml_file" value="{$category_xml_file}" />
-<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
+    <input type="hidden" name="module" value="document" />
+    <input type="hidden" name="act" value="procDocumentInsertCategory" />
+    <input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+    <input type="hidden" name="xml_file" value="{$category_xml_file}" />
+    <input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
+
 	<div id="category_info" class="x" style="position:absolute"></div>
 </form>
 <div id="menu">
@@ -29,6 +30,7 @@
 	</ul>
 </div>
 <span style="float:right"><a href="#"  onclick="doReloadTreeCategory('{$module_info->module_srl}');return false;" class="button black"><span>{$lang->cmd_remake_cache}</span></a></span>
+
 <script type="text/javascript">
     var simpleTreeCollection;
     var max_menu_depth = 999;

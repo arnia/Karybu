@@ -29,7 +29,7 @@
      */
     function kActionsNav() {}
     kActionsNav.initializeScrollbar = function() {
-        if(isSmallScreen()) {
+        if(isSmallScreen() && isPortrait()) {
             kActionsNav.initializeHorizontalScrollbar();
         } else {
             kActionsNav.initializeVerticalScrollbar();
@@ -142,23 +142,28 @@
      * Generic functions
      */
     function getDashboardContentHeight() {
+        var windowHeight = $(window).height();
+        var heightOfPageTitle = 60;
+        var heightOfAdminMainNav = 40;
 
-        if ($('.main-nav').length > 0) {
-            if (parseInt($(window).width()) <= 767) {
-                return Math.floor(($(window).height() - 160))
-            }
-            else{
-                return Math.floor(($(window).height() - 100))
-            }
+        var heightOfSidebarNavigationWhenMobile = 60;
+        var heightOfActionsNavigationWhenMobile = 60;
+
+        var occupiedHeight = 0;
+
+        if(hasNav()) {
+            occupiedHeight += heightOfAdminMainNav;
         }
-        else {
-            if (parseInt($(window).width()) <= 767) {
-                return Math.floor(($(window).height() - 120))
-            }
-            else{
-                    return Math.floor(($(window).height() - 60))
-                }
+
+        if(isSmallScreen() && isPortrait()) {
+            occupiedHeight += heightOfSidebarNavigationWhenMobile + heightOfActionsNavigationWhenMobile;
+        } else if(isSmallScreen() && !isPortrait()) {
+            occupiedHeight += 0;
+        } else {
+            occupiedHeight += heightOfPageTitle;
         }
+
+        return Math.floor(windowHeight - occupiedHeight);
     }
 
     function hasNav()
@@ -171,6 +176,12 @@
     {
         return parseInt($(window).width()) <= 767;
     }
+
+    function isPortrait()
+    {
+        return $("body").hasClass("portrait");
+    }
+
 
     function initializeScreenResolution()
     {
@@ -217,7 +228,7 @@
 
             kAdminContentArea.updateHeight();
 
-            if (isSmallScreen()) {
+            if (isSmallScreen() && isPortrait()) {
                 kActionsNav.makeHorizontal();
             }
             else{
