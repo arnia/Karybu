@@ -1095,12 +1095,12 @@ form .controls textarea ~ span
         background-position: -170px -10px;
     }
 
-    .portrait .big-icon-preview {
+    .portrait a.big-icon-preview {
         height: 60px !important;
     }
 
     .portrait .big-icon-preview {
-        background-position: 0 0;
+        background-position:-10px -10px;
         -webkit-box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
         box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
         border-right: 1px solid rgba(255, 255, 255, 0.1);
@@ -1115,6 +1115,14 @@ form .controls textarea ~ span
     .portrait .kSidebar > div.mCustomScrollBox {
         overflow: visible !important;
     }
+
+     .toggle-sidebar {
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+
 }
 
 .chart-tooltip {
@@ -2177,6 +2185,13 @@ table th[scope=row] {
 }
 
 
+.portrait .dropdown-menu.pull-right {
+    z-index: 999999999999999!important;
+    position: absolute;
+
+}
+
+
 /* FIREFOX RESETS */
 
 button:active,
@@ -2189,3 +2204,15 @@ button:focus {
 
 /* FIREFOX RESETS END */
 
+
+.portrait .dropdown.open {
+    overflow: visible;
+    z-index: 9999999999999999999;
+
+}
+
+.portrait .dropdown.open>ul {
+    z-index: 999999999999999999;
+    position: relative;
+    margin-left: -600px;
+}
