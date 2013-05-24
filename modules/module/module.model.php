@@ -2141,8 +2141,8 @@ class moduleModel extends module
         $oModuleModel = & getModel('module');
         $args = new stdClass();
         $args->page = Context::get('page');
-        $args->list_count = 5;
-        $args->page_count = 5;
+        $args->list_count = 6;
+        $args->page_count = 6;
         $output = executeQuery('module.getModuleFileBoxList', $args);
         $output = $oModuleModel->unserializeAttributes($output);
         return $output;
@@ -2187,7 +2187,12 @@ class moduleModel extends module
         if ($selected_widget) {
             $widget_info = $oWidgetModel->getWidgetInfo($selected_widget);
         }
-        Context::set('allow_multiple', $widget_info->extra_var->images->allow_multiple);
+        if (isset($widget_info->extra_var->images->allow_multiple)) {
+            Context::set('allow_multiple', $widget_info->extra_var->images->allow_multiple);
+        }
+        else {
+            Context::set('allow_multiple', null);
+        }
 
         $oModuleModel = & getModel('module');
         $output = $oModuleModel->getModuleFileBoxList();

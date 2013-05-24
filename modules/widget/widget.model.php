@@ -225,57 +225,67 @@
                 $buff .= sprintf('$widget_info->author[0]->homepage = "%s";', $xml_obj->author->attrs->link);
             }
             // Extra vars (user defined variables to use in a template)
-            $extra_var_groups = $xml_obj->extra_vars->group;
-            if(!$extra_var_groups) $extra_var_groups = $xml_obj->extra_vars;
-            if(!is_array($extra_var_groups)) $extra_var_groups = array($extra_var_groups);
+            $extra_var_groups = isset($xml_obj->extra_vars->group) ? $xml_obj->extra_vars->group : null;
+            if(!$extra_var_groups) {
+                $extra_var_groups = $xml_obj->extra_vars;
+            }
+            if(!is_array($extra_var_groups)) {
+                $extra_var_groups = array($extra_var_groups);
+            }
             foreach($extra_var_groups as $group){
-                $extra_vars = $group->var;
-                if(!is_array($group->var)) $extra_vars = array($group->var);
+                $extra_vars = isset($group->var) ? $group->var : null;
+                if ($extra_vars) {
+                    if(!is_array($group->var)) {
+                        $extra_vars = array($group->var);
+                    }
 
-                if($extra_vars[0]->attrs->id || $extra_vars[0]->attrs->name) {
-                    $extra_var_count = count($extra_vars);
+                    if($extra_vars[0]->attrs->id || $extra_vars[0]->attrs->name) {
+                        $extra_var_count = count($extra_vars);
 
-                    $buff .= sprintf('$widget_info->extra_var_count = "%s";', $extra_var_count);
-                    $buff .= sprintf('$widget_info->extra_var = new stdClass();');
-                    for($i=0;$i<$extra_var_count;$i++) {
-                        unset($var);
-                        unset($options);
-                        $var = $extra_vars[$i];
+                        $buff .= sprintf('$widget_info->extra_var_count = "%s";', $extra_var_count);
+                        $buff .= sprintf('$widget_info->extra_var = new stdClass();');
+                        for($i=0;$i<$extra_var_count;$i++) {
+                            unset($var);
+                            unset($options);
+                            $var = $extra_vars[$i];
 
-                        $id = !empty($var->attrs->id) ? $var->attrs->id : $var->attrs->name;
-                        $name = !empty($var->name->body)? $var->name->body : $var->title->body;
-                        $type = !empty($var->attrs->type) ? $var->attrs->type : $var->type->body;
-                        $buff .= sprintf('$widget_info->extra_var->%s = new stdClass();', $id);
-                        if($type =='filebox') {
-                            $buff .= sprintf('$widget_info->extra_var->%s->filter = "%s";', $id, $var->type->attrs->filter);
-                        }
-                        if($type =='filebox') {
-                            $buff .= sprintf('$widget_info->extra_var->%s->allow_multiple = "%s";', $id, $var->type->attrs->allow_multiple);
-                        }
-
-                        $buff .= sprintf('$widget_info->extra_var->%s->group = "%s";', $id, isset($group->title->body) ? $group->title->body : '');
-                        $buff .= sprintf('$widget_info->extra_var->%s->name = "%s";', $id, $name);
-                        $buff .= sprintf('$widget_info->extra_var->%s->type = "%s";', $id, $type);
-                        //$buff .= sprintf('$widget_info->extra_var->%s->value = $vars->%s;', $id, $id);
-                        $buff .= sprintf('$widget_info->extra_var->%s->description = "%s";', $id, isset($var->description->body) ? str_replace('"','\"',$var->description->body) : '');
-
-                        $options = $var->options;
-                        if(!$options) continue;
-
-                        if(!is_array($options)) $options = array($options);
-                        $options_count = count($options);
-                        for($j=0;$j<$options_count;$j++) {
-                            $buff .= sprintf('$widget_info->extra_var->%s->options["%s"] = "%s";', $id, $options[$j]->value->body, $options[$j]->name->body);
-
-                            if($options[$j]->attrs->default && $options[$j]->attrs->default=='true'){
-                                $buff .= sprintf('$widget_info->extra_var->%s->default_options["%s"] = true;', $id, $options[$j]->value->body);
+                            $id = !empty($var->attrs->id) ? $var->attrs->id : $var->attrs->name;
+                            $name = !empty($var->name->body)? $var->name->body : $var->title->body;
+                            $type = !empty($var->attrs->type) ? $var->attrs->type : $var->type->body;
+                            $buff .= sprintf('$widget_info->extra_var->%s = new stdClass();', $id);
+                            if($type =='filebox') {
+                                $buff .= sprintf('$widget_info->extra_var->%s->filter = "%s";', $id, $var->type->attrs->filter);
+                            }
+                            if($type =='filebox') {
+                                $buff .= sprintf('$widget_info->extra_var->%s->allow_multiple = "%s";', $id, $var->type->attrs->allow_multiple);
                             }
 
-                            if($options[$j]->attrs->init && $options[$j]->attrs->init=='true'){
-                                $buff .= sprintf('$widget_info->extra_var->%s->init_options["%s"] = true;', $id, $options[$j]->value->body);
-                            }
-                        }
+                            $buff .= sprintf('$widget_info->extra_var->%s->group = "%s";', $id, isset($group->title->body) ? $group->title->body : '');
+                            $buff .= sprintf('$widget_info->extra_var->%s->name = "%s";', $id, $name);
+                            $buff .= sprintf('$widget_info->extra_var->%s->type = "%s";', $id, $type);
+                            //$buff .= sprintf('$widget_info->extra_var->%s->value = $vars->%s;', $id, $id);
+                            $buff .= sprintf('$widget_info->extra_var->%s->description = "%s";', $id, isset($var->description->body) ? str_replace('"','\"',$var->description->body) : '');
 
+                            $options = $var->options;
+                            if(!$options) continue;
+
+                            if(!is_array($options)) $options = array($options);
+                            $options_count = count($options);
+                            for($j=0;$j<$options_count;$j++) {
+                                if (isset($options[$j]->value->body)) {
+                                    $buff .= sprintf('$widget_info->extra_var->%s->options["%s"] = "%s";', $id, $options[$j]->value->body, isset($options[$j]->name->body) ? $options[$j]->name->body : '');
+                                }
+
+                                if($options[$j]->attrs->default && $options[$j]->attrs->default=='true'){
+                                    $buff .= sprintf('$widget_info->extra_var->%s->default_options["%s"] = true;', $id, $options[$j]->value->body);
+                                }
+
+                                if($options[$j]->attrs->init && $options[$j]->attrs->init=='true'){
+                                    $buff .= sprintf('$widget_info->extra_var->%s->init_options["%s"] = true;', $id, $options[$j]->value->body);
+                                }
+                            }
+
+                        }
                     }
                 }
             }

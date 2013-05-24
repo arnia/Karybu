@@ -623,4 +623,11 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="jp"><![CDATA[インストールされたウィジェット]]></value>
 		<value xml:lang="zh-TW"><![CDATA[已安裝的 Widget]]></value>
 	</item>
+    <item name="upload_new_file">
+        <value xml:lang="en"><![CDATA[Upload new file]]></value>
+    </item>
+    <item name="select_uploaded_file">
+        <value xml:lang="en"><![CDATA[Select an already uploaded file]]></value>
+    </item>
+
 </lang>

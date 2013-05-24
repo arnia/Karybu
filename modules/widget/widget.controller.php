@@ -34,14 +34,18 @@ class widgetController extends widget
         $path = sprintf('./widgets/%s/', $widget);
         $oModuleModel = & getModel('module');
         $skin_info = $oModuleModel->loadSkinInfo($path, $skin);
-
-        for ($i = 0; $i < count($skin_info->colorset); $i++) {
-            $colorset = sprintf('%s|@|%s', $skin_info->colorset[$i]->name, $skin_info->colorset[$i]->title);
-            $colorset_list[] = $colorset;
+        if (isset($skin_info->colorset)) {
+            for ($i = 0; $i < count($skin_info->colorset); $i++) {
+                $colorset = sprintf('%s|@|%s', $skin_info->colorset[$i]->name, $skin_info->colorset[$i]->title);
+                $colorset_list[] = $colorset;
+            }
         }
 
-        if (count($colorset_list)) {
+        if (isset($colorset_list) && count($colorset_list)) {
             $colorsets = implode("\n", $colorset_list);
+        }
+        if (!isset($colorsets)) {
+            $colorsets = null;
         }
         $this->add('colorset_list', $colorsets);
     }
@@ -883,19 +887,22 @@ class widgetController extends widget
         $oWidgetModel = & getModel('widget');
         $widget_info = $oWidgetModel->getWidgetInfo($widget);
 
-        $widget = $vars->selected_widget;
-        $vars->widgetstyle = $request_vars->widgetstyle;
+        $widget = isset($vars->selected_widget) ? $vars->selected_widget : null;
+        if (!is_object($vars)) {
+            $vars = new stdClass();
+        }
+        $vars->widgetstyle = isset($request_vars->widgetstyle) ? $request_vars->widgetstyle : null;
 
-        $vars->skin = trim($request_vars->skin);
-        $vars->colorset = trim($request_vars->colorset);
-        $vars->widget_sequence = (int)($request_vars->widget_sequence);
-        $vars->widget_cache = (int)($request_vars->widget_cache);
-        $vars->style = trim($request_vars->style);
-        $vars->widget_padding_left = trim($request_vars->widget_padding_left);
-        $vars->widget_padding_right = trim($request_vars->widget_padding_right);
-        $vars->widget_padding_top = trim($request_vars->widget_padding_top);
-        $vars->widget_padding_bottom = trim($request_vars->widget_padding_bottom);
-        $vars->document_srl = trim($request_vars->document_srl);
+        $vars->skin = isset($request_vars->skin) ? trim($request_vars->skin) : null;
+        $vars->colorset = isset($request_vars->colorset) ? trim($request_vars->colorset) : null;
+        $vars->widget_sequence = isset($request_vars->widget_sequence) ? (int)($request_vars->widget_sequence) : 0;
+        $vars->widget_cache = isset($request_vars->widget_cache) ? (int)($request_vars->widget_cache) : 0;
+        $vars->style = isset($request_vars->style) ? trim($request_vars->style) : null;
+        $vars->widget_padding_left = isset($request_vars->widget_padding_left) ? trim($request_vars->widget_padding_left) : '';
+        $vars->widget_padding_right = isset($request_vars->widget_padding_right) ? trim($request_vars->widget_padding_right) : '';
+        $vars->widget_padding_top = isset($request_vars->widget_padding_top) ? trim($request_vars->widget_padding_top) : '';
+        $vars->widget_padding_bottom = isset($request_vars->widget_padding_bottom) ? trim($request_vars->widget_padding_bottom) : '';
+        $vars->document_srl = isset($request_vars->document_srl) ? trim($request_vars->document_srl) : '';
 
 
         if (count($widget_info->extra_var)) {

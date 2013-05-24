@@ -1317,7 +1317,9 @@ jQuery(function($){
                         var page = $(this).attr('page');
 
                         $.exec_json('module.getFileBoxListHtml', {'page': page}, on_complete);
-                        $(window).scrollTop($(anchor).find('.modalClose').offset().top);
+                        if ($(anchor).find('.modalClose').length) {
+                            $(window).scrollTop($(anchor).find('.modalClose').offset().top);
+                        }
                         return false;
                     });
 
@@ -1327,7 +1329,9 @@ jQuery(function($){
                         var page = $(this).prev('input').val();
 
                         $.exec_json('module.getFileBoxListHtml', {'page': page}, on_complete);
-                        $(window).scrollTop($(anchor).find('.modalClose').offset().top);
+                        if ($(anchor).find('.modalClose').length) {
+                            $(window).scrollTop($(anchor).find('.modalClose').offset().top);
+                        }
                         return false;
                     });
             }

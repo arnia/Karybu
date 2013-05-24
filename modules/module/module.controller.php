@@ -832,7 +832,9 @@
          **/
         function procModuleFileBoxAdd(){
 			$ajax = Context::get('ajax');
-			if ($ajax) Context::setRequestMethod('JSON');
+			if ($ajax) {
+                Context::setRequestMethod('JSON');
+            }
 
             $logged_info = Context::get('logged_info');
             if($logged_info->is_admin !='Y' && !$logged_info->is_site_admin) return new Object(-1, 'msg_not_permitted');
@@ -878,7 +880,18 @@
 			}
 			else
 			{
-				$this->add('save_filename', $output->get('save_filename'));
+                $response = $output->get('save_filename');
+                //$values = json_decode($response);
+                //echo "<pre>"; print_r($response);exit;
+                $template = '<li style="position:relative;float:left">';
+                $template .= '<div class="thumbnail">';
+                $template .= '<a class="select" href="#"><img src="'.$response.'" class="filebox_item" style="max-height:150px"></a>';
+                $template .= '</div>';
+                $template .= '</li>';
+                $tmp = "<script>parent.document.getElementById('thumbnails').innerHTML += '".$template."';</script>";
+				//$this->add('save_filename', $output->get('save_filename'));
+                echo $tmp;exit;
+                $this->add('save_filename', $tmp);
 			}
         }
 

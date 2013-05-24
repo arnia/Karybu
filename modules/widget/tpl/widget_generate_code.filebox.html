@@ -4,14 +4,15 @@
             <h2>FileBox</h2>
         </div>
         <div class="modal-body">
-			<h3>Select an already uploaded file</h3>
+			<h3>{$lang->select_uploaded_file}</h3>
 			<div class="filebox_list"></div>
 
-			<h3>Upload new file</h3>
-			<form id="filebox_upload" class="form" action="./" method="post" enctype="multipart/form-data">
+			<h3>{$lang->upload_new_file}</h3>
+			<form id="filebox_upload" class="form" action="./" method="post" enctype="multipart/form-data" target="iframeSave">
                 <input type="hidden" name="module" value="module" />
                 <input type="hidden" name="act" value="procModuleFileBoxAdd" />
                 <input type="hidden" name="ajax" value="true" />
+                <input type="hidden" name="success_return_url" value=""/>
 
 				<table class="table" id="attributes">
 					<tr>
@@ -35,6 +36,7 @@
 					<button type="submit" class="btn btn-primary">{$lang->cmd_submit}</button>
 				</div>
 			</form>
+            <iframe name="iframeSave"></iframe>
         </div>
         <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -90,7 +92,7 @@
 			var rowCount = table.rows.length;
 			var sw = 0;
 			for(i=0;i<rowCount-2;i++){
-				if(table.rows[i].cells[0].children[1].id == text) {
+				if(table.rows[i].cells[0].children[0].id == text) {
 					table.deleteRow(i);
 					sw = 1;
 				}
