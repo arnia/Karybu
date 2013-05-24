@@ -1,3 +1,7 @@
+html, body {
+    height: 100%;
+}
+
 body {
 
     background: #eee;
@@ -64,8 +68,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Supporting marketing content */
 .marketing {
-    padding: 40px 40px;
-    background: #e5e5e5;
+    padding: 40px 0;
+    
     color: #333333;
     text-shadow: 0px 1px 0px #ffffff;
     border-radius: 0 0 10px 10px;
@@ -124,6 +128,10 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 50px;
 }
 
+.navbar-inverse .nav .active>a, .navbar-inverse .nav .active>a:hover, .navbar-inverse .nav .active>a:focus {
+    color: #fff;
+    background-color: #79ad36;
+}
 
 /* BUTTONS */
 .btn {
@@ -367,7 +375,10 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 /* Footer */
 
 .footer {
-    padding: 40px;
+    padding: 30px 0;
+    color: #444;
+    background: rgba(0,0,0,0.10);
+    border-top: #bbb solid 1px;
 }
 
 
@@ -506,8 +517,52 @@ a.forkme {
     height: 149px;
     background: url("../img/forkme_right_bottom_red.png") 100% 100% no-repeat;
     bottom: 0px;
-    right: 0px
+    right: 0px;
+    z-index: 2;
 }
 
+/* SNS */
+
+.SNS_buttons {
+
+    background: rgba(0,0,0,0.10);
+    height: 0px;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-wrap: none;
+    text-align:center ;
+    border-bottom: #bbb solid 1px;
+    padding: 12px 0 0;
+    height: 32px;
+
+
+}
+
+
+.SNS_buttons .fb-like {
+    margin-right: 40px;
+}
+
+#sns {
+    display: none;
+}
+
+#wrap {
+    min-height: 100%;
+}
+
+#main {
+    padding-bottom:150px; /* this needs to be bigger than footer height*/
+}
+
+.footer {
+    position: relative;
+    margin-top: -80px; /* negative value of footer height */
+    height: 20px;
+    clear:both;
+
+
+}
 
 
