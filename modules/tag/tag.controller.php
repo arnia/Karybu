@@ -17,7 +17,7 @@
          * @brief , (Comma) to clean up the tags attached to the trigger
          **/
         function triggerArrangeTag(&$obj) {
-            if(!$obj->tags) {
+            if(empty($obj->tags)) {
                 return new Object();
             }
             // tags by variable

@@ -140,6 +140,7 @@
 
             $oDocumentModel = &getModel('document');
             $oDocumentController = &getController('document');
+            $obj = new stdClass();
             $obj->module_srl = $module_srl;
             $obj->list_count = 99999999;
             $output = $oDocumentModel->getDocumentList($obj);
@@ -164,7 +165,7 @@
             $this->add("module_srl", $module_info->module_srl);
             $this->add("page", Context::get('page'));
             $this->add("mid", $module_info->mid);
-            $this->setMessage($msg_code);
+            //$this->setMessage($msg_code);
         }
 
         /**

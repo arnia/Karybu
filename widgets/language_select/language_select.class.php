@@ -19,7 +19,7 @@
             $tpl_path = sprintf('%sskins/%s', $this->widget_path, $args->skin);
             $tpl_file = 'language_select';
 			
-			Context::set('colorset', $args->colorset);
+			Context::set('colorset', isset($args->colorset) ? $args->colorset : null);
 
             // Compile a template
             $oTemplate = &TemplateHandler::getInstance();

@@ -372,7 +372,7 @@ class ModuleObject extends Module
         $module_srl = Context::get('module_srl');
         if (!$module_info->mid && !is_array($module_srl) && preg_match('/^([0-9]+)$/', $module_srl)) {
             $request_module = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
-            if ($request_module->module_srl == $module_srl) {
+            if (isset($request_module->module_srl) && $request_module->module_srl == $module_srl) {
                 $grant = $oModuleModel->getGrant($request_module, $logged_info);
             }
         } else {
@@ -411,6 +411,9 @@ class ModuleObject extends Module
             }
         }
         // permission variable settings
+        if (!isset($grant)) {
+            $grant = null;
+        }
         $this->grant = $grant;
 
         Context::set('grant', $grant);

@@ -547,29 +547,30 @@ class editorModel extends editor
         // Get editor settings of the module
         $editor_config = $this->getEditorConfig($module_srl);
         // Configurations listed according to a type
+        $config = new stdClass();
         if ($type == 'document') {
-            $config->editor_skin = $editor_config->editor_skin;
-            $config->content_style = $editor_config->content_style;
-            $config->content_font = $editor_config->content_font;
-            $config->content_font_size = $editor_config->content_font_size;
-            $config->sel_editor_colorset = $editor_config->sel_editor_colorset;
-            $config->upload_file_grant = $editor_config->upload_file_grant;
-            $config->enable_default_component_grant = $editor_config->enable_default_component_grant;
-            $config->enable_component_grant = $editor_config->enable_component_grant;
-            $config->enable_html_grant = $editor_config->enable_html_grant;
-            $config->editor_height = $editor_config->editor_height;
-            $config->enable_autosave = $editor_config->enable_autosave;
+            $config->editor_skin = isset($editor_config->editor_skin) ? $editor_config->editor_skin : null;
+            $config->content_style = isset($editor_config->content_style) ? $editor_config->content_style : null;
+            $config->content_font = isset($editor_config->content_font) ? $editor_config->content_font : null;
+            $config->content_font_size = isset($editor_config->content_font_size) ? $editor_config->content_font_size : null;
+            $config->sel_editor_colorset = isset($editor_config->sel_editor_colorset) ? $editor_config->sel_editor_colorset : null;
+            $config->upload_file_grant = isset($editor_config->upload_file_grant) ? $editor_config->upload_file_grant : null;
+            $config->enable_default_component_grant = isset($editor_config->enable_default_component_grant) ? $editor_config->enable_default_component_grant : null;
+            $config->enable_component_grant = isset($editor_config->enable_component_grant) ? $editor_config->enable_component_grant : null;
+            $config->enable_html_grant = isset($editor_config->enable_html_grant) ? $editor_config->enable_html_grant : null;
+            $config->editor_height = isset($editor_config->editor_height) ? $editor_config->editor_height : null;
+            $config->enable_autosave = isset($editor_config->enable_autosave) ? $editor_config->enable_autosave : null;
         } else {
-            $config->editor_skin = $editor_config->comment_editor_skin;
-            $config->content_style = $editor_config->comment_content_style;
-            $config->content_font = $editor_config->content_font;
-            $config->content_font_size = $editor_config->content_font_size;
-            $config->sel_editor_colorset = $editor_config->sel_comment_editor_colorset;
-            $config->upload_file_grant = $editor_config->comment_upload_file_grant;
-            $config->enable_default_component_grant = $editor_config->enable_comment_default_component_grant;
-            $config->enable_component_grant = $editor_config->enable_comment_component_grant;
-            $config->enable_html_grant = $editor_config->enable_comment_html_grant;
-            $config->editor_height = $editor_config->comment_editor_height;
+            $config->editor_skin = isset($editor_config->comment_editor_skin) ? $editor_config->comment_editor_skin : null;
+            $config->content_style = isset($editor_config->comment_content_style) ? $editor_config->comment_content_style : null;
+            $config->content_font = isset($editor_config->content_font) ? $editor_config->content_font : null;
+            $config->content_font_size = isset($editor_config->content_font_size) ? $editor_config->content_font_size : null;
+            $config->sel_editor_colorset = isset($editor_config->sel_comment_editor_colorset) ? $editor_config->sel_comment_editor_colorset : null;
+            $config->upload_file_grant = isset($editor_config->comment_upload_file_grant) ? $editor_config->comment_upload_file_grant : null;
+            $config->enable_default_component_grant = isset($editor_config->enable_comment_default_component_grant) ? $editor_config->enable_comment_default_component_grant : null;
+            $config->enable_component_grant = isset($editor_config->enable_comment_component_grant) ? $editor_config->enable_comment_component_grant : null;
+            $config->enable_html_grant = isset($editor_config->enable_comment_html_grant) ? $editor_config->enable_comment_html_grant : null;
+            $config->editor_height = isset($editor_config->comment_editor_height) ? $editor_config->comment_editor_height : null;
             $config->enable_autosave = 'N';
         }
         // Check a group_list of the currently logged-in user for permission check
@@ -580,11 +581,12 @@ class editorModel extends editor
             $group_list = array();
         }
         // Pre-set option variables of editor
-        $option->skin = $config->editor_skin;
-        $option->content_style = $config->content_style;
-        $option->content_font = $config->content_font;
-        $option->content_font_size = $config->content_font_size;
-        $option->colorset = $config->sel_editor_colorset;
+        $option = new stdClass();
+        $option->skin = isset($config->editor_skin) ? $config->editor_skin : null;
+        $option->content_style = isset($config->content_style) ? $config->content_style : null;
+        $option->content_font = isset($config->content_font) ? $config->content_font : null;
+        $option->content_font_size = isset($config->content_font_size) ? $config->content_font_size : null;
+        $option->colorset = isset($config->sel_editor_colorset) ? $config->sel_editor_colorset : null;
         // Permission check for file upload
         $option->allow_fileupload = false;
         if (count($config->upload_file_grant)) {

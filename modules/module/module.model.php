@@ -1957,7 +1957,7 @@ class moduleModel extends module
     function getGrant($module_info, $member_info, $xml_info = '')
     {
         if (!$xml_info) {
-            $module = $module_info->module;
+            $module = isset($module_info->module) ? $module_info->module : null;
             $xml_info = $this->getModuleActionXml($module);
         }
         // Set variables to grant group permission
@@ -1985,7 +1985,7 @@ class moduleModel extends module
             $grant->access = true;
             if ($this->isSiteAdmin(
                 $member_info,
-                $module_info->site_srl
+                isset($module_info->site_srl) ? $module_info->site_srl : null
             )
             ) {
                 $grant->access = $grant->is_admin = $grant->manager = $grant->is_site_admin = true;

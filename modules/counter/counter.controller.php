@@ -146,6 +146,7 @@ class counterController extends counter
      **/
     function insertTodayStatus($regdate = 0, $site_srl = 0)
     {
+        $args = new stdClass();
         if ($regdate) {
             $args->regdate = $regdate;
         }

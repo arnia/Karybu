@@ -143,7 +143,7 @@ class widgetController extends widget
         $logged_info = Context::get('logged_info');
         $user_group = $logged_info->group_list;
         $is_admin = false;
-        if (count($user_group) && count($page_info->grants['manager'])) {
+        if (count($user_group) && isset($page_info->grants['manager']) && count($page_info->grants['manager'])) {
             $manager_group = $page_info->grants['manager'];
             foreach ($user_group as $group_srl => $group_info) {
                 if (in_array($group_srl, $manager_group)) {
@@ -160,7 +160,7 @@ class widgetController extends widget
         // Enter post
         $oDocumentModel = & getModel('document');
         $oDocumentController = & getController('document');
-
+        $obj = new stdClass();
         $obj->module_srl = $module_srl;
         $obj->content = $content;
         $obj->document_srl = $document_srl;
@@ -430,8 +430,8 @@ class widgetController extends widget
             $lang_type = Context::getLangType();
         }
         // widget, the cache number and cache values are set
-        $widget_sequence = $args->widget_sequence;
-        $widget_cache = $args->widget_cache;
+        $widget_sequence = isset($args->widget_sequence) ? $args->widget_sequence : null;
+        $widget_cache = isset($args->widget_cache) ? $args->widget_cache : null;
 
         /**
          * Even if the cache number and value of the cache and return it to extract data
@@ -551,10 +551,10 @@ class widgetController extends widget
         // Sometimes the wrong code, background-image: url (none) can be heard but none in this case, the request for the url so unconditionally Removed
         $style = preg_replace('/url\((.+)(\/?)none\)/is', '', $args->style);
         // Find a style statement that based on the internal margin dropping pre-change
-        $widget_padding_left = $args->widget_padding_left;
-        $widget_padding_right = $args->widget_padding_right;
-        $widget_padding_top = $args->widget_padding_top;
-        $widget_padding_bottom = $args->widget_padding_bottom;
+        $widget_padding_left = isset($args->widget_padding_left) ? $args->widget_padding_left : 0;
+        $widget_padding_right = isset($args->widget_padding_right) ? $args->widget_padding_right : 0;
+        $widget_padding_top = isset($args->widget_padding_top) ? $args->widget_padding_top : 0;
+        $widget_padding_bottom = isset($args->widget_padding_bottom) ? $args->widget_padding_bottom : 0;
         $inner_style = sprintf(
             "padding:%dpx %dpx %dpx %dpx !important; padding:none !important;",
             $widget_padding_top,
@@ -770,7 +770,7 @@ class widgetController extends widget
                             '<div class="widgetResize"></div>' .
                             '<div class="widgetResizeLeft"></div>' .
                             '<div class="widgetBorder">',
-                        $args->widgetstyle,
+                        isset($args->widgetstyle) ? $args->widgetstyle : '',
                         $style,
                         $widget_padding_top,
                         $widget_padding_right,
@@ -788,7 +788,7 @@ class widgetController extends widget
             }
         }
         // Compile the widget style.
-        if ($args->widgetstyle) {
+        if (isset($args->widgetstyle)) {
             $widget_content_body = $this->compileWidgetStyle(
                 $args->widgetstyle,
                 $widget,
@@ -905,13 +905,13 @@ class widgetController extends widget
         $vars->document_srl = isset($request_vars->document_srl) ? trim($request_vars->document_srl) : '';
 
 
-        if (count($widget_info->extra_var)) {
+        if (isset($widget_info->extra_var) && count($widget_info->extra_var)) {
             foreach ($widget_info->extra_var as $key => $val) {
-                $vars->{$key} = trim($request_vars->{$key});
+                $vars->{$key} = isset($request_vars->{$key}) ? trim($request_vars->{$key}) : null;
             }
         }
         // If the widget style
-        if ($request_vars->widgetstyle) {
+        if (!empty($request_vars->widgetstyle)) {
             $widgetStyle_info = $oWidgetModel->getWidgetStyleInfo($request_vars->widgetstyle);
             if (count($widgetStyle_info->extra_var)) {
                 foreach ($widgetStyle_info->extra_var as $key => $val) {

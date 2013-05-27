@@ -30,7 +30,7 @@
 			}
             // Set a path of the template skin (values of skin, colorset settings)
             $tpl_path = sprintf('%sskins/%s', $this->widget_path, $args->skin);
-            Context::set('colorset', $args->colorset);
+            Context::set('colorset', isset($args->colorset) ? $args->colorset  : null);
             // Specify a template file
             $tpl_file = 'counter_status';
             // Compile a template

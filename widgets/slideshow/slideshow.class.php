@@ -7,34 +7,27 @@
             $imgCations = array();
             $imgUrls = array();
             $imgSrcs = array();
+            for ($i = 1; $i<=5;$i++) {
+                $image = 'image'.$i;
+                $link = 'link'.$i;
+                $caption = 'caption'.$i;
+                if (isset($args->$image)) {
+                    array_push($imgSrcs, $args->$image);
+                    if (isset($args->$link)) {
+                        array_push($imgUrls, $args->$link);
+                    }
+                    else {
+                        array_push($imgUrls, null);
+                    }
+                    if (isset($args->$caption)) {
+                        array_push($imgCations, $args->$caption);
+                    }
+                    else {
+                        array_push($imgCations, null);
+                    }
+                }
+            }
 
-            if ($args->image1 != null) {
-                array_push($imgSrcs, $args->image1);
-            }
-            if ($args->image2 != null) {
-                array_push($imgSrcs, $args->image2);
-            }
-            if ($args->image3 != null) {
-                array_push($imgSrcs, $args->image3);
-            }
-            if ($args->image4 != null) {
-                array_push($imgSrcs, $args->image4);
-            }
-            if ($args->image5 != null) {
-                array_push($imgSrcs, $args->image5);
-            }
-
-            array_push($imgUrls, $args->link1);
-            array_push($imgUrls, $args->link2);
-            array_push($imgUrls, $args->link3);
-            array_push($imgUrls, $args->link4);
-            array_push($imgUrls, $args->link5);
-
-            array_push($imgCations, $args->caption1);
-            array_push($imgCations, $args->caption2);
-            array_push($imgCations, $args->caption3);
-            array_push($imgCations, $args->caption4);
-            array_push($imgCations, $args->caption5);
 
             Context::set('urls', $imgUrls);
             Context::set('Imgs', $imgSrcs);

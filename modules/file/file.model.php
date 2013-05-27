@@ -32,7 +32,7 @@
                 $attached_size = 0;
                 $tmp_files = $this->getFiles($upload_target_srl);
                 $file_count = count($tmp_files);
-
+                $files = array();
                 for($i=0;$i<$file_count;$i++) {
                     $file_info = $tmp_files[$i];
                     if(!$file_info->file_srl) continue;
