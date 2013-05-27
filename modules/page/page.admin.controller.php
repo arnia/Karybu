@@ -282,22 +282,26 @@
             $obj->is_notice = 'N';
 
             settype($obj->title, "string");
-            if($obj->title == '') $obj->title = cut_str(strip_tags($obj->content),20,'...');
-            //그래도 없으면 Untitled
-            if($obj->title == '') $obj->title = 'Untitled';
+            if($obj->title == '') {
+                $obj->title = cut_str(strip_tags($obj->content),20,'...');
+            }
+            //If still Untitled
+            if($obj->title == '') {
+                $obj->title = 'Untitled';
+            }
 
-            // document module의 model 객체 생성
+            // The model object is created document module
             $oDocumentModel = &getModel('document');
 
-            // document module의 controller 객체 생성
+            // The controller object is created document module
             $oDocumentController = &getController('document');
 
-            // 이미 존재하는 글인지 체크
-            $oDocument = $oDocumentModel->getDocument($obj->document_srl, true);
+            // Check for an existing article
+            $oDocument = $oDocumentModel->getDocument(isset($obj->document_srl) ? $obj->document_srl : null, true);
 
 			$bAnonymous = false;
 
-            // 이미 존재하는 경우 수정
+            // Modified if it already exists
             if($oDocument->isExists() && $oDocument->document_srl == $obj->document_srl) 
 			{
                 if($oDocument->variables["status"] == 'TEMP'){
@@ -321,7 +325,7 @@
                     $output = $oDocumentController->updateDocument($oDocument, $obj);
                     $msg_code = 'success_updated';
                 }
-            // 그렇지 않으면 신규 등록
+            // Otherwise, the new registration
             } 
 			else 
 			{
@@ -345,15 +349,15 @@
 				$output = $oModuleController->updateModule($this->module_info);
             }
 
-            // 오류 발생시 멈춤
+            // Stop if error occurs
             if(!$output->toBool()) return $output;
 
-            // 결과를 리턴
+            // Returns the result
             $this->add('mid', Context::get('mid'));
             $this->add('document_srl', $output->get('document_srl'));
 			$this->add('is_mobile', $obj->ismobile);
 
-            // 성공 메세지 등록
+            // Registration success message
             $this->setMessage($msg_code);
 		}
 

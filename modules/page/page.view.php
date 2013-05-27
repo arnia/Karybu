@@ -48,7 +48,7 @@ class pageView extends page
                     if (isset($this->module_info->page_caching_interval)) {
                         $this->interval = (int)($this->module_info->page_caching_interval);
                     }
-                    $this->path = $this->module_info->path;
+                    $this->path = isset($this->module_info->path) ? $this->module_info->path : null;
                     break;
                 }
             }
@@ -114,7 +114,7 @@ class pageView extends page
         $oDocumentModel = & getModel('document');
         $oDocument = $oDocumentModel->getDocument(0, true);
 
-        if ($this->module_info->document_srl) {
+        if (!empty($this->module_info->document_srl)) {
             $document_srl = $this->module_info->document_srl;
             $oDocument->setDocument($document_srl);
             Context::set('document_srl', $document_srl);
@@ -135,6 +135,7 @@ class pageView extends page
     function _getOutsideContent()
     {
         // check if it is http or internal file
+        $content = '';
         if ($this->path) {
             if (preg_match("/^([a-z]+):\/\//i", $this->path)) {
                 $content = $this->getHtmlPage(

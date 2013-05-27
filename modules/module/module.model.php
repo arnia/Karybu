@@ -2176,7 +2176,7 @@ class moduleModel extends module
             return new Object(-1, 'msg_not_permitted');
         }
         $link = parse_url($_SERVER["HTTP_REFERER"]);
-        $link_params = explode('&', $link['query']);
+        $link_params = isset($link['query']) ? explode('&', $link['query']) : array();
         foreach ($link_params as $param) {
             $param = explode("=", $param);
             if ($param[0] == 'selected_widget') {
@@ -2184,7 +2184,7 @@ class moduleModel extends module
             }
         }
         $oWidgetModel = & getModel('widget');
-        if ($selected_widget) {
+        if (!empty($selected_widget)) {
             $widget_info = $oWidgetModel->getWidgetInfo($selected_widget);
         }
         if (isset($widget_info->extra_var->images->allow_multiple)) {
@@ -2262,8 +2262,8 @@ class moduleModel extends module
         $keyword = Context::get('search_keyword');
 
         $requestVars = Context::getRequestVars();
-
-        $args->site_srl = (int)$requestVars->site_srl;
+        $args = new stdClass();
+        $args->site_srl = isset($requestVars->site_srl) ? (int)$requestVars->site_srl : 0;
         $args->page = 1; // /< Page
         $args->list_count = 100; // /< the number of posts to display on a single page
         $args->page_count = 5; // /< the number of pages that appear in the page navigation

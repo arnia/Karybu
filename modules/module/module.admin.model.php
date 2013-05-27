@@ -344,7 +344,9 @@
 		function getModuleAdminLangListByValue()
 		{
 			$args = Context::getRequestVars();
-			if(!$args->site_srl) $args->site_srl = 0;
+			if(empty($args->site_srl)) {
+                $args->site_srl = 0;
+            }
 
 			$langList = array();
 

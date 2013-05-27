@@ -17,6 +17,7 @@
          * @brief Add the module category
          **/
         function procModuleAdminInsertCategory() {
+            $args = new stdClass();
             $args->title = Context::get('title');
             $output = executeQuery('module.insertModuleCategory', $args);
             if(!$output->toBool()) return $output;
@@ -57,6 +58,7 @@
          * @brief Change the title of the module category
          **/
         function doUpdateModuleCategory() {
+            $args = new stdClass();
             $args->title = Context::get('title');
             $args->module_category_srl = Context::get('module_category_srl');
             return executeQuery('module.updateModuleCategory', $args);
@@ -66,6 +68,7 @@
          * @brief Delete the module category
          **/
         function doDeleteModuleCategory() {
+            $args = new stdClass();
             $args->module_category_srl = Context::get('module_category_srl');
             return executeQuery('module.deleteModuleCategory', $args);
         }
@@ -646,17 +649,23 @@
             $site_srl = Context::get('site_srl');
             $vid = Context::get('vid');
             // If there is no site keyword, use as information of the current virtual site
-            $args = null;
+            $args = new stdClass();
             $logged_info = Context::get('logged_info');
 			$site_module_info = Context::get('site_module_info');
 			if($site_keyword) $args->site_keyword = $site_keyword;
 
 			if(!$site_srl)
 			{
-				if($logged_info->is_admin == 'Y' && !$site_keyword && !$vid) $args->site_srl = 0;
-				else $args->site_srl = (int)$site_module_info->site_srl;
+				if($logged_info->is_admin == 'Y' && !$site_keyword && !$vid) {
+                    $args->site_srl = 0;
+                }
+				else {
+                    $args->site_srl = (int)$site_module_info->site_srl;
+                }
 			}
-			else $args->site_srl = $site_srl;
+			else {
+                $args->site_srl = $site_srl;
+            }
 
 			$args->sort_index1 = 'sites.domain';
 
@@ -672,7 +681,7 @@
 					// replace user defined lang.
 					$oModuleController->replaceDefinedLangCode($val->browser_title);
 
-                    $obj = null;
+                    $obj = new stdClass();
                     $obj->module_srl = $val->module_srl;
                     $obj->layout_srl = $val->layout_srl;
                     $obj->browser_title = $val->browser_title;

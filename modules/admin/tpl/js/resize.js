@@ -83,7 +83,8 @@
             scrollInertia:300,
             advanced:{
                 updateOnContentResize: true,
-                normalizeMouseWheelDelta: true
+                normalizeMouseWheelDelta: true,
+                autoScrollOnFocus: false
             }
         });
     }

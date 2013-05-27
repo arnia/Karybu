@@ -42,11 +42,19 @@
             // Set the level icon
             $config->level_icon = $args->level_icon;
             // Check if downloads are not allowed
-            if($args->disable_download == 'Y') $config->disable_download = 'Y';
-            else $config->disable_download = 'N';
+            if(isset($args->disable_download) && $args->disable_download == 'Y') {
+                $config->disable_download = 'Y';
+            }
+            else {
+                $config->disable_download = 'N';
+            }
             // Check if reading a document is not allowed
-            if($args->disable_read_document == 'Y') $config->disable_read_document = 'Y';
-            else $config->disable_read_document = 'N';
+            if(isset($args->disable_read_document) && $args->disable_read_document == 'Y') {
+                $config->disable_read_document = 'Y';
+            }
+            else {
+                $config->disable_read_document = 'N';
+            }
 
 			$oMemberModel = &getModel('member');
 			$group_list = $oMemberModel->getGroups();
@@ -58,12 +66,10 @@
 				if($group->is_admin == 'Y' || $group->is_default == 'Y') continue;
 
 				$group_srl = $group->group_srl;
-				if($args->{'point_group_'.$group_srl})
-				{
+				if(!empty($args->{'point_group_'.$group_srl})) {
 					$config->point_group[$group_srl] = $args->{'point_group_'.$group_srl};
 				}
-				else
-				{
+				else {
 					unset($config->point_group[$group_srl]);
 				}
 			}
@@ -76,7 +82,7 @@
                 $config->level_step[$i] = (int)$args->{$key};
             }
             // A function to calculate per-level points
-            $config->expression = $args->expression;
+            $config->expression = isset($args->expression) ? $args->expression : null;
             // Save
             $oModuleController = &getController('module');
             $oModuleController->insertModuleConfig('point', $config);
@@ -95,14 +101,16 @@
 
             foreach($args as $key => $val) {
                 preg_match("/^(insert_document|insert_comment|upload_file|download_file|read_document|voted|blamed)_([0-9]+)$/", $key, $matches);
-                if(!$matches[1]) continue;
+                if(empty($matches[1])) {
+                    continue;
+                }
                 $name = $matches[1];
                 $module_srl = $matches[2];
                 if(strlen($val)>0) $module_config[$module_srl][$name] = (int)$val;
             }
 
             $oModuleController = &getController('module');
-            if(count($module_config)) {
+            if(isset($module_config) && count($module_config)) {
                 foreach($module_config as $module_srl => $config) {
                     $oModuleController->insertModulePartConfig('point',$module_srl,$config);
                 }
@@ -214,8 +222,12 @@
 
             if($output->data) {
                 foreach($output->data as $key => $val) {
-                    if($module_config[$val->module_srl]['insert_document']) $insert_point = $module_config[$val->module_srl]['insert_document'];
-                    else $insert_point = $config->insert_document;
+                    if(!empty($module_config[$val->module_srl]['insert_document'])) {
+                        $insert_point = $module_config[$val->module_srl]['insert_document'];
+                    }
+                    else {
+                        $insert_point = $config->insert_document;
+                    }
 
                     if(!$val->member_srl) continue;
                     $point = $insert_point * $val->count;
@@ -285,13 +297,27 @@
                 $str = trim(fgets($f, 1024));
                 $idx ++;
                 if($idx > $position) {
-                    list($member_srl, $point) = explode(',',$str);
+                    $parts = explode(',',$str);
+                    if (isset($parts[0])) {
+                        $member_srl = $parts[0];
+                    }
+                    else {
+                        $member_srl = null;
+                    }
+                    if (isset($parts[1])) {
+                        $point = $parts[1];
+                    }
+                    else {
+                        $point = null;
+                    }
 
-                    $args = null;
+                    $args = new stdClass();
                     $args->member_srl = $member_srl;
                     $args->point = $point;
                     $output = executeQuery('point.insertPoint',$args);
-                    if($idx%5000==0) break;
+                    if($idx%5000==0) {
+                        break;
+                    }
                 }
             }
 

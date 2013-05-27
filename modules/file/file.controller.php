@@ -362,8 +362,10 @@
 		 * @return Object
          **/
         function triggerCheckAttached(&$obj) {
-            $document_srl = $obj->document_srl;
-            if(!$document_srl) return new Object();
+            $document_srl = isset($obj->document_srl) ? $obj->document_srl : null;
+            if(!$document_srl) {
+                return new Object();
+            }
             // Get numbers of attachments
             $oFileModel = &getModel('file');
             $obj->uploaded_count = $oFileModel->getFilesCount($document_srl);

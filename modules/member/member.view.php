@@ -197,13 +197,14 @@
             if($member_config->enable_join != 'Y') return $this->stop('msg_signup_disabled');
 
 			$oMemberAdminView = &getAdminView('member');
-			$formTags = $oMemberAdminView->_getMemberInputTag($member_info);
+			$formTags = $oMemberAdminView->_getMemberInputTag(isset($member_info) ? $member_info : null);
 			Context::set('formTags', $formTags);
 			
 			global $lang;
+            $identifierForm = new stdClass();
 			$identifierForm->title = $lang->{$member_config->identifier};
 			$identifierForm->name = $member_config->identifier;
-			$identifierForm->value = $member_info->{$member_config->identifier};
+			$identifierForm->value = isset($member_info->{$member_config->identifier}) ? $member_info->{$member_config->identifier} : null;
 			Context::set('identifierForm', $identifierForm);
 
 			$this->addExtraFormValidatorMessage();

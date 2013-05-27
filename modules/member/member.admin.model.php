@@ -237,7 +237,7 @@
          **/
         function getMemberAdminInsertJoinForm() {
 			$member_join_form_srl = Context::get('member_join_form_srl');
-
+            $args = new stdClass();
 			$args->member_join_form_srl = $member_join_form_srl;
 			$output = executeQuery('member.getJoinForm', $args);
 

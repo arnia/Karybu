@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skin version="0.2">
+    <title xml:lang="en">Mobile Content Widget Skin</title>
     <title xml:lang="ko">모바일 콘텐츠 위젯 스킨</title>
     <title xml:lang="zh-TW">內容預設面板</title>
     <title xml:lang="tr">Tercihler</title>
@@ -12,9 +13,11 @@
         <name xml:lang="ko">Arnia</name>
         <name xml:lang="zh-TW">Arnia</name>
         <name xml:lang="tr">Arnia</name>
+        <name xml:lang="en">Arnia</name>
     </author>
     <colorset>
         <color name="white">
+            <title xml:lang="en">White</title>
             <title xml:lang="ko">흰색 바탕용</title>
             <title xml:lang="zh-TW">白色</title>
             <title xml:lang="tr">Beyaz</title>

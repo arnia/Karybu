@@ -859,20 +859,20 @@ class editorModel extends editor
         } else {
             $output = executeQuery('editor.getComponent', $args);
         }
-        $component = $output->data;
+        $component = isset($output->data) ? $output->data : null;
 
-        $component_name = $component->component_name;
+        $component_name = isset($component->component_name) ? $component->component_name : null;
 
-        unset($xml_info);
+        $xml_info = new stdClass();
         $xml_info = $this->getComponentXmlInfo($component_name);
-        $xml_info->enabled = $component->enabled;
+        $xml_info->enabled = isset($component->enabled) ? $component->enabled : null;
 
         $xml_info->target_group = array();
 
         $xml_info->mid_list = array();
 
-        if ($component->extra_vars) {
-            $extra_vars = unserialize($component->extra_vars);
+        if (!empty($component->extra_vars)) {
+            $extra_vars = @unserialize($component->extra_vars);
 
             if ($extra_vars->target_group) {
                 $xml_info->target_group = $extra_vars->target_group;
@@ -915,7 +915,7 @@ class editorModel extends editor
         $oParser = new XmlParser();
         $xml_doc = $oParser->loadXmlFile($xml_file);
         // Component information listed
-        if ($xml_doc->component->version && $xml_doc->component->attrs->version == '0.2') {
+        if (!empty($xml_doc->component->version) && $xml_doc->component->attrs->version == '0.2') {
             $component_info = new stdClass();
             $component_info->component_name = $component;
             $component_info->title = !empty($xml_doc->component->title->body) ? $xml_doc->component->title->body : null;

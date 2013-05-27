@@ -17,40 +17,55 @@
 
         function proc($args) {
             // Targets to sort
-            if(!in_array($args->order_target, array('list_order','update_order'))) $args->order_target = 'list_order';
+            if(!isset($args->order_target) || !in_array($args->order_target, array('list_order','update_order'))) {
+                $args->order_target = 'list_order';
+            }
             // Sort order
-            if(!in_array($args->order_type, array('asc','desc'))) $args->order_type = 'asc';
+            if(!isset($args->order_type) || !in_array($args->order_type, array('asc','desc'))) {
+                $args->order_type = 'asc';
+            }
             // Pages
-            $args->page_count = (int)$args->page_count;
-            if(!$args->page_count) $args->page_count = 1;
+            $args->page_count = !empty($args->page_count) ? (int)$args->page_count : 1;
             // The number of displayed lists
-            $args->list_count = (int)$args->list_count;
-            if(!$args->list_count) $args->list_count = 5;
+            $args->list_count = !empty($args->list_count) ? (int)$args->list_count : 5;
             // The number of thumbnail columns
-            $args->cols_list_count = (int)$args->cols_list_count;
-            if(!$args->cols_list_count) $args->cols_list_count = 5;
+            $args->cols_list_count = !empty($args->cols_list_count) ? (int)$args->cols_list_count : 5;
             // Cut the length of the title
-            if(!$args->subject_cut_size) $args->subject_cut_size = 0;
+            if(!isset($args->subject_cut_size)) {
+                $args->subject_cut_size = 0;
+            }
             // Cut the length of contents
-            if(!$args->content_cut_size) $args->content_cut_size = 100;
+            if(empty($args->content_cut_size)) {
+                $args->content_cut_size = 100;
+            }
             // Display time of the latest post
-            if(!$args->duration_new) $args->duration_new = 12;
+            if(empty($args->duration_new)) {
+                $args->duration_new = 12;
+            }
             // How to create thumbnails
-            if(!$args->thumbnail_type) $args->thumbnail_type = 'crop';
+            if(empty($args->thumbnail_type)) {
+                $args->thumbnail_type = 'crop';
+            }
             // Horizontal size of thumbnails
-            if(!$args->thumbnail_width) $args->thumbnail_width = 100;
+            if(empty($args->thumbnail_width)) {
+                $args->thumbnail_width = 100;
+            }
             // Vertical size of thumbnails
-            if(!$args->thumbnail_height) $args->thumbnail_height = 75;
+            if(empty($args->thumbnail_height)) {
+                $args->thumbnail_height = 75;
+            }
             // Viewing options
-            $args->option_view_arr = explode(',',$args->option_view);
+            $args->option_view_arr = isset($args->option_view) ? explode(',',$args->option_view) : array();
             // markup options
-            if(!$args->markup_type) $args->markup_type = 'table';
+            if(empty($args->markup_type)) {
+                $args->markup_type = 'table';
+            }
             // Set variables used internally
             $oModuleModel = &getModel('module');
             $module_srls = $args->modules_info = $args->module_srls_info = $args->mid_lists = array();
             $site_module_info = Context::get('site_module_info');
             // List URLs if a type is RSS
-            if($args->content_type == 'rss'){
+            if(isset($args->content_type) && $args->content_type == 'rss'){
                 $args->rss_urls = array();
                 $rss_urls = array_unique(array($args->rss_url0,$args->rss_url1,$args->rss_url2,$args->rss_url3,$args->rss_url4));
                 for($i=0,$c=count($rss_urls);$i<$c;$i++) {
@@ -59,8 +74,8 @@
             // Get module information after listing module_srls if the module is not RSS
             } else {
                 // Apply to all modules in the site if a target module is not specified
-                if(!$args->module_srls){
-                    unset($obj);
+                if(empty($args->module_srls)) {
+                    $obj = new stdClass();
                     $obj->site_srl = (int)$site_module_info->site_srl;
                     $output = executeQueryArray('widgets.content.getMids', $obj);
                     if($output->data) {
@@ -100,7 +115,10 @@
              * Method is separately made because content extraction, articles, comments, trackbacks, RSS and other elements exist
              **/
             // tab type
-            if($args->tab_type == 'none' || $args->tab_type == '') {
+            if(empty($args->tab_type) || $args->tab_type == 'none') {
+                if (!isset($args->content_type)) {
+                    $args->content_type = null;
+                }
                 switch($args->content_type){
                     case 'comment':
                             $content_items = $this->_getCommentItems($args);
@@ -199,8 +217,10 @@
             // Get model object from the document module
             $oDocumentModel = &getModel('document');
             // Get categories
+            $obj = new stdClass();
             $obj->module_srl = $args->module_srl;
             $output = executeQueryArray('widgets.content.getCategories',$obj);
+            $category_lists = array();
             if($output->toBool() && $output->data) {
                 foreach($output->data as $key => $val) {
                     $category_lists[$val->module_srl][$val->category_srl] = $val;
@@ -208,9 +228,9 @@
             }
             // Get a list of documents
             $obj->module_srl = $args->module_srl;
-            $obj->category_srl = $args->category_srl;
-            $obj->sort_index = $args->order_target;
-            $obj->order_type = $args->order_type=="desc"?"asc":"desc";
+            $obj->category_srl = isset($args->category_srl) ? $args->category_srl : null;
+            $obj->sort_index = isset($args->order_target) ? $args->order_target : null;
+            $obj->order_type = isset($args->order_type) && $args->order_type=="desc"?"asc":"desc";
             $obj->list_count = $args->list_count * $args->page_count;
 			$obj->statusList = array('PUBLIC');
             $output = executeQueryArray('widgets.content.getNewestDocuments', $obj);
@@ -238,8 +258,8 @@
                     $content_item->adds($oDocument->getObjectVars());
                     $content_item->add('original_content', $oDocument->get('content'));
                     $content_item->setTitle($oDocument->getTitleText());
-                    $content_item->setCategory( $category_lists[$module_srl][$category_srl]->title );
-                    $content_item->setDomain( $args->module_srls_info[$module_srl]->domain );
+                    $content_item->setCategory( isset($category_lists[$module_srl][$category_srl]->title) ? $category_lists[$module_srl][$category_srl]->title : null );
+                    $content_item->setDomain( isset($args->module_srls_info[$module_srl]->domain) ? $args->module_srls_info[$module_srl]->domain : null );
                     $content_item->setContent($oDocument->getSummary($args->content_cut_size));
                     $content_item->setLink( getSiteUrl($domain,'','document_srl',$document_srl) );
                     $content_item->setThumbnail($thumbnail);
@@ -622,13 +642,14 @@
         function _compile($args,$content_items){
             $oTemplate = &TemplateHandler::getInstance();
             // Set variables for widget
+            $widget_info = new stdClass();
             $widget_info->modules_info = $args->modules_info;
             $widget_info->option_view_arr = $args->option_view_arr;
             $widget_info->list_count = $args->list_count;
             $widget_info->page_count = $args->page_count;
             $widget_info->subject_cut_size = $args->subject_cut_size;
             $widget_info->content_cut_size = $args->content_cut_size;
-            $widget_info->new_window = $args->new_window;
+            $widget_info->new_window = isset($args->new_window) ? $args->new_window : null;
 
             $widget_info->duration_new = $args->duration_new * 60*60;
             $widget_info->thumbnail_type = $args->thumbnail_type;
@@ -637,18 +658,18 @@
             $widget_info->cols_list_count = $args->cols_list_count;
             $widget_info->mid_lists = $args->mid_lists;
 
-            $widget_info->show_browser_title = $args->show_browser_title;
-            $widget_info->show_category = $args->show_category;
-            $widget_info->show_comment_count = $args->show_comment_count;
-            $widget_info->show_trackback_count = $args->show_trackback_count;
-            $widget_info->show_icon = $args->show_icon;
+            $widget_info->show_browser_title = isset($args->show_browser_title) ? $args->show_browser_title : null;
+            $widget_info->show_category = isset($args->show_category) ? $args->show_category : null;
+            $widget_info->show_comment_count = isset($args->show_comment_count) ? $args->show_comment_count : null;
+            $widget_info->show_trackback_count = isset($args->show_trackback_count) ? $args->show_trackback_count: null;
+            $widget_info->show_icon = isset($args->show_icon) ? $args->show_icon : null;
 
-            $widget_info->list_type = $args->list_type;
-            $widget_info->tab_type = $args->tab_type;
+            $widget_info->list_type = isset($args->list_type) ? $args->list_type : null;
+            $widget_info->tab_type = isset($args->tab_type) ? $args->tab_type : null;
 
-            $widget_info->markup_type = $args->markup_type;
+            $widget_info->markup_type = isset($args->markup_type) ? $args->markup_type : null;
             // If it is a tab type, list up tab items and change key value(module_srl) to index 
-            if($args->tab_type != 'none' && $args->tab_type) {
+            if(!empty($args->tab_type) && $args->tab_type != 'none') {
                 $tab = array();
                 foreach($args->mid_lists as $module_srl => $mid){
                     if(!is_array($content_items[$module_srl]) || !count($content_items[$module_srl])) continue;
@@ -668,7 +689,7 @@
             unset($args->option_view_arr);
             unset($args->modules_info);
 
-            Context::set('colorset', $args->colorset);
+            Context::set('colorset', isset($args->colorset) ? $args->colorset : null);
             Context::set('widget_info', $widget_info);
 
             $tpl_path = sprintf('%sskins/%s', $this->widget_path, $args->skin);
@@ -691,7 +712,7 @@
             $this->contents_link = $link;
         }
         function setFirstThumbnailIdx($first_thumbnail_idx){
-            if(is_null($this->first_thumbnail) && $first_thumbnail_idx>-1) {
+            if(!isset($this->first_thumbnail) && $first_thumbnail_idx>-1) {
                 $this->has_first_thumbnail_idx = true;
                 $this->first_thumbnail_idx= $first_thumbnail_idx;
             }

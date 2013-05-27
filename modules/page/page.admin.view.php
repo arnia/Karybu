@@ -303,7 +303,7 @@
 				$target = 'document_srl';
 			}
 			
-			if ($this->module_info->{$target})
+			if (!empty($this->module_info->{$target}))
 			{
                 $document_srl = $this->module_info->{$target};
                 $oDocument->setDocument($document_srl);

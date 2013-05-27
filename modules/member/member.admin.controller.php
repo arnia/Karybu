@@ -189,7 +189,9 @@
 			$args->profile_image = $args->profile_image?'Y':'N';
 			$args->image_name = $args->image_name?'Y':'N';
 			$args->image_mark = $args->image_mark?'Y':'N';
-			if($args->signature!='Y') $args->signature = 'N';
+			if(!isset($args->signature) || $args->signature!='Y') {
+                $args->signature = 'N';
+            }
 			$args->identifier = $all_args->identifier;
 			$args->layout_srl = $args->layout_srl ? $args->layout_srl : null;
 			$args->mlayout_srl = $args->mlayout_srl ? $args->mlayout_srl : null;
@@ -205,7 +207,7 @@
 			$mustRequireds = array('email_address', 'nick_name', 'password', 'find_account_question');
 			$extendItems = $oMemberModel->getJoinFormList();
 			foreach($list_order as $key){
-				unset($signupItem);
+				$signupItem = new stdClass();
 				$signupItem->isIdentifier = ($key == $all_args->identifier);
 				$signupItem->isDefaultForm = in_array($key, $items);
 				
@@ -214,14 +216,14 @@
 				else $signupItem->title = $lang->{$key};
 				$signupItem->mustRequired = in_array($key, $mustRequireds);
 				$signupItem->imageType = (strpos($key, 'image') !== false);
-				$signupItem->required = ($all_args->{$key} == 'required') || $signupItem->mustRequired || $signupItem->isIdentifier;
+				$signupItem->required = (isset($all_args->{$key}) && $all_args->{$key} == 'required') || $signupItem->mustRequired || $signupItem->isIdentifier;
 				$signupItem->isUse = in_array($key, $usable_list) || $signupItem->required;
 
-				$signupItem->isPublic = ($all_args->{'is_'.$key.'_public'} == 'Y' && $signupItem->isUse) ? 'Y' : 'N';
+				$signupItem->isPublic = (isset($all_args->{'is_'.$key.'_public'}) && $all_args->{'is_'.$key.'_public'} == 'Y' && $signupItem->isUse) ? 'Y' : 'N';
 
 				if ($signupItem->imageType){
-					$signupItem->max_width = $all_args->{$key.'_max_width'};
-					$signupItem->max_height = $all_args->{$key.'_max_height'};
+					$signupItem->max_width = isset($all_args->{$key.'_max_width'}) ? $all_args->{$key.'_max_width'} : null;
+					$signupItem->max_height = isset($all_args->{$key.'_max_height'}) ? $all_args->{$key.'_max_height'} : null;
 				}
 
 				// set extends form
@@ -352,6 +354,9 @@
 			}
 			foreach($signupForm as $formInfo){
 				if ($formInfo->required || $formInfo->mustRequired){
+                    if (!isset($formInfo->type)) {
+                        $formInfo->type = null;
+                    }
 					if($formInfo->type == 'tel' || $formInfo->type == 'kr_zip'){
 						$fields[] = sprintf('<field name="%s[]" required="true" />', $formInfo->name);
 					}else if($formInfo->name == 'password'){
@@ -501,6 +506,7 @@
          **/
         function procMemberAdminInsertJoinForm() 
 		{
+            $args = new stdClass();
             $args->member_join_form_srl = Context::get('member_join_form_srl');
 
             $args->column_type = Context::get('column_type');
@@ -542,6 +548,7 @@
             if(!$output->toBool()) return $output;
 
 			// memberConfig update
+            $signupItem = new stdClass();
 			$signupItem->name = $args->column_name;
 			$signupItem->title = $args->column_title;
 			$signupItem->type = $args->column_type;
@@ -879,6 +886,7 @@
 		 * @return Object
          **/
         function changeGroup($source_group_srl, $target_group_srl) {
+            $args = new stdClass();
             $args->source_group_srl = $source_group_srl;
             $args->target_group_srl = $target_group_srl;
 
@@ -891,7 +899,9 @@
 		 * @return Object
          **/
         function insertGroup($args) {
-            if(!$args->site_srl) $args->site_srl = 0;
+            if(empty($args->site_srl)) {
+                $args->site_srl = 0;
+            }
             // Check the value of is_default. 
             if($args->is_default!='Y') {
 				$args->is_default = 'N';
@@ -900,7 +910,9 @@
 				 if(!$output->toBool()) return $output;
 			}
 			
-			if (!$args->group_srl) $args->group_srl = getNextSequence();
+			if (empty($args->group_srl)) {
+                $args->group_srl = getNextSequence();
+            }
             return executeQuery('member.insertGroup', $args);
         }
 
@@ -935,15 +947,19 @@
 			$columnList = array('group_srl', 'is_default');
             $group_info = $oMemberModel->getGroup($group_srl, $columnList);
 
-            if(!$group_info) return new Object(-1, 'lang->msg_not_founded');
-            if($group_info->is_default == 'Y') return new Object(-1, 'msg_not_delete_default');
+            if(!$group_info) {
+                return new Object(-1, 'lang->msg_not_founded');
+            }
+            if($group_info->is_default == 'Y') {
+                return new Object(-1, 'msg_not_delete_default');
+            }
             // Get groups where is_default == 'Y'
 			$columnList = array('site_srl', 'group_srl');
             $default_group = $oMemberModel->getDefaultGroup($site_srl, $columnList);
             $default_group_srl = $default_group->group_srl;
             // Change to default_group_srl
             $this->changeGroup($group_srl, $default_group_srl);
-
+            $args = new stdClass();
             $args->group_srl = $group_srl;
             return executeQuery('member.deleteGroup', $args);
         }
@@ -967,8 +983,8 @@
 			// group data save
 			$group_srls = $vars->group_srls;
 			foreach($group_srls as $order=>$group_srl){
-				unset($update_args);
-				$update_args->title = $vars->group_titles[$order];
+				$update_args = new stdClass();
+                $update_args->title = $vars->group_titles[$order];
 				$update_args->is_default = ($vars->defaultGroup == $group_srl)?'Y':'N';
 				$update_args->description = $vars->descriptions[$order];
 				$update_args->image_mark = $vars->image_marks[$order];
@@ -1010,6 +1026,7 @@
 		 * @return Object
          **/
         function insertDeniedID($user_id, $description = '') {
+            $args = new stdClass();
             $args->user_id = $user_id;
             $args->description = $description;
             $args->list_order = -1*getNextSequence();
@@ -1019,6 +1036,7 @@
 
 		function insertDeniedNickName($nick_name, $description = '')
 		{
+            $args = new stdClass();
 			$args->nick_name = $nick_name;
 			$args->description = $description;
 
@@ -1031,6 +1049,7 @@
 		 * @return object
          **/
         function deleteDeniedID($user_id) {
+            $args = new stdClass();
             $args->user_id = $user_id;
             return executeQuery('member.deleteDeniedID', $args);
         }
@@ -1042,6 +1061,7 @@
          **/
 		function deleteDeniedNickName($nick_name)
 		{
+            $args = new stdClass();
             $args->nick_name = $nick_name;
             return executeQuery('member.deleteDeniedNickName', $args);
 		}
@@ -1052,6 +1072,7 @@
 		 * @return Object
          **/
         function deleteJoinForm($member_join_form_srl) {
+            $args = new stdClass();
             $args->member_join_form_srl = $member_join_form_srl;
             $output = executeQuery('member.deleteJoinForm', $args);
             return $output;
@@ -1066,6 +1087,7 @@
         function moveJoinFormUp($member_join_form_srl) {
             $oMemberModel = &getModel('member');
             // Get information of the join form
+            $args = new stdClass();
             $args->member_join_form_srl = $member_join_form_srl;
             $output = executeQuery('member.getJoinForm', $args);
 
@@ -1169,11 +1191,20 @@
          * @brief Update SNS
          */
         function updateSns($sns){
-            $args->sns_name = $sns->sns_name;
-            if($sns->enabled) $args->enabled = $sns->enabled;
-            if($sns->icon) $args->icon = $sns->icon;
-            if($sns->config) $args->config = serialize($sns->config);
-            if($sns->regdate) $args->regdate = $sns->regdate;
+            $args = new stdClass();
+            $args->sns_name = isset($sns->sns_name) ? $sns->sns_name : null;
+            if(!empty($sns->enabled)) {
+                $args->enabled = $sns->enabled;
+            }
+            if(!empty($sns->icon)) {
+                $args->icon = $sns->icon;
+            }
+            if(!empty($sns->config)) {
+                $args->config = serialize($sns->config);
+            }
+            if(!empty($sns->regdate)) {
+                $args->regdate = $sns->regdate;
+            }
             $output = executeQuery('member.updateSns', $args);
             return $output;
         }
@@ -1216,6 +1247,7 @@
             $list_order_num = '30';
             if(is_array($sns_names)){
                 foreach($sns_names as $name){
+                    $args = new stdClass();
                     $args->list_order = $list_order_num;
                     $args->sns_name = $name;
                     $output = executeQuery('member.updateSns', $args);					
@@ -1233,6 +1265,7 @@
          **/	
         function snsCheckUse($snsList){
             foreach($snsList as $snsName => $value){
+                $args = new stdClass();
                 $args->sns_name = $snsName;
                 $args->enabled = $value;
                 $output = executeQuery('member.updateSns', $args);
@@ -1254,7 +1287,7 @@
             foreach($config as $key => $value){
                 $value->value = Context::get($key);
             }
-            
+            $newSns = new stdClass();
             $newSns->sns_name = $sns_name;
             $newSns->config = $config;
             

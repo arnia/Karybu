@@ -202,32 +202,39 @@
 					$fields[] = "'{$target}': {".implode(',', $field)."}";
 
 					if(!in_array($target, $target_list)) $target_list[] = $target;
-					if(!$target_type_list[$target]) $target_type_list[$target] = $filter;
+					if(empty($target_type_list[$target])) {
+                        $target_type_list[$target] = $filter;
+                    }
 				}
 			}
 
 			// Check extend_filter_item
 			$rule_types = array('homepage'=>'homepage', 'email_address'=>'email');
+            if (isset($extend_filter_count)) {
+                for($i=0;$i<$extend_filter_count;$i++) {
+                    $filter_item = $extend_filter_list[$i];
+                    $target      = trim($filter_item->name);
 
-			for($i=0;$i<$extend_filter_count;$i++) {
-				$filter_item = $extend_filter_list[$i];
-				$target      = trim($filter_item->name);
+                    if(!$target) continue;
 
-				if(!$target) continue;
+                    // get the filter from the type of extend filter item
+                    $type  = $filter_item->type;
+                    $rule  = $rule_types[$type]?$rule_types[$type]:'';
+                    $required = ($filter_item->required == 'true');
 
-				// get the filter from the type of extend filter item
-				$type  = $filter_item->type;
-				$rule  = $rule_types[$type]?$rule_types[$type]:'';
-				$required = ($filter_item->required == 'true');
+                    $field = array();
+                    if($required) $field[] = 'required:true';
+                    if($rule)     $field[] = "rule:'{$rule}'";
+                    $fields[] = "\t\t'{$target}' : {".implode(',', $field)."}";
 
-				$field = array();
-				if($required) $field[] = 'required:true';
-				if($rule)     $field[] = "rule:'{$rule}'";
-				$fields[] = "\t\t'{$target}' : {".implode(',', $field)."}";
-
-				if(!in_array($target, $target_list)) $target_list[] = $target;
-				if(!$target_type_list[$target]) $target_type_list[$target] = $type;
-			}
+                    if(!in_array($target, $target_list)) {
+                        $target_list[] = $target;
+                    }
+                    if(empty($target_type_list[$target])) {
+                        $target_type_list[$target] = $type;
+                    }
+                }
+            }
 
 			// generates parameter script to create dbata
 			$rename_params   = array();

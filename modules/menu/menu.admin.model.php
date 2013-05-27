@@ -115,14 +115,19 @@
 		 */
         function getMenuItemInfo($menu_item_srl) {
             // Get the menu information if menu_item_srl exists
+            $args = new stdClass();
             $args->menu_item_srl = $menu_item_srl;
             $output = executeQuery('menu.getMenuItem', $args);
-            $node = $output->data;
+            $node = isset($output->data) ? $output->data : null;
 			settype($node,'object');
-            if($node->group_srls) $node->group_srls = explode(',',$node->group_srls);
-            else $node->group_srls = array();
+            if(!empty($node->group_srls)) {
+                $node->group_srls = explode(',',$node->group_srls);
+            }
+            else {
+                $node->group_srls = array();
+            }
 
-            $tmp_name = unserialize($node->name);
+            $tmp_name = @unserialize($node->name);
             if($tmp_name && count($tmp_name) ) {
                 $selected_lang = array();
                 $rand_name = $tmp_name[Context::getLangType()];
@@ -159,7 +164,9 @@
 					}
 				}
 			}
-			else $menuItem->moduleType = 'url';
+			else {
+                $menuItem->moduleType = 'url';
+            }
 
 			// get groups
 			$oMemberModel = &getModel('member');
@@ -170,7 +177,7 @@
 				$groupList = array();
 				foreach($output AS $key=>$value)
 				{
-
+                    $groupList[$value->group_srl] = new stdClass();
 					$groupList[$value->group_srl]->group_srl = $value->group_srl;
             		if(substr($value->title,0,12)=='$user_lang->') {
 						$tmp = $oModuleAdminModel->getLangCode(0, $value->title);

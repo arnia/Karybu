@@ -875,7 +875,7 @@ class documentItem extends Object
         }
         // Get thumbnai_type information from document module's configuration
         if (!in_array($thumbnail_type, array('crop', 'ratio'))) {
-            $config = $GLOBALS['__document_config__'];
+            $config = isset($GLOBALS['__document_config__']) ? $GLOBALS['__document_config__'] : null;
             if (!$config) {
                 $oDocumentModel = & getModel('document');
                 $config = $oDocumentModel->getDocumentConfig();
@@ -1245,7 +1245,7 @@ class documentItem extends Object
     function _checkAccessibleFromStatus()
     {
         $logged_info = Context::get('logged_info');
-        if ($logged_info->is_admin == 'Y') {
+        if (isset($logged_info->is_admin) && $logged_info->is_admin == 'Y') {
             return true;
         }
 

@@ -187,16 +187,37 @@ class documentController extends document {
 		$oDB = DB::getInstance();
 		$oDB->begin();
 		// List variables
-		if($obj->comment_status) $obj->commentStatus = $obj->comment_status;
-		if(!$obj->commentStatus) $obj->commentStatus = 'DENY';
-		if($obj->commentStatus == 'DENY') $this->_checkCommentStatusForOldVersion($obj);
-		if($obj->allow_trackback!='Y') $obj->allow_trackback = 'N';
-		if($obj->homepage &&  !preg_match('/^[a-z]+:\/\//i',$obj->homepage)) $obj->homepage = 'http://'.$obj->homepage;
-		if($obj->notify_message != 'Y') $obj->notify_message = 'N';
-		if(!$isRestore) $obj->ipaddress = $_SERVER['REMOTE_ADDR'];	//board에서 form key값으로 ipaddress를 사용하면 엄한 ip가 등록됨. 필터와는 상관없슴
+		if(!empty($obj->comment_status)) {
+            $obj->commentStatus = $obj->comment_status;
+        }
+		if(empty($obj->commentStatus)) {
+            $obj->commentStatus = 'DENY';
+        }
+		if($obj->commentStatus == 'DENY') {
+            $this->_checkCommentStatusForOldVersion($obj);
+        }
+		if(empty($obj->allow_trackback) || $obj->allow_trackback!='Y') {
+            $obj->allow_trackback = 'N';
+        }
+		if(!empty($obj->homepage) && !preg_match('/^[a-z]+:\/\//i',$obj->homepage)) {
+            $obj->homepage = 'http://'.$obj->homepage;
+        }
+		if(!isset($obj->notify_message) || $obj->notify_message != 'Y') {
+            $obj->notify_message = 'N';
+        }
+		if(!$isRestore) {
+            $obj->ipaddress = $_SERVER['REMOTE_ADDR']; //ipaddress value in the form key board you registered with tough ip. Not to do with the filter
+        }
 
 		// Serialize the $extra_vars, check the extra_vars type, because duplicate serialized avoid
-		if(!is_string($obj->extra_vars)) $obj->extra_vars = serialize($obj->extra_vars);
+        if (isset($obj->extra_vars)) {
+            if(!is_string($obj->extra_vars)) {
+                $obj->extra_vars = serialize($obj->extra_vars);
+            }
+        }
+        else {
+            $obj->extra_vars = serialize(array());
+        }
 		// Remove the columns for automatic saving
 		unset($obj->_saved_doc_srl);
 		unset($obj->_saved_doc_title);
@@ -206,11 +227,13 @@ class documentController extends document {
 		$output = ModuleHandler::triggerCall('document.insertDocument', 'before', $obj);
 		if(!$output->toBool()) return $output;
 		// Register it if no given document_srl exists
-		if(!$obj->document_srl) $obj->document_srl = getNextSequence();
+		if(empty($obj->document_srl)) {
+            $obj->document_srl = getNextSequence();
+        }
 
 		$oDocumentModel = &getModel('document');
 		// Set to 0 if the category_srl doesn't exist
-		if($obj->category_srl) {
+		if(!empty($obj->category_srl)) {
 			$category_list = $oDocumentModel->getCategoryList($obj->module_srl);
 			if(count($category_list) > 0 && !$category_list[$obj->category_srl]->grant)
 			{
@@ -219,11 +242,15 @@ class documentController extends document {
 			if(count($category_list) > 0 && !$category_list[$obj->category_srl]) $obj->category_srl = 0;
 		}
 		// Set the read counts and update order.
-		if(!$obj->readed_count) $obj->readed_count = 0;
+		if(empty($obj->readed_count)) {
+            $obj->readed_count = 0;
+        }
 		if($isLatest) $obj->update_order = $obj->list_order = getNextSequence() * -1;
 		else $obj->update_order = $obj->list_order;
 		// Check the status of password hash for manually inserting. Apply md5 hashing for otherwise.
-		if($obj->password && !$obj->password_is_hashed) $obj->password = md5($obj->password);
+		if(!empty($obj->password) && empty($obj->password_is_hashed)) {
+            $obj->password = md5($obj->password);
+        }
 		// Insert member's information only if the member is logged-in and not manually registered.
 		$logged_info = Context::get('logged_info');
 		if(Context::get('is_logged') && !$manual_inserted && !$isRestore) {
@@ -256,7 +283,9 @@ class documentController extends document {
 
 		$obj->lang_code = Context::getLangType();
 		// Insert data into the DB
-		if(!$obj->status) $this->_checkDocumentStatusForOldVersion($obj);
+		if(empty($obj->status)) {
+            $this->_checkDocumentStatusForOldVersion($obj);
+        }
 		$output = executeQuery('document.insertDocument', $obj);
 		if(!$output->toBool()) {
 			$oDB->rollback();
@@ -281,7 +310,9 @@ class documentController extends document {
 			}
 		}
 		// Update the category if the category_srl exists.
-		if($obj->category_srl) $this->updateCategoryCount($obj->module_srl, $obj->category_srl);
+		if(!empty($obj->category_srl)) {
+            $this->updateCategoryCount($obj->module_srl, isset($obj->category_srl) ? $obj->category_srl : null);
+        }
 		// Call a trigger (after)
 		if($output->toBool()) {
 			$trigger_output = ModuleHandler::triggerCall('document.insertDocument', 'after', $obj);
@@ -296,8 +327,8 @@ class documentController extends document {
 
 		// return
 		$this->addGrant($obj->document_srl);
-		$output->add('document_srl',$obj->document_srl);
-		$output->add('category_srl',$obj->category_srl);
+		$output->add('document_srl',isset($obj->document_srl) ? $obj->document_srl : null);
+		$output->add('category_srl',isset($obj->category_srl) ? $obj->category_srl : null);
 		//remove from cache
         $oCacheHandler = &CacheHandler::getInstance('object');
         if($oCacheHandler->isSupport())
@@ -2192,8 +2223,12 @@ class documentController extends document {
 	 */
 	function _checkDocumentStatusForOldVersion(&$obj)
 	{
-		if(!$obj->status && $obj->is_secret == 'Y') $obj->status = $this->getConfigStatus('secret');
-		if(!$obj->status && $obj->is_secret != 'Y') $obj->status = $this->getConfigStatus('public');
+		if(empty($obj->status) && isset($obj->is_secret) && $obj->is_secret == 'Y') {
+            $obj->status = $this->getConfigStatus('secret');
+        }
+		if(empty($obj->status) && (!isset($obj->is_secret) || $obj->is_secret != 'Y')) {
+            $obj->status = $this->getConfigStatus('public');
+        }
 	}
 
 	/**

@@ -439,7 +439,7 @@ class Validator
 			case 'enum':
 				return in_array($value, $rule['test']);
 			case 'expr':
-				if(!$rule['func_test']) {
+				if(empty($rule['func_test'])) {
 					$rule['func_test'] = create_function('$a', 'return ('.preg_replace('/\$\$/', '$a', html_entity_decode($rule['test'])).');');
 				}
 				return $rule['func_test']($value);
@@ -543,18 +543,32 @@ class Validator
 				$messages[] = "v.cast('ADD_MESSAGE',['{$name}','{$field_lang}']);";
 			}
 
-			if($filter['required'] == 'true') $field[] = 'required:true';
-			if($filter['rule'])     $field[] = "rule:'{$filter['rule']}'";
-			if($filter['default'])  $field[] = "default:'{$filter['default']}'";
-			if($filter['modifier']) $field[] = "modifier:'{$filter['modifier']}'";
-			if($filter['length']) {
+			if(isset($filter['required']) && $filter['required'] == 'true') {
+                $field[] = 'required:true';
+            }
+			if(!empty($filter['rule'])) {
+                $field[] = "rule:'{$filter['rule']}'";
+            }
+			if(!empty($filter['default'])) {
+                $field[] = "default:'{$filter['default']}'";
+            }
+			if(!empty($filter['modifier'])) {
+                $field[] = "modifier:'{$filter['modifier']}'";
+            }
+			if(!empty($filter['length'])) {
 				list($min, $max) = explode(':', $filter['length']);
-				if($min) $field[] = "minlength:'{$min}'";
-				if($max) $field[] = "maxlength:'{$max}'";
+				if($min) {
+                    $field[] = "minlength:'{$min}'";
+                }
+				if($max) {
+                    $field[] = "maxlength:'{$max}'";
+                }
 			}
-			if($filter['if']) {
+			if(!empty($filter['if'])) {
 				$ifs = array();
-				if(!isset($filter['if'][0])) $filter['if'] = array($filter['if']);
+				if(!isset($filter['if'][0])) {
+                    $filter['if'] = array($filter['if']);
+                }
 				foreach($filter['if'] as $if) {
 					$ifs[] = "{test:'".addslashes($if['test'])."', attr:'{$if['attr']}', value:'".addslashes($if['value'])."'}";
 				}

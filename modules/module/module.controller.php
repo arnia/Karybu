@@ -139,6 +139,7 @@
 
 
 		function updateModuleConfig($module, $config, $site_srl = 0){
+            $args = new stdClass();
 			$args->module = $module;
 			$args->site_srl = $site_srl;
 
@@ -157,6 +158,7 @@
          * In order to manage global configurations of modules such as board, member and so on
          **/
         function insertModuleConfig($module, $config, $site_srl = 0) {
+            $args = new stdClass();
             $args->module = $module;
             $args->config = serialize($config);
 			$args->site_srl = $site_srl;
@@ -328,7 +330,7 @@
             $oDB->begin();
             // Get colorset from the skin information
             $module_path = ModuleHandler::getModulePath($args->module);
-            $skin_info = $oModuleModel->loadSkinInfo($module_path, $args->skin);
+            $skin_info = $oModuleModel->loadSkinInfo($module_path, isset($args->skin) ? $args->skin : null);
             $skin_vars = new stdClass();
             $skin_vars->colorset = isset($skin_info->colorset[0]->name) ? $skin_info->colorset[0]->name : null;
             // Arrange variables and then execute a query

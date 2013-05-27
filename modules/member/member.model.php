@@ -37,7 +37,7 @@ class memberModel extends member
         //for multi language
         if (is_array($config->signupForm)) {
             foreach ($config->signupForm AS $key => $value) {
-                $config->signupForm[$key]->title = ($value->isDefaultForm) ? Context::getLang(
+                $config->signupForm[$key]->title = (!empty($value->isDefaultForm)) ? Context::getLang(
                     $value->name
                 ) : $value->title;
                 if ($config->signupForm[$key]->isPublic != 'N') {
@@ -584,6 +584,7 @@ class memberModel extends member
      **/
     function getGroup($group_srl, $columnList = array())
     {
+        $args = new stdClass();
         $args->group_srl = $group_srl;
         $output = executeQuery('member.getGroup', $args, $columnList);
         return $output->data;
@@ -743,7 +744,7 @@ class memberModel extends member
 
         foreach ($extend_form_list as $srl => $item) {
             $column_name = $item->column_name;
-            $value = $member_info->{$column_name};
+            $value = isset($member_info->{$column_name}) ? $member_info->{$column_name} : null;
 
             if ($logged_info->is_admin != 'Y' && $logged_info->member_srl != $member_info->member_srl && $member_info->{'open_' . $column_name} != 'Y') {
                 $extend_form_list[$srl]->is_private = true;
@@ -768,7 +769,7 @@ class memberModel extends member
 
             $extend_form_list[$srl]->value = $value;
 
-            if ($member_info->{'open_' . $column_name} == 'Y') {
+            if (isset($member_info->{'open_' . $column_name}) && $member_info->{'open_' . $column_name} == 'Y') {
                 $extend_form_list[$srl]->is_opened = true;
             } else {
                 $extend_form_list[$srl]->is_opened = false;
@@ -1180,7 +1181,9 @@ class memberModel extends member
                     $config = array($config);
                 }
             }
+            $obj = new stdClass();
             foreach ($config as $item) {
+                $obj->{$item->attrs->name} = new stdClass();
                 $obj->{$item->attrs->name}->title = $item->title->body;
                 $obj->{$item->attrs->name}->value = '';
             }

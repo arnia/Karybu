@@ -83,7 +83,9 @@
 				// Add points for attaching a file
 				$point = $module_config['upload_file'];
 				if(!isset($point)) $point = $config->upload_file;
-				if($obj->uploaded_count) $cur_point += $point * $obj->uploaded_count;
+				if(!empty($obj->uploaded_count)) {
+                    $cur_point += $point * $obj->uploaded_count;
+                }
 				// Increase the point
 				$this->setPoint($member_srl,$cur_point);
 			}

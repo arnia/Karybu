@@ -118,32 +118,54 @@
 
             unset($source_args->module);
             unset($source_args->act);
-            if($source_args->menu_open_window!="Y") $source_args->menu_open_window = "N";
-            if($source_args->menu_expand !="Y") $source_args->menu_expand = "N";
+            if(!isset($source_args->menu_open_window) || $source_args->menu_open_window!="Y") {
+                $source_args->menu_open_window = "N";
+            }
+            if(!isset($source_args->menu_expand) || $source_args->menu_expand !="Y") {
+                $source_args->menu_expand = "N";
+            }
 
-			if($source_args->menu_grant_default == -1) $source_args->group_srls = -1;
-            if(!is_array($source_args->group_srls)) $source_args->group_srls = str_replace('|@|',',',$source_args->group_srls);
-			else $source_args->group_srls = implode(',', $source_args->group_srls);
+			if(isset($source_args->menu_grant_default) && $source_args->menu_grant_default == -1) {
+                $source_args->group_srls = -1;
+            }
+            if (isset($source_args->group_srls)) {
+                if(!is_array($source_args->group_srls)) {
+                    $source_args->group_srls = str_replace('|@|',',',$source_args->group_srls);
+                }
+                else {
+                    $source_args->group_srls = implode(',', $source_args->group_srls);
+                }
+            }
+            else {
+                $source_args->group_srls = '';
+            }
 
-            $source_args->parent_srl = (int)$source_args->parent_srl;
+            $source_args->parent_srl = isset($source_args->parent_srl) ? (int)$source_args->parent_srl : 0;
 
-			if($source_args->cType == 'CREATE') $source_args->menu_url = $source_args->create_menu_url;
-			else if($source_args->cType == 'SELECT') $source_args->menu_url = $source_args->select_menu_url;
+			if($source_args->cType == 'CREATE') {
+                $source_args->menu_url = $source_args->create_menu_url;
+            }
+			elseif($source_args->cType == 'SELECT') {
+                $source_args->menu_url = $source_args->select_menu_url;
+            }
 
 			// upload button
 			$btnOutput = $this->_uploadButton($source_args);
 
             // Re-order variables (Column's order is different between form and DB)
-            $args->menu_srl = $source_args->menu_srl;
-            $args->menu_item_srl = $source_args->menu_item_srl;
-            $args->parent_srl = $source_args->parent_srl;
-            $args->menu_srl = $source_args->menu_srl;
-            $args->menu_id = $source_args->menu_id;
+            $args = new stdClass();
+            $args->menu_srl = isset($source_args->menu_srl) ? $source_args->menu_srl : null;
+            $args->menu_item_srl = isset($source_args->menu_item_srl) ? $source_args->menu_item_srl : null;
+            $args->parent_srl = isset($source_args->parent_srl) ? $source_args->parent_srl : null;
+            $args->menu_srl = isset($source_args->menu_srl) ? $source_args->menu_srl : null;
+            $args->menu_id = isset($source_args->menu_id) ? $source_args->menu_id : null;
 
-			if ($source_args->menu_name_key)
+			if (!empty($source_args->menu_name_key)) {
 	            $args->name = $source_args->menu_name_key;
-			else
+            }
+			else {
 				$args->name = $source_args->menu_name;
+            }
 
 			if(!strstr($args->name, '$user_lang->'))
 			{
@@ -153,15 +175,22 @@
             $args->url = trim($source_args->menu_url);
             $args->open_window = $source_args->menu_open_window;
             $args->expand = $source_args->menu_expand;
-            if($btnOutput['normal_btn']) $args->normal_btn = $btnOutput['normal_btn'];
-            if($btnOutput['hover_btn']) $args->hover_btn = $btnOutput['hover_btn'];
-            if($btnOutput['active_btn']) $args->active_btn = $btnOutput['active_btn'];
+            if(!empty($btnOutput['normal_btn'])) {
+                $args->normal_btn = $btnOutput['normal_btn'];
+            }
+            if(!empty($btnOutput['hover_btn'])) {
+                $args->hover_btn = $btnOutput['hover_btn'];
+            }
+            if(!empty($btnOutput['active_btn'])) {
+                $args->active_btn = $btnOutput['active_btn'];
+            }
             $args->group_srls = $source_args->group_srls;
 
 			// if cType is CREATE, create module
 			if($source_args->cType == 'CREATE' || $source_args->cType == 'SELECT')
 			{
 				$site_module_info = Context::get('site_module_info');
+                $cmArgs = new stdClass();
 				$cmArgs->site_srl = (int)$site_module_info->site_srl;
 				$cmArgs->browser_title = $args->name;
 				$cmArgs->menu_srl = $source_args->menu_srl;
@@ -210,9 +239,15 @@
             $item_info = $oMenuModel->getMenuItemInfo($args->menu_item_srl);
 
 			// button is deleted, db delete
-			if($source_args->isNormalDelete == 'Y') $args->normal_btn = '';
-			if($source_args->isHoverDelete == 'Y') $args->hover_btn = '';
-			if($source_args->isActiveDelete == 'Y') $args->active_btn = '';
+			if(isset($source_args->isNormalDelete) && $source_args->isNormalDelete == 'Y') {
+                $args->normal_btn = '';
+            }
+			if(isset($source_args->isHoverDelete) && $source_args->isHoverDelete == 'Y') {
+                $args->hover_btn = '';
+            }
+			if(isset($source_args->isActiveDelete) && $source_args->isActiveDelete == 'Y') {
+                $args->active_btn = '';
+            }
 
 			$message = '';
             // Update if exists
@@ -236,7 +271,7 @@
             // If a new menu item that mid is URL is added, the current layout is applied
             if(preg_match('/^([a-zA-Z0-9\_\-]+)$/', $args->url)) {
                 $mid = $args->url;
-
+                $mid_args = new stdClass();
                 $mid_args->menu_srl = $args->menu_srl;
                 $mid_args->mid = $mid;
                 // Get layout value of menu_srl
@@ -299,7 +334,7 @@
 
             $this->add('xml_file', $xml_file);
             $this->add('menu_title', $menu_title);
-            $this->add('menu_item_srl', $parent_srl);
+            $this->add('menu_item_srl', isset($parent_srl) ? $parent_srl : null);
             $this->setMessage('success_deleted');
 
 			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'act', 'dispMenuAdminSiteMap') . '#menuTop_' . $args->menu_srl;
@@ -313,6 +348,7 @@
 		function procMenuAdminArrangeItem()
 		{
 			$this->menuSrl = Context::get('menu_srl');
+            $args = new stdClass();
             $args->title = Context::get('title');
 			$parentKeyList = Context::get('parent_key');
 			$this->itemKeyList = Context::get('item_key');
@@ -327,8 +363,12 @@
 			{
 				foreach($parentKeyList as $no=>$srl)
 				{
-					if ($srl === 0) continue;
-					if (!is_array($this->map[$srl]))$this->map[$srl] = array();
+					if ($srl === 0) {
+                        continue;
+                    }
+					if (!isset($this->map[$srl]) || !is_array($this->map[$srl])){
+                        $this->map[$srl] = array();
+                    }
 					$this->map[$srl][] = $no;
 				}
 			}
@@ -338,8 +378,8 @@
 			{
 				foreach($this->itemKeyList as $srl)
 				{
-					if (!$this->checked[$srl]){
-						unset($target);
+					if (empty($this->checked[$srl])) {
+						$target = new stdClass();
 						$this->checked[$srl] = 1;
 						$target->node = $srl;
 						$target->child= array();
@@ -428,6 +468,7 @@
             if($target_item->menu_item_srl != $target_srl) return new Object(-1,'msg_invalid_request');
             // Move the menu location(change the order menu appears)
             if($mode == 'move') {
+                $args = new stdClass();
                 $args->parent_srl = $parent_srl;
                 $args->menu_srl = $menu_srl;
 
@@ -451,6 +492,7 @@
                 if(!$output->toBool()) return $output;
             // Add a child
             } elseif($mode == 'insert') {
+                $args = new stdClass();
                 $args->menu_item_srl = $target_srl;
                 $args->parent_srl = $parent_srl;
                 $args->listorder = -1*getNextSequence();
@@ -1009,22 +1051,33 @@
 		{
 			// path setting
 			$path = sprintf('./files/attach/menu_button/%d/', $args->menu_srl);
-			if($args->menu_normal_btn || $args->menu_hover_btn || $args->menu_active_btn)
-                if(!is_dir($path)) FileHandler::makeDir($path);
+			if(!empty($args->menu_normal_btn) || !empty($args->menu_hover_btn) || !empty($args->menu_active_btn)) {
+                if(!is_dir($path)) {
+                    FileHandler::makeDir($path);
+                }
+            }
 
-			if($args->isNormalDelete == 'Y' || $args->isHoverDelete == 'Y' || $args->isActiveDelete == 'Y')
+			if((isset($args->isNormalDelete) && $args->isNormalDelete == 'Y')
+                || (isset($args->isHoverDelete) && $args->isHoverDelete == 'Y')
+                || (isset($args->isActiveDelete) && $args->isActiveDelete == 'Y'))
 			{
 				$oMenuModel = &getAdminModel('menu');
             	$itemInfo = $oMenuModel->getMenuItemInfo($args->menu_item_srl);
 
-				if($args->isNormalDelete == 'Y' && $itemInfo->normal_btn) FileHandler::removeFile($itemInfo->normal_btn);
-				if($args->isHoverDelete == 'Y' && $itemInfo->hover_btn) FileHandler::removeFile($itemInfo->hover_btn);
-				if($args->isActiveDelete == 'Y' && $itemInfo->active_btn) FileHandler::removeFile($itemInfo->active_btn);
+				if(isset($args->isNormalDelete) && $args->isNormalDelete == 'Y' && !empty($itemInfo->normal_btn)) {
+                    FileHandler::removeFile($itemInfo->normal_btn);
+                }
+				if(isset($args->isHoverDelete) && $args->isHoverDelete == 'Y' && !empty($itemInfo->hover_btn)) {
+                    FileHandler::removeFile($itemInfo->hover_btn);
+                }
+				if(isset($args->isActiveDelete) && $args->isActiveDelete == 'Y' && !empty($itemInfo->active_btn)) {
+                    FileHandler::removeFile($itemInfo->active_btn);
+                }
 			}
 
 			$returnArray = array();
 			// normal button
-			if($args->menu_normal_btn)
+			if(!empty($args->menu_normal_btn))
 			{
 				$tmp_arr = explode('.',$args->menu_normal_btn['name']);
 				$ext = $tmp_arr[count($tmp_arr)-1];
@@ -1035,7 +1088,7 @@
 			}
 
 			// hover button
-			if($args->menu_hover_btn)
+			if(!empty($args->menu_hover_btn))
 			{
 				$tmp_arr = explode('.',$args->menu_hover_btn['name']);
 				$ext = $tmp_arr[count($tmp_arr)-1];
@@ -1046,7 +1099,7 @@
 			}
 
 			// active button
-			if($args->menu_active_btn)
+			if(!empty($args->menu_active_btn))
 			{
 				$tmp_arr = explode('.',$args->menu_active_btn['name']);
 				$ext = $tmp_arr[count($tmp_arr)-1];
