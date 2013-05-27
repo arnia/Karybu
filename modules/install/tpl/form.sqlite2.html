@@ -10,7 +10,7 @@
     <input type="hidden" value="{getUrl('', 'act', $act, 'db_type', $db_type)}" name="error_return_url">
     <input type="hidden" name="act" value="procSqliteDBSetting" />
     <input type="hidden" name="db_type" value="{$db_type}" />
-        <h2>{$db_type}</h2>
+        <h2>{$lang->install_progress_menu['dbInfo']} - {$db_type}</h2>
         <ul class="formDbInfo unstyled">
             <li><label for="dbDatabaseFile">{$lang->db_database_file}</label><input name="db_database" value="./files/karybu.sqlite" type="text" class="iText" id="dbDatabaseFile" /><p>{$lang->about_database_file}</p></li>
             <li><label for="dbPrefix">{$lang->db_table_prefix}</label><input name="db_table_prefix" type="text" class="iText" id="dbPrefix" value="k" /></li>

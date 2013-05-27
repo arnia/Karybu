@@ -1,6 +1,5 @@
 <load target="js/install_admin.js" />
 <include target="header.html" />
-
 <div id="_content">
     <div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -11,7 +10,7 @@
     <input type="hidden" value="{getUrl('', 'act', $act, 'db_type', $db_type)}" name="error_return_url" />
     <input type="hidden" name="act" value="procCubridDBSetting" />
     <input type="hidden" name="db_type" value="{$db_type}" />
-        <h2>{$db_type}</h2>
+        <h2>{$lang->install_progress_menu['dbInfo']} - {$db_type}</h2>
         <div class="control-group">
             <label for="dbHostName" class="control-label">{$lang->db_hostname}</label>
             <div class="controls">

@@ -10,7 +10,7 @@
     <input type="hidden" value="{getUrl('', 'act', $act, 'db_type', $db_type)}" name="error_return_url" />
     <input type="hidden" name="act" value="procSqliteDBSetting" />
     <input type="hidden" name="db_type" value="{$db_type}" />
-        <h2>{$db_type}</h2>
+        <h2>{$lang->install_progress_menu['dbInfo']} - {$db_type}</h2>
         <div class="control-group">
             <label for="dbDatabaseFile" class="control-label">{$lang->db_database_file}</label>
             <div class="controls">
