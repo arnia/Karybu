@@ -1213,7 +1213,7 @@ function initLayer($layer) {
 	};
 
 	// process the submit button
-	$submit = $layer.find('input[type=submit]')
+	$submit = $layer.find('button[type=submit]')
 		.click(function(){
 			var name = $layer.data('multilang-current-name');
 
