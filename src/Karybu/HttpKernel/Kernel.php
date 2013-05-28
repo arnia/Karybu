@@ -34,9 +34,13 @@ class Kernel extends SymfonyKernel
      */
     public function init()
     {
-        if($this->debug) {
+        if ($this->debug) {
             define('__DEBUG__', 7); // Enables detailed request info and logs
             define('__DEBUG_QUERY__', 1); // Adds xml query name to all executed sql code
+        }
+        else {
+            define('__DEBUG__', 0); // Enables detailed request info and logs
+            define('__DEBUG_QUERY__', 0); // Adds xml query name to all executed sql code
         }
 
         ErrorHandler::register();
