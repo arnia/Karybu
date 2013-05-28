@@ -1050,3 +1050,11 @@ function insertModuleModal(id, module_srl, mid, browser_title, multi_select) {
     var newHref = documentListHref + separator + 'selected_module_srl=' + module_srl;
     window.location.href = newHref;
 }
+function karybuCheckAllCheckboxes(elem,selector){
+    if (jQuery(elem).is(':checked')){
+        jQuery(selector).attr('checked', 'checked');
+    }
+    else {
+        jQuery(selector).removeAttr('checked');
+    }
+}

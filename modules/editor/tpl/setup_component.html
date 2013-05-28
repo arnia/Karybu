@@ -11,74 +11,75 @@
 	<input type="hidden" name="act" value="procEditorAdminSetupComponent" />
 	<input type="hidden" name="component_name" value="{$component_name}" />
     <div class="control-group"><label class="control-label">{$lang->component_name}</label>
-            <div class="controls"><span class="align">{$component->title}({$component->component_name}) ver. {$component->version}</span></div>
-        </div>
+        <div class="controls"><span class="align">{$component->title}({$component->component_name}) ver. {$component->version}</span></div>
+    </div>
     <div class="control-group">
-            <label class="control-label">{$lang->component_author}</label>
-            <div class="controls">
+        <label class="control-label">{$lang->component_author}</label>
+        <div class="controls">
             <!--@foreach($component->author as $author)-->
             <span class="align">{$author->name} (<a href="{$author->homepage}" onclick="window.open(this.href);return false;">{$author->homepage}</a>, <a href="mailto:{$author->email_address}">{$author->email_address}</a>)</span><br />
             <!--@endforeach-->
-            </div>
-    </div>
-        <!--@if($component->link)-->
-        <div class="control-group"><label class="control-label">{$lang->component_link}</label>
-            <div class="controls"><a href="#" onclick="winopen('{$component->link}');return false;">{$component->link}</a></div>
         </div>
+    </div>
+    <!--@if($component->link)-->
+    <div class="control-group"><label class="control-label">{$lang->component_link}</label>
+        <div class="controls"><a href="#" onclick="winopen('{$component->link}');return false;">{$component->link}</a></div>
+    </div>
     <!--@end-->
 
-        <!--@foreach($component->extra_vars as $key => $val)-->
-        <div class="control-group"><label class="control-label">{$val->title}</label>
-            <div class="controls">
-                <label class="checkbox">{$val->description}<input type="text" name="{$key}" value="{$val->value}" /></label>
-            </div>
+    <!--@foreach($component->extra_vars as $key => $val)-->
+    <div class="control-group"><label class="control-label">{$val->title}</label>
+        <div class="controls">
+            <label class="checkbox">{$val->description}<input type="text" name="{$key}" value="{$val->value}" /></label>
         </div>
-        <!--@end-->
-
-
-            <div class="control-group"><label class="control-label">{$lang->grant}</label>
-            <div class="controls">
+    </div>
+    <!--@end-->
+    <div class="control-group"><label class="control-label">{$lang->grant}</label>
+        <div class="controls">
             <!--@foreach($group_list as $key => $val)-->
-                <label for="group_{$key}" class="checkbox">
-                    <input type="checkbox" name="target_group" value="{$key}" <!--@if(in_array($key, $component->target_group))-->checked="checked"<!--@end--> id="group_{$key}">
-                    {$val->title}
-                </label>
+            <label for="group_{$key}" class="checkbox">
+                <input type="checkbox" name="target_group" value="{$key}" <!--@if(in_array($key, $component->target_group))-->checked="checked"<!--@end--> id="group_{$key}">
+                {$val->title}
+            </label>
             <!--@end-->
-                <div class="help-block">{$lang->about_component_grant}</div>
-            </div>
+            <div class="help-block">{$lang->about_component_grant}</div>
         </div>
-
-        <!--@if($mid_list)-->
-    <div class="control-group"><label class="control-label"><input type="checkbox" class="checkbox" onclick="XE.checkboxToggleAll('mid_list'); return false;" /> {$lang->module}</label>
-                    <div class="controls">
-                        <div class="help-block align">{$lang->about_component_mid}</div>
-                </div>
-
-<div class="controls">
-
-                    <!--@foreach($mid_list as $module_category_srl => $modules)-->
-                        <div class="module_category_title">
-                            <label class="checkbox"><input type="checkbox" onclick="XE.checkboxToggleAll('mid_list', { wrap:'section_{$module_category_srl}' }); return false;" />
+    </div>
+    <!--@if($mid_list)-->
+    <div class="control-group"><label class="control-label">
+        <!--<input type="checkbox" class="checkbox" onclick="XE.checkboxToggleAll('mid_list'); return false;" /> {$lang->module}</label>-->
+        <input type="checkbox" class="checkbox" onchange="karybuCheckAllCheckboxes(this, '#categories :checkbox');" /> {$lang->module}</label>
+        <div class="controls">
+            <div class="help-block align">{$lang->about_component_mid}</div>
+        </div>
+        <div id="categories">
+            <div class="controls">
+                <!--@foreach($mid_list as $module_category_srl => $modules)-->
+                <div class="module_category_title">
+                    <label class="checkbox">
+                        <!--<input type="checkbox" onclick="XE.checkboxToggleAll('mid_list', { wrap:'section_{$module_category_srl}' }); return false;" />-->
+                        <input type="checkbox" onclick="karybuCheckAllCheckboxes(this, '#section_{$module_category_srl} :checkbox');" />
                         <!--@if($modules->title)-->
                             {$modules->title}
                         <!--@else-->
                             {$lang->none_category}
                         <!--@end-->
-                                </label>
-                        </div>
+                    </label>
+                </div>
 
-                        <div id="section_{$module_category_srl}">
-                        <!--@foreach($modules->list as $key => $val)-->
-                            <div class="module_list">
-                                <label for="chk_mid_list_{$key}" class="checkbox">
-                                    <input type="checkbox" value="{$key}" name="mid_list" id="chk_mid_list_{$key}" <!--@if(in_array($key, $component->mid_list))-->checked="checked"<!--@end--> />
-                                    {$key} ({$val->browser_title})
-                                </label>
-                            </div>
-                        <!--@end-->
-                        </div>
-                    <!--@end-->
-    </div>
+                <div id="section_{$module_category_srl}">
+                <!--@foreach($modules->list as $key => $val)-->
+                    <div class="module_list">
+                        <label for="chk_mid_list_{$key}" class="checkbox">
+                            <input type="checkbox" value="{$key}" name="mid_list" id="chk_mid_list_{$key}" <!--@if(in_array($key, $component->mid_list))-->checked="checked"<!--@end--> />
+                            {$key} ({$val->browser_title})
+                        </label>
+                    </div>
+                <!--@end-->
+                </div>
+            <!--@end-->
+             </div>
+        </div>
         <!--@end-->
     </div>
 
