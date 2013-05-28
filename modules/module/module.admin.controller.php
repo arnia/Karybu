@@ -360,11 +360,13 @@
                 unset($obj->module);
                 unset($obj->_mode);
                 // Separately handle if a type of extra_vars is an image in the original skin_info
-                if($skin_info->extra_vars) {
+                if(!empty($skin_info->extra_vars)) {
                     foreach($skin_info->extra_vars as $vars) {
-                        if($vars->type!='image') continue;
+                        if($vars->type!='image') {
+                            continue;
+                        }
 
-                        $image_obj = $obj->{$vars->name};
+                        $image_obj = isset($obj->{$vars->name}) ? $obj->{$vars->name} : null;
                         // Get a variable to delete
                         $del_var = $obj->{"del_".$vars->name};
                         unset($obj->{"del_".$vars->name});
@@ -574,6 +576,7 @@
             $site_module_info = Context::get('site_module_info');
 			$target = Context::get('target');
 			$module = Context::get('module');
+            $args = new stdClass();
             $args->site_srl = (int)$site_module_info->site_srl;
             $args->name = str_replace(' ','_',Context::get('lang_code'));
             $args->lang_name = str_replace(' ','_',Context::get('lang_name'));
@@ -754,6 +757,7 @@
          **/
         function makeCacheDefinedLangCode($site_srl = 0) {
             // Get the language file of the current site
+            $args = new stdClass();
             if(!$site_srl) {
                 $site_module_info = Context::get('site_module_info');
                 $args->site_srl = (int)$site_module_info->site_srl;

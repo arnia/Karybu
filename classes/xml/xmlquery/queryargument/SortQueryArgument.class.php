@@ -11,7 +11,10 @@
 			 * @return string
 			 */
             function toString(){
-                $arg = sprintf("\n" . '${\'%s_argument\'} = new SortArgument(\'%s\', %s);' . "\n"
+                $arg = sprintf("\n".'if (!isset($args->{\'%s\'})) {'."\n", $this->variable_name);
+                $arg .= sprintf('$args->{\'%s\'} = null;'."\n", $this->variable_name);
+                $arg .= '}';
+                $arg .= sprintf("\n" . '${\'%s_argument\'} = new SortArgument(\'%s\', %s);' . "\n"
                                         , $this->argument_name
                                         , $this->argument_name
                                         , '$args->'.$this->variable_name);

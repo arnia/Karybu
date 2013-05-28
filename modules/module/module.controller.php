@@ -764,7 +764,7 @@
                 if(!$val || !count($val)) continue;
 
                 foreach($val as $group_srl) {
-                    $args = null;
+                    $args = new stdClass();
                     $args->module_srl = $module_srl;
                     $args->name = $name;
                     $args->group_srl = trim($group_srl);

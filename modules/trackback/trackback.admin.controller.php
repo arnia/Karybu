@@ -117,6 +117,7 @@
 		 * @return Object
 		 */
         function setTrackbackModuleConfig($module_srl, $enable_trackback) {
+            $config = new stdClass();
             $config->enable_trackback = $enable_trackback;
 
             $oModuleController = &getController('module');

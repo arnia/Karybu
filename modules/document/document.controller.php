@@ -857,8 +857,10 @@ class documentController extends document {
 	 * @return object
 	 */
 	function insertDocumentExtraKey($module_srl, $var_idx, $var_name, $var_type, $var_is_required = 'N', $var_search = 'N', $var_default = '', $var_desc = '', $eid) {
-		if(!$module_srl || !$var_idx || !$var_name || !$var_type || !$eid) return new Object(-1,'msg_invalid_request');
-
+		if(!$module_srl || !$var_idx || !$var_name || !$var_type || !$eid) {
+            return new Object(-1,'msg_invalid_request');
+        }
+        $obj = new stdClass();
 		$obj->module_srl = $module_srl;
 		$obj->var_idx = $var_idx;
 		$obj->var_name = $var_name;

@@ -90,24 +90,34 @@
             // Get the object
             $module_srl = Context::get('target_module_srl');
             // In case of batch configuration of several modules
-            if(preg_match('/^([0-9,]+)$/',$module_srl)) $module_srl = explode(',',$module_srl);
-            else $module_srl = array($module_srl);
-            if(!is_array($module_srl)) $module_srl[0] = $module_srl;
+            if(preg_match('/^([0-9,]+)$/',$module_srl)) {
+                $module_srl = explode(',',$module_srl);
+            }
+            else {
+                $module_srl = array($module_srl);
+            }
+            if(!is_array($module_srl)) {
+                $module_srl[0] = $module_srl;
+            }
 
             $config_vars = Context::getRequestVars();
 
-            $open_rss = $config_vars->open_rss;
-            $open_total_feed = $config_vars->open_total_feed;
-            $feed_description = trim($config_vars->feed_description);
-            $feed_copyright = trim($config_vars->feed_copyright);
+            $open_rss = isset($config_vars->open_rss) ? $config_vars->open_rss : null;
+            $open_total_feed = isset($config_vars->open_total_feed) ? $config_vars->open_total_feed : null;
+            $feed_description = isset($config_vars->feed_description) ? trim($config_vars->feed_description) : null;
+            $feed_copyright = isset($config_vars->feed_copyright) ? trim($config_vars->feed_copyright) : null;
 
-            if(!$module_srl || !$open_rss) return new Object(-1, 'msg_invalid_request');
+            if(!$module_srl || !$open_rss) {
+                return new Object(-1, 'msg_invalid_request');
+            }
 
             if(!in_array($open_rss, array('Y','H','N'))) $open_rss = 'N';
             // Save configurations
             for($i=0;$i<count($module_srl);$i++) {
                 $srl = trim($module_srl[$i]);
-                if(!$srl) continue;
+                if(!$srl) {
+                    continue;
+                }
                 $output = $this->setRssModuleConfig($srl, $open_rss, $open_total_feed, $feed_description, $feed_copyright);
             }
 
@@ -169,6 +179,7 @@
          **/
         function setRssModuleConfig($module_srl, $open_rss, $open_total_feed = 'N', $feed_description = 'N', $feed_copyright = 'N') {
             $oModuleController = &getController('module');
+            $config = new stdClass();
             $config->open_rss = $open_rss;
             $config->open_total_feed = $open_total_feed;
             if($feed_description != 'N') { $config->feed_description = $feed_description; }

@@ -485,8 +485,10 @@
             $desc = Context::get('desc') ? Context::get('desc') : '';
             $search = Context::get('search');
 			$eid = Context::get('eid');
-
-            if(!$module_srl || !$name || !$eid) return new Object(-1,'msg_invalid_request');
+            $obj = new stdClass();
+            if(!$module_srl || !$name || !$eid) {
+                return new Object(-1,'msg_invalid_request');
+            }
             // set the max value if idx is not specified
             if(!$var_idx) {
                 $obj->module_srl = $module_srl;

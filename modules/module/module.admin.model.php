@@ -324,7 +324,9 @@
 		function getModuleAdminLangListByName()
 		{
 			$args = Context::getRequestVars();
-			if(!$args->site_srl) $args->site_srl = 0;
+			if(empty($args->site_srl)) {
+                $args->site_srl = 0;
+            }
 
 			$columnList = array('lang_code', 'name', 'value');
 

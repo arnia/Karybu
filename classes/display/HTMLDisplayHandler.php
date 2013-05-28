@@ -18,7 +18,7 @@ class HTMLDisplayHandler {
 		if(!is_dir($template_path))
 		{
 			if ($oModule->module_info->module == $oModule->module) {
-				$skin = $oModule->origin_module_info->skin;
+				$skin = isset($oModule->origin_module_info->skin) ? $oModule->origin_module_info->skin : null;
             }
 			else {
 				$skin = isset($oModule->module_config->skin) ? $oModule->module_config->skin : null;
