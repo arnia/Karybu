@@ -49,22 +49,25 @@
         </div>
 
         <!--@if($mid_list)-->
-    <div class="control-group"><label class="control-label"><input type="checkbox" class="checkbox" onclick="XE.checkboxToggleAll('mid_list'); return false;" /> {$lang->module}</label>
-                    <div class="controls">
-                        <div class="help-block align">{$lang->about_component_mid}</div>
+            <div class="control-group"><label class="control-label">
+                <!--<input type="checkbox" class="checkbox" onclick="XE.checkboxToggleAll('mid_list'); return false;" /> {$lang->module}</label>-->
+                <input type="checkbox" class="checkbox" onchange="karybuCheckAllCheckboxes(this, '#categories :checkbox');" /> {$lang->module}</label>
+                <div class="controls">
+                    <div class="help-block align">{$lang->about_component_mid}</div>
                 </div>
-
-<div class="controls">
-
-                    <!--@foreach($mid_list as $module_category_srl => $modules)-->
+                <div id="categories">
+                    <div class="controls">
+                        <!--@foreach($mid_list as $module_category_srl => $modules)-->
                         <div class="module_category_title">
-                            <label class="checkbox"><input type="checkbox" onclick="XE.checkboxToggleAll('mid_list', { wrap:'section_{$module_category_srl}' }); return false;" />
+                            <label class="checkbox">
+                                <!--<input type="checkbox" onclick="XE.checkboxToggleAll('mid_list', { wrap:'section_{$module_category_srl}' }); return false;" />-->
+                                <input type="checkbox" onclick="karybuCheckAllCheckboxes(this, '#section_{$module_category_srl} :checkbox');" />
                         <!--@if($modules->title)-->
                             {$modules->title}
                         <!--@else-->
                             {$lang->none_category}
                         <!--@end-->
-                                </label>
+                            </label>
                         </div>
 
                         <div id="section_{$module_category_srl}">
@@ -78,7 +81,9 @@
                         <!--@end-->
                         </div>
                     <!--@end-->
-    </div>
+                     </div>
+                </div>
+            </div>
         <!--@end-->
     </div>
 
