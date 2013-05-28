@@ -63,11 +63,14 @@
 			<tbody class="uDrag _groupList">
 				<tr loop="$group_list=>$group_srl,$group_info">
 					<td class="multiLangEdit">
-                        <div class="wrap" style="height:22px"><button type="button" class="dragBtn"></button>
-						<input type="hidden" name="group_srls[]" value="{$group_info->group_srl}" />
-						<input type="hidden" name="group_titles[]" value="{htmlspecialchars($group_info->title)}" class="vLang"/>
-						<input type="text" value="{$group_info->title}" class="vLang" />
-						<span class="desc kActionIcons pull-right"><a href="#langEdit" class="tgAnchor editUserLang" data-effect="slide" data-toggle="tooltip" title="{$lang->cmd_set_multilingual}"><i class="kLanguage">{$lang->cmd_set_multilingual}</i></a></span>
+                        <div class="wrap" style="height:22px">
+                            <button type="button" class="dragBtn"></button>
+                            <input type="hidden" name="group_srls[]" value="{$group_info->group_srl}" />
+                            <input type="hidden" name="group_titles[]" value="{htmlspecialchars($group_info->title)}" class="vLang"/>
+                            <input type="text" value="{$group_info->title}" class="vLang" />
+                            <span class="desc kActionIcons pull-right">
+                                <a href="#langEdit" class="tgAnchor editUserLang" data-effect="slide" data-toggle="modal" title="{$lang->cmd_set_multilingual}"><i class="kLanguage">{$lang->cmd_set_multilingual}</i></a>
+                            </span>
 						</div>
 					</td>
 					<td><input type="text" name="descriptions[]" value="{$group_info->description}" style="width:240px" /></td>

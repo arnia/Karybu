@@ -45,9 +45,17 @@
         <!--@ // Input type text - multilang -->
         <div cond="$var->type == 'text'" class="multiLangEdit">
             {@$use_multilang = true}
-            <input type="hidden" name="{$id}" value="" class="vLang" />
-            <input type="text" id="{$id}" class="vLang" />
-            <span class="desc"><a href="#langEdit" class="editUserLang tgAnchor">{$lang->cmd_set_multilingual}</a></span>
+            <div class="pull-left">
+                <input type="hidden" name="{$id}" value="" class="vLang" />
+                <input type="text" id="{$id}" class="vLang" />
+            </div>
+            <span class="desc kActionIcons pull-left">
+                <a href="#langEdit" class="editUserLang tgAnchor" title="{$lang->cmd_set_multilingual}">
+                    <i class="kLanguage">{$lang->cmd_set_multilingual}</i>
+                </a>
+            </span>
+            <div class="clearfix"></div>
+            <!--<span class="desc"><a href="#langEdit" class="editUserLang tgAnchor">{$lang->cmd_set_multilingual}</a></span>-->
             <script type="text/javascript">
                 xe.registerApp(new xe.MultiLangManager('{$id}'));
             </script>
@@ -59,9 +67,17 @@
         <!--@ // Textarea - multilang -->
         <div cond="$var->type == 'textarea'" class="multiLangEdit">
             {@$use_multilang_textarea = true}
-            <input type="hidden" name="{$id}" value="" class="vLang" />
-            <textarea cond="$var->type == 'textarea'" id="{$id}" class="vLang" rows="8" cols="42"></textarea>
-            <span class="desc"><a href="#langEditTextarea" class="editUserLang tgAnchor">{$lang->cmd_set_multilingual}</a></span>
+            <div class="pull-left">
+                <input type="hidden" name="{$id}" value="" class="vLang" />
+                <textarea cond="$var->type == 'textarea'" id="{$id}" class="vLang" rows="8" cols="42"></textarea>
+            </div>
+            <!--<span class="desc"><a href="#langEditTextarea" class="editUserLang tgAnchor">{$lang->cmd_set_multilingual}</a></span>-->
+            <span class="desc kActionIcons pull-left">
+                <a href="#langEditTextarea" class="editUserLang tgAnchor" title="{$lang->cmd_set_multilingual}">
+                    <i class="kLanguage">{$lang->cmd_set_multilingual}</i>
+                </a>
+            </span>
+            <div class="clearfix"></div>
             <script type="text/javascript">
                 xe.registerApp(new xe.MultiLangManager('{$id}'));
             </script>

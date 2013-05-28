@@ -860,7 +860,7 @@ button.sTog {padding: 4px 10px 8px;
     color: #2e5587!important
 }
 
-#moduleSearchWindow, #langEdit, #popup_menu_area {
+#moduleSearchWindow, #langEdit, #popup_menu_area, #langEditTextarea {
     position: absolute;
     background-color: #f5f5f5;
     border: 1px solid #aba69e;
@@ -874,7 +874,11 @@ button.sTog {padding: 4px 10px 8px;
     -webkit-box-shadow: 0px 3px 6px 0px rgba(70, 50, 20, 0.4);
     box-shadow: 0px 3px 6px 0px rgba(70, 50, 20, 0.4);
 }
-
+#langEdit, #langEditTextarea {
+    left: 40%;
+    top: 30%;
+    z-index: 1060;
+}
 #moduleSearchWindow li a {
     display: block;
 }

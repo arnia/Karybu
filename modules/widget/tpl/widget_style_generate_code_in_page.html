@@ -71,9 +71,16 @@
 					<div class="a extra_vars">
 						<div cond="$var->type == 'text'" class="multiLangEdit">
 							{@$use_multilang = TRUE}
-							<input type="hidden" name="{$id}" value="" class="vLang" />
-							<input type="text" id="{$id}" class="vLang" />
-							<span class="desc"><a href="#langEdit" class="editUserLang tgAnchor">{$lang->cmd_set_multilingual}</a></span>
+                            <div class="pull-left">
+                                <input type="hidden" name="{$id}" value="" class="vLang" />
+                                <input type="text" id="{$id}" class="vLang" />
+                            </div>
+							<span class="desc kActionIcons pull-left">
+                                <a href="#langEdit" class="editUserLang tgAnchor" title="{$lang->cmd_set_multilingual}">
+                                    <i class="kLanguage">{$lang->cmd_set_multilingual}</i>
+                                </a>
+                            </span>
+                            <div class="clearfix"></div>
 							<script>
 								xe.registerApp(new xe.MultiLangManager('{$id}'));
 							</script>

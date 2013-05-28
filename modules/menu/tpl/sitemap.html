@@ -75,13 +75,20 @@ jQuery( function() { jQuery('.grant_default').change( function(event) { doShowMe
             <li>
                 <label for="name">{$lang->menu_name}({$lang->browser_title}) <em>*</em></label>
                 <div class="multiLangEdit">
-                    <input type="hidden" class="vLang" name="menu_name_key" />
-                    <input type="text" class="vLang" id="name" name="menu_name" />
+                    <div class="pull-left">
+                        <input type="hidden" class="vLang" name="menu_name_key" />
+                        <input type="text" class="vLang" id="name" name="menu_name" />
+                    </div>
 
                     {@$use_multilang = true}
                     <include target="../../admin/tpl/common/include.multilang.html" />
 
-                    <span class="desc"><a href="#langEdit" class="editUserLang tgAnchor">{$lang->cmd_set_multilingual}</a></span>
+                    <span class="desc kActionIcons pull-left">
+                        <a href="#langEdit" class="editUserLang tgAnchor" title="{$lang->cmd_set_multilingual}">
+                            <i class="kLanguage">{$lang->cmd_set_multilingual}</i>
+                        </a>
+                    </span>
+                    <div class="clearfix"></div>
                 </div>
             </li>
             <li>

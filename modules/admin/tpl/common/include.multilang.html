@@ -1,23 +1,28 @@
 <block cond="$use_multilang">
 	<div id="langEdit" class="langEdit tgContent">
-		<ul class="langList"></ul>
-		<div class="langInput form">
-			<h5>{$lang->multilingual} <strong>{$lang->cmd_modify}...</strong> | <a href="#langEdit">{$lang->cmd_insert}</a></h5>
-			<ul class="unstyled">
-				{@
-					/* move current language to the top */
-					$a = array($lang_type=>$lang_supported[$lang_type]);
-					unset($lang_supported[$lang_type]);
-					$lang_supported = array_merge($a, $lang_supported);
-				}
-				<li loop="$lang_supported=>$code,$name" class="{$code}"><label for="{$code}_var1">{$name}</label> <input type="text" value="" id="{$code}_var1" /></li>
-			</ul>
-			<div class="action">
-				<div>
-					<button type="submit" class="btn">{$lang->use}|{$lang->use_after_save}</button>
-				</div>
-				<p><a href="{getUrl('act','dispModuleAdminLangcode')}">{$lang->multilingual_manager}</a></p>
-			</div>
-		</div>
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h5>{$lang->multilingual} <strong>{$lang->cmd_modify}...</strong> | <a href="#langEdit">{$lang->cmd_insert}</a></h5>
+        </div>
+        <div class="modal-body">
+            <ul class="langList"></ul>
+            <div class="langInput form">
+                <ul class="unstyled">
+                    {@
+                        /* move current language to the top */
+                        $a = array($lang_type=>$lang_supported[$lang_type]);
+                        unset($lang_supported[$lang_type]);
+                        $lang_supported = array_merge($a, $lang_supported);
+                    }
+                    <li loop="$lang_supported=>$code,$name" class="{$code}"><label for="{$code}_var1">{$name}</label> <input type="text" value="" id="{$code}_var1" /></li>
+                </ul>
+            </div>
+        </div>
+        <div class="modal-footer action">
+            <div>
+                <button type="submit" class="btn">{$lang->use}|{$lang->use_after_save}</button>
+            </div>
+            <p><a target="_blank" href="{getUrl('act','dispModuleAdminLangcode')}">{$lang->multilingual_manager}</a></p>
+        </div>
 	</div>
 </block>

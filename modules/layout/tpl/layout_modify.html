@@ -69,9 +69,16 @@
 			<div class="controls">
 				<div cond="$var->type == 'text'" class="multiLangEdit">
 					{@$use_multilang = true}
-					<input type="hidden" name="{$name}" value="<!--@if(strpos($var->value, "$user_lang->") !== false)-->{htmlspecialchars($var->value)}<!--@else-->{$var->value}<!--@end-->" class="vLang" />
-					<input type="text" id="{$name}" value="{$var->value}" class="vLang" />
-					<span class="desc"><a href="#langEdit" class="editUserLang tgAnchor">{$lang->cmd_set_multilingual}</a></span>
+                    <div class="pull-left">
+                        <input type="hidden" name="{$name}" value="<!--@if(strpos($var->value, "$user_lang->") !== false)-->{htmlspecialchars($var->value)}<!--@else-->{$var->value}<!--@end-->" class="vLang" />
+                        <input type="text" id="{$name}" value="{$var->value}" class="vLang" />
+                    </div>
+					<span class="desc kActionIcons pull-left">
+                        <a href="#langEdit" class="editUserLang tgAnchor" title="{$lang->cmd_set_multilingual}">
+                            <i class="kLanguage">{$lang->cmd_set_multilingual}</i>
+                        </a>
+                    </span>
+                    <div class="clearfix"></div>
 				</div>
 
 				<div cond="$var->type == 'textarea'" class="multiLangEdit">

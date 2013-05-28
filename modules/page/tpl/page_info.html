@@ -45,9 +45,16 @@
 		<div class="control-group">
             <label class="control-label" for="browser_title">{$lang->browser_title}</label>
             <div class="multiLangEdit controls">
-                <input type="hidden" name="browser_title" value="{htmlspecialchars($module_info->browser_title)}" class="vLang" />
-                <input type="text" id="browser_title" value="{$module_info->browser_title}" class="vLang" />
-                <span class="desc"><a href="#langEdit" class="tgAnchor editUserLang" data-effect="slide">{$lang->cmd_set_multilingual}</a></span>
+                <div class="pull-left">
+                    <input type="hidden" name="browser_title" value="{htmlspecialchars($module_info->browser_title)}" class="vLang" />
+                    <input type="text" id="browser_title" value="{$module_info->browser_title}" class="vLang" />
+                </div>
+                <span class="desc kActionIcons pull-left">
+                    <a href="#langEdit" class="tgAnchor editUserLang" data-effect="slide" title="{$lang->cmd_set_multilingual}">
+                        <i class="kLanguage">{$lang->cmd_set_multilingual}</i>
+                    </a>
+                </span>
+                <div class="clearfix"></div>
                 <div class="help-block">{$lang->about_browser_title}</div>
             </div>
 		</div>

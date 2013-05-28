@@ -1004,33 +1004,37 @@ $('.multiLangEdit')
 			clearTimeout(w_timer);
 			w_timer = null;
 
-			$(this).closest('.multiLangEdit').focusout();
-		},
-		focusout : function(){
-			var $this = $(this);
+            $(this).closest('.multiLangEdit').focusout();
+        },
+        focusout : function(){
+            var $this = $(this);
 
-			clearTimeout(f_timer);
-			f_timer = setTimeout(function(){
-				if(keep_showing) {
-					keep_showing = false;
-					return;
-				}
-				if(!$this.find(':focus').is('.vLang,button._btnLang')) $suggest.trigger('hide');
-			}, 10);
-		}
-	})
-	.delegate('a.tgAnchor.editUserLang', {
-		'before-open.tc' : function(){
-			var $this, $layer, $mle, $vlang, key, text, api, params;
+            clearTimeout(f_timer);
+            f_timer = setTimeout(function(){
+                if(keep_showing) {
+                    keep_showing = false;
+                    return;
+                }
+                if(!$this.find(':focus').is('.vLang,button._btnLang')) $suggest.trigger('hide');
+            }, 10);
+        }
+    })
+    .delegate('a.tgAnchor.editUserLang', {
+        'before-open.tc' : function(){
+            var $this, $layer, $mle, $vlang, key, text, api, params;
 
-			$this  = $(this);
-			$layer = $($this.attr('href')).insertBefore($this);
-			$mle   = $this.closest('.multiLangEdit');
-			$vlang = $mle.find('input.vLang,textarea.vLang');
+            $this  = $(this);
+            //$layer = $($this.attr('href')).insertBefore($this);
+            $layer = $($this.attr('href')).insertBefore(jQuery('body').children()[0]);
+            $mle   = $this.closest('.multiLangEdit');
+            $vlang = $mle.find('input.vLang,textarea.vLang');
 
-			key  = $vlang.eq(0).val();
-			text = $vlang.eq(1).val();
-
+            key  = $vlang.eq(0).val();
+            text = $vlang.eq(1).val();
+            $layer.modal('show');
+            //reposition $layer near the trigger element
+            $layer.css('left', $this.offset().left - 50);
+            $layer.css('top', $this.offset().top - 50);
 			// initialize the layer
 			initLayer($layer);
 
@@ -1127,7 +1131,7 @@ var layer_index = 0;
 function initLayer($layer) {
 	var $submit, $input, value='', current_status = 0, mode, cmd_add, cmd_edit, status_texts=[];
 	var USE = 0, UPDATE_AND_USE = 1, MODE_SAVE = 0, MODE_UPDATE = 1;
-
+    $layer.modal('show');
 	if($layer.data('init-multilang-editor')) return;
 
 	$layer
@@ -1216,7 +1220,7 @@ function initLayer($layer) {
 	$submit = $layer.find('button[type=submit]')
 		.click(function(){
 			var name = $layer.data('multilang-current-name');
-
+            $layer.modal('hide');
 			function use_lang() {
 				$layer.hide().closest('.multiLangEdit').find('.vLang')
 					.eq(0).val('$user_lang->'+name).end()
