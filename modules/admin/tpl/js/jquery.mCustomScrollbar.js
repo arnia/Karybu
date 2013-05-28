@@ -1,6 +1,6 @@
 /*
 == malihu jquery custom scrollbars plugin == 
-version: 2.8.1 
+version: 2.8.2 
 author: malihu (http://manos.malihu.gr) 
 plugin home: http://manos.malihu.gr/jquery-custom-content-scroller 
 */
@@ -9,17 +9,17 @@ plugin home: http://manos.malihu.gr/jquery-custom-content-scroller
 Copyright 2010-2013 Manos Malihutsakis 
 
 This program is free software: you can redistribute it and/or modify 
-it under the terms of the GNU General Public License as published by 
+it under the terms of the GNU Lesser General Public License as published by 
 the Free Software Foundation, either version 3 of the License, or 
 any later version. 
 
 This program is distributed in the hope that it will be useful, 
 but WITHOUT ANY WARRANTY; without even the implied warranty of 
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
-GNU General Public License for more details. 
+GNU Lesser General Public License for more details. 
 
-You should have received a copy of the GNU General Public License 
-along with this program.  If not, see http://www.gnu.org/licenses/. 
+You should have received a copy of the GNU Lesser General Public License 
+along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html. 
 */
 (function($){
 	/*plugin script*/
@@ -31,7 +31,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/.
 				horizontalScroll:false, /*scroll horizontally: boolean*/
 				scrollInertia:950, /*scrolling inertia: integer (milliseconds)*/
 				mouseWheel:true, /*mousewheel support: boolean*/
-				mouseWheelPixels:300, /*mousewheel pixels amount: integer, "auto"*/
+				mouseWheelPixels:"auto", /*mousewheel pixels amount: integer, "auto"*/
 				autoDraggerLength:true, /*auto-adjust scrollbar dragger length: boolean*/
 				autoHideScrollbar:false, /*auto-hide scrollbar when idle*/
 				snapAmount:null, /* optional element always snaps to a multiple of this number in pixels */
@@ -47,7 +47,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/.
 					updateOnContentResize:false, /*auto-update scrollbars on content resize (for dynamic content): boolean*/
 					autoExpandHorizontalScroll:false, /*auto-expand width for horizontal scrolling: boolean*/
 					autoScrollOnFocus:true, /*auto-scroll on focused elements: boolean*/
-					normalizeMouseWheelDelta:true /*normalize mouse-wheel delta (-1/1)*/
+					normalizeMouseWheelDelta:false /*normalize mouse-wheel delta (-1/1)*/
 				},
 				contentTouchScroll:true, /*scrolling by touch-swipe content: boolean*/
 				callbacks:{
