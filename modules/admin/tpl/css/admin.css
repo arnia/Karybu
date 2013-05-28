@@ -95,6 +95,7 @@ blockquote.pull-right {
 .swatchBoard a, .swatchBoard a:hover, .swatchBoard a:visited, .swatchBoard a:active {
     color: #ffffff;
     text-decoration: none;
+    word-break: break-all;
 }
 
 a, a:visited {
