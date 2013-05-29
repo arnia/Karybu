@@ -801,7 +801,7 @@ button.sTog {padding: 4px 10px 8px;
 .mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar,
 .mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
 .mCSB_scrollTools .mCSB_dragger:focus .mCSB_dragger_bar {
-    background: rgba(0,0,0,0.6);
+    background: rgba(128,128,128,0.8);
     filter: "alpha(opacity=60)";
     -ms-filter: "alpha(opacity=60)";
 
@@ -810,9 +810,8 @@ button.sTog {padding: 4px 10px 8px;
 .kDark .mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar,
 .kDark .mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
 .kDark .mCSB_scrollTools .mCSB_dragger:focus .mCSB_dragger_bar {
-    background: rgba(255,255,255,0.6);
-    filter: "alpha(opacity=60)";
-    -ms-filter: "alpha(opacity=60)";
+    background:rgba(128,128,128,0.8);
+    filter:"alpha(opacity=60)"; -ms-filter:"alpha(opacity=60)"; /* old ie */
 }
 
 .kDark .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
@@ -835,6 +834,12 @@ button.sTog {padding: 4px 10px 8px;
     background-image:url("../img/mCSB_buttons.png")!important;
     background-repeat:no-repeat;
 
+}
+
+.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar{
+    background:rgba(128,128,128,0.8);
+    filter:"alpha(opacity=60)"; -ms-filter:"alpha(opacity=60)"; /* old ie */
 }
 
 /* SCROLLBARS SKIN END */

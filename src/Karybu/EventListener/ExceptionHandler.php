@@ -52,9 +52,10 @@ class ExceptionHandler extends SymfonyExceptionHandler{
                     $class = $this->abbrClass($e['class']);
                     $message = nl2br($e['message']);
                     $content = sprintf(<<<EOF
-                        <div class="block_exception clear_fix">
+                        <div class="block_exception">
                             <h2><span>%d/%d</span> %s: %s</h2>
                         </div>
+                        <h1>$title</h1>
                         <div class="block">
                             <ol class="traces list_exception">
 
@@ -90,7 +91,7 @@ EOF
 
         return <<<EOF
             <div id="sf-resetcontent" class="sf-reset">
-                <h1>$title</h1>
+
                 $content
             </div>
 EOF;
@@ -144,4 +145,98 @@ EOF;
     }
 
 
+
+    /**
+     * Gets the stylesheet associated with the given exception.
+     *
+     * @param FlattenException $exception A FlattenException instance
+     *
+     * @return string The stylesheet as a string
+     */
+    public function getStylesheet(FlattenException $exception)
+    {
+        return <<<EOF
+            body, * { font-family: Arial, "Helvetica Neue", Helvetica, sans-serif!important }
+            body, html { background:#f8f8f8; }
+            .sf-reset { font-size: 11px; color: #333 }
+            .sf-reset .clear { clear:both; height:0; font-size:0; line-height:0; }
+            .sf-reset .clear_fix:after { display:block; height:0; clear:both; visibility:hidden; }
+            .sf-reset .clear_fix { display:inline-block; }
+            .sf-reset * html .clear_fix { height:1%; }
+            .sf-reset .clear_fix { display:block; }
+            .sf-reset, .sf-reset .block { margin: auto }
+            .sf-reset abbr { border-bottom: none; cursor: help; }
+            .sf-reset p { font-size:14px; line-height:20px; color:#868686; padding-bottom:20px }
+            .sf-reset strong { font-weight:bold; }
+            .sf-reset a { color:#6c6159; }
+            .sf-reset a img { border:none; }
+            .sf-reset a:hover { text-decoration:underline; }
+            .sf-reset em { font-style:italic; }
+            .sf-reset h1, .sf-reset h2 { font-size: 20px; line-height:36px }
+            .sf-reset h2 { display: block;
+                width: 200px;
+                height: 200px;
+                font-size: 20px;
+                font-weight: bold;
+                color: #555555;
+                border: 10px solid #bebebe;
+                text-align: center;
+                background: #ffffff;
+                -webkit-box-shadow: 0px 1px 0px 0px #959595, inset 0px 1px 0px 0px #959595;
+                box-shadow: 0px 1px 0px 0px #959595, inset 0px 1px 0px 0px #959595;
+                -moz-border-radius: 160px;
+                -webkit-border-radius: 160px;
+                border-radius: 160px;
+                 float:left;
+                 margin-right:36px;
+                 margin-left:-265px;
+                 }
+            .sf-reset h2 span { color: #333; padding: 6px; display:block; clear:both; position:relative; line-height:40px; padding-top:40px; font-size: 29px;
+font-weight: bold; color: #555555;  }
+            .sf-reset .traces li { font-size:13px; padding: 4px 10px; list-style-type:decimal; margin-left:15px; background:#fff; margin-bottom:6px; border-bottom:1px solid #ddd; border-radius:5px; word-break:break-all; }
+            .sf-reset .block {
+            }
+            .sf-reset .block_exception {
+                color:#555555;
+                line-height:20px;
+            }
+            .sf-reset li a { background:none; color:#868686; text-decoration:none; }
+            .sf-reset li a:hover { background:none; color:#313131; text-decoration:underline; }
+            .sf-reset ol { padding: 10px 0; line-height:20px }
+            .sf-reset h1 {
+                margin: 25px 0;
+                padding: 80px 0 0px;
+                font-size: 46px;
+                font-weight: normal;
+                color:#878787;
+            }
+            #sf-resetcontent { width:auto; margin:0 100px 0 300px; }
+EOF;
+    }
+
+    private function decorate($content, $css)
+    {
+        return <<<EOF
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="robots" content="noindex,nofollow" />
+        <style>
+            html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}
+
+            html { background: #eee; padding: 10px }
+            img { border: 0; }
+            #sf-resetcontent { width:90%; margin:0 auto; }
+            $css
+        </style>
+    </head>
+    <body>
+        $content
+    </body>
+</html>
+EOF;
+    }
+
 }
+
