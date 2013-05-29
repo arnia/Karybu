@@ -136,6 +136,8 @@ class adminAdminController extends admin {
         $site_srl = null;
         if (!empty($site_info->site_srl)) {
             $site_srl = $site_info->site_srl;
+        } else {
+            $site_srl = 0;
         }
 
         $args->site_srl = $site_srl;

@@ -2267,7 +2267,6 @@ table th[scope=row] {
 
 button:active,
 button:focus {
-    border: none;
     outline: none;
     -mox-box-shadow: none;
     box-shadow: none;

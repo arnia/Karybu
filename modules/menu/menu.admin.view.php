@@ -155,7 +155,11 @@
 			}
             Context::set('group_list', $groupList);
 
-            $this->setTemplateFile('sitemap');
+            if(Mobile::isFromMobilePhone()) {
+                $this->setTemplateFile('sitemap_mobile');
+            } else {
+                $this->setTemplateFile('sitemap');
+            }
 		}
 
 		/**
