@@ -361,6 +361,8 @@ ul.nav-tabs {
 .main-nav .navbar .nav > li {
     padding-bottom: 14px;
     margin-bottom: -14px;
+    display: inline-block;
+    float: none;
 }
 
 .main-nav .navbar .navbar-inner {
