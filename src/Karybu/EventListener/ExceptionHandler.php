@@ -45,13 +45,14 @@ class ExceptionHandler extends SymfonyExceptionHandler{
         $content = $exception->getMessage();
         if ($this->debug) {
             try {
+                $content = '';
                 $count = count($exception->getAllPrevious());
                 $total = $count + 1;
                 foreach ($exception->toArray() as $position => $e) {
                     $ind = $count - $position + 1;
                     $class = $this->abbrClass($e['class']);
                     $message = nl2br($e['message']);
-                    $content = sprintf(<<<EOF
+                    $content .= sprintf(<<<EOF
                         <div class="block_exception">
                             <h2><span>%d/%d</span> %s: %s</h2>
                         </div>
