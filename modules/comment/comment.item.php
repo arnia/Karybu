@@ -41,8 +41,10 @@
 		 * @return void
 		 */
         function _loadFromDB() {
-            if(!$this->comment_srl) return;
-
+            if(!$this->comment_srl) {
+                return;
+            }
+            $args = new stdClass();
             $args->comment_srl = $this->comment_srl;
             $output = executeQuery('comment.getComment', $args, $this->columnList);
 
@@ -54,7 +56,7 @@
 		 * @return void
 		 */
         function setAttribute($attribute) {
-            if(!$attribute->comment_srl) {
+            if(empty($attribute->comment_srl)) {
                 $this->comment_srl = null;
                 return;
             }
@@ -69,7 +71,9 @@
         }
 
         function isGranted() {
-            if($_SESSION['own_comment'][$this->comment_srl]) return true;
+            if(!empty($_SESSION['own_comment'][$this->comment_srl])) {
+                return true;
+            }
 
             if(!Context::get('is_logged')) return false;
 

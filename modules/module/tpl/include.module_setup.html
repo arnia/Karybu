@@ -83,8 +83,13 @@
 				<p class="a multiLangEdit">
 					{@$use_multilang_textarea=true}
 					<input type="hidden" name="header_text" class="vLang" />
-					<textarea id="header_text" rows="8" cols="42" class="vLang"></textarea>
-					<span class="desc"><a href="#langEditTextarea" class="editUserLang tgAnchor">{$lang->cmd_set_multilingual}</a></span>
+					<textarea id="header_text" rows="8" cols="42" class="vLang pull-left"></textarea>
+					<span class="desc kActionIcons pull-left">
+                        <a href="#langEditTextarea" class="editUserLang tgAnchor" title="{$lang->cmd_set_multilingual}">
+                            <i class="kLanguage">{$lang->cmd_set_multilingual}</i>
+                        </a>
+                    </span>
+                    <div class="clearfix"></div>
 				</p>
 				<p class="desc">{$lang->about_header_text}</p>
 			</li>
@@ -92,8 +97,13 @@
 				<p class="q"><label for="footer_text">{$lang->footer_text}</label></p>
 				<p class="a multiLangEdit">
 					<input type="hidden" name="footer_text" class="vLang" />
-					<textarea id="footer_text" rows="8" cols="42" class="vLang"></textarea>
-					<span class="desc"><a href="#langEditTextarea" class="editUserLang tgAnchor">{$lang->cmd_set_multilingual}</a></span>
+					<textarea id="footer_text" rows="8" cols="42" class="vLang pull-left"></textarea>
+					<span class="desc kActionIcons pull-left">
+                        <a href="#langEditTextarea" class="editUserLang tgAnchor" title="{$lang->cmd_set_multilingual}">
+                            <i class="kLanguage">{$lang->cmd_set_multilingual}</i>
+                        </a>
+                    </span>
+                <div class="clearfix"></div>
 				</p>
 				<p class="desc">{$lang->about_footer_text}</p>
 			</li>

@@ -168,7 +168,7 @@ class documentModel extends document
             return new documentItem();
         }
 
-        if (!isset($GLOBALS['XE_DOCUMENT_LIST'][$document_srl]) || $GLOBALS['XE_DOCUMENT_LIST'][$document_srl]->columnListKey != serialize(
+        if (!isset($GLOBALS['XE_DOCUMENT_LIST'][$document_srl]) || !isset($GLOBALS['XE_DOCUMENT_LIST'][$document_srl]->columnListKey) || $GLOBALS['XE_DOCUMENT_LIST'][$document_srl]->columnListKey != serialize(
             $columnList
         )
         ) {
@@ -303,7 +303,7 @@ class documentModel extends document
                 $page_navigation = $output->page_navigation;
                 $keys = array_keys($output->data);
                 $virtual_number = $keys[0];
-
+                $target_args = new stdClass();
                 $target_args->document_srls = implode(',', $target_srls);
                 $target_args->list_order = $args->sort_index;
                 $target_args->order_type = $args->order_type;
@@ -364,7 +364,7 @@ class documentModel extends document
             $this->setToAllDocumentExtraVars();
         }
 
-        if (count($output->data)) {
+        if (isset($output->data) && count($output->data)) {
             foreach ($output->data as $number => $document) {
                 $output->data[$number] = $GLOBALS['XE_DOCUMENT_LIST'][$document->document_srl];
             }
@@ -385,8 +385,9 @@ class documentModel extends document
      */
     function getNoticeList($obj, $columnList = array())
     {
-        $args->module_srl = $obj->module_srl;
-        $args->category_srl = $obj->category_srl;
+        $args = new stdClass();
+        $args->module_srl = isset($obj->module_srl) ? $obj->module_srl : null;
+        $args->category_srl = isset($obj->category_srl) ? $obj->category_srl : null;
         $output = executeQueryArray('document.getNoticeList', $args, $columnList);
         if (!$output->toBool() || !$output->data) {
             return;
@@ -398,7 +399,7 @@ class documentModel extends document
                 continue;
             }
 
-            if (!$GLOBALS['XE_DOCUMENT_LIST'][$document_srl]) {
+            if (empty($GLOBALS['XE_DOCUMENT_LIST'][$document_srl])) {
                 $oDocument = null;
                 $oDocument = new documentItem();
                 $oDocument->setAttribute($val, false);
@@ -1605,7 +1606,7 @@ class documentModel extends document
                 $division = (int)Context::get('division');
 
                 // order by list_order and (module_srl===0 or module_srl may count), therefore case table full scan
-                if ($args->sort_index == 'list_order' && ($args->exclude_module_srl === '0' || count(
+                if ($args->sort_index == 'list_order' && ((isset($args->exclude_module_srl) && $args->exclude_module_srl === '0') || count(
                     explode(',', $args->module_srl)
                 ) > 5)
                 ) {

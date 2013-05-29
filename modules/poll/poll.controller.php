@@ -302,6 +302,7 @@
             $comment_srl = $obj->comment_srl;
             if(!$comment_srl) return new Object();
             // Get the poll
+            $args = new stdClass();
             $args->upload_target_srl = $comment_srl;
             $output = executeQuery('poll.getPollByTargetSrl', $args);
             if(!$output->data) return new Object();

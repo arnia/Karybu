@@ -120,7 +120,8 @@ if(jQuery) jQuery.noConflict();
 
             /* The output layer */
             if(html) {
-                var area = $('#popup_menu_area').html('<ul>'+html+'</ul>');
+                var area = $('#popup_menu_area');
+                area.find('.modal-body:first').html('<ul>'+html+'</ul>');
                 var areaOffset = {top:params['page_y'], left:params['page_x']};
 
                 if(area.outerHeight()+areaOffset.top > $(window).height()+$(window).scrollTop())
@@ -128,7 +129,9 @@ if(jQuery) jQuery.noConflict();
                 if(area.outerWidth()+areaOffset.left > $(window).width()+$(window).scrollLeft())
                     areaOffset.left = $(window).width() - area.outerWidth() + $(window).scrollLeft();
 
-                area.css({ top:areaOffset.top, left:areaOffset.left }).show();
+                //area.css({ top:areaOffset.top, left:areaOffset.left }).show();
+                area.addClass('modal');
+                area.modal('show');
             }
         }
     }
@@ -973,10 +976,20 @@ jQuery(function($){
 	// display popup menu that contains member actions and document actions
 	$(document).click(function(evt) {
 		var $area = $('#popup_menu_area');
-		if(!$area.length) $area = $('<div id="popup_menu_area" style="display:none;z-index:9999" />').appendTo(document.body);
+		if(!$area.length) {
+            //$area = $('<div id="popup_menu_area" style="display:none;z-index:9999" />').appendTo(document.body);
+            $area = $('<div id="popup_menu_area" class="modal fade" tabindex="-1" role="dialog">');
+            var innerHtml = '<div class="modal-header">';
+            innerHtml += '    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+            innerHtml += '</div>';
+            innerHtml += '<div class="modal-body"></div>';
+            innerHtml += '<div class="modal-footer"></div>';
+            $area.html(innerHtml);
+            $area.appendTo(document.body);
+        }
 
 		// hide popup menu
-		$area.hide();
+		//$area.hide();
 
 		var $target = $(evt.target).filter('a,div,span');
 		if(!$target.length) $target = $(evt.target).closest('a,div,span');

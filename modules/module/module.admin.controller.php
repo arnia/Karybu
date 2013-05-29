@@ -455,7 +455,7 @@
 			$updateList = array('module_category_srl','layout_srl','skin','mlayout_srl','mskin','description','header_text','footer_text'); //use_mobile
 			foreach($updateList as $key=>$val)
 			{
-				if(!$vars->{$val} && $vars->{$val} !== 0)
+				if(property_exists($vars, $val) && !$vars->{$val} && $vars->{$val} !== 0)
 				{
 					unset($updateList[$key]);
 					$columnList[] = $val;
@@ -467,7 +467,7 @@
 
 				foreach($updateList as $val)
 				{
-					$module_info->{$val} = $vars->{$val};
+					$module_info->{$val} = isset($vars->{$val}) ? $vars->{$val} : null;
 				}
                 $output = $oModuleController->updateModule($module_info);
             }

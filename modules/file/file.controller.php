@@ -705,6 +705,7 @@
             // Success returned if no attachement exists
             if(!is_array($file_list)||!count($file_list)) return new Object();
             // Remove from the DB
+            $args = new stdClass();
             $args->upload_target_srl = $upload_target_srl;
             $output = executeQuery('file.deleteFiles', $args);
             if(!$output->toBool()) return $output;

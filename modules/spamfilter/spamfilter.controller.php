@@ -60,7 +60,9 @@
          * @brief The routine process to check the time it takes to store a comment, and to ban IP/word
          **/
         function triggerInsertComment(&$obj) {
-            if($_SESSION['avoid_log']) return new Object();
+            if(!empty($_SESSION['avoid_log'])) {
+                return new Object();
+            }
             // Check the login status, login information, and permission
             $is_logged = Context::get('is_logged');
             $logged_info = Context::get('logged_info');

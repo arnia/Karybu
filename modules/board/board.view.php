@@ -287,7 +287,7 @@
 			$args = new stdClass();
             $args->module_srl = $this->module_srl;
             $notice_output = $oDocumentModel->getNoticeList($args, $this->columnList);
-            Context::set('notice_list', $notice_output->data);
+            Context::set('notice_list', isset($notice_output->data) ? $notice_output->data : null);
         }
 
         /**
@@ -328,7 +328,7 @@
 
             // set the current page of documents
             $_get = $_GET;
-            if(!$args->page && ($_GET['document_srl'] || $_GET['entry'])) {
+            if(empty($args->page) && (!empty($_GET['document_srl']) || !empty($_GET['entry']))) {
                 $oDocument = $oDocumentModel->getDocument(Context::get('document_srl'));
                 if($oDocument->isExists() && !$oDocument->isNotice()) {
                     $page = $oDocumentModel->getDocumentPage($oDocument, $args);
@@ -338,7 +338,9 @@
             }
 
             // setup the list count to be serach list count, if the category or search keyword has been set
-            if($args->category_srl || $args->search_keyword) $args->list_count = $this->search_list_count;
+            if(!empty($args->category_srl) || !empty($args->search_keyword)) {
+                $args->list_count = $this->search_list_count;
+            }
 
             // if the consultation function is enabled,  the get the logged user information
             if($this->consultation) {
@@ -350,7 +352,7 @@
             Context::set('list_config', $this->listConfig);
             // setup document list variables on context
             $output = $oDocumentModel->getDocumentList($args, $this->except_notice, true, $this->columnList);
-            Context::set('document_list', $output->data);
+            Context::set('document_list', isset($output->data) ? $output->data : null);
             Context::set('total_count', $output->total_count);
             Context::set('total_page', $output->total_page);
             Context::set('page', $output->page);
@@ -374,7 +376,7 @@
 			$defaultColumn = array('document_srl', 'module_srl', 'category_srl', 'lang_code', 'member_srl', 'last_update', 'comment_count', 'trackback_count', 'uploaded_count', 'status', 'regdate', 'title_bold', 'title_color');
 
 			//TODO guestbook, blog style supports legacy codes.
-			if($this->module_info->skin == 'xe_guestbook' || $this->module_info->default_style == 'blog')
+			if($this->module_info->skin == 'xe_guestbook' || (isset($this->module_info->default_style) && $this->module_info->default_style == 'blog'))
 			{
 				$defaultColumn = $tableColumnList;
 			}
@@ -502,7 +504,9 @@
             $oDocumentController->addXmlJsFilter($this->module_info->module_srl);
 
             // if the document exists, then setup extra variabels on context
-            if($oDocument->isExists() && !$savedDoc) Context::set('extra_keys', $oDocument->getExtraVars());
+            if($oDocument->isExists() && empty($savedDoc)) {
+                Context::set('extra_keys', $oDocument->getExtraVars());
+            }
 
             /**
              * add JS filters

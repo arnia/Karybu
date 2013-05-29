@@ -84,8 +84,13 @@
 				<div cond="$var->type == 'textarea'" class="multiLangEdit">
 					{@$use_multilang_textarea = true}
 					<input type="hidden" name="{$name}" value="<!--@if(strpos($var->value, "$user_lang->") !== false)-->{htmlspecialchars($var->value)}<!--@else-->{$var->value}<!--@end-->" class="vLang" />
-					<textarea id="{$name}" rows="8" cols="42" class="vLang">{$var->value}</textarea>
-					<span class="desc"><a href="#langEditTextarea" class="editUserLang tgAnchor">{$lang->cmd_set_multilingual}</a></span>
+					<textarea id="{$name}" rows="8" cols="42" class="vLang pull-left">{$var->value}</textarea>
+                    <span class="desc kActionIcons pull-left">
+                        <a href="#langEditTextarea" class="editUserLang tgAnchor" title="{$lang->cmd_set_multilingual}">
+                            <i class="kLanguage">{$lang->cmd_set_multilingual}</i>
+                        </a>
+                    </span>
+                    <div class="clearfix"></div>
 				</div>
 
 				<block cond="$var->type == 'image'">

@@ -811,7 +811,9 @@ class documentController extends document {
 		$output = ModuleHandler::triggerCall('document.updateReadedCount', 'after', $oDocument);
 		if(!$output->toBool()) return $output;
 		// Pass if read count is increaded on the session information
-		if($_SESSION['readed_document'][$document_srl]) return false;
+		if(!empty($_SESSION['readed_document'][$document_srl])) {
+            return false;
+        }
 
 		// Pass if the author's IP address is as same as visitor's.
 		if($oDocument->get('ipaddress') == $_SERVER['REMOTE_ADDR']) {
@@ -1202,6 +1204,7 @@ class documentController extends document {
 	 * @return object
 	 */
 	function updateCommentCount($document_srl, $comment_count, $last_updater, $comment_inserted = false) {
+        $args = new stdClass();
 		$args->document_srl = $document_srl;
 		$args->comment_count = $comment_count;
 
@@ -2146,7 +2149,7 @@ class documentController extends document {
 		$oDocumentModel = &getModel('document');
 		$oDocumentController = &getController('document');
 		// Check if already exist geulinji
-		$oDocument = $oDocumentModel->getDocument($obj->document_srl, $this->grant->manager);
+		$oDocument = $oDocumentModel->getDocument(isset($obj->document_srl) ? $obj->document_srl : null, $this->grant->manager);
 
 		// Update if already exists
 		if($oDocument->isExists() && $oDocument->document_srl == $obj->document_srl) {
@@ -2188,9 +2191,11 @@ class documentController extends document {
 	{
 		if(!Context::get('is_logged')) return new Object(-1,'msg_not_permitted');
 		$documentSrls = Context::get('document_srls');
-		if($documentSrls) $documentSrlList = explode(',', $documentSrls);
+		if($documentSrls) {
+            $documentSrlList = explode(',', $documentSrls);
+        }
 
-		if(count($documentSrlList) > 0) {
+		if(isset($documentSrlList) && count($documentSrlList) > 0) {
 			$oDocumentModel = &getModel('document');
 			$columnList = array('document_srl', 'title', 'nick_name', 'status');
 			$documentList = $oDocumentModel->getDocuments($documentSrlList, $this->grant->is_admin, false, $columnList);

@@ -356,23 +356,27 @@ $.fn.xeContentToggler = function(){
 			dont_close_this_time = false;
 
 			// When mouse button is down or when ESC key is pressed close this layer
-			$(document)
-				.unbind('mousedown.tc keydown.tc')
-				.bind('mousedown.tc keydown.tc',
-					function(event){
-						if(event) {
-							if(event.type == 'keydown' && event.which != ESC) return true;
-							if(event.type == 'mousedown') {
-								var $t = $(event.target);
-								if($t.is('html,.tgAnchor,.tgContent') || $layer.has($t).length) return true;
-							}
-						}
-
-						$this.trigger('close.tc');
-
-						return false;
-					}
-				);
+            //it seams that this is not needed anymore in modal mode - marius.strajeru
+//			$(document)
+//				.unbind('mousedown.tc keydown.tc')
+//				.bind('mousedown.tc keydown.tc',
+//					function(event){
+//						if(event) {
+//							if(event.type == 'keydown' && event.which != ESC) return true;
+//							if(event.type == 'mousedown') {
+//								var $t = $(event.target);
+//
+//								/*if($t.is('html,.tgAnchor,.tgContent') || $layer.has($t).length) {
+//                                    return true;
+//                                }*/
+//							}
+//						}
+//
+//						//$this.trigger('close.tc');
+//
+//						//return false;
+//					}
+//				);
 
 			// triggering after
 			function trigger_after(){ $this.trigger('after-open.tc') }
@@ -884,7 +888,6 @@ jQuery(function($){
 
 var w_timer = null, r_timer = null, r_idx = 0, f_timer = null, skip_textchange=false, keep_showing=false, $suggest;
 var ESC=27, UP=38, DOWN=40, ENTER=13;
-
 $('.multiLangEdit')
 	.delegate('input.vLang:text,textarea.vLang', {
 		textchange : function(){
@@ -1022,22 +1025,24 @@ $('.multiLangEdit')
     .delegate('a.tgAnchor.editUserLang', {
         'before-open.tc' : function(){
             var $this, $layer, $mle, $vlang, key, text, api, params;
-
             $this  = $(this);
             //$layer = $($this.attr('href')).insertBefore($this);
-            $layer = $($this.attr('href')).insertBefore(jQuery('body').children()[0]);
+            //$layer = $($this.attr('href')).insertBefore(jQuery('body'));
+            $layer = $($this.attr('href'));
+            jQuery('body').append($layer);
             $mle   = $this.closest('.multiLangEdit');
             $vlang = $mle.find('input.vLang,textarea.vLang');
-
             key  = $vlang.eq(0).val();
             text = $vlang.eq(1).val();
-            $layer.modal('show');
+            if (!$layer.is(':visible')) {
+                $layer.modal('show');
+            }
+
             //reposition $layer near the trigger element
-            $layer.css('left', $this.offset().left - 50);
-            $layer.css('top', $this.offset().top - 50);
+            //$layer.css('left', $this.offset().left - 50);
+            //$layer.css('top', $this.offset().top - 50);
 			// initialize the layer
 			initLayer($layer);
-
 			// reset
 			$layer.trigger('multilang-reset').removeClass('showChild').find('.langList').empty().end();
 			$layer.find('.langInput li.'+xe.current_lang).find('>input:text,>textarea').val(text).prev('label').css('visibility','hidden');
@@ -1089,7 +1094,6 @@ $('.multiLangEdit')
 				$layer.find('.langList>li>a:first').click();
 
 			};
-
 			show_waiting_message = false;
 			$.exec_json(api, params, on_complete);
 			show_waiting_message = true;
@@ -1131,7 +1135,7 @@ var layer_index = 0;
 function initLayer($layer) {
 	var $submit, $input, value='', current_status = 0, mode, cmd_add, cmd_edit, status_texts=[];
 	var USE = 0, UPDATE_AND_USE = 1, MODE_SAVE = 0, MODE_UPDATE = 1;
-    $layer.modal('show');
+
 	if($layer.data('init-multilang-editor')) return;
 
 	$layer
@@ -1286,7 +1290,6 @@ jQuery(function($){
         $this = $(this);
         anchor = $this.attr('href');
         $modal = $(anchor);
-
         $modal.on('show', function() {
             $list = $(anchor).find('.filebox_list');
 

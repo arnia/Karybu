@@ -1741,8 +1741,10 @@
          **/
         function addMemberPopupMenu($url, $str, $icon = '', $target = 'self') {
             $member_popup_menu_list = Context::get('member_popup_menu_list');
-            if(!is_array($member_popup_menu_list)) $member_popup_menu_list = array();
-
+            if(!is_array($member_popup_menu_list)) {
+                $member_popup_menu_list = array();
+            }
+            $obj = new stdClass();
             $obj->url = $url;
             $obj->str = $str;
             $obj->icon = $icon;

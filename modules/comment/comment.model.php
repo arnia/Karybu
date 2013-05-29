@@ -69,7 +69,7 @@
                 if($oComment->isExists()) {
                     // Find a post of the corresponding ip address
                     $url = getUrl('','module','admin','act','dispCommentAdminList','search_target','ipaddress','search_keyword',$oComment->getIpAddress());
-                    $oCommentController->addCommentPopupMenu($url,'cmd_search_by_ipaddress',$icon_path,'TraceByIpaddress');
+                    $oCommentController->addCommentPopupMenu($url,'cmd_search_by_ipaddress',null,'TraceByIpaddress');
 
                     $url = sprintf("var params = new Array(); params['ipaddress_list']='%s'; exec_xml('spamfilter', 'procSpamfilterAdminInsertDeniedIP', params, completeCallModuleAction)", $oComment->getIpAddress());
                     $oCommentController->addCommentPopupMenu($url,'cmd_add_ip_to_spamfilter','','javascript');
@@ -113,6 +113,7 @@
 		 * @return int
 		 */
         function getChildComments($comment_srl) {
+            $args = new stdClass();
             $args->comment_srl = $comment_srl;
             $output = executeQueryArray('comment.getChildComments', $args);
             return $output->data;
@@ -170,23 +171,24 @@
 		 * @return int
 		 */
         function getCommentCount($document_srl) {
+            $args = new stdClass();
             $args->document_srl = $document_srl;
 		
-		// get the number of comments on the document module
-		$oDocumentModel = &getModel('document');
-		$columnList = array('document_srl', 'module_srl');
-		$oDocument = $oDocumentModel->getDocument($document_srl, false, true, $columnList);
-		// return if no doc exists.
-		if(!$oDocument->isExists()) return;
-		// get a list of comments
-		$module_srl = $oDocument->get('module_srl');
-		//check if module is using validation system
-		$oCommentController = &getController('comment');
-		$using_validation = $oCommentController->isModuleUsingPublishValidation($module_srl);
-		if($using_validation)
-		{
-			$args->status = 1;
-		}
+            // get the number of comments on the document module
+            $oDocumentModel = &getModel('document');
+            $columnList = array('document_srl', 'module_srl');
+            $oDocument = $oDocumentModel->getDocument($document_srl, false, true, $columnList);
+            // return if no doc exists.
+            if(!$oDocument->isExists()) return;
+            // get a list of comments
+            $module_srl = $oDocument->get('module_srl');
+            //check if module is using validation system
+            $oCommentController = &getController('comment');
+            $using_validation = $oCommentController->isModuleUsingPublishValidation($module_srl);
+            if($using_validation)
+            {
+                $args->status = 1;
+            }
 
             $output = executeQuery('comment.getCommentCount', $args);
             $total_count = $output->data->count;
@@ -223,6 +225,7 @@
 		 * @return int
 		 */
         function getCommentAllCount($module_srl,$published=null) {
+            $args = new stdClass();
             $args->module_srl = $module_srl;
 			
 			if(is_null($published))
@@ -266,8 +269,10 @@
 			{
 				foreach($module_srls as $module)
 				{
-					$module_info = $oModuleModel->getModuleInfoByModuleSrl($module->module_srl);
-					$result[$module->module_srl] = $module_info->mid;
+                    if (isset($module->module_srl)) {
+                        $module_info = $oModuleModel->getModuleInfoByModuleSrl($module->module_srl);
+                        $result[$module->module_srl] = $module_info->mid;
+                    }
 				}
 			}
 			return $result;

@@ -25,7 +25,9 @@
             // setup variables
             $obj = Context::getRequestVars();
             $obj->module_srl = $this->module_srl;
-            if($obj->is_notice!='Y'||!$this->grant->manager) $obj->is_notice = 'N';
+            if(!isset($obj->is_notice) || $obj->is_notice!='Y' || empty($this->grant->manager)) {
+                $obj->is_notice = 'N';
+            }
 			$obj->commentStatus = $obj->comment_status;
 
             settype($obj->title, "string");
@@ -46,7 +48,7 @@
             $oDocumentController = &getController('document');
 
             // check if the document is existed
-            $oDocument = $oDocumentModel->getDocument($obj->document_srl, $this->grant->manager);
+            $oDocument = $oDocumentModel->getDocument(isset($obj->document_srl) ? $obj->document_srl : null, $this->grant->manager);
 
             // if use anonymous is true
             if($this->module_info->use_anonymous == 'Y') {
@@ -84,7 +86,7 @@
                 $obj->document_srl = $output->get('document_srl');
 
                 // send an email to admin user
-                if($output->toBool() && $this->module_info->admin_mail) {
+                if($output->toBool() && !empty($this->module_info->admin_mail)) {
                     $oMail = new Mail();
                     $oMail->setTitle($obj->title);
                     $oMail->setContent( sprintf("From : <a href=\"%s\">%s</a><br/>\r\n%s", getFullUrl('','document_srl',$obj->document_srl), getFullUrl('','document_srl',$obj->document_srl), $obj->content));
@@ -192,7 +194,7 @@
             }
 
             // if comment_srl is not existed, then insert the comment
-            if($comment->comment_srl != $obj->comment_srl) {
+            if(!isset($comment->comment_srl) || $comment->comment_srl != $obj->comment_srl) {
 
                 // parent_srl is existed
                 if($obj->parent_srl) {

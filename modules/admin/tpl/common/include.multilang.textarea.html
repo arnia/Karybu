@@ -3,23 +3,29 @@
 		#langEditTextarea textarea { width: 258px; }
 	</style>
 
-	<div id="langEditTextarea" class="langEdit tgContent">
-		<ul class="langList"></ul>
-		<div class="langInput form">
-			<h2>{$lang->multilingual} <strong>{$lang->cmd_modify}...</strong> | <a href="#langEdit">{$lang->cmd_insert}</a></h2>
-			<ul class="unstyled">
-				{@
-					/* move current language to the top */
-					$a = array($lang_type=>$lang_supported[$lang_type]);
-					unset($lang_supported[$lang_type]);
-					$lang_supported = array_merge($a, $lang_supported);
-				}
-				<li loop="$lang_supported=>$code,$name" class="{$code}"><label for="{$code}_var1">{$name}</label> <textarea id="{$code}_var1" rows="8" cols="42"></textarea></li>
-			</ul>
-			<div class="action">
-	    		<button type="submit" class="btn btn-primary">{$lang->use}|{$lang->use_after_save}</button>
-				<p><a href="{getUrl('act','dispModuleAdminLangcode')}">{$lang->multilingual_manager}</a></p>
-			</div>
-		</div>
+	<div id="langEditTextarea" class="langEdit tgContent modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-target="#langEditTextarea">×</button>
+            <h5>{$lang->multilingual} <strong>{$lang->cmd_modify}...</strong> | <a href="#langEditTextarea">{$lang->cmd_insert}</a></h5>
+        </div>
+        <div class="modal-body">
+            <ul class="langList"></ul>
+            <div class="langInput form">
+                <ul class="unstyled">
+                    {@
+                        /* move current language to the top */
+                        $a = array($lang_type=>$lang_supported[$lang_type]);
+                        unset($lang_supported[$lang_type]);
+                        $lang_supported = array_merge($a, $lang_supported);
+                    }
+                    <li loop="$lang_supported=>$code,$name" class="{$code}"><label for="{$code}_var1">{$name}</label> <textarea id="{$code}_var1" rows="8" cols="42"></textarea></li>
+                </ul>
+            </div>
+        </div>
+        <div class="action modal-footer">
+            <button type="submit" class="btn btn-primary">{$lang->use}|{$lang->use_after_save}</button>
+            <p><a href="{getUrl('act','dispModuleAdminLangcode')}">{$lang->multilingual_manager}</a></p>
+        </div>
+
 	</div>
 </block>

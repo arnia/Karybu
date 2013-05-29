@@ -42,7 +42,7 @@
 			<td><input type="checkbox" name="cart" value="{$val->module_srl}" class="selectedModule" data-mid="{$val->mid}" data-browser_title="{$val->browser_title}" /></td>
 		</tr>
 		<tr cond="!$board_list">
-			<td colspan="7">{$lang->no_board_instance}</td>
+			<td>{$lang->no_board_instance}</td>
 		</tr>
 	</tbody>
 </table>
@@ -86,7 +86,7 @@
 
 <span class="pull-right">
     <a class="btn btn-primary" href="{getUrl('act','dispBoardAdminInsertBoard','module_srl','')}">{$lang->cmd_create_board}</a>
-    <a class="btn modalAnchor _manage_selected" href="#manageSelectedModule">{$lang->cmd_manage_selected_board}</a>
+    <a class="btn _manage_selected" href="#manageSelectedModule">{$lang->cmd_manage_selected_board}</a>
 </span>
 
 <div class="clearfix"></div>
@@ -113,7 +113,7 @@ jQuery(function($){
 	// Modal anchor activation
 	var $docTable = $('#boardList');
 	$docTable.find(':checkbox').change(function(){
-		var $modalAnchor = $('a.modalAnchor._manage_selected');
+		var $modalAnchor = $('a._manage_selected');
 		if($docTable.find('tbody :checked').length == 0){
 			$modalAnchor.removeAttr('href').addClass('disabled');
 		} else {
@@ -121,12 +121,33 @@ jQuery(function($){
 		}
 	}).change();
 	// Button action
-	$('a.modalAnchor._manage_selected').click(function(){
+	$('a._manage_selected').click(function(){
 		if($docTable.find('tbody :checked').length == 0){
-			$('body').css('overflow','auto');
+			//$('body').css('overflow','auto');
 			alert('{$lang->choose_board_instance}');
 			return false;
 		}
+        else{
+            $('#manageSelectedModule').modal('show');
+            var $selectedModule = $('input[type=checkbox].selectedModule:checked');
+            var $selectedBody = $('#manageSelectedModuleBody');
+
+            if (!$selectedModule.length) return false;
+
+            $selectedBody.empty();
+
+            var module_srls = new Array();
+            $selectedModule.each(function(){
+                var $this = $(this);
+                var row = '<tr><td>' + $this.data('mid') + '</td><td>' + $this.data('browser_title') + '</td></tr>';
+                $selectedBody.append(row);
+                module_srls.push($this.val());
+            });
+
+            $('#manageSelectedModuleSetup input[name=module_srls]').val(module_srls);
+            $('#manageSelectedModuleAddition input[name=target_module_srl]').val(module_srls);
+            $('#manageSelectedModuleGrant input[name=module_srls]').val(module_srls);
+        }
 	});
 });
 </script>

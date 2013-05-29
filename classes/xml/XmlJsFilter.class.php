@@ -203,7 +203,7 @@
 
 					if(!in_array($target, $target_list)) $target_list[] = $target;
 					if(empty($target_type_list[$target])) {
-                        $target_type_list[$target] = $filter;
+                        $target_type_list[$target] = isset($filter) ? $filter : null;
                     }
 				}
 			}
@@ -252,13 +252,15 @@
 				}
 
 				// Check extend_filter_item
-				for($i=0;$i<$extend_filter_count;$i++) {
-					$filter_item = $extend_filter_list[$i];
-					$target = $name = trim($filter_item->name);
-					if(!$name || !$target) continue;
+                if (isset($extend_filter_count)) {
+                    for($i=0;$i<$extend_filter_count;$i++) {
+                        $filter_item = $extend_filter_list[$i];
+                        $target = $name = trim($filter_item->name);
+                        if(!$name || !$target) continue;
 
-					if(!in_array($name, $target_list)) $target_list[] = $name;
-				}
+                        if(!in_array($name, $target_list)) $target_list[] = $name;
+                    }
+                }
 			}
 
 			// generates the response script
@@ -274,7 +276,9 @@
 			$target_count = count($target_list);
 			for($i=0;$i<$target_count;$i++) {
 				$target = $target_list[$i];
-				if(!$lang->{$target}) $lang->{$target} = $target;
+				if(empty($lang->{$target})) {
+                    $lang->{$target} = $target;
+                }
                 // TODO There might be a bug here: if language is an object instead of string (array of multiple texts)
                 if(!is_string($lang->{$target})) continue;
 				$text = preg_replace('@\r?\n@', '\\n', addslashes($lang->{$target}));

@@ -69,6 +69,7 @@ class counterController extends counter
      **/
     function insertLog($site_srl = 0)
     {
+        $args = new stdClass();
         $args->regdate = date("YmdHis");
         $args->user_agent = substr($_SERVER['HTTP_USER_AGENT'], 0, 250);
         $args->site_srl = $site_srl;

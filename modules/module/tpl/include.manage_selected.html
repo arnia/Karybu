@@ -1,11 +1,15 @@
 <load target="js/manage_selected_module.js" usecdn="true" />
 
-<div id="manageSelectedModule" class="xe-modal">
+<div id="manageSelectedModule" class="modal hide" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="fg">
-		<h2 class="h2">{$lang->do_selected}</h2>
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h2 class="h2">{$lang->do_selected}</h2>
+        </div>
 
-		<div class="table even">
-			<table width="100%" cellspacing="0" border="1">
+
+		<div class="even modal-body">
+			<table class="table table-bordered">
 				<thead>
 					<tr>
 						<th scope="col">{$lang->mid}</th>
@@ -15,19 +19,20 @@
 				<tbody id="manageSelectedModuleBody">
 				</tbody>
 			</table>
-		</div>
 
-		<div class="cnb">
-			<a href="#manageSelectedModuleSetup" class="tgAnchor">{$lang->bundle_setup}</a>
-			|
-			<a href="#manageSelectedModuleAddition" class="tgAnchor">{$lang->bundle_addition_setup}</a>
-			|
-			<a href="#manageSelectedModuleGrant" class="tgAnchor">{$lang->bundle_grant_setup}</a>
-		</div>
+            <div class="cnb">
+                <a href="#manageSelectedModuleSetup" class="tgAnchor">{$lang->bundle_setup}</a>
+                |
+                <a href="#manageSelectedModuleAddition" class="tgAnchor">{$lang->bundle_addition_setup}</a>
+                |
+                <a href="#manageSelectedModuleGrant" class="tgAnchor">{$lang->bundle_grant_setup}</a>
+            </div>
 
-		<include target="include.module_setup.html" />
-		<include target="include.module_addition_setup.html" />
-		<include target="include.module_grant_setup.html" />
-		<include target="../../admin/tpl/common/include.multilang.textarea.html" />
+            <include target="include.module_setup.html" />
+            <include target="include.module_addition_setup.html" />
+            <include target="include.module_grant_setup.html" />
+            <include target="../../admin/tpl/common/include.multilang.textarea.html" />
+        </div>
+        <div class="modal-footer"></div>
 	</div>
 </div>

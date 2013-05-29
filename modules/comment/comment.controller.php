@@ -218,7 +218,9 @@
 				}
 				$obj->content = nl2br($obj->content);
 			}
-            if(!$obj->regdate) $obj->regdate = date("YmdHis");
+            if(empty($obj->regdate)) {
+                $obj->regdate = date("YmdHis");
+            }
             // remove iframe and script if not a top administrator on the session.
             if($logged_info->is_admin != 'Y') $obj->content = removeHackTag($obj->content);
 
@@ -229,6 +231,7 @@
             $oDB = DB::getInstance();
             $oDB->begin();
             // Enter a list of comments first
+            $list_args = new stdClass();
             $list_args->comment_srl = $obj->comment_srl;
             $list_args->document_srl = $obj->document_srl;
             $list_args->module_srl = $obj->module_srl;
@@ -240,6 +243,7 @@
             // If parent comment exists, get information of the parent comment
             } else {
                 // get information of the parent comment posting
+                $parent_args = new stdClass();
                 $parent_args->comment_srl = $obj->parent_srl;
                 $parent_output = executeQuery('comment.getCommentListItem', $parent_args);
                 // return if no parent comment exists
@@ -254,6 +258,7 @@
                 // if the depth of comments is greater than 2, execute update.
                 } else {
                     // get the top listed comment among those in lower depth and same head with parent's.
+                    $p_args = new stdClass();
                     $p_args->head = $parent->head;
                     $p_args->arrange = $parent->arrange;
                     $p_args->depth = $parent->depth;
@@ -366,7 +371,7 @@
 		$oModuleModel = &getModel("module");
 		$module_info = $oModuleModel->getModuleInfoByDocumentSrl($obj->document_srl);
 		// If there is no problem to register comment then send an email to all admin were set in module admin panel
-		if($module_info->admin_mail && $member_info->is_admin != 'Y') 
+		if(isset($module_info->admin_mail) && $member_info->is_admin != 'Y')
 		{
 			$oMail = new Mail();
 			$oMail->setSender($obj->email_address, $obj->email_address);
@@ -609,6 +614,7 @@
             $oDB = DB::getInstance();
             $oDB->begin();
             // Delete
+            $args = new stdClass();
             $args->comment_srl = $comment_srl;
             $output = executeQuery('comment.deleteComment', $args);
             if(!$output->toBool()) {
@@ -906,8 +912,10 @@
 		 */
         function addCommentPopupMenu($url, $str, $icon = '', $target = 'self') {
             $comment_popup_menu_list = Context::get('comment_popup_menu_list');
-            if(!is_array($comment_popup_menu_list)) $comment_popup_menu_list = array();
-
+            if(!is_array($comment_popup_menu_list)) {
+                $comment_popup_menu_list = array();
+            }
+            $obj = new stdClass();
             $obj->url = $url;
             $obj->str = $str;
             $obj->icon = $icon;

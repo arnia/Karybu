@@ -125,7 +125,7 @@
 			$security->encodeHTML('layout_list..title','layout_list..layout');
 			$security->encodeHTML('mlayout_list..title','mlayout_list..layout');
 
-            // 템플릿 파일 지정
+            // Specify the template file
             $this->setTemplateFile('index');
         }
 

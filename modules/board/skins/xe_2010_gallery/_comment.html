@@ -1,7 +1,7 @@
 <!-- COMMENT -->
 <div class="feedback" id="comment">
 	<div class="fbHeader">
-		<h2>{$lang->comment} <em>{$oDocument->getCommentcount()}</em>개</h2>
+		<h2>{$lang->comment} <em>{$oDocument->getCommentcount()}</em></h2>
 	</div>
 	<ul cond="$oDocument->getCommentcount()" class="fbList">
 		<li loop="$oDocument->getComments()=>$key,$comment" class="fbItem"|cond="!$comment->get('depth')" class="fbItem indent indent{($comment->get('depth'))}"|cond="$comment->get('depth')" id="comment_{$comment->comment_srl}">

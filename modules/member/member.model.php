@@ -139,6 +139,9 @@ class memberModel extends member
     function getMemberMenu()
     {
         // Get member_srl of he target member and logged info of the current user
+        if (!isset($icon_path)) {
+            $icon_path = null;
+        }
         $member_srl = Context::get('target_srl');
         $mid = Context::get('cur_mid');
         $logged_info = Context::get('logged_info');
