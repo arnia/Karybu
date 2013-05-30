@@ -20,7 +20,7 @@
 	</form>
 </div>
 <div class="table even" cond="$message">
-	<table width="100%" border="1" cellspacing="0">
+	<table class="table table-bordered">
 		<tr>
 			<th class="title">{$message->title}</th>
 		</tr>
@@ -37,9 +37,9 @@
 		</tr>
 	</table>
 	<div class="btnArea">
-		<button cond="$message->message_type != 'S' && $message->member_srl != $logged_info->member_srl" type="button" onclick="doSendMessage('{$message->sender_srl}','{$message->message_srl}');">{$lang->cmd_reply_message}</button>
-		<button cond="$message->message_type == 'R'" type="button" onclick="doStoreMessage('{$message->message_srl}');">{$lang->cmd_store}</button>
-		<button type="button" onclick="doDeleteMessage('{$message->message_srl}');">{$lang->cmd_delete}</button>
+		<button class="btn" cond="$message->message_type != 'S' && $message->member_srl != $logged_info->member_srl" type="button" onclick="doSendMessage('{$message->sender_srl}','{$message->message_srl}');">{$lang->cmd_reply_message}</button>
+		<button class="btn" cond="$message->message_type == 'R'" type="button" onclick="doStoreMessage('{$message->message_srl}');">{$lang->cmd_store}</button>
+		<button class="btn" type="button" class="btn" onclick="doDeleteMessage('{$message->message_srl}');">{$lang->cmd_delete}</button>
 	</div>
 </div>
 
@@ -61,10 +61,10 @@
 					</th>
 					<th scope="col">{$lang->regdate}</th>
 					<th scope="col">{$lang->readed_date}</th>
-					<th scope="col"><input name="check_all" type="checkbox" onclick="XE.checkboxToggleAll('message_srl_list[]', { wrap:'fo_message_list' });" /></th>
+					<th scope="col"><input name="check_all" type="checkbox" onclick="karybuCheckAllCheckboxes(this, '#messages :checkbox');" /></th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="messages">
 				<tr loop="$message_list => $no,$val">
 					<td class="title">
 						<a cond="$val->readed=='Y'" href="{getUrl('message_srl',$val->message_srl)}">{$val->title}</a>

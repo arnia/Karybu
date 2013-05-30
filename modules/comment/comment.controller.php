@@ -853,8 +853,11 @@
 		 */
         function declaredComment($comment_srl) {
             // Fail if session information already has a reported document
-            if($_SESSION['declared_comment'][$comment_srl]) return new Object(-1, 'failed_declared');
+            if(!empty($_SESSION['declared_comment'][$comment_srl])) {
+                return new Object(-1, 'failed_declared');
+            }
             // check if already reported
+            $args = new stdClass();
             $args->comment_srl = $comment_srl;
             $output = executeQuery('comment.getDeclaredComment', $args);
             if(!$output->toBool()) return $output;

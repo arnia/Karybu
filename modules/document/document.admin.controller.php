@@ -193,7 +193,7 @@
 
             $oDB = DB::getInstance();
             $oDB->begin();
-
+            $triggerObj = new stdClass();
             $triggerObj->document_srls = implode(',',$document_srl_list);
             $triggerObj->module_srl = $module_srl;
             $triggerObj->category_srl = $category_srl;
@@ -227,7 +227,7 @@
                 $obj = null;
                 $obj = $oDocument->getObjectVars();
 
-				$extraVars = $extraVarsListByDocumentSrl[$document_srl];
+				$extraVars = isset($extraVarsListByDocumentSrl[$document_srl]) ? $extraVarsListByDocumentSrl[$document_srl] : null;
 				if($module_srl == $obj->module_srl)
 				{
 					if(is_array($extraVars))

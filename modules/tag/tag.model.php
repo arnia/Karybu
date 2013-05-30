@@ -24,10 +24,15 @@
                 unset($obj->mid);
             }
             // Module_srl passed the array may be a check whether the array
-            if(is_array($obj->module_srl)) $args->module_srl = implode(',', $obj->module_srl);
-            else $args->module_srl = $obj->module_srl;
-            $args->list_count = $obj->list_count;
-            $args->count = $obj->sort_index;
+            $args = new stdClass();
+            if(is_array($obj->module_srl)) {
+                $args->module_srl = implode(',', $obj->module_srl);
+            }
+            else {
+                $args->module_srl = $obj->module_srl;
+            }
+            $args->list_count = isset($obj->list_count) ? $obj->list_count : null;
+            $args->count = isset($obj->sort_index) ? $obj->sort_index : null;
 
             $output = executeQueryArray('tag.getTagList', $args);
             if(!$output->toBool()) return $output;

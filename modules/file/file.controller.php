@@ -303,7 +303,7 @@
                 $srl = (int)$srls[$i];
                 if(!$srl) continue;
 
-                $args = null;
+                $args = new stdClass();
                 $args->file_srl = $srl;
                 $output = executeQuery('file.getFile', $args);
                 if(!$output->toBool()) continue;
@@ -664,7 +664,7 @@
                 $srl = (int)$srls[$i];
                 if(!$srl) continue;
 
-                $args = null;
+                $args = new stdClass();
                 $args->file_srl = $srl;
                 $output = executeQuery('file.getFile', $args);
                 if(!$output->toBool()) continue;

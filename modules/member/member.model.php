@@ -172,13 +172,14 @@ class memberModel extends member
             $oMemberController->addMemberPopupMenu($url, 'cmd_view_member_info', $icon_path, 'self');
         }
         // When click other's nickname
-        if ($member_srl != $logged_info->member_srl && $logged_info->member_srl) {
+        // removed this - do not make the user e-mail address public - marius.strajeru
+        /*if ($member_srl != $logged_info->member_srl && $logged_info->member_srl) {
             // Send an email
             if ($member_info->email_address) {
                 $url = 'mailto:' . htmlspecialchars($member_info->email_address);
                 $oMemberController->addMemberPopupMenu($url, 'cmd_send_email', $icon_path);
             }
-        }
+        }*/
         // View homepage info
         if ($member_info->homepage) {
             $oMemberController->addMemberPopupMenu(

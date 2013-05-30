@@ -37,6 +37,7 @@
             // Set a template
             $this->setLayoutFile('popup_layout');
             $this->setTemplatePath($this->module_path.'tpl');
+            Context::addCssFile('./common/css/bootstrap.css');
             $this->setTemplateFile('send_trackback_form');
         }
 

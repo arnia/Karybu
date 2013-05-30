@@ -1,5 +1,5 @@
 /**
- * @brief 회원 가입시나 정보 수정시 각 항목의 중복 검사등을 하는 기능을 구현
+ * @brief Register at Sinai details of each item, and the ability to implement redundancy check
  * @author Arnia (dev@karybu.org)
  **/
 
@@ -16,7 +16,7 @@ function memberSetEvent() {
 }
 
 
-// 실제 서버에 특정 필드의 value check를 요청하고 이상이 있으면 메세지를 뿌려주는 함수
+// Physical server to request a specific field value check if the message sprinkle over the function
 function memberCheckValue(event) {
 	var field  = event.target;
 	var _name  = field.name;
@@ -29,7 +29,7 @@ function memberCheckValue(event) {
 	exec_xml('member','procMemberCheckValue', params, completeMemberCheckValue, response_tags, field);
 }
 
-// 서버에서 응답이 올 경우 이상이 있으면 메세지를 출력
+// The response from the server if you have more than two when it comes to output messages
 function completeMemberCheckValue(ret_obj, response_tags, field) {
 	var _id   = 'dummy_check'+field.name;
 	var dummy = jQuery('#'+_id);
@@ -46,7 +46,7 @@ function completeMemberCheckValue(ret_obj, response_tags, field) {
 	dummy.html(ret_obj['message']).show();
 }
 
-// 결과 메세지를 정리하는 함수
+// Function to clean up the resulting message
 function removeMemberCheckValueOutput(dummy, obj) {
     dummy.style.display = "none";
 }

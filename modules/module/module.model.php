@@ -2016,12 +2016,11 @@ class moduleModel extends module
             }
             // If not an administrator, get information from the DB and grant manager privilege.
             if (!$grant->manager) {
-                $args = null;
+                $args = new stdClass();
                 // If planet, get permission settings from the planet home
                 if ($module_info->module == 'planet') {
                     $output = executeQueryArray('module.getPlanetGrants', $args);
                 } else {
-                    $args = new stdClass();
                     $args->module_srl = $module_srl;
                     $output = executeQueryArray('module.getModuleGrants', $args);
                 }
@@ -2032,7 +2031,7 @@ class moduleModel extends module
                     // Arrange names and groups who has privileges
                     foreach ($output->data as $val) {
                         $grant_exists[$val->name] = true;
-                        if ($granted[$val->name]) {
+                        if (!empty($granted[$val->name])) {
                             continue;
                         }
                         // Log-in member only
@@ -2077,7 +2076,7 @@ class moduleModel extends module
                 }
                 if (isset($grant_info) && count($grant_info)) {
                     foreach ($grant_info as $grant_name => $grant_item) {
-                        if ($grant_exists[$grant_name]) {
+                        if (!empty($grant_exists[$grant_name])) {
                             continue;
                         }
                         switch ($grant_item->default) {

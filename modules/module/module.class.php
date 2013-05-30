@@ -357,7 +357,7 @@
             {
                 if($data->count == 1) continue;
                 $domain = $data->domain;
-                $args = null;
+                $args = new stdClass();
                 $args->domain = $domain;
                 $output2 = executeQueryArray("module.getSiteByDomain", $args);
                 $bFirst = true;
@@ -369,7 +369,7 @@
                         continue;
                     }
                     $domain .= "_";
-                    $args = null;
+                    $args = new stdClass();
                     $args->domain = $domain;
                     $args->site_srl = $site->site_srl;
                     $output3 = executeQuery("module.updateSite", $args);

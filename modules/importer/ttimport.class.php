@@ -238,7 +238,7 @@
                         $tag_list = explode(',',$obj->tags);
                         $tag_count = count($tag_list);
                         for($i=0;$i<$tag_count;$i++) {
-                            $args = null;
+                            $args = new stdClass();
                             $args->tag_srl = getNextSequence();
                             $args->module_srl = $module_srl;
                             $args->document_srl = $obj->document_srl;

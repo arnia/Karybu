@@ -1,4 +1,4 @@
-/* 사용자 추가 */
+/* Add a User */
 function completeInsert(ret_obj) {
     var error = ret_obj['error'];
     var message = ret_obj['message'];
@@ -13,7 +13,7 @@ function completeInsert(ret_obj) {
     location.href = url;
 }
 
-/* 사용자 삭제 */
+/* Deleting a user */
 function completeDelete(ret_obj) {
     var error = ret_obj['error'];
     var message = ret_obj['message'];
@@ -26,7 +26,7 @@ function completeDelete(ret_obj) {
     location.href = url;
 }
 
-/* 그룹 추가 */
+/* Add a Group */
 function completeInsertGroup(ret_obj) {
     var error = ret_obj['error'];
     var message = ret_obj['message'];
@@ -39,7 +39,7 @@ function completeInsertGroup(ret_obj) {
     location.href = url;
 }
 
-/* 그룹 관련 작업들 */
+/* Group-related tasks */
 function doUpdateGroup(group_srl, mode, message) {
     if(typeof(message)!='undefined'&&!confirm(message)) return;
 
@@ -54,7 +54,7 @@ function completeUpdateGroup(ret_obj) {
     location.href = current_url.setQuery('group_srl','');
 }
 
-/* 가입폼 관련 작업들 */
+/* Sign the form of work-related */
 function doUpdateJoinForm(member_join_form_srl, mode, message) {
     if(typeof(message)!='undefined'&&!confirm(message)) return;
 
@@ -65,7 +65,7 @@ function doUpdateJoinForm(member_join_form_srl, mode, message) {
     procFilter(fo_obj, update_member_join_form);
 }
 
-/* 가입폼의 기본 값 관리 */
+/* The default value for subscription management form */
 function doShowJoinFormValue(sel_obj) {
     var val = sel_obj.options[sel_obj.selectedIndex].value;
     switch(val) {
@@ -125,7 +125,7 @@ function doEditDefaultValue(obj, cmd) {
     get_by_id('fo_join_form').default_value.value = value_list.join('|@|');
 }
 
-/* 한국 우편 번호 관련 */
+/* Korea Zip Code related */
 function doHideKrZipList(column_name) {
     var zone_list_obj = get_by_id('zone_address_list_'+column_name);
     var zone_search_obj = get_by_id('zone_address_search_'+column_name);
@@ -198,7 +198,7 @@ function completeSearchKrZip(ret_obj, response_tags, callback_args) {
 }
 
 
-/* 프로필 이미지, 이미지 이름, 마크 삭제 */
+/* Profile image, image name, mark Delete */
 function doDeleteProfileImage(member_srl) {
 	if (!member_srl) return;
 
@@ -239,14 +239,14 @@ function doDeleteImageMark(member_srl) {
 	);
 }
 
-/* 그룹 일괄 변경 후 */
+/* Group and bulk changes */
 function completeUpdateMemberGroup(ret_obj) {
     alert(ret_obj['message']);
     opener.location.href = opener.current_url;
     window.close();
 }
 
-/* 일괄 삭제 후 */
+/* The bulk delete */
 function completeDeleteMembers(ret_obj) {
     alert(ret_obj['message']);
     opener.location.href = opener.current_url;

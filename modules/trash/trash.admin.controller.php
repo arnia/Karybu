@@ -69,6 +69,7 @@ class trashAdminController extends trash
 	 */
 	function _relationDataDelete($isAll, &$trashSrls)
 	{
+        $args = new stdClass();
 		if($isAll == 'true') $trashSrls = array();
 		$oTrashModel = &getModel('trash');
 		if(count($trashSrls) > 0) $args->trashSrl = $trashSrls;

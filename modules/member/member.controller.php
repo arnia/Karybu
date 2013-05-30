@@ -60,7 +60,7 @@
             $config = $oModuleModel->getModuleConfig('member');
 
             // Check change_password_date
-            $limit_date = $config->change_password_date;
+            $limit_date = isset($config->change_password_date) ? $config->change_password_date : null;
 
             // Check if change_password_date is set
             if ($limit_date > 0) {
@@ -71,7 +71,7 @@
                 }
             }
 
-            if(!$config->after_login_url)
+            if(empty($config->after_login_url))
             {
                 $returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'mid', Context::get('mid'), 'act', '');
             }
@@ -163,6 +163,7 @@
             $oDocumentModel = &getModel('document');
             $oDocument = $oDocumentModel->getDocument($document_srl);
             // Variables
+            $args = new stdClass();
             $args->document_srl = $document_srl;
             $args->member_srl = $logged_info->member_srl;
             $args->user_id = $oDocument->get('user_id');
@@ -294,6 +295,7 @@
 					}
 				}
 			}
+            $args = new stdClass();
 			foreach($getVars as $val){
 				$args->{$val} = Context::get($val);
 			}
@@ -303,8 +305,9 @@
 			$args->allow_mailing = Context::get('allow_mailing');
 			$args->allow_message = Context::get('allow_message');
 
-			if($args->password1) $args->password = $args->password1;
-
+			if(!empty($args->password1)) {
+                $args->password = $args->password1;
+            }
             // Remove some unnecessary variables from all the vars
             $all_args = Context::getRequestVars();
             unset($all_args->module);
@@ -324,7 +327,9 @@
             unset($all_args->secret_text);
 
             // Set the user state as "denied" when using mail authentication
-            if ($config->enable_confirm == 'Y') $args->denied = 'Y';
+            if (isset($config->enable_confirm) && $config->enable_confirm == 'Y') {
+                $args->denied = 'Y';
+            }
             // Add extra vars after excluding necessary information from all the requested arguments
             $extra_vars = delObjectVars($all_args, $args);
             $args->extra_vars = serialize($extra_vars);
@@ -357,7 +362,7 @@
 
             }
             // Log-in
-            if ($config->enable_confirm != 'Y')
+            if (!isset($config->enable_confirm) || $config->enable_confirm != 'Y')
 			{
 				if($config->identifier == 'email_address')
 				{
@@ -371,8 +376,10 @@
 
             // Results
             $this->add('member_srl', $args->member_srl);
-            if($config->redirect_url) $this->add('redirect_url', $config->redirect_url);
-            if ($config->enable_confirm == 'Y') {
+            if(!empty($config->redirect_url)) {
+                $this->add('redirect_url', $config->redirect_url);
+            }
+            if (isset($config->enable_confirm) && $config->enable_confirm == 'Y') {
                 $msg = sprintf(Context::getLang('msg_confirm_mail_sent'), $args->email_address);
                 $this->setMessage($msg);
             }
@@ -381,7 +388,7 @@
             $trigger_output = ModuleHandler::triggerCall('member.procMemberInsert', 'after', $config);
             if(!$trigger_output->toBool()) return $trigger_output;
 
-			if($config->redirect_url)
+			if(!empty($config->redirect_url))
 			{
 				$returnUrl = $config->redirect_url;
 			}
@@ -1838,11 +1845,19 @@
                 $oDB->rollback();
                 return $output;
             }
-
-			if(is_array($args->group_srl_list)) $group_srl_list = $args->group_srl_list;
-			else $group_srl_list = explode('|@|', $args->group_srl_list);
+            if (isset($args->group_srl_list)){
+                if(is_array($args->group_srl_list)) {
+                    $group_srl_list = $args->group_srl_list;
+                }
+                else {
+                    $group_srl_list = explode('|@|', $args->group_srl_list);
+                }
+            }
+            else {
+                $group_srl_list = array();
+            }
             // If no value is entered the default group, the value of group registration
-            if(!$args->group_srl_list) {
+            if(empty($args->group_srl_list)) {
 				$columnList = array('site_srl', 'group_srl');
                 $default_group = $oMemberModel->getDefaultGroup(0, $columnList);
 				if ($default_group)

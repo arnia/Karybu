@@ -296,7 +296,7 @@ class Argument
                         $this->isValid = false;
                         $this->errorMessage = new Object(-1, sprintf(
                             $lang->filter->invalid_number,
-                            $lang->{$key} ? $lang->{$key} : $key
+                            !empty($lang->{$key}) ? $lang->{$key} : $key
                         ));
                     }
                     break;

@@ -759,7 +759,7 @@
                     $member_srl = (int)trim($member_srls[$i]);
                     if(!$member_srl) continue;
 
-                    $args = null;
+                    $args = new stdClass();
                     $args->member_srl = $member_srl;
                     $args->group_srl = $group_srl;
 

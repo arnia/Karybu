@@ -84,6 +84,7 @@ class counterController extends counter
      **/
     function insertUniqueVisitor($site_srl = 0)
     {
+        $args = new stdClass();
         if ($site_srl) {
             $args->regdate = '0';
             $args->site_srl = $site_srl;

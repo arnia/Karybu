@@ -1,34 +1,34 @@
 <load target="filter/add_friend.xml" />
 <load target="css/communication.css" />
 <load target="js/communication.js" />
-<h3>{$lang->cmd_add_friend}</h3>
 <div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
-<form ruleset="addFriend" action="./" method="post" class="form">
+<form ruleset="addFriend" action="./" method="post" class="form form-horizontal">
 	<input type="hidden" name="module" value="communication" />
 	<input type="hidden" name="act" value="procCommunicationAddFriend" />
 	<input type="hidden" name="target_srl" value="{$target_info->member_srl}" />
+    <h3>{$lang->cmd_add_friend}</h3>
 	<div>
-		<table class="table table-bordered" width="100%" cellspacing="0">
-			<tr>
-				<th scope="row">{$lang->nick_name}</th>
-				<td>{$target_info->nick_name}</td>
-			</tr>
-			<tr>
-				<th scope="row"><label for="friend_group_srl">{$lang->friend_group}</label></th>
-				<td>
-					<select name="friend_group_srl" id="friend_group_srl">
-						<option value="">{$lang->default_friend_group}</option>
-						<option loop="$friend_group_list => $key,$val" value="{$val->friend_group_srl}">{$val->title}</option>
-					</select> 
-					<a href="{getUrl('act','dispCommunicationAddFriendGroup')}" onclick="popopen(this.href);return false;">{$lang->cmd_add_friend_group}</a>
-				</td>
-			</tr>
-		</table>
+        <div class="control-group">
+            <label class="control-label">{$lang->nick_name}</label>
+            <div class="controls">
+                {$target_info->nick_name}
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="friend_group_srl">{$lang->friend_group}</label>
+            <div class="controls">
+                <select name="friend_group_srl" id="friend_group_srl">
+                    <option value="">{$lang->default_friend_group}</option>
+                    <option loop="$friend_group_list => $key,$val" value="{$val->friend_group_srl}">{$val->title}</option>
+                </select>
+                <a href="{getUrl('act','dispCommunicationAddFriendGroup')}" onclick="popopen(this.href);return false;">{$lang->cmd_add_friend_group}</a>
+            </div>
+        </div>
 	</div>
 	<div class="btnArea">
-		<span class="btn"><input type="submit" value="{$lang->cmd_add_friend}" /></span>
+		<button type="submit" class="btn btn-success">{$lang->cmd_add_friend}</button>
 	</div>
 </form>
