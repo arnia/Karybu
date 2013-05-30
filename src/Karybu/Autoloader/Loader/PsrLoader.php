@@ -20,7 +20,7 @@ class PsrLoader extends AbstractLoader
             $internalPath = str_replace('\\', '/', $matches[2]);
             // slashes and underscores for class name
             $classPath = str_replace(array('\\', '_'), '/', $matches[3]);
-            $path = "{$this->modulesPath}/$moduleName$internalPath/$classPath.php";
+            $path = "{$this->modulesPath}/$moduleName/src$internalPath/$classPath.php";
             return $this->includeFile($path);
         }
         return false;
