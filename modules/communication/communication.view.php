@@ -173,6 +173,7 @@
             Context::set('receiver_info', $receiver_info);
             // set a signiture by calling getEditor of the editor module
             $oEditorModel = &getModel('editor');
+            $option = new stdClass();
             $option->primary_key_name = 'receiver_srl';
             $option->content_key_name = 'content';
             $option->allow_fileupload = false;
@@ -186,7 +187,7 @@
             $option->colorset = isset($this->communication_config->editor_colorset) ? $this->communication_config->editor_colorset : null;
             $editor = $oEditorModel->getEditor($logged_info->member_srl, $option);
             Context::set('editor', $editor);
-
+            Context::addCssFile('./common/css/bootstrap.css');
             $this->setTemplateFile('send_message');
         }
 
@@ -215,7 +216,7 @@
             if($friend_count) {
                 foreach($output->data as $key => $val) {
                     $group_srl = $val->friend_group_srl;
-                    $group_title = $friend_group_list[$group_srl]->title;
+                    $group_title = isset($friend_group_list[$group_srl]->title) ? $friend_group_list[$group_srl]->title : null;
                     if(!$group_title) $group_title = Context::get('default_friend_group');
                     $output->data[$key]->group_title = $group_title;
                 }
@@ -252,7 +253,7 @@
             // get a group list
             $friend_group_list = $oCommunicationModel->getFriendGroups();
             Context::set('friend_group_list', $friend_group_list);
-
+            Context::addCssFile('./common/css/bootstrap.css');
             $this->setTemplateFile('add_friend');
         }
 

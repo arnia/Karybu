@@ -3,12 +3,12 @@
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
-<form ruleset="sendTrackback" action="./" method="post">
+<form ruleset="sendTrackback" action="./" method="post" class="form form-horizontal">
 	<input type="hidden" name="module" value="trackback" />
 	<input type="hidden" name="act" value="procTrackbackSend" />
 	<input type="hidden" name="target_srl" value="{$oDocument->document_srl}" />
 	<div class="table">
-		<table width="100%" border="1" cellspacing="0">
+		<table class="table table-bordered">
 		<tr>
 			<th scope="row"><label>{$lang->title}</label></th>
 			<td>{$oDocument->getTitleText()}</td>

@@ -536,14 +536,14 @@
 
             // Stored in the DB
             foreach($modules as $module_srl) {
-                $args = null;
+                $args = new stdClass();
                 $args->module_srl = $module_srl;
                 $output = executeQuery('module.deleteModuleGrants', $args);
                 if(!$output->toBool()) continue;
                 // Permissions stored in the DB
                 foreach($grant as $grant_name => $group_srls) {
                     foreach($group_srls as $key => $val) {
-                        $args = null;
+                        $args = new stdClass();
                         $args->module_srl = $module_srl;
                         $args->name = $grant_name;
                         $args->group_srl = $val;

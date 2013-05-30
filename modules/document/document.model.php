@@ -581,7 +581,7 @@ class documentModel extends document
                 $oDocumentController->addDocumentPopupMenu(
                     $url,
                     'cmd_search_by_ipaddress',
-                    $icon_path,
+                    null,
                     'TraceByIpaddress'
                 );
 
@@ -1474,7 +1474,7 @@ class documentModel extends document
             $args->statusList = $searchOpt->statusList;
         }
         else {
-            if ($logged_info->is_admin == 'Y' && !empty($searchOpt->module_srl)) {
+            if (isset($logged_info->is_admin) && $logged_info->is_admin == 'Y' && !empty($searchOpt->module_srl)) {
                 $args->statusList = array(
                     $this->getConfigStatus('secret'),
                     $this->getConfigStatus('public'),

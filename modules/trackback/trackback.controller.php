@@ -282,7 +282,7 @@
 
             // Information sent by
             $http = parse_url($trackback_url);
-
+            $obj = new stdClass();
             $obj->blog_name = str_replace(array('&lt;','&gt;','&amp;','&quot;'), array('<','>','&','"'), Context::getBrowserTitle());
             $oModuleController->replaceDefinedLangCode($obj->blog_name);
             $obj->title = $oDocument->getTitleText();
@@ -313,13 +313,13 @@
 			$oXmlParser = new XmlParser();
 			$xmlDoc = $oXmlParser->parse($buff);
 
-			if($xmlDoc->response->error->body == '0')
+			if(isset($xmlDoc->response->error->body) && $xmlDoc->response->error->body == '0')
 			{
 				return new Object(0, 'msg_trackback_send_success');
 			}
 			else
 			{
-				if($xmlDoc->response->message->body)
+				if(!empty($xmlDoc->response->message->body))
 				{
 					return new Object(-1, sprintf('%s: %s', Context::getLang('msg_trackback_send_failed'), $xmlDoc->response->message->body));
 				}

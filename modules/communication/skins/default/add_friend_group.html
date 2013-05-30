@@ -11,21 +11,21 @@
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
-<form ruleset="addFriendGroup" action="./" method="post" class="form">
+<form ruleset="addFriendGroup" action="./" method="post" class="form form-horizontal">
 	<input type="hidden" name="module" value="communication" />
 	<input type="hidden" name="act" value="procCommunicationAddFriendGroup" />
 	<input type="hidden" name="friend_group_srl" value="{$friend_group->friend_group_srl}" />
-	<ul>
-		<li>
-			<p class="q">{$lang->msg_insert_group_name}</p>
-			<p class="a"><input name="title" type="text" value="{htmlspecialchars($friend_group->title)}"/></p>
-		</li>
-	</ul>
+    <div class="control-group">
+        <label class="control-label" for="group-title">{$lang->msg_insert_group_name}</label>
+        <div class="controls">
+            <input name="title" id="group-title" type="text" value="{htmlspecialchars($friend_group->title)}"/>
+        </div>
+    </div>
 	<div class="btnArea">
 		<!--@if($friend_group->friend_group_srl)-->
-		<span class="btn"><input type="submit" value="{$lang->cmd_modify}" /></span>
+		<button type="submit" class="btn btn-success">{$lang->cmd_modify}</button>
 		<!--@else-->
-		<span class="btn"><input type="submit" value="{$lang->cmd_insert}" /></span>
+		<button class="btn btn-success" type="submit">{$lang->cmd_insert}</button>
 		<!--@end-->
 	</div>
 </form>

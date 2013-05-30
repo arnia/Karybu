@@ -38,10 +38,10 @@
 					<th>{$lang->friend_group}</th>
 					<th>{$lang->nick_name}</th>
 					<th>{$lang->regdate}</th>
-					<th><input name="check_all" type="checkbox" onclick="XE.checkboxToggleAll('friend_srl_list[]', { wrap:'fo_friend_list' });" /></th>
+					<th><input name="check_all" type="checkbox" onclick="karybuCheckAllCheckboxes(this, '#friends-list :checkbox')" /></th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="friends-list">
 				<tr loop="$friend_list => $no,$val">
 					<td>{$val->group_title?$val->group_title:"&nbsp;"}</td>
 					<td><a href="#popup_menu_area" class="member_{$val->target_srl}">{$val->nick_name}</a></td>

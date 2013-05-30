@@ -1001,7 +1001,7 @@ class documentController extends document {
 		if($point > 0) $failed_voted = 'failed_voted';
 		else $failed_voted = 'failed_blamed';
 		// Return fail if session already has information about votes
-		if($_SESSION['voted_document'][$document_srl])
+		if(!empty($_SESSION['voted_document'][$document_srl]))
 		{
 			return new Object(-1, $failed_voted);
 		}
@@ -1098,7 +1098,9 @@ class documentController extends document {
 	function declaredDocument($document_srl)
 	{
 		// Fail if session information already has a reported document
-		if($_SESSION['declared_document'][$document_srl]) return new Object(-1, 'failed_declared');
+		if(!empty($_SESSION['declared_document'][$document_srl])) {
+            return new Object(-1, 'failed_declared');
+        }
 
 		$trigger_obj = new stdClass();
 		$trigger_obj->document_srl = $document_srl;
@@ -1111,11 +1113,12 @@ class documentController extends document {
 		}
 
 		// Check if previously reported
+        $args = new stdClass();
 		$args->document_srl = $document_srl;
 		$output = executeQuery('document.getDeclaredDocument', $args);
 		if(!$output->toBool()) return $output;
 
-		$declared_count = $output->data->declared_count;
+		$declared_count = isset($output->data->declared_count) ? $output->data->declared_count : null;
 
 		// Get the original document
 		$oDocumentModel = &getModel('document');
@@ -1902,8 +1905,10 @@ class documentController extends document {
 	 */
 	function addDocumentPopupMenu($url, $str, $icon = '', $target = 'self') {
 		$document_popup_menu_list = Context::get('document_popup_menu_list');
-		if(!is_array($document_popup_menu_list)) $document_popup_menu_list = array();
-
+		if(!is_array($document_popup_menu_list)) {
+            $document_popup_menu_list = array();
+        }
+        $obj = new stdClass();
 		$obj->url = $url;
 		$obj->str = $str;
 		$obj->icon = $icon;

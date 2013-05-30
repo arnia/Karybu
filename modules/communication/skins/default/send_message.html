@@ -4,29 +4,34 @@
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
-<form ruleset="sendMessage" action="./" method="post">
+<form ruleset="sendMessage" action="./" method="post" class="form form-horizontal">
 	<input type="hidden" name="module" value="communication" />
 	<input type="hidden" name="act" value="procCommunicationSendMessage" />
 	<input type="hidden" name="content" value="{htmlspecialchars($source_message->content)}" />
 	<input type="hidden" name="receiver_srl" value="{$receiver_info->member_srl}" />
 	<div>
-		<table class="table table-bordered" width="100%" cellspacing="0" class="form">
-			<tr>
-				<th scope="row"><label for="textfield1">{$lang->receiver}</label></th>
-				<td>{$receiver_info->nick_name}</td>
-			</tr>
-			<tr>
-				<th scope="row">{$lang->title}</th>
-				<td><input type="text" name="title" id="message_title" value="{$source_message->title}"/></td>
-			</tr>
-			<tr>
-				<th scope="row">{$lang->cmd_option}</th>
-				<td><input type="checkbox" value="Y" name="send_mail" /> {$lang->cmd_send_mail}</td>
-			</tr>
-		</table>
+        <div class="control-group">
+            <label class="control-label">{$lang->receiver}</label>
+            <div class="controls">
+                {$receiver_info->nick_name}
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="message_title">{$lang->title}</label>
+            <div class="controls">
+                <input type="text" name="title" id="message_title" value="{$source_message->title}"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="send_mail">{$lang->cmd_option}</label>
+            <div class="controls">
+                <input type="checkbox" value="Y" name="send_mail" id="send_mail" />
+                <label for="send_mail">{$lang->cmd_send_mail}</label>
+            </div>
+        </div>
 		{$editor}
 	</div>
 	<div class="btnArea">
-		<span class="btn"><input type="submit" value="{$lang->cmd_send_message}" /></span>
+		<span><button type="submit" class="btn btn-success">{$lang->cmd_send_message}</button></span>
 	</div>
 </form>

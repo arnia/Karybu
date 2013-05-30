@@ -335,7 +335,7 @@
             for($i=0;$i<$match_cnt;$i++) {
                 $poll_srl = $matches[3][$i];
 
-                $args = null;
+                $args = new stdClass();
                 $args->poll_srl = $poll_srl;
                 $output = executeQuery('poll.getPoll', $args);
                 $poll = $output->data;

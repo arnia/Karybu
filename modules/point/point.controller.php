@@ -379,7 +379,7 @@
             $oPointModel = &getModel('point');
             // Get visitor information
             $logged_info = Context::get('logged_info');
-            $member_srl = $logged_info->member_srl;
+            $member_srl = isset($logged_info->member_srl) ? $logged_info->member_srl : null;
             // Get the original author number
             $target_member_srl = abs($obj->get('member_srl'));
             // Pass without increasing the hits if the viewer is the same as the author

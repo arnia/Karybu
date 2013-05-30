@@ -632,7 +632,7 @@
             $site_keyword = Context::get('site_keyword');
             $site_srl = Context::get('site_srl');
             // If there is no site keyword, use as information of the current virtual site
-            $args = null;
+            $args = new stdClass();
 
             // Get a list of modules at the site
 			$args->module = array();
