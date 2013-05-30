@@ -49,7 +49,7 @@
                 if(update_height_function) {
                     scrollbar.updateHeight();
 
-                    $(window).resize(function(){
+                    $(window).on('debouncedresize', function() {
                         scrollbar.updateHeight();
                     });
                 }
@@ -117,7 +117,7 @@
                     $(this).verticalScrollbar(scrollbar_config);
                 }
 
-                $(window).resize(function(){
+                $(window).on('debouncedresize', function() {
                     if($.isSmallScreen() && $.isPortrait()) {
                         self.makeHorizontal();
                     }

@@ -50,12 +50,16 @@
 
         if(browserWidth > 1200) {
             $("body").addClass("large-desktop-screen");
+            $("body").trigger('admin.large-desktop-screen');
         } else if(768 <= browserWidth && browserWidth <= 1200) {
             $("body").addClass("desktop-screen");
+            $("body").trigger('admin.desktop-screen');
         } else if(480 <= browserWidth && browserWidth <= 767) {
             $("body").addClass("tablet-screen");
+            $("body").trigger('admin.tablet-screen');
         } else {
             $("body").addClass("phone-screen");
+            $("body").trigger('admin.phone-screen');
         }
 
         if(browserWidth < browserHeight) {
@@ -82,9 +86,17 @@
             $('body').addClass('kBigHeader')
         }
 
-        $(window).resize(function(){
+        $(window).on('debouncedresize', function() {
             initializeScreenResolution();
         });
+
+        $("body").bind('admin.large-desktop-screen admin.desktop-screen', function() {
+            $("#kMobileMenu").show();
+        });
+        $("body").bind('admin.tablet-screen admin.phone-screen', function() {
+            $("#kMobileMenu").hide();
+        });
+
     });
 
 }(jQuery));
