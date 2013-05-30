@@ -63,7 +63,7 @@
 			if($trackbackSrls) $trackbackSrlList = explode(',', $trackbackSrls);
 
 			global $lang;
-			if(count($trackbackSrlList) > 0) {
+			if(isset($trackbackSrlList) && count($trackbackSrlList) > 0) {
 				$oTrackbackAdminModel = &getAdminModel('trackback');
 				$args->trackbackSrlList = $trackbackSrlList;
 				$args->list_count = 100;

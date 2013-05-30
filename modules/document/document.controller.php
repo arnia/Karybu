@@ -1675,7 +1675,7 @@ class documentController extends document {
 		$oModuleModel = &getModel('module');
 		$columnList = array('module_srl', 'mid', 'site_srl');
 		$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl, $columnList);
-		$mid = $module_info->mid;
+		$mid = isset($module_info->mid) ? $module_info->mid : null;
 
 		if(!is_dir('./files/cache/document_category')) FileHandler::makeDir('./files/cache/document_category');
 		// Cache file's name

@@ -279,7 +279,6 @@ class TemplateHandler
             preg_match('/ruleset="([^"]*?)"/is', $matches[1], $m);
             if (!empty($m[0])) {
                 $matches[1] = preg_replace('/' . addcslashes($m[0], '?$') . '/i', '', $matches[1]);
-
                 if (strpos($m[1], '@') !== false) {
                     $path = str_replace('@', '', $m[1]);
                     $path = './files/ruleset/' . $path . '.xml';
