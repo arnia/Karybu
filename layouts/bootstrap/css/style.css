@@ -690,3 +690,10 @@ a.image-holder:hover img {
 }
 
 /* MENU END*/
+a.member-image{
+    width:28px;
+}
+a.member-image img{
+    width:28px;
+    height:28px;
+}

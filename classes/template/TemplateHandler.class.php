@@ -304,7 +304,7 @@ class TemplateHandler
                 if (!isset($autoPath)){
                     $autoPath = '';
                 }
-                $matches[2] = '<input type="hidden" name="ruleset" value="' . $m[1] . '" />' . $matches[2];
+                $matches[2] = '<input type="hidden" name="ruleset" value="' . str_replace('@', '', $m[1]) . '" />' . $matches[2];
                 //assign to addJsFile method for js dynamic recache
                 $matches[1] = '<?php Context::addJsFile("' . $path . '", false, "", 0, "head", true, "' . $autoPath . '") ?' . '>' . $matches[1];
             }

@@ -33,7 +33,7 @@ function memberCheckValue(event) {
 function completeMemberCheckValue(ret_obj, response_tags, field) {
 	var _id   = 'dummy_check'+field.name;
 	var dummy = jQuery('#'+_id);
-   
+
     if(ret_obj['message']=='success') {
         dummy.html('').hide();
         return;

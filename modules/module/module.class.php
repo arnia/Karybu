@@ -339,7 +339,7 @@
 					if(count($skin_path) != 2) continue;
 					if(is_dir(sprintf(_KARYBU_PATH_ . 'themes/%s/modules/%s', $skin_path[0], $skin_path[1])))
 					{
-						unset($args);
+						$args = new stdClass();
 						$args->skin = $item->skin;
 						$args->new_skin = implode('|@|', $skin_path);
 						$output = executeQuery('module.updateSkinAll', $args);

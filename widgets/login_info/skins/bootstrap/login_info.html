@@ -5,11 +5,8 @@
     <a href="{getUrl('act','dispMemberLogout')}" class="btn admin" data-toggle="tooltip" data-placement="bottom" title="{$lang->logout}" ><i class="icon-off"></i></a>
 </div>
 <div class="user-info navbar-form pull-right">
-    <a class="btn image-holder" href="{getUrl('act','dispMemberInfo')}" title="{$lang->welcome} {$logged_info->nick_name}">
-        <img src="{$logged_info->profile_image->src}" cond="isset($logged_info->profile_image->src)" alt="{$lang->welcome} {$logged_info->nick_name}" width="28" height="28"/>
+    <a class="btn image-holder member-image" href="{getUrl('act','dispMemberInfo')}" title="{$lang->welcome} {$logged_info->nick_name}" >
+        <img src="{$logged_info->profile_image->src}" cond="isset($logged_info->profile_image->src)" alt="{$lang->welcome} {$logged_info->nick_name}" width="28" height="28" />
         <img src="./modules/admin/tpl/img/admin.png" cond="!isset($logged_info->profile_image->src)" alt="{$lang->welcome} {$logged_info->nick_name}" width="28" height="28" />
     </a>
 </div>
-
-
-
