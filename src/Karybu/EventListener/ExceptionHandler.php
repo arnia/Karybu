@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Debug\ExceptionHandler as SymfonyExceptionHandl
 use Symfony\Component\HttpKernel\Exception\FlattenException;
 
 
-class ExceptionHandler extends SymfonyExceptionHandler{
+class ExceptionHandler extends SymfonyExceptionHandler {
 
     private $debug;
     private $charset;
@@ -34,6 +34,63 @@ class ExceptionHandler extends SymfonyExceptionHandler{
      */
     public function getContent(FlattenException $exception)
     {
+        if($this->debug) {
+            return $this->_getContentWhenDebugEnabled($exception);
+        } else {
+            return $this->_getContentWhenDebugDisabled($exception);
+        }
+    }
+
+    private function _getContentWhenDebugEnabled(FlattenException $exception)
+    {
+        try {
+            $content = '';
+            $count = count($exception->getAllPrevious());
+            $total = $count + 1;
+            foreach ($exception->toArray() as $position => $e) {
+                $ind = $count - $position + 1;
+                $class = $this->abbrClass($e['class']);
+                $message = nl2br($e['message']);
+                $content .= sprintf(<<<EOF
+                        <h2><span>%d/%d</span> <strong>%s</strong>: %s</h2>
+                        <div class="block">
+                            <ol class="traces list_exception">
+
+EOF
+                    , $ind, $total, $class, $message);
+                foreach ($e['trace'] as $trace) {
+                    $content .= '       <li>';
+                    if ($trace['function']) {
+                        $content .= sprintf('at %s%s%s(%s)', $this->abbrClass($trace['class']), $trace['type'], $trace['function'], $this->formatArgs($trace['args']));
+                    }
+                    if (isset($trace['file']) && isset($trace['line'])) {
+                        if ($linkFormat = ini_get('xdebug.file_link_format')) {
+                            $link = str_replace(array('%f', '%l'), array($trace['file'], $trace['line']), $linkFormat);
+                            $content .= sprintf(' in <a href="%s" title="Go to source">%s line %s</a>', $link, $trace['file'], $trace['line']);
+                        } else {
+                            $content .= sprintf(' in %s line %s', $trace['file'], $trace['line']);
+                        }
+                    }
+                    $content .= "</li>\n";
+                }
+
+                $content .= "    </ol>\n</div>\n";
+            }
+        } catch (\Exception $e) {
+            // something nasty happened and we cannot throw an exception anymore
+            $content = sprintf('Exception thrown when handling an exception (%s: %s)', get_class($exception), $exception->getMessage());
+        }
+
+        return <<<EOF
+            <div id="sf-resetcontent" class="sf-reset">
+                $content
+            </div>
+EOF;
+
+    }
+
+    private function _getContentWhenDebugDisabled(FlattenException $exception)
+    {
         switch ($exception->getStatusCode()) {
             case 404:
                 $title = 'Sorry, the page you are looking for could not be found.';
@@ -42,61 +99,13 @@ class ExceptionHandler extends SymfonyExceptionHandler{
                 $title = 'Whoops, looks like something went wrong.';
         }
 
-        $content = $exception->getMessage();
-        if ($this->debug) {
-            try {
-                $content = '';
-                $count = count($exception->getAllPrevious());
-                $total = $count + 1;
-                foreach ($exception->toArray() as $position => $e) {
-                    $ind = $count - $position + 1;
-                    $class = $this->abbrClass($e['class']);
-                    $message = nl2br($e['message']);
-                    $content .= sprintf(<<<EOF
-
-                        <h1>$title</h1>
-                        <h2><span>%d/%d</span> %s: %s</h2>
-                        <div class="block">
-                            <ol class="traces list_exception">
-
-EOF
-                        , $ind, $total, $class, $message);
-                    foreach ($e['trace'] as $trace) {
-                        $content .= '       <li>';
-                        if ($trace['function']) {
-                            $content .= sprintf('at %s%s%s(%s)', $this->abbrClass($trace['class']), $trace['type'], $trace['function'], $this->formatArgs($trace['args']));
-                        }
-                        if (isset($trace['file']) && isset($trace['line'])) {
-                            if ($linkFormat = ini_get('xdebug.file_link_format')) {
-                                $link = str_replace(array('%f', '%l'), array($trace['file'], $trace['line']), $linkFormat);
-                                $content .= sprintf(' in <a href="%s" title="Go to source">%s line %s</a>', $link, $trace['file'], $trace['line']);
-                            } else {
-                                $content .= sprintf(' in %s line %s', $trace['file'], $trace['line']);
-                            }
-                        }
-                        $content .= "</li>\n";
-                    }
-
-                    $content .= "    </ol>\n</div>\n";
-                }
-            } catch (\Exception $e) {
-                // something nasty happened and we cannot throw an exception anymore
-                if ($this->debug) {
-                    $title = sprintf('Exception thrown when handling an exception (%s: %s)', get_class($exception), $exception->getMessage());
-                } else {
-                    $title = 'Whoops, looks like something went wrong.';
-                }
-            }
-        }
-
         return <<<EOF
             <div id="sf-resetcontent" class="sf-reset">
-
-                $content
+                $title
             </div>
 EOF;
-    }
 
+    }
 
     /**
      * Copied from Symfony since there it is private
