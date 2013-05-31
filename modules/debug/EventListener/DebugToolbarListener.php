@@ -139,21 +139,21 @@ class DebugToolbarListener implements EventSubscriberInterface
                 $this->context->set('queries', $queries);
                 $tabs['Queries'] = new \stdClass();
                 $tabs['Queries']->content = $this->renderView('queries');
-                $tabs['Queries']->badge = '<span class="badge badge-info">' . count($queries) . '</span>';
+                $tabs['Queries']->badge = '<span class="badge badge-info">' . (($query_count = count($queries)) ? $query_count : '') . '</span>';
             }
             if ($this->queryErrorListener) {
                 $queries = $this->queryErrorListener->getFailedQueries();
                 $this->context->set('failed_queries', $queries);
                 $tabs['Query errors'] = new \stdClass();
                 $tabs['Query errors']->content = $this->renderView('failed_queries');
-                $tabs['Query errors']->badge = '<span class="badge badge-important">' . count($queries) . '</span>';
+                $tabs['Query errors']->badge = '<span class="badge badge-important">' . (($query_count = count($queries)) ? $query_count : '') . '</span>';
             }
             if ($this->errorHandler) {
                 $errors = $this->errorHandler->getErrors();
                 $this->context->set('errors', $errors);
                 $tabs['PHP Errors'] = new \stdClass();
                 $tabs['PHP Errors']->content = $this->renderView('php_errors');
-                $tabs['PHP Errors']->badge = '<span class="badge badge-warning">' . count($errors) . '</span>';
+                $tabs['PHP Errors']->badge = '<span class="badge badge-warning">' . (($error_count = count($errors)) ? $error_count : '') . '</span>';
             }
             $this->context->set('data', $tabs);
             if (isset($_SESSION['debug_state'])) $this->context->set('debug_state', $_SESSION['debug_state']);
