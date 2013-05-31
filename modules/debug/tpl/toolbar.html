@@ -3,9 +3,12 @@
         <a class="toggle pull-left up"></a>
         <ul class="unstyled inline pull-left" id="debug-tabs">
             {@ $index = 1; }
-            <!--@foreach($data as $tab_name => $tab_content)-->
+            <!--@foreach($data as $tab_name => $tab_info)-->
             <li data-debug-index="{$index}" class="active"|cond="$debug_tab && ($index == $debug_tab)">
-                <a href="#debug_tab_{$index}">{$tab_name}</a>
+                <a href="#debug_tab_{$index}">
+                    {$tab_name}
+                    &nbsp;{$tab_info->badge}
+                </a>
             </li>
             {@ $index++; }
             <!--@end-->
@@ -16,9 +19,9 @@
     </div>
     <div class="debug-content">
         {@ $index = 1; }
-        <!--@foreach($data as $tab_name => $tab_content)-->
+        <!--@foreach($data as $tab_name => $tab_info)-->
         <div class="tab-content" id="debug_tab_{$index}">
-            {$tab_content}
+            {$tab_info->content}
         </div>
         {@ $index++; }
         <!--@end-->

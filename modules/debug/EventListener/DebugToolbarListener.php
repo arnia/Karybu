@@ -133,23 +133,29 @@ class DebugToolbarListener implements EventSubscriberInterface
         $pos = $posrFunction($content, '</body>');
 
         if (false !== $pos) {
-            $data = array();
+            $tabs = array();
             if ($this->queryInfoListener) {
                 $queries = $this->queryInfoListener->getQueries();
                 $this->context->set('queries', $queries);
-                $data['Queries'] = $this->renderView('queries');
+                $tabs['Queries'] = new \stdClass();
+                $tabs['Queries']->content = $this->renderView('queries');
+                $tabs['Queries']->badge = '<span class="badge badge-info">' . count($queries) . '</span>';
             }
             if ($this->queryErrorListener) {
                 $queries = $this->queryErrorListener->getFailedQueries();
                 $this->context->set('failed_queries', $queries);
-                $data['Query errors'] = $this->renderView('failed_queries');
+                $tabs['Query errors'] = new \stdClass();
+                $tabs['Query errors']->content = $this->renderView('failed_queries');
+                $tabs['Query errors']->badge = '<span class="badge badge-important">' . count($queries) . '</span>';
             }
             if ($this->errorHandler) {
                 $errors = $this->errorHandler->getErrors();
                 $this->context->set('errors', $errors);
-                $data['PHP Errors'] = $this->renderView('php_errors');
+                $tabs['PHP Errors'] = new \stdClass();
+                $tabs['PHP Errors']->content = $this->renderView('php_errors');
+                $tabs['PHP Errors']->badge = '<span class="badge badge-warning">' . count($errors) . '</span>';
             }
-            $this->context->set('data', $data);
+            $this->context->set('data', $tabs);
             if (isset($_SESSION['debug_state'])) $this->context->set('debug_state', $_SESSION['debug_state']);
             if (isset($_SESSION['debug_height'])) $this->context->set('debug_height', $_SESSION['debug_height']);
             if (isset($_SESSION['debug_tab'])) $this->context->set('debug_tab', $_SESSION['debug_tab']);
