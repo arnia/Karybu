@@ -237,11 +237,11 @@ line-height: 25px;
 }
 
 i.icon-btn-home {
-    background: url("../img/sprite-24.png") 0 0 no-repeat;
+    background: url("../img/sprite-24.png") 0 0 no-repeat!important;
 }
 
 i.icon-btn-admin {
-    background: url("../img/sprite-24.png") -24px 0 no-repeat;
+    background: url("../img/sprite-24.png") -24px 0 no-repeat!important;
 }
 
 
