@@ -53,10 +53,9 @@ class ExceptionHandler extends SymfonyExceptionHandler{
                     $class = $this->abbrClass($e['class']);
                     $message = nl2br($e['message']);
                     $content .= sprintf(<<<EOF
-                        <div class="block_exception">
-                            <h2><span>%d/%d</span> %s: %s</h2>
-                        </div>
+
                         <h1>$title</h1>
+                        <h2><span>%d/%d</span> %s: %s</h2>
                         <div class="block">
                             <ol class="traces list_exception">
 
@@ -159,7 +158,7 @@ EOF;
         return <<<EOF
             body, * { font-family: Arial, "Helvetica Neue", Helvetica, sans-serif!important }
             body, html { background:#f8f8f8; }
-            .sf-reset { font-size: 11px; color: #333 }
+            .sf-reset { font-size: 11px; color: #333; box-shadow: 0px 3px 10px -10px rgba(0,0,0,0.3) }
             .sf-reset .clear { clear:both; height:0; font-size:0; line-height:0; }
             .sf-reset .clear_fix:after { display:block; height:0; clear:both; visibility:hidden; }
             .sf-reset .clear_fix { display:inline-block; }
@@ -173,11 +172,10 @@ EOF;
             .sf-reset a img { border:none; }
             .sf-reset a:hover { text-decoration:underline; }
             .sf-reset em { font-style:italic; }
-            .sf-reset h1, .sf-reset h2 { font-size: 20px; line-height:36px }
-            .sf-reset h2 { display: block;
-                width: 200px;
-                height: 200px;
-                font-size: 20px;
+            .sf-reset h1, .sf-reset h2 { font-size: 36px; line-height:40px }
+            .sf-reset h2 span {
+                width: 100px;
+                height: 100px;
                 font-weight: bold;
                 color: #555555;
                 border: 10px solid #bebebe;
@@ -188,12 +186,18 @@ EOF;
                 -moz-border-radius: 160px;
                 -webkit-border-radius: 160px;
                 border-radius: 160px;
-                 float:left;
-                 margin-right:36px;
-                 margin-left:-265px;
-                 }
-            .sf-reset h2 span { color: #333; padding: 6px; display:block; clear:both; position:relative; line-height:40px; padding-top:40px; font-size: 29px;
-font-weight: bold; color: #555555;  }
+                margin-right:36px;
+                margin-left:-175px;
+                color: #333; padding: 6px;
+                display:table-cell;
+                clear:both;
+                position:absolute;
+                font-size: 29px;
+                vertical-align: middle;
+                line-height:100px;
+                margin-top:-46px
+                }
+
             .sf-reset .traces li { font-size:13px; padding: 4px 10px; list-style-type:decimal; margin-left:15px; background:#fff; margin-bottom:6px; border-bottom:1px solid #ddd; border-radius:5px; word-break:break-all; }
             .sf-reset .block {
             }
@@ -205,13 +209,13 @@ font-weight: bold; color: #555555;  }
             .sf-reset li a:hover { background:none; color:#313131; text-decoration:underline; }
             .sf-reset ol { padding: 10px 0; line-height:20px }
             .sf-reset h1 {
-                margin: 25px 0;
-                padding: 80px 0 0px;
-                font-size: 46px;
-                font-weight: normal;
+                margin: 25px 0 0;
+                padding: 0;
+                font-size: 26px;
+                font-weight: bold;
                 color:#878787;
             }
-            #sf-resetcontent { width:auto; margin:0 100px 0 300px; }
+            #sf-resetcontent { width:auto; margin:0 50px 0 200px; text-shadow: 0 1px 0 #ffffff }
 EOF;
     }
 
