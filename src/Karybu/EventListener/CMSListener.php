@@ -14,6 +14,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Karybu\EventListener\ErrorHandler as ErrHandler;
+use Karybu\Security\Csrf;
 
 class CMSListener implements EventSubscriberInterface
 {
@@ -41,10 +42,11 @@ class CMSListener implements EventSubscriberInterface
                 array('initializeDatabaseSettings', 46),
                 //32 is router listener
                 array('doContextInit', 30),
+                array('checkFormKey', 29),
                 array('doContextCheckSSO', 28),
                 array('checkModuleHandlerInit', 26),
                 array('prepareRequestForResolving', 24),
-                array('checkForErrorsAndPrepareMobileStatus', 22)
+                array('checkForErrorsAndPrepareMobileStatus', 22),
             ),
             KernelEvents::CONTROLLER => array(
                 array('checkUserPermissions', 100),
@@ -272,5 +274,11 @@ class CMSListener implements EventSubscriberInterface
         $oContext = $event->getRequest()->attributes->get('oContext');
         $oContext->close();
     }
-
+    public function checkFormKey(GetResponseEvent $event) {
+        $csrf = new Csrf();
+        if (!$csrf->validateSessionFormKey($event->getRequest())){
+            $csrf->formKeyError();
+        }
+        return $this;
+    }
 }

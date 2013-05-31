@@ -406,7 +406,7 @@ class memberModel extends member
                             $val = explode('|@|', $val);
                         }
                     }
-                    if (!$info->{$key}) {
+                    if (empty($info->{$key})) {
                         $info->{$key} = $val;
                     }
                 }
