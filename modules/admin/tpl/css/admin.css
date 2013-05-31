@@ -1240,7 +1240,7 @@ form .controls textarea ~ span
 
 .tooltip-inner {
     padding: 5px 8px;
-    font-weight: bold;
+    font-family: Arial, "Helvetica Neue", sans-serif;
     background-color: #619c14;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;

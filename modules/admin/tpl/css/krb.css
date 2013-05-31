@@ -1256,6 +1256,177 @@ margin:-1px;
 
 
 
+/* MENU MANAGER MOBILE */
+
+
+
+
+
+.siteMapMenu {
+    display: none;
+    transition: .7s;
+}
+
+.focused > .siteMapMenu {
+    display: block;
+    transition: .7s;
+}
+
+.mobileSiteMap li {
+    display: block;
+    padding: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    font-size: 13pt;
+    background: rgba(0,0,0,0.04);
+}
+
+.mobileSiteMap li li {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.mobileSiteMap li strong {
+    width: auto;
+    overflow: hidden;
+    height: 20px;
+    display: inline-block;
+    margin-right: 80px;
+}
+
+
+.siteMapMenu .kActionIcons, .mobile-move {
+    float: right;
+    color: #333;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    padding: 3px;
+    margin-top: -5px;
+    margin-right:-3px;
+    position: relative;
+}
+
+.siteMapMenu .kActionIcons {
+    top:-25px;
+
+}
+
+.siteMapMenu .kActionIcons button {
+    padding: 5px;
+}
+.siteMapMenu .kActionIcons button i {
+    margin: 0;
+}
+
+.mobile-move .icon-chevron-up {
+    float: left;
+    margin-top: 0;
+}
+
+.mobile-move [class^="icon-"],
+.mobile-move [class*=" icon-"] {
+    position: relative;
+    top: 12px;
+    left: 12px;
+
+}
+
+.mobile-move {
+    width: 0px;
+    height: 0px;
+    margin-right: 120px;
+    position: relative;
+    float: right;
+    margin-top: -33px;
+}
+
+.mobile-move a,
+.mobile-move span {
+    background: #ffffff;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0px 2px 4px 1px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0px 4px 6px 1px rgba(0,0,0,0.3);
+    box-shadow: 0px 2px 4px 1px rgba(0,0,0,0.3);
+}
+
+.mobile-move a.inactive {
+    cursor: default;
+}
+.mobile-move a.inactive i {
+    opacity: 0.2;
+}
+
+
+
+.mobile-move span {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    height: 48px;
+    width: 48px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    margin-top: -4px;
+    margin-left: -4px;
+}
+
+.siteMapMenu .kActionIcons {
+    background: #fff;
+    clear: none;
+
+    margin-left: -80px;
+}
+
+.mobile-move a.move-up {
+    top: -30px;
+}
+
+.mobile-move a.move-right {
+    right: -70px;
+    top: 3px;
+}
+
+.mobile-move a.move-down {
+    bottom: -70px;
+}
+
+.mobile-move a.move-left {
+    left: -30px;
+    top: 3px;
+}
+
+
+
+.mobileSiteMap ul {
+    margin: 0;
+    padding: 0;
+}
+
+.mobileSiteMap .focused {
+    background: #8ac64f;
+    color: #fff;
+}
+.mobile-move a:active,
+.mobile-move a:focus {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -moz-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.3);
+}
+
+
 /* LOADING OVERLAY */
 
 
@@ -1686,4 +1857,11 @@ td.multiLangEdit .kActionIcons {
 .horizontal-scroll table {
 white-space: nowrap;
 
+}
+
+.kActionIcons button {
+    background: none;
+    margin: 0;
+    padding: 0;
+    border: none;
 }

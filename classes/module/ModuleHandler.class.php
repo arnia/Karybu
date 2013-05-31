@@ -74,7 +74,7 @@ class ModuleHandlerInstance extends Handler
         $this->mobile = $mobile;
 
         if($validator_session == null) {
-            $validator_session = new \Karybu\Validator\ValidatorSession();
+            $validator_session = new \Karybu\Validator\ValidatorSession($this->context);
         }
 
         $this->validator_session = $validator_session;
@@ -120,7 +120,7 @@ class ModuleHandlerInstance extends Handler
         return $this->context->getServerRequestHttps() == 'on';
     }
 
-    private function sslEnabledAndSslActionExists()
+    public function sslEnabledAndSslActionExists()
     {
         if ($this->isDisplayAction()
             && $this->context->get('_use_ssl') == 'optional'
@@ -151,17 +151,6 @@ class ModuleHandlerInstance extends Handler
      **/
     function init()
     {
-        // Exit if invalid input found
-        $this->validateVariablesAgainstXSS();
-
-        // Exit if ssl is enabled and a ssl action exists for this request
-        if ($response = $this->sslEnabledAndSslActionExists()) {
-            return $response;
-        }
-
-        // TODO Replace with event dispatcher
-        $this->executeAddon_before_module_init();
-
         $oModuleModel = $this->getModuleModel();
         $site_module_info = $this->context->get('site_module_info');
 
@@ -242,15 +231,6 @@ class ModuleHandlerInstance extends Handler
         $this->context->set('current_module_info', $this->module_info);
 
         return true;
-    }
-
-    public function executeAddon_before_module_init()
-    {
-        // execute addon (before module initialization)
-        $called_position = 'before_module_init';
-        $oAddonController = & getController('addon');
-        $addon_file = $oAddonController->getCacheFilePath($this->mobile->isFromMobilePhone() ? 'mobile' : 'pc');
-        include($addon_file);
     }
 
     public function validateVariablesAgainstXSS()
