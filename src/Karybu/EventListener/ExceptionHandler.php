@@ -82,7 +82,7 @@ EOF
         }
 
         return <<<EOF
-            <div id="sf-resetcontent" class="sf-reset">
+            <div id="k-resetcontent" class="k-reset">
                 $content
             </div>
 EOF;
@@ -100,8 +100,9 @@ EOF;
         }
 
         return <<<EOF
-            <div id="sf-resetcontent" class="sf-reset">
-                $title
+
+            <div id="k-resetcontent" class="k-reset">
+                <h2><span>!</span>$title</h2>
             </div>
 EOF;
 
@@ -167,24 +168,25 @@ EOF;
         return <<<EOF
             body, * { font-family: Arial, "Helvetica Neue", Helvetica, sans-serif!important }
             body, html { background:#f8f8f8; }
-            .sf-reset { font-size: 11px; color: #333; box-shadow: 0px 3px 10px -10px rgba(0,0,0,0.3) }
-            .sf-reset .clear { clear:both; height:0; font-size:0; line-height:0; }
-            .sf-reset .clear_fix:after { display:block; height:0; clear:both; visibility:hidden; }
-            .sf-reset .clear_fix { display:inline-block; }
-            .sf-reset * html .clear_fix { height:1%; }
-            .sf-reset .clear_fix { display:block; }
-            .sf-reset, .sf-reset .block { margin: auto }
-            .sf-reset abbr { border-bottom: none; cursor: help; }
-            .sf-reset p { font-size:14px; line-height:20px; color:#868686; padding-bottom:20px }
-            .sf-reset strong { font-weight:bold; }
-            .sf-reset a { color:#6c6159; }
-            .sf-reset a img { border:none; }
-            .sf-reset a:hover { text-decoration:underline; }
-            .sf-reset em { font-style:italic; }
-            .sf-reset h1, .sf-reset h2 { font-size: 36px; line-height:40px }
-            .sf-reset h2 span {
-                width: 100px;
-                height: 100px;
+            .k-reset { font-size: 11px; color: #333; box-shadow: 0px 3px 10px -10px rgba(0,0,0,0.3) }
+            .k-reset .clear { clear:both; height:0; font-size:0; line-height:0; }
+            .k-reset .clear_fix:after { display:block; height:0; clear:both; visibility:hidden; }
+            .k-reset .clear_fix { display:inline-block; }
+            .k-reset * html .clear_fix { height:1%; }
+            .k-reset .clear_fix { display:block; }
+            .k-reset, .k-reset .block { margin: auto }
+            .k-reset abbr { border-bottom: none; cursor: help; }
+            .k-reset p { font-size:14px; line-height:20px; color:#868686; padding-bottom:20px }
+            .k-reset strong { font-weight:bold; color: #990000; }
+            .k-reset a { color:#6c6159; }
+            .k-reset a img { border:none; }
+            .k-reset a:hover { text-decoration:underline; }
+            .k-reset em { font-style:italic; }
+            .k-reset h2 { font-size: 19px; line-height:24px; margin:55px 0 10px; background: #fff; border: 1px solid #ccc; border-radius:8px; padding: 6px 6px 6px 50px; margin-left: -50px; }
+            .k-reset h2 strong { font-size:24px }
+            .k-reset h2 span {
+                width: 60px;
+                height: 60px;
                 font-weight: bold;
                 color: #555555;
                 border: 10px solid #bebebe;
@@ -196,35 +198,37 @@ EOF;
                 -webkit-border-radius: 160px;
                 border-radius: 160px;
                 margin-right:36px;
-                margin-left:-175px;
+                margin-left:-105px;
                 color: #333; padding: 6px;
-                display:table-cell;
+                display:block;
                 clear:both;
                 position:absolute;
                 font-size: 29px;
                 vertical-align: middle;
-                line-height:100px;
-                margin-top:-46px
+                line-height:60px;
+                margin-top:-32px
                 }
+            .k-reset .block { max-height:175px; overflow: auto; background: #fff; border-radius: 8px; padding: 10px; margin:0 10px 50px 0; border:1px solid #ccc; box-shadow: inset 0px 1px 3px 0px rgba(0,0,0,0.1); }
+            .k-reset .traces { margin:0; padding:0 }
+            .k-reset .traces li { font-size:12px; list-style-type:decimal; margin-left:20px; margin-bottom:3px; padding-bottom:3px; word-break:break-all; color: #777; font-family: "Courier New", Courier, monospace!important; }
+            .k-reset .traces li em { color:#990000; font-family: "Courier New", Courier, monospace!important; }
+            .k-reset .traces li abbr { font-family: "Courier New", Courier, monospace!important; color: #000; color:#000099 }
 
-            .sf-reset .traces li { font-size:13px; padding: 4px 10px; list-style-type:decimal; margin-left:15px; background:#fff; margin-bottom:6px; border-bottom:1px solid #ddd; border-radius:5px; word-break:break-all; }
-            .sf-reset .block {
-            }
-            .sf-reset .block_exception {
+            .k-reset .block_exception {
                 color:#555555;
                 line-height:20px;
             }
-            .sf-reset li a { background:none; color:#868686; text-decoration:none; }
-            .sf-reset li a:hover { background:none; color:#313131; text-decoration:underline; }
-            .sf-reset ol { padding: 10px 0; line-height:20px }
-            .sf-reset h1 {
+            .k-reset li a { background:none; color:#868686; text-decoration:none; }
+            .k-reset li a:hover { background:none; color:#313131; text-decoration:underline; }
+            .k-reset ol { padding: 10px 0; line-height:20px }
+            .k-reset h1 {
                 margin: 25px 0 0;
                 padding: 0;
                 font-size: 26px;
                 font-weight: bold;
                 color:#878787;
             }
-            #sf-resetcontent { width:auto; margin:0 50px 0 200px; text-shadow: 0 1px 0 #ffffff }
+            #k-resetcontent { width:auto; margin:0 20px 0 110px; text-shadow: 0 1px 0 #ffffff }
 EOF;
     }
 
@@ -241,7 +245,7 @@ EOF;
 
             html { background: #eee; padding: 10px }
             img { border: 0; }
-            #sf-resetcontent { width:90%; margin:0 auto; }
+            #k-resetcontent { width:90%; margin:0 auto; }
             $css
         </style>
     </head>
