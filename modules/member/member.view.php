@@ -189,7 +189,11 @@
 
             $oMemberModel = &getModel('member');
             // Get the member information if logged-in
-            if($oMemberModel->isLogged()) return $this->stop('msg_already_logged');
+            if($oMemberModel->isLogged()) {
+                $this->setRedirectUrl(getUrl());
+                return ;
+                //return $this->stop('msg_already_logged');
+            }
             // call a trigger (before) 
             $trigger_output = ModuleHandler::triggerCall('member.dispMemberSignUpForm', 'before', $member_config);
             if(!$trigger_output->toBool()) return $trigger_output;
