@@ -219,12 +219,16 @@ $.exec_xml = window.exec_xml = function(module, act, params, callback_func, resp
 	xml[i++] = '<?xml version="1.0" encoding="utf-8" ?>';
 	xml[i++] = '<methodCall>';
 	xml[i++] = '<params>';
-    if ((typeof form_key != "undefined") && (typeof form_key_name != "undefined")){
-        xml[i++] = '<' + form_key_name +'><![CDATA['+form_key+']]></' + form_key_name +'>';
-    }
+    var setFormKey = false;
 	$.each(params, function(key, val) {
 		xml[i++] = '<'+key+'><![CDATA['+val+']]></'+key+'>';
+        if (key == form_key_name){
+            setFormKey = true;
+        }
 	});
+    if (!setFormKey && (typeof form_key != "undefined") && (typeof form_key_name != "undefined")){
+        xml[i++] = '<' + form_key_name +'><![CDATA['+form_key+']]></' + form_key_name +'>';
+    }
 
 	xml[i++] = '</params>';
 	xml[i++] = '</methodCall>';
