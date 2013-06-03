@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<theme>
+    <version>0.1</version>
+    <title xml:lang="en">Naked Theme</title>
+    <date>2013-02-08</date>
+    <publisher email_address="dev@kaybu.org" link="http://www.karybu.org">
+        <name xml:lang="en">Arnia</name>
+    </publisher>
+    <description xml:lang="en">The Naked theme uses Twitter Bootstrap for a clean and customizable design.</description>
+    <layout>
+        <directory path="./themes/naked/layouts/layout" />
+    </layout>
+    <skinInfos>
+        <skinInfo>
+            <directory path="./modules/member/skins/bootstrap" />
+        </skinInfo>
+    </skinInfos>
+</theme>

@@ -3165,4 +3165,14 @@ class Context
         return self::$context->addBrowserTitle($title);
     }
 
+    public static function addMetaTag($name, $content, $is_http_equiv = false)
+    {
+        return self::$context->addMetaTag($name, $content, $is_http_equiv);
+    }
+
+    public static function getMetaTag()
+    {
+        return self::$context->getMetaTag();
+    }
+
 }
