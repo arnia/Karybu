@@ -177,7 +177,6 @@ class HTMLDisplayHandler {
 		$oTemplate = &TemplateHandler::getInstance();
 
         $this->_loadJSCSS();
-        $this->_addMetaTag();
 
 		if(Mobile::isFromMobilePhone()) {
 			$output = $oTemplate->compile('./common/tpl', 'mobile_layout');
@@ -335,14 +334,4 @@ class HTMLDisplayHandler {
 		}
 	}
 
-	/**
-	 * add meta tag.
-	 * @return void
-	 **/
-	function _addMetaTag()
-	{
-		$oContext =& Context::getInstance();
-		$oContext->addMetaTag('Content-Type', 'text/html; charset=UTF-8', true);
-		$oContext->addMetaTag('imagetoolbar', 'no');
-	}
 }
