@@ -1977,6 +1977,16 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
     zoom: 1;
 }
 
+
+
+.x .thumbPreview .a .i {
+    margin-bottom: 0;
+}
+
+.x .thumbPreview .a.selected .i {
+    margin-bottom: 1em;
+}
+
 .x .thumbPreview .i:after {
     content: "";
     display: block;
@@ -2063,6 +2073,7 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 
 .x .thumbPreview li.active.highlight .selected .i .thumb {
     border-color: #8ac64f;
+    margin-bottom: 10px;
 }
 
 .x .thumbPreview .selected .i .thumb img {
@@ -2139,7 +2150,7 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 .x #theme .thumbPreview .prevToggle {
     position: static;
     left: 0;
-    line-height: 16px;
+    line-height: 20px;
     text-decoration: none;
 }
 
