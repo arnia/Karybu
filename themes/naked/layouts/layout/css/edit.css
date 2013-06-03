@@ -1,0 +1,30 @@
+.zone {
+    border-bottom: 1px dashed rgba(122, 122, 122, 0.3);
+}
+
+.container {
+    border-left: 1px solid rgba(122, 122, 122, 0.2);
+    border-right: 1px solid rgba(122, 122, 122, 0.2);
+    padding-left: 20px;
+    padding-right: 20px;
+    min-height: 20px;
+}
+
+.zone .container {
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+#header .container {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+p.em {
+    display: inline;
+}
+
+#zonePageContent {
+    margin-bottom: 1em;
+}
+
