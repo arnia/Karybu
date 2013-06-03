@@ -50,6 +50,6 @@ class Csrf{
      * @throws Exception
      */
     public function formKeyError(){
-        throw new \Exception('Invalid Form Key. Try again');
+        throw new CsrfException();
     }
 }

@@ -285,10 +285,18 @@ class CMSListener implements EventSubscriberInterface
         $oContext->close();
     }
     public function checkFormKey(GetResponseEvent $event) {
-        $csrf = new Csrf();
-        if (!$csrf->validateSessionFormKey($event->getRequest())){
-            $csrf->formKeyError();
+        try{
+            $csrf = new Csrf();
+            if (!$csrf->validateSessionFormKey($event->getRequest())){
+                $csrf->formKeyError();
+            }
+            return $this;
         }
-        return $this;
+        catch (CsrfException $exception){
+            $event->setResponse(new Response($exception->getMessage(), 500));
+        }
+        catch (\Exception $exception){
+            $event->setResponse(new Response($exception->getMessage(), 500));
+        }
     }
 }
