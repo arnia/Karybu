@@ -42,11 +42,11 @@ class CMSListener implements EventSubscriberInterface
                 array('initializeDatabaseSettings', 46),
                 //32 is router listener
                 array('doContextInit', 30),
-                array('checkFormKey', 29),
                 array('doContextCheckSSO', 28),
                 array('checkModuleHandlerInit', 26),
                 array('prepareRequestForResolving', 24),
                 array('checkForErrorsAndPrepareMobileStatus', 22),
+                array('checkFormKey', 1),
             ),
             KernelEvents::CONTROLLER => array(
                 array('checkUserPermissions', 100),

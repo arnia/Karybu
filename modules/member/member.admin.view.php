@@ -472,7 +472,9 @@ EOD;
 		 * @return void
          **/
         function dispMemberAdminDeleteForm() {
-            if(!Context::get('member_srl')) return $this->dispMemberAdminList();
+            if(!Context::get('member_srl')) {
+                return $this->dispMemberAdminList();
+            }
             $this->setTemplateFile('delete_form');
         }
 
