@@ -794,6 +794,7 @@ form .controls textarea ~ span
     }
 
 
+
     #kSidebar .span8 {
         width: 60px;
         margin: 0 -10px!important;
@@ -829,7 +830,7 @@ form .controls textarea ~ span
     }
 
     .landscape .dropdown.pull-right {
-        margin: 10px auto!important;
+        margin: 10px auto;
         display: block!important;
         clear: both;
         position: static;
@@ -838,11 +839,35 @@ form .controls textarea ~ span
     }
 
     .landscape .toggle-sidebar.pull-right {
-        margin: 10px auto!important;
+        margin: 10px auto;
         display: block!important;
         clear: both;
         position: static;
         float: right;
+    }
+
+    .landscape .kSidebarOpen .toggle-sidebar.pull-right,
+    .landscape .kSidebarOpen .dropdown.pull-right {
+        position: relative;
+        float: right;
+        clear: none;
+        margin-top: 0;
+        margin-left: 10px;
+    }
+
+    .kSidebar {
+        transition: width 0.3s;
+    }
+
+    .landscape .kSidebarOpen .brand .span8 {
+        width: 50%!important;
+        transition:0.7s;
+    }
+
+    .landscape .kSidebarOpen .brand {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        transition:0.7s;
     }
 
 
@@ -1156,6 +1181,8 @@ form .controls textarea ~ span
     #kMobileMenu > div {
         padding: 10px 20px;
     }
+
+
 
     .big-icon-preview {
         background-position: -10px -10px;
