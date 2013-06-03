@@ -168,7 +168,10 @@ class HTMLDisplayHandler {
 		$mobicon_url = $oAdminModel->getMobileIconUrl();
 		Context::set('favicon_url', $favicon_url);
 		Context::set('mobicon_url', $mobicon_url);
-
+        //add security key
+        $csrf = new \Karybu\Security\Csrf();
+        Context::set('form_key_name', $csrf->getFormKeyName());
+        Context::set('form_key', $csrf->getSessionFormKey());
 		// convert the final layout
 		Context::set('content', $output);
 		$oTemplate = &TemplateHandler::getInstance();

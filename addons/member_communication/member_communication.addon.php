@@ -17,7 +17,7 @@ if(!$logged_info) return;
 /**
  * Message/Friend munus are added on the pop-up window and member profile. Check if a new message is received
  **/
-if($called_position == 'before_module_init' && $this->module != 'member') {
+if($called_position == 'before_module_init' && (!isset($this->module) || $this->module != 'member')) {
 	// Load a language file from the communication module
 	Context::loadLang('./modules/communication/lang');
 	// Add menus on the member login information

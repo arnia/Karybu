@@ -1,8 +1,11 @@
 <?php
 namespace Karybu\Security;
 class Csrf{
-    const FORM_KEY_NAME = 'form_key';
-
+    const FORM_KEY_NAME     = 'form_key';
+    const CHARS_LOWERS      = 'abcdefghijklmnopqrstuvwxyz';
+    const CHARS_UPPERS      = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const CHARS_DIGITS      = '0123456789';
+    const FORM_KEY_LENGTH   = 10;
     /**
      * get the form input name
      * @return string
@@ -14,11 +17,15 @@ class Csrf{
      * get the form session key
      * @return string
      */
-    //TODO: change the algorightm for key generation.
     public function getSessionFormKey(){
         $keyName = $this->getFormKeyName();
         if (!isset($_SESSION[$keyName])){
-            $_SESSION[$keyName] = uniqid();
+            $chars = self::CHARS_LOWERS . self::CHARS_UPPERS . self::CHARS_DIGITS;
+            mt_srand(10000000*(double)microtime());
+            for ($i = 0, $str = '', $lc = strlen($chars)-1; $i < self::FORM_KEY_LENGTH; $i++) {
+                $str .= $chars[mt_rand(0, $lc)];
+            }
+            $_SESSION[$keyName] = $str;
         }
         return $_SESSION[$keyName];
     }
@@ -26,13 +33,11 @@ class Csrf{
      * validate the form key
      * @return string
      */
-    //TODO: remove 'return true' enveryhing is in place (exec_json, exec_xml)
     public function validateSessionFormKey($request){
-        return true;
         $method = $request->getMethod();
         if ($method == "POST"){
             $keyName = $this->getFormKeyName();
-            $sentKey = $request->request->get($keyName, null);
+            $sentKey = \Context::get($keyName);
             if ($sentKey != $this->getSessionFormKey()){
                 return false;
             }
@@ -45,6 +50,6 @@ class Csrf{
      * @throws Exception
      */
     public function formKeyError(){
-        throw new Exception('Invalid Form Key. Try again');
+        throw new \Exception('Invalid Form Key. Try again');
     }
 }

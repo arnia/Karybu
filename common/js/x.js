@@ -6,7 +6,7 @@
 function xDeprecate(funcName) {
 	var msg = 'DEPRECATED : '+funcName+'() is deprecated function.';
 	if (typeof console == 'object' && typeof console.log == 'function') {
-		console.log(msg);
+		//console.log(msg);
 	}
 }
 

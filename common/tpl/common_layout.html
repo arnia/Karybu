@@ -44,6 +44,10 @@
 {Context::getHtmlHeader()}
 </head>
 <body{Context::getBodyClass()}>
+    <script type="text/javascript">
+        var form_key = '{$form_key}';
+        var form_key_name = '{$form_key_name}';
+    </script>
 	<script type="text/javascript"|cond="$db_info->use_html5!='Y'">
 	//<![CDATA[
 	var current_url = "{$current_url}";

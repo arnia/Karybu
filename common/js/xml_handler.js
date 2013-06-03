@@ -182,7 +182,6 @@ function xml2json(xml, tab, ignoreAttrib) {
 $.exec_xml = window.exec_xml = function(module, act, params, callback_func, response_tags, callback_func_arg, fo_obj) {
 	var xml_path = request_uri+"index.php"
     if(!params) params = {};
-
 	// {{{ set parameters
 	if($.isArray(params)) params = arr2obj(params);
 	params['module'] = module;
@@ -213,14 +212,16 @@ $.exec_xml = window.exec_xml = function(module, act, params, callback_func, resp
 	var _u1 = $('<a>').attr('href', location.href)[0];
 	var _u2 = $('<a>').attr('href', xml_path)[0];
 
-	// 현 url과 ajax call 대상 url의 schema 또는 port가 다르면 직접 form 전송
+	// Ajax call url and target url of the current schema or a different port sent directly form
 	if(_u1.protocol != _u2.protocol || _u1.port != _u2.port) return send_by_form(xml_path, params);
 
 	var xml = [], i = 0;
 	xml[i++] = '<?xml version="1.0" encoding="utf-8" ?>';
 	xml[i++] = '<methodCall>';
 	xml[i++] = '<params>';
-
+    if ((typeof form_key != "undefined") && (typeof form_key_name != "undefined")){
+        xml[i++] = '<' + form_key_name +'><![CDATA['+form_key+']]></' + form_key_name +'>';
+    }
 	$.each(params, function(key, val) {
 		xml[i++] = '<'+key+'><![CDATA['+val+']]></'+key+'>';
 	});
@@ -231,7 +232,7 @@ $.exec_xml = window.exec_xml = function(module, act, params, callback_func, resp
 	var _xhr = null;
 	if (_xhr && _xhr.readyState != 0) _xhr.abort();
 
-	// 전송 성공시
+	// Transfer success
 	function onsuccess(data, textStatus, xhr) {
 		var resp_xml = $(data).find('response')[0], resp_obj, txt='', ret=[], tags={}, json_str='';
 
@@ -356,6 +357,9 @@ function arr2obj(arr) {
  **/
 $.exec_json = function(action,data,func){
     if(typeof(data) == 'undefined') data = {};
+    if (typeof form_key != "undefined" && typeof form_key_name != "undefined"){
+        data[form_key_name] = form_key;
+    }
     action = action.split(".");
     if(action.length == 2){
         if(show_waiting_message) $(".wfsr").html(waiting_message).show();
