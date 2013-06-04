@@ -46,35 +46,53 @@
         var browserWidth = $(window).width();
         var browserHeight = $(window).height();
 
-        $("body").removeClass("phone-screen tablet-screen desktop-screen large-desktop-screen portrait landscape");
+        var body = $("body");
 
-        if(browserWidth > 1200) {
-            $("body").addClass("large-desktop-screen");
-            $("body").trigger('admin.large-desktop-screen');
-        } else if(768 <= browserWidth && browserWidth <= 1200) {
-            $("body").addClass("desktop-screen");
-            $("body").trigger('admin.desktop-screen');
-        } else if(480 <= browserWidth && browserWidth <= 767) {
-            $("body").addClass("tablet-screen");
-            $("body").trigger('admin.tablet-screen');
-        } else {
-            $("body").addClass("phone-screen");
-            $("body").trigger('admin.phone-screen');
-        }
+        body.removeClass("phone-screen tablet-screen desktop-screen large-desktop-screen portrait landscape");
 
         if(browserWidth < browserHeight) {
-            $("body").addClass("portrait");
+            body.addClass("portrait");
         }
         if(browserWidth >= browserHeight) {
-            $("body").addClass("landscape");
+            body.addClass("landscape");
         }
 
+        if(browserWidth > 1200) {
+            body.addClass("large-desktop-screen");
+            body.trigger('admin.large-desktop-screen');
+        } else if(768 <= browserWidth && browserWidth <= 1200) {
+            body.addClass("desktop-screen");
+            body.trigger('admin.desktop-screen');
+        } else if(480 <= browserWidth && browserWidth <= 767) {
+            body.addClass("tablet-screen");
+            body.trigger('admin.tablet-screen');
+        } else {
+            body.addClass("phone-screen");
+            body.trigger('admin.phone-screen');
+        }
     }
 
     /**
      * Event handlers
      */
     $(window).load(function(){
+
+        $("body").bind('admin.large-desktop-screen admin.desktop-screen', function() {
+            $("#kMobileMenu").show();
+
+            $(".kWrapper").width("");
+        });
+
+        $("body").bind('admin.tablet-screen admin.phone-screen', function() {
+            $("#kMobileMenu").hide();
+
+            if($(this).hasClass("landscape")) {
+                // Simulate the CSS calc property, which is not supported by Opera and Safari
+                $(".kWrapper").width("100%");
+                $(".kWrapper").width($(".kWrapper").width() - 80);
+            }
+        });
+
         initializeScreenResolution();
 
         $('#dashboard_content').verticalScrollbar({ updateHeight: getDashboardContentHeight});
@@ -90,12 +108,7 @@
             initializeScreenResolution();
         });
 
-        $("body").bind('admin.large-desktop-screen admin.desktop-screen', function() {
-            $("#kMobileMenu").show();
-        });
-        $("body").bind('admin.tablet-screen admin.phone-screen', function() {
-            $("#kMobileMenu").hide();
-        });
+
 
     });
 

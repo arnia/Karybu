@@ -571,7 +571,17 @@ class ModuleObject extends Module
         if ($this->stop_proc) {
             return false;
         }
-
+        //all proc must be called by post
+        if (isset($this->xml_info->action->{$this->act}) && method_exists($this, $this->act)) {
+            $info = $this->xml_info->action->{$this->act};
+            if (isset($info->type) && $info->type == 'controller'){
+                $requestMethod = Context::getRequestMethod();
+                if ($requestMethod == "GET") {
+                    $this->stop("msg_not_permitted_act");
+                    return false;
+                }
+            }
+        }
         // trigger call
         $triggerOutput = ModuleHandler::triggerCall('moduleObject.proc', 'before', $this);
         if (!$triggerOutput->toBool()) {

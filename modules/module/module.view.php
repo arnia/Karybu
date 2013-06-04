@@ -125,6 +125,7 @@
         // See the file box
         function dispModuleFileBox(){
             $logged_info = Context::get('logged_info');
+
             if($logged_info->is_admin !='Y' && !$logged_info->is_site_admin) return new Object(-1, 'msg_not_permitted');
 
             $input_name = Context::get('input');

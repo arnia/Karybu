@@ -17,7 +17,8 @@ services:
     listener.router: { class: 'Karybu\EventListener\RouterListener', arguments: [ @cms.router ] }
     listener.response: { class: 'Symfony\Component\HttpKernel\EventListener\ResponseListener', arguments: [ '%charset%' ] }
     listener.cms: { class: 'Karybu\EventListener\CMSListener', arguments: [ @cms.context.instance, @cms.display_handler, @cms.mobile.instance, @cms.file_handler.instance ] }
-    listener.validator: { class: 'Karybu\EventListener\ValidatorListener', arguments: [ @cms.validator, @cms.validator_session ]}
+    listener.validator: { class: 'Karybu\EventListener\ValidatorListener', arguments: [ @cms.validator, @cms.validator_session ] }
+    listener.addons: { class: 'Karybu\EventListener\AddonListener', arguments: [ @cms.mobile.instance ] }
 
     dispatcher:
         class: 'Symfony\Component\EventDispatcher\EventDispatcher'
@@ -26,6 +27,7 @@ services:
             - [addSubscriber, [@listener.cms]]
             - [addSubscriber, [@listener.validator]]
             - [addSubscriber, [@listener.response]]
+            - [addSubscriber, [@listener.addons]]
 
     resolver: { class: 'Karybu\HttpKernel\Controller\ControllerResolver' }
 

@@ -386,6 +386,7 @@ input[type="color"]:focus,
 
 .carousel-caption {
     background: none repeat scroll 0 0 rgba(36, 164, 211, 0.75);
+    padding: 0px 15px;
 }
 
 .carousel-caption h1 {

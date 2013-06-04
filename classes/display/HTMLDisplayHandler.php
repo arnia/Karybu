@@ -168,13 +168,15 @@ class HTMLDisplayHandler {
 		$mobicon_url = $oAdminModel->getMobileIconUrl();
 		Context::set('favicon_url', $favicon_url);
 		Context::set('mobicon_url', $mobicon_url);
-
+        //add security key
+        $csrf = new \Karybu\Security\Csrf();
+        Context::set('form_key_name', $csrf->getFormKeyName());
+        Context::set('form_key', $csrf->getSessionFormKey());
 		// convert the final layout
 		Context::set('content', $output);
 		$oTemplate = &TemplateHandler::getInstance();
 
         $this->_loadJSCSS();
-        $this->_addMetaTag();
 
 		if(Mobile::isFromMobilePhone()) {
 			$output = $oTemplate->compile('./common/tpl', 'mobile_layout');
@@ -332,14 +334,4 @@ class HTMLDisplayHandler {
 		}
 	}
 
-	/**
-	 * add meta tag.
-	 * @return void
-	 **/
-	function _addMetaTag()
-	{
-		$oContext =& Context::getInstance();
-		$oContext->addMetaTag('Content-Type', 'text/html; charset=UTF-8', true);
-		$oContext->addMetaTag('imagetoolbar', 'no');
-	}
 }

@@ -13,9 +13,12 @@
 <html lang="{$lang_type}" xmlns="http://www.w3.org/1999/xhtml"|cond="$db_info->use_html5!='Y'">
 <head>
 <!-- META -->
-	<meta charset="UTF-8" cond="$db_info->use_html5=='Y'"/><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" cond="$db_info->use_html5!='Y'" />
-
+	<meta charset="UTF-8" cond="$db_info->use_html5=='Y'"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" cond="$db_info->use_html5!='Y'" />
 	<meta name="Generator" content="Karybu" />
+    <block loop="Context::getMetaTag() => $no, $val">
+        <meta http-equiv="{$val['name']}"|cond="$val['is_http_equiv']" name="{$val['name']}"|cond="!$val['is_http_equiv']" content="{$val['content']}">
+    </block>
 <!-- TITLE -->
 	<title>{Context::getBrowserTitle()}</title>
 <!-- CSS -->
@@ -44,6 +47,10 @@
 {Context::getHtmlHeader()}
 </head>
 <body{Context::getBodyClass()}>
+    <script type="text/javascript">
+        var form_key = '{$form_key}';
+        var form_key_name = '{$form_key_name}';
+    </script>
 	<script type="text/javascript"|cond="$db_info->use_html5!='Y'">
 	//<![CDATA[
 	var current_url = "{$current_url}";

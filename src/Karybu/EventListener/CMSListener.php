@@ -14,6 +14,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Karybu\EventListener\ErrorHandler as ErrHandler;
+use Karybu\Security\Csrf;
 
 class CMSListener implements EventSubscriberInterface
 {
@@ -44,7 +45,8 @@ class CMSListener implements EventSubscriberInterface
                 array('doContextCheckSSO', 28),
                 array('checkModuleHandlerInit', 26),
                 array('prepareRequestForResolving', 24),
-                array('checkForErrorsAndPrepareMobileStatus', 22)
+                array('checkForErrorsAndPrepareMobileStatus', 22),
+                array('checkFormKey', 1),
             ),
             KernelEvents::CONTROLLER => array(
                 array('checkUserPermissions', 100),
@@ -134,11 +136,21 @@ class CMSListener implements EventSubscriberInterface
     public function checkModuleHandlerInit(GetResponseEvent $event)
     {
         $request = $event->getRequest();
-        /** @var $oContext \Context */
-        $oContext = $event->getRequest()->attributes->get('oContext');
-        $oModuleHandler = new \ModuleHandlerInstance($oContext);
-        \ModuleHandler::setModuleHandler($oModuleHandler);
-        $init = $oModuleHandler->init();
+
+        $module_handler = new \ModuleHandlerInstance($this->cmsContext);
+        \ModuleHandler::setModuleHandler($module_handler);
+
+        // Exit if invalid input found
+        $module_handler->validateVariablesAgainstXSS();
+
+        // Exit if ssl is enabled and a ssl action exists for this request
+        if ($response = $module_handler->sslEnabledAndSslActionExists()) {
+            $event->setResponse($response);
+        }
+
+        $event->getDispatcher()->dispatch(Karybu\Event\KarybuEvents::BEFORE_MODULE_INIT);
+
+        $init = $module_handler->init();
         if ($init instanceof RedirectResponse) {
             $event->setResponse($init);
         }
@@ -146,7 +158,7 @@ class CMSListener implements EventSubscriberInterface
             $event->setResponse(new Response('Module handler init failure', 500));
         }
         else {
-            $request->attributes->set('oModuleHandler', $oModuleHandler);
+            $request->attributes->set('oModuleHandler', $module_handler);
         }
     }
 
@@ -272,5 +284,19 @@ class CMSListener implements EventSubscriberInterface
         $oContext = $event->getRequest()->attributes->get('oContext');
         $oContext->close();
     }
-
+    public function checkFormKey(GetResponseEvent $event) {
+        try{
+            $csrf = new Csrf();
+            if (!$csrf->validateSessionFormKey($event->getRequest())){
+                $csrf->formKeyError();
+            }
+            return $this;
+        }
+        catch (CsrfException $exception){
+            $event->setResponse(new Response($exception->getMessage(), 500));
+        }
+        catch (\Exception $exception){
+            $event->setResponse(new Response($exception->getMessage(), 500));
+        }
+    }
 }

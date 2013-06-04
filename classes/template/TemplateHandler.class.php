@@ -321,7 +321,16 @@ class TemplateHandler
             }
             $matches[2] = $generatedHidden . $matches[2];
         }
-
+        //add the form key
+        preg_match_all('/<input[^>]* name="(form_key)"/is', $matches[2], $m2);
+        $csrf = new \Karybu\Security\Csrf();
+        $keyName = $csrf->getFormKeyName();
+        $checkVar = array($keyName);
+        $resultArray = array_diff($checkVar, $m2[1]);
+        if (!isset($m2[1][$keyName])) {
+            $formKeyInput = '<input type="hidden" name="'.$keyName.'" value="<?php $csrf = new \Karybu\Security\Csrf(); echo $csrf->getSessionFormKey() ?>" />';
+            $matches[2] = $formKeyInput . $matches[2];
+        }
         // return url generate
         if (!preg_match('/no-error-return-url="true"/i', $matches[1])) {
             preg_match('/<input[^>]*name="error_return_url"[^>]*>/is', $matches[2], $m3);
