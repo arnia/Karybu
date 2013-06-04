@@ -1,0 +1,15 @@
+
+<div class="navbar-form pull-right" xmlns="http://www.w3.org/1999/html">
+    <a class="btn image-holder member-image" href="{getUrl('act','dispMemberInfo')}"
+       title=""><i class="icon-user"></i> {$lang->welcome}, {$logged_info->nick_name}
+    </a>
+    <!--@if($logged_info->is_admin=='Y')-->
+    <a class="btn" data-toggle="tooltip" data-placement="bottom" title="{$lang->cmd_management}"
+       href="{getUrl('','module','admin')}"><i class="icon-cog"></i> {$lang->cmd_management}</a>
+    <!--@end-->
+    <a href="{getUrl('act','dispMemberLogout')}" class="btn" data-toggle="tooltip" data-placement="bottom"
+       title="{$lang->logout}"><i class="icon-off"></i> {$lang->logout}</a>
+
+</div>
+
+

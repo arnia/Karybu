@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="1">
+    <title xml:lang="en">Display Karybu Official Login Info</title>
+    <description xml:lang="en">
+        This widget displays the login information for the Official layout of Karybu.
+		제작 : Arnia
+    </description>
+    <version>1.0</version>
+    <date>2013-02-27</date>
+
+    <author email_address="beetlerom@gmail.com">
+        <name xml:lang="en">Daniel Ionescu</name>
+    </author>
+
+</skin>

@@ -1,0 +1,14 @@
+.facebook {background-image: url("../img/facebook.png");}
+.twitter {background-image: url("../img/twitter.png");}
+.google {background-image: url("../img/googleplus.png");}
+.yahoo {background-image: url("../img/yahoo.png");}
+
+.facebook, .twitter, .google, .yahoo {
+    height: 32px;
+    width: 32px;
+    background-repeat: no-repeat;
+}
+
+.sns-options {
+    margin-right: 4px;
+}
