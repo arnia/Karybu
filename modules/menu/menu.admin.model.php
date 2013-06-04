@@ -71,7 +71,7 @@
             $args = new stdClass();
             $args->menu_srl = $menu_srl;
             $output = executeQuery('menu.getMenu', $args);
-            if(!$output->data) {
+            if(empty($output->data)) {
                 return;
             }
 

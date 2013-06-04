@@ -72,7 +72,7 @@
                             </ul>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="{getUrl('', 'module','admin','act','procAdminLogout')}">Log-out</a></li>
+                        <li><a href="{getUrl('', 'module','admin','act','dispMemberLogout')}">{$lang->logout}</a></li>
 
                     </ul>
 
@@ -119,7 +119,7 @@
                 <ul class="unstyled kList">
                         <li loop="$favorite_list => $favorite">
                             <a href="{getUrl('', 'module', 'admin', 'act', $favorite->admin_index_act)}">{$favorite->title}</a>
-                            <form class="kActionIcons" action="./">
+                            <form class="kActionIcons" action="./" method="post">
                                 <input type="hidden" name="module" value="admin" />
                                 <input type="hidden" name="act" value="procAdminToggleFavorite" />
                                 <input type="hidden" name="site_srl" value="0" />

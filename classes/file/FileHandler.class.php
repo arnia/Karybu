@@ -187,9 +187,9 @@ class FileHandlerInstance
      * @param string $file_name path of target file
      * @return bool Returns true on success or false on failure.
      **/
-    function removeFile($file_name)
+    static function removeFile($file_name)
     {
-        $file_name = $this->getRealPath($file_name);
+        $file_name = self::getRealPath($file_name);
         return (file_exists($file_name) && @unlink($file_name));
     }
 
