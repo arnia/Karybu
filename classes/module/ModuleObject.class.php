@@ -576,7 +576,7 @@ class ModuleObject extends Module
             $info = $this->xml_info->action->{$this->act};
             if (isset($info->type) && $info->type == 'controller'){
                 $requestMethod = Context::getRequestMethod();
-                if (!in_array($requestMethod, array('POST', 'XMLRPC'))) {
+                if ($requestMethod == "GET") {
                     $this->stop("msg_not_permitted_act");
                     return false;
                 }
