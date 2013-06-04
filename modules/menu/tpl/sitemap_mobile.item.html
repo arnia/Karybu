@@ -1,0 +1,36 @@
+<li>
+<!--
+    <input type="text" name="parent_key[]" value="{$item['parent_srl']}" title="parent" class="_parent_key input-mini disabled" />
+    <input type="text" name="item_key[]" value="{$item['node_srl']}" title="node_srl" class="_item_key  input-mini disabled" />
+    <input type="text" name="module_srl[]" value="{$item['module_srl']}" title="module_srl" class="_module_srl_key input-mini disabled" />
+    <input type="text" name="item_layout_key[]" value="{$item['layout_srl']}" title="layout_key" class="_item_layout_key input-mini disabled" />
+-->
+
+    <strong>
+        <!--@if($item['href'])-->
+            <a href="{$item['href']}" class="ms" target="_blank">{$item['text']}</a>
+        <!--@else-->
+            {$item['text']}
+        <!--@end-->
+    </strong>
+
+    <div class="siteMapMenu">
+        <div class="kActionIcons">
+            <button><i class="kConfigure">Configure</i></button>
+        </div>
+        <div class="mobile-move">
+            <a href="#" class="move-up"><i class="icon-chevron-up"></i></a>
+            <a href="#" class="move-right"><i class="icon-chevron-right"></i></a>
+            <a href="#" class="move-down"><i class="icon-chevron-down"></i></a>
+            <a href="#" class="move-left"><i class="icon-chevron-left"></i></a>
+            <span></span>
+        </div>
+    </div>
+
+    <ul cond="count($item['list']>0)">
+        <block loop="$item['list']=>$idx,$val">
+            {@$item = $val}
+            <include target="sitemap_mobile.item.html" />
+        </block>
+    </ul>
+</li>
