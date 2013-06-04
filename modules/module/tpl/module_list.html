@@ -19,16 +19,20 @@
             <!--@foreach($module_list as $key => $val)-->
             <tr>
                 <td class="nowr">
-                    <!--@if(in_array($val->module,$favoriteModuleList))-->
-                    <button type="button" class="fvOn" id="fav_star_{$val->module}"
-                            onclick="doToggleFavoriteModule(this, '{$val->module}'); return false;">
-                        {$lang->favorite}({$lang->on})
-                    </button>
+                    <!--@if($val->admin_index_act)-->
+                        <!--@if(in_array($val->module,$favoriteModuleList))-->
+                        <button type="button" class="fvOn" id="fav_star_{$val->module}"
+                                onclick="doToggleFavoriteModule(this, '{$val->module}'); return false;">
+                            {$lang->favorite}({$lang->on})
+                        </button>
+                        <!--@else-->
+                        <button type="button" class="fvOff" id="fav_star_{$val->module}"
+                                onclick="doToggleFavoriteModule(this, '{$val->module}'); return false;">
+                            {$lang->favorite}({$lang->off})
+                        </button>
+                        <!--@end-->
                     <!--@else-->
-                    <button type="button" class="fvOff" id="fav_star_{$val->module}"
-                            onclick="doToggleFavoriteModule(this, '{$val->module}'); return false;">
-                        {$lang->favorite}({$lang->off})
-                    </button>
+                        &nbsp;
                     <!--@end-->
                 </td>
                 <td class="title" data-toggle="tooltip" data-container=".easyList" title="{$val->description}">
