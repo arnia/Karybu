@@ -3,17 +3,6 @@
  * @author Arnia (dev@karybu.org)
  * @brief    module 모듈의 관리자용 javascript
  **/
-/* Module favorites */
-function doToggleFavoriteModule(obj, module_name) {
-	function on_complete(data){
-		if (data.result == 'on')
-			jQuery(obj).removeClass('fvOff').addClass('fvOn').html(xe.lang.favorite_on);
-		else
-			jQuery(obj).removeClass('fvOn').addClass('fvOff').html(xe.lang.favorite_off);
-	}
-
-	jQuery.exec_json('admin.procAdminToggleFavorite', {'module_name': module_name, 'site_srl': 0}, on_complete);
-}
 
 /* Categories related tasks */
 function doUpdateCategory(module_category_srl, message) {
