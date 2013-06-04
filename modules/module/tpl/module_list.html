@@ -20,12 +20,12 @@
             <tr>
                 <td class="nowr">
                     <!--@if(in_array($val->module,$favoriteModuleList))-->
-                    <button type="button" class="fvOn"
+                    <button type="button" class="fvOn" id="fav_star_{$val->module}"
                             onclick="doToggleFavoriteModule(this, '{$val->module}'); return false;">
                         {$lang->favorite}({$lang->on})
                     </button>
                     <!--@else-->
-                    <button type="button" class="fvOff"
+                    <button type="button" class="fvOff" id="fav_star_{$val->module}"
                             onclick="doToggleFavoriteModule(this, '{$val->module}'); return false;">
                         {$lang->favorite}({$lang->off})
                     </button>

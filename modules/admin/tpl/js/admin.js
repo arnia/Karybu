@@ -1433,6 +1433,44 @@ jQuery(function($){
 		});
 	});
 });
+/* Module favorites */
+function doToggleFavoriteModule(obj, module_name) {
+    function on_complete(data){
+        var fav = jQuery('#favorites');
+        if (data.result == 'on'){
+            jQuery(obj).removeClass('fvOff').addClass('fvOn').html(xe.lang.favorite_on);
+            if (fav.length) {
+                jQuery('#empty_fav').hide();
+                //remove element in case it was removed previously from an other browser tab
+                jQuery('#fav_' + data.module).remove();
+                //add the new favorite element
+                var li = jQuery('<li />');
+                var template = '<a href="' + data.module_act +'">' + data.module_title + '</a>';
+                template += '<form class="kActionIcons" action="./">';
+                template += '   <button class="clear" type="button" data-toggle="tooltip" title="' + data.delete_title + '" onclick="doToggleFavoriteModule(jQuery(\'#fav_star_' + data.module + '\'), \'' + data.module + '\')"><i class="kErase">' + data.delete_title + '</i></button>';
+                template += '</form>';
+                li.attr('id', 'fav_' + data.module);
+                li.html(template);
+                li.insertBefore(fav.children(':last'));
+                li.effect('highlight', {color:'#8AC64F'}, 700);
+            }
+        }
+        else{
+            jQuery(obj).removeClass('fvOn').addClass('fvOff').html(xe.lang.favorite_off);
+            if (fav.length){
+                fav.find('#fav_' + data.module).effect('highlight', {color:'#8AC64F'}, 500, function(){
+                    jQuery(this).remove();
+                    if (fav.children().length == 1){
+                        fav.children().show();
+                    }
+                });
+            }
+
+        }
+    }
+
+    jQuery.exec_json('admin.procAdminToggleFavorite', {'module_name': module_name, 'site_srl': 0}, on_complete);
+}
 jQuery(document).ready(function($){
     $('body').tooltip({
         selector: "a[data-toggle=tooltip],button[data-toggle=tooltip],td[data-toggle=tooltip]"
