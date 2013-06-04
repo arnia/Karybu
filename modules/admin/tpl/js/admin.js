@@ -888,6 +888,7 @@ jQuery(function($){
 
 var w_timer = null, r_timer = null, r_idx = 0, f_timer = null, skip_textchange=false, keep_showing=false, $suggest;
 var ESC=27, UP=38, DOWN=40, ENTER=13;
+$('.multiLangEdit input.vLang:text,textarea.vLang').attr('autocomplete', 'off');
 $('.multiLangEdit')
 	.delegate('input.vLang:text,textarea.vLang', {
 		textchange : function(){
@@ -1440,7 +1441,7 @@ function doToggleFavoriteModule(obj, module_name) {
         if (data.result == 'on'){
             jQuery(obj).removeClass('fvOff').addClass('fvOn').html(xe.lang.favorite_on);
             if (fav.length) {
-                jQuery('#empty_fav').hide();
+                jQuery('#empty_fav').slideUp(500, function(){});
                 //remove element in case it was removed previously from an other browser tab
                 jQuery('#fav_' + data.module).remove();
                 //add the new favorite element
@@ -1450,20 +1451,21 @@ function doToggleFavoriteModule(obj, module_name) {
                 template += '   <button class="clear" type="button" data-toggle="tooltip" title="' + data.delete_title + '" onclick="doToggleFavoriteModule(jQuery(\'#fav_star_' + data.module + '\'), \'' + data.module + '\')"><i class="kErase">' + data.delete_title + '</i></button>';
                 template += '</form>';
                 li.attr('id', 'fav_' + data.module);
+                li.css('display', 'none');
                 li.html(template);
                 li.insertBefore(fav.children(':last'));
-                li.effect('highlight', {color:'#8AC64F'}, 700);
+                li.slideDown(500);
             }
         }
         else{
             jQuery(obj).removeClass('fvOn').addClass('fvOff').html(xe.lang.favorite_off);
             if (fav.length){
-                fav.find('#fav_' + data.module).effect('highlight', {color:'#8AC64F'}, 500, function(){
+                fav.find('#fav_' + data.module).slideUp(500, function(){
                     jQuery(this).remove();
-                    if (fav.children().length == 1){
-                        fav.children().show();
-                    }
                 });
+                if (fav.children().length == 2){//last element + li for empty list
+                    fav.children().slideDown(500);
+                }
             }
 
         }
