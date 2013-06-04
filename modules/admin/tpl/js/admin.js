@@ -1438,6 +1438,7 @@ jQuery(function($){
 function doToggleFavoriteModule(obj, module_name) {
     function on_complete(data){
         var fav = jQuery('#favorites');
+        obj.blur();
         if (data.result == 'on'){
             jQuery(obj).removeClass('fvOff').addClass('fvOn').html(xe.lang.favorite_on);
             if (fav.length) {
@@ -1467,7 +1468,6 @@ function doToggleFavoriteModule(obj, module_name) {
                     fav.children().slideDown(500);
                 }
             }
-
         }
     }
 
