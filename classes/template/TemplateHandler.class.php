@@ -276,6 +276,7 @@ class TemplateHandler
     {
         // form ruleset attribute move to hidden tag
         if ($matches[1]) {
+            $matchedForm = $matches[1];
             preg_match('/ruleset="([^"]*?)"/is', $matches[1], $m);
             if (!empty($m[0])) {
                 $matches[1] = preg_replace('/' . addcslashes($m[0], '?$') . '/i', '', $matches[1]);
@@ -322,14 +323,21 @@ class TemplateHandler
             $matches[2] = $generatedHidden . $matches[2];
         }
         //add the form key
-        preg_match_all('/<input[^>]* name="(form_key)"/is', $matches[2], $m2);
-        $csrf = new \Karybu\Security\Csrf();
-        $keyName = $csrf->getFormKeyName();
-        $checkVar = array($keyName);
-        $resultArray = array_diff($checkVar, $m2[1]);
-        if (!isset($m2[1][$keyName])) {
-            $formKeyInput = '<input type="hidden" name="'.$keyName.'" value="<?php $csrf = new \Karybu\Security\Csrf(); echo $csrf->getSessionFormKey() ?>" />';
-            $matches[2] = $formKeyInput . $matches[2];
+        if (isset($matchedForm)){
+            $methodMatch = array();
+            preg_match('/method="([^"]*?)"/is', $matchedForm, $methodMatch);
+            //add key only for post forms
+            if (isset($methodMatch[1]) && strtolower($methodMatch[1]) == 'post'){
+                preg_match_all('/<input[^>]* name="(form_key)"/is', $matches[2], $m2);
+                $csrf = new \Karybu\Security\Csrf();
+                $keyName = $csrf->getFormKeyName();
+                $checkVar = array($keyName);
+                $resultArray = array_diff($checkVar, $m2[1]);
+                if (!isset($m2[1][$keyName])) {
+                    $formKeyInput = '<input type="hidden" name="'.$keyName.'" value="<?php $csrf = new \Karybu\Security\Csrf(); echo $csrf->getSessionFormKey() ?>" />';
+                    $matches[2] = $formKeyInput . $matches[2];
+                }
+            }
         }
         // return url generate
         if (!preg_match('/no-error-return-url="true"/i', $matches[1])) {
