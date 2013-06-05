@@ -29,7 +29,7 @@
                         <input type="hidden" name="module" value="layout"/>
                         <input type="hidden" name="act" value="procLayoutAdminDelete"/>
                         <input type="hidden" name="layout_srl" value="{$layout->layout_srl}"/>
-                        <a href="#" data-toggle="tooltip" title="{$lang->cmd_delete}" onclick="$(this).closest('form').submit()"><i class="kDelete">{$lang->cmd_delete}</i></a>
+                        <a href="#" data-toggle="tooltip" title="{$lang->cmd_delete}" onclick="jQuery(this).closest('form').submit()"><i class="kDelete">{$lang->cmd_delete}</i></a>
                     </form>
                 </div>
             </td>
@@ -47,7 +47,7 @@
             <h2>{$lang->insert_layout_instance}</h2>
         </div>
 
-        <form ruleset="insertLayout" action="./" class="form form-horizontal">
+        <form ruleset="insertLayout" action="./" class="form form-horizontal" method="post">
             <div class="modal-body">
 
                 <input type="hidden" name="module" value="layout"/>

@@ -31,7 +31,7 @@
             if(!$config_vars->use_total_feed) $alt_message = 'msg_invalid_request';
             if(!in_array($config_vars->use_total_feed, array('Y','N'))) $config_vars->open_rss = 'Y';
 
-            if($config_vars->image || $config_vars->del_image) {
+            if(!empty($config_vars->image) || !empty($config_vars->del_image)) {
                 $image_obj = $config_vars->image;
                 $config_vars->image = $total_config->image;
                 // Get a variable for the delete request
@@ -62,11 +62,15 @@
                     }
                 }
             }
-            if(!$config_vars->image && $config_vars->del_image != 'Y') $config_vars->image = $total_config->image;
+            if(empty($config_vars->image) && (!isset($config_vars->del_image) ||$config_vars->del_image != 'Y')) {
+                $config_vars->image = $total_config->image;
+            }
 
             $output = $this->setFeedConfig($config_vars);
 
-            if(!$alt_message) $alt_message = 'success_updated';
+            if(empty($alt_message)) {
+                $alt_message = 'success_updated';
+            }
 
             $alt_message = Context::getLang($alt_message);
             Context::set('msg', $alt_message);

@@ -110,6 +110,7 @@ class layoutModel extends layout
 
     function getLayoutRawData($layout_srl, $columnList = array())
     {
+        $args = new stdClass();
         $args->layout_srl = $layout_srl;
         $output = executeQuery('layout.getLayout', $args, $columnList);
         if (!$output->toBool()) {
@@ -707,7 +708,7 @@ class layoutModel extends layout
             include($cache_file);
         }
 
-        if (!$layout_info->title) {
+        if (empty($layout_info->title)) {
             $layout_info->title = $layout;
         }
 

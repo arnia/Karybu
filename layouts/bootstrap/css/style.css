@@ -8,6 +8,8 @@
     max-width: 982px;
 }
 
+
+
 /* Waiting for server response - Modal Window */
 .wfsr_fog {
     position: absolute;
@@ -60,6 +62,10 @@ legend {
 }
 
 /* Buttons */
+
+[class^="icon-"], [class*=" icon-"] {
+    margin-top: 3px;
+}
 
 .btn {
     background-color: #f2f2f2;

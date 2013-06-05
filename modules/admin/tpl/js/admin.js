@@ -1438,11 +1438,12 @@ jQuery(function($){
 function doToggleFavoriteModule(obj, module_name) {
     function on_complete(data){
         var fav = jQuery('#favorites');
+        var interval = 500;
         obj.blur();
         if (data.result == 'on'){
             jQuery(obj).removeClass('fvOff').addClass('fvOn').html(xe.lang.favorite_on);
             if (fav.length) {
-                jQuery('#empty_fav').slideUp(500, function(){});
+                jQuery('#empty_fav').slideUp(interval);
                 //remove element in case it was removed previously from an other browser tab
                 jQuery('#fav_' + data.module).remove();
                 //add the new favorite element
@@ -1455,7 +1456,7 @@ function doToggleFavoriteModule(obj, module_name) {
                 li.css('display', 'none');
                 li.html(template);
                 li.insertBefore(fav.children(':last'));
-                li.slideDown(500);
+                li.slideDown(interval);
             }
         }
         else{
@@ -1465,7 +1466,7 @@ function doToggleFavoriteModule(obj, module_name) {
                     jQuery(this).remove();
                 });
                 if (fav.children().length == 2){//last element + li for empty list
-                    fav.children().slideDown(500);
+                    fav.children().slideDown(interval);
                 }
             }
         }
