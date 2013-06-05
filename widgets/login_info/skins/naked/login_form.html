@@ -1,0 +1,93 @@
+<!--%import("./filter/login.xml")-->
+<!--%import("./filter/openid_login.xml")-->
+<!--%import("./js/login.js")-->
+<load target="css/default.css" />
+
+<div class="pull-right login-form">
+    <a href="{getUrl('act','dispMemberSignUpForm')}" role="button" class="btn btn-success">Register</a>
+    <a href="#signinmodal" role="button" class="btn" data-toggle="modal">Sign in</a>
+</div>
+
+<div id="signinmodal" class="modal hide fade" tabindex='-1'>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Sign in!</h3>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-error">
+            <button type="button" class="close">×</button>
+            <div class="alert-body"></div>
+        </div>
+        <form id="fo_login_widget" action="{getUrl('','act','procMemberLogin')}" method="post" class="form-horizontal">
+            <input type="hidden" name="act" value="procMemberLogin" />
+            <input type="hidden" name="success_return_url" value="{htmlspecialchars(getRequestUriByServerEnviroment())}" />
+            <p cond="$ssl_mode" class="securitySignIn <!--@if($ssl_mode)-->SSL<!--@else-->noneSSL<!--@end-->">
+                <button type="button" class="text" onclick="toggleSecuritySignIn(); return false;">{$lang->security_sign_in}</button>
+            </p>
+
+            <div class="control-group">
+                <label class="control-label" for="inputEmail">Email</label>
+                <div class="controls">
+                    <input id="inputEmail" name="user_id" type="text" title="<!--@if($member_config->identifier != 'email_address')-->{$lang->user_id}<!--@else-->{$lang->email_address}<!--@end-->" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputPassword">Password</label>
+                <div class="controls">
+                    <input id="inputPassword" name="password" type="password" title="{$lang->password}" />
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <label class="checkbox" for="keep_signed">
+                        {$lang->keep_signed}
+                        <input type="checkbox" name="keep_signed" id="keep_signed" />
+                    </label>
+                    <p class="keep_msg">{$lang->about_keep_warning}</p>
+                </div>
+            </div>
+            <div class="control-group" cond="isset($sns_list) && !empty($sns_list)">
+                <label class="control-label">Sign in with</label>
+                <div class="controls">
+                    <a class="sns-options pull-left" loop="$sns_list => $sns" href="{getUrl('act','procMemberSnsSignIn','sns',$sns->sns_name)}"><div class="{$sns->sns_name}"></div></a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary" onclick="callLogin();">{$lang->cmd_login}</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function(){
+
+        $ = jQuery;
+        var modal = $('#signinmodal');
+
+        // We add the modal to the end of the page so that it will be on top
+        $('body').append(modal);
+
+        // Message box setup in modal
+        $('#signinmodal .close').click(function(){
+            $('#signinmodal .alert').hide();
+        });
+        hideErrorMessage();
+
+        // submit form on enter key pressed
+        $('#signinmodal input[type=text],#signinmodal input[type=password]').keydown(function (e){
+            if(e.keyCode == 13){
+                modal.find('.modal-footer .btn-primary').click();
+            }
+        });
+
+        // focus first field when modal is shown
+        modal.on('shown', function() {
+            modal.find('input[type!=hidden]:first').focus();
+        });
+
+    });
+</script>

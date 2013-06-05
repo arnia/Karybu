@@ -72,12 +72,8 @@
                             </ul>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="{getUrl('', 'module','admin','act','procAdminLogout')}">Log-out</a></li>
-
+                        <li><a href="{getUrl('', 'module','admin','act','dispMemberLogout')}">{$lang->logout}</a></li>
                     </ul>
-
-
-
                 </div>
             </div>
         </div>
@@ -116,19 +112,14 @@
             </div>
             <div class="kList">
                 <h6>{$lang->favorites}</h6>
-                <ul class="unstyled kList">
-                        <li loop="$favorite_list => $favorite">
+                <ul class="unstyled kList" id="favorites">
+                        <li loop="$favorite_list => $favorite" id="fav_{$favorite->module}">
                             <a href="{getUrl('', 'module', 'admin', 'act', $favorite->admin_index_act)}">{$favorite->title}</a>
                             <form class="kActionIcons" action="./">
-                                <input type="hidden" name="module" value="admin" />
-                                <input type="hidden" name="act" value="procAdminToggleFavorite" />
-                                <input type="hidden" name="site_srl" value="0" />
-                                <input type="hidden" name="module_name" value="{$favorite->module}" />
-                                <input type="hidden" name="success_return_url" value="{getUrl('', 'module', 'admin')}" />
-                                <button class="clear" type="submit" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kErase">{$lang->cmd_delete}</i></button>
+                                <button class="clear" type="button" data-toggle="tooltip" title="{$lang->cmd_delete}" onclick="doToggleFavoriteModule(jQuery('#fav_star_{$favorite->module}'), '{$favorite->module}')"><i class="kErase">{$lang->cmd_delete}</i></button>
                             </form>
                         </li>
-                        <li cond="!is_array($favorite_list) || count($favorite_list) < 1"><a href="{getUrl('', 'module', 'admin', 'act', 'dispModuleAdminContent')}">{$lang->no_favorites}</a></li>
+                        <li id="empty_fav"<!--@if (count($favorite_list) > 0)--> style="display:none"<!--@end-->><a href="{getUrl('', 'module', 'admin', 'act', 'dispModuleAdminContent')}">{$lang->no_favorites}</a></li>
                    </ul>
             </div>
         </div>

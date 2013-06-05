@@ -1865,3 +1865,6 @@ white-space: nowrap;
     padding: 0;
     border: none;
 }
+div.suggestion{
+    position: absolute!important;
+}

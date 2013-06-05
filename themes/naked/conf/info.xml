@@ -14,5 +14,8 @@
         <skinInfo>
             <directory path="./modules/member/skins/bootstrap" />
         </skinInfo>
+        <skinInfo>
+            <directory path="./widgets/slideshow/skins/naked" />
+        </skinInfo>
     </skinInfos>
 </theme>

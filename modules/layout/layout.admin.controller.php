@@ -148,9 +148,11 @@
             // Separately handle if a type of extra_vars is an image
             if($layout_info->extra_var) {
                 foreach($layout_info->extra_var as $name => $vars) {
-                    if($vars->type!='image') continue;
+                    if($vars->type!='image') {
+                        continue;
+                    }
 
-					$fileName = $extra_vars->{$name};
+					$fileName = isset($extra_vars->{$name}) ? $extra_vars->{$name} : null;
 					if($vars->value == $fileName)
 					{
 						continue;
@@ -176,6 +178,7 @@
             // Save header script into "config" of layout module
             $oModuleModel = &getModel('module');
             $oModuleController = &getController('module');
+            $layout_config = new stdClass();
             $layout_config->header_script = Context::get('header_script');
             $oModuleController->insertModulePartConfig('layout',$args->layout_srl,$layout_config);
             // Save a title of the menu

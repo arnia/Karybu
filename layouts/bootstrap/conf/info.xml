@@ -24,10 +24,6 @@
         <var name="index_url" type="text">
             <title xml:lang="en">Homepage URL</title>
             <description xml:lang="en">Please input the URL to redirect when user clicks the logo.</description>
-             </var>
-        <var name="background_image" type="image">
-            <title xml:lang="en">Background Image</title>
-            <description xml:lang="en">Please input if you want to use the background image.</description>
         </var>
     </extra_vars>
 

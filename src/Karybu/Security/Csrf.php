@@ -1,5 +1,6 @@
 <?php
 namespace Karybu\Security;
+use Karybu\Exception;
 class Csrf{
     const FORM_KEY_NAME     = 'form_key';
     const CHARS_LOWERS      = 'abcdefghijklmnopqrstuvwxyz';
@@ -44,12 +45,11 @@ class Csrf{
         }
         return true;
     }
-    //TODO: change the message and exception type
+
     /**
-     * handle form key error
-     * @throws Exception
+     * @throws CsrfException
      */
     public function formKeyError(){
-        throw new CsrfException();
+        throw new \Karybu\Exception\CsrfException();
     }
 }

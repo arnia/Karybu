@@ -648,9 +648,12 @@
             $default_layout_srl = isset($default_mid->layout_srl) ? $default_mid->layout_srl : null;
             $default_layout = $oLayoutModel->getLayout($default_layout_srl);
 
-            $main_menu = $oMenuAdminModel->getMenu($default_layout->main_menu);
-            $output = $oMenuAdminModel->getMenuItems($main_menu->menu_srl);
-            $main_menu->items = $output->data;
+            $main_menu = $oMenuAdminModel->getMenu(isset($default_layout->main_menu) ? $default_layout->main_menu : null);
+            $output = $oMenuAdminModel->getMenuItems(isset($main_menu->menu_srl) ? $main_menu->menu_srl : null);
+            if (!is_object($main_menu)) {
+                $main_menu = new stdClass();
+            }
+            $main_menu->items = isset($output->data) ? $output->data : null;
             if(count($main_menu->items)>0) {
                 foreach($main_menu->items AS $key2=>$value2) {
                     $this->_setMenuIndexUrl($main_menu->items[$key2]);

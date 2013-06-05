@@ -207,6 +207,7 @@ class adminAdminController extends admin {
      */
     function procAdminToggleFavorite()
     {
+        global $lang;
         $siteSrl = Context::get('site_srl');
         $moduleName = Context::get('module_name');
 
@@ -228,11 +229,17 @@ class adminAdminController extends admin {
         else {
             $output = $this->_insertFavorite($siteSrl, $moduleName);
             $result = 'on';
+            $oModuleModel = &getModel('module');
+            $moduleInfo = $oModuleModel->getModuleInfoXml($moduleName);
+            $this->add('module_act', getUrl('', 'module', 'admin', 'act', $moduleInfo->admin_index_act));
+            $this->add('module_title', $moduleInfo->title);
+            $this->add('delete_title', $lang->cmd_delete);
         }
 
         if (!$output->toBool()) {
             return $output;
         }
+        $this->add('module', $moduleName);
         $this->add('result', $result);
         return $this->setRedirectUrl(Context::get('error_return_url'), $output);
     }

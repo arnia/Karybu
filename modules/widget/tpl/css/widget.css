@@ -56,15 +56,33 @@
 }
 
 .widgetOutput .widgetBorder {
-    border: 1px dashed #afafaf;
+    border: 1px dashed #cfcfcf;
     z-index: 999;
     padding: 5px;
 }
 
 .widgetOutput .widgetBoxBorder {
-    border: 1px dashed #afafaf;
+    border: 1px dashed #555;
     z-index: 999;
+    padding: 10px;
 }
+
+.widgetOutput:hover .widgetBoxBorder:before {
+    content:"BOX";
+    -webkit-opacity: 0.3;
+    -moz-opacity: 0.3;
+    opacity: 0.3;
+    font-size: 48px;
+    text-align: center;
+    display: block;
+    font-weight: bold;
+    line-height: 48px;
+    height: 48px;
+    margin-bottom: -43px;
+    color: #888;
+    margin-top: -5px;
+}
+
 
 .widgetOutput .widgetResize {
     background:transparent url("../images/resize_br.png") no-repeat left bottom;
@@ -203,9 +221,9 @@
 ul.midCommand{float:left;margin:0 0 0 10px;;padding:0;*zoom:1}
 ul.midCommand li{display:block;margin-bottom:5px;list-style:none}
 a.widgetStyle{display:inline-block;margin:0 10px 10px 0;border:1px solid #fff;overflow:hidden;*zoom:1; width:96px;height:96px;position:relative;text-decoration:none}
-a.widgetStyle:hover{border:1px dashed #ccc}
+a.widgetStyle:hover{border:1px solid #ccc}
 a.widgetStyle:hover span{display:none}
-a.widgetStyle.selected{border:1px dashed #999}
+a.widgetStyle.selected{border:1px solid #999}
 a.widgetStyle img {width:96px;height:96px;margin:1px}
 a.widgetStyle span{position:absolute;left:0;bottom:0;display:block;width:96px;background-color:#888;color:#fff;padding:4px 3px 3px 3px;opacity:.8;filter:alpha(opacity=80);text-align:center;font-family:tahoma}
 #zonePageContent .widgetContainer { min-height: 20px; }
