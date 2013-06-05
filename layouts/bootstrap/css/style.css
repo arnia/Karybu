@@ -1,3 +1,5 @@
+@import "font-awesome.min.css";
+
 /* Waiting for server response */
 .wfsr {
     right: 20px !important;
@@ -65,6 +67,7 @@ legend {
 
 [class^="icon-"], [class*=" icon-"] {
     margin-top: 3px;
+    font-size: 14px;
 }
 
 .btn {
@@ -704,3 +707,4 @@ a.member-image img{
     width:28px;
     height:28px;
 }
+

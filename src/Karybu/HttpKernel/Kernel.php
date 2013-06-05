@@ -29,6 +29,12 @@ class Kernel extends SymfonyKernel
         );
     }
 
+    public function boot()
+    {
+        parent::boot();
+        $GLOBALS['__sContainer'] = $this->getContainer();
+    }
+
     /**
      * Don't execute parent init because it messes with Karybu's settings
      */

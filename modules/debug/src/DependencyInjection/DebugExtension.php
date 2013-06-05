@@ -22,7 +22,7 @@ class DebugExtension extends Extension
         $path = dirname($reflector->getFileName());
         $loader = new YamlFileLoader(
             $container,
-            new FileLocator($path . '/../conf')
+            new FileLocator($path . '/../../conf')
         );
         $config_filename = 'services_debug_' . ($debug ? 'on' : 'off') . '.yml';
         $loader->load($config_filename);
