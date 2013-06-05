@@ -31,6 +31,14 @@ services:
 
     resolver: { class: 'Karybu\HttpKernel\Controller\ControllerResolver' }
 
+    twig.loader: { class: 'Twig_Loader_Filesystem', arguments: ['%kernel.root_dir%common/tpl'] }
+    twig.environment:
+        class: 'Karybu\Twig\Environment'
+        arguments: [ @twig.loader ]
+        calls:
+            - [setDebug, ['%kernel.debug%']]
+            - [setCache, ['%kernel.root_dir%files/cache/twig']]
+
     http_kernel:
         class: 'Karybu\HttpKernel\HttpKernel'
         arguments: [@dispatcher, @resolver]
