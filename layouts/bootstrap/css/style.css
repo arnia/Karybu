@@ -1,3 +1,5 @@
+@import "font-awesome.min.css";
+
 /* Waiting for server response */
 .wfsr {
     right: 20px !important;
@@ -704,3 +706,4 @@ a.member-image img{
     width:28px;
     height:28px;
 }
+
