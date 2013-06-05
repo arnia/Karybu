@@ -1903,4 +1903,5 @@ white-space: nowrap;
 }
 div.suggestion{
     position: absolute!important;
+    display:none;
 }

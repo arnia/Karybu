@@ -996,7 +996,6 @@ $('.multiLangEdit')
 
 			(function(){
 				var value = $.trim($this.val());
-
 				if(value != oldValue) {
 					oldValue = value;
 					$this.trigger('textchange');
