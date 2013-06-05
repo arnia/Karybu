@@ -69,6 +69,7 @@ class trashAdminController extends trash
 	 */
 	function _relationDataDelete($isAll, &$trashSrls)
 	{
+        global $lang;
         $args = new stdClass();
 		if($isAll == 'true') $trashSrls = array();
 		$oTrashModel = &getModel('trash');
@@ -188,7 +189,10 @@ class trashAdminController extends trash
 	 */
 	function _emptyTrash($trashSrls)
 	{
-		if(!is_array($trashSrls)) return false;
+		if(!is_array($trashSrls)) {
+            return false;
+        }
+        $args = new stdClass();
 		$args->trashSrls = $trashSrls;
 		$output = executeQuery('trash.deleteTrash', $args);
 		if(!$output->toBool()) return false;

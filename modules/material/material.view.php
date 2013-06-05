@@ -8,7 +8,7 @@
     class materialView extends material {
 
         /**
-         * @brief 초기화
+         * @brief Initialization
          **/
         function init() {
             $template_path = sprintf("%sskins/%s/",$this->module_path, $this->module_info->skin);
@@ -35,7 +35,7 @@
 		}
 
 		/**
-		 * @brief 글감 수집기 팝업
+		 * @brief Geulgam pop Collector
 		 **/
 		function dispMaterialPopup() {
 			global $lang;
@@ -52,7 +52,7 @@
 
 			if(!$member_srl) Context::set('error',true);
 			
-			// 템플릿 변수
+			// Template variables
 			$objects = explode("\t", Context::get('objects'));
 			$images  = explode("\t", Context::get('images'));
 
@@ -70,7 +70,7 @@
 
 			Context::setBrowserTitle($lang->material->popup_title);
 
-			// 템플릿 지정
+			// Templating
             $this->setLayoutFile("popup_layout");
 			$this->setTemplateFile('popup');
 

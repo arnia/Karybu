@@ -25,6 +25,7 @@
 
             // Get information to create a layout
             $site_module_info = Context::get('site_module_info');
+            $args = new stdClass();
             $args->site_srl = (int)$site_module_info->site_srl;
             $args->layout_srl = getNextSequence();
             $args->layout = Context::get('layout');
@@ -182,7 +183,7 @@
             $layout_config->header_script = Context::get('header_script');
             $oModuleController->insertModulePartConfig('layout',$args->layout_srl,$layout_config);
             // Save a title of the menu
-            $extra_vars->menu_name_list = $menu_name_list;
+            $extra_vars->menu_name_list = isset($menu_name_list) ? $menu_name_list : null;
             // Variable setting for DB insert
             $args->extra_vars = serialize($extra_vars);
 
@@ -241,6 +242,7 @@
             $layout_file = $oLayoutModel->getUserLayoutHtml($layout_srl);
             if(file_exists($layout_file)) FileHandler::removeFile($layout_file);
             // Delete Layout
+            $args = new stdClass();
             $args->layout_srl = $layout_srl;
             $output = executeQuery("layout.deleteLayout", $args);
 			//remove from cache
@@ -631,11 +633,13 @@
 			$layout = $oLayoutModel->getLayout($sourceArgs->layout_srl);
 
 			$output = $oLayoutModel->getLayoutRawData($sourceArgs->layout_srl, array('extra_vars'));
+            $args = new stdClass();
 			$args->extra_vars = $output->extra_vars;
-			$extra_vars = unserialize($args->extra_vars);
+			$extra_vars = @unserialize($args->extra_vars);
 
 			$oModuleController = &getController('module');
-			$layout_config->header_script = $extra_vars->header_script;
+            $layout_config = new stdClass();
+			$layout_config->header_script = isset($extra_vars->header_script) ? $extra_vars->header_script : null;
 
             // Get information to create a layout
             $args->site_srl = (int)$layout->site_srl;

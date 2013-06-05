@@ -24,11 +24,13 @@
             // Get configurations (using module model object)
             $oModuleModel = &getModel('module');
             $config = $oModuleModel->getModuleConfig('integration_search');
-
+            $args = new stdClass();
             $args->skin = Context::get('skin');
             $args->target = Context::get('target');
             $args->target_module_srl = Context::get('target_module_srl');
-            if(!$args->target_module_srl) $args->target_module_srl = '';
+            if(empty($args->target_module_srl)) {
+                $args->target_module_srl = '';
+            }
             $args->skin_vars = $config->skin_vars;
 
             $oModuleController = &getController('module');
@@ -47,7 +49,7 @@
             // Get configurations (using module model object)
             $oModuleModel = &getModel('module');
             $config = $oModuleModel->getModuleConfig('integration_search');
-
+            $args = new stdClass();
             $args->skin = $config->skin;
             $args->target_module_srl = $config->target_module_srl;
             // Get skin information (to check extra_vars)
