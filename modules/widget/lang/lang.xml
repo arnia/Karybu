@@ -410,6 +410,9 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="tr"><![CDATA[İçeriği kendiniz ekleyin.]]></value>
 		<value xml:lang="vi"><![CDATA[Chèn nội dung của bạn]]></value>
 	</item>
+    <item name="cmd_insert_article">
+        <value xml:lang="en"><![CDATA[Insert article]]></value>
+    </item>
 	<item name="cmd_box_widget_insert">
 		<value xml:lang="ko"><![CDATA[상자 위젯 추가]]></value>
 		<value xml:lang="en"><![CDATA[Insert Box Widget]]></value>

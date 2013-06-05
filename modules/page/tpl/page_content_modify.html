@@ -14,16 +14,31 @@
 	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
 	<input type="hidden" name="content" value="{htmlspecialchars($content)}" />
 
-    <input type="button" value="{$lang->cmd_box_widget_insert}" onclick="doAddWidgetBox(); return false;" class="btn" />
-    <input type="button" value="{$lang->cmd_content_insert}" onclick="doAddContent('{$module_info->mid}'); return false;" class="btn" />
-    <select name="widget_list">
-        <!--@foreach($widget_list as $widget)-->
-        <option value="{$widget->widget}" <!--@if($widget->widget=='content')-->selected="selected"<!--@end-->>{$widget->title}</option>
-        <!--@end-->
-    </select>
-    <input type="button" value="{$lang->cmd_insert}" onclick="doAddWidget(this.form); return false;" class="btn" />
-    <button type="submit" class="btn btn-primary">{$lang->cmd_save}</button>
-    <input type="button" value="{$lang->cmd_remove_all_widgets}" onclick="removeAllWidget();return false;" class="btn btn-danger" />
+    <div class="control-group pull-left">
+        <button onclick="doAddWidgetBox(); return false;" class="btn"><i class="icon-plus-sign"></i> {$lang->cmd_box_widget_insert} </button>
+        <button onclick="doAddContent('{$module_info->mid}'); return false;" class="btn"><i class="icon-plus-sign"></i> {$lang->cmd_insert_article}</button>
+    </div>
+    <div class="control-group pull-left divide">
+        <select name="widget_list">
+            <!--@foreach($widget_list as $widget)-->
+            <option value="{$widget->widget}" <!--@if($widget->widget=='content')-->selected="selected"<!--@end-->>{$widget->title}</option>
+            <!--@end-->
+        </select>
+        <button onclick="doAddWidget(this.form); return false;" class="btn">{$lang->cmd_insert}</button>
+    </div>
+    <div class="control-group pull-right divide">
+        <button onclick="removeAllWidget();return false;" class="btn btn-danger"><i class="icon-remove-sign icon-white"></i> {$lang->cmd_remove_all_widgets}</button>
+    </div>
+
+    <div class="control-group pull-right divide">
+        <button class="btn">{$lang->cmd_cancel}</button>
+    </div>
+
+    <div class="control-group pull-right">
+        <button type="submit" class="btn btn-primary">{$lang->cmd_save}</button>
+    </div>
+
+
 </form>
 
 <div id="widgetButton" class="widgetButtons">

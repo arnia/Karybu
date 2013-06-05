@@ -210,6 +210,31 @@
     border-radius: 5px;
 }
 
+.divider-vertical {
+    margin-left: 5px;
+    border-left: 1px solid rgba(122, 122, 122, 0.3);
+    padding-right: 5px;
+    width: 0px;
+    height: 30px;
+    display: inline-block;
+}
+
+.divide {
+    margin-left: 11px;
+
+}
+
+.divide:before {
+    content: "";
+    position: absolute;
+    border-left: 1px solid rgba(122, 122, 122, 0.3);
+    height: 30px;
+    width: 0px;
+    margin-left: -6px;
+    display: block;
+
+}
+
 #pageSizeLayer input,
 #pageSizeLayer select,
 #pageSizeLayer table,
@@ -227,3 +252,13 @@ a.widgetStyle.selected{border:1px solid #999}
 a.widgetStyle img {width:96px;height:96px;margin:1px}
 a.widgetStyle span{position:absolute;left:0;bottom:0;display:block;width:96px;background-color:#888;color:#fff;padding:4px 3px 3px 3px;opacity:.8;filter:alpha(opacity=80);text-align:center;font-family:tahoma}
 #zonePageContent .widgetContainer { min-height: 20px; }
+
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+    .divide:before {
+        content: "";
+        display: none;
+
+    }
+}
