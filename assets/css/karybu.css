@@ -633,7 +633,7 @@ a.forkme {
     background: rgba(0,0,0,0.10);
     height: 0px;
     display: block;
-    overflow: hidden;
+    overflow: visible;
     white-space: nowrap;
     text-wrap: none;
     text-align:center ;
