@@ -1,23 +1,28 @@
 /**
- * @brief 금지 IP 삭제
+ * @brief Baned IP Delete
  **/
 function doDeleteDeniedIP(ipaddress) {
-	var fo_obj = get_by_id('spamfilterDelete');
-    fo_obj.ipaddress.value = ipaddress;
-	fo_obj.act.value = "procSpamfilterAdminDeleteDeniedIP";
-	fo_obj.ruleset.value = 'deleteDeniedIp';
-	fo_obj.submit();
+    if (confirm(xe.lang.confirm_delete)){
+        var fo_obj = get_by_id('spamfilterDelete');
+        fo_obj.ipaddress.value = ipaddress;
+        fo_obj.act.value = "procSpamfilterAdminDeleteDeniedIP";
+        fo_obj.ruleset.value = 'deleteDeniedIp';
+        fo_obj.submit();
+    }
+    return false;
 }
 
 /**
- * @brief 금지 단어 삭제
+ * @brief Remove forbidden word
  **/
 function doDeleteDeniedWord(word) {
-	var fo_obj = get_by_id('spamfilterDelete');
-	fo_obj.word.value = word;
-	fo_obj.act.value = "procSpamfilterAdminDeleteDeniedWord";
-	fo_obj.ruleset.value = 'deleteDeniedWord';
-	fo_obj.submit();
+    if (confirm(xe.lang.confirm_delete)){
+        var fo_obj = get_by_id('spamfilterDelete');
+        fo_obj.word.value = word;
+        fo_obj.act.value = "procSpamfilterAdminDeleteDeniedWord";
+        fo_obj.ruleset.value = 'deleteDeniedWord';
+        fo_obj.submit();
+    }
 }
 function doInsertDeniedIP(msg_invalid_format){
 	var fo_obj = get_by_id('spamfilterInsert');

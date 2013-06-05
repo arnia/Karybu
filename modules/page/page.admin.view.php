@@ -65,7 +65,8 @@
             $output = executeQuery('page.getPageList', $args);
 			$oModuleModel = &getModel('module');
 			$page_list = $oModuleModel->addModuleExtraVars($output->data);
-            moduleModel::syncModuleToSite($page_list);
+            $moduleModel = new moduleModel();
+            $moduleModel->syncModuleToSite($page_list);
 
             // To write to a template context:: set
             Context::set('total_count', $output->total_count);

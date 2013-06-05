@@ -25,11 +25,11 @@
 		s={i:[],t:[],o:[],ti:[ti],u:[lo]},
 		h={i:'images',t:'text',o:'objects',ti:'title',u:'url'},
 		ds=[],di,f,inp;
-	
+
 	if (!pr) return;
 
 	function ce(s){return d.createElement(s)};
-	
+
 	// grab images
 	function im(d){
 		var is=d.images;
@@ -40,38 +40,38 @@
 		}
 	};
 
-	
+
 	// grab text of selection
 	function tx(d){
 		var t;try{t=ie?d.selection.createRange().text:d.defaultView.getSelection().getRangeAt(0).toString();if(t)s.t.push(t)}catch(e){}
 	};
-	
+
 	// get outer html
 	di = ce('div');
 	function goh(e){
 		if(e[oh])return e[oh];
 		var t;di[ac](e.cloneNode(true));t=di[ih];di[ih]='';return t;
 	};
-        
+
         // get the original width and height of object
         function owh(o){
             //Fix overlap issue for Safari
             o.setAttribute(wm, oq);
-            
+
             //Add style to object
             var width=o[owi];
             if(!width) width=560;
             o[st][wi]=width + 'px';
             if(o[wi]) o.removeAttribute(wi);
-            
+
             var height=o[ohe];
             if(!height) height=315;
             o[st][he]=height + 'px';
             if(o[he]) o.removeAttribute(he);
-            
+
             return o;
         }
-        
+
         // add embed to tag into object tag
         function aeo(o){
             var nodes=o.childNodes;
@@ -83,7 +83,7 @@
                     if(node.tagName.toLowerCase() == 'embed'){
                         return o;
                     }
-                    else if(node.tagName.toLowerCase() == 'param'){                        
+                    else if(node.tagName.toLowerCase() == 'param'){
                         emb.setAttribute(node.name, node.value);
                         if(node.name.toLowerCase()=='movie'){
                             emb_src=node.value;
@@ -130,6 +130,8 @@
 		inp.value=s[k].join('\t');
 		f[ac](inp);
 	}
+    var ki = inp=ie?ce('<input type="hidden" name="'+form_key_name+'" value="' + form_key +'">'):ce('input');ie?0:inp[sa]('type','hidden')+inp[sa]('name',form_key_name)+inp[sa]('value',form_key);
+    f[ac](ki);
 	di[ac](f);d.body[ac](di);f.submit();
 	if(ie)d.charset=c;
 })();

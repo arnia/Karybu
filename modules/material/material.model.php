@@ -8,18 +8,21 @@
     class materialModel extends material {
 
         /**
-         * @brief 초기화
+         * @brief Initialization
          **/
         function init() {
         }
 
 
         /**
-         * @brief Material 목록 return
+         * @brief Material list return
          **/
 		function getMaterialList($obj){
-            if(!in_array($obj->sort_index, array('material_srl'))) $sort_index = 'material_srl';
-            $args->module_srl = $obj->module_srl;
+            if(!isset($obj->sort_index) || !in_array($obj->sort_index, array('material_srl'))) {
+                $sort_index = 'material_srl';
+            }
+            $args = new stdClass();
+            $args->module_srl = isset($obj->module_srl) ? $obj->module_srl : null;
 			
 			if(!$obj->member_srl){
 				$logged_info = Context::get('logged_info');
@@ -27,7 +30,7 @@
 			}
 			
 			$args->member_srl = $obj->member_srl;
-            $args->sort_index = $obj->sort_index;
+            $args->sort_index = $sort_index;
             $args->list_count = $obj->list_count ? $obj->list_count : 20;
             $args->page = $obj->page ? $obj->page : 1;
             $output = executeQueryArray('material.getMaterialList', $args);
@@ -49,6 +52,7 @@
          * @brief Material member_srl return
          **/
 		function getMemberSrlByAuth($auth){
+            $args = new stdClass();
 			$args->auth = $auth;
 			$output = executeQuery('material.getMaterialAuth',$args);
 			if($output->data) return $output->data->member_srl;
@@ -60,6 +64,7 @@
          * @brief Material Auth return
          **/
 		function getAuthByMemberSrl($member_srl){
+            $args = new stdClass();
 			$args->member_srl = $member_srl;
 			$output = executeQuery('material.getMaterialAuth',$args);
 			if($output->data) return $output->data->auth;

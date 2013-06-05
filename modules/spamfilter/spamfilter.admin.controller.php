@@ -84,7 +84,7 @@
          **/
         function deleteIP($ipaddress) {
             if(!$ipaddress) return;
-
+            $args = new stdClass();
             $args->ipaddress = $ipaddress;
             return executeQuery('spamfilter.deleteDeniedIP', $args);
         }
@@ -96,6 +96,7 @@
         function insertWord($word_list) {
 			$word_list = str_replace("\r","",$word_list);
             $word_list = explode("\n",$word_list);
+            $args = new stdClass();
             foreach($word_list as $word) {
 				if(trim($word)) $args->word = $word;
         		$output = executeQuery('spamfilter.insertDeniedWord', $args);
@@ -110,6 +111,7 @@
          **/
         function deleteWord($word) {
             if(!$word) return;
+            $args = new stdClass();
             $args->word = $word;
             return executeQuery('spamfilter.deleteDeniedWord', $args);
         }

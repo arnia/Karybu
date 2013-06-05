@@ -10,7 +10,7 @@
 	<input type="hidden" name="word" value="" />
 	<input type="hidden" name="ruleset" value="">
 </form>
-<form action="./" id="spamfilterConfig" class="form" ruleset="@insertConfig">
+<form action="./" id="spamfilterConfig" class="form" ruleset="@insertConfig" method="post">
 	<input type="hidden" name="act" value="procSpamfilterAdminInsertConfig" />
 	<input type="hidden" name="module" value="spamfilter" />
 	<input type="hidden" name="ruleset" value="insertConfig" />
@@ -45,7 +45,7 @@
 		<button class="btn btn-primary" type="submit">{$lang->cmd_save}</button>
 	</div>
 </form>
-<form action="./" id="spamfilterInsert" class="form">
+<form action="./" id="spamfilterInsert" class="form" method="post">
 	<input type="hidden" name="act" value="" />
 	<input type="hidden" name="module" value="spamfilter" />
 	<input type="hidden" name="ruleset" value="" />
@@ -78,3 +78,8 @@
         </div>
     </div>
 </form>
+<script type="text/javascript">
+    if (typeof xe.lang != "undefined"){
+        xe.lang.confirm_delete = '{$lang->confirm_delete}';
+    }
+</script>

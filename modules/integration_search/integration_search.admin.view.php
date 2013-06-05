@@ -41,6 +41,7 @@
             // Get a list of module categories
             $module_categories = $oModuleModel->getModuleCategories();
             // Generated mid Wanted list
+            $obj = new stdClass();
             $obj->site_srl = 0;
 
 			// Shown below as obsolete comments - modify by cherryfilter
@@ -79,7 +80,7 @@
                 foreach($skin_info->extra_vars as $key => $val) {
                     $name = $val->name;
                     $type = $val->type;
-                    $value = $skin_vars->{$name};
+                    $value = isset($skin_vars->{$name}) ? $skin_vars->{$name} : null;
                     if($type=="checkbox"&&!$value) $value = array();
                     $skin_info->extra_vars[$key]->value= $value;
                 }

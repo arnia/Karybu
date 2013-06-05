@@ -19,6 +19,7 @@
             $oMaterialModel = &getModel('material');
             $logged_info = Context::get('logged_info');
             $page = Context::get('page');
+            $args = new stdClass();
             $args->page = $page;
             $args->list_count=10;
             $args->member_srl = $logged_info->member_srl;
