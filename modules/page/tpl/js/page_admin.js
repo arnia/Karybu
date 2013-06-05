@@ -128,7 +128,12 @@ function doCartSetup(url) {
     url += "&module_srls="+module_srl.join(',');
     popopen(url,'modulesSetup');
 }
-
+function doCancelPageEdit(mid){
+    if (confirm(xe.lang.confirm_cancel)) {
+        location.href = current_url.setQuery('mid',mid).setQuery('act','')
+    }
+    return false;
+}
 jQuery(document).ready(function($){
 
     $("#module_category_srl").on("change", function() {

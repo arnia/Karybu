@@ -3808,4 +3808,7 @@
     <item name="mobile_settings">
         <value xml:lang="en"><![CDATA[Mobile settings]]></value>
     </item>
+    <item name="cancel_confirm">
+        <value xml:lang="en"><![CDATA[Are you sure you want to cancel the modifications?]]></value>
+    </item>
 </lang>

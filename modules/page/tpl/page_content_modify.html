@@ -31,7 +31,7 @@
     </div>
 
     <div class="control-group pull-right divide">
-        <button class="btn">{$lang->cmd_cancel}</button>
+        <button class="btn" type="button" onclick="doCancelPageEdit('{$module_info->mid}')">{$lang->cmd_cancel}</button>
     </div>
 
     <div class="control-group pull-right">
@@ -55,6 +55,7 @@
 <script type="text/javascript">
     var confirm_delete_msg = "{$lang->confirm_delete}";
     xAddEventListener(window,"load",function() { doStartPageModify('zonePageContent', '{$module_info->module_srl}'); jQuery('div.admin').css('background-color','transparent');});
+    xe.lang.confirm_cancel = '{$lang->cancel_confirm}';
 </script>
 
 <!--#include("../../widget/tpl/widget_layer.html")-->
