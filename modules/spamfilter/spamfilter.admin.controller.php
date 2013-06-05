@@ -44,7 +44,7 @@
 			$this->setRedirectUrl($returnUrl);
 		}
 		function procSpamfilterAdminInsertDeniedWord(){
-			//스팸 키워드 추가
+			//Spam Add Keyword
 			$word_list = Context::get('word_list');
           	if($word_list){
 				$insertWordOutput = $this->insertWord($word_list);

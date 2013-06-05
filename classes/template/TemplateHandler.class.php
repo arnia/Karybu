@@ -21,6 +21,9 @@ class TemplateHandler
     var $compiled_file = null; ///< tpl file web path
     var $skipTags = null;
 
+    /** @var \Symfony\Component\DependencyInjection\ContainerBuilder */
+    public $container;
+
     var $handler_mtime = 0;
 
     /**
@@ -35,6 +38,9 @@ class TemplateHandler
         $__templatehandler_root_tpl = null;
 
         $this->xe_path = rtrim(preg_replace('/([^\.^\/]+)\.php$/i', '', $_SERVER['SCRIPT_NAME']), '/');
+
+        //TODO inject this into the constructor
+        $this->container = $GLOBALS['__sContainer'];
     }
 
     /**
@@ -74,11 +80,15 @@ class TemplateHandler
         if (substr($tpl_path, -1) != '/') {
             $tpl_path .= '/';
         }
-        if (!file_exists($tpl_path . $tpl_filename) && file_exists(
-            $tpl_path . $tpl_filename . '.html'
-        )
-        ) {
-            $tpl_filename .= '.html';
+        if (!file_exists($path = $tpl_path.$tpl_filename)) {
+            if (file_exists($path . '.twig')) {
+                $tpl_filename .= '.twig';
+            }
+            else {
+                if (file_exists($path . '.html')) {
+                    $tpl_filename .= '.html';
+                }
+            }
         }
 
         // create tpl_file variable
@@ -98,7 +108,7 @@ class TemplateHandler
 
         // get compiled file name
         $hash = md5($this->file . __KARYBU_VERSION__);
-        $this->compiled_file = "{$this->compiled_path}{$hash}.compiled.php";
+        $this->compiled_file = "{$this->compiled_path}$hash.compiled.php";
 
         // compare various file's modified time for check changed
         $this->handler_mtime = filemtime(__FILE__);
@@ -116,68 +126,98 @@ class TemplateHandler
     function compile($tpl_path, $tpl_filename, $tpl_file = '')
     {
         global $__templatehandler_root_tpl;
-
         $buff = '';
-
-        // store the starting time for debug information
-        if (__DEBUG__ == 3) {
-            $start = getMicroTime();
-        }
-
-        // initiation
         $this->init($tpl_path, $tpl_filename, $tpl_file);
-
+        //check twig, backward compatible with ModuleObject's setTemplateFile
+        if (substr($this->file, -10) == '.twig.html') {
+            $this->file = substr($this->file, 0, -5);
+            $tpl_filename = substr($tpl_filename, 0, -5);
+        }
         // if target file does not exist exit
         if (!$this->file || !file_exists($this->file)) {
-            return "Err : '{$this->file}' template file does not exists.";
+            throw new Exception("'{$this->file}' template file does not exists.");
         }
 
-        // for backward compatibility
-        if (is_null($__templatehandler_root_tpl)) {
-            $__templatehandler_root_tpl = $this->file;
+        if (substr($this->file, -5) == '.twig') {
+
+            return $this->compileTwig($tpl_path, $tpl_filename, $tpl_file);
+
         }
+        else {
 
-        $source_template_mtime = filemtime($this->file);
-        $latest_mtime = $source_template_mtime > $this->handler_mtime ? $source_template_mtime : $this->handler_mtime;
-
-        // cache control
-        $oCacheHandler = & CacheHandler::getInstance('template');
-
-        // get cached buff
-        if ($oCacheHandler->isSupport()) {
-            $cache_key = 'template:' . $this->file;
-            $buff = $oCacheHandler->get($cache_key, $latest_mtime);
-        } else {
-            if (is_readable($this->compiled_file) && filemtime($this->compiled_file) > $latest_mtime && filesize(
-                $this->compiled_file
-            )
-            ) {
-                $buff = 'file://' . $this->compiled_file;
+            // store the starting time for debug information
+            if (__DEBUG__ == 3) {
+                $start = getMicroTime();
             }
-        }
+            // for backward compatibility
+            if (is_null($__templatehandler_root_tpl)) {
+                $__templatehandler_root_tpl = $this->file;
+            }
 
-        if (!$buff) {
-            $buff = $this->parse();
+            $source_template_mtime = filemtime($this->file);
+            $latest_mtime = $source_template_mtime > $this->handler_mtime ? $source_template_mtime : $this->handler_mtime;
+
+            // cache control
+            $oCacheHandler = & CacheHandler::getInstance('template');
+
+            // get cached buff
             if ($oCacheHandler->isSupport()) {
-                $oCacheHandler->put($cache_key, $buff);
+                $cache_key = 'template:' . $this->file;
+                $buff = $oCacheHandler->get($cache_key, $latest_mtime);
+            } else {
+                if (is_readable($this->compiled_file) && filemtime($this->compiled_file) > $latest_mtime && filesize(
+                    $this->compiled_file
+                )
+                ) {
+                    $buff = 'file://' . $this->compiled_file;
+                }
             }
-            else {
-                FileHandler::writeFile($this->compiled_file, $buff);
+
+            if (!$buff) {
+                $buff = $this->parse();
+                if ($oCacheHandler->isSupport()) {
+                    $oCacheHandler->put($cache_key, $buff);
+                }
+                else {
+                    FileHandler::writeFile($this->compiled_file, $buff);
+                }
             }
+
+            $output = $this->_fetch($buff);
+
+            if ($__templatehandler_root_tpl == $this->file) {
+                $__templatehandler_root_tpl = null;
+            }
+
+            // store the ending time for debug information
+            if (__DEBUG__ == 3) {
+                $GLOBALS['__template_elapsed__'] += getMicroTime() - $start;
+            }
+
+            return $output;
+
         }
 
-        $output = $this->_fetch($buff);
+    }
 
-        if ($__templatehandler_root_tpl == $this->file) {
-            $__templatehandler_root_tpl = null;
+    /**
+     * @param $path
+     * @param $filename
+     * @param null $fullPath
+     * @return string
+     */
+    public function compileTwig($path, $filename, $fullPath = null)
+    {
+        /** @var $tLoader \Twig_Loader_Filesystem */
+        $tLoader = $this->container->get('twig.loader');
+        if (substr($path, 0, 2) == './') {
+            $path = $this->container->getParameter('kernel.root_dir') . substr($path, 2);
         }
-
-        // store the ending time for debug information
-        if (__DEBUG__ == 3) {
-            $GLOBALS['__template_elapsed__'] += getMicroTime() - $start;
-        }
-
-        return $output;
+        $tLoader->addPath($path);
+        /** @var $twig \Karybu\Twig\Environment */
+        $twig = $this->container->get('twig.environment');
+        $template = $twig->loadTemplate($filename);
+        return $template->render((array)$GLOBALS['__Context__']);
     }
 
     /**
@@ -276,6 +316,7 @@ class TemplateHandler
     {
         // form ruleset attribute move to hidden tag
         if ($matches[1]) {
+            $matchedForm = $matches[1];
             preg_match('/ruleset="([^"]*?)"/is', $matches[1], $m);
             if (!empty($m[0])) {
                 $matches[1] = preg_replace('/' . addcslashes($m[0], '?$') . '/i', '', $matches[1]);
@@ -322,14 +363,21 @@ class TemplateHandler
             $matches[2] = $generatedHidden . $matches[2];
         }
         //add the form key
-        preg_match_all('/<input[^>]* name="(form_key)"/is', $matches[2], $m2);
-        $csrf = new \Karybu\Security\Csrf();
-        $keyName = $csrf->getFormKeyName();
-        $checkVar = array($keyName);
-        $resultArray = array_diff($checkVar, $m2[1]);
-        if (!isset($m2[1][$keyName])) {
-            $formKeyInput = '<input type="hidden" name="'.$keyName.'" value="<?php $csrf = new \Karybu\Security\Csrf(); echo $csrf->getSessionFormKey() ?>" />';
-            $matches[2] = $formKeyInput . $matches[2];
+        if (isset($matchedForm)){
+            $methodMatch = array();
+            preg_match('/method="([^"]*?)"/is', $matchedForm, $methodMatch);
+            //add key only for post forms
+            if (isset($methodMatch[1]) && strtolower($methodMatch[1]) == 'post'){
+                preg_match_all('/<input[^>]* name="(form_key)"/is', $matches[2], $m2);
+                $csrf = new \Karybu\Security\Csrf();
+                $keyName = $csrf->getFormKeyName();
+                $checkVar = array($keyName);
+                $resultArray = array_diff($checkVar, $m2[1]);
+                if (!isset($m2[1][$keyName])) {
+                    $formKeyInput = '<input type="hidden" name="'.$keyName.'" value="<?php $csrf = new \Karybu\Security\Csrf(); echo $csrf->getSessionFormKey() ?>" />';
+                    $matches[2] = $formKeyInput . $matches[2];
+                }
+            }
         }
         // return url generate
         if (!preg_match('/no-error-return-url="true"/i', $matches[1])) {
