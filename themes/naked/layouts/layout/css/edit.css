@@ -75,6 +75,10 @@ p.em {
     max-height: 64px;
 }
 
+#header a.brand.name {
+    margin-bottom: 0;
+}
+
 .navbar-fixed-top .navbar-inner {
     padding-bottom: 10px;
 }

@@ -855,7 +855,7 @@ form .controls textarea ~ span
         margin-left: 10px;
     }
 
-    .kSidebar {
+    .landscape .kSidebar {
         transition: width 0.3s;
     }
 
