@@ -1,0 +1,28 @@
+<!--@if($page_navigation->last_page >=0 )-->
+<div class="pagination">
+    <ul>
+        <li><a href="{getUrl('page', '')}" class="direction">&laquo; {$lang->first_page}</a></li>
+        <li>
+            {@$isGoTo = true}
+            <a href="{getUrl('page', '')}">1</a>
+            <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+        </li>
+        <!--@while($page_no = $page_navigation->getNextPage())-->
+        {@$last_page = $page_no}
+        <li <!--@if($page == $page_no)-->
+        class="active"
+        <!--@end-->>
+        <a href="{getUrl('page', $page_no)}">{$page_no}</a>
+        </li>
+        <!--@end-->
+
+        <li cond="$last_page != $page_navigation->last_page">
+            {@$isGoTo = true}
+            <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+            <a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
+        </li>
+
+        <li><a href="{getUrl('page', $page_navigation->last_page)}" class="direction">{$lang->last_page} &raquo;</a></li>
+    </ul>
+</div>
+<!--@end-->
