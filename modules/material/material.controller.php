@@ -78,8 +78,8 @@
             if($var->type=='img' && !$var->image){
                 return new Object(-1,'msg_fail_image_save');
             }
-
-            $args->material_srl = $material_srl ? $material_srl : getNextSequence();
+            $args = new stdClass();
+            $args->material_srl = !empty($material_srl) ? $material_srl : getNextSequence();
             $args->member_srl = $member_srl;
             $args->type = $var->type;
             $args->content = $var->content;

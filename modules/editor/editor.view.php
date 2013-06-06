@@ -138,38 +138,38 @@
 		function dispEditorConfigPreview() {
 			$oEditorModel = &getModel('editor');
 			$config = $oEditorModel->getEditorConfig();
-
+            $option = new stdClass();
 			$option->allow_fileupload = false;
-			$option->content_style = $config->content_style;
-			$option->content_font = $config->content_font;
-			$option->content_font_size = $config->content_font_size;
+			$option->content_style = isset($config->content_style) ? $config->content_style : null;
+			$option->content_font = isset($config->content_font) ? $config->content_font : null;
+			$option->content_font_size = isset($config->content_font_size) ? $config->content_font_size : null;
 			$option->enable_autosave = false;
 			$option->enable_default_component = true;
 			$option->enable_component = true;
 			$option->disable_html = false;
-			$option->height = $config->editor_height;
-			$option->skin = $config->editor_skin;
+			$option->height = isset($config->editor_height) ? $config->editor_height : null;
+			$option->skin = isset($config->editor_skin) ? $config->editor_skin : null;
 			$option->content_key_name = 'dummy_content';
 			$option->primary_key_name = 'dummy_key';
-			$option->colorset = $config->sel_editor_colorset;
+			$option->colorset = isset($config->sel_editor_colorset) ? $config->sel_editor_colorset : null;
 			$editor = $oEditorModel->getEditor(0, $option);
 
 			Context::set('editor', $editor);
-
+            $option_com = new stdClass();
 			$option_com->allow_fileupload = false;
-			$option_com->content_style = $config->content_style;
-			$option_com->content_font = $config->content_font;
-			$option_com->content_font_size = $config->content_font_size;
+			$option_com->content_style = isset($config->content_style) ? $config->content_style : null;
+			$option_com->content_font = isset($config->content_font) ? $config->content_font : null;
+			$option_com->content_font_size = isset($config->content_font_size) ? $config->content_font_size : null;
 			$option_com->enable_autosave = false;
 			$option_com->enable_default_component = true;
 			$option_com->enable_component = true;
 			$option_com->disable_html = false;
-			$option_com->height = $config->comment_editor_height;
-			$option_com->skin = $config->comment_editor_skin;
+			$option_com->height = isset($config->comment_editor_height) ? $config->comment_editor_height : null;
+			$option_com->skin = isset($config->comment_editor_skin) ? $config->comment_editor_skin : null;
 			$option_com->content_key_name = 'dummy_content2';
 			$option_com->primary_key_name = 'dummy_key2';
-			$option_com->content_style = $config->comment_content_style;
-			$option_com->colorset = $config->sel_comment_editor_colorset;
+			$option_com->content_style = isset($config->comment_content_style) ? $config->comment_content_style : null;
+			$option_com->colorset = isset($config->sel_comment_editor_colorset) ? $config->sel_comment_editor_colorset : null;
 
 			$editor_comment = $oEditorModel->getEditor(0, $option_com);
 

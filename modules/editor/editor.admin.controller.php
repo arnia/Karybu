@@ -14,7 +14,7 @@
         }
 		
 		/**
-         * @brief 컴포넌트 사용설정, 목록 순서 변경
+         * @brief Enabling components, change the list order
          **/	
 		function procEditorAdminCheckUseListOrder(){
 			$site_module_info = Context::get('site_module_info');
@@ -129,16 +129,16 @@
 		function procEditorAdminGeneralConfig(){
 			$oModuleController = &getController('module');
 			$configVars = Context::getRequestVars();
-			
-			$config->editor_skin = $configVars->editor_skin;
-			$config->editor_height = $configVars->editor_height;
-			$config->comment_editor_skin = $configVars->comment_editor_skin;
-			$config->comment_editor_height = $configVars->comment_editor_height;
-			$config->content_style = $configVars->content_style;
-			$config->content_font = $configVars->content_font;
-			$config->content_font_size= $configVars->content_font_size.'px';
-			$config->sel_editor_colorset= $configVars->sel_editor_colorset;
-			$config->sel_comment_editor_colorset= $configVars->sel_comment_editor_colorset;
+			$config = new stdClass();
+			$config->editor_skin = isset($configVars->editor_skin) ? $configVars->editor_skin : null;
+			$config->editor_height = isset($configVars->editor_height) ? $configVars->editor_height  : null;
+			$config->comment_editor_skin = isset($configVars->comment_editor_skin) ? $configVars->comment_editor_skin : null;
+			$config->comment_editor_height = isset($configVars->comment_editor_height) ? $configVars->comment_editor_height : null;
+			$config->content_style = isset($configVars->content_style) ? $configVars->content_style : null;
+			$config->content_font = isset($configVars->content_font) ? $configVars->content_font : null;
+			$config->content_font_size= isset($configVars->content_font_size) ? $configVars->content_font_size.'px' : 0;
+			$config->sel_editor_colorset= isset($configVars->sel_editor_colorset) ? $configVars->sel_editor_colorset : null;
+			$config->sel_comment_editor_colorset= isset($configVars->sel_comment_editor_colorset) ? $configVars->sel_comment_editor_colorset : null;
 			
 			$oModuleController->insertModuleConfig('editor',$config);
 			$this->setRedirectUrl(Context::get('error_return_url'));

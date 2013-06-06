@@ -11,10 +11,12 @@
          * @brief Initialization
          **/
         function init() {
-            $template_path = sprintf("%sskins/%s/",$this->module_path, $this->module_info->skin);
-            if(!is_dir($template_path)||!$this->module_info->skin) {
+            $modulePath = isset($this->module_path) ? $this->module_path : null;
+            $skin = isset($this->module_info->skin) ? $this->module_info->skin  : null;
+            $template_path = sprintf("%sskins/%s/",$modulePath, $skin);
+            if(!is_dir($template_path) || !$skin) {
                 $this->module_info->skin = 'default';
-                $template_path = sprintf("%sskins/%s/",$this->module_path, $this->module_info->skin);
+                $template_path = sprintf("%sskins/%s/",$modulePath, $this->module_info->skin);
             }
             $this->setTemplatePath($template_path);
         }
@@ -47,7 +49,7 @@
 			$oModuleModel = &getModel('module');
 
 			$module_info = $oModuleModel->getModuleInfoByMid($mid,$site_srl=0);
-			$module_srl = $module_info->module_srl;
+			$module_srl = isset($module_info->module_srl) ? $module_info->module_srl : null;
 			$member_srl = $oMaterialModel->getMemberSrlByAuth($auth);
 
 			if(!$member_srl) Context::set('error',true);

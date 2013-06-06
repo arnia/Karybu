@@ -261,7 +261,7 @@ class addonController extends addon
         if (!is_array($extra_vars->mid_list)) {
             unset($extra_vars->mid_list);
         }
-
+        $args = new stdClass();
         $args->addon = $addon;
         $args->extra_vars = serialize($extra_vars);
         if ($gtype == 'global') {
