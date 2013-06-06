@@ -49,9 +49,26 @@
 }
 
 /* General Styles*/
-body {
-    padding-top: 40px;
+
+
+#zonePageContent {
+    margin-bottom: 1em;
 }
+
+#main-content {
+    margin-top: 80px;
+}
+
+
+#header {
+    border: none;
+}
+
+#header .container {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 
 /*
 a {
@@ -395,7 +412,7 @@ input[type="color"]:focus,
 
 .carousel-caption {
     background: none repeat scroll 0 0 rgba(36, 164, 211, 0.75);
-    padding: 0px 15px;
+    padding: 15px 15px 0;
 }
 
 .carousel-caption h1 {
@@ -601,9 +618,6 @@ footer {
     }
 }
 
-.search {
-    padding: 7px !important;
-}
 
 .admin {
     padding: 8px 8px 7px 8px !important;
@@ -645,20 +659,6 @@ a.image-holder:hover img {
     margin-top: 20px;
 }
 
-#searchForm {
-    position: absolute;
-    float: right;
-    background: #000;
-    padding: 10px;
-    right: 0;
-    border-radius: 0 0 10px 10px;
-    display: none;
-    z-index: -1;
-}
-
-#searchForm form {
-    margin-bottom: 0;
-}
 
 .nav-righthand {
     position: relative;
@@ -706,5 +706,72 @@ a.member-image{
 a.member-image img{
     width:28px;
     height:28px;
+}
+
+/* Bootstrap tweaks */
+
+#main-content {
+    margin-top: 80px;
+}
+
+.carousel-caption h1,
+.carousel-caption h2,
+.carousel-caption h3,
+.carousel-caption h4,
+.carousel-caption h5,
+.carousel-caption h6 {
+    color: #ffffff;
+}
+
+#searchForm {
+    float: right;
+    text-align: right;
+    margin: 7px 0 0 0;
+}
+
+#searchForm form {
+    margin-bottom: 0;
+}
+
+
+
+#header a.brand {
+    display: block;
+    float: left;
+    margin-bottom: -44px;
+    position: relative;
+}
+
+#header a.brand img {
+    max-height: 64px;
+}
+
+#header a.brand.name {
+    margin-bottom: 0;
+}
+
+.navbar-fixed-top .navbar-inner {
+    padding-bottom: 10px;
+}
+
+@media (max-width: 979px) {
+    .navbar-fixed-top .span4,
+    .navbar-fixed-top .span8 {
+        display: block;
+        width: 100%;
+        float: none;
+        clear: both;
+    }
+
+    .nav-collapse .nav {
+        margin-top: 50px;
+    }
+
+    #main-content {
+        margin-top: -20px;
+    }
+
+
+
 }
 
