@@ -156,9 +156,16 @@ class DebugToolbarListener implements EventSubscriberInterface
                 $tabs['PHP Errors']->badge = '<span class="badge badge-warning">' . (($error_count = count($errors)) ? $error_count : '') . '</span>';
             }
             $this->context->set('data', $tabs);
-            if (isset($_SESSION['debug_state'])) $this->context->set('debug_state', $_SESSION['debug_state']);
-            if (isset($_SESSION['debug_height'])) $this->context->set('debug_height', $_SESSION['debug_height']);
-            if (isset($_SESSION['debug_tab'])) $this->context->set('debug_tab', $_SESSION['debug_tab']);
+            if (!isset($_SESSION['debug_state'])){
+                $_SESSION['debug_state'] = 'closed';
+            }
+            $this->context->set('debug_state', $_SESSION['debug_state']);
+            if (isset($_SESSION['debug_height'])) {
+                $this->context->set('debug_height', $_SESSION['debug_height']);
+            }
+            if (isset($_SESSION['debug_tab'])) {
+                $this->context->set('debug_tab', $_SESSION['debug_tab']);
+            }
             $toolbar = $this->renderView('toolbar');
             $content = $substrFunction($content, 0, $pos).$toolbar.$substrFunction($content, $pos);
             $response->setContent($content);
