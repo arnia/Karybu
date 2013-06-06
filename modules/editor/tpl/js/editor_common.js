@@ -140,19 +140,19 @@ function eOptionClick(obj) {
 }
 
 /**
- * 에디터 컴포넌트 구현 부분
+ * Implementation section editor component
  **/
 
-// 에디터 상단의 컴포넌트 버튼 클릭시 action 처리 (마우스다운 이벤트 발생시마다 요청이 됨)
+// Action at the click of a button at the top of the editor component handling (mouse-down event occurs every request AM)
 var editorPrevSrl = null;
 function editorEventCheck(e) {
     editorPrevNode = null;
 
-    // 이벤트가 발생한 object의 ID를 구함
+    // ID of the object to which the event occurred Wanted
     var target_id = e.target.id;
     if(!target_id) return;
 
-    // editor_sequence와 component name을 구함 (id가 포맷과 다르면 return)
+    // editor_sequence와 component name Wanted (id format is different from the return)
     var info = target_id.split('_');
     if(info[0]!="component") return;
     var editor_sequence = info[1];
@@ -163,7 +163,7 @@ function editorEventCheck(e) {
 
     switch(component_name) {
 
-        // 기본 기능에 대한 동작 (바로 실행)
+        // Actions for basic functions (ready-to-run)
         case 'Bold' :
         case 'Italic' :
         case 'Underline' :
@@ -189,7 +189,7 @@ function editorEventCheck(e) {
             editorDo(component_name, '', editor_sequence);
             break;
 
-        // 추가 컴포넌트의 경우 서버에 요청을 시도
+        // Additional components in the case of a request to the server attempts to
         default :
 			openComponent(component_name, editor_sequence);
 			return false;
@@ -199,7 +199,7 @@ function editorEventCheck(e) {
 }
 jQuery(document).click(editorEventCheck);
 
-// 컴포넌트 팝업 열기
+// Open the pop-up component
 function openComponent(component_name, editor_sequence, manual_url) {
     editorPrevSrl = editor_sequence;
     if(editorMode[editor_sequence]=='html') return;
@@ -210,7 +210,7 @@ function openComponent(component_name, editor_sequence, manual_url) {
     popopen(popup_url, 'editorComponent');
 }
 
-// 더블클릭 이벤트 발생시에 본문내에 포함된 컴포넌트를 찾는 함수
+// Double-click the event in the event of finding the components included within the body of the function
 var editorPrevNode = null;
 function editorSearchComponent(evt) {
     var e = new xEvent(evt);
@@ -218,9 +218,9 @@ function editorSearchComponent(evt) {
     editorPrevNode = null;
     var obj = e.target;
 
-    // 위젯인지 일단 체크
+    // Check whether one widget
     if(obj.getAttribute("widget")) {
-        // editor_sequence을 찾음
+        // editor_sequence Finding
         var tobj = obj;
         while(tobj && tobj.nodeName != "BODY") {
             tobj = xParent(tobj);
@@ -238,7 +238,7 @@ function editorSearchComponent(evt) {
         return;
     }
 
-    // 선택되어진 object부터 상단으로 이동하면서 editor_component attribute가 있는지 검사
+    // From the top, while the selected object editor_component attribute checks
     if(!obj.getAttribute("editor_component")) {
         while(obj && !obj.getAttribute("editor_component")) {
             if(obj.parentElement) obj = obj.parentElement;
@@ -250,9 +250,9 @@ function editorSearchComponent(evt) {
 
     var editor_component = obj.getAttribute("editor_component");
 
-    // editor_component를 찾지 못했을 경우에 이미지/텍스트/링크의 경우 기본 컴포넌트와 연결
+    // editor_component If you can not find the image / text / links, the basic components and connections
     if(!editor_component) {
-        // 이미지일 경우
+        // If the image
         if(obj.nodeName == "IMG" && !obj.getAttribute("widget")) {
             editor_component = "image_link";
             editorPrevNode = obj;
@@ -261,13 +261,13 @@ function editorSearchComponent(evt) {
         editorPrevNode = obj;
     }
 
-    // 아무런 editor_component가 없다면 return
+    // If there is no return editor_component
     if(!editor_component) {
         editorPrevNode = null;
         return;
     }
 
-    // editor_sequence을 찾음
+    // editor_sequence Finding
     var tobj = obj;
     while(tobj && tobj.nodeName != "BODY") {
         tobj = xParent(tobj);
@@ -278,11 +278,11 @@ function editorSearchComponent(evt) {
     }
     var editor_sequence = tobj.getAttribute("editor_sequence");
 
-    // 해당 컴포넌트를 찾아서 실행
+    // Locate and run the component
     openComponent(editor_component, editor_sequence);
 }
 
-// 에디터 내의 선택된 부분의 html코드를 변경
+// Html editor to change the code of the selected area in the
 function editorReplaceHTML(iframe_obj, html) {
     // 이미지 경로 재지정 (rewrite mod)
     var srcPathRegx = /src=("|\'){1}(\.\/)?(files\/attach|files\/cache|files\/faceOff|files\/member_extra_info|modules|common|widgets|widgetstyle|layouts|addons)\/([^"\']+)\.(jpg|jpeg|png|gif)("|\'){1}/g;
