@@ -133,7 +133,8 @@ function start(cfg) {
 		left     : 0,
 		top      : 0,
 		width    : width + 'px',
-		height   : height + 'px'
+		height   : height + 'px',
+        'vertical-align': 'top'
 	});
 
 	if(cfg.insertedFiles || editorRelKeys[seq].primary.value) reloadFileList(cfg);

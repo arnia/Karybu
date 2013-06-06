@@ -1,28 +1,31 @@
-<!--@if($page_navigation->last_page >=0 )-->
+<!--@if($page_navigation->total_page > 1 )-->
 <div class="pagination">
     <ul>
-        <li><a href="{getUrl('page', '')}" class="direction">&laquo; {$lang->first_page}</a></li>
-        <li>
-            {@$isGoTo = true}
-            <a href="{getUrl('page', '')}">1</a>
-            <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
+        <li<!--@if(1 == $page)--> class="active"<!--@end-->>
+            <a class="direction" href="<!--@if(1 == $page)-->#<!--@else-->{getUrl('page', '')}<!--@end-->"<!--@if(1 == $page)--> onclick="return false;"<!--@end-->>&laquo; {$lang->first_page}</a>
         </li>
-        <!--@while($page_no = $page_navigation->getNextPage())-->
-        {@$last_page = $page_no}
-        <li <!--@if($page == $page_no)-->
-        class="active"
-        <!--@end-->>
-        <a href="{getUrl('page', $page_no)}">{$page_no}</a>
+        <!--@for ($i = 1; $i<=$page_navigation->total_page;$i++)-->
+        <li<!--@if($i == $page)--> class="active"<!--@end-->>
+            <a href="<!--@if($i == $page)-->#<!--@else-->{getUrl('page', $i)}<!--@end-->"<!--@if($i == $page)--> onclick="return false;"<!--@end-->>{$i}</a>
         </li>
         <!--@end-->
-
-        <li cond="$last_page != $page_navigation->last_page">
-            {@$isGoTo = true}
-            <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-            <a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
+        <li<!--@if($page_navigation->last_page == $page)--> class="active"<!--@end-->>
+        <a class="direction" href="<!--@if($page_navigation->last_page == $page)-->#<!--@else-->{getUrl('page', $page_navigation->last_page)}<!--@end-->"<!--@if($page_navigation->last_page == $page)--> onclick="return false;"<!--@end-->>{$lang->last_page} &raquo;</a>
         </li>
-
-        <li><a href="{getUrl('page', $page_navigation->last_page)}" class="direction">{$lang->last_page} &raquo;</a></li>
     </ul>
 </div>
+<form action="" class="pagination" method="post">
+    <input type="hidden" name="error_return_url" value="" />
+    <input type="hidden" name="module" value="{$module}" />
+    <input type="hidden" name="act" value="{$act}" />
+    <input cond="$order_target" type="hidden" name="order_target" value="{$order_target}" />
+    <input cond="$order_type" type="hidden" name="order_type" value="{$order_type}" />
+    <input cond="$category_srl" type="hidden" name="category_srl" value="{$category_srl}" />
+    <input cond="$childrenList" type="hidden" name="childrenList" value="{$childrenList}" />
+    <input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
+		<span cond="$isGoTo" id="goTo" class="tgContent">
+			<input name="page" title="{$lang->cmd_go_to_page}" />
+			<button type="submit">Go</button>
+		</span>
+</form>
 <!--@end-->

@@ -51,9 +51,16 @@
 			unset($all_args->error_return_url);
 			unset($all_args->success_return_url);
 			unset($all_args->ruleset);
-			if(!isset($args->limit_date)) $args->limit_date = "";
+			if(!isset($args->limit_date)) {
+                $args->limit_date = "";
+            }
 			// Add extra vars after excluding necessary information from all the requested arguments
 			$extra_vars = delObjectVars($all_args, $args);
+            //prevent password and form_key from being saved in extra_vars
+            $csrf = new \Karybu\Security\Csrf();
+            $formKeyName = $csrf->getFormKeyName();
+            unset($extra_vars->password);
+            unset($extra_vars->$formKeyName);
 			$args->extra_vars = serialize($extra_vars);
 			// Check if an original member exists having the member_srl
 			if($args->member_srl) {
