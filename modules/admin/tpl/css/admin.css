@@ -474,6 +474,24 @@ a.swatch:hover {
 
 }
 
+.box .box-body li > a {
+    width: 70%;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+
+.desktop-screen .box .box-body li > a {
+    width: 42%;
+}
+
+.tablet-screen .box .box-body li > a {
+    width: 82%;
+}
+
+
 .kList li {
     position: relative;
 }
@@ -492,11 +510,16 @@ a.swatch:hover {
     margin-right: -80px;
 }
 
+.kList li form {
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+}
+
 .box .box-body li:hover form,
 .kList li:hover form {
     margin-right: 0;
     opacity: 1;
-
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 
 .kList .kActionIcons {
