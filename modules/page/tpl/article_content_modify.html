@@ -22,5 +22,9 @@
 		<!--@end-->
         <!--@end-->
 		<button type="submit" class="btn btn-primary">{$lang->cmd_registration}</button>
+        <button type="button" class="btn" onclick="doDocumentCancel({mid:'{$mid}', isMobile:'{$isMobile}'})">{$lang->cmd_cancel}</button>
 	</div>
 </form>
+<script type="text/javascript">
+    xe.lang.confirm_cancel = '{$lang->cancel_confirm}';
+</script>
