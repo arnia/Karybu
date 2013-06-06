@@ -608,7 +608,20 @@ function doDocumentSelect(document_srl) {
     opener.location.href = opener.current_url.setQuery('document_srl', document_srl);
     window.close();
 }
+function doDocumentCancel(obj) {
 
+    if (confirm(xe.lang.confirm_cancel)) {
+        var mid = obj.mid;
+        if(obj.is_mobile == 'Y'){
+            url = current_url.setQuery('act', 'dispPageAdminMobileContent').setQuery('mid', mid);
+        }
+        else {
+            url = current_url.setQuery('act', 'dispPageIndex').setQuery('mid', mid);
+        }
+        location.href = url;
+    }
+    return false;
+}
 
 /* Skin */
 function viewSkinInfo(module, skin) {
