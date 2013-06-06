@@ -44,8 +44,8 @@ function start(cfg) {
 	seq     = cfg.editorSequence;
 	id      = cfg.replaceButtonID;
 	$button = $('#'+id).wrap('<span style="position:relative;display:inline-block" />');
-	width   = $button.width();
-	height  = $button.height();
+	width   = $button.outerWidth();
+	height  = $button.outerHeight();
 	$span   = $('<span id="dummy'+id+'" />').insertAfter($button);
 
 	settings = {
@@ -92,7 +92,6 @@ function start(cfg) {
 	{
 		settings.upload_url = request_uri+'index.php';
 	};
-
 	// preview
 	$('#'+cfg.fileListAreaID).click(previewFiles);
 
@@ -117,6 +116,8 @@ function start(cfg) {
 
 	if(is_def(window.xeVid)) settings.post_params.vid = xeVid;
 	settings.post_params[cfg.sessionName] = getCookie(cfg.sessionName);
+    //add form key to the post
+    settings.post_params[form_key_name] = form_key;
 
 	uploaderSettings[seq] = settings;
 
@@ -309,7 +310,7 @@ function reloadFileList(cfg) {
 			if(i) $list.prop('selectedIndex', i-1).click();
 		}
 
-		// 문서 강제 자동저장 1번만 사용 ( 첨부파일 target_srl로 자동 저장문서를 저장하기 위한 용도일 뿐 )
+		// Force auto-save one-time use documentation (attachment target_srl automatically saved as one for storing the document as well)
 		if(!uploadAutosaveChecker) autosave();
 	};
 
@@ -424,22 +425,22 @@ function insertUploadedFile(editorSequence) {
                 if(obj.complete == true) { temp_code += " width=\""+obj.width+"\" height=\""+obj.height+"\""; }
                 temp_code += " />\r\n";
                 text.push(temp_code);
-            // 이미지외의 경우는 multimedia_link 컴포넌트 연결
+            // Otherwise, the image of a connected component multimedia_link
             } else {
                 text.push("<img src=\"common/img/blank.gif\" editor_component=\"multimedia_link\" multimedia_src=\""+file.download_url+"\" width=\"400\" height=\"320\" style=\"display:block;width:400px;height:320px;border:2px dotted #4371B9;background:url(./modules/editor/components/multimedia_link/tpl/multimedia_link_component.gif) no-repeat center;\" auto_start=\"false\" alt=\"\" />");
             }
 
-        // binary파일의 경우 url_link 컴포넌트 연결
+        // binary If you connect a component of the file url_link
         } else {
             text.push("<a href=\""+file.download_url+"\">"+file.source_filename+"</a>\n");
         }
     }
 
-    // html 모드
+    // html Mode
     if(editorMode[editorSequence]=='html'){
         if(text.length>0) get_by_id('editor_textarea_'+editorSequence).value += text.join('');
 
-    // 위지윅 모드
+    // WYSIWYG mode
     }else{
         var iframe_obj = editorGetIFrame(editorSequence);
         if(!iframe_obj) return;
