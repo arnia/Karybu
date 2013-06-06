@@ -11,7 +11,7 @@
         <!--%import("white.css")-->
     <!--@end-->
 
-    <div id="spot">
+<!--    <div id="spot">
         <form action="{getUrl()}" method="post" class="form-search" id="fo_is" no-error-return-url="true" >
             <input type="hidden" name="mid" value="{$mid}" />
             <input type="hidden" name="act" value="IS" />
@@ -20,7 +20,8 @@
             <input name="is_keyword" type="text" class="input-medium search-query" value="{$is_keyword}"/>
             <input class="btn" type="submit" value="{$lang->cmd_search}" />
         </form>
-    </div>
+    </div>-->
+        <h1>{$lang->search_results}</h1>
 
     <ul class="nav nav-tabs">
         <li <!--@if(!$where)-->class="active"<!--@end-->><a href="{getAutoEncodedUrl('where','','page','','division','')}">{$lang->integration_search}</a></li>

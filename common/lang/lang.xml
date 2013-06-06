@@ -2110,6 +2110,11 @@
 		<value xml:lang="vi"><![CDATA[Từ khóa]]></value>
 		<value xml:lang="mn"><![CDATA[Хайх үг]]></value>
 	</item>
+
+    <item name="search_results">
+        <value xml:lang="en"><![CDATA[Search results]]></value>
+    </item>
+
 	<item name="is_default">
 		<value xml:lang="ko"><![CDATA[기본]]></value>
 		<value xml:lang="en"><![CDATA[Default]]></value>
