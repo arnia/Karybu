@@ -35,7 +35,7 @@
             $args = new stdClass();
             $args->page = Context::get('page'); // /< Page
             $args->list_count = 30; // /< the number of posts to display on a single page
-            $args->page_count = 5; // /< the number of pages that appear in the page navigation
+            $args->page_count = 1; // /< the number of pages that appear in the page navigation
 
             $args->search_target = Context::get('search_target'); // /< search (title, contents ...)
             $args->search_keyword = Context::get('search_keyword'); // /< keyword to search

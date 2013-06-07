@@ -1,8 +1,10 @@
 <!--@if($page_navigation->total_page > 1 )-->
 <div class="pagination">
     <ul>
-        <li<!--@if(1 == $page)--> class="active"<!--@end-->>
-            <a class="direction" href="<!--@if(1 == $page)-->#<!--@else-->{getUrl('page', $page-1)}<!--@end-->"<!--@if(1 == $page)--> onclick="return false;"<!--@end-->>&laquo;</a>
+        <li
+        <!--@if(1 == $page)--> class="active"<!--@end-->>
+        <a class="direction" href="<!--@if(1 == $page)-->#<!--@else-->{getUrl('page', $page-1)}<!--@end-->"<!--@if(1 == $page)-->
+        onclick="return false;"<!--@end-->>‹</a>
         </li>
         <!--@if($page_navigation->canShowFirst())-->
         <li>
@@ -10,23 +12,26 @@
         </li>
         <!--@end-->
         <!--@if ($page_navigation->canShowGapStart())-->
-        <li><a href="#" onclick="return false;">...</a></li>
+        <li><a href="#" onclick="return false;" class="clear">...</a></li>
         {@$isGoTo = true}
         <!--@end-->
         <!--@for ($i = $page_navigation->frameStart; $i<=$page_navigation->frameEnd;$i++)-->
-        <li<!--@if($i == $page)--> class="active"<!--@end-->>
-            <!--@if($i != $page)-->
-            <a href="{getUrl('page', $i)}">{$i}</a>
-            <!--@else-->
-            <div class="pull-left">
-                <input type="text" size="3" id="current_page" name="page" value="{$page}" style="width:auto;" />
-                <button type="button" class="btn" onclick="goToPage(jQuery('#current_page'))">{$lang->go}</button>
-            </div>
-            <!--@end-->
+        <li
+        <!--@if($i == $page)--> class="active"<!--@end-->>
+        <!--@if($i != $page)-->
+        <a href="{getUrl('page', $i)}">{$i}</a>
+        <!--@else-->
+        <div class="pull-left">
+            <input type="text" size="3" id="current_page" name="page" value="{$page}" />
+            <div class="btn-goto"><button type="button" id="go-cmd" class="btn btn-small" onclick="goToPage(jQuery('#current_page'))">{$lang->go}</button></div>
+
+
+        </div>
+        <!--@end-->
         </li>
         <!--@end-->
         <!--@if ($page_navigation->canShowGapEnd())-->
-        <li><a href="#" onclick="return false;">...</a></li>
+        <li><a href="#" onclick="return false;" class="clear">...</a></li>
         {@$isGoTo = true}
         <!--@end-->
         <!--@if($page_navigation->canShowLast())-->
@@ -34,9 +39,13 @@
             <a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
         </li>
         <!--@end-->
-        <li<!--@if($page_navigation->last_page == $page)--> class="active"<!--@end-->>
-            <a class="direction" href="<!--@if($page_navigation->last_page == $page)-->#<!--@else-->{getUrl('page', $page+1)}<!--@end-->"<!--@if($page_navigation->last_page == $page)--> onclick="return false;"<!--@end-->>&raquo;</a>
+        <li
+        <!--@if($page_navigation->last_page == $page)--> class="active"<!--@end-->>
+        <a class="direction"
+           href="<!--@if($page_navigation->last_page == $page)-->#<!--@else-->{getUrl('page', $page+1)}<!--@end-->"<!--@if($page_navigation->last_page == $page)-->
+        onclick="return false;"<!--@end-->>›</a>
         </li>
     </ul>
 </div>
+
 <!--@end-->
