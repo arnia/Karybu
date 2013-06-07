@@ -867,7 +867,7 @@ button.sTog {padding: 4px 10px 8px;
     color: #2e5587!important
 }
 
-#moduleSearchWindow, #langEdit, #popup_menu_area, #langEditTextarea, .suggestion ul {
+.moduleSearchWindow, #langEdit, #popup_menu_area, #langEditTextarea, .suggestion ul, .langList {
     position: absolute;
     background-color: #f5f5f5;
     border: 1px solid #aba69e;
@@ -886,23 +886,23 @@ button.sTog {padding: 4px 10px 8px;
     top: 30%;
     z-index: 1060;
 }
-#moduleSearchWindow li a {
+.moduleSearchWindow li a {
     display: block;
 }
 
 
 
-#moduleSearchWindow li a i {
+.moduleSearchWindow li a i {
     float: right;
 }
 
-#moduleSearchWindow ul, #moduleSearchWindow li {
+.moduleSearchWindow ul, .moduleSearchWindow li {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-#moduleSearchWindow .on .icon-circle-arrow-right {
+.moduleSearchWindow .on .icon-circle-arrow-right {
     background-position: -312px -144px;
 }
 
@@ -915,7 +915,8 @@ button.sTog {padding: 4px 10px 8px;
     padding: 0!important;
 }
 
-.suggestion button._btnLang {
+.suggestion button._btnLang,
+.langList a.langItem {
     background: none;
     margin:0;
     padding:0 10px;
@@ -931,12 +932,25 @@ button.sTog {padding: 4px 10px 8px;
     text-align: left;
 }
 
-.suggestion button._btnLang:hover {
+.suggestion button._btnLang:hover,
+.langList a.langItem:hover,
+.langList .active a.langItem {
     background: #8ac64f;
     color: #fff;
     -moz-text-shadow: 0px 1px 0px rgba(0,0,0,0.2);
     -webkit-text-shadow: 0px 1px 0px rgba(0,0,0,0.2);
     text-shadow: 0px 1px 0px rgba(0,0,0,0.2);
+}
+
+.langList a.langItem {
+    width: auto;
+}
+
+.langList {
+    position: relative;
+    float: left;
+
+
 }
 
 
@@ -1688,8 +1702,11 @@ margin:-1px;
     padding: 0;
     padding-top:5px
 }
+/*
 
-button._btnLang, a.langItem {
+button._btnLang,
+a.langItem,
+.langList a {
     display: table-cell;
     border-radius:2px;
     -moz-border-radius:2px;
@@ -1697,7 +1714,6 @@ button._btnLang, a.langItem {
     padding-right:10px;
     padding-left:10px;
     color: #ffffff;
-    margin-bottom: 5px;
     height: 30px;
     vertical-align: middle;
     border: none;
@@ -1706,7 +1722,9 @@ button._btnLang, a.langItem {
     opacity: .8;
 }
 
-button._btnLang:hover, a.langItem:hover, .active a.langItem {
+button._btnLang:hover,
+a.langItem:hover,
+.active a.langItem, {
     background: #575757;
     color: #fff;
     text-decoration: none;
@@ -1714,6 +1732,7 @@ button._btnLang:hover, a.langItem:hover, .active a.langItem {
     -webkit-opacity: 1;
     opacity: 1;
 }
+*/
 
 .control-buttons{
     padding-top: 20px;
