@@ -16,17 +16,17 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 			| <a href="{getUrl('search_target','isvalid','search_keyword','Y', 'page', '')}" <!--@if($search_target == 'isvalid' && $search_keyword == 'Y')-->class="active"<!--@end-->>{$lang->is_valid}</a>
 			| <a href="{getUrl('search_target','isvalid','search_keyword','N', 'page', '')}" <!--@if($search_target == 'isvalid' && $search_keyword == 'N')-->class="active"<!--@end-->>{$lang->is_stand_by}</a>
 		</div>
-		<table class="table table-bordered table-condensed" id="fileListTable">
+		<table class="table table-bordered table-condensed table-hover" id="fileListTable">
 			<caption>
-				<!--@if($search_keyword == '')-->
-				{$lang->all}
-				<!--@elseif($search_target == 'isvalid' && $search_keyword == 'Y')-->
-				{$lang->is_valid}
-				<!--@elseif($search_target == 'isvalid' && $search_keyword == 'N')-->
-				{$lang->is_stand_by}
-				<!--@end-->
-				({number_format($total_count)})
                 <div class="pull-right">
+                    <!--@if($search_keyword == '')-->
+                    {$lang->all}
+                    <!--@elseif($search_target == 'isvalid' && $search_keyword == 'Y')-->
+                    {$lang->is_valid}
+                    <!--@elseif($search_target == 'isvalid' && $search_keyword == 'N')-->
+                    {$lang->is_stand_by}
+                    <!--@end-->
+                    ({number_format($total_count)})
 				    <span class="side">
                         <span class="btn">
                             <a href="#listManager" class="modal-trigger">{$lang->file_manager}...</a>
@@ -59,59 +59,65 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 				</tr>
 			</tfoot>
 			<tbody>
-				<!--@foreach($file_list as $no => $val)-->
-					<!-- one document start -->
-					<!--@if($val->upload_target_srl != $cur_upload_target_srl)-->
-						<!--@if($val->upload_target_type == 'com')-->
-							{@ $document_srl = $val->target_document_srl}
-							{@ $move_uri = getUrl('', 'document_srl', $document_srl).'#comment_'.$val->upload_target_srl}
-						<!--@elseif($val->upload_target_type == 'doc')-->
-							{@ $document_srl = $val->upload_target_srl}
-							{@ $move_uri = getUrl('', 'document_srl', $document_srl)}
-						<!--@end-->
-						{@ $cur_upload_target_srl = $val->upload_target_srl}
-				<tr class="info">
-					<th colspan="8" class="text" scope="col">
-						<!--@if(!$val->upload_target_type)-->
-							<!--@if($val->isvalid=='Y')-->
-								{$lang->is_valid}
-							<!--@else-->
-								{$lang->is_stand_by}
-							<!--@end-->
-						<!--@else-->
-							<!--@if($val->upload_target_type == 'com')-->[{$lang->comment}] <!--@end-->
-							<!--@if($val->upload_target_type == 'mod')-->[{$lang->module}] <!--@end-->
+                <!--@if(count($file_list) > 0)-->
+                    <!--@foreach($file_list as $no => $val)-->
+                        <!-- one document start -->
+                        <!--@if($val->upload_target_srl != $cur_upload_target_srl)-->
+                            <!--@if($val->upload_target_type == 'com')-->
+                                {@ $document_srl = $val->target_document_srl}
+                                {@ $move_uri = getUrl('', 'document_srl', $document_srl).'#comment_'.$val->upload_target_srl}
+                            <!--@elseif($val->upload_target_type == 'doc')-->
+                                {@ $document_srl = $val->upload_target_srl}
+                                {@ $move_uri = getUrl('', 'document_srl', $document_srl)}
+                            <!--@end-->
+                            {@ $cur_upload_target_srl = $val->upload_target_srl}
+                    <tr class="info">
+                        <th colspan="8" class="text" scope="col">
+                            <!--@if(!$val->upload_target_type)-->
+                                <!--@if($val->isvalid=='Y')-->
+                                    {$lang->is_valid}
+                                <!--@else-->
+                                    {$lang->is_stand_by}
+                                <!--@end-->
+                            <!--@else-->
+                                <!--@if($val->upload_target_type == 'com')-->[{$lang->comment}] <!--@end-->
+                                <!--@if($val->upload_target_type == 'mod')-->[{$lang->module}] <!--@end-->
 
-							<!--@if($val->upload_target_type == 'doc' && $document_list[$document_srl] && $document_list[$document_srl]->get('module_srl') == $document_list[$document_srl]->get('member_srl'))-->[{$lang->cmd_temp_save}] <!--@end-->
-							<!--@if($val->upload_target_type == 'doc' && $document_list[$document_srl] && $document_list[$document_srl]->get('module_srl') == 0)-->[{$lang->cmd_trash}] <!--@end-->
-							<a href="{getUrl('', 'mid', $module_list[$val->module_srl]->mid)}" target="_blank">{$module_list[$val->module_srl]->browser_title}</a>
-							<!--@if($document_list[$document_srl] && ($val->upload_target_type == 'doc' || $val->upload_target_type == 'com'))-->
-							 - <!--@if($document_list[$document_srl]->get('module_srl') != $document_list[$document_srl]->get('member_srl'))--><a href="{$move_uri}" target="_blank">{$document_list[$document_srl]->getTitle()}</a><!--@else-->{$document_list[$document_srl]->getTitle()}<!--@end-->
-							<!--@end-->
-						<!--@end-->
-					</th>
-				</tr>
-					<!--@endif-->
-					<!-- one document end -->
-				<tr>
-					<td class="text"><a href="{$val->download_url}">{htmlspecialchars($val->source_filename)}</a></td>
-					<td class="nowr">{FileHandler::filesize($val->file_size)}</td>
-					<td class="nowr">{$val->download_count}</td>
-					<td class="nowr">
-						<!--@if($val->upload_target_type == 'doc' && $document_list[$document_srl])-->
-						<a href="#popup_menu_area" class="member_{$document_list[$document_srl]->get('member_srl')}">{$document_list[$document_srl]->getNickName()}</a>
-						<!--@elseif($val->upload_target_type == 'com' && $comment_list[$val->upload_target_srl])-->
-						<a href="#popup_menu_area" class="member_{$comment_list[$val->upload_target_srl]->get('member_srl')}">{$comment_list[$val->upload_target_srl]->getNickName()}</a>
-						<!--@end-->
-					</td>
-					<td class="nowr">{zdate($val->regdate,"Y-m-d H:i")}</td>
-					<td class="nowr"><a href="{getUrl('search_target','ipaddress','search_keyword',$val->ipaddress)}">{$val->ipaddress}</a></td>
-					<td class="nowr"><!--@if($val->isvalid=='Y')-->{$lang->is_valid}<!--@else-->{$lang->is_stand_by}<!--@end--></td>
-					<td>
-						<input type="checkbox" name="cart" value="{$val->file_srl}" />
-					</td>
-				</tr>
-				<!--@endforeach-->
+                                <!--@if($val->upload_target_type == 'doc' && $document_list[$document_srl] && $document_list[$document_srl]->get('module_srl') == $document_list[$document_srl]->get('member_srl'))-->[{$lang->cmd_temp_save}] <!--@end-->
+                                <!--@if($val->upload_target_type == 'doc' && $document_list[$document_srl] && $document_list[$document_srl]->get('module_srl') == 0)-->[{$lang->cmd_trash}] <!--@end-->
+                                <a href="{getUrl('', 'mid', $module_list[$val->module_srl]->mid)}" target="_blank">{$module_list[$val->module_srl]->browser_title}</a>
+                                <!--@if($document_list[$document_srl] && ($val->upload_target_type == 'doc' || $val->upload_target_type == 'com'))-->
+                                 - <!--@if($document_list[$document_srl]->get('module_srl') != $document_list[$document_srl]->get('member_srl'))--><a href="{$move_uri}" target="_blank">{$document_list[$document_srl]->getTitle()}</a><!--@else-->{$document_list[$document_srl]->getTitle()}<!--@end-->
+                                <!--@end-->
+                            <!--@end-->
+                        </th>
+                    </tr>
+                        <!--@endif-->
+                        <!-- one document end -->
+                    <tr>
+                        <td class="text"><a href="{$val->download_url}">{htmlspecialchars($val->source_filename)}</a></td>
+                        <td class="nowr">{FileHandler::filesize($val->file_size)}</td>
+                        <td class="nowr">{$val->download_count}</td>
+                        <td class="nowr">
+                            <!--@if($val->upload_target_type == 'doc' && $document_list[$document_srl])-->
+                            <a href="#popup_menu_area" class="member_{$document_list[$document_srl]->get('member_srl')}">{$document_list[$document_srl]->getNickName()}</a>
+                            <!--@elseif($val->upload_target_type == 'com' && $comment_list[$val->upload_target_srl])-->
+                            <a href="#popup_menu_area" class="member_{$comment_list[$val->upload_target_srl]->get('member_srl')}">{$comment_list[$val->upload_target_srl]->getNickName()}</a>
+                            <!--@end-->
+                        </td>
+                        <td class="nowr">{zdate($val->regdate,"Y-m-d H:i")}</td>
+                        <td class="nowr"><a href="{getUrl('search_target','ipaddress','search_keyword',$val->ipaddress)}">{$val->ipaddress}</a></td>
+                        <td class="nowr"><!--@if($val->isvalid=='Y')-->{$lang->is_valid}<!--@else-->{$lang->is_stand_by}<!--@end--></td>
+                        <td>
+                            <input type="checkbox" name="cart" value="{$val->file_srl}" />
+                        </td>
+                    </tr>
+                    <!--@endforeach-->
+                <!--@else-->
+                    <tr>
+                        <td colspan="8"><div class="text-center">{$lang->no_records}</div></td>
+                    </tr>
+                <!--@end-->
 			</tbody>
 		</table>
 		<div class="btnArea pull-right">
@@ -153,44 +159,7 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 	</form>
 </div>
 <div class="search">
-<form action="" class="pagination">
-	<input type="hidden" name="error_return_url" value="" />
-	<input type="hidden" name="module" value="{$module}" />
-	<input type="hidden" name="act" value="{$act}" />
-  	<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
-  	<input cond="$search_target" type="hidden" name="search_target" value="{$search_target}" />
-    <ul>
-        <li><a href="{getUrl('page', '')}" class="direction">&laquo; {$lang->first_page}</a></li>
-
-        <li cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
-            {@$isGoTo = true}
-            <a href="{getUrl('page', '')}">1</a>
-            <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-        </li>
-
-        <!--@while($page_no = $page_navigation->getNextPage())-->
-        {@$last_page = $page_no}
-        <li <!--@if($page == $page_no)-->
-        class="active"
-        <!--@end-->>
-        <a href="{getUrl('page', $page_no)}">{$page_no}</a>
-        </li>
-        <!--@end-->
-
-        <li cond="$last_page != $page_navigation->last_page">
-            {@$isGoTo = true}
-            <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-            <a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
-        </li>
-
-        <li><a href="{getUrl('page', $page_navigation->last_page)}" class="direction">{$lang->last_page} &raquo;</a></li>
-    </ul>
-	<span cond="$isGoTo" id="goTo" class="tgContent">
-		<input name="page" title="{$lang->cmd_go_to_page}" />
-		<button type="submit" class="btn">{$lang->go}</button>
-	</span>
-</form>
-
+<include target="../../admin/tpl/common/include.paging.html" />
 <form action="./" method="get" onsubmit="return checkSearch(this)" class="form-inline">
 	<input type="hidden" name="module" value="{$module}" />
 	<input type="hidden" name="act" value="{$act}" />

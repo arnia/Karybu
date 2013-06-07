@@ -39,18 +39,24 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 				</tr>
 			</tfoot>
 			<tbody>
-				<!--@foreach($trackback_list as $no => $val)-->
-				<tr>
-					<td class="text">
-						<a href="{getUrl('','document_srl',$val->document_srl)}#trackback_{$val->trackback_srl}" target="_blank">{htmlspecialchars($val->title)}</a>
-						<p>{$val->excerpt}</p>
-					</td>
-					<td class="nowr"><a href="{$val->url}" target="_blank">{htmlspecialchars($val->blog_name)}</a></td>
-					<td class="nowr">{zdate($val->regdate,"Y-m-d")}</td>
-					<td class="nowr"><a href="{getUrl('search_target','ipaddress','search_keyword',$val->ipaddress)}">{$val->ipaddress}</a></td>
-					<td><input type="checkbox" name="cart" value="{$val->trackback_srl}" /></td>
-				</tr>
-				<!--@end-->
+                <!--@if(count($trackback_list) > 0)-->
+                    <!--@foreach($trackback_list as $no => $val)-->
+                    <tr>
+                        <td class="text">
+                            <a href="{getUrl('','document_srl',$val->document_srl)}#trackback_{$val->trackback_srl}" target="_blank">{htmlspecialchars($val->title)}</a>
+                            <p>{$val->excerpt}</p>
+                        </td>
+                        <td class="nowr"><a href="{$val->url}" target="_blank">{htmlspecialchars($val->blog_name)}</a></td>
+                        <td class="nowr">{zdate($val->regdate,"Y-m-d")}</td>
+                        <td class="nowr"><a href="{getUrl('search_target','ipaddress','search_keyword',$val->ipaddress)}">{$val->ipaddress}</a></td>
+                        <td><input type="checkbox" name="cart" value="{$val->trackback_srl}" /></td>
+                    </tr>
+                    <!--@end-->
+                <!--@else-->
+                    <tr>
+                        <td colspan="5"><div class="text-center">{$lang->no_records}</div></td>
+                    </tr>
+                <!--@end-->
 			</tbody>
 		</table>
 		<div class="btnArea pull-right">
@@ -85,45 +91,8 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 	</form>
 </div>
 <div class="search">
-<form action="" class="pagination">
-	<input type="hidden" name="error_return_url" value="" />
-	<input type="hidden" name="module" value="{$module}" />
-	<input type="hidden" name="act" value="{$act}" />
-  	<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
-  	<input cond="$search_target" type="hidden" name="search_target" value="{$search_target}" />
-    <ul>
-        <li><a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a></li>
-
-        <li cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
-            {@$isGoTo = true}
-            <a href="{getUrl('page', '')}">1</a>
-            <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-        </li>
-
-        <!--@while($page_no = $page_navigation->getNextPage())-->
-        {@$last_page = $page_no}
-        <li <!--@if($page == $page_no)-->
-        class="active"
-        <!--@end-->>
-        <a href="{getUrl('page', $page_no)}">{$page_no}</a>
-        </li>
-        <!--@end-->
-
-        <li cond="$last_page != $page_navigation->last_page">
-            {@$isGoTo = true}
-            <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-            <a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
-        </li>
-
-        <li><a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a></li>
-    </ul>
-	<span cond="$isGoTo" id="goTo" class="tgContent">
-		<input name="page" title="{$lang->cmd_go_to_page}" />
-		<button type="submit">Go</button>
-	</span>
-</form>
-
-	<form action="" onsubmit="return checkSearch(this)" class="form-inline">
+<include target="../../admin/tpl/common/include.paging.html" />
+<form action="" onsubmit="return checkSearch(this)" class="form-inline">
 	<input type="hidden" name="module" value="{$module}" />
 	<input type="hidden" name="act" value="{$act}" />
 	<input type="hidden" name="module_srl" value="{$module_srl}" />

@@ -85,6 +85,7 @@
             $oPointModel = &getModel('point');
             $args = new stdClass();
             $args->list_count = 20;
+            $args->page_count = 20;
             $args->page = Context::get('page');
 
 			$oMemberModel = &getModel('member');

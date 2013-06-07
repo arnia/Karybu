@@ -304,6 +304,7 @@ class moduleModel extends module
         if (is_array($module_srls)) {
             $module_srls = implode(',', $module_srls);
         }
+        $args = new stdClass();
         $args->module_srls = $module_srls;
         $output = executeQueryArray('module.getModulesInfo', $args, $columnList);
         if (!$output->toBool()) {

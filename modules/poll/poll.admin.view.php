@@ -18,6 +18,7 @@
          **/
         function dispPollAdminList() {
             // Arrange the search options
+            $args = new stdClass();
             $search_target = trim(Context::get('search_target'));
             $search_keyword = trim(Context::get('search_keyword'));
 

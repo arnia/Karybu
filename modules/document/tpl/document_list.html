@@ -64,22 +64,27 @@
             </tr>
             </tfoot>
             <tbody>
-            <!--@foreach($document_list as $no => $oDocument)-->
-            <tr>
-                <td class="title"><a href="{getUrl('','document_srl',$oDocument->document_srl)}" target="_blank">
-                    <!--@if(trim($oDocument->getTitle()))-->{$oDocument->getTitle()}<!--@else--><em>{$lang->no_title_document}</em><!--@end-->
-                </a></td>
-                <td class="nowr"><a href="#popup_menu_area" class="member_{$oDocument->get('member_srl')}">{$oDocument->getNickName()}</a>
-                </td>
-                <td class="nowr">{$oDocument->get('readed_count')}</td>
-                <td class="nowr">{$oDocument->get('voted_count')}/{$oDocument->get('blamed_count')}</td>
-                <td class="nowr">{$oDocument->getRegdate("Y-m-d H:i")}</td>
-                <td class="nowr"><a
-                        href="{getUrl('search_target','ipaddress','search_keyword',$oDocument->get('ipaddress'))}">{$oDocument->get('ipaddress')}</a>
-                </td>
-                <td class="nowr">{$status_name_list[$oDocument->get('status')]}</td>
-                <td><input type="checkbox" name="cart" value="{$oDocument->document_srl}"/></td>
-            </tr>
+            <!--@if (count($document_list) > 0)-->
+                <!--@foreach($document_list as $no => $oDocument)-->
+                <tr>
+                    <td class="title"><a href="{getUrl('','document_srl',$oDocument->document_srl)}" target="_blank">
+                        <!--@if(trim($oDocument->getTitle()))-->{$oDocument->getTitle()}<!--@else--><em>{$lang->no_title_document}</em><!--@end-->
+                    </a></td>
+                    <td class="nowr"><a href="#popup_menu_area" class="member_{$oDocument->get('member_srl')}">{$oDocument->getNickName()}</a>
+                    </td>
+                    <td class="nowr">{$oDocument->get('readed_count')}</td>
+                    <td class="nowr">{$oDocument->get('voted_count')}/{$oDocument->get('blamed_count')}</td>
+                    <td class="nowr">{$oDocument->getRegdate("Y-m-d H:i")}</td>
+                    <td class="nowr"><a href="{getUrl('search_target','ipaddress','search_keyword',$oDocument->get('ipaddress'))}">{$oDocument->get('ipaddress')}</a>
+                    </td>
+                    <td class="nowr">{$status_name_list[$oDocument->get('status')]}</td>
+                    <td><input type="checkbox" name="cart" value="{$oDocument->document_srl}"/></td>
+                </tr>
+                <!--@end-->
+            <!--@else-->
+                <tr>
+                    <td colspan="8"><div class="text-center">{$lang->no_records}</div></td>
+                </tr>
             <!--@end-->
             </tbody>
         </table>
@@ -90,6 +95,8 @@
         </p>
     </div>
 </form>
+<include target="../../admin/tpl/common/include.paging.html" />
+<div class="clearfix"></div>
 <div class="modal hide fade" id="listManager">
     <form action="./" method="post" class="fg form" id="manageForm">
         <input type="hidden" name="module" value="document"/>
@@ -158,21 +165,6 @@
             <button type="submit" name="type" class="btn" value="copy">{$lang->cmd_copy}</button>
         </div>
     </form>
-</div>
-<div class="pagination">
-    <ul>
-        <li><a href="{getUrl('page','','module_srl','')}" class="direction">&lsaquo; {$lang->first_page}</a></li>
-        <!--@while($page_no = $page_navigation->getNextPage())-->
-        <li
-        <!--@if($page == $page_no)-->
-        class="active"
-        <!--@end-->
-        ><a href="{getUrl('page',$page_no,'module_srl','')}">{$page_no}</a></li>
-
-        <!--@end-->
-        <li><a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="direction">{$lang->last_page} &rsaquo;</a>
-        </li>
-    </ul>
 </div>
 <div class="search pull-right">
     <form action="./" method="get" class="form-inline" onsubmit="return checkSearch(this)">

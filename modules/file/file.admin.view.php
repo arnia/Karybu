@@ -50,16 +50,16 @@
                 foreach($output->data as $file) {
                     $file_srl = $file->file_srl;
                     $target_srl = $file->upload_target_srl;
-                    $file_update_args = null;
+                    $file_update_args = new stdClass();
                     $file_update_args->file_srl = $file_srl;
                     // Find and update if upload_target_type doesn't exist
                     if(!$file->upload_target_type) {
                         // Pass if upload_target_type is already found 
-                        if($document_list[$target_srl]) {
+                        if(!empty($document_list[$target_srl])) {
                             $file->upload_target_type = 'doc';
-                        } else if($comment_list[$target_srl]) {
+                        } else if(!empty($comment_list[$target_srl])) {
                             $file->upload_target_type = 'com';
-                        } else if($module_list[$target_srl]) {
+                        } else if(!empty($module_list[$target_srl])) {
                             $file->upload_target_type = 'mod';
                         } else {
                             // document
@@ -94,14 +94,26 @@
                             }
                         }
                         // Check if data is already obtained
-                        for($i = 0; $i < $com_srls_count; ++$i) {
-                            if($comment_list[$com_srls[$i]]) delete($com_srls[$i]);
+                        if (isset($com_srls_count)) {
+                            for($i = 0; $i < $com_srls_count; ++$i) {
+                                if($comment_list[$com_srls[$i]]) {
+                                    delete($com_srls[$i]);
+                                }
+                            }
                         }
-                        for($i = 0; $i < $doc_srls_count; ++$i) {
-                            if($document_list[$doc_srls[$i]]) delete($doc_srls[$i]);
+                        if (isset($doc_srls_count)) {
+                            for($i = 0; $i < $doc_srls_count; ++$i) {
+                                if($document_list[$doc_srls[$i]]) {
+                                    delete($doc_srls[$i]);
+                                }
+                            }
                         }
-                        for($i = 0; $i < $mod_srls_count; ++$i) {
-                            if($module_list[$mod_srls[$i]]) delete($mod_srls[$i]);
+                        if (isset($mod_srls_count)) {
+                            for($i = 0; $i < $mod_srls_count; ++$i) {
+                                if($module_list[$mod_srls[$i]]) {
+                                    delete($mod_srls[$i]);
+                                }
+                            }
                         }
                     }
 

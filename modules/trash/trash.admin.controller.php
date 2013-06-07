@@ -164,10 +164,13 @@ class trashAdminController extends trash
 	{
 		if(!Context::get('is_logged')) return new Object(-1,'msg_not_permitted');
 		$trashSrls = Context::get('trash_srls');
-		if($trashSrls) $trashSrlList = explode(',', $trashSrls);
+		if($trashSrls) {
+            $trashSrlList = explode(',', $trashSrls);
+        }
 
-		if(count($trashSrlList) > 0) {
+		if(isset($trashSrlList) && count($trashSrlList) > 0) {
 			$oTrashModel = &getModel('trash');
+            $args = new stdClass();
 			$args->trashSrl = $trashSrlList;
 			$output = $oTrashModel->getTrashList($args);
 			$trashList = $output->data;

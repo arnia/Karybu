@@ -8,7 +8,7 @@
     class materialAdminView extends material {
 
         /**
-         * @brief 초기화
+         * @brief Initialization
          **/
         function init() {
             $template_path = sprintf("%stpl/",$this->module_path);
@@ -22,6 +22,7 @@
             $args = new stdClass();
             $args->page = $page;
             $args->list_count=10;
+            $args->page_count=10;
             $args->member_srl = $logged_info->member_srl;
             $output = $oMaterialModel->getMaterialList($args);
             $bookmark_url = $oMaterialModel->getBookmarkUrl($logged_info->member_srl);

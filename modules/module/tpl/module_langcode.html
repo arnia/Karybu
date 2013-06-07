@@ -43,43 +43,7 @@
             </li>
         </ul>
     </fieldset>
-    <form action="" class="pagination">
-        <input type="hidden" name="error_return_url" value="" />
-        <input type="hidden" name="module" value="{$module}" />
-        <input type="hidden" name="act" value="{$act}" />
-        <input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
-        <input cond="$search_target" type="hidden" name="search_target" value="{$search_target}" />
-        <ul>
-            <li><a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a></li>
-
-            <li cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
-                {@$isGoTo = true}
-                <a href="{getUrl('page', '')}">1</a>
-                <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-            </li>
-
-            <!--@while($page_no = $page_navigation->getNextPage())-->
-            {@$last_page = $page_no}
-            <li <!--@if($page == $page_no)-->
-            class="active"
-            <!--@end-->>
-            <a href="{getUrl('page', $page_no)}">{$page_no}</a>
-            </li>
-            <!--@end-->
-
-            <li cond="$last_page != $page_navigation->last_page">
-                {@$isGoTo = true}
-                <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-                <a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
-            </li>
-
-            <li><a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a></li>
-        </ul>
-	<span cond="$isGoTo" id="goTo" class="tgContent">
-		<input name="page" title="{$lang->cmd_go_to_page}" />
-		<button type="submit">Go</button>
-	</span>
-    </form>
+    <include target="../../admin/tpl/common/include.paging.html" />
 </div>
 <div class="modal hide fade" id="addWord">
 	<form action="./" method="post" class="form mLangEdit fg" id="langForm_new" >
