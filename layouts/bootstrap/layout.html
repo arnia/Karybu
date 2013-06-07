@@ -1,5 +1,6 @@
 <load target="../../common/css/bootstrap.min.css" xmlns="http://www.w3.org/1999/html"/>
 <load target="../../common/css/bootstrap-responsive.min.css" xmlns="http://www.w3.org/1999/html"/>
+<load target="../../common/js/jquery.debouncedresize.js" />
 <load target="css/style.css"/>
 <load target="css/edit.css"/>
 
@@ -8,7 +9,7 @@
 <div id="header" class="zone">
         <!-- NAVBAR
         ================================================== -->
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" id="main-menu">
         <div class="navbar-inner">
             <div class="container">
                 <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -16,6 +17,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+
+                <div class="row-fluid"><div class="span12"> <img widget="login_info" skin="bootstrap"/></div></div>
                 <div class="row-fluid">
 
                     <a class="brand" href="{$layout_info->index_url}" cond="$layout_info->logo_image"><img src="{$layout_info->logo_image}" alt="{$layout_info->logo_image_alt}" border="0"/></a>
@@ -86,11 +89,11 @@
                     </div>
                     <!--/.nav-collapse -->
                 </div>
-                <div class="row-fluid"><div class="span12"> <img widget="login_info" skin="bootstrap"/></div></div>
             </div>
         </div>
+        <div class="navbar-coloured-bar"></div>
     </div>
-    <div class="navbar-coloured-bar"></div>
+
 </div><!--/.zone -->
 
 <div class="zone" id="main-content">
@@ -125,4 +128,21 @@
         </div>
     </div>
 
+<script type="text/javascript">
+    (function($){
+
+        $(window).load(function(){
+            var headerHeight = parseInt($("#main-menu").outerHeight());
+            $("#header").height(headerHeight);
+
+            $(window).on("debouncedresize", function(){
+                var headerHeight = parseInt($("#main-menu").outerHeight());
+                $("#header").height(headerHeight);
+            });
+        });
+
+    })(jQuery);
+
+
+</script>
 <load target="../../common/js/bootstrap.js" />

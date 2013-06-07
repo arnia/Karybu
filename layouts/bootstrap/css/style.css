@@ -55,20 +55,30 @@
     margin-bottom: 1em;
 }
 
-#main-content {
-    margin-top: 80px;
-}
 
 
 #header {
     border: none;
 }
 
-#header .container {
-    padding-top: 0px;
-    padding-bottom: 0px;
+
+
+#header .navbar .nav {
+    top:10px;
 }
 
+
+
+.dropdown-menu > li > a {
+    line-height: 30px;
+}
+
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li.active > a {
+    background: #24A4D3;
+    background: rgba(36, 164, 211, 0.75);
+}
 
 /*
 a {
@@ -524,6 +534,11 @@ footer {
     margin-bottom: 20px;
 }
 
+
+
+
+
+
 /* Mobile views */
 
 @media (min-width: 768px) and (max-width: 979px) {
@@ -620,7 +635,7 @@ footer {
 
 
 .admin {
-    padding: 8px 8px 7px 8px !important;
+    padding: 7px 8px !important;
 }
 
 .btn.admin i {
@@ -671,6 +686,10 @@ a.image-holder:hover img {
 
 /* MENU */
 
+#header .nav > li > a {
+    border-right: 1px solid rgba(122, 122, 122, 0.2);;
+}
+
 .dropdown-menu {
     list-style: none;
     background-color: #111111;
@@ -708,11 +727,11 @@ a.member-image img{
     height:28px;
 }
 
+
+
 /* Bootstrap tweaks */
 
-#main-content {
-    margin-top: 80px;
-}
+
 
 .carousel-caption h1,
 .carousel-caption h2,
@@ -738,7 +757,7 @@ a.member-image img{
 #header a.brand {
     display: block;
     float: left;
-    margin-bottom: -44px;
+    margin: -34px 0 -44px -20px;
     position: relative;
 }
 
@@ -751,7 +770,7 @@ a.member-image img{
 }
 
 .navbar-fixed-top .navbar-inner {
-    padding-bottom: 10px;
+
 }
 
 @media (max-width: 979px) {
@@ -767,11 +786,43 @@ a.member-image img{
         margin-top: 50px;
     }
 
-    #main-content {
-        margin-top: -20px;
+    .zone .container {
+        border: none;
     }
 
+    #header a.brand {
+        margin: -70px 0 -44px -0;
+    }
 
+    #header {
+        height: auto!important;
+    }
 
 }
 
+
+@media (max-width: 767px) {
+
+    .zone .container {
+        border: none;
+    }
+
+    #header a.brand {
+        margin: -44px 0 -44px -0;
+    }
+
+    #header a.brand img {
+        max-height: 48px;
+    }
+
+    .zone .container {
+        padding-left: 0;
+        padding-right: 0;
+        overflow: hidden;
+    }
+
+    #header {
+        height: auto!important;
+    }
+
+}
