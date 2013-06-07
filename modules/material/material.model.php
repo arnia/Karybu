@@ -31,7 +31,8 @@
 			
 			$args->member_srl = $obj->member_srl;
             $args->sort_index = $sort_index;
-            $args->list_count = $obj->list_count ? $obj->list_count : 20;
+            $args->list_count = !empty($obj->list_count) ? $obj->list_count : 20;
+            $args->page_count = !empty($obj->page_count) ? $obj->page_count : 20;
             $args->page = $obj->page ? $obj->page : 1;
             $output = executeQueryArray('material.getMaterialList', $args);
 

@@ -42,48 +42,49 @@
 			<td><input type="checkbox" name="cart" value="{$val->module_srl}" class="selectedModule" data-mid="{$val->mid}" data-browser_title="{$val->browser_title}" /></td>
 		</tr>
 		<tr cond="!$board_list">
-			<td>{$lang->no_board_instance}</td>
+			<td colspan="7"><div class="text-center">{$lang->no_board_instance}</div></td>
 		</tr>
 	</tbody>
 </table>
-
-
-<form cond="$page_navigation" action="./" class="pagination pull-left" no-error-return-url="true" style="margin-top:0">
+<include target="../../admin/tpl/common/include.paging.html" />
+<div class="clearfix"></div>
+<div style="display:none">
+    <form cond="$page_navigation" action="./" class="pagination pull-left" no-error-return-url="true" style="margin-top:0">
     {@
-        $urlInfo = parse_url(getRequestUriByServerEnviroment());
-        parse_str($urlInfo['query'], $param);
+    $urlInfo = parse_url(getRequestUriByServerEnviroment());
+    parse_str($urlInfo['query'], $param);
     }
     <input loop="$param => $key, $val" cond="!in_array($key, array('mid', 'vid', 'act'))" type="hidden" name="{$key}" value="{$val}" />
     <ul>
-        <li class="disabled"|cond="!$page || $page == 1"><a href="{getUrl('page', '')}">&laquo; {$lang->first_page}</a></li>
-        <block cond="$page_navigation->first_page != 1 && $page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page - 1 && $page_navigation->page_count != $page_navigation->total_page">
-        {@$isGoTo = true}
-        <li>
-            <a href="#goTo" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
-            <span cond="$isGoTo" id="goTo" class="input-append">
-                <input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
-                <button type="submit" class="add-on">Go</button>
-            </span>
-        </li>
-        </block>
-        <!--@while($page_no = $page_navigation->getNextPage())-->
-        {@$last_page = $page_no}
-        <li class="active"|cond="$page_no == $page"><a  href="{getUrl('page', $page_no)}">{$page_no}</a></li>
-        <!--@end-->
-        <block cond="$last_page != $page_navigation->last_page && $last_page + 1 != $page_navigation->last_page">
-        {@$isGoTo = true}
-        <li>
-            <a href="#goTo" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
-            <span cond="$isGoTo" id="goTo" class="input-append">
-                <input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
-                <button type="submit" class="add-on">Go</button>
-            </span>
-        </li>
-        </block>
-        <li class="disabled"|cond="$page == $page_navigation->last_page"><a href="{getUrl('page', $page_navigation->last_page)}" title="{$page_navigation->last_page}">{$lang->last_page} &raquo;</a></li>
+    <li class="disabled"|cond="!$page || $page == 1"><a href="{getUrl('page', '')}">&laquo; {$lang->first_page}</a></li>
+    <block cond="$page_navigation->first_page != 1 && $page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page - 1 && $page_navigation->page_count != $page_navigation->total_page">
+    {@$isGoTo = true}
+    <li>
+    <a href="#goTo" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
+    <span cond="$isGoTo" id="goTo" class="input-append">
+    <input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
+    <button type="submit" class="add-on">Go</button>
+    </span>
+    </li>
+    </block>
+    <!--@while($page_no = $page_navigation->getNextPage())-->
+    {@$last_page = $page_no}
+    <li class="active"|cond="$page_no == $page"><a  href="{getUrl('page', $page_no)}">{$page_no}</a></li>
+    <!--@end-->
+    <block cond="$last_page != $page_navigation->last_page && $last_page + 1 != $page_navigation->last_page">
+    {@$isGoTo = true}
+    <li>
+    <a href="#goTo" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
+    <span cond="$isGoTo" id="goTo" class="input-append">
+    <input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
+    <button type="submit" class="add-on">Go</button>
+    </span>
+    </li>
+    </block>
+    <li class="disabled"|cond="$page == $page_navigation->last_page"><a href="{getUrl('page', $page_navigation->last_page)}" title="{$page_navigation->last_page}">{$lang->last_page} &raquo;</a></li>
     </ul>
-</form>
-
+    </form>
+</div>
 <span class="pull-right">
     <a class="btn btn-primary" href="{getUrl('act','dispBoardAdminInsertBoard','module_srl','')}">{$lang->cmd_create_board}</a>
     <a class="btn _manage_selected" href="#manageSelectedModule">{$lang->cmd_manage_selected_board}</a>

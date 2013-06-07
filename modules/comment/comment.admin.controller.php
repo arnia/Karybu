@@ -264,7 +264,7 @@
 		 */
         function procCommentAdminCancelDeclare() {
             $comment_srl = trim(Context::get('comment_srl'));
-
+            $args = new stdClass();
             if($comment_srl) {
                 $args->comment_srl = $comment_srl;
                 $output = executeQuery('comment.deleteDeclaredComments', $args);
@@ -290,8 +290,12 @@
 			{
 				foreach($output AS $key=>$value)
 				{
-					if($_SESSION['comment_management'][$key]) unset($_SESSION['comment_management'][$key]);
-					else $_SESSION['comment_management'][$key] = true;
+					if($_SESSION['comment_management'][$key]) {
+                        unset($_SESSION['comment_management'][$key]);
+                    }
+					else {
+                        $_SESSION['comment_management'][$key] = true;
+                    }
 				}
 			}
 		}

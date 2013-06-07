@@ -3816,4 +3816,8 @@
     <item name="cancel_confirm">
         <value xml:lang="en"><![CDATA[Are you sure you want to cancel the modifications?]]></value>
     </item>
+    <item name="no_records">
+        <value xml:lang="en"><![CDATA[There are no records.]]></value>
+    </item>
+
 </lang>

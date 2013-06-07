@@ -147,18 +147,26 @@
             // fetch from a database
             $args->comment_srls = $comment_srls;
 			$output = executeQuery('comment.getComments', $args, $columnList);
-            if(!$output->toBool()) return;
+            if(!$output->toBool()) {
+                return;
+            }
             $comment_list = $output->data;
-            if(!$comment_list) return;
-            if(!is_array($comment_list)) $comment_list = array($comment_list);
+            if(!$comment_list) {
+                return;
+            }
+            if(!is_array($comment_list)) {
+                $comment_list = array($comment_list);
+            }
 
             $comment_count = count($comment_list);
             foreach($comment_list as $key => $attribute) {
-                if(!$attribute->comment_srl) continue;
+                if(!$attribute->comment_srl) {
+                    continue;
+                }
                 $oComment = null;
                 $oComment = new commentItem();
                 $oComment->setAttribute($attribute);
-                if($is_admin) $oComment->setGrant();
+                //if($is_admin) $oComment->setGrant();
 
                 $result[$attribute->comment_srl] = $oComment;
             }
@@ -271,7 +279,7 @@
 				{
                     if (isset($module->module_srl)) {
                         $module_info = $oModuleModel->getModuleInfoByModuleSrl($module->module_srl);
-                        $result[$module->module_srl] = $module_info->mid;
+                        $result[$module->module_srl] = isset($module_info->mid) ? $module_info->mid : null;
                     }
 				}
 			}

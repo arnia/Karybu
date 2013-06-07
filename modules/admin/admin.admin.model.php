@@ -628,7 +628,7 @@
             $result->total_visitor = isset($output->data->count) ? $output->data->count : 0;
             $output = executeQuery('admin.getTotalSiteVisitors');
             $result->total_visitor += $output->data->count;
-            $result->visitor = $visitors[date("Ymd")];
+            $result->visitor = isset($visitors[date("Ymd")]) ? $visitors[date("Ymd")] : 0;
 
             return $result;
         }

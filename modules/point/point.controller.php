@@ -300,7 +300,7 @@
             $oPointModel = &getModel('point');
             $cur_point = $oPointModel->getPoint($member_srl, true);
 
-            $point = $module_config['upload_file'];
+            $point = isset($module_config['upload_file']) ? $module_config['upload_file'] : null;
             if(!isset($point)) $point = $config->upload_file;
             // Increase the point
             $cur_point -= $point;

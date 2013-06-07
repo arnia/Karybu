@@ -472,6 +472,9 @@
 		 * @return void
          **/
         function setUploadInfo($editor_sequence, $upload_target_srl=0) {
+            if (!is_object($_SESSION['upload_info'][$editor_sequence])){
+                $_SESSION['upload_info'][$editor_sequence] = new stdClass();
+            }
             $_SESSION['upload_info'][$editor_sequence]->enabled = true;
             $_SESSION['upload_info'][$editor_sequence]->upload_target_srl = $upload_target_srl;
         }

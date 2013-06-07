@@ -43,18 +43,24 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
             </tr>
             </tfoot>
             <tbody>
-            <!--@foreach($poll_list as $no => $val)-->
-            <tr>
-                <td class="title"><a href="<!--@if($val->document_srl)-->{getUrl('')}?document_srl={$val->document_srl}<!--@end--><!--@if($val->comment_srl)-->#comment_{$val->comment_srl}<!--@end-->" target="_blank">{$val->title}</a></td>
-                <td class="nowr"><!--@if($val->checkcount == 1)-->{$lang->single_check}<!--@else-->{$lang->multi_check}<!--@end--></td>
-                <td class="nowr">{$val->poll_count}</td>
-                <td class="nowr"><a href="#popup_menu_area" class="member_{$val->member_srl}">{$val->nick_name}</a></td>
-                <td class="nowr">{zdate($val->poll_regdate,"Y-m-d H:i")}</td>
-                <td class="nowr">{zdate($val->poll_stop_date,"Y-m-d")}</td>
-                <td>
-                    <input type="checkbox" name="cart" value="{$val->poll_index_srl}" />
-                </td>
-            </tr>
+            <!--@if(count($poll_list)>0)-->
+                <!--@foreach($poll_list as $no => $val)-->
+                <tr>
+                    <td class="title"><a href="<!--@if($val->document_srl)-->{getUrl('')}?document_srl={$val->document_srl}<!--@end--><!--@if($val->comment_srl)-->#comment_{$val->comment_srl}<!--@end-->" target="_blank">{$val->title}</a></td>
+                    <td class="nowr"><!--@if($val->checkcount == 1)-->{$lang->single_check}<!--@else-->{$lang->multi_check}<!--@end--></td>
+                    <td class="nowr">{$val->poll_count}</td>
+                    <td class="nowr"><a href="#popup_menu_area" class="member_{$val->member_srl}">{$val->nick_name}</a></td>
+                    <td class="nowr">{zdate($val->poll_regdate,"Y-m-d H:i")}</td>
+                    <td class="nowr">{zdate($val->poll_stop_date,"Y-m-d")}</td>
+                    <td>
+                        <input type="checkbox" name="cart" value="{$val->poll_index_srl}" />
+                    </td>
+                </tr>
+                <!--@end-->
+            <!--@else-->
+                <tr>
+                    <td colspan="7"><div class="text-center">{$lang->no_records}</div></td>
+                </tr>
             <!--@end-->
             </tbody>
         </table>
@@ -63,6 +69,7 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
         </div>
     </form>
 </fieldset>
+<include target="../../admin/tpl/common/include.paging.html" />
 <div class="modal hide fade x in" id="listManager" style="display: block;" aria-hidden="false">
 	<form ruleset="deleteChecked" action="./" method="post" class="fg form">
 	<input type="hidden" name="module" value="poll" />
@@ -96,41 +103,9 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 	</form>
 </div>
 <div class="search">
-<form action="" class="pagination">
-	<input type="hidden" name="error_return_url" value="" />
-	<input type="hidden" name="module" value="{$module}" />
-	<input type="hidden" name="act" value="{$act}" />
-  	<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
-  	<input cond="$search_target" type="hidden" name="search_target" value="{$search_target}" />
 
-    <ul>
-        <li><a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a></li>
-        <block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
-            {@$isGoTo = true}
-            <li><a href="{getUrl('page', '')}">1</a></li>
-            <li><a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a></li>
-        </block>
-        <!--@while($page_no = $page_navigation->getNextPage())-->
-        {@$last_page = $page_no}
-        <li <!--@if($page == $page_no)-->
-        class="active"
-        <!--@end-->><a href="#"><strong cond="$page_no == $page">{$page_no}</strong></a></li>
-        <a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a>
-        <!--@end-->
-        <block cond="$last_page != $page_navigation->last_page">
-            {@$isGoTo = true}
-            <li><a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a></li>
-            <li><a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a></li>
-        </block>
-        <li><a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a></li>
-	    <span cond="$isGoTo" id="goTo" class="tgContent">
-		    <input name="page" title="{$lang->cmd_go_to_page}" />
-		    <button class="btn" type="submit">Go</button>
-	    </span>
-    </ul>
-</form>
 
-	<form action="./" method="get" onsubmit="return checkSearch(this)" class="form form-inline">
+<form action="./" method="get" onsubmit="return checkSearch(this)" class="form form-inline">
 	<input type="hidden" name="module" value="{$module}" />
 	<input type="hidden" name="act" value="{$act}" />
 	<input type="hidden" name="error_return_url" value="" />

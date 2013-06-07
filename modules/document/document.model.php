@@ -1188,6 +1188,7 @@ class documentModel extends document
     function getTrashList($obj)
     {
         // Variable check
+        $args = new stdClass();
         $args->category_srl = $obj->category_srl ? $obj->category_srl : null;
         $args->sort_index = $obj->sort_index;
         $args->order_type = $obj->order_type ? $obj->order_type : 'desc';

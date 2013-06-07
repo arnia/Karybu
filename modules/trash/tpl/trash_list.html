@@ -7,127 +7,94 @@ var no_text_comment = '{$lang->no_text_comment}';
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
-	<form ruleset="emptyTrash" action="./" method="post" class="form">
-		<input type="hidden" name="module" value="trash" />
-		<input type="hidden" name="act" value="procTrashAdminEmptyTrash" />
-		<input type="hidden" name="page" value="{$page}" />
-		<input type="hidden" name="is_all" value="true" />
-		<h3 class="h3">{$lang->trash}</h3>
-		<div class="table even">
-			<table class="table table-bordered table-condensed table-hover" id="trashListTable">
-				<caption>
-                    <p class="pull-right">
-                        {$lang->trash}({number_format($total_count)})
-                    <span class="side" >
-                        <a class="btn" href="#listManager" data-toggle="modal" onclick="getTrashList();">{$lang->document_manager}</a>
-					    <button class="btn btn-danger" type="submit" name="is_all" value="true">{$lang->empty_trash_all}</button>
-                    </span>
-                    </p>
-				</caption>
-				<thead>
-					<tr>
-						<th scope="col" class="title">{$lang->document}({$lang->origin_module_type})</th>
-						<th scope="col" class="nowr">{$lang->trash_nick_name}</th>
-						<th scope="col" class="nowr">{$lang->trash_date}</th>
-						<th scope="col" class="nowr">{$lang->ipaddress}</th>
-						<th scope="col" class="title">{$lang->trash_description}</th>
-						<th scope="col"><input type="checkbox" title="Check All" data-name="cart" /></th>
-					</tr>
-				</thead>
-				<tfoot>
-					<tr>
-						<th scope="col" class="title">{$lang->document}({$lang->origin_module_type})</th>
-						<th scope="col" class="nowr">{$lang->trash_nick_name}</th>
-						<th scope="col" class="nowr">{$lang->trash_date}</th>
-						<th scope="col" class="nowr">{$lang->ipaddress}</th>
-						<th scope="col" class="title">{$lang->trash_description}</th>
-						<th scope="col"><input type="checkbox" title="Check All" data-name="cart" /></th>
-					</tr>
-				</tfoot>
-				<tbody>
-    				<!--@foreach($trash_list as $no => $oTrashVO)-->
-					<tr>
-						<td class="title"><!--@if(!trim($oTrashVO->getTitle()) && $oTrashVO->getOriginModule() == 'comment')--><strong>{$lang->no_text_comment}</strong><!--@else-->{$oTrashVO->getTitle()}<!--@end--> (<!--@if($oTrashVO->getOriginModule() == 'document')-->{$lang->document}<!--@else-->{$lang->comment}<!--@end-->)</td>
-						<td class="nowr"><span class="member_{$oTrashVO->getRemoverSrl()}">{htmlspecialchars($oTrashVO->getNickName())}</span></td>
-						<td class="nowr">{zdate($oTrashVO->getRegdate(), "Y-m-d H:i:s")}</td>
-						<td class="nowr">{$oTrashVO->getIpaddress()}</td>
-						<td class="title">{$oTrashVO->getDescription()}</td>
-						<td><input type="checkbox" name="cart" value="{$oTrashVO->getTrashSrl()}" /></td>
-					</tr>
-    				<!--@end-->
-				</tbody>
-			</table>
-		</div>
-		<div class="btnArea pull-right">
-			<a class="btn" href="#listManager" data-toggle="modal" onclick="getTrashList();">{$lang->document_manager}</a>
-			<button class="btn btn-danger" type="submit" name="is_all" value="true">{$lang->empty_trash_all}</button>
-		</div>
-	</form>
-	<div class="modal hide fade" id="listManager">
-		<form ruleset="emptyTrash" id="fo_list" action="./" method="post" class="fg form">
-		<input type="hidden" name="module" value="trash" />
-		<input type="hidden" name="act" value="procTrashAdminEmptyTrash" />
-		<input type="hidden" name="page" value="{$page}" />
-		<input type="hidden" name="is_all" value="false" />
-		<input type="hidden" name="origin_module" value="{$origin_module}" />
-			<h3 class="h3">{$lang->document_manager}</h3>
-			<div class="table even">
-				<table  class="table table-bordered table-condensed table-hover" id="trashManageListTable">
-					<caption>{$lang->selected_document} <strong id="selectedTrashCount">0</strong></caption>
-					<thead>
-						<tr>
-							<th scope="col" class="title">{$lang->document}</th>
-							<th scope="col" class="nowr">{$lang->trash_nick_name}</th>
-							<th scope="col" class="nowr">{$lang->ipaddress}</th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
-			</div>
-			<div class="btnArea">
-				<button class="btn btn-danger" type="submit" name="is_all" value="false">{$lang->cmd_delete}</button>
-				<button class="btn btn-primary" type="submit" name="act" value="procTrashAdminRestore">{$lang->cmd_restore}</button>
-			</div>
-		</form>
-	</div>
-<div class="search">
-	<form action="" class="pagination">
-	<input type="hidden" name="error_return_url" value="" />
-	<input type="hidden" name="module" value="{$module}" />
-	<input type="hidden" name="act" value="{$act}" />
-  	<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />
-  	<input cond="$search_target" type="hidden" name="search_target" value="{$search_target}" />
-
-        <ul>
-            <li><a href="{getUrl('page', '')}" class="direction">&laquo; FIRST</a></li>
-
-            <li cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
-                {@$isGoTo = true}
-                <a href="{getUrl('page', '')}">1</a>
-                <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-            </li>
-
-            <!--@while($page_no = $page_navigation->getNextPage())-->
-            {@$last_page = $page_no}
-            <li <!--@if($page == $page_no)-->
-            class="active"
-            <!--@end-->>
-            <a href="{getUrl('page', $page_no)}">{$page_no}</a>
-            </li>
-            <!--@end-->
-
-            <li cond="$last_page != $page_navigation->last_page">
-                {@$isGoTo = true}
-                <a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-                <a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
-            </li>
-
-            <li><a href="{getUrl('page', $page_navigation->last_page)}" class="direction">LAST &raquo;</a></li>
-        </ul>
-	<span cond="$isGoTo" id="goTo" class="tgContent">
-		<input name="page" title="{$lang->cmd_go_to_page}" />
-		<button type="submit">Go</button>
-	</span>
-	</form>
+<form ruleset="emptyTrash" action="./" method="post" class="form">
+    <input type="hidden" name="module" value="trash" />
+    <input type="hidden" name="act" value="procTrashAdminEmptyTrash" />
+    <input type="hidden" name="page" value="{$page}" />
+    <input type="hidden" name="is_all" value="true" />
+    <h3 class="h3">{$lang->trash}</h3>
+    <div class="table even">
+        <table class="table table-bordered table-condensed table-hover" id="trashListTable">
+            <caption>
+                <p class="pull-right">
+                    {$lang->trash}({number_format($total_count)})
+                <span class="side" >
+                    <a class="btn" href="#listManager" data-toggle="modal" onclick="getTrashList();">{$lang->document_manager}</a>
+                    <button class="btn btn-danger" type="submit" name="is_all" value="true">{$lang->empty_trash_all}</button>
+                </span>
+                </p>
+            </caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="title">{$lang->document}({$lang->origin_module_type})</th>
+                    <th scope="col" class="nowr">{$lang->trash_nick_name}</th>
+                    <th scope="col" class="nowr">{$lang->trash_date}</th>
+                    <th scope="col" class="nowr">{$lang->ipaddress}</th>
+                    <th scope="col" class="title">{$lang->trash_description}</th>
+                    <th scope="col"><input type="checkbox" title="Check All" data-name="cart" /></th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th scope="col" class="title">{$lang->document}({$lang->origin_module_type})</th>
+                    <th scope="col" class="nowr">{$lang->trash_nick_name}</th>
+                    <th scope="col" class="nowr">{$lang->trash_date}</th>
+                    <th scope="col" class="nowr">{$lang->ipaddress}</th>
+                    <th scope="col" class="title">{$lang->trash_description}</th>
+                    <th scope="col"><input type="checkbox" title="Check All" data-name="cart" /></th>
+                </tr>
+            </tfoot>
+            <tbody>
+                <!--@if(count($trash_list))-->
+                    <!--@foreach($trash_list as $no => $oTrashVO)-->
+                    <tr>
+                        <td class="title"><!--@if(!trim($oTrashVO->getTitle()) && $oTrashVO->getOriginModule() == 'comment')--><strong>{$lang->no_text_comment}</strong><!--@else-->{$oTrashVO->getTitle()}<!--@end--> (<!--@if($oTrashVO->getOriginModule() == 'document')-->{$lang->document}<!--@else-->{$lang->comment}<!--@end-->)</td>
+                        <td class="nowr"><span class="member_{$oTrashVO->getRemoverSrl()}">{htmlspecialchars($oTrashVO->getNickName())}</span></td>
+                        <td class="nowr">{zdate($oTrashVO->getRegdate(), "Y-m-d H:i:s")}</td>
+                        <td class="nowr">{$oTrashVO->getIpaddress()}</td>
+                        <td class="title">{$oTrashVO->getDescription()}</td>
+                        <td><input type="checkbox" name="cart" value="{$oTrashVO->getTrashSrl()}" /></td>
+                    </tr>
+                    <!--@end-->
+                <!--@else-->
+                    <tr>
+                        <td colspan="6"><div class="text-center">{$lang->no_records}</div></td>
+                    </tr>
+                <!--@end-->
+            </tbody>
+        </table>
+    </div>
+    <div class="btnArea pull-right">
+        <a class="btn" href="#listManager" data-toggle="modal" onclick="getTrashList();">{$lang->document_manager}</a>
+        <button class="btn btn-danger" type="submit" name="is_all" value="true">{$lang->empty_trash_all}</button>
+    </div>
+</form>
+<div class="modal hide fade" id="listManager">
+    <form ruleset="emptyTrash" id="fo_list" action="./" method="post" class="fg form">
+    <input type="hidden" name="module" value="trash" />
+    <input type="hidden" name="act" value="procTrashAdminEmptyTrash" />
+    <input type="hidden" name="page" value="{$page}" />
+    <input type="hidden" name="is_all" value="false" />
+    <input type="hidden" name="origin_module" value="{$origin_module}" />
+        <h3 class="h3">{$lang->document_manager}</h3>
+        <div class="table even">
+            <table  class="table table-bordered table-condensed table-hover" id="trashManageListTable">
+                <caption>{$lang->selected_document} <strong id="selectedTrashCount">0</strong></caption>
+                <thead>
+                    <tr>
+                        <th scope="col" class="title">{$lang->document}</th>
+                        <th scope="col" class="nowr">{$lang->trash_nick_name}</th>
+                        <th scope="col" class="nowr">{$lang->ipaddress}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="btnArea">
+            <button class="btn btn-danger" type="submit" name="is_all" value="false">{$lang->cmd_delete}</button>
+            <button class="btn btn-primary" type="submit" name="act" value="procTrashAdminRestore">{$lang->cmd_restore}</button>
+        </div>
+    </form>
 </div>
+<include target="../../admin/tpl/common/include.paging.html" />
