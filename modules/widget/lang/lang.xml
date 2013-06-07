@@ -365,7 +365,7 @@
 	</item>
 	<item name="about_widget_code_in_page">
 		<value xml:lang="ko"><![CDATA[아래 필요한 값들을 입력하신 후 추가 버튼을 누르시면 페이지 내에 위젯이 삽입됩니다.]]></value>
-		<value xml:lang="en"><![CDATA[After entering the required values, click the [Add] button to insert the widget code into the page.]]></value>
+		<value xml:lang="en"><![CDATA[After entering the required values, click the [Generate code] button to insert the widget code into the page.]]></value>
 		<value xml:lang="jp"><![CDATA[下記に必要な値を入力した後、追加ボタンをクリックするとページ内にウィジェットが挿入されます。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[输入下列各项必要值后，按『生成代码』按钮，即可把控件插入到页面当中。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[輸入下列各項必要資料後，按『建立原始碼』按鈕，即可把 Widget 插入到頁面當中。]]></value>
