@@ -759,6 +759,7 @@ a.member-image img{
     float: left;
     margin: -34px 0 -44px -20px;
     position: relative;
+    min-height: 64px;
 }
 
 #header a.brand img {
