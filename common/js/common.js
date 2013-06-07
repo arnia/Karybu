@@ -1084,3 +1084,12 @@ function karybuCheckAllCheckboxes(elem,selector){
         jQuery(selector).removeAttr('checked');
     }
 }
+function goToPage(elem){
+    var value = parseInt(jQuery(elem).val());
+    if (!isNaN(value)){
+        window.location.href = current_url.setQuery('page', value);
+    }
+    else{
+        jQuery(elem).focus();
+    }
+}

@@ -812,15 +812,19 @@ class DBMysql extends DB
         }
 
         // check the page variables
-        if ($page > $total_page) {
-            // If requested page is bigger than total number of pages, return empty list
-            $buff = new Object ();
-            $buff->total_count = $total_count;
-            $buff->total_page = $total_page;
-            $buff->page = $page;
-            $buff->data = array();
-            $buff->page_navigation = new PageHandler($total_count, $total_page, $page, $page_count);
-            return $buff;
+//        if ($page > $total_page) {
+//            // If requested page is bigger than total number of pages, return empty list
+//            $buff = new Object ();
+//            $buff->total_count = $total_count;
+//            $buff->total_page = $total_page;
+//            $buff->page = $page;
+//            $buff->data = array();
+//            $buff->page_navigation = new PageHandler($total_count, $total_page, $page, $page_count);
+//            return $buff;
+//        }
+        //if current page bigger than total pages, current page becomes last page
+        if ($page > $total_page){
+            $page = $total_page;
         }
         $start_count = ($page - 1) * $page_count;
 

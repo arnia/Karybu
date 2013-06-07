@@ -17,7 +17,11 @@
         var $page_count = 10; ///< number of page links displayed at one time
         var $first_page = 1; ///< first page number
         var $last_page = 1; ///< last page number
-        var $point = 0; ///< increments per getNextPage() 
+        var $point = 0; ///< increments per getNextPage()
+
+        var $frameLength = 5;
+        var $frameStart = 0;
+        var $frameEnd = 0;
 
         /**
          * constructor
@@ -43,6 +47,28 @@
             $this->last_page = $last_page;
 
             if($total_page < $this->page_count) $this->page_count = $total_page;
+
+            if ($total_page <= $this->getFrameLength()){
+                $this->frameStart = 1;
+                $this->frameEnd = $total_page;
+            }
+            else{
+                $half = ceil($this->getFrameLength() / 2);
+                if ($cur_page >= $half && $cur_page <= $total_count - $half){
+                    $this->frameStart  = ($cur_page - $half) + 1;
+                    $this->frameEnd = min(($this->frameStart + $this->getFrameLength()) - 1, $total_page);
+                    $this->frameStart  = $this->frameEnd - $this->getFrameLength() + 1;
+                }
+                elseif($cur_page < $half){
+                    $this->frameStart = 1;
+                    $this->frameEnd = $this->getFrameLength();
+                }
+                elseif($cur_page > $total_count - $half) {
+                    $this->frameEnd = $total_count;
+                    $this->frameStart = min($this->frameEnd - $this->getFrameLength() + 1, $total_page);
+                }
+            }
+
         }
 
         /**
@@ -64,5 +90,39 @@
 		{
 			return max(min($this->cur_page + $offset, $this->total_page), '');
 		}
+        function canShowFirst(){
+            return ($this->frameStart > 1);
+        }
+        function canShowLast(){
+            return ($this->frameEnd < $this->total_page);
+        }
+        function canShowGapStart(){
+            if (!$this->canShowFirst()){
+                return false;
+            }
+            return $this->frameStart > 2;
+        }
+        function canShowGapEnd(){
+            if (!$this->canShowLast()){
+                return false;
+            }
+            return $this->frameEnd < $this->total_page - 1;
+        }
+        function getFrameLength(){
+            //1 or 2 page numbers look ugly
+            if ($this->frameLength < 3){
+                $this->frameLength = 3;
+            }
+            else{
+                //ensure the frame is odd
+                //( (n-1) / 2 - previous pages
+                // 1 - current page
+                // (n-1) / 2 - next pages
+                if ($this->frameLength % 2 == 0 ){
+                    $this->frameLength++;
+                }
+            }
+            return $this->frameLength;
+        }
     }
 ?>
