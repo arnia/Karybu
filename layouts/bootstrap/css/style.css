@@ -794,6 +794,10 @@ a.member-image img{
         margin: -70px 0 -44px -0;
     }
 
+    #header {
+        height: auto!important;
+    }
+
 }
 
 
@@ -817,5 +821,8 @@ a.member-image img{
         overflow: hidden;
     }
 
+    #header {
+        height: auto!important;
+    }
 
 }
