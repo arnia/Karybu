@@ -827,3 +827,90 @@ a.member-image img{
     }
 
 }
+
+/* pagination */
+
+.pagination {
+    margin-top: 10px;
+}
+
+.pagination ul {
+    border: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+input#current_page {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    text-align: center;
+    width: 40px;
+    margin-left: -1px;
+    font-size: 16px;
+    z-index: 99;
+    position: relative;
+    outline: 1px solid rgba(109,117,135,0.3);
+}
+
+input#current_page:hover {
+    outline: 1px solid rgba(109,117,135,0.6);
+}
+
+input#current_page:focus {
+    outline: 1px solid rgba(109,117,135,0.9);
+    box-shadow: none;
+}
+
+.btn-goto {
+    display: block;
+    position: absolute;
+    z-index: 0;
+    width: 54px;
+    background: #6d7587;
+    text-align: center;
+    height: 30px;
+    padding-top: 2px;
+    margin-top: 0;
+    border-radius: 0 0 4px 4px;
+    margin-left: -1px;
+    z-index: 1;
+    opacity: 0;
+    transition:.3s;
+    margin-top: -40px;
+
+}
+
+.btn-goto.btn-v {
+    margin-top: -10px;
+    margin-left: -1px;
+    opacity: 1;
+    transition:.3s;
+}
+
+.btn-goto button {
+    opacity: 0;
+    transition:.1s;
+}
+
+.btn-goto.btn-v button {
+    opacity: 1;
+    transition:.7s;
+}
+
+.pagination ul > li > a.clear,
+.pagination ul > li > span.clear {
+    border-color: transparent;
+    border-right: 1px solid #dddddd;
+}
+
+.pagination ul > li > a.clear:hover,
+.pagination ul > li > span.clear:hover {
+    cursor: default;
+    background: none;
+}
+
+.pagination ul > li > a.direction {
+    font-size: 18pt;
+}
