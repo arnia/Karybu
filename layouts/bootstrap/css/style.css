@@ -968,3 +968,11 @@ input#current_page:focus {
     float: left;
     margin-right:10px ;
 }
+
+
+
+/* FREAKING IE8 TWEAK */
+
+#header .navbar-inner {
+    filter:none;
+}
