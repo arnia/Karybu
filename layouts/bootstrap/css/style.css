@@ -452,6 +452,7 @@ input[type="color"]:focus,
 }
 
 .features h3 {
+    border-bottom: 1px dashed #e3e3e3;
     border-bottom: 1px dashed rgba(122, 122, 122, 0.3);
     padding: 16px 0px;
     font-weight: normal;
@@ -479,7 +480,9 @@ input[type="color"]:focus,
     padding: 40px 0px;
     font-weight: normal;
     text-align: center;
+    border-top: 1px dashed #e3e3e3;
     border-top: 1px dashed rgba(122, 122, 122, 0.3);
+    border-bottom: 1px dashed #e3e3e3;;
     border-bottom: 1px dashed rgba(122, 122, 122, 0.3);
     background: url("../img/hash.png");
 }
@@ -535,6 +538,7 @@ footer {
 
 .footerwidgets h4 {
     padding: 20px 0px 10px 0px;
+    border-bottom: 1px dashed #e3e3e3;;
     border-bottom: 1px dashed rgba(122, 122, 122, 0.3);
     margin-bottom: 20px;
 }
@@ -692,6 +696,7 @@ a.image-holder:hover img {
 /* MENU */
 
 #header .nav > li > a {
+    border-right: 1px solid #282828;
     border-right: 1px solid rgba(122, 122, 122, 0.2);;
 }
 
@@ -946,6 +951,7 @@ input#current_page:focus {
     background: none;
     padding: 0;
     border: none;
+    border-bottom: 1px dashed #e3e3e3;
     border-bottom: 1px dashed rgba(122, 122, 122, 0.3);
     margin-bottom: 20px;
     box-shadow: none;
