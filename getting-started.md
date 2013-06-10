@@ -34,6 +34,8 @@ layout: default
 
 Download the latest stable version of Karybu as a [zip](https://github.com/arnia/Karybu/archive/master.zip) or [tar.gz](https://github.com/arnia/Karybu/archive/master.tar.gz) archive.
 
+All the releases can be found [here] (./downloads.html).
+
 
 <div id="composer" class="tab-pane"></div>
 
