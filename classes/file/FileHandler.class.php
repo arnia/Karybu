@@ -715,7 +715,7 @@ class FileHandlerInstance
      * @param string $thumbnail_type Thumbnail type(crop, ratio)
      * @return bool true: success, false: failed
      **/
-    function createImageFile(
+    static function createImageFile(
         $source_file,
         $target_file,
         $resize_width = 0,

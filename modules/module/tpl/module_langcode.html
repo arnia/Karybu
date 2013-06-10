@@ -64,14 +64,5 @@
 	</div>
 	</form>
 </div>
-<div class="search">
-	<form action="./" method="get">
-	<input type="hidden" name="module" value="{$module}" />
-	<input type="hidden" name="act" value="{$act}" />
-	<input type="hidden" name="search_target" value="value" />
-	<input type="hidden" name="error_return_url" value="" />
-	<input type="hidden" name="target" value="{$target}" />
-	<input title="search" name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
-	<button class="btn" type="submit">{$lang->cmd_search}</button>
-	</form>
-</div>
+{@$search_target_list = null}
+<include target="../../admin/tpl/common/include.search.html" />
