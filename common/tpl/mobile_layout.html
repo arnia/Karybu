@@ -58,6 +58,10 @@
     {Context::getHtmlHeader()}
 </head>
 <body{Context::getBodyClass()}>
+<script type="text/javascript">
+    var form_key = '{$form_key}';
+    var form_key_name = '{$form_key_name}';
+</script>
     {Context::getBodyHeader()}
 
     {$content}

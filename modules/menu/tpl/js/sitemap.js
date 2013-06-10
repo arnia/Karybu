@@ -12,7 +12,7 @@ xe.lang.grant_to_login_user = $grant_lang.eq(1).text();
 xe.lang.grant_to_group = $grant_lang.eq(2).text();
 $lang.empty();
 
-$('form.siteMap')
+$('form.siteMap, form.mobileSiteMap')
 	.delegate('li:not(.placeholder)', 'dropped.st', function() {
 		var $this = $(this), $pkey, $mkey, is_child;
 
@@ -107,7 +107,9 @@ $('form.siteMap')
 		htmlBuffer += '>'+xe.lang.grant_to_login_user+'</option> <option value=""';
 		if(menuItem.group_srls != null &&menuItem.group_srls.item!='-1') htmlBuffer += ' selected="selected" ';
 		htmlBuffer += '>'+xe.lang.grant_to_group+'</option></select> <div id="zone_menu_grant"';
-		if(!menuItem.group_srls == null ||menuItem.group_srls.item=='-1') htmlBuffer +='style="display:none"';
+		if(!(menuItem.group_srls == null)) {
+            if(menuItem.group_srls.item=='-1') htmlBuffer +='style="display:none"';
+        }
 		htmlBuffer +='>';
 
 		for(x in menuItem.groupList.item)

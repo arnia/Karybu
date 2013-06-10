@@ -1,10 +1,9 @@
 <li>
-<!--
     <input type="text" name="parent_key[]" value="{$item['parent_srl']}" title="parent" class="_parent_key input-mini disabled" />
     <input type="text" name="item_key[]" value="{$item['node_srl']}" title="node_srl" class="_item_key  input-mini disabled" />
     <input type="text" name="module_srl[]" value="{$item['module_srl']}" title="module_srl" class="_module_srl_key input-mini disabled" />
     <input type="text" name="item_layout_key[]" value="{$item['layout_srl']}" title="layout_key" class="_item_layout_key input-mini disabled" />
--->
+
 
     <strong>
         <!--@if($item['href'])-->
@@ -16,7 +15,7 @@
 
     <div class="siteMapMenu">
         <div class="kActionIcons">
-            <button><i class="kConfigure">Configure</i></button>
+            <button type="button"><i class="kConfigure">Configure</i></button>
         </div>
         <div class="mobile-move">
             <a href="#" class="move-up"><i class="icon-chevron-up"></i></a>
@@ -24,6 +23,26 @@
             <a href="#" class="move-down"><i class="icon-chevron-down"></i></a>
             <a href="#" class="move-left"><i class="icon-chevron-left"></i></a>
             <span></span>
+        </div>
+        <div class="modal hide fade configureMenu">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">x</button>
+                <h4>{$item['text']}</h4>
+            </div>
+            <div class="modal-body">
+                <!--<button class="btn btn-large btn-block">Layout Settings</button>-->
+                <!--<button class="btn btn-large btn-block">Module Settings</button>-->
+                <!--<button class="btn btn-large btn-block">Menu Settings</button>-->
+                <!--<button class="btn btn-large btn-block">Delete</button>-->
+
+                <block cond="$item['layout_srl']"><a href="{getUrl('act', 'dispLayoutAdminModify', 'layout_srl', $item['layout_srl'])}" class="_edit_layout btn btn-large btn-block">{$lang->cmd_layout_management}</a> | </block>
+                <block cond="$item['setup_index_act']"><a href="{getUrl('', 'module', 'admin', 'act', $item['setup_index_act'], 'module_srl', $item['module_srl'])}" class="_edit_module btn btn-large btn-block">{$lang->cmd_module_manangement}</a> | </block>
+                <a href="#editMenu" class="_edit btn btn-large btn-block" data-toggle="modal" data-dismiss="modal">{$lang->cmd_menu_management}</a> |
+                <a href="#delete" class="_delete btn btn-large btn-block" data-dismiss="modal">{$lang->cmd_delete}</a> |
+                <a href="#editMenu" class="_add _child" data-toggle="modal" data-dismiss="modal">{$lang->add}</a>
+            </div>
+            <div class="modal-footer">
+            </div>
         </div>
     </div>
 

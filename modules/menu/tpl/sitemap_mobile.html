@@ -1,3 +1,7 @@
+<load target="./js/menu_admin.js" usecdn="true" />
+<load target="../../admin/tpl/js/sitemap.js" usecdn="true" />
+<load target="./js/sitemap.js" usecdn="true" />
+
 <script type="text/javascript">
     xe.lang.confirm_delete = "Are you sure you want to delete?";
     xe.current_layout = {$current_layout};
@@ -19,13 +23,15 @@
             $(".mobileSiteMap li:first-child > .siteMapMenu .move-up").addClass("inactive");
             $(".mobileSiteMap li:last-child > .siteMapMenu .move-down").addClass("inactive");
             $(".mobileSiteMap > fieldset > ul > li > .siteMapMenu > .mobile-move > .move-left").addClass("inactive");
+            $(".mobileSiteMap li:first-child > .siteMapMenu .move-right").addClass("inactive");
             $(".mobileSiteMap li ul li:first-child > .siteMapMenu .move-right").addClass("inactive");
         }
 
         $(document).ready(function() {
             updateMobileMenu();
 
-            $(".mobileSiteMap").on("click", ".mobile-move a", function() {
+            $(".mobileSiteMap:not(.modal)").on("click", ".mobile-move a", function(e) {
+                console.log(".mobile-move a" + e.target);
                 if($(this).hasClass("inactive")) {
                     return;
                 }
@@ -50,7 +56,17 @@
 
                 updateMobileMenu();
 
-            }).on("click", "li", function(){
+            }).on("click", ".kActionIcons button", function(e) {
+                console.log(".kActionIcons button" + e.target);
+
+                var item = $(this).closest("li");
+                item.find(".configureMenu").modal();
+                return false;
+
+            }).on("click", "li", function(e) {
+                console.log("li " + e.target);
+                if(!$(e.target).is("li")) return true;
+
                 $(".mobileSiteMap li").removeClass("focused");
                 $(this).addClass("focused");
                 return false;
@@ -95,9 +111,7 @@
     </form>
 </block>
 
-    <form action="./" method="post"><input type="hidden" name="error_return_url"
-                                           value="http://localhost/Karybu/admin/dispMenuAdminSiteMap"/><input
-            type="hidden" name="mid" value=""/><input type="hidden" name="vid" value=""/>
+    <form action="./" method="post">
         <input type="hidden" name="module" value="admin"/>
         <input type="hidden" name="act" value="procMenuAdminInsert"/>
         <input type="hidden" name="title" value="No Title"/>
@@ -108,29 +122,8 @@
         </div>
     </form>
 
-    <div class="modal hide" id="myModal">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">x</button>
-            <h4>First Item Settings</h4>
 
 
-
-
-        </div>
-        <div class="modal-body">
-            <button class="btn btn-large btn-block">Layout Settings</button>
-
-
-            <button class="btn btn-large btn-block">Module Settings</button>
-
-            <button class="btn btn-large btn-block">Menu Settings</button>
-
-            <button class="btn btn-large btn-block">Delete</button>
-        </div>
-        <div class="modal-footer">
-
-        </div>
-    </div>
 
     <div class="modal hide fade" id="editMenu">
         <form id="editForm" action="./" method="post" enctype="multipart/form-data" class="form"><input type="hidden"
