@@ -177,6 +177,9 @@
             Context::set('total_page', $output->total_page);
             Context::set('page', $output->page);
             Context::set('page_navigation', $output->page_navigation);
+            $csrf = new \Karybu\Security\Csrf();
+            Context::set('form_key_name', $csrf->getFormKeyName());
+            Context::set('form_key', $csrf->getSessionFormKey());
             // Set a template
 			$security = new Security();
 			$security->encodeHTML('file_list..source_filename','file_list..ipaddress');

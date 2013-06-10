@@ -147,7 +147,7 @@
          **/
         function procFileDownload() {
             $oFileModel = &getModel('file');
-
+            $args = new stdClass();
             $file_srl = Context::get('file_srl');
             $sid = Context::get('sid');
             $logged_info = Context::get('logged_info');
@@ -276,7 +276,6 @@
 
             exit();
         }
-
         /**
          * Delete an attachment from the editor
 		 *

@@ -171,6 +171,7 @@
 		 * @return Object|object|array If error returns an instance of Object. If result set is one returns a object that contins file information. If result set is more than one returns array of object.
          **/
         function getFile($file_srl, $columnList = array()) {
+            $args = new stdClass();
             $args->file_srl = $file_srl;
             $output = executeQueryArray('file.getFile', $args, $columnList);
             if(!$output->toBool()) return $output;

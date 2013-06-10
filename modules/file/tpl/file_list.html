@@ -95,7 +95,17 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
                         <!--@endif-->
                         <!-- one document end -->
                     <tr>
-                        <td class="text"><a href="{$val->download_url}">{htmlspecialchars($val->source_filename)}</a></td>
+                        <td class="text">
+                            <form action="./" method="post" id="download_{$val->file_srl}">
+                                <input type="hidden" name="act" value="procFileDownload" />
+                                <input type="hidden" name="module" value="file" />
+                                <input type="hidden" name="file_srl" value="{$val->file_srl}" />
+                                <input type="hidden" name="sid" value="{$val->sid}" />
+                                <input type="hidden" name="{$form_key_name}" value="{$form_key}" />
+                                <a href="#" onclick="jQuery('#download_{$val->file_srl}').submit();">{htmlspecialchars($val->source_filename)}</a>
+                            </form>
+
+                        </td>
                         <td class="nowr">{FileHandler::filesize($val->file_size)}</td>
                         <td class="nowr">{$val->download_count}</td>
                         <td class="nowr">
