@@ -31,7 +31,7 @@
          * @param int $page_count number of page links displayed at one time 
 		 * @return void
          **/
-        function PageHandler($total_count, $total_page, $cur_page, $page_count = 10) {
+        function PageHandler($total_count, $total_page, $cur_page, $page_count = 5) {
             $this->frameLength = $page_count;
 
             $this->total_count = $total_count;
