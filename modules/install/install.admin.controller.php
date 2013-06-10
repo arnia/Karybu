@@ -97,18 +97,26 @@
 			$db_info->use_mobile_view = $use_mobile_view;
 			$db_info->admin_ip_list = $admin_ip_list;
 
-			if($http_port) $db_info->http_port = (int) $http_port;
-            else if($db_info->http_port) unset($db_info->http_port);
+			if(!empty($http_port)) {
+                $db_info->http_port = (int) $http_port;
+            }
+            else if(!empty($db_info->http_port)) {
+                unset($db_info->http_port);
+            }
 
-            if($https_port) $db_info->https_port = (int) $https_port;
-            else if($db_info->https_port) unset($db_info->https_port);
+            if(!empty($https_port)) {
+                $db_info->https_port = (int) $https_port;
+            }
+            else if(!empty($db_info->https_port)) {
+                unset($db_info->https_port);
+            }
 
             unset($db_info->lang_type);
             Context::setDBInfo($db_info);
 
             $oInstallController = &getController('install');
             $oInstallController->makeConfigFile();
-
+            $site_args = new stdClass();
             $site_args->site_srl = 0;
             $site_args->index_module_srl = Context::get('index_module_srl');
             $site_args->default_language = Context::get('change_lang_type');
@@ -175,7 +183,7 @@
 
 			$selected_lang = Context::get('selected_lang');
 			$this->saveLangSelected($selected_lang);
-
+            $config = new stdClass();
 			$config->thumbnail_type = Context::get('thumbnail_type');
 			$config->htmlFooter = Context::get('htmlFooter');
 			$this->setModulesConfig($config);
@@ -207,19 +215,24 @@
 		}
 
 		function setModulesConfig($config) {
-
-			if(!$config->thumbnail_type || $config->thumbnail_type != 'ratio' ) $args->thumbnail_type = 'crop';
-			else $args->thumbnail_type = 'ratio';
+            $args = new stdClass();
+			if(!$config->thumbnail_type || $config->thumbnail_type != 'ratio' ) {
+                $args->thumbnail_type = 'crop';
+            }
+			else {
+                $args->thumbnail_type = 'ratio';
+            }
 
 			$oModuleController = &getController('module');
 			$oModuleController->insertModuleConfig('document',$args);
 			
 			unset($args);
-			
+			$args = new stdClass();
 			$args->htmlFooter = $config->htmlFooter;
 			$oModuleController->insertModuleConfig('module',$args);
 
-			return $output;
+			//return $output;
+            return null;
 		}
 
 		function saveIcon($icon,$iconname) {

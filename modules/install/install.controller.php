@@ -677,7 +677,7 @@ class installController extends install
             $destination = './files/config/'.$file.'.yml';
             $source = '../../config/'.$file.'.base.yml';
             $values = array();
-            $values['imports'][0][resource] = '../../config/'.$file.'.base.yml';
+            $values['imports'][0]['resource'] = '../../config/'.$file.'.base.yml';
             $dumper = new \Symfony\Component\Yaml\Dumper();
             $content = $dumper->dump($values, 2);
             FileHandler::writeFile($destination, $content);
