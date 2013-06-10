@@ -101,7 +101,7 @@
             // Change the query id if selected_group_srl exists (for table join)
             $sort_order = Context::get('sort_order');
             $sort_index = Context::get('sort_index');
-            if(!$sort_index) {
+            if(!$sort_index || !in_array($sort_index, array('regdate', 'last_login'))) {
                 $sort_index = "list_order";
             }
 

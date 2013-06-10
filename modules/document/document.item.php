@@ -593,6 +593,9 @@ class documentItem extends Object
     {
         $content = $this->getContent(false, false);
 
+        //remove script tags
+        $content = preg_replace('%<script\b[^>]*>([\s\S]*?)<\/script>%', '', $content);
+
         // For a newlink, inert a whitespace
         $content = preg_replace('!(<br[\s]*/{0,1}>[\s]*)+!is', ' ', $content);
 

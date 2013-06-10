@@ -32,6 +32,8 @@
 		 * @return void
          **/
         function PageHandler($total_count, $total_page, $cur_page, $page_count = 10) {
+            $this->frameLength = $page_count;
+
             $this->total_count = $total_count;
             $this->total_page = $total_page;
             $this->cur_page = $cur_page;
@@ -90,26 +92,49 @@
 		{
 			return max(min($this->cur_page + $offset, $this->total_page), '');
 		}
+
+        /**
+         * check if first page can be shown
+         * @return bool
+         */
         function canShowFirst(){
             return ($this->frameStart > 1);
         }
+        /**
+         * check if last page can be shown
+         * @return bool
+         */
         function canShowLast(){
             return ($this->frameEnd < $this->total_page);
         }
+
+        /**
+         * check if there is a gap between first and current page
+         * @return bool
+         */
         function canShowGapStart(){
             if (!$this->canShowFirst()){
                 return false;
             }
             return $this->frameStart > 2;
         }
+        /**
+         * check if there is a gap between current page and last page
+         * @return bool
+         */
         function canShowGapEnd(){
             if (!$this->canShowLast()){
                 return false;
             }
             return $this->frameEnd < $this->total_page - 1;
         }
+
+        /**
+         * get the length of the page frame
+         * @return int
+         */
         function getFrameLength(){
-            //1 or 2 page numbers look ugly
+            //1 or 2 pages look ugly
             if ($this->frameLength < 3){
                 $this->frameLength = 3;
             }
