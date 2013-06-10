@@ -155,47 +155,11 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 </div>
 <include target="../../admin/tpl/common/include.paging.html" />
 <div class="search">
-<!--<form action="./" class="pagination">-->
-	<!--<input type="hidden" name="error_return_url" value="" />-->
-	<!--<input type="hidden" name="module" value="{$module}" />-->
-	<!--<input type="hidden" name="act" value="{$act}" />-->
-  	<!--<input cond="$search_keyword" type="hidden" name="search_keyword" value="{$search_keyword}" />-->
-  	<!--<input cond="$search_target" type="hidden" name="search_target" value="{$search_target}" />-->
-
-	<!--<ul>-->
-        <!--<li><a href="{getUrl('page', '')}" class="direction">&laquo; {$lang->first_page}</a></li>-->
-        <!--<block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">-->
-            <!--{@$isGoTo = true}-->
-            <!--<li><a href="{getUrl('page', '')}">1</a></li>-->
-            <!--<li><a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a></li>-->
-        <!--</block>-->
-        <!--&lt;!&ndash;@while($page_no = $page_navigation->getNextPage())&ndash;&gt;-->
-            <!--{@$last_page = $page_no}-->
-            <!--<li &lt;!&ndash;@if($page == $page_no)&ndash;&gt;-->
-                <!--class="active"-->
-                <!--&lt;!&ndash;@end&ndash;&gt;>-->
-                <!--<a href="#"><strong cond="$page_no == $page">{$page_no}</strong></a>-->
-            <!--</li>-->
-            <!--<li><a cond="$page_no != $page" href="{getUrl('page', $page_no)}">{$page_no}</a></li>-->
-        <!--&lt;!&ndash;@end&ndash;&gt;-->
-        <!--<block cond="$last_page != $page_navigation->last_page">-->
-            <!--{@$isGoTo = true}-->
-            <!--<li><a href="#goTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a></li>-->
-            <!--<li><a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a></li>-->
-        <!--</block>-->
-        <!--<li><a href="{getUrl('page', $page_navigation->last_page)}" class="direction">{$lang->last_page} &raquo;</a></li>-->
-    <!--</ul>-->
-    <!--<span cond="$isGoTo" id="goTo" class="tgContent">-->
-		<!--<input name="page" title="{$lang->cmd_go_to_page}" />-->
-		<!--<button class="btn" type="submit">Go</button>-->
-	<!--</span>-->
-<!--</form>-->
-
-<form action="./" method="get" class="adminSearch form-inline" onsubmit="return checkSearch(this)">
-	<input type="hidden" name="module" value="{$module}" />
-	<input type="hidden" name="act" value="{$act}" />
-	<input type="hidden" name="module_srl" value="{$module_srl}" />
-	<input type="hidden" name="error_return_url" value="" />
+    <form action="./" method="get" class="adminSearch form-inline" onsubmit="return checkSearch(this)">
+        <input type="hidden" name="module" value="{$module}" />
+        <input type="hidden" name="act" value="{$act}" />
+        <input type="hidden" name="module_srl" value="{$module_srl}" />
+        <input type="hidden" name="error_return_url" value="" />
 		<select name="search_target">
 			<option value="">{$lang->search_target}</option>
 			<!--@foreach($lang->search_target_list as $key => $val)-->

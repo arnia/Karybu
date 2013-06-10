@@ -1331,9 +1331,9 @@ jQuery(function($){
                     });
 
                 $('#FileBoxGoTo')
-                    .find('button')
+                    .find('button, #go-cmd')
                     .bind('click', function(){
-                        var page = $(this).prev('input').val();
+                        var page = $('#current_page').val();
 
                         $.exec_json('module.getFileBoxListHtml', {'page': page}, on_complete);
                         if ($(anchor).find('.modalClose').length) {

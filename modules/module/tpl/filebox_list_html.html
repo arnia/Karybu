@@ -12,28 +12,8 @@
         </li>
         <!--@if($allow_multiple)--><li><a href="#" class="select">Select</a></li><!--@end-->
     </ul>
-    <div class="pagination" cond="$page_navigation">
-        <a href="#" class="direction" page="1">&laquo; {$lang->first_page}</a>
-        <block cond="$page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page && $page_navigation->page_count != $page_navigation->total_page">
-            {@$isGoTo = true}
-            <a href="#" page="1">1</a>
-            <a href="#FileBoxGoTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-        </block>
-        <block loop="$page_no = $page_navigation->getNextPage()">
-            {@$last_page = $page_no}
-            <strong cond="$page_no == $page">{$page_no}</strong>
-            <a cond="$page_no != $page" href="#" page="{$page_no}">{$page_no}</a>
-        </block>
-        <block cond="$last_page != $page_navigation->last_page">
-            {@$isGoTo = true}
-            <a href="#FileBoxGoTo" class="tgAnchor" title="{$lang->cmd_go_to_page}">...</a>
-            <a href="#" page="{$page_navigation->last_page}">{$page_navigation->last_page}</a>
-        </block>
-        <a href="#" page="{$page_navigation->last_page}" class="direction">{$lang->last_page} &raquo;</a>
-        <span cond="$isGoTo" id="FileBoxGoTo" class="tgContent">
-            <input name="page" title="{$lang->cmd_go_to_page}" />
-            <button>{$lang->go}</button>
-        </span>
+    <div id="FileBoxGoTo">
+        <include target="../../admin/tpl/common/include.paging.html" />
     </div>
 </div>
 <script type="text/javascript">

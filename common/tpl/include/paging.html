@@ -1,12 +1,15 @@
-<!--@if($page_navigation->total_page > 1 )-->
-<!--@if($page > $page_navigation->total_page)-->
-    {@$page = $page_navigation->total_page}
+<!--@if(!$page_navigation)-->
+    {@ $page_navigation = $output->page_navigation}
+    <!--@if($page > $page_navigation->total_page)-->
+        {@$page = $page_navigation->total_page}
+    <!--@end-->
 <!--@end-->
-<div class="pagination">
+<!--@if($page_navigation->total_page > 1 )-->
+<div class="pagination a1">
     <ul>
         <li
         <!--@if(1 == $page)--> class="active"<!--@end-->>
-        <a class="direction" page="{$page-1}" href="<!--@if(1 == $page)-->#<!--@else-->{getUrl('page', $page-1)}<!--@end-->"<!--@if(1 == $page)-->
+        <a class="direction" href="<!--@if(1 == $page)-->#<!--@else-->{getUrl('page', $page-1)}<!--@end-->"<!--@if(1 == $page)-->
         onclick="return false;"<!--@end-->>‹</a>
         </li>
         <!--@if($page_navigation->canShowFirst())-->
@@ -21,7 +24,7 @@
         <!--@for ($i = $page_navigation->frameStart; $i<=$page_navigation->frameEnd;$i++)-->
         <li<!--@if($i == $page)--> class="active"<!--@end-->>
         <!--@if($i != $page)-->
-        <a href="{getUrl('page', $i)}" page="{$i}">{$i}</a>
+        <a href="{getUrl('page', $i)}">{$i}</a>
         <!--@else-->
         <div class="pull-left">
             <input type="text" size="3" id="current_page" name="page" value="{$page}" autocomplete="off" />
@@ -36,12 +39,12 @@
         <!--@end-->
         <!--@if($page_navigation->canShowLast())-->
         <li>
-            <a href="{getUrl('page', $page_navigation->last_page)}" page="{$page_navigation->last_page}">{$page_navigation->last_page}</a>
+            <a href="{getUrl('page', $page_navigation->last_page)}">{$page_navigation->last_page}</a>
         </li>
         <!--@end-->
         <li
         <!--@if($page_navigation->last_page == $page)--> class="active"<!--@end-->>
-        <a class="direction" page="{$page+1}"
+        <a class="direction"
            href="<!--@if($page_navigation->last_page == $page)-->#<!--@else-->{getUrl('page', $page+1)}<!--@end-->"<!--@if($page_navigation->last_page == $page)-->
         onclick="return false;"<!--@end-->>›</a>
         </li>

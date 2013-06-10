@@ -36,21 +36,6 @@
     </ul>
 
     <!--@if($where == 'document' && $output->page_navigation)-->
-        <div class="pagination">
-            <ul>
-                <li href="{getAutoEncodedUrl('page','')}" class="prevEnd">{$lang->first_page}</li>
-                <!--@while($page_no = $output->page_navigation->getNextPage())-->
-                    <!--@if($page == $page_no)-->
-                        <strong>{$page_no}</strong>
-                    <!--@else-->
-                        <li href="{getAutoEncodedUrl('page',$page_no)}">{$page_no}</li>
-                    <!--@end-->
-                <!--@end-->
-                <li href="{getAutoEncodedUrl('page',$output->page_navigation->last_page)}" <!--@if(!$last_division)-->class="nextEnd"<!--@end-->>{$lang->last_page}</li>
-                <!--@if($last_division)-->
-                <li href="{getAutoEncodedUrl('page',1,'document_srl','','search_target',$search_target,'is_keyword',$is_keyword,'division',$last_division,'last_division','')}" class="nextEnd">{$lang->cmd_search_next}</li>
-                <!--@end-->
-            </ul>
-        </div>
+        <include target="../../../../common/tpl/include/paging.html" />
     <!--@end-->
 <!--@end-->

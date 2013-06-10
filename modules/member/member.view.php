@@ -383,7 +383,6 @@
             $args->member_srl = $logged_info->member_srl;
             $args->page = (int)Context::get('page');
 			$args->statusList = array('TEMP');
-
             $oDocumentModel = &getModel('document');
             $output = $oDocumentModel->getDocumentList($args, true);
             Context::set('total_count', $output->total_count);

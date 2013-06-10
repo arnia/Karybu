@@ -32,7 +32,7 @@
 		 * @return void
          **/
         function PageHandler($total_count, $total_page, $cur_page, $page_count = 5) {
-            $this->frameLength = $page_count;
+            //$this->frameLength = $page_count;
 
             $this->total_count = $total_count;
             $this->total_page = $total_page;

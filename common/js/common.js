@@ -219,24 +219,20 @@ jQuery(function($) {
     });
 
     jQuery("#current_page").blur(function () {
-        $(this).next('.btn-goto').removeClass('btn-v').addClass('btn-h');
+        var that = this;
+        setTimeout(function(){
+            $(that).next('.btn-goto').removeClass('btn-v').addClass('btn-h');
+        }, '200');
     });
 
 
     jQuery('#current_page').keypress(function(e) {
         if(e.which == 13) {
             $(this).blur();
-            $(this).next('.btn-goto').children('button').focus().click();
+            $(this).next('.btn-goto').children('a').focus().click();
         }
     });
-
-
-
-
-
-
-
-    });
+});
 
 (function(){ // String extension methods
 
@@ -1114,8 +1110,11 @@ function karybuCheckAllCheckboxes(elem,selector){
 }
 function goToPage(elem){
     var value = parseInt(jQuery(elem).val());
+    var parent = jQuery(elem).closest('#FileBoxGoTo');
     if (!isNaN(value)){
-        window.location.href = current_url.setQuery('page', value);
+        if (!parent.length){
+            window.location.href = current_url.setQuery('page', value);
+        }
     }
     else{
         jQuery(elem).focus();
