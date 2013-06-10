@@ -208,7 +208,35 @@ jQuery(function($) {
 			};
 		}(), 3000);
 	});
-});
+
+
+    jQuery("#current_page").focus(function () {
+        $(this).next('.btn-goto').removeClass('btn-h').addClass('btn-v');
+    });
+
+    jQuery("#current_page").click(function () {
+        $(this).select();
+    });
+
+    jQuery("#current_page").blur(function () {
+        $(this).next('.btn-goto').removeClass('btn-v').addClass('btn-h');
+    });
+
+
+    jQuery('#current_page').keypress(function(e) {
+        if(e.which == 13) {
+            $(this).blur();
+            $(this).next('.btn-goto').children('button').focus().click();
+        }
+    });
+
+
+
+
+
+
+
+    });
 
 (function(){ // String extension methods
 
