@@ -33,10 +33,27 @@ $('form.siteMap, form.mobileSiteMap')
 
 	$('a._edit').click(function(){
 		resetEditForm();
-		var itemKey = $(this).parent().prevAll('._item_key').val();
-		var itemLayoutKey = $(this).parent().prevAll('._item_layout_key').val();
-		var moduleSrl = $(this).parent().prevAll('input._module_srl_key').val();
-		editForm.find('input[name=module_srl]').val(moduleSrl);
+        var itemKeyElem = $(this).parent().prevAll('._item_key');
+        if (!itemKeyElem.length){
+            itemKeyElem = $(this).closest('li').find('._item_key');
+        }
+        var itemKey = itemKeyElem.val();
+
+        var itemLayoutKeyElem = $(this).parent().prevAll('._item_layout_key');
+        if (!itemLayoutKeyElem.length){
+            itemLayoutKeyElem = $(this).closest('li').find('._item_layout_key');
+        }
+		//var itemLayoutKey = $(this).parent().prevAll('._item_layout_key').val();
+        var itemLayoutKey = itemLayoutKeyElem.val();
+
+        var moduleSrlElem = $(this).parent().prevAll('input._module_srl_key');
+        if (!moduleSrlElem.length){
+            moduleSrlElem = $(this).closest('li').find('input._module_srl_key');
+        }
+		//var moduleSrl = $(this).parent().prevAll('input._module_srl_key').val();
+        var moduleSrl = moduleSrlElem.val();
+
+        editForm.find('input[name=module_srl]').val(moduleSrl);
 
 		menuSrl = $(this).parents().prevAll('input[name=menu_srl]').val();
 		menuForm = $('#menu_'+menuSrl);
@@ -134,10 +151,20 @@ $('form.siteMap, form.mobileSiteMap')
 	$('a._delete').click(function() {
 		if(confirmDelete())
 		{
-			menuSrl = $(this).parents().prevAll('input[name=menu_srl]').val();
+            var menuSrlElem = $(this).parents().prevAll('input[name=menu_srl]');
+            if (!menuSrlElem.length){
+                menuSrlElem = $(this).closest('li').find('input[name=menu_srl]');
+            }
+			//var menuSrl = $(this).parents().prevAll('input[name=menu_srl]').val();
+            var menuSrl = menuSrlElem.val();
 			menuForm = $('#menu_'+menuSrl);
 
-			var menu_item_srl = $(this).parent().prevAll('._item_key').val();
+            var menuItemSrlElem = $(this).parent().prevAll('._item_key');
+            if (!menuItemSrlElem.length) {
+                menuItemSrlElem = $(this).closest('li').find('._item_key');
+            }
+            var menu_item_srl = menuItemSrlElem.val();
+			//var menu_item_srl = $(this).parent().prevAll('._item_key').val();
 			menuForm.find('input[name=menu_item_srl]').val(menu_item_srl);
 			menuForm.find('input[name=act]').val('procMenuAdminDeleteItem');
 			menuForm.submit();
@@ -168,6 +195,11 @@ $('form.siteMap, form.mobileSiteMap')
 		editForm.find('input[name=menu_open_window]')[0].checked = true;
 		editForm.find('input[name=group_srls\\[\\]]').attr('checked', false);
 		editForm.find('label').css('font-weight', '');
+
+        //reset images
+        $('#normal_btn_preview').html('');
+        $('#hover_btn_preview').html('');
+        $('#active_btn_preview').html('');
 	}
 
 	$('a._add').click(function()
@@ -178,7 +210,12 @@ $('form.siteMap, form.mobileSiteMap')
 
 		editForm.find('.h2').text(xe.lang.add_menu);
 		editForm.find('input[name=menu_srl]').val($this.closest('form').find('input[name=menu_srl]:first').val());
-		editForm.find('input[name=parent_srl]').val($this.parent().prevAll('input._item_key').val());
+        var parentElem = $this.parent().prevAll('input._item_key');
+        if (!parentElem.length){
+            parentElem = $this.closest('li').find('input._item_key');
+        }
+		//editForm.find('input[name=parent_srl]').val($this.parent().prevAll('input._item_key').val());
+        editForm.find('input[name=parent_srl]').val(parentElem.val());
 	});
 
 	$('input._typeCheck').click(typeCheck);

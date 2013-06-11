@@ -1,8 +1,8 @@
 <li>
-    <input type="text" name="parent_key[]" value="{$item['parent_srl']}" title="parent" class="_parent_key input-mini disabled" />
-    <input type="text" name="item_key[]" value="{$item['node_srl']}" title="node_srl" class="_item_key  input-mini disabled" />
-    <input type="text" name="module_srl[]" value="{$item['module_srl']}" title="module_srl" class="_module_srl_key input-mini disabled" />
-    <input type="text" name="item_layout_key[]" value="{$item['layout_srl']}" title="layout_key" class="_item_layout_key input-mini disabled" />
+    <input type="hidden" name="parent_key[]" value="{$item['parent_srl']}" title="parent" class="_parent_key input-mini disabled" />
+    <input type="hidden" name="item_key[]" value="{$item['node_srl']}" title="node_srl" class="_item_key  input-mini disabled" />
+    <input type="hidden" name="module_srl[]" value="{$item['module_srl']}" title="module_srl" class="_module_srl_key input-mini disabled" />
+    <input type="hidden" name="item_layout_key[]" value="{$item['layout_srl']}" title="layout_key" class="_item_layout_key input-mini disabled" />
 
 
     <strong>
@@ -38,15 +38,14 @@
                 <block cond="$item['layout_srl']"><a href="{getUrl('act', 'dispLayoutAdminModify', 'layout_srl', $item['layout_srl'])}" class="_edit_layout btn btn-large btn-block">{$lang->cmd_layout_management}</a> | </block>
                 <block cond="$item['setup_index_act']"><a href="{getUrl('', 'module', 'admin', 'act', $item['setup_index_act'], 'module_srl', $item['module_srl'])}" class="_edit_module btn btn-large btn-block">{$lang->cmd_module_manangement}</a> | </block>
                 <a href="#editMenu" class="_edit btn btn-large btn-block" data-toggle="modal" data-dismiss="modal">{$lang->cmd_menu_management}</a> |
-                <a href="#delete" class="_delete btn btn-large btn-block" data-dismiss="modal">{$lang->cmd_delete}</a> |
-                <a href="#editMenu" class="_add _child" data-toggle="modal" data-dismiss="modal">{$lang->add}</a>
+                <a href="#delete" class="_delete btn btn-large btn-block">{$lang->cmd_delete}</a> |
+                <a href="#editMenu" class="_add _child btn btn-large btn-block" data-toggle="modal" data-dismiss="modal">{$lang->add}</a>
             </div>
             <div class="modal-footer">
             </div>
         </div>
     </div>
-
-    <ul cond="count($item['list']>0)">
+    <ul>
         <block loop="$item['list']=>$idx,$val">
             {@$item = $val}
             <include target="sitemap_mobile.item.html" />
