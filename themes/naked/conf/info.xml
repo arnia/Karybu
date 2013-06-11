@@ -8,14 +8,9 @@
     </publisher>
     <description xml:lang="en">The Naked theme uses Twitter Bootstrap for a clean and customizable design.</description>
     <layout>
-        <directory path="./themes/naked/layouts/layout" />
+        <directory path="./themes/naked/layouts/naked" />
     </layout>
     <skinInfos>
-        <skinInfo>
-            <directory path="./modules/member/skins/bootstrap" />
-        </skinInfo>
-        <skinInfo>
-            <directory path="./widgets/slideshow/skins/naked" />
-        </skinInfo>
+
     </skinInfos>
 </theme>
