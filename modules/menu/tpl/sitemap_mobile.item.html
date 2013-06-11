@@ -26,7 +26,7 @@
         </div>
         <div class="modal hide fade configureMenu">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">x</button>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4>{$item['text']}</h4>
             </div>
             <div class="modal-body">
@@ -35,10 +35,10 @@
                 <!--<button class="btn btn-large btn-block">Menu Settings</button>-->
                 <!--<button class="btn btn-large btn-block">Delete</button>-->
 
-                <block cond="$item['layout_srl']"><a href="{getUrl('act', 'dispLayoutAdminModify', 'layout_srl', $item['layout_srl'])}" class="_edit_layout btn btn-large btn-block">{$lang->cmd_layout_management}</a> | </block>
-                <block cond="$item['setup_index_act']"><a href="{getUrl('', 'module', 'admin', 'act', $item['setup_index_act'], 'module_srl', $item['module_srl'])}" class="_edit_module btn btn-large btn-block">{$lang->cmd_module_manangement}</a> | </block>
-                <a href="#editMenu" class="_edit btn btn-large btn-block" data-toggle="modal" data-dismiss="modal">{$lang->cmd_menu_management}</a> |
-                <a href="#delete" class="_delete btn btn-large btn-block">{$lang->cmd_delete}</a> |
+                <block cond="$item['layout_srl']"><a href="{getUrl('act', 'dispLayoutAdminModify', 'layout_srl', $item['layout_srl'])}" class="_edit_layout btn btn-large btn-block">{$lang->cmd_layout_management}</a></block>
+                <block cond="$item['setup_index_act']"><a href="{getUrl('', 'module', 'admin', 'act', $item['setup_index_act'], 'module_srl', $item['module_srl'])}" class="_edit_module btn btn-large btn-block">{$lang->cmd_module_manangement}</a></block>
+                <a href="#editMenu" class="_edit btn btn-large btn-block" data-toggle="modal" data-dismiss="modal">{$lang->cmd_menu_management}</a>
+                <a href="#delete" class="_delete btn btn-large btn-block">{$lang->cmd_delete}</a>
                 <a href="#editMenu" class="_add _child btn btn-large btn-block" data-toggle="modal" data-dismiss="modal">{$lang->add}</a>
             </div>
             <div class="modal-footer">
