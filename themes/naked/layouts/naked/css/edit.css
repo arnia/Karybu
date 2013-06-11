@@ -132,3 +132,12 @@ td.tRight {
 
 }
 
+/* Carousel */
+
+.carousel-control {
+    top:43%;
+}
+
+.carousel-control img {
+    margin-top: 5px;
+}

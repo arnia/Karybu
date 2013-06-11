@@ -8,7 +8,7 @@
     </publisher>
     <description xml:lang="en">The Bootrstrap theme uses Twitter Bootstrap for a clean and customizable design.</description>
     <layout>
-        <directory path="./layouts/bootstrap" />
+        <directory path="./themes/bootstrap/layouts/bootstrap" />
     </layout>
     <skinInfos>
         <skinInfo>
