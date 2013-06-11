@@ -1737,9 +1737,10 @@ a.btn-primary, a.btn-danger, a.btn-info, a.btn-inverse, a.btn-success, a.btn-war
 .btn-large.focus {
     font-size: 1.1em;
     font-weight: bold;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 11px 20px;
 }
+
+
 
 /* BUTTONS END */
 
