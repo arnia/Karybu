@@ -230,6 +230,36 @@ class DatasetCreator {
         $oModuleController->updateSite($site_args);
     }
 
+    public function getLayoutSrl($theme){
+        $oLayoutModel = &getModel('layout');
+        $oAdminModel = &getAdminModel('admin');
+        $theme_list = $oAdminModel->getThemeList();
+        $layouts = $oLayoutModel->getLayoutList(0);
+        foreach($layouts as $layout){
+            if($layout->title == 'bootstrap') $layout_srl = $layout->layout_srl;
+        }
+        return $layout_srl;
+    }
+
+    public function addMenuToLayout($menu_srl,$layout_srl){
+        $args = new stdClass();
+        $extra_vars = new stdClass();
+        $oMenuAdminModel = &getAdminModel('menu');
+        $oLayoutAdminController = &getAdminController('layout');
+        $output = $oMenuAdminModel->getMenu($menu_srl);
+        $menu_srl_list[] = $menu_srl;
+        $menu_name_list[$menu_srl] = $output->title;
+        // Save a title of the menu
+        $extra_vars->menu_name_list = isset($menu_name_list) ? $menu_name_list : null;
+        $extra_vars->main_menu = $menu_srl;
+        $extra_vars->logo_image = './themes/bootstrap/layouts/bootstrap/img/karybu.png';
+        // Variable setting for DB insert
+        $args->layout_srl = $layout_srl;
+        $args->extra_vars = serialize($extra_vars);
+
+        $output = $oLayoutAdminController->updateLayout($args);
+    }
+
 }
 
 /**
@@ -287,8 +317,10 @@ $codebook_srl = $menu->addItem('Karybu Website', 'http://www.karybu.org/');
 
 $menu->save();
 
-// 2. Create a new layout
-$layout_srl = $dataset_creator->createNewLayout('bootstrap', 'Karybu layout', $menu);
+$layout_srl = $dataset_creator->getLayoutSrl('bootstrap');
+
+$dataset_creator->addMenuToLayout($menu->getSrl(),$layout_srl);
+
 
 // 3. Create new pages
 $welcome_page = $dataset_creator->createNewWidgetPage($layout_srl, 'Welcome to Karybu', 'welcome');
