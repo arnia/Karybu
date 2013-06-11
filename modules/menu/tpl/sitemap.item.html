@@ -4,14 +4,42 @@
 		<input type="hidden" name="module_srl[]" value="{$item['module_srl']}" class="_module_srl_key" />
 		<input type="hidden" name="item_layout_key[]" value="{$item['node_srl']}" class="_item_layout_key" />
 		<!--@if($item['href'])--><a href="{$item['href']}" class="ms" target="_blank">{$item['text']}</a><!--@else-->{$item['text']}<!--@end-->
-		<span class="side pull-right">
+        <div class="pull-right dropdown">
+            <div class="kActionIcons" class="dropdown-toggle" data-toggle="dropdown" >
+                <a href="#">
+                    <i class="kConfigure">Configure</i>
+                </a>
+            </div>
+            <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <block cond="$item['layout_srl']">
+                    <div role="menuitem">
+                        <a href="{getUrl('act', 'dispLayoutAdminModify', 'layout_srl', $item['layout_srl'])}">{$lang->cmd_layout_management}</a>
+                    </div>
+                </block>
+                <block cond="$item['setup_index_act']">
+                    <div role="menuitem">
+                        <a href="{getUrl('', 'module', 'admin', 'act', $item['setup_index_act'], 'module_srl', $item['module_srl'])}">{$lang->cmd_module_manangement}</a>
+                    </div>
+                </block>
+                <div role="menuitem">
+                    <a href="#editMenu" class="_edit" data-toggle="modal">{$lang->cmd_menu_management}</a>
+                </div>
+                <div role="menuitem">
+                    <a href="#delete" class="_delete">{$lang->cmd_delete}</a>
+                </div>
+                <div role="menuitem">
+                    <a href="#editMenu" class="_add _child" data-toggle="modal">{$lang->add}</a>
+                </div>
+            </div>
+        </div>
+		<!--<span class="side pull-right">
 			<block cond="$item['layout_srl']"><a href="{getUrl('act', 'dispLayoutAdminModify', 'layout_srl', $item['layout_srl'])}">{$lang->cmd_layout_management}</a> | </block>
 			<block cond="$item['setup_index_act']"><a href="{getUrl('', 'module', 'admin', 'act', $item['setup_index_act'], 'module_srl', $item['module_srl'])}">{$lang->cmd_module_manangement}</a> | </block>
 			<a href="#editMenu" class="_edit" data-toggle="modal">{$lang->cmd_menu_management}</a> |
 			<a href="#delete" class="_delete">{$lang->cmd_delete}</a> | 
 			<a href="#editMenu" class="_add _child" data-toggle="modal">{$lang->add}</a>
-		</span>
-		<ul cond="count($item['list']>0)">
+		</span>-->
+		<ul>
 		<block loop="$item['list']=>$idx,$val">
 		{@$item = $val}
 		<include target="sitemap.item.html" />
