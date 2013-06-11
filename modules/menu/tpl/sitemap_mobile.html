@@ -64,7 +64,7 @@
                 }
                 updateMobileMenu();
 
-            }).on("click", ".kActionIcons button", function(e) {
+            }).on("click", ".kActionIcons a", function(e) {
                 var item = $(this).closest("li");
                 item.find(".configureMenu:first").modal();
                 return false;

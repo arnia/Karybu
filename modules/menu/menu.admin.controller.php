@@ -420,13 +420,13 @@
 		{
 			$child_srl = $this->itemKeyList[$child_index];
 			$this->checked[$child_srl] = 1;
-
+            $child_node = new stdClass();
 			$child_node->node = $child_srl;
 			$child_node->parent_node = $parent_srl;
 			$child_node->child = array();
 			$target->child[] = $child_node;
 
-			while(count($this->map[$child_srl])){
+			while(isset($this->map[$child_srl]) && count($this->map[$child_srl])){
 				$this->_setParent($child_srl, array_shift($this->map[$child_srl]), $child_node);
 			}
 			//return $target;
