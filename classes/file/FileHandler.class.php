@@ -303,7 +303,7 @@ class FileHandlerInstance
      * @param string $path_string Path of target directory
      * @return bool true if success. It might return nothing when ftp is used and connection to the ftp address failed.
      **/
-    function makeDir($path_string)
+    static function makeDir($path_string)
     {
         static $oFtp = null;
         $ftp_path = '';
@@ -656,7 +656,7 @@ class FileHandlerInstance
      * @param $val Size in string (ex., 10, 10K, 10M, 10G )
      * @return int converted size
      */
-    function returnBytes($val)
+    static function returnBytes($val)
     {
         $val = trim($val);
         $last = strtolower(substr($val, -1));
@@ -683,7 +683,7 @@ class FileHandlerInstance
      * @param array $imageInfo Image info retrieved by getimagesize function
      * @return bool true: it's ok, false: otherwise
      */
-    function checkMemoryLoadImage(&$imageInfo)
+    static function checkMemoryLoadImage(&$imageInfo)
     {
         if (!function_exists('memory_get_usage')) {
             return true;
@@ -697,7 +697,7 @@ class FileHandlerInstance
         $memoryNeeded = round(
             ($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $channels / 8 + $K64) * $TWEAKFACTOR
         );
-        $availableMemory = $this->returnBytes(ini_get('memory_limit')) - memory_get_usage();
+        $availableMemory = self::returnBytes(ini_get('memory_limit')) - memory_get_usage();
         if ($availableMemory < $memoryNeeded) {
             return false;
         }
@@ -723,8 +723,8 @@ class FileHandlerInstance
         $target_type = '',
         $thumbnail_type = 'crop'
     ) {
-        $source_file = $this->getRealPath($source_file);
-        $target_file = $this->getRealPath($target_file);
+        $source_file = self::getRealPath($source_file);
+        $target_file = self::getRealPath($target_file);
 
         if (!file_exists($source_file)) {
             return;
@@ -738,7 +738,7 @@ class FileHandlerInstance
 
         // retrieve source image's information
         $imageInfo = getimagesize($source_file);
-        if (!$this->checkMemoryLoadImage($imageInfo)) {
+        if (!self::checkMemoryLoadImage($imageInfo)) {
             return false;
         }
         list($width, $height, $type, $attrs) = $imageInfo;
@@ -892,7 +892,7 @@ class FileHandlerInstance
         // create directory
         $path = dirname($target_file);
         if (!is_dir($path)) {
-            $this->makeDir($path);
+            self::makeDir($path);
         }
 
         // write into the file
