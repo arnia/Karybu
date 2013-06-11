@@ -39,7 +39,7 @@ All the releases can be found [here] (./downloads.html).
 
 <div id="composer" class="tab-pane"></div>
 
-Just run the following [Composer](getcomposer.org) command:
+Just run the following [Composer](http://getcomposer.org) command:
 
 ```sh
 composer create-project karybu/cms your_local_karybu_folder master
