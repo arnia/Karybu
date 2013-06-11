@@ -354,9 +354,10 @@ li.big-icon {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#d1dbe4', endColorstr = '#e6f0f9', GradientType = 0); /* IE6-9 */
 }
 
-.dropdown-menu li a,
-.dropdown-menu li strong {
+.dropdown-menu a,
+.dropdown-menu strong {
     padding: 0px 10px;
+    display: block;
 }
 
 .dropdown-menu {
@@ -585,7 +586,7 @@ a.swatch:hover {
     box-shadow: inset 0px 1px 1px 0px rgba(0, 0, 0, 0.3);
 }
 
-.x .brand .dropdown-menu li a {
+.x .brand .dropdown-menu a {
     display: block;
 }
 
@@ -2267,7 +2268,9 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus,
 .dropdown-submenu:hover > a,
-.dropdown-submenu:focus > a {
+.dropdown-submenu:focus > a,
+.dropdown-menu > div > a:hover,
+.dropdown-menu > div > a:focus {
     color: #ffffff;
     text-decoration: none;
     background: #79ad36;
