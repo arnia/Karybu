@@ -1194,7 +1194,7 @@ margin:-1px;
     margin-left:16px;
     padding: 0;
     position: relative;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .x .siteMap ul li {
@@ -1365,10 +1365,10 @@ margin:-1px;
 
 }
 
-.siteMapMenu .kActionIcons button {
+.siteMapMenu .kActionIcons a {
     padding: 5px;
 }
-.siteMapMenu .kActionIcons button i {
+.siteMapMenu .kActionIcons a i {
     margin: 0;
 }
 
@@ -1466,6 +1466,11 @@ margin:-1px;
     background: #8ac64f;
     color: #fff;
 }
+
+.mobileSiteMap .focused strong a {
+    color: #fff;
+}
+
 .mobile-move a:active,
 .mobile-move a:focus {
     -moz-box-shadow: none;

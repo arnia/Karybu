@@ -6,8 +6,11 @@ var
 	$holder  = $('<li class="placeholder">');
 
 $('form.siteMap')
-	.delegate('li:not(.placeholder)', {
+	.delegate('li:not(.placeholder, .settings-menu)', {
 		'mousedown.st' : function(event) {
+            if ($(event.target).is('i')) {
+                return;
+            }
 			var $this, $uls, $ul, width, height, offset, position, offsets, i, dropzone, wrapper='';
 
 			if($(event.target).is('a,input,label,textarea') || event.which != 1) return;
@@ -139,7 +142,7 @@ $('form.siteMap')
 			return false;
 		}
 	})
-	.find('li')
+	.find('li::not(.settings-menu)')
 		.prepend('<button type="button" class="moveTo">Move to</button>')
 		.find('input:text')
 			.focus(function(){
