@@ -68,6 +68,26 @@
                 foreach($output->data as $key => $member)
 				{
                     $output->data[$key]->group_list = $oMemberModel->getMemberGroups($member->member_srl,0);
+                    $output->data[$key]->member_group = implode(', ', $oMemberModel->getMemberGroups($member->member_srl,0));
+                    $massSelectValueFields = array('member_srl', 'email_address', 'user_id', 'user_name', 'nick_name', 'member_group');
+                    $massSelectValues = array();
+                    foreach ($massSelectValueFields as $field){
+                        if (isset($member->$field)){
+                            $massSelectValues[] = $member->$field;
+                        }
+                        else{
+                            $massSelectValues[] = '';
+                        }
+                    }
+                    //add status
+                    if (isset($member->denied) && $member->denied == 'N'){
+                        $massSelectValues[] = $lang->approval;
+                    }
+                    else{
+                        $massSelectValues[] = $lang->denied;
+                    }
+                    $output->data[$key]->mass_select_value = implode("\t", $massSelectValues);
+                    $output->data[$key]->disable_mass_select = ($member->is_admin == 'Y');
                 }
             }
 			$config = $oMemberModel->getMemberConfig();			
@@ -92,7 +112,92 @@
 			
 			$security = new Security();
 			$security->encodeHTML('member_list..user_name', 'member_list..nick_name', 'member_list..group_list..');
-			
+
+            $grid = new \Karybu\Grid\Backend();
+            $grid->addCssClass('_memberList');
+            $grid->setMassSelectName('user');
+            //email column
+			$grid->addColumn('email_address', 'member', array(
+                'index' => 'email_address',
+                'header'=> $lang->email,
+                'masked'=>true,
+                'title'=>'Info',
+                'member_key'=>'member_srl'
+            ));
+            $grid->addColumn('user_id', 'text', array(
+                'index' => 'user_id',
+                'header'=> $lang->user_id
+            ));
+            $grid->addColumn('user_name', 'text', array(
+                'index' => 'user_name',
+                'header'=> $lang->user_name
+            ));
+            $grid->addColumn('nick_name', 'text', array(
+                'index' => 'nick_name',
+                'header'=> $lang->nick_name
+            ));
+            $grid->addColumn('regdate', 'date', array(
+                'index' => 'regdate',
+                'header'=> $lang->signup_date,
+                'format'=> 'Y-m-d'
+            ));
+            $grid->addColumn('last_login', 'date', array(
+                'index' => 'last_login',
+                'header'=> $lang->last_login,
+                'format'=> 'Y-m-d'
+            ));
+            $grid->addColumn('member_group', 'text', array(
+                'index' => 'member_group',
+                'header'=> $lang->member_group
+            ));
+            $grid->addColumn('denied', 'options', array(
+                'index'     => 'denied',
+                'header'    => $lang->status,
+                'show_raw_value' => true,
+                'options'   => array(
+                    'Y'=>$lang->denied,
+                    'N'=>$lang->approval
+                )
+            ));
+            $grid->addColumn('actions', 'action', array(
+                'index'         => 'actions',
+                'header'        => $lang->actions,
+                'wrapper_top'   => '<div class="kActionIcons">',
+                'wrapper_bottom'=> '</div>'
+            ));
+            //view action
+            $actionConfig = array(
+                'title'=>$lang->cmd_view,
+                'url_params'=>array('member_srl'=>'member_srl'),
+                'module'=>'admin',
+                'act'=>'dispMemberAdminInfo',
+                'icon_class' => 'kView'
+            );
+            $action = new \Karybu\Grid\Action\Action($actionConfig);
+            $grid->getColumn('actions')->addAction('view',$action);
+            //update action
+            $actionConfig = array(
+                'title'=>$lang->cmd_update,
+                'url_params'=>array('member_srl'=>'member_srl'),
+                'module'=>'admin',
+                'act'=>'dispMemberAdminInsert',
+                'icon_class' => 'kEdit'
+            );
+            $action = new \Karybu\Grid\Action\Action($actionConfig);
+            $grid->getColumn('actions')->addAction('update',$action);
+
+            //delete action
+            $actionConfig = array(
+                'title'=>$lang->cmd_delete,
+                'url_params'=>array('member_srl'=>'member_srl'),
+                'module'=>'admin',
+                'act'=>'dispMemberAdminDeleteForm',
+                'icon_class' => 'kDelete'
+            );
+            $action = new \Karybu\Grid\Action\Action($actionConfig);
+            $grid->getColumn('actions')->addAction('delete',$action);
+            $grid->setRows($output->data);
+            Context::set('grid', $grid);
 			$this->setTemplateFile('member_list');
         }
 

@@ -32,73 +32,7 @@
     </div>
     </div>
 
-    <div class="row-fluid">
-        <div class="span12">
-
-    <table class="table table-condensed table-bordered table-hover _memberList">
-        <thead>
-            <tr>
-                <th scope="col" class="nowr">{$lang->email}</th>
-                <th scope="col" class="nowr" loop="$usedIdentifiers=>$name,$title">{$title}</th>
-                <th scope="col" class="nowr"><a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminList', 'sort_index', 'regdate', 'sort_order', ($sort_order == 'asc') ? 'desc' : 'asc')}">{$lang->signup_date}<block cond="$sort_index == 'regdate'"> <em cond="$sort_order=='asc'">▲</em><em cond="$sort_order != 'asc'">▼</em></block></a></th>
-                <th scope="col" class="nowr"><a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminList', 'sort_index', 'last_login', 'sort_order',  ($sort_order == 'asc') ? 'desc' : 'asc')}">{$lang->last_login}<block cond="$sort_index == 'last_login'"> <em cond="$sort_order=='asc'">▲</em><em cond="$sort_order != 'asc'">▼</em></block></a></th>
-                <th scope="col">{$lang->member_group}</th>
-                <th scope="col" class="nowr">{$lang->status}</th>
-                <th scope="col" class="nowr">{$lang->actions}</th>
-                <th scope="col">
-                    <input type="checkbox" title="Check All" data-name="user" />
-                </th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th scope="col" class="nowr">{$lang->email}</th>
-                <th scope="col" class="nowr" loop="$usedIdentifiers=>$name,$title">{$title}</th>
-                <th scope="col" class="nowr"><a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminList', 'sort_index', 'regdate', 'sort_order', ($sort_order == 'asc') ? 'desc' : 'asc')}">{$lang->signup_date}<block cond="$sort_index == 'regdate'"> <em cond="$sort_order=='asc'">▲</em><em cond="$sort_order != 'asc'">▼</em></block></a></th>
-                <th scope="col" class="nowr"><a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminList', 'sort_index', 'last_login', 'sort_order',  ($sort_order == 'asc') ? 'desc' : 'asc')}">{$lang->last_login}<block cond="$sort_index == 'last_login'"> <em cond="$sort_order=='asc'">▲</em><em cond="$sort_order != 'asc'">▼</em></block></a></th>
-                <th scope="col">{$lang->member_group}</th>
-                <th scope="col" class="nowr">{$lang->status}</th>
-                <th scope="col class="nowr"">{$lang->actions}</th>
-                <th scope="col">
-                    <input type="checkbox" title="Check All" data-name="user" />
-                </th>
-            </tr>
-        </tfoot>
-        <tbody>
-            <tr loop="$member_list=>$no,$member_info">
-                {@$member_info = get_object_vars($member_info)}
-                <td class="nowr">
-                    <span class="kActionIcons">
-                        <a href="#popup_menu_area" data-toggle="tooltip" class="cMenu member_{$member_info['member_srl']}"  title="Info"><i class="kInfo">Info</i></a>
-                    </span>
-
-                    <span class="masked">{getEncodeEmailAddress($member_info['email_address'])}</span>
-                </td>
-                {@ $member_info['group_list'] = implode(', ', $member_info['group_list'])}
-                <td class="nowr" loop="$usedIdentifiers=>$name,$title">{$member_info[$name]}</td>
-                <td class="nowr">{zdate($member_info['regdate'], 'Y-m-d')}</td>
-                <td class="nowr">{zdate($member_info['last_login'], 'Y-m-d')}</td>
-                <td>{$member_info['group_list']}&nbsp;</td>
-                {@ $lang_denied = ($member_info['denied'] == 'N')?$lang->approval:$lang->denied}
-                <td class="nowr">{$lang_denied}</td>
-                <td class="nowr">
-                    <div class="kActionIcons">
-                        <a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminInfo', 'member_srl', $member_info['member_srl'])}" data-toggle="tooltip" title="{$lang->cmd_view}"><i class="kView">{$lang->cmd_view}</i></a>
-                        <a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminInsert', 'member_srl', $member_info['member_srl'])}" data-toggle="tooltip" title="{$lang->cmd_modify}"><i class="kEdit">{$lang->cmd_modify}</i></a>
-                        <a href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminDeleteForm', 'member_srl', $member_info['member_srl'])}" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kDelete">{$lang->cmd_delete}</i></a>
-                    </div>
-                </td>
-                {@$used_values = ''}
-                <!--@foreach($usedIdentifiers as $name=>$title)-->
-                {@$used_values .= "\t".$member_info[$name]}
-                <!--@end-->
-                <td><input type="checkbox" name="user" value="{$member_info['member_srl']."\t".$member_info['email_address'].$used_values."\t".$member_info['group_list']."\t".$lang_denied}" disabled="disabled"|cond="$member_info['is_admin'] == 'Y'"/></td>
-            </tr>
-        </tbody>
-    </table>
-
-        </div>
-        </div>
+    <include target="../../admin/tpl/common/include.grid.html" />
 
     <div class="row-fluid">
         <div class="span12">
@@ -112,7 +46,6 @@
 
 </div>
 </div>
-
 </form>
 <include target="../../admin/tpl/common/include.paging.html" />
 <div class="search pull-right">

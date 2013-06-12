@@ -1,0 +1,44 @@
+<div class="row-fluid">
+    <div class="span12">
+        <table class="{$grid->getCssClasses()}">
+            <thead>
+                <tr>
+                    <!--@foreach($grid->getColumns() as $column)-->
+                    <th scope="col" class="nowr">{$column->getConfig('header')}</th>
+                    <!--@end-->
+                    <th scope="col">
+                        <input type="checkbox" title="Check All" data-name="{$grid->getMassSelectName()}" />
+                    </th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <!--@foreach($grid->getColumns() as $column)-->
+                    <th scope="col" class="nowr">{$column->getConfig('header')}</th>
+                    <!--@end-->
+                    <th scope="col">
+                        <input type="checkbox" title="Check All" data-name="{$grid->getMassSelectName()}" />
+                    </th>
+                </tr>
+            </tfoot>
+            <tbody>
+                <!--@if (count($grid->getRows()) > 0)-->
+                <!--@foreach ($grid->getRows() as $row)-->
+                <tr>
+                    <!--@foreach($grid->getColumns() as $column)-->
+                        <td class="nowr">{$column->render($row)}</td>
+                    <!--@end-->
+                    <!--@if($grid->getAllowMassSelect())-->
+                        <td><input type="checkbox" name="{$grid->getMassSelectName()}" value="{$row->mass_select_value}"<!--@if($row->disable_mass_select)--> disabled="disabled"<!--@end-->/></td>
+                    <!--@end-->
+                </tr>
+                <!--@end-->
+                <!--@else-->
+                    <tr colspan="{$grid->getColumns() + (int)$grid->getAllowMassSelect()}">
+                        {$lang->no_records}
+                    </tr>
+                <!--@end-->
+            </tbody>
+        </table>
+    </div>
+</div>
