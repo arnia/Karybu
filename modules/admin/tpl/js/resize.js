@@ -52,9 +52,13 @@
 
         if(browserWidth < browserHeight) {
             body.addClass("portrait");
+            $(".kWrapper").width("100%");
         }
         if(browserWidth >= browserHeight) {
             body.addClass("landscape");
+            // Simulate the CSS calc property, which is not supported by Opera and Safari
+            $(".kWrapper").width("100%");
+            $(".kWrapper").width($(".kWrapper").width() - 80);
         }
 
         if(browserWidth > 1200) {
@@ -86,11 +90,7 @@
         $("body").bind('admin.tablet-screen admin.phone-screen', function() {
             $("#kMobileMenu").hide();
 
-            if($(this).hasClass("landscape")) {
-                // Simulate the CSS calc property, which is not supported by Opera and Safari
-                $(".kWrapper").width("100%");
-                $(".kWrapper").width($(".kWrapper").width() - 80);
-            }
+
         });
 
         initializeScreenResolution();
@@ -107,8 +107,6 @@
         $(window).on('debouncedresize', function() {
             initializeScreenResolution();
         });
-
-
 
     });
 
