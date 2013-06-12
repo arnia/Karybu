@@ -206,9 +206,9 @@ class ModuleHandlerInstance extends Handler
 
         if (!$this->module_info) {
             $this->module_info = new stdClass();
-            $this->module_info->module = $this->module;
-            $this->module_info->mid = $this->mid;
-            $this->module_info->site_srl = $site_module_info->site_srl;
+            $this->module_info->module = isset($this->module) ? $this->module : null;
+            $this->module_info->mid = isset($this->mid) ? $this->mid : null;
+            $this->module_info->site_srl = isset($site_module_info->site_srl) ? $site_module_info->site_srl : null;
         }
 
         // If mid exists, set mid into context

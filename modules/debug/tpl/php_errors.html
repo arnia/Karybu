@@ -8,21 +8,21 @@
         <div class="error_description">
             {@unset($arr['message'])}
             <ul>
-                <ul>
-                    <!--@foreach ($arr as $key=>$val)-->
-                    <li cond="$key!='params'">
-                        <span class="key">{$key}</span>
-                        <span class="value">{$val}</span>
-                    </li>
-                    <!--@endforeach-->
+                <!--@foreach ($arr as $key=>$val)-->
+                <li cond="$key!='params'">
+                    <span class="key">{$key}</span>
+                    <span class="value">{$val}</span>
+                </li>
+                <!--@endforeach-->
+                <li>
                     <span class="title" cond="!empty($arr['params'])">Parameters:</span>
-                    <!--@foreach ($arr['params'] as $key=>$val)-->
-                    <li>
-                        <span class="key">{$key}</span>
-                        <span class="value">{$val}</span>
-                    </li>
-                    <!--@endforeach-->
-                </ul>
+                </li>
+                <!--@foreach ($arr['params'] as $key=>$val)-->
+                <li>
+                    <span class="key">{$key}</span>
+                    <span class="value">{$val}</span>
+                </li>
+                <!--@endforeach-->
             </ul>
         </div>
     </li>

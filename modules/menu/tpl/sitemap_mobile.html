@@ -25,10 +25,23 @@
             $(".mobileSiteMap li:first-child > .siteMapMenu .move-right").addClass("inactive");
             $(".mobileSiteMap li ul li:first-child > .siteMapMenu .move-right").addClass("inactive");
         }
+        function afterElemMove(elem){
+            //update element parent
+            var $this = $(elem), $pkey, $mkey, is_child;
 
+            $pkey = $this.closest('li').find('input._parent_key:first');
+            var parentElem = $this.closest('ul').closest('li');
+            is_child = !!parentElem.length;
+            if(is_child) {
+                $pkey.val(parentElem.find('input._item_key').val());
+            } else {
+                $pkey.val('0');
+            }
+            updateMobileMenu();
+        }
         $(document).ready(function() {
             updateMobileMenu();
-
+            var interval = 200;
             $(".mobileSiteMap:not(.modal)").on("click", ".mobile-move a", function(e) {
                 if($(this).hasClass("inactive")) {
                     return;
@@ -37,32 +50,51 @@
                 var item = $(this).closest("li");
 
                 if($(this).hasClass("move-up")) {
-                    item.after(item.prev());
+                    item.fadeOut(interval, function(){
+                        item.after(item.prev());
+                        item.fadeIn(interval, function(){
+                            afterElemMove(item);
+                        });
+                    });
+                    //item.after(item.prev());
                 } else if ($(this).hasClass("move-down")) {
-                    item.before(item.next());
+                    //item.before(item.next());
+                    item.fadeOut(interval, function(){
+                        item.before(item.next());
+                        item.fadeIn(interval, function(){
+                            afterElemMove(item);
+                        });
+                    });
                 } else if($(this).hasClass("move-left")) {
                     var parent = item.parent().closest("li");
-                    parent.after(item);
+                    //parent.after(item);
+                    item.fadeOut(interval, function(){
+                        parent.after(item);
+                        item.fadeIn(interval, function(){
+                            afterElemMove(item);
+                        });
+                    });
                 } else if($(this).hasClass("move-right")) {
                     var prev = item.prev("li");
                     if(prev.find('ul').length > 0) {
-                        prev.find('> ul').append(item);
+                        //prev.find('> ul').append(item);
+                        item.fadeOut(interval, function(){
+                            prev.find('> ul').append(item);
+                            item.fadeIn(interval, function(){
+                                afterElemMove(item);
+                            });
+                        });
                     } else {
-                        prev.append('ul').append(item);
+                        item.fadeOut(interval, function(){
+                            prev.append('ul').append(item);
+                            item.fadeIn(interval, function(){
+                                afterElemMove(item);
+                            });
+                        });
+
                     }
                 }
-                //update element parent
-                var $this = $(this), $pkey, $mkey, is_child;
 
-                $pkey = $this.closest('li').find('input._parent_key:first');
-                var parentElem = $this.closest('ul').closest('li');
-                is_child = !!parentElem.length;
-                if(is_child) {
-                    $pkey.val(parentElem.find('input._item_key').val());
-                } else {
-                    $pkey.val('0');
-                }
-                updateMobileMenu();
 
             }).on("click", ".kActionIcons a", function(e) {
                 var item = $(this).closest("li");

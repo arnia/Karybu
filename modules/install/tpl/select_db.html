@@ -11,7 +11,7 @@
             <li class="span3">
                 <label for="db_type_{$val->db_type}" class="radio inline span12 <!--@if($val->db_type=="mysqlpdo")-->active<!--@end-->"  data-toggle="tooltip" data-html="true" data-placement="top" title="{$lang->db_desc[$val->db_type]}">
                     <i class="selected-language" title="Selected Database">&#10004;</i>
-                    <input name="db_type" type="radio" value="{$val->db_type}" <!--@if(!$val->enable)-->disabled="disabled"<!--@end--> id="db_type_{$val->db_type}" <!--@if($val->db_type=="mysqlpdo")-->checked="checked"<!--@end--> class="iRadio" id="cubrid" />
+                    <input name="db_type" type="radio" value="{$val->db_type}" <!--@if(!$val->enable)-->disabled="disabled"<!--@end--> id="db_type_{$val->db_type}" <!--@if($val->db_type=="mysqlpdo")-->checked="checked"<!--@end--> class="iRadio" />
                     {$val->db_type}
                 </label>
 
@@ -20,15 +20,14 @@
             <!--@foreach(DB::getDisableList() as $key => $val)-->
             <li class="span3">
                 <label for="db_type_{$val->db_type}" class="radio inline span12">
-                    <input name="db_type" type="radio" value="{$val->db_type}" <!--@if(!$val->enable)-->disabled="disabled"<!--@end--> id="db_type_{$val->db_type}" <!--@if($val->db_type=="mysql")-->checked="checked"<!--@end--> class="iRadio" id="cubrid" />
+                    <input name="db_type" type="radio" value="{$val->db_type}" <!--@if(!$val->enable)-->disabled="disabled"<!--@end--> id="db_type_{$val->db_type}" <!--@if($val->db_type=="mysql")-->checked="checked"<!--@end--> class="iRadio" />
                     {$val->db_type}
                 </label>
 
             </li>
-
             <!--@end-->
-        </div>
         </ul>
+        </div>
         <div>
             <div class="pull-left">
                 <a href="{getUrl('', 'act', 'dispInstallCheckEnv')}" class="btn">{$lang->cmd_back}</a>
