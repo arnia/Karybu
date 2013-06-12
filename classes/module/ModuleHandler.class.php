@@ -286,7 +286,9 @@ class ModuleHandlerInstance extends Handler
             return $this->showErrorToUser();
         }
         if (!isset($this->module_info->use_mobile) || $this->module_info->use_mobile != "Y") {
-            Mobile::setMobile(false);
+            if(!isset($_COOKIE['mobile'])){
+                Mobile::setMobile(false);
+            }
         }
     }
 
@@ -493,7 +495,9 @@ class ModuleHandlerInstance extends Handler
         // 5.1. If module wasn't found and we're on mobile platform, we try to fallback to classic view
         if ($key->getType() == 'mobile' && (!is_object($oModule) || !method_exists($oModule, $act))) {
             $key = new ModuleKey($key->getModule(), 'view', $key->getKind());
-            $this->mobile->setMobile(false);
+            if(!isset($_COOKIE['mobile'])){
+                $this->mobile->setMobile(false);
+            }
             $oModule = $this->getModuleInstance($key->getModule(), $key->getType(), $key->getKind());
         }
         return $oModule;
