@@ -89,7 +89,9 @@ class CMSListener implements EventSubscriberInterface, ContainerAwareInterface
 
     public function addRequestToServiceContainer(GetResponseEvent $event)
     {
-        $this->container->set('request', $event->getRequest());
+        if (isset($this->container)) {
+            $this->container->set('request', $event->getRequest());
+        }
     }
 
     /**
