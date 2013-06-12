@@ -615,8 +615,7 @@ class ContextInstance
     { // Load Language File
         $enabled_languages = $this->loadLangSelected();
         $this->set('lang_supported', $enabled_languages);
-
-        $current_language = $this->getCurrentLanguage($enabled_languages, $this->db_info->lang_type);
+        $current_language = $this->getCurrentLanguage($enabled_languages, isset($this->db_info->lang_type) ? $this->db_info->lang_type : null);
         $this->setLangType($current_language);
 
         $this->lang = & $GLOBALS['lang'];
@@ -929,7 +928,7 @@ class ContextInstance
      */
     function getDBType()
     {
-        return $this->db_info->master_db["db_type"];
+        return isset($this->db_info->master_db["db_type"]) ? $this->db_info->master_db["db_type"] : null;
     }
 
     /**
@@ -1878,10 +1877,10 @@ class ContextInstance
 
         // If $domain, $vid are not set, use current site information
         if (!$domain && !$vid) {
-            if ($this->site_module_info->domain && $this->isSiteID($this->site_module_info->domain)) {
+            if (!empty($this->site_module_info->domain) && $this->isSiteID($this->site_module_info->domain)) {
                 $vid = $this->site_module_info->domain;
             } else {
-                $domain = $this->site_module_info->domain;
+                $domain = isset($this->site_module_info->domain) ? $this->site_module_info->domain : null;
             }
         }
 

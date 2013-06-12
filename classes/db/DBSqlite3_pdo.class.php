@@ -86,8 +86,8 @@ class DBSqlite3_pdo extends DB
     function _setDBInfo()
     {
         $db_info = Context::getDBInfo();
-        $this->database = $db_info->master_db["db_database"];
-        $this->prefix = $db_info->master_db["db_table_prefix"];
+        $this->database = isset($db_info->master_db["db_database"]) ? $db_info->master_db["db_database"] : null;
+        $this->prefix = isset($db_info->master_db["db_table_prefix"]) ? $db_info->master_db["db_table_prefix"] : null;
         //if(!substr($this->prefix,-1)!='_') $this->prefix .= '_';
     }
 

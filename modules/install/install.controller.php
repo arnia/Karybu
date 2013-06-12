@@ -392,7 +392,7 @@ class installController extends install
             $checklist['xml'] = false;
         }
         // 3. Check if ini_get (session.auto_start) == 1
-        if (ini_get(session . auto_start) != 1) {
+        if (ini_get('session.auto_start') != 1) {
             $checklist['session'] = true;
         } else {
             $checklist['session'] = false;
@@ -591,6 +591,7 @@ class installController extends install
     function _getDBConfigFileContents($db_info)
     {
         $buff = '<?php if(!defined("__KARYBU__")) exit();' . "\n";
+        $buff .= sprintf("\$db_info = new stdClass;" . PHP_EOL);
         $db_info = get_object_vars($db_info);
         foreach ($db_info as $key => $val) {
             if ($key == 'master_db') {

@@ -271,7 +271,7 @@ class DB
                 continue;
             }
 
-            $obj = null;
+            $obj = new stdClass();
             $obj->db_type = $db_type;
             $obj->enable = $oDB->isSupported() ? true : false;
 
@@ -1075,7 +1075,16 @@ class DB
     function _setDBInfo()
     {
         $db_info = Context::getDBInfo();
-        $this->master_db = $db_info->master_db;
+        $this->master_db = isset($db_info->master_db) ? $db_info->master_db : null;
+        $keys = array('db_hostname','db_port', 'db_userid', 'db_password', 'db_database');
+        foreach ($keys as $key){
+            if (!isset($db_info->master_db[$key])){
+                $db_info->master_db[$key] = null;
+            }
+            if (!isset($db_info->slave_db[0][$key])){
+                $db_info->slave_db[0][$key] = null;
+            }
+        }
         if($db_info->master_db["db_hostname"] == $db_info->slave_db[0]["db_hostname"]
             && $db_info->master_db["db_port"] == $db_info->slave_db[0]["db_port"]
             && $db_info->master_db["db_userid"] == $db_info->slave_db[0]["db_userid"]
@@ -1086,7 +1095,7 @@ class DB
         } else {
             $this->slave_db = $db_info->slave_db;
         }
-        $this->prefix = $db_info->master_db["db_table_prefix"];
+        $this->prefix = isset($db_info->master_db["db_table_prefix"]) ? $db_info->master_db["db_table_prefix"] : null;
         if (isset($db_info->use_prepared_statements)) {
             $this->use_prepared_statements = $db_info->use_prepared_statements;
         }
