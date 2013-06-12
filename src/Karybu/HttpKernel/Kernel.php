@@ -133,7 +133,8 @@ class Kernel extends SymfonyKernel
         }
     }
 
-    private function isFilesFolderAvailable(){
+    private function isFilesFolderAvailable()
+    {
         return is_writable($this->rootDir . 'files');
     }
 

@@ -2,6 +2,8 @@
 namespace Karybu\EventListener;
 
 use Karybu;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -16,7 +18,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Karybu\EventListener\ErrorHandler as ErrHandler;
 use Karybu\Security\Csrf;
 
-class CMSListener implements EventSubscriberInterface
+class CMSListener implements EventSubscriberInterface, ContainerAwareInterface
 {
     private $logger;
 
@@ -25,6 +27,9 @@ class CMSListener implements EventSubscriberInterface
 
     /** @var \DisplayHandler */
     private $displayHandler;
+
+    /** @var ContainerInterface */
+    protected $container;
 
     /**
      * We're injecting into the HttpKernel's events:
@@ -37,6 +42,7 @@ class CMSListener implements EventSubscriberInterface
     {
         return array(
             KernelEvents::REQUEST => array(
+                array('addRequestToServiceContainer', 52),
                 array('setupLegacyDependencies', 50),
                 array('initializeContextRequestArguments', 48),
                 array('initializeDatabaseSettings', 46),
@@ -62,6 +68,11 @@ class CMSListener implements EventSubscriberInterface
         );
     }
 
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
+
     /**
      * @param \ContextInstance $cmsContext CMS context
      * @param \Symfony\Component\HttpKernel\Log\LoggerInterface $logger The logger
@@ -74,6 +85,11 @@ class CMSListener implements EventSubscriberInterface
         $this->logger = $logger;
         $this->mobile = $mobile;
         $this->file_handler = $file_handler;
+    }
+
+    public function addRequestToServiceContainer(GetResponseEvent $event)
+    {
+        $this->container->set('request', $event->getRequest());
     }
 
     /**
