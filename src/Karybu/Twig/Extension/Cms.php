@@ -30,7 +30,8 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('loadJs', array($this, 'loadJs'))
+            new \Twig_SimpleFunction('loadJs', array($this, 'loadJs')),
+            new \Twig_SimpleFunction('loadCss', array($this, 'loadCss'))
         );
     }
 
