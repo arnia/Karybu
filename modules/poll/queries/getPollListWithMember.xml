@@ -28,7 +28,7 @@
         <condition operation="like_prefix" column="P.ipaddress" var="s_ipaddress" pipe="or" />
     </conditions>
     <navigation>
-        <index var="sort_index" default="P.list_order" order="asc" />
+        <index var="sort_index" default="P.list_order" order="sort_order" />
         <list_count var="list_count" default="20" />
         <page_count var="page_count" default="10" />
         <page var="page" default="1" />

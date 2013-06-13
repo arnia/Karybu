@@ -12,7 +12,50 @@
          **/
         function init() {
         }
-
+        function getGrid(){
+            global $lang;
+            $grid = new \Karybu\Grid\Backend();
+            $grid->setId('pollListTable');
+            $grid->setMassSelectName('cart');
+            $grid->addColumn('title', 'link', array(
+                'index' => 'title',
+                'header'=> $lang->title,
+                'link_key'=>'url',
+                'target'=>'_blank',
+                'length'=>'40'
+            ));
+            $grid->addColumn('checkcount', 'options', array(
+                'index' => 'checkcount',
+                'header'=> $lang->poll_checkcount,
+                'options'=>array(
+                    '1'=>$lang->single_check,
+                    '*'=>$lang->multi_check
+                ),
+            ));
+            $grid->addColumn('poll_count', 'number', array(
+                'index' => 'poll_count',
+                'header'=> $lang->poll_join_count,
+            ));
+            $grid->addColumn('nick_name', 'member', array(
+                'index' => 'nick_name',
+                'header'=> $lang->author,
+                'masked'=>true,
+                'title'=>'Info',
+                'member_key'=>'member_srl',
+                'sort_index'=>'M.nick_name'
+            ));
+            $grid->addColumn('poll_regdate', 'date', array(
+                'index' => 'poll_regdate',
+                'header'=> $lang->date,
+                'format'=>"Y-m-d\nH:i:s"
+            ));
+            $grid->addColumn('poll_stop_date', 'date', array(
+                'index' => 'poll_stop_date',
+                'header'=> $lang->poll_stop_date,
+                'format'=>"Y-m-d"
+            ));
+            return $grid;
+        }
         /**
          * @brief Administrator's Page
          **/
@@ -37,12 +80,23 @@
                 }
             }
             // Options to get a list of pages
-            $args = new stdClass();
             $args->page = Context::get('page');
             $args->list_count = 20; // The number of posts to show on one page
             $args->page_count = 5; // The number of pages to display in the page navigation
 
-            $args->sort_index = 'P.list_order'; // Sorting value
+            $grid = $this->getGrid();
+            $sortIndex = Context::get('sort_index');
+            $grid->setSortIndex($sortIndex);
+            //$args->sort_index = 'list_order'; // /< Sorting values
+            $args->sort_index = $grid->getSortIndex();
+            if (empty($args->sort_index)){
+                $args->sort_index = 'P.list_order';
+            }
+            $sortOrder = Context::get('sort_order');
+            $grid->setSortOrder($sortOrder);
+            $args->sort_order = $grid->getSortOrder();
+
+            //$args->sort_index = 'P.list_order'; // Sorting value
 
             // Get the list
             $oPollAdminModel = &getAdminModel('poll');
@@ -66,16 +120,24 @@
 				$targetCommentOutput = $oCommentModel->getComments($uploadTargetSrlList, $columnList);
 				if(!is_array($targetCommentOutput)) $targetCommentOutput = array();
 
-				foreach($output->data AS $key=>$value)
+				foreach($output->data as $key=>$value)
 				{
 					if(array_key_exists($value->upload_target_srl, $targetDocumentOutput))
 						$value->document_srl = $value->upload_target_srl;
+                        $output->data[$key]->mass_select_value = $value->poll_index_srl;
 
 					if(array_key_exists($value->upload_target_srl, $targetCommentOutput))
 					{
 						$value->comment_srl = $value->upload_target_srl;
 						$value->document_srl = $targetCommentOutput[$value->comment_srl]->document_srl;
 					}
+                    $output->data[$key]->url = getUrl();
+                    if (!empty($value->document_srl)){
+                        $output->data[$key]->url .="?document_srl=".$value->document_srl;
+                    }
+                    if (!empty($value->comment_srl)){
+                        $output->data[$key]->url .="#comment_".$value->comment_srl;
+                    }
 				}
 			}
 
@@ -89,6 +151,9 @@
 			
 			$security = new Security();				
 			$security->encodeHTML('poll_list..title');
+            $grid->setRows($output->data);
+            Context::set('grid', $grid);
+
             // Set a template
             $this->setTemplatePath($this->module_path.'tpl');
             $this->setTemplateFile('poll_list');

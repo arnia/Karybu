@@ -10,55 +10,14 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 <form action="./" class="form">
 	<h3 class="h3">{$lang->trackback}</h3>
 	<div class="table even">
-
-		<table class="table table-bordered table-condensed table-hover" id="trackbackListTable">
-            <caption>
-                <p class="pull-right">
-                    All({number_format($total_count)})
-                    <span class="side" >
-                        <a class="btn" href="#listManager" data-toggle="modal" onclick="getTrackbackList();">{$lang->trackback_manager}</a>
-                    </span>
-                </p>
-            </caption>
-			<thead>
-				<tr>
-					<th scope="col" class="text">{$lang->title}</th>
-					<th scope="col" class="nowr">{$lang->site}</th>
-					<th scope="col" class="nowr">{$lang->date}</th>
-					<th scope="col" class="nowr">{$lang->ipaddress}</th>
-					<th scope="col"><input type="checkbox" data-name="cart" title="Check All" /></th>
-				</tr>
-			</thead>
-			<tfoot>
-				<tr>
-					<th scope="col" class="text">{$lang->title}</th>
-					<th scope="col" class="nowr">{$lang->site}</th>
-					<th scope="col" class="nowr">{$lang->date}</th>
-					<th scope="col" class="nowr">{$lang->ipaddress}</th>
-					<th scope="col"><input type="checkbox" data-name="cart" title="Check All" /></th>
-				</tr>
-			</tfoot>
-			<tbody>
-                <!--@if(count($trackback_list) > 0)-->
-                    <!--@foreach($trackback_list as $no => $val)-->
-                    <tr>
-                        <td class="text">
-                            <a href="{getUrl('','document_srl',$val->document_srl)}#trackback_{$val->trackback_srl}" target="_blank">{htmlspecialchars($val->title)}</a>
-                            <p>{$val->excerpt}</p>
-                        </td>
-                        <td class="nowr"><a href="{$val->url}" target="_blank">{htmlspecialchars($val->blog_name)}</a></td>
-                        <td class="nowr">{zdate($val->regdate,"Y-m-d")}</td>
-                        <td class="nowr"><a href="{getUrl('search_target','ipaddress','search_keyword',$val->ipaddress)}">{$val->ipaddress}</a></td>
-                        <td><input type="checkbox" name="cart" value="{$val->trackback_srl}" /></td>
-                    </tr>
-                    <!--@end-->
-                <!--@else-->
-                    <tr>
-                        <td colspan="5"><div class="text-center">{$lang->no_records}</div></td>
-                    </tr>
-                <!--@end-->
-			</tbody>
-		</table>
+        <p class="pull-right">
+            All({number_format($total_count)})
+            <span class="side" >
+                <a class="btn" href="#listManager" data-toggle="modal" onclick="getTrackbackList();">{$lang->trackback_manager}</a>
+            </span>
+        </p>
+        <div class="clearfix"></div>
+        <include target="../../admin/tpl/common/include.grid.html" />
 		<div class="btnArea pull-right">
 			<a class="btn" href="#listManager" data-toggle="modal" onclick="getTrackbackList();">{$lang->trackback_manager}</a>
 		</div>

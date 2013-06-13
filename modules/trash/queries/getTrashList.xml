@@ -14,7 +14,7 @@
         <condition operation="in" column="origin_module" var="originModule" pipe="and" />
     </conditions>
     <navigation>
-        <index var="sort_index" default="trash_srl" order="desc" />
+        <index var="sort_index" default="trash_srl" order="sort_order" />
         <list_count var="list_count" default="20" />
         <page_count var="page_count" default="10" />
         <page var="page" default="1" />

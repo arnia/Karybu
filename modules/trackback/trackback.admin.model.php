@@ -61,6 +61,7 @@
                 }
             }
             // Variables
+            $args->sort_order = !empty($obj->sort_order) ? $obj->sort_order : 'asc';
             $args->sort_index = !empty($obj->sort_index) ? $obj->sort_index : null;
             $args->page = !empty($obj->page) ? $obj->page : 1;
             $args->list_count = !empty($obj->list_count) ? $obj->list_count : 20;

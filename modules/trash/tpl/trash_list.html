@@ -13,57 +13,15 @@ var no_text_comment = '{$lang->no_text_comment}';
     <input type="hidden" name="page" value="{$page}" />
     <input type="hidden" name="is_all" value="true" />
     <h3 class="h3">{$lang->trash}</h3>
-    <div class="table even">
-        <table class="table table-bordered table-condensed table-hover" id="trashListTable">
-            <caption>
-                <p class="pull-right">
-                    {$lang->trash}({number_format($total_count)})
-                <span class="side" >
-                    <a class="btn" href="#listManager" data-toggle="modal" onclick="getTrashList();">{$lang->document_manager}</a>
-                    <button class="btn btn-danger" type="submit" name="is_all" value="true">{$lang->empty_trash_all}</button>
-                </span>
-                </p>
-            </caption>
-            <thead>
-                <tr>
-                    <th scope="col" class="title">{$lang->document}({$lang->origin_module_type})</th>
-                    <th scope="col" class="nowr">{$lang->trash_nick_name}</th>
-                    <th scope="col" class="nowr">{$lang->trash_date}</th>
-                    <th scope="col" class="nowr">{$lang->ipaddress}</th>
-                    <th scope="col" class="title">{$lang->trash_description}</th>
-                    <th scope="col"><input type="checkbox" title="Check All" data-name="cart" /></th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th scope="col" class="title">{$lang->document}({$lang->origin_module_type})</th>
-                    <th scope="col" class="nowr">{$lang->trash_nick_name}</th>
-                    <th scope="col" class="nowr">{$lang->trash_date}</th>
-                    <th scope="col" class="nowr">{$lang->ipaddress}</th>
-                    <th scope="col" class="title">{$lang->trash_description}</th>
-                    <th scope="col"><input type="checkbox" title="Check All" data-name="cart" /></th>
-                </tr>
-            </tfoot>
-            <tbody>
-                <!--@if(count($trash_list))-->
-                    <!--@foreach($trash_list as $no => $oTrashVO)-->
-                    <tr>
-                        <td class="title"><!--@if(!trim($oTrashVO->getTitle()) && $oTrashVO->getOriginModule() == 'comment')--><strong>{$lang->no_text_comment}</strong><!--@else-->{$oTrashVO->getTitle()}<!--@end--> (<!--@if($oTrashVO->getOriginModule() == 'document')-->{$lang->document}<!--@else-->{$lang->comment}<!--@end-->)</td>
-                        <td class="nowr"><span class="member_{$oTrashVO->getRemoverSrl()}">{htmlspecialchars($oTrashVO->getNickName())}</span></td>
-                        <td class="nowr">{zdate($oTrashVO->getRegdate(), "Y-m-d H:i:s")}</td>
-                        <td class="nowr">{$oTrashVO->getIpaddress()}</td>
-                        <td class="title">{$oTrashVO->getDescription()}</td>
-                        <td><input type="checkbox" name="cart" value="{$oTrashVO->getTrashSrl()}" /></td>
-                    </tr>
-                    <!--@end-->
-                <!--@else-->
-                    <tr>
-                        <td colspan="6"><div class="text-center">{$lang->no_records}</div></td>
-                    </tr>
-                <!--@end-->
-            </tbody>
-        </table>
-    </div>
+    <p class="pull-right">
+        {$lang->trash}({number_format($total_count)})
+        <span class="side" >
+            <a class="btn" href="#listManager" data-toggle="modal" onclick="getTrashList();">{$lang->document_manager}</a>
+            <button class="btn btn-danger" type="submit" name="is_all" value="true">{$lang->empty_trash_all}</button>
+        </span>
+    </p>
+    <div class="clearfix"></div>
+    <include target="../../admin/tpl/common/include.grid.html" />
     <div class="btnArea pull-right">
         <a class="btn" href="#listManager" data-toggle="modal" onclick="getTrashList();">{$lang->document_manager}</a>
         <button class="btn btn-danger" type="submit" name="is_all" value="true">{$lang->empty_trash_all}</button>

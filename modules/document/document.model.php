@@ -1370,7 +1370,8 @@ class documentModel extends document
                 'trackback_count',
                 'uploaded_count',
                 'title',
-                'category_srl'
+                'category_srl',
+                'nick_name'
             )
         )
         ) {

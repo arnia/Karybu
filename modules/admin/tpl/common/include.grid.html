@@ -1,30 +1,44 @@
 <div class="row-fluid">
     <div class="span12">
-        <table class="{$grid->getCssClasses()}">
-            <thead>
+        <table class="{$grid->getCssClasses()}"<!--@if($grid->getId())--> id="{$grid->getId()}"<!--@end-->>
+        {@ $gridSections = array('thead','tfoot')}
+        <!--@foreach ($gridSections as $section)-->
+            <{$section}>
                 <tr>
+                    <!--@if($grid->getShowOrderNumberColumn())-->
+                    <th>{$lang->no}</th>
+                    <!--@end-->
                     <!--@foreach($grid->getColumns() as $column)-->
-                    <th scope="col" class="nowr">{$column->getConfig('header')}</th>
+                    <th scope="col" class="nowr">
+                        <!--@if ($column->getSortable())-->
+                        <a href="{$column->getSortUrl()}">
+                            {$column->getConfig('header')}
+                            <!--@if($grid->getSortIndex() == $column->getSortIndex())-->
+                            <!--@if($grid->getSortOrder() == 'asc')-->
+                            <em>▲</em>
+                            <!--@else-->
+                            <em>▼</em>
+                            <!--@end-->
+                            <!--@end-->
+                        </a>
+                        <!--@else-->
+                        {$column->getConfig('header')}
+                        <!--@end-->
+                    </th>
                     <!--@end-->
                     <th scope="col">
                         <input type="checkbox" title="Check All" data-name="{$grid->getMassSelectName()}" />
                     </th>
                 </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <!--@foreach($grid->getColumns() as $column)-->
-                    <th scope="col" class="nowr">{$column->getConfig('header')}</th>
-                    <!--@end-->
-                    <th scope="col">
-                        <input type="checkbox" title="Check All" data-name="{$grid->getMassSelectName()}" />
-                    </th>
-                </tr>
-            </tfoot>
+            </{$section}>
+        <!--@end-->
             <tbody>
                 <!--@if (count($grid->getRows()) > 0)-->
-                <!--@foreach ($grid->getRows() as $row)-->
+                <!--@foreach ($grid->getRows() as $no=>$row)-->
                 <tr>
+                    <!--@if($grid->getShowOrderNumberColumn())-->
+                    <td>{$no}</td>
+                    <!--@end-->
                     <!--@foreach($grid->getColumns() as $column)-->
                         <td class="nowr">{$column->render($row)}</td>
                     <!--@end-->
@@ -34,8 +48,8 @@
                 </tr>
                 <!--@end-->
                 <!--@else-->
-                    <tr colspan="{$grid->getColumns() + (int)$grid->getAllowMassSelect()}">
-                        {$lang->no_records}
+                    <tr>
+                        <td colspan="{count($grid->getColumns()) + (int)$grid->getAllowMassSelect() + (int)$grid->getShowOrderNumberColumn()}"><div class="text-center">{$lang->no_records}</div></td>
                     </tr>
                 <!--@end-->
             </tbody>

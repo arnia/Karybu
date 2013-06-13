@@ -1,5 +1,5 @@
 jQuery(function ($){
-	
+
     $("#listManager").on("show", function() {
 		var $memberList = $('._memberList input[name=user]:checked');
 		if ($memberList.length == 0){
@@ -13,7 +13,7 @@ jQuery(function ($){
 		for (var i = 0; i<$memberList.length; i++){
 			memberInfo = $memberList.eq(i).val().split('\t');
 			memberSrl = memberInfo.shift();
-			memberTag += '<tr><td>'+memberInfo.join("</td><td>")+'<input type="hidden" name="member_srls[]" value="'+memberSrl+'"/></td></tr>' 
+			memberTag += '<tr><td>'+memberInfo.join("</td><td>")+'<input type="hidden" name="member_srls[]" value="'+memberSrl+'"/></td></tr>'
 		}
 		$('#popupBody').empty().html(memberTag);
 	});
@@ -22,6 +22,8 @@ jQuery(function ($){
 
 
 jQuery(document).ready( function() {
+    //removed this - it seams it's not needed anymore
+    return true;
     $ = jQuery;
     /* OS check */
     var UA = navigator.userAgent.toLowerCase();
@@ -37,14 +39,14 @@ jQuery(document).ready( function() {
                 ($.os.Mac) ? 'Mac' : '';
 
     /**
-     * @brief Karybu 공용 유틸리티 함수
+     * @brief Karybu ?? ???? ??
      * @namespace Karybu
      */
     window.XE = {
         loaded_popup_menus : new Array(),
         addedDocument : new Array(),
         /**
-         * @brief 특정 name을 가진 체크박스들의 checked 속성 변경
+         * @brief ?? name? ?? ?????? checked ?? ??
          * @param [itemName='cart',][options={}]
          */
         checkboxToggleAll : function(itemName) {
@@ -88,7 +90,7 @@ jQuery(document).ready( function() {
         },
 
         /**
-         * @brief 문서/회원 등 팝업 메뉴 출력
+         * @brief ??/?? ? ?? ?? ??
          */
         displayPopupMenu : function(ret_obj, response_tags, params) {
             var target_srl = params["target_srl"];
@@ -133,7 +135,7 @@ jQuery(document).ready( function() {
                 this.loaded_popup_menus[menu_id] =  html;
             }
 
-            /* 레이어 출력 */
+            /* ??? ?? */
             if(html) {
                 var area = $('#popup_menu_area').html('<ul>'+html+'</ul>');
                 var areaOffset = {top:params['page_y'], left:params['page_x']};

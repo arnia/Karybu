@@ -48,53 +48,7 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
                     <a href="#listManager" class="btn" data-toggle="modal" onclick="getCommentList();">{$lang->comment_manager}...</a>
                 </span>
             </p>
-            <table width="100%" border="1" cellspacing="0" id="commentListTable" class="table table-condensed table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col" class="text">{$lang->comment}</th>
-                        <th scope="col" class="nowr">{$lang->writer}</th>
-                        <th scope="col" class="nowr">{$lang->cmd_vote}(+/-)</th>
-                        <th scope="col" class="nowr">{$lang->date}</th>
-                        <th scope="col" class="nowr">{$lang->ipaddress}</th>
-                        <th scope="col" class="nowr">{$lang->status}</th>
-                        <th scope="col">{$lang->published}</th>
-                        <th scope="col"><input type="checkbox" data-name="cart" title="Check All" /></th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th scope="col" class="text">{$lang->comment}</th>
-                        <th scope="col" class="nowr">{$lang->writer}</th>
-                        <th scope="col" class="nowr">{$lang->cmd_vote}(+/-)</th>
-                        <th scope="col" class="nowr">{$lang->date}</th>
-                        <th scope="col" class="nowr">{$lang->ipaddress}</th>
-                        <th scope="col" class="nowr">{$lang->status}</th>
-                        <th scope="col">{$lang->published}</th>
-                        <th scope="col"><input type="checkbox" data-name="cart" title="Check All" /></th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    <!--@if(count($comment_list) > 0)-->
-                        <!--@foreach($comment_list as $no => $val)-->
-                        {@ $comment = cut_str(trim(strip_tags($val->content)), 40, '...')}
-                        <tr>
-                            <td class="text"><a href="{getUrl('','document_srl',$val->document_srl)}#comment_{$val->comment_srl}" target="_blank"><!--@if(strlen($comment))-->{$comment}<!--@else--><em>{$lang->no_text_comment}</em><!--@end--></a></td>
-                            <td class="nowr"><a href="#popup_menu_area" class="member_{$val->member_srl}">{$val->nick_name}</a></td>
-                            <td class="nowr">{number_format($val->get('voted_count'))}/{number_format($val->get('blamed_count'))}</td>
-                            <td class="nowr">{(zdate($val->regdate,"Y-m-d\nH:i:s"))}</td>
-                            <td class="nowr"><a href="{getUrl('search_target','ipaddress','search_keyword',$val->ipaddress)}">{$val->ipaddress}</a></td>
-                            <td class="nowr"><!--@if($val->isSecret())-->{$secret_name_list['Y']}<!--@else-->{$secret_name_list['N']}<!--@end--></td>
-                            <td class="nowr"><!--@if($val->status)-->{$lang->published_name_list['Y']}<!--@else-->{$lang->published_name_list['N']}<!--@end--></td>
-                            <td><input type="checkbox" name="cart" value="{$val->comment_srl}" /></td>
-                        </tr>
-                        <!--@end-->
-                    <!--@else-->
-                        <tr>
-                            <td colspan="8"><div class="text-center">{$lang->no_records}</div></td>
-                        </tr>
-                    <!--@end-->
-                </tbody>
-            </table>
+            <include target="../../admin/tpl/common/include.grid.html" />
             <p class="pull-right">
                 <span class="side"><a href="#listManager" class="btn" data-toggle="modal" onclick="getCommentList();">{$lang->comment_manager}...</a></span>
             </p>

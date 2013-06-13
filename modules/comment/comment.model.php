@@ -537,7 +537,8 @@
             $query_id = 'comment.getTotalCommentList';
             $args = new stdClass();
             // Variables
-            $args->sort_index = 'list_order';
+            $args->sort_index = !empty($obj->sort_index) ? $obj->sort_index : 'list_order';
+            $args->sort_order = !empty($obj->sort_order) ? $obj->sort_order : 'asc';
             $args->page = !empty($obj->page) ? $obj->page : 1;
             $args->list_count = !empty($obj->list_count) ? $obj->list_count : 20;
             $args->page_count = !empty($obj->page_count) ? $obj->page_count : 10;
@@ -569,7 +570,7 @@
                             }
                             $args->s_user_id = $search_keyword;
                             $query_id = 'comment.getTotalCommentListWithinMember';
-                            $args->sort_index = 'comments.list_order';
+                            //$args->sort_index = 'comments.list_order';
                         break;
                     case 'user_name' :
                             if($search_keyword) {
@@ -625,6 +626,7 @@
                         break;
                 }
             }
+            //echo "<pre>"; print_r($args);exit;
             // comment.getTotalCommentList query execution
             $output = executeQueryArray($query_id, $args, $columnList);
             // return when no result or error occurance

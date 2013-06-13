@@ -33,51 +33,8 @@
                 <a href="#listManager" class="btn" data-toggle="modal" onclick="getDocumentList();">{$lang->document_manager}...</a>
             </span>
         </p>
-        <table class="table table-condensed table-bordered table-hover" id="documentListTable">
-            <thead>
-            <tr>
-                <th scope="col" class="title">{$lang->title}</th>
-                <th scope="col" class="nowr">{$lang->writer}</th>
-                <th scope="col" class="nowr">{$lang->cmd_declare}</th>
-                <th scope="col" class="nowr">{$lang->readed_count}</th>
-                <th scope="col" class="nowr">{$lang->cmd_vote}(+/-)</th>
-                <th scope="col" class="nowr">{$lang->date}</th>
-                <th scope="col"><input type="checkbox" data-name="cart" title="Check All"/></th>
-            </tr>
-            </thead>
-            <tfoot>
-            <tr>
-                <th scope="col" class="title">{$lang->title}</th>
-                <th scope="col" class="nowr">{$lang->writer}</th>
-                <th scope="col" class="nowr">{$lang->cmd_declare}</th>
-                <th scope="col" class="nowr">{$lang->readed_count}</th>
-                <th scope="col" class="nowr">{$lang->cmd_vote}(+/-)</th>
-                <th scope="col" class="nowr">{$lang->date}</th>
-                <th scope="col"><input type="checkbox" data-name="cart" title="Check All"/></th>
-            </tr>
-            </tfoot>
-            <tbody>
-            <!--@if(count($document_list)>0)-->
-                <!--@foreach($document_list as $no => $oDocument)-->
-                <tr>
-                    <td class="title"><a href="{getUrl('','document_srl',$oDocument->document_srl)}" target="_blank">{$oDocument->getTitle()}</a>
-                    </td>
-                    <td class="nowr"><a href="#popup_menu_area" class="member_{$oDocument->get('member_srl')}">{$oDocument->getNickName()}</a>
-                    </td>
-                    <td class="nowr">{$oDocument->get('declared_count')}</td>
-                    <td class="nowr">{$oDocument->get('readed_count')}</td>
-                    <td class="nowr">{$oDocument->get('voted_count')}/{$oDocument->get('blamed_count')}</td>
-                    <td class="nowr">{$oDocument->getRegdate("Y-m-d H:i")}</td>
-                    <td><input type="checkbox" name="cart" value="{$oDocument->document_srl}"/></td>
-                </tr>
-                <!--@end-->
-            <!--@else-->
-                <tr>
-                    <td colspan="7"><div class="text-center">{$lang->no_records}</div></td>
-                </tr>
-            <!--@end-->
-            </tbody>
-        </table>
+
+        <include target="../../admin/tpl/common/include.grid.html" />
         <p class="pull-right">
             <span class="side">
                 <a href="#listManager" class="btn" data-toggle="modal" onclick="getDocumentList();">{$lang->document_manager}...</a>

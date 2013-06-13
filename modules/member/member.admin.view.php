@@ -52,7 +52,18 @@
         function dispMemberAdminList() {
             $oMemberAdminModel = &getAdminModel('member');
             $oMemberModel = &getModel('member');
+
+            $grid = $this->getGrid();
+            $sort_order = Context::get('sort_order');
+            $sort_index = Context::get('sort_index');
+            //filter sorting values ...
+            $grid->setSortIndex($sort_index);
+            $grid->setSortOrder($sort_order);
+            //...and re-assign them to context
+            Context::set('sort_index', $sort_index);
+            Context::set('sort_order', $sort_order);
             $output = $oMemberAdminModel->getMemberList();
+
 
 			$filter = Context::get('filter_type');
 			global $lang;			
@@ -113,11 +124,17 @@
 			$security = new Security();
 			$security->encodeHTML('member_list..user_name', 'member_list..nick_name', 'member_list..group_list..');
 
+            $grid->setRows($output->data);
+            Context::set('grid', $grid);
+			$this->setTemplateFile('member_list');
+        }
+        function getGrid(){
+            global $lang;
             $grid = new \Karybu\Grid\Backend();
             $grid->addCssClass('_memberList');
             $grid->setMassSelectName('user');
             //email column
-			$grid->addColumn('email_address', 'member', array(
+            $grid->addColumn('email_address', 'member', array(
                 'index' => 'email_address',
                 'header'=> $lang->email,
                 'masked'=>true,
@@ -148,7 +165,8 @@
             ));
             $grid->addColumn('member_group', 'text', array(
                 'index' => 'member_group',
-                'header'=> $lang->member_group
+                'header'=> $lang->member_group,
+                'sortable'=>false
             ));
             $grid->addColumn('denied', 'options', array(
                 'index'     => 'denied',
@@ -196,11 +214,8 @@
             );
             $action = new \Karybu\Grid\Action\Action($actionConfig);
             $grid->getColumn('actions')->addAction('delete',$action);
-            $grid->setRows($output->data);
-            Context::set('grid', $grid);
-			$this->setTemplateFile('member_list');
+            return $grid;
         }
-
         /**
          * default configuration for member management
 		 *

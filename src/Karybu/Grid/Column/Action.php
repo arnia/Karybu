@@ -20,4 +20,7 @@ class Action extends Column{
         $result .= $this->getConfig('wrapper_bottom');
         return $result;
     }
+    public function getSortable(){
+        return false;
+    }
 }
