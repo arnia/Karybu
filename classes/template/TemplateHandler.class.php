@@ -208,6 +208,10 @@ class TemplateHandler
      */
     public function compileTwig($path, $filename, $fullPath = null)
     {
+        if (end(explode('.', $filename)) != 'twig') {
+            $filename .= '.twig';
+        }
+
         /** @var $tLoader \Twig_Loader_Filesystem */
         $tLoader = $this->container->get('twig.loader');
         if (substr($path, 0, 2) == './') {
