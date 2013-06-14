@@ -69,7 +69,47 @@
             $this->setTemplateFile('module_list');
 
         }
+        function getGrid(){
+            global $lang;
+            $grid = new \Karybu\Grid\Backend();
+            $grid->setAllowMassSelect(false);
+            $grid->addColumn('title', 'text', array(
+                'index' => 'title',
+                'header'=> $lang->category_title,
+            ));
+            $grid->addColumn('regdate', 'date', array(
+                'index' => 'regdate',
+                'header'=> $lang->regdate,
+                'format'=>'Y-m-d'
+            ));
+            $grid->addColumn('actions', 'action', array(
+                'index'         => 'actions',
+                'header'        => $lang->actions,
+                'wrapper_top'   => '<div class="kActionIcons">',
+                'wrapper_bottom'=> '</div>'
+            ));
+            //view action
+            $actionConfig = array(
+                'title'=>$lang->cmd_modify,
+                'url_params'=>array('module_category_srl'=>'module_category_srl'),
+                'module'=>'admin',
+                'act'=>'dispModuleAdminCategory',
+                'icon_class' => 'kEdit'
+            );
 
+            $action = new \Karybu\Grid\Action\Action($actionConfig);
+            $grid->getColumn('actions')->addAction('edit',$action);
+            $actionConfig = array(
+                'title'=>$lang->cmd_delete,
+                'confirm'=>$lang->confirm_delete,
+                'params'=>array('module_category_srl'=>'module_category_srl'),
+                'icon_class' => 'kDelete',
+                'js_action' => 'doUpdateCategory'
+            );
+            $action = new \Karybu\Grid\Action\Confirm($actionConfig);
+            $grid->getColumn('actions')->addAction('delete',$action);
+            return $grid;
+        }
         /**
          * @brief Module Categories
          **/
@@ -81,7 +121,6 @@
             // Display the category page if a category is selected
 			//Security
 			$security = new Security();				
-			
             if($module_category_srl) {
                 $selected_category  = $oModuleModel->getModuleCategory($module_category_srl);
                 Context::set('selected_category', $selected_category);
@@ -95,6 +134,17 @@
             } else {
                 $category_list = $oModuleModel->getModuleCategories();
                 Context::set('category_list', $category_list);
+                $grid = $this->getGrid();
+                Context::set('grid', $grid);
+                $sortIndex = Context::get('sort_index');
+                $grid->setSortIndex($sortIndex);
+                //$args->sort_index = 'list_order'; // /< Sorting values
+                $args = new stdClass();
+                Context::set('sort_index',$grid->getSortIndex());
+                $sortOrder = Context::get('sort_order');
+                $grid->setSortOrder($sortOrder);
+                Context::set('sort_order',$grid->getSortOrder());
+                $grid->setRows($category_list);
 
 				//Security
 				$security->encodeHTML('category_list..title');

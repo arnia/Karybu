@@ -34,8 +34,12 @@ class Action {
                 $urlParams[] = '';
             }
         }
+        $popup = '';
+        if ($this->getConfig('popup')){
+            $popup = ' onclick="popopen(this.href);return false;"';
+        }
         $url = call_user_func(array('\Context', 'getUrl'), count($urlParams), $urlParams);
-        $html = '<a title="'.$this->getConfig('title').'" data-toggle="tooltip" href="'.$url.'"><i class="'.$this->getConfig('icon_class').'">'.$this->getConfig('title').'</i></a>';
+        $html = '<a title="'.$this->getConfig('title').'" data-toggle="tooltip" href="'.$url.'"'.$popup.'><i class="'.$this->getConfig('icon_class').'">'.$this->getConfig('title').'</i></a>';
         return $html;
     }
 }

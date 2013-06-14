@@ -63,6 +63,13 @@ abstract class Column {
             $prefix = '<span class="masked">';
             $suffix = '</span>';
         }
+        if ($this->getConfig('tooltip')){
+            $tooltipKey = $this->getConfig('tooltip_key');
+            if (!empty($row->$tooltipKey)){
+                $prefix = '<div data-toggle="tooltip" data-container=".easyList" title="'.$row->$tooltipKey.'">'.$prefix;
+                $suffix .= '</div>';
+            }
+        }
         return $prefix.$this->_getValue($row).$suffix;
     }
 

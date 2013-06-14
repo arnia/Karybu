@@ -63,6 +63,8 @@ class layoutModel extends layout
         $args->site_srl = $siteSrl;
         $args->layout_type = $layoutType;
         $args->layout = $layout;
+        $args->sort_index = Context::get('sort_index');
+        $args->sort_order = Context::get('sort_order');
         $output = executeQueryArray('layout.getLayoutList', $args, $columnList);
         return $output->data;
     }

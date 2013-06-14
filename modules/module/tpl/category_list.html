@@ -11,36 +11,8 @@
 	<input type="hidden" name="act" value="procModuleAdminDeleteCategory" />
     <input type="hidden" name="module_category_srl" value="" />
 </form>
-<div class="table">
-	<table class="table table-condensed table-bordered table-hover">
-		<thead>
-			<tr>
-				<th scope="col" class="title">{$lang->category_title}</th>
-				<th scope="col" class="nowr">{$lang->regdate}</th>
-				<th scope="col" class="nowr">{$lang->actions}</th>
-			</tr>
-		</thead>
-		<tbody>
-			<!--@if(!count($category_list))-->
-			<tr>
-				<td colspan="3">{$lang->msg_category_is_null}</td>
-			</tr>
-			<!--@end-->
-			<!--@foreach($category_list as $key => $val)-->
-			<tr>
-				<td class="title">{$val->title}</td>
-				<td class="nowr">{zdate($val->regdate,"Y-m-d")}</td>
-				<td class="nowr">
-                    <div class="kActionIcons">
-                        <a href="{getUrl('module_category_srl',$val->module_category_srl)}" data-toggle="tooltip" title="{$lang->cmd_modify}"><i class="kEdit">{$lang->cmd_modify}</i></a>
-                        <a href="#" onclick="doUpdateCategory('{$val->module_category_srl}','{$lang->confirm_delete}');return false;" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kDelete">{$lang->cmd_delete}</i></a>
-                    </div>
-				</td>
-			</tr>
-			<!--@end-->
-		</tbody>
-	</table>
-</div>
+
+<include target="../../admin/tpl/common/include.grid.html" />
 
 <form ruleset="insertCategory" action="./" method="post" class="form-inline">
 	<input type="hidden" name="module" value="module" />

@@ -14,7 +14,35 @@
         function init() {
             $this->setTemplatePath($this->module_path.'tpl');
         }
+        function getGrid(){
+            global $lang;
+            $grid = new \Karybu\Grid\Backend();
+            $grid->setAllowMassSelect(false);
+            $grid->addColumn('title', 'link', array(
+                'index' => 'title',
+                'header'=> $lang->layout_name,
+                'link_key'=>'url',
+                'sortable'=>false,
+            ));
+            $grid->addColumn('version', 'text', array(
+                'index' => 'version',
+                'header'=> $lang->version,
+                'sortable'=>false
+            ));
+            $grid->addColumn('authors', 'text', array(
+                'index' => 'authors',
+                'header'=> $lang->author,
+                'sortable'=>false
+            ));
+            $grid->addColumn('path', 'text', array(
+                'index' => 'path',
+                'header'=> $lang->path,
+                'sortable'=>false
+            ));
 
+
+            return $grid;
+        }
 		/**
 		 * Display a installed layout list
 		 * @return void
@@ -53,18 +81,108 @@
 
 			$security = new Security($layout_list);
 			$layout_list = $security->encodeHTML('..', '..author..');
-			
 			//Security
 			$security = new Security();
 			$security->encodeHTML('layout_list..layout','layout_list..title');						
 			
 			foreach($layout_list as $no => $layout_info)
 			{
-				$layout_list[$no]->description = nl2br(trim($layout_info->description));
+                if (empty($layout_info->title)){
+                    $layout_list[$no]->title = isset($layout_info->title) ? $layout_info->title : '';
+                    $layout_list[$no]->version = '-';
+                    $layout_list[$no]->author = '-';
+                }
+                $layout_list[$no]->url = getUrl('act', 'dispLayoutAdminInstanceList', 'type', (isset($layout_info->type) ? $layout_info->type : ''), 'layout', (isset($layout_info->layout) ? $layout_info->layout : ''));
+                $layout_list[$no]->description = isset($layout_info->description) ? nl2br(trim($layout_info->description)) : '';
+                if (is_array($layout_info->author)){
+                    $authors = array();
+                    foreach ($layout_info->author as $author){
+                        if (!empty($author->homepage) && !empty($author->name)){
+                            $authors[] = '<a href="'.$author->homepage.'"target="_blank">'.$author->name.'</a>';
+                        }
+                        elseif (!empty($author->name)){
+                            $authors[] = $author->name;
+                        }
+                    }
+                    $layout_list[$no]->authors = implode(' ',$authors);
+                }
 			}
+            $grid = $this->getGrid();
+            $grid->setRows($layout_list);
+            Context::set('grid', $grid);
 			Context::set('layout_list', $layout_list);
 		}
+        function getLayoutInstanceGrid(){
+            global $lang;
+            $grid = new \Karybu\Grid\Backend();
+            $grid->setAllowMassSelect(false)
+                    ->setShowOrderNumberColumn(true);
+            $grid->addColumn('layout', 'text', array(
+                'index' => 'layout',
+                'header'=> $lang->layout_name,
+            ));
+            $grid->addColumn('title', 'text', array(
+                'index' => 'title',
+                'header'=> $lang->title,
+            ));
+            $grid->addColumn('regdate', 'date', array(
+                'index' => 'regdate',
+                'header'=> $lang->regdate,
+                'format'=>'Y-m-d'
+            ));
+            $grid->addColumn('actions', 'action', array(
+                'index'         => 'actions',
+                'header'        => $lang->actions,
+                'wrapper_top'   => '<div class="kActionIcons">',
+                'wrapper_bottom'=> '</div>'
+            ));
+            //configure action
+            $actionConfig = array(
+                'title'=>$lang->cmd_layout_management,
+                'url_params'=>array('layout_srl'=>'layout_srl'),
+                'module'=>'admin',
+                'act'=>'dispLayoutAdminModify',
+                'icon_class' => 'kConfigure'
+            );
+            $action = new \Karybu\Grid\Action\Action($actionConfig);
+            $grid->getColumn('actions')->addAction('configure',$action);
+            //edit action
+            $actionConfig = array(
+                'title'=>$lang->cmd_layout_edit,
+                'url_params'=>array('layout_srl'=>'layout_srl'),
+                'module'=>'admin',
+                'act'=>'dispLayoutAdminEdit',
+                'icon_class' => 'kEdit'
+            );
+            $action = new \Karybu\Grid\Action\Action($actionConfig);
+            $grid->getColumn('actions')->addAction('edit',$action);
+            //copy action
+            $actionConfig = array(
+                'title'=>$lang->cmd_layout_copy,
+                'url_params'=>array('layout_srl'=>'layout_srl'),
+                'module'=>'layout',
+                'act'=>'dispLayoutAdminCopyLayout',
+                'icon_class' => 'kCopy',
+                'popup'=>true
+            );
+            $action = new \Karybu\Grid\Action\Action($actionConfig);
+            $grid->getColumn('actions')->addAction('copy',$action);
 
+            //edit action
+            $actionConfig = array(
+                'title'=>$lang->cmd_delete,
+                'params'=>array('layout_srl'=>'layout_srl'),
+                'module'=>'layout',
+                'act'=>'procLayoutAdminDelete',
+                'icon_class' => 'kDelete',
+                'ruleset'=>'deleteLayout',
+                'class_name'=>'layout_delete_form'
+            );
+            $action = new \Karybu\Grid\Action\Delete($actionConfig);
+            $grid->getColumn('actions')->addAction('delete',$action);
+
+            return $grid;
+        }
 		/**
 		 * Display list of pc layout all instance
 		 * @return void|Object (void : success, Object : fail)
@@ -82,31 +200,45 @@
 			Context::set('pcLayoutCount', $pcLayoutCount);
 			Context::set('mobileLayoutCount', $mobileLayoutCount);
 
-			$columnList = array('layout_srl', 'layout', 'module_srl', 'title', 'regdate');
-			$_layout_list = $oLayoutModel->getLayoutInstanceList(0, $type, null, $columnList);
+
+            $grid = $this->getLayoutInstanceGrid();
+            $sortIndex = Context::get('sort_index');
+            $grid->setSortIndex($sortIndex);
+            //$args->sort_index = 'list_order'; // /< Sorting values
+            $args = new stdClass();
+            Context::set('sort_index',$grid->getSortIndex());
+            $sortOrder = Context::get('sort_order');
+            $grid->setSortOrder($sortOrder);
+            Context::set('sort_order',$grid->getSortOrder());
+
+            $columnList = array('layout_srl', 'layout', 'module_srl', 'title', 'regdate');
+            $_layout_list = $oLayoutModel->getLayoutInstanceList(0, $type, null, $columnList);
 
 			$layout_list = array();
-			foreach($_layout_list as $item)
-			{
+			foreach($_layout_list as $key=>$item)
+			{//echo "<pre>"; print_r($item);echo "</pre>";
+                $layout_info = $oLayoutModel->getLayoutInfo($item->layout, null, $type);
+                //$_layout_list[$key]->title = $layout_info->title;
 				if(empty($layout_list[$item->layout]))
 				{
 					$layout_list[$item->layout] = array();
 					$layout_info = $oLayoutModel->getLayoutInfo($item->layout, null, $type);
 					if ($layout_info)
 					{
-						$layout_list[$item->layout]['title'] = $layout_info->title; 
+						$layout_list[$item->layout]['title'] = $layout_info->title;
 					}
 				}
-
+//
 				$layout_list[$item->layout][] = $item;
 			}
 
-			usort($layout_list, array($this, 'sortLayoutInstance'));
+			//usort($layout_list, array($this, 'sortLayoutInstance'));
 
 			Context::set('layout_list', $layout_list);
 
 			$this->setTemplateFile('layout_all_instance_list');
-
+            $grid->setRows($_layout_list);
+            Context::set('grid', $grid);
 			$security = new Security();
 			$security->encodeHTML('layout_list..');
 		}

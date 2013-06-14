@@ -1,3 +1,4 @@
+<!--@if($grid)-->
 <div class="row-fluid">
     <div class="span12">
         <table class="{$grid->getCssClasses()}"<!--@if($grid->getId())--> id="{$grid->getId()}"<!--@end-->>
@@ -26,9 +27,11 @@
                         <!--@end-->
                     </th>
                     <!--@end-->
+                    <!--@if($grid->getAllowMassSelect())-->
                     <th scope="col">
                         <input type="checkbox" title="Check All" data-name="{$grid->getMassSelectName()}" />
                     </th>
+                    <!--@end-->
                 </tr>
             </{$section}>
         <!--@end-->
@@ -56,3 +59,7 @@
         </table>
     </div>
 </div>
+<script type="text/javascript">
+    jQuery('div[data-toggle=tooltip]').tooltip();
+</script>
+<!--@end-->

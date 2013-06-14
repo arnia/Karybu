@@ -1524,6 +1524,8 @@ class moduleModel extends module
     function getModuleCategories($moduleCategorySrl = array())
     {
         $args = new stdClass();
+        $args->sort_index = Context::get('sort_index');
+        $args->sort_order = Context::get('sort_order');
         $args->moduleCategorySrl = $moduleCategorySrl;
         // Get data from the DB
         $output = executeQuery('module.getModuleCategories', $args);
