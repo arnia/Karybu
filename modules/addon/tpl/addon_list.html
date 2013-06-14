@@ -9,47 +9,10 @@
         <button type="button" class="close" data-dismiss="alert">&times;</button>
 		<p>{$XE_VALIDATOR_MESSAGE}</p>
 	</div>
-	<div class="table even easyList dsTg">
-		<table class="table table-bordered table-condensed table-hover">
-			<caption>
-				{$lang->all}({$addon_count})
-			</caption>
-			<thead>
-				<tr>
-					<th scope="col" class="title">{$lang->addon_name}</th>
-					<th scope="col" class="nowr">{$lang->version}</th>
-					<th scope="col" class="nowr">{$lang->author}</th>
-					<th scope="col" class="nowr">{$lang->installed_path}</th>
-					<th scope="col" class="nowr">{$lang->actions}</th>
-					<th scope="col" class="nowr">{$lang->pc}</th>
-					<th scope="col" class="nowr">{$lang->mobile}</th>
-					<!--<th scope="col" class="nowr">{$lang->cmd_delete}</th>-->
-				</tr>
-			</thead>
-			<tbody>
-				<tr loop="$addon_list => $addon">
-					<td class="title" data-toggle="tooltip" data-container=".easyList" title="{$addon->description}">
-						<p><strong>{$addon->title}</strong></p>
-						<p cond="$addon->need_update == 'Y'" class="update">
-							{$lang->msg_avail_easy_update} <a href="{$addon->update_url}&amp;return_url={urlencode(getRequestUriByServerEnviroment())}">{$lang->msg_do_you_like_update}</a>
-						</p>
-					</td>
-					<td class="nowr">{$addon->version}</td>
-					<td class="nowr">
-						<block loop="$addon->author => $author">
-							<a cond="$author->homepage" href="{$author->homepage}" target="_blank">{$author->name}</a>
-							<block cond="!$author->homepage">{$author->name}</block>
-						</block>
-					</td>
-					<td class="nowr">{$addon->path}</td>
-					<td class="nowr"><div class="kActionIcons"><a href="{getUrl('act', 'dispAddonAdminSetup', 'selected_addon', $addon->addon_name)}" data-toggle="tooltip" title="{$lang->cmd_setup}"><i class="kConfigure">{$lang->cmd_setup}</i></a></div></td>
-					<td class="nowr"><input type="checkbox" name="pc_on[]" title="PC" value="{htmlspecialchars($addon->addon_name)}" checked="checked"|cond="$addon->activated" /></td>
-					<td class="nowr"><input type="checkbox" name="mobile_on[]" title="Mobile" value="{htmlspecialchars($addon->addon_name)}" checked="checked"|cond="$addon->mactivated" /></td>
-					<!--<td class="nowr"><a cond="$addon->remove_url" href="{$addon->remove_url}&amp;return_url={urlencode(getRequestUriByServerEnviroment())}">{$lang->cmd_delete}</a></td>-->
-				</tr>
-			</tbody>
-		</table>
-	</div>
+
+
+    <include target="../../admin/tpl/common/include.grid.html" />
+
 	<div class="btnArea">
 		<button type="submit" class="btn btn-primary">{$lang->cmd_save}</button>
 	</div>

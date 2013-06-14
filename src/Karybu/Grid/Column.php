@@ -70,6 +70,11 @@ abstract class Column {
                 $suffix .= '</div>';
             }
         }
+
+        if($this->getConfig('bold')){
+            $prefix = '<strong>'.$prefix;
+            $suffix = $suffix.'<strong>';
+        }
         return $prefix.$this->_getValue($row).$suffix;
     }
 

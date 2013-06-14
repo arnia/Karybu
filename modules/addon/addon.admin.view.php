@@ -22,6 +22,7 @@
         function dispAddonAdminIndex() {
 			$oAdminModel = &getAdminModel('admin');
 
+            $grid = $this->getGrid();
             // Add to the list settings
             $oAddonModel = &getAdminModel('addon');
             $addon_list = $oAddonModel->getAddonListForSuperAdmin();
@@ -40,9 +41,77 @@
 			}
 
             Context::set('addon_list', $addon_list);
+            $grid->setRows($addon_list);
+            Context::set('grid', $grid);
 			Context::set('addon_count', count($addon_list));
             // Template specifies the path and file
             $this->setTemplateFile('addon_list');
+        }
+
+        function getGrid(){
+            global $lang;
+            $grid = new \Karybu\Grid\Backend();
+            $grid->addCssClass('easyList dsTg');
+            //email column
+            $grid->addColumn('title', 'text', array(
+                    'index' => 'title',
+                    'header'=> $lang->addon_name,
+                    'sortable'=> false,
+                    'tooltip'=>true,
+                    'tooltip_key'=>'description',
+                    'bold' => true
+                ));
+            $grid->addColumn('version', 'text', array(
+                    'index' => 'version',
+                    'header'=> $lang->version,
+                    'sortable'=> false
+                ));
+            $grid->addColumn('author', 'author', array(
+                    'header'=> $lang->author,
+                    'author' => 'author',
+                    'sortable'=> false
+                ));
+            $grid->addColumn('path', 'text', array(
+                    'index' => 'path',
+                    'header'=> $lang->path,
+                    'sortable'=> false
+                ));
+            $grid->addColumn('actions', 'action', array(
+                    'index'         => 'actions',
+                    'header'        => $lang->actions,
+                    'wrapper_top'   => '<div class="kActionIcons">',
+                    'wrapper_bottom'=> '</div>'
+                ));
+            $grid->addColumn('pc', 'checkbox', array(
+                    'sortable' => false,
+                    'header' => 'PC',
+                    'checkbox'         => 'true',
+                    'name'        => 'pc_on[]',
+                    'title'   => 'PC',
+                    'value' => 'addon_name',
+                    'cond' => 'activated'
+                ));
+            $grid->addColumn('mobile', 'checkbox', array(
+                    'sortable' => false,
+                    'header' => 'Mobile',
+                    'checkbox'         => 'true',
+                    'name'        => 'mobile_on[]',
+                    'title'   => 'Mobile',
+                    'value' => 'addon_name',
+                    'cond' => 'mactivated'
+                ));
+            //view action
+            $actionConfig = array(
+                'title'=>$lang->cmd_setup,
+                'url_params'=>array('selected_addon'=>'addon'),
+                'module'=>'admin',
+                'act'=>'dispAddonAdminSetup',
+                'icon_class' => 'kConfigure'
+            );
+            $action = new \Karybu\Grid\Action\Action($actionConfig);
+            $grid->getColumn('actions')->addAction('configure',$action);
+            $grid->setAllowMassSelect(false);
+            return $grid;
         }
 
         /**
