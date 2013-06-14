@@ -23,14 +23,14 @@ abstract class Column {
      * @param null $setting
      * @return mixed
      */
-    public function getConfig($setting = null){
+    public function getConfig($setting = null, $default = null){
         if (is_null($setting)){
             return $this->_config;
         }
         if(isset($this->_config[$setting])){
             return $this->_config[$setting];
         }
-        return null;
+        return $default;
     }
 
     /**
@@ -66,8 +66,8 @@ abstract class Column {
         if ($this->getConfig('tooltip')){
             $tooltipKey = $this->getConfig('tooltip_key');
             if (!empty($row->$tooltipKey)){
-                $prefix = '<div data-toggle="tooltip" data-container=".easyList" title="'.$row->$tooltipKey.'">'.$prefix;
-                $suffix .= '</div>';
+                $prefix = '<span data-toggle="tooltip" data-container=".easyList" title="'.$row->$tooltipKey.'">'.$prefix;
+                $suffix .= '</span>';
             }
         }
 

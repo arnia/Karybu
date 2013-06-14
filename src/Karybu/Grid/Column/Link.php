@@ -17,8 +17,10 @@ class Link extends Text{
             if ($target = $this->getConfig('target')){
                 $_target = ' target="'.$target.'"';
             }
-            $prefix = '<a'.$_target.' href="'.$link.'">';
-            $suffix = '</a>';
+            if ($link!='#' || !$this->getConfig('hide_on_empty')){
+                $prefix = '<a'.$_target.' href="'.$link.'">';
+                $suffix = '</a>';
+            }
         }
         return $prefix.parent::render($row).$suffix;
     }

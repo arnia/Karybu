@@ -6,7 +6,7 @@
      **/
 
     class moduleAdminView extends module {
-
+        protected $_favorites = null;
         /**
          * @brief Initialization
          **/
@@ -14,7 +14,45 @@
             // Set the template path
             $this->setTemplatePath($this->module_path.'tpl');
         }
+        function getModuleGrid(){
+            global $lang;
+            $grid = new \Karybu\Grid\Backend();
+            $grid->setAllowMassSelect(false)
+                ->setShowOrderNumberColumn(false)
+                ->addCssClass('easyList dsTg');
+            $grid->addColumn('favorite', 'favorite', array(
+                'index' => 'favorite',
+                'header'=> $lang->favorite,
+                'selected'=>$this->getFavorites()
+            ));
+            $grid->addColumn('title', 'module', array(
+                'index' => 'title',
+                'header'=> $lang->title,
+                'sortable'=>false,
+                'tooltip'=>true,
+                'tooltip_key'=>'description',
+                'link_key'=>'main_url',
+                'hide_on_empty'=>true,
+                'bold'=>true
 
+            ));
+            $grid->addColumn('version', 'link', array(
+                'index' => 'version',
+                'header'=> $lang->version,
+                'sortable'=>false
+            ));
+            $grid->addColumn('authors', 'text', array(
+                'index' => 'authors',
+                'header'=> $lang->author,
+                'sortable'=>false
+            ));
+            $grid->addColumn('path', 'text', array(
+                'index' => 'path',
+                'header'=> $lang->path,
+                'sortable'=>false
+            ));
+            return $grid;
+        }
         /**
          * @brief Module admin page
          **/
@@ -46,28 +84,52 @@
 					{
 						$module_list[$key]->update_url = $oAutoinstallModel->getUpdateUrlByPackageSrl($packageSrl);
 					}
+                    if (isset($val->author) && is_array($val->author)){
+                        $authors = array();
+                        foreach ($val->author as $author){
+                            if (!empty($author->homepage) && !empty($author->name)){
+                                $authors[] = '<a href="'.$author->homepage.'" target="_blank">'.$author->name.'</a>';
+                            }
+                            elseif(!empty($author->name)){
+                                $authors[] = $author->name;
+                            }
+                        }
+                        $module_list[$key]->authors = implode(" ", $authors);
+                    }
+                    if (!empty($val->admin_index_act)){
+                        $module_list[$key]->main_url = getUrl('','module','admin','act',$val->admin_index_act);
+                    }
 				}
 			}
 
-			$output = $oAdminModel->getFavoriteList('0');
-
-			$favoriteList = $output->get('favoriteList');
-			$favoriteModuleList = array();
-			if ($favoriteList){
-				foreach($favoriteList as $favorite => $favorite_info){
-					$favoriteModuleList[] = $favorite_info->module;
-				}
-			}
-
-            Context::set('favoriteModuleList', $favoriteModuleList);
+            Context::set('favoriteModuleList', $this->getFavorites());
 			Context::set('module_list', $module_list);
 
 			$security = new Security();
-			$security->encodeHTML('module_list....');
+			//$security->encodeHTML('module_list....');
 
+            $grid = $this->getModuleGrid();
+            $grid->setRows($module_list);
+            Context::set('grid', $grid);
             // Set a template file
             $this->setTemplateFile('module_list');
 
+        }
+        function getFavorites(){
+            if (is_null($this->_favorites)){
+                $oAdminModel = &getAdminModel('admin');
+                $output = $oAdminModel->getFavoriteList('0');
+
+                $favoriteList = $output->get('favoriteList');
+                $favoriteModuleList = array();
+                if ($favoriteList){
+                    foreach($favoriteList as $favorite => $favorite_info){
+                        $favoriteModuleList[] = $favorite_info->module;
+                    }
+                }
+                $this->_favorites = $favoriteModuleList;
+            }
+            return $this->_favorites;
         }
         function getGrid(){
             global $lang;

@@ -76,7 +76,7 @@
                     $authors = array();
                     foreach ($widget->author as $author){
                         if (!empty($author->homepage) && !empty($author->name)){
-                            $authors[] = '<a href="'.$author->homepage.'" target="_blank">'.$author->name;
+                            $authors[] = '<a href="'.$author->homepage.'" target="_blank">'.$author->name.'</a>';
                         }
                         elseif(!empty($author->name)){
                             $authors[] = $author->name;
