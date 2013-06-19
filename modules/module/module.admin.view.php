@@ -41,10 +41,10 @@
                 'header'=> $lang->version,
                 'sortable'=>false
             ));
-            $grid->addColumn('authors', 'text', array(
-                'index' => 'authors',
+            $grid->addColumn('author', 'author', array(
+                'index' => 'author',
                 'header'=> $lang->author,
-                'sortable'=>false
+                'author'=>'author'
             ));
             $grid->addColumn('path', 'text', array(
                 'index' => 'path',
@@ -84,18 +84,6 @@
 					{
 						$module_list[$key]->update_url = $oAutoinstallModel->getUpdateUrlByPackageSrl($packageSrl);
 					}
-                    if (isset($val->author) && is_array($val->author)){
-                        $authors = array();
-                        foreach ($val->author as $author){
-                            if (!empty($author->homepage) && !empty($author->name)){
-                                $authors[] = '<a href="'.$author->homepage.'" target="_blank">'.$author->name.'</a>';
-                            }
-                            elseif(!empty($author->name)){
-                                $authors[] = $author->name;
-                            }
-                        }
-                        $module_list[$key]->authors = implode(" ", $authors);
-                    }
                     if (!empty($val->admin_index_act)){
                         $module_list[$key]->main_url = getUrl('','module','admin','act',$val->admin_index_act);
                     }

@@ -46,7 +46,7 @@
                         <td class="nowr">{$column->render($row)}</td>
                     <!--@end-->
                     <!--@if($grid->getAllowMassSelect())-->
-                        <td><input type="checkbox" name="{$grid->getMassSelectName()}" value="{$row->mass_select_value}"<!--@if($row->disable_mass_select)--> disabled="disabled"<!--@end-->/></td>
+                        <td><input type="checkbox" name="{$grid->getMassSelectName()}" value="{$row->mass_select_value}"<!--@if($row->disable_mass_select)--> disabled="disabled"<!--@end-->{$grid->renderMassSelectAttributes($row)}{$grid->getMassSelectClass(true)}/></td>
                     <!--@end-->
                 </tr>
                 <!--@end-->

@@ -7,7 +7,7 @@ class Author extends Text
 {
     public function render($row)
     {
-        $prefix = $suffix = '';
+        $html = '';
         if ($authorKey = $this->getConfig('author')){
             if (!empty($row->$authorKey)){
                 $authors = $row->$authorKey;
@@ -17,14 +17,17 @@ class Author extends Text
             }
             foreach ($authors as $author){
                 if (!empty($author->homepage) && !empty($author->name)){
-                    $prefix = $prefix.'<a href="'.$author->homepage.'" target="_blank">'.$author->name.'<a>';
+                    $html .= '<a href="'.$author->homepage.'" target="_blank">'.$author->name.'<a>';
                 }
                 elseif(!empty($author->name)){
-                    $prefix = '';
+                    $html .= $author->name;
                 }
             }
-            $suffix = '';
         }
-        return $prefix.parent::render($row).$suffix;
+        return $html;
+    }
+    public function getSortable()
+    {
+        return false;
     }
 }

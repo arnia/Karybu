@@ -77,13 +77,43 @@
             // Set the template
             $this->setTemplateFile('action_config');
         }
-
+        function getGrid(){
+            global $lang;
+            $grid = new \Karybu\Grid\Backend();
+            $grid->setShowOrderNumberColumn(true);
+            $grid->setAllowMassSelect(false);
+            $grid->addColumn('email_address', 'text', array(
+                'index'=>'email_address',
+                'header'=>$lang->email
+            ));
+            $grid->addColumn('nick_name', 'member', array(
+                'index'=>'nick_name',
+                'header'=>$lang->nick_name
+            ));
+            $grid->addColumn('point', 'point', array(
+                'index'=>'point',
+                'header'=>$lang->point
+            ));
+            $grid->addColumn('level', 'number', array(
+                'index'=>'level',
+                'header'=>$lang->level,
+                'sortable'=>false
+            ));
+            return $grid;
+        }
         /**
          * @brief Get a list of member points
          **/
         function dispPointAdminPointList() {
             $oPointModel = &getModel('point');
             $args = new stdClass();
+            $grid = $this->getGrid();
+            $sort_index = Context::get('sort_index');
+            $sort_order = Context::get('sort_order');
+            $grid->setSortIndex($sort_index);
+            $grid->setSortOrder($sort_order);
+            $args->sort_index = $grid->getSortIndex();
+            $args->sort_order = $grid->getSortOrder();
             $args->list_count = 20;
             $args->page_count = 20;
             $args->page = Context::get('page');
@@ -107,6 +137,8 @@
             $this->group_list = $oMemberModel->getGroups();
             Context::set('group_list', $this->group_list);
 			//Security
+            $grid->setRows($output->data);
+            Context::set('grid', $grid);
 			$security = new Security();			
 			$security->encodeHTML('group_list..title','group_list..description');
 			$security->encodeHTML('member_list..');			

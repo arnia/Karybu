@@ -40,38 +40,8 @@
 </form>
 <fieldset class="section">
     <h3 class="h3">{$lang->member}</h3>
-	<table class="table table-condensed table-bordered table-hover">
-		<caption>Total {number_format($total_count)}, Page {number_format($page)}/{number_format($total_page)}</caption>
-		<thead>
-			<tr>
-				<th scope="col">{$lang->no}</th>
-				<th scope="col">{Context::getLang($identifier)}</th>
-				<th scope="col">{$lang->nick_name}</th>
-				<th scope="col">{$lang->point}</th>
-				<th scope="col">{$lang->level}</th>
-			</tr>
-		</thead>
-		<tbody>
-			<!--@foreach($member_list as $no => $val)-->
-			<tr>
-				<td>{$no}</td>
-				<td cond="$identifier == 'user_id'">{$val->user_id}</td>
-				<td cond="$identifier != 'user_id'">{$val->email_address}</td>
-				<td><a href="#popup_menu_area" class="member_{$val->member_srl}">{$val->nick_name}</a></td>
-				<td>
-					<form action="./" method="get" class="form-inline">
-						<input type="hidden" name="module" value="point" />
-						<input type="hidden" name="member_srl" value="{$val->member_srl}" />
-						<input type="text" name="orgpoint" value="{$val->point}" disabled="disabled" style="width:40px;text-align:right" />
-						<input type="text" id="point_{$val->member_srl}" name="point" style="width:40px;text-align:right" />
-						<input type="button" value="{$lang->cmd_update}" onclick="updatePoint({$val->member_srl})" class="btn" />
-					</form>
-				</td>
-				<td>{$val->level}</td>
-			</tr>
-			<!--@end-->
-		</tbody>
-	</table>
+    <div>Total {number_format($total_count)}, Page {number_format($page)}/{number_format($total_page)}</div>
+    <include target="../../admin/tpl/common/include.grid.html" />
     <include target="../../admin/tpl/common/include.paging.html" />
 </fieldset>
 

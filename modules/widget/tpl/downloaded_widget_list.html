@@ -3,38 +3,3 @@
     <span>All({$tCount})</span>
 </div>
 <include target="../../admin/tpl/common/include.grid.html" />
-<table class="table table-condensed table-bordered table-hover easyList dsTg">
-    <caption>
-        <span>All({$tCount})</span>
-    </caption>
-    <thead>
-        <tr>
-            <th scope="col" class="title">{$lang->widget_name}</th>
-            <th scope="col" class="nowr">{$lang->version}</th>
-            <th scope="col" class="nowr">{$lang->author}</th>
-            <th scope="col" class="nowr">{$lang->path}</th>
-            <th scope="col" class="nowr">{$lang->actions}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr loop="$widget_list => $widget">
-            <td class="title" data-toggle="tooltip" data-container=".easyList" title="{$widget->description}">
-                <p><strong>{$widget->title}</strong></p>
-                <p cond="$widget->need_update == 'Y'" class="update">
-                    {$lang->msg_avail_easy_update} <a href="{$widget->update_url}&amp;return_url={urlencode(getRequestUriByServerEnviroment())}">{$lang->msg_do_you_like_update}</a>
-                </p>
-            </td>
-            <td class="nowr">{$widget->version}</td>
-            <td class="nowr">
-                <block loop="$widget->author => $author">
-                    <a cond="$author->homepage" href="{$author->homepage}" target="_blank">{$author->name}</a>
-                    <block cond="!$author->homepage">{$author->name}</block>
-                </block>
-            </td>
-            <td class="nowr">{$widget->path}</td>
-            <td class="nowr"><div class="kActionIcons"><a href="{getUrl('act', 'dispWidgetAdminGenerateCode', 'selected_widget', $widget->widget)}" data-toggle="tooltip" title="{$lang->cmd_generate_code}"><i class="kGenerateCode">{$lang->cmd_generate_code}</i></a>
-                <a cond="$widget->remove_url" href="{$widget->remove_url}&amp;return_url={urlencode(getRequestUriByServerEnviroment())}" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kDelete">{$lang->cmd_delete}</i></a>
-            </div></td>
-        </tr>
-    </tbody>
-</table>

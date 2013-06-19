@@ -31,10 +31,11 @@
                 'header'=> $lang->version,
                 'sortable'=>false
             ));
-            $grid->addColumn('authors', 'text', array(
-                'index' => 'authors',
+            $grid->addColumn('author', 'author', array(
+                'index' => 'author',
                 'header'=> $lang->author,
-                'sortable'=>false
+                'sortable'=>false,
+                'author'=>'author'
             ));
             $grid->addColumn('path', 'text', array(
                 'index' => 'path',
@@ -72,18 +73,6 @@
 
 			foreach($widget_list as $no => $widget)
 			{
-                if (isset($widget->author) && is_array($widget->author)){
-                    $authors = array();
-                    foreach ($widget->author as $author){
-                        if (!empty($author->homepage) && !empty($author->name)){
-                            $authors[] = '<a href="'.$author->homepage.'" target="_blank">'.$author->name.'</a>';
-                        }
-                        elseif(!empty($author->name)){
-                            $authors[] = $author->name;
-                        }
-                    }
-                    $widget_list[$no]->authors = implode(" ", $authors);
-                }
 				$widget_list[$no]->description = nl2br(trim($widget->description));
 			}
 

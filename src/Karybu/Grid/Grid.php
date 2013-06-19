@@ -14,6 +14,8 @@ class Grid{
     protected $_sortIndex = null;
     protected $_sortOrder = null;
     protected $_showOrderNumberColumn = false;
+    protected $_massSelectAttributes = array();
+    protected $_massSelectClass = '';
     protected $_id = null;
     public function setId($id){
         $this->_id = $id;
@@ -140,5 +142,39 @@ class Grid{
     }
     public function getShowOrderNumberColumn(){
         return $this->_showOrderNumberColumn;
+    }
+    public function setMassSelectAttributes(array $attributes){
+        $this->_massSelectAttributes = $attributes;
+        return $this;
+    }
+    public function getMassSelectAttributes(){
+        return $this->_massSelectAttributes;
+    }
+    public function renderMassSelectAttributes($row){
+        $values = array();
+        foreach ($this->getMassSelectAttributes() as $key=>$attribute){
+            $value = isset($row->$attribute) ? $row->$attribute : '';
+            $values[] = $key.'="'.$value.'"';
+        }
+        if (count($values) > 0){
+            return ' '.implode(' ', $values);
+        }
+        return '';
+    }
+    public function setMassSelectClass($class){
+        $this->_massSelectClass = $class;
+        return $this;
+    }
+    public function getMassSelectClass($forHtml = true){
+        $class = $this->_massSelectClass;
+        if (!$class){
+            return '';
+        }
+        $prefix = $suffix = '';
+        if ($forHtml){
+            $prefix = ' class="';
+            $suffix = '"';
+        }
+        return $prefix.$class.$suffix;
     }
 }

@@ -12,12 +12,22 @@ class Options extends Column{
         if (is_array($options) && isset($options[$value])){
             return $options[$value];
         }
-        if (isset($options[self::WILDCARD])){
+        if (is_array($options) &&isset($options[self::WILDCARD])){
             return $options[self::WILDCARD];
         }
         //if no label is found check if we can show the key
         if ($this->getConfig('show_raw_value')){
             return $value;
+        }
+        $default = $this->getConfig('default');
+        if (is_null($default) || is_string($default)){
+            return $default;
+        }
+        if (is_array($default)){
+            $defaultKey = $this->getConfig('default_key');
+            if (isset($defaultKey) && isset($default[$row->$defaultKey])){
+                return $default[$row->$defaultKey];
+            }
         }
         return '';
     }

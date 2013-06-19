@@ -6,7 +6,7 @@
      **/
 
     class boardAdminView extends board {
-
+        protected $_moduleCategories = null;
         /**
          * @brief initialization
          *
@@ -44,8 +44,7 @@
             }
 
             // get the module category list
-            $module_category = $oModuleModel->getModuleCategories();
-            Context::set('module_category', $module_category);
+            Context::set('module_category', $this->_getModuleCategories());
 
 			$security = new Security();
 			$security->encodeHTML('module_info.');
@@ -63,14 +62,100 @@
             $order_target['update_order'] = Context::getLang('last_update');
             Context::set('order_target', $order_target);
         }
+        function _getModuleCategories(){
+            if (is_null($this->_moduleCategories)) {
+                $oModuleModel = &getModel('module');
+                $this->_moduleCategories = $oModuleModel->getModuleCategories();
+            }
+            return $this->_moduleCategories;
+        }
+        function getGrid(){
+            $moduleCategories = $this->_getModuleCategories();
+            $categories = array();
+            foreach ($moduleCategories as $key=>$category){
+                $categories[$key] = isset($category->title)?$category->title:'';
+            }
+            global $lang;
+            $grid = new \Karybu\Grid\Backend();
+            $grid->setId('boardList')
+                ->setShowOrderNumberColumn(true)
+                ->setMassSelectName('cart')
+                ->setMassSelectAttributes(array('data-browser_title'=>'browser_title', 'data-mid'=>'mid'))
+                ->setMassSelectClass('selectedModule');
+            $grid->addColumn('module_category_srl', 'options', array(
+                'index' => 'module_category_srl',
+                'header'=> $lang->module_category,
+                'options'=>$categories,
+                'default'=>array(
+                    '0'=>$lang->not_exists,
+                    '1'=>$lang->virtual_site
+                ),
+                'default_key' => 'has_site_srl',
+                'sortable'=>false
+            ));
+            $grid->addColumn('mid', 'text', array(
+                'index' => 'mid',
+                'header'=> $lang->mid,
+            ));
+            $grid->addColumn('browser_title', 'link', array(
+                'index' => 'browser_title',
+                'header'=> $lang->browser_title,
+                'link_key'=>'board_link'
+            ));
+            $grid->addColumn('regdate', 'date', array(
+                'index' => 'regdate',
+                'header'=> $lang->regdate,
+                'format'=>'Y-m-d'
+            ));
+            $grid->addColumn('actions', 'action', array(
+                'index'         => 'actions',
+                'header'        => $lang->actions,
+                'wrapper_top'   => '<div class="kActionIcons">',
+                'wrapper_bottom'=> '</div>'
+            ));
+            //configure action
+            $actionConfig = array(
+                'title'=>$lang->cmd_setup,
+                'url_params'=>array('module_srl'=>'module_srl'),
+                'module'=>'admin',
+                'act'=>'dispBoardAdminBoardInfo',
+                'icon_class' => 'kConfigure'
+            );
+            $action = new \Karybu\Grid\Action\Action($actionConfig);
+            $grid->getColumn('actions')->addAction('configure',$action);
 
+            //copy action
+            $actionConfig = array(
+                'title'=>$lang->cmd_copy,
+                'url_params'=>array('module_srl'=>'module_srl'),
+                'module'=>'admin',
+                'act'=>'dispModuleAdminCopyModule',
+                'icon_class' => 'kCopy',
+                'popup'=>true
+            );
+            $action = new \Karybu\Grid\Action\Action($actionConfig);
+            $grid->getColumn('actions')->addAction('copy',$action);
+
+            //delete action
+            $actionConfig = array(
+                'title'=>$lang->cmd_delete,
+                'url_params'=>array('module_srl'=>'module_srl'),
+                'module'=>'admin',
+                'act'=>'dispBoardAdminDeleteBoard',
+                'icon_class' => 'kDelete',
+            );
+            $action = new \Karybu\Grid\Action\Action($actionConfig);
+            $grid->getColumn('actions')->addAction('delete',$action);
+
+            return $grid;
+        }
         /**
          * @brief display the board module admin contents
          **/
         function dispBoardAdminContent() {
             // setup the board module general information
 			$args = new stdClass();
-            $args->sort_index = "module_srl";
+            //$args->sort_index = "module_srl";
             $args->page = Context::get('page');
             $args->list_count = 20;
             $args->page_count = 10;
@@ -79,6 +164,14 @@
 			$search_target = Context::get('search_target');
 			$search_keyword = Context::get('search_keyword');
 
+            $grid = $this->getGrid();
+            $sort_order = Context::get('sort_order');
+            $sort_index = Context::get('sort_index');
+            //filter sorting values ...
+            $grid->setSortIndex($sort_index);
+            $grid->setSortOrder($sort_order);
+            $args->sort_index = $sort_index;
+            $args->sort_order = $sort_order;
 			switch ($search_target){
 				case 'mid':
 					$args->s_mid = $search_keyword;
@@ -113,6 +206,11 @@
             Context::set('selected_manage_content', $selected_manage_content);
 
             // use context::set to setup variables on the templates
+            foreach ($output->data as $key=>$item){
+                $output->data[$key]->board_link = getSiteUrl($item->domain,'','mid',$item->mid);
+                $output->data[$key]->has_site_srl = (int)((bool)$item->site_srl);
+                $output->data[$key]->mass_select_value = $item->module_srl;
+            }
             Context::set('total_count', $output->total_count);
             Context::set('total_page', $output->total_page);
             Context::set('page', $output->page);
@@ -124,7 +222,8 @@
 			$security->encodeHTML('skin_list..title','mskin_list..title');
 			$security->encodeHTML('layout_list..title','layout_list..layout');
 			$security->encodeHTML('mlayout_list..title','mlayout_list..layout');
-
+            $grid->setRows($output->data);
+            Context::set('grid', $grid);
             // Specify the template file
             $this->setTemplateFile('index');
         }
