@@ -217,7 +217,9 @@
                 if($oLayoutModel->useDefaultLayout($layout_info->layout_srl)){
                     $layout_file  = $oLayoutModel->getDefaultLayoutHtml($layout_info->layout);
                 }else{
-                    $layout_file = sprintf('%s%s', $layout_info->path, 'layout.html');
+                    $htmlLayout = $layout_info->path . 'layout.html';
+                    $twigLayout = $layout_info->path . 'layout.twig';
+                    $layout_file = file_exists($htmlLayout) ? $htmlLayout : $twigLayout;
                 }
             }
 
