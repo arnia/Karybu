@@ -24,6 +24,24 @@
 
 <form action="./" method="get" id="fo_list" class="form" no-error-return-url="true">
 
+<script type="text/javascript">
+jQuery(function($){
+    $('i.kDelete').parent().on('click', function(e){
+        if (!$(this).parents('.postWrapper').length) {
+            $(this).wrap('<form action="' + $(this).attr('href') + '" method="POST" class="postWrapper">');
+        }
+        var form = $(this).parents('.postWrapper');
+        form.append($('<input>').attr({
+            type: 'hidden',
+            name: form_key_name,
+            value: form_key
+        }));
+        form.submit();
+        e.preventDefault();
+    });
+});
+</script>
+
 <table class="table table-condensed table-bordered table-hover">
     <caption>Total {number_format($total_count)}, Page {number_format($page)}/{number_format($total_page)}</caption>
     <thead>
@@ -77,7 +95,9 @@
                 <td><div class="kActionIcons">
                     <a href="{getUrl('act','dispPageAdminInfo','module_srl',$val->module_srl)}" data-toggle="tooltip" title="{$lang->cmd_setup}"><i class="kConfigure">{$lang->cmd_setup}</i></a>
                     <a href="{getUrl('','module','module','act','dispModuleAdminCopyModule','module_srl',$val->module_srl)}" onclick="popopen(this.href);return false;" data-toggle="tooltip" title="{$lang->cmd_copy}"><i class="kCopy">{$lang->cmd_copy}</i></a>
-                    <a href="{getUrl('act','dispPageAdminDelete','module_srl', $val->module_srl)}" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kDelete">{$lang->cmd_delete}</i></a>
+                    <a href="{getUrl('act','dispPageAdminDelete','module_srl', $val->module_srl)}" data-toggle="tooltip" title="{$lang->cmd_delete}">
+                        <i class="kDelete">{$lang->cmd_delete}</i>
+                    </a>
                 </div>
                 </td>
             </tr>
@@ -101,5 +121,3 @@
 
 </form>
 <include target="../../admin/tpl/common/include.paging.html" />
-
-<!--#include("page_delete.html")-->

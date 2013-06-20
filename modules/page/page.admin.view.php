@@ -326,15 +326,15 @@
          **/
         function dispPageAdminDelete() {
             $module_srl = Context::get('module_srl');
-            if(!$module_srl) return $this->dispContent();
-
+            if(!$module_srl) {
+                return $this->dispContent();
+            }
             $oModuleModel = &getModel('module');
 			$columnList = array('module_srl', 'module', 'mid');
             $module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl, $columnList);
             Context::set('module_info',$module_info);
             // Set a template file
             $this->setTemplateFile('page_delete');
-
 			$security = new Security();
 			$security->encodeHTML('module_info.');
         }

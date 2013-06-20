@@ -1,4 +1,4 @@
-<div id="delete_page_modal" class="modal hide fade">
+<div id="delete_page_modal">
     <form ruleset="deletePage" action="./" method="post">
         <input type="hidden" name="module" value="page" />
         <input type="hidden" name="act" value="procPageAdminDelete" />
@@ -23,7 +23,7 @@
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-danger">{$lang->cmd_delete}</button>
-            <a href="#" class="btn" data-dismiss="modal">{$lang->cmd_back}</a>
+            <a href="{getUrl('act','dispPageAdminInfo','form_key','')}" class="btn" data-dismiss="modal">{$lang->cmd_back}</a>
         </div>
     </form>
 </div>
