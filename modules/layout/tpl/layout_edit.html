@@ -75,7 +75,8 @@
 	<input type="hidden" name="act" value="procLayoutAdminCodeUpdate" />
 
 		<div>
-            <h3 class="h3">HTML</h3>
+            <h3 class="h3" cond="$twigLayout">TWIG</h3>
+            <h3 class="h3" cond="!$twigLayout">HTML</h3>
 			<textarea name="code" rows="8" cols="42" style="width:100%;height:300px;font-size:11px;">{$layout_code}</textarea>
             <div class="btnArea">
             <span loop="$widget_list => $widget" >

@@ -207,7 +207,13 @@
             $oLayoutModel = &getModel('layout');
             $layout_info = $oLayoutModel->getLayout($layout_srl);
             // Error appears if there is no layout information is registered
-            if(!$layout_info) return $this->dispLayoutAdminInstalledList();
+            if(!$layout_info) {
+                return $this->dispLayoutAdminInstalledList();
+            }
+
+            if (file_exists($layout_info->path.'layout.twig')) {
+                Context::set('twigLayout', true);
+            }
 
             // Get Layout Code
             $oLayoutModel = &getModel('layout');
@@ -217,9 +223,7 @@
                 if($oLayoutModel->useDefaultLayout($layout_info->layout_srl)){
                     $layout_file  = $oLayoutModel->getDefaultLayoutHtml($layout_info->layout);
                 }else{
-                    $htmlLayout = $layout_info->path . 'layout.html';
-                    $twigLayout = $layout_info->path . 'layout.twig';
-                    $layout_file = file_exists($htmlLayout) ? $htmlLayout : $twigLayout;
+                    $layout_file = $layout_info->path . (file_exists($layout_info->path.'layout.html') ? 'layout.html' : 'layout.twig');
                 }
             }
 
