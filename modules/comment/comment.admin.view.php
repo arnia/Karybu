@@ -131,6 +131,9 @@
             Context::set('page_navigation', $output->page_navigation);
             Context::set('secret_name_list', $secretNameList);
             $grid->setRows($output->data);
+            $grid->setTotalCount($output->total_count);
+            $grid->setTotalPages($output->total_page);
+            $grid->setCurrentPage($output->page);
             Context::set('grid', $grid);
 
             // set the template 

@@ -98,6 +98,7 @@
 
             $grid = $this->getModuleGrid();
             $grid->setRows($module_list);
+            $grid->setTotalCount(count($module_list));
             Context::set('grid', $grid);
             // Set a template file
             $this->setTemplateFile('module_list');
@@ -182,19 +183,23 @@
                 $this->setTemplateFile('category_update_form');
             // If not selected, display a list of categories
             } else {
-                $category_list = $oModuleModel->getModuleCategories();
-                Context::set('category_list', $category_list);
                 $grid = $this->getGrid();
                 Context::set('grid', $grid);
                 $sortIndex = Context::get('sort_index');
                 $grid->setSortIndex($sortIndex);
                 //$args->sort_index = 'list_order'; // /< Sorting values
                 $args = new stdClass();
-                Context::set('sort_index',$grid->getSortIndex());
+                //Context::set('sort_index',$grid->getSortIndex());
                 $sortOrder = Context::get('sort_order');
                 $grid->setSortOrder($sortOrder);
-                Context::set('sort_order',$grid->getSortOrder());
+                //Context::set('sort_order',$grid->getSortOrder());
+                $args = new stdClass();
+                $args->sort_index = $grid->getSortIndex();
+                $args->sort_order = $grid->getSortOrder();
+                $category_list = $oModuleModel->getModuleCategories('', $args);
+                Context::set('category_list', $category_list);
                 $grid->setRows($category_list);
+                $grid->setTotalCount(count($category_list));
 
 				//Security
 				$security->encodeHTML('category_list..title');

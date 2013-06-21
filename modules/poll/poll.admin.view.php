@@ -152,6 +152,9 @@
 			$security = new Security();				
 			$security->encodeHTML('poll_list..title');
             $grid->setRows($output->data);
+            $grid->setTotalCount($output->total_count);
+            $grid->setTotalPages($output->total_page);
+            $grid->setCurrentPage($output->page);
             Context::set('grid', $grid);
 
             // Set a template

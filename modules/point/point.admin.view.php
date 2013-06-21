@@ -139,6 +139,9 @@
 			//Security
             $grid->setRows($output->data);
             Context::set('grid', $grid);
+            $grid->setTotalCount($output->total_count);
+            $grid->setTotalPages($output->total_page);
+            $grid->setCurrentPage($output->page);
 			$security = new Security();			
 			$security->encodeHTML('group_list..title','group_list..description');
 			$security->encodeHTML('member_list..');			

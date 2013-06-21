@@ -42,6 +42,7 @@
 
             Context::set('addon_list', $addon_list);
             $grid->setRows($addon_list);
+            $grid->setTotalCount(count($addon_list));
             Context::set('grid', $grid);
 			Context::set('addon_count', count($addon_list));
             // Template specifies the path and file

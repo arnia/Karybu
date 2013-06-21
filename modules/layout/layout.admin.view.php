@@ -108,6 +108,7 @@
                 }
 			}
             $grid = $this->getGrid();
+            $grid->setTotalCount(count($layout_list));
             $grid->setRows($layout_list);
             Context::set('grid', $grid);
 			Context::set('layout_list', $layout_list);
@@ -239,6 +240,7 @@
 			$this->setTemplateFile('layout_all_instance_list');
             $grid->setRows($_layout_list);
             Context::set('grid', $grid);
+            $grid->setTotalCount(count($_layout_list));
 			$security = new Security();
 			$security->encodeHTML('layout_list..');
 		}

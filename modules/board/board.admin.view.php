@@ -223,6 +223,9 @@
 			$security->encodeHTML('layout_list..title','layout_list..layout');
 			$security->encodeHTML('mlayout_list..title','mlayout_list..layout');
             $grid->setRows($output->data);
+            $grid->setTotalCount($output->total_count);
+            $grid->setTotalPages($output->total_page);
+            $grid->setCurrentPage($output->page);
             Context::set('grid', $grid);
             // Specify the template file
             $this->setTemplateFile('index');

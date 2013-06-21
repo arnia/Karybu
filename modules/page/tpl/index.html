@@ -14,82 +14,25 @@
 	<input type="hidden" name="act" value="dispPageAdminContent" />
 
         <fieldset>
+            <select name="module_category_srl" id="module_category_srl">
+                <option value="">{$lang->module_category}</option>
+                <option value="0" <!--@if($module_category_srl==="0")-->selected="selected"<!--@end-->>{$lang->not_exists}</option>
+                <!--@foreach($module_category as $key => $val)-->
+                <option value="{$key}" <!--@if($module_category_srl==$key)-->selected="selected"<!--@end-->>{$val->title}</option>
+                <!--@end-->
+                <option value="">---------</option>
+                <option value="-1">{$lang->cmd_management}</option>
+            </select>
 			<input type="text" name="s_mid" value="{htmlspecialchars($s_mid)}"  placeholder="{$lang->mid}" />
 			<input type="text" name="s_browser_title" value="{htmlspecialchars($s_browser_title)}" placeholder="{$lang->browser_title}" />
             <button type="submit" class="btn">{$lang->cmd_search}</button>
-            <a href="{getUrl('s_mid','','s_browser_title','','page','')}">{$lang->cmd_cancel}</a>
+            <a href="{getUrl('s_mid','','s_browser_title','','page','', 'module_category_srl', '')}">{$lang->cmd_cancel}</a>
         </fieldset>
 </form>
 </div>
 
 <form action="./" method="get" id="fo_list" class="form" no-error-return-url="true">
-
-<table class="table table-condensed table-bordered table-hover">
-    <caption>Total {number_format($total_count)}, Page {number_format($page)}/{number_format($total_page)}</caption>
-    <thead>
-        <tr>
-            <th scope="col">{$lang->no}</th>
-            <th scope="col"><input type="checkbox" onclick="XE.checkboxToggleAll(); return false;" /></th>
-            <th scope="col">
-                <input type="hidden" name="module" value="{$module}" />
-                <input type="hidden" name="act" value="{$act}" />
-                <div class="row-fluid">
-                    <select name="module_category_srl" id="module_category_srl" class="span12">
-                        <option value="">{$lang->module_category}</option>
-                        <option value="0" <!--@if($module_category_srl==="0")-->selected="selected"<!--@end-->>{$lang->not_exists}</option>
-                        <!--@foreach($module_category as $key => $val)-->
-                        <option value="{$key}" <!--@if($module_category_srl==$key)-->selected="selected"<!--@end-->>{$val->title}</option>
-                        <!--@end-->
-                        <option value="">---------</option>
-                        <option value="-1">{$lang->cmd_management}</option>
-                    </select>
-                </div>
-            </th>
-            <th scope="col">{$lang->page_type}</th>
-            <th scope="col">{$lang->mid}</th>
-            <th scope="col">{$lang->browser_title}</th>
-            <th scope="col">{$lang->regdate}</th>
-            <th scope="col">{$lang->actions}</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <!--@if($page_list)-->
-            <!--@foreach($page_list as $no => $val)-->
-            <tr>
-                <td>{$no}</td>
-                <td><input type="checkbox" class="module_srl" name="cart" value="{$val->module_srl}" /></td>
-                <td>
-                    <!--@if(!$val->module_category_srl)-->
-                    <!--@if($val->site_srl)-->
-                    {$lang->virtual_site}
-                    <!--@else-->
-                    {$lang->not_exists}
-                    <!--@end-->
-                    <!--@else-->
-                    {$module_category[$val->module_category_srl]->title}
-                    <!--@end-->
-                    </td>
-                <td>{$val->page_type}</td>
-                <td class="mid">{$val->mid}</td>
-                <td><a href="{getSiteUrl($val->domain,'','mid',$val->mid)}" target="_blank">{$val->browser_title}</a></td>
-                <td>{zdate($val->regdate,"Y-m-d")}</td>
-                <td><div class="kActionIcons">
-                    <a href="{getUrl('act','dispPageAdminInfo','module_srl',$val->module_srl)}" data-toggle="tooltip" title="{$lang->cmd_setup}"><i class="kConfigure">{$lang->cmd_setup}</i></a>
-                    <a href="{getUrl('','module','module','act','dispModuleAdminCopyModule','module_srl',$val->module_srl)}" onclick="popopen(this.href);return false;" data-toggle="tooltip" title="{$lang->cmd_copy}"><i class="kCopy">{$lang->cmd_copy}</i></a>
-                    <a href="{getUrl('act','dispPageAdminDelete','module_srl', $val->module_srl)}" data-toggle="tooltip" title="{$lang->cmd_delete}"><i class="kDelete">{$lang->cmd_delete}</i></a>
-                </div>
-                </td>
-            </tr>
-            <!--@end-->
-        <!--@else-->
-            <tr>
-                <td colspan="8"><div class="text-center">{$lang->no_records}</div></td>
-            </tr>
-        <!--@end-->
-    </tbody>
-</table>
-
+<include target="../../admin/tpl/common/include.grid.html" />
 <div class="btn-group">
         <a href="{getUrl('','module','module','act','dispModuleAdminModuleSetup')}" onclick="doCartSetup(this.href); return false;" class="btn">{$lang->cmd_setup}</a>
         <a href="{getUrl('','module','module','act','dispModuleAdminModuleGrantSetup')}" onclick="doCartSetup(this.href); return false;" class="btn">{$lang->cmd_manage_grant}</a>

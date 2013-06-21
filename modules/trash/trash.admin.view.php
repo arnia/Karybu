@@ -105,6 +105,9 @@ class trashAdminView extends trash {
 		Context::set('page', $output->page);
 		Context::set('page_navigation', $output->page_navigation);
         $grid->setRows($output->data);
+        $grid->setTotalCount($output->total_count);
+        $grid->setTotalPages($output->total_page);
+        $grid->setCurrentPage($output->page);
         Context::set('grid', $grid);
 		// Specify the template file
 		$this->setTemplateFile('trash_list');

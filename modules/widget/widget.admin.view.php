@@ -81,6 +81,7 @@
             $grid = $this->getGrid();
             Context::set('grid', $grid);
             $grid->setRows($widget_list);
+            $grid->setTotalCount(count($widget_list));
             $this->setTemplateFile('downloaded_widget_list');
         }
 

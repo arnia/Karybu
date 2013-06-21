@@ -44,14 +44,102 @@
             $this->setTemplatePath($this->module_path.'tpl');
 
         }
+        public function getGrid(){
+            $categories = array();
+            $moduleCategories = Context::get('module_category');
+            if (is_array($moduleCategories)) {
+                foreach ($moduleCategories as $key=>$category){
+                    $categories[$key] = isset($category->title)?$category->title:'';
+                }
+            }
+            global $lang;
+            $grid = new Karybu\Grid\Backend();
+            $grid->setShowOrderNumberColumn(true);
+            $grid->setMassSelectName('cart');
+            $grid->setMassSelectClass('module_srl');
+            $grid->addColumn('module_category_srl', 'options', array(
+                'index' => 'module_category_srl',
+                'header'=> $lang->module_category,
+                'options'=>$categories,
+                'default'=>$lang->not_exists,
+                'sortable'=>false
+            ));
+            $grid->addColumn('page_type', 'text', array(
+                'index'=>'page_type',
+                'header'=>$lang->page_type,
+                'sortable'=>false
+            ));
+            $grid->addColumn('mid', 'text', array(
+                'index'=>'mid',
+                'header'=>$lang->mid
+            ));
+            $grid->addColumn('browser_title', 'link', array(
+                'index'=>'browser_title',
+                'header'=>$lang->browser_title,
+                'link_key' => 'url'
+            ));
+            $grid->addColumn('regdate', 'date', array(
+                'index'=>'regdate',
+                'header'=>$lang->regdate,
+                'format' => 'Y-m-d'
+            ));
+            $grid->addColumn('actions', 'action', array(
+                'index'         => 'actions',
+                'header'        => $lang->actions,
+                'wrapper_top'   => '<div class="kActionIcons">',
+                'wrapper_bottom'=> '</div>'
+            ));
+            //configure action
+            $actionConfig = array(
+                'title'=>$lang->cmd_view,
+                'url_params'=>array('module_srl'=>'module_srl'),
+                'module'=>'admin',
+                'act'=>'dispPageAdminInfo',
+                'icon_class' => 'kConfigure'
+            );
+            $action = new \Karybu\Grid\Action\Action($actionConfig);
+            $grid->getColumn('actions')->addAction('configure',$action);
+            //copy action
+            $actionConfig = array(
+                'title'=>$lang->cmd_copy,
+                'url_params'=>array('module_srl'=>'module_srl'),
+                'module'=>'admin',
+                'act'=>'dispModuleAdminCopyModule',
+                'icon_class' => 'kCopy',
+                'popup'=>true
+            );
+            $action = new \Karybu\Grid\Action\Action($actionConfig);
+            $grid->getColumn('actions')->addAction('copy',$action);
+            //delete action
+            $actionConfig = array(
+                'title'=>$lang->cmd_delete,
+                'url_params'=>array('module_srl'=>'module_srl'),
+                'module'=>'admin',
+                'act'=>'dispPageAdminDelete',
+                'icon_class' => 'kDelete',
+            );
+            $action = new \Karybu\Grid\Action\Action($actionConfig);
+            $grid->getColumn('actions')->addAction('delete',$action);
 
+            return $grid;
+        }
         /**
          * @brief Manage a list of pages showing
          **/
         function dispPageAdminContent() {
             $args = new stdClass();
-            $args->sort_index = "module_srl";
+            //$args->sort_index = "module_srl";
             $args->page = Context::get('page');
+            $sort_index = Context::get('sort_index');
+            $sort_order = Context::get('sort_order');
+
+            $grid = $this->getGrid();
+
+            $grid->setSortIndex($sort_index);
+            $grid->setSortOrder($sort_order);
+
+            $args->sort_index = $grid->getSortIndex();
+            $args->sort_order = $grid->getSortOrder();
             $args->list_count = 40;
             $args->page_count = 10;
             $args->s_module_category_srl = Context::get('module_category_srl');
@@ -68,6 +156,11 @@
             $moduleModel = new moduleModel();
             $moduleModel->syncModuleToSite($page_list);
 
+            foreach ($output->data as $key=>$item){
+                $output->data[$key]->mass_select_value = $item->module_srl;
+                $output->data[$key]->url = getSiteUrl($item->domain,'','mid',$item->mid);
+            }
+
             // To write to a template context:: set
             Context::set('total_count', $output->total_count);
             Context::set('total_page', $output->total_page);
@@ -79,7 +172,11 @@
 			$security->encodeHTML('page_list..browser_title');
 			$security->encodeHTML('page_list..mid');
 			$security->encodeHTML('module_info.');
-
+            $grid->setRows($output->data);
+            $grid->setTotalCount($output->total_count);
+            $grid->setTotalPages($output->total_page);
+            $grid->setCurrentPage($output->page);
+            Context::set('grid', $grid);
 			// Set a template file
             $this->setTemplateFile('index');
         }

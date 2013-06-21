@@ -2,6 +2,17 @@
 <div class="row-fluid">
     <div class="span12">
         <table class="{$grid->getCssClasses()}"<!--@if($grid->getId())--> id="{$grid->getId()}"<!--@end-->>
+        <caption>
+            <!--@if(!is_null($grid->getTotalCount()))-->
+            {$lang->total} {$grid->getTotalCount()}
+            <!--@end-->
+            <!--@if(!is_null($grid->getTotalCount()) && !is_null($grid->getCurrentPage()) && !is_null($grid->getTotalPages()))-->
+            ,
+            <!--@end-->
+            <!--@if(!is_null($grid->getCurrentPage()) && !is_null($grid->getTotalPages()))-->
+            {$lang->page} {$grid->getCurrentPage()}/{$grid->getTotalPages()}
+            <!--@end-->
+        </caption>
         {@ $gridSections = array('thead','tfoot')}
         <!--@foreach ($gridSections as $section)-->
             <{$section}>
@@ -15,11 +26,11 @@
                         <a href="{$column->getSortUrl()}">
                             {$column->getConfig('header')}
                             <!--@if($grid->getSortIndex() == $column->getSortIndex())-->
-                            <!--@if($grid->getSortOrder() == 'asc')-->
-                            <em>▲</em>
-                            <!--@else-->
-                            <em>▼</em>
-                            <!--@end-->
+                                <!--@if($grid->getSortOrder() == 'asc')-->
+                                    <em>▲</em>
+                                <!--@else-->
+                                    <em>▼</em>
+                                <!--@end-->
                             <!--@end-->
                         </a>
                         <!--@else-->

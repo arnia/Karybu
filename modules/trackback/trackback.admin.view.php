@@ -94,6 +94,9 @@
 			$security->encodeHTML('config.');
 			$security->encodeHTML('trackback_list..');
             $grid->setRows($output->data);
+            $grid->setTotalCount($output->total_count);
+            $grid->setTotalPages($output->total_page);
+            $grid->setCurrentPage($output->page);
             Context::set('grid', $grid);
 			// Set a template
             $this->setTemplatePath($this->module_path.'tpl');

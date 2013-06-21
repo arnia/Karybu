@@ -125,6 +125,9 @@
 			$security->encodeHTML('member_list..user_name', 'member_list..nick_name', 'member_list..group_list..');
 
             $grid->setRows($output->data);
+            $grid->setTotalCount($output->total_count);
+            $grid->setTotalPages($output->total_page);
+            $grid->setCurrentPage($output->page);
             Context::set('grid', $grid);
 			$this->setTemplateFile('member_list');
         }

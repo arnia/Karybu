@@ -1521,11 +1521,11 @@ class moduleModel extends module
     /**
      * @brief Get a list of module category
      **/
-    function getModuleCategories($moduleCategorySrl = array())
+    function getModuleCategories($moduleCategorySrl = array(), $args = null)
     {
-        $args = new stdClass();
-        $args->sort_index = Context::get('sort_index');
-        $args->sort_order = Context::get('sort_order');
+        if (is_null($args)){
+            $args = new stdClass();
+        }
         $args->moduleCategorySrl = $moduleCategorySrl;
         // Get data from the DB
         $output = executeQuery('module.getModuleCategories', $args);

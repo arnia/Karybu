@@ -90,6 +90,9 @@
             }
             Context::set('search_option', $search_option);
             $grid->setRows($documents);
+            $grid->setTotalCount($output->total_count);
+            $grid->setTotalPages($output->total_page);
+            $grid->setCurrentPage($output->page);
             Context::set('grid', $grid);
             // Specify a template
             $this->setTemplatePath($this->module_path.'tpl');
