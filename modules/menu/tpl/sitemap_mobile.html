@@ -139,7 +139,7 @@
 <!--@foreach($menu_list as $key => $value)-->
 <block>
     {@$menuSrl = $value->menuSrl}
-    <form class="portlet mobileSiteMap" id="menu_{$menuSrl}" method="post" action="#menu_{$menuSrl}">
+    <form class="portlet mobileSiteMap" id="menu_{$menuSrl}" method="post" action="./">
         <input type="hidden" name="module" value="{$module}" />
         <input type="hidden" name="act" value="procMenuAdminArrangeItem" />
         <input type="hidden" name="menu_srl" value="{$menuSrl}" />

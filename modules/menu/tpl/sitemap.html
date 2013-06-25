@@ -16,7 +16,7 @@ jQuery( function() { jQuery('.grant_default').change( function(event) { doShowMe
 
 <block loop="$menu_list=>$key,$value">
     {@$menuSrl = $value->menuSrl}
-    <form class="portlet siteMap" id="menu_{$menuSrl}" method="post" action="#menu_{$menuSrl}">
+    <form class="portlet siteMap" id="menu_{$menuSrl}" method="post" action="./">
         <fieldset class="section">
             <input type="hidden" name="module" value="{$module}" />
             <input type="hidden" name="act" value="procMenuAdminArrangeItem" />
