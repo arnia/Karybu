@@ -31,7 +31,8 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
     {
         return array(
             new \Twig_SimpleFunction('loadJs', array($this, 'loadJs')),
-            new \Twig_SimpleFunction('loadCss', array($this, 'loadCss'))
+            new \Twig_SimpleFunction('loadCss', array($this, 'loadCss')),
+            new \Twig_SimpleFunction('context', array($this, 'cmsContext'))
         );
     }
 
@@ -96,5 +97,16 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
         $this->loadFile(array($path, $media, null, $index));
     }
 
+    public function cmsContext()
+    {
+        $args = func_get_args();
+        if (!isset($args[0])) {
+            throw new \Twig_Error('You did not mention the method to be called');
+        }
+        if (!method_exists('\Context', $method = array_shift($args))) {
+            throw new \Twig_Error('No such method');
+        }
+        return call_user_func_array(array('\Context', $method), $args);
+    }
 
 }
