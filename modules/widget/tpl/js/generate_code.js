@@ -76,7 +76,7 @@ function doFillWidgetVars() {
     if(!window.parent || !window.parent.selectedWidget || !window.parent.selectedWidget.getAttribute("widget")) return;
     selected_node = window.parent.selectedWidget;
 
-    // 스킨과 컬러셋은 기본
+    // Skin and the color of the three basic
     var skin = selected_node.getAttribute("skin");
     var colorset = selected_node.getAttribute("colorset");
     var widget_sequence = parseInt(selected_node.getAttribute("widget_sequence"),10);
@@ -85,10 +85,10 @@ function doFillWidgetVars() {
     var fo_obj = xGetElementById("fo_widget");
     jQuery('#widget_skin').val(skin);
 
-    // 위젯 스타일 유지를 위한 hidden input 추가하고 값을 저장
+    // Add hidden input for the maintenance of the widget style, and store the value
     var attrs = selected_node.attributes;
 
-	//  IE7에서 발생하는 jQuery 용 attribute를 걸러내기 위해 추가
+	//  That occurs in IE7 for jQuery add attribute to filter out
 	var attrFilters = ['style', 'sizset', 'draggable', 'class'];
 
 	for (i=0; i< attrs.length ; i++){
@@ -102,7 +102,7 @@ function doFillWidgetVars() {
 		var dummy = jQuery('<input type="hidden" name="'+name+'" />').val(value).appendTo("#fo_widget").get(0);
 	}
 
-    // 위젯의 속성 설정
+    // Set the Properties of Widget
     var obj_list = new Array();
     jQuery('input,select,textarea','#fo_widget').each( function() {
             obj_list.push(this);
@@ -174,12 +174,12 @@ function doFillWidgetVars() {
     fo_obj.widget_padding_top.value = selected_node.getAttribute("widget_padding_top");
 
 
-    //  컬러셋 설정
+    //  Three color settings
     if(skin && xGetElementById("widget_colorset") && xGetElementById("widget_colorset").options.length<1 && colorset) {
         doDisplaySkinColorset(colorset);
     }
 
-    // widget sequence 설정
+    //Set widget sequence
     fo_obj.widget_sequence.value = widget_sequence;
 
 	xe.broadcast('MULTIORDER_SYNC');

@@ -484,7 +484,7 @@
         {
             $this->ftp_resp = "";
 
-			// 한줄을 읽는다.
+			// Read one line.
 			$line = '';
 			while(($char = fgetc($this->ftp_sock)) !== FALSE)
 			{
@@ -492,7 +492,7 @@
 				if($char === "\n") break;
 			}
 				
-			// 세자리 응답 코드가 나와야 한다.
+			// Three-digit response code should come out.
 			if(!preg_match('@^[0-9]{3}@', $line))
 			{
 				return FALSE;
@@ -500,12 +500,12 @@
 
 			$this->ftp_resp = $line;
 
-			// 4번째 문자가 -이면 여러줄인 응답이다.
+			// Fourth character is - multiline response.
 			if($line[3] === '-')
 			{
 				$code = substr($line, 0, 3);
 
-				// 한줄 단위로 읽어 나간다.
+				// Read one line goes to the unit.
 				do
 				{
 					$line = '';
@@ -516,7 +516,7 @@
 					}
 					$this->ftp_resp .= $line;
 
-					// 응답 코드와 같은 코드가 나오고 공백이 있으면 끝
+					// Response code and the code comes out the end if there are spaces
 					if($code . ' ' === substr($line, 0, 4)) break;
 				}while($line);
 			}

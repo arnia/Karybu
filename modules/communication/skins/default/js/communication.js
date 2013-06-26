@@ -1,4 +1,4 @@
-/* 쪽지 발송 */
+/* Send a private message */
 function completeSendMessage(ret_obj) {
     alert(ret_obj['message']);
     window.close();
@@ -10,7 +10,7 @@ function doSendMessage(member_srl, message_srl) {
     popopen(url, 'sendMessage');
 }
 
-/* 개별 쪽지 삭제 */
+/* Deleting individual message */
 function doDeleteMessage(message_srl) {
     if(!message_srl) return;
 
@@ -24,7 +24,7 @@ function completeDeleteMessage(ret_obj) {
     location.href = current_url.setQuery('message_srl','');
 }
 
-/* 개별 쪽지 보관 */
+/* Keep individual notes */
 function doStoreMessage(message_srl) {
     if(!message_srl) return;
 
@@ -38,7 +38,7 @@ function completeStoreMessage(ret_obj) {
     location.href = current_url.setQuery('message_srl','');
 }
 
-/* 친구 추가 후 */
+/* After add friends */
 function completeAddFriend(ret_obj) {
     alert(ret_obj['message']);
     var member_srl = ret_obj['member_srl'];
@@ -48,14 +48,14 @@ function completeAddFriend(ret_obj) {
     window.close();
 }
 
-/* 친구 그룹 추가 후 */
+/* After adding a group of friends */
 function completeAddFriendGroup(ret_obj) {
     alert(ret_obj['message']);
     if(opener) opener.location.href = opener.location.href;
     window.close();
 }
 
-/* 친구 그룹 삭제 */
+/* Delete a group of friends */
 function doDeleteFriendGroup() {
     var friend_group_srl = jQuery('#friend_group_list option:selected').val();
     if(!friend_group_srl) return;
@@ -71,7 +71,7 @@ function completeDeleteFriendGroup(ret_obj) {
     location.href = current_url.setQuery('friend_group_srl','');
 }
 
-/* 친구 그룹의 이름 변경 */
+/* Changing the name of a group of friends */
 function doRenameFriendGroup() {
     var friend_group_srl = jQuery('#friend_group_list option:selected').val();
     if(!friend_group_srl) return;
@@ -79,13 +79,13 @@ function doRenameFriendGroup() {
     popopen("./?module=communication&act=dispCommunicationAddFriendGroup&friend_group_srl="+friend_group_srl);
 }
 
-/* 친구 그룹 이동 */
+/* Moving a group of friends */
 function doMoveFriend() {
     var fo_obj = jQuery('#fo_friend_list').get(0);
     procFilter(fo_obj, move_friend);
 }
 
-/* 친구 그룹 선택 */
+/* Select a group of friends */
 function doJumpFriendGroup() {
     var sel_val = jQuery('#jumpMenu option:selected').val();
     location.href = current_url.setQuery('friend_group_srl', sel_val);

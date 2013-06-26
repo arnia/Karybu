@@ -3,19 +3,19 @@ jQuery(function($){
 	var ctn = $('#container');
 	var box = $('<div style="position:absolute;top:0;left:0;width:100%;height:100%;margin:0"></div>').appendTo(document.body);
 	
-	// 일단 창 크기를 줄인 후
+	// Reduce the size of the window after one
 	window.resizeTo(620,400);
 	
 	var dw = 620 - ctn.get(0).offsetWidth;
 	var dh = 400 - box.get(0).offsetHeight;
 
-	// 창크기 조절
+	// Window resize
 	window.resizeBy(dw, dh);
 	
-	// 더미 없애기
+	// Eliminate box
 	box.remove();
 	
-	// 메뉴
+	// Menu
 	$('#navigation a').click(function(){
 		var type = $(this).parent().attr('class');
 		var Type = type.substring(0,1).toUpperCase()+type.substring(1);
@@ -26,7 +26,7 @@ jQuery(function($){
 		return false;
 	});
 	
-	// 이미지 리사이즈
+	// Image Resize
 	$('#img button > img').each(function(){
 		var img = $(this);
 		$('<img>').load(function(){
@@ -51,14 +51,14 @@ jQuery(function($){
 		}).attr('src', this.src);
 	});
 	
-	// 이미지 선택
+	// Select an image
 	$('#img button').click(function(){
 		this.form.elements['image'].value = $('img', this).attr('src');
 		$(this).parent().parent().find('button.active').removeClass('active');
 		$(this).addClass('active');
 	});
 	
-	// 설명문
+	// Comment
 	$('input[type=text],textarea')
 		.focus(function(){
 			var t = $(this);

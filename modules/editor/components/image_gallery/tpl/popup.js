@@ -2,10 +2,10 @@ var selected_node = null;
 function getSlideShow() {
 	var node, $node, selected_images = '', width, style, align, border_color, bg_color, thickness;
 
-    // 부모창이 있는지 체크 
+    // Check that you have the parent window
     if(typeof(opener)=="undefined") return;
 
-    // 부모 위지윅 에디터에서 선택된 영역이 있으면 처리
+    // If the selected area from the parent process WYSIWYG editor
     node  = opener.editorPrevNode;
 	$node = jQuery(node);
     if($node.is('img')) {
@@ -32,7 +32,7 @@ function getSlideShow() {
         selected_images = $node.attr('images_list');
     }
 
-    // 부모창의 업로드된 파일중 이미지 목록을 모두 가져와서 세팅 
+    // Images of the parent window of a list of all the files that are uploaded by importing settings
     var fo = get_by_id("fo");
     var editor_sequence = fo.editor_sequence.value;
 
@@ -112,20 +112,20 @@ function insertSlideShow() {
     window.close();
 }
 
-/* 색상 클릭시 */
+/* Colors at the click of mouse */
 function select_color(type, code) {
   get_by_id(type+"_preview_color").style.backgroundColor = "#"+code;
   get_by_id(type+"_color_input").value = code;
 }
 
-/* 수동 색상 변경시 */
+/* Manual color change */
 function manual_select_color(type, obj) {
   if(obj.value.length!=6) return;
   code = obj.value;
   get_by_id(type+"_preview_color").style.backgroundColor = "#"+code;
 }
 
-/* 색상표를 출력 */
+/* Output palette */
 function printColor(type, blank_img_src) {
   var colorTable = new Array('22','44','66','88','AA','CC','EE');
   var html = "";
@@ -146,7 +146,7 @@ function printColor(type, blank_img_src) {
   document.write(html);
 }
 
-/* 개별 색상 block 출력 함수 */
+/* Individual color output function block */
 function printColorBlock(type, code, blank_img_src) {
   if(type=="bg") {
     return "<div style=\"float:left;background-color:#"+code+"\"><img src=\""+blank_img_src+"\" class=\"color_icon\" onmouseover=\"this.className='color_icon_over'\" onmouseout=\"this.className='color_icon'\" onclick=\"select_color('"+type+"','"+code+"')\" alt=\"color\" \/><\/div>";

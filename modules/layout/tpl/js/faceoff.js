@@ -148,7 +148,7 @@ var FaceOff = {
     getLayoutColumn : function() {
         return findEnum($('#container').attr('class'), FACEOFF_COLUMN);
     },
-    //'ece','c','ec','ce','cee','eec' 컬럼타입을 set 한다 크기와 관련된 스타일은 초기화 한다
+    //'ece','c','ec','ce','cee','eec' Related to the size of the column type is set to initialize the style
     setLayoutColumn : function(type,init){
         $('#container').removeClass(FACEOFF_COLUMN.join(' ')).addClass(_enum(type, FACEOFF_COLUMN));
         var sel = $('#container[style],#header[style]:visible,#footer[style]:visible')
@@ -157,7 +157,7 @@ var FaceOff = {
 
         if(init) sel.css('padding','').css('margin','');
 
-        // 칼럼의 변경으로, 현재 선택된 위젯이 보이지 않게 된다면, 위젯 선택을 해제한다.
+        // Change column, so if you do not see the currently selected widget, the widget will deselect.
         if (this.curElement && !this.curElement.parents('#xe .extension:visible').length) {
             this.selectElement(null);
         }
@@ -443,7 +443,7 @@ var FaceOff = {
         selector.hide();
         var sel = $('#neck[style]:visible .extension, #knee[style]:visible .extension,div.e1[style]:visible, div.e2[style]:visible').height('');
 
-        // 위젯을 할당한다. 선택된 위젯이 jQuery 객체가 아니거나 혹은 해당하는 DOM이 없다면 현재 선택된 위젯은 없다.
+        // Widget is assigned. JQuery selected object is not a widget or two, or if the DOM that is currently selected widget.
         if (cur && ( !cur.jquery || !cur.length )) cur = this.curElement = null;
 
         $('#smartmenu>li').hide();
@@ -954,7 +954,7 @@ function method(func, thisObj) {
     }
 }
 
-//  특정한 값이 주어진 타입에 해당하는지 확인하고 그렇지 않다면 기본값으로 대체한다.
+//  Particular value to determine if a given type is replaced by the default value otherwise.
 function _enum(value, enums, defaultIndex) {
     if (!$.isArray(enums) || enums.length < 1) return value;
     if (typeof defaultIndex == "undefined") defaultIndex = 0;
@@ -962,7 +962,7 @@ function _enum(value, enums, defaultIndex) {
     return $.inArray(value, enums)?value:enums[defaultIndex];
 }
 
-// 클래스 문자열에서 주어진 타입에 해당하는 클래스를 추출
+// Class, the class of a given type in the string to extract
 function findEnum(strClass, enums) {
     var regex = new RegExp(' (' + enums.join('|') + ') ');
 

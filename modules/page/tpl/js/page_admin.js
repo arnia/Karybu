@@ -1,10 +1,10 @@
 /**
  * @file   modules/page/js/page_admin.js
  * @author Arnia (dev@karybu.org)
- * @brief  page모듈의 관리자용 javascript
+ * @brief  page Modules for managers javascript
  **/
 
-/* 모듈 생성 후 */
+/*  after Module creation*/
 function completeInsertPage(ret_obj) {
     var error = ret_obj['error'];
     var message = ret_obj['message'];
@@ -45,7 +45,7 @@ function completeArticleDocumentInserted(ret_obj){
     location.href = url;
 }
 
-/* 내용 저장 후 */
+/* After the Save */
 function completeInsertPageContent(ret_obj) {
     var error = ret_obj['error'];
     var message = ret_obj['message'];
@@ -68,7 +68,7 @@ function completeInsertMobilePageContent(ret_obj) {
     location.href = current_url.setQuery('mid',mid).setQuery('act','dispPageAdminMobileContent');
 }
 
-/* 수정한 페이지 컨텐츠를 저장 */
+/* Save the modified page content */
 function doSubmitPageContent(fo_obj) {
     var html = getWidgetContent();
     fo_obj.content.value = html;
@@ -81,7 +81,7 @@ function doSubmitMPageContent(fo_obj) {
     return procFilter(fo_obj, insert_mpage_content);
 }
 
-/* 모듈 삭제 후 */
+/* Remove the module and */
 function completeDeletePage(ret_obj) {
     var error = ret_obj['error'];
     var message = ret_obj['message'];
@@ -94,7 +94,7 @@ function completeDeletePage(ret_obj) {
     location.href = url;
 }
 
-/* 카테고리 이동 */
+/* Category Go */
 function doChangeCategory(fo_obj) {
     var module_category_srl = fo_obj.module_category_srl.options[fo_obj.module_category_srl.selectedIndex].value;
     if(module_category_srl==-1) {
@@ -104,7 +104,7 @@ function doChangeCategory(fo_obj) {
     return true;
 }
 
-/* 위젯 재컴파일 */
+/* Widgets recompile */
 function doRemoveWidgetCache(module_srl) {
     var params = new Array();
     params["module_srl"] = module_srl;
@@ -116,7 +116,7 @@ function completeRemoveWidgetCache(ret_obj) {
     location.reload(); 
 }
 
-/* 일괄 설정 */
+/* Batch Setting */
 function doCartSetup(url) {
     var module_srl = new Array();
     jQuery('#fo_list input[name=cart]:checked').each(function() {

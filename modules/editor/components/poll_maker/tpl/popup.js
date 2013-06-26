@@ -1,10 +1,10 @@
 /**
- * popup으로 열렸을 경우 부모창의 위지윅에디터에 select된 block이 있는지 체크하여
- * 있으면 가져와서 원하는 곳에 삽입
+ * popup If the parent window is opened to select the WYSIWYG editor to check that there is a block
+ * Where if you insert the imported
  **/
 
 /**
- * 부모창의 위지윅에디터에 데이터를 삽입
+ * WYSIWYG editor to insert data into the parent window
  **/
 function completeInsertPoll(ret_obj) {
     if(typeof(opener)=="undefined") return null;

@@ -56,7 +56,7 @@
             <li class="admin"><a href="{getUrl('','module','admin','act','dispBoardAdminContent')}">{$lang->cmd_management}</a></li>
             <!--@end-->
 
-            <!--// 레이아웃이 없으면 회원정보 버튼 출력 -->
+            <!--// If the Member Information button layout output -->
             <!--@if(!$module_info->layout_srl)-->
             <li class="myInfo"><a href="{getUrl('act','dispMemberInfo')}">{$lang->cmd_view_member_info}</a></li>
             <li class="loginAndLogout"><a href="{getUrl('act','dispMemberLogout')}">{$lang->cmd_logout}</a></li>

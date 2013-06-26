@@ -2,7 +2,7 @@
  * @brief Karybu Calendar
  * @author Arnia (dev@karybu.org)
  *
- * 사용법
+ * How to use
  * 
  **/
 (function($){
@@ -139,7 +139,7 @@ $.extend(Calendar.prototype, {
 			v['weeks'] = [];
 
 			var d = new Date(cal.date.getTime()), w = [];
-			var last = (v.m!=2)? ((v.m+(v.m>7?1:0))%2?31:30) : ((new Date(v.yyyy,v.m-1,29)).getMonth()==v.m?29:28); // 마지막 날
+			var last = (v.m!=2)? ((v.m+(v.m>7?1:0))%2?31:30) : ((new Date(v.yyyy,v.m-1,29)).getMonth()==v.m?29:28); // Last Day
 
 			d.setDate(1); // Set to one day after the 1st day of the week brings.
 			var start = d.getDay(), end = last+start;
@@ -295,7 +295,7 @@ $.calendar.version = $.ui.calendar.version;
 
 // template
 template.calendar = '<button type="button" class="close"><span>{lang.close_layer}</span></button>\
-<table border="1" cellspacing="0" summary="달력에서 날짜를 선택하기">\
+<table border="1" cellspacing="0" summary="select a date from the calendar">\
 <caption>\
 	<span>\
 		{yyyy}.{mm}.\
@@ -334,7 +334,7 @@ template.calendar = '<button type="button" class="close"><span>{lang.close_layer
 <button type="button" class="close"><span>{lang.close_layer}</span></button>';
 
 template.month = '<button type="button" class="close"><span>{lang.close_layer}</span></button>\
-<table border="1" cellspacing="0" summary="달력에서 날짜를 선택하기" class="month">\
+<table border="1" cellspacing="0" summary="select a date from the calendar" class="month">\
 <caption>\
 	<span>\
 		{yyyy}.{mm} <button type="button" class="today">{lang.today}</button>\

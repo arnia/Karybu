@@ -1207,6 +1207,7 @@
 	<item name="title_modify_email_address">
 		<value xml:lang="ko"><![CDATA[이메일주소 변경 요청 확인 메일입니다.]]></value>
 		<value xml:lang="zh-TW"><![CDATA[電子郵件變更確認信]]></value>
+        <value xml:lang="en"><![CDATA[Confirmation email is your email address change request.]]></value>
 	</item>
 	<item name="msg_confirm_account_info">
 		<value xml:lang="ko"><![CDATA[가입하신 계정 정보는 아래와 같습니다.]]></value>
@@ -1234,6 +1235,7 @@
 	<item name="msg_confirm_email_address_change">
 		<value xml:lang="ko"><![CDATA[아래 링크를 클릭하시면 이메일 주소가 %s으로 변경됩니다.]]></value>
 		<value xml:lang="zh-TW"><![CDATA[請按底下連結將電子郵件變更為 %s]]></value>
+        <value xml:lang="en"><![CDATA[Click the link below to e-mail address will be changed to %s]]></value>
 	</item>
 	<item name="msg_auth_mail_sent">
 		<value xml:lang="ko"><![CDATA[%s 메일로 인증 정보를 담은 메일이 발송되었습니다. 메일을 확인하세요.]]></value>
@@ -1261,6 +1263,7 @@
 	<item name="msg_invalid_modify_email_auth_key">
 		<value xml:lang="ko"><![CDATA[잘못된 이메일 변경 요청입니다.<br />이메일 변경요청을 다시 하시거나 사이트 관리자에게 문의해주세요.]]></value>
 		<value xml:lang="zh-TW"><![CDATA[無效的電子郵件變更請求。<br />要想變更電子郵件，請詢問網站管理員。]]></value>
+        <value xml:lang="en"><![CDATA[Email is invalid change requests. <br /> Change email request again or contact the site administrator please]]></value>
 	</item>
 	<item name="msg_invalid_auth_key">
 		<value xml:lang="ko"><![CDATA[잘못된 계정 인증 요청입니다.<br />아이디/비밀번호 찾기를 다시 하시거나 사이트 관리자에게 계정 정보를 문의해주세요.]]></value>
@@ -2019,6 +2022,7 @@
 	<item name="about_temp_password">
 		<value xml:lang="ko"><![CDATA[임시 비밀번호가 정상적으로 발급되었습니다.<br />로그인 후 반드시 비밀번호를 변경하시기 바랍니다.<br/>]]></value>
 		<value xml:lang="zh-TW"><![CDATA[已發送臨時密碼。<br />請登入後修改密碼。<br/>]]></value>
+        <value xml:lang="en"><![CDATA[Normally have been issued a temporary password. <br /> Please log in and change the password. <br/>]]></value>
 	</item>
 	<item name="about_member">
 		<value xml:lang="ko"><![CDATA[회원을 생성/수정/삭제 할 수 있고 그룹관리나 가입 폼 관리 등을 할 수 있는 회원 관리 모듈입니다.
@@ -2055,6 +2059,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 	</item>
 	<item name="about_reset_auth_mail">
 		<value xml:lang="ko"><![CDATA[현재등록된 이메일 주소는 %s입니다. 이메일 주소를 변경하시고자 하는 경우 새로운 이메일 주소로 회원정보 갱신 후 인증메일을 재발 송할 수 있습니다.]]></value>
+        <value xml:lang="en"><![CDATA[Currently registered e-mail address is% s. If you want to change your email address, and new e-mail address after update member information can be sent certified mail recurrence.]]></value>
 	</item>
 	<item name="about_resend_auth_mail">
 		<value xml:lang="ko"><![CDATA[인증 메일을 받지 못하신 경우 다시 받으실 수 있습니다.]]></value>
@@ -2070,6 +2075,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 	</item>
 	<item name="about_reset_auth_mail_submit">
 		<value xml:lang="ko"><![CDATA[이메일을 로그인 계정으로 사용할 경우 신규 메일주소로 로그인해야 합니다.]]></value>
+        <value xml:lang="en"><![CDATA[If you use e-mail as the login account you must log in as a new e-mail address.]]></value>
 	</item>
 	<item name="no_article">
 		<value xml:lang="ko"><![CDATA[글이 없습니다.]]></value>
@@ -2454,6 +2460,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 	</item>
 	<item name="about_public_item">
 		<value xml:lang="ko"><![CDATA[본인 외에 다른 회원에게도 노출될 정보인지 선택합니다.]]></value>
+        <value xml:lang="en"><![CDATA[Person other than the member is making to select the information to be exposed.]]></value>
 	</item>
 	<item name="use_after_save">
 		<value xml:lang="ko"><![CDATA[저장 후 사용]]></value>

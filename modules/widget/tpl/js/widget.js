@@ -1,7 +1,7 @@
 /**
  * @file   modules/widget/js/widget.js
  * @author Arnia (dev@karybu.org)
- * @brief  위젯 관리용 자바스크립트
+ * @brief  JavaScript widget for management
  **/
 
 
@@ -31,7 +31,7 @@ function getStyle(obj) {
     return style;
 }
 
-// float: 값을 구하는게 IE랑 그외가 다름
+// float: IE asking for the value of the difference with other
 function getFloat(obj) {
 	return jQuery(obj).css('float');
 }
@@ -98,7 +98,7 @@ function getWidgetContent(obj) {
     return html;
 }
 
-// 컨텐츠 위젯 코드 구함
+// Wanted content widget code
 function getContentWidgetCode(childObj, widget) {
     var cobj = childObj.firstChild;
 
@@ -134,7 +134,7 @@ function getContentWidgetCode(childObj, widget) {
 	return code;
 }
 
-// 위젯 박스 코드 구함
+// Wanted widget box code
 function getWidgetBoxCode(childObj, widget) {
 
     var attrs = "";
@@ -161,7 +161,7 @@ function getWidgetBoxCode(childObj, widget) {
     return '<div widget="widgetBox" style="'+getStyle(childObj)+'" widget_padding_left="'+getPadding(childObj,'left')+'" widget_padding_right="'+getPadding(childObj,'right')+'" widget_padding_top="'+getPadding(childObj, 'top')+'" widget_padding_bottom="'+getPadding(childObj, 'bottom')+'" '+attrs+'><div><div>'+body+'</div></div></div>';
 }
 
-// 일반 위젯 컨텐츠 코드 구함
+// Wanted General widget content code
 function getWidgetCode(childObj, widget) {
     var attrs = "";
     var code = "";
@@ -180,15 +180,15 @@ function getWidgetCode(childObj, widget) {
 }
 
 /**
- * 직접 내용을 입력하는 위젯을 추가
+ * Add widgets to enter information directly
  **/
-// 팝업 띄움
+// Float popup
 function doAddContent(mid) {
     var url = request_uri.setQuery('module','widget').setQuery('act','dispWidgetAddContent').setQuery('module_srl',zoneModuleSrl).setQuery('mid',mid);
     showModal(url);
 }
 
-// 직접 내용을 입력하기 위한 에디터 활성화 작업 및 form 데이터 입력
+// Direct activation editor for entering content, and form data entry
 function doSyncPageContent() {
     if(window.parent && window.parent.selectedWidget) {
 
@@ -289,7 +289,7 @@ function addContentWidget(fo_obj) {
 
 }
 
-/* 박스 위젯 추가 */
+/* Add box widget */
 function doAddWidgetBox() {
     var tpl = ''+
     '<div class="widgetOutput" style="float:left; width:100%; height:60px;" widget="widgetBox" >'+
@@ -303,7 +303,7 @@ function doAddWidgetBox() {
     doFitBorderSize();
 }
 
-/* 일반 위젯을 추가하기 위해 위젯 팝업창을 띄움 */
+/* Add widgets to general pop-spacing widget */
 function doAddWidget(fo) {
     var sel = fo.widget_list;
     var idx = sel.selectedIndex;
@@ -315,7 +315,7 @@ function doAddWidget(fo) {
     showModal(url);
 }
 
-// widgetBorder에 height를 widgetOutput와 맞춰줌
+// widgetBorder WidgetOutput height to align with the zoom
 function doFitBorderSize() {
     var obj_list = jQuery('.widgetBorder', zonePageObj).get();
     for(var i=0;i<obj_list.length;i++) {
@@ -337,8 +337,8 @@ var selectedWidget = null;
 var writedText = null;
 var checkDocumentWrite = false;
 
-// document.write(ln)의 경우 ajax로 처리시 가로채기 위한 함수
-// 아래 함수는 str 내용을 단지 전역 변수에 보관 후 doAddWidgetCode 에서 재사용하기 위해 사용됨.
+// document.write(ln)In the case of treatment with an interception for ajax function
+// Str function just below the contents stored in the global variable is used to reuse in the doAddWidgetCode.
 window.document.write = window.document.writeln = function(str){
     if(checkDocumentWrite) {
         writedText = str;
@@ -359,11 +359,11 @@ window.document.write = window.document.writeln = function(str){
     }
 }
 
-// 위젯 추가
+// Add Widget
 function doAddWidgetCode(widget_code) {
     restoreWidgetButtons();
 
-    // css 추가
+    // css Additional
     var tmp = widget_code;
     while(tmp.indexOf("<!--#Meta:")>-1) {
         var pos = tmp.indexOf("<!--#Meta:");
@@ -388,10 +388,10 @@ function doAddWidgetCode(widget_code) {
         }
     }
 
-    // widget 코드에서 javascript 부분을 빼서 eval후 결과값을 대체함
-    checkDocumentWrite = true; ///< document.write(ln)등의 함수값을 바로 사용하기 위한 check flag
+    // widget Javascript eval in the code section by subtracting the result replaces the
+    checkDocumentWrite = true; ///< document.write(ln) Including the right to use the value of the function check flag
 
-    // widget_code의 javascript 부분 수정
+    // widget_code javascript (Edit)
     var tmp = widget_code.toLowerCase();
     while(tmp.indexOf("<script")>-1) {
 
@@ -414,7 +414,7 @@ function doAddWidgetCode(widget_code) {
 
 
 
-    // html 추가
+    // html Additional
     var dummy = xCreateElement('div');
     xInnerHtml(dummy, widget_code);
     var obj = dummy.childNodes[0];
@@ -442,7 +442,7 @@ function doAddWidgetCode(widget_code) {
     zoneObj.style.opacity = 0.2;
     zoneObj.style.filter = "alpha(opacity=20)";
 
-    // 위젯 추가후 페이지 리로딩
+    // Adding widgets reloading the page
     var tpl = getWidgetContent();
 
     var fo_obj = get_by_id('pageFo');
@@ -452,7 +452,7 @@ function doAddWidgetCode(widget_code) {
     */
 }
 
-// 클릭 이벤트시 위젯의 수정/제거/이벤트 무효화 처리
+// In the event of a widget, click modify / remove / invalidate handling events
 function doCheckWidget(e) {
     var evt = new xEvent(e); if(!evt.target) return;
     var obj = evt.target;
@@ -466,7 +466,7 @@ function doCheckWidget(e) {
     }
 
     doHideWidgetSizeSetup();
-    // 위젯 설정
+    // Widget set
     if(obj.className == 'widgetSetup') {
         var p_obj = obj.parentNode.parentNode;
         var widget = p_obj.getAttribute("widget");
@@ -476,7 +476,7 @@ function doCheckWidget(e) {
         else showModal(request_uri+"?module=widget&act=dispWidgetGenerateCodeInPage&selected_widget="+widget+"&widgetstyle="+widgetstyle);
         return;
 
-    // 위젯 스타일
+    // Widget Style
     } else if(obj.className == 'widgetStyle') {
         var p_obj = obj.parentNode.parentNode;
         var widget = p_obj.getAttribute("widget");
@@ -486,7 +486,7 @@ function doCheckWidget(e) {
         showModal(request_uri+"?module=widget&act=dispWidgetStyleGenerateCodeInPage&selected_widget="+widget+"&widgetstyle="+widgetstyle);
         return;
 
-    // 위젯 복사
+    // Widget Copy
     } else if(obj.className == 'widgetCopy' && obj.parentNode.parentNode.className == 'widgetOutput') {
         p_obj = obj.parentNode.parentNode;
         restoreWidgetButtons();
@@ -520,7 +520,7 @@ function doCheckWidget(e) {
         }
         return;
 
-    // 위젯 사이트/ 여백 조절
+    // Widget Site / margin adjustment
     } else if(obj.className == 'widgetSize' || obj.className == 'widgetBoxSize') {
         var p_obj = obj.parentNode.parentNode;
         var widget = p_obj.getAttribute("widget");
@@ -529,7 +529,7 @@ function doCheckWidget(e) {
         doShowWidgetSizeSetup(evt.pageX, evt.pageY, selectedWidget);
         return;
 
-    // 위젯 제거
+    // Removing Widget
     } else if(obj.className == 'widgetRemove' || obj.className == 'widgetBoxRemove') {
         var p_obj = obj.parentNode.parentNode;
         var widget = p_obj.getAttribute("widget");
@@ -540,7 +540,7 @@ function doCheckWidget(e) {
         return;
     }
 
-    // 내용 클릭 무효화
+    // Click the void content
     var p_obj = obj;
     while(p_obj) {
         if(p_obj.className == 'widgetOutput') {
@@ -554,7 +554,7 @@ function doCheckWidget(e) {
     }
 }
 
-// content widget 복사
+// content widget Copy
 function completeCopyWidgetContent(ret_obj, response_tags, params, p_obj) {
     var document_srl = ret_obj['document_srl'];
     var dummy = xCreateElement("DIV");
@@ -580,14 +580,14 @@ function completeCopyWidgetContent(ret_obj, response_tags, params, p_obj) {
     p_obj.parentNode.insertBefore(dummy, p_obj);
 }
 
-// content widget 제거
+// content widget Delete
 function completeDeleteWidgetContent(ret_obj, response_tags, params, p_obj) {
     restoreWidgetButtons();
     p_obj.parentNode.removeChild(p_obj);
 }
 
 
-// 마우스 다운 이벤트 발생시 위젯의 이동을 처리
+// Move the mouse-down event occurs widget handle
 function doCheckWidgetDrag(e) {
     var evt = new xEvent(e); if(!evt.target) return;
     var obj = evt.target;
@@ -938,8 +938,8 @@ function widgetSetup(evt) {
     }
 }
 
-/* 위젯 드래그 */
-// 드래그 중이라는 상황을 간직할 변수
+/* Widget, drag */
+// Variable to keep the situation is being drag
 var widgetDragManager = {obj:null, isDrag:false}
 var widgetTmpObject = new Array();
 var widgetDisappear = 0;
@@ -968,7 +968,7 @@ function widgetCreateTmpObject(obj) {
     return tmpObj;
 }
 
-// 기생성된 임시 object를 찾아서 return, 없으면 만들어서 return
+// Parasitic find temporary object return, making no return
 var idStep = 0;
 function widgetGetTmpObject(obj) {
     if(!obj.id) obj.id = 'widget_'+idStep++;
@@ -977,23 +977,23 @@ function widgetGetTmpObject(obj) {
     return tmpObj;
 }
 
-// 메뉴에 마우스 클릭이 일어난 시점에 드래그를 위한 제일 첫 동작 (해당 object에 각종 함수나 상태변수 설정)
+// This happened at the time of mouse-click on the menu for the very first drag operation (the object state variables in the various functions and settings)
 function widgetDragEnable(obj, funcDragStart, funcDrag, funcDragEnd) {
 
-    // 상위 object에 드래그 가능하다는 상태와 각 드래그 관련 함수를 설정
+    // Be a drag on the parent object is related to the status and function of each set, drag
     obj.draggable = true;
     obj.dragStart = funcDragStart;
     obj.drag = funcDrag;
     obj.dragEnd = funcDragEnd;
 
-    // 드래그 가능하지 않다면 드래그 가능하도록 상태 지정하고 mousemove이벤트 등록
+    // If it is not possible to drag the draggable mousemove event status register specifies
     if (!widgetDragManager.isDrag) {
         widgetDragManager.isDrag = true;
         xAddEventListener(document, 'mousemove', widgetDragMouseMove, false);
     }
 }
 
-// 드래그를 시작할때 호출되는 함수 (이동되는 형태를 보여주기 위한 작업을 함)
+// Function to be called when the drag started (go to show that the form should work)
 function widgetDragStart(tobj, px, py) {
     if(tobj.className == 'widgetResize' || tobj.className == 'widgetResizeLeft' || tobj.className == 'widgetBoxResize' || tobj.className == 'widgetBoxResizeLeft') return;
     var obj = widgetGetTmpObject(tobj);
@@ -1008,7 +1008,7 @@ function widgetDragStart(tobj, px, py) {
     xDisplay(obj, 'block');
 }
 
-// 드래그 시작후 마우스를 이동할때 발생되는 이벤트에 의해 실행되는 함수
+// Drag the mouse moves into the events that occur when a function is run by
 function widgetDrag(tobj, dx, dy) {
     var minWidth = 60;
     var minHeight = 60;
@@ -1028,7 +1028,7 @@ function widgetDrag(tobj, dx, dy) {
     var cssFloat = getFloat(tobj.parentNode);
     if(!cssFloat) cssFloat = 'left';
 
-    // 위젯 리사이즈 (우측)
+    // Widget resizing (right)
     if(tobj.className == 'widgetResize' || tobj.className == 'widgetBoxResize') {
         if(nx < sx+minWidth) nx = sx+minWidth;
         if(nx > zoneRight) nx = zoneRight;
@@ -1043,14 +1043,14 @@ function widgetDrag(tobj, dx, dy) {
 
         if( zoneRight < sx+new_width) new_width = zoneRight - sx;
 
-        // 위젯의 크기 조절
+        // Adjust the size of the widget
         xWidth(tobj.nextSibling.nextSibling, new_width);
         xHeight(tobj.nextSibling.nextSibling, new_height);
 
         xWidth(tobj.parentNode, new_width);
         xHeight(tobj.parentNode, new_height);
 
-    // 위젯 리사이즈 (좌측)
+    // Widget resizing (on the left)
     } else if(tobj.className == 'widgetResizeLeft' || tobj.className == 'widgetBoxResizeLeft') {
 
         if(nx < zoneLeft) nx = zoneLeft;
@@ -1063,23 +1063,23 @@ function widgetDrag(tobj, dx, dy) {
         var new_height = ny - sy;
         if(new_height < minHeight) new_height = minHeight;
 
-        // 위젯의 크기 조절
+        // Adjust the size of the widget
         xWidth(tobj.nextSibling, new_width);
         xHeight(tobj.nextSibling, new_height);
 
         xWidth(tobj.parentNode, new_width);
         xHeight(tobj.parentNode, new_height);
 
-    // 위젯 드래그
+    // Drag widgets
     } else {
         var obj = widgetGetTmpObject(tobj);
 
         xLeft(obj, parseInt(xPageX(obj),10) + parseInt(dx,10));
         xTop(obj, parseInt(xPageY(obj),10) + parseInt(dy,10));
 
-        // 박스 안에 있을 경우에는 박스내의 위젯하고 자리를 바꾸고 그 외의 경우에는 박스를 빠져 나간다
+        // If you have in the box and place the box in the widget box to change the exit in other cases
         if(tobj.parentNode != zonePageObj) {
-            // 박스내에 있는 위젯들을 구함
+            // Wanted in box widgets
             var widgetList = xGetElementsByClassName("widgetOutput",tobj.parentNode);
 
             for(var i=0;i<widgetList.length;i++) {
@@ -1110,7 +1110,7 @@ function widgetDrag(tobj, dx, dy) {
             }
             widgetList = null;
 
-            // 만약 다른 위젯과 자리를 바꾸지 못하였는데 자기 부모창밖에 있는게 확인이 되면 박스 밖으로 내보낸다.
+            // If you can not change the position was different widgets and had arrived outside his parent window when it is out of my send box.
             var p_tobj = jQuery(tobj).parents('div.nullWidget').get(0);
             var l =  xPageX(p_tobj);
             var t =  xPageY(p_tobj);
@@ -1125,9 +1125,9 @@ function widgetDrag(tobj, dx, dy) {
                 return;
             }
 
-        // 박스 밖에 있을 경우에는 다른 위젯과 자리를 바꾸거나 박스내에 들어가도록 한다
+        // If the box is outside the other widgets and change positions or to enter in the box is
         } else {
-            // 이동하려는 위젯이 박스 위젯이 아니라면 박스 위젯들을 구해서 입력 유무를 검사한다
+            // If you want to move the widget box widget, widgets, obtain input box is checked whether
             if(tobj.getAttribute("widget")!="widgetBox") {
 
                 var boxList = xGetElementsByClassName("nullWidget", zonePageObj);
@@ -1143,21 +1143,21 @@ function widgetDrag(tobj, dx, dy) {
                     var tt =  parseInt(t,10) + parseInt(xHeight(target_obj),10);
                     if( tobj.xDPX >= l && tobj.xDPX <= ll && tobj.xDPY >= t && tobj.xDPY <= tt) {
 
-                        //박스 위젯이다
+                        //Box is a widget
                         if(target_obj.className == "nullWidget") {
 
                             var wb_ws = jQuery('div.widget_inner',jQuery(target_obj));
 
-                            //박스 위젯에 위젯스타일이 적용 안된경우
+                            //Boxes should not apply to the widget if the widget style
                             if(wb_ws.size() == 0){
                                 target_obj.appendChild(tobj);
 
-                            //박스 위젯에 위젯스타일이 적용된경우 또는 박스안에 위젯이 위젯스타일이 적용된겅우
+                            //Styled box on the widget widget widget widget in the box, or styled geongwoo
                             }else{
                                 wb_ws.get(0).appendChild(tobj);
                              }
 
-                            // 이동을 멈춤
+                            // Stop the movement
                             widgetManualEnd();
 
                             doFitBorderSize();
@@ -1169,7 +1169,7 @@ function widgetDrag(tobj, dx, dy) {
                 boxList = null;
             }
 
-            // 다른 위젯들을 구해서 자리를 바꿈
+            // Place other widgets breaks obtain
             var widgetList = xGetElementsByClassName("widgetOutput",zonePageObj);
             for(var i=0;i<widgetList.length;i++) {
                 var target_obj = widgetList[i];
@@ -1205,14 +1205,14 @@ function widgetDrag(tobj, dx, dy) {
     }
 }
 
-// 드래그 종료 (이동되는 object가 이동할 곳에 서서히 이동되는 것처럼 보이는 효과)
+// Drag end (where to move an object that is moving slowly and seems to be effective)
 function widgetDragEnd(tobj, px, py) {
     var obj = widgetGetTmpObject(tobj);
     widgetDisapear = widgetDisapearObject(obj, tobj);
     widgetDragDisable(tobj.getAttribute('id'));
 }
 
-// 스르르 사라지게 함 (일단 사라지게 하는 기능을 제거.. 속도 문제)
+// Should disappear right off (remove the ability to disappear one .. speed issues)
 function widgetDisapearObject(obj, tobj) {
     xInnerHtml(tobj,xInnerHtml(obj));
     xInnerHtml(obj,'');
@@ -1249,7 +1249,7 @@ function widgetDisapearObject(obj, tobj) {
     */
 }
 
-// 마우스다운 이벤트 발생시 호출됨
+// Mouse-down event occurs is called
 function widgetMouseDown(e) {
     var evt = new xEvent(e);
     var obj = evt.target;
@@ -1267,7 +1267,7 @@ function widgetMouseDown(e) {
     }
 }
 
-// 마우스 버튼을 놓았을때 동작될 함수 (각종 이벤트 해제 및 변수 설정 초기화)
+// When you release the mouse button to be operated functions (initialization parameter setting off and other events)
 function widgetMouseUp(e) {
     if (widgetDragManager.obj) {
         xPreventDefault(e);
@@ -1283,7 +1283,7 @@ function widgetMouseUp(e) {
     }
 }
 
-// 드래그할때의 object이동등을 담당
+// When dragging and moving the object responsible for
 function widgetDragMouseMove(e) {
     var evt = new xEvent(e);
     if(widgetDragManager.obj) {
@@ -1304,7 +1304,7 @@ function widgetDragMouseMove(e) {
     }
 }
 
-// 해당 object 에 더 이상 drag가 되지 않도록 설정
+// Drag the object is no longer in use to prevent
 function widgetDragDisable(id) {
     if (!widgetDragManager) return;
     var obj = get_by_id(id);
@@ -1319,7 +1319,7 @@ function widgetDragDisable(id) {
     return;
 }
 
-// 강제로 드래그를 종료시킴
+// Forced to shut down, drag Sikkim
 function widgetManualEnd() {
     var tobj = widgetDragManager.obj;
     if(!tobj) return;

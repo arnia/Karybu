@@ -1082,4 +1082,8 @@
 		<value xml:lang="ko"><![CDATA[복사할 Layout이 지정되어 있지 않습니다.]]></value>
 		<value xml:lang="en"><![CDATA[Target layout is not assigned]]></value>
 	</item>
+    <item name="layout_image_list">
+        <value xml:lang="ko"><![CDATA[레이아웃 이미지 목록]]></value>
+        <value xml:lang="en"><![CDATA[Layout image list]]></value>
+    </item>
 </lang>

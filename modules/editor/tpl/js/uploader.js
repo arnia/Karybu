@@ -1,7 +1,7 @@
 /**
  * @author Arnia (dev@karybu.org)
  * @version 0.1.1
- * @brief 파일 업로드 관련
+ * @brief Upload files related
  **/
 var uploadedFiles    = [];
 var uploaderSettings = [];
@@ -11,10 +11,10 @@ var uploadSettingObj = [];
 var uploadAutosaveChecker = false;
 
 /**
- * 업로드를 하기 위한 준비 시작
- * 이 함수는 editor.html 에서 파일 업로드 가능할 경우 호출됨
- **/
-// window.load 이벤트일 경우 && 문서 번호가 가상의 번호가 아니면 기존에 저장되어 있을지도 모르는 파일 목록을 가져옴
+* Prepare for the upload starts
+* This function is called if possible, the file upload editor.html
+*/
+// Window.load event && document number, if the number of virtual or existing list of files that might be stored in the importing
 (function($){
 
 var defaultHandlers;
@@ -410,9 +410,9 @@ function insertUploadedFile(editorSequence) {
         var file = uploadedFiles[file_srl];
         editorFocus(editorSequence);
 
-        // 바로 링크 가능한 파일의 경우 (이미지, 플래쉬, 동영상 등..)
+        // If the file directly linkable (images, flash, video, etc. ..)
         if(file.direct_download == 'Y') {
-            // 이미지 파일의 경우 image_link 컴포넌트 열결
+            // If the components of the image file image_link yeolgyeol
             if(/\.(jpg|jpeg|png|gif)$/i.test(file.download_url)) {
                 if(loaded_images[file_srl]) {
                     var obj = loaded_images[file_srl];

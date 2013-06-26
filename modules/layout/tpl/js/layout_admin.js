@@ -1,12 +1,12 @@
 
-/* 레이아웃 신규 생성시 완료 후 요청하는 함수 */
+/* After completion of the layout when you create a new function to request */
 function completeInsertLayout(ret_obj) {
       var layout_srl = ret_obj['layout_srl'];
       var url = current_url.setQuery('act','dispLayoutAdminModify').setQuery('layout_srl',layout_srl);
       location.href = url;
 }
 
-/* 레이아웃 삭제 */
+/* Delete a layout */
 function doDeleteLayout(layout_srl) {
     var fo_obj = jQuery('#fo_layout').get(0);
     fo_obj.layout_srl.value = layout_srl;

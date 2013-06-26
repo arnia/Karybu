@@ -361,7 +361,7 @@ function get_bytes(str) {
 
 /**
  * @function filterAlertMessage
- * @brief ajax로 When you did not specify callback_function of a request to the server to process the results of calling the default function
+ * @brief ajax When you did not specify callback_function of a request to the server to process the results of calling the default function
  **/
 function filterAlertMessage(ret_obj) {
 	var error = ret_obj["error"];

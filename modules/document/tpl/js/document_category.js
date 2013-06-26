@@ -165,7 +165,7 @@ function deleteNode(node){
     }
 }
 
-/* 카테고리 아이템 입력후 */
+/* After entering the item category */
 function completeInsertCategory(ret_obj) {
     jQuery('#category_info').html("");
     Tree(xml_url);
@@ -175,11 +175,11 @@ function hideCategoryInfo() {
     jQuery('#category_info').html("");
 }
 
-/* 카테고리 목록 갱신 */
+/* Updating the list of categories */
 function doReloadTreeCategory(module_srl) {
     var params = {'module_srl':module_srl};
 
-    // 서버에 요청하여 해당 노드의 정보를 수정할 수 있도록 한다.
+    // Request to the server, the node should be able to edit the information.
     var response_tags = new Array('error','message', 'xml_file');
     exec_xml('document', 'procDocumentMakeXmlFile', params, completeInsertCategory, response_tags, params);
 }

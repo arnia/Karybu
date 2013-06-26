@@ -2,13 +2,13 @@
     /**
      * @class  materialAdminController
      * @author Arnia (developers@xpresseinge.com)
-     * @brief  material 모듈의 admin controller class
+     * @brief  material Module admin controller class
      **/
 
     class materialAdminController extends material {
 
         /**
-         * @brief 초기화
+         * @brief Initialization
          **/
         function init() {
         }

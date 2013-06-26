@@ -1,6 +1,6 @@
 /**
- * popup으로 열렸을 경우 부모창의 위지윅에디터에 select된 멀티미디어 컴포넌트 코드를 체크하여
- * 있으면 가져와서 원하는 곳에 삽입
+ * popup If the parent window is opened to select the WYSIWYG editor to check the multimedia component code
+ * Where if you insert the imported
  **/
 jQuery(function($){
 

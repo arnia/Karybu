@@ -3,13 +3,13 @@
      * @class  materialAdminModel
      * @author Arnia (developers@xpresseinge.com)
      * @version 0.1
-     * @brief  material 모듈의 admin model class
+     * @brief  material Module admin model class
      **/
 
     class materialAdminModel extends material {
 
         /**
-         * @brief 초기화
+         * @brief Initialization
          **/
         function init() {
         }

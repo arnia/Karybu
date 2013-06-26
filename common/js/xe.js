@@ -873,7 +873,7 @@ function completeDocumentSave(ret_obj) {
 /* Recalling Stored posts. */
 var objForSavedDoc = null;
 function doDocumentLoad(obj) {
-    // 저장된 게시글 목록 불러오기
+    // Load the saved list of posts
     objForSavedDoc = obj.form;
     popopen(request_uri.setQuery('module','document').setQuery('act','dispTempSavedList'));
 }
@@ -1497,7 +1497,7 @@ $.exec_xml = window.exec_xml = function(module, act, params, callback_func, resp
 	var _u1 = $('<a>').attr('href', location.href)[0];
 	var _u2 = $('<a>').attr('href', xml_path)[0];
 
-	// 현 url과 ajax call 대상 url의 schema 또는 port가 다르면 직접 form 전송
+	// Ajax call url and target url of the current schema or a different port sent directly form
 	if(_u1.protocol != _u2.protocol || _u1.port != _u2.port) return send_by_form(xml_path, params);
 
 	var xml = [], i = 0;
@@ -1515,7 +1515,7 @@ $.exec_xml = window.exec_xml = function(module, act, params, callback_func, resp
 	var _xhr = null;
 	if (_xhr && _xhr.readyState != 0) _xhr.abort();
 
-	// 전송 성공시
+	// Transfer success
 	function onsuccess(data, textStatus, xhr) {
 		var resp_xml = $(data).find('response')[0], resp_obj, txt='', ret=[], tags={}, json_str='';
 
@@ -2063,7 +2063,7 @@ function get_bytes(str) {
 
 /**
  * @function filterAlertMessage
- * @brief ajax로 When you did not specify callback_function of a request to the server to process the results of calling the default function
+ * @brief ajax When you did not specify callback_function of a request to the server to process the results of calling the default function
  **/
 function filterAlertMessage(ret_obj) {
 	var error = ret_obj["error"];

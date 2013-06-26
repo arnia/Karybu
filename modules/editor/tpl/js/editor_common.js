@@ -1,21 +1,21 @@
 /**
- * 에디터에서 사용하기 위한 변수
+ * Variables for use in the editor
  **/
-var editorMode = new Array(); ///<< 에디터의 html편집 모드 flag 세팅 변수 (html or null)
-var editorAutoSaveObj = {fo_obj:null, editor_sequence:0, title:'', content:'', locked:false} ///< 자동저장을 위한 정보를 가진 object
-var editorRelKeys = new Array(); ///< 에디터와 각 모듈과의 연동을 위한 key 값을 보관하는 변수
+var editorMode = new Array(); ///<< Html editor in edit mode flag set variables (html or null)
+var editorAutoSaveObj = {fo_obj:null, editor_sequence:0, title:'', content:'', locked:false} ///< Information for the object with automatic storage
+var editorRelKeys = new Array(); ///< Editor and integration with each module to keep the value of key variables for
 var editorDragObj = {isDrag:false, y:0, obj:null, id:'', det:0, source_height:0}
 
 function editorGetContent(editor_sequence) {
-    // 입력된 내용을 받아옴
+    // Ohm input information received
     var content = editorRelKeys[editor_sequence]["func"](editor_sequence);
 
-    // 첨부파일 링크시 url을 변경
+    // Change attachment url link time
     var reg_pattern = new RegExp( request_uri.replace(/\//g,'\\/')+"(files|common|modules|layouts|widgets)", 'ig' );
     return content.replace(reg_pattern, "$1");
 }
 
-// 에디터에 포커스를 줌
+// Zoom focus to the editor
 function editorFocus(editor_sequence) {
 	try {
 		var iframe_obj = editorGetIFrame(editor_sequence);
@@ -28,9 +28,9 @@ function editorFocus(editor_sequence) {
 }
 
 /**
- * 자동 저장 기능
+ * Auto-save feature
  **/
-// 자동 저장 활성화 시키는 함수 (50초마다 자동저장)
+// To enable auto-save function (automatically saved every 50 seconds)
 function editorEnableAutoSave(fo_obj, editor_sequence, callback) {
     var title   = fo_obj.title.value;
     var content = editorRelKeys[editor_sequence]['content'].value;
@@ -42,24 +42,24 @@ function editorEnableAutoSave(fo_obj, editor_sequence, callback) {
 }
 editorEnableAutoSave.timer = null;
 
-// ajax를 이용하여 editor.procEditorSaveDoc 호출하여 자동 저장시킴 exe는 강제 코드
+// using ajax auto-save Sikkim exe editor.procEditorSaveDoc forced to call code
 function _editorAutoSave(exe, callback) {
     var fo_obj = editorAutoSaveObj.fo_obj;
     var editor_sequence = editorAutoSaveObj.editor_sequence;
 
-    // 50초마다 동기화를 시킴 강제 실행은 제외
+    // Forcing synchronization every 50 seconds except Sikkim
     if(!exe) {
 		clearTimeout(editorEnableAutoSave.timer);
 		editorEnableAutoSave.timer = setTimeout(function(){ _editorAutoSave(exe, callback) }, 50000);
 	}
 
-    // 현재 자동저장중이면 중지
+    // Auto Save is currently stopped in
     if(editorAutoSaveObj.locked == true) return;
 
-    // 대상이 없으면 자동저장 시키는 기능 자체를 중지
+    // If there is no auto-save function that stops itself
     if(!fo_obj || typeof(fo_obj.title)=='undefined' || !editor_sequence) return;
 
-    // 자동저장을 위한 준비
+    // Preparing for auto-save
     var title = fo_obj.title.value;
 	var content = '';
 	try{
@@ -67,7 +67,7 @@ function _editorAutoSave(exe, callback) {
 	}catch(e){
 	}
 
-    // 내용이 이전에 저장하였던 것과 다르면 자동 저장을 함 또는 강제 저장 설정시 자동 저장
+    // Who had previously saved information is different than that, or Force Save Auto Save automatically saved when setting
     if(title != editorAutoSaveObj.title || content != editorAutoSaveObj.content || exe) {
         var params, oDate = new Date();
 
@@ -81,13 +81,13 @@ function _editorAutoSave(exe, callback) {
         editorAutoSaveObj.title   = title;
         editorAutoSaveObj.content = content;
 
-        // 메시지 만들어서 보여줌
+        // Creating a message showing
         jQuery("#editor_autosaved_message_"+editor_sequence).text(oDate.getHours()+':'+oDate.getMinutes()+' '+auto_saved_msg).show(300);
 
-        // 현재 자동저장중임을 설정
+        // Auto Save is in the current set
         editorAutoSaveObj.locked = true;
 
-        // 서버 호출 (서버와 교신중이라는 메세지를 보이지 않도록 함)
+        // Call server (the server and the communication of the message should not be seen)
         show_waiting_message = false;
         exec_xml(
 			"editor",
@@ -104,7 +104,7 @@ function _editorAutoSave(exe, callback) {
     }
 }
 
-// 자동저장된 모든 메세지를 삭제하는 루틴
+// Routines to automatically delete all messages stored
 function editorRemoveSavedDoc() {
     var param = new Array();
     param['mid'] = current_mid;
@@ -112,10 +112,10 @@ function editorRemoveSavedDoc() {
 }
 
 /**
- * 에디터의 상태나 객체를 구하기 위한 함수
+ * Editor to save the state of a function or object
  **/
 
-// editor_sequence값에 해당하는 iframe의 object를 return
+// editor_sequence object that corresponds to the value of the return of the iframe
 function editorGetIFrame(editor_sequence) {
     if(editorRelKeys != undefined && editorRelKeys[editor_sequence] != undefined && editorRelKeys[editor_sequence]['editor'] != undefined)
 		return editorRelKeys[editor_sequence]['editor'].getFrame(editor_sequence);
@@ -152,7 +152,7 @@ function editorEventCheck(e) {
     var target_id = e.target.id;
     if(!target_id) return;
 
-    // editor_sequence와 component name Wanted (id format is different from the return)
+    // editor_sequence component name Wanted (id format is different from the return)
     var info = target_id.split('_');
     if(info[0]!="component") return;
     var editor_sequence = info[1];
@@ -284,18 +284,18 @@ function editorSearchComponent(evt) {
 
 // Html editor to change the code of the selected area in the
 function editorReplaceHTML(iframe_obj, html) {
-    // 이미지 경로 재지정 (rewrite mod)
+    // Image redirected (rewrite mod)
     var srcPathRegx = /src=("|\'){1}(\.\/)?(files\/attach|files\/cache|files\/faceOff|files\/member_extra_info|modules|common|widgets|widgetstyle|layouts|addons)\/([^"\']+)\.(jpg|jpeg|png|gif)("|\'){1}/g;
     html = html.replace(srcPathRegx, 'src="'+request_uri+'$3/$4.$5"');
 
-    // href 경로 재지정 (rewrite mod)
+    // href Redirected (rewrite mod)
     var hrefPathRegx = /href=("|\'){1}(\.\/)?\?([^"\']+)("|\'){1}/g;
     html = html.replace(hrefPathRegx, 'href="'+request_uri+'?$3"');
 
-    // 에디터가 활성화 되어 있는지 확인 후 비활성화시 활성화
+    // Make sure the editor is activated activated and deactivated when
     var editor_sequence = iframe_obj.editor_sequence || iframe_obj.contentWindow.document.body.getAttribute("editor_sequence");
 
-    // iframe 에디터에 포커스를 둠
+    // iframe Placing the focus to the editor
 	try { iframe_obj.contentWindow.focus(); }catch(e){};
 	
 	if (jQuery.isFunction(iframe_obj.replaceHTML)) {
@@ -325,7 +325,7 @@ function editorReplaceHTML(iframe_obj, html) {
     }
 }
 
-// 에디터 내의 선택된 부분의 html 코드를 return
+// Editor's html code within the selected portion of return
 function editorGetSelectedHtml(editor_sequence) {
     var iframe_obj = editorGetIFrame(editor_sequence);
 	if (jQuery.isFunction(iframe_obj.getSelectedHTML)) {
@@ -344,7 +344,7 @@ function editorGetSelectedHtml(editor_sequence) {
 }
 
 
-// {{{ iframe 세로 크기 조절
+// {{{ iframe Vertical scaling
 (function($){
 
 var dragging  = false;
@@ -431,4 +431,4 @@ $(document).bind({
 */
 
 })(jQuery);
-// }}} iframe 세로 크기 조절
+// }}} iframe Vertical scaling

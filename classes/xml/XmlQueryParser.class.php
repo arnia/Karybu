@@ -22,7 +22,7 @@
          * @return void Nothing is requred.
          */
         function parse($query_id, $xml_file, $cache_file) {
-            // query xml 파일을 찾아서 파싱, 결과가 없으면 return
+            // query xml Find the file parsing, if the results return
             $buff = FileHandler::readFile($xml_file);
             $xml_obj = parent::parse($buff);
             if(!$xml_obj) return;
@@ -41,11 +41,11 @@
                 $id = $id_args[2];
             }
 
-            // insert, update, delete, select등의 action
+            // insert, update, delete, select action
             $action = strtolower($xml_obj->query->attrs->action);
             if(!$action) return;
 
-            // 테이블 정리 (배열코드로 변환)
+            // Table clean (array converted to code)
             $tables = $xml_obj->query->tables->table;
             $output->left_tables = array();
 
@@ -56,7 +56,7 @@
 			$joinList = array('left join'=>1, 'left outer join'=>1, 'right join'=>1, 'right outer join'=>1);
             foreach($tables as $key => $val) {
 
-                // 테이블과 alias의 이름을 구함
+                // Wanted alias name of the table and
                 $table_name = $val->attrs->name;
                 $alias = $val->attrs->alias;
                 if(!$alias) $alias = $table_name;
@@ -68,7 +68,7 @@
                     $left_conditions[$alias] = $val->conditions;
                 }
 
-                // 테이블을 찾아서 컬럼의 속성을 구함
+                // Wanted to find a table column properties
                 $table_file = sprintf('%s%s/%s/schemas/%s.xml', _KARYBU_PATH_, 'modules', $module, $table_name);
                 if(!file_exists($table_file)) {
                     $searched_list = FileHandler::readDir(_KARYBU_PATH_.'modules');
@@ -96,7 +96,7 @@
             }
 
 
-            // 컬럼 정리
+            // Column Cleanup
             $columns = $xml_obj->query->columns->column;
             $out = $this->_setColumn($columns);
             $output->columns = $out->columns;
@@ -116,7 +116,7 @@
             $out = $this->_setGroup($group_list);
             $output->groups = $out->groups;
 
-            // 네비게이션 정리
+            // Clean navigation
             $out = $this->_setNavigation($xml_obj);
             $output->order = $out->order;
             $output->list_count = $out->list_count;
@@ -134,7 +134,7 @@
             }
             $buff .= ' );'."\n";
 
-            // php script 생성
+            // php script Generation
             $buff .= '$output->_tables = array( ';
             foreach($output->tables as $key => $val) {
                 $buff .= sprintf('"%s"=>"%s",', $key, $val);
@@ -149,21 +149,21 @@
                 $buff .= ' );'."\n";
             }
 
-            // column 정리
+            // column Generation
             if($column_count) {
                 $buff .= '$output->columns = array ( ';
                 $buff .= $this->_getColumn($output->columns);
                 $buff .= ' );'."\n";
             }
 
-            // conditions 정리
+            // conditions Generation
             if($condition_count) {
                 $buff .= '$output->conditions = array ( ';
                 $buff .= $this->_getConditions($output->conditions);
                 $buff .= ' );'."\n";
             }
 
-            // conditions 정리
+            // conditions argument
             if(count($output->left_conditions)) {
                 $buff .= '$output->left_conditions = array ( ';
                 foreach($output->left_conditions as $key => $val){
@@ -174,7 +174,7 @@
                 $buff .= ' );'."\n";
             }
 
-			// args 변수 확인
+			// args Check the variable
 			$arg_list = $this->getArguments();
 			if($arg_list)
 			{
@@ -185,7 +185,7 @@
 				}
 			}
 
-            // order 정리
+            // order argument
             if($output->order) {
                 $buff .= '$output->order = array(';
                 foreach($output->order as $key => $val) {
@@ -194,22 +194,22 @@
                 $buff .= ');'."\n";
             }
 
-            // list_count 정리
+            // list_count Argument
             if($output->list_count) {
                 $buff .= sprintf('$output->list_count = array("var"=>"%s", "value"=>$args->%s?$args->%s:"%s");%s', $output->list_count->var, $output->list_count->var, $output->list_count->var, $output->list_count->default,"\n");
             }
 
-            // page_count 정리
+            // page_count argument
             if($output->page_count) {
                 $buff .= sprintf('$output->page_count = array("var"=>"%s", "value"=>$args->%s?$args->%s:"%s");%s', $output->page_count->var, $output->page_count->var, $output->page_count->var, $output->page_count->default,"\n");
             }
 
-            // page 정리
+            // page argument
             if($output->page) {
                 $buff .= sprintf('$output->page = array("var"=>"%s", "value"=>$args->%s?$args->%s:"%s");%s', $output->page->var, $output->page->var, $output->page->var, $output->list->default,"\n");
             }
 
-            // group by 정리
+            // group by argument
             if($output->groups) {
                 $buff .= sprintf('$output->groups = array("%s");%s', implode('","',$output->groups),"\n");
             }
@@ -256,7 +256,7 @@
                   . $buff
                   . 'return $output; ?>';
 
-            // 저장
+            // store
             FileHandler::writeFile($cache_file, $buff);
         }
 
@@ -301,8 +301,8 @@
         * @retrun object
         */
         function _setConditions($conditions){
-            // 조건절 정리
-
+            // Clean condition
+            $obj = new stdClass();
             $condition = $conditions->condition;
             if($condition) {
                 $obj->condition = $condition;
@@ -344,7 +344,7 @@
         * @return object
         */
         function _setGroup($group_list){
-            // group 정리
+            // group argument
 
             if($group_list) {
                 if(!is_array($group_list)) $group_list = array($group_list);

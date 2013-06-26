@@ -1,18 +1,18 @@
 /**
  * @author Arnia (dev@karybu.org)
  * @version 0.1
- * @brief 에디터 관련 스크립트
+ * @brief Associated script editor
  */
 
 /**
- * 에디터 사용시 사용되는 이벤트 연결 함수 호출
+ * The events connected with the editor using the function call
  **/
 
 /**
- * 에디터의 상태나 객체를 구하기 위한 함수
+ * Editor to save the state of a function or object
  **/
 
-// editor_sequence값에 해당하는 textarea object를 return
+// editor_sequence That corresponds to the value of the textarea object return
 function editorGetTextArea(editor_sequence) {
     return jQuery('#editor_textarea_' + editor_sequence)[0];
 }
@@ -21,7 +21,7 @@ function editorGetPreviewArea(editor_sequence) {
     return jQuery( '#editor_preview_' + editor_sequence )[0];
 }
 
-// editor_sequence에 해당하는 form문 구함
+// editor_sequence Form corresponding to the door Wanted
 function editorGetForm(editor_sequence) {
     var iframe_obj = editorGetIFrame(editor_sequence);
     if(!iframe_obj) return;
@@ -32,7 +32,7 @@ function editorGetForm(editor_sequence) {
     return;
 }
 
-// 에디터의 전체 내용 return
+// return The entire contents of the editor
 function editorGetContent_xe(editor_sequence) {
     var html = "";
     if(editorMode[editor_sequence]=='html') {
@@ -47,7 +47,7 @@ function editorGetContent_xe(editor_sequence) {
     return html;
 }
 
-// 에디터 내의 선택된 부분의 NODE를 return
+// return The editor in the selected part of the NODE
 function editorGetSelectedNode(editor_sequence) {
     var iframe_obj = editorGetIFrame(editor_sequence), w, range;
 
@@ -63,7 +63,7 @@ function editorGetSelectedNode(editor_sequence) {
 }
 
 /**
- * editor 시작 (editor_sequence로 iframe객체를 얻어서 쓰기 모드로 전환)
+ * editor Start (editor_sequence get the iframe object, switch to writing mode)
  **/
 var _editorFontColor = new Array();
 function editorStart(editor_sequence, primary_key, content_key, editor_height, font_color) {
@@ -71,32 +71,32 @@ function editorStart(editor_sequence, primary_key, content_key, editor_height, f
     if(typeof(font_color)=='undefined') font_color = '#000';
     _editorFontColor[editor_sequence] = font_color;
 
-    // iframe obj를 찾음
+    // Seeking iframe obj
     var iframe_obj = editorGetIFrame(editor_sequence);
     if(!iframe_obj) return;
 	jQuery(iframe_obj).css('width', '100%').parent().css('width', '100%');
 
-    // 현 에디터를 감싸고 있는 form문을 찾음
+    // Editor door that covers current form found
     var fo_obj = editorGetForm(editor_sequence);
     if(!fo_obj) return;
 
-    // fo_obj에 editor_sequence 값 지정
+    // fo_obj Specify a value for editor_sequence
     fo_obj.setAttribute('editor_sequence', editor_sequence);
 
-    // 모듈 연관 키 값을 세팅
+    // Set the key value associated with the module
     editorRelKeys[editor_sequence] = new Array();
     editorRelKeys[editor_sequence]["primary"] = fo_obj[primary_key];
     editorRelKeys[editor_sequence]["content"] = fo_obj[content_key];
     editorRelKeys[editor_sequence]["func"] = editorGetContent_xe;
 
-    // saved document(자동저장 문서)에 대한 확인
-    if(typeof(fo_obj._saved_doc_title)!="undefined" ) { ///<< _saved_doc_title field가 없으면 자동저장 하지 않음
+    // check for saved document(Auto Save Document)
+    if(typeof(fo_obj._saved_doc_title)!="undefined" ) { ///<< _saved_doc_title field If there is no auto-save
 
         var saved_title = fo_obj._saved_doc_title.value;
         var saved_content = fo_obj._saved_doc_content.value;
 
         if(saved_title || saved_content) {
-            // 자동저장된 문서 활용여부를 물은 후 사용하지 않는다면 자동저장된 문서 삭제
+            // Whether the water is automatically utilize the saved document if you do not use the auto-delete stored documents
             if(confirm(fo_obj._saved_doc_message.value)) {
                 if(typeof(fo_obj.title)!='undefined') fo_obj.title.value = saved_title;
                 editorRelKeys[editor_sequence]['content'].value = saved_content;
@@ -113,19 +113,19 @@ function editorStart(editor_sequence, primary_key, content_key, editor_height, f
         }
     }
 
-    // 대상 form의 content element에서 데이터를 구함
+    // Data from the target of the form content element Wanted
     var content = editorRelKeys[editor_sequence]['content'].value;
 
-    // IE가 아니고 내용이 없으면 <br /> 추가 (FF등에서 iframe 선택시 focus를 주기 위한 꽁수)
+    // If there are not the IE add <br /> (FF, etc. When selecting iframe tricks to give focus)
     if(!content && !xIE4Up) content = "<br />";
 
-    // IE일 경우 ctrl-Enter 안내 문구를 노출
+    // If IE ctrl-Enter phrase exposure guidance
     var ieHelpObj = xGetElementById("for_ie_help_"+editor_sequence);
     if(xIE4Up && ieHelpObj) {
         ieHelpObj.style.display = "block";
     }
 
-    // content 생성
+    // content Generation
     editor_path = editor_path.replace(/^\.\//ig, '');
     var contentHtml = ''+
         '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'+
@@ -141,10 +141,10 @@ function editorStart(editor_sequence, primary_key, content_key, editor_height, f
     iframe_obj.contentWindow.document.write(contentHtml);
     iframe_obj.contentWindow.document.close();
 
-    // editorMode를 기본으로 설정
+    // Set on the basis of editorMode
     editorMode[editor_sequence] = null;
 
-    // 에디터를 시작 시킴
+    // Editor starts
     try {
         iframe_obj.contentWindow.document.designMode = 'On';
     } catch(e) {
@@ -157,13 +157,13 @@ function editorStart(editor_sequence, primary_key, content_key, editor_height, f
     }
 
     /**
-     * 더블클릭이나 키눌림등의 각종 이벤트에 대해 listener 추가
-     * 작성시 필요한 이벤트 체크
-     * 이 이벤트의 경우 윈도우 sp1 (NT or xp sp1) 에서 iframe_obj.contentWindow.document에 대한 권한이 없기에 try 문으로 감싸서
-     * 에러를 무시하도록 해야 함.
-     **/
+    * Double-click or keypress listener for various events, such as additional
+    * Check the required events when writing
+    * In this event, the windows sp1 (NT or xp sp1) iframe_obj.contentWindow.document in so by the authority of the try statement wrapping
+    * Error should be ignored.
+    */
 
-    // 위젯 감시를 위한 더블클릭 이벤트 걸기
+    // Make a widget for monitoring the double-click event
     try {
 		jQuery(iframe_obj.contentWindow.document)
 			.unbind('dblclick.widget')
@@ -171,18 +171,18 @@ function editorStart(editor_sequence, primary_key, content_key, editor_height, f
     } catch(e) {
     }
 
-    // 에디터에서 키가 눌러질때마다 이벤트를 체크함 (enter키의 처리나 FF에서 alt-s등을 처리)
+    // Each time the key is pressed in the editor, checking the event (enter key or FF in the treatment process, such as alt-s)
     try {
         if(xIE4Up) xAddEventListener(iframe_obj.contentWindow.document, 'keydown',editorKeyPress);
         else xAddEventListener(iframe_obj.contentWindow.document, 'keypress',editorKeyPress);
     } catch(e) {
     }
 
-    // 자동저장 필드가 있다면 자동 저장 기능 활성화
+    // If you have auto-save auto-save feature enable field
     if(typeof(fo_obj._saved_doc_title)!="undefined" ) editorEnableAutoSave(fo_obj, editor_sequence);
 
 
-    // 좋지는 않으나;; 스타일 변형을 막기 위해 start 할때 html이면 바꿔주자
+    // Ugly, but;; style variant is to prevent the html change when runners start
     if (xGetCookie('editor_mode') == 'html'){
         var iframe_obj = editorGetIFrame(editor_sequence);
         if(xGetElementById('fileUploader_'+editor_sequence)) xGetElementById('fileUploader_'+editor_sequence).style.display='block';
@@ -202,31 +202,31 @@ function editorStart(editor_sequence, primary_key, content_key, editor_height, f
 
 
 /**
- * 에디터의 세부 설정과 데이터 핸들링을 정의한 함수들
+ * Editor of the details of the settings and data handling functions defined
  **/
 
 
 
 /**
- * 키 또는 마우스 이벤트 핸들링 정의 함수
+ * Defined function keys or mouse event handling
  **/
 
-// 입력 키에 대한 이벤트 체크
+// Check the input key event for
 function editorKeyPress(evt) {
     var e = new xEvent(evt);
 
-    // 대상을 구함
+    // Wanted destination
     var obj = e.target;
     var body_obj = null;
     if(obj.nodeName == "BODY") body_obj = obj;
     else body_obj = obj.firstChild.nextSibling;
     if(!body_obj) return;
 
-    // editor_sequence는 에디터의 body에 attribute로 정의되어 있음
+    //  Attribute to the body of the editor is defined as editor_sequence
     var editor_sequence = body_obj.getAttribute("editor_sequence");
     if(!editor_sequence) return;
 
-    // IE에서 enter키를 눌렀을때 P 태그 대신 BR 태그 입력
+    // IE when you press the enter key on input BR tags instead of P tags
     if (xIE4Up && !e.ctrlKey && !e.shiftKey && e.keyCode == 13 && !editorMode[editor_sequence]) {
         var iframe_obj = editorGetIFrame(editor_sequence);
         if(!iframe_obj) return;
@@ -251,23 +251,23 @@ function editorKeyPress(evt) {
         return;
     }
 
-    // ctrl-S, alt-S 클릭시 submit하기
+    // ctrl-S, alt-S When you click to submit
     if( e.keyCode == 115 && (e.altKey || e.ctrlKey) ) {
-        // iframe 에디터를 찾음
+        // iframe Seeking Editor
         var iframe_obj = editorGetIFrame(editor_sequence);
         if(!iframe_obj) return;
 
-        // 대상 form을 찾음
+        // Finding the target form
         var fo_obj = editorGetForm(editor_sequence);
         if(!fo_obj) return;
 
-        // 데이터 동기화
+        // Data Synchronization
         editorRelKeys[editor_sequence]['content'].value = editorGetContent(editor_sequence);
 
-        // form문 전송
+        // transfer form
         if(fo_obj.onsubmit) fo_obj.onsubmit();
 
-        // 이벤트 중단
+        // Events
         evt.cancelBubble = true;
         evt.returnValue = false;
         xPreventDefault(evt);
@@ -275,13 +275,13 @@ function editorKeyPress(evt) {
         return;
     }
 
-    // ctrl-b, i, u, s 키에 대한 처리 (파이어폭스에서도 에디터 상태에서 단축키 쓰도록)
+    // ctrl-b, i, u, s for the key process (in Firefox shortcuts in the editor to write the state)
     if (e.ctrlKey) {
-        // iframe 에디터를 찾음
+        // iframe Seeking Editor
         var iframe_obj = editorGetIFrame(editor_sequence);
         if(!iframe_obj) return;
 
-        // html 에디터 모드일 경우 이벤트 취소 시킴
+        // html Editor mode, cancel the event
         if(editorMode[editor_sequence]) {
             evt.cancelBubble = true;
             evt.returnValue = false;
@@ -308,7 +308,7 @@ function editorKeyPress(evt) {
                     xPreventDefault(evt);
                     xStopPropagation(evt);
                 break;
-            // ie에서 ctrlKey + enter일 경우 P 태그 입력
+            // ctrlKey + enter ie one at the P tag input
             case 13 :
                     if(xIE4Up) {
                         if(e.target.parentElement.document.designMode!="On") return;
@@ -358,12 +358,12 @@ function editorKeyPress(evt) {
     }
 }
 
-// 편집 기능 실행
+// Edit function is executed
 function editorDo(command, value, target) {
 
     var doc = null;
 
-    // target이 object인지 editor_sequence인지에 따라 document를 구함
+    // depending on whether the object is a target document Seeking editor_sequence
     if(typeof(target)=="object") {
         if(xIE4Up) doc = target.parentElement.document;
         else doc = target.parentNode;
@@ -375,19 +375,19 @@ function editorDo(command, value, target) {
     var editor_sequence = doc.body.getAttribute('editor_sequence');
     if(editorMode[editor_sequence]) return;
 
-    // 포커스
+    // Focus
     if(typeof(target)=="object") target.focus();
     else editorFocus(target);
 
-    // 실행
+    // Execution
     doc.execCommand(command, false, value);
 
-    // 포커스
+    // Focus
     if(typeof(target)=="object") target.focus();
     else editorFocus(target);
 }
 
-// 폰트를 변경
+// Change the font
 function editorChangeFontName(obj,srl) {
     var value = obj.options[obj.selectedIndex].value;
     if(!value) return;
@@ -421,7 +421,7 @@ function editorChangeHeader(obj,srl) {
 }
 
 /**
- * HTML 편집 기능 활성/비활성
+ * HTML Editing active / inactive
  **/
 
 function editorChangeMode(mode, editor_sequence) {
@@ -455,7 +455,7 @@ function editorChangeMode(mode, editor_sequence) {
         html = html.replace(/<br \/>\n\n/ig,"<br />\n");
     }
 
-    // html 편집 사용시
+    // html When using the Edit
     if(mode == 'html' && textarea_obj) {
         preview_obj.style.display='none';
         if(xGetElementById('fileUploader_'+editor_sequence)) xGetElementById('fileUploader_'+editor_sequence).style.display='block';
@@ -470,7 +470,7 @@ function editorChangeMode(mode, editor_sequence) {
             xGetElementById('preview_html_'+editor_sequence).className = '';
             xGetElementById('use_html_'+editor_sequence).className = 'active';
         }
-    // 미리보기
+    // Preview
     } else if(mode == 'preview' && preview_obj) {
         preview_obj.style.display='';
         if(xGetElementById('fileUploader_'+editor_sequence)) xGetElementById('fileUploader_'+editor_sequence).style.display='none';
@@ -497,7 +497,7 @@ function editorChangeMode(mode, editor_sequence) {
             xGetElementById('preview_html_'+editor_sequence).className = 'active';
             if(xGetElementById('use_html_'+editor_sequence)) xGetElementById('use_html_'+editor_sequence).className = '';
         }
-    // 위지윅 모드 사용시
+    // When using WYSIWYG mode
     } else {
         preview_obj.style.display='none';
         if(xGetElementById('fileUploader_'+editor_sequence)) xGetElementById('fileUploader_'+editor_sequence).style.display='block';

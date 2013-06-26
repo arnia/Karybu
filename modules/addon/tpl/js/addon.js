@@ -1,6 +1,6 @@
 /**
- * @brief 애드온의 활성/비활성 토글용 함수
- * fo_addon이라는 id를 가지는 form에 인자로 주어진 addon값을 세팅후 실행
+ * @brief Add active / inactive toggle function for
+ * fo_addon Form with the id as an argument to run after setting the value of the given addon
  **/
 function doToggleAddon(addon, type) {
 	if(typeof(type) == "undefined") type = "pc";

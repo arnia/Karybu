@@ -2,7 +2,7 @@
     /**
      * @class  materialController
      * @author Arnia (developers@xpresseinge.com)
-     * @brief  material 모듈의 Controller class
+     * @brief  material Module Controller class
      **/
 
     class materialController extends material {
@@ -10,7 +10,7 @@
         var $thum = array('S'=>array('width'=>188));
 
         /**
-         * @brief 초기화
+         * @brief init
          **/
         function init() {
 
@@ -127,7 +127,7 @@
             }
 
             $obj->document_srl = $material_srl;
-            // trigger 호출 (after)
+            // trigger Call (after)
             if($output->toBool()) {
                 $trigger_output = ModuleHandler::triggerCall('material.deleteMaterial', 'after', $obj);
                 if(!$trigger_output->toBool()) {

@@ -123,7 +123,7 @@
 			if(!is_array($download_grant)) $file_config->download_grant = explode('|@|',$download_grant);
 			else $file_config->download_grant = $download_grant;
 
-			//관리자가 허용한 첨부파일의 사이즈가 php.ini의 값보다 큰지 확인하기 - by ovclas
+			//Administrator has allowed attachments, the size of the check is greater than the value in php.ini - by ovclas
 			$userFileAllowSize = $this->_changeBytes($file_config->allowed_filesize.'M');
 			$userAttachAllowSize = $this->_changeBytes($file_config->allowed_attach_size.'M');
 			$iniPostMaxSize = $this->_changeBytes(ini_get('post_max_size'));

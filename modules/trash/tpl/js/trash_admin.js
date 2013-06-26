@@ -1,11 +1,11 @@
 /**
  * @file   modules/trash/js/trash_admin.js
  * @author Arnia (dev@karybu.org)
- * @brief  trash 모듈의 관리자용 javascript
+ * @brief  trash Modules for managers javascript
  **/
 
 
-/* 휴지통 비우기 후 */
+/* After emptying the Recycle Bin */
 function completeEmptyTrash(ret_obj) {
     var error = ret_obj['error'];
     var message = ret_obj['message'];

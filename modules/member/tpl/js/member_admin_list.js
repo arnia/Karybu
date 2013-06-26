@@ -37,14 +37,14 @@ jQuery(document).ready( function() {
                 ($.os.Mac) ? 'Mac' : '';
 
     /**
-     * @brief Karybu 공용 유틸리티 함수
+     * @brief Karybu Public utility function
      * @namespace Karybu
      */
     window.XE = {
         loaded_popup_menus : new Array(),
         addedDocument : new Array(),
         /**
-         * @brief 특정 name을 가진 체크박스들의 checked 속성 변경
+         * @brief Check box with a name change of the checked attribute
          * @param [itemName='cart',][options={}]
          */
         checkboxToggleAll : function(itemName) {
@@ -88,7 +88,7 @@ jQuery(document).ready( function() {
         },
 
         /**
-         * @brief 문서/회원 등 팝업 메뉴 출력
+         * @brief Documentation in / outputs, including the pop-up menu
          */
         displayPopupMenu : function(ret_obj, response_tags, params) {
             var target_srl = params["target_srl"];
@@ -133,7 +133,7 @@ jQuery(document).ready( function() {
                 this.loaded_popup_menus[menu_id] =  html;
             }
 
-            /* 레이어 출력 */
+            /* Output layer */
             if(html) {
                 var area = $('#popup_menu_area').html('<ul>'+html+'</ul>');
                 var areaOffset = {top:params['page_y'], left:params['page_x']};

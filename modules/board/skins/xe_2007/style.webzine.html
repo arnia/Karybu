@@ -73,7 +73,7 @@
         <tbody>
 
         <!--@if(!$document_list && !$notice_list)-->
-            <!--// 게시물이 없으면 등록된 글이 없음을 표시 -->
+            <!--// If there is no post to display registered Post -->
             <tr class="bg0">
                 <td colspan="{$_col_count}" class="title">
                     {$lang->no_documents}
@@ -81,7 +81,7 @@
             </tr>
         <!--@else-->
 
-            <!--// 공지사항 출력 -->
+            <!--// Notice the output -->
             <!--@foreach($notice_list as $no => $document)-->
                 <tr class="notice">
                     <!--@if($grant->manager)--><td class="checkbox"><input type="checkbox" name="cart" value="{$document->document_srl}" onclick="doAddDocumentCart(this)" <!--@if($document->isCarted())-->checked="checked"<!--@end--> /></td><!--@end-->
@@ -119,7 +119,7 @@
                 </tr>
             <!--@end-->
 
-            <!--// 일반 글 출력 -->
+            <!--// General Post the output -->
             <!--@foreach($document_list as $no => $document)-->
                 <tr class="bg{($no+1)%2+1}">
                     <!--@if($grant->manager)--><td class="checkbox" rowspan="2"><input type="checkbox" name="cart" value="{$document->document_srl}" onclick="doAddDocumentCart(this)" <!--@if($document->isCarted())-->checked="checked"<!--@end--> /></td><!--@end-->

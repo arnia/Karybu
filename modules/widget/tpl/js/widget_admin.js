@@ -1,10 +1,10 @@
 /**
  * @file   modules/widget/js/widget_admin.js
  * @author Arnia (dev@karybu.org)
- * @brief  widget 모듈의 관리자용 javascript
+ * @brief  widget Modules for managers javascript
  **/
 
-/* 생성된 코드를 textarea에 출력 */
+/* The code generated in the output textarea */
 function completeGenerateCode(ret_obj) {
     var widget_code = ret_obj["widget_code"];
         widget_code = widget_code.replace(/&/g, "&amp;");
@@ -13,7 +13,7 @@ function completeGenerateCode(ret_obj) {
     zone.value = widget_code;
 }
 
-/* 생성된 코드를 페이지 zone에 출력 */
+/* The code generated for the page output zone */
 function completeGenerateCodeInPage(ret_obj,response_tags,params,fo_obj) {
     var widget_code = ret_obj["widget_code"];
     if(!window.parent || !widget_code) {
@@ -25,7 +25,7 @@ function completeGenerateCodeInPage(ret_obj,response_tags,params,fo_obj) {
     window.close();
 }
 
-/* 위젯 코드 생성시 스킨을 고르면 컬러셋의 정보를 표시 */
+/* Widget code generation pick the skin color information display three */
 function doDisplaySkinColorset(sel, colorset) {
     var skin = sel.options[sel.selectedIndex].value;
     if(!skin) {
@@ -44,7 +44,7 @@ function doDisplaySkinColorset(sel, colorset) {
     exec_xml("widget", "procWidgetGetColorsetList", params, completeGetSkinColorset, response_tags, params);
 }
 
-/* 서버에서 받아온 컬러셋을 표시 */
+/* Three-color display on the server batahon */
 function completeGetSkinColorset(ret_obj, response_tags, params, fo_obj) {
     var sel = jQuery("#fo_widget")[0].widget_colorset;
     var length = sel.options.length;
@@ -70,7 +70,7 @@ function completeGetSkinColorset(ret_obj, response_tags, params, fo_obj) {
 
 
 var selected_node = null;
-/* 페이지 모듈에서 위젯스타일 수정하려고 할 경우 */
+/* Page if you want to modify the widget style in the module */
 function getWidgetVars() {
     if(!window.parent || !window.parent.selectedWidget || !window.parent.selectedWidget.getAttribute("widget")) return;
     selected_node = window.parent.selectedWidget;
@@ -82,12 +82,12 @@ function getWidgetVars() {
     doFillWidgetVars();
 }
 
-/* 페이지 모듈에서 내용의 위젯을 더블클릭하여 수정하려고 할 경우 */
+/* Page content in a module by double-clicking on the widget if you want to modify */
 function doFillWidgetVars() {
     if(!window.parent || !window.parent.selectedWidget || !window.parent.selectedWidget.getAttribute("widget")) return;
     selected_node = window.parent.selectedWidget;
 
-    // 스킨과 컬러셋은 기본
+    // Skin and the color of the three basic
     var skin = selected_node.getAttribute("skin");
     var colorset = selected_node.getAttribute("colorset");
     var widget_sequence = parseInt(selected_node.getAttribute("widget_sequence"),10);
@@ -96,7 +96,7 @@ function doFillWidgetVars() {
     var fo_obj = get_by_id("fo_widget");
     jQuery('#widget_skin').val(skin);
 
-    // 위젯 스타일 유지를 위한 hidden input 추가하고 값을 저장
+    // Add hidden input for the maintenance of the widget style, and store the value
     var attrs = selected_node.attributes;
     for (i=0; i< attrs.length ; i++){
         var name = attrs[i].name;
@@ -107,7 +107,7 @@ function doFillWidgetVars() {
         var dummy = jQuery('<input type="hidden" name="'+name+'" >').val(value).appendTo("#fo_widget").get(0);
     }
 
-    // 위젯의 속성 설정
+    // Set the Properties of Widget
     var obj_list = new Array();
     jQuery('input,select,textarea','#fo_widget').each( function() {
             obj_list.push(this);
@@ -176,12 +176,12 @@ function doFillWidgetVars() {
     fo_obj.widget_padding_top.value = selected_node.getAttribute("widget_padding_top");
 
 
-    //  컬러셋 설정
+    //  Three color settings
     if(skin && get_by_id("widget_colorset") && get_by_id("widget_colorset").options.length<1 && colorset) {
         doDisplaySkinColorset(get_by_id("widget_skin"), colorset);
     }
 
-    // widget sequence 설정
+    // widget sequence Set
     fo_obj.widget_sequence.value = widget_sequence;
 }
 
@@ -194,7 +194,7 @@ function checkFixType(obj) {
     }
 }
 
-// 위젯의 대상 모듈 입력기 (단일 선택)
+// Target module importer of widgets (single selection)
 function insertSelectedModule(id, module_srl, mid, browser_title) {
     var obj= get_by_id('_'+id);
     var sObj = get_by_id(id);
@@ -203,7 +203,7 @@ function insertSelectedModule(id, module_srl, mid, browser_title) {
 
 }
 
-// 위젯의 대상 모듈 입력기 (다중 선택)
+// Widget's target module input method (multiple-choice)
 function insertSelectedModules(id, module_srl, mid, browser_title) {
     var sel_obj = jQuery('#_'+id)[0];
     for(var i=0;i<sel_obj.options.length;i++) if(sel_obj.options[i].value==module_srl) return;

@@ -1,6 +1,6 @@
 
 /**
- * @brief 모든 생성된 섬네일 삭제하는 액션 호출
+ * @brief Action call to delete all generated thumbnails
  **/
 function doDeleteAllThumbnail() {
     exec_xml('document','procDocumentAdminDeleteAllThumbnail', [], completeDeleteAllThumbnail);
@@ -11,7 +11,7 @@ function completeDeleteAllThumbnail(ret_obj) {
     location.reload();
 }
 
-/* 선택된 글의 삭제 또는 이동 */
+/* Delete or move the selected article */
 function doManageDocument(type) {
     var fo_obj = jQuery("#fo_management").get(0);
     fo_obj.type.value = type;
@@ -19,7 +19,7 @@ function doManageDocument(type) {
     procFilter(fo_obj, manage_checked_document);
 }
 
-/* 선택된 글의 삭제 또는 이동 후 */
+/* After deleting or moving the selected article */
 function completeManageDocument(ret_obj) {
     if(opener) { 
         opener.window.location.href = opener.window.current_url.setQuery('document_srl', '');
@@ -201,7 +201,7 @@ function makeMidList(moduleName)
 	doGetCategoryFromModule(jQuery('#mid_list').val());
 }
 
-/* 선택된 모듈의 카테고리 목록을 가져오는 함수 */
+/* Get a list of the categories of the selected module function */
 function doGetCategoryFromModule(module_srl) {
     var params = new Array();
     params['module_srl'] = module_srl;

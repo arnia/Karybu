@@ -1,4 +1,4 @@
-/* 로그인 영역에 포커스 */
+/* Sign in focus in the area */
 function doFocusUserId(fo_id) {
     if(xScrollTop()) return;
     var fo_obj = xGetElementById(fo_id);
@@ -9,19 +9,19 @@ function doFocusUserId(fo_id) {
     }
 }
 
-/* 로그인 후 */
+/* After logging in */
 function completeLogin(ret_obj, response_tags, params, fo_obj) {
     var url =  current_url.setQuery('act','');
     location.href = url;
 }
 
-/* 오픈아이디 로그인 후 */
+/* Login to OpenID */
 function completeOpenIDLogin(ret_obj, response_tags) {
     var redirect_url =  ret_obj['redirect_url'];
     location.href = redirect_url;
 }
 
-/* 오픈 아이디 폼 변환 */
+/* OpenID converted form */
 function toggleLoginForm(obj) {
     if(xGetElementById('login').style.display != "none") {
         xGetElementById('login').style.display = "none";

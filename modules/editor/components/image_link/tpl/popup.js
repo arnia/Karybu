@@ -7,13 +7,13 @@
     function getImage() {
         var image_url = $form.find('#image_url').val();
 
-        // url이 미리 입력되어 있을 경우 scale구해줌
+        // url If you have a pre-scale
         if(image_url) {
             getImageScale();
             return;
         }
 
-        // 부모 위지윅 에디터에서 선택된 영역이 있으면 처리
+        // If the selected area from the parent process WYSIWYG editor
         var node = opener.editorPrevNode;
         if(!node || node.nodeName != 'IMG') {
             return;

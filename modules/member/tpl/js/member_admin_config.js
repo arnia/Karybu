@@ -1,4 +1,4 @@
-/* 멤버 스킨 컬러셋 구해옴 */
+/* Members get Skin-color three-ohm */
 function doGetSkinColorset(skin) {
     var params = {skin:skin};
     var response_tags = ['error','message','tpl'];
@@ -23,7 +23,7 @@ function doGetSkinColorset(skin) {
 	);
 }
 
-/* 금지아이디 관련 작업들 */
+/* Prohibition of ID-related tasks */
 function doUpdateDeniedID(user_id, mode, message) {
     if(typeof(message)!='undefined'&&!confirm(message)) return;
 
@@ -62,8 +62,8 @@ function doUpdateDeniedNickName(nick_name, mode, message)
 
 jQuery(function($){
 	// hide form if enable_join is setted "No" 
-	var suSetting = $('fieldset.suSetting'); // 회원가입 설정
-	var suForm = $('fieldset.suForm'); // 회원가입 양식
+	var suSetting = $('fieldset.suSetting'); // Register Settings
+	var suForm = $('fieldset.suForm'); // Sign Up Form
 	suForm.find(':checkbox[name="usable_list[]"]').each(function(){
 		var $i = $(this);
 		$i.change(function(){

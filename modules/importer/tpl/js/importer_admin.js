@@ -1,7 +1,7 @@
 /**
  * @file   modules/importer/js/importer_admin.js
  * @author Arnia (dev@karybu.org)
- * @brief  importer에서 사용하는 javascript
+ * @brief  importer javascript
  **/
 jQuery(function($){
 
@@ -81,7 +81,7 @@ $('.syncmember').hide();
 });
 
 /**
- * 회원정보와 게시글/댓글등의 동기화 요청 및 결과 처리 함수
+ * Member Information and Posts / Comments processing functions, such as the synchronization of requests and results
  **/
 function doSync(fo_obj) {
     exec_xml(
@@ -97,7 +97,7 @@ function doSync(fo_obj) {
 }
 
 /**
- * xml파일을 DB입력전에 extract를 통해 분할 캐싱을 요청하는 함수
+ * xml DB file to extract the input before requesting a split caching function
  **/
 function doPreProcessing(form, formId) {
 	var xml_file, type, resp, prepared = false, $ = jQuery, $status, $process, $form;

@@ -159,8 +159,8 @@
 					echo "<menuSrl>" . $value->menuSrl . "</menuSrl>";
 					
 					if( !empty($value->menuItems->list) ){
-                                            echo $this->generateMenuItemMultipleLevels ($value->menuItems->list);
-                                        }
+                        echo $this->generateMenuItemMultipleLevels ($value->menuItems->list);
+                    }
 	
 					echo "</menu>\n";
 				}
@@ -1075,15 +1075,15 @@
 		if(!Context::get('is_logged')) $this->logout_message();
 	        Context::addJsFilter($this->module_path.'tpl/filter', 'insert_denylist.xml');
 
-            // 목록을 구하기 위한 옵션
-            $args->page = Context::get('page'); ///< 페이지
+            // Obtaining a list of options
+            $args->page = Context::get('page'); ///< Page
             $args->search_keyword = Context::get('search_keyword');
             $args->search_target = Context::get('search_target');
 
-            $args->list_count = 30; ///< 한페이지에 보여줄 글 수
-            $args->page_count = 10; ///< 페이지 네비게이션에 나타날 페이지의 수
+            $args->list_count = 30; ///< Show the number of posts on a single page
+            $args->page_count = 10; ///< The number of pages appear on the page navigation
 
-            $args->sort_index = 'list_order'; ///< 소팅 값
+            $args->sort_index = 'list_order'; ///< sorting
 
             $args->module_srl = Context::get('module_srl');
 
@@ -1122,15 +1122,15 @@
         if(!Context::get('is_logged')) $this->logout_message();
         	global $lang;
 			//if(!Context::get('is_logged')) $this->logout_message();
-            // 정해진 일자가 없으면 오늘자로 설정
+            // If you do not have a fixed date set as today
             $selected_date = Context::get('selected_date');
             if(!$selected_date) $selected_date = date("Ymd");
             Context::set('selected_date', $selected_date);
 
-            // counter model 객체 생성
+            // counter model Create Object
             $oCounterModel = &getModel('counter');
 
-            // 시간, 일, 월, 년도별로 데이터 가져오기
+            // Hour, day, month, and year by importing data
             $type = Context::get('type');
             if(!$type) {
                 $type = 'day';
