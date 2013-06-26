@@ -524,12 +524,9 @@ class ModuleObject extends Module
      * @param string name of file
      * @return void
      **/
-    function setLayoutFile($filename)
+    function setLayoutFile($file)
     {
-        if (substr($filename, -5) != '.html') {
-            $filename .= '.html';
-        }
-        $this->layout_file = $filename;
+        $this->layout_file = $file;
     }
 
     /**

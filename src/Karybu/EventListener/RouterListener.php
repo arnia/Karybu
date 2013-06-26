@@ -68,8 +68,11 @@ class RouterListener implements EventSubscriberInterface
                 $this->logger->info(sprintf('Matched route "%s" (parameters: %s)', $parameters['_route'], $this->parametersToString($parameters)));
             }
             // for forms that forgot about their action
+            // TODO study this if more
             if ($request->isMethod('post') && !$request->isXmlHttpRequest() && isset($parameters['act'])) {
-                unset($parameters['act']);
+                if (substr($parameters['act'], 0, 4) != 'disp') {
+                    unset($parameters['act']);
+                }
             }
 
             $request->attributes->add($parameters);

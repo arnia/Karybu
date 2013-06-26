@@ -18,7 +18,7 @@
      * Scrollbars
      */
     var VERTICAL_SCROLLBAR_DEFAULTS = {
-        scrollInertia:300,
+        scrollInertia:150,
         scrollButtons:{
             enable:true
         },
@@ -98,7 +98,10 @@
 
     $.isPortrait = function()
     {
-        return $("body").hasClass("portrait");
+        var browserWidth = $(window).width();
+        var browserHeight = $(window).height();
+        if(browserWidth < browserHeight) return true;
+        else return false;
     }
 
     /**

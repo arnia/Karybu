@@ -11,7 +11,6 @@
 }
 
 
-
 /* Waiting for server response - Modal Window */
 .wfsr_fog {
     position: absolute;
@@ -403,7 +402,7 @@ input[type="color"]:focus,
     height: 60px;
     left: 15px;
     line-height: 40px;
-    margin-top: -20px;
+    margin-top: -75px;
     opacity: 0.8;
     position: absolute;
     text-align: center;
@@ -555,6 +554,8 @@ footer {
         padding-top: 0;
     }
 
+
+
     .navbar {
         margin-bottom: 0;
     }
@@ -611,36 +612,7 @@ footer {
     }
 }
 
-@media (max-width: 480px) {
-    body {
-        padding-top: 0;
-    }
 
-    .container {
-        padding-left: 0;
-        padding-right: 0;
-        border: none;
-    }
-
-    .navbar-inner {
-        padding: 5px 10px;
-    }
-
-    #header {
-        min-height: 56px;
-        margin-left: -20px;
-        margin-right: -20px;
-    }
-
-    .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
-        margin-left: 0px;
-        margin-right: 0px;
-    }
-
-    .carousel-caption {
-        position: static;
-    }
-}
 
 
 .admin {
@@ -767,9 +739,11 @@ a.member-image img{
 #header a.brand {
     display: block;
     float: left;
-    margin: -34px 0 -44px -20px;
+    margin: -34px 10px -14px -20px;
     position: relative;
     min-height: 64px;
+    max-width: 40%;
+
 }
 
 #header a.brand img {
@@ -785,12 +759,10 @@ a.member-image img{
 }
 
 @media (max-width: 979px) {
-    .navbar-fixed-top .span4,
-    .navbar-fixed-top .span8 {
+    .row-fluid [class*="span"] {
         display: block;
-        width: 100%;
-        float: none;
-        clear: both;
+        float: right;
+        width: auto;
     }
 
     .nav-collapse .nav {
@@ -802,11 +774,19 @@ a.member-image img{
     }
 
     #header a.brand {
-        margin: -70px 0 -44px -0;
+        margin: -44px 0 -44px -0;
+    }
+
+    #header a.brand img {
+        max-height: 46px;
     }
 
     #header {
         height: auto!important;
+    }
+
+    .carousel-caption {
+        padding: 10px 15px;
     }
 
 }
@@ -818,8 +798,25 @@ a.member-image img{
         border: none;
     }
 
+    .carousel-caption {
+        padding: 10px 15px 2px;
+    }
+
+    .carousel-caption h1 {
+        font-size: 32px;
+        line-height: 36px;
+        margin: 0;
+    }
+
+    .carousel-caption p.lead {
+        font-size: 18px;
+    }
+
+
+
+
     #header a.brand {
-        margin: -44px 0 -44px -0;
+        margin: -44px 0 -34px -0;
     }
 
     #header a.brand img {
@@ -836,6 +833,82 @@ a.member-image img{
         height: auto!important;
     }
 
+}
+
+
+@media (max-width: 480px) {
+    body {
+        padding-top: 0;
+    }
+
+    .carousel-caption {
+        padding: 10px 15px 2px;
+    }
+
+    .carousel-caption h1 {
+        font-size: 24px;
+        line-height: 32px;
+        margin: 0;
+    }
+
+    .carousel-caption p.lead {
+        font-size: 16px;
+    }
+
+
+    .carousel-control {
+        font-size: 50px;
+        font-weight: 100;
+        height: 50px;
+        left: 15px;
+        line-height: 40px;
+        margin-top: -75px;
+        opacity: 0.8;
+        position: absolute;
+        text-align: center;
+        top: 50% !important;
+        width: 50px;
+    }
+
+    .carousel-control img,
+    .carousel-control.right img {
+        margin-top: -2px;
+    }
+
+    #login-info {
+        display: block;
+        width: 100%;
+        clear: both;
+    }
+
+    a.brand {
+        margin-top: -74px!important;
+    }
+
+    .container {
+        padding-left: 0;
+        padding-right: 0;
+        border: none;
+    }
+
+    .navbar-inner {
+        padding: 5px 10px;
+    }
+
+    #header {
+        min-height: 56px;
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+
+    .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .carousel-caption {
+        position: static;
+    }
 }
 
 /* pagination */
@@ -977,8 +1050,9 @@ input#current_page:focus {
 
 
 
-/* FREAKING IE8 TWEAK */
+/* INHERITED IE8 PROPERTY RESET */
 
 #header .navbar-inner {
     filter:none;
 }
+

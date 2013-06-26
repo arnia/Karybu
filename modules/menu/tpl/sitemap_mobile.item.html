@@ -46,9 +46,11 @@
         </div>
     </div>
     <ul>
-        <block loop="$item['list']=>$idx,$val">
+        <!--@foreach($item['list'] as $idx => $val)-->
+        <block>
             {@$item = $val}
             <include target="sitemap_mobile.item.html" />
         </block>
+        <!--@endforeach-->
     </ul>
 </li>

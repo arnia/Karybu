@@ -23,6 +23,7 @@ class ControllerResolver extends BaseResolver
         $module_info = $request->attributes->get('module_info');
 
         if ($error) {
+            /** @var $oModule \ModuleObject */
             $module = $error->module;
             $module_matcher = new \ModuleMatcher();
             $kind = $module_matcher->getKind('dispMessage', $module);
@@ -55,6 +56,28 @@ class ControllerResolver extends BaseResolver
         }
 
         return new ControllerWrapper($oModule);
+    }
+
+    public function getArguments(Request $request, $controller)
+    {
+        if (is_array($controller)) {
+            $r = new \ReflectionMethod($controller[0], $controller[1]);
+            $parameters = $r->getParameters();
+        } elseif (is_object($controller) && !$controller instanceof \Closure) {
+            $r = new \ReflectionObject($controller);
+            if ($controller instanceof ControllerWrapper && $r->hasMethod('getControllerParameters') && !$controller->isError() && !$controller->isProc()) {
+                $parameters = $controller->getControllerParameters(); // mirroring it
+            }
+            else {
+                $r = $r->getMethod('__invoke');
+                $parameters = $r->getParameters();
+            }
+        } else {
+            $r = new \ReflectionFunction($controller);
+            $parameters = $r->getParameters();
+        }
+
+        return $this->doGetArguments($request, $controller, $parameters);
     }
 
     /**

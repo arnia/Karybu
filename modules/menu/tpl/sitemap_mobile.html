@@ -130,14 +130,16 @@
 
 <h1>Menu Management</h1>
 
-<div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
+<!--@if($XE_VALIDATOR_MESSAGE)-->
+<div class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
-
-<block loop="$menu_list=>$key,$value">
+<!--@endif-->
+<!--@foreach($menu_list as $key => $value)-->
+<block>
     {@$menuSrl = $value->menuSrl}
-    <form class="portlet mobileSiteMap" id="menu_{$menuSrl}" method="post" action="#menu_{$menuSrl}">
+    <form class="portlet mobileSiteMap" id="menu_{$menuSrl}" method="post" action="./">
         <input type="hidden" name="module" value="{$module}" />
         <input type="hidden" name="act" value="procMenuAdminArrangeItem" />
         <input type="hidden" name="menu_srl" value="{$menuSrl}" />
@@ -149,10 +151,12 @@
             </h2>
 
             <ul class="unstyled" id="nav_{$key}" cond="count($value->menuItems->list > 0)" <!--@if($_COOKIE['sitemap_toggle_#nav_'.$key])-->style="display:none;"<!--@end-->>
-                <block loop="$value->menuItems->list=>$key2,$value2">
+                <!--@foreach($value->menuItems->list as $key2 => $value2)-->
+                <block>
                     {@$item = $value2}
                     <include target="sitemap_mobile.item.html" />
                 </block>
+                <!--@endforeach-->
             </ul>
             <div class="form-inline">
                 <a href="#editMenu" class="_add btn" data-toggle="modal">{$lang->add_menu}...</a>
@@ -165,6 +169,7 @@
         </fieldset>
     </form>
 </block>
+<!--@endforeach-->
 
     <form action="./" method="post">
         <input type="hidden" name="module" value="admin"/>

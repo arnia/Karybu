@@ -752,6 +752,7 @@
 
         /**
          * @brief display board message
+         * @TODO checkout for controller parameters (ControllerResolver)
          **/
         function dispBoardMessage($msg_code) {
             $msg = Context::getLang($msg_code);

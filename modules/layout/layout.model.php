@@ -817,7 +817,9 @@ class layoutModel extends layout
      **/
     function getUserLayoutHtml($layout_srl)
     {
-        $src = $this->getUserLayoutPath($layout_srl) . 'layout.html';
+        $layout = $this->getLayout($layout_srl);
+        $codeFile = file_exists($layout->path . 'layout.html') ? 'layout.html' : 'layout.twig';
+        $src = $this->getUserLayoutPath($layout_srl) . $codeFile;
         $temp = $this->getUserLayoutTempHtml($layout_srl);
         if ($this->useUserLayoutTemp == 'temp') {
             if (!file_exists(FileHandler::getRealPath($temp))) {
