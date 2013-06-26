@@ -221,7 +221,15 @@ class TemplateHandler
         /** @var $twig \Karybu\Twig\Environment */
         $twig = $this->container->get('twig.environment');
         $template = $twig->loadTemplate($filename);
-        return $template->render((array)$GLOBALS['__Context__']);
+
+        $content = $template->render((array)$GLOBALS['__Context__']);
+
+        // Keep doing Karybu specific parsing
+        $content = $this->replaceComments($content);
+        $content = $this->replaceImageSrc($content);
+        $content = $this->doFormAutogeneration($content);
+
+        return $content;
     }
 
     /**
@@ -264,15 +272,8 @@ class TemplateHandler
             $this->skipTags = array('marquee');
         }
 
-        // replace comments
-        $buff = preg_replace('@<!--//.*?-->@s', '', $buff);
-
-        // replace value of src in img/input/script tag
-        $buff = preg_replace_callback(
-            '/<(?:img|input|script)[^<>]*src="(?!https?:\/\/|[\/\{])([^"]+)"/is',
-            array($this, '_replacePath'),
-            $buff
-        );
+        $buff = $this->replaceComments($buff);
+        $buff = $this->replaceImageSrc($buff);
 
         // replace loop and cond template syntax
         $buff = $this->_parseInline($buff);
@@ -287,6 +288,23 @@ class TemplateHandler
         // remove block which is a virtual tag
         $buff = preg_replace('@</?block\s*>@is', '', $buff);
 
+        $buff = $this->doFormAutogeneration($buff);
+
+        // prevent from calling directly before writing into file
+        $buff = '<?php if(!defined("__KARYBU__"))exit;?>' . $buff;
+
+        // remove php script reopening
+        $buff = preg_replace(array('/(\n|\r\n)+/', '/(;)?( )*\?\>\<\?php([\n\t ]+)?/'), array("\n", ";\n"), $buff);
+
+        return $buff;
+    }
+
+    /**
+     * @param $buff
+     * @return mixed
+     */
+    public function doFormAutogeneration($buff)
+    {
         // form auto generation
         $temp = preg_replace_callback(
             '/(<form(?:<\?php.+?\?>|[^<>]+)*?>)(.*?)(<\/form>)/is',
@@ -295,14 +313,34 @@ class TemplateHandler
         );
         if ($temp) {
             $buff = $temp;
+            return $buff;
         }
+        return $buff;
+    }
 
-        // prevent from calling directly before writing into file
-        $buff = '<?php if(!defined("__KARYBU__"))exit;?>' . $buff;
+    /**
+     * @param $buff
+     * @return mixed
+     */
+    public function replaceImageSrc($buff)
+    {
+        // replace value of src in img/input/script tag
+        $buff = preg_replace_callback(
+            '/<(?:img|input|script)[^<>]*src="(?!https?:\/\/|[\/\{])([^"]+)"/is',
+            array($this, '_replacePath'),
+            $buff
+        );
+        return $buff;
+    }
 
-        // remove php script reopening
-        $buff = preg_replace(array('/(\n|\r\n)+/', '/(;)?( )*\?\>\<\?php([\n\t ]+)?/'), array("\n", ";\n"), $buff);
-
+    /**
+     * @param $buff
+     * @return mixed
+     */
+    public function replaceComments($buff)
+    {
+        // replace comments
+        $buff = preg_replace('@<!--//.*?-->@s', '', $buff);
         return $buff;
     }
 
@@ -775,9 +813,9 @@ class TemplateHandler
                     }
 
                     $result = "<?php {$result} ?>";
-                if ($metafile) {
-                    $result = "<!--#Meta:{$metafile}-->" . $result;
-                }
+                    if ($metafile) {
+                        $result = "<!--#Meta:{$metafile}-->" . $result;
+                    }
 
                     return $result;
             }
