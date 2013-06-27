@@ -11,12 +11,14 @@ xe.MultiOrderManager = xe.createApp("MultiOrderManager", {
 		this.$showObj 		= $keyObj.parent().find('.multiorder_show');
 		this.$selectedObj 	= $keyObj.parent().find('.multiorder_selected');
 
-		this.$showObj
-			.nextAll('button')
-				.filter('.multiorder_add').bind('click', function(){ self.cast('MULTIORDER_ADD'); return false; }).end()
-				.filter('.multiorder_del').bind('click', function(){ self.cast('MULTIORDER_DEL'); return false; }).end()
-				.filter('.multiorder_up').bind('click', function(){ self.cast('MULTIORDER_UP'); return false; }).end()
-				.filter('.multiorder_down').bind('click', function(){ self.cast('MULTIORDER_DOWN'); return false; }).end()
+        this.$showObj
+            .nextAll("button")
+            .filter('.multiorder_add').bind('click', function(){ self.cast('MULTIORDER_ADD'); return false; }).end();
+
+        this.$selectedObj.nextAll(".btn-group").children()
+            .filter('.multiorder_del').bind('click', function(){ self.cast('MULTIORDER_DEL'); return false; }).end()
+            .filter('.multiorder_up').bind('click', function(){ self.cast('MULTIORDER_UP'); return false; }).end()
+            .filter('.multiorder_down').bind('click', function(){ self.cast('MULTIORDER_DOWN'); return false; }).end()
 
 		this.cast('MULTIORDER_SYNC');
 	},
