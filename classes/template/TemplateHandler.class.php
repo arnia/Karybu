@@ -410,12 +410,11 @@ class TemplateHandler
             preg_match('/method="([^"]*?)"/is', $matchedForm, $methodMatch);
             //add key only for post forms
             if (isset($methodMatch[1]) && strtolower($methodMatch[1]) == 'post'){
-                preg_match_all('/<input[^>]* name="(form_key)"/is', $matches[2], $m2);
                 $csrf = new \Karybu\Security\Csrf();
                 $keyName = $csrf->getFormKeyName();
-                $checkVar = array($keyName);
-                $resultArray = array_diff($checkVar, $m2[1]);
-                if (!isset($m2[1][$keyName])) {
+                preg_match_all('/<input[^>]* name="('.$keyName.')"/is', $matches[2], $m2);
+                if (!isset($m2[1][0])) {
+                    //value is set as php code and not directly because the page might be cached
                     $formKeyInput = '<input type="hidden" name="'.$keyName.'" value="<?php $csrf = new \Karybu\Security\Csrf(); echo $csrf->getSessionFormKey() ?>" />';
                     $matches[2] = $formKeyInput . $matches[2];
                 }
