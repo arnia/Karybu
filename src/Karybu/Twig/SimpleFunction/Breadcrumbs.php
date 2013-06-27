@@ -48,7 +48,9 @@ class Breadcrumbs extends \Twig_SimpleFunction{
             }
             $breadcrumbs = '';
             if ($canShowBreadcrumbs) {
+                $breadcrumbs .= '<ul class="breadcrumb">';
                 foreach ($path as $key=>$item){
+                    $breadcrumbs .= '<li>';
                     if ($key < count($path) - 1){//if not last item
                         if ($item['process_url']){
                             $urlParams = array('mid', $item['url']);
@@ -63,7 +65,9 @@ class Breadcrumbs extends \Twig_SimpleFunction{
                     else{
                         $breadcrumbs .= '<span title="'.$item['text'].'">'.$item['text'].'</span>';
                     }
+                    $breadcrumbs .= '</li>';
                 }
+                $breadcrumbs .= '</ul>';
             }
             $this->_breadcrumbs = $breadcrumbs;
         }
