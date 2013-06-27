@@ -12,7 +12,7 @@ class Breadcrumbs extends \Twig_SimpleFunction{
      * @param $callable
      * @param array $options
      */
-    public function __construct($name, $callable, array $options = array()){
+    public function __construct(){
         parent::__construct('breadcrumbs', array($this, 'getBreadcrumbs'));
     }
 
@@ -92,7 +92,7 @@ class Breadcrumbs extends \Twig_SimpleFunction{
                 else{
                     $subPath = $this->_getPath($identifier, $item);
                     if (count($subPath) > 0){
-                        $path[] = $item;
+                        $path[] = $this->_itemToBreadcrumb($item);
                         $path = array_merge($path, $subPath);
                     }
                 }
