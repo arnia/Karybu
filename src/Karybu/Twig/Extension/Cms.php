@@ -11,6 +11,7 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
 {
     /** @var ContainerInterface */
     protected $container;
+    protected $_breadcrumbs = null;
 
     public function __construct(ContainerInterface $container)
     {
@@ -31,7 +32,8 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
     {
         return array(
             new \Twig_SimpleFunction('loadJs', array($this, 'loadJs')),
-            new \Twig_SimpleFunction('loadCss', array($this, 'loadCss'))
+            new \Twig_SimpleFunction('loadCss', array($this, 'loadCss')),
+            new \Twig_SimpleFunction('breadcrumbs', array($this, 'getBreadcrumbs'))
         );
     }
 
@@ -94,5 +96,87 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
             throw new \Twig_Error('A the css file should end in .css');
         }
         $this->loadFile(array($path, $media, null, $index));
+    }
+
+    /**
+     * get the html for breadcrumbs
+     * @param null $currentPage
+     * @param null $menu
+     * @param string $separator
+     * @param null $homeText
+     * @return null|string
+     */
+    public function getBreadcrumbs($currentPage = null, $menu = null, $homeText = null){
+        if (is_null($this->_breadcrumbs)){
+            if (is_null($currentPage)){
+                $this->_breadcrumbs = array();
+                return $this->_breadcrumbs;
+            }
+            $path = array();
+            if (!is_null($menu)){
+                $path = $this->_getPath($currentPage, $menu);
+            }
+            if (!is_null($homeText)){
+                $homeUrl = call_user_func(array('\Context', 'getUrl'), 1, array(''));
+                $homeItem = array(
+                    'url'  => $homeUrl,
+                    'text' => $homeText,
+                    'href' => $homeUrl,
+                    'node_srl' => 0,
+                );
+                array_unshift($path, $homeItem);
+            }
+            $this->_breadcrumbs = $path;
+        }
+        return $this->_breadcrumbs;
+    }
+
+    /**
+     * get the path in menu recursively
+     * @param $identifier
+     * @param $menu
+     * @return array
+     */
+    protected function _getPath($identifier, $menu){
+        $menu = (array)$menu;
+        $path = array();
+        if (isset($menu['list'])){
+            foreach ($menu['list'] as $item){
+                if (isset($item['url']) && $item['url'] == $identifier){
+                    $path[] = $this->_itemToBreadcrumb($item);
+                    break;
+                }
+                else{
+                    $subPath = $this->_getPath($identifier, $item);
+                    if (count($subPath) > 0){
+                        $path[] = $this->_itemToBreadcrumb($item);
+                        $path = array_merge($path, $subPath);
+                    }
+                }
+            }
+        }
+        return $path;
+    }
+
+    /**
+     * normalize all breadcrumb items
+     * @param $item
+     * @return array
+     */
+    protected function _itemToBreadcrumb($item){
+        $breadcrumb = array();
+        $attributes = array('url', 'text', 'href' , 'node_srl');
+        foreach ($attributes as $attribute){
+            if (isset($item[$attribute])){
+                $breadcrumb[$attribute] = $item[$attribute];
+            }
+            else{
+                $breadcrumb[$attribute] = '';
+            }
+        }
+        $urlParams = array('mid', $item['url']);
+        $url = call_user_func(array('\Context', 'getUrl'), count($urlParams), $urlParams);
+        $breadcrumb['url'] = $url;
+        return $breadcrumb;
     }
 }
