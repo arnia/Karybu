@@ -64,7 +64,7 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
 
     /**
      * \FrontendFileHandler::loadFile()
-     *      * case js
+     * case js
      *        $args[0]: file name
      *        $args[1]: type (head | body)
      *        $args[2]: target IE
@@ -72,12 +72,12 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
      *
      * @param $path
      */
-    public function loadJs($path, $type='head', $index=null)
+    public function loadJs($path, $type='head', $targetIE=null, $index=null)
     {
         if (substr($path, -3) != '.js') {
             throw new \Twig_Error('The js file should end in .js');
         }
-        $this->loadFile(array($path, $type, null, $index));
+        $this->loadFile(array($path, $type, $targetIE, $index));
     }
 
     /**
@@ -90,12 +90,12 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
      *
      * @param $path
      */
-    public function loadCss($path, $media=null, $index=null)
+    public function loadCss($path, $media=null, $targetIE=null, $index=null)
     {
         if (substr($path, -4) != '.css') {
             throw new \Twig_Error('A the css file should end in .css');
         }
-        $this->loadFile(array($path, $media, null, $index));
+        $this->loadFile(array($path, $media, $targetIE, $index));
     }
 
     /**
