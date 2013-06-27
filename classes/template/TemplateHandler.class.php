@@ -131,6 +131,8 @@ class TemplateHandler
         //check twig, backward compatible with ModuleObject's setTemplateFile
         if (substr($this->file, -10) == '.twig.html') {
             $this->file = substr($this->file, 0, -5);
+        }
+        if (substr($tpl_filename, -10) == '.twig.html') {
             $tpl_filename = substr($tpl_filename, 0, -5);
         }
         // if target file does not exist exit
