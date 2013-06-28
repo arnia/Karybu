@@ -64,7 +64,7 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
 
     /**
      * \FrontendFileHandler::loadFile()
-     *      * case js
+     * case js
      *        $args[0]: file name
      *        $args[1]: type (head | body)
      *        $args[2]: target IE
@@ -72,12 +72,12 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
      *
      * @param $path
      */
-    public function loadJs($path, $type='head', $index=null)
+    public function loadJs($path, $type='head', $targetIE=null, $index=null)
     {
         if (substr($path, -3) != '.js') {
             throw new \Twig_Error('The js file should end in .js');
         }
-        $this->loadFile(array($path, $type, null, $index));
+        $this->loadFile(array($path, $type, $targetIE, $index));
     }
 
     /**
@@ -90,21 +90,20 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
      *
      * @param $path
      */
-    public function loadCss($path, $media=null, $index=null)
+    public function loadCss($path, $media=null, $targetIE=null, $index=null)
     {
         if (substr($path, -4) != '.css') {
             throw new \Twig_Error('A the css file should end in .css');
         }
-        $this->loadFile(array($path, $media, null, $index));
+        $this->loadFile(array($path, $media, $targetIE, $index));
     }
 
     /**
      * get the html for breadcrumbs
      * @param null $currentPage
      * @param null $menu
-     * @param string $separator
      * @param null $homeText
-     * @return null|string
+     * @return array
      */
     public function getBreadcrumbs($currentPage = null, $menu = null, $homeText = null){
         if (is_null($this->_breadcrumbs)){
@@ -122,9 +121,23 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
                     'url'  => $homeUrl,
                     'text' => $homeText,
                     'href' => $homeUrl,
-                    'node_srl' => 0,
                 );
                 array_unshift($path, $homeItem);
+            }
+            //add current document
+            $documentSrl = \Context::get('document_srl');
+            if ($documentSrl){
+                $documentModel = &getModel('document');
+                $document = $documentModel->getDocument($documentSrl);
+                $title = $document->getTitle();
+                if (!empty($title)){
+                    $documentItem = array(
+                        'url'  => '#',
+                        'text' => $title,
+                        'href' => '#',
+                    );
+                    array_push($path, $documentItem);
+                }
             }
             $this->_breadcrumbs = $path;
         }
@@ -165,7 +178,7 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
      */
     protected function _itemToBreadcrumb($item){
         $breadcrumb = array();
-        $attributes = array('url', 'text', 'href' , 'node_srl');
+        $attributes = array('url', 'text', 'href');
         foreach ($attributes as $attribute){
             if (isset($item[$attribute])){
                 $breadcrumb[$attribute] = $item[$attribute];

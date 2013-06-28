@@ -517,7 +517,7 @@
             // Get information of the menu
             $oMenuAdminModel = &getAdminModel('menu');
             $menu_info = $oMenuAdminModel->getMenu($menu_srl);
-            $menu_title = $menu_info->title;
+            $menu_title = isset($menu_info->title) ? $menu_info->title : '';
             // Re-generate the xml file
             $xml_file = $this->makeXmlFile($menu_srl);
             // Set return value
