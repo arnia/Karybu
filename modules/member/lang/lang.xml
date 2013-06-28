@@ -82,6 +82,7 @@
 		<value xml:lang="ru"><![CDATA[Сохранить логин]]></value>
 		<value xml:lang="tr"><![CDATA[Beni bağlı tut]]></value>
 		<value xml:lang="vi"><![CDATA[Nhớ thông tin đăng nhập]]></value>
+        <value xml:lang="ro"><![CDATA[Păstrează-mă autentificat]]></value>
 	</item>
 	<item name="remember_user_id">
 		<value xml:lang="ko"><![CDATA[아이디 저장]]></value>
@@ -700,6 +701,7 @@
 		<value xml:lang="ru"><![CDATA[Вы будете в состоянии логин, даже при закрытии окна браузера.Если вы пользуетесь общественным компьютером, сделайте выход в целях сохранения персональных данных]]></value>
 		<value xml:lang="tr"><![CDATA[Tarayıcıyı kapatsanız da sisteme bağlı kalacaksınız. Eğer ortak bir bilgisayar kullanıyorsanız, kişisel bilgilerinizin gizliliği için bunu önermiyoruz]]></value>
 		<value xml:lang="vi"><![CDATA[Mặc dù tắt trình duyệt nhưng thông tin đăng nhập của bạn vẫn được lưu lại trên máy tính này. Nếu bạn sử dụng máy tính dùng chung, người khác cũng có thể đăng nhập dưới tên truy cập của bạn. Vì vậy chức năng này không nên sử dụng nếu máy tính này không phải của riêng bạn!]]></value>
+        <value xml:lang="ro"><![CDATA[Vei rămâne autentificat si după închiderea browser-ului. Nu se recomandă dacă te afli in faţa unui calculator public.]]></value>
 	</item>
 	<item name="about_webmaster_name">
 		<value xml:lang="ko"><![CDATA[인증 메일이나 기타 사이트 관리 시 사용될 웹마스터의 이름을 입력해주세요. (기본 : webmaster)]]></value>
@@ -832,6 +834,7 @@
 		<value xml:lang="es"><![CDATA[Conectar]]></value>
 		<value xml:lang="tr"><![CDATA[Giriş Yap]]></value>
 		<value xml:lang="vi"><![CDATA[Đăng nhập]]></value>
+        <value xml:lang="ro"><![CDATA[Autentificã-mã]]></value>
 	</item>
 	<item name="cmd_logout">
 		<value xml:lang="ko"><![CDATA[로그아웃]]></value>
@@ -844,6 +847,7 @@
 		<value xml:lang="es"><![CDATA[Desconectar]]></value>
 		<value xml:lang="tr"><![CDATA[Çıkış Yap]]></value>
 		<value xml:lang="vi"><![CDATA[Thoát]]></value>
+        <value xml:lang="ro"><![CDATA[Deconectare]]></value>
 	</item>
 	<item name="cmd_signup">
 		<value xml:lang="ko"><![CDATA[회원 가입]]></value>
@@ -856,6 +860,7 @@
 		<value xml:lang="es"><![CDATA[Registrar]]></value>
 		<value xml:lang="tr"><![CDATA[Kaydol]]></value>
 		<value xml:lang="vi"><![CDATA[Đăng kí]]></value>
+        <value xml:lang="ro"><![CDATA[Înregistrare]]></value>
 	</item>
 	<item name="cmd_site_signup">
 		<value xml:lang="ko"><![CDATA[가입]]></value>
@@ -1605,6 +1610,7 @@
 		<value xml:lang="es"><![CDATA[Contraseña debe ser entre 6-20 letras]]></value>
 		<value xml:lang="tr"><![CDATA[Şifre 6~20 karakter uzunluğunda olmalıdır]]></value>
 		<value xml:lang="vi"><![CDATA[Độ dài mật khẩu giới hạn từ 6 đến 20 kí tự.]]></value>
+        <value xml:lang="ro"><![CDATA[Parola trebuie să aibă între 6 şi 20 de caractere.]]></value>
 	</item>
 	<item name="about_user_name">
 		<value xml:lang="ko"><![CDATA[이름은 2~20자 이내여야 합니다.]]></value>
@@ -2555,5 +2561,21 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="ko"><![CDATA[Unexpected error.]]></value>
 		<value xml:lang="en"><![CDATA[Unexpected error.]]></value>
 	</item>
-        
+    <item name="register">
+        <value xml:lang="en"><![CDATA[Register]]></value>
+        <value xml:lang="ro"><![CDATA[Înregistrare]]></value>
+    </item>
+    <item name="sign_in">
+        <value xml:lang="en"><![CDATA[Sign in]]></value>
+        <value xml:lang="ro"><![CDATA[Autentificare]]></value>
+    </item>
+    <item name="login_information">
+        <value xml:lang="en"><![CDATA[Login Information]]></value>
+        <value xml:lang="ro"><![CDATA[Informaţii autentificare]]></value>
+    </item>
+    <item name="account_details">
+        <value xml:lang="en"><![CDATA[Account Details]]></value>
+        <value xml:lang="ro"><![CDATA[Detalii cont]]></value>
+    </item>
+
 </lang>

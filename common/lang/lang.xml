@@ -272,6 +272,7 @@
 		<value xml:lang="tr"><![CDATA[Ara]]></value>
 		<value xml:lang="vi"><![CDATA[Tìm kiếm]]></value>
 		<value xml:lang="mn"><![CDATA[Хайх]]></value>
+        <value xml:lang="ro"><![CDATA[Caută]]></value>
 	</item>
 	<item name="cmd_find">
 		<value xml:lang="ko"><![CDATA[찾기]]></value>
@@ -628,6 +629,7 @@
 		<value xml:lang="tr"><![CDATA[Kapat]]></value>
 		<value xml:lang="vi"><![CDATA[đong]]></value>
 		<value xml:lang="mn"><![CDATA[Хаах]]></value>
+        <value xml:lang="en"><![CDATA[Închide]]></value>
 	</item>
 	<item name="cmd_open">
 		<value xml:lang="ko"><![CDATA[열기]]></value>
@@ -739,6 +741,7 @@
 		<value xml:lang="tr"><![CDATA[Yazdır]]></value>
 		<value xml:lang="vi"><![CDATA[In trang]]></value>
 		<value xml:lang="mn"><![CDATA[Хэвлэх]]></value>
+        <value xml:lang="en"><![CDATA[Printez]]></value>
 	</item>
 	<item name="cmd_scrap">
 		<value xml:lang="ko"><![CDATA[스크랩]]></value>
@@ -1100,6 +1103,7 @@
 		<value xml:lang="tr"><![CDATA[Şifre]]></value>
 		<value xml:lang="vi"><![CDATA[Mật khẩu]]></value>
 		<value xml:lang="mn"><![CDATA[Нууц дугаар]]></value>
+        <value xml:lang="ro"><![CDATA[Parolã]]></value>
 	</item>
 	<item name="password1">
 		<value xml:lang="ko"><![CDATA[새 비밀번호]]></value>
@@ -1134,6 +1138,7 @@
 		<value xml:lang="en"><![CDATA[Retype Password]]></value>
 		<value xml:lang="jp"><![CDATA[パスワード確認]]></value>
 		<value xml:lang="tr"><![CDATA[Şifreyi Tekrar Gir]]></value>
+        <value xml:lang="ro"><![CDATA[Rescrie parola]]></value>
 	</item>
 	<item name="admin_id">
 		<value xml:lang="ko"><![CDATA[관리자ID]]></value>
@@ -1208,6 +1213,7 @@
 		<value xml:lang="es"><![CDATA[Correo electrónico]]></value>
 		<value xml:lang="tr"><![CDATA[E-posta]]></value>
 		<value xml:lang="mn"><![CDATA[Мэйл хаяг]]></value>
+        <value xml:lang="ro"><![CDATA[E-mail]]></value>
 	</item>
 	<item name="homepage">
 		<value xml:lang="ko"><![CDATA[홈페이지]]></value>
@@ -3855,5 +3861,8 @@
         <value xml:lang="tr"><![CDATA[Site]]></value>
         <value xml:lang="vi"><![CDATA[Site]]></value>
     </item>
-
+    <item name="back_to_top">
+        <value xml:lang="en"><![CDATA[Back to top]]></value>
+        <value xml:lang="ro"><![CDATA[Sus]]></value>
+    </item>
 </lang>

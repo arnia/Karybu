@@ -20,17 +20,18 @@
 			</div>
 		</div>
         <fieldset>
-            <legend>Login Information</legend>
+            <legend>{$lang->login_information}</legend>
             <label>{$identifierForm->title} <em style="color:red">*</em></label>
-            <input type="text" placeholder="Email address" name="{$identifierForm->name}" value="{$identifierForm->value}">
+            <input type="text" placeholder="{$identifierForm->title}" name="{$identifierForm->name}" value="{$identifierForm->value}">
+
             <label>{$lang->password} <em style="color:red">*</em></label>
 
-            <input type="password" placeholder="Type password" name="password" value="{$identifierForm->value}">
+            <input type="password" placeholder="{$lang->password}" name="password" value="{$identifierForm->value}">
             <span class="help-block help-inline">{$lang->about_password}</span>
 
             <label>{$lang->password3} <em style="color:red">*</em></label>
-            <input type="password" placeholder="Retype password" name="password2" value="">
-            <legend>Account Details</legend>
+            <input type="password" placeholder="{$lang->password3}" name="password2" value="">
+            <legend>{$lang->account_details}</legend>
         </fieldset>
         <fieldset loop="$formTags=>$formTag" cond="$formTag->name != 'signature'">
             <label>{$formTag->title}</label>
