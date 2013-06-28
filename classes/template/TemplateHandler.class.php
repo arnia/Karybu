@@ -16,7 +16,7 @@ class TemplateHandler
     var $path = null; ///< target directory
     var $filename = null; ///< target filename
     var $file = null; ///< target file (fullpath)
-    var $k_path = null; ///< Karybu base path
+    var $xe_path = null; ///< Karybu base path
     var $web_path = null; ///< tpl file web path
     var $compiled_file = null; ///< tpl file web path
     var $skipTags = null;
@@ -74,26 +74,38 @@ class TemplateHandler
      * @param string $tpl_file
      * @return void
      **/
-    function init($tpl_path, $tpl_filename, $tpl_file = '')
+    function init($tpl_path, $tpl_filename, $tpl_file=null)
     {
         // verify arguments
         if (substr($tpl_path, -1) != '/') {
             $tpl_path .= '/';
         }
-        if (!file_exists($path = $tpl_path.$tpl_filename)) {
-            if (file_exists($path . '.twig')) {
-                $tpl_filename .= '.twig';
-            }
-            else {
-                if (file_exists($path . '.html')) {
-                    $tpl_filename .= '.html';
-                }
+
+        $path = $tpl_file ? $tpl_file : $tpl_path . $tpl_filename;
+        if (substr($path, -10) == '.twig.html') {
+            //.html was added by ModuleObject's setTemplateFile, we remove it
+            $path = substr($path, 0, -5);
+        }
+
+        $checks = array('twig', 'html', 'htm');
+
+        $exists = false;
+        array_unshift($checks, '');
+        foreach ($checks as $ext) {
+            $ext = $ext ? ".$ext" : '';
+            $checkedPath = $path . $ext;
+            if (file_exists($checkedPath)) {
+                $exists = true;
+                $tpl_path = pathinfo($checkedPath, PATHINFO_DIRNAME) . '/';
+                $tpl_file = $checkedPath;
+                $tpl_filename = pathinfo($checkedPath, PATHINFO_BASENAME);
+                $path = $checkedPath;
+                break;
             }
         }
 
-        // create tpl_file variable
-        if (!$tpl_file) {
-            $tpl_file = $tpl_path . $tpl_filename;
+        if (!$exists) {
+            throw new Exception("No such template file '$path'");
         }
 
         // set template file infos.
@@ -112,8 +124,6 @@ class TemplateHandler
 
         // compare various file's modified time for check changed
         $this->handler_mtime = filemtime(__FILE__);
-
-        $skip = array('');
     }
 
     /**
@@ -126,23 +136,13 @@ class TemplateHandler
     function compile($tpl_path, $tpl_filename, $tpl_file = '')
     {
         global $__templatehandler_root_tpl;
+
         $buff = '';
         $this->init($tpl_path, $tpl_filename, $tpl_file);
-        //check twig, backward compatible with ModuleObject's setTemplateFile
-        if (substr($this->file, -10) == '.twig.html') {
-            $this->file = substr($this->file, 0, -5);
-        }
-        if (substr($tpl_filename, -10) == '.twig.html') {
-            $tpl_filename = substr($tpl_filename, 0, -5);
-        }
-        // if target file does not exist exit
-        if (!$this->file || !file_exists($this->file)) {
-            throw new Exception("'{$this->file}' template file does not exists.");
-        }
 
         if (substr($this->file, -5) == '.twig') {
 
-            return $this->compileTwig($tpl_path, $tpl_filename, $tpl_file);
+            return $this->compileTwig($this->path, $this->filename, $tpl_file);
 
         }
         else {
