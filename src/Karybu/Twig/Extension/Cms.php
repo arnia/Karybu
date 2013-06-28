@@ -106,40 +106,59 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
      * @return array
      */
     public function getBreadcrumbs($currentPage = null, $menu = null, $homeText = null){
+        //echo "<pre>"; print_r($menu);exit;
         if (is_null($this->_breadcrumbs)){
             if (is_null($currentPage)){
                 $this->_breadcrumbs = array();
                 return $this->_breadcrumbs;
             }
             $path = array();
-            if (!is_null($menu)){
-                $path = $this->_getPath($currentPage, $menu);
-            }
             if (!is_null($homeText)){
                 $homeUrl = call_user_func(array('\Context', 'getUrl'), 1, array(''));
                 $homeItem = array(
-                    'url'  => $homeUrl,
-                    'text' => $homeText,
-                    'href' => $homeUrl,
+                    'url'       => $homeUrl,
+                    'text'      => $homeText,
+                    'href'      => $homeUrl,
+                    'node_srl'  => 0
                 );
-                array_unshift($path, $homeItem);
+                $path[$homeItem['text']] = $homeItem;
             }
-            //add current document
-            $documentSrl = \Context::get('document_srl');
-            if ($documentSrl){
-                $documentModel = &getModel('document');
-                $document = $documentModel->getDocument($documentSrl);
-                $title = $document->getTitle();
-                if (!empty($title)){
-                    $documentItem = array(
-                        'url'  => '#',
-                        'text' => $title,
-                        'href' => '#',
-                    );
-                    array_push($path, $documentItem);
+            if (!is_null($menu)){
+                foreach ($this->_getPath($currentPage, $menu) as $item){
+                    $path[$item['text']] = $item;
+                }
+
+            }
+            //see if last node is a board page. If so then add the article in breadcrumbs
+            $last = end($path);
+            if ($last){
+                $nodeSrl = $last['node_srl'];
+                \Context::set('menu_item_srl', $nodeSrl);
+                $model = &getAdminModel('menu');
+                $model->getMenuAdminItemInfo();
+                if (isset($model->variables['menu_item'])){
+                    $menuItem = $model->variables['menu_item'];
+                    if (isset($menuItem->moduleType) && $menuItem->moduleType == 'board') {
+                        //add current document
+                        $documentSrl = \Context::get('document_srl');
+                        if ($documentSrl){
+                            $documentModel = &getModel('document');
+                            $document = $documentModel->getDocument($documentSrl);
+                            $title = $document->getTitle();
+                            if (!empty($title)){
+                                $documentItem = array(
+                                    'url'       => \getUrl('document_srl',$document->document_srl),
+                                    'text'      => $title,
+                                    'href'      => \getUrl('document_srl',$document->document_srl),
+                                    'node_srl'  => $document->document_srl
+                                );
+                                $path[$documentItem['text']] = $documentItem;
+                            }
+                        }
+                    }
                 }
             }
-            $this->_breadcrumbs = $path;
+            $this->_breadcrumbs = array_values($path);
         }
         return $this->_breadcrumbs;
     }
@@ -178,7 +197,7 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
      */
     protected function _itemToBreadcrumb($item){
         $breadcrumb = array();
-        $attributes = array('url', 'text', 'href');
+        $attributes = array('url', 'text', 'href', 'node_srl');
         foreach ($attributes as $attribute){
             if (isset($item[$attribute])){
                 $breadcrumb[$attribute] = $item[$attribute];
