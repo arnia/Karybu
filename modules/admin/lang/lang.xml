@@ -6,9 +6,11 @@
 		<value xml:lang="jp"><![CDATA[基本]]></value>
 		<value xml:lang="zh-CN"><![CDATA[基本]]></value>
 		<value xml:lang="tr"><![CDATA[Temel]]></value>
+        <value xml:lang="ro"><![CDATA[Primar]]></value>
 	</item>
     <item name="subtitle_basic">
         <value xml:lang="en"><![CDATA[Basic]]></value>
+        <value xml:lang="ro"><![CDATA[De bază]]></value>
     </item>
 	<item name="subtitle_advanced">
 		<value xml:lang="ko"><![CDATA[고급]]></value>
@@ -16,6 +18,7 @@
 		<value xml:lang="jp"><![CDATA[上級]]></value>
 		<value xml:lang="zh-CN"><![CDATA[高级]]></value>
 		<value xml:lang="tr"><![CDATA[İleri]]></value>
+        <value xml:lang="ro"><![CDATA[Avansat]]></value>
 	</item>
 	<item name="subtitle_etc">
 		<value xml:lang="ko"><![CDATA[기타]]></value>
@@ -23,6 +26,7 @@
 		<value xml:lang="jp"><![CDATA[その他]]></value>
 		<value xml:lang="zh-CN"><![CDATA[其他]]></value>
 		<value xml:lang="tr"><![CDATA[Diğer]]></value>
+        <value xml:lang="ro"><![CDATA[Altele]]></value>
 	</item>
 	<item name="current_state">
 		<value xml:lang="ko"><![CDATA[현황]]></value>
@@ -37,6 +41,7 @@
 		<value xml:lang="jp"><![CDATA[最新記事]]></value>
 		<value xml:lang="zh-CN"><![CDATA[最新文档]]></value>
 		<value xml:lang="tr"><![CDATA[Son Yazılar]]></value>
+        <value xml:lang="ro"><![CDATA[Ultimele documente]]></value>
 	</item>
 	<item name="latest_comments">
 		<value xml:lang="ko"><![CDATA[최근 댓글]]></value>
@@ -44,6 +49,7 @@
 		<value xml:lang="jp"><![CDATA[最新のコメント]]></value>
 		<value xml:lang="zh-CN"><![CDATA[最新回复]]></value>
 		<value xml:lang="tr"><![CDATA[Son Yorumlar]]></value>
+        <value xml:lang="ro"><![CDATA[Ultimele comentarii]]></value>
 	</item>
 	<item name="latest_trackbacks">
 		<value xml:lang="ko"><![CDATA[최근 엮인글]]></value>
@@ -51,6 +57,7 @@
 		<value xml:lang="jp"><![CDATA[最新のトラックバック]]></value>
 		<value xml:lang="zh-CN"><![CDATA[最新引用]]></value>
 		<value xml:lang="tr"><![CDATA[Son Geri İzlemeler]]></value>
+        <value xml:lang="ro"><![CDATA[Ultimele trackback-uri]]></value>
 	</item>
 	<item name="notices">
 		<value xml:lang="ko"><![CDATA[공지]]></value>
@@ -58,6 +65,7 @@
 		<value xml:lang="jp"><![CDATA[お知らせ]]></value>
 		<value xml:lang="zh-CN"><![CDATA[通知]]></value>
 		<value xml:lang="tr"><![CDATA[Duyurular]]></value>
+        <value xml:lang="ro"><![CDATA[Avertizări]]></value>
 	</item>
 	<item name="favorites">
 		<value xml:lang="ko"><![CDATA[즐겨찾기]]></value>
@@ -65,6 +73,7 @@
 		<value xml:lang="jp"><![CDATA[お気に入り]]></value>
 		<value xml:lang="zh-CN"><![CDATA[收藏]]></value>
 		<value xml:lang="tr"><![CDATA[Favoriler]]></value>
+        <value xml:lang="ro"><![CDATA[Favorite]]></value>
 	</item>
 	<item name="admin_info">
 		<value xml:lang="ko"><![CDATA[관리자 정보]]></value>
@@ -77,6 +86,7 @@
 		<value xml:lang="es"><![CDATA[Administrador de Información]]></value>
 		<value xml:lang="tr"><![CDATA[Yönetici Bilgisi]]></value>
 		<value xml:lang="vi"><![CDATA[Thông tin Administrator]]></value>
+        <value xml:lang="ro"><![CDATA[Informaţii administrator]]></value>
 	</item>
 	<item name="admin_index">
 		<value xml:lang="ko"><![CDATA[관리자 초기 페이지]]></value>
@@ -89,6 +99,7 @@
 		<value xml:lang="es"><![CDATA[Índice de la página admin]]></value>
 		<value xml:lang="tr"><![CDATA[Yönetici İndeks Sayfası]]></value>
 		<value xml:lang="vi"><![CDATA[Trang chủ Admin]]></value>
+        <value xml:lang="ro"><![CDATA[Pagină principală de administrare]]></value>
 	</item>
 	<item name="control_panel">
 		<value xml:lang="ko"><![CDATA[제어판]]></value>
@@ -101,18 +112,23 @@
 		<value xml:lang="es"><![CDATA[Control panel]]></value>
 		<value xml:lang="vi"><![CDATA[Bảng điều khiển]]></value>
 		<value xml:lang="tr"><![CDATA[Kontrol Paneli]]></value>
+        <value xml:lang="ro"><![CDATA[Panou de administrare]]></value>
 	</item>
     <item name="about_dashboard">
         <value xml:lang="en"><![CDATA[Using this section you can create, change or update the content of your website]]></value>
+        <value xml:lang="ro"><![CDATA[Folosind această secţiune, poţi modifica şi crea continut pentru site-ul tău. ]]></value>
     </item>
     <item name="preview">
         <value xml:lang="en"><![CDATA[Preview]]></value>
+        <value xml:lang="ro"><![CDATA[Pre-vizualizare]]></value>
     </item>
     <item name="sitemap">
         <value xml:lang="en"><![CDATA[Sitemap]]></value>
+        <value xml:lang="ro"><![CDATA[Hartă site]]></value>
     </item>
     <item name="no_favorites">
         <value xml:lang="en"><![CDATA[Favorites list is empty. Click to add some]]></value>
+        <value xml:lang="ro"><![CDATA[Lista de favorite este goal. Click pentru a adauga înregistrări.]]></value>
     </item>
 	<item name="start_module">
 		<value xml:lang="ko"><![CDATA[시작 모듈]]></value>
@@ -125,6 +141,7 @@
 		<value xml:lang="es"><![CDATA[Módulo de inicio]]></value>
 		<value xml:lang="tr"><![CDATA[Varsayılan Modül]]></value>
 		<value xml:lang="vi"><![CDATA[Module trang chủ]]></value>
+        <value xml:lang="ro"><![CDATA[Modul implicit]]></value>
 	</item>
 	<item name="about_start_module">
 		<value xml:lang="ko"><![CDATA[사이트 접속 시 기본으로 호출될 모듈을 지정할 수 있습니다.]]></value>
@@ -137,6 +154,7 @@
 		<value xml:lang="es"><![CDATA[Puede especificar el módulo de inicio por defecto.]]></value>
 		<value xml:lang="tr"><![CDATA[Sitenin varsayılan modülünü belirleyebilirsiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể chọn một Module và đặt là trang chủ của Website.]]></value>
+        <value xml:lang="ro"><![CDATA[Modul implicit pentru site]]></value>
 	</item>
 	<item name="select_site">
 		<value xml:lang="ko"><![CDATA[사이트 선택]]></value>
@@ -149,6 +167,7 @@
 		<value xml:lang="es"><![CDATA[Site]]></value>
 		<value xml:lang="tr"><![CDATA[Site]]></value>
 		<value xml:lang="vi"><![CDATA[Site]]></value>
+        <value xml:lang="ro"><![CDATA[Site]]></value>
 	</item>
 	<item name="select_module_type">
 		<value xml:lang="ko"><![CDATA[분류 선택]]></value>
@@ -161,6 +180,7 @@
 		<value xml:lang="es"><![CDATA[Module Type]]></value>
 		<value xml:lang="tr"><![CDATA[Module Type]]></value>
 		<value xml:lang="vi"><![CDATA[Module Type]]></value>
+        <value xml:lang="ro"><![CDATA[Tip modul]]></value>
 	</item>
 	<item name="select_module_instance">
 		<value xml:lang="ko"><![CDATA[모듈 선택]]></value>
@@ -173,6 +193,7 @@
 		<value xml:lang="es"><![CDATA[Módulo]]></value>
 		<value xml:lang="tr"><![CDATA[Modül]]></value>
 		<value xml:lang="vi"><![CDATA[Module]]></value>
+        <value xml:lang="ro"><![CDATA[Modul]]></value>
 	</item>
     <item name="visitors">
         <value xml:lang="en"><![CDATA[Visitors]]></value>
@@ -189,6 +210,7 @@
 			 <value xml:lang="es"><![CDATA[Service Setting]]></value>
 			 <value xml:lang="tr"><![CDATA[Hizmetler]]></value>
 			 <value xml:lang="vi"><![CDATA[Thiết lập dịch vụ]]></value>
+            <value xml:lang="ro"><![CDATA[Servicii]]></value>
 		</item>
 		<item name="member">
 			 <value xml:lang="ko"><![CDATA[회원 관리]]></value>
@@ -201,6 +223,7 @@
 			 <value xml:lang="es"><![CDATA[Member Setting]]></value>
 			 <value xml:lang="tr"><![CDATA[Üyeler]]></value>
 			 <value xml:lang="vi"><![CDATA[Thiết lập thành viên]]></value>
+            <value xml:lang="ro"><![CDATA[Membri]]></value>
 		</item>
 		<item name="content">
 			 <value xml:lang="ko"><![CDATA[정보 관리]]></value>
@@ -213,6 +236,7 @@
 			 <value xml:lang="es"><![CDATA[Content Setting]]></value>
 			 <value xml:lang="tr"><![CDATA[İçerikler]]></value>
 			 <value xml:lang="vi"><![CDATA[Thiết lập nội dung]]></value>
+            <value xml:lang="ro"><![CDATA[Continut]]></value>
 		</item>
 		<item name="statistics">
 			 <value xml:lang="ko"><![CDATA[통계 열람]]></value>
@@ -222,6 +246,7 @@
 			 <value xml:lang="zh-TW"><![CDATA[統計資料]]></value>
 			 <value xml:lang="tr"><![CDATA[İstatistikler]]></value>
 			 <value xml:lang="vi"><![CDATA[Thống kê]]></value>
+            <value xml:lang="ro"><![CDATA[Statistici]]></value>
 		</item>
         <item name="construction">
 			 <value xml:lang="ko"><![CDATA[사이트 설정]]></value>
@@ -243,6 +268,7 @@
 			 <value xml:lang="es"><![CDATA[Utility Setting]]></value>
 			 <value xml:lang="tr"><![CDATA[Yardımcı Uygulamalar]]></value>
 			 <value xml:lang="vi"><![CDATA[Thiết lập tiện ích]]></value>
+             <value xml:lang="ro"><![CDATA[Utile]]></value>
 		</item>
 		<item name="interlock">
 			 <value xml:lang="ko"><![CDATA[연동 설정]]></value>
@@ -255,6 +281,7 @@
 			 <value xml:lang="es"><![CDATA[Interlock Setting]]></value>
 			 <value xml:lang="tr"><![CDATA[Gömülü]]></value>
 			 <value xml:lang="vi"><![CDATA[Tiện ích nâng cao]]></value>
+             <value xml:lang="ro"><![CDATA[Embed]]></value>
 		</item>
 		<item name="accessory">
 			 <value xml:lang="ko"><![CDATA[부가 기능 설정]]></value>
@@ -264,6 +291,7 @@
 			 <value xml:lang="zh-TW"><![CDATA[附加功能]]></value>
 			 <value xml:lang="tr"><![CDATA[Donatılar]]></value>
 			 <value xml:lang="vi"><![CDATA[Dịch vụ phụ]]></value>
+             <value xml:lang="ro"><![CDATA[Accesorii]]></value>
 		</item>
 		<item name="migration">
 			 <value xml:lang="ko"><![CDATA[데이터 관리/복원]]></value>
@@ -273,6 +301,7 @@
 			 <value xml:lang="zh-TW"><![CDATA[資料轉換]]></value>
 			 <value xml:lang="tr"><![CDATA[Veri Geçişi]]></value>
 			 <value xml:lang="vi"><![CDATA[Chuyển đổi dữ liệu]]></value>
+             <value xml:lang="ro"><![CDATA[Migrare de date]]></value>
 		</item>
 		<item name="system">
 			 <value xml:lang="ko"><![CDATA[시스템 관리]]></value>
@@ -282,6 +311,7 @@
 			 <value xml:lang="zh-TW"><![CDATA[系統管理]]></value>
 			 <value xml:lang="tr"><![CDATA[Sistem Ayarları]]></value>
 			 <value xml:lang="vi"><![CDATA[Thiết lập hệ thống]]></value>
+             <value xml:lang="ro"><![CDATA[Setări sistem]]></value>
 		</item>
 	</item>
 	<item name="menu_gnb" type="array">
@@ -291,6 +321,7 @@
 			 <value xml:lang="jp"><![CDATA[ダッシュボード]]></value>
 			 <value xml:lang="zh-CN"><![CDATA[控制面板]]></value>
 			 <value xml:lang="tr"><![CDATA[Kontrol Paneli]]></value>
+             <value xml:lang="ro"><![CDATA[Panou de administrare]]></value>
 		</item>
 		<item name="menu">
 			 <value xml:lang="ko"><![CDATA[사이트]]></value>
@@ -298,6 +329,7 @@
 			 <value xml:lang="jp"><![CDATA[サイト]]></value>
 			 <value xml:lang="zh-CN"><![CDATA[目录]]></value>
 			 <value xml:lang="tr"><![CDATA[Menü]]></value>
+            <value xml:lang="ro"><![CDATA[Meniu]]></value>
 		</item>
 		<item name="user">
 			 <value xml:lang="ko"><![CDATA[회원]]></value>
@@ -305,6 +337,7 @@
 			 <value xml:lang="jp"><![CDATA[会員]]></value>
 			 <value xml:lang="zh-CN"><![CDATA[会员]]></value>
 			 <value xml:lang="tr"><![CDATA[Üye]]></value>
+             <value xml:lang="ro"><![CDATA[Membri]]></value>
 		</item>
 		<item name="content">
 			 <value xml:lang="ko"><![CDATA[콘텐츠]]></value>
@@ -312,6 +345,7 @@
 			 <value xml:lang="jp"><![CDATA[コンテンツ]]></value>
 			 <value xml:lang="zh-CN"><![CDATA[内容]]></value>
 			 <value xml:lang="tr"><![CDATA[içerik]]></value>
+             <value xml:lang="ro"><![CDATA[Conţinut]]></value>
 		</item>
 		<item name="theme">
 			 <value xml:lang="ko"><![CDATA[테마]]></value>
@@ -319,6 +353,7 @@
 			 <value xml:lang="jp"><![CDATA[テーマ]]></value>
 			 <value xml:lang="zh-CN"><![CDATA[主题]]></value>
 			 <value xml:lang="tr"><![CDATA[Tema]]></value>
+             <value xml:lang="ro"><![CDATA[Teme]]></value>
 		</item>
 		<item name="extensions">
 			 <value xml:lang="ko"><![CDATA[확장기능]]></value>
@@ -326,6 +361,7 @@
 			 <value xml:lang="jp"><![CDATA[拡張機能]]></value>
 			 <value xml:lang="zh-CN"><![CDATA[扩展]]></value>
 			 <value xml:lang="tr"><![CDATA[Eklentiler]]></value>
+             <value xml:lang="ro"><![CDATA[Extensii]]></value>
 		</item>
 		<item name="configuration">
 			 <value xml:lang="ko"><![CDATA[설정]]></value>
@@ -333,6 +369,7 @@
 			 <value xml:lang="jp"><![CDATA[設定]]></value>
 			 <value xml:lang="zh-CN"><![CDATA[设置]]></value>
 			 <value xml:lang="tr"><![CDATA[Ayarlar]]></value>
+             <value xml:lang="ro"><![CDATA[Setări]]></value>
 		</item>
 	</item>
 	<item name="newest_news">
@@ -346,6 +383,7 @@
 		<value xml:lang="es"><![CDATA[Noticias recientes]]></value>
 		<value xml:lang="tr"><![CDATA[Son Gelişmeler]]></value>
 		<value xml:lang="vi"><![CDATA[Tin mới nhất]]></value>
+        <value xml:lang="ro"><![CDATA[Ultimele ştiri]]></value>
 	</item>
 	<item name="env_setup">
 		<value xml:lang="ko"><![CDATA[환경 설정]]></value>
@@ -358,6 +396,7 @@
 		<value xml:lang="es"><![CDATA[Configuración]]></value>
 		<value xml:lang="tr"><![CDATA[Ayarlar]]></value>
 		<value xml:lang="vi"><![CDATA[Thiết lập ]]></value>
+        <value xml:lang="ro"><![CDATA[Setări]]></value>
 	</item>
 	<item name="default_url">
 		<value xml:lang="ko"><![CDATA[기본 URL]]></value>
@@ -368,12 +407,14 @@
 		<value xml:lang="ru"><![CDATA[Основной URL]]></value>
 		<value xml:lang="tr"><![CDATA[Varsayılan URL]]></value>
 		<value xml:lang="vi"><![CDATA[URL mặc định]]></value>
+        <value xml:lang="ro"><![CDATA[URL implicit]]></value>
 	</item>
 	<item name="about_default_url">
 		<value xml:lang="ko"><![CDATA[여러 사이트를 운영할 때 기본 URL이 필요합니다. Karybu 설치 경로를 포함한 URL을 입력하세요. (예: http://도메인/설치경로)]]></value>
 		<value xml:lang="en"><![CDATA[Enter a default URL to be used to control multiple websites, including Karybu installation path. E.g.) http://domain//installation path)]]></value>
 		<value xml:lang="jp"><![CDATA[複数のサイトを運営する際の基本URLが必要です。XEインストールパスを含むURLを入力してください。(例：http://ドメイン/インストールパス)]]></value>
 		<value xml:lang="tr"><![CDATA[Birden fazla siteyi işletirken temel bir URL'ye ihtiyaç vardır. Karybu yükleme route'unu kapsayana bir URL giriniz.(Örneğin: http:// alan adı / yükleme route'u)]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu un URL implicit folosit pentru a controla mai multe site-uri, inclusiv calea de instalare Karybu. (Ex: http://domain//cale_instalare)]]></value>
 	</item>
 	<item name="env_information">
 		<value xml:lang="ko"><![CDATA[환경 정보]]></value>
@@ -386,6 +427,7 @@
 		<value xml:lang="es"><![CDATA[Información Ambiental]]></value>
 		<value xml:lang="tr"><![CDATA[Ortam Bilgisi]]></value>
 		<value xml:lang="vi"><![CDATA[Thông tin]]></value>
+        <value xml:lang="ro"><![CDATA[informaţii despre mediu]]></value>
 	</item>
 	<item name="current_version">
 		<value xml:lang="ko"><![CDATA[설치된 버전]]></value>
@@ -398,6 +440,7 @@
 		<value xml:lang="es"><![CDATA[Versión actual]]></value>
 		<value xml:lang="tr"><![CDATA[Güncel Sürüm]]></value>
 		<value xml:lang="vi"><![CDATA[Phiên bản]]></value>
+        <value xml:lang="ro"><![CDATA[Versiune curentă]]></value>
 	</item>
 	<item name="current_path">
 		<value xml:lang="ko"><![CDATA[설치된 경로]]></value>
@@ -410,6 +453,7 @@
 		<value xml:lang="es"><![CDATA[Instalado Sendero]]></value>
 		<value xml:lang="tr"><![CDATA[Yükleme Yolu]]></value>
 		<value xml:lang="vi"><![CDATA[Thư mục cài đặt]]></value>
+        <value xml:lang="ro"><![CDATA[Cale instalare]]></value>
 	</item>
 	<item name="released_version">
 		<value xml:lang="ko"><![CDATA[최신 버전]]></value>
@@ -422,6 +466,7 @@
 		<value xml:lang="es"><![CDATA[Versión más reciente]]></value>
 		<value xml:lang="tr"><![CDATA[Son Sürüm]]></value>
 		<value xml:lang="vi"><![CDATA[Phiên bản mới nhất]]></value>
+        <value xml:lang="ro"><![CDATA[Ultima versiune]]></value>
 	</item>
 	<item name="about_download_link">
 		<value xml:lang="ko"><![CDATA[최신 버전이 배포되었습니다. download 링크를 클릭하시면 다운 받으실 수 있습니다.]]></value>
@@ -434,6 +479,7 @@
 		<value xml:lang="es"><![CDATA[La versión más reciente Zerboard Karybu está disponible. Para descargar la versión más reciente, haga clic en enlace de descarga.]]></value>
 		<value xml:lang="tr"><![CDATA[Zeroboard Karybu'nin yeni sürümü yayımlandı! Lütfen son sürümü için indirme linkine tıklayınız.]]></value>
 		<value xml:lang="vi"><![CDATA[Đã có phiên bản mới nhất của Karybu.  Hãy bấm vào Link để Download.]]></value>
+        <value xml:lang="ro"><![CDATA[O versiune nouă de Karybu este disponibilă! Click pentru a descărca ultima versiune.]]></value>
 	</item>
 	<item name="item_module">
 		<value xml:lang="ko"><![CDATA[모듈 목록]]></value>
@@ -446,6 +492,7 @@
 		<value xml:lang="es"><![CDATA[Lista de Módulos]]></value>
 		<value xml:lang="tr"><![CDATA[Modül Listesi]]></value>
 		<value xml:lang="vi"><![CDATA[Danh sách Module]]></value>
+        <value xml:lang="ro"><![CDATA[Listă module]]></value>
 	</item>
 	<item name="item_addon">
 		<value xml:lang="ko"><![CDATA[애드온 목록]]></value>
@@ -458,6 +505,7 @@
 		<value xml:lang="es"><![CDATA[Lista de Addons]]></value>
 		<value xml:lang="tr"><![CDATA[Eklenti Listesi]]></value>
 		<value xml:lang="vi"><![CDATA[Danh sách Addon]]></value>
+        <value xml:lang="ro"><![CDATA[Listă addon-uri]]></value>
 	</item>
 	<item name="item_widget">
 		<value xml:lang="ko"><![CDATA[위젯 목록]]></value>
@@ -470,6 +518,7 @@
 		<value xml:lang="es"><![CDATA[Lista de Widgets]]></value>
 		<value xml:lang="tr"><![CDATA[Widget Listesi]]></value>
 		<value xml:lang="vi"><![CDATA[Danh sách Widget]]></value>
+        <value xml:lang="ro"><![CDATA[Listă widget-uri]]></value>
 	</item>
 	<item name="item_layout">
 		<value xml:lang="ko"><![CDATA[레이아웃 목록]]></value>
@@ -482,6 +531,7 @@
 		<value xml:lang="es"><![CDATA[Liasta de Diseños]]></value>
 		<value xml:lang="tr"><![CDATA[Yerleşim Düzeni Listesi]]></value>
 		<value xml:lang="vi"><![CDATA[Danh sách Layout]]></value>
+        <value xml:lang="ro"><![CDATA[Listă layout-uri]]></value>
 	</item>
 	<item name="module_name">
 		<value xml:lang="ko"><![CDATA[모듈 이름]]></value>
@@ -494,6 +544,7 @@
 		<value xml:lang="es"><![CDATA[Nombre del Módulo]]></value>
 		<value xml:lang="tr"><![CDATA[Modül İsmi]]></value>
 		<value xml:lang="vi"><![CDATA[Tên Module]]></value>
+        <value xml:lang="ro"><![CDATA[Nume modul]]></value>
 	</item>
 	<item name="addon_name">
 		<value xml:lang="ko"><![CDATA[애드온 이름]]></value>
@@ -506,6 +557,7 @@
 		<value xml:lang="es"><![CDATA[Nombre de Addon]]></value>
 		<value xml:lang="tr"><![CDATA[Eklenti İsmi]]></value>
 		<value xml:lang="vi"><![CDATA[Tên Addon]]></value>
+        <value xml:lang="ro"><![CDATA[Nume addon]]></value>
 	</item>
 	<item name="version">
 		<value xml:lang="ko"><![CDATA[버전]]></value>
@@ -517,6 +569,7 @@
 		<value xml:lang="es"><![CDATA[Versión]]></value>
 		<value xml:lang="tr"><![CDATA[Sürüm]]></value>
 		<value xml:lang="vi"><![CDATA[Phiên bản]]></value>
+        <value xml:lang="ro"><![CDATA[Versiune]]></value>
 	</item>
 	<item name="table_count">
 		<value xml:lang="ko"><![CDATA[테이블 수]]></value>
@@ -529,6 +582,7 @@
 		<value xml:lang="es"><![CDATA[Número de los tableros]]></value>
 		<value xml:lang="tr"><![CDATA[Tablo Sayısı]]></value>
 		<value xml:lang="vi"><![CDATA[Table]]></value>
+        <value xml:lang="ro"><![CDATA[Număr tabele]]></value>
 	</item>
 	<item name="installed_path">
 		<value xml:lang="ko"><![CDATA[설치 경로]]></value>
@@ -541,6 +595,7 @@
 		<value xml:lang="es"><![CDATA[Ruta de instalación]]></value>
 		<value xml:lang="tr"><![CDATA[Yükleme Route'u]]></value>
 		<value xml:lang="vi"><![CDATA[Thư mục đã cài đặt]]></value>
+        <value xml:lang="ro"><![CDATA[Cale instalare]]></value>
 	</item>
 	<item name="cmd_shortcut_management">
 		<value xml:lang="ko"><![CDATA[메뉴 편집하기]]></value>
@@ -553,6 +608,7 @@
 		<value xml:lang="es"><![CDATA[Editar el Menú]]></value>
 		<value xml:lang="tr"><![CDATA[Menü Düzenle]]></value>
 		<value xml:lang="vi"><![CDATA[Sửa Menu]]></value>
+        <value xml:lang="ro"><![CDATA[Editare meniu]]></value>
 	</item>
 	<item name="msg_is_not_administrator">
 		<value xml:lang="ko"><![CDATA[관리자만 접속이 가능합니다.]]></value>
@@ -565,6 +621,7 @@
 		<value xml:lang="es"><![CDATA[Sólo se permite el ingreso del administrador.]></value>
 		<value xml:lang="tr"><![CDATA[Sadece yöneticilerin bağlanması mümkündür.]]></value>
 		<value xml:lang="vi"><![CDATA[Dành riêng Administrator]]></value>
+        <value xml:lang="ro"><![CDATA[Doar pentru administratori]]></value>
 	</item>
 	<item name="msg_manage_module_cannot_delete">
 		<value xml:lang="ko"><![CDATA[모듈, 애드온, 레이아웃, 위젯 모듈의 바로가기는 삭제 불가능합니다.]]></value>
@@ -577,6 +634,7 @@
 		<value xml:lang="es"><![CDATA[No se puede eliminar acceso directo del Módulo, Addon, Diseño y Widget.]]></value>
 		<value xml:lang="tr"><![CDATA[Modüllerin, eklentilerin, yerleşim düzenlerinin, widgetların kısayolları silinemez.]]></value>
 		<value xml:lang="vi"><![CDATA[Không thể xóa những phím tắt của Module, Addon, Layout, Widget.]]></value>
+        <value xml:lang="ro"><![CDATA[Scurtăturile pentru modul, addon, layout şi widget nu pot fi şterse.]]></value>
 	</item>
 	<item name="msg_default_act_is_null">
 		<value xml:lang="ko"><![CDATA[기본 관리자 Action이 지정되어 있지 않아 바로가기 등록을 할 수 없습니다.]]></value>
@@ -589,6 +647,7 @@
 		<value xml:lang="es"><![CDATA[No se puede registrar acceso directo por no estar determinada la acción del administrador predefinido.]]></value>
 		<value xml:lang="tr"><![CDATA[Bu kısayol, varsayılan yönetici eylemi henüz ayarlanmadığından kayıt edilemiyor.]]></value>
 		<value xml:lang="vi"><![CDATA[Phím tắt đã không được tạo, bởi vì bạn không được đặt quyền là quản lý toàn diện.]]></value>
+        <value xml:lang="ro"><![CDATA[Scurtătura nu a putut fi înregistrată deoarece acţiunea implicita pentru admin nu este setată.]]></value>
 	</item>
 	<item name="welcome_to_xe">
 		<value xml:lang="ko"><![CDATA[Karybu 관리자]]></value>
@@ -601,6 +660,7 @@
 		<value xml:lang="es"><![CDATA[Esta es la página del Administrador de Karybu]]></value>
 		<value xml:lang="tr"><![CDATA[Karybu Yönetici Sayfasına Hoşgeldiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Chào mừng bạn đến với trang quản lý của Karybu!]]></value>
+        <value xml:lang="ro"><![CDATA[Bine ai venit in panoul de administrare Karybu]]></value>
 	</item>
 	<item name="about_lang_env">
 		<value xml:lang="ko"><![CDATA[처음 방문하는 사용자들의 언어 설정을 동일하게 하려면, 원하는 언어로 변경 후 아래 [저장] 버튼을 클릭하시면 됩니다.]]></value>
@@ -613,6 +673,7 @@
 		<value xml:lang="es"><![CDATA[Para aplicar idioma seleccionado conjunto de los usuarios, como por defecto, haga clic en el botón [Guardar] el cambio.]]></value>
 		<value xml:lang="tr"><![CDATA[Seçilen dili varsayılan dil olarak seçmek için, lütfen Kaydet tuşuna basınız.]]></value>
 		<value xml:lang="vi"><![CDATA[Để hiển thị ngôn ngữ đã chọn là mặc định. Hãy bấm [Lưu] phía dưới để lưu lại.]]></value>
+        <value xml:lang="ro"><![CDATA[Pentru a seta limba selctată ca limbă implicită, click pe butonul Salvare.]]></value>
 	</item>
 	<item name="xe_license">
 		<value xml:lang="ko"><![CDATA[Karybu는 LGPL을 따릅니다.]]></value>
@@ -625,6 +686,7 @@
 		<value xml:lang="es"><![CDATA[Karybu está bajo la Licencia de LGPL]]></value>
 		<value xml:lang="tr"><![CDATA[Karybu LGPL ile uyumludur]]></value>
 		<value xml:lang="vi"><![CDATA[Karybu sử dụng giấy phép LGPL]]></value>
+        <value xml:lang="ro"><![CDATA[Karybu este în conformitate cu LGPL]]></value>
 	</item>
 	<item name="about_shortcut">
 		<value xml:lang="ko"><![CDATA[자주 사용하는 모듈에 등록된 모듈의 바로가기를 삭제할 수 있습니다.]]></value>
@@ -637,6 +699,7 @@
 		<value xml:lang="es"><![CDATA[Puede Eliminar los accesos directos de módulos, los cuales fueron registrados en la lista de módulos usados frecuentemente]]></value>
 		<value xml:lang="tr"><![CDATA[Sık kullanılan modüller listesine kaydedilmiş modüllerin kısayollarını silebilirsiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể loại bỏ phím tắt của Module được sử dụng thường xuyên trên danh sách.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi sterge scurtăturile modulelor înregistrate in lista de module utilizate frecvent.]]></value>
 	</item>
 	<item name="yesterday">
 		<value xml:lang="ko"><![CDATA[어제]]></value>
@@ -647,6 +710,7 @@
 		<value xml:lang="ru"><![CDATA[Вчера]]></value>
 		<value xml:lang="tr"><![CDATA[Dün]]></value>
 		<value xml:lang="vi"><![CDATA[Hôm qua]]></value>
+        <value xml:lang="ro"><![CDATA[Ieri]]></value>
 	</item>
 	<item name="today">
 		<value xml:lang="ko"><![CDATA[오늘]]></value>
@@ -657,6 +721,7 @@
 		<value xml:lang="ru"><![CDATA[Сегодня]]></value>
 		<value xml:lang="tr"><![CDATA[Bugün]]></value>
 		<value xml:lang="vi"><![CDATA[Hôm nay]]></value>
+        <value xml:lang="ro"><![CDATA[Azi]]></value>
 	</item>
 	<item name="about_lang_select">
 		<value xml:lang="ko"><![CDATA[지원할 언어를 설정하세요.]]></value>
@@ -664,12 +729,14 @@
 		<value xml:lang="jp"><![CDATA[サポート言語を選択してください。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[选择语言]]></value>
 		<value xml:lang="tr"><![CDATA[Yardımcı dilleri seçin.]]></value>
+        <value xml:lang="ro"><![CDATA[Limbi suportate]]></value>
 	</item>
 	<item name="about_default_lang">
 		<value xml:lang="ko"><![CDATA[기본 언어를 선택하세요.]]></value>
 		<value xml:lang="en"><![CDATA[Default language]]></value>
 		<value xml:lang="zh-CN"><![CDATA[默认语言]]></value>
 		<value xml:lang="tr"><![CDATA[Varsayılan dili seçin.]]></value>
+        <value xml:lang="ro"><![CDATA[Limbă implicită]]></value>
 	</item>
 	<item name="about_recompile_cache">
 		<value xml:lang="ko"><![CDATA[쓸모 없어졌거나 잘못된 캐시파일들을 지우시겠습니까?]]></value>
@@ -677,12 +744,14 @@
 		<value xml:lang="jp"><![CDATA[必要なくなったり、無効なキャッシュファイルを削除しますか？]]></value>
 		<value xml:lang="zh-CN"><![CDATA[清空cache缓存?]]></value>
 		<value xml:lang="tr"><![CDATA[Gereksiz ve ya yanlış olan önbellek dosyalarını silmek istediğinizden emin misiniz?]]></value>
+        <value xml:lang="ro"><![CDATA[Şterge fişierele de cache inutile sau nevalide.]]></value>
 	</item>
 	<item name="confirm_run">
 		<value xml:lang="ko"><![CDATA[오랜 시간이 걸릴 수 있습니다. 실행하시겠습니까?]]></value>
 		<value xml:lang="en"><![CDATA[It may take a long time. Do you want to run?]]></value>
 		<value xml:lang="zh-CN"><![CDATA[此过程可能需要耗费一段时间，是否继续?]]></value>
 		<value xml:lang="tr"><![CDATA[Bu işlem biraz uzun sürebilir. Başlatmak istiyor musunuz?]]></value>
+        <value xml:lang="ro"><![CDATA[Ar putea dura mult timp. Vrei să porneşti execuţia?]]></value>
 	</item>
 	<item name="use_ssl">
 		<value xml:lang="ko"><![CDATA[SSL(Secure Sockets Layer, 보안접속)을 사용하시겠습니까?]]></value>
@@ -690,6 +759,7 @@
 		<value xml:lang="jp"><![CDATA[SSL(Secure Sockets Layer)を使用しますか?]]></value>
 		<value xml:lang="zh-CN"><![CDATA[是否使用SSL安全连接?]]></value>
 		<value xml:lang="tr"><![CDATA[SSL(Secure Sockets Layer)'i kullanmak istiyor musunuz?]]></value>
+        <value xml:lang="ro"><![CDATA[Vrei să foloseşti Secure Sockets Layer (SSL)]]></value>
 	</item>
 	<item name="ssl_options" type="array">
 		<item name="none">
@@ -703,6 +773,7 @@
 			 <value xml:lang="es"><![CDATA[Desactivar]]></value>
 			 <value xml:lang="tr"><![CDATA[Hiçbir zaman]]></value>
 			 <value xml:lang="vi"><![CDATA[Không sử dụng]]></value>
+            <value xml:lang="ro"><![CDATA[Niciodată]]></value>
 		</item>
 		<item name="optional">
 			 <value xml:lang="ko"><![CDATA[선택적으로]]></value>
@@ -715,6 +786,7 @@
 			 <value xml:lang="es"><![CDATA[Opcionalmente el]]></value>
 			 <value xml:lang="tr"><![CDATA[İsteğe Bağlı]]></value>
 			 <value xml:lang="vi"><![CDATA[Tùy chỉnh]]></value>
+            <value xml:lang="ro"><![CDATA[Opţional]]></value>
 		</item>
 		<item name="always">
 			 <value xml:lang="ko"><![CDATA[항상 사용]]></value>
@@ -727,6 +799,7 @@
 			 <value xml:lang="es"><![CDATA[Utilice siempre el]]></value>
 			 <value xml:lang="tr"><![CDATA[Her zaman]]></value>
 			 <value xml:lang="vi"><![CDATA[Luôn luôn]]></value>
+            <value xml:lang="ro"><![CDATA[Totdeauna]]></value>
 		</item>
 	</item>
 	<item name="about_use_ssl">
@@ -740,6 +813,7 @@
 		<value xml:lang="es"><![CDATA[Opcionalmente, la composición de suscripción / editar la información y el uso de SSL especificada en la acción es siempre el uso de SSL para todos los servicios que se utilizarán<br /><span style="color:red">SSL 환경이 갖춰지지 않은 상태에서 SSL을 사용할 경우 접속이 되지 않을 수 있으니 주의하시기 바랍니다.</span>]]></value>
 		<value xml:lang="tr"><![CDATA['İsteği Bağlı' seçiminde; SSL, kayıt olma/bilgi değiştirme gibi eylemler için kullanılacaktır. 'Her zaman' seçiminde, siteniz sadece http yoluyla hizmet verecektir.<br /><span style="color:red">SSL 환경이 갖춰지지 않은 상태에서 SSL을 사용할 경우 접속이 되지 않을 수 있으니 주의하시기 바랍니다.</span>]]></value>
 		<value xml:lang="vi"><![CDATA[Nếu bạn chọn 'Tùy chỉnh', SSL sẽ sử dụng và những công việc như đăng kí, sửa thông tin thành viên, .<br />Chỉ chọn 'Luôn luôn' khi Website của bạn đang chạy trên Server có hỗ trợ https.<br /><span style="color:red">SSL 환경이 갖춰지지 않은 상태에서 SSL을 사용할 경우 접속이 되지 않을 수 있으니 주의하시기 바랍니다.</span>]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează 'Optional' pentru a folosi SSL pentru acţini precum autentificarea sau schimbarea informaţiilor personale.<br />'Totdeauna' pentru a folosi SSL pentru toate serviciile<span style="color:red">Dacă foloseşti SSL într-un mediu care nu îl suportă nu vei putea folosi site-ul.</span>]]></value>
 	</item>
 	<item name="server_ports">
 		<value xml:lang="ko"><![CDATA[서버 포트 지정]]></value>
@@ -751,6 +825,7 @@
 		<value xml:lang="es"><![CDATA[Especifique el puerto del servidor]]></value>
 		<value xml:lang="tr"><![CDATA[Sunucu Bağlantı Noktası (port)]]></value>
 		<value xml:lang="vi"><![CDATA[Cổng kết nối]]></value>
+        <value xml:lang="ro"><![CDATA[Port server]]></value>
 	</item>
 	<item name="about_server_ports">
 		<value xml:lang="ko"><![CDATA[HTTP는 80, HTTPS는 443 이 아닌, 다른 포트를 사용할 경우에 포트를 지정해 주어야 합니다.]]></value>
@@ -762,6 +837,7 @@
 		<value xml:lang="es"><![CDATA[80 de HTTP, HTTPS al puerto 443 si se utiliza otro que se especifique lo contrario, el puerto va a necesitar.]]></value>
 		<value xml:lang="tr"><![CDATA[Eğer web sunucunuz, HTTP bağlantı noktaları için 80 ya da HTTPS 443 portunu kullanmıyorsa, sunucu bağlantı noktalarını belirtmeniz gerekmektedir.]]></value>
 		<value xml:lang="vi"><![CDATA[Nếu Host của bạn sử dụng cổng khác cổng mặc định 80 cho HTTP, 443 cho HTTPS, bạn nên xác định và nhập chính xác cổng kết nối.]]></value>
+        <value xml:lang="ro"><![CDATA[Dacă serverul tău web nu foloseşte portul 80 pentru HTTP sau 443 pentru HTTPS ar trebui să specifici porturile.]]></value>
 	</item>
 	<item name="use_db_session">
 		<value xml:lang="ko"><![CDATA[인증 세션 DB 사용]]></value>
@@ -771,6 +847,7 @@
 		<value xml:lang="zh-TW"><![CDATA[DB session認證]]></value>
 		<value xml:lang="tr"><![CDATA[Oturum Veritabanı Kullanımı]]></value>
 		<value xml:lang="vi"><![CDATA[Xác nhận Database]]></value>
+        <value xml:lang="ro"><![CDATA[Foloseşte sesiuni în baza de date]]></value>
 	</item>
 	<item name="about_db_session">
 		<value xml:lang="ko"><![CDATA[인증 시 사용되는 PHP 세션을 DB로 사용하는 기능입니다.<br/>웹서버의 사용률이 낮은 사이트에서는 비활성화시 사이트 응답 속도가 향상될 수 있습니다.<br/>단, 현재 접속자를 구할 수 없어 관련된 기능을 사용할 수 없게 됩니다.]]></value>
@@ -783,13 +860,15 @@
 		<value xml:lang="es"><![CDATA[This setting will use PHP session used for authentication as DB.<br/>For the Websites which do not use web server frequently, you can uncheck this setting to improve response time.<br/>However, session DB will make it difficult to get current users, so you cannot use related functions.]]></value>
 		<value xml:lang="tr"><![CDATA[Yetersiz web sunucusu kullanımı olan websiteleri için, bu özellik devredışı bırakıldığı zaman daha hızlı bir tepki beklenebilir.<br/>Ancak oturum veritabanı, mevcut kullanıcılar için veritabanını erişilemez hâle getirecektir ve ilgili işler kullanılamaz hale gelecektir.]]></value>
 		<value xml:lang="vi"><![CDATA[PHP sẽ xác nhận với Database. Có thể cải thiện được tốc độ của Website.]]></value>
+        <value xml:lang="ro"><![CDATA[Această setare va folosi sesiunea PHP pentru autentificare ca baza de date.<br />Pentru site-uri ce nu folosesc în mod frecvent un server web, poţi deselecta setarea pentru îmbunătăţirea rimpului de răspuns.<br />Sessiunea în baza de date va face dificil accesul la utilizatorul curent şi nu vi putea folosi funcţiile ataşate.]]></value>
 	</item>
 	<item name="qmail_compatibility">
 		<value xml:lang="ko"><![CDATA[큐메일(Qmail) 사용]]></value>
 		<value xml:lang="en"><![CDATA[Enable Qmail]]></value>
-			 <value xml:lang="jp"><![CDATA[Qmail使用]]></value>
-			 <value xml:lang="zh-CN"><![CDATA[启用Qmail]]></value>
-			 <value xml:lang="tr"><![CDATA[Qmail etkinleştirin]]></value>
+		<value xml:lang="jp"><![CDATA[Qmail使用]]></value>
+		<value xml:lang="zh-CN"><![CDATA[启用Qmail]]></value>
+		<value xml:lang="tr"><![CDATA[Qmail etkinleştirin]]></value>
+        <value xml:lang="ro"><![CDATA[Activare Qmail]]></value>
 	</item>
 	<item name="sftp">
 		<value xml:lang="ko"><![CDATA[SFTP 사용]]></value>
@@ -799,6 +878,7 @@
 		<value xml:lang="zh-TW"><![CDATA[使用 SFTP]]></value>
 		<value xml:lang="tr"><![CDATA[SFTP Kullan]]></value>
 		<value xml:lang="vi"><![CDATA[Sử dụng SFTP]]></value>
+        <value xml:lang="ro"><![CDATA[Foloseşte SFTP]]></value>
 	</item>
 	<item name="ftp_get_list">
 		<value xml:lang="ko"><![CDATA[목록 가져오기]]></value>
@@ -808,6 +888,7 @@
 		<value xml:lang="zh-TW"><![CDATA[取得列表]]></value>
 		<value xml:lang="tr"><![CDATA[Listeyi Al]]></value>
 		<value xml:lang="vi"><![CDATA[Nhận danh sách]]></value>
+        <value xml:lang="ro"><![CDATA[Listă]]></value>
 	</item>
 	<item name="ftp_remove_info">
 		<value xml:lang="ko"><![CDATA[FTP 정보 삭제]]></value>
@@ -818,6 +899,7 @@
 		<value xml:lang="ru"><![CDATA[Remove FTP Info]]></value>
 		<value xml:lang="tr"><![CDATA[FTP Bilgisini Sil.]]></value>
 		<value xml:lang="vi"><![CDATA[Xóa thông tin FTP.]]></value>
+        <value xml:lang="ro"><![CDATA[Şterge informaţii FTP.]]></value>
 	</item>
 	<item name="msg_ftp_invalid_path">
 		<value xml:lang="ko"><![CDATA[FTP 경로(Path)를 읽을 수 없습니다.]]></value>
@@ -827,6 +909,7 @@
 		<value xml:lang="zh-TW"><![CDATA[指定的 FTP 路徑讀取失敗。]]></value>
 		<value xml:lang="tr"><![CDATA[Belirtilen FTP Yolunu okuma işlemi başarız oldu.]]></value>
 		<value xml:lang="vi"><![CDATA[Không tìm thấy thông tin của thư mục bạn đã nhập trên FTP.]]></value>
+        <value xml:lang="ro"><![CDATA[Calea FTP specificată nu a putut fi citită.]]></value>
 	</item>
 	<item name="about_use_ftp_passive_mode">
 		<value xml:lang="ko"><![CDATA[Passive 모드를 사용하시겠습니까?]]></value>
@@ -834,18 +917,21 @@
 		<value xml:lang="jp"><![CDATA[Passiveモードを使用しますか?]]></value>
 		<value xml:lang="zh-CN"><![CDATA[使用FTP被动模式?]]></value>
 		<value xml:lang="tr"><![CDATA[Pasif mod FTP'sini kullanmak istiyor musunuz?]]></value>
+        <value xml:lang="ro"><![CDATA[Foloseşte FTP în modul pasiv]]></value>
 	</item>
 	<item name="about_use_sftp_support">
 		<value xml:lang="ko"><![CDATA[SFTP 를 사용하시겠습니까?]]></value>
 		<value xml:lang="en"><![CDATA[Use SFTP?]]></value>
 		<value xml:lang="zh-CN"><![CDATA[使用SFTP?]]></value>
 		<value xml:lang="tr"><![CDATA[SFTP'yi kullanmak istiyor musunuz?]]></value>
+        <value xml:lang="ro"><![CDATA[Foloseşte SFTP?]]></value>
 	</item>
 	<item name="disable_sftp_support">
 		<value xml:lang="ko"><![CDATA[SFTP를 사용할 수 있는 환경이 아닙니다.]]></value>
 		<value xml:lang="en"><![CDATA[Does Not Use SFTP]]></value>
 		<value xml:lang="zh-CN"><![CDATA[关闭SFTP]]></value>
 		<value xml:lang="tr"><![CDATA[SFTP kullanabileceğiniz bir yer değildir.]]></value>
+        <value xml:lang="ro"><![CDATA[Nu foloseşte SFTP]]></value>
 	</item>
 	<item name="msg_self_restart_cache_engine">
 		<value xml:lang="ko"><![CDATA[Memcached 또는 캐쉬데몬을 재시작 해주세요.]]></value>
@@ -855,6 +941,7 @@
 		<value xml:lang="zh-TW"><![CDATA[請重新啟動 Memcached/cache daemon快取程式。]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen önbellek geri plan yordamını veya Memcached' ı yeniden başlatınız.]]></value>
 		<value xml:lang="vi"><![CDATA[Hãy thiết lập lại bộ nhớ Cache hoặc Deamon Cache.]]></value>
+        <value xml:lang="ro"><![CDATA[Reporneşte Memcache sau daemon-ul de cache.]]></value>
 	</item>
 	<item name="autoinstall">
 		<value xml:lang="ko"><![CDATA[쉬운 설치]]></value>
@@ -864,6 +951,7 @@
 		<value xml:lang="zh-TW"><![CDATA[自動安裝]]></value>
 		<value xml:lang="tr"><![CDATA[Kolay Kurulum]]></value>
 		<value xml:lang="vi"><![CDATA[Cập nhật tự động]]></value>
+        <value xml:lang="ro"><![CDATA[EaszInstall]]></value>
 	</item>
 	<item name="last_week">
 		<value xml:lang="ko"><![CDATA[지난 주]]></value>
@@ -872,6 +960,7 @@
 		<value xml:lang="zh-CN"><![CDATA[上周]]></value>
 		<value xml:lang="zh-TW"><![CDATA[上週]]></value>
 		<value xml:lang="tr"><![CDATA[Geçen Hafta]]></value>
+        <value xml:lang="ro"><![CDATA[Saptămâna trecută]]></value>
 	</item>
 	<item name="this_week">
 		<value xml:lang="ko"><![CDATA[이번 주]]></value>
@@ -880,6 +969,7 @@
 		<value xml:lang="zh-CN"><![CDATA[本周]]></value>
 		<value xml:lang="zh-TW"><![CDATA[本週]]></value>
 		<value xml:lang="tr"><![CDATA[Bu Hafta]]></value>
+        <value xml:lang="ro"><![CDATA[Saptămâna aceasta]]></value>
 	</item>
 	<item name="trash">
 		<value xml:lang="ko"><![CDATA[휴지통]]></value>
@@ -892,6 +982,7 @@
 		<value xml:lang="es"><![CDATA[Basura]]></value>
 		<value xml:lang="tr"><![CDATA[Çöp Kutusu]]></value>
 		<value xml:lang="vi"><![CDATA[Thùng rác]]></value>
+        <value xml:lang="ro"><![CDATA[Recycle Bin]]></value>
 	</item>
 	<item name="accusation">
 		<value xml:lang="ko"><![CDATA[신고]]></value>
@@ -899,6 +990,7 @@
 		<value xml:lang="jp"><![CDATA[通報]]></value>
 		<value xml:lang="zh-CN"><![CDATA[报告]]></value>
 		<value xml:lang="tr"><![CDATA[Raporla]]></value>
+        <value xml:lang="ro"><![CDATA[Raport]]></value>
 	</item>
 	<item name="status">
 		<value xml:lang="ko"><![CDATA[상태]]></value>
@@ -906,6 +998,7 @@
 		<value xml:lang="jp"><![CDATA[状態]]></value>
 		<value xml:lang="zh-CN"><![CDATA[状态]]></value>
 		<value xml:lang="tr"><![CDATA[Durum]]></value>
+        <value xml:lang="ro"><![CDATA[Status]]></value>
 	</item>
 	<item name="action">
 		<value xml:lang="ko"><![CDATA[실행]]></value>
@@ -913,6 +1006,7 @@
 		<value xml:lang="jp"><![CDATA[実行]]></value>
 		<value xml:lang="zh-CN"><![CDATA[执行]]></value>
 		<value xml:lang="tr"><![CDATA[Yürütme]]></value>
+        <value xml:lang="ro"><![CDATA[Execută]]></value>
 	</item>
 	<item name="select_module_id">
 		<value xml:lang="ko"><![CDATA[모듈 아이디를 선택하세요.]]></value>
@@ -920,6 +1014,7 @@
 		<value xml:lang="jp"><![CDATA[モジュールIDを選択してください。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[选择Module ID]]></value>
 		<value xml:lang="tr"><![CDATA[Modül ID'sini seçin.]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează ID modul.]]></value>
 	</item>
 	<item name="use_cdn">
 		<value xml:lang="ko"><![CDATA[CDN 사용]]></value>
@@ -927,6 +1022,7 @@
 		<value xml:lang="jp"><![CDATA[CDN使用]]></value>
 		<value xml:lang="zh-CN"><![CDATA[开启CDN]]></value>
 		<value xml:lang="tr"><![CDATA[CDN Kullanımı]]></value>
+        <value xml:lang="ro"><![CDATA[Foloseşte CDN]]></value>
 	</item>
 	<item name="about_use_rewrite">
 		<value xml:lang="ko"><![CDATA[짧은 주소를 사용하시겠습니까?]]></value>
@@ -934,6 +1030,7 @@
 		<value xml:lang="jp"><![CDATA[短縮アドレスを使用しますか？]]></value>
 		<value xml:lang="zh-CN"><![CDATA[是否开启伪静态?]]></value>
 		<value xml:lang="tr"><![CDATA[Kısa bir adres kullanmak istiyor musunuz?]]></value>
+        <value xml:lang="ro"><![CDATA[Foloseşte mod rewrite (pentru SEF)]]></value>
 	</item>
 	<item name="about_timezone">
 		<value xml:lang="ko"><![CDATA[현지 표준시를 설정하세요.]]></value>
@@ -941,6 +1038,7 @@
 		<value xml:lang="jp"><![CDATA[現地の標準時間を設定してください。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[设置本地时间.]]></value>
 		<value xml:lang="tr"><![CDATA[Yerel Zamanı ayarlayın.]]></value>
+        <value xml:lang="ro"><![CDATA[Ora locală]]></value>
 	</item>
 	<item name="about_html_dtd">
 		<value xml:lang="ko"><![CDATA[HTML 규격(DTD)을 선택하세요.]]></value>
@@ -948,18 +1046,21 @@
 		<value xml:lang="jp"><![CDATA[HTML DTDを設定してください。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[设置HTML DTD标签头.]]></value>
 		<value xml:lang="tr"><![CDATA[HTML DTD ayarlayın.]]></value>
+        <value xml:lang="ro"><![CDATA[Setează HTML DTD.]]></value>
 	</item>
 	<item name="html5">
 		<value xml:lang="ko"><![CDATA[HTML5]]></value>
 		<value xml:lang="en"><![CDATA[HTML5]]></value>
 		<value xml:lang="zh-CN"><![CDATA[HTML5]]></value>
 		<value xml:lang="tr"><![CDATA[HTML5]]></value>
+        <value xml:lang="ro"><![CDATA[HTML5]]></value>
 	</item>
 	<item name="xhtml_transitional">
 		<value xml:lang="ko"><![CDATA[XHTML 1.0 Transitional]]></value>
 		<value xml:lang="en"><![CDATA[XHTML 1.0 Transitional]]></value>
 		<value xml:lang="zh-CN"><![CDATA[XHTML 1.0 Transitional]]></value>
 		<value xml:lang="tr"><![CDATA[XHTML 1.0 Transitional]]></value>
+        <value xml:lang="ro"><![CDATA[XHTML 1.0 Transitional]]></value>
 	</item>
 	<item name="about_question_mobile_view">
 		<value xml:lang="ko"><![CDATA[모바일 기기에서 접속할 때 모바일 페이지를 보여줄까요?]]></value>
@@ -967,6 +1068,7 @@
 		<value xml:lang="jp"><![CDATA[モバイル機器で接続した際にモバイルページを表示しますか？]]></value>
 		<value xml:lang="zh-CN"><![CDATA[当用户使用移动终端访问页面的时候是否使用移动版?]]></value>
 		<value xml:lang="tr"><![CDATA[Kullanıcılar mobil aygıtları ile siteye bağlandıklarında mobil sayfaı bu kullancılara göstermek istiyor musunuz?]]></value>
+        <value xml:lang="ro"><![CDATA[Afişează pagina de mobil, când utilizatorii accesează site-ul de pe telefonul mobil.]]></value>
 	</item>
 	<item name="about_thumbnail_type">
 		<value xml:lang="ko"><![CDATA[썸네일 생성 방식을 선택하세요.]]></value>
@@ -974,18 +1076,21 @@
 		<value xml:lang="jp"><![CDATA[サムネイルの生成方式を選択してください。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[选择缩略图生成方式]]></value>
 		<value xml:lang="tr"><![CDATA[Bir küçük resim seçiniz.]]></value>
+        <value xml:lang="ro"><![CDATA[Tip thumbnail]]></value>
 	</item>
 	<item name="input_footer_script">
 		<value xml:lang="ko"><![CDATA[하단(footer) 스크립트 삽입]]></value>
 		<value xml:lang="en"><![CDATA[Footer script]]></value>
 		<value xml:lang="zh-CN"><![CDATA[输入页脚脚本]]></value>
 		<value xml:lang="tr"><![CDATA[Alt (footer) Script Eklemek]]></value>
+        <value xml:lang="ro"><![CDATA[Script subsol]]></value>
 	</item>
 	<item name="detail_input_footer_script">
 		<value xml:lang="ko"><![CDATA[최하단에 코드를 삽입합니다. 관리자 페이지에서는 수행되지 않습니다.]]></value>
 		<value xml:lang="en"><![CDATA[The script is inserted into the bottom of body. Manager page does not work.]]></value>
 		<value xml:lang="zh-CN"><![CDATA[该脚本将被插入到页面的底部. 页面管理将无效.]]></value>
 		<value xml:lang="tr"><![CDATA[Script alt tarafa eklenmiştir. Yönetici sayfası çalışmıyor.]]></value>
+        <value xml:lang="ro"><![CDATA[Script-ul este adăugat in subsolul paginii. În pagina de admnistrare nu funcţionează]]></value>
 	</item>
 	<item name="corp">
 		<value xml:lang="ko"><![CDATA[Crop(잘라내기)]]></value>
@@ -993,6 +1098,7 @@
 		<value xml:lang="jp"><![CDATA[切り取り]]></value>
 		<value xml:lang="zh-CN"><![CDATA[裁剪]]></value>
 		<value xml:lang="tr"><![CDATA[Crop (Kesme)]]></value>
+        <value xml:lang="ro"><![CDATA[Crop(tăiere)]]></value>
 	</item>
 	<item name="ratio">
 		<value xml:lang="ko"><![CDATA[Ratio(비율 맞추기)]]></value>
@@ -1000,6 +1106,7 @@
 		<value xml:lang="jp"><![CDATA[Ratio(縦横の比率をキープ)]]></value>
 		<value xml:lang="zh-CN"><![CDATA[缩放]]></value>
 		<value xml:lang="tr"><![CDATA[Ratio(Yüzde Ayarı)]]></value>
+        <value xml:lang="ro"><![CDATA[Raţie (păstrează aspectul)]]></value>
 	</item>
 	<item name="about_admin_ip_limit">
 		<value xml:lang="ko"><![CDATA[관리자 페이지로 접근가능한 IP대역을 지정합니다.]]></value>
@@ -1007,12 +1114,14 @@
 		<value xml:lang="jp"><![CDATA[管理者ページへアクセス可能なIP帯域を指定します。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[后台IP绑定]]></value>
 		<value xml:lang="tr"><![CDATA[Yönetici sayfasına ulaşabileceğiniz  IP aralığını belirleyiniz.]]></value>
+        <value xml:lang="ro"><![CDATA[Specifică clasa de adrese IP ce pot accesa pagina de administrare.]]></value>
 	</item>
 	<item name="local_ip_address">
 		<value xml:lang="ko"><![CDATA[로컬 IP 주소]]></value>
 		<value xml:lang="en"><![CDATA[Local IP address]]></value>
 		<value xml:lang="zh-CN"><![CDATA[本地IP地址]]></value>      
 		<value xml:lang="tr"><![CDATA[Yerel IP adresi]]></value>
+        <value xml:lang="ro"><![CDATA[Adresă IP locală]]></value>
 	</item>
 	<item name="detail_about_admin_ip_limit">
 		<value xml:lang="ko"><![CDATA[해당 IP에 대해서만 관리자 페이지로 접근이 가능하므로 주의해주시기 바랍니다. IP대역 정보는 /files/config/db.config.php 파일에 저장됩니다. 여러개의 항목은 줄을 바꾸어 입력하세요.]]></value>
@@ -1020,12 +1129,14 @@
 	　　<value xml:lang="jp"><![CDATA[該当IPについてのみ管理者ページへアクセスできるため、注意してください。IP帯域情報は、/files/config/db.config.php ファイルに保存されます。Change the line to multiple IP.]]></value>
 		<value xml:lang="zh-CN"><![CDATA[请注意，只有绑定的IP才能访问后台。IP信息将保存在 /files/config/db.config.php. 每行一个IP。]]></value>
 		<value xml:lang="tr"><![CDATA[Sadece bu IP adresi üzerinden yönetici sayfasına erişim mümkündür.IP-bant bilgileri /files/config/db.config.php dosyasında saklanır. Satıra birden fazla öğe girin.]]></value>
+        <value xml:lang="ro"><![CDATA[Doar adresele IP specificate pot accesa pagina de administrare. Informaţiile despre clasa de adrese IP sunt stocate în /files/config/db.config.php. Schimbă linia in adrese multiple.]]></value>
 	</item>
 	<item name="detail_about_ftp_info">
 		<value xml:lang="ko"><![CDATA[FTP 정보를 입력하면 쉬운 설치를 가능하도록 합니다. FTP정보는 files/config/ftp.config.php 파일에 저장됩니다. 쉬운 설치가 불가능한 경우 PHP의 safe_mode를 On으로 변경해야 합니다.]]></value>
 		<value xml:lang="en"><![CDATA[When you enter FTP information to enable easy installation.	The information on FTP is stored in files/config/ftp.config.php. If you are unable to easy install, PHP's 'safe_mode' must be changed 'On']]></value>
 		<value xml:lang="zh-CN"><![CDATA[当设定FTP信息来启用快捷安装。FTP的信息保存在 /files/config/ftp.config.php. 如果不启用快捷安装，请务必将开启PHP安全模式]]></value>
 		<value xml:lang="tr"><![CDATA[Kolay kurulum sağlayan FTP bilgilerini girdiğinizde. FTP bilgi, dosya / config / ftp.config.php dosyasında saklanır. Kolay yükleme sizin için mümkün değilse, PHP'nin safe_mode ayarını On şeklinde değiştiriniz.]]></value>
+        <value xml:lang="ro"><![CDATA[La introducerea informaţiilor FTP pentru activarea instalării - easy install. Informaţiile despre FTP sunt stocate in files/config/ftp.config.php. Daca nu poţi folosi easy install schimbă valoarea din PHP pentru safe_mode în On]]></value>
 	</item>
 	<item name="allow_use_favicon">
 		<value xml:lang="ko"><![CDATA[파비콘을 사용할까요?]]></value>
@@ -1033,6 +1144,7 @@
 		<value xml:lang="jp"><![CDATA[ファビコンを使用しますか?]]></value>
 		<value xml:lang="zh-CN"><![CDATA[是否启用自定义favicon?]]></value>
 		<value xml:lang="tr"><![CDATA[Favicon'u kullanmak istiyor musunuz?]]></value>
+        <value xml:lang="ro"><![CDATA[Favicon]]></value>
 	</item>	 
 	<item name="about_use_favicon">
 		<value xml:lang="ko"><![CDATA[16 x 16 크기의<em>*.ico</em> 파일만 업로드 가능.]]></value>
@@ -1040,6 +1152,7 @@
 		<value xml:lang="jp"><![CDATA[16 x 16 サイズの<em>*.ico</em> ファイルのみ登録できます。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[请上传16*16像素的<em>*.ico</em>文件.]]></value>
 		<value xml:lang="tr"><![CDATA[16 x 16 boyutunda<em>*.Ico</em> dosyalar yüklenebilir.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi incarca fişiere cu extensia <em>*.ico</em> de dimensiune 16x16]]></value>
 	</item>
 	<item name="allow_use_mobile_icon">
 		<value xml:lang="ko"><![CDATA[모바일 홈 화면 아이콘을 사용할까요?]]></value>
@@ -1047,6 +1160,7 @@
 		<value xml:lang="jp"><![CDATA[モバイル待ち受け画面のアイコンを使用しますか?]]></value>
 		<value xml:lang="zh-CN"><![CDATA[是否启用移动版屏幕图标?]]></value>
 		<value xml:lang="tr"><![CDATA[Mobil Ana Ekran Simgesini kullanmak istiyor musunuz?]]></value>
+        <value xml:lang="ro"><![CDATA[Iconiţa pentru prima pagină pe mobil]]></value>
 	</item>
 	<item name="detail_use_mobile_icon">
 		<value xml:lang="ko"><![CDATA[57 x 57 또는 114 x 114 크기의<em>*.png</em> 파일만 업로드 가능.]]></value>
@@ -1054,6 +1168,7 @@
 		<value xml:lang="jp"><![CDATA[57 x 57 、または114 x 114 サイズの<em>*.png</em> ファイルのみ登録できます。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[请上传57*57像素或者114*114像素的<em>*.png</em>文件.]]></value>
 		<value xml:lang="tr"><![CDATA[57 x 57 veya 114 x 114 boyutu<em>*.Png</em> dosyalar yüklenebilir.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi incarca fişiere cu extensia <em>*.png</em> de dimensiune 57x57 sau 114x114]]></value>
 	</item>
 	<item name="about_use_sso">
 		<value xml:lang="ko"><![CDATA[SSO(Single Sign On)를 사용하시겠습니까?]]></value>
@@ -1061,6 +1176,7 @@
 		<value xml:lang="jp"><![CDATA[SSO(Single Sign On)を使用しますか?]]></value>
 		<value xml:lang="zh-CN"><![CDATA[是否启用通行证（SSO）?]]></value>
 		<value xml:lang="tr"><![CDATA[SSO(Single Sign On) kullanmak ister misiniz?]]></value>
+        <value xml:lang="ro"><![CDATA[Vrei să foloseşti SSO (Single sign on)?]]></value>
 	</item>
 	<item name="about_cdn">
 		<value xml:lang="ko"><![CDATA[Karybu core의 css, js 파일을 CDN으로부터 제공받으려면 체크하세요.]]></value>
@@ -1068,6 +1184,7 @@
 		<value xml:lang="jp"><![CDATA[Karybu coreのcss、jsファイルをCDNより取得するには、チェックしてください。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[确认从CDN上获取Karybu core的css和js文件.]]></value>
 		<value xml:lang="tr"><![CDATA[CSS Karybu çekirdek, js dosyaları CDN teklif almak için deneyin.]]></value>
+        <value xml:lang="ro"><![CDATA[Bifează pentru a încărca fişierele css şi js de pe CDN]]></value>
 	</item>
 	<item name="about_arrange_session">
 		<value xml:lang="ko"><![CDATA[세션을 정리하시겠습니까?]]></value>
@@ -1075,6 +1192,7 @@
 		<value xml:lang="jp"><![CDATA[セッションを整理しますか？]]></value>
 		<value xml:lang="zh-CN"><![CDATA[你想要整理session吗？]]></value>
 		<value xml:lang="tr"><![CDATA[Bu oturumu temizlemek istiyor musunuz?]]></value>
+        <value xml:lang="ro"><![CDATA[Vrei să cureţi sesiunea?]]></value>
 	</item>
 	<item name="cmd_clear_session">
 		<value xml:lang="ko"><![CDATA[세션 정리]]></value>
@@ -1082,6 +1200,7 @@
 		<value xml:lang="jp"><![CDATA[セッション整理]]></value>
 		<value xml:lang="zh-CN"><![CDATA[整理sessioon]]></value>
 		<value xml:lang="tr"><![CDATA[Oturum temizleme]]></value>
+        <value xml:lang="ro"><![CDATA[Curătare sesiune]]></value>
 	</item>
 	<item name="msg_not_correct_iconname">
 		<value xml:lang="ko"><![CDATA[아이콘 형식이 바르지 않습니다.]]></value>
@@ -1089,6 +1208,7 @@
 		<value xml:lang="jp"><![CDATA[アイコン形式が正しくありません。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[无效的icon格式]]></value>   
 		<value xml:lang="tr"><![CDATA[Geçerli olmayan simge biçimi.]]></value>
+        <value xml:lang="ro"><![CDATA[Tipul iconiţei nu este valid ]]></value>
 	</item>
 	<item name="msg_possible_only_file">
 		<value xml:lang="ko"><![CDATA[파일만 업로드 가능합니다.]]></value>
@@ -1096,6 +1216,7 @@
 		<value xml:lang="jp"><![CDATA[ファイルのみアップロード可能です。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[请上传文件.]]></value>
 		<value xml:lang="tr"><![CDATA[Sadece dosyalarını yükleyebilirsiniz.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi încărca fişiere de tipul]]></value>
 	</item>
 	<item name="save">
 		<value xml:lang="ko"><![CDATA[저장]]></value>
@@ -1103,6 +1224,7 @@
 		<value xml:lang="jp"><![CDATA[保存]]></value>
 		<value xml:lang="zh-CN"><![CDATA[保存]]></value>
 		<value xml:lang="tr"><![CDATA[Kayıt]]></value>
+        <value xml:lang="ro"><![CDATA[Salvează]]></value>
 	</item>
 	<item name="view">
 		<value xml:lang="ko"><![CDATA[보기]]></value>
@@ -1110,6 +1232,7 @@
 		<value xml:lang="jp"><![CDATA[表示]]></value>
 		<value xml:lang="zh-CN"><![CDATA[查看]]></value>
 		<value xml:lang="tr"><![CDATA[Bak]]></value>
+        <value xml:lang="ro"><![CDATA[Vizualizează]]></value>
 	</item>
 	<item name="select">
 		<value xml:lang="ko"><![CDATA[선택]]></value>
@@ -1117,6 +1240,7 @@
 		<value xml:lang="jp"><![CDATA[選択]]></value>
 		<value xml:lang="zh-CN"><![CDATA[选择]]></value>
 		<value xml:lang="tr"><![CDATA[Seç]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează]]></value>
 	</item>
 	<item name="delete">
 		<value xml:lang="ko"><![CDATA[삭제]]></value>
@@ -1124,6 +1248,7 @@
 		<value xml:lang="jp"><![CDATA[削除]]></value>
 		<value xml:lang="zh-CN"><![CDATA[删除]]></value>
 		<value xml:lang="tr"><![CDATA[Sil]]></value>
+        <value xml:lang="ro"><![CDATA[Şterge]]></value>
 	</item>
 	<item name="add">
 		<value xml:lang="ko"><![CDATA[추가]]></value>
@@ -1131,6 +1256,7 @@
 		<value xml:lang="jp"><![CDATA[追加]]></value>
 		<value xml:lang="zh-CN"><![CDATA[添加]]></value>
 		<value xml:lang="tr"><![CDATA[Ekle]]></value>
+        <value xml:lang="ro"><![CDATA[Adaugă]]></value>
 	</item>
 	<item name="theme_desc">
 		<value xml:lang="ko"><![CDATA[테마는 레이아웃을 포함하여 현재 설치된 모듈의 스킨을 묶은 개념입니다. 테마를 선택하면 'Skin Setting' 항목을 알아서 선택합니다. 테마 일부가 마음에 들지 않으면 'Skin Setting'에서 테마 일부를 다시 설정 할 수 있습니다.]]></value>
@@ -1138,6 +1264,7 @@
 		<value xml:lang="jp"><![CDATA[テーマは、レイアウトを含み現在インストールされているモジュールのスキンをまとめたものです。テーマを選択すると、「スキン設定」項目が自動的に選択されます。テーマの一部が気に入らない場合は、「スキン設定」でテーマの一部を再設定できます。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[主题是包含布局等一系列正确安装的模块的皮肤集.当选用此主题.'皮肤设置'将会被自动选用,如果你不喜欢某些主题,你可以在皮肤设定里面编辑.]]></value>
 		<value xml:lang="tr"><![CDATA[Kavramı birlikte modülü şu anda yüklü derileri düzeni gibi temalar. Bir tema 'Skin Setting' seçtiğinizde bir öğe seçmek için özen gösteriyoruz. Eğer beğenmezseniz geri kısmından temayı 'Skin Setting' teması bazı ayarlanabilir.]]></value>
+        <value xml:lang="ro"><![CDATA[Tema e un set de ckin-uri pentru modulele instalate inclusiv layout-uri. Când selectezi o tema Setări Skin este selectat automat. Dacă nu îţi place tema, o poţi modifica din Setări Skin.]]></value>
 	</item>
 	<item name="selected_theme">
 		<value xml:lang="ko"><![CDATA[선택한 테마]]></value>
@@ -1145,6 +1272,7 @@
 		<value xml:lang="jp"><![CDATA[選択したテーマ]]></value>
 		<value xml:lang="zh-CN"><![CDATA[已选择的主题]]></value>
 		<value xml:lang="tr"><![CDATA[Seçilen Tema]]></value>
+        <value xml:lang="ro"><![CDATA[Temă selectată]]></value>
 	</item>
 	<item name="no_selected_theme_desc">
 		<value xml:lang="ko"><![CDATA[관리자가 설정한 테마입니다. 테마를 설정하지 않은 경우 디폴트로 노출됩니다.]]></value>
@@ -1152,6 +1280,7 @@
 		<value xml:lang="jp"><![CDATA[管理者が設定したテーマです。テーマを設定しない場合、デフォルト表示されます。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[这是管理员设定的默认主题.此主题将会默认显示.]]></value>
 		<value xml:lang="tr"><![CDATA[Bu tema, yönetici tarafından belirlenen varsayılan temadır. Eğer herhangi bir temayı seçmezseniz, bu tema varsayılan tema şeklinde görünecektir.]]></value>
+        <value xml:lang="ro"><![CDATA[Aceasta este tema implicită specificată de administrator. Dacă nu specifici una, aceasta va fi folosită.]]></value>
 	</item>
 	<item name="user_define_skin_select_desc">
 		<value xml:lang="ko"><![CDATA[테마의 일부가 마음에 들지 않으면 스킨을 직접 선택하세요. 스킨을 직접 선택하면 'Theme Setting' 설정은 'User Defined'로 설정됩니다.]]></value>
@@ -1159,6 +1288,7 @@
 	　　<value xml:lang="jp"><![CDATA[テーマの一部が気に入らなかった場合、スキンを選択してください。スキンを選択すると、「テーマ設定」は、「ユーザー定義」に設定されます。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[如果你不喜欢某些主题，请自己选择一个皮肤。当你自定义一个皮肤后，'主题设置'将关联在'用户设置'下]]></value>
 		<value xml:lang="tr"><![CDATA[Eğer bazı temalar hoşunuza gitmideyse o halde kendinize bir yüzey seçebilirsiniz. Kendinize ait olan bir yüzey seçtiğinizde 'Tema Ayarları' seçeneği 'Kullanıcı Kararı' şeklinde değişecektir.]]></value>
+        <value xml:lang="ro"><![CDATA[Dacă nu iţi place o parte din temă, selectează un alt skin. Când selectezi un skin 'Setari Temă' va trece pe valoarea 'Definită de utilizator']]></value>
 	</item>
 	<item name="selected_layout">
 		<value xml:lang="ko"><![CDATA[선택한 레이아웃]]></value>
@@ -1166,6 +1296,7 @@
 		<value xml:lang="jp"><![CDATA[選択したレイアウト]]></value>
 		<value xml:lang="zh-CN"><![CDATA[已选择的布局]]></value>
 		<value xml:lang="tr"><![CDATA[Seçilen Düzen]]></value>
+        <value xml:lang="ro"><![CDATA[Lazout selectat]]></value>
 	</item>
 	<item name="selected_skin">
 		<value xml:lang="ko"><![CDATA[선택한 %s 스킨]]></value>
@@ -1173,6 +1304,7 @@
 		<value xml:lang="jp"><![CDATA[選択した%sスキン]]></value>
 		<value xml:lang="zh-CN"><![CDATA[选择了 %s 皮肤]]></value>
 		<value xml:lang="tr"><![CDATA[Seçilen %s Yüzeyi]]></value>
+        <value xml:lang="ro"><![CDATA[Skin %s selectat]]></value>
 	</item>
 	<item name="no_selected_skin">
 		<value xml:lang="ko"><![CDATA[선택한 %s 스킨 없음]]></value>
@@ -1180,6 +1312,7 @@
 		<value xml:lang="jp"><![CDATA[選択した%sスキンなし]]></value>
 		<value xml:lang="zh-CN"><![CDATA[未选择 %s 皮肤]]></value>
 		<value xml:lang="tr"><![CDATA[Seçilen %s Yüzeyi Bulunmamaktadır]]></value>
+        <value xml:lang="ro"><![CDATA[Skin %s nu este selectat]]></value>
 	</item>
 	<item name="no_selected_skin_desc">
 		<value xml:lang="ko"><![CDATA[선택한 테마에는 이 항목에 대한 스킨 정보가 없습니다. 스킨을 직접 선택하세요.]]></value>
@@ -1187,6 +1320,7 @@
 		<value xml:lang="jp"><![CDATA[選択したテーマには、この項目についてのスキン情報がありません。スキンを直接選択してください。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[已选择的主体没有相关的皮肤信息。请直接选择皮肤。]]></value>
 		<value xml:lang="tr"><![CDATA[Seçilen temada bu parçaya uygun yüzey bilgisi mevcut değildir. Bir yüzey seçiniz.]]></value>
+        <value xml:lang="ro"><![CDATA[Tema selectată nu are informaţii despre skin pentru această înregistrare. Selectează un skin.]]></value>
 	</item>
 	<item name="no_select">
 		<value xml:lang="ko"><![CDATA[선택안함]]></value>
@@ -1194,6 +1328,7 @@
 		<value xml:lang="jp"><![CDATA[選択しない]]></value>
 		<value xml:lang="zh-CN"><![CDATA[未选择]]></value>
 		<value xml:lang="tr"><![CDATA[Seçim Yok]]></value>
+        <value xml:lang="ro"><![CDATA[Neselectat]]></value>
 	</item>
 	<item name="admin_logo">
 		<value xml:lang="ko"><![CDATA[관리자 페이지 로고]]></value>
@@ -1201,6 +1336,7 @@
 		<value xml:lang="jp"><![CDATA[管理者ページロゴ]]></value>
 		<value xml:lang="zh-CN"><![CDATA[后台页面Logo]]></value>
 		<value xml:lang="tr"><![CDATA[Yönetici Sayfası Logosu]]></value>
+        <value xml:lang="ro"><![CDATA[Logo pagină admin]]></value>
 	</item>
 	<item name="admin_title">
 		<value xml:lang="ko"><![CDATA[관리자 페이지 제목]]></value>
@@ -1208,6 +1344,7 @@
 		<value xml:lang="jp"><![CDATA[管理者ページタイトル]]></value>
 		<value xml:lang="zh-CN"><![CDATA[后台页面标题]]></value>
 		<value xml:lang="tr"><![CDATA[Yönetici Sayfa Başlığı]]></value>
+        <value xml:lang="ro"><![CDATA[Titlu pagină admin]]></value>
 	</item>
 	<item name="admin_menu_add">
 		<value xml:lang="ko"><![CDATA[관리자 메뉴 추가]]></value>
@@ -1215,6 +1352,7 @@
 		<value xml:lang="jp"><![CDATA[管理者メニュー追加]]></value>
 		<value xml:lang="zh-CN"><![CDATA[添加后台菜单]]></value>
 		<value xml:lang="tr"><![CDATA[Yönetici Menüsü ekle]]></value>
+        <value xml:lang="ro"><![CDATA[Adaugă meniu admin]]></value>
 	</item>
 	<item name="bug_report">
 		<value xml:lang="ko"><![CDATA[버그 리포트]]></value>
@@ -1222,48 +1360,56 @@
 		<value xml:lang="jp"><![CDATA[バグレポート]]></value>
 		<value xml:lang="zh-CN"><![CDATA[Bug反馈]]></value>
 		<value xml:lang="tr"><![CDATA[Hata Raporu]]></value>
+        <value xml:lang="ro"><![CDATA[Raportează un bug]]></value>
 	</item>
 	<item name="theme_setting">
 		<value xml:lang="ko"><![CDATA[테마 설정]]></value>
 		<value xml:lang="en"><![CDATA[Theme Setting]]></value>
 		<value xml:lang="zh-CN"><![CDATA[主题设置]]></value>
 		<value xml:lang="tr"><![CDATA[Tema Ayarları]]></value>
+        <value xml:lang="ro"><![CDATA[Setări temă]]></value>
 	</item>
 	<item name="skin_setting">
 		<value xml:lang="ko"><![CDATA[스킨 설정]]></value>
 		<value xml:lang="en"><![CDATA[Skin Setting]]></value>
 		<value xml:lang="zh-CN"><![CDATA[皮肤设置]]></value>
 		<value xml:lang="tr"><![CDATA[Yüzey Ayarları]]></value>
+        <value xml:lang="ro"><![CDATA[Setări skin]]></value>
 	</item>
 	<item name="msg_thumbnail_not_exist">
 		<value xml:lang="ko"><![CDATA[썸네일이 없습니다]]></value>
 		<value xml:lang="en"><![CDATA[Thumbnail does not exist]]></value>
 		<value xml:lang="zh-CN"><![CDATA[缩略图不存在]]></value>
 		<value xml:lang="tr"><![CDATA[Küçük Resim Yok]]></value>
+        <value xml:lang="ro"><![CDATA[Thumbnail nu există]]></value>
 	</item>
 	<item name="user_theme">
 		<value xml:lang="ko"><![CDATA[사용자 테마]]></value>
 		<value xml:lang="en"><![CDATA[User Theme]]></value>
 		<value xml:lang="zh-CN"><![CDATA[用户主题]]></value>
 		<value xml:lang="tr"><![CDATA[Kullanıcı Teması]]></value>
+        <value xml:lang="ro"><![CDATA[Temă utilizator]]></value>
 	</item>
 	<item name="user_define">
 		<value xml:lang="ko"><![CDATA[사용자 정의 테마]]></value>
 		<value xml:lang="en"><![CDATA[User Defined]]></value>
 		<value xml:lang="zh-CN"><![CDATA[用户设置]]></value>
 		<value xml:lang="tr"><![CDATA[Kullanıcının Belirlediği Tema ]]></value>
+        <value xml:lang="ro"><![CDATA[definit de utilizator]]></value>
 	</item>
 	<item name="by_you">
 		<value xml:lang="ko"><![CDATA[사용자 설정]]></value>
 		<value xml:lang="en"><![CDATA[By You]]></value>
 		<value xml:lang="zh-CN"><![CDATA[By You]]></value>
 		<value xml:lang="tr"><![CDATA[Kullanıcı Seçimi]]></value>
+        <value xml:lang="ro"><![CDATA[de către tine]]></value>
 	</item>
 	<item name="update_available">
 		<value xml:lang="ko"><![CDATA[업데이트 가능]]></value>
 		<value xml:lang="en"><![CDATA[Update Available]]></value>
 		<value xml:lang="zh-CN"><![CDATA[有可用的升级]]></value>
 		<value xml:lang="tr"><![CDATA[Güncelleme Mevcut]]></value>
+        <value xml:lang="ro"><![CDATA[Update disponibil]]></value>
 	</item>
 	<item name="need_update_and_table">
 		<value xml:lang="ko"><![CDATA[DB Table 생성과 모듈 업데이트 필요]]></value>
@@ -1271,6 +1417,7 @@
 		<value xml:lang="jp"><![CDATA[DBテーブルの生成とモジュールの更新が必要]]></value>
 		<value xml:lang="zh-CN"><![CDATA[请建立数据表和升级模块]]></value>
 		<value xml:lang="tr"><![CDATA[DB table oluşturmanız ve modülleri güncellemeniz gerekmektedir]]></value>
+        <value xml:lang="ro"><![CDATA[E necesarăa crearea de tabele în baza de date si update pentru modul]]></value>
 	</item>
 	<item name="need_update">
 		<value xml:lang="ko"><![CDATA[모듈 업데이트 필요]]></value>
@@ -1278,6 +1425,7 @@
 		<value xml:lang="jp"><![CDATA[モジュールの更新が必要]]></value>
 		<value xml:lang="zh-CN"><![CDATA[请升级模块]]></value>
 		<value xml:lang="tr"><![CDATA[Modülün GüncellenmesiGerekmektedir]]></value>
+        <value xml:lang="ro"><![CDATA[E necesar update pentru modul]]></value>
 	</item>
 	<item name="need_table">
 		<value xml:lang="ko"><![CDATA[DB Table 생성 필요]]></value>
@@ -1285,18 +1433,21 @@
 		<value xml:lang="jp"><![CDATA[DBテーブルの生成が必要]]></value>
 		<value xml:lang="zh-CN"><![CDATA[请生成数据表]]></value>
 		<value xml:lang="tr"><![CDATA[DB Tablosunun Oluşturulması Gerekmektedir.]]></value>
+        <value xml:lang="ro"><![CDATA[E necesară crearea de tabele in baza de date]]></value>
 	</item>
 	<item name="admin_menu_setup">
 		<value xml:lang="ko"><![CDATA[관리자 메뉴 설정]]></value>
 		<value xml:lang="en"><![CDATA[Admin Menu Setup]]></value>
 		<value xml:lang="zh-CN"><![CDATA[后台菜单设置]]></value>
 		<value xml:lang="tr"><![CDATA[Yönetici Menüsü Ayarları]]></value>
+        <value xml:lang="ro"><![CDATA[Setări meniu administrare]]></value>
 	</item>
 	<item name="no_data">
 		<value xml:lang="ko"><![CDATA[등록된 데이터가 없습니다.]]></value>
 		<value xml:lang="en"><![CDATA[There is no data.]]></value>
 		<value xml:lang="zh-CN"><![CDATA[没有相关信息。]]></value>
 		<value xml:lang="tr"><![CDATA[Veri Bulunmamaktadır.]]></value>
+        <value xml:lang="ro"><![CDATA[Nu există date.]]></value>
 	</item>
 	<item name="cmd_admin_menu_reset">
 		<value xml:lang="ko"><![CDATA[관리자 메뉴 초기화]]></value>
@@ -1304,12 +1455,14 @@
 		<value xml:lang="jp"><![CDATA[管理者メニューの初期化]]></value>
 		<value xml:lang="zh-CN"><![CDATA[重置后台菜单]]></value>
 		<value xml:lang="tr"><![CDATA[Admin menüsünü sıfırlayın]]></value>
+        <value xml:lang="ro"><![CDATA[resetare mniu administrare]]></value>
 	</item>
 	<item name="confirm_reset_admin_menu">
 		<value xml:lang="ko"><![CDATA[관리자 메뉴를 초기화하시겠습니까?]]></value>
 		<value xml:lang="en"><![CDATA[Are you sure you want to initialize the admin menu?]]></value>
 		<value xml:lang="zh-CN"><![CDATA[请确认是否初始化后台菜单]]></value>
 		<value xml:lang="tr"><![CDATA[Admin menüsünü başlatmak istediğinize emin misiniz?]]></value>
+        <value xml:lang="ro"><![CDATA[Eşti sigur ca vrei să iniţializezi meniul de administrare?]]></value>
 	</item>
 	<item name="ftp_form_title">
 		<value xml:lang="ko"><![CDATA[FTP 계정 정보 입력]]></value>
@@ -1324,6 +1477,7 @@
 		<value xml:lang="tr"><![CDATA[FTP Hesap Bilgileri]]></value>
 		<value xml:lang="vi"><![CDATA[Thông tin FTP]]></value>
 		<value xml:lang="mn"><![CDATA[FTP мэдээлэл оруулах]]></value>
+        <value xml:lang="ro"><![CDATA[Informaţii cont FTP]]></value>
 	</item>
 	<item name="ftp">
 		<value xml:lang="ko"><![CDATA[FTP]]></value>
@@ -1338,6 +1492,7 @@
 		<value xml:lang="tr"><![CDATA[FTP]]></value>
 		<value xml:lang="vi"><![CDATA[FTP]]></value>
 		<value xml:lang="mn"><![CDATA[FTP]]></value>
+        <value xml:lang="ro"><![CDATA[FTP]]></value>
 	</item>
 	<item name="ftp_host">
 		<value xml:lang="ko"><![CDATA[FTP 서버 주소]]></value>
@@ -1348,6 +1503,7 @@
 		<value xml:lang="de"><![CDATA[FTP-Server hostname]]></value>
 		<value xml:lang="tr"><![CDATA[FTP Sunucu Adı]]></value>
 		<value xml:lang="vi"><![CDATA[Tên Host FTP]]></value>
+        <value xml:lang="ro"><![CDATA[Host FTP]]></value>
 	</item>
 	<item name="ftp_port">
 		<value xml:lang="ko"><![CDATA[FTP port]]></value>
@@ -1358,6 +1514,7 @@
 		<value xml:lang="de"><![CDATA[FTP Port]]></value>
 		<value xml:lang="tr"><![CDATA[FTP Portu]]></value>
 		<value xml:lang="vi"><![CDATA[Cổng kết nối]]></value>
+        <value xml:lang="ro"><![CDATA[Port FTP]]></value>
 	</item>
 	<item name="about_ftp_password">
 		<value xml:lang="ko"><![CDATA[FTP Password는 저장되지 않습니다.]]></value>
@@ -1368,6 +1525,7 @@
 		<value xml:lang="de"><![CDATA[Das Passwort des FTPs wird nicht gespeichert.]]></value>
 		<value xml:lang="tr"><![CDATA[FTP şifresi saklanmayacaktır.]]></value>
 		<value xml:lang="vi"><![CDATA[Mật khẩu của FTP sẽ không lưu lại]]></value>
+        <value xml:lang="ro"><![CDATA[Parola FTP nu va fi stocată]]></value>
 	</item>
 	<item name="cmd_check_ftp_connect">
 		<value xml:lang="ko"><![CDATA[FTP 접속 확인]]></value>
@@ -1380,6 +1538,7 @@
 		<value xml:lang="tr"><![CDATA[FTP Bağlantısını kontrol ediniz]]></value>
 		<value xml:lang="vi"><![CDATA[Kiểm tra kết nối bằng FTP]]></value>
 		<value xml:lang="mn"><![CDATA[FTP холболт шалгах]]></value>
+        <value xml:lang="ro"><![CDATA[Verificare conexiune FTP]]></value>
 	</item>
 	<item name="msg_safe_mode_ftp_needed">
 		<value xml:lang="ko"><![CDATA[PHP의<strong>safe_mode=On</strong>일 경우 XE의 정상적인 동작을 돕습니다.]]></value>
@@ -1393,6 +1552,7 @@
 		<value xml:lang="tr"><![CDATA[Eğer PHP güvenli mod ayarları etkinse, Karybu'yi kurmak için FTP hesap bilgilerini girmelisiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Nếu safe_mode của PHP mở, bạn có thể cài đặt các thành phần bổ xung cho Karybu một cách tự động qua FTP.]]></value>
 		<value xml:lang="mn"><![CDATA[PHP의 safe_mode가 Onбайх тохиолдолд , FTP мэдээллийг заавал оруулснаар Karybu идэвжvvлэх болон хэрэглэх боломжтой болно.]]></value>
+        <value xml:lang="ro"><![CDATA[Când saef_mode este activ e necesar să introduci informaţii de FTP pentru a putea instala Karybu.]]></value>
 	</item>
 	<item name="msg_safe_mode_ftp_needed2">
 		<value xml:lang="ko"><![CDATA[모듈의 쉬운 설치 또는 업데이트가 가능해 집니다.]]></value>
@@ -1401,6 +1561,7 @@
 		<value xml:lang="zh-CN"><![CDATA[可用的安装或更新。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[可用的安裝或更新。]]></value>
 		<value xml:lang="tr"><![CDATA[Modülün Kolay kurulumu veya güncelleme özelliği etkindir.]]></value>
+        <value xml:lang="ro"><![CDATA[Instalare sau update este activ.]]></value>
 	</item>
 	<item name="msg_safe_mode_ftp_config">
 		<value xml:lang="ko"><![CDATA[이 정보는<strong>files/config/ftp.config.php</strong> 파일에 저장 됩니다. 설치 후 환경설정 페이지에서도 등록, 변경, 제거 할 수 있습니다.]]></value>
@@ -1409,6 +1570,7 @@
 		<value xml:lang="zh-TW"><![CDATA[此資料會儲存在<strong>files/config/ftp.config.php</strong> 檔案中。 安裝後可在設定頁面中新增、更改或刪除此資訊。]]></value>
 		<value xml:lang="de"><![CDATA[Die Angabe wird unter<strong>files/config/ftp.config.php</strong> gespeichert. Nach der Installation ist es auch möglich, dass die Angabe von Administrator modifiziert oder gelöscht werden kann.]]></value>
 		<value xml:lang="tr"><![CDATA[Bu bilgiler<strong>files/config/ftp.config.php</strong> adlı dosyada saklanır. Kurulumdan sonra, Ayarlar sayfasında, bu na eklenti yapabilir, değiştirebilir ve ya silebilirsiniz]]></value>
+        <value xml:lang="ro"><![CDATA[Aceaste informaşii se stochează in <strong>files/config/ftp.config.php</strong> Le poţi schimba si sterge din Setări dupa instalare.]]></value>
 	</item>
 	<item name="msg_ftp_no_directory">
 		<value xml:lang="ko"><![CDATA[FTP 접속에 성공했으나, 디렉토리 정보를 읽어올 수 없습니다. 서버 설정을 확인해주세요.]]></value>
@@ -1423,6 +1585,7 @@
 		<value xml:lang="tr"><![CDATA[FTP bağlantısı başarılı oldu ancak dizin bilgileri okunamıyor. Sunucu ayarlarını kontrol edin.]]></value>
 		<value xml:lang="vi"><![CDATA[Succeed to connect to the host via FTP. However, can not read any directory list informaiton. Check the server configurations.]]></value>
 		<value xml:lang="mn"><![CDATA[Succeed to connect to the host via FTP. However, can not read any directory list informaiton. Check the server configurations.]]></value>
+        <value xml:lang="ro"><![CDATA[Conectare cu succes via FTP. dar nu se poate citi lista de directoare. Verifică setarile serverului.]]></value>
 	</item>
 	<item name="msg_ftp_mkdir_fail">
 		<value xml:lang="ko"><![CDATA[FTP를 이용한 디렉토리 생성 명령에 실패했습니다. FTP 서버의 설정을 확인해주세요.]]></value>
@@ -1436,6 +1599,7 @@
 		<value xml:lang="tr"><![CDATA[Dizin oluşturma başarısız oldu. Lütfen FTP hesap iznini kontrol ediniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Lỗi khi tạo thư mục. Xin vui lòng kiểm tra lại quyền truy cập FTP.]]></value>
 		<value xml:lang="mn"><![CDATA[FTP-г ашиглан eгсeн eгeгдлийг биелvvлж чадсангvй. FTP серверийн идэвхжvvлэлтээ шалгана уу.]]></value>
+        <value xml:lang="ro"><![CDATA[Nu a putut fi creat directorul prin FTP. Verifică permisiunile in contul de FTP]]></value>
 	</item>
 	<item name="msg_ftp_chmod_fail">
 		<value xml:lang="ko"><![CDATA[FTP를 이용한 디렉토리의 속성 변경에 실패했습니다. FTP 서버의 설정을 확인해주세요.]]></value>
@@ -1450,6 +1614,7 @@
 		<value xml:lang="tr"><![CDATA[Chmod başarısız oldu. Lütfen FTP sunucusunun yapılandırmasını kontrol ediniz.]]></value>
 		<value xml:lang="vi"><![CDATA[CHMOD thất bại. Xin vui lòng kiểm tra lại.]]></value>
 		<value xml:lang="mn"><![CDATA[FTP-г ашиглан eeрчлeлтийг хийж чадсангvй. FTP серверийн идэвхжvvлэлтээ шалгана уу.]]></value>
+        <value xml:lang="ro"><![CDATA[Chmod a eşuat. Verificş permisiunile şi configurarea serverului de FTP.]]></value>
 	</item>
 	<item name="msg_ftp_connect_success">
 		<value xml:lang="ko"><![CDATA[FTP 접속 및 인증에 성공했습니다.]]></value>
@@ -1463,6 +1628,7 @@
 		<value xml:lang="tr"><![CDATA[FTP sunucusu için bağlantı ve kimlik doğrulaması sağlandı.]]></value>
 		<value xml:lang="vi"><![CDATA[Đã xác nhận và kết nối thành công tới máy chủ bằng FTP.]]></value>
 		<value xml:lang="mn"><![CDATA[FTP холболт болон баталгаажуулалт хийгдлээ.]]></value>
+        <value xml:lang="ro"><![CDATA[Conectare si autentificare FTP cu succes.]]></value>
 	</item>
 	<item name="ftp_path_title">
 		<value xml:lang="ko"><![CDATA[FTP 경로 정보 입력]]></value>
@@ -1473,6 +1639,7 @@
 		<value xml:lang="de"><![CDATA[Pfad des FTPs eingeben]]></value>
 		<value xml:lang="tr"><![CDATA[FTP Yolu Bilgileri]]></value>
 		<value xml:lang="vi"><![CDATA[Hãy nhập thông tin đường dẫn của FTP.]]></value>
+        <value xml:lang="ro"><![CDATA[Informaţii cale FTP]]></value>
 	</item>
 	<item name="msg_ftp_installed_realpath">
 		<value xml:lang="ko"><![CDATA[설치된 Karybu의 절대경로]]></value>
@@ -1483,6 +1650,7 @@
 		<value xml:lang="de"><![CDATA[absoluter Pfad, in dem Karybu installiert ist.]]></value>
 		<value xml:lang="tr"><![CDATA[KesinnXE Yolu]]></value>
 		<value xml:lang="vi"><![CDATA[Đường dẫn thư mục đã cài đặt Karybu]]></value>
+        <value xml:lang="ro"><![CDATA[Cale absolută pentru Karybu]]></value>
 	</item>
 	<item name="msg_ftp_installed_ftp_realpath">
 		<value xml:lang="ko"><![CDATA[설치된 Karybu의 FTP 경로 설정]]></value>
@@ -1495,81 +1663,102 @@
 		<value xml:lang="es"><![CDATA[설치된 Karybu의 FTP 절대경로 설정]]></value>
 		<value xml:lang="tr"><![CDATA[Karybu Salt FTP Yolu]]></value>
 		<value xml:lang="vi"><![CDATA[Đường dẫn tuyệt đối của thư mục cài đặt Karybu trên FTP]]></value>
+        <value xml:lang="ro"><![CDATA[Cale abosluta FTP pentru Karybu]]></value>
 	</item>
 	<item name="admin_setup">
 		<value xml:lang="ko"><![CDATA[관리자 설정]]></value>
 		<value xml:lang="en"><![CDATA[Admin Setup]]></value>
 		<value xml:lang="zh-CN"><![CDATA[管理设置]]></value>
 		<value xml:lang="tr"><![CDATA[Yönetici Ayarları]]></value>
+        <value xml:lang="ro"><![CDATA[Setări administrare]]></value>
 	</item>
     <item name="subtitle_developer_settings">
         <value xml:lang="en"><![CDATA[Developer settings]]></value>
+        <value xml:lang="ro"><![CDATA[Setări dezvoltator]]></value>
     </item>
     <item name="debug_debug">
         <value xml:lang="en"><![CDATA[Debug]]></value>
+        <value xml:lang="ro"><![CDATA[Debug]]></value>
     </item>
     <item name="debug_info">
         <value xml:lang="en"><![CDATA[Info]]></value>
+        <value xml:lang="ro"><![CDATA[Informaţii]]></value>
     </item>
     <item name="debug_warning">
         <value xml:lang="en"><![CDATA[Warning]]></value>
+        <value xml:lang="ro"><![CDATA[warning]]></value>
     </item>
     <item name="debug_error">
         <value xml:lang="en"><![CDATA[Error]]></value>
+        <value xml:lang="ro"><![CDATA[Error]]></value>
     </item>
     <item name="debug_critical">
         <value xml:lang="en"><![CDATA[Critical]]></value>
+        <value xml:lang="ro"><![CDATA[Critical]]></value>
     </item>
     <item name="debug_alert">
         <value xml:lang="en"><![CDATA[Alert]]></value>
-    </item>
-    <item name="debug_error">
-        <value xml:lang="en"><![CDATA[Error]]></value>
+        <value xml:lang="ro"><![CDATA[Alert]]></value>
     </item>
 
     <item name="debug_handler_files">
         <value xml:lang="en"><![CDATA[Files]]></value>
+        <value xml:lang="ro"><![CDATA[Fisiere]]></value>
     </item>
     <item name="debug_handler_chrome">
         <value xml:lang="en"><![CDATA[Chrome]]></value>
+        <value xml:lang="ro"><![CDATA[Chrome]]></value>
     </item>
     <item name="debug_handler_firebug">
         <value xml:lang="en"><![CDATA[Firebug]]></value>
+        <value xml:lang="ro"><![CDATA[Firebug]]></value>
     </item>
     <item name="level">
         <value xml:lang="en"><![CDATA[Level]]></value>
+        <value xml:lang="ro"><![CDATA[Nivel]]></value>
     </item>
     <item name="toolbar">
         <value xml:lang="en"><![CDATA[Toolbar]]></value>
+        <value xml:lang="ro"><![CDATA[Bară de unelte]]></value>
     </item>
     <item name="slow_queries_threshold">
         <value xml:lang="en"><![CDATA[Slow queries threshold (ms)]]></value>
+        <value xml:lang="ro"><![CDATA[Prag pentru query-uri lente]]></value>
     </item>
     <item name="handlers">
         <value xml:lang="en"><![CDATA[Handlers]]></value>
+        <value xml:lang="ro"><![CDATA[Handlers]]></value>
     </item>
     <item name="current_environment">
         <value xml:lang="en"><![CDATA[Current environment is:]]></value>
+        <value xml:lang="ro"><![CDATA[Mediul curent esteŞ]]></value>
     </item>
     <item name="dev">
         <value xml:lang="en"><![CDATA[Development]]></value>
+        <value xml:lang="ro"><![CDATA[Dezvoltare]]></value>
     </item>
     <item name="prod">
         <value xml:lang="en"><![CDATA[Production]]></value>
+        <value xml:lang="ro"><![CDATA[Producţie]]></value>
     </item>
     <item name="toolbar_disabled_gzip">
         <value xml:lang="en"><![CDATA[Debug toolbar cannot be used when gzip compression is enabled]]></value>
+        <value xml:lang="ro"><![CDATA[Bara pentru debug nu poate fi folosită când compresia gzip este activă]]></value>
     </item>
     <item name="documents">
         <value xml:lang="en"><![CDATA[Documents]]></value>
+        <value xml:lang="ro"><![CDATA[Documente]]></value>
     </item>
     <item name="comments">
         <value xml:lang="en"><![CDATA[Comments]]></value>
+        <value xml:lang="ro"><![CDATA[Comentarii]]></value>
     </item>
     <item name="trackbacks">
         <value xml:lang="en"><![CDATA[Trackbacks]]></value>
+        <value xml:lang="ro"><![CDATA[Trackback-uri]]></value>
     </item>
     <item name="files">
         <value xml:lang="en"><![CDATA[Files]]></value>
+        <value xml:lang="ro"><![CDATA[Fisiere]]></value>
     </item>
 </lang>

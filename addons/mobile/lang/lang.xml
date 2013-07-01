@@ -8,6 +8,7 @@
 		<value xml:lang="zh-TW"><![CDATA[已選擇語言]]></value>
 		<value xml:lang="ru"><![CDATA[Дейсвующй язык]]></value>
 		<value xml:lang="vi"><![CDATA[Chọn ngôn ngữ]]></value>
+        <value xml:lang="ro"><![CDATA[Limba selectată]]></value>
 	</item>
 	<item name="select_lang">
 		<value xml:lang="ko"><![CDATA[언어 선택]]></value>
@@ -17,6 +18,7 @@
 		<value xml:lang="zh-TW"><![CDATA[選擇語言]]></value>
 		<value xml:lang="ru"><![CDATA[Выбор языка]]></value>
 		<value xml:lang="vi"><![CDATA[Chọn ngôn ngữ]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează limba]]></value>
 	</item>
 	<item name="lang_return">
 		<value xml:lang="ko"><![CDATA[돌아가기]]></value>
@@ -26,6 +28,7 @@
 		<value xml:lang="zh-TW"><![CDATA[返回]]></value>
 		<value xml:lang="ru"><![CDATA[Вернуться]]></value>
 		<value xml:lang="vi"><![CDATA[Trở lại]]></value>
+        <value xml:lang="ro"><![CDATA[Înapoi]]></value>
 	</item>
 	<item name="cmd_go_upper">
 		<value xml:lang="ko"><![CDATA[상위]]></value>
@@ -35,6 +38,7 @@
 		<value xml:lang="zh-TW"><![CDATA[回上頁]]></value>
 		<value xml:lang="ru"><![CDATA[Вверх]]></value>
 		<value xml:lang="vi"><![CDATA[Lên trên]]></value>
+        <value xml:lang="ro"><![CDATA[Litere mari]]></value>
 	</item>
 	<item name="cmd_go_home">
 		<value xml:lang="ko"><![CDATA[홈으로]]></value>
@@ -44,6 +48,7 @@
 		<value xml:lang="zh-TW"><![CDATA[回首頁]]></value>
 		<value xml:lang="ru"><![CDATA[На главную страницу]]></value>
 		<value xml:lang="vi"><![CDATA[Về trang chủ]]></value>
+        <value xml:lang="ro"><![CDATA[Acasă]]></value>
 	</item>
 	<item name="cmd_view_sitemap">
 		<value xml:lang="ko"><![CDATA[사이트맵 보기]]></value>
@@ -53,5 +58,6 @@
 		<value xml:lang="zh-TW"><![CDATA[網站地圖]]></value>
 		<value xml:lang="ru"><![CDATA[Посмотреть карту сайта]]></value>
 		<value xml:lang="vi"><![CDATA[Xem sơ đồ Web]]></value>
+        <value xml:lang="ro"><![CDATA[Vezi hartă site]]></value>
 	</item>
 </lang>

@@ -6,6 +6,7 @@
 		<value xml:lang="jp"><![CDATA[アルファベット順に入力してください。大文字、小文字は区別しません。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[请依次输入图片中的文字，不区分大小写]]></value>
 		<value xml:lang="zh-TW"><![CDATA[請依序輸入圖片中的文字，不分大小寫。]]></value>
+        <value xml:lang="ro"><![CDATA[Te rog introdu caracterele pe care le vezi in imagine. Nu contează dacă sunt litere mari sau mici.]]></value>
 	</item>
 	<item name="captcha_reload">
 		<value xml:lang="ko"><![CDATA[이미지 새로고침]]></value>
@@ -13,6 +14,7 @@
 		<value xml:lang="jp"><![CDATA[リフレッシュ]]></value>
 		<value xml:lang="zh-CN"><![CDATA[刷新]]></value>
 		<value xml:lang="zh-TW"><![CDATA[更換]]></value>
+        <value xml:lang="ro"><![CDATA[Schimbă imaginea]]></value>
 	</item>
 	<item name="captcha_play">
 		<value xml:lang="ko"><![CDATA[음성으로 듣기]]></value>
@@ -20,6 +22,7 @@
 		<value xml:lang="jp"><![CDATA[音声]]></value>
 		<value xml:lang="zh-CN"><![CDATA[播放]]></value>
 		<value xml:lang="zh-TW"><![CDATA[播放]]></value>
+        <value xml:lang="ro"><![CDATA[Ascultă şi introdu literele pe care le auzi.]]></value>
 	</item>
 	<item name="captcha_denied">
 		<value xml:lang="ko"><![CDATA[잘못 입력하셨습니다]]></value>
@@ -27,5 +30,6 @@
 		<value xml:lang="jp"><![CDATA[正しく入力してください。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[验证码错误]]></value>
 		<value xml:lang="zh-TW"><![CDATA[輸入錯誤]]></value>
+        <value xml:lang="ro"><![CDATA[Caracterele introduse nu corespund cu cele din cuvântul de verificare.]]></value>
 	</item>
 </lang>

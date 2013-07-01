@@ -47,6 +47,7 @@
 		<value xml:lang="es"><![CDATA[Usuario registrado]]></value>
 		<value xml:lang="tr"><![CDATA[Asil Üye]]></value>
 		<value xml:lang="vi"><![CDATA[Member]]></value>
+        <value xml:lang="ro"><![CDATA[Membri asociaţi]]></value>
 	</item>
 	<item name="default_group_2">
 		<value xml:lang="ko"><![CDATA[정회원]]></value>
@@ -59,6 +60,7 @@
 		<value xml:lang="es"><![CDATA[Usuario regular]]></value>
 		<value xml:lang="tr"><![CDATA[Sıradan Üye]]></value>
 		<value xml:lang="vi"><![CDATA[Moderator]]></value>
+        <value xml:lang="ro"><![CDATA[Membri]]></value>
 	</item>
 	<item name="admin_group">
 		<value xml:lang="ko"><![CDATA[관리그룹]]></value>
@@ -71,6 +73,7 @@
 		<value xml:lang="es"><![CDATA[Manejo del grupo]]></value>
 		<value xml:lang="tr"><![CDATA[Grup Yönetimi]]></value>
 		<value xml:lang="vi"><![CDATA[Administrator]]></value>
+        <value xml:lang="ro"><![CDATA[Administratori]]></value>
 	</item>
 	<item name="keep_signed">
 		<value xml:lang="ko"><![CDATA[로그인 유지]]></value>
@@ -206,6 +209,7 @@
 		<value xml:lang="es"><![CDATA[Registro del envío de mail]]></value>
 		<value xml:lang="tr"><![CDATA[Mailleşmeyi Aç]]></value>
 		<value xml:lang="vi"><![CDATA[Đồng ý nhận Email]]></value>
+        <value xml:lang="ro"><![CDATA[Pot primi mail-uri]]></value>
 	</item>
 	<item name="is_admin">
 		<value xml:lang="ko"><![CDATA[최고 관리 권한]]></value>
@@ -230,6 +234,7 @@
 		<value xml:lang="es"><![CDATA[Grupo asignado]]></value>
 		<value xml:lang="tr"><![CDATA[Grup]]></value>
 		<value xml:lang="vi"><![CDATA[Phân nhóm]]></value>
+        <value xml:lang="ro"><![CDATA[Grupuri de membri]]></value>
 	</item>
 	<item name="group_title">
 		<value xml:lang="ko"><![CDATA[그룹 제목]]></value>
@@ -568,6 +573,7 @@
 		<value xml:lang="es"><![CDATA[Información del Usuario]]></value>
 		<value xml:lang="tr"><![CDATA[Üye Bilgisi]]></value>
 		<value xml:lang="vi"><![CDATA[Thông tin cá nhân]]></value>
+        <value xml:lang="ro"><![CDATA[Informaţii utilizator]]></value>
 	</item>
 	<item name="current_password">
 		<value xml:lang="ko"><![CDATA[현재 비밀번호]]></value>
@@ -590,6 +596,7 @@
 		<value xml:lang="ru"><![CDATA[Сообщения разрешены]]></value>
 		<value xml:lang="tr"><![CDATA[Mesajlaşmaya İzin Ver]]></value>
 		<value xml:lang="vi"><![CDATA[Nhận tin nhắn]]></value>
+        <value xml:lang="ro"><![CDATA[Mesaje]]></value>
 	</item>
 	<item name="allow_message_type" type="array">
 		<item name="Y">
@@ -601,6 +608,7 @@
 			<value xml:lang="ru"><![CDATA[Разрешено всем]]></value>
 			<value xml:lang="tr"><![CDATA[Tümüne İzin Ver]]></value>
 			<value xml:lang="vi"><![CDATA[Tất cả]]></value>
+            <value xml:lang="ro"><![CDATA[toate mesajele]]></value>
 		</item>
 		<item name="F">
 			<value xml:lang="ko"><![CDATA[등록된 친구들만 허용]]></value>
@@ -611,6 +619,7 @@
 			<value xml:lang="ru"><![CDATA[Разрешено только зарегистрированным друзьям]]></value>
 			<value xml:lang="tr"><![CDATA[Arkadaşlara İzin Ver]]></value>
 			<value xml:lang="vi"><![CDATA[Chỉ của bạn bè]]></value>
+            <value xml:lang="ro"><![CDATA[doar de la prieteni]]></value>
 		</item>
 		<item name="N">
 			<value xml:lang="ko"><![CDATA[모두 금지]]></value>
@@ -621,6 +630,7 @@
 			<value xml:lang="ru"><![CDATA[Запрещено всем]]></value>
 			<value xml:lang="tr"><![CDATA[Tümünü Geri Çevir]]></value>
 			<value xml:lang="vi"><![CDATA[Từ chối tất cả]]></value>
+            <value xml:lang="ro"><![CDATA[nu vreau să primesc mesaje]]></value>
 		</item>
 	</item>
 	<item name="about_allow_message">
@@ -913,6 +923,7 @@
 		<value xml:lang="es"><![CDATA[Información del usuario]]></value>
 		<value xml:lang="tr"><![CDATA[Üye Bilgisi]]></value>
 		<value xml:lang="vi"><![CDATA[Xem thông tin cá nhân]]></value>
+        <value xml:lang="ro"><![CDATA[Detalii cont]]></value>
 	</item>
 	<item name="cmd_leave">
 		<value xml:lang="ko"><![CDATA[탈퇴]]></value>
@@ -1047,6 +1058,7 @@
 		<value xml:lang="es"><![CDATA[Ver documentos escritos]]></value>
 		<value xml:lang="tr"><![CDATA[Yazılmış Makaleler]]></value>
 		<value xml:lang="vi"><![CDATA[Bài gửi]]></value>
+        <value xml:lang="en"><![CDATA[Documente scrise]]></value>
 	</item>
 	<item name="cmd_manage_member_info">
 		<value xml:lang="ko"><![CDATA[회원 정보 관리]]></value>
@@ -1089,6 +1101,7 @@
 		<value xml:lang="es"><![CDATA[Ver Scraps]]></value>
 		<value xml:lang="tr"><![CDATA[Hasarlılar]]></value>
 		<value xml:lang="vi"><![CDATA[Phân loại]]></value>
+        <value xml:lang="ro"><![CDATA[Documente temporare]]></value>
 	</item>
 	<item name="cmd_view_saved_document">
 		<value xml:lang="ko"><![CDATA[저장함 보기]]></value>
@@ -1101,6 +1114,7 @@
 		<value xml:lang="es"><![CDATA[Ver artículos guardados]]></value>
 		<value xml:lang="tr"><![CDATA[Kayıtlı Makaleler]]></value>
 		<value xml:lang="vi"><![CDATA[Bài viết đã lưu]]></value>
+        <value xml:lang="ro"><![CDATA[Documente salvate]]></value>
 	</item>
 	<item name="cmd_send_email">
 		<value xml:lang="ko"><![CDATA[메일 보내기]]></value>
@@ -1113,6 +1127,7 @@
 		<value xml:lang="es"><![CDATA[Enviar Email]]></value>
 		<value xml:lang="tr"><![CDATA[Mail Gönder]]></value>
 		<value xml:lang="vi"><![CDATA[Gửi eMail]]></value>
+        <value xml:lang="ro"><![CDATA[Trimite e-mail]]></value>
 	</item>
 	<item name="msg_email_not_exists">
 		<value xml:lang="ko"><![CDATA[이메일 주소가 존재하지 않습니다.]]></value>
@@ -2099,6 +2114,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="jp"><![CDATA[秘密質問]]></value>
 		<value xml:lang="zh-TW"><![CDATA[密碼提示問答]]></value>
 		<value xml:lang="tr"><![CDATA[Geçici şifre sorusu]]></value>
+        <value xml:lang="ro"><![CDATA[Întrebare pentru parolă temporară.]]></value>
 	</item>
 	<item name="find_account_answer">
 		<value xml:lang="ko"><![CDATA[비밀번호 찾기 답변]]></value>
@@ -2123,6 +2139,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 			<value xml:lang="jp"><![CDATA[他のメールアドレスは？]]></value>
 			<value xml:lang="zh-TW"><![CDATA[其他電子郵件?]]></value>
 			<value xml:lang="tr"><![CDATA[Diğer e-posta adresiniz nedir?]]></value>
+            <value xml:lang="ro"><![CDATA[Care este adresa ta de e-mail alternativă?]]></value>
 		</item>
 		<item name="2">
 			<value xml:lang="ko"><![CDATA[나의 보물 1호는?]]></value>
@@ -2130,6 +2147,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 			<value xml:lang="jp"><![CDATA[私の一番大事なものは？]]></value>
 			<value xml:lang="zh-TW"><![CDATA[我最愛的是?]]></value>
 			<value xml:lang="tr"><![CDATA[En sevdiğiniz şey?]]></value>
+            <value xml:lang="ro"><![CDATA[Care este lucrul tău preferat?]]></value>
 		</item>
 		<item name="3">
 			<value xml:lang="ko"><![CDATA[나의 출신 초등학교는?]]></value>
@@ -2137,6 +2155,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 			<value xml:lang="jp"><![CDATA[私の卒業した小学校は？]]></value>
 			<value xml:lang="zh-TW"><![CDATA[我讀的國小是?]]></value>
 			<value xml:lang="tr"><![CDATA[Mezun olduğunuz ilkokul?]]></value>
+            <value xml:lang="ro"><![CDATA[Unde ai făcut şcoala primară?]]></value>
 		</item>
 		<item name="4">
 			<value xml:lang="ko"><![CDATA[나의 출신 고향은?]]></value>
@@ -2144,6 +2163,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 			<value xml:lang="jp"><![CDATA[私の生まれた街は？]]></value>
 			<value xml:lang="zh-TW"><![CDATA[我的出生地?]]></value>
 			<value xml:lang="tr"><![CDATA[Memleketiniz neresi?]]></value>
+            <value xml:lang="ro"><![CDATA[Care este oraşul de baştină?]]></value>
 		</item>
 		<item name="5">
 			<value xml:lang="ko"><![CDATA[나의 이상형은?]]></value>
@@ -2151,6 +2171,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 			<value xml:lang="jp"><![CDATA[私の理想のタイプは？]]></value>
 			<value xml:lang="zh-TW"><![CDATA[我的理想?]]></value>
 			<value xml:lang="tr"><![CDATA[İdeal eşiniz nasıl olmalı?]]></value>
+            <value xml:lang="ro"><![CDATA[Cine este persoana ta potrivită?]]></value>
 		</item>
 		<item name="6">
 			<value xml:lang="ko"><![CDATA[어머니 성함은?]]></value>
@@ -2158,6 +2179,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 			<value xml:lang="jp"><![CDATA[母の名前は？]]></value>
 			<value xml:lang="zh-TW"><![CDATA[母親的姓名?]]></value>
 			<value xml:lang="tr"><![CDATA[Annenizin adı?]]></value>
+            <value xml:lang="ro"><![CDATA[Care este numele mamei tale?]]></value>
 		</item>
 		<item name="7">
 			<value xml:lang="ko"><![CDATA[아버지 성함은?]]></value>
@@ -2165,6 +2187,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 			<value xml:lang="jp"><![CDATA[父の名前は？]]></value>
 			<value xml:lang="zh-TW"><![CDATA[父親的姓名?]]></value>
 			<value xml:lang="tr"><![CDATA[Babanızın adı?]]></value>
+            <value xml:lang="ro"><![CDATA[Care este numele tatălui tău?]]></value>
 		</item>
 		<item name="8">
 			<value xml:lang="ko"><![CDATA[가장 좋아하는 색깔은?]]></value>
@@ -2172,6 +2195,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 			<value xml:lang="jp"><![CDATA[好きな色は？]]></value>
 			<value xml:lang="zh-TW"><![CDATA[最喜歡的顏色?]]></value>
 			<value xml:lang="tr"><![CDATA[En sevdiğiniz renk?]]></value>
+            <value xml:lang="ro"><![CDATA[Care este culoarea ta preferată?]]></value>
 		</item>
 		<item name="9">
 			<value xml:lang="ko"><![CDATA[가장 좋아하는 음식은?]]></value>
@@ -2179,6 +2203,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 			<value xml:lang="jp"><![CDATA[好きな食べ物は？]]></value>
 			<value xml:lang="zh-TW"><![CDATA[最愛的食物是?]]></value>
 			<value xml:lang="tr"><![CDATA[En sevdiğiniz yemek?]]></value>
+            <value xml:lang="ro"><![CDATA[Care este mâncarea ta preferată?]]></value>
 		</item>
 	</item>
 	<item name="temp_password">
@@ -2187,6 +2212,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="jp"><![CDATA[仮のパスワード]]></value>
 		<value xml:lang="zh-TW"><![CDATA[臨時密碼]]></value>
 		<value xml:lang="tr"><![CDATA[Geçici şifre]]></value>
+        <value xml:lang="ro"><![CDATA[Parolă temporară]]></value>
 	</item>
 	<item name="cmd_get_temp_password">
 		<value xml:lang="ko"><![CDATA[임시 비밀번호 발급]]></value>
@@ -2577,5 +2603,20 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
         <value xml:lang="en"><![CDATA[Account Details]]></value>
         <value xml:lang="ro"><![CDATA[Detalii cont]]></value>
     </item>
-
+    <item name="privacy_options">
+        <value xml:lang="en"><![CDATA[Privacy Options]]></value>
+        <value xml:lang="ro"><![CDATA[Optiuni]]></value>
+    </item>
+    <item name="homepage">
+        <value xml:lang="en"><![CDATA[Homepage]]></value>
+        <value xml:lang="ro"><![CDATA[Pagină personală]]></value>
+    </item>
+    <item name="blog">
+        <value xml:lang="en"><![CDATA[Blog]]></value>
+        <value xml:lang="ro"><![CDATA[Blog]]></value>
+    </item>
+    <item name="birthday">
+        <value xml:lang="en"><![CDATA[Birthday]]></value>
+        <value xml:lang="ro"><![CDATA[Ziua de naştere]]></value>
+    </item>
 </lang>

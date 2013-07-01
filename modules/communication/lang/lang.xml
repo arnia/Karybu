@@ -9,10 +9,11 @@
 		<value xml:lang="ru"><![CDATA[Общение]]></value>
 		<value xml:lang="tr"><![CDATA[İletişim]]></value>
 		<value xml:lang="vi"><![CDATA[Thông báo]]></value>
+        <value xml:lang="ro"><![CDATA[Comunicare]]></value>
 	</item>
 	<item name="about_communication">
 		<value xml:lang="ko"><![CDATA[회원 간의 쪽지나 친구 관리 등 커뮤니케이션 기능을 수행하는 모듈입니다.]]></value>
-		<value xml:lang="en"><![CDATA[This module is used for communication between members, such as exchanging messages or mamaging friends.]]></value>
+		<value xml:lang="en"><![CDATA[This module is used for communication between members, such as exchanging messages or managing friends.]]></value>
 		<value xml:lang="jp"><![CDATA[会員間でメッセージや友達管理などコミュニティ機能を提供するモジュールです。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[管理在线会员间短信息及好友功能的模块。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[管理短訊息及好友功能的模組。]]></value>
@@ -21,6 +22,7 @@
 		<value xml:lang="es"><![CDATA[회원간의 쪽지나 친구 관리등 커뮤니케이션 기능을 수행하는 모듈입니다]]></value>
 		<value xml:lang="tr"><![CDATA[İletişim modülü; üyelerin, mesajlaşması ve arkadaşlarıyla iletişimleri için kullanılan modüldür.]]></value>
 		<value xml:lang="vi"><![CDATA[Module này thực hiện chức năng giao tiếp, tin nhắn hay bạn bè.]]></value>
+        <value xml:lang="ro"><![CDATA[Modulul este folosit pentru comunicarea intre utilizatori, cum ar fi, schimbul de mesaje şi administarea de prieteni.]]></value>
 	</item>
 	<item name="allow_message">
 		<value xml:lang="ko"><![CDATA[쪽지 수신 허용]]></value>
@@ -32,6 +34,7 @@
 		<value xml:lang="ru"><![CDATA[Получать сообщения]]></value>
 		<value xml:lang="es"><![CDATA[Permitir la recepción del mensaje]]></value>
 		<value xml:lang="vi"><![CDATA[Nhận tin nhắn]]></value>
+        <value xml:lang="ro"><![CDATA[Primire mesaje]]></value>
 	</item>
 	<item name="allow_message_type" type="array">
 		<item name="Y">
@@ -45,6 +48,7 @@
 			<value xml:lang="es"><![CDATA[Recibir todo]]></value>
 			<value xml:lang="tr"><![CDATA[Hepsini Al]]></value>
 			<value xml:lang="vi"><![CDATA[Nhận tất cả]]></value>
+            <value xml:lang="ro"><![CDATA[Acceptă toate]]></value>
 		</item>
 		<item name="N">
 			<value xml:lang="ko"><![CDATA[거부]]></value>
@@ -57,6 +61,7 @@
 			<value xml:lang="es"><![CDATA[Rechazar]]></value>
 			<value xml:lang="tr"><![CDATA[Hepsini Geri Çevir]]></value>
 			<value xml:lang="vi"><![CDATA[Từ chối tất cả]]></value>
+            <value xml:lang="ro"><![CDATA[Respinge toate]]></value>
 		</item>
 		<item name="F">
 			<value xml:lang="ko"><![CDATA[친구만 허용]]></value>
@@ -69,6 +74,7 @@
 			<value xml:lang="es"><![CDATA[Sólo amigos]]></value>
 			<value xml:lang="tr"><![CDATA[Sadece Arkadaşlar]]></value>
 			<value xml:lang="vi"><![CDATA[Chỉ bạn bè]]></value>
+            <value xml:lang="ro"><![CDATA[Doar de la prieteni]]></value>
 		</item>
 	</item>
 	<item name="message_box" type="array">
@@ -83,6 +89,7 @@
 			<value xml:lang="es"><![CDATA[Recibido]]></value>
 			<value xml:lang="tr"><![CDATA[Gelen]]></value>
 			<value xml:lang="vi"><![CDATA[Đã nhận]]></value>
+            <value xml:lang="ro"><![CDATA[Inbox]]></value>
 		</item>
 		<item name="S">
 			<value xml:lang="ko"><![CDATA[보낸 쪽지함]]></value>
@@ -95,6 +102,7 @@
 			<value xml:lang="es"><![CDATA[Enviado]]></value>
 			<value xml:lang="tr"><![CDATA[Gönderilmiş]]></value>
 			<value xml:lang="vi"><![CDATA[Gửi]]></value>
+            <value xml:lang="ro"><![CDATA[Trimise]]></value>
 		</item>
 		<item name="T">
 			<value xml:lang="ko"><![CDATA[보관함]]></value>
@@ -107,6 +115,7 @@
 			<value xml:lang="es"><![CDATA[Buzon de Email]]></value>
 			<value xml:lang="tr"><![CDATA[PostaKutusu]]></value>
 			<value xml:lang="vi"><![CDATA[Hòm thư]]></value>
+            <value xml:lang="ro"><![CDATA[Arhivă]]></value>
 		</item>
 	</item>
 	<item name="readed_date">
@@ -120,6 +129,7 @@
 		<value xml:lang="es"><![CDATA[Fecha Leído]]></value>
 		<value xml:lang="tr"><![CDATA[Okuma Tarihi]]></value>
 		<value xml:lang="vi"><![CDATA[Ngày đọc]]></value>
+        <value xml:lang="ro"><![CDATA[Data citirii]]></value>
 	</item>
 	<item name="sender">
 		<value xml:lang="ko"><![CDATA[보낸이]]></value>
@@ -132,6 +142,7 @@
 		<value xml:lang="es"><![CDATA[Remitente]]></value>
 		<value xml:lang="tr"><![CDATA[Gönderen]]></value>
 		<value xml:lang="vi"><![CDATA[Người gửi]]></value>
+        <value xml:lang="ro"><![CDATA[De la]]></value>
 	</item>
 	<item name="receiver">
 		<value xml:lang="ko"><![CDATA[받는이]]></value>
@@ -144,6 +155,7 @@
 		<value xml:lang="es"><![CDATA[Receptor]]></value>
 		<value xml:lang="tr"><![CDATA[Alıcı]]></value>
 		<value xml:lang="vi"><![CDATA[Người nhận]]></value>
+        <value xml:lang="ro"><![CDATA[Către]]></value>
 	</item>
 	<item name="friend_group">
 		<value xml:lang="ko"><![CDATA[친구 그룹]]></value>
@@ -156,6 +168,7 @@
 		<value xml:lang="es"><![CDATA[Grupo de amigos]]></value>
 		<value xml:lang="tr"><![CDATA[Arkadaş Grubu]]></value>
 		<value xml:lang="vi"><![CDATA[Nhóm bạn]]></value>
+        <value xml:lang="ro"><![CDATA[Grup de prieteni]]></value>
 	</item>
 	<item name="default_friend_group">
 		<value xml:lang="ko"><![CDATA[그룹 미지정]]></value>
@@ -168,6 +181,7 @@
 		<value xml:lang="es"><![CDATA[Grupo desasignado]]></value>
 		<value xml:lang="tr"><![CDATA[Atanmamış Grup]]></value>
 		<value xml:lang="vi"><![CDATA[Nhóm mặc định]]></value>
+        <value xml:lang="ro"><![CDATA[Grup neasignat]]></value>
 	</item>
 	<item name="cmd_send_message">
 		<value xml:lang="ko"><![CDATA[쪽지 보내기]]></value>
@@ -180,6 +194,7 @@
 		<value xml:lang="es"><![CDATA[Enviar Mensaje]]></value>
 		<value xml:lang="tr"><![CDATA[Mesaj Gönder]]></value>
 		<value xml:lang="vi"><![CDATA[Gửi tin nhắn]]></value>
+        <value xml:lang="ro"><![CDATA[Trimite mesaj]]></value>
 	</item>
 	<item name="cmd_reply_message">
 		<value xml:lang="ko"><![CDATA[쪽지 답장]]></value>
@@ -192,6 +207,7 @@
 		<value xml:lang="es"><![CDATA[Responder el mensaje]]></value>
 		<value xml:lang="tr"><![CDATA[Mesajı Yanıtla]]></value>
 		<value xml:lang="vi"><![CDATA[Trả lời tin nhắn]]></value>
+        <value xml:lang="ro"><![CDATA[Răspunde la mesaj]]></value>
 	</item>
 	<item name="cmd_view_friend">
 		<value xml:lang="ko"><![CDATA[친구 보기]]></value>
@@ -204,6 +220,7 @@
 		<value xml:lang="es"><![CDATA[Amigos]]></value>
 		<value xml:lang="tr"><![CDATA[Arkadaşlar]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn bè]]></value>
+        <value xml:lang="ro"><![CDATA[Prieteni]]></value>
 	</item>
 	<item name="cmd_add_friend">
 		<value xml:lang="ko"><![CDATA[친구 등록]]></value>
@@ -216,6 +233,7 @@
 		<value xml:lang="es"><![CDATA[Registrar como Amigo]]></value>
 		<value xml:lang="tr"><![CDATA[Arkadaş Ekle]]></value>
 		<value xml:lang="vi"><![CDATA[Thêm bạn]]></value>
+        <value xml:lang="ro"><![CDATA[Adauga prieten]]></value>
 	</item>
 	<item name="cmd_view_message_box">
 		<value xml:lang="ko"><![CDATA[쪽지함 보기]]></value>
@@ -228,6 +246,7 @@
 		<value xml:lang="es"><![CDATA[Buzón de mensajes]]></value>
 		<value xml:lang="tr"><![CDATA[Mesaj Kutusu]]></value>
 		<value xml:lang="vi"><![CDATA[Hộp tin nhắn]]></value>
+        <value xml:lang="ro"><![CDATA[Mesaje]]></value>
 	</item>
 	<item name="cmd_store">
 		<value xml:lang="ko"><![CDATA[보관]]></value>
@@ -240,6 +259,7 @@
 		<value xml:lang="es"><![CDATA[Guardar]]></value>
 		<value xml:lang="tr"><![CDATA[Kaydet]]></value>
 		<value xml:lang="vi"><![CDATA[Lưu]]></value>
+        <value xml:lang="ro"><![CDATA[Salvează]]></value>
 	</item>
 	<item name="cmd_add_friend_group">
 		<value xml:lang="ko"><![CDATA[친구 그룹 추가]]></value>
@@ -252,6 +272,7 @@
 		<value xml:lang="es"><![CDATA[agregar grupo de amigos]]></value>
 		<value xml:lang="tr"><![CDATA[Arkadaş Grubu Ekle]]></value>
 		<value xml:lang="vi"><![CDATA[Thêm nhóm bạn]]></value>
+        <value xml:lang="ro"><![CDATA[Adaugă grup de prieteni]]></value>
 	</item>
 	<item name="cmd_rename_friend_group">
 		<value xml:lang="ko"><![CDATA[친구 그룹 이름 변경]]></value>
@@ -264,6 +285,7 @@
 		<value xml:lang="es"><![CDATA[Cambiar el nombre del grupo de amigos]]></value>
 		<value xml:lang="tr"><![CDATA[Arkadaş Grubu İsmini Düzenle]]></value>
 		<value xml:lang="vi"><![CDATA[Sử tên nhóm]]></value>
+        <value xml:lang="ro"><![CDATA[Modifică numele grupului de prieteni]]></value>
 	</item>
 	<item name="msg_no_message">
 		<value xml:lang="ko"><![CDATA[쪽지가 없습니다.]]></value>
@@ -276,11 +298,13 @@
 		<value xml:lang="es"><![CDATA[No hay mensajes]]></value>
 		<value xml:lang="tr"><![CDATA[Mesaj yok]]></value>
 		<value xml:lang="vi"><![CDATA[Không có tin nhắn nào.]]></value>
+        <value xml:lang="ro"><![CDATA[Nu există mesaje]]></value>
 	</item>
 	<item name="msg_cannot_send_to_yourself">
 		<value xml:lang="ko"><![CDATA[자기 자신에게 쪽지를 보낼 수 없습니다.]]></value>
 		<value xml:lang="en"><![CDATA[Cannot send a message to yourself.]]></value>
 		<value xml:lang="jp"><![CDATA[自分自身へのメッセージ送信はできません。]]></value>
+        <value xml:lang="ro"><![CDATA[Nu îţi poti trimite singur mesaje]]></value>
 	</item> 
 	<item name="message_received">
 		<value xml:lang="ko"><![CDATA[쪽지가 왔습니다.]]></value>
@@ -293,6 +317,7 @@
 		<value xml:lang="es"><![CDATA[Usted ha recibido un mensaje]]></value>
 		<value xml:lang="tr"><![CDATA[Yeni bir mesajınız var]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có tin nhắn mới.]]></value>
+        <value xml:lang="ro"><![CDATA[Ai un mesaj nou]]></value>
 	</item>
 	<item name="msg_title_is_null">
 		<value xml:lang="ko"><![CDATA[쪽지 제목을 입력해주세요.]]></value>
@@ -305,6 +330,7 @@
 		<value xml:lang="es"><![CDATA[Por favor ingresar el título de la nota]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen mesaj başlığı giriniz]]></value>
 		<value xml:lang="vi"><![CDATA[Xin vui lòng nhập tiêu đề của tin nhắn.]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu subiactul mesajului]]></value>
 	</item>
 	<item name="msg_content_is_null">
 		<value xml:lang="ko"><![CDATA[내용을 입력해주세요.]]></value>
@@ -317,6 +343,7 @@
 		<value xml:lang="es"><![CDATA[Por favor ingresar el contenido]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen içeriği giriniz]]></value>
 		<value xml:lang="vi"><![CDATA[Xin vui lòng nhập nội dung.]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu conţinutul.]]></value>
 	</item>
 	<item name="msg_allow_message_to_friend">
 		<value xml:lang="ko"><![CDATA[친구에게만 쪽지 발송을 허용한 사용자라서 쪽지 발송을 하지 못했습니다.]]></value>
@@ -329,6 +356,7 @@
 		<value xml:lang="es"><![CDATA[Falló el envío por permitir sólo mensajes de sus amigos]]></value>
 		<value xml:lang="tr"><![CDATA[Alıcı yalnızca arkadaşlarından gelen mesajları kabul ettiği için mesaj gönderilemedi]]></value>
 		<value xml:lang="vi"><![CDATA[Không thể gửi vì người nhận chỉ chấp nhận những tin nhắn từ bạn bè của họ.]]></value>
+        <value xml:lang="ro"><![CDATA[Mesajul nu a fost trmis deoarece desitinatarul acceptă mesaje doar de la prieteni.]]></value>
 	</item>
 	<item name="msg_disallow_message">
 		<value xml:lang="ko"><![CDATA[쪽지 수신을 거부한 사용자라서 쪽지 발송을 하지 못했습니다.]]></value>
@@ -341,6 +369,7 @@
 		<value xml:lang="es"><![CDATA[Falló el envío por ser usuario rechazado para recibir mensajes]]></value>
 		<value xml:lang="tr"><![CDATA[Alıcı mesaj alımını kapattığı için mesaj gönderilemedi]]></value>
 		<value xml:lang="vi"><![CDATA[Không thể gửi vì người nhận đã từ chối nhận tin nhắn.]]></value>
+        <value xml:lang="ro"><![CDATA[Mesajul nu a fost trmis deoarece destinatarul nu accepta mesaje.]]></value>
 	</item>
 	<item name="about_allow_message">
 		<value xml:lang="ko"><![CDATA[쪽지 수신 여부를 결정할 수 있습니다.]]></value>
@@ -353,10 +382,12 @@
 		<value xml:lang="es"><![CDATA[Usted puede decidir la recepción del mensaje]]></value>
 		<value xml:lang="tr"><![CDATA[Mesaj alımını belirleyebilirsiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể đồng ý nhận tin nhắn.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi seta să primesti mesaje sau să nu primesti.]]></value>
 	</item>
 	<item name="message_notice">
 		<value xml:lang="ko"><![CDATA[저작자에게 쪽지를 발송해서 이 사실을 알립니다. 작성하지 않으면 발송하지 않습니다.]]></value>
 		<value xml:lang="en"><![CDATA[Send a message to the author about this. If you don't write a message, it is not sent.]]></value>
 		<value xml:lang="jp"><![CDATA[作成者にメッセージを送信し、知らせます。作成しなければ送信されません。]]></value>
+        <value xml:lang="ro"><![CDATA[Trimite un mesaj autorului. Dacă nu scrii un mesaj nu se va trimite nicio notificare]]></value>
 	</item>
 </lang>

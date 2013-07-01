@@ -9,6 +9,7 @@
     <title xml:lang="es">Addon para mostar el nivel del ícono</title>
     <title xml:lang="ru">Иконка уровня поинтов</title>
     <title xml:lang="zh-TW">點數等級圖案</title>
+    <title xml:lang="ro">Iconiţe pentru nivelul de puncte</title>
     <description xml:lang="ko">
         포인트 시스템을 사용중일 경우 사용자 이름 앞에 레벨 아이콘을 표시하도록 합니다.
         레벨 아이콘은 모듈 &gt; 포인트시스템에서 선택 가능합니다.
@@ -45,6 +46,10 @@
         使用點數系統時，可以在用戶名前顯示等級圖案。
         等級圖案可以在模組 &gt; 點數系統中進行選擇。
     </description>
+    <description xml:lang="ro">
+        Acest addon afişează o iconiţa pentru nivelul de puncte a unui utilzator când este activat sistemul de puncte.
+        Poţi selecta iconiţa din Modul &gt; Sistem de puncte.
+    </description>
     <version>0.1</version>
     <date>2007-07-26</date>
 
@@ -58,5 +63,6 @@
         <name xml:lang="es">Arnia</name>
         <name xml:lang="ru">Arnia</name>
         <name xml:lang="zh-TW">Arnia</name>
+        <name xml:lang="ro">Arnia</name>
     </author>
 </addon>

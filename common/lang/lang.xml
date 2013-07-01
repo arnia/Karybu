@@ -13,6 +13,7 @@
 		<value xml:lang="tr"><![CDATA[Yaz]]></value>
 		<value xml:lang="vi"><![CDATA[Gửi bài mới]]></value>
 		<value xml:lang="mn"><![CDATA[Бичих]]></value>
+        <value xml:lang="ro"><![CDATA[Scrie]]></value>
 	</item>
 	<item name="cmd_reply">
 		<value xml:lang="ko"><![CDATA[댓글]]></value>
@@ -27,6 +28,7 @@
 		<value xml:lang="tr"><![CDATA[Cevapla]]></value>
 		<value xml:lang="vi"><![CDATA[Trả lời]]></value>
 		<value xml:lang="mn"><![CDATA[Хариу]]></value>
+        <value xml:lang="en"><![CDATA[Comentariu]]></value>
 	</item>
 	<item name="cmd_delete">
 		<value xml:lang="ko"><![CDATA[삭제]]></value>
@@ -41,6 +43,7 @@
 		<value xml:lang="tr"><![CDATA[Sil]]></value>
 		<value xml:lang="vi"><![CDATA[Xóa]]></value>
 		<value xml:lang="mn"><![CDATA[Устгах]]></value>
+        <value xml:lang="ro"><![CDATA[Şterge]]></value>
 	</item>
 	<item name="cmd_modify">
 		<value xml:lang="ko"><![CDATA[수정]]></value>
@@ -55,6 +58,7 @@
 		<value xml:lang="tr"><![CDATA[Düzelt]]></value>
 		<value xml:lang="vi"><![CDATA[Thay đổi]]></value>
 		<value xml:lang="mn"><![CDATA[Засах]]></value>
+        <value xml:lang="ro"><![CDATA[Modifică]]></value>
 	</item>
 	<item name="cmd_edit">
 		<value xml:lang="ko"><![CDATA[편집]]></value>
@@ -69,6 +73,7 @@
 		<value xml:lang="tr"><![CDATA[Düzenle]]></value>
 		<value xml:lang="vi"><![CDATA[Sửa]]></value>
 		<value xml:lang="mn"><![CDATA[Өөрчлөх]]></value>
+        <value xml:lang="ro"><![CDATA[Editare]]></value>
 	</item>
 	<item name="cmd_view">
 		<value xml:lang="ko"><![CDATA[보기]]></value>
@@ -83,6 +88,7 @@
 		<value xml:lang="tr"><![CDATA[Görüntüle]]></value>
 		<value xml:lang="vi"><![CDATA[Xem]]></value>
 		<value xml:lang="mn"><![CDATA[Харах]]></value>
+        <value xml:lang="ro"><![CDATA[Vizualizare]]></value>
 	</item>
 	<item name="all">
 		<value xml:lang="ko"><![CDATA[전체]]></value>
@@ -90,6 +96,7 @@
 		<value xml:lang="jp"><![CDATA[すべて]]></value>
 		<value xml:lang="zh-CN"><![CDATA[全部]]></value>
 		<value xml:lang="zh-TW"><![CDATA[全部]]></value>
+        <value xml:lang="ro"><![CDATA[Toate]]></value>
 	</item>
 	<item name="cmd_view_all">
 		<value xml:lang="ko"><![CDATA[전체 보기]]></value>
@@ -104,6 +111,7 @@
 		<value xml:lang="tr"><![CDATA[Tümünü Görüntüle]]></value>
 		<value xml:lang="vi"><![CDATA[Xem tất cả]]></value>
 		<value xml:lang="mn"><![CDATA[Бүгдийг харах]]></value>
+        <value xml:lang="ro"><![CDATA[Vezi toate]]></value>
 	</item>
 	<item name="cmd_list">
 		<value xml:lang="ko"><![CDATA[목록]]></value>
@@ -118,6 +126,7 @@
 		<value xml:lang="tr"><![CDATA[Listele]]></value>
 		<value xml:lang="vi"><![CDATA[Danh sách]]></value>
 		<value xml:lang="mn"><![CDATA[Жагсаалт]]></value>
+        <value xml:lang="ro"><![CDATA[Listă]]></value>
 	</item>
 	<item name="cmd_prev">
 		<value xml:lang="ko"><![CDATA[이전]]></value>
@@ -132,6 +141,7 @@
 		<value xml:lang="tr"><![CDATA[Önceki]]></value>
 		<value xml:lang="vi"><![CDATA[Trước]]></value>
 		<value xml:lang="mn"><![CDATA[Өмнөх]]></value>
+        <value xml:lang="ro"><![CDATA[Anterior]]></value>
 	</item>
 	<item name="cmd_next">
 		<value xml:lang="ko"><![CDATA[다음]]></value>
@@ -146,6 +156,7 @@
 		<value xml:lang="tr"><![CDATA[Sonraki]]></value>
 		<value xml:lang="vi"><![CDATA[Tiếp]]></value>
 		<value xml:lang="mn"><![CDATA[Дараах]]></value>
+        <value xml:lang="ro"><![CDATA[Următorul]]></value>
 	</item>
 	<item name="cmd_send_trackback">
 		<value xml:lang="ko"><![CDATA[엮인글 발송]]></value>
@@ -174,6 +185,7 @@
 		<value xml:lang="tr"><![CDATA[Gönder]]></value>
 		<value xml:lang="vi"><![CDATA[Gửi]]></value>
 		<value xml:lang="mn"><![CDATA[Оруулах]]></value>
+        <value xml:lang="ro"><![CDATA[Trimite]]></value>
 	</item>
 	<item name="cmd_registration">
 		<value xml:lang="ko"><![CDATA[등록]]></value>
@@ -188,6 +200,7 @@
 		<value xml:lang="tr"><![CDATA[Gönder]]></value>
 		<value xml:lang="vi"><![CDATA[Gửi]]></value>
 		<value xml:lang="mn"><![CDATA[Оруулах]]></value>
+        <value xml:lang="ro"><![CDATA[Înregistrare]]></value>
 	</item>
 	<item name="cmd_comment_registration">
 		<value xml:lang="ko"><![CDATA[댓글 등록]]></value>
@@ -202,6 +215,7 @@
 		<value xml:lang="tr"><![CDATA[Yorum Ekle]]></value>
 		<value xml:lang="vi"><![CDATA[Gửi bình luận]]></value>
 		<value xml:lang="mn"><![CDATA[Коммент бичих]]></value>
+        <value xml:lang="ro"><![CDATA[Adaugă comentariu]]></value>
 	</item>
 	<item name="cmd_insert">
 		<value xml:lang="ko"><![CDATA[추가]]></value>
@@ -216,6 +230,7 @@
 		<value xml:lang="tr"><![CDATA[Ekle]]></value>
 		<value xml:lang="vi"><![CDATA[Chèn]]></value>
 		<value xml:lang="mn"><![CDATA[Нэмэх]]></value>
+        <value xml:lang="ro"><![CDATA[Inserează]]></value>
 	</item>
 	<item name="cmd_save">
 		<value xml:lang="ko"><![CDATA[저장]]></value>
@@ -230,6 +245,7 @@
 		<value xml:lang="tr"><![CDATA[Gönder]]></value>
 		<value xml:lang="vi"><![CDATA[Lưu]]></value>
 		<value xml:lang="mn"><![CDATA[Хадгалах]]></value>
+        <value xml:lang="ro"><![CDATA[Salvează]]></value>
 	</item>
 	<item name="cmd_load">
 		<value xml:lang="ko"><![CDATA[불러오기]]></value>
@@ -244,6 +260,7 @@
 		<value xml:lang="tr"><![CDATA[Yükle]]></value>
 		<value xml:lang="vi"><![CDATA[Tải]]></value>
 		<value xml:lang="mn"><![CDATA[Дуудах]]></value>
+        <value xml:lang="ro"><![CDATA[Încarcă]]></value>
 	</item>
 	<item name="cmd_input">
 		<value xml:lang="ko"><![CDATA[입력]]></value>
@@ -258,6 +275,7 @@
 		<value xml:lang="tr"><![CDATA[Veri gir]]></value>
 		<value xml:lang="vi"><![CDATA[Nhập vào]]></value>
 		<value xml:lang="mn"><![CDATA[Оруулах]]></value>
+        <value xml:lang="ro"><![CDATA[Input]]></value>
 	</item>
 	<item name="cmd_search">
 		<value xml:lang="ko"><![CDATA[검색]]></value>
@@ -285,6 +303,7 @@
 		<value xml:lang="ru"><![CDATA[Поиск]]></value>
 		<value xml:lang="tr"><![CDATA[Bul]]></value>
 		<value xml:lang="mn"><![CDATA[Хайх]]></value>
+        <value xml:lang="ro"><![CDATA[Găseşte]]></value>
 	</item>
 	<item name="cmd_replace">
 		<value xml:lang="ko"><![CDATA[바꾸기]]></value>
@@ -297,6 +316,7 @@
 		<value xml:lang="ru"><![CDATA[Поменять]]></value>
 		<value xml:lang="tr"><![CDATA[Değiştir]]></value>
 		<value xml:lang="mn"><![CDATA[Солих]]></value>
+        <value xml:lang="ro"><![CDATA[Înlocuieşte]]></value>
 	</item>
 	<item name="cmd_confirm">
 		<value xml:lang="ko"><![CDATA[확인]]></value>
@@ -309,6 +329,7 @@
 		<value xml:lang="ru"><![CDATA[Подтвердить]]></value>
 		<value xml:lang="tr"><![CDATA[Doğrula]]></value>
 		<value xml:lang="mn"><![CDATA[ОК]]></value>
+        <value xml:lang="ro"><![CDATA[Confirmă]]></value>
 	</item>
 	<item name="cmd_cancel">
 		<value xml:lang="ko"><![CDATA[취소]]></value>
@@ -323,6 +344,7 @@
 		<value xml:lang="tr"><![CDATA[İptal]]></value>
 		<value xml:lang="vi"><![CDATA[Loại bỏ]]></value>
 		<value xml:lang="mn"><![CDATA[Устгах]]></value>
+        <value xml:lang="ro"><![CDATA[Anulează]]></value>
 	</item>
 	<item name="cmd_back">
 		<value xml:lang="ko"><![CDATA[돌아가기]]></value>
@@ -337,6 +359,7 @@
 		<value xml:lang="tr"><![CDATA[Önceki Sayfa]]></value>
 		<value xml:lang="vi"><![CDATA[Về trang trước]]></value>
 		<value xml:lang="mn"><![CDATA[Буцах]]></value>
+        <value xml:lang="ro"><![CDATA[Înapoi]]></value>
 	</item>
 	<item name="cmd_vote">
 		<value xml:lang="ko"><![CDATA[추천]]></value>
@@ -351,6 +374,7 @@
 		<value xml:lang="tr"><![CDATA[Tavsiye Et]]></value>
 		<value xml:lang="vi"><![CDATA[Bình chọn]]></value>
 		<value xml:lang="mn"><![CDATA[Санал болгох]]></value>
+        <value xml:lang="ro"><![CDATA[Recomandă]]></value>
 	</item>
 	<item name="cmd_vote_down">
 		<value xml:lang="ko"><![CDATA[비추천]]></value>
@@ -365,6 +389,7 @@
 		<value xml:lang="tr"><![CDATA[Eleştir]]></value>
 		<value xml:lang="vi"><![CDATA[Phê bình]]></value>
 		<value xml:lang="mn"><![CDATA[Санал болгохгүй]]></value>
+        <value xml:lang="ro"><![CDATA[Nu recomanda]]></value>
 	</item>
 	<item name="cmd_declare">
 		<value xml:lang="ko"><![CDATA[신고]]></value>
@@ -379,6 +404,7 @@
 		<value xml:lang="tr"><![CDATA[Bildir]]></value>
 		<value xml:lang="vi"><![CDATA[Phạm quy]]></value>
 		<value xml:lang="mn"><![CDATA[Мэдээлэх]]></value>
+        <value xml:lang="ro"><![CDATA[Raportează]]></value>
 	</item>
 	<item name="cmd_cancel_declare">
 		<value xml:lang="ko"><![CDATA[신고 취소]]></value>
@@ -393,6 +419,7 @@
 		<value xml:lang="tr"><![CDATA[Bildirmeyi Geri al]]></value>
 		<value xml:lang="vi"><![CDATA[Loại bỏ báo cáo]]></value>
 		<value xml:lang="mn"><![CDATA[Мэдэгдлийг устгах]]></value>
+        <value xml:lang="ro"><![CDATA[Anulează raportare]]></value>
 	</item>
 	<item name="cmd_declared_list">
 		<value xml:lang="ko"><![CDATA[신고 목록]]></value>
@@ -407,6 +434,7 @@
 		<value xml:lang="tr"><![CDATA[Bildirme listesi]]></value>
 		<value xml:lang="vi"><![CDATA[Danh sách báo cáo]]></value>
 		<value xml:lang="mn"><![CDATA[Мэдээлсэн жагсаалт]]></value>
+        <value xml:lang="ro"><![CDATA[Listă de raportări]]></value>
 	</item>
 	<item name="cmd_copy">
 		<value xml:lang="ko"><![CDATA[복사]]></value>
@@ -420,6 +448,7 @@
 		<value xml:lang="es"><![CDATA[Copiar]]></value>
 		<value xml:lang="tr"><![CDATA[Kopyala]]></value>
 		<value xml:lang="mn"><![CDATA[Хуулах]]></value>
+        <value xml:lang="ro"><![CDATA[Copiază]]></value>
 	</item>
 	<item name="cmd_move">
 		<value xml:lang="ko"><![CDATA[이동]]></value>
@@ -434,6 +463,7 @@
 		<value xml:lang="tr"><![CDATA[Taşı]]></value>
 		<value xml:lang="vi"><![CDATA[Di chuyển]]></value>
 		<value xml:lang="mn"><![CDATA[Шилжих]]></value>
+        <value xml:lang="ro"><![CDATA[Mută]]></value>
 	</item>
 	<item name="cmd_move_up">
 		<value xml:lang="ko"><![CDATA[위로]]></value>
@@ -448,6 +478,7 @@
 		<value xml:lang="tr"><![CDATA[Yukarı]]></value>
 		<value xml:lang="vi"><![CDATA[Lên]]></value>
 		<value xml:lang="mn"><![CDATA[Дээш]]></value>
+        <value xml:lang="ro"><![CDATA[Sus]]></value>
 	</item>
 	<item name="cmd_move_down">
 		<value xml:lang="ko"><![CDATA[아래로]]></value>
@@ -462,6 +493,7 @@
 		<value xml:lang="tr"><![CDATA[Aşağı]]></value>
 		<value xml:lang="vi"><![CDATA[Xuống]]></value>
 		<value xml:lang="mn"><![CDATA[Доош]]></value>
+        <value xml:lang="ro"><![CDATA[Jos]]></value>
 	</item>
 	<item name="cmd_add_indent">
 		<value xml:lang="ko"><![CDATA[들여쓰기]]></value>
@@ -504,6 +536,7 @@
 		<value xml:lang="tr"><![CDATA[Yönetim]]></value>
 		<value xml:lang="vi"><![CDATA[Quản lý]]></value>
 		<value xml:lang="mn"><![CDATA[Удирдах]]></value>
+        <value xml:lang="ro"><![CDATA[Administrare]]></value>
 	</item>
 	<item name="cmd_make">
 		<value xml:lang="ko"><![CDATA[생성]]></value>
@@ -518,6 +551,7 @@
 		<value xml:lang="tr"><![CDATA[Yeni Oluştur]]></value>
 		<value xml:lang="vi"><![CDATA[Tạo mới]]></value>
 		<value xml:lang="mn"><![CDATA[Харуулах]]></value>
+        <value xml:lang="ro"><![CDATA[Crează]]></value>
 	</item>
 	<item name="cmd_select">
 		<value xml:lang="ko"><![CDATA[선택]]></value>
@@ -532,6 +566,7 @@
 		<value xml:lang="tr"><![CDATA[Seç]]></value>
 		<value xml:lang="vi"><![CDATA[Lựa chọn]]></value>
 		<value xml:lang="mn"><![CDATA[Сонгох]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează]]></value>
 	</item>
 	<item name="cmd_select_all">
 		<value xml:lang="ko"><![CDATA[모두 선택]]></value>
@@ -546,6 +581,7 @@
 		<value xml:lang="tr"><![CDATA[Tümünü Seç]]></value>
 		<value xml:lang="vi"><![CDATA[Chọn tất cả]]></value>
 		<value xml:lang="mn"><![CDATA[Бүгдийг сонгох]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează toate]]></value>
 	</item>
 	<item name="cmd_unselect_all">
 		<value xml:lang="ko"><![CDATA[모두 해제]]></value>
@@ -560,6 +596,7 @@
 		<value xml:lang="tr"><![CDATA[Tümünü Seçimden Çıkart]]></value>
 		<value xml:lang="vi"><![CDATA[Bỏ chọn tất cả]]></value>
 		<value xml:lang="mn"><![CDATA[Сонголтыг болих]]></value>
+        <value xml:lang="ro"><![CDATA[Deselectează toate]]></value>
 	</item>
 	<item name="cmd_reverse_all">
 		<value xml:lang="ko"><![CDATA[선택 반전]]></value>
@@ -573,6 +610,7 @@
 		<value xml:lang="tr"><![CDATA[Ters Çevir]]></value>
 		<value xml:lang="vi"><![CDATA[Đảo ngược]]></value>
 		<value xml:lang="mn"><![CDATA[Дахин сонгох]]></value>
+        <value xml:lang="ro"><![CDATA[Inversează]]></value>
 	</item>
 	<item name="cmd_close_all">
 		<value xml:lang="ko"><![CDATA[모두 닫기]]></value>
@@ -587,6 +625,7 @@
 		<value xml:lang="tr"><![CDATA[Tümünü Kapat]]></value>
 		<value xml:lang="vi"><![CDATA[Đóng tất cả]]></value>
 		<value xml:lang="mn"><![CDATA[Бүгдийг хаах]]></value>
+        <value xml:lang="ro"><![CDATA[Închide toate]]></value>
 	</item>
 	<item name="cmd_open_all">
 		<value xml:lang="ko"><![CDATA[모두 열기]]></value>
@@ -601,6 +640,7 @@
 		<value xml:lang="tr"><![CDATA[Tümünü Aç]]></value>
 		<value xml:lang="vi"><![CDATA[Mở tất cả]]></value>
 		<value xml:lang="mn"><![CDATA[Бүгдийг нээх]]></value>
+        <value xml:lang="ro"><![CDATA[Deschide toate]]></value>
 	</item>
 	<item name="cmd_reload">
 		<value xml:lang="ko"><![CDATA[다시 읽기]]></value>
@@ -615,6 +655,7 @@
 		<value xml:lang="tr"><![CDATA[Tekrar Yükle]]></value>
 		<value xml:lang="vi"><![CDATA[Tải lại]]></value>
 		<value xml:lang="mn"><![CDATA[Дахин унших]]></value>
+        <value xml:lang="ro"><![CDATA[Reîncarcă]]></value>
 	</item>
 	<item name="cmd_close">
 		<value xml:lang="ko"><![CDATA[닫기]]></value>
@@ -644,6 +685,7 @@
 		<value xml:lang="tr"><![CDATA[Aç]]></value>
 		<value xml:lang="vi"><![CDATA[Mở]]></value>
 		<value xml:lang="mn"><![CDATA[Нээх]]></value>
+        <value xml:lang="ro"><![CDATA[Deschide]]></value>
 	</item>
 	<item name="cmd_setup">
 		<value xml:lang="ko"><![CDATA[설정]]></value>
@@ -658,6 +700,7 @@
 		<value xml:lang="tr"><![CDATA[Yapılandır]]></value>
 		<value xml:lang="vi"><![CDATA[Cài đặt]]></value>
 		<value xml:lang="mn"><![CDATA[Тохируулга]]></value>
+        <value xml:lang="ro"><![CDATA[Configurează]]></value>
 	</item>
 	<item name="cmd_addition_setup">
 		<value xml:lang="ko"><![CDATA[추가 설정]]></value>
@@ -672,6 +715,7 @@
 		<value xml:lang="tr"><![CDATA[Ek kurulum]]></value>
 		<value xml:lang="vi"><![CDATA[Cài đặt bổ xung]]></value>
 		<value xml:lang="mn"><![CDATA[Нэмэлт тохируулга]]></value>
+        <value xml:lang="ro"><![CDATA[Setări adiţionale]]></value>
 	</item>
 	<item name="cmd_option">
 		<value xml:lang="ko"><![CDATA[옵션]]></value>
@@ -685,6 +729,7 @@
 		<value xml:lang="tr"><![CDATA[Seçenek]]></value>
 		<value xml:lang="vi"><![CDATA[Tùy chọn]]></value>
 		<value xml:lang="mn"><![CDATA[Опшион]]></value>
+        <value xml:lang="ro"><![CDATA[Opţiune]]></value>
 	</item>
 	<item name="cmd_apply">
 		<value xml:lang="ko"><![CDATA[적용]]></value>
@@ -699,6 +744,7 @@
 		<value xml:lang="tr"><![CDATA[Uygula]]></value>
 		<value xml:lang="vi"><![CDATA[Áp dụng]]></value>
 		<value xml:lang="mn"><![CDATA[Хэрэгжүүлэх]]></value>
+        <value xml:lang="ro"><![CDATA[Aplică]]></value>
 	</item>
 	<item name="cmd_open_calendar">
 		<value xml:lang="ko"><![CDATA[날짜 선택]]></value>
@@ -713,6 +759,7 @@
 		<value xml:lang="tr"><![CDATA[Bir Tarih Belirle]]></value>
 		<value xml:lang="vi"><![CDATA[Chọn một ngày]]></value>
 		<value xml:lang="mn"><![CDATA[Календар сонгох]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează o dată]]></value>
 	</item>
 	<item name="cmd_send">
 		<value xml:lang="ko"><![CDATA[발송]]></value>
@@ -727,6 +774,7 @@
 		<value xml:lang="tr"><![CDATA[Gönder]]></value>
 		<value xml:lang="vi"><![CDATA[Gửi đi]]></value>
 		<value xml:lang="mn"><![CDATA[Илгээх]]></value>
+        <value xml:lang="ro"><![CDATA[Trimite]]></value>
 	</item>
 	<item name="cmd_print">
 		<value xml:lang="ko"><![CDATA[인쇄]]></value>
@@ -741,7 +789,7 @@
 		<value xml:lang="tr"><![CDATA[Yazdır]]></value>
 		<value xml:lang="vi"><![CDATA[In trang]]></value>
 		<value xml:lang="mn"><![CDATA[Хэвлэх]]></value>
-        <value xml:lang="en"><![CDATA[Printez]]></value>
+        <value xml:lang="ro"><![CDATA[Printez]]></value>
 	</item>
 	<item name="cmd_scrap">
 		<value xml:lang="ko"><![CDATA[스크랩]]></value>
@@ -756,6 +804,7 @@
 		<value xml:lang="tr"><![CDATA[Bozuk Olarak Ayır]]></value>
 		<value xml:lang="vi"><![CDATA[Phân loại]]></value>
 		<value xml:lang="mn"><![CDATA[Скрап]]></value>
+        <value xml:lang="ro"><![CDATA[Curăţă]]></value>
 	</item>
 	<item name="cmd_preview">
 		<value xml:lang="ko"><![CDATA[미리 보기]]></value>
@@ -770,6 +819,7 @@
 		<value xml:lang="tr"><![CDATA[Önizleme]]></value>
 		<value xml:lang="vi"><![CDATA[Xem trước]]></value>
 		<value xml:lang="mn"><![CDATA[Урьдчилан харах]]></value>
+        <value xml:lang="ro"><![CDATA[Pre-vizualizează]]></value>
 	</item>
 	<item name="cmd_reset">
 		<value xml:lang="ko"><![CDATA[초기화]]></value>
@@ -784,6 +834,7 @@
 		<value xml:lang="tr"><![CDATA[İlk Duruma Getir]]></value>
 		<value xml:lang="vi"><![CDATA[Thiết lập lại]]></value>
 		<value xml:lang="mn"><![CDATA[Дахин тохируулах]]></value>
+        <value xml:lang="ro"><![CDATA[Resetează]]></value>
 	</item>
 	<item name="cmd_remake_cache">
 		<value xml:lang="ko"><![CDATA[캐시파일 재생성]]></value>
@@ -798,6 +849,7 @@
 		<value xml:lang="tr"><![CDATA[Önbellek Dosyasını Tekrar Oluştur]]></value>
 		<value xml:lang="vi"><![CDATA[Tạo File Cache mới]]></value>
 		<value xml:lang="mn"><![CDATA[cache файл дахин хийх]]></value>
+        <value xml:lang="ro"><![CDATA[Goleşte cache]]></value>
 	</item>
 	<item name="cmd_publish">
 		<value xml:lang="ko"><![CDATA[발행]]></value>
@@ -812,6 +864,7 @@
 		<value xml:lang="tr"><![CDATA[Yayınla]]></value>
 		<value xml:lang="vi"><![CDATA[Xuất bản]]></value>
 		<value xml:lang="mn"><![CDATA[Олгох]]></value>
+        <value xml:lang="ro"><![CDATA[Publică]]></value>
 	</item>
 	<item name="cmd_layout_setup">
 		<value xml:lang="ko"><![CDATA[레이아웃 설정]]></value>
@@ -826,6 +879,7 @@
 		<value xml:lang="tr"><![CDATA[Yerleşim Düzenini Yapılandır]]></value>
 		<value xml:lang="vi"><![CDATA[Cài đặt giao diện]]></value>
 		<value xml:lang="mn"><![CDATA[Лэйаут тохируулах]]></value>
+        <value xml:lang="ro"><![CDATA[Configurează layout]]></value>
 	</item>
 	<item name="cmd_layout_edit">
 		<value xml:lang="ko"><![CDATA[레이아웃 편집]]></value>
@@ -840,6 +894,7 @@
 		<value xml:lang="tr"><![CDATA[Yerleşim Düzenini Düzenle]]></value>
 		<value xml:lang="vi"><![CDATA[Sửa giao diện]]></value>
 		<value xml:lang="mn"><![CDATA[Лэйаут өөрчлөх]]></value>
+        <value xml:lang="ro"><![CDATA[Editează layout]]></value>
 	</item>
 	<item name="cmd_search_by_ipaddress">
 		<value xml:lang="ko"><![CDATA[IP주소로 검색]]></value>
@@ -854,6 +909,7 @@
 		<value xml:lang="tr"><![CDATA[IP Adresiyle ara]]></value>
 		<value xml:lang="vi"><![CDATA[Tìm kiếm IP]]></value>
 		<value xml:lang="mn"><![CDATA[IP хаягаар хайх]]></value>
+        <value xml:lang="ro"><![CDATA[Caută după adresa IP]]></value>
 	</item>
 	<item name="cmd_add_ip_to_spamfilter">
 		<value xml:lang="ko"><![CDATA[스팸필터에 IP추가]]></value>
@@ -867,6 +923,7 @@
 		<value xml:lang="tr"><![CDATA[Spam filtresine IPyi ekle]]></value>
 		<value xml:lang="vi"><![CDATA[Thêm IP vào bộ lọc]]></value>
 		<value xml:lang="mn"><![CDATA[Спэм филтерт IPнэмэх]]></value>
+        <value xml:lang="ro"><![CDATA[Adaugă adresa IP la filtru spam]]></value>
 	</item>
 	<item name="cmd_pass_step">
 		<value xml:lang="ko"><![CDATA[이 단계를 생략]]></value>
@@ -875,6 +932,7 @@
 		<value xml:lang="zh-CN"><![CDATA[跳过此步]]></value>
 		<value xml:lang="zh-TW"><![CDATA[略過此步]]></value>
 		<value xml:lang="tr"><![CDATA[Bunu aşamayı geç]]></value>
+        <value xml:lang="ro"><![CDATA[Sari peste acest pas]]></value>
 	</item>
 	<item name="cmd_complete">
 		<value xml:lang="ko"><![CDATA[완료]]></value>
@@ -883,6 +941,7 @@
 		<value xml:lang="zh-CN"><![CDATA[完成]]></value>
 		<value xml:lang="zh-TW"><![CDATA[完成]]></value>
 		<value xml:lang="tr"><![CDATA[Tamamlandı]]></value>
+        <value xml:lang="ro"><![CDATA[Gata]]></value>
 	</item>
 	<item name="cmd_go_to_page">
 		<value xml:lang="ko"><![CDATA[페이지 직접 이동]]></value>
@@ -891,6 +950,7 @@
 		<value xml:lang="zh-CN"><![CDATA[前往页面]]></value>
 		<value xml:lang="zh-TW"><![CDATA[前往頁面]]></value>
 		<value xml:lang="tr"><![CDATA[Sayfaya Git]]></value>
+        <value xml:lang="ro"><![CDATA[Mergi la pagina]]></value>
 	</item>
 	<item name="enable">
 		<value xml:lang="ko"><![CDATA[가능]]></value>
@@ -905,6 +965,7 @@
 		<value xml:lang="tr"><![CDATA[Seçilir Kıl]]></value>
 		<value xml:lang="vi"><![CDATA[Bật]]></value>
 		<value xml:lang="mn"><![CDATA[Боломжтой]]></value>
+        <value xml:lang="ro"><![CDATA[Activat]]></value>
 	</item>
 	<item name="disable">
 		<value xml:lang="ko"><![CDATA[불가능]]></value>
@@ -919,6 +980,7 @@
 		<value xml:lang="tr"><![CDATA[Seçilemez ]]></value>
 		<value xml:lang="vi"><![CDATA[Tắt]]></value>
 		<value xml:lang="mn"><![CDATA[Боломжгүй]]></value>
+        <value xml:lang="ro"><![CDATA[Inactivat]]></value>
 	</item>
 	<item name="agree">
 		<value xml:lang="ko"><![CDATA[동의]]></value>
@@ -928,6 +990,7 @@
 		<value xml:lang="zh-TW"><![CDATA[同意]]></value>
 		<value xml:lang="de"><![CDATA[akzeptieren]]></value>
 		<value xml:lang="tr"><![CDATA[Kabul]]></value>
+        <value xml:lang="ro"><![CDATA[Sunt de acord]]></value>
 	</item>
 	<item name="disagree">
 		<value xml:lang="ko"><![CDATA[동의안함]]></value>
@@ -937,6 +1000,7 @@
 		<value xml:lang="zh-TW"><![CDATA[不同意]]></value>
 		<value xml:lang="de"><![CDATA[nicht akzeptieren]]></value>
 		<value xml:lang="tr"><![CDATA[Kabul Değil]]></value>
+        <value xml:lang="ro"><![CDATA[Nu sunt de acord]]></value>
 	</item>
 	<item name="favorite">
 		<value xml:lang="ko"><![CDATA[즐겨찾기]]></value>
@@ -946,6 +1010,7 @@
 		<value xml:lang="zh-TW"><![CDATA[我的最愛]]></value>
 		<value xml:lang="de"><![CDATA[Lesezeichen]]></value>
 		<value xml:lang="tr"><![CDATA[Favori]]></value>
+        <value xml:lang="ro"><![CDATA[Favorite]]></value>
 	</item>
 	<item name="menu">
 		<value xml:lang="ko"><![CDATA[메뉴]]></value>
@@ -956,6 +1021,7 @@
 		<value xml:lang="de"><![CDATA[Menü]]></value>
 		<value xml:lang="ru"><![CDATA[Меню]]></value>
 		<value xml:lang="tr"><![CDATA[Menü]]></value>
+        <value xml:lang="ro"><![CDATA[Meniu]]></value>
 	</item>
 	<item name="no">
 		<value xml:lang="ko"><![CDATA[번호]]></value>
@@ -969,6 +1035,7 @@
 		<value xml:lang="tr"><![CDATA[No]]></value>
 		<value xml:lang="vi"><![CDATA[STT]]></value>
 		<value xml:lang="mn"><![CDATA[Дугаар]]></value>
+        <value xml:lang="ro"><![CDATA[Nr.]]></value>
 	</item>
 	<item name="notice">
 		<value xml:lang="ko"><![CDATA[공지]]></value>
@@ -982,6 +1049,7 @@
 		<value xml:lang="tr"><![CDATA[Duyuru]]></value>
 		<value xml:lang="vi"><![CDATA[Chú ý]]></value>
 		<value xml:lang="mn"><![CDATA[Зарлал]]></value>
+        <value xml:lang="ro"><![CDATA[Avertisment]]></value>
 	</item>
 	<item name="secret">
 		<value xml:lang="ko"><![CDATA[비밀]]></value>
@@ -995,6 +1063,7 @@
 		<value xml:lang="tr"><![CDATA[Gizli]]></value>
 		<value xml:lang="vi"><![CDATA[Riêng tư]]></value>
 		<value xml:lang="mn"><![CDATA[Нууц]]></value>
+        <value xml:lang="ro"><![CDATA[Secret]]></value>
 	</item>
 	<item name="category_srl">
 		<value xml:lang="ko"><![CDATA[분류]]></value>
@@ -1009,6 +1078,7 @@
 		<value xml:lang="tr"><![CDATA[Kategori]]></value>
 		<value xml:lang="vi"><![CDATA[Thể loại]]></value>
 		<value xml:lang="mn"><![CDATA[Категори]]></value>
+        <value xml:lang="ro"><![CDATA[Categorie]]></value>
 	</item>
 	<item name="category">
 		<value xml:lang="ko"><![CDATA[분류]]></value>
@@ -1023,6 +1093,7 @@
 		<value xml:lang="tr"><![CDATA[Kategori]]></value>
 		<value xml:lang="vi"><![CDATA[Thể loại]]></value>
 		<value xml:lang="mn"><![CDATA[Категори]]></value>
+        <value xml:lang="ro"><![CDATA[Categorie]]></value>
 	</item>
 	<item name="none_category">
 		<value xml:lang="ko"><![CDATA[분류 없음]]></value>
@@ -1036,6 +1107,7 @@
 		<value xml:lang="tr"><![CDATA[Kategori Yok]]></value>
 		<value xml:lang="vi"><![CDATA[Không có thể loại]]></value>
 		<value xml:lang="mn"><![CDATA[Категори байхгүй]]></value>
+        <value xml:lang="ro"><![CDATA[Fără categorie]]></value>
 	</item>
 	<item name="none_image">
 		<value xml:lang="ko"><![CDATA[이미지 없음]]></value>
@@ -1047,6 +1119,7 @@
 		<value xml:lang="ru"><![CDATA[Картинки нет]]></value>
 		<value xml:lang="tr"><![CDATA[Resim Bulunmamaktadır]]></value>
 		<value xml:lang="mn"><![CDATA[No image]]></value>
+        <value xml:lang="ro"><![CDATA[Imaginea nu există]]></value>
 	</item>
 	<item name="document_srl">
 		<value xml:lang="ko"><![CDATA[문서번호]]></value>
@@ -1061,6 +1134,7 @@
 		<value xml:lang="tr"><![CDATA[Belge No]]></value>
 		<value xml:lang="vi"><![CDATA[Bài viết. STT.]]></value>
 		<value xml:lang="mn"><![CDATA[Баримтын дугаар]]></value>
+        <value xml:lang="ro"><![CDATA[Nr. document]]></value>
 	</item>
 	<item name="user_id">
 		<value xml:lang="ko"><![CDATA[아이디]]></value>
@@ -1075,6 +1149,7 @@
 		<value xml:lang="tr"><![CDATA[Kullanıcı Kimliği]]></value>
 		<value xml:lang="vi"><![CDATA[ID đăng nhập]]></value>
 		<value xml:lang="mn"><![CDATA[ID]]></value>
+        <value xml:lang="ro"><![CDATA[Identificator utilizator]]></value>
 	</item>
 	<item name="author">
 		<value xml:lang="ko"><![CDATA[작성자]]></value>
@@ -1089,6 +1164,7 @@
 		<value xml:lang="tr"><![CDATA[Yazar]]></value>
 		<value xml:lang="vi"><![CDATA[Người gửi]]></value>
 		<value xml:lang="mn"><![CDATA[Бичсэн]]></value>
+        <value xml:lang="ro"><![CDATA[Dezvoltator]]></value>
 	</item>
 	<item name="password">
 		<value xml:lang="ko"><![CDATA[비밀번호]]></value>
@@ -1103,7 +1179,7 @@
 		<value xml:lang="tr"><![CDATA[Şifre]]></value>
 		<value xml:lang="vi"><![CDATA[Mật khẩu]]></value>
 		<value xml:lang="mn"><![CDATA[Нууц дугаар]]></value>
-        <value xml:lang="ro"><![CDATA[Parolã]]></value>
+        <value xml:lang="ro"><![CDATA[Parolă]]></value>
 	</item>
 	<item name="password1">
 		<value xml:lang="ko"><![CDATA[새 비밀번호]]></value>
@@ -1118,6 +1194,7 @@
 		<value xml:lang="tr"><![CDATA[Şifre]]></value>
 		<value xml:lang="vi"><![CDATA[Mật khẩu]]></value>
 		<value xml:lang="mn"><![CDATA[Нууц дугаар]]></value>
+        <value xml:lang="ro"><![CDATA[Parolă nouă]]></value>
 	</item>
 	<item name="password2">
 		<value xml:lang="ko"><![CDATA[새 비밀번호 확인]]></value>
@@ -1132,6 +1209,7 @@
 		<value xml:lang="tr"><![CDATA[Şifreyi Doğrula]]></value>
 		<value xml:lang="vi"><![CDATA[Nhập lại mật khẩu]]></value>
 		<value xml:lang="mn"><![CDATA[Нууц дугаар шалгах]]></value>
+        <value xml:lang="ro"><![CDATA[Rescrie parola nouă]]></value>
 	</item>
 	<item name="password3">
 		<value xml:lang="ko"><![CDATA[비밀번호 확인]]></value>
@@ -1152,6 +1230,7 @@
 		<value xml:lang="es"><![CDATA[ID del Administrador]]></value>
 		<value xml:lang="tr"><![CDATA[Yonetici Kimliği]]></value>
 		<value xml:lang="mn"><![CDATA[Хариуцагч ID]]></value>
+        <value xml:lang="ro"><![CDATA[ID admin]]></value>
 	</item>
 	<item name="admin_email_address">
 		<value xml:lang="ko"><![CDATA[관리자 Email 주소]]></value>
@@ -1159,6 +1238,7 @@
 		<value xml:lang="zh-CN"><![CDATA[站点管理员电子邮箱地址]]></value>
 		<value xml:lang="zh-TW"><![CDATA[管理員電子郵件位址]]></value>
 		<value xml:lang="tr"><![CDATA[Yönetici E-Posta Adresi]]></value>
+        <value xml:lang="ro"><![CDATA[Adresa de e-mail pentru admin]]></value>
 	</item>
 	<item name="writer">
 		<value xml:lang="ko"><![CDATA[글쓴이]]></value>
@@ -1173,6 +1253,7 @@
 		<value xml:lang="tr"><![CDATA[Yazar]]></value>
 		<value xml:lang="vi"><![CDATA[Người gửi]]></value>
 		<value xml:lang="mn"><![CDATA[Нэр]]></value>
+        <value xml:lang="ro"><![CDATA[Autor]]></value>
 	</item>
 	<item name="user_name">
 		<value xml:lang="ko"><![CDATA[이름]]></value>
@@ -1187,6 +1268,7 @@
 		<value xml:lang="tr"><![CDATA[Kullanıcı Adı]]></value>
 		<value xml:lang="vi"><![CDATA[Tên thật]]></value>
 		<value xml:lang="mn"><![CDATA[Нэр]]></value>
+        <value xml:lang="ro"><![CDATA[Nume utilizator]]></value>
 	</item>
 	<item name="nick_name">
 		<value xml:lang="ko"><![CDATA[닉네임]]></value>
@@ -1201,6 +1283,7 @@
 		<value xml:lang="tr"><![CDATA[Takma Ad]]></value>
 		<value xml:lang="vi"><![CDATA[NickName]]></value>
 		<value xml:lang="mn"><![CDATA[Ник]]></value>
+        <value xml:lang="ro"><![CDATA[Alias utilizator]]></value>
 	</item>
 	<item name="email_address">
 		<value xml:lang="ko"><![CDATA[이메일 주소]]></value>
@@ -1228,6 +1311,7 @@
 		<value xml:lang="tr"><![CDATA[Websayfası]]></value>
 		<value xml:lang="vi"><![CDATA[Trang chủ]]></value>
 		<value xml:lang="mn"><![CDATA[Вебхуудас]]></value>
+        <value xml:lang="ro"><![CDATA[Prima pagină]]></value>
 	</item>
 	<item name="blog">
 		<value xml:lang="ko"><![CDATA[블로그]]></value>
@@ -1240,6 +1324,7 @@
 		<value xml:lang="ru"><![CDATA[Блог]]></value>
 		<value xml:lang="mn"><![CDATA[Блог]]></value>
 		<value xml:lang="tr"><![CDATA[Blog]]></value>
+        <value xml:lang="ro"><![CDATA[Blog]]></value>
 	</item>
 	<item name="birthday">
 		<value xml:lang="ko"><![CDATA[생일]]></value>
@@ -1254,6 +1339,7 @@
 		<value xml:lang="tr"><![CDATA[Doğum günü]]></value>
 		<value xml:lang="vi"><![CDATA[Sinh nhật]]></value>
 		<value xml:lang="mn"><![CDATA[Төрсөн өдөр]]></value>
+        <value xml:lang="ro"><![CDATA[Data naşterii]]></value>
 	</item>
 	<item name="browser_title">
 		<value xml:lang="ko"><![CDATA[브라우저 제목]]></value>
@@ -1268,6 +1354,7 @@
 		<value xml:lang="tr"><![CDATA[Tarayıcı Başlığı]]></value>
 		<value xml:lang="vi"><![CDATA[Tiêu đề trình duyệt]]></value>
 		<value xml:lang="mn"><![CDATA[Browser гарчиг]]></value>
+        <value xml:lang="ro"><![CDATA[Titlu browser]]></value>
 	</item>
 	<item name="title">
 		<value xml:lang="ko"><![CDATA[제목]]></value>
@@ -1282,6 +1369,7 @@
 		<value xml:lang="tr"><![CDATA[Konu]]></value>
 		<value xml:lang="vi"><![CDATA[Tiêu đề]]></value>
 		<value xml:lang="mn"><![CDATA[Гарчиг]]></value>
+        <value xml:lang="ro"><![CDATA[Subiect]]></value>
 	</item>
 	<item name="title_content">
 		<value xml:lang="ko"><![CDATA[제목+내용]]></value>
@@ -1296,6 +1384,7 @@
 		<value xml:lang="tr"><![CDATA[Konu+İcerik]]></value>
 		<value xml:lang="vi"><![CDATA[TĐ+ND]]></value>
 		<value xml:lang="mn"><![CDATA[Гарчиг+ Агуулга]]></value>
+        <value xml:lang="ro"><![CDATA[Subiect+Conţinut]]></value>
 	</item>
 	<item name="untitle">
 		<value xml:lang="ko"><![CDATA[제목 없음]]></value>
@@ -1305,6 +1394,7 @@
 		<value xml:lang="zh-TW"><![CDATA[無標題]]></value>
 		<value xml:lang="de"><![CDATA[Kein Titel]]></value>
 		<value xml:lang="tr"><![CDATA[Başlık Yokl]]></value>
+        <value xml:lang="ro"><![CDATA[Fără titlu]]></value>
 	</item>
 	<item name="topic">
 		<value xml:lang="ko"><![CDATA[주제]]></value>
@@ -1319,6 +1409,7 @@
 		<value xml:lang="tr"><![CDATA[Konu]]></value>
 		<value xml:lang="vi"><![CDATA[Chủ đề]]></value>
 		<value xml:lang="mn"><![CDATA[Сэдэв]]></value>
+        <value xml:lang="ro"><![CDATA[Topic]]></value>
 	</item>
 	<item name="replies">
 		<value xml:lang="ko"><![CDATA[댓글]]></value>
@@ -1333,6 +1424,7 @@
 		<value xml:lang="tr"><![CDATA[Cevaplar]]></value>
 		<value xml:lang="vi"><![CDATA[Trả lời]]></value>
 		<value xml:lang="mn"><![CDATA[Хариулах]]></value>
+        <value xml:lang="ro"><![CDATA[Comentarii]]></value>
 	</item>
 	<item name="content">
 		<value xml:lang="ko"><![CDATA[내용]]></value>
@@ -1347,6 +1439,7 @@
 		<value xml:lang="tr"><![CDATA[İcerik]]></value>
 		<value xml:lang="vi"><![CDATA[Nội dung]]></value>
 		<value xml:lang="mn"><![CDATA[Агуулга]]></value>
+        <value xml:lang="ro"><![CDATA[Conţinut]]></value>
 	</item>
 	<item name="document">
 		<value xml:lang="ko"><![CDATA[문서]]></value>
@@ -1361,6 +1454,7 @@
 		<value xml:lang="tr"><![CDATA[Döküman]]></value>
 		<value xml:lang="vi"><![CDATA[Bài viết]]></value>
 		<value xml:lang="mn"><![CDATA[Бичлэг]]></value>
+        <value xml:lang="ro"><![CDATA[Document]]></value>
 	</item>
 	<item name="comment">
 		<value xml:lang="ko"><![CDATA[댓글]]></value>
@@ -1375,6 +1469,7 @@
 		<value xml:lang="tr"><![CDATA[Yorum]]></value>
 		<value xml:lang="vi"><![CDATA[Bình luận]]></value>
 		<value xml:lang="mn"><![CDATA[Коммент]]></value>
+        <value xml:lang="ro"><![CDATA[Comentariu]]></value>
 	</item>
 	<item name="description">
 		<value xml:lang="ko"><![CDATA[설명]]></value>
@@ -1388,6 +1483,7 @@
 		<value xml:lang="tr"><![CDATA[Tanım]]></value>
 		<value xml:lang="vi"><![CDATA[Mô tả]]></value>
 		<value xml:lang="mn"><![CDATA[Тайлбар]]></value>
+        <value xml:lang="ro"><![CDATA[Desciere]]></value>
 	</item>
 	<item name="trackback">
 		<value xml:lang="ko"><![CDATA[엮인글]]></value>
@@ -1401,6 +1497,7 @@
 		<value xml:lang="tr"><![CDATA[Geri izleme]]></value>
 		<value xml:lang="vi"><![CDATA[Liên kết Web]]></value>
 		<value xml:lang="mn"><![CDATA[Холбоотой бичлэг]]></value>
+        <value xml:lang="ro"><![CDATA[Trackback]]></value>
 	</item>
 	<item name="tag">
 		<value xml:lang="ko"><![CDATA[태그]]></value>
@@ -1413,6 +1510,7 @@
 		<value xml:lang="es"><![CDATA[Etiqueta]]></value>
 		<value xml:lang="tr"><![CDATA[Etiket]]></value>
 		<value xml:lang="mn"><![CDATA[tag]]></value>
+        <value xml:lang="ro"><![CDATA[Tag]]></value>
 	</item>
 	<item name="allow_comment">
 		<value xml:lang="ko"><![CDATA[댓글 허용]]></value>
@@ -1427,6 +1525,7 @@
 		<value xml:lang="tr"><![CDATA[Yorumlara izin ver]]></value>
 		<value xml:lang="vi"><![CDATA[Cho phép bình luận]]></value>
 		<value xml:lang="mn"><![CDATA[Коммент зөвшөөрнө]]></value>
+        <value xml:lang="ro"><![CDATA[Permite comentari]]></value>
 	</item>
 	<item name="lock_comment">
 		<value xml:lang="ko"><![CDATA[댓글 잠금]]></value>
@@ -1441,6 +1540,7 @@
 		<value xml:lang="tr"><![CDATA[Yorumları engelle]]></value>
 		<value xml:lang="vi"><![CDATA[Khóa bình luận]]></value>
 		<value xml:lang="mn"><![CDATA[Коммент түгжих]]></value>
+        <value xml:lang="ro"><![CDATA[Blochează comentarii]]></value>
 	</item>
 	<item name="allow_trackback">
 		<value xml:lang="ko"><![CDATA[엮인글 허용]]></value>
@@ -1455,6 +1555,7 @@
 		<value xml:lang="tr"><![CDATA[Geri izlemelere izin ver]]></value>
 		<value xml:lang="vi"><![CDATA[Cho phép liên kết Web]]></value>
 		<value xml:lang="mn"><![CDATA[Холбоотой бичлэг зөвшөөрнө]]></value>
+        <value xml:lang="ro"><![CDATA[Permite trackback-uri]]></value>
 	</item>
 	<item name="uploaded_file">
 		<value xml:lang="ko"><![CDATA[첨부]]></value>
@@ -1469,6 +1570,7 @@
 		<value xml:lang="tr"><![CDATA[Ek]]></value>
 		<value xml:lang="vi"><![CDATA[File đã Upload]]></value>
 		<value xml:lang="mn"><![CDATA[Файл оруулах]]></value>
+        <value xml:lang="ro"><![CDATA[Ataşament]]></value>
 	</item>
 	<item name="grant">
 		<value xml:lang="ko"><![CDATA[권한]]></value>
@@ -1482,6 +1584,7 @@
 		<value xml:lang="tr"><![CDATA[İzin]]></value>
 		<value xml:lang="vi"><![CDATA[Cho phép]]></value>
 		<value xml:lang="mn"><![CDATA[Эрх]]></value>
+        <value xml:lang="ro"><![CDATA[Permisiuni]]></value>
 	</item>
 	<item name="target">
 		<value xml:lang="ko"><![CDATA[대상]]></value>
@@ -1496,6 +1599,7 @@
 		<value xml:lang="tr"><![CDATA[Hedef]]></value>
 		<value xml:lang="vi"><![CDATA[Mục tiêu]]></value>
 		<value xml:lang="mn"><![CDATA[Зорилго]]></value>
+        <value xml:lang="ro"><![CDATA[Obiectiv]]></value>
 	</item>
 	<item name="total">
 		<value xml:lang="ko"><![CDATA[전체]]></value>
@@ -1508,6 +1612,7 @@
 		<value xml:lang="tr"><![CDATA[Toplam]]></value>
 		<value xml:lang="vi"><![CDATA[Tất cả]]></value>
 		<value xml:lang="mn"><![CDATA[Нийт]]></value>
+        <value xml:lang="ro"><![CDATA[Total]]></value>
 	</item>
 	<item name="total_count">
 		<value xml:lang="ko"><![CDATA[전체개수]]></value>
@@ -1522,6 +1627,7 @@
 		<value xml:lang="tr"><![CDATA[Toplamı hesapla]]></value>
 		<value xml:lang="vi"><![CDATA[Tổng số truy cập]]></value>
 		<value xml:lang="mn"><![CDATA[Нийт тоо]]></value>
+        <value xml:lang="ro"><![CDATA[Total]]></value>
 	</item>
 	<item name="ipaddress">
 		<value xml:lang="ko"><![CDATA[IP 주소]]></value>
@@ -1536,6 +1642,7 @@
 		<value xml:lang="tr"><![CDATA[IP Adresi]]></value>
 		<value xml:lang="vi"><![CDATA[Địa chỉ IP]]></value>
 		<value xml:lang="mn"><![CDATA[IP хаяг]]></value>
+        <value xml:lang="ro"><![CDATA[Adresa IP]]></value>
 	</item>
 	<item name="path">
 		<value xml:lang="ko"><![CDATA[경로]]></value>
@@ -1550,6 +1657,7 @@
 		<value xml:lang="tr"><![CDATA[Yol]]></value>
 		<value xml:lang="vi"><![CDATA[Đường dẫn]]></value>
 		<value xml:lang="mn"><![CDATA[Байрлал]]></value>
+        <value xml:lang="ro"><![CDATA[Cale]]></value>
 	</item>
 	<item name="cart">
 		<value xml:lang="ko"><![CDATA[선택항목]]></value>
@@ -1564,6 +1672,7 @@
 		<value xml:lang="tr"><![CDATA[Secili Öğe]]></value>
 		<value xml:lang="vi"><![CDATA[Chọn bài]]></value>
 		<value xml:lang="mn"><![CDATA[Сонгосон төрөл]]></value>
+        <value xml:lang="ro"><![CDATA[Înregistrare selectată]]></value>
 	</item>
 	<item name="friend">
 		<value xml:lang="ko"><![CDATA[친구]]></value>
@@ -1578,6 +1687,7 @@
 		<value xml:lang="tr"><![CDATA[Arkadaş]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn bè]]></value>
 		<value xml:lang="mn"><![CDATA[Найз]]></value>
+        <value xml:lang="ro"><![CDATA[Prieteni]]></value>
 	</item>
 	<item name="notify">
 		<value xml:lang="ko"><![CDATA[알림]]></value>
@@ -1592,6 +1702,7 @@
 		<value xml:lang="tr"><![CDATA[Bildirim]]></value>
 		<value xml:lang="vi"><![CDATA[Thông báo]]></value>
 		<value xml:lang="mn"><![CDATA[Мэдээлэх]]></value>
+        <value xml:lang="ro"><![CDATA[Notificare]]></value>
 	</item>
 	<item name="order_target">
 		<value xml:lang="ko"><![CDATA[정렬대상]]></value>
@@ -1604,6 +1715,7 @@
 		<value xml:lang="tr"><![CDATA[Hedef Sırala]]></value>
 		<value xml:lang="vi"><![CDATA[Đường dẫn đích]]></value>
 		<value xml:lang="mn"><![CDATA[Цэгцлэх зорилго]]></value>
+        <value xml:lang="ro"><![CDATA[Obiectiv sortare]]></value>
 	</item>
 	<item name="order_type">
 		<value xml:lang="ko"><![CDATA[정렬방법]]></value>
@@ -1617,6 +1729,7 @@
 		<value xml:lang="tr"><![CDATA[Sıralama Şekli]]></value>
 		<value xml:lang="vi"><![CDATA[Phân loại theo định dạng]]></value>
 		<value xml:lang="mn"><![CDATA[Цэгцлэх арга]]></value>
+        <value xml:lang="ro"><![CDATA[Tip sortare]]></value>
 	</item>
 	<item name="order_asc">
 		<value xml:lang="ko"><![CDATA[오름차순]]></value>
@@ -1631,6 +1744,7 @@
 		<value xml:lang="tr"><![CDATA[Artan]]></value>
 		<value xml:lang="vi"><![CDATA[Tăng dần]]></value>
 		<value xml:lang="mn"><![CDATA[Багаас ихрүү]]></value>
+        <value xml:lang="ro"><![CDATA[Ascendent]]></value>
 	</item>
 	<item name="order_desc">
 		<value xml:lang="ko"><![CDATA[내림차순]]></value>
@@ -1645,6 +1759,7 @@
 		<value xml:lang="tr"><![CDATA[Azalan]]></value>
 		<value xml:lang="vi"><![CDATA[Giảm dần]]></value>
 		<value xml:lang="mn"><![CDATA[Ихээс бага руу]]></value>
+        <value xml:lang="ro"><![CDATA[Descendent]]></value>
 	</item>
 	<item name="file">
 		<value xml:lang="ko"><![CDATA[파일]]></value>
@@ -1655,6 +1770,7 @@
 		<value xml:lang="de"><![CDATA[Datei]]></value>
 		<value xml:lang="ru"><![CDATA[файл]]></value>
 		<value xml:lang="tr"><![CDATA[Dosya]]></value>
+        <value xml:lang="ro"><![CDATA[Fisier]]></value>
 	</item>
 	<item name="mid">
 		<value xml:lang="ko"><![CDATA[모듈 이름]]></value>
@@ -1669,6 +1785,7 @@
 		<value xml:lang="tr"><![CDATA[Modül Adı]]></value>
 		<value xml:lang="vi"><![CDATA[Tên Module]]></value>
 		<value xml:lang="mn"><![CDATA[Модиул нэр]]></value>
+        <value xml:lang="ro"><![CDATA[Nume modul]]></value>
 	</item>
 	<item name="sid">
 		<value xml:lang="ko"><![CDATA[가상 사이트 이름]]></value>
@@ -1679,6 +1796,7 @@
 		<value xml:lang="de"><![CDATA[Name virtueller Seite]]></value>
 		<value xml:lang="tr"><![CDATA[Site Adı]]></value>
 		<value xml:lang="mn"><![CDATA[Тvр сайтын нэр]]></value>
+        <value xml:lang="ro"><![CDATA[Nume site virtual]]></value>
 	</item>
 	<item name="layout">
 		<value xml:lang="ko"><![CDATA[레이아웃]]></value>
@@ -1693,6 +1811,7 @@
 		<value xml:lang="tr"><![CDATA[Yerleşim Düzeni]]></value>
 		<value xml:lang="vi"><![CDATA[Giao diện]]></value>
 		<value xml:lang="mn"><![CDATA[Лэйаут]]></value>
+        <value xml:lang="ro"><![CDATA[Layout]]></value>
 	</item>
 	<item name="mobile_layout">
 		<value xml:lang="ko"><![CDATA[모바일 레이아웃]]></value>
@@ -1702,6 +1821,7 @@
 		<value xml:lang="zh-TW"><![CDATA[手機版面]]></value>
 		<value xml:lang="de"><![CDATA[Layout für Mobile]]></value>
 		<value xml:lang="tr"><![CDATA[Mobil Yerleşim duzeni]]></value>
+        <value xml:lang="ro"><![CDATA[Layout pentru mobil]]></value>
 	</item>
 	<item name="widget">
 		<value xml:lang="ko"><![CDATA[위젯]]></value>
@@ -1714,6 +1834,7 @@
 		<value xml:lang="ru"><![CDATA[Виджет]]></value>
 		<value xml:lang="mn"><![CDATA[Вижет ]]></value>
 		<value xml:lang="tr"><![CDATA[Widget ]]></value>
+        <value xml:lang="ro"><![CDATA[Widget]]></value>
 	</item>
 	<item name="module">
 		<value xml:lang="ko"><![CDATA[모듈]]></value>
@@ -1740,6 +1861,7 @@
 		<value xml:lang="tr"><![CDATA[Dış Görünüm]]></value>
 		<value xml:lang="vi"><![CDATA[Skin]]></value>
 		<value xml:lang="mn"><![CDATA[Скин]]></value>
+        <value xml:lang="ro"><![CDATA[Temă]]></value>
 	</item>
 	<item name="mobile_skin">
 		<value xml:lang="ko"><![CDATA[모바일 스킨]]></value>
@@ -1752,6 +1874,7 @@
 		<value xml:lang="es"><![CDATA[Mobile Tema]]></value>
 		<value xml:lang="tr"><![CDATA[Mobil Dış Görünüm]]></value>
 		<value xml:lang="vi"><![CDATA[Mobile Skin]]></value>
+        <value xml:lang="ro"><![CDATA[Temă pentru mobil]]></value>
 	</item>
 	<item name="colorset">
 		<value xml:lang="ko"><![CDATA[컬러셋]]></value>
@@ -1766,6 +1889,7 @@
 		<value xml:lang="tr"><![CDATA[Renk kurulumu]]></value>
 		<value xml:lang="vi"><![CDATA[Tạo màu]]></value>
 		<value xml:lang="mn"><![CDATA[Өнгө тохируулах]]></value>
+        <value xml:lang="ro"><![CDATA[Set de culori]]></value>
 	</item>
 	<item name="extra_vars">
 		<value xml:lang="ko"><![CDATA[확장변수]]></value>
@@ -1780,6 +1904,7 @@
 		<value xml:lang="tr"><![CDATA[Ek değişkenler]]></value>
 		<value xml:lang="vi"><![CDATA[Bổ xung]]></value>
 		<value xml:lang="mn"><![CDATA[Өргөжүүлэх тоо]]></value>
+        <value xml:lang="ro"><![CDATA[Variabile adiţionale]]></value>
 	</item>
 	<item name="domain">
 		<value xml:lang="ko"><![CDATA[도메인]]></value>
@@ -1792,6 +1917,7 @@
 		<value xml:lang="tr"><![CDATA[Alan adı]]></value>
 		<value xml:lang="vi"><![CDATA[Tên miền]]></value>
 		<value xml:lang="mn"><![CDATA[Domain]]></value>
+        <value xml:lang="ro"><![CDATA[Nume domeniu]]></value>
 	</item>
 	<item name="url">
 		<value xml:lang="ko"><![CDATA[URL]]></value>
@@ -1801,6 +1927,7 @@
 		<value xml:lang="zh-TW"><![CDATA[網址]]></value>
 		<value xml:lang="de"><![CDATA[URL-Adresse]]></value>
 		<value xml:lang="tr"><![CDATA[URL]]></value>
+        <value xml:lang="ro"><![CDATA[URL]]></value>
 	</item>
 	<item name="document_url">
 		<value xml:lang="ko"><![CDATA[게시글 주소]]></value>
@@ -1815,6 +1942,7 @@
 		<value xml:lang="tr"><![CDATA[Yazı URL'si]]></value>
 		<value xml:lang="vi"><![CDATA[URL bài viết]]></value>
 		<value xml:lang="mn"><![CDATA[Бичлэгийн хаяг]]></value>
+        <value xml:lang="ro"><![CDATA[URL Document]]></value>
 	</item>
 	<item name="trackback_url">
 		<value xml:lang="ko"><![CDATA[엮인글 주소]]></value>
@@ -1829,6 +1957,7 @@
 		<value xml:lang="tr"><![CDATA[Geri İzleme URL'si]]></value>
 		<value xml:lang="vi"><![CDATA[URL liên kết Web]]></value>
 		<value xml:lang="mn"><![CDATA[Холбоотой бичлэгний хаяг]]></value>
+        <value xml:lang="ro"><![CDATA[URL Trackback]]></value>
 	</item>
 	<item name="blog_name">
 		<value xml:lang="ko"><![CDATA[블로그 이름]]></value>
@@ -1843,6 +1972,7 @@
 		<value xml:lang="tr"><![CDATA[Blog Başlığı]]></value>
 		<value xml:lang="vi"><![CDATA[Tên Blog]]></value>
 		<value xml:lang="mn"><![CDATA[Блог нэр]]></value>
+        <value xml:lang="ro"><![CDATA[Titlu blog]]></value>
 	</item>
 	<item name="excerpt">
 		<value xml:lang="ko"><![CDATA[발췌]]></value>
@@ -1857,6 +1987,7 @@
 		<value xml:lang="tr"><![CDATA[Alıntı]]></value>
 		<value xml:lang="vi"><![CDATA[Trích]]></value>
 		<value xml:lang="mn"><![CDATA[excerpt]]></value>
+        <value xml:lang="ro"><![CDATA[Citat]]></value>
 	</item>
 	<item name="document_count">
 		<value xml:lang="ko"><![CDATA[글 수]]></value>
@@ -1871,6 +2002,7 @@
 		<value xml:lang="tr"><![CDATA[Toplam Yazı Adeti]]></value>
 		<value xml:lang="vi"><![CDATA[Số bài viết: ]]></value>
 		<value xml:lang="mn"><![CDATA[Бичлэгийн тоо]]></value>
+        <value xml:lang="ro"><![CDATA[Documente]]></value>
 	</item>
 	<item name="page_count">
 		<value xml:lang="ko"><![CDATA[페이지 수]]></value>
@@ -1885,6 +2017,7 @@
 		<value xml:lang="tr"><![CDATA[Sayfa Sayısı]]></value>
 		<value xml:lang="vi"><![CDATA[Số trang]]></value>
 		<value xml:lang="mn"><![CDATA[Хуудасны тоо]]></value>
+        <value xml:lang="ro"><![CDATA[Pagini]]></value>
 	</item>
 	<item name="list_count">
 		<value xml:lang="ko"><![CDATA[목록 수]]></value>
@@ -1899,6 +2032,7 @@
 		<value xml:lang="tr"><![CDATA[Liste Sayısı]]></value>
 		<value xml:lang="vi"><![CDATA[Số danh sách]]></value>
 		<value xml:lang="mn"><![CDATA[Жагсаалтын тоо]]></value>
+        <value xml:lang="ro"><![CDATA[Liste]]></value>
 	</item>
 	<item name="search_list_count">
 		<value xml:lang="ko"><![CDATA[검색 목록 수]]></value>
@@ -1913,6 +2047,7 @@
 		<value xml:lang="tr"><![CDATA[Liste Sayısını Ara]]></value>
 		<value xml:lang="vi"><![CDATA[Tìm kiếm danh sách]]></value>
 		<value xml:lang="mn"><![CDATA[Хайлтын жагсаалт]]></value>
+        <value xml:lang="ro"><![CDATA[Liste căutare]]></value>
 	</item>
 	<item name="readed_count">
 		<value xml:lang="ko"><![CDATA[조회 수]]></value>
@@ -1927,6 +2062,7 @@
 		<value xml:lang="tr"><![CDATA[Görüntülenme]]></value>
 		<value xml:lang="vi"><![CDATA[Đã xem]]></value>
 		<value xml:lang="mn"><![CDATA[Уншсан]]></value>
+        <value xml:lang="ro"><![CDATA[Vizualizări]]></value>
 	</item>
 	<item name="voted_count">
 		<value xml:lang="ko"><![CDATA[추천 수]]></value>
@@ -1941,6 +2077,7 @@
 		<value xml:lang="tr"><![CDATA[Oylar]]></value>
 		<value xml:lang="vi"><![CDATA[Lượt bình chọn]]></value>
 		<value xml:lang="mn"><![CDATA[vote]]></value>
+        <value xml:lang="ro"><![CDATA[Voturi]]></value>
 	</item>
 	<item name="blamed_count">
 		<value xml:lang="ko"><![CDATA[비추천 수]]></value>
@@ -1948,6 +2085,7 @@
 		<value xml:lang="zh-CN"><![CDATA[Blames]]></value>
 		<value xml:lang="zh-TW"><![CDATA[Blames]]></value>
 		<value xml:lang="tr"><![CDATA[Suçlama]]></value>
+        <value xml:lang="ro"><![CDATA[Voturi negative]]></value>
 	</item>
 	<item name="comment_count">
 		<value xml:lang="ko"><![CDATA[댓글 수]]></value>
@@ -1962,6 +2100,7 @@
 		<value xml:lang="tr"><![CDATA[Yorumlar]]></value>
 		<value xml:lang="vi"><![CDATA[Bình luận]]></value>
 		<value xml:lang="mn"><![CDATA[Комментын тоо]]></value>
+        <value xml:lang="ro"><![CDATA[Comentarii]]></value>
 	</item>
 	<item name="member_count">
 		<value xml:lang="ko"><![CDATA[회원 수]]></value>
@@ -1976,6 +2115,7 @@
 		<value xml:lang="tr"><![CDATA[Üye sayısı]]></value>
 		<value xml:lang="vi"><![CDATA[Số thành viên]]></value>
 		<value xml:lang="mn"><![CDATA[Гишүүдийн тоо]]></value>
+        <value xml:lang="ro"><![CDATA[Membri]]></value>
 	</item>
 	<item name="date">
 		<value xml:lang="ko"><![CDATA[날짜]]></value>
@@ -1989,6 +2129,7 @@
 		<value xml:lang="es"><![CDATA[Fecha]]></value>
 		<value xml:lang="tr"><![CDATA[Tarih]]></value>
 		<value xml:lang="vi"><![CDATA[Ngày gửi]]></value>
+        <value xml:lang="ro"><![CDATA[Dată]]></value>
 	</item>
 	<item name="regdate">
 		<value xml:lang="ko"><![CDATA[등록일]]></value>
@@ -2003,6 +2144,7 @@
 		<value xml:lang="tr"><![CDATA[Kayıt Tarihi]]></value>
 		<value xml:lang="vi"><![CDATA[Ngày gửi]]></value>
 		<value xml:lang="mn"><![CDATA[Оруулсан өдөр]]></value>
+        <value xml:lang="ro"><![CDATA[Data înregistrării]]></value>
 	</item>
 	<item name="last_update">
 		<value xml:lang="ko"><![CDATA[최근 수정일]]></value>
@@ -2017,6 +2159,7 @@
 		<value xml:lang="tr"><![CDATA[Son Güncelleme]]></value>
 		<value xml:lang="vi"><![CDATA[Cập nhật lần cuối]]></value>
 		<value xml:lang="mn"><![CDATA[Сүүлд засварласан өдөр]]></value>
+        <value xml:lang="ro"><![CDATA[Ultima modificare]]></value>
 	</item>
 	<item name="last_post">
 		<value xml:lang="ko"><![CDATA[마지막 댓글]]></value>
@@ -2031,6 +2174,7 @@
 		<value xml:lang="tr"><![CDATA[Son mesaj]]></value>
 		<value xml:lang="vi"><![CDATA[Bài mới nhất]]></value>
 		<value xml:lang="mn"><![CDATA[Хамгийн сүүлд оруулсан]]></value>
+        <value xml:lang="ro"><![CDATA[Ultimul comentariu]]></value>
 	</item>
 	<item name="signup_date">
 		<value xml:lang="ko"><![CDATA[가입일]]></value>
@@ -2045,6 +2189,7 @@
 		<value xml:lang="tr"><![CDATA[Kayıt Tarihi]]></value>
 		<value xml:lang="vi"><![CDATA[Ngày đăng kí]]></value>
 		<value xml:lang="mn"><![CDATA[Бүртгүүлсэн өдөр]]></value>
+        <value xml:lang="ro"><![CDATA[Data înregistrării]]></value>
 	</item>
 	<item name="last_login">
 		<value xml:lang="ko"><![CDATA[최근 로그인]]></value>
@@ -2059,6 +2204,7 @@
 		<value xml:lang="tr"><![CDATA[Son Giriş]]></value>
 		<value xml:lang="vi"><![CDATA[Lần cuối đăng nhập]]></value>
 		<value xml:lang="mn"><![CDATA[Хамгийн сүүлд нэвтэрсэн]]></value>
+        <value xml:lang="ro"><![CDATA[Ultima autentificare]]></value>
 	</item>
 	<item name="first_page">
 		<value xml:lang="ko"><![CDATA[첫 페이지]]></value>
@@ -2073,6 +2219,7 @@
 		<value xml:lang="tr"><![CDATA[İlk sayfa]]></value>
 		<value xml:lang="vi"><![CDATA[Trang trước]]></value>
 		<value xml:lang="mn"><![CDATA[Эхний хуудас]]></value>
+        <value xml:lang="ro"><![CDATA[Prima pagină]]></value>
 	</item>
 	<item name="last_page">
 		<value xml:lang="ko"><![CDATA[끝 페이지]]></value>
@@ -2087,6 +2234,7 @@
 		<value xml:lang="tr"><![CDATA[Son sayfa]]></value>
 		<value xml:lang="vi"><![CDATA[Trang sau]]></value>
 		<value xml:lang="mn"><![CDATA[Сүүлчийн хуудас]]></value>
+        <value xml:lang="ro"><![CDATA[Ultima pagină]]></value>
 	</item>
 	<item name="search_target">
 		<value xml:lang="ko"><![CDATA[검색대상]]></value>
@@ -2101,6 +2249,7 @@
 		<value xml:lang="tr"><![CDATA[Arama hedefi]]></value>
 		<value xml:lang="vi"><![CDATA[Khu vực tìm kiếm]]></value>
 		<value xml:lang="mn"><![CDATA[Хайх зорилго]]></value>
+        <value xml:lang="ro"><![CDATA[Obiectiv căutare]]></value>
 	</item>
 	<item name="search_keyword">
 		<value xml:lang="ko"><![CDATA[검색어]]></value>
@@ -2115,10 +2264,12 @@
 		<value xml:lang="tr"><![CDATA[Anahtar sözcük]]></value>
 		<value xml:lang="vi"><![CDATA[Từ khóa]]></value>
 		<value xml:lang="mn"><![CDATA[Хайх үг]]></value>
+        <value xml:lang="ro"><![CDATA[Cuvânt cheie]]></value>
 	</item>
 
     <item name="search_results">
         <value xml:lang="en"><![CDATA[Search results]]></value>
+        <value xml:lang="ro"><![CDATA[Reyultate căutare]]></value>
     </item>
 
 	<item name="is_default">
@@ -2134,6 +2285,7 @@
 		<value xml:lang="tr"><![CDATA[Varsayılan]]></value>
 		<value xml:lang="vi"><![CDATA[Mặc định]]></value>
 		<value xml:lang="mn"><![CDATA[Үндсэн]]></value>
+        <value xml:lang="ro"><![CDATA[Implicit]]></value>
 	</item>
 	<item name="no_documents">
 		<value xml:lang="ko"><![CDATA[등록된 글이 없습니다.]]></value>
@@ -2148,6 +2300,7 @@
 		<value xml:lang="tr"><![CDATA[Yazı yok]]></value>
 		<value xml:lang="vi"><![CDATA[Chưa có bài viết nào.]]></value>
 		<value xml:lang="mn"><![CDATA[Оруулсан бичлэг байхгүй]]></value>
+        <value xml:lang="ro"><![CDATA[Fără documente]]></value>
 	</item>
 	<item name="board_manager">
 		<value xml:lang="ko"><![CDATA[게시판 관리]]></value>
@@ -2162,6 +2315,7 @@
 		<value xml:lang="tr"><![CDATA[Yönetim Ayarları]]></value>
 		<value xml:lang="vi"><![CDATA[Quản lý Board]]></value>
 		<value xml:lang="mn"><![CDATA[Board удирдах]]></value>
+        <value xml:lang="ro"><![CDATA[Setări board]]></value>
 	</item>
 	<item name="member_manager">
 		<value xml:lang="ko"><![CDATA[회원 관리]]></value>
@@ -2176,6 +2330,7 @@
 		<value xml:lang="tr"><![CDATA[Üye Ayarları]]></value>
 		<value xml:lang="vi"><![CDATA[Quản lý thành viên]]></value>
 		<value xml:lang="mn"><![CDATA[Гишүүн удирдах]]></value>
+        <value xml:lang="ro"><![CDATA[Setări membri]]></value>
 	</item>
 	<item name="layout_manager">
 		<value xml:lang="ko"><![CDATA[레이아웃 관리]]></value>
@@ -2190,6 +2345,7 @@
 		<value xml:lang="tr"><![CDATA[Yerleşim düzeni ayarları]]></value>
 		<value xml:lang="vi"><![CDATA[Quản lý giao diện]]></value>
 		<value xml:lang="mn"><![CDATA[Лэйаут удирдах]]></value>
+        <value xml:lang="ro"><![CDATA[Setări layout]]></value>
 	</item>
 	<item name="use">
 		<value xml:lang="ko"><![CDATA[사용]]></value>
@@ -2204,6 +2360,7 @@
 		<value xml:lang="tr"><![CDATA[Kullan]]></value>
 		<value xml:lang="vi"><![CDATA[Sử dụng]]></value>
 		<value xml:lang="mn"><![CDATA[Хэрэглэх]]></value>
+        <value xml:lang="ro"><![CDATA[Foloseşte]]></value>
 	</item>
 	<item name="notuse">
 		<value xml:lang="ko"><![CDATA[미사용]]></value>
@@ -2218,6 +2375,7 @@
 		<value xml:lang="tr"><![CDATA[Devredışı]]></value>
 		<value xml:lang="vi"><![CDATA[Không sử dụng]]></value>
 		<value xml:lang="mn"><![CDATA[Хэрэглэхгүй]]></value>
+        <value xml:lang="ro"><![CDATA[Nu folosi]]></value>
 	</item>
 	<item name="on">
 		<value xml:lang="ko"><![CDATA[켜짐]]></value>
@@ -2226,6 +2384,7 @@
 		<value xml:lang="zh-CN"><![CDATA[启用]]></value>
 		<value xml:lang="zh-TW"><![CDATA[開啟]]></value>
 		<value xml:lang="de"><![CDATA[An]]></value>
+        <value xml:lang="ro"><![CDATA[Activ]]></value>
 	</item>
 	<item name="off">
 		<value xml:lang="ko"><![CDATA[꺼짐]]></value>
@@ -2235,6 +2394,7 @@
 		<value xml:lang="zh-TW"><![CDATA[關閉]]></value>
 		<value xml:lang="de"><![CDATA[Aus]]></value>
 		<value xml:lang="tr"><![CDATA[Kapat]]></value>
+        <value xml:lang="ro"><![CDATA[Inactiv]]></value>
 	</item>
 	<item name="not_exists">
 		<value xml:lang="ko"><![CDATA[없음]]></value>
@@ -2249,6 +2409,7 @@
 		<value xml:lang="tr"><![CDATA[mevcut değil]]></value>
 		<value xml:lang="vi"><![CDATA[Không tồn tại]]></value>
 		<value xml:lang="mn"><![CDATA[Байхгүй]]></value>
+        <value xml:lang="ro"><![CDATA[Nu există]]></value>
 	</item>
 	<item name="public">
 		<value xml:lang="ko"><![CDATA[공개]]></value>
@@ -2262,6 +2423,7 @@
 		<value xml:lang="tr"><![CDATA[Genel]]></value>
 		<value xml:lang="vi"><![CDATA[Công khai]]></value>
 		<value xml:lang="mn"><![CDATA[Нийтийн]]></value>
+        <value xml:lang="ro"><![CDATA[Public]]></value>
 	</item>
 	<item name="private">
 		<value xml:lang="ko"><![CDATA[비공개]]></value>
@@ -2276,6 +2438,7 @@
 		<value xml:lang="tr"><![CDATA[Özel]]></value>
 		<value xml:lang="vi"><![CDATA[Riêng tư]]></value>
 		<value xml:lang="mn"><![CDATA[Нууцлах]]></value>
+        <value xml:lang="ro"><![CDATA[Privat]]></value>
 	</item>
 	<item name="etc">
 		<value xml:lang="ko"><![CDATA[기타]]></value>
@@ -2285,6 +2448,7 @@
 		<value xml:lang="zh-TW"><![CDATA[其他]]></value>
 		<value xml:lang="de"><![CDATA[Sonstiges]]></value>
 		<value xml:lang="tr"><![CDATA[Diğer]]></value>
+        <value xml:lang="ro"><![CDATA[Altele]]></value>
 	</item>
 	<item name="unit_sec">
 		<value xml:lang="ko"><![CDATA[초]]></value>
@@ -2299,6 +2463,7 @@
 		<value xml:lang="tr"><![CDATA[sn]]></value>
 		<value xml:lang="vi"><![CDATA[Giây]]></value>
 		<value xml:lang="mn"><![CDATA[Секунд]]></value>
+        <value xml:lang="ro"><![CDATA[secunde]]></value>
 	</item>
 	<item name="unit_min">
 		<value xml:lang="ko"><![CDATA[분]]></value>
@@ -2313,6 +2478,7 @@
 		<value xml:lang="tr"><![CDATA[dk]]></value>
 		<value xml:lang="vi"><![CDATA[Phút]]></value>
 		<value xml:lang="mn"><![CDATA[Минут]]></value>
+        <value xml:lang="ro"><![CDATA[minute]]></value>
 	</item>
 	<item name="unit_hour">
 		<value xml:lang="ko"><![CDATA[시]]></value>
@@ -2327,6 +2493,7 @@
 		<value xml:lang="tr"><![CDATA[saat]]></value>
 		<value xml:lang="vi"><![CDATA[Giờ]]></value>
 		<value xml:lang="mn"><![CDATA[Цаг]]></value>
+        <value xml:lang="ro"><![CDATA[ore]]></value>
 	</item>
 	<item name="unit_day">
 		<value xml:lang="ko"><![CDATA[일]]></value>
@@ -2341,6 +2508,7 @@
 		<value xml:lang="tr"><![CDATA[gün]]></value>
 		<value xml:lang="vi"><![CDATA[Ngày]]></value>
 		<value xml:lang="mn"><![CDATA[Өдөр]]></value>
+        <value xml:lang="ro"><![CDATA[ziua]]></value>
 	</item>
 	<item name="unit_month">
 		<value xml:lang="ko"><![CDATA[월]]></value>
@@ -2355,6 +2523,7 @@
 		<value xml:lang="tr"><![CDATA[ay]]></value>
 		<value xml:lang="vi"><![CDATA[Tháng]]></value>
 		<value xml:lang="mn"><![CDATA[Сар]]></value>
+        <value xml:lang="ro"><![CDATA[lună]]></value>
 	</item>
 	<item name="unit_year">
 		<value xml:lang="ko"><![CDATA[년]]></value>
@@ -2369,6 +2538,7 @@
 		<value xml:lang="tr"><![CDATA[yıl]]></value>
 		<value xml:lang="vi"><![CDATA[Năm]]></value>
 		<value xml:lang="mn"><![CDATA[Жил]]></value>
+        <value xml:lang="ro"><![CDATA[an]]></value>
 	</item>
 	<item name="unit_week" type="array">
 		<item name="Monday">
@@ -2384,6 +2554,7 @@
 			<value xml:lang="tr"><![CDATA[Pazartesi]]></value>
 			<value xml:lang="vi"><![CDATA[Thứ hai]]></value>
 			<value xml:lang="mn"><![CDATA[Да]]></value>
+            <value xml:lang="ro"><![CDATA[Luni]]></value>
 		</item>
 		<item name="Tuesday">
 			<value xml:lang="ko"><![CDATA[화]]></value>
@@ -2398,6 +2569,7 @@
 			<value xml:lang="tr"><![CDATA[Salı]]></value>
 			<value xml:lang="vi"><![CDATA[Thứ ba]]></value>
 			<value xml:lang="mn"><![CDATA[Мя]]></value>
+            <value xml:lang="ro"><![CDATA[Marţi]]></value>
 		</item>
 		<item name="Wednesday">
 			<value xml:lang="ko"><![CDATA[수]]></value>
@@ -2412,6 +2584,7 @@
 			<value xml:lang="tr"><![CDATA[Carşamba]]></value>
 			<value xml:lang="vi"><![CDATA[Thứ tư]]></value>
 			<value xml:lang="mn"><![CDATA[Лха]]></value>
+            <value xml:lang="ro"><![CDATA[Miercuri]]></value>
 		</item>
 		<item name="Thursday">
 			<value xml:lang="ko"><![CDATA[목]]></value>
@@ -2426,6 +2599,7 @@
 			<value xml:lang="tr"><![CDATA[Perşembe]]></value>
 			<value xml:lang="vi"><![CDATA[Thứ năm]]></value>
 			<value xml:lang="mn"><![CDATA[Пv]]></value>
+            <value xml:lang="ro"><![CDATA[Joi]]></value>
 		</item>
 		<item name="Friday">
 			<value xml:lang="ko"><![CDATA[금]]></value>
@@ -2440,6 +2614,7 @@
 			<value xml:lang="tr"><![CDATA[Cuma]]></value>
 			<value xml:lang="vi"><![CDATA[Thứ sáu]]></value>
 			<value xml:lang="mn"><![CDATA[Ба]]></value>
+            <value xml:lang="ro"><![CDATA[Vineri]]></value>
 		</item>
 		<item name="Saturday">
 			<value xml:lang="ko"><![CDATA[토]]></value>
@@ -2454,6 +2629,7 @@
 			<value xml:lang="tr"><![CDATA[Cumartesi]]></value>
 			<value xml:lang="vi"><![CDATA[Thứ bảy]]></value>
 			<value xml:lang="mn"><![CDATA[Бя]]></value>
+            <value xml:lang="ro"><![CDATA[Sâmbată]]></value>
 		</item>
 		<item name="Sunday">
 			<value xml:lang="ko"><![CDATA[일]]></value>
@@ -2468,6 +2644,7 @@
 			<value xml:lang="tr"><![CDATA[Pazar]]></value>
 			<value xml:lang="vi"><![CDATA[Chủ nhật]]></value>
 			<value xml:lang="mn"><![CDATA[Ня]]></value>
+            <value xml:lang="ro"><![CDATA[Duminică]]></value>
 		</item>
 	</item>
 	<item name="unit_meridiem" type="array">
@@ -2480,6 +2657,7 @@
 			<value xml:lang="de"><![CDATA[vormittags]]></value>
 			<value xml:lang="mn"><![CDATA[eглee]]></value>
 			<value xml:lang="tr"><![CDATA[Öğleden önce]]></value>
+            <value xml:lang="ro"><![CDATA[am]]></value>
 		</item>
 		<item name="pm">
 			<value xml:lang="ko"><![CDATA[오후]]></value>
@@ -2490,6 +2668,7 @@
 			<value xml:lang="de"><![CDATA[nachmittags]]></value>
 			<value xml:lang="mn"><![CDATA[орой]]></value>
 			<value xml:lang="tr"><![CDATA[Öğleden sonra]]></value>
+            <value xml:lang="ro"><![CDATA[pm]]></value>
 		</item>
 		<item name="AM">
 			<value xml:lang="ko"><![CDATA[오전]]></value>
@@ -2500,6 +2679,7 @@
 			<value xml:lang="de"><![CDATA[Vormittag]]></value>
 			<value xml:lang="mn"><![CDATA[eглee]]></value>
 			<value xml:lang="tr"><![CDATA[Öğleden önce]]></value>
+            <value xml:lang="ro"><![CDATA[AM]]></value>
 		</item>
 		<item name="PM">
 			<value xml:lang="ko"><![CDATA[오후]]></value>
@@ -2510,6 +2690,7 @@
 			<value xml:lang="de"><![CDATA[Nachmittag]]></value>
 			<value xml:lang="mn"><![CDATA[орой]]></value>
 			<value xml:lang="tr"><![CDATA[Öğleden sonra]]></value>
+            <value xml:lang="ro"><![CDATA[PM]]></value>
 		</item>
 	</item>
 	<item name="time_gap" type="array">
@@ -2526,6 +2707,7 @@
 			<value xml:lang="tr"><![CDATA[%d dakika once]]></value>
 			<value xml:lang="vi"><![CDATA[%d phút trước]]></value>
 			<value xml:lang="mn"><![CDATA[%d минутын eмнe]]></value>
+            <value xml:lang="ro"><![CDATA[în urmă cu %s minut]]></value>
 		</item>
 		<item name="mins">
 			<value xml:lang="ko"><![CDATA[%d 분 전]]></value>
@@ -2540,6 +2722,7 @@
 			<value xml:lang="tr"><![CDATA[%d dakika once]]></value>
 			<value xml:lang="vi"><![CDATA[%d phút trước]]></value>
 			<value xml:lang="mn"><![CDATA[%d минутын eмнe]]></value>
+            <value xml:lang="ro"><![CDATA[în urmă cu %d minute]]></value>
 		</item>
 		<item name="hour">
 			<value xml:lang="ko"><![CDATA[%d 시간 전]]></value>
@@ -2554,6 +2737,7 @@
 			<value xml:lang="tr"><![CDATA[%d saat once]]></value>
 			<value xml:lang="vi"><![CDATA[%d giờ trước]]></value>
 			<value xml:lang="mn"><![CDATA[%d цагийн eмнe]]></value>
+            <value xml:lang="ro"><![CDATA[în urma cu % oră]]></value>
 		</item>
 		<item name="hours">
 			<value xml:lang="ko"><![CDATA[%d 시간 전]]></value>
@@ -2568,6 +2752,7 @@
 			<value xml:lang="tr"><![CDATA[%d saat once]]></value>
 			<value xml:lang="vi"><![CDATA[%d giờ trước]]></value>
 			<value xml:lang="mn"><![CDATA[%d цагийн eмнe]]></value>
+            <value xml:lang="ro"><![CDATA[în urma cu %d ore]]></value>
 		</item>
 	</item>
 	<item name="about_tag">
@@ -2583,6 +2768,7 @@
 		<value xml:lang="tr"><![CDATA[Etiketlerim arasına virgül(,)ekleyerek coklu etiketleme yapabilirsiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể thêm vào nhiều Tag bằng cách đặt dấu(,) giữa mỗi Tag.]]></value>
 		<value xml:lang="mn"><![CDATA[tag оруулахдаа таслал ашиглавал давтан оруулж болно]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi introduce mai multe taguri separate prin virgulă (,)]]></value>
 	</item>
 	<item name="about_layout">
 		<value xml:lang="ko"><![CDATA[레이아웃은 모듈의 겉모습을 꾸며줍니다. 상단 레이아웃 메뉴에서 관리하실 수 있습니다.]]></value>
@@ -2597,6 +2783,7 @@
 		<value xml:lang="tr"><![CDATA[Yerleşim Duzenleri, modüllerin görünümünü şekillendirir. Üst taraftaki yerleşim düzeni bölümünden ayarlamaları yapabilirsiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Để trang trí giao diện bằng các Module. Bạn có thể điều chỉnh chúng bằng Menu trên đầu trang.]]></value>
 		<value xml:lang="mn"><![CDATA[Лэйаут нь модиулын гадаад байдлыг чимж өгнө. Дээрх лэйаут менюнээс удирдаж болно]]></value>
+        <value xml:lang="ro"><![CDATA[Layout-urile decorează aspectul modulelor. Le poţi configura din meniul Lazout de sus.]]></value>
 	</item>
 	<item name="msg_call_server">
 		<value xml:lang="ko"><![CDATA[서버에 요청 중입니다. 잠시만 기다려주세요.]]></value>
@@ -2611,6 +2798,7 @@
 		<value xml:lang="tr"><![CDATA[Sunucuya bağlanıyor, lütfen bekleyiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Đang kết nối tới máy chủ, Xin vui lòng đợi! ...]]></value>
 		<value xml:lang="mn"><![CDATA[Сервер ачаалж байна. Түр хүлээнэ үү.]]></value>
+        <value xml:lang="ro"><![CDATA[Se trmite cererea către server. asteptaţi vă rog]]></value>
 	</item>
 	<item name="msg_db_not_setted">
 		<value xml:lang="ko"><![CDATA[DB 설정이 되어 있지 않습니다.]]></value>
@@ -2625,6 +2813,7 @@
 		<value xml:lang="tr"><![CDATA[VT Ayarları yapılmadı.]]></value>
 		<value xml:lang="vi"><![CDATA[Cấu hình Database chưa được thiết lập.]]></value>
 		<value xml:lang="mn"><![CDATA[DB тохируулга хийгдээгүй байна.]]></value>
+        <value xml:lang="ro"><![CDATA[Configurarea bazei de date nu a fost setată]]></value>
 	</item>
 	<item name="msg_dbconnect_failed">
 		<value xml:lang="ko"><![CDATA[DB 접속 오류가 발생했습니다. DB정보를 다시 확인해주세요.]]></value>
@@ -2638,6 +2827,7 @@
 		<value xml:lang="es"><![CDATA[Ha ocurrido un error en la conexión de BD. Por favor chequee la información de BD nuevamente]]></value>
 		<value xml:lang="tr"><![CDATA[VT bağlantısında sorun meydana geldi. DB bilgilerini lutfen kontrol edin.]]></value>
 		<value xml:lang="vi"><![CDATA[Không thể kết nối. Xin vui lòng kiểm tra lại thông tin Database.]]></value>
+        <value xml:lang="ro"><![CDATA[A apărut o eroare la contectarea la baza de date. Vă rog verificaţi informaţiile de conectare din nou.]]></value>
 	</item>
 	<item name="msg_invalid_queryid">
 		<value xml:lang="ko"><![CDATA[Query ID값이 잘못 지정되었습니다.]]></value>
@@ -2652,6 +2842,7 @@
 		<value xml:lang="tr"><![CDATA[Belirlenen sorgu icin kimlik bilgisi geçersiz.]]></value>
 		<value xml:lang="vi"><![CDATA[Giá trị ID không hợp lệ]]></value>
 		<value xml:lang="mn"><![CDATA[Query ID буруу бичигдсэн байна.]]></value>
+        <value xml:lang="ro"><![CDATA[ID-ul de query specificat nu este valid.]]></value>
 	</item>
 	<item name="msg_not_permitted">
 		<value xml:lang="ko"><![CDATA[권한이 없습니다.]]></value>
@@ -2666,6 +2857,7 @@
 		<value xml:lang="tr"><![CDATA[Giriş izniniz yok.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn không được phép truy cập tại đây!]]></value>
 		<value xml:lang="mn"><![CDATA[Эрх байхгүй байна]]></value>
+        <value xml:lang="ro"><![CDATA[Nu ai permisiuni de acces.]]></value>
 	</item>
 	<item name="msg_input_password">
 		<value xml:lang="ko"><![CDATA[비밀번호를 입력하세요.]]></value>
@@ -2680,6 +2872,7 @@
 		<value xml:lang="tr"><![CDATA[Lüften şifreyi Girin]]></value>
 		<value xml:lang="vi"><![CDATA[Xin vui lòng nhập mật khẩu!]]></value>
 		<value xml:lang="mn"><![CDATA[Нууц дугаараа оруулна уу]]></value>
+        <value xml:lang="ro"><![CDATA[Te rog introdu parola.]]></value>
 	</item>
 	<item name="msg_invalid_document">
 		<value xml:lang="ko"><![CDATA[잘못된 문서번호입니다.]]></value>
@@ -2694,6 +2887,7 @@
 		<value xml:lang="tr"><![CDATA[Geçersiz Döküman Numarası]]></value>
 		<value xml:lang="vi"><![CDATA[Bài viết không tồn tại]]></value>
 		<value xml:lang="mn"><![CDATA[Бичлэгийн дугаар буруу байна]]></value>
+        <value xml:lang="ro"><![CDATA[Numărul de document nu este valid.]]></value>
 	</item>
 	<item name="msg_invalid_request">
 		<value xml:lang="ko"><![CDATA[잘못된 요청입니다.]]></value>
@@ -2708,6 +2902,7 @@
 		<value xml:lang="tr"><![CDATA[Geçersiz İstek]]></value>
 		<value xml:lang="vi"><![CDATA[Yêu cầu không hợp lệ]]></value>
 		<value xml:lang="mn"><![CDATA[Буруу шаардлага байна]]></value>
+        <value xml:lang="ro"><![CDATA[Cererea nu este validă]]></value>
 	</item>
 	<item name="msg_invalid_password">
 		<value xml:lang="ko"><![CDATA[비밀번호가 올바르지 않습니다.]]></value>
@@ -2722,6 +2917,7 @@
 		<value xml:lang="tr"><![CDATA[Geçersiz Şifre]]></value>
 		<value xml:lang="vi"><![CDATA[Mật khẩu không đúng]]></value>
 		<value xml:lang="mn"><![CDATA[Нууц дугаар буруу байна]]></value>
+        <value xml:lang="ro"><![CDATA[Parola introdusă este incorectă]]></value>
 	</item>
 	<item name="msg_error_occured">
 		<value xml:lang="ko"><![CDATA[오류가 발생했습니다.]]></value>
@@ -2736,6 +2932,7 @@
 		<value xml:lang="tr"><![CDATA[Bir hata oluştu.]]></value>
 		<value xml:lang="vi"><![CDATA[Đã có lỗi xảy ra.]]></value>
 		<value xml:lang="mn"><![CDATA[Алдаа гарлаа]]></value>
+        <value xml:lang="ro"><![CDATA[A apărut o eroare.]]></value>
 	</item>
 	<item name="msg_not_founded">
 		<value xml:lang="ko"><![CDATA[대상을 찾을 수 없습니다.]]></value>
@@ -2750,6 +2947,7 @@
 		<value xml:lang="tr"><![CDATA[Hedef bulunamadı.]]></value>
 		<value xml:lang="vi"><![CDATA[Không tìm thấy.]]></value>
 		<value xml:lang="mn"><![CDATA[Зорилгыг олж чадсангүйү]]></value>
+        <value xml:lang="ro"><![CDATA[Obiectivul nu a fost găsit.]]></value>
 	</item>
 	<item name="msg_no_result">
 		<value xml:lang="ko"><![CDATA[검색 결과가 없습니다.]]></value>
@@ -2764,6 +2962,7 @@
 		<value xml:lang="tr"><![CDATA[Hiçbir sonuç bulunamadı]]></value>
 		<value xml:lang="vi"><![CDATA[Không có kết quả nào được tìm thấy.]]></value>
 		<value xml:lang="mn"><![CDATA[Хайлтын үр дүн байхгүй байна]]></value>
+        <value xml:lang="ro"><![CDATA[Nu s-au găsit rezultate.]]></value>
 	</item>
 	<item name="msg_fail_to_request_open">
 		<value xml:lang="ko"><![CDATA[요청하신 연결에 실패했습니다.]]></value>
@@ -2775,6 +2974,7 @@
 		<value xml:lang="ru"><![CDATA[Ошибка в запрашиваемом соединении]]></value>
 		<value xml:lang="tr"><![CDATA[İsteğiniz gercekleşemedi.]]></value>
 		<value xml:lang="mn"><![CDATA[Холболт амжилтгvй боллоо.]]></value>
+        <value xml:lang="ro"><![CDATA[Cererea nu a putut fi deschisă]]></value>
 	</item>
 	<item name="msg_invalid_format">
 		<value xml:lang="ko"><![CDATA[잘못된 형식입니다.]]></value>
@@ -2786,6 +2986,7 @@
 		<value xml:lang="ru"><![CDATA[Неверный формат]]></value>
 		<value xml:lang="tr"><![CDATA[Geçersiz Format]]></value>
 		<value xml:lang="mn"><![CDATA[Буруу хэлбэр байна.]]></value>
+        <value xml:lang="ro"><![CDATA[Formatul nu este valid.]]></value>
 	</item>
 	<item name="msg_not_permitted_act">
 		<value xml:lang="ko"><![CDATA[요청하신 기능을 실행할 수 있는 권한이 없습니다.]]></value>
@@ -2800,6 +3001,7 @@
 		<value xml:lang="tr"><![CDATA[İstenilen eylemi gercekleştirmeye yetkiniz yok.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn không được phép làm việc này.]]></value>
 		<value xml:lang="mn"><![CDATA[Хүсэлт гаргасан үйлдлийг хэрэгжүүлэх эрх байхгүй.]]></value>
+        <value xml:lang="ro"><![CDATA[Nu ai permisiuni sa exectuţi acţiunea cerută.]]></value>
 	</item>
 	<item name="msg_module_is_not_exists">
 		<value xml:lang="ko"><![CDATA[요청하신 모듈을 찾을 수 없습니다. 사이트 관리자에게 모듈 점검 요청 바랍니다]]></value>
@@ -2808,6 +3010,7 @@
 		<value xml:lang="zh-CN"><![CDATA[您所请求的模块不存在，请联系您的网站管理员。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[找不到所登錄的模組。 請詢問網站管理員檢查模組。]]></value>
 		<value xml:lang="de"><![CDATA[Das aufgeforderte Modul ist nicht zu finden. Bitte melden Sie sich dem Administrator des Moduls!]]></value>
+        <value xml:lang="ro"><![CDATA[Modulul cerut nu a fost găsit. Fă o cerere către administratorul site-ului să verifice modulul.]]></value>
 	</item>
 	<item name="msg_module_is_not_standalone">
 		<value xml:lang="ko"><![CDATA[요청하신 모듈은 독립적으로 동작할 수 없습니다.]]></value>
@@ -2822,6 +3025,7 @@
 		<value xml:lang="tr"><![CDATA[İstenilen modul bağımsız calıştırılamaz.]]></value>
 		<value xml:lang="vi"><![CDATA[Module yêu cầu không thể thực hiện độc lập.]]></value>
 		<value xml:lang="mn"><![CDATA[Хүсэлт гаргасан модиул нь бие даан хэрэгжих боломжгүй]]></value>
+        <value xml:lang="ro"><![CDATA[Modulul cerut nu poate fi executat independent.]]></value>
 	</item>
 	<item name="msg_default_url_is_not_defined">
 		<value xml:lang="ko"><![CDATA[기본 URL이 정해지지 않아서 동작을 중지합니다]]></value>
@@ -2833,6 +3037,7 @@
 		<value xml:lang="de"><![CDATA[Der Vorgang ist unterbrochen, denn Das Default_URL ist nicht eingegen.]]></value>
 		<value xml:lang="ru"><![CDATA[Default URL is not define]]></value>
 		<value xml:lang="tr"><![CDATA[Varsayılan URL tanımlı değil.]]></value>
+        <value xml:lang="ro"><![CDATA[URL+ul implicit nu este definit.]]></value>
 	</item>
 	<item name="msg_empty_search_target">
 		<value xml:lang="ko"><![CDATA[검색대상이 없습니다.]]></value>
@@ -2840,6 +3045,7 @@
 		<value xml:lang="zh-CN"><![CDATA[搜索不到目标]]></value>
 		<value xml:lang="zh-TW"><![CDATA[搜尋不到目標]]></value>
 		<value xml:lang="tr"><![CDATA[Arama amacı bulunamadı]]></value>
+        <value xml:lang="ro"><![CDATA[Nu a fost găsit obiectivul pentru căutare.]]></value>
 	</item>
 	<item name="msg_empty_search_keyword">
 		<value xml:lang="ko"><![CDATA[검색어가 없습니다.]]></value>
@@ -2847,12 +3053,14 @@
 		<value xml:lang="zh-CN"><![CDATA[搜索不到关键字]]></value>
 		<value xml:lang="zh-TW"><![CDATA[搜尋不到關鍵字]]></value>
 		<value xml:lang="tr"><![CDATA[Anahtar kelime yok]]></value>
+        <value xml:lang="ro"><![CDATA[Nu a fost găsit cuvântul cheie.]]></value>
 	</item>
 	<item name="comment_to_be_approved">
 		<value xml:lang="ko"><![CDATA[관리자의 확인이 필요한 댓글입니다.]]></value>
 		<value xml:lang="en"><![CDATA[Your comment must be approved by admin before being published.]]></value>
 		<value xml:lang="zh-CN"><![CDATA[您的回复在通过管理员审核之后才会被显示出来。]]></value>
 		<value xml:lang="tr"><![CDATA[Yorumunuz, yayınlanmadan önce adminden onay almanız gerekir]]></value>
+        <value xml:lang="ro"><![CDATA[Comentariul tău trebuie aprobat de un administrator inainte de a fi publicat.]]></value>
 	</item>
 	<item name="success_registed">
 		<value xml:lang="ko"><![CDATA[등록했습니다.]]></value>
@@ -2867,6 +3075,7 @@
 		<value xml:lang="tr"><![CDATA[Başarıyla Kaydedildi.]]></value>
 		<value xml:lang="vi"><![CDATA[Chúc mừng bạn đã đăng kí thành công!]]></value>
 		<value xml:lang="mn"><![CDATA[Бүртгэгдсэн]]></value>
+        <value xml:lang="ro"><![CDATA[Înregistrare cu succes.]]></value>
 	</item>
 	<item name="success_declared">
 		<value xml:lang="ko"><![CDATA[신고했습니다.]]></value>
@@ -2881,6 +3090,7 @@
 		<value xml:lang="tr"><![CDATA[Başarıyla Bildirildi.]]></value>
 		<value xml:lang="vi"><![CDATA[Đã báo cáo.]]></value>
 		<value xml:lang="mn"><![CDATA[Мэдээлэгдсэн]]></value>
+        <value xml:lang="ro"><![CDATA[Raport făcut cu succes.]]></value>
 	</item>
 	<item name="success_updated">
 		<value xml:lang="ko"><![CDATA[수정했습니다.]]></value>
@@ -2895,6 +3105,7 @@
 		<value xml:lang="tr"><![CDATA[Başarıyla Guncellendi.]]></value>
 		<value xml:lang="vi"><![CDATA[Đã cập nhật thành công.]]></value>
 		<value xml:lang="mn"><![CDATA[Засварлагдсан]]></value>
+        <value xml:lang="ro"><![CDATA[modificare efectuată cu succes.]]></value>
 	</item>
 	<item name="success_deleted">
 		<value xml:lang="ko"><![CDATA[삭제했습니다.]]></value>
@@ -2909,6 +3120,7 @@
 		<value xml:lang="tr"><![CDATA[Başarıyla Silindi.]]></value>
 		<value xml:lang="vi"><![CDATA[Đã xóa thành công.]]></value>
 		<value xml:lang="mn"><![CDATA[Устгагдсан]]></value>
+        <value xml:lang="ro"><![CDATA[Ştergere efectuată cu succes.]]></value>
 	</item>
 	<item name="success_restore">
 		<value xml:lang="ko"><![CDATA[복원했습니다.]]></value>
@@ -2917,6 +3129,7 @@
 		<value xml:lang="zh-CN"><![CDATA[复原成功！]]></value>
 		<value xml:lang="zh-TW"><![CDATA[成功還原！]]></value>
 		<value xml:lang="de"><![CDATA[Es ist erfolgreich wiederhergestellt.]]></value>
+        <value xml:lang="ro"><![CDATA[Refacere efectuată cu succes.]]></value>
 	</item>
 	<item name="success_voted">
 		<value xml:lang="ko"><![CDATA[추천했습니다.]]></value>
@@ -2931,6 +3144,7 @@
 		<value xml:lang="tr"><![CDATA[Başarıyla Tavsiye Edildi.]]></value>
 		<value xml:lang="vi"><![CDATA[Đã bình chọn.]]></value>
 		<value xml:lang="mn"><![CDATA[Санал болгогдсон]]></value>
+        <value xml:lang="ro"><![CDATA[Recomandare efectuată cu succes.]]></value>
 	</item>
 	<item name="success_blamed">
 		<value xml:lang="ko"><![CDATA[비추천했습니다.]]></value>
@@ -2945,10 +3159,12 @@
 		<value xml:lang="tr"><![CDATA[Başarıyla Bildirildi.]]></value>
 		<value xml:lang="vi"><![CDATA[Đã phê bình.]]></value>
 		<value xml:lang="mn"><![CDATA[Санал болгогдоогүй]]></value>
+        <value xml:lang="ro"><![CDATA[Votul negativ a fost înregistrat cu succes.]]></value>
 	</item>
 	<item name="success_copied">
 		<value xml:lang="ko"><![CDATA[복사했습니다.]]></value>
 		<value xml:lang="en"><![CDATA[Copied successfully.]]></value>
+        <value xml:lang="ro"><![CDATA[Copiere efectuată cu succes.]]></value>
 	</item>
 	<item name="success_moved">
 		<value xml:lang="ko"><![CDATA[이동했습니다.]]></value>
@@ -2963,6 +3179,7 @@
 		<value xml:lang="tr"><![CDATA[Başarıyla Tanındı.]]></value>
 		<value xml:lang="vi"><![CDATA[Đã chuyển.]]></value>
 		<value xml:lang="mn"><![CDATA[Шилжсэн]]></value>
+        <value xml:lang="ro"><![CDATA[Mutare efectuată cu succes.]]></value>
 	</item>
 	<item name="success_sended">
 		<value xml:lang="ko"><![CDATA[발송했습니다.]]></value>
@@ -2977,6 +3194,7 @@
 		<value xml:lang="tr"><![CDATA[Başarıyla Gönderildi]]></value>
 		<value xml:lang="vi"><![CDATA[Đã gửi thành công.]]></value>
 		<value xml:lang="mn"><![CDATA[Илгээгдсэн]]></value>
+        <value xml:lang="ro"><![CDATA[Trimitere efectuată cu succes.]]></value>
 	</item>
 	<item name="success_reset">
 		<value xml:lang="ko"><![CDATA[초기화했습니다.]]></value>
@@ -2991,6 +3209,7 @@
 		<value xml:lang="tr"><![CDATA[Başarıyla Tekrar Kuruldu.]]></value>
 		<value xml:lang="vi"><![CDATA[Đã thiết lập lại thành công.]]></value>
 		<value xml:lang="mn"><![CDATA[Reset]]></value>
+        <value xml:lang="ro"><![CDATA[Resetare efectuată cu succes.]]></value>
 	</item>
 	<item name="success_leaved">
 		<value xml:lang="ko"><![CDATA[탈퇴했습니다.]]></value>
@@ -3005,6 +3224,7 @@
 		<value xml:lang="tr"><![CDATA[Tüm üye verileri tamamen silindi.]]></value>
 		<value xml:lang="vi"><![CDATA[Đã xóa tất cả các thành viên.]]></value>
 		<value xml:lang="mn"><![CDATA[Гишүүнээс гарсан]]></value>
+        <value xml:lang="ro"><![CDATA[Contul tău a fost închis cu succes.]]></value>
 	</item>
 	<item name="success_saved">
 		<value xml:lang="ko"><![CDATA[저장했습니다.]]></value>
@@ -3019,6 +3239,7 @@
 		<value xml:lang="tr"><![CDATA[Başarıyla Kaydedildi.]]></value>
 		<value xml:lang="vi"><![CDATA[Đã lưu thành công.]]></value>
 		<value xml:lang="mn"><![CDATA[Хадгалагдсан]]></value>
+        <value xml:lang="ro"><![CDATA[Salvare efectuată cu succes.]]></value>
 	</item>
 	<item name="fail_to_registed">
 		<value xml:lang="ko"><![CDATA[등록하지 못했습니다.]]></value>
@@ -3028,11 +3249,13 @@
 		<value xml:lang="zh-TW"><![CDATA[註冊失敗。]]></value>
 		<value xml:lang="de"><![CDATA[Misserfolg der Registrierung]]></value>
 		<value xml:lang="tr"><![CDATA[Kayıt edilemiyor]]></value>
+        <value xml:lang="ro"><![CDATA[Înregistrarea a eşuat.]]></value>
 	</item>
 	<item name="fail_to_update">
 		<value xml:lang="ko"><![CDATA[수정하지 못했습니다.]]></value>
 		<value xml:lang="en"><![CDATA[Fail to update.]]></value>
 		<value xml:lang="tr"><![CDATA[Güncellenemedi]]></value>
+        <value xml:lang="ro"><![CDATA[Modificarea a eşuat.]]></value>
 	</item>
 	<item name="fail_to_delete">
 		<value xml:lang="ko"><![CDATA[삭제 실패했습니다.]]></value>
@@ -3047,6 +3270,7 @@
 		<value xml:lang="tr"><![CDATA[Silinemedi]]></value>
 		<value xml:lang="vi"><![CDATA[Không thể xóa.]]></value>
 		<value xml:lang="mn"><![CDATA[Устгалт амжилтгүй боллоо]]></value>
+        <value xml:lang="ro"><![CDATA[Ştergerea a aşuat.]]></value>
 	</item>
 	<item name="fail_to_move">
 		<value xml:lang="ko"><![CDATA[이동 실패했습니다.]]></value>
@@ -3061,6 +3285,7 @@
 		<value xml:lang="tr"><![CDATA[Taşınamadı]]></value>
 		<value xml:lang="vi"><![CDATA[Không thể chuyển.]]></value>
 		<value xml:lang="mn"><![CDATA[Шилжилт амжилтгүй боллоо]]></value>
+        <value xml:lang="ro"><![CDATA[Mutarea a eşuat.]]></value>
 	</item>
 	<item name="failed_voted">
 		<value xml:lang="ko"><![CDATA[추천하실 수 없습니다.]]></value>
@@ -3075,6 +3300,7 @@
 		<value xml:lang="tr"><![CDATA[Tavsiye edilemedi]]></value>
 		<value xml:lang="vi"><![CDATA[Không thể bình chọn.]]></value>
 		<value xml:lang="mn"><![CDATA[Санал болгох боломжгүй]]></value>
+        <value xml:lang="ro"><![CDATA[Nu ai permisiuni pentru recomandare.]]></value>
 	</item>
 	<item name="failed_blamed">
 		<value xml:lang="ko"><![CDATA[비추천하실 수 없습니다.]]></value>
@@ -3089,6 +3315,7 @@
 		<value xml:lang="tr"><![CDATA[Bildirilemedi]]></value>
 		<value xml:lang="vi"><![CDATA[Không thể phê bình]]></value>
 		<value xml:lang="mn"><![CDATA[Санал болгохгүй байх боломжгүй]]></value>
+        <value xml:lang="ro"><![CDATA[Nu ai permisiuni pentru vot negativ.]]></value>
 	</item>
 	<item name="failed_declared">
 		<value xml:lang="ko"><![CDATA[신고 하실 수 없습니다.]]></value>
@@ -3103,6 +3330,7 @@
 		<value xml:lang="tr"><![CDATA[Bildirilemedi]]></value>
 		<value xml:lang="vi"><![CDATA[Không thể báo cáo.]]></value>
 		<value xml:lang="mn"><![CDATA[Мэдээлэх боломжгүй]]></value>
+        <value xml:lang="ro"><![CDATA[Nu ai permisiuni pentru raportare.]]></value>
 	</item>
 	<item name="fail_to_delete_have_children">
 		<value xml:lang="ko"><![CDATA[댓글이 있어서 삭제할 수 없습니다.]]></value>
@@ -3117,6 +3345,7 @@
 		<value xml:lang="tr"><![CDATA[Cevapları kaldırdıktan sonra lütfen tekrar deneyiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Xin vui lòng thử lại sau khi gỡ bỏ bài trả lời đầu tiên.]]></value>
 		<value xml:lang="mn"><![CDATA[Хариулт бичлэг байгаа тул устгах боломжгүй]]></value>
+        <value xml:lang="ro"><![CDATA[Un document care are comentarii nu poate fi şters.]]></value>
 	</item>
 	<item name="confirm_submit">
 		<value xml:lang="ko"><![CDATA[등록하시겠습니까?]]></value>
@@ -3131,6 +3360,7 @@
 		<value xml:lang="tr"><![CDATA[Göndermek istediğinize emin misiniz?]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có chắc chắn muốn gửi?]]></value>
 		<value xml:lang="mn"><![CDATA[Оруулах уу?]]></value>
+        <value xml:lang="ro"><![CDATA[Eşti sigur ca vrei să trimiţi datele?]]></value>
 	</item>
 	<item name="confirm_logout">
 		<value xml:lang="ko"><![CDATA[로그아웃하시겠습니까?]]></value>
@@ -3145,6 +3375,7 @@
 		<value xml:lang="tr"><![CDATA[Oturumu kapatmak istediğinize emin misiniz?]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có chắc chắn thoát?]]></value>
 		<value xml:lang="mn"><![CDATA[Гарах уу?]]></value>
+        <value xml:lang="ro"><![CDATA[Eşti sigur ca vrei să te deconectezi?]]></value>
 	</item>
 	<item name="confirm_vote">
 		<value xml:lang="ko"><![CDATA[추천하시겠습니까?]]></value>
@@ -3159,6 +3390,7 @@
 		<value xml:lang="tr"><![CDATA[Tavsiye etmek istediğinize emin misiniz?]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có muốn bình chọn không??]]></value>
 		<value xml:lang="mn"><![CDATA[Санал болгох уу?]]></value>
+        <value xml:lang="ro"><![CDATA[Eşti sigur ca vrei să recomanzi?]]></value>
 	</item>
 	<item name="confirm_delete">
 		<value xml:lang="ko"><![CDATA[삭제하시겠습니까?]]></value>
@@ -3173,6 +3405,7 @@
 		<value xml:lang="tr"><![CDATA[Silmek istediğinize emin misiniz?]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn chắc chắn muốn xóa?]]></value>
 		<value xml:lang="mn"><![CDATA[Устгах уу?]]></value>
+        <value xml:lang="ro"><![CDATA[Eşti sigur ca vrei să ştergi înregistrarea?]]></value>
 	</item>
 	<item name="confirm_restore">
 		<value xml:lang="ko"><![CDATA[복원하시겠습니까?]]></value>
@@ -3183,6 +3416,7 @@
 		<value xml:lang="de"><![CDATA[Sind Sie sicher, dass Sie es wiederherstellen wollen?]]></value>
 		<value xml:lang="ru"><![CDATA[Восстановить?]]></value>
 		<value xml:lang="tr"><![CDATA[Yenilemek istediğine emin misin?]]></value>
+        <value xml:lang="ro"><![CDATA[Eşti sigur ca vrei să faci restore?]]></value>
 	</item>
 	<item name="confirm_move">
 		<value xml:lang="ko"><![CDATA[이동하시겠습니까?]]></value>
@@ -3197,6 +3431,7 @@
 		<value xml:lang="tr"><![CDATA[Taşımak istediğinize emin misiniz?]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn chắc chắn muốn chuyển?]]></value>
 		<value xml:lang="mn"><![CDATA[Шилжих үү?]]></value>
+        <value xml:lang="ro"><![CDATA[Eşti sigur ca vrei să muti înregistrarea?]]></value>
 	</item>
 	<item name="confirm_reset">
 		<value xml:lang="ko"><![CDATA[초기화 하시겠습니까??]]></value>
@@ -3211,6 +3446,7 @@
 		<value xml:lang="tr"><![CDATA[Sıfırlamak istediğinize emin misiniz?]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn chắc chắn muốn thiết lập lại?]]></value>
 		<value xml:lang="mn"><![CDATA[Reset хийх үү?]]></value>
+        <value xml:lang="ro"><![CDATA[Eşti sigur ca vrei să resetezi?]]></value>
 	</item>
 	<item name="confirm_leave">
 		<value xml:lang="ko"><![CDATA[탈퇴하시겠습니까??]]></value>
@@ -3225,6 +3461,7 @@
 		<value xml:lang="tr"><![CDATA[Cıkmak istediğinize emin misiniz?]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn chắc chắn muốn từ bỏ?]]></value>
 		<value xml:lang="mn"><![CDATA[Гишүүнээс гарах уу?]]></value>
+        <value xml:lang="ro"><![CDATA[Eşti sigur ca vrei să ştergi contul?]]></value>
 	</item>
 	<item name="confirm_update">
 		<value xml:lang="ko"><![CDATA[수정하시겠습니까?]]></value>
@@ -3236,6 +3473,7 @@
 		<value xml:lang="ru"><![CDATA[Обновить?]]></value>
 		<value xml:lang="tr"><![CDATA[Güncellemek istediğinize emin misiniz?]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn chắc chắn muốn Update?]]></value>
+        <value xml:lang="ro"><![CDATA[Eşti sigur ca vrei să modifici înregistrarea?]]></value>
 	</item>
 	<item name="column_type">
 		<value xml:lang="ko"><![CDATA[형식]]></value>
@@ -3250,6 +3488,7 @@
 		<value xml:lang="tr"><![CDATA[Sütun Turu]]></value>
 		<value xml:lang="vi"><![CDATA[Định dạng cột]]></value>
 		<value xml:lang="mn"><![CDATA[Хэлбэр]]></value>
+        <value xml:lang="ro"><![CDATA[Tip coloană]]></value>
 	</item>
 	<item name="column_type_list" type="array">
 		<item name="text">
@@ -3265,6 +3504,7 @@
 			<value xml:lang="tr"><![CDATA[tek satırlık metin]]></value>
 			<value xml:lang="vi"><![CDATA[Ô nhập liệu]]></value>
 			<value xml:lang="mn"><![CDATA[Нэг мөрөөр оруулах(text)]]></value>
+            <value xml:lang="ro"><![CDATA[text (o linie)]]></value>
 		</item>
 		<item name="homepage">
 			<value xml:lang="ko"><![CDATA[URL 형식]]></value>
@@ -3277,6 +3517,7 @@
 			<value xml:lang="es"><![CDATA[URL de la página web]]></value>
 			<value xml:lang="vi"><![CDATA[URL]]></value>
 			<value xml:lang="mn"><![CDATA[Веб хуудас хэлбэр(url)]]></value>
+            <value xml:lang="ro"><![CDATA[URL]]></value>
 		</item>
 		<item name="email_address">
 			<value xml:lang="ko"><![CDATA[이메일 형식(email)]]></value>
@@ -3290,6 +3531,7 @@
 			<value xml:lang="tr"><![CDATA[e-posta]]></value>
 			<value xml:lang="vi"><![CDATA[Email]]></value>
 			<value xml:lang="mn"><![CDATA[Мэйл хэлбэр(email)]]></value>
+            <value xml:lang="ro"><![CDATA[E-mail]]></value>
 		</item>
 		<item name="tel">
 			<value xml:lang="ko"><![CDATA[전화번호 형식(phone)]]></value>
@@ -3304,6 +3546,7 @@
 			<value xml:lang="tr"><![CDATA[telefon numarası]]></value>
 			<value xml:lang="vi"><![CDATA[Số điện thoại]]></value>
 			<value xml:lang="mn"><![CDATA[Утасны дугаар хэлбэр(phone)]]></value>
+            <value xml:lang="ro"><![CDATA[Număr de telefon]]></value>
 		</item>
 		<item name="textarea">
 			<value xml:lang="ko"><![CDATA[여러 줄 입력칸(textarea)]]></value>
@@ -3318,6 +3561,7 @@
 			<value xml:lang="tr"><![CDATA[cok satırlı metin alanı]]></value>
 			<value xml:lang="vi"><![CDATA[Khu vực nội dung]]></value>
 			<value xml:lang="mn"><![CDATA[Олон мөрөөр оруулах(textarea)]]></value>
+            <value xml:lang="ro"><![CDATA[textarea (mai multe linii)]]></value>
 		</item>
 		<item name="checkbox">
 			<value xml:lang="ko"><![CDATA[다중 선택(checkbox)]]></value>
@@ -3332,6 +3576,7 @@
 			<value xml:lang="tr"><![CDATA[onay kutusu(çoklu seçim)]]></value>
 			<value xml:lang="vi"><![CDATA[Ô chọn(Nhiều lựa chọn)]]></value>
 			<value xml:lang="mn"><![CDATA[Олон сонголт хийх(checkbox)]]></value>
+            <value xml:lang="ro"><![CDATA[checkbox]]></value>
 		</item>
 		<item name="select">
 			<value xml:lang="ko"><![CDATA[단일 선택(select)]]></value>
@@ -3346,6 +3591,7 @@
 			<value xml:lang="tr"><![CDATA[kutuyu seç(tekli seçim)]]></value>
 			<value xml:lang="vi"><![CDATA[Ô chọn(Một lựa chọn)]]></value>
 			<value xml:lang="mn"><![CDATA[Ганц сонголт хийх(select)]]></value>
+            <value xml:lang="ro"><![CDATA[select]]></value>
 		</item>
 		<item name="radio">
 			<value xml:lang="ko"><![CDATA[라디오 버튼(radio)]]></value>
@@ -3357,6 +3603,7 @@
 			<value xml:lang="ru"><![CDATA[Кнопка радио(радио)]]></value>
 			<value xml:lang="tr"><![CDATA[radyo tuşu(radyo)]]></value>
 			<value xml:lang="mn"><![CDATA[Нэг eдeр сонгох(radio)]]></value>
+            <value xml:lang="ro"><![CDATA[buton radio]]></value>
 		</item>
 		<item name="kr_zip">
 			<value xml:lang="ko"><![CDATA[한국주소(zip)]]></value>
@@ -3370,6 +3617,7 @@
 			<value xml:lang="tr"><![CDATA[zip kodu(Kore)]]></value>
 			<value xml:lang="vi"><![CDATA[Mã số bưu điện(Korean)]]></value>
 			<value xml:lang="mn"><![CDATA[Солонгос хаяг(zip)]]></value>
+            <value xml:lang="ro"><![CDATA[cod postal (Coreea)]]></value>
 		</item>
 		<item name="date">
 			<value xml:lang="ko"><![CDATA[일자(연월일)]]></value>
@@ -3384,6 +3632,7 @@
 			<value xml:lang="tr"><![CDATA[tarih(gg/aa/yyyy)]]></value>
 			<value xml:lang="vi"><![CDATA[Ngày(yyyy/mm/dd)]]></value>
 			<value xml:lang="mn"><![CDATA[Онсар (Жил сар өдөр)]]></value>
+            <value xml:lang="ro"><![CDATA[dată(aaaa/ll/zz)]]></value>
 		</item>
 	</item>
 	<item name="column_name">
@@ -3399,6 +3648,7 @@
 		<value xml:lang="tr"><![CDATA[Sütun adı]]></value>
 		<value xml:lang="vi"><![CDATA[Tên cột]]></value>
 		<value xml:lang="mn"><![CDATA[Баганын нэр]]></value>
+        <value xml:lang="ro"><![CDATA[Nume coloană]]></value>
 	</item>
 	<item name="column_title">
 		<value xml:lang="ko"><![CDATA[입력항목 제목]]></value>
@@ -3413,6 +3663,7 @@
 		<value xml:lang="tr"><![CDATA[Sutun başlığı]]></value>
 		<value xml:lang="vi"><![CDATA[Tiêu đề cột]]></value>
 		<value xml:lang="mn"><![CDATA[Баганын гарчиг]]></value>
+        <value xml:lang="ro"><![CDATA[Titlu coloană]]></value>
 	</item>
 	<item name="default_value">
 		<value xml:lang="ko"><![CDATA[기본 값]]></value>
@@ -3427,6 +3678,7 @@
 		<value xml:lang="tr"><![CDATA[Varsayılan Değer]]></value>
 		<value xml:lang="vi"><![CDATA[Giá trị mặc định]]></value>
 		<value xml:lang="mn"><![CDATA[Үндсэн байдал]]></value>
+        <value xml:lang="ro"><![CDATA[Valoare implicită]]></value>
 	</item>
 	<item name="is_active">
 		<value xml:lang="ko"><![CDATA[활성]]></value>
@@ -3441,6 +3693,7 @@
 		<value xml:lang="tr"><![CDATA[Etkin]]></value>
 		<value xml:lang="vi"><![CDATA[Hoạt động]]></value>
 		<value xml:lang="mn"><![CDATA[Идэвхжүүлэх]]></value>
+        <value xml:lang="ro"><![CDATA[Activ]]></value>
 	</item>
 	<item name="is_required">
 		<value xml:lang="ko"><![CDATA[필수항목]]></value>
@@ -3455,6 +3708,7 @@
 		<value xml:lang="tr"><![CDATA[Gerekli Alan]]></value>
 		<value xml:lang="vi"><![CDATA[Bắt buộc]]></value>
 		<value xml:lang="mn"><![CDATA[Заавал бөглөх]]></value>
+        <value xml:lang="ro"><![CDATA[Câmp obligatoriu]]></value>
 	</item>
 	<item name="eid">
 		<value xml:lang="ko"><![CDATA[확장변수 이름]]></value>
@@ -3466,6 +3720,7 @@
 		<value xml:lang="ru"><![CDATA[Имя экстра переменных]]></value>
 		<value xml:lang="tr"><![CDATA[Ek değişkenin adı]]></value>
 		<value xml:lang="mn"><![CDATA[eгeдлийн нэр]]></value>
+        <value xml:lang="ro"><![CDATA[Nume variabila adiţională]]></value>
 	</item>
 	<item name="filter">
 		<item name="isnull">
@@ -3480,6 +3735,7 @@
 			<value xml:lang="tr"><![CDATA[Lutfen %s icin bir değer girin]]></value>
 			<value xml:lang="vi"><![CDATA[Xin vui lòng nhập giá trị cho %s]]></value>
 			<value xml:lang="mn"><![CDATA[%s-ийг оруулна уу]]></value>
+            <value xml:lang="ro"><![CDATA[Introdu o valoare pentru %s]]></value>
 		</item>
 		<item name="outofrange">
 			<value xml:lang="ko"><![CDATA[%s의 글자 수를 맞추어 주세요.]]></value>
@@ -3493,6 +3749,7 @@
 			<value xml:lang="tr"><![CDATA[Lütfen %s metninin uzunluğunu hizalayın.]]></value>
 			<value xml:lang="vi"><![CDATA[Xin vui lòng xếp thẳng hàng chiều dài văn bản của %s]]></value>
 			<value xml:lang="mn"><![CDATA[%s-ийн үсгийн тоог тааруулна уу.]]></value>
+            <value xml:lang="ro"><![CDATA[Lungimea maximă permisă a textului este %s.]]></value>
 		</item>
 		<item name="equalto">
 			<value xml:lang="ko"><![CDATA[%s이(가) 잘못되었습니다.]]></value>
@@ -3506,6 +3763,7 @@
 			<value xml:lang="tr"><![CDATA[%s değeri geçersiz.]]></value>
 			<value xml:lang="vi"><![CDATA[Giá trị của %s không hợp lệ]]></value>
 			<value xml:lang="mn"><![CDATA[%s-ыг буруу оруулсан байна.]]></value>
+            <value xml:lang="ro"><![CDATA[Valoarea pentru %s nu este validă]]></value>
 		</item>
 		<item name="invalid">
 			<value xml:lang="ko"><![CDATA[%s의 값이 올바르지 않습니다.]]></value>
@@ -3514,6 +3772,7 @@
 			<value xml:lang="zh-CN"><![CDATA[%s值有误。]]></value>
 			<value xml:lang="zh-TW"><![CDATA[%s值有誤。]]></value>
 			<value xml:lang="tr"><![CDATA[%s değeri uymuyordur.]]></value>
+            <value xml:lang="ro"><![CDATA[Valoarea pentru %s nu este validă]]></value>
 		</item>
 		<item name="invalid_email">
 			<value xml:lang="ko"><![CDATA[%s의 값은 올바른 메일 주소가 아닙니다.]]></value>
@@ -3528,6 +3787,7 @@
 			<value xml:lang="tr"><![CDATA[%s biçimi geçersiz. örn.) dev@karybu.org]]></value>
 			<value xml:lang="vi"><![CDATA[Định dạng của %s không hợp lệ. Ví dụ: emailname@yahoo.com]]></value>
 			<value xml:lang="mn"><![CDATA[%s-ын хэлбэрийг буруу оруулсан байна.(Жнь: dev@karybu.org)]]></value>
+            <value xml:lang="ro"><![CDATA[%s nu este adresă de e-mail]]></value>
 		</item>
 		<item name="invalid_userid">
 			<value xml:lang="ko"><![CDATA[%s의 값은 영문, 숫자, _만 가능하며 첫 글자는 영문이어야 합니다.]]></value>
@@ -3542,6 +3802,7 @@
 			<value xml:lang="tr"><![CDATA[%s bicimi gecersiz. Tum de?erler alfabe harfleri, sayılar veya alttire(_)'den olu?malı ve ilk karakter bir harf olmalıdır.]]></value>
 			<value xml:lang="vi"><![CDATA[Định dạng của %s Không hợp lệ. Giá trị hợp lệ bao gồm các kí tự từ a-z, các chữ số và dấu gạch dưới(_).]]></value>
 			<value xml:lang="mn"><![CDATA[%s-ын хэлбэр буруу байна. . Латин vсэг, тоо болон '_'-р оруулж болох бeгeeд эхлэл нь vсэг байх шаардлагатай. ]]></value>
+            <value xml:lang="ro"><![CDATA[Câmpul %s permite litere, cifre si underscore(_). Primul caracter trebuie să fie literă]]></value>
 		</item>
 		<item name="invalid_user_id">
 			<value xml:lang="ko"><![CDATA[%s의 값은 영문, 숫자, _만 가능하며 첫 글자는 영문이어야 합니다.]]></value>
@@ -3556,6 +3817,7 @@
 			<value xml:lang="tr"><![CDATA[%s biçimi geçersiz. Tüm değerler alfabe harfleri, sayılar veya alttire(_)'den oluşmalı ve ilk karakter bir harf olmalıdır.]]></value>
 			<value xml:lang="vi"><![CDATA[Định dạng của %s Không hợp lệ. Giá trị hợp lệ bao gồm các kí tự từ a-z, các chữ số và dấu gạch dưới(_).]]></value>
 			<value xml:lang="mn"><![CDATA[%s-ын хэлбэр буруу байна. . Латин vсэг, тоо болон '_'-р оруулж болох бeгeeд эхлэл нь vсэг байх шаардлагатай. ]]></value>
+            <value xml:lang="ro"><![CDATA[Câmpul %s permite litere, cifre si underscore(_). Primul caracter trebuie să fie literă]]></value>
 		</item>
 		<item name="invalid_homepage">
 			<value xml:lang="ko"><![CDATA[%s의 형식이 잘못되었습니다.(예: http://www.karybu.org/)]]></value>
@@ -3569,6 +3831,7 @@
 			<value xml:lang="tr"><![CDATA[%s biçimi geçersiz. örn.) http://www.karybu.org/]]></value>
 			<value xml:lang="vi"><![CDATA[Định dạng của %s không hợp lệ. Đúng sẽ là: http://www.karybu.org hoặc http://www.karybu.org]]></value>
 			<value xml:lang="mn"><![CDATA[%s-ын хэлбэр буруу байна..(Жнь: http://www.karybu.org/)]]></value>
+            <value xml:lang="ro"><![CDATA[Formatul pentru %s nu este valid (ex. http://www.karybu.org/)]]></value>
 		</item>
 		<item name="invalid_url">
 			<value xml:lang="ko"><![CDATA[%s의 형식이 잘못되었습니다.(예: http://www.karybu.org/)]]></value>
@@ -3577,6 +3840,7 @@
 			<value xml:lang="zh-CN"><![CDATA[%s 格式错误。 例）http://www.karybu.org/]]></value>
 			<value xml:lang="zh-TW"><![CDATA[%s 格式錯誤。 例) http://www.karybu.org/]]></value>
 			<value xml:lang="tr"><![CDATA[%s formatı geçersizdir.) http://www.karybu.org/]]></value>
+            <value xml:lang="ro"><![CDATA[Formatul pentru %s nu este valid (ex. http://www.karybu.org/)]]></value>
 		</item>
 		<item name="invalid_korean">
 			<value xml:lang="ko"><![CDATA[%s의 형식이 잘못되었습니다. 한글로만 입력하셔야 합니다.]]></value>
@@ -3590,6 +3854,7 @@
 			<value xml:lang="tr"><![CDATA[%s biçimi geçersiz. Lütfen sadece Korece karakterler giriniz.]]></value>
 			<value xml:lang="vi"><![CDATA[Định dạng của %s không hợp lệ. Nội dung này bắt buộc phải sử dụng tiếng Hàn Quốc]]></value>
 			<value xml:lang="mn"><![CDATA[%s-ын хэлбэр буруу байна. Солонгосоор оруулах ёстой]]></value>
+            <value xml:lang="ro"><![CDATA[Formatul pentru %s nu este valid. Introdu doar caractere coreene.]]></value>
 		</item>
 		<item name="invalid_korean_number">
 			<value xml:lang="ko"><![CDATA[%s의 형식이 잘못되었습니다. 한글과 숫자로만 입력하셔야 합니다.]]></value>
@@ -3603,6 +3868,7 @@
 			<value xml:lang="tr"><![CDATA[%s biçimi geçersiz. Lütfen Korece karakterler ve numaralar kullanınınız.]]></value>
 			<value xml:lang="vi"><![CDATA[Định dạng của %s không hợp lệ. Nội dung này bắt buộc phải sử dụng tiếng Hàn Quốc hoặc các chữ số]]></value>
 			<value xml:lang="mn"><![CDATA[%s-ын хэлбэр буруу байна. Солонгос үсэг болон тоогоор оруулах хэрэгтэй.]]></value>
+            <value xml:lang="ro"><![CDATA[Formatul pentru %s nu este valid. Introdu doar caractere coreene.]]></value>
 		</item>
 		<item name="invalid_alpha">
 			<value xml:lang="ko"><![CDATA[%s의 형식이 잘못되었습니다. 영문으로만 입력하셔야 합니다.]]></value>
@@ -3616,6 +3882,7 @@
 			<value xml:lang="tr"><![CDATA[%s biçimi geçersiz. Lütfen sadece harfleri kullanınız.]]></value>
 			<value xml:lang="vi"><![CDATA[Định dạng của %s không hợp lệ. Chỉ sử dụng các kí tự từ a-z]]></value>
 			<value xml:lang="mn"><![CDATA[%s-ын хэлбэр буруу байна. Зөвхөн латин үсгээр оруулах ёстой]]></value>
+            <value xml:lang="ro"><![CDATA[Formatul pentru %s nu este valid. Introdu doar litere.]]></value>
 		</item>
 		<item name="invalid_alpha_number">
 			<value xml:lang="ko"><![CDATA[%s의 형식이 잘못되었습니다. 영문과 숫자로만 입력하셔야 합니다.]]></value>
@@ -3629,6 +3896,7 @@
 			<value xml:lang="tr"><![CDATA[ %s biçimi geçersiz. Lütfen harfleri ve sayıları kullanınız.]]></value>
 			<value xml:lang="vi"><![CDATA[Định dạng của %s không hợp lệ. Chỉ sử dụng các kí tự từ a-z và các chữ số]]></value>
 			<value xml:lang="mn"><![CDATA[%s-ын хэлбэр буруу байна. Зөвхөн латин үсэг болон тоогоор л оруулах ёстой.]]></value>
+            <value xml:lang="ro"><![CDATA[Formatul pentru %s nu este valid. Introdu doar caractere alfa-numerice.]]></value>
 		</item>
 		<item name="invalid_mid">
 			<value xml:lang="ko"><![CDATA[%s의 형식이 잘못되었습니다. 첫 글자는 영문으로 시작해야 하며 '영문+숫자+_'로만 입력하셔야 합니다.]]></value>
@@ -3636,6 +3904,7 @@
 			<value xml:lang="zh-CN"><![CDATA[%s 格式错误。 模块名称只能用英文、数字及下划线，开头必须是英文。]]></value>
 			<value xml:lang="zh-TW"><![CDATA[%s 格式錯誤。 模組名稱只能使用英文、數字及底線，開頭必須是英文。]]></value>
 			<value xml:lang="tr"><![CDATA[%s formatı geçersizdir. Modülün ID'si harf ile başlaması gerekmektedir.]]></value>
+            <value xml:lang="ro"><![CDATA[Formatul pentru %s nu este valid. ID+ul modulului trebuie să înceapă cu o literă. Următoarele caractere pot fi litere, cifre sau underscore(_)]]></value>
 		</item>
 		<item name="invalid_number">
 			<value xml:lang="ko"><![CDATA[%s의 형식이 잘못되었습니다. 숫자로만 입력하셔야 합니다.]]></value>
@@ -3649,6 +3918,7 @@
 			<value xml:lang="tr"><![CDATA[%s bicimi geçersizdir . Lütfen sadece numaraları kullanın.]]></value>
 			<value xml:lang="vi"><![CDATA[Định dạng của %s không hợp lệ. Chỉ sử dụng các chữ số]]></value>
 			<value xml:lang="mn"><![CDATA[%s-ын хэлбэр буруу байна. Зөвхөн тоогоор оруулах ёстой.]]></value>
+            <value xml:lang="ro"><![CDATA[Formatul pentru %s nu este valid. Introdu doar cifre.]]></value>
 		</item>
 	</item>
 	<item name="security_warning_embed">
@@ -3660,6 +3930,7 @@
 		<value xml:lang="de"><![CDATA[Aus Sicherheitsgründen ist es nicht erlaubt, dass der Administrator den eingebetteten Teil sehen. Wenn Sie das sehen möchten, loggen Sie sich mit einem anderen ID ein.]]></value>
 		<value xml:lang="tr"><![CDATA[Güvenlik nedeniyle, yöneticiler yerleşik öğeleri görüntülemeye yetkili değildirler.<BR /> Yerleşik öğeleri görüntüleyebilmek için, lütfen yönetici olmayan bir hesap kullanın.]]></value>
 		<value xml:lang="vi"><![CDATA[Vì vấn đề bảo mật, nên Administrator không được phép xem các mục đã nhúng mã.<BR /> Để xem được chúng, hãy sử dụng một tên truy cập khác không có quyền quản trị.]]></value>
+        <value xml:lang="ro"><![CDATA[Pentru securitate administratorii nu pot vedea elemente embed.<BR /> Foloseşte un utilizator care nu este administrator.]]></value>
 	</item>
 	<item name="msg_pc_to_mobile">
 		<value xml:lang="ko"><![CDATA[모바일에 최적화된 화면으로 보기]]></value>
@@ -3674,6 +3945,7 @@
 		<value xml:lang="tr"><![CDATA[Bu sayfanın mobil versiyonu bulunmaktadır. Mobil sayfaya geçiş yapmak istiyor musunuz?]]></value>
 		<value xml:lang="vi"><![CDATA[이 페이지는 모바일 보기가 있습니다. 모바일 보기로 이동하시겠습니까?]]></value>
 		<value xml:lang="mn"><![CDATA[이 페이지는 모바일 보기가 있습니다. 모바일 보기로 이동하시겠습니까?]]></value>
+        <value xml:lang="ro"><![CDATA[Vezi versiunea optimizată pentru mobil a paginii curente.]]></value>
 	</item>
 	<item name="cmd_yes">
 		<value xml:lang="ko"><![CDATA[예]]></value>
@@ -3683,6 +3955,7 @@
 		<value xml:lang="zh-TW"><![CDATA[是]]></value>
 		<value xml:lang="de"><![CDATA[Ja]]></value>
 		<value xml:lang="tr"><![CDATA[Evet]]></value>
+        <value xml:lang="ro"><![CDATA[Da]]></value>
 	</item>
 	<item name="cmd_no">
 		<value xml:lang="ko"><![CDATA[아니오]]></value>
@@ -3692,6 +3965,7 @@
 		<value xml:lang="zh-TW"><![CDATA[否]]></value>
 		<value xml:lang="de"><![CDATA[Nein]]></value>
 		<value xml:lang="tr"><![CDATA[Hayır]]></value>
+        <value xml:lang="ro"><![CDATA[Nu]]></value>
 	</item>
 	<item name="cmd_set_multilingual">
 		<value xml:lang="ko"><![CDATA[다국어 설정]]></value>
@@ -3700,6 +3974,7 @@
 		<value xml:lang="zh-TW"><![CDATA[選擇語言]]></value>
 		<value xml:lang="de"><![CDATA[Sprache wählen]]></value>
 		<value xml:lang="tr"><![CDATA[Dil Seçimi]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează limba]]></value>
 	</item>
 	<item name="cmd_multilingual">
 		<value xml:lang="ko"><![CDATA[다국어]]></value>
@@ -3708,9 +3983,11 @@
 		<value xml:lang="zh-TW"><![CDATA[語言]]></value>
 		<value xml:lang="de"><![CDATA[Sprache]]></value>
 		<value xml:lang="tr"><![CDATA[Diller]]></value>
+        <value xml:lang="ro"><![CDATA[Limbă]]></value>
 	</item>
     <item name="multilingual_manager">
         <value xml:lang="en"><![CDATA[Manage languages]]></value>
+        <value xml:lang="ro"><![CDATA[Administare limbi]]></value>
     </item>
 	<item name="find_site">
 		<value xml:lang="ko"><![CDATA[사이트 찾기]]></value>
@@ -3719,6 +3996,7 @@
 		<value xml:lang="zh-TW"><![CDATA[尋找網站]]></value>
 		<value xml:lang="de"><![CDATA[Website Finden]]></value>
 		<value xml:lang="tr"><![CDATA[Site Bul]]></value>
+        <value xml:lang="ro"><![CDATA[Caută site]]></value>
 	</item>
 	<item name="captcha">
 		<value xml:lang="ko"><![CDATA[Captcha]]></value>
@@ -3726,6 +4004,7 @@
 		<value xml:lang="zh-CN"><![CDATA[图形验证码]]></value>
 		<value xml:lang="zh-TW"><![CDATA[圖形驗證]]></value>
 		<value xml:lang="tr"><![CDATA[Güvenlik Kodu]]></value>
+        <value xml:lang="ro"><![CDATA[Captcha]]></value>
 	</item>
 	<item name="reload">
 		<value xml:lang="ko"><![CDATA[새로고침]]></value>
@@ -3733,6 +4012,7 @@
 		<value xml:lang="zh-CN"><![CDATA[重新加载]]></value>
 		<value xml:lang="zh-TW"><![CDATA[重新讀取]]></value>
 		<value xml:lang="tr"><![CDATA[tekrar yükle]]></value>
+        <value xml:lang="ro"><![CDATA[reîncarcă]]></value>
 	</item>
 	<item name="play">
 		<value xml:lang="ko"><![CDATA[음성재생]]></value>
@@ -3740,6 +4020,7 @@
 		<value xml:lang="zh-CN"><![CDATA[播放]]></value>
 		<value xml:lang="zh-TW"><![CDATA[播放]]></value>
 		<value xml:lang="tr"><![CDATA[Oynat]]></value>
+        <value xml:lang="ro"><![CDATA[porneşte]]></value>
 	</item>
 	<item name="use_and_display">
 		<value xml:lang="ko"><![CDATA[사용+노출]]></value>
@@ -3747,6 +4028,7 @@
 		<value xml:lang="zh-CN"><![CDATA[使用+显示]]></value>
 		<value xml:lang="zh-TW"><![CDATA[使用+顯示]]></value>
 		<value xml:lang="tr"><![CDATA[Kullan + Göster]]></value>
+        <value xml:lang="ro"><![CDATA[Foloseşte+Afişează]]></value>
 	</item>
 	<item name="mobile_view">
 		<value xml:lang="ko"><![CDATA[모바일 뷰 사용]]></value>
@@ -3759,6 +4041,7 @@
 		<value xml:lang="es"><![CDATA[Use Mobile View]]></value>
 		<value xml:lang="tr"><![CDATA[Hareketli Görünüm]]></value>
 		<value xml:lang="vi"><![CDATA[Xem bằng di động]]></value>
+        <value xml:lang="ro"><![CDATA[Vedere mobil]]></value>
 	</item>
 	<item name="about_mobile_view">
 		<value xml:lang="ko"><![CDATA[스마트폰 등을 이용하여 접속할 때 모바일 화면에 최적화된 레이아웃을 이용하도록 합니다.]]></value>
@@ -3771,6 +4054,7 @@
 		<value xml:lang="es"><![CDATA[If accessing with a smartphone, display content with mobile layout.]]></value>
 		<value xml:lang="tr"><![CDATA[Hareketli görünümde, mobil cihazlarla giriş yapılırken, mobil cihazlara uygun en iyi yerleşim düzenini göstermek içindir.]]></value>
 		<value xml:lang="vi"><![CDATA[Nếu truy cập bằng thiết bị di động, nội dung sẽ được bố trí theo từng loại thiết bị.]]></value>
+        <value xml:lang="ro"><![CDATA[Vedere mobil va afişa cel mai bun lazout când accesezi site-ul de pe mobil.]]></value>
 	</item>
 	<item name="simple_view">
 		<value xml:lang="ko"><![CDATA[간단보기]]></value>
@@ -3778,6 +4062,7 @@
 		<value xml:lang="jp"><![CDATA[シンプルビュー]]></value>
 		<value xml:lang="zh-CN"><![CDATA[预览]]></value>
 		<value xml:lang="tr"><![CDATA[Basit Görünüm]]></value>
+        <value xml:lang="ro"><![CDATA[Vedere simplă]]></value>
 	</item>
 	<item name="detail_view">
 		<value xml:lang="ko"><![CDATA[상세보기]]></value>
@@ -3785,45 +4070,59 @@
 		<value xml:lang="jp"><![CDATA[詳細ビュー]]></value>
 		<value xml:lang="zh-CN"><![CDATA[查看详情]]></value>
 		<value xml:lang="tr"><![CDATA[Detaylı Görünüm]]></value>
+        <value xml:lang="ro"><![CDATA[Vedere în detaliu.]]></value>
 	</item>
     <item name="actions">
         <value xml:lang="en"><![CDATA[Actions]]></value>
+        <value xml:lang="ro"><![CDATA[Actiuni]]></value>
     </item>
     <item name="check_all">
         <value xml:lang="en"><![CDATA[Check All]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează tot]]></value>
     </item>
     <item name="first_page">
         <value xml:lang="en"><![CDATA[FIRST]]></value>
+        <value xml:lang="ro"><![CDATA[PRIMA]]></value>
     </item>
     <item name="last_page">
         <value xml:lang="en"><![CDATA[LAST]]></value>
+        <value xml:lang="ro"><![CDATA[ULTIMA]]></value>
     </item>
     <item name="go">
         <value xml:lang="en"><![CDATA[Go]]></value>
+        <value xml:lang="ro"><![CDATA[Salt]]></value>
     </item>
     <item name="yes">
         <value xml:lang="en"><![CDATA[Yes]]></value>
+        <value xml:lang="ro"><![CDATA[Da]]></value>
     </item>
     <item name="are_you_sure">
         <value xml:lang="en"><![CDATA[Are you sure?]]></value>
+        <value xml:lang="ro"><![CDATA[Eşti sigur?]]></value>
     </item>
     <item name="welcome">
         <value xml:lang="en"><![CDATA[Welcome]]></value>
+        <value xml:lang="ro"><![CDATA[Bine ai venit]]></value>
     </item>
     <item name="logout">
         <value xml:lang="en"><![CDATA[Log out]]></value>
+        <value xml:lang="ro"><![CDATA[Deconectare]]></value>
     </item>
     <item name="close">
         <value xml:lang="en"><![CDATA[Close]]></value>
+        <value xml:lang="ro"><![CDATA[Închide]]></value>
     </item>
     <item name="mobile_settings">
         <value xml:lang="en"><![CDATA[Mobile settings]]></value>
+        <value xml:lang="ro"><![CDATA[Setări mobil]]></value>
     </item>
     <item name="cancel_confirm">
         <value xml:lang="en"><![CDATA[Are you sure you want to cancel the modifications?]]></value>
+        <value xml:lang="ro"><![CDATA[Eşti sigur că vrei să anulezi modificările.]]></value>
     </item>
     <item name="no_records">
         <value xml:lang="en"><![CDATA[There are no records.]]></value>
+        <value xml:lang="ro"><![CDATA[Nu există înregistrări]]></value>
     </item>
     <item name="select_module_type">
         <value xml:lang="ko"><![CDATA[분류 선택]]></value>
@@ -3836,6 +4135,7 @@
         <value xml:lang="es"><![CDATA[Module Type]]></value>
         <value xml:lang="tr"><![CDATA[Module Type]]></value>
         <value xml:lang="vi"><![CDATA[Module Type]]></value>
+        <value xml:lang="ro"><![CDATA[Tip modul]]></value>
     </item>
     <item name="select_module_instance">
         <value xml:lang="ko"><![CDATA[모듈 선택]]></value>
@@ -3848,6 +4148,7 @@
         <value xml:lang="es"><![CDATA[Módulo]]></value>
         <value xml:lang="tr"><![CDATA[Modül]]></value>
         <value xml:lang="vi"><![CDATA[Module]]></value>
+        <value xml:lang="ro"><![CDATA[modul]]></value>
     </item>
     <item name="select_site">
         <value xml:lang="ko"><![CDATA[사이트 선택]]></value>
@@ -3860,6 +4161,7 @@
         <value xml:lang="es"><![CDATA[Site]]></value>
         <value xml:lang="tr"><![CDATA[Site]]></value>
         <value xml:lang="vi"><![CDATA[Site]]></value>
+        <value xml:lang="ro"><![CDATA[Site]]></value>
     </item>
     <item name="back_to_top">
         <value xml:lang="en"><![CDATA[Back to top]]></value>

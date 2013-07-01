@@ -38,7 +38,7 @@
             <div>{$formTag->inputTag}</div>
         </fieldset>
         <fieldset>
-            <legend>Privacy Options</legend>
+            <legend>{$lang->privacy_options}</legend>
             <label><strong>{$lang->allow_mailing}</strong></label>
             <div>
                 <label class="radio">
@@ -74,7 +74,7 @@
 			$.extend(option,$.datepicker.regional['{$lang_type}']);
 			$(".inputDate").datepicker(option);
 			$(".dateRemover").click(function() {
-				$(this).parent().prevAll('input').val('');
+				$(this).prevAll('input').val('');
 				return false;});
 		});
 	})(jQuery);

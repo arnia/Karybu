@@ -14,7 +14,7 @@ window.xeNotifyMessage = function(text, count){
 	text = text.replace('%d', count);
 	h = $bar.html('<p><a href="'+current_url.setQuery('act','dispCommunicationMessages')+'">'+text+'</a></p>').height();
 	$bar.show().animate({top:0});
-	// hide after 10 seconds
+	// hide after 5 seconds
 	setTimeout(function(){
 		$bar.slideUp();
 	}, 5000);

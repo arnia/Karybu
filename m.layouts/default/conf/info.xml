@@ -5,6 +5,7 @@
     <title xml:lang="zh-CN">官方移动版布局</title>
     <title xml:lang="zh-TW">Karybu Mobile 官方版面</title>
     <title xml:lang="tr">Karybu Resmi Hareketli Yerleşim Düzeni</title>
+    <title xml:lang="ro">Layout oficial Karybu pentru mobil</title>
     <description xml:lang="ko">
         Karybu 공식 모바일 레이아웃입니다.
         Arnia (dev@karybu.org)
@@ -25,6 +26,10 @@
         Bu yerleşim düzeni, Karybu Resmi website yerleşim düzenidir.
         Arnia (dev@karybu.org)
     </description>
+    <description xml:lang="ro">
+        Acesta este lazout-ul oficial Karybu.
+        Arnia (dev@karybu.org)
+    </description>
     <version>0.1</version>
     <date>2010-08-20</date>
     <link>http://www.karybu.org/</link>
@@ -35,6 +40,7 @@
 		<name xml:lang="zh-CN">Arnia</name>
         <name xml:lang="zh-TW">Arnia</name>
         <name xml:lang="tr">Arnia</name>
+        <name xml:lang="ro">Arnia</name>
     </author>
     <extra_vars>
     	<var name="index_title" type="text">
@@ -43,6 +49,7 @@
             <title xml:lang="zh-CN">网站标题</title>
             <title xml:lang="zh-TW">首頁標題</title>
             <title xml:lang="tr">Anasayfa Başlığı</title>
+            <title xml:lang="ro">Titlu pentru prima pagină</title>
 		</var>
         <var name="logo_image" type="image">
             <title xml:lang="ko">로고이미지</title>
@@ -55,6 +62,7 @@
             <title xml:lang="es">Imagen del logotipo</title>
 	    	<title xml:lang="vi">Hình Logo</title>
 	    	<title xml:lang="tr">Logo resmi</title>
+            <title xml:lang="ro">Logo</title>
             <description xml:lang="ko">레이아웃의 상단에 표시될 로고이미지를 입력하세요. (세로길이가 28px인 투명 이미지가 가장 어울립니다)</description>
             <description xml:lang="jp">レイアウトの上段に表示されるロゴイメージを入力して下さい。 (縦幅が28pxである透明イメージをお勧めします。。)</description>
             <description xml:lang="zh-CN">请输入显示在布局顶部的LOGO图片(高度为28px的透明图片为适)。</description>
@@ -65,6 +73,7 @@
             <description xml:lang="es">Ingresar una imagen para logotipo. ( Se recomienda una imagen de fondo transparente con una altura de 28px.</description>
 	    	<description xml:lang="vi">Hãy chọn Logo hiển thị phía trên cùng của giao diện. (Đề nghị: Hình ảnh có nền trong suốt và kích thước 28px.)</description>
 	    	<description xml:lang="tr">Lütfen yerleşim düzeninin üst kısmında gösterilecek bir logo resmi giriniz. (Önerilen resim 28px uzunluğunda, transparan ayarda bir resimdir.)</description>
+            <description xml:lang="ro">Introdu o imagine care va fi afişată ca în partea de sus a layout-ului. (Este recomandată o imagine cu înalţimea de 28px transparentă)</description>
         </var>
         <var name="index_url" type="text">
             <title xml:lang="ko">홈 페이지 URL</title>
@@ -77,6 +86,7 @@
             <title xml:lang="es">URL de la página web</title>
 	    	<title xml:lang="vi">URL Trang chủ</title>
 	    	<title xml:lang="tr">Anasayfa URLsi</title>
+            <title xml:lang="ro">URL Prima pagină</title>
             <description xml:lang="ko">로고를 클릭시에 이동할 홈 페이지 URL을 입력해 주세요.</description>
             <description xml:lang="jp">ロゴをクリックした時に移動するホームページのURLを入力して下さい。</description>
             <description xml:lang="zh-CN">点击网站LOGO时要移动的页面URL。</description>
@@ -87,6 +97,7 @@
             <description xml:lang="es">Ingresar el URL de la página web para redireccionar al pulsar el logotipo</description>
 	    	<description xml:lang="vi">Hãy nhập địa chỉ bạn muốn chuyển đến khi bấm vào Logo</description>
 	    	<description xml:lang="tr">Lütfen kullanıcıların logoya tıkladıklarında yönlendirilecekleri bir URL giriniz</description>
+            <description xml:lang="ro">Introdu URL-ul pentru redirectare la click pe logo</description>
         </var>
     </extra_vars>
     <menus>
@@ -100,7 +111,8 @@
             <title xml:lang="ru">Верхнее меню</title>
             <title xml:lang="es">Menú Principal</title>
             <title xml:lang="tr">Ana Menü</title>
-	    <title xml:lang="vi">Menu trên</title>
+	        <title xml:lang="vi">Menu trên</title>
+            <title xml:lang="en">Meniu de sus</title>
         </menu>
     </menus>
 </layout>
