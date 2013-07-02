@@ -8,6 +8,7 @@
     <title xml:lang="zh-CN">CKEditor皮肤</title>
     <title xml:lang="zh-TW">CKEditor面板</title>
     <title xml:lang="tr">CKEditor Dış Görünümü</title>
+    <title xml:lang="ro">Skin CKEditor</title>
     <description xml:lang="ko">
         CKEditor
     </description>
@@ -32,6 +33,9 @@
     <description xml:lang="tr">
         CKEditor
     </description>
+    <description xml:lang="ro">
+        CKEditor
+    </description>
     <version>3.5.8</version>
     <date>2013-01-08</date>
     <author email_address="dev@karybu.org" link="http://www.karybu.org/">
@@ -43,6 +47,7 @@
 		<name xml:lang="zh-CN">Arnia</name>
         <name xml:lang="zh-TW">Arnia</name>
         <name xml:lang="tr">Arnia</name>
+        <name xml:lang="ro">Arnia</name>
     </author>
     <colorset>
         <color name="moono">
@@ -54,6 +59,7 @@
             <title xml:lang="es">Moono (silver)</title>
             <title xml:lang="zh-TW">Moono (silver)</title>
             <title xml:lang="tr">Moono (silver)</title>
+            <title xml:lang="ro">Moono (silver)</title>
         </color>
         <color name="kama">
             <title xml:lang="ko">Kama (silver)</title>
@@ -65,6 +71,7 @@
             <title xml:lang="zh-CN">Kama (silver)</title>
             <title xml:lang="zh-TW">Kama (silver)</title>
             <title xml:lang="tr">Kama (silver)</title>
+            <title xml:lang="ro">Kama (silver)</title>
         </color>
         <color name="moono_black">
             <title xml:lang="ko">Moono (black)</title>
@@ -76,6 +83,7 @@
             <title xml:lang="zh-CN">Moono (black)</title>
             <title xml:lang="zh-TW">Moono (black)</title>
             <title xml:lang="tr">Moono (black)</title>
+            <title xml:lang="ro">Moono (black)</title>
         </color>
         <color name="kama_black">
             <title xml:lang="ko">Kama (black)</title>
@@ -87,6 +95,7 @@
             <title xml:lang="zh-CN">Kama (black)</title>
             <title xml:lang="zh-TW">Kama (black)</title>
             <title xml:lang="tr">Kama (black)</title>
+            <title xml:lang="ro">Kama (black)</title>
         </color>
     </colorset>
 </skin>

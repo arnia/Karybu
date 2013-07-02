@@ -36,6 +36,7 @@
 			<title xml:lang="vi">WYSIWYG Editor</title>
 			<title xml:lang="mn">WYSIWYG Editor</title>
 			<title xml:lang="tr">WYSIWYG Editor</title>
+            <title xml:lang="ro">Editor WYSIWYG</title>
 		</menu>
 	</menus>
 </module>

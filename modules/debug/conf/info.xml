@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.2">
-    <title xml:lang="en">Counter</title>
-    <description xml:lang="en">Basic connection statistics program.</description>
+    <title xml:lang="en">Debug</title>
+    <title xml:lang="ro">debug</title>
+    <description xml:lang="en">Developer debug toolbar.</description>
+    <description xml:lang="ro">Bara de debug pentru dezvoltatori.</description>
     <version>0.1</version>
     <date>2013-03-21</date>
 </module>

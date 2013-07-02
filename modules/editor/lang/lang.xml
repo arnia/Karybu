@@ -9,6 +9,7 @@
 		<value xml:lang="ru"><![CDATA[Editor Preview]]></value>
 		<value xml:lang="tr"><![CDATA[Editor Preview]]></value>
 		<value xml:lang="vi"><![CDATA[Editor Preview]]></value>
+        <value xml:lang="ro"><![CDATA[Previzualizare editor]]></value>
 	</item>
 	<item name="editor_component">
 		<value xml:lang="ko"><![CDATA[에디터 컴포넌트]]></value>
@@ -19,6 +20,7 @@
 		<value xml:lang="ru"><![CDATA[Editor Component]]></value>
 		<value xml:lang="tr"><![CDATA[Editor Component]]></value>
 		<value xml:lang="vi"><![CDATA[Editor Component]]></value>
+        <value xml:lang="ro"><![CDATA[Componentă editor]]></value>
 	</item>
 	<item name="main_editor">
 		<value xml:lang="ko"><![CDATA[본문 에디터]]></value>
@@ -29,6 +31,7 @@
 		<value xml:lang="ru"><![CDATA[Main editor]]></value>
 		<value xml:lang="tr"><![CDATA[Main editor]]></value>
 		<value xml:lang="vi"><![CDATA[Main editor]]></value>
+        <value xml:lang="ro"><![CDATA[Editor principal]]></value>
 	</item>
 	<item name="comment_editor">
 		<value xml:lang="ko"><![CDATA[댓글 에디터]]></value>
@@ -39,6 +42,7 @@
 		<value xml:lang="ru"><![CDATA[Comment editor]]></value>
 		<value xml:lang="tr"><![CDATA[Comment editor]]></value>
 		<value xml:lang="vi"><![CDATA[Comment editor]]></value>
+        <value xml:lang="ro"><![CDATA[Editor comentarii]]></value>
 	</item>
 	<item name="editor_option">
 		<value xml:lang="ko"><![CDATA[에디터 옵션]]></value>
@@ -49,15 +53,19 @@
 		<value xml:lang="ru"><![CDATA[Editor Option]]></value>
 		<value xml:lang="tr"><![CDATA[Editor Option]]></value>
 		<value xml:lang="vi"><![CDATA[Editor Option]]></value>
+        <value xml:lang="ro"><![CDATA[Opţiuni editor]]></value>
 	</item>
     <item name="editor_option_main">
         <value xml:lang="en"><![CDATA[Main editor]]></value>
+        <value xml:lang="ro"><![CDATA[Editor principal]]></value>
     </item>
     <item name="editor_option_comment">
         <value xml:lang="en"><![CDATA[Comments editor]]></value>
+        <value xml:lang="ro"><![CDATA[Editor comentarii]]></value>
     </item>
     <item name="editor_option_body">
         <value xml:lang="en"><![CDATA[HTML body styles]]></value>
+        <value xml:lang="ro"><![CDATA[Stiluri pentru HTML body]]></value>
     </item>
 	<item name="guide_choose_main_editor">
 		<value xml:lang="ko"><![CDATA[본문 에디터를 선택하세요.]]></value>
@@ -68,6 +76,7 @@
 		<value xml:lang="ru"><![CDATA[Choose the main editor.]]></value>
 		<value xml:lang="tr"><![CDATA[Choose the main editor.]]></value>
 		<value xml:lang="vi"><![CDATA[Choose the main editor.]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează editorul principal]]></value>
 	</item>
 	<item name="guide_set_height_main_editor">
 		<value xml:lang="ko"><![CDATA[본문 에디터의 높이를 설정하세요.]]></value>
@@ -78,6 +87,7 @@
 		<value xml:lang="ru"><![CDATA[Set height of the main editor.]]></value>
 		<value xml:lang="tr"><![CDATA[Set height of the main editor.]]></value>
 		<value xml:lang="vi"><![CDATA[Set height of the main editor.]]></value>
+        <value xml:lang="ro"><![CDATA[Setează înălţime pentru editorul principal]]></value>
 	</item>
 	<item name="guide_choose_comment_editor">
 		<value xml:lang="ko"><![CDATA[댓글 에디터� 선택하세요.]]></value>
@@ -88,6 +98,7 @@
 		<value xml:lang="ru"><![CDATA[Choose the comment editor.]]></value>
 		<value xml:lang="tr"><![CDATA[Choose the comment editor.]]></value>
 		<value xml:lang="vi"><![CDATA[Choose the comment editor.]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează editorul pentru comentarii]]></value>
 	</item>
 	<item name="guide_set_height_comment_editor">
 		<value xml:lang="ko"><![CDATA[댓글 에디터의 높이를 설정하세요.]]></value>
@@ -98,6 +109,7 @@
 		<value xml:lang="ru"><![CDATA[Set height of the comment editor.]]></value>
 		<value xml:lang="tr"><![CDATA[Set height of the comment editor.]]></value>
 		<value xml:lang="vi"><![CDATA[Set height of the comment editor.]]></value>
+        <value xml:lang="ro"><![CDATA[Setează înălţime pentru editorul de comentarii.]]></value>
 	</item>
 	<item name="guide_choose_text_formatting">
 		<value xml:lang="ko"><![CDATA[본문 서식을 선택하세요.]]></value>
@@ -108,6 +120,7 @@
 		<value xml:lang="ru"><![CDATA[Choose the text formatting.]]></value>
 		<value xml:lang="tr"><![CDATA[Choose the text formatting.]]></value>
 		<value xml:lang="vi"><![CDATA[Choose the text formatting.]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează formatul pentru body]]></value>
 	</item>
 	<item name="guide_choose_font_body">
 		<value xml:lang="ko"><![CDATA[본문 글꼴을 선택하세요.]]></value>
@@ -118,6 +131,7 @@
 		<value xml:lang="ru"><![CDATA[Choose the font body.]]></value>
 		<value xml:lang="tr"><![CDATA[Choose the font body.]]></value>
 		<value xml:lang="vi"><![CDATA[Choose the font body.]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează fontul pentru body]]></value>
 	</item>
 	<item name="guide_choose_font_size_body">
 		<value xml:lang="ko"><![CDATA[본문 글꼴크기를 선택하세요.]]></value>
@@ -128,6 +142,7 @@
 		<value xml:lang="ru"><![CDATA[Choose the font size body.]]></value>
 		<value xml:lang="tr"><![CDATA[Choose the font size body.]]></value>
 		<value xml:lang="vi"><![CDATA[Choose the font size body.]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează dimensiunea fontului pentru body]]></value>
 	</item>
 	
 	<item name="font_preview">
@@ -137,22 +152,28 @@
 		<value xml:lang="en"><![CDATA[The quick brown fox jumps over the lazy dog.
 いろはにほへと / ちりぬるを / わかよたれそ / つねならむ / うゐのおくやま / けふこえて / あさきゆめみし / ゑひもせす
 키스의 고유 조건은 입술끼리 만나야 하고 특별한 기술은 필요치 않다.]]></value>
+        <value xml:lang="ro"><![CDATA[The quick brown fox jumps over the lazy dog.
+いろはにほへと / ちりぬるを / わかよたれそ / つねならむ / うゐのおくやま / けふこえて / あさきゆめみし / ゑひもせす
+키스의 고유 조건은 입술끼리 만나야 하고 특별한 기술은 필요치 않다.]]></value>
 	</item>
 
 	<item name="msg_avail_easy_update">
 		<value xml:lang="ko"><![CDATA[이 항목의 새로운 버전이 있습니다.]]></value>
 		<value xml:lang="en"><![CDATA[There is new version for this item.]]></value>
 		<value xml:lang="jp"><![CDATA[この項目の新しいバージョンがあります。]]></value>
+        <value xml:lang="ro"><![CDATA[Există o nouă versiune pentru acest articol.]]></value>
 	</item>
 	<item name="msg_do_you_like_update">
 		<value xml:lang="ko"><![CDATA[업데이트하시겠습니까?]]></value>
 		<value xml:lang="en"><![CDATA[Would you like to update?]]></value>
 		<value xml:lang="jp"><![CDATA[アップデートしますか？]]></value>
+        <value xml:lang="ro"><![CDATA[Vrei să faci update]]?></value>
 	</item>
 	<item name="msg_font_too_big">
 		<value xml:lang="ko"><![CDATA[글꼴이 너무 큽니다.]]></value>
 		<value xml:lang="en"><![CDATA[The font is too big.]]></value>
 		<value xml:lang="jp"><![CDATA[文字サイズが大きすぎます。]]></value>
+        <value xml:lang="ro"><![CDATA[Fontul este prea mare]]></value>
 	</item>
 	<item name="editor">
 		<value xml:lang="ko"><![CDATA[위지윅 에디터]]></value>
@@ -164,6 +185,7 @@
 		<value xml:lang="ru"><![CDATA[WYSIWYG-Редактор]]></value>
 		<value xml:lang="es"><![CDATA[Editor WYSIWYG]]></value>
 		<value xml:lang="vi"><![CDATA[WYSIWYG toàn diện]]></value>
+        <value xml:lang="ro"><![CDATA[Editor WYSIWYG]]></value>
 	</item>
 	<item name="component_name">
 		<value xml:lang="ko"><![CDATA[컴포넌트]]></value>
@@ -176,7 +198,8 @@
 		<value xml:lang="es"><![CDATA[Componente]]></value>
 		<value xml:lang="tr"><![CDATA[Bileşen]]></value>
 		<value xml:lang="vi"><![CDATA[Thành phần]]></value>
-	</item>
+        <value xml:lang="ro"><![CDATA[Componentă]]></value>
+    </item>
 	<item name="component_version">
 		<value xml:lang="ko"><![CDATA[버전]]></value>
 		<value xml:lang="en"><![CDATA[Version]]></value>
@@ -187,6 +210,7 @@
 		<value xml:lang="es"><![CDATA[Versión]]></value>
 		<value xml:lang="tr"><![CDATA[Sürüm]]></value>
 		<value xml:lang="vi"><![CDATA[Phiên bản]]></value>
+        <value xml:lang="ro"><![CDATA[Versiune]]></value>
 	</item>
 	<item name="component_author">
 		<value xml:lang="ko"><![CDATA[제작자]]></value>
@@ -199,6 +223,7 @@
 		<value xml:lang="es"><![CDATA[Autor]]></value>
 		<value xml:lang="tr"><![CDATA[Geliştirici]]></value>
 		<value xml:lang="vi"><![CDATA[Người phát triển]]></value>
+        <value xml:lang="ro"><![CDATA[Dezvoltator]]></value>
 	</item>
 	<item name="component_link">
 		<value xml:lang="ko"><![CDATA[링크]]></value>
@@ -209,6 +234,7 @@
 		<value xml:lang="fr"><![CDATA[Lien]]></value>
 		<value xml:lang="ru"><![CDATA[Ссылка]]></value>
 		<value xml:lang="es"><![CDATA[Enlace]]></value>
+        <value xml:lang="ro"><![CDATA[Link]]></value>
 	</item>
 	<item name="component_date">
 		<value xml:lang="ko"><![CDATA[제작일]]></value>
@@ -221,6 +247,7 @@
 		<value xml:lang="es"><![CDATA[Fecha]]></value>
 		<value xml:lang="tr"><![CDATA[Tarih]]></value>
 		<value xml:lang="vi"><![CDATA[Ngày]]></value>
+        <value xml:lang="ro"><![CDATA[Data]]></value>
 	</item>
 	<item name="component_license">
 		<value xml:lang="ko"><![CDATA[라이선스]]></value>
@@ -231,6 +258,7 @@
 		<value xml:lang="fr"><![CDATA[Licence]]></value>
 		<value xml:lang="tr"><![CDATA[Lisans]]></value>
 		<value xml:lang="vi"><![CDATA[Cấp phép]]></value>
+        <value xml:lang="ro"><![CDATA[Licentă]]></value>
 	</item>
 	<item name="component_history">
 		<value xml:lang="ko"><![CDATA[변경 이력]]></value>
@@ -243,6 +271,7 @@
 		<value xml:lang="es"><![CDATA[History]]></value>
 		<value xml:lang="tr"><![CDATA[Güncelleştirmeler]]></value>
 		<value xml:lang="vi"><![CDATA[Cập nhật]]></value>
+        <value xml:lang="ro"><![CDATA[Update-uri]]></value>
 	</item>
 	<item name="component_description">
 		<value xml:lang="ko"><![CDATA[설명]]></value>
@@ -254,6 +283,7 @@
 		<value xml:lang="es"><![CDATA[Descripción]]></value>
 		<value xml:lang="tr"><![CDATA[Açıklama]]></value>
 		<value xml:lang="vi"><![CDATA[Mô tả]]></value>
+        <value xml:lang="ro"><![CDATA[Descriere]]></value>
 	</item>
 	<item name="component_extra_vars">
 		<value xml:lang="ko"><![CDATA[설정 변수]]></value>
@@ -266,6 +296,7 @@
 		<value xml:lang="es"><![CDATA[Varibles Extras]]></value>
 		<value xml:lang="tr"><![CDATA[Değişken Seçenek]]></value>
 		<value xml:lang="vi"><![CDATA[Thông tin bổ xung]]></value>
+        <value xml:lang="ro"><![CDATA[Variabilă opţiune]]></value>
 	</item>
 	<item name="component_grant">
 		<value xml:lang="ko"><![CDATA[권한설정]]></value>
@@ -278,6 +309,7 @@
 		<value xml:lang="es"><![CDATA[Ajuste de las atribuciones]]></value>
 		<value xml:lang="tr"><![CDATA[Yetki Ayarı]]></value>
 		<value xml:lang="vi"><![CDATA[Thiết lập quyền]]></value>
+        <value xml:lang="ro"><![CDATA[Setări permisiuni]]></value>
 	</item>
 	<item name="content_style">
 		<value xml:lang="ko"><![CDATA[문서 서식]]></value>
@@ -287,6 +319,7 @@
 		<value xml:lang="zh-TW"><![CDATA[內容樣式]]></value>
 		<value xml:lang="tr"><![CDATA[İçerik Tarzı]]></value>
 		<value xml:lang="vi"><![CDATA[Kiểu dáng của nội dung]]></value>
+        <value xml:lang="ro"><![CDATA[Stil conţinut]]></value>
 	</item>
 	<item name="content_font">
 		<value xml:lang="ko"><![CDATA[문서 폰트]]></value>
@@ -296,6 +329,7 @@
 		<value xml:lang="zh-TW"><![CDATA[內容字體]]></value>
 		<value xml:lang="tr"><![CDATA[İçerik Yazı Tipi]]></value>
 		<value xml:lang="vi"><![CDATA[Font chữ của nội dung]]></value>
+        <value xml:lang="ro"><![CDATA[Font conţinut]]></value>
 	</item>
 	<item name="content_font_size">
 		<value xml:lang="ko"><![CDATA[문서 폰트 크기]]></value>
@@ -306,6 +340,7 @@
 		<value xml:lang="ru"><![CDATA[Размер шрифта]]></value>
 		<value xml:lang="tr"><![CDATA[İçerik Yazı Boyutu]]></value>
 		<value xml:lang="vi"><![CDATA[Cỡ chữ của nội dung]]></value>
+        <value xml:lang="ro"><![CDATA[Dimensiune font conţinut]]></value>
 	</item>					
 	<item name="about_component">
 		<value xml:lang="ko"><![CDATA[컴포넌트 소개]]></value>
@@ -318,6 +353,7 @@
 		<value xml:lang="es"><![CDATA[Presentación del componente]]></value>
 		<value xml:lang="tr"><![CDATA[Bileşen hakkında]]></value>
 		<value xml:lang="vi"><![CDATA[Thông tin Thành phần]]></value>
+        <value xml:lang="ro"><![CDATA[Despre componentă]]></value>
 	</item>
 	<item name="about_component_grant">
 		<value xml:lang="ko"><![CDATA[기본 컴포넌트외의 확장 컴포넌트 기능을 사용할 수 있는 권한을 지정할 수 있습니다.(모두 해제 시 아무나 사용 가능합니다)]]></value>
@@ -330,6 +366,7 @@
 		<value xml:lang="es"><![CDATA[Usted puede configurar el permiso de utilizar la ampliación de los componentes de editor. (Todo el mundo tendría permiso si no comprobado)]]></value>
 		<value xml:lang="tr"><![CDATA[Seçilen grup(lar), editörün genişletilmiş bileşenlerini kullanabilirler.(Eğer tüm grupların bu yetkiye sahip olmasını istiyorsanız, boş bırakınız)]]></value>
 		<value xml:lang="vi"><![CDATA[Những nhóm đã chọn sẽ được phép sử dụng Thành phần mở rộng cho biên tập.(Để trống nếu bạn muốn tất cả các nhóm đều được phép sử dụng.)]]></value>
+        <value xml:lang="ro"><![CDATA[Grupurile selectate vor putea expanda componentele editorului. Lasă necompletat pentru toate grupurile.]]></value>
 	</item>
 	<item name="about_component_mid">
 		<value xml:lang="ko"><![CDATA[에디터 컴포넌트가 사용될 대상을 지정할 수 있습니다.(모두 해제 시 모든 대상에서 사용 가능합니다)]]></value>
@@ -342,6 +379,7 @@
 		<value xml:lang="es"><![CDATA[에디터 컴포넌트가 사용될 대상을 지정할 수 있습니다.(모두 해제시 모든 대상에서 사용 가능합니다)]]></value>
 		<value xml:lang="tr"><![CDATA[Hedef editör bileşenlerini seçebilirsiniz.(Hiçbir şey seçilmediğinde, tüm hedefler seçilecektir)]]></value>
 		<value xml:lang="vi"><![CDATA[Có thể lựa chọn khu vực sử dụng Thành phần.(Nếu để trống là tất cả các khu vực đều có thể sử dụng.)]]></value>
+        <value xml:lang="ro"><![CDATA[Componentele editorului pot selecta obiective. Toate obiectivele vor fi selectate dacă nu se selectează nimic.]]></value>
 	</item>
 	<item name="msg_component_is_not_founded">
 		<value xml:lang="ko"><![CDATA[%s 에디터 컴포넌트를 찾을 수 없습니다.]]></value>
@@ -354,6 +392,7 @@
 		<value xml:lang="es"><![CDATA[No se puede encontrar el componente del editor %s]]></value>
 		<value xml:lang="tr"><![CDATA[Editör bileşeni %s bulunamıyor]]></value>
 		<value xml:lang="vi"><![CDATA[Không tìm thấy biên tập Thành phần %s]]></value>
+        <value xml:lang="ro"><![CDATA[Componenta %s nu a fost gasită]]></value>
 	</item>
 	<item name="msg_component_is_inserted">
 		<value xml:lang="ko"><![CDATA[선택하신 컴포넌트는 이미 입력되어 있습니다.]]></value>
@@ -366,6 +405,7 @@
 		<value xml:lang="es"><![CDATA[El componente seleccionado ya esta insertado]]></value>
 		<value xml:lang="tr"><![CDATA[Seçilen bileşen zaten eklenmiş durumda]]></value>
 		<value xml:lang="vi"><![CDATA[Đã chèn Thành phần được chọn.]]></value>
+        <value xml:lang="ro"><![CDATA[Componenta selectată a fost deja inserată]]></value>
 	</item>
 	<item name="msg_component_is_first_order">
 		<value xml:lang="ko"><![CDATA[선택하신 컴포넌트는 첫 번째에 위치하고 있습니다.]]></value>
@@ -378,6 +418,7 @@
 		<value xml:lang="es"><![CDATA[El componente seleccionado se localiza en la primera posición]]></value>
 		<value xml:lang="tr"><![CDATA[Seçilen bileşen ilk pozisyona yerleştirilmiştir]]></value>
 		<value xml:lang="vi"><![CDATA[Lựa chọn Thành phần trước một khu vực.]]></value>
+        <value xml:lang="ro"><![CDATA[Componenta selectată este pe prima poziţie.]]></value>
 	</item>
 	<item name="msg_component_is_last_order">
 		<value xml:lang="ko"><![CDATA[선택하신 컴포넌트는 마지막에 위치하고 있습니다.]]></value>
@@ -390,6 +431,7 @@
 		<value xml:lang="es"><![CDATA[El componente seleccionado se localiza en la última posición]]></value>
 		<value xml:lang="tr"><![CDATA[Seçilen bileşen son pozisyonda yerleşmiştir]]></value>
 		<value xml:lang="vi"><![CDATA[Lựa chọn Thành phần sau một khu vực.]]></value>
+        <value xml:lang="ro"><![CDATA[Componenta selectată este pe ulima poziţie.]]></value>
 	</item>
 	<item name="msg_load_saved_doc">
 		<value xml:lang="ko"><![CDATA[자동 저장된 글이 있습니다. 복구하시겠습니까?
@@ -411,6 +453,7 @@ Después de guardar el documento escrito, el documento autoguardado sera elimina
 Otomatik kaydolan taslak, geçerli makaleyi kaydedince, çıkartılacaktır]]></value>
 		<value xml:lang="vi"><![CDATA[Đã có bài viết tự động lưu. Bạn có muốn khôi phục nó không?
 Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành bài viết này và bấm 'Gửi']]></value>
+        <value xml:lang="ro"><![CDATA[Există un draft salvat. Vrei sa îi încarci? Draftul salvat va fi şters la salvare.]]></value>
 	</item>
 	<item name="msg_auto_saved">
 		<value xml:lang="ko"><![CDATA[자동 저장되었습니다.]]></value>
@@ -423,6 +466,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[Documento guardado automáticamente]]></value>
 		<value xml:lang="tr"><![CDATA[Kendiliğinden Kaydedildi]]></value>
 		<value xml:lang="vi"><![CDATA[Đã tự động lưu]]></value>
+        <value xml:lang="ro"><![CDATA[Salvat automat]]></value>
 	</item>
 	<item name="cmd_disable">
 		<value xml:lang="ko"><![CDATA[비활성]]></value>
@@ -435,6 +479,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[Desactivado]]></value>
 		<value xml:lang="tr"><![CDATA[Devre Dışı]]></value>
 		<value xml:lang="vi"><![CDATA[Không hoạt động]]></value>
+        <value xml:lang="ro"><![CDATA[Inactiv]]></value>
 	</item>
 	<item name="cmd_enable">
 		<value xml:lang="ko"><![CDATA[활성]]></value>
@@ -447,6 +492,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[activado]]></value>
 		<value xml:lang="tr"><![CDATA[Etkin]]></value>
 		<value xml:lang="vi"><![CDATA[Hoạt động]]></value>
+        <value xml:lang="ro"><![CDATA[Activ]]></value>
 	</item>
 	<item name="editor_skin">
 		<value xml:lang="ko"><![CDATA[에디터 스킨]]></value>
@@ -459,6 +505,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[Editor de Cuidado de la Piel]]></value>
 		<value xml:lang="tr"><![CDATA[Editor Dış Görünümü]]></value>
 		<value xml:lang="vi"><![CDATA[Giao diện gửi bài]]></value>
+        <value xml:lang="ro"><![CDATA[Skin editor]]></value>
 	</item>
 	<item name="upload_file_grant">
 		<value xml:lang="ko"><![CDATA[파일 첨부 권한]]></value>
@@ -471,6 +518,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[La autorización para cargar]]></value>
 		<value xml:lang="tr"><![CDATA[Karşıya Yükleme Yetkisi]]></value>
 		<value xml:lang="vi"><![CDATA[Quyền Upload]]></value>
+        <value xml:lang="ro"><![CDATA[Permisiuni pentru încarcare.]]></value>
 	</item>
 	<item name="enable_default_component_grant">
 		<value xml:lang="ko"><![CDATA[기본 컴포넌트 사용 권한]]></value>
@@ -483,6 +531,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[La autorización del uso de los componentes por defecto]]></value>
 		<value xml:lang="tr"><![CDATA[Varsayılan Bileşenler için Yetki]]></value>
 		<value xml:lang="vi"><![CDATA[Quyền sử dụng Thành phần cơ bản]]></value>
+        <value xml:lang="ro"><![CDATA[Permisiuni pentru componenta implicită]]></value>
 	</item>
 	<item name="enable_component_grant">
 		<value xml:lang="ko"><![CDATA[컴포넌트 사용 권한]]></value>
@@ -495,6 +544,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[La autorización de la utilización de componentes]]></value>
 		<value xml:lang="tr"><![CDATA[Bileşenler için Yetki]]></value>
 		<value xml:lang="vi"><![CDATA[Quyền sử dụng Thành phần]]></value>
+        <value xml:lang="ro"><![CDATA[Permisiuni pentru componente.]]></value>
 	</item>
 	<item name="enable_html_grant">
 		<value xml:lang="ko"><![CDATA[HTML 편집 권한]]></value>
@@ -507,6 +557,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[La autorización de uso de HTML]]></value>
 		<value xml:lang="tr"><![CDATA[HTML için Yetki]]></value>
 		<value xml:lang="vi"><![CDATA[Quyền sử dụng HTML]]></value>
+        <value xml:lang="ro"><![CDATA[Permisiuni editare HTML]]></value>
 	</item>
 	<item name="enable_autosave">
 		<value xml:lang="ko"><![CDATA[자동저장 사용]]></value>
@@ -519,6 +570,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[Utilice función de guardado automático,]]></value>
 		<value xml:lang="tr"><![CDATA[Oto-Kayıt]]></value>
 		<value xml:lang="vi"><![CDATA[Tự động lưu]]></value>
+        <value xml:lang="ro"><![CDATA[Activează salvare automată]]></value>
 	</item>
 	<item name="height_resizable">
 		<value xml:lang="ko"><![CDATA[높이 조절 가능]]></value>
@@ -531,6 +583,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[Altura cambiar de tamaño]]></value>
 		<value xml:lang="tr"><![CDATA[Yükseklik Yeniden Boyutlandırılabilir]]></value>
 		<value xml:lang="vi"><![CDATA[Mở rộng chiều cao]]></value>
+        <value xml:lang="ro"><![CDATA[Înalţime redimensionabilă]]></value>
 	</item>
 	<item name="editor_height">
 		<value xml:lang="ko"><![CDATA[에디터 높이]]></value>
@@ -543,6 +596,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[Altura de Editor]]></value>
 		<value xml:lang="tr"><![CDATA[Editör Yüksekliği]]></value>
 		<value xml:lang="vi"><![CDATA[Chiều cao khung viết bài]]></value>
+        <value xml:lang="ro"><![CDATA[Înalţime editor]]></value>
 	</item>
 	<item name="about_editor_skin">
 		<value xml:lang="ko"><![CDATA[에디터 스킨을 선택하실 수 있습니다.]]></value>
@@ -555,10 +609,11 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[Usted puede seleccionar la piel del editor.]]></value>
 		<value xml:lang="tr"><![CDATA[Editör dış görünümünü seçebilirsiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể chọn kiểu gửi bài.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi selecta skin-ul editorului.]]></value>
 	</item>
 	<item name="about_content_style">
 		<value xml:lang="ko"><![CDATA[문서 편집 및 내용 출력 시 원하는 서식을 지정할 수 있습니다.]]></value>
-		<value xml:lang="en"><![CDATA[You may select a style for editting a document or displaying a content]]></value>
+		<value xml:lang="en"><![CDATA[You may select a style for editing a document or displaying a content]]></value>
 		<value xml:lang="jp"><![CDATA[コンテンツの編集、および内容表示の際のスタイルを指定します。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[可以指定编辑或打印文档时的文档样式。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[修改內容時，可指定要顯示的內容樣式]]></value>
@@ -567,6 +622,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[문서 편집 및 내용 출력시 원하는 서식을 지정할 수 있습니다]]></value>
 		<value xml:lang="tr"><![CDATA[Makale düzenleme veya içerik gösterme için tarz seçebilirsiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể chọn kiểu viết bài hay kiểu hiển thị.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi selecta un stil pentru editarea documentului şi afişarea conţinutului.]]></value>
 	</item>
 	<item name="about_content_font">
 		<value xml:lang="ko"><![CDATA[문서 편집 및 내용 출력 시 원하는 폰트를 지정할 수 있습니다. 지정하지 않으면 사용자 설정에 따르게 됩니다. 콤마(,)로 여러 폰트를 지정할 수 있습니다.]]></value>
@@ -579,6 +635,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[문서 편집 및 내용 출력시 원하는 폰트를 지정할 수 있습니다. 지정하지 않으면 사용자 설정에 따르게 됩니다. 콤마(,)로 여러 폰트를 지정할 수 있습니다.]]></value>
 		<value xml:lang="tr"><![CDATA[Makale düzenleme veya içerik gösterme için yazı tipi seçebilirsiniz. Varsayılan yazı tipi sizin kendi yazı tipinizdir  Lütfen çoklu giriş için virgül(,) kullanınız.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể chọn Font chữ để viết và hiển thị trong bài viết. Để đặt mặc định chỉ Font chữ bạn hay sử dụng, hãy đặt dấu (,) vào giữa các Font.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi selecta un font pentru editarea documentului şi afişarea conşinutului. Fontul implicit e fontul tău. Foloseşte virgula pentru a separa data multiple.]]></value>
 	</item>
 	<item name="about_content_font_size">
 		<value xml:lang="ko"><![CDATA[문서 편집 및 내용 출력 시 원하는 폰트의 크기를 지정할 수 있습니다. 12px, 1em등 단위까지 포함해서 입력해주세요.]]></value>
@@ -591,6 +648,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[문서 편집 및 내용 출력시 원하는 폰트의 크기를 지정할 수 있습니다. 12px, 1em등 단위까지 포함해서 입력해주세요.]]></value>
 		<value xml:lang="tr"><![CDATA[Makale düzenleme veya içerik görüntüleme için yazı boyutu seçebilirsiniz. Lütfen px veya em gibi birimler kullanınız.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể chọn cỡ chữ để viết bài và hiển thị theo định dạng "px" hoặc "em".]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi selecta o dimensiune a fontului pentru editarea documentului şi afişarea conţinutului. Unitatea de măsură poate fi px sau em.]]></value>
 	</item>
 	<item name="about_upload_file_grant">
 		<value xml:lang="ko"><![CDATA[파일을 첨부할 수 있는 권한을 지정하실 수 있습니다. (모두 해제 시 아무나 첨부 가능합니다)]]></value>
@@ -603,6 +661,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[Usted puede configurar el permiso de archivo adjunto. (Todo el mundo tendría permiso si no comprobado)]]></value>
 		<value xml:lang="tr"><![CDATA[Seçilen (gruplar) dosyaları karşıya yükleme yetkisine sahip olacaklardır. (Eğer tüm grupların bu yetkiye sahip olmasını istiyorsanız lütfen boş bırakınız)]]></value>
 		<value xml:lang="vi"><![CDATA[Chọn nhóm được phép Upload File. (Để trống nếu bạn muốn tất cả các nhóm đều có thể Upload.)]]></value>
+        <value xml:lang="ro"><![CDATA[Grupurile selectate pot încarca fişiere. Lasă necompletat pentru a permite tuturor grupurilor.]]></value>
 	</item>
 	<item name="about_default_component_grant">
 		<value xml:lang="ko"><![CDATA[에디터에서 사용되는 기본 컴포넌트를 사용할 수 있는 권한을 지정할 수 있습니다. (모두 해제 시 아무나 사용 가능합니다)]]></value>
@@ -615,6 +674,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[Usted puede configurar el permiso de uso de los componentes de editor por defecto. (Todo el mundo tendría permiso si no comprobado)]]></value>
 		<value xml:lang="tr"><![CDATA[Seçilen grup(lar) editörün varsayılan bileşenlerini kullanabileceklerdir. (Eğer tüm grupların bu yetkiye sahip olmasını istiyorsanız lütfen boş bırakınız)]]></value>
 		<value xml:lang="vi"><![CDATA[Chọn nhóm được phép sử dụng Thành phần mặc định. (Để trống nếu bạn muốn tất cả đều có thể sử dụng.)]]></value>
+        <value xml:lang="ro"><![CDATA[Grupurile selectate vor putea folosi componetele editorului. Lasă necompletat pentru a permite tuturor grupurilor.]]></value>
 	</item>
 	<item name="about_editor_height">
 		<value xml:lang="ko"><![CDATA[에디터의 기본 높이를 지정하실 수 있습니다.]]></value>
@@ -627,6 +687,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[Usted puede configurar la altura del editor.]]></value>
 		<value xml:lang="tr"><![CDATA[Editör yüksekliğini ayarlayabilirsiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể đặt chiều cao của khung viết bài.]]></value>
+        <value xml:lang="ro"><![CDATA[poţi seta înalţimea editorului.]]></value>
 	</item>
 	<item name="about_editor_height_resizable">
 		<value xml:lang="ko"><![CDATA[에디터의 높이를 직접 변경할 수 있도록 허용합니다.]]></value>
@@ -639,6 +700,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[Permiso para cambiar el tamaño de la altura del editor.]]></value>
 		<value xml:lang="tr"><![CDATA[Editörün yüksekliğinin yeniden boyutlandırıp-boyutlandırılamayacağı kararını verebilirsiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Đặt chiều cao có thể thay đổi.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi seta dacă editorul este redimensionabil.]]></value>
 	</item>
 	<item name="about_enable_html_grant">
 		<value xml:lang="ko"><![CDATA[HTML 편집 권한을 부여할 수 있습니다.]]></value>
@@ -650,6 +712,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[Usted puede dar el permiso de uso de HTML]]></value>
 		<value xml:lang="tr"><![CDATA[Seçilen grup(lar) HTML kullanabileceklerdir]]></value>
 		<value xml:lang="vi"><![CDATA[Chọn nhóm được phép sử dụng HTML]]></value>
+        <value xml:lang="ro"><![CDATA[Grupurile selectate pot folosi HTML.]]></value>
 	</item>
 	<item name="about_enable_autosave">
 		<value xml:lang="ko"><![CDATA[글 작성 시 자동 저장 기능을 활성화 시킬 수 있습니다.]]></value>
@@ -662,6 +725,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[Usted puede permitir que la función de guardado automático, en tanto que función de la redacción de artículos]]></value>
 		<value xml:lang="tr"><![CDATA[Oto-Kayıt özelliğinin kullanılabilmesi kararını verebilirsiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể đặt chức năng Tự động lưu.]]></value>
+        <value xml:lang="ro"><![CDATA[Poăi decide dacă funcţia de salvare automată va fi folosită.]]></value>
 	</item>
 	<item name="edit">
 		<item name="fontname">
@@ -675,6 +739,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Fuente]]></value>
 			<value xml:lang="tr"><![CDATA[Yazı Tipi]]></value>
 			<value xml:lang="vi"><![CDATA[Kiểu chữ]]></value>
+            <value xml:lang="ro"><![CDATA[Font]]></value>
 		</item>
 		<item name="fontsize">
 			<value xml:lang="ko"><![CDATA[크기]]></value>
@@ -687,6 +752,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Tamaño]]></value>
 			<value xml:lang="tr"><![CDATA[Boyut]]></value>
 			<value xml:lang="vi"><![CDATA[Cỡ chữ]]></value>
+            <value xml:lang="ro"><![CDATA[Dimensiune]]></value>
 		</item>
 		<item name="use_paragraph">
 			<value xml:lang="ko"><![CDATA[문단기능]]></value>
@@ -699,46 +765,58 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Párrafo]]></value>
 			<value xml:lang="tr"><![CDATA[Paragraf Özelliği]]></value>
 			<value xml:lang="vi"><![CDATA[Chức năng Paragraph]]></value>
+            <value xml:lang="ro"><![CDATA[Funcţtii pentru paragraf.]]></value>
 		</item>
 		<item name="fontlist" type="array">	
 			<item name="arial">
 				<value xml:lang="ko"><![CDATA[Arial, Helvetica, sans-serif]]></value>
 				<value xml:lang="en"><![CDATA[Arial, Helvetica, sans-serif]]></value>
+                <value xml:lang="ro"><![CDATA[Arial, Helvetica, sans-serif]]></value>
 			</item>
 			<item name="tahoma">
 				<value xml:lang="ko"><![CDATA[Tahoma, Geneva, sans-serif]]></value>
 				<value xml:lang="en"><![CDATA[Tahoma, Geneva, sans-serif]]></value>
+                <value xml:lang="ro"><![CDATA[Tahoma, Geneva, sans-serif]]></value>
 			</item>
 			<item name="verdana">
 				<value xml:lang="ko"><![CDATA[Verdana, Geneva, sans-serif]]></value>
 				<value xml:lang="en"><![CDATA[Verdana, Geneva, sans-serif]]></value>
+                <value xml:lang="ro"><![CDATA[Verdana, Geneva, sans-serif]]></value>
 			</item>
 			<item name="sans-serif">
 				<value xml:lang="ko"><![CDATA[Sans-serif]]></value>
 				<value xml:lang="en"><![CDATA[Sans-serif]]></value>
+                <value xml:lang="ro"><![CDATA[Sans-serif]]></value>
 			</item>
 			<item name="georgia">
 				<value xml:lang="ko"><![CDATA[Georgia, 'Times New Roman', Times, serif]]></value>
 				<value xml:lang="en"><![CDATA[Georgia, 'Times New Roman', Times, serif]]></value>
+                <value xml:lang="ro"><![CDATA[Georgia, 'Times New Roman', Times, serif]]></value>
 			</item>
 			<item name="palatinoLinotype">
 				<value xml:lang="ko"><![CDATA['Palatino Linotype', 'Book Antiqua', Palatino, serif]]></value>
 				<value xml:lang="en"><![CDATA['Palatino Linotype', 'Book Antiqua', Palatino, serif]]></value>
+                <value xml:lang="ro"><![CDATA['Palatino Linotype', 'Book Antiqua', Palatino, serif]]></value>
 			</item>
 			<item name="timesNewRoman">
 				<value xml:lang="ko"><![CDATA['Times New Roman', Times, serif]]></value>
 				<value xml:lang="en"><![CDATA['Times New Roman', Times, serif]]></value>
+                <value xml:lang="ro"><![CDATA['Times New Roman', Times, serif]]></value>
 			</item>		
 			<item name="serif">
 				<value xml:lang="ko"><![CDATA[Serif]]></value>
 				<value xml:lang="en"><![CDATA[Serif]]></value>
+                <value xml:lang="ro"><![CDATA[Serif]]></value>
 			</item>		
 			<item name="courierNew">
 				<value xml:lang="ko"><![CDATA['Courier New', Courier, monospace]]></value>
 				<value xml:lang="en"><![CDATA['Courier New', Courier, monospace]]></value>
+                <value xml:lang="ro"><![CDATA['Courier New', Courier, monospace]]></value>
 			</item>		
 			<item name="lucidaConsole">
 				<value xml:lang="ko"><![CDATA['Lucida Console', Monaco, monospace]]></value>
+                <value xml:lang="en"><![CDATA['Lucida Console', Monaco, monospace]]></value>
+                <value xml:lang="ro"><![CDATA['Lucida Console', Monaco, monospace]]></value>
 			</item>		
 		</item>					
 		<item name="header">
@@ -751,6 +829,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Estilo]]></value>
 			<value xml:lang="tr"><![CDATA[Tarz]]></value>
 			<value xml:lang="vi"><![CDATA[Tiêu đề lớn]]></value>
+            <value xml:lang="ro"><![CDATA[Stil]]></value>
 		</item>
 		<item name="header_list" type="array">
 			<item name="h1">
@@ -764,6 +843,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 				<value xml:lang="es"><![CDATA[Título 1]]></value>
 				<value xml:lang="tr"><![CDATA[Konu 1]]></value>
 				<value xml:lang="vi"><![CDATA[Cỡ 1]]></value>
+                <value xml:lang="ro"><![CDATA[Header 1]]></value>
 			</item>
 			<item name="h2">
 				<value xml:lang="ko"><![CDATA[제목 2]]></value>
@@ -776,6 +856,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 				<value xml:lang="es"><![CDATA[Título 2]]></value>
 				<value xml:lang="tr"><![CDATA[Konu 2]]></value>
 				<value xml:lang="vi"><![CDATA[Cỡ 2]]></value>
+                <value xml:lang="ro"><![CDATA[Header 2]]></value>
 			</item>
 			<item name="h3">
 				<value xml:lang="ko"><![CDATA[제목 3]]></value>
@@ -788,6 +869,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 				<value xml:lang="es"><![CDATA[Título 3]]></value>
 				<value xml:lang="tr"><![CDATA[Konu 3]]></value>
 				<value xml:lang="vi"><![CDATA[Cỡ 3]]></value>
+                <value xml:lang="ro"><![CDATA[Header 3]]></value>
 			</item>
 			<item name="h4">
 				<value xml:lang="ko"><![CDATA[제목 4]]></value>
@@ -800,6 +882,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 				<value xml:lang="es"><![CDATA[Título 4]]></value>
 				<value xml:lang="tr"><![CDATA[Konu 4]]></value>
 				<value xml:lang="vi"><![CDATA[Cỡ 4]]></value>
+                <value xml:lang="ro"><![CDATA[Header 4]]></value>
 			</item>
 			<item name="h5">
 				<value xml:lang="ko"><![CDATA[제목 5]]></value>
@@ -812,6 +895,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 				<value xml:lang="es"><![CDATA[Título 5]]></value>
 				<value xml:lang="tr"><![CDATA[Konu 5]]></value>
 				<value xml:lang="vi"><![CDATA[Cỡ 5]]></value>
+                <value xml:lang="ro"><![CDATA[Header 5]]></value>
 			</item>
 			<item name="h6">
 				<value xml:lang="ko"><![CDATA[제목 6]]></value>
@@ -824,6 +908,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 				<value xml:lang="es"><![CDATA[Título 6]]></value>
 				<value xml:lang="tr"><![CDATA[Konu 6]]></value>
 				<value xml:lang="vi"><![CDATA[Cỡ 6]]></value>
+                <value xml:lang="ro"><![CDATA[Header 6]]></value>
 			</item>
 		</item>
 		<item name="submit">
@@ -837,6 +922,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Confirmar]]></value>
 			<value xml:lang="tr"><![CDATA[Gönder]]></value>
 			<value xml:lang="vi"><![CDATA[Gửi bài]]></value>
+            <value xml:lang="ro"><![CDATA[Trimite]]></value>
 		</item>
 		<item name="fontcolor">
 			<value xml:lang="ko"><![CDATA[글자 색]]></value>
@@ -847,6 +933,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Цвет текста]]></value>
 			<value xml:lang="tr"><![CDATA[Yazı Rengi]]></value>
 			<value xml:lang="vi"><![CDATA[Màu chữ]]></value>
+            <value xml:lang="ro"><![CDATA[Culoare text]]></value>
 		</item>
 		<item name="fontbgcolor">
 			<value xml:lang="ko"><![CDATA[글자 배경색]]></value>
@@ -857,6 +944,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Цвет Фона]]></value>
 			<value xml:lang="tr"><![CDATA[Arkaplan Rengi]]></value>
 			<value xml:lang="vi"><![CDATA[Màu nền]]></value>
+            <value xml:lang="ro"><![CDATA[Culoare fundal]]></value>
 		</item>
 		<item name="bold">
 			<value xml:lang="ko"><![CDATA[진하게]]></value>
@@ -866,6 +954,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[粗體]]></value>
 			<value xml:lang="tr"><![CDATA[Kalın]]></value>
 			<value xml:lang="vi"><![CDATA[Chữ đậm]]></value>
+            <value xml:lang="ro"><![CDATA[Bold]]></value>
 		</item>
 		<item name="italic">
 			<value xml:lang="ko"><![CDATA[기울임]]></value>
@@ -884,6 +973,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[底線]]></value>
 			<value xml:lang="tr"><![CDATA[Altıçizili]]></value>
 			<value xml:lang="vi"><![CDATA[Chứ gạch chân]]></value>
+            <value xml:lang="ro"><![CDATA[Subliniat]]></value>
 		</item>
 		<item name="strike">
 			<value xml:lang="ko"><![CDATA[취소선]]></value>
@@ -893,6 +983,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[虛線]]></value>
 			<value xml:lang="tr"><![CDATA[Göze Çarpan]]></value>
 			<value xml:lang="vi"><![CDATA[Chữ gạch giữa]]></value>
+            <value xml:lang="ro"><![CDATA[Tăiat]]></value>
 		</item>
 		<item name="sup">
 			<value xml:lang="ko"><![CDATA[위 첨자]]></value>
@@ -901,6 +992,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-CN"><![CDATA[上标]]></value>
 			<value xml:lang="zh-TW"><![CDATA[上標]]></value>
 			<value xml:lang="vi"><![CDATA[Chỉ số trên]]></value>
+            <value xml:lang="ro"><![CDATA[Superior]]></value>
 		</item>
 		<item name="sub">
 			<value xml:lang="ko"><![CDATA[아래 첨자]]></value>
@@ -908,7 +1000,8 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="jp"><![CDATA[下付き文字]]></value>
 			<value xml:lang="zh-CN"><![CDATA[下标]]></value>
 			<value xml:lang="zh-TW"><![CDATA[下標]]></value>
-			<value xml:lang="vi"><![CDATA[Chỉ số dưới]]></value>
+			<value xml:lang="vi"><![CDATA[Chỉ số dưới]]></value>î
+            <value xml:lang="ro"><![CDATA[Sub]]></value>
 		</item>
 		<item name="redo">
 			<value xml:lang="ko"><![CDATA[다시 실행]]></value>
@@ -918,6 +1011,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[重新操作]]></value>
 			<value xml:lang="tr"><![CDATA[Yinele]]></value>
 			<value xml:lang="vi"><![CDATA[Phía sau]]></value>
+            <value xml:lang="ro"><![CDATA[Refacere]]></value>
 		</item>
 		<item name="undo">
 			<value xml:lang="ko"><![CDATA[되돌리기]]></value>
@@ -927,6 +1021,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[返回操作]]></value>
 			<value xml:lang="tr"><![CDATA[Geri Al]]></value>
 			<value xml:lang="vi"><![CDATA[Trở lại]]></value>
+            <value xml:lang="ro"><![CDATA[Anulare]]></value>
 		</item>
 		<item name="align_left">
 			<value xml:lang="ko"><![CDATA[왼쪽 정렬]]></value>
@@ -936,6 +1031,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[靠左對齊]]></value>
 			<value xml:lang="tr"><![CDATA[Sola Hizalama]]></value>
 			<value xml:lang="vi"><![CDATA[Căn trái]]></value>
+            <value xml:lang="ro"><![CDATA[Aliniare sânga]]></value>
 		</item>
 		<item name="align_center">
 			<value xml:lang="ko"><![CDATA[가운데 정렬]]></value>
@@ -945,6 +1041,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[置中對齊]]></value>
 			<value xml:lang="tr"><![CDATA[Ortalı Hizalama]]></value>
 			<value xml:lang="vi"><![CDATA[Căn giữa]]></value>
+            <value xml:lang="ro"><![CDATA[Alniere centru]]></value>
 		</item>
 		<item name="align_right">
 			<value xml:lang="ko"><![CDATA[오른쪽 정렬]]></value>
@@ -954,6 +1051,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[靠右對齊]]></value>
 			<value xml:lang="tr"><![CDATA[Sağa Hizalama]]></value>
 			<value xml:lang="vi"><![CDATA[Căn phải]]></value>
+            <value xml:lang="ro"><![CDATA[Alniere dreapta]]></value>
 		</item>
 		<item name="align_justify">
 			<value xml:lang="ko"><![CDATA[양쪽 정렬]]></value>
@@ -963,6 +1061,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[左右對齊]]></value>
 			<value xml:lang="tr"><![CDATA[Kenara Yaslı Hizalama]]></value>
 			<value xml:lang="vi"><![CDATA[Căn đều]]></value>
+            <value xml:lang="ro"><![CDATA[Aliniere sânga şi dreapta]]></value>
 		</item>
 		<item name="add_indent">
 			<value xml:lang="ko"><![CDATA[들여쓰기]]></value>
@@ -972,6 +1071,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[縮排]]></value>
 			<value xml:lang="tr"><![CDATA[Girinti]]></value>
 			<value xml:lang="vi"><![CDATA[Thụt lề]]></value>
+            <value xml:lang="ro"><![CDATA[Identare]]></value>
 		</item>
 		<item name="remove_indent">
 			<value xml:lang="ko"><![CDATA[내어쓰기]]></value>
@@ -981,6 +1081,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[凸排]]></value>
 			<value xml:lang="tr"><![CDATA[Çıkıntı]]></value>
 			<value xml:lang="vi"><![CDATA[Dàn đều]]></value>
+            <value xml:lang="ro"><![CDATA[Deidentare]]></value>
 		</item>
 		<item name="list_number">
 			<value xml:lang="ko"><![CDATA[번호 매기기]]></value>
@@ -990,6 +1091,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[編號]]></value>
 			<value xml:lang="tr"><![CDATA[Sıralanan Listesi]]></value>
 			<value xml:lang="vi"><![CDATA[Thứ tự số]]></value>
+            <value xml:lang="ro"><![CDATA[Listă numerotată]]></value>
 		</item>
 		<item name="list_bullet">
 			<value xml:lang="ko"><![CDATA[목록]]></value>
@@ -999,6 +1101,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[清單符號]]></value>
 			<value xml:lang="tr"><![CDATA[Sırasız Listesi]]></value>
 			<value xml:lang="vi"><![CDATA[Thứ tự chấm]]></value>
+            <value xml:lang="ro"><![CDATA[Listă nenumerotată]]></value>
 		</item>
 		<item name="remove_format">
 			<value xml:lang="ko"><![CDATA[글맵시 지우기]]></value>
@@ -1009,6 +1112,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Удалить стиль]]></value>
 			<value xml:lang="tr"><![CDATA[Tarz Silicisi]]></value>
 			<value xml:lang="vi"><![CDATA[Xóa định dạng]]></value>
+            <value xml:lang="ro"><![CDATA[Sterge stil]]></value>
 		</item>
 		<item name="help_remove_format">
 			<value xml:lang="ko"><![CDATA[선택된 영역 내의 태그를 지웁니다.]]></value>
@@ -1020,6 +1124,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Выделенный объект будет удален]]></value>
 			<value xml:lang="tr"><![CDATA[Seçili alandaki etiketler silinecektir]]></value>
 			<value xml:lang="vi"><![CDATA[Những Tag đã chọn sẽ bị xóa]]></value>
+            <value xml:lang="ro"><![CDATA[Tagurile din zona selectată vor fi şterse.]]></value>
 		</item>
 		<item name="help_strike_through">
 			<value xml:lang="ko"><![CDATA[글자에 취소선을 표시합니다.]]></value>
@@ -1030,6 +1135,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="fr"><![CDATA[Représenter la ligne d'annulation sur les lettres.]]></value>
 			<value xml:lang="tr"><![CDATA[Strike ]]></value>
 			<value xml:lang="vi"><![CDATA[Đường kẻ sẽ nằm lên chữ]]></value>
+            <value xml:lang="ro"><![CDATA[Marcează continutul cu o linie tăiată]]></value>
 		</item>
 		<item name="help_align_full">
 			<value xml:lang="ko"><![CDATA[좌우 폭에 맞게 정렬을 합니다.]]></value>
@@ -1041,6 +1147,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Выровнять (вправо/влево)]]></value>
 			<value xml:lang="tr"><![CDATA[Sol ve sağ hizalama]]></value>
 			<value xml:lang="vi"><![CDATA[Căn trái và phải]]></value>
+            <value xml:lang="ro"><![CDATA[Aliniere stânga şi dreapta.]]></value>
 		</item>
 		<item name="help_fontcolor">
 			<value xml:lang="ko"><![CDATA[글자의 색상을 지정합니다.]]></value>
@@ -1053,6 +1160,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Selecciona el color de las letras]]></value>
 			<value xml:lang="tr"><![CDATA[Yazı rengi seç]]></value>
 			<value xml:lang="vi"><![CDATA[Màu chữ]]></value>
+            <value xml:lang="ro"><![CDATA[Selectează culoarea textului.]]></value>
 		</item>
 		<item name="help_fontbgcolor">
 			<value xml:lang="ko"><![CDATA[글자의 배경색상을 지정합니다.]]></value>
@@ -1065,6 +1173,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Selecciona el color del fondo de la letras]]></value>
 			<value xml:lang="tr"><![CDATA[Yazı tipinin arkaplan rengini seç]]></value>
 			<value xml:lang="vi"><![CDATA[Màu nền]]></value>
+            <value xml:lang="ro"><![CDATA[Selectează culoarea de fundal a textului.]]></value>
 		</item>
 		<item name="help_bold">
 			<value xml:lang="ko"><![CDATA[글자를 진하게 합니다.]]></value>
@@ -1077,6 +1186,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Letra gruesa]]></value>
 			<value xml:lang="tr"><![CDATA[Yazı tipini kalın yap]]></value>
 			<value xml:lang="vi"><![CDATA[ Chữ đậm]]></value>
+            <value xml:lang="ro"><![CDATA[Face textul îngroşat.]]></value>
 		</item>
 		<item name="help_italic">
 			<value xml:lang="ko"><![CDATA[글자를 기울이게 합니다.]]></value>
@@ -1089,6 +1199,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Letra cursiva]]></value>
 			<value xml:lang="tr"><![CDATA[Yazı tipini italik yap]]></value>
 			<value xml:lang="vi"><![CDATA[ Chữ nghiêng]]></value>
+            <value xml:lang="ro"><![CDATA[Face textul înclinat.]]></value>
 		</item>
 		<item name="help_underline">
 			<value xml:lang="ko"><![CDATA[밑줄을 긋습니다.]]></value>
@@ -1101,6 +1212,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Letra subrayada]]></value>
 			<value xml:lang="tr"><![CDATA[Altıçizili yazı tipi]]></value>
 			<value xml:lang="vi"><![CDATA[ Chữ gạch chân]]></value>
+            <value xml:lang="ro"><![CDATA[Subliniază textul]]></value>
 		</item>
 		<item name="help_strike">
 			<value xml:lang="ko"><![CDATA[취소선을 긋습니다.]]></value>
@@ -1112,6 +1224,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Сделать шрифт зачеркнутым]]></value>
 			<value xml:lang="es"><![CDATA[Letra con linea]]></value>
 			<value xml:lang="vi"><![CDATA[ Chữ gạch giữa]]></value>
+            <value xml:lang="ro"><![CDATA[Taie textul]]></value>
 		</item>
 		<item name="help_sup">
 			<value xml:lang="ko"><![CDATA[위 첨자를 입력합니다.]]></value>
@@ -1123,6 +1236,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Sup]]></value>
 			<value xml:lang="es"><![CDATA[Sup]]></value>
 			<value xml:lang="vi"><![CDATA[Chỉ số trên]]></value>
+            <value xml:lang="ro"><![CDATA[Scrie deasupra textului.]]></value>
 		</item>
 		<item name="help_sub">
 			<value xml:lang="ko"><![CDATA[아래 첨자를 입력합니다.]]></value>
@@ -1134,6 +1248,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Sub]]></value>
 			<value xml:lang="es"><![CDATA[Sub]]></value>
 			<value xml:lang="vi"><![CDATA[Chỉ số dưới]]></value>
+            <value xml:lang="ro"><![CDATA[Scrie sub text.]]></value>
 		</item>
 		<item name="help_redo">
 			<value xml:lang="ko"><![CDATA[다음 동작으로 돌아갑니다.]]></value>
@@ -1146,6 +1261,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Rehacer]]></value>
 			<value xml:lang="tr"><![CDATA[Yine]]></value>
 			<value xml:lang="vi"><![CDATA[Tiếp tục]]></value>
+            <value xml:lang="ro"><![CDATA[Refacere.]]></value>
 		</item>
 		<item name="help_undo">
 			<value xml:lang="ko"><![CDATA[이전 동작으로 돌아갑니다.]]></value>
@@ -1158,6 +1274,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Deshacer]]></value>
 			<value xml:lang="tr"><![CDATA[Geri al]]></value>
 			<value xml:lang="vi"><![CDATA[Trở lại]]></value>
+            <value xml:lang="ro"><![CDATA[Anulare]]></value>
 		</item>
 		<item name="help_align_left">
 			<value xml:lang="ko"><![CDATA[왼쪽 정렬을 합니다.]]></value>
@@ -1170,6 +1287,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Margen izquierdo]]></value>
 			<value xml:lang="tr"><![CDATA[Sola Hizala]]></value>
 			<value xml:lang="vi"><![CDATA[Căn trái]]></value>
+            <value xml:lang="ro"><![CDATA[Aliniere stânga]]></value>
 		</item>
 		<item name="help_align_center">
 			<value xml:lang="ko"><![CDATA[가운데 정렬을 합니다.]]></value>
@@ -1182,6 +1300,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Margen central]]></value>
 			<value xml:lang="tr"><![CDATA[Ortalı Hizala]]></value>
 			<value xml:lang="vi"><![CDATA[Căn giữa]]></value>
+            <value xml:lang="ro"><![CDATA[Aliniere centrală]]></value>
 		</item>
 		<item name="help_align_right">
 			<value xml:lang="ko"><![CDATA[오른쪽 정렬을 합니다.]]></value>
@@ -1194,6 +1313,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Margen derecho]]></value>
 			<value xml:lang="tr"><![CDATA[Sağa Hizala]]></value>
 			<value xml:lang="vi"><![CDATA[Căn phải]]></value>
+            <value xml:lang="ro"><![CDATA[Aliniere dreapta]]></value>
 		</item>
 		<item name="help_align_justify">
 			<value xml:lang="ko"><![CDATA[양쪽 정렬을 합니다.]]></value>
@@ -1203,6 +1323,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[左右對齊]]></value>
 			<value xml:lang="tr"><![CDATA[Kenara Yaslı Hizalama]]></value>
 			<value xml:lang="vi"><![CDATA[Đều hai bên]]></value>
+            <value xml:lang="ro"><![CDATA[Aliniere stânga şi dreapta.]]></value>
 		</item>
 		<item name="help_add_indent">
 			<value xml:lang="ko"><![CDATA[단락의 들여쓰기 수준을 높입니다.]]></value>
@@ -1215,6 +1336,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Anadir tabulación]]></value>
 			<value xml:lang="tr"><![CDATA[Girinti Ekle]]></value>
 			<value xml:lang="vi"><![CDATA[Thụt vào]]></value>
+            <value xml:lang="ro"><![CDATA[Adauga identare]]></value>
 		</item>
 		<item name="help_remove_indent">
 			<value xml:lang="ko"><![CDATA[단락의 들여쓰기 수준을 낮춥니다.]]></value>
@@ -1227,6 +1349,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Quitar tabulación]]></value>
 			<value xml:lang="tr"><![CDATA[Girinti sil]]></value>
 			<value xml:lang="vi"><![CDATA[Giãn ra]]></value>
+            <value xml:lang="ro"><![CDATA[Şterge identare]]></value>
 		</item>
 		<item name="help_list_number">
 			<value xml:lang="ko"><![CDATA[숫자로된 목록을 적용합니다.]]></value>
@@ -1239,6 +1362,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Aplicar la lista con números]]></value>
 			<value xml:lang="tr"><![CDATA[Sayı listesini uygula]]></value>
 			<value xml:lang="vi"><![CDATA[Thứ tự số]]></value>
+            <value xml:lang="ro"><![CDATA[Aplică lista numerotată]]></value>
 		</item>
 		<item name="help_list_bullet">
 			<value xml:lang="ko"><![CDATA[기호로된 목록을 적용합니다.]]></value>
@@ -1251,6 +1375,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Aplicar la lista con símbolos]]></value>
 			<value xml:lang="tr"><![CDATA[Bullet listesi uygula]]></value>
 			<value xml:lang="vi"><![CDATA[Thứ tự chấm]]></value>
+            <value xml:lang="ro"><![CDATA[Apliă listă cu puncte.]]></value>
 		</item>
 		<item name="help_use_paragraph">
 			<value xml:lang="ko"><![CDATA[문단 나누기를 하시려면 Ctrl+Enter를 누르시면 됩니다. (글 작성완료 후 Alt+S를 누르면 저장이 됩니다.)]]></value>
@@ -1263,6 +1388,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Presiona Ctrl+Enter para usar el párrafo (Presiona Alt+S para guardar)]]></value>
 			<value xml:lang="tr"><![CDATA[Paragraf yapmak için Ctrl+Enter tuşlarına basınız. (Göndermek için Alt+S e basınız)]]></value>
 			<value xml:lang="vi"><![CDATA[Bấm "Ctrl+Enter" để sử dụng Paragraph. Bấm phím "Alt+S" để gửi.]]></value>
+            <value xml:lang="ro"><![CDATA[Apasă CTRL+Enter pentru a trece pe linie nouă. (Apasă ALT+S pentru salvare.)]]></value>
 		</item>
 		<item name="url">
 			<value xml:lang="ko"><![CDATA[링크]]></value>
@@ -1270,6 +1396,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="jp"><![CDATA[リンク]]></value>
 			<value xml:lang="zh-CN"><![CDATA[链接]]></value>
 			<value xml:lang="zh-TW"><![CDATA[連結]]></value>
+            <value xml:lang="ro"><![CDATA[URL]]></value>
 		</item>
 		<item name="blockquote">
 			<value xml:lang="ko"><![CDATA[인용문]]></value>
@@ -1279,6 +1406,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[引用]]></value>
 			<value xml:lang="tr"><![CDATA[Blokalıntı]]></value>
 			<value xml:lang="vi"><![CDATA[Trích dẫn]]></value>
+            <value xml:lang="ro"><![CDATA[Blockquote]]></value>
 		</item>
 		<item name="table">
 			<value xml:lang="ko"><![CDATA[표]]></value>
@@ -1288,6 +1416,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[表格]]></value>
 			<value xml:lang="tr"><![CDATA[Tablo]]></value>
 			<value xml:lang="vi"><![CDATA[Bảng]]></value>
+            <value xml:lang="ro"><![CDATA[Tabel]]></value>
 		</item>
 		<item name="image">
 			<value xml:lang="ko"><![CDATA[그림]]></value>
@@ -1297,6 +1426,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[圖片]]></value>
 			<value xml:lang="tr"><![CDATA[Resim]]></value>
 			<value xml:lang="vi"><![CDATA[Hình ảnh]]></value>
+            <value xml:lang="ro"><![CDATA[Imagine]]></value>
 		</item>
 		<item name="multimedia">
 			<value xml:lang="ko"><![CDATA[동영상]]></value>
@@ -1306,6 +1436,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[影片]]></value>
 			<value xml:lang="tr"><![CDATA[Film]]></value>
 			<value xml:lang="vi"><![CDATA[Chèn Media]]></value>
+            <value xml:lang="ro"><![CDATA[Video]]></value>
 		</item>
 		<item name="emoticon">
 			<value xml:lang="ko"><![CDATA[이모티콘]]></value>
@@ -1315,6 +1446,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[表情符號]]></value>
 			<value xml:lang="tr"><![CDATA[His Simgesi]]></value>
 			<value xml:lang="vi"><![CDATA[Diễn tả cảm xúc]]></value>
+            <value xml:lang="ro"><![CDATA[Iconiţe]]></value>
 		</item>
 		<item name="upload">
 			<value xml:lang="ko"><![CDATA[첨부]]></value>
@@ -1327,6 +1459,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Adjuntar]]></value>
 			<value xml:lang="tr"><![CDATA[Ekler]]></value>
 			<value xml:lang="vi"><![CDATA[Đính kèm]]></value>
+            <value xml:lang="ro"><![CDATA[Ataşament]]></value>
 		</item>
 		<item name="upload_file">
 			<value xml:lang="ko"><![CDATA[파일 첨부]]></value>
@@ -1339,6 +1472,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Archivo adjunto]]></value>
 			<value xml:lang="tr"><![CDATA[İliştir]]></value>
 			<value xml:lang="vi"><![CDATA[Đính kèm]]></value>
+            <value xml:lang="ro"><![CDATA[Ataşament]]></value>
 		</item>
 		<item name="link_file">
 			<value xml:lang="ko"><![CDATA[본문 삽입]]></value>
@@ -1351,6 +1485,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Insertar en el contenido del documento]]></value>
 			<value xml:lang="tr"><![CDATA[İçeriğe Ekle]]></value>
 			<value xml:lang="vi"><![CDATA[Chèn vào bài viết]]></value>
+            <value xml:lang="ro"><![CDATA[Inserează în conţinut.]]></value>
 		</item>
 		<item name="delete_selected">
 			<value xml:lang="ko"><![CDATA[선택 삭제]]></value>
@@ -1358,6 +1493,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="jp"><![CDATA[選択削除]]></value>
 			<value xml:lang="zh-TW"><![CDATA[刪除所選]]></value>
 			<value xml:lang="tr"><![CDATA[Seçileni Sil]]></value>
+            <value xml:lang="ro"><![CDATA[Sterge selecţia.]]></value>
 		</item>
 		<item name="icon_align_article">
 			<value xml:lang="ko"><![CDATA[한 문단을 차지]]></value>
@@ -1370,6 +1506,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Ocupar un párrafo]]></value>
 			<value xml:lang="tr"><![CDATA[Paragraf Yap]]></value>
 			<value xml:lang="vi"><![CDATA[Vị trí trong bài viết]]></value>
+            <value xml:lang="ro"><![CDATA[Ocupă un paragraf.]]></value>
 		</item>
 		<item name="icon_align_left">
 			<value xml:lang="ko"><![CDATA[글의 왼쪽으로]]></value>
@@ -1382,6 +1519,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Margen izquierdo]]></value>
 			<value xml:lang="tr"><![CDATA[Sola Hizala]]></value>
 			<value xml:lang="vi"><![CDATA[Trái]]></value>
+            <value xml:lang="ro"><![CDATA[La stânga documentului.]]></value>
 		</item>
 		<item name="icon_align_middle">
 			<value xml:lang="ko"><![CDATA[가운데 정렬]]></value>
@@ -1394,6 +1532,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Margen central]]></value>
 			<value xml:lang="tr"><![CDATA[Ortaya Hizala]]></value>
 			<value xml:lang="vi"><![CDATA[Giữa]]></value>
+            <value xml:lang="ro"><![CDATA[Aliniere centrală]]></value>
 		</item>
 		<item name="icon_align_right">
 			<value xml:lang="ko"><![CDATA[글의 우측으로]]></value>
@@ -1406,6 +1545,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Margen derecho]]></value>
 			<value xml:lang="tr"><![CDATA[Sağa Hizala]]></value>
 			<value xml:lang="vi"><![CDATA[Phải]]></value>
+            <value xml:lang="ro"><![CDATA[La dreapta documentului.]]></value>
 		</item>
 		<item name="rich_editor">
 			<value xml:lang="ko"><![CDATA[스타일 편집기]]></value>
@@ -1416,6 +1556,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[редактировать стиль]]></value>
 			<value xml:lang="tr"><![CDATA[Zengin Metin Editörü]]></value>
 			<value xml:lang="vi"><![CDATA[Kiểu trù phú]]></value>
+            <value xml:lang="ro"><![CDATA[Editor Rich Text]]></value>
 		</item>
 		<item name="html_editor">
 			<value xml:lang="ko"><![CDATA[HTML 편집기]]></value>
@@ -1426,6 +1567,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[редактировать HTML]]></value>
 			<value xml:lang="tr"><![CDATA[HTML Editörü]]></value>
 			<value xml:lang="vi"><![CDATA[Kiểu HTML]]></value>
+            <value xml:lang="ro"><![CDATA[Editor HTML]]></value>
 		</item>
 		<item name="extension">
 			<value xml:lang="ko"><![CDATA[확장 컴포넌트]]></value>
@@ -1436,6 +1578,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Расширенный компонент]]></value>
 			<value xml:lang="tr"><![CDATA[Uzantı Bileşenleri]]></value>
 			<value xml:lang="vi"><![CDATA[Thành phần mở rộng]]></value>
+            <value xml:lang="ro"><![CDATA[Componene extensie]]></value>
 		</item>
 		<item name="help">
 			<value xml:lang="ko"><![CDATA[도움말]]></value>
@@ -1446,6 +1589,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Помощь]]></value>
 			<value xml:lang="tr"><![CDATA[Yardım]]></value>
 			<value xml:lang="vi"><![CDATA[Trợ giúp]]></value>
+            <value xml:lang="ro"><![CDATA[Ajutor]]></value>
 		</item>
 		<item name="help_command">
 			<value xml:lang="ko"><![CDATA[단축키 안내]]></value>
@@ -1456,6 +1600,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Горячие клавиши]]></value>
 			<value xml:lang="tr"><![CDATA[Kısayol Yardım Tuşları]]></value>
 			<value xml:lang="vi"><![CDATA[Phím nóng]]></value>
+            <value xml:lang="ro"><![CDATA[Ajutor tastatură]]></value>
 		</item>
 		<item name="lineheight">
 			<value xml:lang="ko"><![CDATA[줄간격]]></value>
@@ -1468,6 +1613,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[Line Height]]></value>
 			<value xml:lang="tr"><![CDATA[Satır Yüksekliği]]></value>
 			<value xml:lang="vi"><![CDATA[Chiều cao dòng]]></value>
+            <value xml:lang="ro"><![CDATA[Înalţime linie]]></value>
 		</item>
 		<item name="fontbgsampletext">
 			<value xml:lang="ko"><![CDATA[가나다]]></value>
@@ -1476,6 +1622,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-CN"><![CDATA[我爱中华！]]></value>
 			<value xml:lang="zh-TW"><![CDATA[ㄅㄆㄇ]]></value>
 			<value xml:lang="ru"><![CDATA[АВС]]></value>
+            <value xml:lang="ro"><![CDATA[ABC]]></value>
 		</item>
 		<item name="hyperlink">
 			<value xml:lang="ko"><![CDATA[하이퍼링크]]></value>
@@ -1486,6 +1633,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[гиперссылка]]></value>
 			<value xml:lang="tr"><![CDATA[Köprü]]></value>
 			<value xml:lang="vi"><![CDATA[Link liên kết]]></value>
+            <value xml:lang="ro"><![CDATA[Link]]></value>
 		</item>
 		<item name="target_blank">
 			<value xml:lang="ko"><![CDATA[새 창으로]]></value>
@@ -1498,6 +1646,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[새창으로]]></value>
 			<value xml:lang="tr"><![CDATA[Yeni Pencere]]></value>
 			<value xml:lang="vi"><![CDATA[Mở trang mới]]></value>
+            <value xml:lang="ro"><![CDATA[Fereastră nouă]]></value>
 		</item>
 		<item name="quotestyle1">
 			<value xml:lang="ko"><![CDATA[왼쪽 실선]]></value>
@@ -1507,6 +1656,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[左側實線]]></value>
 			<value xml:lang="tr"><![CDATA[Sol Düzçizgi]]></value>
 			<value xml:lang="vi"><![CDATA[Liền viền trái]]></value>
+            <value xml:lang="ro"><![CDATA[Stânga solid]]></value>
 		</item>
 		<item name="quotestyle2">
 			<value xml:lang="ko"><![CDATA[인용 부호]]></value>
@@ -1516,6 +1666,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[引用符號]]></value>
 			<value xml:lang="tr"><![CDATA[Alıntı]]></value>
 			<value xml:lang="vi"><![CDATA[Trích]]></value>
+            <value xml:lang="ro"><![CDATA[Citat]]></value>
 		</item>
 		<item name="quotestyle3">
 			<value xml:lang="ko"><![CDATA[실선]]></value>
@@ -1525,6 +1676,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[實線]]></value>
 			<value xml:lang="tr"><![CDATA[Düzçizgi]]></value>
 			<value xml:lang="vi"><![CDATA[Viền liền]]></value>
+            <value xml:lang="ro"><![CDATA[Solid]]></value>
 		</item>
 		<item name="quotestyle4">
 			<value xml:lang="ko"><![CDATA[실선 + 배경]]></value>
@@ -1534,6 +1686,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[實線 + 背景]]></value>
 			<value xml:lang="tr"><![CDATA[Düzçizgi + Arkaplan]]></value>
 			<value xml:lang="vi"><![CDATA[Viền liền+Nền]]></value>
+            <value xml:lang="ro"><![CDATA[Solid+Fundal]]></value>
 		</item>
 		<item name="quotestyle5">
 			<value xml:lang="ko"><![CDATA[굵은 실선]]></value>
@@ -1543,6 +1696,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[粗框]]></value>
 			<value xml:lang="tr"><![CDATA[Kalın Düzçizgi]]></value>
 			<value xml:lang="vi"><![CDATA[Liền đậm]]></value>
+            <value xml:lang="ro"><![CDATA[Solid Bold]]></value>
 		</item>
 		<item name="quotestyle6">
 			<value xml:lang="ko"><![CDATA[점선]]></value>
@@ -1552,6 +1706,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[虛線]]></value>
 			<value xml:lang="tr"><![CDATA[Noktalı]]></value>
 			<value xml:lang="vi"><![CDATA[Viền chấm]]></value>
+            <value xml:lang="ro"><![CDATA[Punctat]]></value>
 		</item>
 		<item name="quotestyle7">
 			<value xml:lang="ko"><![CDATA[점선 + 배경]]></value>
@@ -1561,6 +1716,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[虛線 + 背景]]></value>
 			<value xml:lang="tr"><![CDATA[Noktalı + Arkaplan]]></value>
 			<value xml:lang="vi"><![CDATA[Chấm+Nền]]></value>
+            <value xml:lang="ro"><![CDATA[Punctat + Fundal]]></value>
 		</item>
 		<item name="quotestyle8">
 			<value xml:lang="ko"><![CDATA[적용 취소]]></value>
@@ -1571,6 +1727,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Отменить]]></value>
 			<value xml:lang="tr"><![CDATA[İptal]]></value>
 			<value xml:lang="vi"><![CDATA[Loại bỏ]]></value>
+            <value xml:lang="ro"><![CDATA[Anulează]]></value>
 		</item>
 		<item name="jumptoedit">
 			<value xml:lang="ko"><![CDATA[편집 도구모음 건너뛰기]]></value>
@@ -1581,6 +1738,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Пропустить Инструменты редактирования]]></value>
 			<value xml:lang="tr"><![CDATA[Araç Çubuğu Düzenini Geç]]></value>
 			<value xml:lang="vi"><![CDATA[Bỏ qua công cụ chỉnh sửa]]></value>
+            <value xml:lang="ro"><![CDATA[Sari peste unelte editare]]></value>
 		</item>
 		<item name="set_sel">
 			<value xml:lang="ko"><![CDATA[칸 수 지정]]></value>
@@ -1591,6 +1749,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Установить количество ячеек]]></value>
 			<value xml:lang="tr"><![CDATA[Hücre sayımını ayarla]]></value>
 			<value xml:lang="vi"><![CDATA[Số hàng cột]]></value>
+            <value xml:lang="ro"><![CDATA[Setează numarul de celule]]></value>
 		</item>
 		<item name="row">
 			<value xml:lang="ko"><![CDATA[행]]></value>
@@ -1601,6 +1760,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Строка]]></value>
 			<value xml:lang="tr"><![CDATA[Satır]]></value>
 			<value xml:lang="vi"><![CDATA[Hàng]]></value>
+            <value xml:lang="ro"><![CDATA[Rând]]></value>
 		</item>
 		<item name="col">
 			<value xml:lang="ko"><![CDATA[열]]></value>
@@ -1611,6 +1771,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Колонка]]></value>
 			<value xml:lang="tr"><![CDATA[Sütun]]></value>
 			<value xml:lang="vi"><![CDATA[Cột]]></value>
+            <value xml:lang="ro"><![CDATA[Coloană]]></value>
 		</item>
 		<item name="add_one_row">
 			<value xml:lang="ko"><![CDATA[1행 추가]]></value>
@@ -1623,6 +1784,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[1행추가]]></value>
 			<value xml:lang="tr"><![CDATA[1 Satır Ekle]]></value>
 			<value xml:lang="vi"><![CDATA[Thêm 1 hàng]]></value>
+            <value xml:lang="ro"><![CDATA[Adaugă un rând]]></value>
 		</item>
 		<item name="del_one_row">
 			<value xml:lang="ko"><![CDATA[1행 삭제]]></value>
@@ -1635,6 +1797,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[1행삭제]]></value>
 			<value xml:lang="tr"><![CDATA[1 Satır Sil]]></value>
 			<value xml:lang="vi"><![CDATA[Xóa 1 hàng]]></value>
+            <value xml:lang="ro"><![CDATA[Şterge un rând]]></value>
 		</item>
 		<item name="add_one_col">
 			<value xml:lang="ko"><![CDATA[1열 추가]]></value>
@@ -1647,6 +1810,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[1열추가]]></value>
 			<value xml:lang="tr"><![CDATA[1 Sütun Ekle]]></value>
 			<value xml:lang="vi"><![CDATA[Thêm một cột]]></value>
+            <value xml:lang="ro"><![CDATA[Adaugă o coloană]]></value>
 		</item>
 		<item name="del_one_col">
 			<value xml:lang="ko"><![CDATA[1열 삭제]]></value>
@@ -1659,6 +1823,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[1열삭제]]></value>
 			<value xml:lang="tr"><![CDATA[1 Sütun Sil]]></value>
 			<value xml:lang="vi"><![CDATA[Xóa một cột]]></value>
+            <value xml:lang="ro"><![CDATA[Şterge o coloană]]></value>
 		</item>
 		<item name="table_config">
 			<value xml:lang="ko"><![CDATA[표 속성 지정]]></value>
@@ -1669,6 +1834,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Конфигурация таблицы]]></value>
 			<value xml:lang="tr"><![CDATA[Tablo Yapılandırması]]></value>
 			<value xml:lang="vi"><![CDATA[Thiết lập viền]]></value>
+            <value xml:lang="ro"><![CDATA[Proprietăţi tabel]]></value>
 		</item>
 		<item name="border_width">
 			<value xml:lang="ko"><![CDATA[테두리 굵기]]></value>
@@ -1679,6 +1845,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Ширина рамки]]></value>
 			<value xml:lang="tr"><![CDATA[Kenarlık Genişliği]]></value>
 			<value xml:lang="vi"><![CDATA[Độ rộng]]></value>
+            <value xml:lang="ro"><![CDATA[Laţime margine]]></value>
 		</item>
 		<item name="border_color">
 			<value xml:lang="ko"><![CDATA[테두리 색]]></value>
@@ -1689,6 +1856,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Цвет рамки]]></value>
 			<value xml:lang="tr"><![CDATA[Kenarlık Rengi]]></value>
 			<value xml:lang="vi"><![CDATA[Màu viền]]></value>
+            <value xml:lang="ro"><![CDATA[Culoare margine]]></value>
 		</item>
 		<item name="add">
 			<value xml:lang="ko"><![CDATA[더하기]]></value>
@@ -1699,6 +1867,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Добавить]]></value>
 			<value xml:lang="tr"><![CDATA[Ekle]]></value>
 			<value xml:lang="vi"><![CDATA[Thêm]]></value>
+            <value xml:lang="ro"><![CDATA[Adaugă]]></value>
 		</item>
 		<item name="del">
 			<value xml:lang="ko"><![CDATA[빼기]]></value>
@@ -1708,6 +1877,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[刪除]]></value>
 			<value xml:lang="ru"><![CDATA[Удалить]]></value>
 			<value xml:lang="vi"><![CDATA[Xóa]]></value>
+            <value xml:lang="ro"><![CDATA[Sub]]></value>
 		</item>
 		<item name="search_color">
 			<value xml:lang="ko"><![CDATA[색상 찾기]]></value>
@@ -1720,6 +1890,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[색상찾기]]></value>
 			<value xml:lang="tr"><![CDATA[Renk Ara]]></value>
 			<value xml:lang="vi"><![CDATA[Tìm màu]]></value>
+            <value xml:lang="ro"><![CDATA[Căutare culori]]></value>
 		</item>
 		<item name="table_backgroundcolor">
 			<value xml:lang="ko"><![CDATA[표 배경색]]></value>
@@ -1730,6 +1901,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Цвет фона таблицы]]></value>
 			<value xml:lang="tr"><![CDATA[Tablo Arkaplan Rengi]]></value>
 			<value xml:lang="vi"><![CDATA[Màu nền]]></value>
+            <value xml:lang="ro"><![CDATA[Culoare fundal tabel]]></value>
 		</item>
 		<item name="special_character">
 			<value xml:lang="ko"><![CDATA[특수문자]]></value>
@@ -1740,6 +1912,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Специальные символы]]></value>
 			<value xml:lang="tr"><![CDATA[Özek Karekterler]]></value>
 			<value xml:lang="vi"><![CDATA[Kí tự đặc biệt]]></value>
+            <value xml:lang="ro"><![CDATA[Caractere speciale]]></value>
 		</item>
 		<item name="insert_special_character">
 			<value xml:lang="ko"><![CDATA[특수문자 삽입]]></value>
@@ -1749,7 +1922,8 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[插入特殊符號]]></value>
 			<value xml:lang="ru"><![CDATA[Добавить специальные символы]]></value>
 			<value xml:lang="tr"><![CDATA[Özel Karakterler Ekle]]></value>
-			<value xml:lang="vi"><![CDATA[Chèn kí tự đặc biệt.]]></value>
+			<value xml:lang="vi"><![CDATA[Chèn kí tự đặc biệt.]]></value>î
+            <value xml:lang="ro"><![CDATA[inserează caractere speciale]]></value>
 		</item>
 		<item name="close_special_character">
 			<value xml:lang="ko"><![CDATA[특수문자 레이어 닫기]]></value>
@@ -1760,6 +1934,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Закрыть слой специальных символов]]></value>
 			<value xml:lang="tr"><![CDATA[Özel Karakter Katmanını Kapat]]></value>
 			<value xml:lang="vi"><![CDATA[Tắt bản kí tự đặc biệt.]]></value>
+            <value xml:lang="ro"><![CDATA[Închide layer-ul de caractere speciale]]></value>
 		</item>
 		<item name="symbol">
 			<value xml:lang="ko"><![CDATA[일반기호]]></value>
@@ -1770,6 +1945,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Символы]]></value>
 			<value xml:lang="tr"><![CDATA[Semboller]]></value>
 			<value xml:lang="vi"><![CDATA[Biểu tượng]]></value>
+            <value xml:lang="ro"><![CDATA[Simboluri]]></value>
 		</item>
 		<item name="number_unit">
 			<value xml:lang="ko"><![CDATA[숫자와 단위]]></value>
@@ -1780,6 +1956,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Числа и единицы измерения]]></value>
 			<value xml:lang="tr"><![CDATA[Sayılar ve Birimler]]></value>
 			<value xml:lang="vi"><![CDATA[Số và đơn vị]]></value>
+            <value xml:lang="ro"><![CDATA[Numere şi unităţi]]></value>
 		</item>
 		<item name="circle_bracket">
 			<value xml:lang="ko"><![CDATA[원, 괄호]]></value>
@@ -1792,6 +1969,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[원,괄호]]></value>
 			<value xml:lang="tr"><![CDATA[Çemberler, Köşeli Ayraçlar]]></value>
 			<value xml:lang="vi"><![CDATA[Vòng tròn, Ngoặc]]></value>
+            <value xml:lang="ro"><![CDATA[Cercuri, Paranteze]]></value>
 		</item>
 		<item name="korean">
 			<value xml:lang="ko"><![CDATA[한글]]></value>
@@ -1801,6 +1979,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[韓國語]]></value>
 			<value xml:lang="ru"><![CDATA[Корейский]]></value>
 			<value xml:lang="tr"><![CDATA[Korece]]></value>
+            <value xml:lang="ro"><![CDATA[Coreană]]></value>
 		</item>
 		<item name="greece">
 			<value xml:lang="ko"><![CDATA[그리스]]></value>
@@ -1810,6 +1989,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[希臘語]]></value>
 			<value xml:lang="ru"><![CDATA[Греческий]]></value>
 			<value xml:lang="tr"><![CDATA[Yunanca]]></value>
+            <value xml:lang="ro"><![CDATA[Greacă]]></value>
 		</item>
 		<item name="Latin">
 			<value xml:lang="ko"><![CDATA[라틴어]]></value>
@@ -1819,6 +1999,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[拉丁語]]></value>
 			<value xml:lang="ru"><![CDATA[Латинский]]></value>
 			<value xml:lang="tr"><![CDATA[Latince]]></value>
+            <value xml:lang="ro"><![CDATA[Latină]]></value>
 		</item>
 		<item name="japan">
 			<value xml:lang="ko"><![CDATA[일본어]]></value>
@@ -1828,6 +2009,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="zh-TW"><![CDATA[日本語]]></value>
 			<value xml:lang="ru"><![CDATA[Японский]]></value>
 			<value xml:lang="tr"><![CDATA[Japonca]]></value>
+            <value xml:lang="ro"><![CDATA[Japonză]]></value>
 		</item>
 		<item name="selected_symbol">
 			<value xml:lang="ko"><![CDATA[선택한 기호]]></value>
@@ -1838,6 +2020,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Выбранные символы]]></value>
 			<value xml:lang="tr"><![CDATA[Seçili Semboller]]></value>
 			<value xml:lang="vi"><![CDATA[Kí tự đã chọn:]]></value>
+            <value xml:lang="ro"><![CDATA[Simboluri seletate]]></value>
 		</item>
 		<item name="search_replace">
 			<value xml:lang="ko"><![CDATA[찾기/바꾸기]]></value>
@@ -1848,6 +2031,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Найти/Переместить]]></value>
 			<value xml:lang="tr"><![CDATA[Bul/Değiştir]]></value>
 			<value xml:lang="vi"><![CDATA[Tìm/Ghi đè]]></value>
+            <value xml:lang="ro"><![CDATA[Caută/Înlocuieşte]]></value>
 		</item>
 		<item name="close_search_replace">
 			<value xml:lang="ko"><![CDATA[찾기/바꾸기 레이어 닫기]]></value>
@@ -1858,6 +2042,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Закрыть слой "Найти/Переместить"]]></value>
 			<value xml:lang="tr"><![CDATA[Bul'u Kapat/Katmanı Değiştir]]></value>
 			<value xml:lang="vi"><![CDATA[Tắt bảng Tìm/Ghi đè]]></value>
+            <value xml:lang="ro"><![CDATA[Închide lazer-ul caută/înlocuieşte]]></value>
 		</item>
 		<item name="replace_all">
 			<value xml:lang="ko"><![CDATA[모두 바꾸기]]></value>
@@ -1870,6 +2055,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[모두바꾸기]]></value>
 			<value xml:lang="tr"><![CDATA[Tümünü Değiştir]]></value>
 			<value xml:lang="vi"><![CDATA[Ghi đè tất cả]]></value>
+            <value xml:lang="ro"><![CDATA[Înlocuieşte toate]]></value>
 		</item>
 		<item name="search_words">
 			<value xml:lang="ko"><![CDATA[찾을 단어]]></value>
@@ -1882,6 +2068,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[찾을단어]]></value>
 			<value xml:lang="tr"><![CDATA[Bulunacak Sözcükler]]></value>
 			<value xml:lang="vi"><![CDATA[Tìm từ]]></value>
+            <value xml:lang="ro"><![CDATA[Cuvinte pentru căutare]]></value>
 		</item>
 		<item name="replace_words">
 			<value xml:lang="ko"><![CDATA[바꿀 단어]]></value>
@@ -1894,6 +2081,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[바꿀단어]]></value>
 			<value xml:lang="tr"><![CDATA[Değiştirilecek Sözcükler]]></value>
 			<value xml:lang="vi"><![CDATA[Từ ghi đè]]></value>
+            <value xml:lang="ro"><![CDATA[Cuvinte pentru înlocuire]]></value>
 		</item>
 		<item name="next_search_words">
 			<value xml:lang="ko"><![CDATA[다음 찾기]]></value>
@@ -1906,6 +2094,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[다음찾기]]></value>
 			<value xml:lang="tr"><![CDATA[Sonrakini Bul]]></value>
 			<value xml:lang="vi"><![CDATA[Tìm tiếp]]></value>
+            <value xml:lang="ro"><![CDATA[Caută urmatorul]]></value>
 		</item>
 		<item name="edit_height_control">
 			<value xml:lang="ko"><![CDATA[입력창 크기 조절]]></value>
@@ -1916,11 +2105,13 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Изменить размеры окна ввода]]></value>
 			<value xml:lang="tr"><![CDATA[Düzen Formunun Boyutunu Ayarla]]></value>
 			<value xml:lang="vi"><![CDATA[Đặt kích thước mẫu]]></value>
+            <value xml:lang="ro"><![CDATA[Setează dimensiunea formului de căutare]]></value>
 		</item>
 		<item name="edit_height_auto">
 			<value xml:lang="ko"><![CDATA[입력창 크기 자동조절]]></value>
 			<value xml:lang="en"><![CDATA[Auto-resize editor]]></value>
 			<value xml:lang="jp"><![CDATA[入力ボックスサイズの自動調節]]></value>
+            <value xml:lang="ro"><![CDATA[Redimensionare automată]]></value>
 		</item>
 		<item name="merge_cells">
 			<value xml:lang="ko"><![CDATA[셀 병합]]></value>
@@ -1931,6 +2122,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Объединить ячейки]]></value>
 			<value xml:lang="tr"><![CDATA[Tablo Hücrelerini Birleştir]]></value>
 			<value xml:lang="vi"><![CDATA[Nối bảng]]></value>
+            <value xml:lang="ro"><![CDATA[Uneşte celulele tabelului]]></value>
 		</item>
 		<item name="split_row">
 			<value xml:lang="ko"><![CDATA[행 분할]]></value>
@@ -1941,6 +2133,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Разбить строки]]></value>
 			<value xml:lang="tr"><![CDATA[Satır Ayır]]></value>
 			<value xml:lang="vi"><![CDATA[Chia hàng]]></value>
+            <value xml:lang="ro"><![CDATA[Împarte rândul]]></value>
 		</item>
 		<item name="split_col">
 			<value xml:lang="ko"><![CDATA[열 분할]]></value>
@@ -1951,6 +2144,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Разбить колонки]]></value>
 			<value xml:lang="tr"><![CDATA[Sütun Ayır]]></value>
 			<value xml:lang="vi"><![CDATA[Chia cột]]></value>
+            <value xml:lang="ro"><![CDATA[Împarte coloana]]></value>
 		</item>
 		<item name="toggle_list">
 			<value xml:lang="ko"><![CDATA[목록 접기/펼치기]]></value>
@@ -1961,6 +2155,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Свернуть/Развернуть список]]></value>
 			<value xml:lang="tr"><![CDATA[Kıvır/Geriaç]]></value>
 			<value xml:lang="vi"><![CDATA[Hiện/Ẩn]]></value>
+            <value xml:lang="ro"><![CDATA[Ascunde / Arată]]></value>
 		</item>
 		<item name="minimize_list">
 			<value xml:lang="ko"><![CDATA[최소화]]></value>
@@ -1971,6 +2166,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Уменьшить]]></value>
 			<value xml:lang="tr"><![CDATA[Simge Durumuna Küçült]]></value>
 			<value xml:lang="vi"><![CDATA[Thu nhỏ]]></value>
+            <value xml:lang="ro"><![CDATA[Minimizează]]></value>
 		</item>
 		<item name="move">
 			<value xml:lang="ko"><![CDATA[이동]]></value>
@@ -1981,6 +2177,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Перейти]]></value>
 			<value xml:lang="tr"><![CDATA[Taşı]]></value>
 			<value xml:lang="vi"><![CDATA[Di chuyển]]></value>
+            <value xml:lang="ro"><![CDATA[Mută]]></value>
 		</item>
 		<item name="refresh">
 			<value xml:lang="ko"><![CDATA[새로 고침]]></value>
@@ -1991,6 +2188,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Обновить]]></value>
 			<value xml:lang="tr"><![CDATA[Yenile]]></value>
 			<value xml:lang="vi"><![CDATA[Làm mới]]></value>
+            <value xml:lang="ro"><![CDATA[Reîncarcă]]></value>
 		</item>
 		<item name="materials">
 			<value xml:lang="ko"><![CDATA[글감 보관함]]></value>
@@ -2003,6 +2201,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[글감보관함]]></value>
 			<value xml:lang="tr"><![CDATA[Malzemeler]]></value>
 			<value xml:lang="vi"><![CDATA[Vật liệu]]></value>
+            <value xml:lang="ro"><![CDATA[Materiale]]></value>
 		</item>
 		<item name="temporary_savings">
 			<value xml:lang="ko"><![CDATA[임시 저장 목록]]></value>
@@ -2015,6 +2214,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="es"><![CDATA[임시저장목록]]></value>
 			<value xml:lang="tr"><![CDATA[Geçici Kayıtlı Listesi]]></value>
 			<value xml:lang="vi"><![CDATA[Danh sách lưu tạm thời]]></value>
+            <value xml:lang="ro"><![CDATA[Listă salvări temporare]]></value>
 		</item>
 		<item name="paging_prev">
 			<value xml:lang="ko"><![CDATA[이전]]></value>
@@ -2025,6 +2225,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Предыдущий]]></value>
 			<value xml:lang="tr"><![CDATA[Önceki]]></value>
 			<value xml:lang="vi"><![CDATA[Trước]]></value>
+            <value xml:lang="ro"><![CDATA[Anterior]]></value>
 		</item>
 		<item name="paging_next">
 			<value xml:lang="ko"><![CDATA[다음]]></value>
@@ -2035,6 +2236,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Следующий]]></value>
 			<value xml:lang="tr"><![CDATA[Sonraki]]></value>
 			<value xml:lang="vi"><![CDATA[Tiếp]]></value>
+            <value xml:lang="ro"><![CDATA[Următor]]></value>
 		</item>
 		<item name="paging_prev_help">
 			<value xml:lang="ko"><![CDATA[이전 페이지로 이동합니다.]]></value>
@@ -2045,6 +2247,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Перейти к предыдущей странице]]></value>
 			<value xml:lang="tr"><![CDATA[Önceki sayfaya git.]]></value>
 			<value xml:lang="vi"><![CDATA[Chuyển về trang trước.]]></value>
+            <value xml:lang="ro"><![CDATA[Mută în pagina anterioară]]></value>
 		</item>
 		<item name="paging_next_help">
 			<value xml:lang="ko"><![CDATA[다음 페이지로 이동합니다.]]></value>
@@ -2055,6 +2258,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Перейти кследующей странице]]></value>
 			<value xml:lang="tr"><![CDATA[Sonraki sayfaya git.]]></value>
 			<value xml:lang="vi"><![CDATA[Chuyển tới trang tiếp.]]></value>
+            <value xml:lang="ro"><![CDATA[Mută în pagina următoare]]></value>
 		</item>
 		<item name="toc">
 			<value xml:lang="ko"><![CDATA[목차]]></value>
@@ -2065,6 +2269,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Оглавление]]></value>
 			<value xml:lang="tr"><![CDATA[İçerik Tablosu]]></value>
 			<value xml:lang="vi"><![CDATA[Board của nội dung]]></value>
+            <value xml:lang="ro"><![CDATA[Conţinut]]></value>
 		</item>
 		<item name="close_help">
 			<value xml:lang="ko"><![CDATA[도움말 닫기]]></value>
@@ -2075,6 +2280,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Закрыть помощь]]></value>
 			<value xml:lang="tr"><![CDATA[Yardımı Kapat]]></value>
 			<value xml:lang="vi"><![CDATA[Đóng hướng dẫn]]></value>
+            <value xml:lang="ro"><![CDATA[Închide ajutorul]]></value>
 		</item>
 		<item name="confirm_submit_without_saving">
 			<value xml:lang="ko"><![CDATA[저장하지 않은 단락이 있습니다.\n그냥 전송하시겠습니까?]]></value>
@@ -2085,6 +2291,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Есть несохраненные параграфы\nПродолжить?]]></value>
 			<value xml:lang="tr"><![CDATA[Kaydedilmemiş paragraflar var.\nYine de devam etmek ister misiniz?]]></value>
 			<value xml:lang="vi"><![CDATA[Nội dung chưa được lưu.\nBạn có chắc chắn muốn gửi không?]]></value>
+            <value xml:lang="ro"><![CDATA[Aceste paragrafe nu au fost salvate. Continuare?]]></value>
 		</item>
 		<item name="image_align">
 			<value xml:lang="ko"><![CDATA[이미지 정렬]]></value>
@@ -2095,6 +2302,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Выровнять изображения]]></value>
 			<value xml:lang="tr"><![CDATA[Resim Hizalaması]]></value>
 			<value xml:lang="vi"><![CDATA[Sắp xếp hình ảnh]]></value>
+            <value xml:lang="ro"><![CDATA[Alniere imagini]]></value>
 		</item>
 		<item name="attached_files">
 			<value xml:lang="ko"><![CDATA[첨부 파일]]></value>
@@ -2105,17 +2313,19 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="ru"><![CDATA[Прикрепленный файл]]></value>
 			<value xml:lang="tr"><![CDATA[Ekler]]></value>
 			<value xml:lang="vi"><![CDATA[File đính kèm]]></value>
+            <value xml:lang="ro"><![CDATA[Ataşamente]]></value>
 		</item>
-                <item name="no_materials">
-			<value xml:lang="ko"><![CDATA[보관된 글감이 없습니다.]]></value>
-			<value xml:lang="en"><![CDATA[There are no writting ingredients.]]></value>
-			<value xml:lang="jp"><![CDATA[保存されている素材はありません。]]></value>
-			<value xml:lang="zh-CN"><![CDATA[暂无保存的素材。]]></value>
-			<value xml:lang="zh-TW"><![CDATA[There is no writting ingredient.]]></value>
-			<value xml:lang="tr"><![CDATA[Yazı bileşeni bulunmamaktadır.]]></value>
-			<value xml:lang="vi"><![CDATA[Không có bài viết được lưu trữ.]]></value>
-		</item>
-	</item>
+        <item name="no_materials">
+            <value xml:lang="ko"><![CDATA[보관된 글감이 없습니다.]]></value>
+            <value xml:lang="en"><![CDATA[There are no writting ingredients.]]></value>
+            <value xml:lang="jp"><![CDATA[保存されている素材はありません。]]></value>
+            <value xml:lang="zh-CN"><![CDATA[暂无保存的素材。]]></value>
+            <value xml:lang="zh-TW"><![CDATA[There is no writting ingredient.]]></value>
+            <value xml:lang="tr"><![CDATA[Yazı bileşeni bulunmamaktadır.]]></value>
+            <value xml:lang="vi"><![CDATA[Không có bài viết được lưu trữ.]]></value>
+            <value xml:lang="ro"><![CDATA[Nu există ingrediente pentru scriere]]></value>
+        </item>
+    </item>
 	<item name="about_dblclick_in_editor">
 		<value xml:lang="ko"><![CDATA[배경, 글자, 이미지, 인용문등에서 더블클릭을 하시면 상세한 컴포넌트 설정이 가능합니다.]]></value>
 		<value xml:lang="en"><![CDATA[You may set the component's detailed configurations by double-clicking background, text, images, or quotations.]]></value>
@@ -2127,6 +2337,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[Para la configuracion más detallada debera hacer dobleclick sobre el texto, imagen, fondo, etc.]]></value>
 		<value xml:lang="tr"><![CDATA[Detaylı bileşen yapılandırmasını; arkaplana, metne, resme ya da alıntılara çift tıklayarak ayarlayabilirsiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Thiết lập khi bấm 2 lần vào nền, Chữ, Hình ảnh hoặc Trích dẫn]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi seta configurţia detaliată a componentelor prin dublu click pe fundal, text, imagini si citate.]]></value>
 	</item>
 
 </lang>

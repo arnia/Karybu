@@ -7,6 +7,7 @@
     <title xml:lang="zh-CN">安装·更新</title>
     <title xml:lang="jp">イージーインストール</title>
     <title xml:lang="tr">KolayKurulum</title>
+    <title xml:lang="ro">EasyInstaller</title>
     <description xml:lang="ko">관리자 모드에서 클릭으로 모듈/스킨/레이아웃/위젯/위젯스타일 등을 설치하는 모듈입니다.</description>
     <description xml:lang="en">With this module, you can install and upgrade your programs including modules, skins, layouts, etc., from www.karybu.org with one-click.</description>
     <description xml:lang="vi">Với Module này, bạn có thể cập nhật và cài đặt các phiên bản một cách tự động. Bao gồm Module, Layout, Widget, Addon, ... từ trang chủ Karybu bằng một bấm chuột.</description>
@@ -15,6 +16,7 @@
     <description xml:lang="zh-CN">很方便的在线安装/更新XE相关模块(模块/皮肤/布局/控件/控件样式等)。</description>
     <description xml:lang="jp">管理者モードにてクリックだけで、モジュール/スキン/レイアウト/ウィジェット/ウィジェットスタイルのインストールを可能にするモジュールです。</description>
     <description xml:lang="tr">Bu modülle; modüller, dış görünümler, yerleşim düzenleri vs. gibi programlarınızı www.karybu.org adresinden tek tıkla kurabilir ve sürümlerini yükseltebilirsiniz. </description>
+    <description xml:lang="ro">Cu acest modul poţi instala si modifica module, skin-uri, layout-uri, etc., de pe www.karybu.org cu un simplu click.</description>
     <version>0.3</version>
     <date>2009-11-11</date>
     <category>system</category>
@@ -26,5 +28,6 @@
         <name xml:lang="zh-CN">Arnia</name>
         <name xml:lang="jp">Arnia</name>
         <name xml:lang="tr">Arnia</name>
+        <name xml:lang="ro">Arnia</name>
     </author>
 </module>

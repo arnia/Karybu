@@ -8,6 +8,7 @@
     <title xml:lang="zh-CN">TinyMCE皮肤</title>
     <title xml:lang="zh-TW">TinyMCE面板</title>
     <title xml:lang="tr">TinyMCE Dış Görünümü</title>
+    <title xml:lang="ko">Skin TinyMCE</title>
     <description xml:lang="ko">
         TinyMCE
     </description>
@@ -32,6 +33,9 @@
     <description xml:lang="tr">
         TinyMCE
     </description>
+    <description xml:lang="ro">
+        TinyMCE
+    </description>
     <version>3.5.8</version>
     <date>2013-01-08</date>
     <author email_address="dev@karybu.org" link="http://www.karybu.org/">
@@ -43,6 +47,7 @@
 		<name xml:lang="zh-CN">Arnia</name>
         <name xml:lang="zh-TW">Arnia</name>
         <name xml:lang="tr">Arnia</name>
+        <name xml:lang="ro">Arnia</name>
     </author>
     <colorset>
         <color name="default">
@@ -54,6 +59,7 @@
             <title xml:lang="es">Silver WYSIWYG(default)</title>
             <title xml:lang="zh-TW">Silver WYSIWYG(default)</title>
             <title xml:lang="tr">Silver WYSIWYG(default)</title>
+            <title xml:lang="ro">Silver WYSIWYG(default)</title>
         </color>
         <color name="o2k7">
             <title xml:lang="ko">Word processor</title>
@@ -65,6 +71,7 @@
             <title xml:lang="zh-CN">Word processor</title>
             <title xml:lang="zh-TW">Word processor</title>
             <title xml:lang="tr">Word processor</title>
+            <title xml:lang="ro">Word processor</title>
         </color>
         <color name="o2k7_silver">
             <title xml:lang="ko">Word processor(silver)</title>
@@ -76,6 +83,7 @@
             <title xml:lang="zh-CN">Word processor(silver)</title>
             <title xml:lang="zh-TW">Word processor(silver)</title>
             <title xml:lang="tr">Word processor(silver)</title>
+            <title xml:lang="ro">Word processor(silver)</title>
         </color>
         <color name="o2k7_black">
             <title xml:lang="ko">Word processor(black)</title>
@@ -87,6 +95,7 @@
             <title xml:lang="zh-CN">Word processor(black)</title>
             <title xml:lang="zh-TW">Word processor(black)</title>
             <title xml:lang="tr">Word processor(black)</title>
+            <title xml:lang="ro">Word processor(black)</title>
         </color>
     </colorset>
 </skin>

@@ -11,6 +11,7 @@
 		<value xml:lang="es"><![CDATA[Contador]]></value>
 		<value xml:lang="tr"><![CDATA[Sayaç]]></value>
 		<value xml:lang="vi"><![CDATA[Lượt truy cập]]></value>
+        <value xml:lang="ro"><![CDATA[Counter]]></value>
 	</item>
 	<item name="cmd_select_date">
 		<value xml:lang="ko"><![CDATA[날짜 선택]]></value>
@@ -23,6 +24,7 @@
 		<value xml:lang="es"><![CDATA[Selecciona la fecha]]></value>
 		<value xml:lang="tr"><![CDATA[Tarih Seç]]></value>
 		<value xml:lang="vi"><![CDATA[Chọn ngày]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează data]]></value>
 	</item>
 	<item name="cmd_select_counter_type" type="array">
 		<item name="hour">
@@ -36,6 +38,7 @@
 			<value xml:lang="es"><![CDATA[por hora]]></value>
 			<value xml:lang="tr"><![CDATA[Saate Göre]]></value>
 			<value xml:lang="vi"><![CDATA[Theo giờ]]></value>
+            <value xml:lang="ro"><![CDATA[După oră]]></value>
 		</item>
 		<item name="day">
 			<value xml:lang="ko"><![CDATA[일별]]></value>
@@ -48,6 +51,7 @@
 			<value xml:lang="es"><![CDATA[por día]]></value>
 			<value xml:lang="tr"><![CDATA[Güne Göre]]></value>
 			<value xml:lang="vi"><![CDATA[Theo ngày]]></value>
+            <value xml:lang="ro"><![CDATA[După zi]]></value>
 		</item>
 		<item name="month">
 			<value xml:lang="ko"><![CDATA[월별]]></value>
@@ -60,6 +64,7 @@
 			<value xml:lang="es"><![CDATA[por mes]]></value>
 			<value xml:lang="tr"><![CDATA[Aya Göre]]></value>
 			<value xml:lang="vi"><![CDATA[Theo tháng]]></value>
+            <value xml:lang="ro"><![CDATA[După lună]]></value>
 		</item>
 		<item name="year">
 			<value xml:lang="ko"><![CDATA[연도별]]></value>
@@ -72,6 +77,7 @@
 			<value xml:lang="es"><![CDATA[por año]]></value>
 			<value xml:lang="tr"><![CDATA[Yıla Göre]]></value>
 			<value xml:lang="vi"><![CDATA[Theo năm]]></value>
+            <value xml:lang="ro"><![CDATA[După an]]></value>
 		</item>
 	</item>
 	<item name="total_counter">
@@ -85,6 +91,7 @@
 		<value xml:lang="es"><![CDATA[Estado actual Total]]></value>
 		<value xml:lang="tr"><![CDATA[Genel Durum]]></value>
 		<value xml:lang="vi"><![CDATA[Tổng số lượt truy cập]]></value>
+        <value xml:lang="ro"><![CDATA[Status total]]></value>
 	</item>
 	<item name="selected_day_counter">
 		<value xml:lang="ko"><![CDATA[선택일 현황]]></value>
@@ -97,6 +104,7 @@
 		<value xml:lang="es"><![CDATA[Estado actual del día seleccionado]]></value>
 		<value xml:lang="tr"><![CDATA[Seçilen Günün Durumu]]></value>
 		<value xml:lang="vi"><![CDATA[Số truy cập trong ngày]]></value>
+        <value xml:lang="ro"><![CDATA[Status al zilei selectate]]></value>
 	</item>
 	<item name="unique_visitor">
 		<value xml:lang="ko"><![CDATA[방문자]]></value>
@@ -109,6 +117,7 @@
 		<value xml:lang="es"><![CDATA[visitante]]></value>
 		<value xml:lang="tr"><![CDATA[Ziyaretçiler]]></value>
 		<value xml:lang="vi"><![CDATA[Số lượt xem]]></value>
+        <value xml:lang="ro"><![CDATA[Vizitatori]]></value>
 	</item>
 	<item name="pageview">
 		<value xml:lang="ko"><![CDATA[페이지뷰]]></value>
@@ -121,6 +130,7 @@
 		<value xml:lang="es"><![CDATA[Ver página]]></value>
 		<value xml:lang="tr"><![CDATA[Sayfa Gösterimi]]></value>
 		<value xml:lang="vi"><![CDATA[Số trang]]></value>
+        <value xml:lang="ro"><![CDATA[Pagini vizitate]]></value>
 	</item>
 	<item name="today">
 		<value xml:lang="ko"><![CDATA[오늘]]></value>
@@ -131,6 +141,7 @@
 		<value xml:lang="ru"><![CDATA[Сегодня]]></value>
 		<value xml:lang="tr"><![CDATA[bugün]]></value>
 		<value xml:lang="vi"><![CDATA[Hôm nay]]></value>
+        <value xml:lang="ro"><![CDATA[astăzi]]></value>
 	</item>
 	<item name="yesterday">
 		<value xml:lang="ko"><![CDATA[어제]]></value>
@@ -141,5 +152,6 @@
 		<value xml:lang="ru"><![CDATA[Вчера]]></value>
 		<value xml:lang="tr"><![CDATA[dün]]></value>
 		<value xml:lang="vi"><![CDATA[Hôm qua]]></value>
+        <value xml:lang="ro"><![CDATA[ieri]]></value>
 	</item>
 </lang>

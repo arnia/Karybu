@@ -11,6 +11,7 @@
 		<value xml:lang="es"><![CDATA[Usted ...]]></value>
 		<value xml:lang="tr"><![CDATA[Şunu yap]]></value>
 		<value xml:lang="vi"><![CDATA[Bình chọn / Phê bình]]></value>
+        <value xml:lang="ro"><![CDATA[Vreau să]]></value>
 	</item>
 	<item name="comment_list">
 		<value xml:lang="ko"><![CDATA[댓글 목록]]></value>
@@ -23,6 +24,7 @@
 		<value xml:lang="es"><![CDATA[Comentarios Lista]]></value>
 		<value xml:lang="tr"><![CDATA[Yorum Listesi]]></value>
 		<value xml:lang="vi"><![CDATA[Danh sách bình luận]]></value>
+        <value xml:lang="ro"><![CDATA[Listă comentarii]]></value>
 	</item>
 	<item name="cmd_toggle_checked_comment">
 		<value xml:lang="ko"><![CDATA[선택항목 반전]]></value>
@@ -32,6 +34,7 @@
 		<value xml:lang="zh-TW"><![CDATA[反向選擇]]></value>
 		<value xml:lang="fr"><![CDATA[Renverser les choisis]]></value>
 		<value xml:lang="ru"><![CDATA[Изменить выбранное]]></value>
+        <value xml:lang="ro"><![CDATA[Inversează selecţia]]></value>
 	</item>
 	<item name="cmd_delete_checked_comment">
 		<value xml:lang="ko"><![CDATA[선택항목 삭제]]></value>
@@ -44,18 +47,21 @@
 		<value xml:lang="es"><![CDATA[Eliminar lo seleccionado]]></value>
 		<value xml:lang="tr"><![CDATA[Seçili parçayı sil]]></value>
 		<value xml:lang="vi"><![CDATA[Xóa những bình luận đã chọn]]></value>
+        <value xml:lang="ro"><![CDATA[Şterge ănregistrările selectate]]></value>
 	</item>
 	<item name="trash">
 		<value xml:lang="ko"><![CDATA[휴지통]]></value>
 		<value xml:lang="en"><![CDATA[Recycle Bin]]></value>
 		<value xml:lang="jp"><![CDATA[ゴミ箱]]></value>
 		<value xml:lang="zh-TW"><![CDATA[回收桶]]></value>
+        <value xml:lang="ro"><![CDATA[Recycle Bin]]></value>
 	</item>
 	<item name="cmd_trash">
 		<value xml:lang="ko"><![CDATA[휴지통으로 이동]]></value>
 		<value xml:lang="en"><![CDATA[Move to Recycle Bin]]></value>
 		<value xml:lang="jp"><![CDATA[ゴミ箱へ移動]]></value>
 		<value xml:lang="zh-TW"><![CDATA[移至回收桶]]></value>
+        <value xml:lang="ro"><![CDATA[Mută in Recycle bin]]></value>
 	</item>
 	<item name="comment_count">
 		<value xml:lang="ko"><![CDATA[댓글 수]]></value>
@@ -69,6 +75,7 @@
 		<value xml:lang="tr"><![CDATA[Yorum Sayısı]]></value>
 		<value xml:lang="vi"><![CDATA[Số bình luận]]></value>
 		<value xml:lang="mn"><![CDATA[Комментын тоо]]></value>
+        <value xml:lang="ro"><![CDATA[Număr de comentarii]]></value>
 	</item>
 	<item name="about_comment_count">
 		<value xml:lang="ko"><![CDATA[댓글을 정해진 수 만큼만 표시하고, 그 이상일 경우 페이지 번호를 표시해서 이동할 수 있게 합니다.]]></value>
@@ -80,6 +87,7 @@
 		<value xml:lang="ru"><![CDATA[Отображается указанное количество ответов, после превышения этого количества производится переход к списку.]]></value>
 		<value xml:lang="tr"><![CDATA[Yorumları, kullanıcının girdiği rakam kadar gösterin. Eğer yorum sayısı belirlenen sayıyı aşarsa, yorum Liste'ye taşınır.]]></value>
 		<value xml:lang="vi"><![CDATA[Hiển thị số bình luận được gửi, và nó sẽ tạo một danh sách nếu có nhiều bình luận.]]></value>
+        <value xml:lang="ro"><![CDATA[Afişează comentarile dacă numarul lor este peste valoarea specificată, mută în lista de comentarii]]></value>
 	</item>
 	<item name="msg_cart_is_null">
 		<value xml:lang="ko"><![CDATA[삭제할 글을 선택해주세요.]]></value>
@@ -92,6 +100,7 @@
 		<value xml:lang="es"><![CDATA[Selecciona el commentario que desea eliminar]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen silinecek makaleyi seçiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Xin hãy chọn một bài viết để xóa.]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează un document pentru ştergere.]]></value>
 	</item>
 	<item name="msg_checked_comment_is_deleted">
 		<value xml:lang="ko"><![CDATA[%d개의 댓글을 삭제했습니다.]]></value>
@@ -104,6 +113,7 @@
 		<value xml:lang="es"><![CDATA[%d comentario eliminado correctamente.]]></value>
 		<value xml:lang="tr"><![CDATA[%d yorum başarıyla silindi.]]></value>
 		<value xml:lang="vi"><![CDATA[%d bình luận đã được xóa.]]></value>
+        <value xml:lang="ro"><![CDATA[%d comentarii au fost şterse.]]></value>
 	</item>
 	<item name="search_target_list" type="array">
 		<item name="content">
@@ -117,6 +127,7 @@
 			<value xml:lang="es"><![CDATA[Contenido]]></value>
 			<value xml:lang="tr"><![CDATA[İçerik]]></value>
 			<value xml:lang="vi"><![CDATA[Nội dung]]></value>
+            <value xml:lang="ro"><![CDATA[Conţinut]]></value>
 		</item>
 		<item name="user_id">
 			<value xml:lang="ko"><![CDATA[아이디]]></value>
@@ -126,6 +137,7 @@
 			<value xml:lang="zh-TW"><![CDATA[帳號]]></value>
 			<value xml:lang="fr"><![CDATA[Compte]]></value>
 			<value xml:lang="vi"><![CDATA[ID người gửi]]></value>
+            <value xml:lang="ro"><![CDATA[ID]]></value>
 		</item>
 		<item name="user_name">
 			<value xml:lang="ko"><![CDATA[이름]]></value>
@@ -138,6 +150,7 @@
 			<value xml:lang="es"><![CDATA[Nombre]]></value>
 			<value xml:lang="tr"><![CDATA[İsim]]></value>
 			<value xml:lang="vi"><![CDATA[Tên]]></value>
+            <value xml:lang="ro"><![CDATA[Nume]]></value>
 		</item>
 		<item name="nick_name">
 			<value xml:lang="ko"><![CDATA[닉네임]]></value>
@@ -149,6 +162,7 @@
 			<value xml:lang="ru"><![CDATA[Ник]]></value>
 			<value xml:lang="es"><![CDATA[Apodo]]></value>
 			<value xml:lang="tr"><![CDATA[Takma Ad]]></value>
+            <value xml:lang="ro"><![CDATA[Alias]]></value>
 		</item>
 		<item name="member_srl">
 			<value xml:lang="ko"><![CDATA[회원 번호]]></value>
@@ -160,6 +174,7 @@
 			<value xml:lang="ru"><![CDATA[Номер пользователя]]></value>
 			<value xml:lang="tr"><![CDATA[Üye Dizisi]]></value>
 			<value xml:lang="vi"><![CDATA[Mã số người gửi]]></value>
+            <value xml:lang="ro"><![CDATA[Serial membru]]></value>
 		</item>
 		<item name="email_address">
 			<value xml:lang="ko"><![CDATA[이메일 주소]]></value>
@@ -171,6 +186,7 @@
 			<value xml:lang="ru"><![CDATA[Email адрес]]></value>
 			<value xml:lang="es"><![CDATA[Correo Electrónico]]></value>
 			<value xml:lang="tr"><![CDATA[E-posta]]></value>
+            <value xml:lang="ro"><![CDATA[E-mail]]></value>
 		</item>
 		<item name="homepage">
 			<value xml:lang="ko"><![CDATA[홈페이지]]></value>
@@ -183,6 +199,7 @@
 			<value xml:lang="es"><![CDATA[Página web]]></value>
 			<value xml:lang="tr"><![CDATA[Anasayfa]]></value>
 			<value xml:lang="vi"><![CDATA[Trang chủ]]></value>
+            <value xml:lang="ro"><![CDATA[Prima pagină]]></value>
 		</item>
 		<item name="regdate">
 			<value xml:lang="ko"><![CDATA[등록일]]></value>
@@ -195,6 +212,7 @@
 			<value xml:lang="es"><![CDATA[Fecha del registro]]></value>
 			<value xml:lang="tr"><![CDATA[Tarih]]></value>
 			<value xml:lang="vi"><![CDATA[Ngày]]></value>
+            <value xml:lang="ro"><![CDATA[Data]]></value>
 		</item>
 		<item name="last_update">
 			<value xml:lang="ko"><![CDATA[최근수정일 ]]></value>
@@ -207,6 +225,7 @@
 			<value xml:lang="es"><![CDATA[Ultima actualización]]></value>
 			<value xml:lang="tr"><![CDATA[Son Güncelleştirme]]></value>
 			<value xml:lang="vi"><![CDATA[Cập nhật lần cuối]]></value>
+            <value xml:lang="ro"><![CDATA[Ultima modificare]]></value>
 		</item>
 		<item name="ipaddress">
 			<value xml:lang="ko"><![CDATA[IP 주소]]></value>
@@ -219,12 +238,14 @@
 			<value xml:lang="es"><![CDATA[Dirección IP]]></value>
 			<value xml:lang="tr"><![CDATA[IP Adresi]]></value>
 			<value xml:lang="vi"><![CDATA[IP]]></value>
+            <value xml:lang="ro"><![CDATA[Adresă IP]]></value>
 		</item>
 		<item name="is_secret">
 			<value xml:lang="ko"><![CDATA[상태]]></value>
 			<value xml:lang="en"><![CDATA[Status]]></value>
 			<value xml:lang="jp"><![CDATA[状態]]></value>
 			<value xml:lang="zh-TW"><![CDATA[狀態]]></value>
+            <value xml:lang="ro"><![CDATA[Status]]></value>
 		</item>
 	</item>
 	<item name="no_text_comment">
@@ -233,6 +254,7 @@
 		<value xml:lang="jp"><![CDATA[テキストのないコメントです。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[此回覆無內容。]]></value>
 		<value xml:lang="tr"><![CDATA[Bu yorumda herhangi bir metin yok.]]></value>
+        <value xml:lang="ro"><![CDATA[Nu există text in acest comentariu.]]></value>
 	</item>
 	<item name="secret_name_list" type="array">
 		<item name="Y">
@@ -240,22 +262,26 @@
 			<value xml:lang="en"><![CDATA[Secret]]></value>
 			<value xml:lang="jp"><![CDATA[非公開]]></value>
 			<value xml:lang="zh-TW"><![CDATA[秘密]]></value>
+            <value xml:lang="ro"><![CDATA[Secret]]></value>
 		</item>
 		<item name="N">
 			<value xml:lang="ko"><![CDATA[공개]]></value>
 			<value xml:lang="en"><![CDATA[Public]]></value>
 			<value xml:lang="jp"><![CDATA[公開]]></value>
 			<value xml:lang="zh-TW"><![CDATA[公開]]></value>
+            <value xml:lang="ro"><![CDATA[Public]]></value>
 		</item>
 	</item>
 	<item name="published_name_list" type="array">
 		<item name="Y">
 			<value xml:lang="en"><![CDATA[Published]]></value>
 			<value xml:lang="ko"><![CDATA[공개 발행]]></value>
+            <value xml:lang="ro"><![CDATA[Publicat]]></value>
 		</item>
 		<item name="N">
 			<value xml:lang="en"><![CDATA[Unpublished]]></value>
 			<value xml:lang="ko"><![CDATA[발행 대기]]></value>
+            <value xml:lang="ro"><![CDATA[Nepublicat]]></value>
 		</item>
 	</item>
 	<item name="comment_manager">
@@ -263,37 +289,46 @@
 		<value xml:lang="en"><![CDATA[Manage Selected Comment]]></value>
 		<value xml:lang="jp"><![CDATA[選択コメントを管理]]></value>
 		<value xml:lang="zh-TW"><![CDATA[管理所選回覆]]></value>
+        <value xml:lang="ro"><![CDATA[Administrare cometariu selectat]]></value>
 	</item>
 	<item name="selected_comment">
 		<value xml:lang="ko"><![CDATA[선택한 댓글]]></value>
 		<value xml:lang="en"><![CDATA[Selected Comment]]></value>
 		<value xml:lang="jp"><![CDATA[選択したコメント]]></value>
 		<value xml:lang="zh-TW"><![CDATA[已選回覆]]></value>
+        <value xml:lang="ro"><![CDATA[Comentariu selectat]]></value>
 	</item>
 	<item name="cmd_comment_validation">
 		<value xml:lang="en"><![CDATA[Use comment validation]]></value>
+        <value xml:lang="ro"><![CDATA[Foloseşte validare comentarii]]></value>
 	</item>
 	<item name="about_comment_validation">
 		<value xml:lang="en"><![CDATA[If you want to use comment validation before displaying on your module frontend select USE, otherwise select NOT USE.]]></value>
+        <value xml:lang="ro"><![CDATA[Dacă vrei sa foloseşti validarea comentariilor înainte de afisare selectează FOLOSEŞTE, altfel selectează NU FOLOSI.]]></value>
 	</item>
 	<item name="published">
 		<value xml:lang="en"><![CDATA[Publish status]]></value>
 		<value xml:lang="ko"><![CDATA[발행 상태]]></value>
+        <value xml:lang="ro"><![CDATA[Status publicare]]></value>
 	</item>
 	<item name="cmd_publish">
 		<value xml:lang="en"><![CDATA[Publish]]></value>
 		<value xml:lang="ko"><![CDATA[발행]]></value>
+        <value xml:lang="ro"><![CDATA[Publică]]></value>
 	</item>
 	<item name="cmd_unpublish">
 		<value xml:lang="en"><![CDATA[Unpublish]]></value>
 		<value xml:lang="ko"><![CDATA[발행 중지]]></value>
+        <value xml:lang="ro"><![CDATA[Anulează publicarea]]></value>
 	</item>
 	<item name="select_module">
 		<value xml:lang="ko"><![CDATA[모듈 선택]]></value>
 		<value xml:lang="en"><![CDATA[Select Module]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează modul]]></value>
 	</item>
 	<item name="page">
 		<value xml:lang="ko"><![CDATA[페이지]]></value>
 		<value xml:lang="en"><![CDATA[Page]]></value>
+        <value xml:lang="ro"><![CDATA[Pagină]]></value>
 	</item>
 </lang>

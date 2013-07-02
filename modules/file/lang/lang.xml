@@ -13,6 +13,7 @@
 		<value xml:lang="tr"><![CDATA[Ek]]></value>
 		<value xml:lang="vi"><![CDATA[Đính kèm]]></value>
 		<value xml:lang="mn"><![CDATA[file]]></value>
+        <value xml:lang="ro"><![CDATA[Fişier]]></value>
 	</item>
 	<item name="file_name">
 		<value xml:lang="ko"><![CDATA[파일 이름]]></value>
@@ -25,6 +26,7 @@
 		<value xml:lang="es"><![CDATA[Nombre del archivo]]></value>
 		<value xml:lang="tr"><![CDATA[Dosya Adı]]></value>
 		<value xml:lang="vi"><![CDATA[Tên File]]></value>
+        <value xml:lang="ro"><![CDATA[Nume fişier]]></value>
 	</item>
 	<item name="file_size">
 		<value xml:lang="ko"><![CDATA[파일 크기]]></value>
@@ -37,6 +39,7 @@
 		<value xml:lang="es"><![CDATA[Tamaño del archivo]]></value>
 		<value xml:lang="tr"><![CDATA[Dosya Boyutu]]></value>
 		<value xml:lang="vi"><![CDATA[Dung lượng]]></value>
+        <value xml:lang="ro"><![CDATA[Dimensiune fişier]]></value>
 	</item>
 	<item name="download_count">
 		<value xml:lang="ko"><![CDATA[다운로드 받은 수]]></value>
@@ -49,6 +52,7 @@
 		<value xml:lang="es"><![CDATA[Cantidad Bajado]]></value>
 		<value xml:lang="tr"><![CDATA[İndirme Sayısı]]></value>
 		<value xml:lang="vi"><![CDATA[Lượt Download]]></value>
+        <value xml:lang="ro"><![CDATA[Număr de descărcări]]></value>
 	</item>
 	<item name="status">
 		<value xml:lang="ko"><![CDATA[상태]]></value>
@@ -61,6 +65,7 @@
 		<value xml:lang="es"><![CDATA[Estado]]></value>
 		<value xml:lang="tr"><![CDATA[Durum]]></value>
 		<value xml:lang="vi"><![CDATA[Trạng thái]]></value>
+        <value xml:lang="ro"><![CDATA[Status]]></value>
 	</item>
 	<item name="is_valid">
 		<value xml:lang="ko"><![CDATA[유효]]></value>
@@ -73,6 +78,7 @@
 		<value xml:lang="es"><![CDATA[Válido]]></value>
 		<value xml:lang="tr"><![CDATA[Geçerli]]></value>
 		<value xml:lang="vi"><![CDATA[Hợp lệ]]></value>
+        <value xml:lang="ro"><![CDATA[Valid]]></value>
 	</item>
 	<item name="is_stand_by">
 		<value xml:lang="ko"><![CDATA[대기]]></value>
@@ -85,6 +91,7 @@
 		<value xml:lang="es"><![CDATA[En espera]]></value>
 		<value xml:lang="tr"><![CDATA[Askıya al]]></value>
 		<value xml:lang="vi"><![CDATA[Chờ duyệt]]></value>
+        <value xml:lang="ro"><![CDATA[În aşteptare]]></value>
 	</item>
 	<item name="file_list">
 		<value xml:lang="ko"><![CDATA[첨부 파일 목록]]></value>
@@ -97,6 +104,7 @@
 		<value xml:lang="es"><![CDATA[Lista de archivos adjuntos]]></value>
 		<value xml:lang="tr"><![CDATA[Eklentiler Listesi]]></value>
 		<value xml:lang="vi"><![CDATA[Danh sách đính kèm]]></value>
+        <value xml:lang="ro"><![CDATA[Listă ataşamente]]></value>
 	</item>
 	<item name="allow_outlink">
 		<value xml:lang="ko"><![CDATA[다른 사이트에서 첨부파일 링크하는 것을 허용할까요?]]></value>
@@ -108,6 +116,7 @@
 		<value xml:lang="es"><![CDATA[Archivo Enlaces externos]]></value>
 		<value xml:lang="tr"><![CDATA[Dış Bağlantı]]></value>
 		<value xml:lang="vi"><![CDATA[Link từ bên ngoài]]></value>
+        <value xml:lang="ro"><![CDATA[Permite link extern]]></value>
 	</item>
 	<item name="allow_outlink_site">
 		<value xml:lang="ko"><![CDATA[파일 외부 링크 허용 사이트]]></value>
@@ -119,6 +128,7 @@
 		<value xml:lang="es"><![CDATA[Fuera del archivo de sitios permitidos]]></value>
 		<value xml:lang="tr"><![CDATA[İzin Verilmiş Siteler]]></value>
 		<value xml:lang="vi"><![CDATA[Những Website cho phép]]></value>
+        <value xml:lang="ro"><![CDATA[Site-uri permise]]></value>
 	</item>
 	<item name="allow_outlink_format">
 		<value xml:lang="ko"><![CDATA[파일 외부 링크 허용 확장자]]></value>
@@ -127,6 +137,7 @@
 		<value xml:lang="zh-TW"><![CDATA[允許外連的副檔名]]></value>
 		<value xml:lang="tr"><![CDATA[İzin Verilmiş Biçimler]]></value>
 		<value xml:lang="vi"><![CDATA[Những định dạng cho phép]]></value>
+        <value xml:lang="ro"><![CDATA[Formate permise]]></value>
 	</item>
 	<item name="allowed_filesize">
 		<value xml:lang="ko"><![CDATA[파일 제한 크기]]></value>
@@ -139,6 +150,7 @@
 		<value xml:lang="es"><![CDATA[Límite del tamaño del archivo adjunto]]></value>
 		<value xml:lang="tr"><![CDATA[En büyük dosya boyutu]]></value>
 		<value xml:lang="vi"><![CDATA[Dung lượng tối đa]]></value>
+        <value xml:lang="ro"><![CDATA[Dimensiune maximă fişier]]></value>
 	</item>
 	<item name="allowed_attach_size">
 		<value xml:lang="ko"><![CDATA[문서 첨부 제한]]></value>
@@ -151,6 +163,7 @@
 		<value xml:lang="es"><![CDATA[Límite del tamaño total de los archivos adjuntos por documento]]></value>
 		<value xml:lang="tr"><![CDATA[En büyük ek boyutu]]></value>
 		<value xml:lang="vi"><![CDATA[Dung lượng file đính kèm]]></value>
+        <value xml:lang="ro"><![CDATA[Număr maxim de ataşamente]]></value>
 	</item>
 	<item name="allowed_filetypes">
 		<value xml:lang="ko"><![CDATA[허용 확장자]]></value>
@@ -163,6 +176,7 @@
 		<value xml:lang="es"><![CDATA[Puede definir las extensiones de los archivos permitidos.]]></value>
 		<value xml:lang="tr"><![CDATA[Sadece izin verilen uzantılar iliştirilebilir.]]></value>
 		<value xml:lang="vi"><![CDATA[Chỉ được phép đính kèm những File có đuôi được liệt kê trong danh sách.]]></value>
+        <value xml:lang="ro"><![CDATA[Extensii permise]]></value>
 	</item>
 	<item name="enable_download_group">
 		<value xml:lang="ko"><![CDATA[다운로드 가능 그룹]]></value>
@@ -175,6 +189,7 @@
 		<value xml:lang="es"><![CDATA[Descargar permitió grupos]]></value>
 		<value xml:lang="tr"><![CDATA[İzin Verilen Grupları İndir]]></value>
 		<value xml:lang="vi"><![CDATA[Nhóm được phép Download]]></value>
+        <value xml:lang="ro"><![CDATA[Grupuri pentru descărcare]]></value>
 	</item>
 	<item name="about_allow_outlink">
 		<value xml:lang="ko"><![CDATA[리퍼러에 따라 파일 외부 링크를 차단할 수 있습니다. (*.wmv, *.mp3등 미디어 파일 제외)]]></value>
@@ -186,6 +201,7 @@
 		<value xml:lang="es"><![CDATA[Enlaces externos a Rusia Ripper puede bloquear el archivo. (*. WMV, *. mp3, etc, excepto los archivos multimedia)]]></value>
 		<value xml:lang="tr"><![CDATA[Dış bağlantıları kapatabilirsiniz. (*.wmv, *.mp3 gibi ortam dosyaları hariç)]]></value>
 		<value xml:lang="vi"><![CDATA[Những định dạng Link File từ bên ngoài được phép đính kèm.(Ngoại trừ định dạng Media *.wmv, *.mp3)]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi restricţiona link-uri externe în funcţie de domeniu (în afară de fişiere media precum .wmv sau .mp3)]]></value>
 	</item>
 	<item name="about_allow_outlink_format">
 		<value xml:lang="ko"><![CDATA[파일 외부 링크 설정에 상관없이 허용하는 파일 확장자입니다. 여러 개 입력 시에 쉼표(,)을 이용해서 구분해주세요. 예)hwp,doc,zip,pdf]]></value>
@@ -194,6 +210,7 @@
 		<value xml:lang="zh-TW"><![CDATA[設定允許外部連結的檔案格式。可以用逗號(,)來區隔多個副檔名。 例) hwp, doc, zip, pdf]]></value>
 		<value xml:lang="tr"><![CDATA[Bu biçimlere her zaman izin verilecektir. Lütfen çoklu giriş için virgül(,) kullanınız. örn.)hwp,doc,zip,pdf]]></value>
 		<value xml:lang="vi"><![CDATA[Những định dạng này sẽ được phép liên kết. Hãy sử dụng dấu (,) để thêm nhiều định dạng . Ví dụ: .hwp, .doc, .zip, .pdf]]></value>
+        <value xml:lang="ro"><![CDATA[Aceste formate sunt permise tot timpul. Pentru intrări multiple separaţi-le prin virgulă. Ex hpw,doc,zip,pdf]]></value>
 	</item>
 	<item name="about_allow_outlink_site">
 		<value xml:lang="ko"><![CDATA[파일 외부 링크 설정에 상관없이 허용하는 사이트 주소입니다. 여러 개 입력 시에 줄을 바꿔서 구분해주세요. 예)http://www.karybu.org/]]></value>
@@ -206,6 +223,7 @@
 		<value xml:lang="es"><![CDATA[Archivos, independientemente de la configuración para permitir a los enlaces externos es la dirección del sitio. Entrada múltiples gubunhaeju un cambio en la línea, por favor.   Ej.) http://www.karybu.org/]]></value>
 		<value xml:lang="tr"><![CDATA[Bu sitelere her zaman izin verilecektir. Lütfen çoklu giriş için yeni satır kullanınız. örn.)http://www.karybu.org/]]></value>
 		<value xml:lang="vi"><![CDATA[Những Website được phép liên kết. Hãy nhập địa chỉ của những Website được phép. Ví dụ: http://www.karybu.org/]]></value>
+        <value xml:lang="ro"><![CDATA[Aceste site-uri sunt permise tot timpul. Pentru intrări multiple separaţi-le prin virgulă]]></value>
 	</item>
 	<item name="about_allowed_filesize">
 		<value xml:lang="ko"><![CDATA[하나의 파일에 대해 최고 용량을 지정할 수 있습니다. (관리자는 제외)]]></value>
@@ -218,6 +236,7 @@
 		<value xml:lang="es"><![CDATA[Puede definir el límite del tamaño del archivo adjunto. (exceptuando el administrador)]]></value>
 		<value xml:lang="tr"><![CDATA[Her dosya için dosya boyut limiti atayabilirsiniz. (Yöneticiler için limitsizdir)]]></value>
 		<value xml:lang="vi"><![CDATA[Giới hạn dung lượng mỗi File đính kèm. (Ngoại trừ Administrators)]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi seta o limită maximă pentru fiecare fişier. (Exclude administratorii)]]></value>
 	</item>
 	<item name="about_allowed_attach_size">
 		<value xml:lang="ko"><![CDATA[하나의 문서에 첨부할 수 있는 최고 용량을 지정할 수 있습니다. (관리자는 제외)]]></value>
@@ -230,6 +249,7 @@
 		<value xml:lang="es"><![CDATA[Puede definir el límite del tamaño total de los archivos adjuntos por documento. (exceptuando el administrador)]]></value>
 		<value xml:lang="tr"><![CDATA[Her belge için dosya boyutu limiti atayabilirsiniz. (Yöneticiler için limitsizdir)]]></value>
 		<value xml:lang="vi"><![CDATA[Giới hạn dung lượng tối đa cho tất cả các File đính kèm trong một bài viết. (Ngoại trừ Administrators)]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi seta o limită maximă pentru fiecare document. (Exclude administratorii)]]></value>
 	</item>
 	<item name="about_allowed_filetypes">
 		<value xml:lang="ko"><![CDATA["*.확장자"로 지정할 수 있고 ";" 으로 여러 개 지정이 가능합니다. 예) *.* or *.jpg;*.gif;]]></value>
@@ -242,6 +262,7 @@
 		<value xml:lang="es"><![CDATA[Para permitir una extensión use "*.extensión". Para permitir más de una extensión use ";". ej) *.* o *.jpg;*.gif;etc.]]></value>
 		<value xml:lang="tr"><![CDATA[Bir uzantıya izin vermek için, "*.[uzantı]" komutunu kullanınız. Birden fazla eklentiye izin vermek için, her uzantının arasına ";" koyunuz. örn.) *.* veya *.jpg;*.gif; ]]></value>
 		<value xml:lang="vi"><![CDATA[Để thêm những dạng File được phép đính kèm, bạn sử dụng "*.[đuôi]". Để cho phép nhiều dạng đuôi File hãy đặt dấu ";" vào giữa các dạng đuôi. Ví dụ: *.* (Cho phép tất cả) hay *.jpg;*.gif;]]></value>
+        <value xml:lang="ro"><![CDATA[Pentru a permite o extensie foloseşte *.[extesie]. Pentru a permite extensii multiple foloseşte punct şi vigulă (;) ca separator. Ex: *.*;*.jpg;*.gif]]></value>
 	</item>
 	<item name="cmd_delete_checked_file">
 		<value xml:lang="ko"><![CDATA[선택항목 삭제]]></value>
@@ -254,6 +275,7 @@
 		<value xml:lang="es"><![CDATA[Eliminar el archivo seleccionado]]></value>
 		<value xml:lang="tr"><![CDATA[Seçilen Parça(lar) Silinsin]]></value>
 		<value xml:lang="vi"><![CDATA[Xóa File đã chọn]]></value>
+        <value xml:lang="ro"><![CDATA[Şterge articolele selectate]]></value>
 	</item>
 	<item name="cmd_move_to_document">
 		<value xml:lang="ko"><![CDATA[문서로 이동]]></value>
@@ -266,6 +288,7 @@
 		<value xml:lang="es"><![CDATA[Mover hacia el doncumento]]></value>
 		<value xml:lang="tr"><![CDATA[Belgeye Taşı]]></value>
 		<value xml:lang="vi"><![CDATA[Chèn vào bài viết]]></value>
+        <value xml:lang="ro"><![CDATA[Mută documentul]]></value>
 	</item>
 	<item name="cmd_download">
 		<value xml:lang="ko"><![CDATA[다운로드]]></value>
@@ -277,6 +300,7 @@
 		<value xml:lang="ru"><![CDATA[Скачать]]></value>
 		<value xml:lang="es"><![CDATA[Descargar]]></value>
 		<value xml:lang="tr"><![CDATA[İndir]]></value>
+        <value xml:lang="ro"><![CDATA[Descarcă]]></value>
 	</item>
 	<item name="msg_not_permitted_download">
 		<value xml:lang="ko"><![CDATA[다운로드할 수 있는 권한이 없습니다.]]></value>
@@ -289,6 +313,7 @@
 		<value xml:lang="es"><![CDATA[Usted no tiene ningún permiso para descargar]]></value>
 		<value xml:lang="tr"><![CDATA[İndirmek için izniniz yok]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn không được quyền Download.]]></value>
+        <value xml:lang="ro"><![CDATA[Nu ai permisiuni pentru descărcare]]></value>
 	</item>
 	<item name="msg_cart_is_null">
 		<value xml:lang="ko"><![CDATA[삭제할 파일을 선택해주세요.]]></value>
@@ -301,6 +326,7 @@
 		<value xml:lang="es"><![CDATA[Seleccione el archivo a eliminar]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen silenecek dosya(ları) seçiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Xin vui lòng chọn File để xóa.]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează fişierele pentru ştergere]]></value>
 	</item>
 	<item name="msg_checked_file_is_deleted">
 		<value xml:lang="ko"><![CDATA[%d개의 첨부 파일이 삭제되었습니다.]]></value>
@@ -313,6 +339,7 @@
 		<value xml:lang="es"><![CDATA[Total de %d archivos eliminados]]></value>
 		<value xml:lang="tr"><![CDATA[%d ek(ler)i silindi]]></value>
 		<value xml:lang="vi"><![CDATA[%d đính kèm đã được xóa.]]></value>
+        <value xml:lang="ro"><![CDATA[%d ataşamente au fost şterse]]></value>
 	</item>
 	<item name="msg_exceeds_limit_size">
 		<value xml:lang="ko"><![CDATA[허용된 용량을 초과하여 첨부가 되지 않았습니다.]]></value>
@@ -325,6 +352,7 @@
 		<value xml:lang="es"><![CDATA[Ha excedido el límite del tamaño total de los archivos adjuntos]]></value>
 		<value xml:lang="tr"><![CDATA[Ek dosya boyutu, izin verilen boyuttan büyük.]]></value>
 		<value xml:lang="vi"><![CDATA[Dung lượng File quá lớn.]]></value>
+        <value xml:lang="ro"><![CDATA[Acest fişier depaşeşte dimensiunea maximă.]]></value>
 	</item>
 	<item name="msg_file_not_found">
 		<value xml:lang="ko"><![CDATA[요청하신 파일을 찾을 수 없습니다.]]></value>
@@ -335,6 +363,7 @@
 		<value xml:lang="ru"><![CDATA[Невозможно найти запрашиваемый файл.]]></value>
 		<value xml:lang="tr"><![CDATA[İstenilen dosya bulunamadı.]]></value>
 		<value xml:lang="vi"><![CDATA[Không tìm thấy File.]]></value>
+        <value xml:lang="ro"><![CDATA[Fişierul cerut nu a fost găsit.]]></value>
 	</item>
 	<item name="file_search_target_list" type="array">
 		<item name="filename">
@@ -348,6 +377,7 @@
 			<value xml:lang="es"><![CDATA[Nombre del archivo]]></value>
 			<value xml:lang="tr"><![CDATA[Dosya Adı]]></value>
 			<value xml:lang="vi"><![CDATA[Tên File]]></value>
+            <value xml:lang="ro"><![CDATA[Nume fişier]]></value>
 		</item>
 		<item name="filesize_more">
 			<value xml:lang="ko"><![CDATA[파일 크기 (byte, 이상)]]></value>
@@ -360,6 +390,7 @@
 			<value xml:lang="es"><![CDATA[Tamaño del archivo (Byte, sobre)]]></value>
 			<value xml:lang="tr"><![CDATA[Dosya Boyutu (byte, üstü)]]></value>
 			<value xml:lang="vi"><![CDATA[Dung lượng (Tối thiểu Byte)]]></value>
+            <value xml:lang="ro"><![CDATA[Dimensiune (în bytes - peste)]]></value>
 		</item>
 		<item name="filesize_mega_more">
 			<value xml:lang="ko"><![CDATA[파일 크기 (MB, 이상)]]></value>
@@ -372,6 +403,7 @@
 			<value xml:lang="es"><![CDATA[Tamaño del archivo (Mb, o mb)]]></value>
 			<value xml:lang="tr"><![CDATA[Dosya Boyutu (mbyte, üstü)]]></value>
 			<value xml:lang="vi"><![CDATA[Dung lượng (Tối thiểu MB)]]></value>
+            <value xml:lang="ro"><![CDATA[Dimensiune (în mbytes - peste)]]></value>
 		</item>
 		<item name="filesize_less">
 			<value xml:lang="ko"><![CDATA[파일 크기 (byte, 이하)]]></value>
@@ -384,6 +416,7 @@
 			<value xml:lang="es"><![CDATA[파일크기 (byte, 이하)]]></value>
 			<value xml:lang="tr"><![CDATA[Dosya Boyutu (byte, düşük)]]></value>
 			<value xml:lang="vi"><![CDATA[Dung lượng (Tối đa Byte)]]></value>
+            <value xml:lang="ro"><![CDATA[Dimensiune (în bytes - sub)]]></value>
 		</item>
 		<item name="filesize_mega_less">
 			<value xml:lang="ko"><![CDATA[파일 크기 (MB, 이하)]]></value>
@@ -396,6 +429,7 @@
 			<value xml:lang="es"><![CDATA[파일크기 (Mb, 이하)]]></value>
 			<value xml:lang="tr"><![CDATA[Dosya Boyutu (Mb, düşük)]]></value>
 			<value xml:lang="vi"><![CDATA[Dung lượng (Tối đa MB)]]></value>
+            <value xml:lang="ro"><![CDATA[Dimensiune (în mbytes - sub)]]></value>
 		</item>
 		<item name="download_count">
 			<value xml:lang="ko"><![CDATA[다운로드 횟수 (이상)]]></value>
@@ -408,6 +442,7 @@
 			<value xml:lang="es"><![CDATA[Descargados (Sobre)]]></value>
 			<value xml:lang="tr"><![CDATA[İndirmeler (daha fazla)]]></value>
 			<value xml:lang="vi"><![CDATA[Lượt Download]]></value>
+            <value xml:lang="ro"><![CDATA[Descărcări (peste)]]></value>
 		</item>
 		<item name="user_id">
 			<value xml:lang="ko"><![CDATA[아이디]]></value>
@@ -419,6 +454,7 @@
 			<value xml:lang="es"><![CDATA[ID]]></value>
 			<value xml:lang="tr"><![CDATA[Kullanıcı Kimliği]]></value>
 			<value xml:lang="vi"><![CDATA[ID đăng nhập]]></value>
+            <value xml:lang="ro"><![CDATA[ID utilizator]]></value>
 		</item>
 		<item name="user_name">
 			<value xml:lang="ko"><![CDATA[이름]]></value>
@@ -430,6 +466,7 @@
 			<value xml:lang="es"><![CDATA[Nombre]]></value>
 			<value xml:lang="tr"><![CDATA[Kullanıcı İsmi]]></value>
 			<value xml:lang="vi"><![CDATA[Tên Sử dụng]]></value>
+            <value xml:lang="ro"><![CDATA[Nume utilizator]]></value>
 		</item>
 		<item name="nick_name">
 			<value xml:lang="ko"><![CDATA[닉네임]]></value>
@@ -440,6 +477,7 @@
 			<value xml:lang="ru"><![CDATA[Ник]]></value>
 			<value xml:lang="es"><![CDATA[Apodo]]></value>
 			<value xml:lang="tr"><![CDATA[Rumuz]]></value>
+            <value xml:lang="ro"><![CDATA[Alias]]></value>
 		</item>
 		<item name="regdate">
 			<value xml:lang="ko"><![CDATA[등록일]]></value>
@@ -452,6 +490,7 @@
 			<value xml:lang="es"><![CDATA[La fecha registrada]]></value>
 			<value xml:lang="tr"><![CDATA[Kayıt Zamanı]]></value>
 			<value xml:lang="vi"><![CDATA[Ngày gửi]]></value>
+            <value xml:lang="ro"><![CDATA[Data înregistării]]></value>
 		</item>
 		<item name="ipaddress">
 			<value xml:lang="ko"><![CDATA[IP 주소]]></value>
@@ -464,12 +503,14 @@
 			<value xml:lang="es"><![CDATA[Dirección IP]]></value>
 			<value xml:lang="tr"><![CDATA[IP Adresi]]></value>
 			<value xml:lang="vi"><![CDATA[IP]]></value>
+            <value xml:lang="ro"><![CDATA[Adresă IP]]></value>
 		</item>
 		<item name="isvalid">
 			<value xml:lang="ko"><![CDATA[상태]]></value>
 			<value xml:lang="en"><![CDATA[Status]]></value>
 			<value xml:lang="jp"><![CDATA[状態]]></value>
 			<value xml:lang="zh-TW"><![CDATA[狀態]]></value>
+            <value xml:lang="ro"><![CDATA[Status]]></value>
 		</item>
 	</item>
 	<item name="msg_not_allowed_outlink">
@@ -483,6 +524,7 @@
 		<value xml:lang="es"><![CDATA[It is not allowed to download files not from this site.]]></value>
 		<value xml:lang="tr"><![CDATA[Bu siteden dosya indirimine izin verilmemektedir.]]></value>
 		<value xml:lang="vi"><![CDATA[Không cho phép tải file từ những trang khác ngoài trang này.]]></value>
+        <value xml:lang="ro"><![CDATA[Descărcarea nu este permisă pentru alte site-uri în afară de acestea.]]></value>
 	</item>
 	<item name="msg_not_permitted_create">
 		<value xml:lang="ko"><![CDATA[파일 또는 디렉터리를 생성할 수 없습니다.]]></value>
@@ -491,6 +533,7 @@
 		<value xml:lang="zh-CN"><![CDATA[无法生成文件或文件夹。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[無法建立檔案或目錄。]]></value>
 		<value xml:lang="tr"><![CDATA[Dosya veya dizin oluşturma hatası.]]></value>
+        <value xml:lang="ro"><![CDATA[Fişierul sau directorul nu a putut fi creat]]></value>
 	</item>
 	<item name="msg_file_upload_error">
 		<value xml:lang="ko"><![CDATA[파일 업로드 중 에러가 발생하였습니다.]]></value>
@@ -499,26 +542,31 @@
 		<value xml:lang="zh-CN"><![CDATA[上传文件发生出错。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[檔案上傳失敗。]]></value>
 		<value xml:lang="tr"><![CDATA[Karşıya yükleme esnasında bir hata oluştu.]]></value>
+        <value xml:lang="ro"><![CDATA[A aparut o eroare la încărcare.]]></value>
 	</item>
 	<item name="no_files">
 		<value xml:lang="ko"><![CDATA[파일이 없습니다.]]></value>
 		<value xml:lang="en"><![CDATA[No Files]]></value>
 		<value xml:lang="jp"><![CDATA[ファイルがありません。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[無任何附檔。]]></value>
+        <value xml:lang="ro"><![CDATA[Nu există fişiere.]]></value>
 	</item>
 	<item name="file_manager">
 		<value xml:lang="ko"><![CDATA[선택한 파일 관리]]></value>
 		<value xml:lang="en"><![CDATA[Manage selected files]]></value>
 		<value xml:lang="jp"><![CDATA[選択ファイル管理]]></value>
 		<value xml:lang="zh-TW"><![CDATA[管理所選附檔]]></value>
+        <value xml:lang="ro"><![CDATA[Administrare fişiere selectate]]></value>
 	</item>
 	<item name="selected_file">
 		<value xml:lang="ko"><![CDATA[선택한 파일]]></value>
 		<value xml:lang="en"><![CDATA[Selected files]]></value>
 		<value xml:lang="jp"><![CDATA[選択ファイル]]></value>
 		<value xml:lang="zh-TW"><![CDATA[所選擇的附檔]]></value>
+        <value xml:lang="ro"><![CDATA[Fişiere selectate]]></value>
 	</item>
     <item name="msg_select_file">
         <value xml:lang="en"><![CDATA[Select files]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează fişiere.]]></value>
     </item>
 </lang>

@@ -1455,7 +1455,7 @@
 		<value xml:lang="jp"><![CDATA[管理者メニューの初期化]]></value>
 		<value xml:lang="zh-CN"><![CDATA[重置后台菜单]]></value>
 		<value xml:lang="tr"><![CDATA[Admin menüsünü sıfırlayın]]></value>
-        <value xml:lang="ro"><![CDATA[resetare mniu administrare]]></value>
+        <value xml:lang="ro"><![CDATA[Resetare meniu administrare]]></value>
 	</item>
 	<item name="confirm_reset_admin_menu">
 		<value xml:lang="ko"><![CDATA[관리자 메뉴를 초기화하시겠습니까?]]></value>
@@ -1731,7 +1731,7 @@
     </item>
     <item name="current_environment">
         <value xml:lang="en"><![CDATA[Current environment is:]]></value>
-        <value xml:lang="ro"><![CDATA[Mediul curent esteŞ]]></value>
+        <value xml:lang="ro"><![CDATA[Mediul curent este:]]></value>
     </item>
     <item name="dev">
         <value xml:lang="en"><![CDATA[Development]]></value>
