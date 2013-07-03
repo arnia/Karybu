@@ -187,7 +187,7 @@ jQuery( function() { jQuery('.grant_default').change( function(event) { doShowMe
                     </select>
                     <div id="zone_menu_grant" style="display:none">
                         <block loop="$group_list=>$key,$value">
-                            <label for="group_srls_{$value->group_srl}">
+                            <label for="group_srls_{$value->group_srl}" class="checkbox">
                                 <input type="checkbox" name="group_srls[]" id="group_srls_{$value->group_srl}" value="{$value->group_srl}" />
                                 {$value->title}
                             </label>

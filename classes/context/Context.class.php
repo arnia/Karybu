@@ -738,24 +738,6 @@ class ContextInstance
     }
 
     /**
-     * default_url: $this->db_info->default_url
-     *
-     * @param $default_url
-     * @return mixed
-     */
-    public function getCurrentSiteInfo($default_url)
-    {
-        $site_module_info = $this->getSiteModuleInfo();
-
-        // if site_srl of site_module_info is 0 (default site), compare the domain to default_url of db_config
-        if ($site_module_info->site_srl == 0 && $site_module_info->domain != $default_url) {
-            $site_module_info->domain = $default_url;
-        }
-
-        return $site_module_info;
-    }
-
-    /**
      * set context variables in $GLOBALS (to use in display handler)
      *
      * @param $global_context
@@ -791,6 +773,18 @@ class ContextInstance
     function getGlobalAppSettings($custom_global_app_settings, $current_site_info)
     {
         $global_app_settings = clone($custom_global_app_settings);
+
+        // If we're on the main site, and the default url in the database is different than the one in db.config.php
+        // update the database entry
+        if ($current_site_info->site_srl == 0 && $current_site_info->domain != $custom_global_app_settings->default_url) {
+            $current_site_info->domain = $custom_global_app_settings->default_url;
+
+            // Update database entry for main site
+            $site_args = new stdClass();
+            $site_args->site_srl = 0;
+            $site_args->domain = $custom_global_app_settings->default_url;
+            executeQuery('module.updateSite', $site_args);
+        }
 
         // If master_db information does not exist, the config file needs to be updated
         if (!isset($global_app_settings->master_db)) {
@@ -878,7 +872,7 @@ class ContextInstance
         }
 
         $custom_global_app_settings = $this->getDBInfo();
-        $current_site_info = $this->getCurrentSiteInfo($custom_global_app_settings->default_url);
+        $current_site_info = $this->getSiteModuleInfo();
 
         $global_app_settings = $this->getGlobalAppSettings($custom_global_app_settings, $current_site_info);
 

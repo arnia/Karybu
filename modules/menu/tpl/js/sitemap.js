@@ -133,9 +133,9 @@ $('form.siteMap, form.mobileSiteMap')
 		{
 			var groupObj = menuItem.groupList.item[x];
 
-			htmlBuffer += '<input type="checkbox" name="group_srls[]" id="group_srls_'+groupObj.group_srl+'" value="'+groupObj.group_srl+'"';
+			htmlBuffer += '<label for="group_srls_'+groupObj.group_srl+'" class="checkbox">'+groupObj.title+'<input type="checkbox" name="group_srls[]" id="group_srls_'+groupObj.group_srl+'" value="'+groupObj.group_srl+'"';
 			if(groupObj.isChecked) htmlBuffer += ' checked="checked" ';
-			htmlBuffer += '/> <label for="group_srls_'+groupObj.group_srl+'">'+groupObj.title+'</label>'
+			htmlBuffer += '/> </label>'
 		}
 		htmlBuffer +='</div>';
 		$('#groupList').html(htmlBuffer);

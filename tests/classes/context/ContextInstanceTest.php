@@ -2006,6 +2006,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context = $this->getMock('ContextInstance', array('getRequestURI', 'isSiteID'), array(null, null, null, $router));
         $context->site_module_info = new stdClass();
         $context->site_module_info->domain = null;
+        $context->allow_rewrite = true;
         $_SERVER['SCRIPT_NAME'] = '/';
         $context->expects($this->any())
             ->method('isSiteID')
@@ -2061,6 +2062,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             , array(null, null, null, $router));
         $context->site_module_info = new stdClass();
         $context->site_module_info->domain = null;
+        $context->allow_rewrite = true;
         $_SERVER['SCRIPT_NAME'] = '/';
 
         $url = $context->getUrl(4, array("module", "admin", "act", "hello"));
@@ -2086,6 +2088,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $context->expects($this->any())
             ->method('isSiteID')
             ->will($this->returnValue(true));
+        $context->allow_rewrite = true;
 
         $url = $context->getUrl(4, array("mid", "shop", "act", "dispShopToolLogin"), 'magazin');
         $this->assertEquals('/magazin/shop?act=dispShopToolLogin', $url);
@@ -2109,6 +2112,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
         $context->site_module_info = new stdClass();
         $context->site_module_info->domain = null;
+        $context->allow_rewrite = true;
 
         $url = $context->getUrl(4, array("module", "admin"));
         $this->assertEquals('/admin', $url);
@@ -2139,6 +2143,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
         $context->site_module_info = new stdClass();
         $context->site_module_info->domain = null;
+        $context->allow_rewrite = true;
 
         $url = $context->getUrl(0, array("module", "admin", "act", "dispMenuAdminSiteMap"));
         $this->assertEquals('/admin/dispMenuAdminSiteMap', $url);
@@ -2196,6 +2201,7 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
         $context->site_module_info = new stdClass();
         $context->site_module_info->domain = null;
+        $context->allow_rewrite = true;
 
         $url = $context->getUrl(4, array("mid", "shop", "act", "dispShopToolLogin_"));
         $this->assertEquals('/dispShopToolLogin_/shop', $url);
