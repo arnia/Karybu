@@ -329,7 +329,7 @@
 			 <value xml:lang="jp"><![CDATA[サイト]]></value>
 			 <value xml:lang="zh-CN"><![CDATA[目录]]></value>
 			 <value xml:lang="tr"><![CDATA[Menü]]></value>
-            <value xml:lang="ro"><![CDATA[Meniu]]></value>
+             <value xml:lang="ro"><![CDATA[Meniu]]></value>
 		</item>
 		<item name="user">
 			 <value xml:lang="ko"><![CDATA[회원]]></value>

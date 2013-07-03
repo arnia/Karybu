@@ -713,7 +713,6 @@
             $xml_buff = sprintf(
                 '<?php '.
                 'define(\'__KARYBU__\', true); '.
-                'define(\'__KARYBU__\', true); '.
                 'require_once(\''.FileHandler::getRealPath('./config/config.inc.php').'\'); '.
                 '$oContext = &Context::getInstance(); '.
                 '$oContext->init(); '.
@@ -791,6 +790,7 @@
                 } else $href = $url;
                 $open_window = $node->open_window;
                 $expand = $node->expand;
+                $class_name = $node->class_name;
 
                 $normal_btn = $node->normal_btn;
                 if($normal_btn && preg_match('/^\.\/files\/attach\/menu_button/i',$normal_btn)) $normal_btn = str_replace(array('&','"','<','>'),array('&amp;','&quot;','&lt;','&gt;'),$normal_btn);
@@ -817,7 +817,7 @@
                 if($group_srls)$group_check_code = sprintf('($is_admin==true||(is_array($group_srls)&&count(array_intersect($group_srls, array(%s))))||($is_logged&&%s))',$group_srls,$group_srls == -1?1:0);
                 else $group_check_code = "true";
                 $attribute = sprintf(
-                    'node_srl="%s" parent_srl="%s" text="<?php if(%s) { %s }?>" url="<?php print(%s?"%s":"")?>" href="<?php print(%s?"%s":"")?>" open_window="%s" expand="%s" normal_btn="%s" hover_btn="%s" active_btn="%s" link="<?php if(%s) {?>%s<?php }?>"',
+                    'node_srl="%s" parent_srl="%s" text="<?php if(%s) { %s }?>" url="<?php print(%s?"%s":"")?>" href="<?php print(%s?"%s":"")?>" open_window="%s" expand="%s" normal_btn="%s" hover_btn="%s" active_btn="%s" link="<?php if(%s) {?>%s<?php }?>" class_name="%s"',
                     $menu_item_srl,
                     $node->parent_srl,
                     $group_check_code,
@@ -832,7 +832,8 @@
                     $hover_btn,
                     $active_btn,
                     $group_check_code,
-                    $link
+                    $link,
+                    $class_name
                 );
 
                 if($child_buff) {
@@ -985,9 +986,10 @@
                 } else {
                     $link_active = $link = sprintf('$_menu_names[%d][$lang_type]', $node->menu_item_srl);
                 }
+                $class_name = $node->class_name;
                 // Create properties (check if it belongs to the menu node by url_list. It looks a trick but fast and powerful)
                 $attribute = sprintf(
-                    '"node_srl"=>"%s","parent_srl"=>"%s","text"=>(%s?$_menu_names[%d][$lang_type]:""),"href"=>(%s?"%s":""),"url"=>(%s?"%s":""),"open_window"=>"%s","normal_btn"=>"%s","hover_btn"=>"%s","active_btn"=>"%s","selected"=>(array(%s)&&in_array(Context::get("mid"),array(%s))?1:0),"expand"=>"%s", "list"=>array(%s),  "link"=>(%s? ( array(%s)&&in_array(Context::get("mid"),array(%s)) ?%s:%s):""),',
+                    '"node_srl"=>"%s","parent_srl"=>"%s","text"=>(%s?$_menu_names[%d][$lang_type]:""),"href"=>(%s?"%s":""),"url"=>(%s?"%s":""),"open_window"=>"%s","normal_btn"=>"%s","hover_btn"=>"%s","active_btn"=>"%s","selected"=>(array(%s)&&in_array(Context::get("mid"),array(%s))?1:0),"expand"=>"%s","class_name"=>"%s", "list"=>array(%s),  "link"=>(%s? ( array(%s)&&in_array(Context::get("mid"),array(%s)) ?%s:%s):""),',
                     $node->menu_item_srl,
                     $node->parent_srl,
                     $group_check_code,
@@ -1003,6 +1005,7 @@
                     $selected,
                     $selected,
                     $expand,
+                    $class_name,
                     $child_buff,
                     $group_check_code,
                     $selected,

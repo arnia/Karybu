@@ -662,39 +662,39 @@ li.active a.big-icon-content {
     background-position: -160px -160px;
 }
 
-.big-icon-menus {
+.big-icon-menus, .big-icon-menu {
     background-position: 0 -240px;
 }
 
-a.big-icon-menus:hover {
+a.big-icon-menus:hover a.big-icon-menu:hover{
     background-position: -80px -240px;
 }
 
-li.active a.big-icon-menus {
+li.active a.big-icon-menus, li.active a.big-icon-menu {
     background-position: -160px -240px;
 }
 
-.big-icon-themes {
+.big-icon-themes, .big-icon-theme {
     background-position: 0 -320px;
 }
 
-a.big-icon-themes:hover {
+a.big-icon-themes:hover, a.big-icon-theme:hover {
     background-position: -80px -320px;
 }
 
-li.active a.big-icon-themes {
+li.active a.big-icon-themes, li.active a.big-icon-theme {
     background-position: -160px -320px;
 }
 
-.big-icon-members {
+.big-icon-members, .big-icon-user {
     background-position: 0 -400px;
 }
 
-a.big-icon-members:hover {
+a.big-icon-members:hover, a.big-icon-user:hover {
     background-position: -80px -400px;
 }
 
-li.active a.big-icon-members {
+li.active a.big-icon-members, li.active a.big-icon-user {
     background-position: -160px -400px;
 }
 
@@ -710,15 +710,15 @@ li.active a.big-icon-extensions {
     background-position: -160px -480px;
 }
 
-.big-icon-settings {
+.big-icon-settings, .big-icon-configuration {
     background-position: 0 -560px;
 }
 
-a.big-icon-settings:hover {
+a.big-icon-settings:hover, a.big-icon-configuration:hover {
     background-position: -80px -560px;
 }
 
-li.active a.big-icon-settings {
+li.active a.big-icon-settings, li.active a.big-icon-configuration {
     background-position: -160px -560px;
 }
 
@@ -1028,39 +1028,39 @@ form .controls textarea ~ span
         background-position: -170px -170px;
     }
 
-    .big-icon-menus {
+    .big-icon-menus, .big-icon-menu {
         background-position: -10px -250px;
     }
 
-    a.big-icon-menus:hover {
+    a.big-icon-menus:hover, a.big-icon-menu:hover {
         background-position: -90px -250px;
     }
 
-    li.active a.big-icon-menus {
+    li.active a.big-icon-menus, li.active a.big-icon-menu {
         background-position: -170px -250px;
     }
 
-    .big-icon-themes {
+    .big-icon-themes, .big-icon-theme {
         background-position: -10px -330px;
     }
 
-    a.big-icon-themes:hover {
+    a.big-icon-themes:hover, a.big-icon-theme:hover {
         background-position: -90px -330px;
     }
 
-    li.active a.big-icon-themes {
+    li.active a.big-icon-themes, li.active a.big-icon-theme {
         background-position: -170px -330px;
     }
 
-    .big-icon-members {
+    .big-icon-members, .big-icon-user {
         background-position: -10px -410px;
     }
 
-    a.big-icon-members:hover {
+    a.big-icon-members:hover, a.big-icon-user:hover {
         background-position: -90px -410px;
     }
 
-    li.active a.big-icon-members {
+    li.active a.big-icon-members, li.active a.big-icon-user {
         background-position: -170px -410px;
     }
 
@@ -1076,15 +1076,15 @@ form .controls textarea ~ span
         background-position: -170px -490px;
     }
 
-    .big-icon-settings {
+    .big-icon-settings, .big-icon-configuration {
         background-position: -10px -570px;
     }
 
-    a.big-icon-settings:hover {
+    a.big-icon-settings:hover, a.big-icon-configuration:hover {
         background-position: -90px -570px;
     }
 
-    li.active a.big-icon-settings {
+    li.active a.big-icon-settings, li.active a.big-icon-configuration {
         background-position: -170px -570px;
     }
 

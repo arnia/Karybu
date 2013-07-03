@@ -133,7 +133,7 @@
             <a class="big-icon big-icon-preview" data-toggle="tooltip" data-placement="left" data-container="#kTopLayer" title="{$lang->preview}" href="{getFullUrl('')}"></a>
         </li>
         <li class="<!--@if($activeNode == $value['node_srl'])-->active<!--@end-->" loop="$gnbUrlList=>$key,$value" >
-            <a class="big-icon big-icon-{strtolower($value['text'])}" data-toggle="tooltip" data-container="#kTopLayer" data-placement="left" title="{$value['text']}" href="{$value['href']}"></a>
+            <a class="big-icon big-icon-{strtolower($value['text'])} big-icon-{$value['class_name']}" data-toggle="tooltip" data-container="#kTopLayer" data-placement="left" title="{$value['text']}" href="{$value['href']}"></a>
         </li>
         <li class="hidden-phone">
             <a class="small-logo" href="{getUrl('','module','admin')}"><img src="img/small-logo.png" alt="" /></a>

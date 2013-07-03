@@ -16,5 +16,6 @@
         <column name="group_srls" var="group_srls" />
         <column name="listorder" var="listorder" notnull="notnull" />
         <column name="regdate" var="regdate" default="curdate()" />
+        <column name="class_name" var="class_name" />
     </columns>
 </query>

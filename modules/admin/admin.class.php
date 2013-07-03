@@ -88,6 +88,7 @@ class admin extends ModuleObject
             //insert menu item
             $args->menu_srl = $menuSrl;
             $args->menu_item_srl = getNextSequence();
+            $args->class_name = $value;
             $args->name = '{$lang->menu_gnb[\'' . $value . '\']}';
             if ($value == 'dashboard') {
                 $args->url = getNotEncodedUrl('', 'module', 'admin');

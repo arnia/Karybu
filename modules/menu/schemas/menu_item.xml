@@ -12,4 +12,5 @@
     <column name="group_srls" type="text" />
     <column name="listorder" type="number" size="11" default="0" index="idx_listorder" />
     <column name="regdate" type="date" index="idx_regdate" />
+    <column name="class_name" type="varchar" size="255" />
 </table>

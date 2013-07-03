@@ -236,7 +236,7 @@
 
             $currentUrl = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
             $activeNode = null;
-            foreach($menu->list as $item){
+            foreach($menu->list as $k=>$item){
                 if(strpos($currentUrl,$item['href']) !== false) {
                     if($item['text'] == 'Dashboard'){
                         $delta = str_replace($item['href'],'',$currentUrl);
@@ -255,7 +255,6 @@
                 $page_title = $module;
             }
             $page_title = ucfirst($page_title);
-
             Context::set('activeNode', $activeNode);
             Context::set('subMenuTitle', $subMenuTitle);
 			Context::set('gnbUrlList',   $menu->list);
