@@ -142,7 +142,14 @@ class DatasetCreator {
         $module_srl = $output->get('module_srl');
         Context::set('version', __KARYBU_VERSION__);
         $oTemplateHandler = &TemplateHandler::getInstance();
-        $content = $oTemplateHandler->compile('./modules/install/script/welcome_content', $mid.'_'.$lang);
+        $filename = './modules/install/script/welcome_content/'.$mid.'_'.$lang.'.html';
+        if (file_exists($filename)){
+            $content = $oTemplateHandler->compile('./modules/install/script/welcome_content', $mid.'_'.$lang);
+        }
+        else{
+            //fallback to English
+            $content = $oTemplateHandler->compile('./modules/install/script/welcome_content', $mid.'_en');
+        }
 
         $output = $this->insertDocument($module_srl, $article_page_title, $content);
 
@@ -180,7 +187,12 @@ class DatasetCreator {
         $lang = Context::getLangType();
 
         // 2.1. Get page content
-        $page_content = FileHandler::readFile('./modules/install/script/welcome_content/' . $mid . '_' . $lang . '.html');
+        $filename = './modules/install/script/welcome_content/' . $mid . '_' . $lang . '.html';
+        if (!file_exists($filename)){
+            //fallback to english
+            $filename = './modules/install/script/welcome_content/' . $mid . '_en.html';
+        }
+        $page_content = FileHandler::readFile($filename);
 
         // 2.2. See what widgets exist
         preg_match_all('/{(.*)}/', $page_content, $matches);
