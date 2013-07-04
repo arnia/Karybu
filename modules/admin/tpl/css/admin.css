@@ -2049,9 +2049,9 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
     line-height: 80px;
     font-size: 90%;
     background: url("../img/user-defined-layout.png") 50% 0 no-repeat;
-    -moz-background-size: 120px 80px;
-    -webkit-background-size: 120px 80px;
-    background-size: 120px 80px;
+    -moz-background-size: 100%;
+    -webkit-background-size: 100%;
+    background-size: 100%;
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='./modules/admin/tpl/img/user-defined-layout.png', sizingMethod='scale');
     -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader( src='./modules/admin/tpl/img/user-defined-layout.png', sizingMethod='scale')";
 }
@@ -2170,6 +2170,10 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
     cursor: pointer;
     color: #00f;
     background: url(../img/iconArrow.gif) no-repeat right -32px;
+}
+
+#skin .noDirection .thumb {
+    background: url("../img/preview-not-available.jpg") 50% 50% no-repeat;
 }
 
 .x #skin .showAll.hideAll {
