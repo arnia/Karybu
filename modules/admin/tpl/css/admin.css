@@ -2172,6 +2172,10 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
     background: url(../img/iconArrow.gif) no-repeat right -32px;
 }
 
+#skin .noDirection .thumb {
+    background: url("../img/preview-not-available.jpg") 50% 50% no-repeat;
+}
+
 .x #skin .showAll.hideAll {
     background-position: right 0;
 }
