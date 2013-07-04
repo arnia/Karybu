@@ -45,7 +45,7 @@
 			<value xml:lang="ko"><![CDATA[DB 선택]]></value>
 			<value xml:lang="en"><![CDATA[Choose database type]]></value>
 			<value xml:lang="jp"><![CDATA[DB選択]]></value>
-            <value xml:lang="ro"><![CDATA[Selectează tipul de bayă de date]]></value>
+            <value xml:lang="ro"><![CDATA[Selectează tipul de bază de date]]></value>
 		</item>
 		<item name="dbInfo">
 			<value xml:lang="ko"><![CDATA[DB 정보 입력]]></value>
@@ -1192,7 +1192,7 @@
         <value xml:lang="ko"><![CDATA[설치 환경 수집 동의]]></value>
         <value xml:lang="en"><![CDATA[Help us improve Karybu by contributing anonymously to our server statistics program.]]></value>
         <value xml:lang="jp"><![CDATA[インストール環境収集に同意する]]></value>
-        <value xml:lang="ro"><![CDATA[Ajută-ne sţ îmbunătăţim Karybu contribuind anonim la programul de statistici despre servere.]]></value>
+        <value xml:lang="ro"><![CDATA[Ajută-ne să îmbunătăţim Karybu contribuind anonim la programul de statistici despre servere.]]></value>
     </item>
     <item name="enviroment_gather">
         <value xml:lang="ko"><![CDATA[설치 환경 수집 동의]]></value>

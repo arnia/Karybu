@@ -578,7 +578,6 @@
             if (Context::isInstalled()) {
                 $oMenuAdminModel = & getAdminModel('menu');
                 $output = $oMenuAdminModel->getMenuByTitle('__KARYBU_ADMIN__');
-
                 if (empty($output->menu_srl)) {
                     $oAdminClass = & getClass('admin');
                     $oAdminClass->createXeAdminMenu();

@@ -5,8 +5,7 @@
 		<action name="procMaterialInsert" type="controller" />
 		<action name="dispMaterialList" type="view" />
 		<action name="dispMaterialPopup" type="view" />
-                
-                <action name="dispMaterialAdminIndex" type="view" admin_index="true" standalone="true"/>
-                <action name="dispMaterialAdminTutorial" type="view" />
+        <action name="dispMaterialAdminIndex" type="view" admin_index="true" standalone="true"/>
+        <action name="dispMaterialAdminTutorial" type="view" />
     </actions>
 </module>

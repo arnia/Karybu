@@ -9,6 +9,7 @@
     <title xml:lang="ru">Меню</title>
     <title xml:lang="zh-TW">選單</title>
     <title xml:lang="tr">Menü</title>
+    <title xml:lang="ro">Meniu</title>
     <description xml:lang="ko">레이아웃, 모듈을 연결하는 메뉴를 생성/관리하는 모듈입니다.</description>
     <description xml:lang="zh-CN">此模块将生成并管理连接布局，模块的菜单。</description>
     <description xml:lang="jp">レイアウト、モジュールを連動させるメニューを作成・管理するモジュールです。</description>
@@ -18,6 +19,7 @@
     <description xml:lang="ru">Этот модуль служит для создания/управления меню, соединяюще лейауты и модули.</description>
     <description xml:lang="zh-TW">可建立並管理連結版面和模組的選單。</description>
     <description xml:lang="tr">Bu modül, yerleşim düzenlerine ya da modüllere bağlı menüleri oluşturmak/yönetmek içindir.</description>
+    <description xml:lang="ro">Acest modul permite administrare de meniuri</description>
     <version>0.1</version>
     <date>2007-02-28</date>
     <category>construction</category>
@@ -32,5 +34,6 @@
         <name xml:lang="ru">Arnia</name>
         <name xml:lang="zh-TW">Arnia</name>
         <name xml:lang="tr">Arnia</name>
+        <name xml:lang="ro">Arnia</name>
     </author>
 </module>

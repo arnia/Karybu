@@ -2,9 +2,11 @@
 <sns>
     <title xml:lang="ko">Facebook</title>
     <title xml:lang="en">Facebook</title>
+    <title xml:lang="ro">Facebook</title>
 
     <description xml:lang="ko">Sign in with Karybu using your Facebook account.</description>
     <description xml:lang="en">Sign in with Karybu using your Facebook account.</description>
+    <description xml:lang="ro">Autentificare în Karybu folosing contul de Facebook.</description>
 
     <regdate>2013-02-13</regdate>
     
@@ -12,14 +14,17 @@
         <item name="app_id">
             <title xml:lang="ko">APP_ID</title>
             <title xml:lang="en">APP_ID</title>
+            <title xml:lang="ro">APP_ID</title>
         </item>
         <item name="app_secret">
             <title xml:lang="ko">APP_SECRET</title>
             <title xml:lang="en">APP_SECRET</title>
+            <title xml:lang="ro">APP_SECRET</title>
         </item>
         <item name="callback_url">
             <title xml:lang="ko">Site URL</title>
             <title xml:lang="en">Site URL</title>
+            <title xml:lang="ro">URL Site</title>
         </item>
     </config>
     

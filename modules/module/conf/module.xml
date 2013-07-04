@@ -59,6 +59,7 @@
 			<title xml:lang="vi">Modules</title>
 			<title xml:lang="mn">Modules</title>
 			<title xml:lang="tr">Modules</title>
+            <title xml:lang="ro">Module</title>
 		</menu>
 		<menu name="multilingual">
 			<title xml:lang="en">Multilingual</title>
@@ -72,6 +73,7 @@
 			<title xml:lang="vi">Multilingual</title>
 			<title xml:lang="mn">Multilingual</title>
 			<title xml:lang="tr">Multilingual</title>
+            <title xml:lang="ro">Multilingual</title>
 		</menu>
 		<menu name="filebox">
 			<title xml:lang="en">FileBox</title>
@@ -85,6 +87,7 @@
 			<title xml:lang="vi">FileBox</title>
 			<title xml:lang="mn">FileBox</title>
 			<title xml:lang="tr">FileBox</title>
+            <title xml:lang="ro">FileBox</title>
 		</menu>
 	</menus>
 </module>

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skin version="0.2">
     <title xml:lang="en">Default Skin</title>
+    <title xml:lang="ro">Skin Implicit</title>
     <description xml:lang="en">
+        Arnia (dev@karybu.org)
+    </description>
+    <description xml:lang="ro">
         Arnia (dev@karybu.org)
     </description>
     <version>0.1</version>
@@ -9,5 +13,6 @@
 
     <author email_address="dev@karybu.org" link="http://www.karybu.org/">
         <name xml:lang="en">Arnia</name>
+        <name xml:lang="ro">Arnia</name>
     </author>
 </skin>

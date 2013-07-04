@@ -34,6 +34,7 @@
 			<title xml:lang="vi">Menu Management</title>
 			<title xml:lang="mn">Menu Management</title>
 			<title xml:lang="tr">Menu Management</title>
+            <title xml:lang="ro">Administrare meniuri</title>
 		</menu>
 	</menus>
 </module>

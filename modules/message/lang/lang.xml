@@ -11,6 +11,7 @@
 		<value xml:lang="es"><![CDATA[Mostrar el error]]></value>
 		<value xml:lang="tr"><![CDATA[Hata Görüntüleme]]></value>
 		<value xml:lang="vi"><![CDATA[Hiển thị lỗi]]></value>
+        <value xml:lang="ro"><![CDATA[Afişare erori]]></value>
 	</item>
 	<item name="about_skin">
 		<value xml:lang="ko"><![CDATA[오류 메시지용 스킨을 지정하실 수 있습니다.]]></value>
@@ -23,5 +24,6 @@
 		<value xml:lang="es"><![CDATA[Usted puede seleccionar los temas de los mensajes del error.]]></value>
 		<value xml:lang="tr"><![CDATA[Hata mesajlarının dış görünümlerini seçebilirsiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể chọn giao diện khi hiển thị lỗi.]]></value>
+        <value xml:lang="ro"><![CDATA[Poşi selecta un skin pentru erori]]></value>
 	</item>
 </lang>

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.2">
     <title xml:lang="en">mobile_communication</title>
+    <title xml:lang="ro">Comunicare cu aplicaţia de mobil</title>
     <description xml:lang="en"></description>
+    <description xml:lang="ro"></description>
     <version></version>
     <date></date>
     <category></category>
     <author email_address="" link="">
         <name xml:lang="en"></name>
+        <name xml:lang="ro">Arnia</name>
     </author>
 </module>

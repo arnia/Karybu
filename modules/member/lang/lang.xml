@@ -11,6 +11,7 @@
 		<value xml:lang="es"><![CDATA[Usuario]]></value>
 		<value xml:lang="tr"><![CDATA[Üye]]></value>
 		<value xml:lang="vi"><![CDATA[Thành viên]]></value>
+        <value xml:lang="ro"><![CDATA[Memberi]]></value>
 	</item>
 	<item name="member_default_info">
 		<value xml:lang="ko"><![CDATA[기본 정보]]></value>
@@ -23,6 +24,7 @@
 		<value xml:lang="es"><![CDATA[Información Basica]]></value>
 		<value xml:lang="tr"><![CDATA[Temel Bilgi]]></value>
 		<value xml:lang="vi"><![CDATA[Thông tin cá nhân]]></value>
+        <value xml:lang="ro"><![CDATA[informaţii de bază]]></value>
 	</item>
 	<item name="member_extend_info">
 		<value xml:lang="ko"><![CDATA[추가 정보]]></value>
@@ -35,6 +37,7 @@
 		<value xml:lang="es"><![CDATA[Información adicional]]></value>
 		<value xml:lang="tr"><![CDATA[Detaylı Bilgi]]></value>
 		<value xml:lang="vi"><![CDATA[Thông tin bổ xung]]></value>
+        <value xml:lang="ro"><![CDATA[informaţii suplimentare]]></value>
 	</item>
 	<item name="default_group_1">
 		<value xml:lang="ko"><![CDATA[준회원]]></value>
@@ -98,6 +101,7 @@
 		<value xml:lang="es"><![CDATA[Guardar ID]]></value>
 		<value xml:lang="tr"><![CDATA[Kimliği Hatırla]]></value>
 		<value xml:lang="vi"><![CDATA[Lưu tên sử dụng]]></value>
+        <value xml:lang="ro"><![CDATA[Păstreză ID-ul]]></value>
 	</item>
 	<item name="already_logged">
 		<value xml:lang="ko"><![CDATA[이미 로그인되어 있습니다.]]></value>
@@ -110,6 +114,7 @@
 		<value xml:lang="es"><![CDATA[Ya está conectado]]></value>
 		<value xml:lang="tr"><![CDATA[Zaten giriş yaptınız]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn đã đăng nhập]]></value>
+        <value xml:lang="ro"><![CDATA[Eşti deja autentificat]]></value>
 	</item>
 	<item name="denied_user_id">
 		<value xml:lang="ko"><![CDATA[사용 금지된 아이디입니다.]]></value>
@@ -122,10 +127,12 @@
 		<value xml:lang="es"><![CDATA[Este ID está prohibido.]]></value>
 		<value xml:lang="tr"><![CDATA[Yasaklanmış bir kimlik girdiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[ID đăng nhập của bạn đã bị cấm sử dụng.]]></value>
+        <value xml:lang="ro"><![CDATA[Ai introdus un ID interzis]]></value>
 	</item>
 	<item name="denied_nick_name">
 		<value xml:lang="ko"><![CDATA[사용 금지된 닉네임입니다.]]></value>
 		<value xml:lang="en"><![CDATA[You have entered a prohibited nick name.]]></value>
+        <value xml:lang="ro"><![CDATA[Ai introdus un alias interzis]]></value>
 	</item>
 	<item name="null_user_id">
 		<value xml:lang="ko"><![CDATA[회원 아이디를 입력해주세요.]]></value>
@@ -138,6 +145,7 @@
 		<value xml:lang="es"><![CDATA[IngresarID]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen kimliğinizi giriniz]]></value>
 		<value xml:lang="vi"><![CDATA[Xin vui lòng nhập ID đăng nhập]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu Id-ul tău]]></value>
 	</item>
 	<item name="null_password">
 		<value xml:lang="ko"><![CDATA[비밀번호를 입력해주세요.]]></value>
@@ -150,6 +158,7 @@
 		<value xml:lang="es"><![CDATA[Ingresar la contraseña]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen şifrenizi giriniz]]></value>
 		<value xml:lang="vi"><![CDATA[Xin vui lòng nhập mật khẩu]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu parola]]></value>
 	</item>
 	<item name="invalid_authorization">
 		<value xml:lang="ko"><![CDATA[인증이 필요한 계정입니다.]]></value>
@@ -162,10 +171,12 @@
 		<value xml:lang="es"><![CDATA[No está certificado]]></value>
 		<value xml:lang="tr"><![CDATA[Hesap etkinleştirilmemiş.]]></value>
 		<value xml:lang="vi"><![CDATA[Tài khoản đăng nhập không đúng.]]></value>
+        <value xml:lang="ro"><![CDATA[Acest cont nu este activ]]></value>
 	</item>
 	<item name="invalid_email_address">
 		<value xml:lang="ko"><![CDATA[이메일 주소와 일치하는 회원이 없습니다.]]></value>
 		<value xml:lang="en"><![CDATA[Wrong credentials]]></value>
+        <value xml:lang="ro"><![CDATA[Date de autentificare incorecte.]]></value>
 	</item>
 	<item name="invalid_user_id">
 		<value xml:lang="ko"><![CDATA[존재하지 않는 회원 아이디입니다.]]></value>
@@ -178,6 +189,7 @@
 		<value xml:lang="es"><![CDATA[Este ID no existe]]></value>
 		<value xml:lang="tr"><![CDATA[Geçerli olmayan bir kimlik girdiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn đã nhập sai tên sử dụng]]></value>
+        <value xml:lang="ro"><![CDATA[Ai introdus un ID incorect.]]></value>
 	</item>
 	<item name="invalid_password">
 		<value xml:lang="ko"><![CDATA[잘못된 비밀번호입니다.]]></value>
@@ -190,6 +202,7 @@
 		<value xml:lang="es"><![CDATA[Contraseña incorrecta]]></value>
 		<value xml:lang="tr"><![CDATA[Hatalı bir şifre girdiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Mật khẩu không đúng]]></value>
+        <value xml:lang="ro"><![CDATA[Ai introdus o parolă incorectă]]></value>
 	</item>
 	<item name="invalid_new_password">
 		<value xml:lang="ko"><![CDATA[이전 비밀번호와 같습니다.]]></value>
@@ -197,6 +210,7 @@
 		<value xml:lang="jp"><![CDATA[以前のパスワードと同じパスワードを使うことはできません。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[新密碼不能與舊密碼相同]]></value>
 		<value xml:lang="tr"><![CDATA[Yeni şifre, eski şifreyle aynı olmamalı.]]></value>
+        <value xml:lang="ro"><![CDATA[Intoru o parolă pe care nu ai mai folosit-o]]></value>
 	</item>
 	<item name="allow_mailing">
 		<value xml:lang="ko"><![CDATA[메일링 가입]]></value>
@@ -222,6 +236,7 @@
 		<value xml:lang="es"><![CDATA[Atribución del administrador superior]]></value>
 		<value xml:lang="tr"><![CDATA[Süperadmin Yetkisi]]></value>
 		<value xml:lang="vi"><![CDATA[Toàn quyền Administrator]]></value>
+        <value xml:lang="ro"><![CDATA[Permisiuni super-admin]]></value>
 	</item>
 	<item name="member_group">
 		<value xml:lang="ko"><![CDATA[회원 그룹]]></value>
@@ -247,6 +262,7 @@
 		<value xml:lang="es"><![CDATA[Nombre del grupo]]></value>
 		<value xml:lang="tr"><![CDATA[Grup Adı]]></value>
 		<value xml:lang="vi"><![CDATA[Tên nhóm]]></value>
+        <value xml:lang="ro"><![CDATA[Nume grup]]></value>
 	</item>
 	<item name="group_srl">
 		<value xml:lang="ko"><![CDATA[그룹 번호]]></value>
@@ -259,18 +275,21 @@
 		<value xml:lang="es"><![CDATA[Número del grupo]]></value>
 		<value xml:lang="tr"><![CDATA[Grup Numarası]]></value>
 		<value xml:lang="vi"><![CDATA[Nhóm số]]></value>
+        <value xml:lang="ro"><![CDATA[Număr grup]]></value>
 	</item>
 	<item name="group_order">
 		<value xml:lang="ko"><![CDATA[그룹 우선순위]]></value>
 		<value xml:lang="en"><![CDATA[Gropu Priority]]></value>
 		<value xml:lang="jp"><![CDATA[グループ優先順位]]></value>
 		<value xml:lang="zh-TW"><![CDATA[群組優先順序]]></value>
+        <value xml:lang="ro"><![CDATA[Prioritate grup]]></value>
 	</item>
 	<item name="group_order_change">
 		<value xml:lang="ko"><![CDATA[그룹 우선순위 변경]]></value>
 		<value xml:lang="en"><![CDATA[Change Group Priority]]></value>
 		<value xml:lang="jp"><![CDATA[グループ優先順位変更]]></value>
 		<value xml:lang="zh-TW"><![CDATA[變更優先順序]]></value>
+        <value xml:lang="ro"><![CDATA[Schimbă prioritatea grupului.]]></value>
 	</item>
 	<item name="signature">
 		<value xml:lang="ko"><![CDATA[서명]]></value>
@@ -282,6 +301,7 @@
 		<value xml:lang="es"><![CDATA[Firma]]></value>
 		<value xml:lang="tr"><![CDATA[İmza]]></value>
 		<value xml:lang="vi"><![CDATA[Chữ kí]]></value>
+        <value xml:lang="ro"><![CDATA[Semnătură]]></value>
 	</item>
 	<item name="profile_image">
 		<value xml:lang="ko"><![CDATA[프로필 사진]]></value>
@@ -294,6 +314,7 @@
 		<value xml:lang="es"><![CDATA[Perfil de Imagen]]></value>
 		<value xml:lang="tr"><![CDATA[Profil Resmi]]></value>
 		<value xml:lang="vi"><![CDATA[Hình đại diện]]></value>
+        <value xml:lang="ro"><![CDATA[Imagine profil]]></value>
 	</item>
 	<item name="profile_image_max_width">
 		<value xml:lang="ko"><![CDATA[가로 제한 길이]]></value>
@@ -306,6 +327,7 @@
 		<value xml:lang="es"><![CDATA[Max Anchura]]></value>
 		<value xml:lang="tr"><![CDATA[En Yük. Genişlik]]></value>
 		<value xml:lang="vi"><![CDATA[Chiểu rộng tối đa]]></value>
+        <value xml:lang="ro"><![CDATA[Lăţime maximă]]></value>
 	</item>
 	<item name="profile_image_max_height">
 		<value xml:lang="ko"><![CDATA[세로 제한 길이]]></value>
@@ -318,6 +340,7 @@
 		<value xml:lang="es"><![CDATA[Max Altura]]></value>
 		<value xml:lang="tr"><![CDATA[En Yük. Uzunluk]]></value>
 		<value xml:lang="vi"><![CDATA[Chiều cao tối đa&nbsp;&nbsp;]]></value>
+        <value xml:lang="ro"><![CDATA[Înălţime maximă]]></value>
 	</item>
 	<item name="image_name">
 		<value xml:lang="ko"><![CDATA[이미지 이름]]></value>
@@ -330,6 +353,7 @@
 		<value xml:lang="es"><![CDATA[Nombre de la imagen]]></value>
 		<value xml:lang="tr"><![CDATA[Resim İsmi]]></value>
 		<value xml:lang="vi"><![CDATA[Hình thay thế tên hiển thị]]></value>
+        <value xml:lang="ro"><![CDATA[Nume imagine]]></value>
 	</item>
 	<item name="image_name_max_width">
 		<value xml:lang="ko"><![CDATA[가로 제한 길이]]></value>
@@ -342,6 +366,7 @@
 		<value xml:lang="es"><![CDATA[Ancho Máximo]]></value>
 		<value xml:lang="tr"><![CDATA[En Yük. Genişlik]]></value>
 		<value xml:lang="vi"><![CDATA[Chiểu rộng tối đa]]></value>
+        <value xml:lang="ro"><![CDATA[Laţime maximă]]></value>
 	</item>
 	<item name="image_name_max_height">
 		<value xml:lang="ko"><![CDATA[세로 제한 길이]]></value>
@@ -354,6 +379,7 @@
 		<value xml:lang="es"><![CDATA[Altura Máxima]]></value>
 		<value xml:lang="tr"><![CDATA[En Yük. Uzunluk]]></value>
 		<value xml:lang="vi"><![CDATA[Chiều cao tối đa&nbsp;&nbsp;]]></value>
+        <value xml:lang="ro"><![CDATA[Înalţime maximă]]></value>
 	</item>
 	<item name="image_mark">
 		<value xml:lang="ko"><![CDATA[이미지 마크]]></value>
@@ -365,6 +391,7 @@
 		<value xml:lang="es"><![CDATA[Marca de la imagen]]></value>
 		<value xml:lang="tr"><![CDATA[Resim İmi]]></value>
 		<value xml:lang="vi"><![CDATA[Hình đánh dấu]]></value>
+        <value xml:lang="ro"><![CDATA[Marcă imagine]]></value>
 	</item>
 	<item name="image_mark_max_width">
 		<value xml:lang="ko"><![CDATA[가로 제한 길이]]></value>
@@ -377,6 +404,7 @@
 		<value xml:lang="es"><![CDATA[Ancho Máximo]]></value>
 		<value xml:lang="tr"><![CDATA[En Yük. Genişlik]]></value>
 		<value xml:lang="vi"><![CDATA[Chiểu rộng tối đa]]></value>
+        <value xml:lang="ro"><![CDATA[Laţime maximă]]></value>
 	</item>
 	<item name="image_mark_max_height">
 		<value xml:lang="ko"><![CDATA[세로 제한 길이]]></value>
@@ -389,6 +417,7 @@
 		<value xml:lang="es"><![CDATA[Altura Máxima]]></value>
 		<value xml:lang="tr"><![CDATA[En Yük. Uzunluk]]></value>
 		<value xml:lang="vi"><![CDATA[Chiều cao tối đa&nbsp;&nbsp;]]></value>
+        <value xml:lang="ro"><![CDATA[Înalţime maximă]]></value>
 	</item>
 	<item name="group_image_mark">
 		<value xml:lang="ko"><![CDATA[그룹 이미지 마크]]></value>
@@ -398,6 +427,7 @@
 		<value xml:lang="zh-TW"><![CDATA[群組圖示]]></value>
 		<value xml:lang="tr"><![CDATA[Grup Simgesi]]></value>
 		<value xml:lang="vi"><![CDATA[Hình đại diện nhóm]]></value>
+        <value xml:lang="ro"><![CDATA[Marcă imagine grup]]></value>
 	</item>
 	<item name="group_image_mark_max_width">
 		<value xml:lang="ko"><![CDATA[가로 제한 길이]]></value>
@@ -410,6 +440,7 @@
 		<value xml:lang="es"><![CDATA[Ancho Máximo]]></value>
 		<value xml:lang="tr"><![CDATA[En Yük. Genişlik]]></value>
 		<value xml:lang="vi"><![CDATA[Chiểu rộng tối đa]]></value>
+        <value xml:lang="ro"><![CDATA[Laţime maximă]]></value>
 	</item>
 	<item name="group_image_mark_max_height">
 		<value xml:lang="ko"><![CDATA[세로 제한 길이]]></value>
@@ -422,6 +453,7 @@
 		<value xml:lang="es"><![CDATA[Altura Máxima]]></value>
 		<value xml:lang="tr"><![CDATA[En Yük. Uzunluk]]></value>
 		<value xml:lang="vi"><![CDATA[Chiều cao tối đa&nbsp;&nbsp;]]></value>
+        <value xml:lang="ro"><![CDATA[Înalţime maximă]]></value>
 	</item>
 	<item name="signature_max_height">
 		<value xml:lang="ko"><![CDATA[서명 높이 제한]]></value>
@@ -432,6 +464,7 @@
 		<value xml:lang="fr"><![CDATA[Hauteur Maximum de la Signature]]></value>
 		<value xml:lang="tr"><![CDATA[En Yük. İmza Uzunluğu]]></value>
 		<value xml:lang="vi"><![CDATA[Chiều cao lớn nhất của chữ kí]]></value>
+        <value xml:lang="ro"><![CDATA[Înălţime maximă semnătură]]></value>
 	</item>
 	<item name="enable_join">
 		<value xml:lang="ko"><![CDATA[회원 가입 허가]]></value>
@@ -444,6 +477,7 @@
 		<value xml:lang="es"><![CDATA[Permitir el registro del usuario]]></value>
 		<value xml:lang="tr"><![CDATA[Yeni Üye Kabul Et]]></value>
 		<value xml:lang="vi"><![CDATA[Đồng ý đăng kí thành viên]]></value>
+        <value xml:lang="ro"><![CDATA[Acceptă membri noi.]]></value>
 	</item>
 	<item name="enable_confirm">
 		<value xml:lang="ko"><![CDATA[메일 인증 사용]]></value>
@@ -455,6 +489,7 @@
 		<value xml:lang="ru"><![CDATA[Активация по email]]></value>
 		<value xml:lang="tr"><![CDATA[E-posta Doğrulaması]]></value>
 		<value xml:lang="vi"><![CDATA[Xác nhận qua Email]]></value>
+        <value xml:lang="ro"><![CDATA[Activare prin e-mai necesară]]></value>
 	</item>
 	<item name="enable_ssl">
 		<value xml:lang="ko"><![CDATA[SSL 기능 사용]]></value>
@@ -467,6 +502,7 @@
 		<value xml:lang="es"><![CDATA[Activar SSL]]></value>
 		<value xml:lang="tr"><![CDATA[SSL Etkinleştir]]></value>
 		<value xml:lang="vi"><![CDATA[Mở SSL]]></value>
+        <value xml:lang="ro"><![CDATA[Activează SSL]]></value>
 	</item>
 	<item name="security_sign_in">
 		<value xml:lang="ko"><![CDATA[보안로그인 사용]]></value>
@@ -477,6 +513,7 @@
 		<value xml:lang="fr"><![CDATA[Ouvrir une Session en utilisant sécurité rehaussé]]></value>
 		<value xml:lang="tr"><![CDATA[Gelişmiş güvenliği kullanarak giriş yap]]></value>
 		<value xml:lang="vi"><![CDATA[Bảo mật đăng nhập]]></value>
+        <value xml:lang="ro"><![CDATA[Autentificare cu securitate sporită]]></value>
 	</item>
 	<item name="limit_day">
 		<value xml:lang="ko"><![CDATA[임시 제한 일자]]></value>
@@ -489,6 +526,7 @@
 		<value xml:lang="es"><![CDATA[Límite de la fecha temporal]]></value>
 		<value xml:lang="tr"><![CDATA[Geçici Zaman Sınırı]]></value>
 		<value xml:lang="vi"><![CDATA[Hạn sử dụng]]></value>
+        <value xml:lang="ro"><![CDATA[Dată limită temporară]]></value>
 	</item>
 	<item name="limit_date">
 		<value xml:lang="ko"><![CDATA[제한일]]></value>
@@ -501,6 +539,7 @@
 		<value xml:lang="es"><![CDATA[Límite de fecha]]></value>
 		<value xml:lang="tr"><![CDATA[Zaman Sınırı]]></value>
 		<value xml:lang="vi"><![CDATA[Ngày giới hạn]]></value>
+        <value xml:lang="ro"><![CDATA[Dată limită]]></value>
 	</item>
 	<item name="after_login_url">
 		<value xml:lang="ko"><![CDATA[로그인 후 이동할 주소(URL)]]></value>
@@ -513,6 +552,7 @@
 		<value xml:lang="es"><![CDATA[URL después del inicio de sesión]]></value>
 		<value xml:lang="tr"><![CDATA[Giriş yaptıktan sonraki URL]]></value>
 		<value xml:lang="vi"><![CDATA[URL sau khi đăng nhập]]></value>
+        <value xml:lang="ro"><![CDATA[URL redirectare după autentificare]]></value>
 	</item>
 	<item name="after_logout_url">
 		<value xml:lang="ko"><![CDATA[로그아웃 후 이동할 주소(URL)]]></value>
@@ -525,6 +565,7 @@
 		<value xml:lang="es"><![CDATA[URL después de cerrar sesión]]></value>
 		<value xml:lang="tr"><![CDATA[Çıkış yaptıktan sonraki URL]]></value>
 		<value xml:lang="vi"><![CDATA[URL sau khi thoát]]></value>
+        <value xml:lang="ro"><![CDATA[URL redirectare după ieşire din cont]]></value>
 	</item>
 	<item name="redirect_url">
 		<value xml:lang="ko"><![CDATA[회원 가입 후 이동할 페이지]]></value>
@@ -537,6 +578,7 @@
 		<value xml:lang="es"><![CDATA[URL luego del registro]]></value>
 		<value xml:lang="tr"><![CDATA[Giriş yaptıktan sonraki URL]]></value>
 		<value xml:lang="vi"><![CDATA[URL sau khi đăng kí]]></value>
+        <value xml:lang="ro"><![CDATA[URL redirectare după înregistrare]]></value>
 	</item>
 	<item name="agreement">
 		<value xml:lang="ko"><![CDATA[회원 가입 약관]]></value>
@@ -549,6 +591,7 @@
 		<value xml:lang="es"><![CDATA[Acuerdo del registro del usuario]]></value>
 		<value xml:lang="tr"><![CDATA[Üyelik Sözleşmesi]]></value>
 		<value xml:lang="vi"><![CDATA[Quy định sử dụng]]></value>
+        <value xml:lang="ro"><![CDATA[Termeni servicii]]></value>
 	</item>
 	<item name="accept_agreement">
 		<value xml:lang="ko"><![CDATA[약관동의]]></value>
@@ -561,6 +604,7 @@
 		<value xml:lang="es"><![CDATA[Acepto]]></value>
 		<value xml:lang="tr"><![CDATA[Kabul Et]]></value>
 		<value xml:lang="vi"><![CDATA[Đồng ý]]></value>
+        <value xml:lang="ro"><![CDATA[Sunt de acord]]></value>
 	</item>
 	<item name="member_info">
 		<value xml:lang="ko"><![CDATA[회원 정보]]></value>
@@ -586,6 +630,7 @@
 		<value xml:lang="es"><![CDATA[Contraseña actual]]></value>
 		<value xml:lang="tr"><![CDATA[Geçerli Şifre]]></value>
 		<value xml:lang="vi"><![CDATA[Mật khẩu hiện tại]]></value>
+        <value xml:lang="ro"><![CDATA[Parolă curentă]]></value>
 	</item>
 	<item name="allow_message">
 		<value xml:lang="ko"><![CDATA[쪽지 허용]]></value>
@@ -644,6 +689,7 @@
 		<value xml:lang="es"><![CDATA[쪽지 허용 방법 및 대상을 지정할 수 있습니다]]></value>
 		<value xml:lang="tr"><![CDATA[Mesajlaşmaya izin verebilir/reddedebilirsiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể chấp nhận hoặc từ chối những tin nhắn.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi permite sau respinge mesaje.]]></value>
 	</item>
 	<item name="logged_users">
 		<value xml:lang="ko"><![CDATA[현재 접속자]]></value>
@@ -656,6 +702,7 @@
 		<value xml:lang="es"><![CDATA[Logged Users]]></value>
 		<value xml:lang="tr"><![CDATA[Giriş yapmış Kullanıcılar]]></value>
 		<value xml:lang="vi"><![CDATA[Thành viên đăng nhập]]></value>
+        <value xml:lang="ro"><![CDATA[Utilizatori autentificaţi]]></value>
 	</item>
 	<item name="webmaster_name">
 		<value xml:lang="ko"><![CDATA[웹마스터 이름]]></value>
@@ -668,6 +715,7 @@
 		<value xml:lang="es"><![CDATA[Nombre del Webmaster]]></value>
 		<value xml:lang="tr"><![CDATA[Webmaster İsmi]]></value>
 		<value xml:lang="vi"><![CDATA[Tên Webmaster]]></value>
+        <value xml:lang="ro"><![CDATA[Nume Webmaster]]></value>
 	</item>
 	<item name="webmaster_email">
 		<value xml:lang="ko"><![CDATA[웹마스터 메일주소]]></value>
@@ -680,14 +728,17 @@
 		<value xml:lang="es"><![CDATA[Correo electrónico Webmaster]]></value>
 		<value xml:lang="tr"><![CDATA[Webmaster E-postası]]></value>
 		<value xml:lang="vi"><![CDATA[ Email Webmaster]]></value>
+        <value xml:lang="ro"><![CDATA[E-mail webmaster]]></value>
 	</item>
 	<item name="column_id">
 		<value xml:lang="ko"><![CDATA[입력항목 ID]]></value>
 		<value xml:lang="en"><![CDATA[The column id]]></value>
+        <value xml:lang="ro"><![CDATA[Id coloană]]></value>
 	</item>
 	<item name="about_column_id">
 		<value xml:lang="ko"><![CDATA[입력항목의 구분자로 사용될 ID입니다. 영문으로 시작하고 영문 숫자만 사용가능합니다.]]></value>
 		<value xml:lang="ko"><![CDATA[This value will not be displayed on frontend, it will be used as an internal Id.]]></value>
+        <value xml:lang="ro"><![CDATA[Această valoare nu se va afişa în site. Va fi folosită ca id intern.]]></value>
 	</item>
 	<item name="about_keep_signed">
 		<value xml:lang="ko"><![CDATA[브라우저를 닫더라도 로그인이 계속 유지될 수 있습니다.\n\n로그인 유지 기능을 사용할 경우 다음 접속부터는 로그인을 하실 필요가 없습니다.\n\n단, 게임방, 학교 등 공공장소에서 이용 시 개인정보가 유출될 수 있으니 꼭 로그아웃을 해주세요.]]></value>
@@ -700,6 +751,7 @@
 		<value xml:lang="es"><![CDATA[브라우저를 닫더라도 로그인이 계속 유지될 수 있습니다.\n\n로그인 유지 기능을 사용할 경우 다음 접속부터는 로그인을 하실 필요가 없습니다.\n\n단, 게임방, 학교 등 공공장소에서 이용시 개인정보가 유출될 수 있으니 꼭 로그아웃을 해주세요]]></value>
 		<value xml:lang="tr"><![CDATA[Tarayıcıyı kapatsanız da sisteme bağlı kalacaksınız.\n\nEğer ortak bir bilgisayar kullanıyorsanız, kişisel bilgilerinizin gizliliği için bunu önermiyoruz]]></value>
 		<value xml:lang="vi"><![CDATA[Mặc dù tắt trình duyệt nhưng thông tin đăng nhập của bạn vẫn được lưu lại trên máy tính này.\n\nNếu bạn sử dụng máy tính dùng chung, người khác cũng có thể đăng nhập dưới tên truy cập của bạn. Vì vậy chức năng này không nên sử dụng nếu máy tính này không phải của riêng bạn!]]></value>
+        <value xml:lang="ro"><![CDATA[Vei rămâne autentificat si după închiderea browser-ului. Nu se recomandă dacă te afli in faţa unui calculator public.]]></value>
 	</item>
 	<item name="about_keep_warning">
 		<value xml:lang="ko"><![CDATA[브라우저를 닫더라도 로그인이 계속 유지될 수 있습니다. 로그인 유지 기능을 사용할 경우 다음 접속부터는 로그인을 하실 필요가 없습니다. 단, 게임방, 학교 등 공공장소에서 이용 시 개인정보가 유출될 수 있으니 꼭 로그아웃을 해주세요.]]></value>
@@ -724,6 +776,7 @@
 		<value xml:lang="es"><![CDATA[Por favor, webmaster de entrada el nombre que se utilizará para la autenticación de los correos u otros sitio de la administración. (Por defecto: webmaster)]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen onay maillerinde veya site yönetiminde kullanılacak webmaster ismini giriniz. (varsayılan : webmaster)]]></value>
 		<value xml:lang="vi"><![CDATA[Xin hãy nhập tên của Webmaster để nhận Email và quản lý. (Mặc định: webmaster)]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu numele webmaster-ului ce va fi folosit pentru verificarea e-mail-urilor şi alte elemente de administrare a site-ului (implicit: webmaster)]]></value>
 	</item>
 	<item name="about_webmaster_email">
 		<value xml:lang="ko"><![CDATA[웹마스터의 메일 주소를 입력해주세요.]]></value>
@@ -736,6 +789,7 @@
 		<value xml:lang="es"><![CDATA[Introduzca la dirección de correo electrónico webmaster.]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen webmaster e-posta adresini giriniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Xin hãy nhập Email của Webmaster.]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu adresa de e-mail a webmaster-ului]]></value>
 	</item>
 	<item name="search_target_list" type="array">
 		<item name="email_address">
@@ -749,6 +803,7 @@
 			<value xml:lang="es"><![CDATA[Dirección de Email]]></value>
 			<value xml:lang="tr"><![CDATA[E-posta Adresi]]></value>
 			<value xml:lang="vi"><![CDATA[Địa chỉ Email]]></value>
+            <value xml:lang="ro"><![CDATA[Adresă e-mail]]></value>
 		</item>
 		<item name="regdate">
 			<value xml:lang="ko"><![CDATA[가입일시]]></value>
@@ -761,6 +816,7 @@
 			<value xml:lang="es"><![CDATA[Fecha del registro]]></value>
 			<value xml:lang="tr"><![CDATA[Kayıt Tarihi]]></value>
 			<value xml:lang="vi"><![CDATA[Ngày đăng kí]]></value>
+            <value xml:lang="ro"><![CDATA[Data înscrierii]]></value>
 		</item>
 		<item name="regdate_more">
 			<value xml:lang="ko"><![CDATA[가입일시(이상)]]></value>
@@ -771,6 +827,7 @@
 			<value xml:lang="ru"><![CDATA[Дата регистрации(more)]]></value>
 			<value xml:lang="tr"><![CDATA[Kayıt Tarihi (detaylı)]]></value>
 			<value xml:lang="vi"><![CDATA[Ngày đăng kí nhiều nhất]]></value>
+            <value xml:lang="ro"><![CDATA[Data înscrierii (după)]]></value>
 		</item>
 		<item name="regdate_less">
 			<value xml:lang="ko"><![CDATA[가입일시(이하)]]></value>
@@ -781,6 +838,7 @@
 			<value xml:lang="ru"><![CDATA[Дата регистрации(less)]]></value>
 			<value xml:lang="tr"><![CDATA[Kayıt Tarihi (basit)]]></value>
 			<value xml:lang="vi"><![CDATA[Ngày đăng kí ít nhất]]></value>
+            <value xml:lang="ro"><![CDATA[Data înscrierii (înainte de)]]></value>
 		</item>
 		<item name="last_login">
 			<value xml:lang="ko"><![CDATA[최근 로그인 일시]]></value>
@@ -793,6 +851,7 @@
 			<value xml:lang="es"><![CDATA[Fecha de su última conección]]></value>
 			<value xml:lang="tr"><![CDATA[Son Giriş Tarihi]]></value>
 			<value xml:lang="vi"><![CDATA[Lần cuối đăng nhập]]></value>
+            <value xml:lang="ro"><![CDATA[Ultima autentificare]]></value>
 		</item>
 		<item name="last_login_more">
 			<value xml:lang="ko"><![CDATA[최근 로그인 일시(이상)]]></value>
@@ -804,6 +863,7 @@
 			<value xml:lang="es"><![CDATA[최근로그인일시(이상)]]></value>
 			<value xml:lang="tr"><![CDATA[Son Giriş Tarihi (detaylı)]]></value>
 			<value xml:lang="vi"><![CDATA[Đăng nhập nhiều nhất]]></value>
+            <value xml:lang="ro"><![CDATA[Ultima autentificare (după)]]></value>
 		</item>
 		<item name="last_login_less">
 			<value xml:lang="ko"><![CDATA[최근 로그인 일시(이하)]]></value>
@@ -815,6 +875,7 @@
 			<value xml:lang="es"><![CDATA[최근로그인일시(이하)]]></value>
 			<value xml:lang="tr"><![CDATA[Son Giriş Tarihi (basit)]]></value>
 			<value xml:lang="vi"><![CDATA[Đăng nhập ít nhất]]></value>
+            <value xml:lang="ro"><![CDATA[Ultima autentificare (înainte de)]]></value>
 		</item>
 		<item name="extra_vars">
 			<value xml:lang="ko"><![CDATA[확장변수]]></value>
@@ -827,11 +888,13 @@
 			<value xml:lang="es"><![CDATA[Variables Extra]]></value>
 			<value xml:lang="tr"><![CDATA[Fazladan Çeş.]]></value>
 			<value xml:lang="vi"><![CDATA[Thông tin bổ xung]]></value>
+            <value xml:lang="ro"><![CDATA[Variabile suplimentare]]></value>
 		</item>
 	</item>
 	<item name="cmd_modify_new_auth_email_address">
 		<value xml:lang="ko"><![CDATA[신규 메일 주소로 변경 후 인증 메일 발송]]></value>
 		<value xml:lang="en"><![CDATA[New email address]]></value>
+        <value xml:lang="ro"><![CDATA[Adresă de e-mail nouă]]></value>
 	</item>
 	<item name="cmd_login">
 		<value xml:lang="ko"><![CDATA[로그인]]></value>
@@ -883,22 +946,26 @@
 		<value xml:lang="es"><![CDATA[Join]]></value>
 		<value xml:lang="tr"><![CDATA[Kaydol]]></value>
 		<value xml:lang="vi"><![CDATA[Đăng kí]]></value>
+        <value xml:lang="ro"><![CDATA[Autentificare]]></value>
 	</item>
 	<item name="cmd_modify_member_email_address">
 		<value xml:lang="ko"><![CDATA[이메일 주소 변경]]></value>
 		<value xml:lang="en"><![CDATA[Change Email Address]]></value>
 		<value xml:lang="zh-TW"><![CDATA[變更電子郵件地址]]></value>
+        <value xml:lang="ro"><![CDATA[Schimbă adresa de e-mail]]></value>
 	</item>
 	<item name="about_modify_member_email_address">
 		<value xml:lang="ko"><![CDATA[사용하시는 이메일 주소를 변경할 수 있습니다.]]></value>
 		<value xml:lang="en"><![CDATA[You could change Email Address.]]></value>
 		<value xml:lang="zh-TW"><![CDATA[可變更電子郵件地址]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi schimba adresa de e-mail]]></value>
 	</item>
 	<item name="cmd_modify_member_info">
 		<value xml:lang="ko"><![CDATA[회원정보 변경]]></value>
 		<value xml:lang="en"><![CDATA[Change Member Info]]></value>
 		<value xml:lang="jp"><![CDATA[会員番号変更]]></value>
 		<value xml:lang="zh-TW"><![CDATA[變更會員資料]]></value>
+        <value xml:lang="ro"><![CDATA[Schimbă informaţii utilizator]]></value>
 	</item>
 	<item name="cmd_modify_member_password">
 		<value xml:lang="ko"><![CDATA[비밀번호 변경]]></value>
@@ -911,6 +978,7 @@
 		<value xml:lang="es"><![CDATA[Cambiar la contraseña]]></value>
 		<value xml:lang="tr"><![CDATA[Şifreyi Düzenle]]></value>
 		<value xml:lang="vi"><![CDATA[Sửa đổi mật khẩu]]></value>
+        <value xml:lang="ro"><![CDATA[Schimbă parola]]></value>
 	</item>
 	<item name="cmd_view_member_info">
 		<value xml:lang="ko"><![CDATA[회원정보 보기]]></value>
@@ -924,6 +992,7 @@
 		<value xml:lang="tr"><![CDATA[Üye Bilgisi]]></value>
 		<value xml:lang="vi"><![CDATA[Xem thông tin cá nhân]]></value>
         <value xml:lang="ro"><![CDATA[Detalii cont]]></value>
+        <value xml:lang="ro"><![CDATA[Vezi informaţii utilizator]]></value>
 	</item>
 	<item name="cmd_leave">
 		<value xml:lang="ko"><![CDATA[탈퇴]]></value>
@@ -936,6 +1005,7 @@
 		<value xml:lang="es"><![CDATA[Dejar de ser usuario]]></value>
 		<value xml:lang="tr"><![CDATA[Ayrıl]]></value>
 		<value xml:lang="vi"><![CDATA[Từ bỏ]]></value>
+        <value xml:lang="ro"><![CDATA[Şterge contul]]></value>
 	</item>
 	<item name="cmd_find_member_account">
 		<value xml:lang="ko"><![CDATA[아이디/비밀번호 찾기]]></value>
@@ -947,14 +1017,17 @@
 		<value xml:lang="ru"><![CDATA[Найти ID/пароль]]></value>
 		<value xml:lang="tr"><![CDATA[Hesap Bilgisi Bul]]></value>
 		<value xml:lang="vi"><![CDATA[Lấy lại thông tin]]></value>
+        <value xml:lang="ro"><![CDATA[Caută informaţii cont]]></value>
 	</item>
 	<item name="cmd_find_member_account_with_email">
 		<value xml:lang="ko"><![CDATA[이메일 주소로 계정 찾기]]></value>
 		<value xml:lang="en"><![CDATA[Find Account with Email address]]></value>
+        <value xml:lang="ro"><![CDATA[Caută contul după adresa de e-mail]]></value>
 	</item>
 	<item name="cmd_find_member_account_with_email_question">
 		<value xml:lang="ko"><![CDATA[질문/답변으로 계정 찾기]]></value>
 		<value xml:lang="en"><![CDATA[Find Account with Q&amp;A]]></value>
+        <value xml:lang="ro"><![CDATA[Caută contul după întrebare şi răspuns.]]></value>
 	</item>
 	<item name="cmd_resend_auth_mail">
 		<value xml:lang="ko"><![CDATA[인증 메일 재발송]]></value>
@@ -965,11 +1038,13 @@
 		<value xml:lang="ru"><![CDATA[Послать email для авторизации]]></value>
 		<value xml:lang="tr"><![CDATA[Etkinleştirme Maili Talebinde Bulun]]></value>
 		<value xml:lang="vi"><![CDATA[Xác nhận lại Email]]></value>
+        <value xml:lang="ro"><![CDATA[Cerere e-mail activare]]></value>
 	</item>
 	<item name="cmd_send_auth_new_emaill_address">
 		<value xml:lang="ko"><![CDATA[신규 메일 주소로 인증 메일 발송]]></value>
 		<value xml:lang="zh-TW"><![CDATA[發送新的電子認證郵件]]></value>
 		<value xml:lang="en"><![CDATA[Request for activation mail to new email]]></value>
+        <value xml:lang="ro"><![CDATA[Cerere e-mail de activare pentru adresa nouă de e-mail]]></value>
 	</item>
 	<item name="cmd_member_list">
 		<value xml:lang="ko"><![CDATA[회원 목록]]></value>
@@ -982,6 +1057,7 @@
 		<value xml:lang="es"><![CDATA[Lista de los Usuarios]]></value>
 		<value xml:lang="tr"><![CDATA[Üye Listesi]]></value>
 		<value xml:lang="vi"><![CDATA[Danh sách thành viên]]></value>
+        <value xml:lang="ro"><![CDATA[Membri]]></value>
 	</item>
 	<item name="cmd_module_config">
 		<value xml:lang="ko"><![CDATA[기본 설정]]></value>
@@ -994,6 +1070,7 @@
 		<value xml:lang="es"><![CDATA[Configuración predefinidos]]></value>
 		<value xml:lang="tr"><![CDATA[Varsayılan Ayar]]></value>
 		<value xml:lang="vi"><![CDATA[Thiết lập mặc định]]></value>
+        <value xml:lang="ro"><![CDATA[Setări implicite]]></value>
 	</item>
 	<item name="cmd_member_group">
 		<value xml:lang="ko"><![CDATA[그룹 관리]]></value>
@@ -1006,6 +1083,7 @@
 		<value xml:lang="es"><![CDATA[Manejo del grupo]]></value>
 		<value xml:lang="tr"><![CDATA[Üye Grupları]]></value>
 		<value xml:lang="vi"><![CDATA[Quản lý nhóm]]></value>
+        <value xml:lang="ro"><![CDATA[Grupuri de membri]]></value>
 	</item>
 	<item name="cmd_send_mail">
 		<value xml:lang="ko"><![CDATA[메일발송]]></value>
@@ -1018,6 +1096,7 @@
 		<value xml:lang="es"><![CDATA[Enviar Email]]></value>
 		<value xml:lang="tr"><![CDATA[Mail Gönder]]></value>
 		<value xml:lang="vi"><![CDATA[Gửi Email]]></value>
+        <value xml:lang="ro"><![CDATA[Trimite e-mail]]></value>
 	</item>
 	<item name="cmd_manage_id">
 		<value xml:lang="ko"><![CDATA[금지 아이디 관리]]></value>
@@ -1030,10 +1109,12 @@
 		<value xml:lang="es"><![CDATA[Manejo de ID prohibidos]]></value>
 		<value xml:lang="tr"><![CDATA[Yasaklanmış Kimlikler]]></value>
 		<value xml:lang="vi"><![CDATA[Tên sử dụng cấm đăng kí]]></value>
+        <value xml:lang="ro"><![CDATA[ID-uri interzise]]></value>
 	</item>
 	<item name="cmd_manage_nick_name">
 		<value xml:lang="ko"><![CDATA[금지 닉네임 관리]]></value>
 		<value xml:lang="en"><![CDATA[Prohibited NickNames]]></value>
+        <value xml:lang="ro"><![CDATA[Aliasuri interzise]]></value>
 	</item>
 	<item name="cmd_manage_form">
 		<value xml:lang="ko"><![CDATA[가입 폼 관리]]></value>
@@ -1046,6 +1127,7 @@
 		<value xml:lang="es"><![CDATA[Manejo de forma del registro]]></value>
 		<value xml:lang="tr"><![CDATA[Kayıt Formu]]></value>
 		<value xml:lang="vi"><![CDATA[Quản lý mẫu đăng kí]]></value>
+        <value xml:lang="ro"><![CDATA[Câmpuri formular înregistrare]]></value>
 	</item>
 	<item name="cmd_view_own_document">
 		<value xml:lang="ko"><![CDATA[작성 글 보기]]></value>
@@ -1059,6 +1141,7 @@
 		<value xml:lang="tr"><![CDATA[Yazılmış Makaleler]]></value>
 		<value xml:lang="vi"><![CDATA[Bài gửi]]></value>
         <value xml:lang="en"><![CDATA[Documente scrise]]></value>
+        <value xml:lang="ro"><![CDATA[Documente scrise]]></value>
 	</item>
 	<item name="cmd_manage_member_info">
 		<value xml:lang="ko"><![CDATA[회원 정보 관리]]></value>
@@ -1069,6 +1152,7 @@
 		<value xml:lang="ru"><![CDATA[Изменить информацию пользователя]]></value>
 		<value xml:lang="tr"><![CDATA[Üye Bilgisini Yönet]]></value>
 		<value xml:lang="vi"><![CDATA[Quản lý thông tin thành viên]]></value>
+        <value xml:lang="ro"><![CDATA[Administrare informaţii membru]]></value>
 	</item>
 	<item name="cmd_trace_document">
 		<value xml:lang="ko"><![CDATA[작성글 추적]]></value>
@@ -1079,6 +1163,7 @@
 		<value xml:lang="fr"><![CDATA[Tracer les Articles écrits]]></value>
 		<value xml:lang="tr"><![CDATA[Yazılmış Makalelerini Gör]]></value>
 		<value xml:lang="vi"><![CDATA[Theo dõi chủ đề]]></value>
+        <value xml:lang="ro"><![CDATA[Urmăreşte documentele scrise]]></value>
 	</item>
 	<item name="cmd_trace_comment">
 		<value xml:lang="ko"><![CDATA[작성 댓글 추적]]></value>
@@ -1089,6 +1174,7 @@
 		<value xml:lang="fr"><![CDATA[Tracer les Commentaires écrits]]></value>
 		<value xml:lang="tr"><![CDATA[Yazılmış Yorumlarını Gör]]></value>
 		<value xml:lang="vi"><![CDATA[Theo dõi thảo luận]]></value>
+        <value xml:lang="ro"><![CDATA[Urmăreşte comentariile scrise]]></value>
 	</item>
 	<item name="cmd_view_scrapped_document">
 		<value xml:lang="ko"><![CDATA[스크랩 보기]]></value>
@@ -1140,6 +1226,7 @@
 		<value xml:lang="es"><![CDATA[Email address doesn't exists]]></value>
 		<value xml:lang="tr"><![CDATA[Geçerli olmayan bir e-posta adresi girdiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn đã nhập sai Email]]></value>
+        <value xml:lang="ro"><![CDATA[Ai intordus o adresă de e-mail incorectă]]></value>
 	</item>
 	<item name="msg_alreay_scrapped">
 		<value xml:lang="ko"><![CDATA[이미 스크랩된 게시물입니다.]]></value>
@@ -1152,6 +1239,7 @@
 		<value xml:lang="es"><![CDATA[Este documento ya esta hecho scrap]]></value>
 		<value xml:lang="tr"><![CDATA[Bu makale zaten hasarlı]]></value>
 		<value xml:lang="vi"><![CDATA[Bài viết đã được phân loại.]]></value>
+        <value xml:lang="ro"><![CDATA[Acest document este deja temporar]]></value>
 	</item>
 	<item name="msg_cart_is_null">
 		<value xml:lang="ko"><![CDATA[대상을 선택해주세요.]]></value>
@@ -1164,6 +1252,7 @@
 		<value xml:lang="es"><![CDATA[Seleciona el objetivo]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen hedefi seçiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Xin vui lòng lựa chọn vị trí]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează obiectivul]]></value>
 	</item>
 	<item name="msg_checked_file_is_deleted">
 		<value xml:lang="ko"><![CDATA[%d개의 첨부 파일이 삭제되었습니다.]]></value>
@@ -1176,6 +1265,7 @@
 		<value xml:lang="es"><![CDATA[%d archivos adjuntos son eliminados]]></value>
 		<value xml:lang="tr"><![CDATA[%d isimli ek dosya silindi]]></value>
 		<value xml:lang="vi"><![CDATA[%d đính kèm đã được xóa.]]></value>
+        <value xml:lang="ro"><![CDATA[%d fişiere ataşate sunt şterse]]></value>
 	</item>
 	<item name="msg_find_account_title">
 		<value xml:lang="ko"><![CDATA[아이디/비밀번호 정보입니다.]]></value>
@@ -1187,6 +1277,7 @@
 		<value xml:lang="ru"><![CDATA[Информация аккаунта]]></value>
 		<value xml:lang="tr"><![CDATA[Hesap Bilgisi]]></value>
 		<value xml:lang="vi"><![CDATA[Thông tin đăng kí tại Website http;//4all.kr]]></value>
+        <value xml:lang="ro"><![CDATA[Informaţii cont]]></value>
 	</item>
 	<item name="msg_find_account_info">
 		<value xml:lang="ko"><![CDATA[요청하신 계정 정보는 아래와 같습니다.]]></value>
@@ -1199,6 +1290,7 @@
 		<value xml:lang="es"><![CDATA[Esto se solicita la información de la cuenta]]></value>
 		<value xml:lang="tr"><![CDATA[Talep edilen hesap bilgisi.]]></value>
 		<value xml:lang="vi"><![CDATA[Thông tin tài khoản.]]></value>
+        <value xml:lang="ro"><![CDATA[Acestea sunt informaţiile de cont cerute]]></value>
 	</item>
 	<item name="msg_find_account_comment">
 		<value xml:lang="ko"><![CDATA[아래 링크를 클릭하시면 위에 적힌 비밀번호로 바뀌게 됩니다.<br />로그인 하신 후 비밀번호를 바꾸어주세요.]]></value>
@@ -1211,6 +1303,7 @@
 		<value xml:lang="es"><![CDATA[La contraseña se modificará para arriba al hacer clic en un enlace a continuación. <br /> Por favor, después de modificar la contraseña de acceso.]]></value>
 		<value xml:lang="tr"><![CDATA[Şifreniz aşağıdaki linke tıkladığınızda, yukardaki gibi değiştirilecektir.<br />Lütfen giriş yaptıktan sonra şifrenizi değiştiriniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Mật khẩu sẽ thay đổi khi bạn bấm vào đường Link này.<br />Xin vui lòng thay đổi mật khẩu sau khi đăng nhập!]]></value>
+        <value xml:lang="ro"><![CDATA[Parola va fi modificată cu cea de mai sus la click pe link-ul de mai jos.<br />Modifică parola după autentificare.]]></value>
 	</item>
 	<item name="msg_confirm_account_title">
 		<value xml:lang="ko"><![CDATA[가입 인증 메일입니다.]]></value>
@@ -1223,11 +1316,13 @@
 		<value xml:lang="es"><![CDATA[가입 인증 메일입니다]]></value>
 		<value xml:lang="tr"><![CDATA[Karybu Hesap Etkinleştirmesi]]></value>
 		<value xml:lang="vi"><![CDATA[Thông tin đăng kí thành viên tại Website http://4all.kr]]></value>
+        <value xml:lang="ro"><![CDATA[Activare cont Karybu]]></value>
 	</item>
 	<item name="title_modify_email_address">
 		<value xml:lang="ko"><![CDATA[이메일주소 변경 요청 확인 메일입니다.]]></value>
 		<value xml:lang="zh-TW"><![CDATA[電子郵件變更確認信]]></value>
         <value xml:lang="en"><![CDATA[Confirmation email is your email address change request.]]></value>
+        <value xml:lang="ro"><![CDATA[E-mail de confirmare pentru schimbarea adresei de e-mail]]></value>
 	</item>
 	<item name="msg_confirm_account_info">
 		<value xml:lang="ko"><![CDATA[가입하신 계정 정보는 아래와 같습니다.]]></value>
@@ -1240,6 +1335,7 @@
 		<value xml:lang="es"><![CDATA[가입하신 계정 정보는 아래와 같습니다]]></value>
 		<value xml:lang="tr"><![CDATA[Hesap Bilginiz:]]></value>
 		<value xml:lang="vi"><![CDATA[Đây là thông tin bạn đã đăng kí tại Website http://4all.kr:]]></value>
+        <value xml:lang="ro"><![CDATA[Acestea sunt informaţiile despre cont:]]></value>
 	</item>
 	<item name="msg_confirm_account_comment">
 		<value xml:lang="ko"><![CDATA[아래 링크를 클릭하시면 가입 인증이 이루어집니다.]]></value>
@@ -1251,11 +1347,13 @@
 		<value xml:lang="ru"><![CDATA[Подтвердите авторизацию, кликнув на ссылку ниже]]></value>
 		<value xml:lang="tr"><![CDATA[Hesabınızı etkinleştirmek için takip eden linke tıklayınız.]]></value>
 		<value xml:lang="vi"><![CDATA[Bấm vào đường Link này để hoàn tất việc đăng kí.]]></value>
+        <value xml:lang="ro"><![CDATA[Click pe link-ul de mai jos pentru activare cont.]]></value>
 	</item>
 	<item name="msg_confirm_email_address_change">
 		<value xml:lang="ko"><![CDATA[아래 링크를 클릭하시면 이메일 주소가 %s으로 변경됩니다.]]></value>
 		<value xml:lang="zh-TW"><![CDATA[請按底下連結將電子郵件變更為 %s]]></value>
         <value xml:lang="en"><![CDATA[Click the link below to e-mail address will be changed to %s]]></value>
+        <value xml:lang="ro"><![CDATA[Click pe lnik-ul de mai jos pentru a schimba adresa de e-mail în %s]]></value>
 	</item>
 	<item name="msg_auth_mail_sent">
 		<value xml:lang="ko"><![CDATA[%s 메일로 인증 정보를 담은 메일이 발송되었습니다. 메일을 확인하세요.]]></value>
@@ -1268,6 +1366,7 @@
 		<value xml:lang="es"><![CDATA[La autenticación de correo ha sido enviado a% s. Por favor, compruebe su correo.]]></value>
 		<value xml:lang="tr"><![CDATA[Etknileştirme maili %s adresine gönderildi. Lütfen mailinizi kontrol ediniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Email xác nhận đã được gửi đến %s. Xin vui lòng kiểm tra Inbox hoặc Bulk mail của bạn!]]></value>
+        <value xml:lang="ro"><![CDATA[E-mail-ul de activare a fost trimis catre %s. Verifică e-mail-ul.]]></value>
 	</item>
 	<item name="msg_confirm_mail_sent">
 		<value xml:lang="ko"><![CDATA[%s 메일로 가입 인증 메일이 발송되었습니다. 메일을 확인하세요.]]></value>
@@ -1279,11 +1378,13 @@
 		<value xml:lang="ru"><![CDATA[Письмо для авторизации отправлено для %s. Пожалуйста, проверьте Вашу почту]]></value>
 		<value xml:lang="tr"><![CDATA[%s adresine etkinleştirme maili gönderdik. Lütfen mailinizi kontrol ediniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Chúng tôi đã gửi Email xác nhận đến %s. Xin vui lòng bấm vào Link đi kèm trong Email để hoàn tất việc đăng kí!]]></value>
+        <value xml:lang="ro"><![CDATA[Un e-mail de activare a fost trimis către adresa %s. Verifică e-mail-ul.]]></value>
 	</item>
 	<item name="msg_invalid_modify_email_auth_key">
 		<value xml:lang="ko"><![CDATA[잘못된 이메일 변경 요청입니다.<br />이메일 변경요청을 다시 하시거나 사이트 관리자에게 문의해주세요.]]></value>
 		<value xml:lang="zh-TW"><![CDATA[無效的電子郵件變更請求。<br />要想變更電子郵件，請詢問網站管理員。]]></value>
         <value xml:lang="en"><![CDATA[Email is invalid change requests. <br /> Change email request again or contact the site administrator please]]></value>
+        <value xml:lang="ro"><![CDATA[Cererea de schimbare nu este validă.Fă o nouă cerere de schimbare sau contactează administratorul site-ului.]]></value>
 	</item>
 	<item name="msg_invalid_auth_key">
 		<value xml:lang="ko"><![CDATA[잘못된 계정 인증 요청입니다.<br />아이디/비밀번호 찾기를 다시 하시거나 사이트 관리자에게 계정 정보를 문의해주세요.]]></value>
@@ -1296,6 +1397,7 @@
 		<value xml:lang="es"><![CDATA[잘못된 계정 인증 요청입니다.<br />아이디/비밀번호 찾기를 다시 하시거나 사이트 관리자에게 계정 정보를 문의해주세요]]></value>
 		<value xml:lang="tr"><![CDATA[Geçersiz doğrulama talebi.<br />Lütfen hesap bilgisini tekrar bulmayı deneyin ya da yöneticilerle iletişime geçin.]]></value>
 		<value xml:lang="vi"><![CDATA[Xác nhận không hợp lệ.<br />Xin vui lòng kiểm tra lại hoặc liên hệ với Webmaster để được hỗ trợ!]]></value>
+        <value xml:lang="ro"><![CDATA[Cererea de verificare nu este validă.<br />Incearcă din nou sau contactează administratorul.]]></value>
 	</item>
 	<item name="msg_success_authed">
 		<value xml:lang="ko"><![CDATA[인증이 정상적으로 되어 로그인 되었습니다.\n꼭 인증 메일에 표시된 비밀번호를 이용하여 원하시는 비밀번호로 변경하세요.]]></value>
@@ -1308,6 +1410,7 @@
 		<value xml:lang="es"><![CDATA[Esto no es válido solicitud de autenticación. <br /> Por favor, inténtelo encontrar información de la cuenta o póngase en contacto con el administrador.]]></value>
 		<value xml:lang="tr"><![CDATA[Hesabınız başarıyla etkinleştirildi ve giriş yapıldı.\n Lütfen mailinize gelen şifreyi kullanarak yeni şifreinizi oluşturunuz.]]></value>
 		<value xml:lang="vi"><![CDATA[Tài khoản của bạn đã được xác nhận.\n Xin vui lòng thay đổi mật khẩu khác với mật khẩu trong Email và dễ nhớ hơn!]]></value>
+        <value xml:lang="ro"><![CDATA[Contul tau a fost activat cu succes. Modifică parola cu cea dorită.]]></value>
 	</item>
 	<item name="msg_success_confirmed">
 		<value xml:lang="ko"><![CDATA[가입 인증이 정상적으로 처리 되었습니다.]]></value>
@@ -1319,6 +1422,7 @@
 		<value xml:lang="ru"><![CDATA[Авторизация Вашего аккаунта прошла успешно]]></value>
 		<value xml:lang="tr"><![CDATA[Hesabınız başarıyla etkinleştirildi.]]></value>
 		<value xml:lang="vi"><![CDATA[Đã xác nhận thành công.<br />Xin cảm ơn đã tham gia cùng chúng tôi!]]></value>
+        <value xml:lang="ro"><![CDATA[Contul tău a fost activat cu succes.]]></value>
 	</item>
 	<item name="msg_new_member">
 		<value xml:lang="ko"><![CDATA[회원 추가]]></value>
@@ -1331,10 +1435,12 @@
 		<value xml:lang="es"><![CDATA[Agregar usuario]]></value>
 		<value xml:lang="tr"><![CDATA[Üye Ekle]]></value>
 		<value xml:lang="vi"><![CDATA[Thêm thành viên]]></value>
+        <value xml:lang="ro"><![CDATA[Adaugă membru]]></value>
 	</item>
 	<item name="msg_rechecked_password">
 		<value xml:lang="ko"><![CDATA[비밀번호 재확인]]></value>
 		<value xml:lang="en"><![CDATA[Re-checked password]]></value>
+        <value xml:lang="ro"><![CDATA[Verifică parola]]></value>
 	</item>
 	<item name="msg_update_member">
 		<value xml:lang="ko"><![CDATA[회원 정보 수정]]></value>
@@ -1347,6 +1453,7 @@
 		<value xml:lang="es"><![CDATA[Modificar información del usuario]]></value>
 		<value xml:lang="tr"><![CDATA[Üye Bilgisini Düzenle]]></value>
 		<value xml:lang="vi"><![CDATA[Sửa đổi thông tin thành viên]]></value>
+        <value xml:lang="ro"><![CDATA[Modifică informaţii utilizator]]></value>
 	</item>
 	<item name="msg_leave_member">
 		<value xml:lang="ko"><![CDATA[회원 탈퇴]]></value>
@@ -1359,6 +1466,7 @@
 		<value xml:lang="es"><![CDATA[Dejar de ser usuario]]></value>
 		<value xml:lang="tr"><![CDATA[Ayrıl]]></value>
 		<value xml:lang="vi"><![CDATA[Loại bỏ]]></value>
+        <value xml:lang="ro"><![CDATA[Şterge cont]]></value>
 	</item>
 	<item name="msg_group_is_null">
 		<value xml:lang="ko"><![CDATA[등록된 그룹이 없습니다.]]></value>
@@ -1371,6 +1479,7 @@
 		<value xml:lang="es"><![CDATA[No es un grupo registrado]]></value>
 		<value xml:lang="tr"><![CDATA[Grup yok]]></value>
 		<value xml:lang="vi"><![CDATA[Không đăng kí vào nhóm nào]]></value>
+        <value xml:lang="ro"><![CDATA[Nu există grupuri.]]></value>
 	</item>
 	<item name="msg_not_delete_default">
 		<value xml:lang="ko"><![CDATA[기본 항목을 삭제할 수 없습니다.]]></value>
@@ -1383,6 +1492,7 @@
 		<value xml:lang="es"><![CDATA[Los artículos predefinidos no pueden ser eliminados]]></value>
 		<value xml:lang="tr"><![CDATA[Varsayılan ögeler silinemez]]></value>
 		<value xml:lang="vi"><![CDATA[Mặc định không thể xóa]]></value>
+        <value xml:lang="ro"><![CDATA[Articolele implicite nu pot fi şterse.]]></value>
 	</item>
 	<item name="msg_not_exists_member">
 		<value xml:lang="ko"><![CDATA[존재하지 않는 회원입니다.]]></value>
@@ -1395,6 +1505,7 @@
 		<value xml:lang="es"><![CDATA[Este usuario no existe]]></value>
 		<value xml:lang="tr"><![CDATA[Geçersiz üye]]></value>
 		<value xml:lang="vi"><![CDATA[Thành viên không hợp lệ]]></value>
+        <value xml:lang="ro"><![CDATA[Membrul nu este valid]]></value>
 	</item>
 	<item name="msg_cannot_delete_admin">
 		<value xml:lang="ko"><![CDATA[관리자 아이디는 삭제할 수 없습니다. 관리자 해제 후 다시 삭제시도해주세요.]]></value>
@@ -1407,6 +1518,7 @@
 		<value xml:lang="es"><![CDATA[ID del Administrador no puede ser eliminado. Remover el ID desde la Administración y trate nuevamente.]]></value>
 		<value xml:lang="tr"><![CDATA[Admin Kimliği silinemez. Kimliği yönetimden çıkartıp tekrar deneyiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Admin ID không thể xóa!]]></value>
+        <value xml:lang="ro"><![CDATA[ID+ul admin nu poate fi şters. Şterge ID-ul din lista de administratori şi încearcă din nou.]]></value>
 	</item>
 	<item name="msg_exists_user_id">
 		<value xml:lang="ko"><![CDATA[이미 존재하는 아이디입니다. 다른 아이디를 입력해주세요.]]></value>
@@ -1419,6 +1531,7 @@
 		<value xml:lang="es"><![CDATA[Este ID ya existe. Por favor trate con otro ID]]></value>
 		<value xml:lang="tr"><![CDATA[Bu kimlik önceden alınmış. Lütfen başka bir kimlik deneyiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Tên sử dụng này đã có người dùng. Xin vui lòng thử lại với tên truy cập khác!]]></value>
+        <value xml:lang="ro"><![CDATA[ID+ul există deja. Încearcă unul nou.]]></value>
 	</item>
 	<item name="msg_exists_email_address">
 		<value xml:lang="ko"><![CDATA[이미 존재하는 메일 주소입니다. 다른 메일 주소를 입력해주세요.]]></value>
@@ -1431,6 +1544,7 @@
 		<value xml:lang="es"><![CDATA[Esta dirección del email ya existe. Por favor trate con otra dirección del email.]]></value>
 		<value xml:lang="tr"><![CDATA[Bu mail adresi zaten kullanımda. Lütfen başka bir mail adresi deneyiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Email này đã có người sử dụng. Xin vui lòng thử lại với Email khác!]]></value>
+        <value xml:lang="ro"><![CDATA[Adresa de e-mail există deja. Încearcă alta.]]></value>
 	</item>
 	<item name="msg_exists_nick_name">
 		<value xml:lang="ko"><![CDATA[이미 존재하는 닉네임입니다. 다른 닉네임을 입력해주세요.]]></value>
@@ -1443,6 +1557,7 @@
 		<value xml:lang="es"><![CDATA[Este apodo ya existe. Por favor trate con otro apodo.]]></value>
 		<value xml:lang="tr"><![CDATA[Bu rumuz önceden alınmış. Lütfen başka bir rumuz deneyiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Nickname này đã có người sử dụng. Xin vui lòng thử lại với Nickname khác!]]></value>
+        <value xml:lang="ro"><![CDATA[Aliasul există deja. Încearcă altul.]]></value>
 	</item>
 	<item name="msg_signup_disabled">
 		<value xml:lang="ko"><![CDATA[회원 가입을 하실 수 없습니다.]]></value>
@@ -1455,6 +1570,7 @@
 		<value xml:lang="es"><![CDATA[Usted no puede ser registrado]]></value>
 		<value xml:lang="tr"><![CDATA[Kayıt olma yetkiniz bulunmamaktadır]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn không thể đăng kí.]]></value>
+        <value xml:lang="ro"><![CDATA[Înregistrarea nu s-a putut efectua.]]></value>
 	</item>
 	<item name="msg_already_logged">
 		<value xml:lang="ko"><![CDATA[이미 회원 가입을 하신 상태입니다.]]></value>
@@ -1467,6 +1583,7 @@
 		<value xml:lang="es"><![CDATA[Usted ya ha sido registrado]]></value>
 		<value xml:lang="tr"><![CDATA[Zaten giriş yapmış bulunmaktasınız]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn đã đăng kí rồi.]]></value>
+        <value xml:lang="ro"><![CDATA[Eşti deja înregistrat.]]></value>
 	</item>
 	<item name="msg_not_logged">
 		<value xml:lang="ko"><![CDATA[로그인을 하지 않으셨습니다.]]></value>
@@ -1479,6 +1596,7 @@
 		<value xml:lang="es"><![CDATA[Por favor conectese primero]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen önce giriş yapınız]]></value>
 		<value xml:lang="vi"><![CDATA[Xin vui lòng đăng nhập trước!]]></value>
+        <value xml:lang="ro"><![CDATA[Autentfică-te întâi.]]></value>
 	</item>
 	<item name="msg_insert_group_name">
 		<value xml:lang="ko"><![CDATA[그룹명을 입력해 주세요.]]></value>
@@ -1491,6 +1609,7 @@
 		<value xml:lang="es"><![CDATA[Por favor ingresar el nombre del grupo]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen grup ismini giriniz]]></value>
 		<value xml:lang="vi"><![CDATA[Xin vui lòng nhập tên của nhóm!]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu numele grupului.]]></value>
 	</item>
 	<item name="msg_check_group">
 		<value xml:lang="ko"><![CDATA[그룹을 선택해 주세요.]]></value>
@@ -1503,6 +1622,7 @@
 		<value xml:lang="es"><![CDATA[Introduce nombre de grupo]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen grubu seçiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Xin vui lòng chọn nhóm!]]></value>
+        <value xml:lang="ro"><![CDATA[selectează grupul]]></value>
 	</item>
 	<item name="msg_not_uploaded_profile_image">
 		<value xml:lang="ko"><![CDATA[프로필 이미지를 등록할 수 없습니다.]]></value>
@@ -1513,6 +1633,7 @@
 		<value xml:lang="fr"><![CDATA[L'image de Profil n'a pas pu être enrégistré]]></value>
 		<value xml:lang="tr"><![CDATA[Profil resmi kaydedilemedi]]></value>
 		<value xml:lang="vi"><![CDATA[Không thể đăng kí được hình đại diện.]]></value>
+        <value xml:lang="ro"><![CDATA[Imaginea de profil nu a putut fi înregistrată]]></value>
 	</item>
 	<item name="msg_not_uploaded_image_name">
 		<value xml:lang="ko"><![CDATA[이미지 이름을 등록할 수 없습니다.]]></value>
@@ -1525,6 +1646,7 @@
 		<value xml:lang="es"><![CDATA[Imagen del nombre no puede ser registrado]]></value>
 		<value xml:lang="tr"><![CDATA[Resim İsmi kaydedilemedi]]></value>
 		<value xml:lang="vi"><![CDATA[Không thể gửi được hình ảnh thay Nickname.]]></value>
+        <value xml:lang="ro"><![CDATA[Imaginea nu a putut fi înregistrată]]></value>
 	</item>
 	<item name="msg_not_uploaded_image_mark">
 		<value xml:lang="ko"><![CDATA[이미지 마크를 등록할 수 없습니다.]]></value>
@@ -1537,6 +1659,7 @@
 		<value xml:lang="es"><![CDATA[Imagen de marca no puede ser resistrado]]></value>
 		<value xml:lang="tr"><![CDATA[Resim İmi kaydedilemedi]]></value>
 		<value xml:lang="vi"><![CDATA[Hình đánh dấu đã không được gửi.]]></value>
+        <value xml:lang="ro"><![CDATA[Marca imaginii nu a putut fi înregistrată]]></value>
 	</item>
 	<item name="msg_not_uploaded_group_image_mark">
 		<value xml:lang="ko"><![CDATA[그룹 이미지 마크를 등록할 수 없습니다.]]></value>
@@ -1549,6 +1672,7 @@
 		<value xml:lang="es"><![CDATA[그룹 이미지 마크를 등록할 수가 없습니다]]></value>
 		<value xml:lang="tr"><![CDATA[Grup resim imi kaydedilemedi]]></value>
 		<value xml:lang="vi"><![CDATA[Hình thay thế nhóm đã không được gửi]]></value>
+        <value xml:lang="ro"><![CDATA[Marca imaginii de grup nu a putut fi înregistrată.]]></value>
 	</item>
 	<item name="msg_accept_agreement">
 		<value xml:lang="ko"><![CDATA[약관에 동의하셔야 합니다.]]></value>
@@ -1561,6 +1685,7 @@
 		<value xml:lang="es"><![CDATA[Usted primero debe aceptar el acuerdo]]></value>
 		<value xml:lang="tr"><![CDATA[Sözleşmeyi kabul etmeniz gerekmektedir]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn phải đồng ý với điều khoản sử dụng của chúng tôi.]]></value>
+        <value xml:lang="ro"><![CDATA[Trebuie să accepti condiţiile.]]></value>
 	</item>
 	<item name="msg_user_denied">
 		<value xml:lang="ko"><![CDATA[입력하신 아이디의 사용이 중지 되었습니다.]]></value>
@@ -1573,6 +1698,7 @@
 		<value xml:lang="es"><![CDATA[ID ingresado ha sido prohibido para su uso]]></value>
 		<value xml:lang="tr"><![CDATA[Yasaklanmış bir Kimlik girdiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Tên sử dụng này đã bị cấm đăng kí.]]></value>
+        <value xml:lang="ro"><![CDATA[Ai introdus un ID interzis.]]></value>
 	</item>
 	<item name="msg_user_not_confirmed">
 		<value xml:lang="ko"><![CDATA[아직 메일 인증이 이루어지지 않았습니다. 메일을 확인해 주세요.]]></value>
@@ -1585,6 +1711,7 @@
 		<value xml:lang="es"><![CDATA[아직 메일 인증이 이루어지지 않았습니다. 메일을 확인해 주세요]]></value>
 		<value xml:lang="tr"><![CDATA[Hesabınız henüz etkinleştirilmemiş. Lütfen mailinizi kontrol ediniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn chưa xác nhận việc đăng kí. Xin vui lòng kiểm tra Email!]]></value>
+        <value xml:lang="ro"><![CDATA[Contul tău nu este activat încă. Verifică e-mail-ul.]]></value>
 	</item>
 	<item name="msg_user_limited">
 		<value xml:lang="ko"><![CDATA[입력하신 아이디는 %s 이후부터 사용하실 수 있습니다.]]></value>
@@ -1597,10 +1724,12 @@
 		<value xml:lang="es"><![CDATA[ID ingresado puede ser usado luego de %s]]></value>
 		<value xml:lang="tr"><![CDATA[Bu kimlik, %s Tarihinden sonra kullanılabilir]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn được phép sử dụng đến ngày %s]]></value>
+        <value xml:lang="ro"><![CDATA[Ai introdus un ID care poate fi folosit după %s]]></value>
 	</item>
 	<item name="about_rechecked_password">
 		<value xml:lang="ko"><![CDATA[회원의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인 합니다.]]></value>
         <value xml:lang="en"><![CDATA[Confirm your password before editing account information.]]></value>
+        <value xml:lang="ro"><![CDATA[Confirmă parola înainte de a edita contul.]]></value>
 	</item>
 	<item name="about_user_id">
 		<value xml:lang="ko"><![CDATA[회원 ID는 3~20자 사이의 영문+숫자로 이루어져야 하며 영문으로 시작해야 합니다.]]></value>
@@ -1613,6 +1742,7 @@
 		<value xml:lang="es"><![CDATA[ID del usuario debe ser entre 3-20 letras que consiste en alfabetos+número con alfabeto como primera letra.]]></value>
 		<value xml:lang="tr"><![CDATA[Kullanıcı kimliği 3~20 karakter uzunluğunda ve hem harf hem rakam içermeli ve ilk bir harfle başlamalıdır.]]></value>
 		<value xml:lang="vi"><![CDATA[Độ dài của tên truy cập được giới hạn từ 3 đến 20 kí tự gồm a-z và các số.]]></value>
+        <value xml:lang="ro"><![CDATA[ID-ul trebuie să fie între 3 şi 20 de caractere, să fie format din litere şi cifre şi primul caracter trebuie şa fie literă.]]></value>
 	</item>
 	<item name="about_password">
 		<value xml:lang="ko"><![CDATA[비밀번호는 6~20자로 되어야 합니다.]]></value>
@@ -1638,6 +1768,7 @@
 		<value xml:lang="es"><![CDATA[Nombre debe ser entre 2-20 letras]]></value>
 		<value xml:lang="tr"><![CDATA[İsim 2~20 karakter uzunluğunda olmalıdır]]></value>
 		<value xml:lang="vi"><![CDATA[Giới hạn của tên từ 2 đến 20 kí tự.]]></value>
+        <value xml:lang="ro"><![CDATA[NUmele trebuie să aibă între 2 şi 20 de caractere.]]></value>
 	</item>
 	<item name="about_nick_name">
 		<value xml:lang="ko"><![CDATA[닉네임은 2~20자 이내여야 합니다.]]></value>
@@ -1650,6 +1781,7 @@
 		<value xml:lang="es"><![CDATA[Apodo debe ser entre 2-20 letras]]></value>
 		<value xml:lang="tr"><![CDATA[Rumuz 2~20 karakter uzunluğunda olmalıdır]]></value>
 		<value xml:lang="vi"><![CDATA[Độ dài của Nickname từ 2 đến 20 kí tự.]]></value>
+        <value xml:lang="ro"><![CDATA[Aliasul trebuie să aibă între 2 şi 20 de caractere.]]></value>
 	</item>
 	<item name="about_email_address">
 		<value xml:lang="ko"><![CDATA[메일 주소는 메일 인증 후 비밀번호 변경이나 찾기 등에 사용됩니다.]]></value>
@@ -1662,6 +1794,7 @@
 		<value xml:lang="es"><![CDATA[Dirección de email es usado para modificar/encontrar contraseña luego de la certificación de email]]></value>
 		<value xml:lang="tr"><![CDATA[E-posta adresiniz, e-posta onaylamasından sonra şifre düzenlemesi için kullanılacaktır]]></value>
 		<value xml:lang="vi"><![CDATA[Email được sử dụng để lên lạc, xác nhận và lấy lại mật khẩu nếu lỡ quên.]]></value>
+        <value xml:lang="ro"><![CDATA[Adresa de e.mail va fi folosită pentru modificarea parolei după activarea contului.]]></value>
 	</item>
 	<item name="about_homepage">
 		<value xml:lang="ko"><![CDATA[홈페이지가 있을 경우 입력해주세요.]]></value>
@@ -1674,6 +1807,7 @@
 		<value xml:lang="es"><![CDATA[Ingresar su sitio web, si es que lo tiene]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen varsa website adresinizi giriniz]]></value>
 		<value xml:lang="vi"><![CDATA[Nếu bạn có Website hãy nhập vào đây.]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu prima pagină a site-ului personal dacă ai unul.]]></value>
 	</item>
 	<item name="about_blog_url">
 		<value xml:lang="ko"><![CDATA[운영하는 블로그가 있을 경우 입력해주세요.]]></value>
@@ -1686,6 +1820,7 @@
 		<value xml:lang="es"><![CDATA[Ingresar su blog, si es que lo tiene]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen varsa blog adresinizi giriniz]]></value>
 		<value xml:lang="vi"><![CDATA[Nếu bạn có Blog hãy nhập vào đây.]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu URL-ul blogului dacă ai unul.]]></value>
 	</item>
 	<item name="about_birthday">
 		<value xml:lang="ko"><![CDATA[생년월일을 입력해주세요.]]></value>
@@ -1698,6 +1833,7 @@
 		<value xml:lang="es"><![CDATA[Ingresar su fecha de nacimiento]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen doğum tarihinizi giriniz]]></value>
 		<value xml:lang="vi"><![CDATA[Hãy chọn ngày sinh nhật của bạn.]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu data naşterii.]]></value>
 	</item>
 	<item name="about_allow_mailing">
 		<value xml:lang="ko"><![CDATA[메일링 가입이 체크되지 않으면 단체메일 발송시 메일을 받지 않습니다.]]></value>
@@ -1710,6 +1846,7 @@
 		<value xml:lang="es"><![CDATA[Si usted no se ha registrado el envío de email, usted no podrá recibir el email del grupo]]></value>
 		<value xml:lang="tr"><![CDATA[Eğer mailleşmeyi etkinleştirmezseniz, grup maillerini alamayacaksınız]]></value>
 		<value xml:lang="vi"><![CDATA[Nếu không đồng ý nhận Email, bạn sẽ không thể nhận được những liên lạc của bạn bè hoặc của nhóm.]]></value>
+        <value xml:lang="ro"><![CDATA[Dacă nu acepţi sţ primeşti mesaje nu vei primi e-mail-uri de grup]]></value>
 	</item>
 	<item name="about_denied">
 		<value xml:lang="ko"><![CDATA[체크 시 아이디를 사용할 수 없도록 합니다.]]></value>
@@ -1722,6 +1859,7 @@
 		<value xml:lang="es"><![CDATA[Si selecciona esta opción prohibirá el uso del ID]]></value>
 		<value xml:lang="tr"><![CDATA[Kimliği yasaklanmak için işaretleyiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Kiểm tra tên sử dụng bị cấm.]]></value>
+        <value xml:lang="ro"><![CDATA[Bufează asta pentru a interzice ID-ul.]]></value>
 	</item>
 	<item name="about_is_admin">
 		<value xml:lang="ko"><![CDATA[체크 시 최고 관리자 권한을 가지게 됩니다.]]></value>
@@ -1734,6 +1872,7 @@
 		<value xml:lang="es"><![CDATA[Si selecciona esta opción para obtener la atribución del administrador superior]]></value>
 		<value xml:lang="tr"><![CDATA[Superadmin yetkisi vermek için işaretleyiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Kiểm tra toàn quyền Administrator]]></value>
+        <value xml:lang="ro"><![CDATA[Bifează asta pentru a da permisiuni de superadmin.]]></value>
 	</item>
 	<item name="about_member_description">
 		<value xml:lang="ko"><![CDATA[회원에 대한 관리자 메모입니다.]]></value>
@@ -1746,6 +1885,7 @@
 		<value xml:lang="es"><![CDATA[Nota del administrador acerca de los usuarios]]></value>
 		<value xml:lang="tr"><![CDATA[Yöneticinin kullanıcılar hakkındaki kısa notu]]></value>
 		<value xml:lang="vi"><![CDATA[Ghi nhớ của Admin về những thành viên]]></value>
+        <value xml:lang="ro"><![CDATA[Memo administrator despre utilizator.]]></value>
 	</item>
 	<item name="about_group">
 		<value xml:lang="ko"><![CDATA[한 아이디는 여러 개의 group에 속할 수 있습니다.]]></value>
@@ -1758,6 +1898,7 @@
 		<value xml:lang="es"><![CDATA[Un ID puede pertenecer a muchos grupos]]></value>
 		<value xml:lang="tr"><![CDATA[Bir kimlik, birçok grubun üyesi olabilir]]></value>
 		<value xml:lang="vi"><![CDATA[Một tên sử dụng có thể tham gia nhiều nhóm]]></value>
+        <value xml:lang="ro"><![CDATA[Un ID poate apaţine mai multor grupuri.]]></value>
 	</item>
 	<item name="about_column_type">
 		<value xml:lang="ko"><![CDATA[추가하실 가입 폼의 형식을 지정해주세요.]]></value>
@@ -1770,6 +1911,7 @@
 		<value xml:lang="es"><![CDATA[Definir el estilo de la forma de registro que desea agregar]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen detaylı kayıt formunun biçimini ayarlayınız]]></value>
 		<value xml:lang="vi"><![CDATA[Hãy chọn một định dạng để sử dụng.]]></value>
+        <value xml:lang="ro"><![CDATA[Setează formatul formularului de înregistrare adiţional.]]></value>
 	</item>
 	<item name="about_column_name">
 		<value xml:lang="ko"><![CDATA[템플릿에서 사용할 수 있는 영문으로 된 이름을 적어주세요. (변수명)]]></value>
@@ -1782,6 +1924,7 @@
 		<value xml:lang="es"><![CDATA[Ingresar el nombre en español para poder usar en plantilla (nombre como variable)]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen şablonda kullanılabilecek İngilizce bir isim giriniz. (isim değişkendir)]]></value>
 		<value xml:lang="vi"><![CDATA[Nhập tên theo Tiếng Anh.]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu un nume care poate fi folosit în templată (nume ca variabilă)]]></value>
 	</item>
 	<item name="about_column_title">
 		<value xml:lang="ko"><![CDATA[가입 또는 정보 수정/조회시에 표시될 제목입니다.]]></value>
@@ -1794,6 +1937,7 @@
 		<value xml:lang="es"><![CDATA[Esto sera mostrado cuando el usuario registra o modifica/visualiza la información del usuario]]></value>
 		<value xml:lang="tr"><![CDATA[Bu girdi, kayıt veya üye bilgisi düzenleme/görüntüleme formunda gösterilecektir]]></value>
 		<value xml:lang="vi"><![CDATA[Sẽ được hiển thị khi đăng kí, sửa đổi hay xem thông tin thành viên.]]></value>
+        <value xml:lang="ro"><![CDATA[Acesta va fi afişat în formularul de înregistrare sau modificare date membru.]]></value>
 	</item>
 	<item name="about_default_value">
 		<value xml:lang="ko"><![CDATA[기본으로 입력될 값을 정하실 수 있습니다.]]></value>
@@ -1806,6 +1950,7 @@
 		<value xml:lang="es"><![CDATA[Usted puede predefinir los valores]]></value>
 		<value xml:lang="tr"><![CDATA[Varsayılan değerleri ayarlayabilirsiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể đặt giá trị mặc định.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi seta valorile implicite.]]></value>
 	</item>
 	<item name="about_active">
 		<value xml:lang="ko"><![CDATA[활성 항목에 체크를 하셔야 가입시 정상적으로 노출됩니다.]]></value>
@@ -1818,6 +1963,7 @@
 		<value xml:lang="es"><![CDATA[Si selecciona "Activar" los artículos seran mostrados en el momento de registrar]]></value>
 		<value xml:lang="tr"><![CDATA[Kayıt formunu gösterebilmeniz için, öğeleri etkinleştirdiğinizden emin olun]]></value>
 		<value xml:lang="vi"><![CDATA[Nếu chọn, thông tin này sẽ được hiển thị trong bảng đăng kí.]]></value>
+        <value xml:lang="ro"><![CDATA[Trebuie să bifezi articolele active pentru a le afişa în formular.]]></value>
 	</item>
 	<item name="about_form_description">
 		<value xml:lang="ko"><![CDATA[설명란에 입력을 하시면 가입시 표시가 됩니다.]]></value>
@@ -1830,6 +1976,7 @@
 		<value xml:lang="es"><![CDATA[Si Usted ingresa la forma de la descripción, será mostrado en el momento de registrar]]></value>
 		<value xml:lang="tr"><![CDATA[Eğer tanım formuna giriş yaparsanız, bu girdiler giriş formunda görünecektir]]></value>
 		<value xml:lang="vi"><![CDATA[Nếu bạn nhập mô tả, nó sẽ được hiển thị trong bảng đăng kí.]]></value>
+        <value xml:lang="ro"><![CDATA[Dacă introduci o descriere pentru acest formular, va fi afişată pe formularul de înregistrare.]]></value>
 	</item>
 	<item name="about_required">
 		<value xml:lang="ko"><![CDATA[체크하시면 회원가입시 필수항목으로 입력하도록 됩니다.]]></value>
@@ -1842,6 +1989,7 @@
 		<value xml:lang="es"><![CDATA[Si selecciona esta opción, será artículo esencial para el registro]]></value>
 		<value xml:lang="tr"><![CDATA[Eğer işaretlerseniz, kayıt için gerekli bir öğe olacaktır]]></value>
 		<value xml:lang="vi"><![CDATA[Nếu chọn, thông tin này sẽ được hiển thị trong bảng đăng kí.]]></value>
+        <value xml:lang="ro"><![CDATA[Bifează pentru a face cămpul obligatoriu la înregistrare.]]></value>
 	</item>
 	<item name="about_enable_join">
 		<value xml:lang="ko"><![CDATA[체크하면 회원가입을 할 수 있습니다.]]></value>
@@ -1854,6 +2002,7 @@
 		<value xml:lang="es"><![CDATA[Debe seleccionar esta opción para permitir el registro de los usuarios]]></value>
 		<value xml:lang="tr"><![CDATA[Yeni üyelerin sitenize kayıt yapmalarına izin vermek istiyorsanız lütfen işaretleyiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Cho phép thành viên đăng kí.]]></value>
+        <value xml:lang="ro"><![CDATA[Bifează pentru a permite membrilor noi să se înregistreze pe site.]]></value>
 	</item>
 	<item name="about_enable_confirm">
 		<value xml:lang="ko"><![CDATA[입력된 메일 주소로 인증 메일을 보내 회원 가입을 확인합니다.]]></value>
@@ -1865,6 +2014,7 @@
 		<value xml:lang="es"><![CDATA[입력된 메일 주소로 인증 메일을 보내 회원 가입을 확인합니다]]></value>
 		<value xml:lang="tr"><![CDATA[Yeni üyelerin hesaplarını e-posta yoluyla etkinleştirmelerini istiyorsanız lütfen işaretleyiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Gửi Email xác nhận sau khi đăng kí.]]></value>
+        <value xml:lang="ro"><![CDATA[Bifează daca vrei ca utilizatorii noi să îşi activze conturl prin e-mail.]]></value>
 	</item>
 	<item name="about_enable_ssl">
 		<value xml:lang="ko"><![CDATA[서버에서 보안접속(SSL) 지원이 될 경우 회원가입, 정보수정, 로그인 등의 개인정보가 서버로 보내질 때 SSL(https)을 이용하도록 할 수 있습니다.]]></value>
@@ -1877,6 +2027,7 @@
 		<value xml:lang="es"><![CDATA[서버에서 SSL지원이 될 경우 회원가입/정보수정/로그인등의 개인정보가 서버로 보내질때 SSL(https)를 이용하도록 할 수 있습니다]]></value>
 		<value xml:lang="tr"><![CDATA[Kayıt Ol/Üye Bilgisini Değiştir/Giriş Yap 'daki kişisel bilgiler, eğer sunucunuz da SSL servisi veriyorsa, SSL (https) olarak ayarlanabilir.]]></value>
 		<value xml:lang="vi"><![CDATA[Thông tin cá nhân khi thành viên Đăng kí, Đăng nhập và Sủa đổi sẽ được gửi dưới dạng SSL(https). Hãy chọn nếu Server cho phép sử dụng chức năng này.]]></value>
+        <value xml:lang="ro"><![CDATA[Informaţiile personale din forumalrul înregistrare/modificare date/autentificare pot fi trimise prin module SSL dacă serverul permite.]]></value>
 	</item>
 	<item name="about_limit_day">
 		<value xml:lang="ko"><![CDATA[회원 가입 후 정해진 일자동안 인증 제한을 할 수 있습니다.]]></value>
@@ -1889,6 +2040,7 @@
 		<value xml:lang="es"><![CDATA[Usted puede limitar la fecha de la certificación luego de registrar]]></value>
 		<value xml:lang="tr"><![CDATA[Kayıttan sonraki hesap etkinleştirme süresini kısıtlayabilirsiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể giới hạn ngày xác nhận sau khi đăng kí.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi limita data de activare după înregistrare.]]></value>
 	</item>
 	<item name="about_limit_date">
 		<value xml:lang="ko"><![CDATA[지정한 날짜까지 로그인을 할 수 없습니다.]]></value>
@@ -1901,6 +2053,7 @@
 		<value xml:lang="es"><![CDATA[Usuario no podra conectarse hasta la fecha indicada]]></value>
 		<value xml:lang="tr"><![CDATA[Üyeler, belirlenen tarihe kadar kayıt yapamazlar]]></value>
 		<value xml:lang="vi"><![CDATA[Thành viên không thể đăng nhập nếu quá hạn xác nhận đăng kí.]]></value>
+        <value xml:lang="ro"><![CDATA[Utilizatorii nu se pot autentifica până la data specificată.]]></value>
 	</item>
 	<item name="about_after_login_url">
 		<value xml:lang="ko"><![CDATA[로그인 후 이동할 URL을 정하실 수 있습니다. 비어 있으면 해당 페이지가 유지됩니다.]]></value>
@@ -1912,6 +2065,7 @@
 		<value xml:lang="ru"><![CDATA[Возможен переход на указанный URL после логин. Если не укажете, то данная страница отобразиться.]]></value>
 		<value xml:lang="tr"><![CDATA[Giriş yaptıktan sonraki gidilecek URL'yi ayarlayabilirsiniz. Boş bırakmak, geçerli sayfayı bırakır.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể thiết đặt địa chỉ nào đó sẽ hiển thị sau khi đăng nhập. Để trống nếu không sử dụng.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi seta un URL pentru după autentificare. Implicit pagina curentă.]]></value>
 	</item>
 	<item name="about_after_logout_url">
 		<value xml:lang="ko"><![CDATA[로그아웃 후 이동할 URL을 정하실 수 있습니다. 비어 있으면 해당 페이지가 유지됩니다.]]></value>
@@ -1923,6 +2077,7 @@
 		<value xml:lang="ru"><![CDATA[Возможен переход на указанный URL после выхода. Если не укажете, то данная страница отобразиться.]]></value>
 		<value xml:lang="tr"><![CDATA[Çıkış yaptıktan sonraki gidilecek URL'yi ayarlayabilirsiniz. Boş bırakmak, geçerli sayfa manasına gelir.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể thiết đặt địa chỉ nào đó sẽ hiển thị sau khi thoát. Để trống nếu không sử dụng.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi seta un URL pentru dupa parăsireac contului. Implicit pagina curentă.]]></value>
 	</item>
 	<item name="about_redirect_url">
 		<value xml:lang="ko"><![CDATA[회원 가입 후 이동할 url을 입력해 주세요. 비어 있으면 가입 이전 페이지로 돌아갑니다.]]></value>
@@ -1935,6 +2090,7 @@
 		<value xml:lang="es"><![CDATA[Ingresar la URL que va a abrir luego de registrar los usuarios. Cuando esto esta vacío, se habrirá la página anterior a la del registro.]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen üyelerin kayıt olduktan sonraki yönlendirilecekleri URL'yi giriniz. Bır url girilmediğinde, kayıt sayfasından bir önceki sayfaya yönlendirileceklerdir.]]></value>
 		<value xml:lang="vi"><![CDATA[Hãy nhập địa chỉ trang sẽ chuyển đến sau khi thành viên đăng kí. Để trống nếu không sử dụng.]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu un url de redirectare dupa înregistrare. Implicit - pagina de înainte de înregistrare.]]></value>
 	</item>
 	<item name="about_agreement">
 		<value xml:lang="ko"><![CDATA[회원 가입 약관이 없을 경우 표시되지 않습니다.]]></value>
@@ -1947,6 +2103,7 @@
 		<value xml:lang="es"><![CDATA[Acuerdo del registro no será mostrado si esta vacío]]></value>
 		<value xml:lang="tr"><![CDATA[Eğer boş bırakılmadıysa, Kayıt Sözleşmesi görüntülenecektir]]></value>
 		<value xml:lang="vi"><![CDATA[Điều khoản sử dụng sẽ hiển thị trong Form đăng kí nếu có nội dung.]]></value>
+        <value xml:lang="ro"><![CDATA[Termenii pentru autentificare vor fi afişaţi daca sunt comepletaţi.]]></value>
 	</item>
 	<item name="about_image_name">
 		<value xml:lang="ko"><![CDATA[회원의 이름을 글자 대신 이미지로 사용할 수 있게 합니다.]]></value>
@@ -1959,6 +2116,7 @@
 		<value xml:lang="es"><![CDATA[Permitir a los usuarios el uso de imagen del nombre en ves del nombre del usuario]]></value>
 		<value xml:lang="tr"><![CDATA[Üyeler, metin yerine resim adı kullanabileceklerdir]]></value>
 		<value xml:lang="vi"><![CDATA[Cho phép thành viên sử dụng hình ảnh thay cho tên.]]></value>
+        <value xml:lang="ro"><![CDATA[Membrii vor putea folosi numele imaginii în loc de text.]]></value>
 	</item>
 	<item name="about_image_mark">
 		<value xml:lang="ko"><![CDATA[회원의 이름 앞에 마크를 달 수 있습니다.]]></value>
@@ -1971,6 +2129,7 @@
 		<value xml:lang="es"><![CDATA[Permitir a los usuarios el uso de imagen de marca delante de sus nombres]]></value>
 		<value xml:lang="tr"><![CDATA[Üyeler, isimlerinin önünde işaret resmi kullanabilirler]]></value>
 		<value xml:lang="vi"><![CDATA[Cho phép sử dụng hình ảnh nhỏ truóc tên của họ.]]></value>
+        <value xml:lang="ro"><![CDATA[Membrii vor putea folosi marca imaginii în loc de nume.]]></value>
 	</item>
 	<item name="about_group_image_mark">
 		<value xml:lang="ko"><![CDATA[회원의 이름 앞에 그룹 마크를 달 수 있습니다.]]></value>
@@ -1983,6 +2142,7 @@
 		<value xml:lang="es"><![CDATA[회원의 이름앞에 그룹 마크를 달 수 있습니다]]></value>
 		<value xml:lang="tr"><![CDATA[Kullanıcıların isimlerinin önlerinde görüntülenecek grup işaretleri kullanabilirsiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể sử dụng biểu tượng nhóm sẽ hiển thị trước tên thành viên.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi folosi imaginile de grup înaintea numelor.]]></value>
 	</item>
 	<item name="about_profile_image">
 		<value xml:lang="ko"><![CDATA[회원의 프로필 이미지를 사용할 수 있게 합니다.]]></value>
@@ -1995,6 +2155,7 @@
 		<value xml:lang="es"><![CDATA[Permitir a los usuarios a utilizar nombre de la imagen en lugar de texto nombre]]></value>
 		<value xml:lang="tr"><![CDATA[Üyeler, profil resmi kullanabilirler]]></value>
 		<value xml:lang="vi"><![CDATA[Cho phép thành viên sử dụng thông tin cá nhân bằng hình ảnh.]]></value>
+        <value xml:lang="ro"><![CDATA[Membrii vor putea folosi imagini de profil.]]></value>
 	</item>
 	<item name="about_signature_max_height">
 		<value xml:lang="ko"><![CDATA[서명란의 최대 높이를 제한할 수 있습니다. (0 또는 비워두면 제한하지 않습니다.)]]></value>
@@ -2003,6 +2164,7 @@
 		<value xml:lang="zh-CN"><![CDATA[可以限制签名栏高度(0或留空为不限制)。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[可以限制簽名檔高度(零或留空為不限制)。]]></value>
 		<value xml:lang="ru"><![CDATA[Возможно установить лимит подписи. (0 Если оставите пустым, то лимита не будет.)]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi limita înîlţimea maximă a semnaturii. 0 sau nimic inseamnă ca nu există limită.]]></value>
 	</item>
 	<item name="about_accept_agreement">
 		<value xml:lang="ko"><![CDATA[약관을 모두 읽었으며 동의합니다.]]></value>
@@ -2015,6 +2177,7 @@
 		<value xml:lang="es"><![CDATA[Yo he leído todo el acuerdo y acepto]]></value>
 		<value xml:lang="tr"><![CDATA[Anlaşmayı okudum ve kabul ediyorum]]></value>
 		<value xml:lang="vi"><![CDATA[Tôi đã đọc và đồng ý với điều khoản sử dụng của Website.]]></value>
+        <value xml:lang="ro"><![CDATA[Am citit termenii şi condiţiile şi sunt de acord.]]></value>
 	</item>
 	<item name="about_member_default">
 		<value xml:lang="ko"><![CDATA[회원 가입을 한 사람이 최초에 속하는 그룹을 말합니다.]]></value>
@@ -2027,10 +2190,11 @@
 		<value xml:lang="es"><![CDATA[Al registrar se configura como grupo predefinido]]></value>
 		<value xml:lang="tr"><![CDATA[Varsayılan grup, kullanıcı kayıt olduktan sonra yönlendirileceği grup olacaktır]]></value>
 		<value xml:lang="vi"><![CDATA[Sẽ là nhóm mặc định khi thành viên đăng kí.]]></value>
+        <value xml:lang="ro"><![CDATA[Va fi setat ca grup implicit la înregistrare.]]></value>
 	</item>
 	<item name="about_find_member_account">
 		<value xml:lang="ko"><![CDATA[아이디/ 비밀번호는 가입시 등록한 메일 주소로 알려드립니다.<br />가입할 때 등록하신 메일 주소를 입력하시고 "아이디/비밀번호 찾기" 버튼을 클릭해주세요.<br />]]></value>
-		<value xml:lang="en"><![CDATA[lease input the email address you have entered during the registration and we will send your account info to this email address.]]></value>
+		<value xml:lang="en"><![CDATA[Please input the email address you have entered during the registration and we will send your account info to this email address.]]></value>
 		<value xml:lang="jp"><![CDATA[ID/パスワードは登録時に登録されたメールにてお知らせします。<br />登録時に登録したメールアドレスを入力して「IDとパスワードのリマインダー」ボタンをクリックしてください。<br />]]></value>
 		<value xml:lang="zh-CN"><![CDATA[用户名/密码将发送到您注册时所输入的电子邮件当中。<br />输入注册时的电子邮件地址后，请点击“查找用户名/密码”按钮。<br />]]></value>
 		<value xml:lang="zh-TW"><![CDATA[帳號/密碼將發送到您註冊時，所輸入的電子郵件當中。<br />輸入註冊時的電子郵件地址後，請按「查詢帳號/密碼」按鈕。<br />]]></value>
@@ -2039,11 +2203,13 @@
 		<value xml:lang="es"><![CDATA[Su información de la cuenta será observado por dirección de correo electrónico registrada. <br /> Introduce la dirección de correo electrónico que usted tiene de entrada en el registro, y pulse "Buscar" Información de la cuenta ". <br />]]></value>
 		<value xml:lang="tr"><![CDATA[Hesap bilginiz, kayıt olduğunuz e-posta adresine gönderilecektir.<br />Kayıt esnasında kullandığınız e-posta adresini giriniz ve "Hesap Bilgisini Bul" tuşuna basınız.<br />]]></value>
 		<value xml:lang="vi"><![CDATA[Thông tin tài khoản của bạn sẽ được tìm thấy với Email bạn đã đăng kí.<br />Xin vui lòng nhập Email mà bạn đã đăng kí và bấm "Lấy lại thông tin" để nhận được thông tin đăng nhập!.<br />]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu adresa de e-mail pe care ai folosit-o la intregitrare şi vei primi informaţiile despre cont.]]></value>
 	</item>
 	<item name="about_temp_password">
 		<value xml:lang="ko"><![CDATA[임시 비밀번호가 정상적으로 발급되었습니다.<br />로그인 후 반드시 비밀번호를 변경하시기 바랍니다.<br/>]]></value>
 		<value xml:lang="zh-TW"><![CDATA[已發送臨時密碼。<br />請登入後修改密碼。<br/>]]></value>
         <value xml:lang="en"><![CDATA[Normally have been issued a temporary password. <br /> Please log in and change the password. <br/>]]></value>
+        <value xml:lang="ro"><![CDATA[Ai folosit o parolă temporară.<br />Autentifică-te si schimbă parola.]]></value>
 	</item>
 	<item name="about_member">
 		<value xml:lang="ko"><![CDATA[회원을 생성/수정/삭제 할 수 있고 그룹관리나 가입 폼 관리 등을 할 수 있는 회원 관리 모듈입니다.
@@ -2066,6 +2232,7 @@ Vous pouvez administrer membres par création un nouveau groupe, ou gagner les i
 Üyeleri yönetmek için özel gruplar ekleyebilir ve aynı zamanda kayıt formunu değiştirerek üyeler hakkında ek bilgi alabilirsiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Chức năng của Module này sẽ cho phép bạn tạo, sửa, xóa thành viên và quản lý nhóm hay Form đăng kí.
 Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, và thêm những thông tin trong Form đăng kí.]]></value>
+        <value xml:lang="ro"><![CDATA[Modulul de membri îţi permite administarre membrilor şi grupurilor de membri şi formularul de înregistrare.]]></value>
 	</item>
 	<item name="about_ssl_port">
 		<value xml:lang="ko"><![CDATA[기본 포트 이외의 보안접속(SSL) 포트를 사용하는 경우 포트번호를 입력해주세요.]]></value>
@@ -2077,10 +2244,12 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="es"><![CDATA[Please input if you are using different SSL port with default one]]></value>
 		<value xml:lang="tr"><![CDATA[Eğer varsayılan SSL portundan farklı bir port kullanıyorsanız, lütfen giriniz]]></value>
 		<value xml:lang="vi"><![CDATA[Xin hãy nhập cổng kết nối mặc định cho SSL.]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu o valoare dacă foloseşti un port SSL non-standard.]]></value>
 	</item>
 	<item name="about_reset_auth_mail">
 		<value xml:lang="ko"><![CDATA[현재등록된 이메일 주소는 %s입니다. 이메일 주소를 변경하시고자 하는 경우 새로운 이메일 주소로 회원정보 갱신 후 인증메일을 재발 송할 수 있습니다.]]></value>
-        <value xml:lang="en"><![CDATA[Currently registered e-mail address is% s. If you want to change your email address, and new e-mail address after update member information can be sent certified mail recurrence.]]></value>
+        <value xml:lang="en"><![CDATA[Currently registered e-mail address is %s. If you want to change your email address, and new e-mail address after update member information can be sent certified mail recurrence.]]></value>
+        <value xml:lang="ro"><![CDATA[Adresa curentă de e-mail este %s. Daă doreşti să o schimbi adaugă o adresă de e-mail in contul tău.]]></value>
 	</item>
 	<item name="about_resend_auth_mail">
 		<value xml:lang="ko"><![CDATA[인증 메일을 받지 못하신 경우 다시 받으실 수 있습니다.]]></value>
@@ -2093,10 +2262,12 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="es"><![CDATA[You can request for authentication mail if you have failed before.]]></value>
 		<value xml:lang="tr"><![CDATA[Eğer daha önce etkinleştirmediyseniz, etkinleştirme maili talebinde bulunabilirsiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Nhận lại mã kích hoạt nếu bạn đã không nhận được Email kích hoạt khi đăng kí.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi cere e-mail de activare dacă nu ai contul deja activat.]]></value>
 	</item>
 	<item name="about_reset_auth_mail_submit">
 		<value xml:lang="ko"><![CDATA[이메일을 로그인 계정으로 사용할 경우 신규 메일주소로 로그인해야 합니다.]]></value>
         <value xml:lang="en"><![CDATA[If you use e-mail as the login account you must log in as a new e-mail address.]]></value>
+        <value xml:lang="ro"><![CDATA[Dacă foloseşti adresa de e-mail pentru autentificare trebuie să te autentifici cu noua adresă de e-mail.]]></value>
 	</item>
 	<item name="no_article">
 		<value xml:lang="ko"><![CDATA[글이 없습니다.]]></value>
@@ -2107,6 +2278,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="ru"><![CDATA[Записей нет]]></value>
 		<value xml:lang="es"><![CDATA[There exists no article]]></value>
 		<value xml:lang="tr"><![CDATA[Hiçbir makale bulunmuyor]]></value>
+        <value xml:lang="ro"><![CDATA[Nu există documente.]]></value>
 	</item>
 	<item name="find_account_question">
 		<value xml:lang="ko"><![CDATA[비밀번호 찾기 질문/답변]]></value>
@@ -2121,6 +2293,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="en"><![CDATA[Answer for a temporary password.]]></value>
 		<value xml:lang="zh-TW"><![CDATA[忘記密碼提示]]></value>
 		<value xml:lang="jp"><![CDATA[秘密質問の答え]]></value>
+        <value xml:lang="ro"><![CDATA[Răspuns pentru parola temporară]]></value>
 	</item>
 	<item name="about_find_account_question">
 		<value xml:lang="ko"><![CDATA[회원 정보에 입력한 아이디와 이메일, 질문/답변으로 임시 비밀번호를 발급 받을 수 있습니다.]]></value>
@@ -2128,10 +2301,13 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="jp"><![CDATA[登録した時、入力したIDとメールアドレス、秘密質問の答えで仮のパスワードをもらえる事ができます。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[可透過帳號、電子郵件和設定提示問答來獲得臨時密碼。]]></value>
 		<value xml:lang="tr"><![CDATA[Kimliğinize, mail adresinize ya da cevapladığınız soruya göre geçici şifre edinebilirsiniz.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi primi o parolă temporară cu ajutorul ID-ului, adresei de e-mail, întrebării şi răspunsului pe care le-ai ales. ]]></value>
 	</item>
 	<item name="find_account_question_items" type="array">
 		<item name="0">
 			<value xml:lang="ko"><![CDATA[]]></value>
+            <value xml:lang="en"><![CDATA[]]></value>
+            <value xml:lang="ro"><![CDATA[]]></value>
 		</item>
 		<item name="1">
 			<value xml:lang="ko"><![CDATA[다른 이메일 주소는?]]></value>
@@ -2220,6 +2396,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="jp"><![CDATA[仮のパスワードをもらう]]></value>
 		<value xml:lang="zh-TW"><![CDATA[取得臨時密碼]]></value>
 		<value xml:lang="tr"><![CDATA[Geçici bir şifre edin]]></value>
+        <value xml:lang="ro"><![CDATA[Primeşte o parolă temporară]]></value>
 	</item>
 	<item name="about_get_temp_password">
 		<value xml:lang="ko"><![CDATA[로그인 후 비밀번호 변경해 주세요.]]></value>
@@ -2227,6 +2404,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="jp"><![CDATA[ログインしてから直ちにパスワードを変更してください。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[請再登入後變更密碼。]]></value>
 		<value xml:lang="tr"><![CDATA[Giriş yaptıktan sonra şifrenizi değiştirin.]]></value>
+        <value xml:lang="ro"><![CDATA[Schimbă parola după autentificare.]]></value>
 	</item>
 	<item name="msg_question_not_exists">
 		<value xml:lang="ko"><![CDATA[등록한 비밀번호 찾기 질문/답변이 없습니다.]]></value>
@@ -2234,6 +2412,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="jp"><![CDATA[秘密質問を決めていません。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[尚未輸入提示問答]]></value>
 		<value xml:lang="tr"><![CDATA[Geçici şifre için güvenlik sorusunu belirlemediniz.]]></value>
+        <value xml:lang="ro"><![CDATA[Nu ai setat o întrebare pentru parola temporară.]]></value>
 	</item>
 	<item name="msg_answer_not_matches">
 		<value xml:lang="ko"><![CDATA[비밀번호 찾기 질문/답변 또는 정보가 올바르지 않습니다.]]></value>
@@ -2241,6 +2420,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="jp"><![CDATA[秘密質問の答えが正しくありません。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[答案不正確]]></value>
 		<value xml:lang="tr"><![CDATA[Soru için verdiğiniz cevap doğru değil.]]></value>
+        <value xml:lang="ro"><![CDATA[Răspunsul la întrebare este incorect.]]></value>
 	</item>
 	<item name="change_password_date">
 		<value xml:lang="ko"><![CDATA[비밀번호 갱신주기]]></value>
@@ -2248,6 +2428,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="jp"><![CDATA[パスワード更新周期]]></value>
 		<value xml:lang="zh-TW"><![CDATA[密碼更新]]></value>
 		<value xml:lang="tr"><![CDATA[Şifre yenileme döngüsü]]></value>
+        <value xml:lang="ro"><![CDATA[Ciclu innoire parolă]]></value>
 	</item>
 	<item name="about_change_password_date">
 		<value xml:lang="ko"><![CDATA[일정기간이 지나면 비밀번호 변경을 하도록 유도하는 기능입니다. (사용하지 않음 : 0 입력) ]]></value>
@@ -2255,22 +2436,27 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="jp"><![CDATA[設定した更新周期によってパスワード変更のお知らせがもらえます。（０に設定すると無効になる） ]]></value>
 		<value xml:lang="zh-TW"><![CDATA[可設定密碼更新週期，將會定期通知更換密碼。 (設為零則不使用)]]></value>
 		<value xml:lang="tr"><![CDATA[Eğer buna bir değer biçerseniz, şifrenizi belirli aralıklarla değiştirmeniz konusunda bildirim alacaksanız (eğer 0 olarak ayarlandıysa, devredışıdır)]]></value>
+        <value xml:lang="ro"><![CDATA[Dacă setezi o valoare, vei fi notificat să schimbi parola periodic. 0 înseamnă inactiv.]]></value>
 	</item>
 	<item name="login_trial_limit1">
 		<value xml:lang="ko"><![CDATA[로그인 시도 횟수 제한 횟수]]></value>
 		<value xml:lang="en"><![CDATA[Sign in trial limit]]></value>
+        <value xml:lang="ro"><![CDATA[Limită încercări autentificare]]></value>
 	</item>
 	<item name="login_trial_limit2">
 		<value xml:lang="ko"><![CDATA[로그인 시도 횟수 제한 시간]]></value>
 		<value xml:lang="en"><![CDATA[Sign in trial limit]]></value>
+        <value xml:lang="ro"><![CDATA[Limită încercări autentificare]]></value>
 	</item>
 	<item name="about_login_trial_limit1">
 		<value xml:lang="ko"><![CDATA[정해진 시간 안에 허용되는 로그인 횟수를 입력하십시오. 짧은 시간 동안 하나의 아이피(IP)에서 시도할 수 있는 로그인 횟수에 제한을 둡니다.]]></value>
 		<value xml:lang="en"><![CDATA[Set the number of trial limit. Limit the number of trial to sign in from a IP address.]]></value>
+        <value xml:lang="ro"><![CDATA[Setează numarul pentru limita încercări de autentificare de la o adresă IP.]]></value>
 	</item>
 	<item name="about_login_trial_limit2">
 		<value xml:lang="ko"><![CDATA[지정된 횟수의 로그인을 허용하는 시간을 정하십시오. 짧은 시간 동안 하나의 아이피(IP)에서 시도할 수 있는 로그인 횟수에 제한을 둡니다. 시간은 가장 마지막 로그인 시도의 시각으로부터의 시간을 기준으로 측정합니다.]]></value>
 		<value xml:lang="en"><![CDATA[Set the time limit to try the written times of sign in. Limit the number of trial to sign in during the span of time, from a IP address.]]></value>
+        <value xml:lang="ro"><![CDATA[Setează limita de timp pentru încercări de autentificare de la o adresă IP.]]></value>
 	</item>
 	<item name="msg_kr_address">
 		<value xml:lang="ko"><![CDATA[읍, 면, 동 이름으로 검색하세요.]]></value>
@@ -2282,213 +2468,250 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="en"><![CDATA[Enter the rest of your address.]]></value>
 		<value xml:lang="zh-TW"><![CDATA[請輸入住址。]]></value>
 		<value xml:lang="jp"><![CDATA[住所を入力してください。]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu restul adresei de e-mail.]]></value>
 	</item>
 	<item name="cmd_search_again">
 		<value xml:lang="ko"><![CDATA[다시 검색]]></value>
 		<value xml:lang="en"><![CDATA[Search again]]></value>
 		<value xml:lang="jp"><![CDATA[再検索]]></value>
 		<value xml:lang="zh-TW"><![CDATA[再找一次]]></value>
+        <value xml:lang="ro"><![CDATA[Caută din nou]]></value>
 	</item>
 	<item name="msg_select_user">
 		<value xml:lang="ko"><![CDATA[관리할 회원을 선택해주세요.]]></value>
 		<value xml:lang="en"><![CDATA[Please select a member to manage.]]></value>
 		<value xml:lang="jp"><![CDATA[管理する会員を選択してください。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[請選擇一位會員進行管理。]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează un membru.]]></value>
 	</item>
 	<item name="msg_delete_user">
 		<value xml:lang="ko"><![CDATA[선택한 회원을 삭제합니다.]]></value>
 		<value xml:lang="en"><![CDATA[Delete the selected member.]]></value>
 		<value xml:lang="zh-TW"><![CDATA[刪除所選會員]]></value>
+        <value xml:lang="ro"><![CDATA[Şterge membrul selectat.]]></value>
 	</item>
 	<item name="cmd_selected_user_manage">
 		<value xml:lang="ko"><![CDATA[선택한 회원 관리]]></value>
 		<value xml:lang="en"><![CDATA[Manage selected member]]></value>
 		<value xml:lang="jp"><![CDATA[選択した会員管理]]></value>
 		<value xml:lang="zh-TW"><![CDATA[管理所選會員]]></value>
+        <value xml:lang="ro"><![CDATA[Administrare membru selectat.]]></value>
 	</item>
 	<item name="about_change_user_group">
 		<value xml:lang="ko"><![CDATA[선택한 회원의 그룹을 다시 설정.]]></value>
 		<value xml:lang="en"><![CDATA[Resets the selected group of memebers.]]></value>
 		<value xml:lang="jp"><![CDATA[選択した会員のグループを再設定する。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[重新設定所選會員群組]]></value>
+        <value xml:lang="ro"><![CDATA[Resetează grupul de membri selecat.]]></value>
 	</item>
 	<item name="about_send_message">
 		<value xml:lang="ko"><![CDATA[회원에게 쪽지를 발송해서 이 사실을 알립니다. 작성하지 않으면 발송하지 않습니다.]]></value>
 		<value xml:lang="en"><![CDATA[Send a message to the member about this. If you don't write a message, it is not sent.]]></value>
 		<value xml:lang="jp"><![CDATA[会員にメッセージを送信して、知らせます。作成しなければ送信されません。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[向此會員發送通知信]]></value>
+        <value xml:lang="ro"><![CDATA[Trimite un mesaj catre membru. Dacă nu scrii un mesaj, nu va fi trmimis nimic.]]></value>
 	</item>
 	<item name="cmd_required">
 		<value xml:lang="ko"><![CDATA[필수]]></value>
 		<value xml:lang="en"><![CDATA[Required]]></value>
 		<value xml:lang="jp"><![CDATA[必須]]></value>
 		<value xml:lang="zh-TW"><![CDATA[必填]]></value>
+        <value xml:lang="ro"><![CDATA[Obligatoriu]]></value>
 	</item>
 	<item name="cmd_optional">
 		<value xml:lang="ko"><![CDATA[선택]]></value>
 		<value xml:lang="en"><![CDATA[Optional]]></value>
 		<value xml:lang="jp"><![CDATA[選択]]></value>
 		<value xml:lang="zh-TW"><![CDATA[選填]]></value>
+        <value xml:lang="ro"><![CDATA[Opţional]]></value>
 	</item>
 	<item name="cmd_image_max_width">
 		<value xml:lang="ko"><![CDATA[너비 제한]]></value>
 		<value xml:lang="en"><![CDATA[Max Width]]></value>
 		<value xml:lang="jp"><![CDATA[横幅制限]]></value>
 		<value xml:lang="zh-TW"><![CDATA[寬度限制]]></value>
+        <value xml:lang="ro"><![CDATA[Laţime maximă]]></value>
 	</item>
 	<item name="cmd_image_max_height">
 		<value xml:lang="ko"><![CDATA[높이 제한]]></value>
 		<value xml:lang="en"><![CDATA[Max Height]]></value>
 		<value xml:lang="jp"><![CDATA[高さ制限]]></value>
 		<value xml:lang="zh-TW"><![CDATA[高度限制]]></value>
+        <value xml:lang="ro"><![CDATA[Înălţime maximă]]></value>
 	</item>
 	<item name="cmd_input_extend_form">
 		<value xml:lang="ko"><![CDATA[회원 정의 입력]]></value>
 		<value xml:lang="en"><![CDATA[User Defined Input]]></value>
 		<value xml:lang="zh-TW"><![CDATA[使用者自訂]]></value>
+        <value xml:lang="ro"><![CDATA[Input definit de utilizator]]></value>
 	</item>
 	<item name="about_multi_type">
 		<value xml:lang="ko"><![CDATA[다중 또는 단일 항목의 선택 값을 입력하세요.(줄 바꿈으로 구분)]]></value>
 		<value xml:lang="en"><![CDATA[Enter the value of multi-or single-item selection.(separated by line breaks)]]></value>
 		<value xml:lang="zh-TW"><![CDATA[請輸入單個或多個項目值。(換行區隔)]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu valorile pentru select (fiecare pe o linie)]]></value>
 	</item>
 	<item name="msg_delete_extend_form">
 		<value xml:lang="ko"><![CDATA[선택한 항목을 삭제합니다.]]></value>
 		<value xml:lang="en"><![CDATA[Delete the selected item.]]></value>
 		<value xml:lang="zh-TW"><![CDATA[刪除所選項目]]></value>
+        <value xml:lang="ro"><![CDATA[Şterge articolul selectat.]]></value>
 	</item>
 	<item name="set_manage_id">
 		<value xml:lang="ko"><![CDATA[줄 바꿈으로 구분]]></value>
 		<value xml:lang="en"><![CDATA[Separated by line breaks.]]></value>
 		<value xml:lang="jp"><![CDATA[改行で区別]]></value>
 		<value xml:lang="zh-TW"><![CDATA[換行區隔]]></value>
+        <value xml:lang="ro"><![CDATA[Fiecare pe o linie]]></value>
 	</item>
 	<item name="count_manage_id">
 		<value xml:lang="ko"><![CDATA[<span class="_deniedIDCount">%s</span>개의 금지 아이디가 있습니다.]]></value>
 		<value xml:lang="en"><![CDATA[There are <span class="_deniedIDCount">%s</span> prohibited ID.]]></value>
 		<value xml:lang="jp"><![CDATA[<span class="_deniedIDCount">%s</span>個の禁止IDがあります。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[已有 <span class="_deniedIDCount">%s</span> 個禁止帳號]]></value>
+        <value xml:lang="ro"><![CDATA[Există <span class="_deniedIDCount">%s</span> ID-uri interzise.]]></value>
 	</item>
 	<item name="count_manage_nick_name">
 		<value xml:lang="ko"><![CDATA[<span class="_deniedNickNameCount">%s</span>개의 금지 닉네임이 있습니다.]]></value>
 		<value xml:lang="en"><![CDATA[There are <span class="_deniedNickNameCount">%s</span> prohibited nicknames.]]></value>
+        <value xml:lang="ro"><![CDATA[Există <span class="_deniedNickNameCount">%s</span> aliasuri interzise.]]></value>
 	</item>
 	<item name="user_list">
 		<value xml:lang="ko"><![CDATA[회원 목록]]></value>
 		<value xml:lang="en"><![CDATA[Member List]]></value>
 		<value xml:lang="jp"><![CDATA[会員リスト]]></value>
 		<value xml:lang="zh-TW"><![CDATA[會員列表]]></value>
+        <value xml:lang="ro"><![CDATA[Listă membri]]></value>
 	</item>
 	<item name="cmd_show_all_member">
 		<value xml:lang="ko"><![CDATA[모든 회원]]></value>
 		<value xml:lang="en"><![CDATA[All Members]]></value>
 		<value xml:lang="jp"><![CDATA[すべての会員]]></value>
 		<value xml:lang="zh-TW"><![CDATA[所有會員]]></value>
+        <value xml:lang="ro"><![CDATA[Toţi membrii]]></value>
 	</item>
 	<item name="cmd_show_super_admin_member">
 		<value xml:lang="ko"><![CDATA[최고 관리자]]></value>
 		<value xml:lang="en"><![CDATA[Super Admins]]></value>
 		<value xml:lang="jp"><![CDATA[最高管理者]]></value>
 		<value xml:lang="zh-TW"><![CDATA[最高管理員]]></value>
+        <value xml:lang="ro"><![CDATA[Super administratori]]></value>
 	</item>
 	<item name="cmd_show_site_admin_member">
 		<value xml:lang="ko"><![CDATA[사이트 관리자]]></value>
 		<value xml:lang="en"><![CDATA[Site Admin]]></value>
 		<value xml:lang="jp"><![CDATA[サイト管理者]]></value>
 		<value xml:lang="zh-TW"><![CDATA[網站管理員]]></value>
+        <value xml:lang="ro"><![CDATA[Administratori site]]></value>
 	</item>
 	<item name="approval">
 		<value xml:lang="ko"><![CDATA[승인]]></value>
 		<value xml:lang="en"><![CDATA[Approved]]></value>
 		<value xml:lang="jp"><![CDATA[承認]]></value>
 		<value xml:lang="zh-TW"><![CDATA[承認]]></value>
+        <value xml:lang="ro"><![CDATA[Abrobat]]></value>
 	</item>
 	<item name="denied">
 		<value xml:lang="ko"><![CDATA[거부]]></value>
 		<value xml:lang="en"><![CDATA[Denied]]></value>
 		<value xml:lang="jp"><![CDATA[拒否]]></value>
 		<value xml:lang="zh-TW"><![CDATA[拒絕]]></value>
+        <value xml:lang="ro"><![CDATA[Respins]]></value>
 	</item>
 	<item name="use_group_image_mark">
 		<value xml:lang="ko"><![CDATA[그룹 이미지 마크 사용]]></value>
 		<value xml:lang="en"><![CDATA[Use group image mark]]></value>
 		<value xml:lang="jp"><![CDATA[グループイメージマーク使用]]></value>
 		<value xml:lang="zh-TW"><![CDATA[使用群組圖標]]></value>
+        <value xml:lang="ro"><![CDATA[Foloseşte imagine de grup]]></value>
 	</item>
 	<item name="group_image_mark">
 		<value xml:lang="ko"><![CDATA[그룹 이미지 마크]]></value>
 		<value xml:lang="en"><![CDATA[Group image mark]]></value>
 		<value xml:lang="jp"><![CDATA[グループイメージマーク]]></value>
 		<value xml:lang="zh-TW"><![CDATA[群組圖標]]></value>
+        <value xml:lang="ro"><![CDATA[Marcă imagine de grup]]></value>
 	</item>
 	<item name="usable_group_image_mark_list">
 		<value xml:lang="ko"><![CDATA[사용가능한 그룹 이미지 마크 목록]]></value>
-		<value xml:lang="en"><![CDATA[ Usable list of group image mark]]></value>
+		<value xml:lang="en"><![CDATA[Usable list of group image mark]]></value>
 		<value xml:lang="jp"><![CDATA[使用可能なグループイメージマークリスト]]></value>
 		<value xml:lang="zh-TW"><![CDATA[可用群組圖標列表]]></value>
+        <value xml:lang="ro"><![CDATA[Listă utilizabilă de imagini]]></value>
 	</item>
 	<item name="add_group_image_mark">
 		<value xml:lang="ko"><![CDATA[그룹 이미지 마크 추가]]></value>
 		<value xml:lang="en"><![CDATA[Add group image mark]]></value>
 		<value xml:lang="jp"><![CDATA[グループイメージマーク追加]]></value>
 		<value xml:lang="zh-TW"><![CDATA[新增群組圖標]]></value>
+        <value xml:lang="ro"><![CDATA[Adaugă marcă pentru grup]]></value>
 	</item>
 	<item name="link_file_box">
 		<value xml:lang="ko"><![CDATA[파일박스 관리 바로가기...]]></value>
 		<value xml:lang="en"><![CDATA[Go to Manage FileBox...]]></value>
 		<value xml:lang="jp"><![CDATA[ファイルボックス管理]]></value>
 		<value xml:lang="zh-TW"><![CDATA[前往檔案盒]]></value>
+        <value xml:lang="ro"><![CDATA[Mergi la administrare FileBox]]></value>
 	</item>
 	<item name="msg_group_delete">
 		<value xml:lang="ko"><![CDATA[선택한 그룹을 삭제합니다.]]></value>
 		<value xml:lang="en"><![CDATA[Delete selected group.]]></value>
 		<value xml:lang="jp"><![CDATA[選択グループを削除します。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[刪除所選群組]]></value>
+        <value xml:lang="ro"><![CDATA[Şterge grupul selectat.]]></value>
 	</item>
 	<item name="email">
 		<value xml:lang="ko"><![CDATA[이메일]]></value>
 		<value xml:lang="en"><![CDATA[Email]]></value>
 		<value xml:lang="jp"><![CDATA[メール]]></value>
 		<value xml:lang="zh-TW"><![CDATA[電子郵件]]></value>
+        <value xml:lang="ro"><![CDATA[E-mail]]></value>
 	</item>
 	<item name="add_prohibited_id">
 		<value xml:lang="ko"><![CDATA[금지 아이디 추가]]></value>
 		<value xml:lang="en"><![CDATA[Add prohibited id]]></value>
 		<value xml:lang="jp"><![CDATA[禁止ID追加]]></value>
 		<value xml:lang="zh-TW"><![CDATA[新增禁止帳號]]></value>
+        <value xml:lang="ro"><![CDATA[Adaugă ID interzis]]></value>
 	</item>
 	<item name="multi_line_input">
 		<value xml:lang="ko"><![CDATA[여러 항목은 줄을 바꾸어 입력하세요.]]></value>
 		<value xml:lang="en"><![CDATA[To enter multiple entries, please change the line input.]]></value>
 		<value xml:lang="jp"><![CDATA[複数の項目は、改行して入力してください。]]></value>
+        <value xml:lang="ro"><![CDATA[Pentru a introduce elemente multiple, schimbă tipul input-ului]]></value>
 	</item>
 	<item name="add_extend_form">
 		<value xml:lang="ko"><![CDATA[사용자 정의 항목 추가]]></value>
 		<value xml:lang="en"><![CDATA[Add user defined item]]></value>
 		<value xml:lang="jp"><![CDATA[ユーザー定義項目追加]]></value>
 		<value xml:lang="zh-TW"><![CDATA[新增自訂項目]]></value>
+        <value xml:lang="ro"><![CDATA[Adaugă element definit de utilizator]]></value>
 	</item>
 	<item name="msg_null_prohibited_id">
 		<value xml:lang="ko"><![CDATA[추가할 금지 아이디를 입력해주세요.]]></value>
 		<value xml:lang="en"><![CDATA[Please enter an ID to prohibit.]]></value>
 		<value xml:lang="jp"><![CDATA[追加する禁止IDを入力してください。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[請輸入禁止帳號]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu ID pentru interzicere.]]></value>
 	</item>
 	<item name="msg_null_prohibited_nick_name">
 		<value xml:lang="ko"><![CDATA[추가할 금지 닉네임을 입력해주세요.]]></value>
 		<value xml:lang="en"><![CDATA[Please enter a nick name to prohibit.]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu alias pentru interzicere]]></value>
 	</item>
 	<item name="identifier">
 		<value xml:lang="ko"><![CDATA[로그인 계정]]></value>
 		<value xml:lang="en"><![CDATA[Login Account]]></value>
 		<value xml:lang="jp"><![CDATA[ログインアカウント]]></value>
 		<value xml:lang="zh-TW"><![CDATA[登入帳號]]></value>
+        <value xml:lang="ro"><![CDATA[Informaţii autentificare.]]></value>
 	</item>
 	<item name="about_identifier">
 		<value xml:lang="ko"><![CDATA[로그인에 사용할 계정을 선택해주세요.]]></value>
 		<value xml:lang="en"><![CDATA[Please select an account to use when logging in.]]></value>
 		<value xml:lang="jp"><![CDATA[ログインに使用するアカウントを選択してください。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[請選擇帳號登入方式。]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează un cont pentru a-l folosi după autentificare.]]></value>
 	</item>
 	<item name="about_public_item">
 		<value xml:lang="ko"><![CDATA[본인 외에 다른 회원에게도 노출될 정보인지 선택합니다.]]></value>
@@ -2497,95 +2720,117 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 	<item name="use_after_save">
 		<value xml:lang="ko"><![CDATA[저장 후 사용]]></value>
 		<value xml:lang="en"><![CDATA[Use after saved]]></value>
+        <value xml:lang="ro"><![CDATA[Foloseşte după salvare]]></value>
 	</item>
 	<item name="cmd_add_group">
 		<value xml:lang="ko"><![CDATA[그룹 추가]]></value>
 		<value xml:lang="en"><![CDATA[Add group]]></value>
 		<value xml:lang="zh-TW"><![CDATA[新增群組]]></value>
+        <value xml:lang="ro"><![CDATA[Adaugă grup]]></value>
 	</item>
 	<item name="msg_groups_exist">
 		<value xml:lang="ko"><![CDATA[개 그룹이 존재합니다.]]></value>
 		<value xml:lang="en"><![CDATA[groups exist.]]></value>
 		<value xml:lang="zh-TW"><![CDATA[個群組已存在。]]></value>
+        <value xml:lang="ro"><![CDATA[grupul există]]></value>
 	</item>
 	<item name="cmd_member_config">
 		<value xml:lang="ko"><![CDATA[회원 설정]]></value>
 		<value xml:lang="en"><![CDATA[Member Configuration]]></value>
 		<value xml:lang="zh-TW"><![CDATA[會員設定]]></value>
+        <value xml:lang="ro"><![CDATA[Configurare membri]]></value>
 	</item>
 	<item name="cmd_member_sync">
 		<value xml:lang="ko"><![CDATA[회원정보 동기화]]></value>
 		<value xml:lang="en"><![CDATA[Member synchronization]]></value>
+        <value xml:lang="ro"><![CDATA[Sincronizare membri]]></value>
 	</item>
 	<item name="about_member_sync">
 		<value xml:lang="ko"><![CDATA[회원정보와 게시물과 댓글 정보를 동기화 합니다. 데이터가 많은 경우 시간이 오래 소요될 수 있습니다. 이용자가 많은 경우 반드시 서비스를 중단하시고 진행하시기 바랍니다.]]></value>
 		<value xml:lang="ko"><![CDATA[Synchronize information between members and imported posts and comments. For a large amount of data it may take a few minutes. ]]></value>
+        <value xml:lang="ro"><![CDATA[Sincronizează informaţiile membrilor şi posturile şi comentariile importate. Pentru o cantitate mare de informaţii ar putea dura câteva minute.]]></value>
 	</item>
 	<item name="msg_success_modify_email_address">
 		<value xml:lang="ko"><![CDATA[이메일 주소가 정상적으로 변경되었습니다. 변경된 이메일 주소로 로그인 가능합니다.]]></value>
 		<value xml:lang="ko"><![CDATA[The email address has been changed successfully.]]></value>
+        <value xml:lang="ro"><![CDATA[Adresa de e-mail a fost schimbată cu succes.]]></value>
 	</item>
 	<item name="group">
 		<value xml:lang="ko"><![CDATA[그룹]]></value>
 		<value xml:lang="en"><![CDATA[Group]]></value>
+        <value xml:lang="ro"><![CDATA[Grup]]></value>
 	</item>
 	<item name="retrieve_password">
 		<value xml:lang="ko"><![CDATA[비밀번호 찾기]]></value>
 		<value xml:lang="en"><![CDATA[Retrieve password]]></value>
+        <value xml:lang="ro"><![CDATA[Recuperare parolă]]></value>
 	</item>
 	<item name="excess_ip_access_count">
 		<value xml:lang="ko"><![CDATA[로그인 가능 횟수를 초과하셨습니다. %s 간 로그인 하실 수 없습니다.]]></value>
 		<value xml:lang="en"><![CDATA[There was too much sign in trial from your devices in a short time. You can not sign in for %s.]]></value>
+        <value xml:lang="ro"><![CDATA[Au fost prea multe încercări de autentificare pe pe acest dispozitiv. Nu te poţi autentifica în urmptoarele %s]]></value>
 	</item>
 	<item name="enable_login_fail_report">
 		<value xml:lang="ko"><![CDATA[계정 무한 대입 방지 사용]]></value>
 		<value xml:lang="en"><![CDATA[Sign in failure]]></value>
+        <value xml:lang="ro"><![CDATA[Autentificare eşuată]]></value>
 	</item>
 	<item name="login_fail_report">
 		<value xml:lang="ko"><![CDATA[로그인 실패 기록 보고 입니다.]]></value>
 		<value xml:lang="en"><![CDATA[Sign in failure report.]]></value>
+        <value xml:lang="ro"><![CDATA[Raport autentificări eşuate.]]></value>
 	</item>
 	<item name="login_fail_report_contents">
 		<value xml:lang="ko"><![CDATA[<h2>로그인 실패 기록을 알려드립니다.</h2><div>%1$s</div><p>* 비밀번호를 틀리는 등의 일이 없었는데 이 메시지를 보신다면, 계정 관리에 유의해주시기 바랍니다.<br />* 이 메시지는 로그인이 성공한 순간 누적 로그인 실패 기록이 많을 경우, 로그인 성공 이전 실패 기록을 모아서 발송합니다.<br />발송 시각: %2$s</p>]]></value>
 		<value xml:lang="en"><![CDATA[<h2>There is recorded sign in failures.</h2><div>%1$s</div><p>* This notification is shown once.<br />* This message contains sign in failure records, before a ID sign in success.<br />Sending: %2$s</p>]]></value>
+        <value xml:lang="ro"><![CDATA[<h2>Sut înregistrate esuări la autentificare.</h2><div>%1$s</div><p>* Această notificare e afişată o singură dată. Acest mesaj conţine înregistrări despre autentificări eşuate înainte de autentificare cu succes..<br />Trimite: %2$s</p>]]></value>
 	</item>
         
         <!--SNS-->
-        <item name="sns">
+    <item name="sns">
 		<value xml:lang="ko"><![CDATA[Login with a Social Network]]></value>
 		<value xml:lang="en"><![CDATA[Login with a Social Network]]></value>
+        <value xml:lang="ro"><![CDATA[Autentificare prin reţea de socializare.]]></value>
 	</item>
-        <item name="msg_sns_is_not_founded">
-		<value xml:lang="ko"><![CDATA[Cannot find SNS %s.]]></value>
-		<value xml:lang="en"><![CDATA[Cannot find SNS %s.]]></value>
+    <item name="msg_sns_is_not_founded">
+        <value xml:lang="ko"><![CDATA[Cannot find SNS %s.]]></value>
+        <value xml:lang="en"><![CDATA[Cannot find SNS %s.]]></value>
+        <value xml:lang="ro"><![CDATA[SNS %s nu a fost găsit.]]></value>
 	</item>
-        <item name="sns_name">
+    <item name="sns_name">
 		<value xml:lang="ko"><![CDATA[SNS Name]]></value>
 		<value xml:lang="en"><![CDATA[SNS Name]]></value>
+        <value xml:lang="ro"><![CDATA[Nume SNS]]></value>
 	</item>
-        <item name="sns_icon">
+    <item name="sns_icon">
 		<value xml:lang="ko"><![CDATA[SNS icon]]></value>
 		<value xml:lang="en"><![CDATA[SNS icon]]></value>
+        <value xml:lang="ro"><![CDATA[Iconiţă SNS]]></value>
 	</item>
-        <item name="sns_config_error">
+    <item name="sns_config_error">
 		<value xml:lang="ko"><![CDATA[SNS Configueration Error]]></value>
 		<value xml:lang="en"><![CDATA[SNS Configueration Error]]></value>
+        <value xml:lang="ro"><![CDATA[Eroare de configurare SNS]]></value>
 	</item>
-        <item name="msg_sns_config_error">
+    <item name="msg_sns_config_error">
 		<value xml:lang="ko"><![CDATA[SNS is not configured correctly. Please contact your administrator.]]></value>
 		<value xml:lang="en"><![CDATA[SNS is not configured correctly. Please contact your administrator.]]></value>
+        <value xml:lang="ro"><![CDATA[SNS nu este configurat corect. Contactează administratorul.]]></value>
 	</item>
-        <item name="sns_add_email">
+    <item name="sns_add_email">
 		<value xml:lang="ko"><![CDATA[Add Email Address]]></value>
 		<value xml:lang="en"><![CDATA[Add Email Address]]></value>
+        <value xml:lang="ro"><![CDATA[Adaugă adresă de e-mail]]></value>
 	</item>
-        <item name="sns_add_email_description">
+    <item name="sns_add_email_description">
 		<value xml:lang="ko"><![CDATA[Please add your email to complete the registraton:]]></value>
 		<value xml:lang="en"><![CDATA[Please add your email to complete the registraton:]]></value>
+        <value xml:lang="ro"><![CDATA[Adaugă adresa de e-mail pentru a termina înregistrarea.]]></value>
 	</item>
     <item name="unexpected_error">
 		<value xml:lang="ko"><![CDATA[Unexpected error.]]></value>
 		<value xml:lang="en"><![CDATA[Unexpected error.]]></value>
+        <value xml:lang="ro"><![CDATA[Eroare.]]></value>
 	</item>
     <item name="register">
         <value xml:lang="en"><![CDATA[Register]]></value>

@@ -2,9 +2,11 @@
 <sns>
     <title xml:lang="ko">Google</title>
     <title xml:lang="en">Google</title>
+    <title xml:lang="ro">Google</title>
 
     <description xml:lang="ko">Sign in with Karybu using your Gmail account.</description>
     <description xml:lang="en">Sign in with Karybu using your Gmail account.</description>
+    <description xml:lang="ro">Autentificare în Karybu folosind contul de Gmail.</description>
 
     <regdate>2013-02-13</regdate>
     
@@ -12,18 +14,22 @@
         <item name="developer_key">
             <title xml:lang="ko">DEVELOPER_KEY</title>
             <title xml:lang="en">DEVELOPER_KEY</title>
+            <title xml:lang="ro">DEVELOPER_KEY</title>
         </item>
         <item name="client_id">
             <title xml:lang="ko">CLIENT_ID</title>
             <title xml:lang="en">CLIENT_ID</title>
+            <title xml:lang="ro">CLIENT_ID</title>
         </item>
         <item name="client_secret">
             <title xml:lang="ko">CLIENT_SECRET</title>
             <title xml:lang="en">CLIENT_SECRET</title>
+            <title xml:lang="ro">CLIENT_SECRET</title>
         </item>
         <item name="callback_url">
             <title xml:lang="ko">REDIRECT_URI</title>
             <title xml:lang="en">REDIRECT_URI</title>
+            <title xml:lang="ro">REDIRECT_URI</title>
         </item>
     </config>
     

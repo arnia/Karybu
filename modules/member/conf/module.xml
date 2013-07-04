@@ -105,6 +105,7 @@
 			<title xml:lang="vi">Member List</title>
 			<title xml:lang="mn">Member List</title>
 			<title xml:lang="tr">Member List</title>
+            <title xml:lang="ro">Membri</title>
 		</menu>
 		<menu name="userGroup">
 			<title xml:lang="en">Member Groups</title>
@@ -118,6 +119,7 @@
 			<title xml:lang="vi">Member Group</title>
 			<title xml:lang="mn">Member Group</title>
 			<title xml:lang="tr">Member Group</title>
+            <title xml:lang="ro">Grupuri de membri</title>
 		</menu>
 		<menu name="userSetting">
 			<title xml:lang="en">Member Settings</title>
@@ -131,6 +133,7 @@
 			<title xml:lang="vi">Member Setting</title>
 			<title xml:lang="mn">Member Setting</title>
 			<title xml:lang="tr">Member Setting</title>
+            <title xml:lang="ro">Setări membri</title>
 		</menu>
 	</menus>
 </module>

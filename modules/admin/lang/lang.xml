@@ -128,7 +128,7 @@
     </item>
     <item name="no_favorites">
         <value xml:lang="en"><![CDATA[Favorites list is empty. Click to add some]]></value>
-        <value xml:lang="ro"><![CDATA[Lista de favorite este goal. Click pentru a adauga înregistrări.]]></value>
+        <value xml:lang="ro"><![CDATA[Lista de favorite este goală. Click pentru a adauga înregistrări.]]></value>
     </item>
 	<item name="start_module">
 		<value xml:lang="ko"><![CDATA[시작 모듈]]></value>

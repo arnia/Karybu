@@ -2,9 +2,11 @@
 <sns>
     <title xml:lang="ko">Twitter</title>
     <title xml:lang="en">Twitter</title>
+    <title xml:lang="ro">Twitter</title>
 
     <description xml:lang="ko">Sign in with Karybu using your Twitter account.</description>
     <description xml:lang="en">Sign in with Karybu using your Twitter account.</description>
+    <description xml:lang="ro">Autentificare în Karybu folosing contul de Twitter.</description>
 
     <regdate>2013-02-13</regdate>
 
@@ -12,14 +14,17 @@
         <item name="consumer_key">
             <title xml:lang="ko">Consumer Key</title>
             <title xml:lang="en">Consumer Key</title>
+            <title xml:lang="ro">Cheie client</title>
         </item>
         <item name="consumer_secret">
             <title xml:lang="ko">Consumer Secret</title>
             <title xml:lang="en">Consumer Secret</title>
+            <title xml:lang="ro">Cheie secretă client</title>
         </item>
         <item name="callback_url">
             <title xml:lang="ko">Callback URL</title>
             <title xml:lang="en">Callback URL</title>
+            <title xml:lang="ro">URL Callback</title>
         </item>
     </config>
             

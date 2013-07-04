@@ -2,8 +2,17 @@
 <skin version="0.2">
     <title xml:lang="ko">회원 기본 모바일 스킨</title>
     <title xml:lang="en">Karybu Basic Member Mobile Skin</title>
+    <title xml:lang="ro">Karybu Skin de bază pentru mobil</title>
     <description xml:lang="ko">
         Karybu 기본 모바일 스킨 입니다.
+        Arnia (dev@karybu.org)
+    </description>
+    <description xml:lang="en">
+        Karybu
+        Arnia (dev@karybu.org)
+    </description>
+    <description xml:lang="ro">
+        Karybu
         Arnia (dev@karybu.org)
     </description>
     <version>0.1</version>
@@ -14,6 +23,7 @@
         <name xml:lang="en">Arnia</name>
         <name xml:lang="zh-TW">Arnia</name>
         <name xml:lang="tr">Arnia</name>
+        <name xml:lang="ro">Arnia</name>
     </author>
 	<extra_vars />
 </skin>

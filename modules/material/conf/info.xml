@@ -7,6 +7,7 @@
     <title xml:lang="zh-TW">글감</title>
     <title xml:lang="jp">ネタ</title>
     <title xml:lang="tr">Gereç</title>
+    <title xml:lang="ro">Material</title>
     <description xml:lang="ko">글감을 수집할 수 있는 모듈입니다.</description>
     <description xml:lang="en">Geulgam is a module that can be collected.</description>
 	<description xml:lang="vi">Module thu nhập những thành phần từ những trang Web khác.</description>
@@ -14,6 +15,7 @@
     <description xml:lang="zh-TW">글감을 수집할 수 있는 모듈입니다.</description>
     <description xml:lang="jp">ネタを収集するモジュールです。</description>
     <description xml:lang="tr">Makaleleri toplayan modüldür.</description>
+    <description xml:lang="en">Material e un modul care permite colectarea de date de pe internet</description>
     <version>1.1</version>
     <date>2012-01-09</date>
     <category>package</category>
@@ -25,5 +27,6 @@
 		<name xml:lang="zh-TW">Arnia</name>
 		<name xml:lang="jp">Arnia</name>
 		<name xml:lang="tr">Arnia</name>
+        <name xml:lang="ro">Arnia</name>
 	</author>
 </module>
