@@ -16,31 +16,36 @@
             <!--@foreach($layout as $no => $item)-->
             <tr cond="$no === 0">
                 <th class="crt_no">{$count++}.</th>
-                <th>{$layout_name} <a class="new-instance" href=""><i class="icon-plus-sign"></i></a></th>
+                <th colspan="2"><span class="badge badge-success" data-toggle="tooltip" title="Theme">T</span> {$layout_name} <a class="new-instance" href=""><i class="icon-plus-sign"></i></a></th>
+                <!--
+                        **** IMPORTANT ****
+                        the span.badge from the previous th should be used for to mark the themes in the list
+                        for simple layouts we should echo: <span class="badge" data-toggle="tooltip" title="Layout">L</span>
+                        THANKS! Iulian
+                -->
             </tr>
             <tr>
                 <td class="child">&nbsp;</td>
-                <td class="instance">{$item->title}
-                    <small class="muted">({zdate($item->regdate, "Y-m-d")})</small><div class="kActionIcons">
-                        <a href="{getUrl('act', 'dispLayoutAdminModify', 'layout_srl', $item->layout_srl)}"
-                           data-toggle="tooltip" title="{$lang->cmd_layout_management}"><i class="kConfigure">{$lang->cmd_layout_management}</i></a>
-                        <a href="{getUrl('act', 'dispLayoutAdminEdit', 'layout_srl', $item->layout_srl)}"
-                           data-toggle="tooltip" title="{$lang->cmd_layout_edit}"><i class="kEdit">{$lang->cmd_layout_edit}</i></a>
-                        <a href="{getUrl('', 'module', 'layout', 'act', 'dispLayoutAdminCopyLayout', 'layout_srl', $item->layout_srl)}"
-                           data-toggle="tooltip" onclick="popopen(this.href);return false;"
-                           title="{$lang->cmd_layout_copy}"><i class="kCopy">{$lang->cmd_layout_copy}</i></a>
+                <td class="instance">{$item->title}</td>
+                <td><div class="kActionIcons">
+                    <a href="{getUrl('act', 'dispLayoutAdminModify', 'layout_srl', $item->layout_srl)}"
+                       data-toggle="tooltip" title="{$lang->cmd_layout_management}"><i class="kConfigure">{$lang->cmd_layout_management}</i></a>
+                    <a href="{getUrl('act', 'dispLayoutAdminEdit', 'layout_srl', $item->layout_srl)}"
+                       data-toggle="tooltip" title="{$lang->cmd_layout_edit}"><i class="kEdit">{$lang->cmd_layout_edit}</i></a>
+                    <a href="{getUrl('', 'module', 'layout', 'act', 'dispLayoutAdminCopyLayout', 'layout_srl', $item->layout_srl)}"
+                       data-toggle="tooltip" onclick="popopen(this.href);return false;"
+                       title="{$lang->cmd_layout_copy}"><i class="kCopy">{$lang->cmd_layout_copy}</i></a>
 
-                        <form class="layout_delete_form" ruleset="deleteLayout" action="./" method="post"
-                              style="margin-bottom: 0;">
-                            <input type="hidden" name="module" value="layout"/>
-                            <input type="hidden" name="act" value="procLayoutAdminDelete"/>
-                            <input type="hidden" name="layout_srl" value="{$item->layout_srl}"/>
-                            <a href="#" data-toggle="tooltip" title="{$lang->cmd_delete}"
-                               onclick="jQuery(this).closest('form').submit()"><i
-                                    class="kDelete">{$lang->cmd_delete}</i></a>
-                        </form>
-                    </div>
-                </td>
+                    <form class="layout_delete_form" ruleset="deleteLayout" action="./" method="post"
+                          style="margin-bottom: 0;">
+                        <input type="hidden" name="module" value="layout"/>
+                        <input type="hidden" name="act" value="procLayoutAdminDelete"/>
+                        <input type="hidden" name="layout_srl" value="{$item->layout_srl}"/>
+                        <a href="#" data-toggle="tooltip" title="{$lang->cmd_delete}"
+                           onclick="jQuery(this).closest('form').submit()"><i
+                                class="kDelete">{$lang->cmd_delete}</i></a>
+                    </form>
+                </div></td>
             </tr>
             <!--@end-->
             <!--@end-->

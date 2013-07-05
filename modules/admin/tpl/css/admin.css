@@ -2496,9 +2496,9 @@ table#layouts th {
 }
 
 table#layouts td.instance {
-    padding-left: 25px;
+    padding-left: 30px;
     background-image: url("../img/children.png");
-    background-position: 5px 0;
+    background-position: 15px 0;
     background-repeat: no-repeat;
     white-space:normal!important;
 }
@@ -2508,9 +2508,12 @@ table#layouts .kActionIcons {
     display: inline;
     white-space: nowrap;
     float: right;
+    clear: none;
     padding-left: 20px;
     transition:0.2s;
 }
+
+
 
 table#layouts .kActionIcons form {
     display: inline;

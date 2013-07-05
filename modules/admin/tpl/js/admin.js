@@ -1475,6 +1475,6 @@ function doToggleFavoriteModule(obj, module_name) {
 }
 jQuery(document).ready(function($){
     $('body').tooltip({
-        selector: "a[data-toggle=tooltip],button[data-toggle=tooltip],td[data-toggle=tooltip]"
+        selector: "*[data-toggle=tooltip]"
     })
 });
