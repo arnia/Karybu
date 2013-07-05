@@ -1558,7 +1558,6 @@
 			if(!$trigger_output->toBool()) return $trigger_output;
 			// Create a member model object
 			$oMemberModel = &getModel('member');
-
 			// check IP access count.
 			$config = $oMemberModel->getMemberConfig();
             $args = new stdClass();
@@ -1584,7 +1583,6 @@
 					$output = executeQuery('member.deleteLoginCountByIp', $args);
 				}
 			}
-
 			// check identifier
 			if ($config->identifier == 'email_address'){
 				// Get user_id information
@@ -1834,8 +1832,13 @@
 			$args->homepage = htmlspecialchars($args->homepage);
 			$args->blog = htmlspecialchars($args->blog);
 
-            if($args->password && !$password_is_hashed) $args->password = md5($args->password);
-            elseif(!$args->password) unset($args->password);
+            if($args->password && !$password_is_hashed) {
+                $salt = $this->getRandomSalt(10);
+                $args->password = md5($args->password.$salt).':'.$salt;
+            }
+            elseif(!$args->password) {
+                unset($args->password);
+            }
 
 			if (!$args->user_id) $args->user_id = 't'.$args->member_srl;
 			if (!$args->user_name) $args->user_name = $args->member_srl;
@@ -1913,7 +1916,12 @@
             $output->add('member_srl', $args->member_srl);
             return $output;
         }
-
+        public function getRandomSalt($length = 10){
+            $value = uniqid();
+            $value = md5($value);
+            $start = mt_rand(0, max(strlen($value) - $length, 10));
+            return substr($value, $start, $length);
+        }
         /**
          * Modify member information
          **/

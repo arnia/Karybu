@@ -222,6 +222,19 @@
             // SNS
             if(!$oDB->isColumnExists("member", "auth_type")) return true;
             if(!$oDB->isColumnExists("member", "sns_guid")) return true;
+            //salted password
+            $query = sprintf("show fields from `%s%s`", $oDB->prefix, 'member');
+            $result = $oDB->_query($query);
+            $output = $oDB->_fetch($result);
+            if ($output){
+                foreach ($output as $key=>$value){
+                    if ($value->Field == 'password'){
+                        if ($value->Type != 'varchar(255)'){
+                            return true;
+                        }
+                    }
+                }
+            }
 
             return false;
         }
@@ -354,7 +367,20 @@
             if(!$oDB->isColumnExists("member", "sns_guid")) {
                 $oDB->addColumn("member", "sns_guid", "varchar", 100);
             }
-
+            //salted password
+            $query = sprintf("show fields from `%s%s`", $oDB->prefix, 'member');
+            $result = $oDB->_query($query);
+            $output = $oDB->_fetch($result);
+            if ($output){
+                foreach ($output as $key=>$value){
+                    if ($value->Field == 'password'){
+                        if ($value->Type != 'varchar(255)'){
+                            $query = sprintf("ALTER TABLE %s%s MODIFY COLUMN `password` VARCHAR(255)", $oDB->prefix, 'member');
+                            $oDB->_query($query);
+                        }
+                    }
+                }
+            }
             return new Object(0, 'success_updated');
         }
 

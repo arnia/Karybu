@@ -1028,9 +1028,16 @@ class memberModel extends member
         }
 
         $isSha1 = ($this->useSha1 && function_exists('sha1'));
-
+        //check salt password
+        $parts = explode(':', $hashed_password, 2);
+        $checkAgainst = md5($password_text);
+        $hashedPassword = $hashed_password;
+        if (isset($parts[1])){//if salt
+            $checkAgainst = md5($password_text.$parts[1]);
+            $hashedPassword = $parts[0];
+        }
         // Return true if the user input is equal to md5 hash value
-        if ($hashed_password == md5($password_text)) {
+        if ($hashedPassword == $checkAgainst) {
             if ($isSha1 && $member_srl > 0) {
                 $args = new stdClass();
                 $args->member_srl = $member_srl;
