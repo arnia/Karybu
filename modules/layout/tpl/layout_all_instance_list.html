@@ -1,48 +1,55 @@
 <script type="text/javascript">
-	xe.lang.confirm_delete = '{$lang->confirm_delete}';
+    xe.lang.confirm_delete = '{$lang->confirm_delete}';
 </script>
 <fieldset class="section">
-<include target="header.html" />
-<load target="js/adminList.js" usecdn="true" />
-<div class="table even easyList">
-<include target="sub_tab.html" />
+    <include target="header.html"/>
+    <load target="js/adminList.js" usecdn="true"/>
+    <div class="table even easyList">
+        <include target="sub_tab.html"/>
 
-	<table class="table table-condensed table-bordered table-hover">
-		<thead>
-			<tr>
-				<th scope="col" class="nowr">{$lang->number}</th>
-				<th scope="col" class="nowr">{$lang->layout_name}</th>
-				<th scope="col" class="title">{$lang->title}</th>
-				<th scope="col" class="nowr">{$lang->regdate}</th>
-                <th scope="col" class="nowr">{$lang->actions}</th>
-			</tr>
-		</thead>
-		<tbody>
-{@$count=1}
-			<!--@foreach($layout_list as $layout)-->
-{@$layout_name = $layout['title']}
-{@unset($layout['title'])}
-			<tr loop="$layout => $no, $item">
-				<td class="nowr" rowspan="{count($layout)}" cond="$no === 0" >{$count++}</td>
-				<td class="nowr" rowspan="{count($layout)}" cond="$no === 0" >{$layout_name}</td>
-				<td class="title">{$item->title}</td>
-				<td class="nowr">{zdate($item->regdate, "Y-m-d")}</td>
-                <td>
-                    <div class="kActionIcons">
-                        <a href="{getUrl('act', 'dispLayoutAdminModify', 'layout_srl', $item->layout_srl)}" data-toggle="tooltip" title="{$lang->cmd_layout_management}"><i class="kConfigure">{$lang->cmd_layout_management}</i></a>
-                        <a href="{getUrl('act', 'dispLayoutAdminEdit', 'layout_srl', $item->layout_srl)}" data-toggle="tooltip" title="{$lang->cmd_layout_edit}"><i class="kEdit">{$lang->cmd_layout_edit}</i></a>
-                        <a href="{getUrl('', 'module', 'layout', 'act', 'dispLayoutAdminCopyLayout', 'layout_srl', $item->layout_srl)}" data-toggle="tooltip" onclick="popopen(this.href);return false;" title="{$lang->cmd_layout_copy}"><i class="kCopy">{$lang->cmd_layout_copy}</i></a>
-                        <form class="layout_delete_form" ruleset="deleteLayout" action="./" method="post" style="margin-bottom: 0;">
-                            <input type="hidden" name="module" value="layout" />
-                            <input type="hidden" name="act" value="procLayoutAdminDelete" />
-                            <input type="hidden" name="layout_srl" value="{$item->layout_srl}" />
-                            <a href="#" data-toggle="tooltip" title="{$lang->cmd_delete}" onclick="jQuery(this).closest('form').submit()"><i class="kDelete">{$lang->cmd_delete}</i></a>
-                        </form>
-                    </div>
-                </td>
-			</tr>
-			<!--@end-->
-		</tbody>
-	</table>
-</div>
+        <table id="layouts">
+            <tbody>
+            {@$count=1}
+            <!--@foreach($layout_list as $layout)-->
+            {@$layout_name = $layout['title']}
+            {@unset($layout['title'])}
+            <!--@foreach($layout as $no => $item)-->
+            <tr cond="$no === 0">
+                <th class="crt_no">{$count++}.</th>
+                <th colspan="2"><span class="badge badge-success" data-toggle="tooltip" title="Theme">T</span> {$layout_name} <a class="new-instance" href=""><i class="icon-plus-sign"></i></a></th>
+                <!--
+                        **** IMPORTANT ****
+                        the span.badge from the previous th should be used for to mark the themes in the list
+                        for simple layouts we should echo: <span class="badge" data-toggle="tooltip" title="Layout">L</span>
+                        THANKS! Iulian
+                -->
+            </tr>
+            <tr>
+                <td class="child">&nbsp;</td>
+                <td class="instance">{$item->title}</td>
+                <td><div class="kActionIcons">
+                    <a href="{getUrl('act', 'dispLayoutAdminModify', 'layout_srl', $item->layout_srl)}"
+                       data-toggle="tooltip" title="{$lang->cmd_layout_management}"><i class="kConfigure">{$lang->cmd_layout_management}</i></a>
+                    <a href="{getUrl('act', 'dispLayoutAdminEdit', 'layout_srl', $item->layout_srl)}"
+                       data-toggle="tooltip" title="{$lang->cmd_layout_edit}"><i class="kEdit">{$lang->cmd_layout_edit}</i></a>
+                    <a href="{getUrl('', 'module', 'layout', 'act', 'dispLayoutAdminCopyLayout', 'layout_srl', $item->layout_srl)}"
+                       data-toggle="tooltip" onclick="popopen(this.href);return false;"
+                       title="{$lang->cmd_layout_copy}"><i class="kCopy">{$lang->cmd_layout_copy}</i></a>
+
+                    <form class="layout_delete_form" ruleset="deleteLayout" action="./" method="post"
+                          style="margin-bottom: 0;">
+                        <input type="hidden" name="module" value="layout"/>
+                        <input type="hidden" name="act" value="procLayoutAdminDelete"/>
+                        <input type="hidden" name="layout_srl" value="{$item->layout_srl}"/>
+                        <a href="#" data-toggle="tooltip" title="{$lang->cmd_delete}"
+                           onclick="jQuery(this).closest('form').submit()"><i
+                                class="kDelete">{$lang->cmd_delete}</i></a>
+                    </form>
+                </div></td>
+            </tr>
+            <!--@end-->
+            <!--@end-->
+            </tbody>
+        </table>
+    </div>
 </fieldset>
