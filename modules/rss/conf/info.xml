@@ -9,6 +9,7 @@
     <title xml:lang="ru">RSS</title>
     <title xml:lang="zh-TW">RSS</title>
     <title xml:lang="tr">RSS</title>
+    <title xml:lang="ro">RSS</title>
     <description xml:lang="ko">RSS 출력을 담당하는 모듈</description>
     <description xml:lang="zh-CN">负责输出RSS的模块。</description>
     <description xml:lang="jp">RSS出力を担うモジュールです。</description>
@@ -18,6 +19,7 @@
     <description xml:lang="ru">Этот модуль служит для печати RSS.</description>
     <description xml:lang="zh-TW">負責輸出 RSS 的模組。</description>
     <description xml:lang="tr">Bu modül RSS çıktısı almak içindir.</description>
+    <description xml:lang="ro">Acest modul foloseşte la publicarea de RSS.</description>
     <version>0.1</version>
     <date>2007-02-28</date>
     <category>utility</category>
@@ -32,5 +34,6 @@
         <name xml:lang="ru">Arnia</name>
         <name xml:lang="zh-TW">Arnia</name>
         <name xml:lang="tr">Arnia</name>
+        <name xml:lang="ro">Arnia</name>
     </author>
 </module>

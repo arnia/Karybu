@@ -7,6 +7,7 @@
 		<value xml:lang="zh-CN"><![CDATA[RSS发布]]></value>
 		<value xml:lang="zh-TW"><![CDATA[RSS Feed]]></value>
 		<value xml:lang="ru"><![CDATA[Создать(Feed)]]></value>
+        <value xml:lang="ro"><![CDATA[Publică Feed RSS]]></value>
 	</item>
 	<item name="total_feed">
 		<value xml:lang="ko"><![CDATA[통합 피드]]></value>
@@ -15,6 +16,7 @@
 		<value xml:lang="zh-CN"><![CDATA[整站RSS]]></value>
 		<value xml:lang="zh-TW"><![CDATA[RSS]]></value>
 		<value xml:lang="ru"><![CDATA[Общий Feed]]></value>
+        <value xml:lang="ro"><![CDATA[Feed-uri agregate]]></value>
 	</item>
 	<item name="rss_disable">
 		<value xml:lang="ko"><![CDATA[피드(Feed) 끄기]]></value>
@@ -27,6 +29,7 @@
 		<value xml:lang="es"><![CDATA[Desactivar RSS]]></value>
 		<value xml:lang="tr"><![CDATA[RSS devredışı]]></value>
 		<value xml:lang="vi"><![CDATA[Tắt RSS]]></value>
+        <value xml:lang="ro"><![CDATA[Dezactivează feed-uri RSS]]></value>
 	</item>
 	<item name="feed_copyright">
 		<value xml:lang="ko"><![CDATA[저작권]]></value>
@@ -35,6 +38,7 @@
 		<value xml:lang="zh-CN"><![CDATA[版权]]></value>
 		<value xml:lang="zh-TW"><![CDATA[版權]]></value>
 		<value xml:lang="ru"><![CDATA[Копирайт]]></value>
+        <value xml:lang="ro"><![CDATA[Copyright]]></value>
 	</item>
 	<item name="feed_document_count">
 		<value xml:lang="ko"><![CDATA[한 페이지당 글 수]]></value>
@@ -43,6 +47,7 @@
 		<value xml:lang="zh-CN"><![CDATA[每页主题数]]></value>
 		<value xml:lang="zh-TW"><![CDATA[每頁主題數]]></value>
 		<value xml:lang="ru"><![CDATA[Количество записей на страницу]]></value>
+        <value xml:lang="ro"><![CDATA[Număr de documente pe pagină]]></value>
 	</item>
 	<item name="feed_image">
 		<value xml:lang="ko"><![CDATA[피드 이미지]]></value>
@@ -51,6 +56,7 @@
 		<value xml:lang="zh-CN"><![CDATA[RSS图片]]></value>
 		<value xml:lang="zh-TW"><![CDATA[RSS 圖片]]></value>
 		<value xml:lang="ru"><![CDATA[Картинка Feed]]></value>
+        <value xml:lang="ro"><![CDATA[Imagine feed]]></value>
 	</item>
 	<item name="rss_type">
 		<value xml:lang="ko"><![CDATA[출력할 피드(Feed) 형식]]></value>
@@ -63,6 +69,7 @@
 		<value xml:lang="es"><![CDATA[Tipo de RSS a imprimir]]></value>
 		<value xml:lang="tr"><![CDATA[RSS besleme türü]]></value>
 		<value xml:lang="vi"><![CDATA[Định dạng RSS]]></value>
+        <value xml:lang="ro"><![CDATA[Tip feed RSS]]></value>
 	</item>
 	<item name="open_rss">
 		<value xml:lang="ko"><![CDATA[피드(Feed) 공개]]></value>
@@ -75,6 +82,7 @@
 		<value xml:lang="es"><![CDATA[Abrir RSS]]></value>
 		<value xml:lang="tr"><![CDATA[RSS Aç]]></value>
 		<value xml:lang="vi"><![CDATA[Mở RSS]]></value>
+        <value xml:lang="ro"><![CDATA[RSS deschis]]></value>
 	</item>
 	<item name="open_rss_types" type="array">
 		<item name="Y">
@@ -88,6 +96,7 @@
 			<value xml:lang="es"><![CDATA[Abrir todo]]></value>
 			<value xml:lang="tr"><![CDATA[Tümünü Aç]]></value>
 			<value xml:lang="vi"><![CDATA[Mở tất cả]]></value>
+            <value xml:lang="ro"><![CDATA[Deschide toate]]></value>
 		</item>
 		<item name="H">
 			<value xml:lang="ko"><![CDATA[요약 공개]]></value>
@@ -100,6 +109,7 @@
 			<value xml:lang="es"><![CDATA[Abrir el sumario]]></value>
 			<value xml:lang="tr"><![CDATA[Özeti Aç]]></value>
 			<value xml:lang="vi"><![CDATA[Mở tóm tắt]]></value>
+            <value xml:lang="ro"><![CDATA[Sumar deschis]]></value>
 		</item>
 		<item name="N">
 			<value xml:lang="ko"><![CDATA[공개하지 않음]]></value>
@@ -112,6 +122,7 @@
 			<value xml:lang="es"><![CDATA[No abrir]]></value>
 			<value xml:lang="tr"><![CDATA[Açma]]></value>
 			<value xml:lang="vi"><![CDATA[Tắt]]></value>
+            <value xml:lang="ro"><![CDATA[Închis]]></value>
 		</item>
 	</item>
 	<item name="open_feed_to_total">
@@ -121,6 +132,7 @@
 		<value xml:lang="zh-CN"><![CDATA[包含到整站RSS]]></value>
 		<value xml:lang="zh-TW"><![CDATA[是否使用]]></value>
 		<value xml:lang="ru"><![CDATA[Включено в общий Feed]]></value>
+        <value xml:lang="ro"><![CDATA[Include in feed-ul agregat]]></value>
 	</item>
 	<item name="about_rss_disable">
 		<value xml:lang="ko"><![CDATA[체크하시면 피드(Feed) 출력을 하지 않습니다.]]></value>
@@ -133,6 +145,7 @@
 		<value xml:lang="es"><![CDATA[Si selecciona esta opción, RSS será desactivado.]]></value>
 		<value xml:lang="tr"><![CDATA[İşaretlendiğinde, RSS devredışı bırakılacak.]]></value>
 		<value xml:lang="vi"><![CDATA[Nếu chọn, RSS sẽ bị tắt.]]></value>
+        <value xml:lang="ro"><![CDATA[Dacă este bifat, RSS-ul va fi dezactivat.]]></value>
 	</item>
 	<item name="about_rss_type">
 		<value xml:lang="ko"><![CDATA[출력하실 피드(Feed) 형식을 지정하실 수 있습니다.]]></value>
@@ -145,6 +158,7 @@
 		<value xml:lang="es"><![CDATA[Usted puede asignar el tipo de RSS a imprimir.]]></value>
 		<value xml:lang="tr"><![CDATA[RSS besleme türünü atayabilirsiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể đặt định dạng cho RSS.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi asigna un tip de feed RSS]]></value>
 	</item>
 	<item name="about_open_rss">
 		<value xml:lang="ko"><![CDATA[현재 모듈에 대한 피드(Feed) 공개를 선택하실 수 있습니다. 글 열람 권한과 상관없이 옵션에 따라 RSS가 공개됩니다.]]></value>
@@ -157,6 +171,7 @@
 		<value xml:lang="es"><![CDATA[Usted puede seleccionar RSS abierto al público en el módulo actual.\nIndependiente de la atribución de ver, dependiendo de la opción de RSS puede ser abierto al público.]]></value>
 		<value xml:lang="tr"><![CDATA[Geçerli modülü herkese açmak için, modüldeki RSS'yi seçebilirsiniz.\nMakale gösterimi iznine bakılmaksızın , RSS bu seçenekle tüm herkese açık hale gelecektir.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể mở công khai RSS trên Module hiện tại.\nKhông ảnh hưởng tới quyền truy cập bài viết, RSS sẽ mở công khai với tùy chọn của nó.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi selecta ca feed-ul RSS pentru modulul curent să fie deschis publicului.\nDacă este activ, articolele vor fi disponibile publicului indiferent de permisiuni.]]></value>
 	</item>
 	<item name="about_feed_description">
 		<value xml:lang="ko"><![CDATA[발행될 피드에 대한 설명을 입력하실 수 있습니다. 설명을 입력하지 않으실 경우, 해당 모듈에 설정된 관리용 설명이 포함됩니다.]]></value>
@@ -164,6 +179,7 @@
 		<value xml:lang="jp"><![CDATA[発行するRSSに関する説明を入力します。未入力した場合は該当モジュールで設定された管理用説明が含まれます。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[可以输入简单说明,留空输出该模块的说明。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[請輸入簡介。 也可輸入相關管理使用說明。]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi introduce descriere feed-ului RSS pentru publicare. Dacă nu introduci o descriere, descriere fiecărui modul va fi folosită.]]></value>
 	</item>
 	<item name="about_feed_copyright">
 		<value xml:lang="ko"><![CDATA[발행될 피드에 대한 저작권 정보를 입력하실 수 있습니다. 입력하지 않으면 전체 피드 저작권 설정과 동일하게 적용됩니다.]]></value>
@@ -171,6 +187,7 @@
 		<value xml:lang="jp"><![CDATA[発行するRSSのコンテンツに対する著作権情報です。未入力の場合、全体RSS著作権の設定と同様に適用されます。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[RSS Feed版权信息。留空版权信息参照整站RSS的版权信息。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[請輸入 Feed 著作權資料。著作權將會適用所有的 Feed 內容。]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi introduce informaţii de drepturi de autor în feed-ul RSS. Dacă nu introduci nimic, va fi aplicat copzright-ul ăntergului feed RSS.]]></value>
 	</item>
 	<item name="about_feed_document_count">
 		<value xml:lang="ko"><![CDATA[피드 한 페이지에 공개되는 글 수. (기본 값 : 15)]]></value>
@@ -178,6 +195,7 @@
 		<value xml:lang="jp"><![CDATA[RSSに配信するコンテンツの数 (デフォルト : 15)]]></value>
 		<value xml:lang="zh-CN"><![CDATA[每页要显示的主题数(默认: 15)。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[每頁要顯示的主題數。(預設: 15)]]></value>
+        <value xml:lang="ro"><![CDATA[Număr de documente pe pagină (implicit 15)]]></value>
 	</item>
 	<item name="msg_rss_is_disabled">
 		<value xml:lang="ko"><![CDATA[피드(Feed) 기능이 잠겨 있습니다.]]></value>
@@ -190,6 +208,7 @@
 		<value xml:lang="es"><![CDATA[Función de RSS esta desactivada.]]></value>
 		<value xml:lang="tr"><![CDATA[RSS özelliği devredışı.]]></value>
 		<value xml:lang="vi"><![CDATA[Chức năng RSS đã bị tắt.]]></value>
+        <value xml:lang="ro"><![CDATA[Funcţia de RSS nu este activă]]></value>
 	</item>
 	<item name="msg_rss_invalid_image_format">
 		<value xml:lang="ko"><![CDATA[이미지의 형식이 잘못되었습니다.\nJPEG, GIF, PNG 파일만 지원합니다.]]></value>
@@ -198,5 +217,6 @@
 		<value xml:lang="zh-CN"><![CDATA[上传的文件格式错误！\n只允许上传JPEG, GIF, PNG图片文件。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[錯誤的檔案格式，無法上傳。\n只允許上傳 JPEG, GIF, PNG 等檔案格式。]]></value>
 		<value xml:lang="ru"><![CDATA[Неправильный тип картинки\nПоддерживаются только JPEG, GIF, PNG файлы]]></value>
+        <value xml:lang="ro"><![CDATA[Formatul imaginii nu este valid. Doar JPEG, GIF si PNG sunt suportate.]]></value>
 	</item>
 </lang>

@@ -25,6 +25,7 @@
 			<title xml:lang="vi">Trash</title>
 			<title xml:lang="mn">Trash</title>
 			<title xml:lang="tr">Trash</title>
+            <title xml:lang="ro">Recycle Bin</title>
 		</menu>
 	</menus>
 </module>

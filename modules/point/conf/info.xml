@@ -9,6 +9,7 @@
     <title xml:lang="ru">Система поитов</title>
     <title xml:lang="zh-TW">點數系統</title>
     <title xml:lang="tr">Puanlama Sistemi</title>
+    <title xml:lang="ro">Sistem de puncte</title>
     <description xml:lang="ko">
         글작성/삭제/댓글작성/삭제시에 포인트를 부여할 수 있습니다.
         포인트마다 레벨을 지정하여 사용자 이름 앞에 아이콘을 표시할 수도 있습니다.
@@ -54,6 +55,11 @@
         也能以點數設置等級，並在用戶名稱前顯示等級圖示。
         但是必須先啟用點數系統才能使用。
     </description>
+    <description xml:lang="ro">
+        Poţi acorda puncte pentru scrierea ştergerea şi adăugarea de conşinut şi comentarii.
+        Poţi de asemenea să afişezi o iconiţă in dreptul utilizatorului selectând nivelul pentru fiecare punct.
+        Pentru folosirea acestor facilităţi e necesară activarea addon-urilor pentru puncte.
+    </description>
     <version>0.1</version>
     <date>2007-07-26</date>
     <category>member</category>
@@ -68,5 +74,6 @@
         <name xml:lang="ru">Arnia</name>
         <name xml:lang="zh-TW">Arnia</name>
         <name xml:lang="tr">Arnia</name>
+        <name xml:lang="ro">Arnia</name>
     </author>
 </module>

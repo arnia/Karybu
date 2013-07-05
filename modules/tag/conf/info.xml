@@ -9,6 +9,7 @@
     <title xml:lang="ru">Теги</title>
     <title xml:lang="zh-TW">標籤</title>
     <title xml:lang="tr">Etiket</title>
+    <title xml:lang="ro">Tag</title>
     <description xml:lang="ko">꼬리표 관리 모듈</description>
     <description xml:lang="zh-CN">标签管理模块。</description>
     <description xml:lang="jp">タグ管理用のモジュールです。</description>
@@ -18,6 +19,7 @@
     <description xml:lang="ru">Модуль для управления тегами.</description>
     <description xml:lang="zh-TW">標籤管理模組。</description>
     <description xml:lang="tr">Etiketleri yönetme modülü.</description>
+    <description xml:lang="ro">Modul pentru administrare de taguri</description>
     <version>0.1</version>
     <date>2007-02-28</date>
     <category>content</category>
@@ -32,5 +34,6 @@
         <name xml:lang="ru">Arnia</name>
         <name xml:lang="zh-TW">Arnia</name>
         <name xml:lang="tr">Arnia</name>
+        <name xml:lang="ro">Arnia</name>
     </author>
 </module>

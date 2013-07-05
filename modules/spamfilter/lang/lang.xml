@@ -11,6 +11,7 @@
 		<value xml:lang="es"><![CDATA[Lista negra de las direcciones IP]]></value>
 		<value xml:lang="tr"><![CDATA[IP Adresleri Kara Listesi]]></value>
 		<value xml:lang="vi"><![CDATA[Danh sách IP cấm]]></value>
+        <value xml:lang="ro"><![CDATA[Adrese IP interzise]]></value>
 	</item>
 	<item name="cmd_denied_word">
 		<value xml:lang="ko"><![CDATA[스팸 키워드 목록]]></value>
@@ -23,6 +24,7 @@
 		<value xml:lang="es"><![CDATA[Lista negra de palabras]]></value>
 		<value xml:lang="tr"><![CDATA[Yasak Sözcük Listesi]]></value>
 		<value xml:lang="vi"><![CDATA[Danh sách từ cấm]]></value>
+        <value xml:lang="ro"><![CDATA[Cuvinte interzise]]></value>
 	</item>
 	<item name="spamfilter">
 		<value xml:lang="ko"><![CDATA[스팸필터]]></value>
@@ -35,6 +37,7 @@
 		<value xml:lang="es"><![CDATA[Filtro de Spam]]></value>
 		<value xml:lang="tr"><![CDATA[Spam filtreleyici]]></value>
 		<value xml:lang="vi"><![CDATA[Bộ lọc Spam]]></value>
+        <value xml:lang="ro"><![CDATA[Filtru spam]]></value>
 	</item>
 	<item name="denied_ip">
 		<value xml:lang="ko"><![CDATA[금지 IP]]></value>
@@ -47,6 +50,7 @@
 		<value xml:lang="es"><![CDATA[IP prohibido]]></value>
 		<value xml:lang="tr"><![CDATA[IP Adresi]]></value>
 		<value xml:lang="vi"><![CDATA[IP bị cấm]]></value>
+        <value xml:lang="ro"><![CDATA[Adrese IP blocate]]></value>
 	</item>
 	<item name="interval">
 		<value xml:lang="ko"><![CDATA[스팸 처리 간격]]></value>
@@ -59,6 +63,7 @@
 		<value xml:lang="es"><![CDATA[Intervalo para el filtro de spam]]></value>
 		<value xml:lang="tr"><![CDATA[Spam filtreleyici için aralık]]></value>
 		<value xml:lang="vi"><![CDATA[Thời gian giới hạn]]></value>
+        <value xml:lang="ro"><![CDATA[Interval pentru filtrul de spam]]></value>
 	</item>
 	<item name="limit_count">
 		<value xml:lang="ko"><![CDATA[제한 수]]></value>
@@ -71,6 +76,7 @@
 		<value xml:lang="es"><![CDATA[Número limite]]></value>
 		<value xml:lang="tr"><![CDATA[Gönderi Sınırı]]></value>
 		<value xml:lang="vi"><![CDATA[Số bài viết giới hạn]]></value>
+        <value xml:lang="ro"><![CDATA[Nr posului limitat]]></value>
 	</item>
 	<item name="check_trackback">
 		<value xml:lang="ko"><![CDATA[트랙백 검사]]></value>
@@ -83,6 +89,7 @@
 		<value xml:lang="es"><![CDATA[Chequear trackback]]></value>
 		<value xml:lang="tr"><![CDATA[Geri izlemeleri kontrol et.]]></value>
 		<value xml:lang="vi"><![CDATA[Kiểm tra liên kết Web]]></value>
+        <value xml:lang="ro"><![CDATA[Verifică trackback-uri]]></value>
 	</item>
 	<item name="word">
 		<value xml:lang="ko"><![CDATA[단어]]></value>
@@ -95,6 +102,7 @@
 		<value xml:lang="es"><![CDATA[Palabra]]></value>
 		<value xml:lang="tr"><![CDATA[Kelime]]></value>
 		<value xml:lang="vi"><![CDATA[Từ]]></value>
+        <value xml:lang="ro"><![CDATA[Cuvânt]]></value>
 	</item>
 	<item name="hit">
 		<value xml:lang="ko"><![CDATA[히트]]></value>
@@ -102,6 +110,7 @@
 		<value xml:lang="jp"><![CDATA[ヒット]]></value>
 		<value xml:lang="zh-CN"><![CDATA[点击]]></value>
 		<value xml:lang="vi"><![CDATA[Truy cập]]></value>
+        <value xml:lang="ro"><![CDATA[Potrivire]]></value>
 	</item>
 	<item name="latest_hit">
 		<value xml:lang="ko"><![CDATA[최근 히트]]></value>
@@ -110,6 +119,7 @@
 		<value xml:lang="zh-CN"><![CDATA[最后点击]]></value>
 		<value xml:lang="tr"><![CDATA[Son Hit'ler]]></value>
 		<value xml:lang="vi"><![CDATA[Truy cập mới nhất]]></value>
+        <value xml:lang="ro"><![CDATA[Ultima potrivire]]></value>
 	</item>
 	<item name="about_interval">
 		<value xml:lang="ko"><![CDATA[지정된 시간 내에 글을 등록하지 못하게 합니다.]]></value>
@@ -122,6 +132,7 @@
 		<value xml:lang="es"><![CDATA[Se bloquea el posteo de todo tipo de documentos durante el tiempo asignado.]]></value>
 		<value xml:lang="tr"><![CDATA[Belirlenen süre içerisinde gönderilmeye çalışılan tüm yazılar engellenecektir.]]></value>
 		<value xml:lang="vi"><![CDATA[Tất cả những bài viết trong thời gian giới hạn sẽ bị chặn.]]></value>
+        <value xml:lang="ro"><![CDATA[Toate încercările de postare de documente în perioada asignată vor fi blocate.]]></value>
 	</item>
 	<item name="about_limit_count">
 		<value xml:lang="ko"><![CDATA[지정된 시간 내에 제한수를 넘겨서 글 작성을 시도하면 스팸으로 인식, 해당 IP의 글 작성, 댓글 작성, 트랙백 발송 등을 금지합니다.]]></value>
@@ -140,6 +151,7 @@ les articles en plus seront reconnus comme polluriel, et l'adresse IP sera bloqu
  o IP bir spam olarak kabul edilecek ve dolayısıyla yazı göndermede, yorum yapmada ve geri izlemede bulunmada sınırlamalarla karşılaşacaktır.]]></value>
 		<value xml:lang="vi"><![CDATA[Nếu bạn gửi bài vượt quá số bài viết quy định,
  bài viết của bạn sẽ bị ghi vào danh sách và IP của bạn sẽ bị lưu vào danh sách IP bị cấm.]]></value>
+        <value xml:lang="ro"><![CDATA[Dacă se trece peste limita postărilor adrea IP va fi considerată spam, deci va avea limitări la postaea de articole comentarii şi trackback-uri]]></value>
 	</item>
 	<item name="about_denied_ip">
 		<value xml:lang="ko"><![CDATA['<em>스팸 IP // 메모</em>' 형식으로 입력하세요. 여러개의 항목은 줄을 바꾸어 입력하세요.]]></value>
@@ -152,6 +164,7 @@ les articles en plus seront reconnus comme polluriel, et l'adresse IP sera bloqu
 		<value xml:lang="es"><![CDATA[Usted puede asignar rangos de direcciones IP como 127.0.0.* usando *.]]></value>
 		<value xml:lang="tr"><![CDATA[* işaretini kullanarak 127.0.0.* şeklinde IP adres aralığı ekleyebilirsiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể thêm IP vào danh sách bị cấm dạng 127.0.0.* bằng cách sử dụng *.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi adăuga clase de adrese IP precum 127.0.0.* folosind *]]></value>
 	</item>
 	<item name="about_denied_word">
 		<value xml:lang="ko"><![CDATA[여러개의 항목은 줄을 바꾸어 입력하세요.]]></value>
@@ -170,6 +183,7 @@ l'article qui comporte le mot ne sera pas affichagé.]]></value>
  o kelimeyi içeren tüm yazılar engellenecektir.]]></value>
 		<value xml:lang="vi"><![CDATA[Khi bạn thêm từ vào danh sách Từ bị cấm,
  những bài viết có chứa những từ này sẽ không được gửi.]]></value>
+        <value xml:lang="ro"><![CDATA[Când adaugi un cuvânt în lista de cuvinte interzise, articolele ce îl conţin vor fi blocate.]]></value>
 	</item>
 	<item name="about_check_trackback">
 		<value xml:lang="ko"><![CDATA[한 글에 한 IP에만 트랙백을 허용할 수 있습니다.]]></value>
@@ -182,10 +196,11 @@ l'article qui comporte le mot ne sera pas affichagé.]]></value>
 		<value xml:lang="es"><![CDATA[En un documento sólo se permite un trackback por IP.]]></value>
 		<value xml:lang="tr"><![CDATA[Geri izlemeler için yazı başına tek bir IP'ye izin verilir.]]></value>
 		<value xml:lang="vi"><![CDATA[Chỉ cho phép gửi một bài viết với một IP trên một liên kết Web.]]></value>
+        <value xml:lang="ro"><![CDATA[O singură adresă IP este permisă pentru trackback-uri.]]></value>
 	</item>
 	<item name="msg_alert_limited_by_config">
 		<value xml:lang="ko"><![CDATA[%s 초 이내에 글 작성은 금지 됩니다. 계속 시도하시면 금지 IP에 등록되실 수 있습니다.]]></value>
-		<value xml:lang="en"><![CDATA[Posting an document within %s seconda is not allowed.\n If you keep trying, your IP address will be blacklisted.]]></value>
+		<value xml:lang="en"><![CDATA[Posting an document within %s second is not allowed.\n If you keep trying, your IP address will be blacklisted.]]></value>
 		<value xml:lang="jp"><![CDATA[%s秒以内の書き込みは禁止されます。続けて行うとスパムとして認識され、禁止IPに登録されます。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[%s秒之内不能连续发表新主题。如您继续再试系统将自动禁止您的IP。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[%s秒之內不能連續發表新主題。如您繼續再試系統將自動禁止您的IP。]]></value>
@@ -194,6 +209,7 @@ l'article qui comporte le mot ne sera pas affichagé.]]></value>
 		<value xml:lang="es"><![CDATA[Se prohibe poestear antes de %s segundos.\n Si Usted trata varias veces, su dirección IP puede ser agregada en la lista negra.]]></value>
 		<value xml:lang="tr"><![CDATA[%s saniyede bir yazı göndermek mümkün değildir.\n Denemeyi sürdürürseniz, IP adresiniz kara listeye alınacaktır.]]></value>
 		<value xml:lang="vi"><![CDATA[Không được phép gửi bài thứ 2 trong khoảng thời gian %s giây.\n Nếu bạn cứ tiếp tục, IP của bạn sẽ bị thêm vào danh sách IP bị cấm.]]></value>
+        <value xml:lang="ro"><![CDATA[Postarea unui alt document într-o secundă este interzisă. Dacă mai încerci adresă ta IP va fi blocată]]></value>
 	</item>
 	<item name="msg_alert_denied_word">
 		<value xml:lang="ko"><![CDATA["%s"는 사용 금지된 단어입니다.]]></value>
@@ -206,6 +222,7 @@ l'article qui comporte le mot ne sera pas affichagé.]]></value>
 		<value xml:lang="es"><![CDATA[La palabra "%s" no esta permitido para ser posteado.]]></value>
 		<value xml:lang="tr"><![CDATA[ "%s" kelimesinin kullanılmasına izin verilmemektedir.]]></value>
 		<value xml:lang="vi"><![CDATA[Không được phép gửi từ "%s".]]></value>
+        <value xml:lang="ro"><![CDATA[Cuvântul '%s' nu este permis.]]></value>
 	</item>
 	<item name="msg_alert_registered_denied_ip">
 		<value xml:lang="ko"><![CDATA[금지 IP에 등록되셔서 정상적인 활동에 제한을 받게 되셨습니다. 문의는 사이트 관리자에게 해주시기 바랍니다.]]></value>
@@ -213,11 +230,12 @@ l'article qui comporte le mot ne sera pas affichagé.]]></value>
 		<value xml:lang="jp"><![CDATA[禁止IPに登録され、サイト内で正常な活動が制限されています。管理者にお問い合わせください。]]></value>
 		<value xml:lang="zh-CN"><![CDATA[您的IP已被禁止，详情请联系网站管理员。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[您的IP已被禁止，詳情請聯繫網站管理員。]]></value>
-		<value xml:lang="fr"><![CDATA[Your IP address is blacklisted,\n so you may have limitations on normal using of this site.\n If you have any questions on that matter, please contact to the site administrator. Votre adresse IP est dans la liste noire, \nvous pouvez donc avoir limitation d'activité dans ce site. Si vous avez quelque question sur ce fait, contactez l'administrateur du site, S.V.P.]]></value>
+		<value xml:lang="fr"><![CDATA[Votre adresse IP est dans la liste noire, \nvous pouvez donc avoir limitation d'activité dans ce site. Si vous avez quelque question sur ce fait, contactez l'administrateur du site, S.V.P.]]></value>
 		<value xml:lang="ru"><![CDATA[Ваш IP-адрес занесен в черный список,\n поэтому Вы можете иметь ограничения на полноценное использование этого сайта.\n Если у Вас есть вопросы насчет этого, пожалуйста, сообщите администратору сайта.]]></value>
 		<value xml:lang="es"><![CDATA[Su dirección IP fue agregaa en la lista negra,\n por lo cual Usted puede tener limitaciones en su uso normal de este sitio.\n Si Usted tiene alguna inquietud sobre el tema, por favor contactese con el administrador del sitio.]]></value>
 		<value xml:lang="tr"><![CDATA[IP adresiniz kara listeye alındı,\n siteyi kullanırken sınırlamalarla karşılaşacaksınız.\n Bu konuda sorularınız varsa, lütfen site yöneticisi ile görüşün.]]></value>
 		<value xml:lang="vi"><![CDATA[IP của bạn đã bị nằm trong danh sách cấm,\n vì vậy bạn bị giới hạn sử dụng trên Website này.\n Nếu bạn có bất cứ thắc mắc gì, xin vui lòng liên hệ với Webmaster để được giải đáp.]]></value>
+        <value xml:lang="ro"><![CDATA[Adresa ta IP este interzisă. deci ai putea avea lmitări la folosirea site-ului.\nDacă ai înrebări despre acest aspect contactează administratorul.]]></value>
 	</item>
 	<item name="msg_alert_trackback_denied">
 		<value xml:lang="ko"><![CDATA[한 글에는 하나의 트랙백만 허용됩니다.]]></value>
@@ -230,26 +248,31 @@ l'article qui comporte le mot ne sera pas affichagé.]]></value>
 		<value xml:lang="es"><![CDATA[Sólo un trackback por documento está permitido.]]></value>
 		<value xml:lang="tr"><![CDATA[Yazı başına sadece bir geri izlemeye izin verilmektedir.]]></value>
 		<value xml:lang="vi"><![CDATA[Chỉ cho phép một liên kết Web trên một bài viết.]]></value>
+        <value xml:lang="ro"><![CDATA[Este permis un singur trackback pentru un document.]]></value>
 	</item>
 	<item name="cmd_interval">
 		<value xml:lang="ko"><![CDATA[10초 동안 3회 이상 글을 작성하면 스패머로 간주할까요? 글, 댓글 작성과 엮인글 발송을 차단합니다.]]></value>
 		<value xml:lang="en"><![CDATA[Do you want to blacklist the users who attempt to post documents more than 3 times for 10 seconds? The blacklisted users cannot write documents or comments and send trackbacks.]]></value>
 	　　<value xml:lang="jp"><![CDATA[10秒の間3回以上書き込みをすると、スパムとみなしますか？書き込み、コメント作成とトラックバックの送信をブロックします。]]></value>
+        <value xml:lang="ro"><![CDATA[Vrei să interzici utilizatorii care încearcă să posteze mai mult de 3 documente în 10 secunde? Utilizatorii interzişi nu vor putea scrie documente sau cometarii şi nu vor putea trimite trackback-uri.]]></value>
 	</item>
 	<item name="cmd_check_trackback">
 		<value xml:lang="ko"><![CDATA[하나의 글에 2회 이상 엮인글을 등록하면 스패머로 간주할까요? 엮인글을 차단합니다.]]></value>
 		<value xml:lang="en"><![CDATA[Do you want to blacklist the users who attempt to post more than 2 trackbacks to one document? The blacklisted users cannot post trackbacks.]]></value>
 	　　<value xml:lang="jp"><![CDATA[ひとつの書き込みに2回以上トラックバックを登録するとスパムとみなしますか？トラックバックをブロックします。]]></value>
+        <value xml:lang="ro"><![CDATA[Vrei să interzici utilizatorii care încearcă să posteze mai mult de 2 trackback-uri în 10 secunde? Utilizatorii interzişi nu vor putea trimite trackback-uri.]]></value>
 	</item>
 	<item name="add">
 		<value xml:lang="ko"><![CDATA[추가]]></value>
 		<value xml:lang="en"><![CDATA[Add]]></value>
 		<value xml:lang="jp"><![CDATA[追加]]></value>
+        <value xml:lang="ro"><![CDATA[Adaugă]]></value>
 	</item>
 	<item name="yes">
 		<value xml:lang="ko"><![CDATA[예]]></value>
 		<value xml:lang="en"><![CDATA[Yes]]></value>
 		<value xml:lang="jp"><![CDATA[はい]]></value>
+        <value xml:lang="ro"><![CDATA[Da]]></value>
 	</item>
 	<item name="no">
 		<value xml:lang="ko"><![CDATA[아니오]]></value>
@@ -257,9 +280,11 @@ l'article qui comporte le mot ne sera pas affichagé.]]></value>
 		<value xml:lang="jp"><![CDATA[いいえ]]></value>
 		<value xml:lang="de"><![CDATA[Nein]]></value>
 		<value xml:lang="mn"><![CDATA[Дугаар]]></value>
+        <value xml:lang="ro"><![CDATA[Nu]]></value>
 	</item>
 	<item name="invalid">
 		<value xml:lang="ko"><![CDATA[형식이 유효하지 않습니다.]]></value>
 		<value xml:lang="en"><![CDATA[The value is invalid.]]></value>
+        <value xml:lang="ro"><![CDATA[Valoarea nu este validă]]></value>
 	</item>
 </lang>

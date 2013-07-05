@@ -10,6 +10,7 @@
 		<value xml:lang="es"><![CDATA[Punto]]></value>
 		<value xml:lang="tr"><![CDATA[Puan]]></value>
 		<value xml:lang="vi"><![CDATA[Điểm]]></value>
+        <value xml:lang="ro"><![CDATA[Puncte]]></value>
 	</item>
 	<item name="level">
 		<value xml:lang="ko"><![CDATA[레벨]]></value>
@@ -22,6 +23,7 @@
 		<value xml:lang="es"><![CDATA[Nivel]]></value>
 		<value xml:lang="tr"><![CDATA[Seviye]]></value>
 		<value xml:lang="vi"><![CDATA[Cấp bậc]]></value>
+        <value xml:lang="ro"><![CDATA[Nivel]]></value>
 	</item>
 	<item name="about_point_module">
 		<value xml:lang="ko"><![CDATA[포인트 모듈은 글 작성/댓글작성/업로드/다운로드 등의 행동을 할 때 포인트를 부여할 수 있게 합니다.]]></value>
@@ -34,6 +36,7 @@
 		<value xml:lang="es"><![CDATA[Usted puede entregar puntos a las acciones de escribir/agregar comentarios/subir/descargar.]]></value>
 		<value xml:lang="tr"><![CDATA[Yazmaya/silmeye, yorum eklemeye/yorum silmeye puan atayabilirsiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể đặt mức điểm khi thành viên gửi, thêm bài viết, bình luận, Download, Upload.<br />Nhưng điểm chỉ có thể cho và tích lũy khi Addon điểm được kích hoạt.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi acorda puncte pentru scrierea/adăugarea documentelor, comentarii. încărcare/descărcare fişiere.]]></value>
 	</item>
 	<item name="about_act_config">
 		<value xml:lang="ko"><![CDATA[게시판, 블로그 등 각 모듈마다 글 작성/삭제/댓글작성/삭제 등의 action이 있습니다. 게시판/블로그 외에 다른 모듈에 포인트 기능 연동을 하고 싶을 때는 각 기능에 맞는 act값을 추가 하시면 됩니다.<br />연결은 ,(콤마)로 하시면 됩니다.]]></value>
@@ -46,6 +49,7 @@
 		<value xml:lang="es"><![CDATA[Cada módulo ya sea el tablero o blog tiene sus propias actiones como escribir/eliminar/agregar comentarios/eliminar comentarios/etc. <br />Usted puede añadir valores de actos para enlazar con sistema de módulo de puntos excepto el tablero y blog.<br />El enlace debe hacerse con una coma(,).]]></value>
 		<value xml:lang="tr"><![CDATA[Pano/blog gibi her modülün, "yazma/silme/yorum ekleme/yorum silme gibi kendi eylemleri bulunmaktadır. ".<br />Pano/blog harici, puan sistemli link modüllerine davranış değerleri ekleyebilirsiniz.<br />Virgül(,) çoklu değerleri ayıracaktır.]]></value>
 		<value xml:lang="vi"><![CDATA[Mỗi Module, Board hay Blog có một mức cho điểm khác nhau khi  "gửi bài, xóa bài, thêm bài, gửi bình luận, xóa bình luận".<br />Bạn có thể chỉ thêm những giá trị liên kết với hệ thống điểm vào mỗi Module Blog, Board.<br />Để thêm nhiều giá trị bằng cách sử dụng dấu (,) giữa các giá trị.]]></value>
+        <value xml:lang="ro"><![CDATA[Fiecare modul precum board/blog are propriile acţiuni precum scriere/ştergere/adăugare cometarii/ştergere comentarii. poţi adăuga valori de acţiuni pentru a lega modulele cu sistemul de puncte, exceptând boar/blog.<br />Foloseşte virgula ca separator pentru valori multiple.]]></value>
 	</item>
 	<item name="max_level">
 		<value xml:lang="ko"><![CDATA[최고 레벨]]></value>
@@ -58,6 +62,7 @@
 		<value xml:lang="es"><![CDATA[Nivel Máximo]]></value>
 		<value xml:lang="tr"><![CDATA[Azami Seviye]]></value>
 		<value xml:lang="vi"><![CDATA[Cấp bậc lớn nhất]]></value>
+        <value xml:lang="ro"><![CDATA[Nivel maxim]]></value>
 	</item>
 	<item name="about_max_level">
 		<value xml:lang="ko"><![CDATA[최고레벨을 지정할 수 있습니다. 레벨 아이콘을 염두에 두셔야 하고 최고 레벨은 1000이 한계입니다.]]></value>
@@ -70,6 +75,7 @@
 		<value xml:lang="es"><![CDATA[Usted puede definir el nivel máximo. Los íconos del nivel deberan ser considerados y el nivel máximo de puntos límite es 1000]]></value>
 		<value xml:lang="tr"><![CDATA[Azami seviyeyi ayarlayabilirsiniz. Seviye simgelerine değer verirken dikkate alınmalıdır. Verebileceğiniz en yüksek değer 1000dir.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể quy định cấp bậc lớn nhất. Kiểm tra lại Icon của cấp bậc, và bạn có thể đặt cấp bậc tối đa là 1000.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi seta un nivel maxim. Iconiţele de nivel ar trebui luate în considerare şi nivelul maxim care poate fi setat este 1000.]]></value>
 	</item>
 	<item name="level_icon">
 		<value xml:lang="ko"><![CDATA[레벨 아이콘]]></value>
@@ -82,6 +88,7 @@
 		<value xml:lang="es"><![CDATA[Iconos del nivel]]></value>
 		<value xml:lang="tr"><![CDATA[Seviye Simgesi]]></value>
 		<value xml:lang="vi"><![CDATA[Icon của cấp bậc]]></value>
+        <value xml:lang="ro"><![CDATA[Iconiţă nivel]]></value>
 	</item>
 	<item name="about_level_icon">
 		<value xml:lang="ko"><![CDATA[레벨 아이콘은 ./modules/point/icons/레벨.gif 로 지정되며 최고레벨과 아이콘셋이 다를 수 있으니 주의해주세요!]]></value>
@@ -94,6 +101,7 @@
 		<value xml:lang="es"><![CDATA[Ruta de íconos del nivel es ./module/point/icons/[level].gif y el nivel máximo puede ser diferente con el conjunto de íconos. Tenga cuidado]]></value>
 		<value xml:lang="tr"><![CDATA[Seviye simgesi yolu "./module/point/icons/[seviye].gif" olmalıdır. Azami seviye farklı simge setiyle gösterilebilir. Bu yüzden lütfen dikkatli olunuz.]]></value>
 		<value xml:lang="vi"><![CDATA[Thư mục chứa Icon của cấp bậc có dạng "./module/point/icons/[level].gif" và cấp độ lớn nhất có thể khác với bộ Icon hiện tại. Vì vậy xin hãy cẩn thận.]]></value>
+        <value xml:lang="ro"><![CDATA[Calea către iconiţele de nivel este "./module/point/icons/[nivel].gif" ţi nivelul maxim poate fi diferit de iconiţele setate.]]></value>
 	</item>
 	<item name="point_name">
 		<value xml:lang="ko"><![CDATA[포인트 명칭]]></value>
@@ -106,6 +114,7 @@
 		<value xml:lang="es"><![CDATA[Nombre del punto]]></value>
 		<value xml:lang="tr"><![CDATA[Puan Adı]]></value>
 		<value xml:lang="vi"><![CDATA[Tên điểm]]></value>
+        <value xml:lang="ro"><![CDATA[Nume punct]]></value>
 	</item>
 	<item name="about_point_name">
 		<value xml:lang="ko"><![CDATA[포인트 이름이나 단위를 정할 수 있습니다.]]></value>
@@ -118,6 +127,7 @@
 		<value xml:lang="es"><![CDATA[Usted puede otorgar nombre o unidad de punto]]></value>
 		<value xml:lang="tr"><![CDATA[Puan için bir isim veya birim belirleyebilirsiniz]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể đặt tên hay đặt một giá trị nào đó cho điểm.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi da un nume sau unitate unui punct.]]></value>
 	</item>
 	<item name="level_point">
 		<value xml:lang="ko"><![CDATA[레벨 포인트]]></value>
@@ -130,6 +140,7 @@
 		<value xml:lang="es"><![CDATA[Nivel del punto]]></value>
 		<value xml:lang="tr"><![CDATA[Seviye Puanı]]></value>
 		<value xml:lang="vi"><![CDATA[Điểm thăng cấp]]></value>
+        <value xml:lang="ro"><![CDATA[Puncte nivel]]></value>
 	</item>
 	<item name="about_level_point">
 		<value xml:lang="ko"><![CDATA[각 회원의 포인트가 아래 레벨별 포인트에 도달하거나 미달하게 되면 해당 회원의 레벨이 조절됩니다.]]></value>
@@ -142,6 +153,7 @@
 		<value xml:lang="es"><![CDATA[El nivel sera ajustado cuando los puntos alcancen a cada nivel de puntos o cuando disminuyen a cada nivel de puntos]]></value>
 		<value xml:lang="tr"><![CDATA[Puan herhangi bir seviyeye gelince veya bir puan seviyesinin altına düşünce, seviye otomatik ayarlanacaktır.]]></value>
 		<value xml:lang="vi"><![CDATA[Cấp độ sẽ được thay đổi khi đạt tới số điểm giới hạn.]]></value>
+        <value xml:lang="ro"><![CDATA[Nivelul va fi ajustat când numărul de puncte ajunge la un nivel sau scade sub un nivel.]]></value>
 	</item>
 	<item name="disable_download">
 		<value xml:lang="ko"><![CDATA[다운로드 금지]]></value>
@@ -154,6 +166,7 @@
 		<value xml:lang="es"><![CDATA[Prohibida la descarga]]></value>
 		<value xml:lang="tr"><![CDATA[İndirmeleri Yasakla]]></value>
 		<value xml:lang="vi"><![CDATA[Cấm Download]]></value>
+        <value xml:lang="ro"><![CDATA[Interzice descărcări]]></value>
 	</item>
 	<item name="about_disable_download">
 		<value xml:lang="ko"><![CDATA[포인트가 부족할 경우 다운로드를 금지 합니다. (이미지 파일, 동영상 파일등 직접 링크가 가능한 파일들은 예외입니다.)]]></value>
@@ -166,6 +179,7 @@
 		<value xml:lang="es"><![CDATA[Se prohibe la descarga de archivos al tener los puntos insuficientes.. (Excepto los archivos de imagen)]]></value>
 		<value xml:lang="tr"><![CDATA[Yeterli puan olmadığı zaman indirme yapamayacaklardır. (Resim dosyaları harici)]]></value>
 		<value xml:lang="vi"><![CDATA[Điều này sẽ cấm thành viên Download khi không đủ điểm. (Ngoại trừ File hình ảnh)]]></value>
+        <value xml:lang="ro"><![CDATA[Aceasta intezice descărcările daca utilizatorul nu are destule puncte. (fac excepţie imaginile)]]></value>
 	</item>
 	<item name="disable_read_document">
 		<value xml:lang="ko"><![CDATA[글 열람 금지]]></value>
@@ -175,6 +189,7 @@
 		<value xml:lang="zh-TW"><![CDATA[禁止閱讀文章]]></value>
 		<value xml:lang="tr"><![CDATA[Okumayı Yasakla]]></value>
 		<value xml:lang="vi"><![CDATA[Cấm đọc bài]]></value>
+        <value xml:lang="ro"><![CDATA[interzice citirea.]]></value>
 	</item>
 	<item name="about_disable_read_document">
 		<value xml:lang="ko"><![CDATA[포인트가 부족할 경우 글 열람을 금지 합니다]]></value>
@@ -187,6 +202,7 @@
 		<value xml:lang="es"><![CDATA[포인트가 없을 경우 글 열람을 금지하게 됩니다]]></value>
 		<value xml:lang="tr"><![CDATA[Kullanıcıların yeterli puanı olmadığında, makaleleri okuyamayacaklardır.]]></value>
 		<value xml:lang="vi"><![CDATA[Nếu số điểm không đủ, thành viên sẽ không thể đọc được bài viết.]]></value>
+        <value xml:lang="ro"><![CDATA[Utilizatorii nu vor putea citi documente dacă nu au destule puncte.]]></value>
 	</item>
 	<item name="level_point_calc">
 		<value xml:lang="ko"><![CDATA[레벨별 포인트 계산]]></value>
@@ -198,6 +214,7 @@
 		<value xml:lang="es"><![CDATA[Punto por punto cálculo]]></value>
 		<value xml:lang="tr"><![CDATA[Puan başına Puan Hesaplaması]]></value>
 		<value xml:lang="vi"><![CDATA[Tính toán trên điểm]]></value>
+        <value xml:lang="ro"><![CDATA[Calculare puncte.]]></value>
 	</item>
 	<item name="expression">
 		<value xml:lang="ko"><![CDATA[레벨 변수 <b>i</b>를 사용하여 자바스크립트 수식을 입력하세요. 예: Math.pow(i, 2) * 90]]></value>
@@ -209,6 +226,7 @@
 		<value xml:lang="es"><![CDATA[Por favor, de entrada mediante el uso de Javascript fórmula nivel variable <b> i </ b>. Ex) Math.pow (i, 2) * 90]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen seviye değişkenini kullanarak Javascript formülü ekleyiniz <b></b>. örn) Math.pow(i, 2) * 90]]></value>
 		<value xml:lang="vi"><![CDATA[Hãy nhập công thức cần sử dụng <b>i</b>. Ví dụ: Math.pow(i, 2) * 90]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu formula javascript folosind variabila de nivel<b>i</b>.Exemplu Math.pow(i, 2) * 90]]></value>
 	</item>
 	<item name="cmd_exp_calc">
 		<value xml:lang="ko"><![CDATA[계산]]></value>
@@ -220,6 +238,7 @@
 		<value xml:lang="es"><![CDATA[Calcular]]></value>
 		<value xml:lang="tr"><![CDATA[Hesapla]]></value>
 		<value xml:lang="vi"><![CDATA[Tính toán]]></value>
+        <value xml:lang="ro"><![CDATA[Calculează]]></value>
 	</item>
 	<item name="cmd_exp_reset">
 		<value xml:lang="ko"><![CDATA[초기화]]></value>
@@ -231,6 +250,7 @@
 		<value xml:lang="es"><![CDATA[Restablecer]]></value>
 		<value xml:lang="tr"><![CDATA[Sıfırla]]></value>
 		<value xml:lang="vi"><![CDATA[Thiết lập lại]]></value>
+        <value xml:lang="ro"><![CDATA[Resetează]]></value>
 	</item>
 	<item name="cmd_point_recal">
 		<value xml:lang="ko"><![CDATA[포인트 초기화]]></value>
@@ -241,6 +261,7 @@
 		<value xml:lang="fr"><![CDATA[Restaurer le Point]]></value>
 		<value xml:lang="tr"><![CDATA[Puan Sıfırla]]></value>
 		<value xml:lang="vi"><![CDATA[Thiết lập lại điểm]]></value>
+        <value xml:lang="ro"><![CDATA[Resetează puncte]]></value>
 	</item>
 	<item name="about_cmd_point_recal">
 		<value xml:lang="ko"><![CDATA[게시글/댓글/첨부파일/회원가입 점수만 이용하여 모든 포인트 점수를 초기화합니다. 회원 가입 점수는 초기화 후 해당 회원이 활동을 하면 부여되고 그 전에는 부여되지 않습니다. 데이터 이전 등을 하여 포인트를 완전히 초기화해야 할 경우에만 사용하세요.]]></value>
@@ -253,10 +274,12 @@
 		<value xml:lang="es"><![CDATA[게시글/댓글/첨부파일/회원가입 점수만 이용하여 모든 포인트 점수를 초기화 합니다.<br />회원 가입 점수는 초기화 후 해당 회원이 활동을 하면 부여되고 그 전에는 부여되지 않습니다.<br />데이터 이전등을 하여 포인트를 완전히 초기화 해야 할 경우에만 사용하세요.]]></value>
 		<value xml:lang="tr"><![CDATA[Sadece makalelerdeki/yorumlardaki/eklerdeki/katılımlardaki tüm puanlar sıfırlanacaktır.<br />Sıfırlamadan sonra sadece, website aktiviteleri yapan üyeler, giriş puanı alacaklardır.<br />Lütfen bu özelliği sadece veri taşıma veya cidden gerekliliği olduğu durumlarda kullanınız.]]></value>
 		<value xml:lang="vi"><![CDATA[Điểm chỉ có thể có được khi gửi bài, bình luận, đính kèm và khi đăng kí.<br />Chỉ có thể thiết lập lại điểm của những thành viên đã đăng kí là thành viên.<br />Xin hãy chỉ sử dụng chức năng này khi bạn chuyển nội dung của Website qua một Website khác.]]></value>
+        <value xml:lang="ro"><![CDATA[Toate punctele vor fi iniţializate doar cu documente/comentarii/ataşamente/înscriere. Doar membrii care fac acţiuni in site vor primi puncte pentru înregistrare după restare. Foloseşte funcţionalitatea aceasta doar când e necesară o iniţializare completă în cazul transferului de date.]]></value>
 	</item>
 	<item name="default_group">
 		<value xml:lang="ko"><![CDATA[기본 그룹]]></value>
 		<value xml:lang="en"><![CDATA[Default Group]]></value>
+        <value xml:lang="ro"><![CDATA[Grup implicit]]></value>
 	</item>
 	<item name="point_link_group">
 		<value xml:lang="ko"><![CDATA[그룹 연동]]></value>
@@ -268,6 +291,7 @@
 		<value xml:lang="es"><![CDATA[Grupo de cambio de nivel]]></value>
 		<value xml:lang="tr"><![CDATA[Seviyeye Göre Grup Değiştirme]]></value>
 		<value xml:lang="vi"><![CDATA[Chuyển nhóm với cấp độ]]></value>
+        <value xml:lang="ro"><![CDATA[Schimbare grup după nivel]]></value>
 	</item>
 	<item name="point_group_reset_and_add">
 		<value xml:lang="ko"><![CDATA[설정된 그룹 초기화 후 새 그룹 부여]]></value>
@@ -277,6 +301,7 @@
 		<value xml:lang="zh-TW"><![CDATA[重新調整與新增群組]]></value>
 		<value xml:lang="tr"><![CDATA[Düzenlenmiş grupları sıfırla ve yeni gruplar ekle]]></value>
 		<value xml:lang="vi"><![CDATA[Điểm số để thăng cấp cho nhóm mới.]]></value>
+        <value xml:lang="ro"><![CDATA[Resetează grupuri ajustate si grupuri noi.]]></value>
 	</item>
 	<item name="point_group_add_only">
 		<value xml:lang="ko"><![CDATA[새 그룹만 부여]]></value>
@@ -286,6 +311,7 @@
 		<value xml:lang="zh-TW"><![CDATA[只限新群組]]></value>
 		<value xml:lang="tr"><![CDATA[Sadece yeni gruplara]]></value>
 		<value xml:lang="vi"><![CDATA[Chỉ cấp cho nhóm mới]]></value>
+        <value xml:lang="ro"><![CDATA[Doar pentru grupuri noi.]]></value>
 	</item>
 	<item name="about_point_link_group">
 		<value xml:lang="ko"><![CDATA[그룹에 원하는 레벨을 지정하면, 회원의 포인트가 해당 레벨의 포인트에 도달할 때 그룹이 변경됩니다.]]></value>
@@ -298,6 +324,7 @@
 		<value xml:lang="es"><![CDATA[Si especifica nivel para un grupo específico, a los usuarios se les asigna en el grupo cuando se adavnce al nivel por conseguir puntos.]]></value>
 		<value xml:lang="tr"><![CDATA[Belirli bir grup için seviye belirliyorsanız, kullanıcılar gruba o seviyenin puanına eriştiklerinde atanacaklardır.]]></value>
 		<value xml:lang="vi"><![CDATA[Nếu bạn đặt cấp độ cho một nhóm đặc biệt nào đó, người sử dụng trong nhóm đó khi đạt đến số điểm giới hạn sẽ tự động được chuyển sang nhóm mới.]]></value>
+        <value xml:lang="ro"><![CDATA[Dacă specifici nivelul pentru un grup specific, utilizatorii sunt asignaţi într-un grup când avansează la nivelul corespunzător când primesc puncte.]]></value>
 	</item>
 	<item name="about_module_point">
 		<value xml:lang="ko"><![CDATA[모듈별 포인트를 지정할 수 있으며 지정되지 않은 모듈은 기본 포인트를 이용합니다. 모든 점수는 반대 행동을 하였을 경우 원상복구 됩니다.]]></value>
@@ -310,6 +337,7 @@
 		<value xml:lang="es"><![CDATA[Usted puede definir los puntos para cada módulo y los módulos que no tengan ningun valor usarán punto predefinido.<br />Todos los puntos serán restituidos al actuar en forma contraria.]]></value>
 		<value xml:lang="tr"><![CDATA[Her modül için puan ayarlayabilirsiniz. Hiçbir değer atanmayan modüller varsayılan puan sistemini kullanacaktır.<br />Tersi hareket durumunda tüm puanlar iade edilecektir.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể đặt thang điểm riêng cho mỗi Module, Module nào không được đặt sẽ sử dụng sự thiết lập mặc định.<br />Tất cả điểm sẽ khác khi sử dụng chức năng này.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi seta puncte pentru ficare modul  şi module care nu au valori setate vor folosi sistemul implicit de puncte. Toate punctele vor fi restituite la acţiune inversă.]]></value>
 	</item>
 	<item name="point_signup">
 		<value xml:lang="ko"><![CDATA[가입]]></value>
@@ -322,6 +350,7 @@
 		<value xml:lang="es"><![CDATA[Fecha del]]></value>
 		<value xml:lang="tr"><![CDATA[Kayıt Olmaya]]></value>
 		<value xml:lang="vi"><![CDATA[Khi đăng kí]]></value>
+        <value xml:lang="ro"><![CDATA[Înscriere]]></value>
 	</item>
 	<item name="point_insert_document">
 		<value xml:lang="ko"><![CDATA[글 작성]]></value>
@@ -334,6 +363,7 @@
 		<value xml:lang="es"><![CDATA[Al escribir documento]]></value>
 		<value xml:lang="tr"><![CDATA[Yazıya]]></value>
 		<value xml:lang="vi"><![CDATA[Khi gửi bài]]></value>
+        <value xml:lang="ro"><![CDATA[Scriere]]></value>
 	</item>
 	<item name="point_delete_document">
 		<value xml:lang="ko"><![CDATA[글 삭제]]></value>
@@ -346,6 +376,7 @@
 		<value xml:lang="es"><![CDATA[Al borrar documento]]></value>
 		<value xml:lang="tr"><![CDATA[Silmeye]]></value>
 		<value xml:lang="vi"><![CDATA[Khi xóa bài]]></value>
+        <value xml:lang="ro"><![CDATA[Ştergere]]></value>
 	</item>
 	<item name="point_insert_comment">
 		<value xml:lang="ko"><![CDATA[댓글 작성]]></value>
@@ -358,6 +389,7 @@
 		<value xml:lang="es"><![CDATA[Al agregar comentarios]]></value>
 		<value xml:lang="tr"><![CDATA[Yorum Eklemeye]]></value>
 		<value xml:lang="vi"><![CDATA[Khi thêm bình luận]]></value>
+        <value xml:lang="ro"><![CDATA[Adăugare comentarii]]></value>
 	</item>
 	<item name="point_delete_comment">
 		<value xml:lang="ko"><![CDATA[댓글 삭제]]></value>
@@ -370,6 +402,7 @@
 		<value xml:lang="es"><![CDATA[Al eliminar comentarios]]></value>
 		<value xml:lang="tr"><![CDATA[Yorum Silmeye]]></value>
 		<value xml:lang="vi"><![CDATA[Khi xóa bình luận]]></value>
+        <value xml:lang="ro"><![CDATA[Ştergere comentarii]]></value>
 	</item>
 	<item name="point_upload_file">
 		<value xml:lang="ko"><![CDATA[파일 업로드]]></value>
@@ -382,6 +415,7 @@
 		<value xml:lang="es"><![CDATA[Al subri archivos]]></value>
 		<value xml:lang="tr"><![CDATA[Karşıya Yüklemeye (upload)]]></value>
 		<value xml:lang="vi"><![CDATA[Khi Upload]]></value>
+        <value xml:lang="ro"><![CDATA[Încărcare fişier]]></value>
 	</item>
 	<item name="point_delete_file">
 		<value xml:lang="ko"><![CDATA[파일 삭제]]></value>
@@ -394,6 +428,7 @@
 		<value xml:lang="es"><![CDATA[Al borrar archivos]]></value>
 		<value xml:lang="tr"><![CDATA[Dosyaları Silmeye]]></value>
 		<value xml:lang="vi"><![CDATA[Khi xóa File]]></value>
+        <value xml:lang="ro"><![CDATA[Ştergere fişiere]]></value>
 	</item>
 	<item name="point_download_file">
 		<value xml:lang="ko"><![CDATA[파일 다운로드(이미지 제외)]]></value>
@@ -406,6 +441,7 @@
 		<value xml:lang="es"><![CDATA[Al descargar archivos(Excepto imágenes)]]></value>
 		<value xml:lang="tr"><![CDATA[Dosyaları İndirmeye(resimler hariç)]]></value>
 		<value xml:lang="vi"><![CDATA[Khi Download(Trừ hình ảnh)]]></value>
+        <value xml:lang="ro"><![CDATA[Descărcare fişiere.]]></value>
 	</item>
 	<item name="point_read_document">
 		<value xml:lang="ko"><![CDATA[게시글 조회]]></value>
@@ -417,6 +453,7 @@
 		<value xml:lang="es"><![CDATA[El Reading]]></value>
 		<value xml:lang="tr"><![CDATA[Okumaya]]></value>
 		<value xml:lang="vi"><![CDATA[Khi đọc bài]]></value>
+        <value xml:lang="ro"><![CDATA[Citire]]></value>
 	</item>
 	<item name="point_voted">
 		<value xml:lang="ko"><![CDATA[추천 받음]]></value>
@@ -427,6 +464,7 @@
 		<value xml:lang="fr"><![CDATA[Être Recommandé]]></value>
 		<value xml:lang="tr"><![CDATA[Önerilene]]></value>
 		<value xml:lang="vi"><![CDATA[Khi bình chọn]]></value>
+        <value xml:lang="ro"><![CDATA[Recomandare]]></value>
 	</item>
 	<item name="point_blamed">
 		<value xml:lang="ko"><![CDATA[비추천 받음]]></value>
@@ -437,6 +475,7 @@
 		<value xml:lang="fr"><![CDATA[Être Blâmé]]></value>
 		<value xml:lang="tr"><![CDATA[Suçlanana]]></value>
 		<value xml:lang="vi"><![CDATA[Khi phê bình]]></value>
+        <value xml:lang="ro"><![CDATA[Vot negativ]]></value>
 	</item>
 	<item name="cmd_point_config">
 		<value xml:lang="ko"><![CDATA[기본 설정]]></value>
@@ -449,6 +488,7 @@
 		<value xml:lang="es"><![CDATA[Configuración predefinida]]></value>
 		<value xml:lang="tr"><![CDATA[Varsayılan Ayar]]></value>
 		<value xml:lang="vi"><![CDATA[Thiết lập mặc định]]></value>
+        <value xml:lang="ro"><![CDATA[Setări implicite]]></value>
 	</item>
 	<item name="cmd_point_module_config">
 		<value xml:lang="ko"><![CDATA[모듈별 설정]]></value>
@@ -461,6 +501,7 @@
 		<value xml:lang="es"><![CDATA[Configuración del módulo]]></value>
 		<value xml:lang="tr"><![CDATA[Modül Ayarı]]></value>
 		<value xml:lang="vi"><![CDATA[Thiết lập Module]]></value>
+        <value xml:lang="ro"><![CDATA[Setări modul]]></value>
 	</item>
 	<item name="cmd_point_act_config">
 		<value xml:lang="ko"><![CDATA[기능별 act 설정]]></value>
@@ -473,6 +514,7 @@
 		<value xml:lang="es"><![CDATA[Configuración de actos]]></value>
 		<value xml:lang="tr"><![CDATA[Eylem Ayarı]]></value>
 		<value xml:lang="vi"><![CDATA[Thiết lập khác]]></value>
+        <value xml:lang="ro"><![CDATA[Setări acţiuni]]></value>
 	</item>
 	<item name="cmd_point_member_list">
 		<value xml:lang="ko"><![CDATA[회원 포인트 목록]]></value>
@@ -485,6 +527,7 @@
 		<value xml:lang="es"><![CDATA[Lista de puntos del usuario]]></value>
 		<value xml:lang="tr"><![CDATA[Üye Puan listesi]]></value>
 		<value xml:lang="vi"><![CDATA[Danh sách điểm thành viên]]></value>
+        <value xml:lang="ro"><![CDATA[Listă puncte pentru membri]]></value>
 	</item>
 	<item name="msg_cannot_download">
 		<value xml:lang="ko"><![CDATA[포인트가 부족하여 다운로드를 하실 수 없습니다.]]></value>
@@ -497,6 +540,7 @@
 		<value xml:lang="es"><![CDATA[No tiene puntos suficientes para descagar]]></value>
 		<value xml:lang="tr"><![CDATA[İndirmek için yeteri puanınız bulunmamaktadır]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn không đủ điểm để Download.]]></value>
+        <value xml:lang="ro"><![CDATA[Nu ai destule puncte pentru descărcare.]]></value>
 	</item>
 	<item name="msg_disallow_by_point">
 		<value xml:lang="ko"><![CDATA[포인트가 부족하여 글을 읽으실 수 없습니다. (필요한 포인트 : %d, 현재 포인트 : %d)]]></value>
@@ -509,6 +553,7 @@
 		<value xml:lang="es"><![CDATA[포인트가 부족하여 글을 읽을 수 없습니다 (필요포인트 : %d, 현재포인트 : %d)]]></value>
 		<value xml:lang="tr"><![CDATA[Makaleyi okumak için daha fazla puana ihtiyacınız var (%d lazımken, %d puanınız var)]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn không thể xem được bài viết vì điểm của bạn không đủ. (Điểm yêu cầu: %d, Điểm hiện tại: %d)]]></value>
+        <value xml:lang="ro"><![CDATA[Ai nevoie de mai multe puncte pentru a citi acest document. (Ai nevoie de %d, iar tu ai doar %d).]]></value>
 	</item>
 	<item name="point_recal_message">
 		<value xml:lang="ko"><![CDATA[포인트 적용 중입니다. (%d / %d)]]></value>
@@ -520,6 +565,7 @@
 		<value xml:lang="es"><![CDATA[Ajuste de Punto. (%d / %d)]]></value>
 		<value xml:lang="tr"><![CDATA[Puan Düzeltiliyor. (%d / %d)]]></value>
 		<value xml:lang="vi"><![CDATA[Điều chỉnh điểm. (%d / %d)]]></value>
+        <value xml:lang="ro"><![CDATA[Ajustare puncte (%d / %d)]]></value>
 	</item>
 	<item name="point_recal_finished">
 		<value xml:lang="ko"><![CDATA[포인트 재계산이 완료되었습니다.]]></value>
@@ -532,17 +578,20 @@
 		<value xml:lang="es"><![CDATA[Punto cálculo está acabado.]]></value>
 		<value xml:lang="tr"><![CDATA[Puan tekrar hesaplaması bitti.]]></value>
 		<value xml:lang="vi"><![CDATA[Đã kết thúc việc tính toán lại điểm.]]></value>
+        <value xml:lang="ro"><![CDATA[Recalcularea punctelor a fost terminată]]></value>
 	</item>
 	<item name="point_update_desc">
 		<value xml:lang="ko"><![CDATA[포인트를 증가시키려면 +를 감소시키려면 -를 숫자앞에 표기한 후 업데이트해 주세요. + 또는 - 표시가 없으면 입력한 값으로 설정됩니다.]]></value>
 		<value xml:lang="en"><![CDATA[Insert + in front of the number to increase the point or - to decrease, and update the point. If you don't insert + or -, the point will be set as the value you entered.]]></value>
 	　　<value xml:lang="jp"><![CDATA[ポイントを増加させるには+を、減少させるには-を、数字の前に表記した後、アップデートしてください。+、または-表示がなければ入力した値が設定されます。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[Insert + in front of the number to increase the point or - to decrease, and update the point. If you don't insert + or -, the point will be set as the value you entered.]]></value>
+        <value xml:lang="ro"><![CDATA[Inserează + înaintea numarului pentru a creste valoarea şi - pentru a o scădea. Dacă nu introduci + sau - numărul de puncte va fi setat la valaroare introdusă.]]></value>
 	</item>
 	<item name="give_point">
 		<value xml:lang="ko"><![CDATA[포인트 부여]]></value>
 		<value xml:lang="en"><![CDATA[Give the point]]></value>
 		<value xml:lang="zh-TW"><![CDATA[給予點數]]></value>
+        <value xml:lang="ro"><![CDATA[Acordă puncte]]></value>
 	</item>
 	<item name="search_target_list" type="array">
 		<item name="nick_name">
@@ -558,6 +607,7 @@
 			<value xml:lang="tr"><![CDATA[Takma Ad]]></value>
 			<value xml:lang="vi"><![CDATA[NickName]]></value>
 			<value xml:lang="mn"><![CDATA[Ник]]></value>
+            <value xml:lang="ro"><![CDATA[Alias]]></value>
 		</item>
 		<item name="user_name">
 			<value xml:lang="ko"><![CDATA[이름]]></value>
@@ -572,6 +622,7 @@
 			<value xml:lang="tr"><![CDATA[Kullanıcı Adı]]></value>
 			<value xml:lang="vi"><![CDATA[Tên thật]]></value>
 			<value xml:lang="mn"><![CDATA[Нэр]]></value>
+            <value xml:lang="ro"><![CDATA[Nume utilizator]]></value>
 		</item>
 		<item name="regdate">
 			<value xml:lang="ko"><![CDATA[가입일시]]></value>
@@ -584,6 +635,7 @@
 			<value xml:lang="es"><![CDATA[Fecha del registro]]></value>
 			<value xml:lang="tr"><![CDATA[Kayıt Tarihi]]></value>
 			<value xml:lang="vi"><![CDATA[Ngày đăng kí]]></value>
+            <value xml:lang="ro"><![CDATA[Data înscrierii]]></value>
 		</item>
 		<item name="regdate_more">
 			<value xml:lang="ko"><![CDATA[가입일시(이상)]]></value>
@@ -594,6 +646,7 @@
 			<value xml:lang="ru"><![CDATA[Дата регистрации(more)]]></value>
 			<value xml:lang="tr"><![CDATA[Kayıt Tarihi (detaylı)]]></value>
 			<value xml:lang="vi"><![CDATA[Ngày đăng kí nhiều nhất]]></value>
+            <value xml:lang="ro"><![CDATA[Data înscrierii(după)]]></value>
 		</item>
 		<item name="regdate_less">
 			<value xml:lang="ko"><![CDATA[가입일시(이하)]]></value>
@@ -604,6 +657,7 @@
 			<value xml:lang="ru"><![CDATA[Дата регистрации(less)]]></value>
 			<value xml:lang="tr"><![CDATA[Kayıt Tarihi (basit)]]></value>
 			<value xml:lang="vi"><![CDATA[Ngày đăng kí ít nhất]]></value>
+            <value xml:lang="ro"><![CDATA[Data înscrierii (înainte de)]]></value>
 		</item>
 		<item name="last_login">
 			<value xml:lang="ko"><![CDATA[최근 로그인 일시]]></value>
@@ -616,6 +670,7 @@
 			<value xml:lang="es"><![CDATA[Fecha de su última conección]]></value>
 			<value xml:lang="tr"><![CDATA[Son Giriş Tarihi]]></value>
 			<value xml:lang="vi"><![CDATA[Lần cuối đăng nhập]]></value>
+            <value xml:lang="ro"><![CDATA[Ultima autentificare]]></value>
 		</item>
 		<item name="last_login_more">
 			<value xml:lang="ko"><![CDATA[최근 로그인 일시(이상)]]></value>
@@ -627,6 +682,7 @@
 			<value xml:lang="es"><![CDATA[최근로그인일시(이상)]]></value>
 			<value xml:lang="tr"><![CDATA[Son Giriş Tarihi (detaylı)]]></value>
 			<value xml:lang="vi"><![CDATA[Đăng nhập nhiều nhất]]></value>
+            <value xml:lang="ro"><![CDATA[Ultima autentificare (după)]]></value>
 		</item>
 		<item name="last_login_less">
 			<value xml:lang="ko"><![CDATA[최근 로그인 일시(이하)]]></value>
@@ -638,6 +694,7 @@
 			<value xml:lang="es"><![CDATA[최근로그인일시(이하)]]></value>
 			<value xml:lang="tr"><![CDATA[Son Giriş Tarihi (basit)]]></value>
 			<value xml:lang="vi"><![CDATA[Đăng nhập ít nhất]]></value>
+            <value xml:lang="ro"><![CDATA[Ultima autentificare (înainte de)]]></value>
 		</item>
 		<item name="extra_vars">
 			<value xml:lang="ko"><![CDATA[확장변수]]></value>
@@ -650,6 +707,7 @@
 			<value xml:lang="es"><![CDATA[Variables Extra]]></value>
 			<value xml:lang="tr"><![CDATA[Fazladan Çeş.]]></value>
 			<value xml:lang="vi"><![CDATA[Thông tin bổ xung]]></value>
+            <value xml:lang="ro"><![CDATA[Variabile adiţionale]]></value>
 		</item>
 	</item>
 </lang>

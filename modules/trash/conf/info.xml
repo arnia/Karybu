@@ -3,7 +3,9 @@
     <title xml:lang="ko">휴지통</title>
     <title xml:lang="en">trash</title>
     <title xml:lang="zh-TW">回收桶</title>
+    <title xml:lang="ro">Recycle Bin</title>
     <description xml:lang="ko">문서, 댓글 등을 완전히 삭제하지 않고 복구 가능한 상태로 만들어 관리하는 모듈입니다.</description>
+    <description xml:lang="ro">Documentele, comentariile, etc. nu sunt şterse complet din modulul lor ci sunt trecute într-o stare recuperabilă</description>
     <version>0.1</version>
     <date>2011-05-12</date>
     <category>content</category>
@@ -17,5 +19,6 @@
         <name xml:lang="ru">Arnia</name>
         <name xml:lang="zh-TW">Arnia</name>
         <name xml:lang="tr">Arnia</name>
+        <name xml:lang="ro">Arnia</name>
     </author>
 </module>

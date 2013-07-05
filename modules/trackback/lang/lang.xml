@@ -11,6 +11,7 @@
 		<value xml:lang="es"><![CDATA[Reverse selected trackback(s)]]></value>
 		<value xml:lang="tr"><![CDATA[Seçili geri izlemeleri iptal et]]></value>
 		<value xml:lang="vi"><![CDATA[Nhận liên kết Web đã chọn]]></value>
+        <value xml:lang="ro"><![CDATA[Inversează selecţia]]></value>
 	</item>
 	<item name="cmd_delete_checked_trackback">
 		<value xml:lang="ko"><![CDATA[선택항목 삭제]]></value>
@@ -23,6 +24,7 @@
 		<value xml:lang="es"><![CDATA[Trackback(s) es eliminado]]></value>
 		<value xml:lang="tr"><![CDATA[Seçili geri izlemeleri sil]]></value>
 		<value xml:lang="vi"><![CDATA[Xóa liên kết Web đã chọn]]></value>
+        <value xml:lang="ro"><![CDATA[Şterge cele selectate]]></value>
 	</item>
 	<item name="msg_cart_is_null">
 		<value xml:lang="ko"><![CDATA[삭제할 글을 선택해주세요.]]></value>
@@ -35,6 +37,7 @@
 		<value xml:lang="es"><![CDATA[Seleccione un trackback para ser eliminado.]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen silinecek geri izlemeyi seçin.]]></value>
 		<value xml:lang="vi"><![CDATA[Xin hãy chọn liên kết Web muốn xóa.]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează trackback penrtu ştergere]]></value>
 	</item>
 	<item name="msg_checked_trackback_is_deleted">
 		<value xml:lang="ko"><![CDATA[%d개의 엮인글을 삭제했습니다.]]></value>
@@ -47,6 +50,7 @@
 		<value xml:lang="es"><![CDATA[%d trackback(s) eliminado.]]></value>
 		<value xml:lang="tr"><![CDATA[%d geri izlemeleri silindi.]]></value>
 		<value xml:lang="vi"><![CDATA[%d đã được xóa.]]></value>
+        <value xml:lang="ro"><![CDATA[%d trackback-uri au fost şterse.]]></value>
 	</item>
 	<item name="send_trackback_url">
 		<value xml:lang="ko"><![CDATA[발송할 주소]]></value>
@@ -57,6 +61,7 @@
 		<value xml:lang="fr"><![CDATA[URL de Destination]]></value>
 		<value xml:lang="tr"><![CDATA[Hedef URL]]></value>
 		<value xml:lang="vi"><![CDATA[Địa chỉ muốn gửi]]></value>
+        <value xml:lang="ro"><![CDATA[URL destinaţie]]></value>
 	</item>
 	<item name="msg_trackback_url_is_invalid">
 		<value xml:lang="ko"><![CDATA[발송할 대상의 주소가 올바르지 않습니다.]]></value>
@@ -67,6 +72,7 @@
 		<value xml:lang="fr"><![CDATA[URL de Destination est invalide]]></value>
 		<value xml:lang="tr"><![CDATA[Hedef URL geçersiz.]]></value>
 		<value xml:lang="vi"><![CDATA[Địa chỉ muốn gửi không hợp lệ]]></value>
+        <value xml:lang="ro"><![CDATA[URL-ul destinaţie nu este valid.]]></value>
 	</item>
 	<item name="msg_trackback_send_success">
 		<value xml:lang="ko"><![CDATA[엮인글을 발송했습니다.]]></value>
@@ -77,6 +83,7 @@
 		<value xml:lang="fr"><![CDATA[Envoyé avec succès]]></value>
 		<value xml:lang="tr"><![CDATA[Başarıyla gönderildi]]></value>
 		<value xml:lang="vi"><![CDATA[Đã gửi thành công.]]></value>
+        <value xml:lang="ro"><![CDATA[Trmitere cu succes.]]></value>
 	</item>
 	<item name="search_target_list" type="array">
 		<item name="url">
@@ -90,6 +97,7 @@
 			<value xml:lang="es"><![CDATA[URL objetivo]]></value>
 			<value xml:lang="tr"><![CDATA[Hedef URL]]></value>
 			<value xml:lang="vi"><![CDATA[URL muốn gửi]]></value>
+            <value xml:lang="ro"><![CDATA[URL obiectiv]]></value>
 		</item>
 		<item name="blog_name">
 			<value xml:lang="ko"><![CDATA[대상 사이트 이름]]></value>
@@ -102,6 +110,7 @@
 			<value xml:lang="es"><![CDATA[Ojetivo del nombre de sitio]]></value>
 			<value xml:lang="tr"><![CDATA[Hedef Site Adı]]></value>
 			<value xml:lang="vi"><![CDATA[Tên Website muốn gửi]]></value>
+            <value xml:lang="ro"><![CDATA[Nume site obiectiv]]></value>
 		</item>
 		<item name="title">
 			<value xml:lang="ko"><![CDATA[제목]]></value>
@@ -114,6 +123,7 @@
 			<value xml:lang="es"><![CDATA[Título]]></value>
 			<value xml:lang="tr"><![CDATA[Başlık]]></value>
 			<value xml:lang="vi"><![CDATA[Tiêu đề]]></value>
+            <value xml:lang="ro"><![CDATA[Titlu]]></value>
 		</item>
 		<item name="excerpt">
 			<value xml:lang="ko"><![CDATA[내용]]></value>
@@ -126,6 +136,7 @@
 			<value xml:lang="es"><![CDATA[Contenido]]></value>
 			<value xml:lang="tr"><![CDATA[Alıntı]]></value>
 			<value xml:lang="vi"><![CDATA[Trích đoạn]]></value>
+            <value xml:lang="ro"><![CDATA[Extras]]></value>
 		</item>
 		<item name="regdate">
 			<value xml:lang="ko"><![CDATA[등록일]]></value>
@@ -138,6 +149,7 @@
 			<value xml:lang="es"><![CDATA[Fecha del posteo]]></value>
 			<value xml:lang="tr"><![CDATA[Gönderilme Tarihi]]></value>
 			<value xml:lang="vi"><![CDATA[Ngày gửi]]></value>
+            <value xml:lang="ro"><![CDATA[Data postării]]></value>
 		</item>
 		<item name="ipaddress">
 			<value xml:lang="ko"><![CDATA[IP 주소]]></value>
@@ -150,6 +162,7 @@
 			<value xml:lang="es"><![CDATA[Dirección IP]]></value>
 			<value xml:lang="tr"><![CDATA[IP Adresi]]></value>
 			<value xml:lang="vi"><![CDATA[IP]]></value>
+            <value xml:lang="ro"><![CDATA[Adresă IP]]></value>
 		</item>
 	</item>
 	<item name="enable_trackback">
@@ -163,6 +176,7 @@
 		<value xml:lang="es"><![CDATA[Usar trackback]]></value>
 		<value xml:lang="tr"><![CDATA[Geri izleme kullan.]]></value>
 		<value xml:lang="vi"><![CDATA[Sử dụng liên kết Web]]></value>
+        <value xml:lang="ro"><![CDATA[Permite trackbak]]></value>
 	</item>
 	<item name="about_enable_trackback">
 		<value xml:lang="ko"><![CDATA[체크를 해제하면 모든 글의 엮인글 접수를 중지합니다.]]></value>
@@ -175,33 +189,39 @@
 		<value xml:lang="es"><![CDATA[Si no selecciona esta opción, desactiva la inscripción de trackback en todos los documentos del sitio]]></value>
 		<value xml:lang="tr"><![CDATA[Geri izleme devredışı bırakıldığında, sitedeki tüm geri izleme (trackback) koleksiyonları durdurulacaktır.]]></value>
 		<value xml:lang="vi"><![CDATA[Khi chọn là tắt chức năng này, mọi liên kết Web trên Website sẽ ngừng hoạt động.]]></value>
+        <value xml:lang="ro"><![CDATA[Când nu este bifat, colecţia de trackback-uri din site va fi oprită.]]></value>
 	</item>
 	<item name="no_trackbacks">
 		<value xml:lang="ko"><![CDATA[엮인글이 없습니다.]]></value>
 		<value xml:lang="en"><![CDATA[No Trackbacks]]></value>
 		<value xml:lang="jp"><![CDATA[トラックバックがありません。]]></value>
 		<value xml:lang="zh-TW"><![CDATA[沒有引用]]></value>
+        <value xml:lang="ro"><![CDATA[Nu există trackback-uri]]></value>
 	</item>
 	<item name="trackback_manager">
 		<value xml:lang="ko"><![CDATA[선택한 엮인글 관리]]></value>
 		<value xml:lang="en"><![CDATA[Manage selected trackbacks]]></value>
 		<value xml:lang="jp"><![CDATA[選択したトラックバック管理]]></value>
 		<value xml:lang="zh-TW"><![CDATA[管理所選引用]]></value>
+        <value xml:lang="ro"><![CDATA[Administrare trackback-uri selectate.]]></value>
 	</item>
 	<item name="selected_trackback">
 		<value xml:lang="ko"><![CDATA[선택한 엮인글]]></value>
 		<value xml:lang="en"><![CDATA[Selected trackbacks]]></value>
 		<value xml:lang="jp"><![CDATA[選択したトラックバック]]></value>
 		<value xml:lang="zh-TW"><![CDATA[已選擇的引用]]></value>
+        <value xml:lang="ro"><![CDATA[Trackback-uri selectate]]></value>
 	</item>
 	<item name="site">
 		<value xml:lang="ko"><![CDATA[사이트]]></value>
 		<value xml:lang="en"><![CDATA[Site]]></value>
 		<value xml:lang="jp"><![CDATA[サイト]]></value>
 		<value xml:lang="zh-TW"><![CDATA[網站]]></value>
+        <value xml:lang="ro"><![CDATA[Site]]></value>
 	</item>
 	<item name="msg_trackback_send_failed">
 		<value xml:lang="ko"><![CDATA[엮인글 발송을 실패하였습니다.]]></value>
 		<value xml:lang="en"><![CDATA[Failed to send]]></value>
+        <value xml:lang="ro"><![CDATA[Eroare la trimitere.]]></value>
 	</item>
 </lang>

@@ -11,6 +11,7 @@
 		<value xml:lang="es"><![CDATA[Generar Código]]></value>
 		<value xml:lang="tr"><![CDATA[Kod Üret]]></value>
 		<value xml:lang="vi"><![CDATA[Tạo Code]]></value>
+        <value xml:lang="ro"><![CDATA[Generate Code]]></value>
 	</item>
 	<item name="widget_name">
 		<value xml:lang="ko"><![CDATA[위젯 이름]]></value>
@@ -23,6 +24,7 @@
 		<value xml:lang="es"><![CDATA[Nombre de Widget]]></value>
 		<value xml:lang="tr"><![CDATA[Widget Adı]]></value>
 		<value xml:lang="vi"><![CDATA[Tên Widget]]></value>
+        <value xml:lang="ro"><![CDATA[Nume widget]]></value>
 	</item>
 	<item name="widget_maker">
 		<value xml:lang="ko"><![CDATA[위젯 제작자]]></value>
@@ -35,6 +37,7 @@
 		<value xml:lang="es"><![CDATA[Desarrollador de Widget]]></value>
 		<value xml:lang="tr"><![CDATA[Geliştirici]]></value>
 		<value xml:lang="vi"><![CDATA[Người tạo]]></value>
+        <value xml:lang="ro"><![CDATA[Dezvoltator]]></value>
 	</item>
 	<item name="widget_license">
 		<value xml:lang="ko"><![CDATA[라이선스]]></value>
@@ -45,6 +48,7 @@
 		<value xml:lang="fr"><![CDATA[Licence]]></value>
 		<value xml:lang="tr"><![CDATA[Lisans]]></value>
 		<value xml:lang="vi"><![CDATA[Giấy phép]]></value>
+        <value xml:lang="ro"><![CDATA[Licenţă]]></value>
 	</item>
 	<item name="widget_history">
 		<value xml:lang="ko"><![CDATA[변경 이력]]></value>
@@ -57,6 +61,7 @@
 		<value xml:lang="es"><![CDATA[Actualizar la historia]]></value>
 		<value xml:lang="tr"><![CDATA[Güncelleme Tarihi]]></value>
 		<value xml:lang="vi"><![CDATA[Lịch sử cập nhật]]></value>
+        <value xml:lang="ro"><![CDATA[Istoric modificări]]></value>
 	</item>
 	<item name="widget_info">
 		<value xml:lang="ko"><![CDATA[위젯 정보]]></value>
@@ -69,6 +74,7 @@
 		<value xml:lang="es"><![CDATA[información de Widget]]></value>
 		<value xml:lang="tr"><![CDATA[Widget Bilgileri]]></value>
 		<value xml:lang="vi"><![CDATA[Thông tin Widget]]></value>
+        <value xml:lang="ro"><![CDATA[Informaţii widget]]></value>
 	</item>
 	<item name="widget_code">
 		<value xml:lang="ko"><![CDATA[코드]]></value>
@@ -79,6 +85,7 @@
 		<value xml:lang="ru"><![CDATA[Код]]></value>
 		<value xml:lang="es"><![CDATA[Código]]></value>
 		<value xml:lang="tr"><![CDATA[Kod]]></value>
+        <value xml:lang="ro"><![CDATA[Cod]]></value>
 	</item>
 	<item name="widget_cache">
 		<value xml:lang="ko"><![CDATA[캐시]]></value>
@@ -90,6 +97,7 @@
 		<value xml:lang="ru"><![CDATA[Кеш]]></value>
 		<value xml:lang="tr"><![CDATA[Önbellek]]></value>
 		<value xml:lang="vi"><![CDATA[Bộ nhớ đệm]]></value>
+        <value xml:lang="ro"><![CDATA[Cache]]></value>
 	</item>
 	<item name="widget_fix_width">
 		<value xml:lang="ko"><![CDATA[크기 고정]]></value>
@@ -102,6 +110,7 @@
 		<value xml:lang="es"><![CDATA[Ancho permanente]]></value>
 		<value xml:lang="tr"><![CDATA[Düzeltme Genişliği]]></value>
 		<value xml:lang="vi"><![CDATA[Cố định chiều rộng]]></value>
+        <value xml:lang="ro"><![CDATA[Lăţime fixă]]></value>
 	</item>
 	<item name="widget_width">
 		<value xml:lang="ko"><![CDATA[가로 길이]]></value>
@@ -114,6 +123,7 @@
 		<value xml:lang="es"><![CDATA[Ancho]]></value>
 		<value xml:lang="tr"><![CDATA[Genişlik]]></value>
 		<value xml:lang="vi"><![CDATA[Chiều rộng]]></value>
+        <value xml:lang="ro"><![CDATA[Lăţime]]></value>
 	</item>
 	<item name="widget_position">
 		<value xml:lang="ko"><![CDATA[위치]]></value>
@@ -125,6 +135,7 @@
 		<value xml:lang="es"><![CDATA[Posición]]></value>
 		<value xml:lang="tr"><![CDATA[Konum]]></value>
 		<value xml:lang="vi"><![CDATA[Vị trí]]></value>
+        <value xml:lang="ro"><![CDATA[Poziţie]]></value>
 	</item>
 	<item name="widget_position_none">
 		<value xml:lang="ko"><![CDATA[줄 바꿈]]></value>
@@ -137,6 +148,7 @@
 		<value xml:lang="es"><![CDATA[Próxima línea]]></value>
 		<value xml:lang="tr"><![CDATA[Sonraki Hat]]></value>
 		<value xml:lang="vi"><![CDATA[Dòng tiếp theo]]></value>
+        <value xml:lang="ro"><![CDATA[Linie nouă]]></value>
 	</item>
 	<item name="widget_position_left">
 		<value xml:lang="ko"><![CDATA[왼쪽]]></value>
@@ -149,6 +161,7 @@
 		<value xml:lang="es"><![CDATA[Izquierdo]]></value>
 		<value xml:lang="tr"><![CDATA[Sol]]></value>
 		<value xml:lang="vi"><![CDATA[Trái]]></value>
+        <value xml:lang="ro"><![CDATA[Stânga]]></value>
 	</item>
 	<item name="widget_position_right">
 		<value xml:lang="ko"><![CDATA[오른쪽]]></value>
@@ -161,6 +174,7 @@
 		<value xml:lang="es"><![CDATA[Derecho]]></value>
 		<value xml:lang="tr"><![CDATA[Sağ]]></value>
 		<value xml:lang="vi"><![CDATA[Phải]]></value>
+        <value xml:lang="ro"><![CDATA[Dreapta]]></value>
 	</item>
 	<item name="widget_margin">
 		<value xml:lang="ko"><![CDATA[외부 여백]]></value>
@@ -173,6 +187,7 @@
 		<value xml:lang="es"><![CDATA[Márgen]]></value>
 		<value xml:lang="tr"><![CDATA[Kenar boşluğu]]></value>
 		<value xml:lang="vi"><![CDATA[Lề]]></value>
+        <value xml:lang="ro"><![CDATA[Margine]]></value>
 	</item>
 	<item name="widget_margin_top">
 		<value xml:lang="ko"><![CDATA[위]]></value>
@@ -185,6 +200,7 @@
 		<value xml:lang="es"><![CDATA[Márgen superior]]></value>
 		<value xml:lang="tr"><![CDATA[Üst-Kenar Boşluğu]]></value>
 		<value xml:lang="vi"><![CDATA[Lề trên]]></value>
+        <value xml:lang="ro"><![CDATA[Margine sus]]></value>
 	</item>
 	<item name="widget_margin_right">
 		<value xml:lang="ko"><![CDATA[오른쪽]]></value>
@@ -197,6 +213,7 @@
 		<value xml:lang="es"><![CDATA[Márgen derecho]]></value>
 		<value xml:lang="tr"><![CDATA[Sağ-Kenar Boşluğu]]></value>
 		<value xml:lang="vi"><![CDATA[Lề phải]]></value>
+        <value xml:lang="ro"><![CDATA[Margine dreapta]]></value>
 	</item>
 	<item name="widget_margin_bottom">
 		<value xml:lang="ko"><![CDATA[아래 ]]></value>
@@ -209,6 +226,7 @@
 		<value xml:lang="es"><![CDATA[Márgen inferior]]></value>
 		<value xml:lang="tr"><![CDATA[Alt-Kenar Boşluğu]]></value>
 		<value xml:lang="vi"><![CDATA[Lề dưới]]></value>
+        <value xml:lang="ro"><![CDATA[Margin jos]]></value>
 	</item>
 	<item name="widget_margin_left">
 		<value xml:lang="ko"><![CDATA[왼쪽]]></value>
@@ -221,6 +239,7 @@
 		<value xml:lang="es"><![CDATA[Márgen izquierdo]]></value>
 		<value xml:lang="tr"><![CDATA[Sol-Kenar Boşluğu]]></value>
 		<value xml:lang="vi"><![CDATA[Lề trái]]></value>
+        <value xml:lang="ro"><![CDATA[Margin stânga]]></value>
 	</item>
 	<item name="about_widget_fix_width">
 		<value xml:lang="ko"><![CDATA[선택하시면 가로 길이가 고정됩니다.]]></value>
@@ -233,6 +252,7 @@
 		<value xml:lang="es"><![CDATA[Si selecciona esta opción el ancho será permanente.]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen genişliği düzeltmeyi kontrol ediniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Hãy kiểm tra để cố định chiều rộng.]]></value>
+        <value xml:lang="ro"><![CDATA[Bifează pentru lăţime fixă.]]></value>
 	</item>
 	<item name="about_widget_width">
 		<value xml:lang="ko"><![CDATA[가로 길이를 입력해주세요.]]></value>
@@ -245,6 +265,7 @@
 		<value xml:lang="es"><![CDATA[Ingrese el ancho de Widget.]]></value>
 		<value xml:lang="tr"><![CDATA[Lütfen widgetın genişliğini ayarlayınız.]]></value>
 		<value xml:lang="vi"><![CDATA[Hãy đặt chiều rộng cho Widget.]]></value>
+        <value xml:lang="ro"><![CDATA[Setează lăţimea widget-ului.]]></value>
 	</item>
 	<item name="about_widget_position">
 		<value xml:lang="ko"><![CDATA[한 줄에 여러 개의 위젯을 나열하고 싶을 때는 위치를 선택해주세요.]]></value>
@@ -257,6 +278,7 @@
 		<value xml:lang="es"><![CDATA[Selecciona la posición si desea mostra más widgets en una línea.]]></value>
 		<value xml:lang="tr"><![CDATA[Tek bir satırda birkaç widget görüntülemek istiyorsanız, lütfen konumlarını seçiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Hãy chọn vị trí nếu bạn muốn nhiều Widget cùng hiển thị.]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează poziţia dacă vrei să afişezi mai multe widget-uri pe o linie.]]></value>
 	</item>
 	<item name="about_widget_margin">
 		<value xml:lang="ko"><![CDATA[지정된 위젯의 상하좌우 여백을 지정할 수 있습니다.]]></value>
@@ -269,6 +291,7 @@
 		<value xml:lang="es"><![CDATA[Uste puede ingresar el márgen de los widgets : superior, inferior, derecho e izquierdo.]]></value>
 		<value xml:lang="tr"><![CDATA[Widgetların üst, alt, sağ ve sol kenar boşluklarını belirleyebilirsiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể đặt lề của Widget: Trái, Phải, Trên, Dưới.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi seta marginile de sus, jos, stânga şi dreapta pentru widget.]]></value>
 	</item>
 	<item name="about_widget_cache">
 		<value xml:lang="ko"><![CDATA[지정된 시간동안 캐시된 데이터를 이용할 수 있습니다.]]></value>
@@ -281,6 +304,7 @@
 		<value xml:lang="es"><![CDATA[Se puede usar datos de caché creado durante el tiempo asignado.]]></value>
 		<value xml:lang="tr"><![CDATA[Önbelleğe alınmış veriler, ayarlamış olduğunuz süre içinde kullanılabilir.]]></value>
 		<value xml:lang="vi"><![CDATA[Bộ nhớ đệm của Data có thể được sử dụng nếu bạn đặt thời gian cho nó.]]></value>
+        <value xml:lang="ro"><![CDATA[Datele din cache vor putea fi folosite pentru perioada de timp setată.]]></value>
 	</item>
 	<item name="generated_code">
 		<value xml:lang="ko"><![CDATA[생성된 코드]]></value>
@@ -293,6 +317,7 @@
 		<value xml:lang="es"><![CDATA[Generar códigos]]></value>
 		<value xml:lang="tr"><![CDATA[Üretilmiş Kod]]></value>
 		<value xml:lang="vi"><![CDATA[Đã tạo Code]]></value>
+        <value xml:lang="ro"><![CDATA[Cod generat]]></value>
 	</item>
 	<item name="widgetstyle">
 		<value xml:lang="ko"><![CDATA[위젯스타일]]></value>
@@ -302,6 +327,7 @@
 		<value xml:lang="zh-TW"><![CDATA[Widget 樣式]]></value>
 		<value xml:lang="tr"><![CDATA[Widget Tarzı]]></value>
 		<value xml:lang="vi"><![CDATA[Kiểu dáng Widget]]></value>
+        <value xml:lang="ro"><![CDATA[Stil widget]]></value>
 	</item>
 	<item name="msg_widget_is_not_exists">
 		<value xml:lang="ko"><![CDATA[%s 위젯을 찾을 수 없습니다.]]></value>
@@ -314,6 +340,7 @@
 		<value xml:lang="es"><![CDATA[No existe widget %s .]]></value>
 		<value xml:lang="tr"><![CDATA['%s' bulunmuyot.]]></value>
 		<value xml:lang="vi"><![CDATA['%s' không tồn tại.]]></value>
+        <value xml:lang="ro"><![CDATA['%s' nu există]]></value>
 	</item>
 	<item name="msg_widget_object_is_null">
 		<value xml:lang="ko"><![CDATA[%s 위젯의 객체 생성을 할 수 없습니다.]]></value>
@@ -326,6 +353,7 @@
 		<value xml:lang="es"><![CDATA[No puede ser creado el objeto de widget %s.]]></value>
 		<value xml:lang="tr"><![CDATA[ '%s' nesnesi oluşturulamadı.]]></value>
 		<value xml:lang="vi"><![CDATA[Đối tượng của '%s' đã không được tạo.]]></value>
+        <value xml:lang="ro"><![CDATA[Obiectul din '%s' nu a putut fi creat.]]></value>
 	</item>
 	<item name="msg_widget_proc_is_null">
 		<value xml:lang="ko"><![CDATA[%s 위젯의 proc() 를 실행할 수 없습니다.]]></value>
@@ -338,6 +366,7 @@
 		<value xml:lang="es"><![CDATA[No puede ser ejecutado el proc() de widget %s.]]></value>
 		<value xml:lang="tr"><![CDATA[ '%s' işlemi tamamlanamadı.]]></value>
 		<value xml:lang="vi"><![CDATA[proc() của '%s' đã không được thực hiện.]]></value>
+        <value xml:lang="ro"><![CDATA[proc() din '%s' nu s+a putut executa.]]></value>
 	</item>
 	<item name="msg_widget_skin_is_null">
 		<value xml:lang="ko"><![CDATA[위젯의 스킨을 선택해 주셔야 정상적으로 동작할 수 있습니다.]]></value>
@@ -350,6 +379,7 @@
 		<value xml:lang="es"><![CDATA[위젯의 스킨을 선택해 주셔야 정상적으로 동작할 수 있습니다]]></value>
 		<value xml:lang="tr"><![CDATA[Widgetın dış görünümünü belirlemelisiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn cần phải chọn Skin cho Widget.]]></value>
+        <value xml:lang="ro"><![CDATA[Trebuie să selectezi un skin pentru widget.]]></value>
 	</item>
 	<item name="about_widget_code">
 		<value xml:lang="ko"><![CDATA[선택하신 위젯에서 요구하는 아래 항목들의 값을 넣고 [코드생성]버튼을 누르시면 제일 아래 칸에 템플릿 파일에 적용할 수 있는 코드가 출력 됩니다.]]></value>
@@ -362,6 +392,7 @@
 		<value xml:lang="es"><![CDATA[Ingrese primero los valores requeridos, luego presiona el botón "Generar códigos" para mostrar el código en el espacio inferior para ser añadido en el archivo de los temas.]]></value>
 		<value xml:lang="tr"><![CDATA[Kod üretip şablon dosyaya eklemek için lütfen ilk olarak gerekli değeri girin ve ardından [Kod Üret]e tıklayın.]]></value>
 		<value xml:lang="vi"><![CDATA[Hãy nhập các thông tin cần thiết, sau đó bấm nút [<b>Tạo Code</b>] để lấy Code thêm vào giao diện.]]></value>
+        <value xml:lang="ro"><![CDATA[Introdu întâi valoarea obligatorie apoi fă click pe butonul [Generează cod] pentru a genera codul pentru a-l introduce în fişierul templetă.]]></value>
 	</item>
 	<item name="about_widget_code_in_page">
 		<value xml:lang="ko"><![CDATA[아래 필요한 값들을 입력하신 후 추가 버튼을 누르시면 페이지 내에 위젯이 삽입됩니다.]]></value>
@@ -374,6 +405,7 @@
 		<value xml:lang="es"><![CDATA[Luego de ingresar los valores requeridos, presiona el botón "Añadir" para insertar el código de widget dentro de la página.]]></value>
 		<value xml:lang="tr"><![CDATA[Gerekli değerleri girdikten sonra widget kodunu sayfaya eklemek için [Ekle]ye tıklayın.]]></value>
 		<value xml:lang="vi"><![CDATA[Sau khi nhập những thông tin cần thiết, bấm nút [<b>Tạo Code</b>] để chèn Code của Widget vào giao diện.]]></value>
+        <value xml:lang="ro"><![CDATA[După introducerea valorilor obligatorii, fă click pe buutonul [Adaugă] pentru a introduce widget-ul în pagină]]></value>
 	</item>
 	<item name="about_widget">
 		<value xml:lang="ko"><![CDATA[위젯은 레이아웃이나 페이지 모듈에서 사용되는 작은 구성요소입니다.
@@ -398,6 +430,9 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
  Dahili modüle bağlanabileceği gibi, harici açık apilerle de bağlantı kurabilir. Yapılandırma ayarları yoluyla, geniş bir uygulama alanı vardır. 
   [Kod Üret] fonksiyonunu kullanarak, Karybu sayfa modülüne veya yerleşim düzeni modülüne ihtiyaç duymadan widget ekleyebilirsiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Widget là một ứng dụng nhỏ có thể đặt ở bất kì vị trí nào do người dùng lựa chọn.<br />Nó có thể kết nối với những Module trong Website hay Open API bên ngoài và hiển thị nội dung của Module đó.<br />Thông qua sự thiết lập cấu hình, nó có thể là một ứng dụng rộng dãi.<br />Bạn có thể thêm một Widget bằng cách bấm nút [<b>Tạo Code</b>] để lấy Code thêm vào một Module hay trang nào đó.]]></value>
+        <value xml:lang="ro"><![CDATA[Un widget este o aplicaţie mică, independentă folosită în lazout sau modulul de pagini.
+Poate fi conectat cu un modul intern sau Open API extenrn. Prin setările de configurare poate deveni o plicaţie vastă.
+Poţi adăuga direct un widget folosind butonul [Generează cod] fără a folosi modulul de pagini Karybu sau modulul de layout.]]></value>
 	</item>
 	<item name="cmd_content_insert">
 		<value xml:lang="ko"><![CDATA[내용 직접 추가]]></value>
@@ -409,9 +444,11 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Introduzca contenido por ti mismo]]></value>
 		<value xml:lang="tr"><![CDATA[İçeriği kendiniz ekleyin.]]></value>
 		<value xml:lang="vi"><![CDATA[Chèn nội dung của bạn]]></value>
+        <value xml:lang="ro"><![CDATA[inserează content.]]></value>
 	</item>
     <item name="cmd_insert_article">
         <value xml:lang="en"><![CDATA[Insert article]]></value>
+        <value xml:lang="ro"><![CDATA[Inserează articol]]></value>
     </item>
 	<item name="cmd_box_widget_insert">
 		<value xml:lang="ko"><![CDATA[상자 위젯 추가]]></value>
@@ -423,6 +460,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Insertar cuadro de widget]]></value>
 		<value xml:lang="tr"><![CDATA[Kutu widgetını ekleyin.]]></value>
 		<value xml:lang="vi"><![CDATA[Chèn khung Widget]]></value>
+        <value xml:lang="ro"><![CDATA[inserează secţiune de widget-uri]]></value>
 	</item>
 	<item name="cmd_remove_all_widgets">
 		<value xml:lang="ko"><![CDATA[내용 모두 지우기]]></value>
@@ -434,6 +472,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Eliminar todos los reproductores]]></value>
 		<value xml:lang="tr"><![CDATA[Tüm widgetları kaldır.]]></value>
 		<value xml:lang="vi"><![CDATA[Xóa tất cả Widget]]></value>
+        <value xml:lang="ro"><![CDATA[Şterge toate widget-urile]]></value>
 	</item>
 	<item name="cmd_widget_size">
 		<value xml:lang="ko"><![CDATA[위젯 크기]]></value>
@@ -445,6 +484,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Tamaño artilugio]]></value>
 		<value xml:lang="tr"><![CDATA[Widget Boyutu]]></value>
 		<value xml:lang="vi"><![CDATA[Kích thước]]></value>
+        <value xml:lang="ro"><![CDATA[Dimensiune widget.]]></value>
 	</item>
 	<item name="cmd_widget_align">
 		<value xml:lang="ko"><![CDATA[위젯 정렬]]></value>
@@ -456,6 +496,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Alinear Widget]]></value>
 		<value xml:lang="tr"><![CDATA[Hizalama Widgetı]]></value>
 		<value xml:lang="vi"><![CDATA[Căn chỉnh]]></value>
+        <value xml:lang="ro"><![CDATA[Aliniere widget]]></value>
 	</item>
 	<item name="cmd_widget_align_left">
 		<value xml:lang="ko"><![CDATA[왼쪽]]></value>
@@ -467,6 +508,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Izquierda]]></value>
 		<value xml:lang="tr"><![CDATA[Sol]]></value>
 		<value xml:lang="vi"><![CDATA[Trái]]></value>
+        <value xml:lang="ro"><![CDATA[Stânga]]></value>
 	</item>
 	<item name="cmd_widget_align_right">
 		<value xml:lang="ko"><![CDATA[오른쪽]]></value>
@@ -478,6 +520,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Derecho]]></value>
 		<value xml:lang="tr"><![CDATA[Sağ]]></value>
 		<value xml:lang="vi"><![CDATA[Phải]]></value>
+        <value xml:lang="ro"><![CDATA[Dreapta]]></value>
 	</item>
 	<item name="cmd_widget_margin">
 		<value xml:lang="ko"><![CDATA[외부 여백]]></value>
@@ -489,6 +532,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Margen]]></value>
 		<value xml:lang="tr"><![CDATA[Kenar Boşluğu]]></value>
 		<value xml:lang="vi"><![CDATA[Lề]]></value>
+        <value xml:lang="ro"><![CDATA[Margine]]></value>
 	</item>
 	<item name="cmd_widget_padding">
 		<value xml:lang="ko"><![CDATA[내부 여백]]></value>
@@ -500,6 +544,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Relleno]]></value>
 		<value xml:lang="tr"><![CDATA[Dolgu]]></value>
 		<value xml:lang="vi"><![CDATA[Đệm]]></value>
+        <value xml:lang="ro"><![CDATA[Margine interioară]]></value>
 	</item>
 	<item name="cmd_widget_border">
 		<value xml:lang="ko"><![CDATA[위젯 테두리]]></value>
@@ -511,6 +556,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Frontera]]></value>
 		<value xml:lang="tr"><![CDATA[Sınır]]></value>
 		<value xml:lang="vi"><![CDATA[Viền]]></value>
+        <value xml:lang="ro"><![CDATA[Chenar]]></value>
 	</item>
 	<item name="cmd_widget_border_solid">
 		<value xml:lang="ko"><![CDATA[실선]]></value>
@@ -522,6 +568,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Sólidos]]></value>
 		<value xml:lang="tr"><![CDATA[Kesiksiz]]></value>
 		<value xml:lang="vi"><![CDATA[Viền liền]]></value>
+        <value xml:lang="ro"><![CDATA[Solid]]></value>
 	</item>
 	<item name="cmd_widget_border_dotted">
 		<value xml:lang="ko"><![CDATA[점선]]></value>
@@ -533,6 +580,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Salpicando]]></value>
 		<value xml:lang="tr"><![CDATA[Noktalı]]></value>
 		<value xml:lang="vi"><![CDATA[Viền chấm]]></value>
+        <value xml:lang="ro"><![CDATA[Punctat]]></value>
 	</item>
 	<item name="cmd_widget_background_color">
 		<value xml:lang="ko"><![CDATA[배경색]]></value>
@@ -544,6 +592,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Color de fondo]]></value>
 		<value xml:lang="tr"><![CDATA[Arkaplan Rengi]]></value>
 		<value xml:lang="vi"><![CDATA[Màu nền]]></value>
+        <value xml:lang="ro"><![CDATA[Culoare fundal]]></value>
 	</item>
 	<item name="cmd_widget_background_image_url">
 		<value xml:lang="ko"><![CDATA[배경 이미지]]></value>
@@ -555,6 +604,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Imagen de fondo]]></value>
 		<value xml:lang="tr"><![CDATA[Arkaplan Resmi]]></value>
 		<value xml:lang="vi"><![CDATA[Hình nền]]></value>
+        <value xml:lang="ro"><![CDATA[Imagine fundal]]></value>
 	</item>
 	<item name="cmd_widget_background_image_repeat">
 		<value xml:lang="ko"><![CDATA[반복]]></value>
@@ -566,6 +616,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Repita]]></value>
 		<value xml:lang="tr"><![CDATA[Tekrar et]]></value>
 		<value xml:lang="vi"><![CDATA[Lặp lại]]></value>
+        <value xml:lang="ro"><![CDATA[Repetă]]></value>
 	</item>
 	<item name="cmd_widget_background_image_no_repeat">
 		<value xml:lang="ko"><![CDATA[고정]]></value>
@@ -577,6 +628,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[No Repetir]]></value>
 		<value xml:lang="tr"><![CDATA[Tekrar yok.]]></value>
 		<value xml:lang="vi"><![CDATA[Không lặp]]></value>
+        <value xml:lang="ro"><![CDATA[Nu repeta]]></value>
 	</item>
 	<item name="cmd_widget_background_image_x_repeat">
 		<value xml:lang="ko"><![CDATA[가로 반복]]></value>
@@ -588,6 +640,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Repita X]]></value>
 		<value xml:lang="tr"><![CDATA[X Tekrar]]></value>
 		<value xml:lang="vi"><![CDATA[Lặp chiều X]]></value>
+        <value xml:lang="ro"><![CDATA[Repetă pe axa X]]></value>
 	</item>
 	<item name="cmd_widget_background_image_y_repeat">
 		<value xml:lang="ko"><![CDATA[세로 반복]]></value>
@@ -599,6 +652,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Repita Y]]></value>
 		<value xml:lang="tr"><![CDATA[Y Tekrar]]></value>
 		<value xml:lang="vi"><![CDATA[Lặp chiều Y]]></value>
+        <value xml:lang="ro"><![CDATA[Repetă pe axa Y]]></value>
 	</item>
 	<item name="cmd_widget_background_image_x">
 		<value xml:lang="ko"><![CDATA[가로 위치]]></value>
@@ -609,6 +663,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Posición X]]></value>
 		<value xml:lang="tr"><![CDATA[X Konum]]></value>
 		<value xml:lang="vi"><![CDATA[Vị trí X]]></value>
+        <value xml:lang="ro"><![CDATA[Poziţionare pe axa X]]></value>
 	</item>
 	<item name="cmd_widget_background_image_y">
 		<value xml:lang="ko"><![CDATA[세로 위치]]></value>
@@ -619,18 +674,22 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
 		<value xml:lang="es"><![CDATA[Posición Y]]></value>
 		<value xml:lang="tr"><![CDATA[Y Konum]]></value>
 		<value xml:lang="vi"><![CDATA[Vị trí Y]]></value>
+        <value xml:lang="ro"><![CDATA[Poziţionare pe axa Y]]></value>
 	</item>
 	<item name="installed_widgets">
 		<value xml:lang="ko"><![CDATA[설치된 위젯]]></value>
 		<value xml:lang="en"><![CDATA[Installed Widgets]]></value>
 		<value xml:lang="jp"><![CDATA[インストールされたウィジェット]]></value>
 		<value xml:lang="zh-TW"><![CDATA[已安裝的 Widget]]></value>
+        <value xml:lang="ro"><![CDATA[Widget-uri instalate]]></value>
 	</item>
     <item name="upload_new_file">
         <value xml:lang="en"><![CDATA[Upload new file]]></value>
+        <value xml:lang="ro"><![CDATA[Încarcă fişier]]></value>
     </item>
     <item name="select_uploaded_file">
         <value xml:lang="en"><![CDATA[Select an already uploaded file]]></value>
+        <value xml:lang="ro"><![CDATA[Selectează fişier deja încărcat]]></value>
     </item>
     <item name="delete">
         <value xml:lang="ko"><![CDATA[삭제]]></value>
@@ -638,6 +697,7 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
         <value xml:lang="jp"><![CDATA[削除]]></value>
         <value xml:lang="zh-CN"><![CDATA[删除]]></value>
         <value xml:lang="tr"><![CDATA[Sil]]></value>
+        <value xml:lang="ro"><![CDATA[Şterge]]></value>
     </item>
     <item name="add">
         <value xml:lang="ko"><![CDATA[추가]]></value>
@@ -645,5 +705,6 @@ Sin la necesidad de utilizar los módulos de página o del diseño de Karybu, Us
         <value xml:lang="jp"><![CDATA[追加]]></value>
         <value xml:lang="zh-CN"><![CDATA[添加]]></value>
         <value xml:lang="tr"><![CDATA[Ekle]]></value>
+        <value xml:lang="ro"><![CDATA[Adaugă]]></value>
     </item>
 </lang>
