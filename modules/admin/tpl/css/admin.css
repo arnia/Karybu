@@ -12,6 +12,11 @@ body.x {
 
 }
 
+.table.table-borderless td,
+.table.table-borderless th {
+    border-top: 0;
+}
+
 input,
 button,
 select,
@@ -2475,3 +2480,56 @@ input#current_page:focus {
 .pagination ul > li > a.direction {
     font-size: 18pt;
 }
+
+table .crt_no {
+
+    white-space: nowrap;
+}
+
+table#layouts {
+}
+
+table#layouts td,
+table#layouts th {
+    border-top: 0;
+    padding: 4px 5px;
+}
+
+table#layouts td.instance {
+    padding-left: 25px;
+    background-image: url("../img/children.png");
+    background-position: 5px 0;
+    background-repeat: no-repeat;
+    white-space:normal!important;
+}
+
+table#layouts .kActionIcons {
+    opacity: 0;
+    display: inline;
+    white-space: nowrap;
+    float: right;
+    padding-left: 20px;
+    transition:0.2s;
+}
+
+table#layouts .kActionIcons form {
+    display: inline;
+
+}
+
+table#layouts tr:hover .kActionIcons {
+    opacity: 1;
+    transition:0.2s;
+}
+
+a.new-instance {
+    opacity: 0.5;
+    transition:0.2s;
+    padding: 5px;
+}
+
+a.new-instance:hover {
+    opacity: 1;
+    transition:0.2s;
+}
+
