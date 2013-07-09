@@ -670,7 +670,7 @@
 		<value xml:lang="tr"><![CDATA[Kapat]]></value>
 		<value xml:lang="vi"><![CDATA[đong]]></value>
 		<value xml:lang="mn"><![CDATA[Хаах]]></value>
-        <value xml:lang="en"><![CDATA[Închide]]></value>
+        <value xml:lang="ro"><![CDATA[Închide]]></value>
 	</item>
 	<item name="cmd_open">
 		<value xml:lang="ko"><![CDATA[열기]]></value>

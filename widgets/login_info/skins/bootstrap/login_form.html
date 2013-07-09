@@ -21,9 +21,6 @@
         <form id="fo_login_widget" action="{getUrl('','act','procMemberLogin')}" method="post" class="form-horizontal">
             <input type="hidden" name="act" value="procMemberLogin" />
             <input type="hidden" name="success_return_url" value="{htmlspecialchars(getRequestUriByServerEnviroment())}" />
-            <p cond="$ssl_mode" class="securitySignIn <!--@if($ssl_mode)-->SSL<!--@else-->noneSSL<!--@end-->">
-                <button type="button" class="text" onclick="toggleSecuritySignIn(); return false;">{$lang->security_sign_in}</button>
-            </p>
 
             <div class="control-group">
                 <label class="control-label" for="inputEmail">{$lang->email_address}</label>
@@ -56,6 +53,7 @@
 
     </div>
     <div class="modal-footer">
+        <button cond="$ssl_mode" type="button" class="text btn" onclick="toggleSecuritySignIn(); return false;">{$lang->security_sign_in}</button>
         <button class="btn" data-dismiss="modal" aria-hidden="true">{$lang->cmd_close}</button>
         <button class="btn btn-primary" onclick="callLogin();">{$lang->cmd_login}</button>
     </div>
