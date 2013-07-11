@@ -37,8 +37,7 @@
         只限於 wml, hdml, mhtml格式。
     </description>
     <description xml:lang="ro">
-        Acest addon afişează tagul WAP analizând informaţiile din header-ul trimis de coexiunile de pe mobil.
-        Doar formatele wml, hdml, mhtml sunt suportate.
+        Acest addon afişează tagul WAP analizând informaţiile din header-ul trimis de coexiunile de pe mobil. Doar formatele wml, hdml, mhtml sunt suportate.
     </description>
     <version>0.1.1</version>
     <date>2009-05-23</date>

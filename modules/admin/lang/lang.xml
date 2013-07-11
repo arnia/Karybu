@@ -197,6 +197,7 @@
 	</item>
     <item name="visitors">
         <value xml:lang="en"><![CDATA[Visitors]]></value>
+        <value xml:lang="en"><![CDATA[Vizitatori]]></value>
     </item>
 	<item name="module_category_title" type="array">
 		<item name="service">
@@ -1703,7 +1704,7 @@
 
     <item name="debug_handler_files">
         <value xml:lang="en"><![CDATA[Files]]></value>
-        <value xml:lang="ro"><![CDATA[Fisiere]]></value>
+        <value xml:lang="ro"><![CDATA[Fişiere]]></value>
     </item>
     <item name="debug_handler_chrome">
         <value xml:lang="en"><![CDATA[Chrome]]></value>
@@ -1759,6 +1760,6 @@
     </item>
     <item name="files">
         <value xml:lang="en"><![CDATA[Files]]></value>
-        <value xml:lang="ro"><![CDATA[Fisiere]]></value>
+        <value xml:lang="ro"><![CDATA[Fişiere]]></value>
     </item>
 </lang>

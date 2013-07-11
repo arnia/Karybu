@@ -19,7 +19,7 @@
     <description xml:lang="ru">Модуль для управления документами в форуме, блоге и прочее.</description>
     <description xml:lang="zh-TW">管理討論板，部落格等主題的模組。 </description>
     <description xml:lang="tr">Panoda, blogda, vb., kullanılan belgeleri yönetmek için olan modüldür.</description>
-    <description xml:lang="ro">Modulpentru administrarea documentelor.</description>
+    <description xml:lang="ro">Modul pentru administrarea documentelor.</description>
     <version>0.1</version>
     <date>2007-02-28</date>
     <category>content</category>

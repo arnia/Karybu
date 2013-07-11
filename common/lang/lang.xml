@@ -4078,7 +4078,7 @@
 	</item>
     <item name="actions">
         <value xml:lang="en"><![CDATA[Actions]]></value>
-        <value xml:lang="ro"><![CDATA[Actiuni]]></value>
+        <value xml:lang="ro"><![CDATA[Acţiuni]]></value>
     </item>
     <item name="check_all">
         <value xml:lang="en"><![CDATA[Check All]]></value>
@@ -4170,5 +4170,9 @@
     <item name="back_to_top">
         <value xml:lang="en"><![CDATA[Back to top]]></value>
         <value xml:lang="ro"><![CDATA[Sus]]></value>
+    </item>
+    <item name="your_version">
+        <value xml:lang="en">Your version</value>
+        <value xml:lang="ro">Versiunea ta</value>
     </item>
 </lang>

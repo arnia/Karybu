@@ -34,7 +34,7 @@
     <description xml:lang="zh-TW">
         可防止機器人程式的垃圾留言，非用戶要發表主題或回覆時，必須要輸入正確圖片中所顯示的文字才能發表。
     </description>
-    <description xml:lang="en">
+    <description xml:lang="ro">
         Acest addon ajută la prevenirea mesajelor de tip spam prin obligarea utilizatorilor neautentificaţi să introducă un şir de caractere de pe o imagina înainte de trimiterea comentariilor.
     </description>
     <version>1.0</version>

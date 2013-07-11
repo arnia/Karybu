@@ -15,7 +15,7 @@
     <description xml:lang="zh-TW">글감을 수집할 수 있는 모듈입니다.</description>
     <description xml:lang="jp">ネタを収集するモジュールです。</description>
     <description xml:lang="tr">Makaleleri toplayan modüldür.</description>
-    <description xml:lang="en">Material e un modul care permite colectarea de date de pe internet</description>
+    <description xml:lang="ro">Material e un modul care permite colectarea de date de pe internet</description>
     <version>1.1</version>
     <date>2012-01-09</date>
     <category>package</category>

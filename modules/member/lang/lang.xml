@@ -2609,7 +2609,7 @@ Bạn có thể quản lý thành viên bằng cách tạo những nhóm mới, 
 		<value xml:lang="en"><![CDATA[Approved]]></value>
 		<value xml:lang="jp"><![CDATA[承認]]></value>
 		<value xml:lang="zh-TW"><![CDATA[承認]]></value>
-        <value xml:lang="ro"><![CDATA[Abrobat]]></value>
+        <value xml:lang="ro"><![CDATA[Aprobat]]></value>
 	</item>
 	<item name="denied">
 		<value xml:lang="ko"><![CDATA[거부]]></value>

@@ -30,7 +30,7 @@
 			<title xml:lang="vi">File</title>
 			<title xml:lang="mn">File</title>
 			<title xml:lang="tr">File</title>
-            <title xml:lang="ro">Fisiere</title>
+            <title xml:lang="ro">Fişiere</title>
 		</menu>
 		<menu name="fileUpload">
 			<title xml:lang="en">File Upload</title>
@@ -44,7 +44,7 @@
 			<title xml:lang="vi">File Upload</title>
 			<title xml:lang="mn">File Upload</title>
 			<title xml:lang="tr">File Upload</title>
-            <title xml:lang="ro">Încărcare fisier</title>
+            <title xml:lang="ro">Încărcare fişier</title>
 		</menu>
 	</menus>
 </module>

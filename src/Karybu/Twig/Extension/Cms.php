@@ -106,7 +106,6 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
      * @return array
      */
     public function getBreadcrumbs($currentPage = null, $menu = null, $homeText = null){
-        //echo "<pre>"; print_r($menu);exit;
         if (is_null($this->_breadcrumbs)){
             if (is_null($currentPage)){
                 $this->_breadcrumbs = array();

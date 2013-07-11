@@ -233,12 +233,11 @@
 				Context::set('released_version', $buff->zbxe_news->attrs->released_version);
 				Context::set('download_link', $buff->zbxe_news->attrs->download_link);
 			}*/
-
             $currentUrl = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
             $activeNode = null;
             foreach($menu->list as $k=>$item){
                 if(strpos($currentUrl,$item['href']) !== false) {
-                    if($item['text'] == 'Dashboard'){
+                    if($item['text'] == $lang->control_panel){
                         $delta = str_replace($item['href'],'',$currentUrl);
                         $delta = str_replace("http://".$_SERVER['HTTP_HOST'],'',$delta);
                         if($delta == '/' || $delta == '/index.php'){
@@ -248,10 +247,18 @@
                         $activeNode = $item['node_srl'];
                     }
                 }
+                if (!is_null($activeNode)){
+                    break;
+                }
             }
             if(isset($menu->list[$parentSrl])) {
                 $page_title = $menu->list[$parentSrl]['text'];
-            } else {
+                Context::set('class_name',isset($menu->list[$parentSrl]['class_name'])? $menu->list[$parentSrl]['class_name'] : '');
+            } elseif ($parentSrl == 0 && isset($menu->list[$activeNode])){
+                $page_title = $menu->list[$activeNode]['text'];
+                Context::set('class_name',isset($menu->list[$activeNode]['class_name'])? $menu->list[$activeNode]['class_name'] : '');
+            }
+            else{
                 $page_title = $module;
             }
             $page_title = ucfirst($page_title);

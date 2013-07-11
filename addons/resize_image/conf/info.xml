@@ -37,7 +37,7 @@
     <description xml:lang="zh-TW">
         自動調整文章内的圖片大小，點擊圖片後會顯示原始大小。
     </description>
-    <description xml:lang="en">
+    <description xml:lang="ro">
         Acest addon redimensionează pozele introduse în documente. La click imaginea originală este afişată
     </description>
     <version>0.1</version>

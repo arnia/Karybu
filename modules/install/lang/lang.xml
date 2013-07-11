@@ -701,7 +701,7 @@
 		<value xml:lang="es"><![CDATA[Si optimizador está habilitado, los usuarios pueden acceder rápidamente a este sitio, ya que hay múltiples CSS / JS archivos son comprimidos juntos y antes de la transmisión. <br /> No obstante, esta optimización podría ser problemáticas de acuerdo con CSS o JS. Si inhabilitarlo, que funciona correctamente a pesar de que sería más lento el trabajo.]]></value>
 		<value xml:lang="tr"><![CDATA[Eğer Optimizasyon etkinleştirildiyse, çoklu CSS / JS dosyaları gönderimden önce sıkıştırılıp bir araya konulduğundan, kullanıcılar siteye hızlı bir şekilde ulaşacaktır. <br /> Ancak;  bu optimizasyon, CSS ve JS'ye göre sorunlu olabilir. Eğer bunu devre dışı bırakırsanız, düzgün bir şekilde çalışmasına karşın daha yavaş çalışacaktır.]]></value>
 		<value xml:lang="vi"><![CDATA[Nếu tối ưu hóa được kích hoạt, người sử dụng sẽ truy cập nhanh hơn vì những File CSS / JS sẽ được nén lại trước khi được tải xuống. <br /> Tuy vậy, sự tối ưu này cũng làm ảnh hưởng một chút tới File CSS và JS. Nếu bạn tắt, Website của bạn tải chậm hơn.]]></value>
-        <value xml:lang="ro"><![CDATA[Dacă optimizarea este activază utilizatorii vor avea acces la site mai rapid deoarece fisierele js şi css vor fi comprimate într-unul singur dar ar putea crea probleme din punctul de vedere al fişierelor js şi css]]></value>
+        <value xml:lang="ro"><![CDATA[Dacă optimizarea este activază utilizatorii vor avea acces la site mai rapid deoarece fişierele js şi css vor fi comprimate într-unul singur dar ar putea crea probleme din punctul de vedere al fişierelor js şi css]]></value>
 	</item>
 	<item name="use_rewrite">
 		<value xml:lang="ko"><![CDATA[짧은 주소 사용]]></value>
@@ -1204,7 +1204,7 @@
         <value xml:lang="ko"><![CDATA['<em>웹 서버, DBMS, PHP 버전 및 Extension, Karybu 모듈 및 애드온</em>' 정보가 Karybu 통계 수집 서버로 전송됩니다. 더 나은 SW를 제작하기 위한 목적으로 활용합니다. 익명으로 수집되며 이 정보를 외부에 공개하지 않습니다. <em>이 항목에 동의하지 않아도 됩니다.</em>]]></value>
         <value xml:lang="en"><![CDATA[Information on '<em>web server, DBMS, PHP version and extension, Karzbu modules and addons</em>' is sent to the Karybu statistics collection server. This information is collected anonymously and used to improve our software only.<em> You don't have to agree to this.</em>]]></value>
         <value xml:lang="jp"><![CDATA['<em>ウェブサーバー、DBMS、PHPバージョンおよびExtension、Karybuモジュール、およびアドオン</em>'情報が、Karybu統計収集サーバーへ転送されます。より良いソフトウェアを製作するための目的で活用されます。情報は、匿名で収集され、外部へ公開することはありません。<em>この項目は、同意しなくても構いません。</em>]]></value>
-        <value xml:lang="ro"><![CDATA[Informaţiile din '<em>serverul web DBMS, versiune PHP şi extensii, Module Karybu si addon-uri</em>' sunt trmise catre serverul de statistici Karybu.Aceste informaţii sunt colectate anonim si sunt folosite doar pentru a îmbunătăţi programul. Nu vei fi nevoit să mai fii de acord din nou cu aceasta.]]></value>
+        <value xml:lang="ro"><![CDATA[Informaţiile din '<em>serverul web DBMS, versiune PHP şi extensii, Module Karybu şi addon-uri</em>' sunt trmise catre serverul de statistici Karybu.Aceste informaţii sunt colectate anonim si sunt folosite doar pentru a îmbunătăţi programul. Nu vei fi nevoit să mai fii de acord din nou cu aceasta.]]></value>
     </item>
     <!--item name="lgpl_license_url">
             <value xml:lang="ko"><![CDATA[http://korea.gnu.org/people/chsong/copyleft/lgpl.ko.html]]></value>

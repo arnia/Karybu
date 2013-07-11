@@ -19,7 +19,7 @@
     <description xml:lang="ru">Модуль для отображения WYSIWYG-редактора и управления/смены записей редактора.</description>
     <description xml:lang="zh-TW">顯示網頁編輯器或管理/傳遞編輯器組件的模組。</description>
     <description xml:lang="tr">WYSIWYG editörünü görüntüleme ve editör bileşenlerini düzenleme/aktarma için kullanılan modüldür. </description>
-    <description xml:lang="en">Modul pentru afisarea editorului WYSIWYG si a componentelor relaţionate..</description>
+    <description xml:lang="ro">Modul pentru afisarea editorului WYSIWYG si a componentelor relaţionate..</description>
     <version>0.1</version>
     <date>2007-02-28</date>
     <category>utility</category>

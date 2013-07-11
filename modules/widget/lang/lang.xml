@@ -11,7 +11,7 @@
 		<value xml:lang="es"><![CDATA[Generar Código]]></value>
 		<value xml:lang="tr"><![CDATA[Kod Üret]]></value>
 		<value xml:lang="vi"><![CDATA[Tạo Code]]></value>
-        <value xml:lang="ro"><![CDATA[Generate Code]]></value>
+        <value xml:lang="ro"><![CDATA[Generează cod]]></value>
 	</item>
 	<item name="widget_name">
 		<value xml:lang="ko"><![CDATA[위젯 이름]]></value>

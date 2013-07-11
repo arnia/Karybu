@@ -47,8 +47,7 @@
         必須在設置中輸入openid provider相關資料後再使用。
     </description>
     <description xml:lang="ro">
-        Acest addon oferă posibilitatea folosirii prpriului domeniu ca OpenID.
-        Asigură-te ca ai setat valorile legate de provider-ul OpenID înainte de folosire.
+        Acest addon oferă posibilitatea folosirii propriului domeniu ca OpenID. Asigură-te ca ai setat valorile legate de provider-ul OpenID înainte de folosire.
     </description>
     <version>0.1</version>
     <date>2007-02-28</date>
