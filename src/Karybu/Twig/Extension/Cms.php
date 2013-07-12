@@ -12,6 +12,9 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
     /** @var ContainerInterface */
     protected $container;
     protected $_breadcrumbs = null;
+    /** @var  \Twig_Environment */
+    protected $environment;
+    protected $menuIterator = 0;
 
     public function __construct(ContainerInterface $container)
     {
@@ -21,6 +24,11 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
     public function getName()
     {
         return 'karybu';
+    }
+
+    public function initRuntime(\Twig_Environment $environment)
+    {
+        $this->environment = $environment;
     }
 
     public function setContainer(ContainerInterface $container = null)
@@ -33,7 +41,8 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
         return array(
             new \Twig_SimpleFunction('loadJs', array($this, 'loadJs')),
             new \Twig_SimpleFunction('loadCss', array($this, 'loadCss')),
-            new \Twig_SimpleFunction('breadcrumbs', array($this, 'getBreadcrumbs'))
+            new \Twig_SimpleFunction('breadcrumbs', array($this, 'getBreadcrumbs')),
+            new \Twig_SimpleFunction('menu', array($this, 'menu'))
         );
     }
 
@@ -210,4 +219,19 @@ class Cms extends \Twig_Extension implements ContainerAwareInterface
         $breadcrumb['url'] = $url;
         return $breadcrumb;
     }
+
+    public function menu($menu, $attributes=array())
+    {
+        if (!isset($attributes['id'])) {
+            $attributes['id'] = is_string($menu) ? $menu : 'menu' . ++$this->menuIterator;
+            if (is_string($menu)) {
+                $attributes['id'] = $menu;
+            }
+        }
+        if (is_string($menu)) {
+            $menu = \Context::get($menu);
+        }
+        return $this->environment->render('menu_default.twig', array('menu' => $menu, 'attributes' => $attributes));
+    }
+
 }
