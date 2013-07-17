@@ -305,6 +305,9 @@ class CMSListener implements EventSubscriberInterface, ContainerAwareInterface
     public function checkFormKey(GetResponseEvent $event) {
         try{
             $csrf = new Csrf();
+            if($_SERVER['HTTP_USER_AGENT']=='karybu-mobile-app' && \Context::get('key')==  sha1('karybu-mobile-app') && \Context::get('act')=='procmobile_communicationGetFormKey'){
+                return $this;
+            }
             if (!$csrf->validateSessionFormKey($event->getRequest())){
                 $csrf->formKeyError();
             }
