@@ -908,6 +908,12 @@
                     return $output->data->count;
                 }
                 
+                private function getNewCommentCount(){
+                    $today = date("Ymd");
+                    $commentModel = &getModel('comment');
+                    return $commentModel->getCommentCountByDate($today);
+                }
+                
 		function procmobile_communicationTextyleList() 
 		{
 		if(!Context::get('is_logged')) $this->logout_message();
@@ -952,7 +958,7 @@
 			echo "<skin>" . $variables['skin'] . "</skin>";
 			echo "<browser_title>" . $variables['browser_title'] . "</browser_title>";
 			echo "<textyle_title>" . $variables['textyle_title'] . "</textyle_title>";
-                        echo "<comment_count>".$this->getCommentCountOfATextyle($textyle->module_srl)."</comment_count>";
+                        echo "<comment_count>".$this->getNewCommentCount()."</comment_count>";
  			echo "</textyle>";
  			}
 			echo "</textyle-list>";
@@ -1351,7 +1357,7 @@
 		if(!Context::get('is_logged')) $this->logout_message();
 				$arr_dates = array();
 		//$timestamp = time();
-		for($i=0;$i<=6;$i++)
+		for($i=0;$i<=30;$i++)
 		{
 			$arr_dates[$i] = date("Ymd",  strtotime("-".$i." days"));
 		}
@@ -1606,5 +1612,20 @@
                 }
                 
                 
+                /**
+                 * @desc generate form key for mobile app
+                 */
+                function procmobile_communicationGetFormKey(){
+                    $csrf = new \Karybu\Security\Csrf();
+                    $formKey=  $csrf->getSessionFormKey();
+                    $formKeyName=$csrf->getFormKeyName();
+                    header('Content-Type: text/xml');
+                    echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . "\n";
+                    echo "<response>\n";
+                    echo "\t<form_key>$formKey</form_key>\n";
+                    echo "\t<form_key_name>$formKeyName</form_key_name>\n";
+                    echo "</response>";
+                    exit();
+                }
 }
 ?>

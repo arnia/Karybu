@@ -84,6 +84,7 @@
         <action name="procmobile_communicationUnregistreForPopUpAndroid" type="controller" standalone="true" />
         <action name="procmobile_communicationGetThemes" type="controller" standalone="true" />
         <action name="procmobile_communicationArrangeMenu" type="controller" standalone="true" />
+        <action name="procmobile_communicationGetFormKey" type="controller" standalone="true" />
 	</actions>
 	<menus>
 <!-- You can see below some examples for the menus section -->
