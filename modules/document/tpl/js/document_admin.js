@@ -112,7 +112,7 @@ function getDocumentList() {
 	var documentListTable = jQuery('#documentListTable');
 	var cartList = [];
 	documentListTable.find(':checkbox[name=cart]').each(function(){
-		if(this.checked) cartList.push(this.value); 
+		if(this.checked) cartList.push(this.value);
 	});
 
     var params = new Array();

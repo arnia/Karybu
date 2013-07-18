@@ -111,7 +111,6 @@ function doPreProcessing(form, formId) {
 	$process = $('#process');
 	if(!$process.find('.bg').length) $process.prepend('<span class="bg" />').appendTo('body');
 	$('a[href="#process"].modalAnchor').trigger('open.mw');
-
     exec_xml(
 		'importer', // module
 		'procImporterAdminPreProcessing', // action
@@ -119,7 +118,7 @@ function doPreProcessing(form, formId) {
 		on_complete, // callback
 		resp=['error','message','type','total','cur','key','status'] // response tags
 	);
-
+    jQuery('#process').modal();
 	function on_complete(ret) {
 		var $reload, $cont, fo_proc, elems, i, c, key, to_copy, fo_import;
 
@@ -175,6 +174,8 @@ function doImport(formId) {
 		ret.total = parseInt(ret.total, 10) || 0;
 		ret.cur   = parseInt(ret.cur, 10) || 0;
 		percent = parseInt((ret.cur/ret.total)*100);
+        jQuery('#progressbar').progressbar('option', 'max', ret.total);
+        jQuery('#progressbar').progressbar('option', 'value', ret.cur);
 
 		jQuery('#totalCount').text(ret.total);
 		jQuery('#completeCount').text(ret.cur);
@@ -215,7 +216,6 @@ function doImport(formId) {
 			else resultAlertMessage();
 		}
 	}
-
     show_waiting_message = false;
     exec_xml(
 		'importer', // module
@@ -224,6 +224,7 @@ function doImport(formId) {
 		on_complete, // callback
 		resp = ['error','message','type','total','cur','key'] // response tags
 	);
+    jQuery('#process').modal();
     show_waiting_message = true;
 
     return false;

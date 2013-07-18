@@ -303,7 +303,7 @@
             if($total <= $cur) {
                 $this->setMessage( sprintf(Context::getLang('msg_import_finished'), $cur, $total) );
                 FileHandler::removeDir('./files/cache/importer/'.$key);
-            } else $this->setMessage( sprintf(Context::getLang('msg_importing'), $total, $cur) );
+            } else $this->setMessage( sprintf(Context::getLang('msg_importing'), $cur, $total) );
         }
 
 		/**

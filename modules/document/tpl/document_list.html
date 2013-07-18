@@ -68,7 +68,7 @@
                 <!--@foreach($document_list as $no => $oDocument)-->
                 <tr>
                     <td class="title"><a href="{getUrl('','document_srl',$oDocument->document_srl)}" target="_blank">
-                        <!--@if(trim($oDocument->getTitle()))-->{$oDocument->getTitle()}<!--@else--><em>{$lang->no_title_document}</em><!--@end-->
+                        <!--@if(trim($oDocument->getTitle()))-->{substr($oDocument->getTitle(), 0, 50)}...<!--@else--><em>{$lang->no_title_document}</em><!--@end-->
                     </a></td>
                     <td class="nowr"><a href="#popup_menu_area" class="member_{$oDocument->get('member_srl')}">{$oDocument->getNickName()}</a>
                     </td>

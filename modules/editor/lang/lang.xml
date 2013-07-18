@@ -725,7 +725,7 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 		<value xml:lang="es"><![CDATA[Usted puede permitir que la función de guardado automático, en tanto que función de la redacción de artículos]]></value>
 		<value xml:lang="tr"><![CDATA[Oto-Kayıt özelliğinin kullanılabilmesi kararını verebilirsiniz.]]></value>
 		<value xml:lang="vi"><![CDATA[Bạn có thể đặt chức năng Tự động lưu.]]></value>
-        <value xml:lang="ro"><![CDATA[Poăi decide dacă funcţia de salvare automată va fi folosită.]]></value>
+        <value xml:lang="ro"><![CDATA[Poţi decide dacă funcţia de salvare automată va fi folosită.]]></value>
 	</item>
 	<item name="edit">
 		<item name="fontname">
