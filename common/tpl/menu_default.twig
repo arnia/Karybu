@@ -1,0 +1,45 @@
+<div id="second-menu" class="nav-collapse collapse">
+    <ul class="nav nav-pills nav-stacked">
+        {% for key1, val1 in menu.list %}
+            {#<li {% if val1['selected'] %}class="on"{% endif %}>#}
+            {#<a href="{{ val1['href'] }}" {% if val1['open_window'] == 'Y' %} target="_blank" {% endif %}>#}
+            {#{{ val1['link'] | raw }}#}
+            {#</a>#}
+            {#</li>#}
+
+            {% if val1['list'] %}
+                {#<ul>#}
+                {% for key2, val2 in val1['list'] %}
+                    <li {% if val2['selected'] %}class="on"{% endif %}>
+                        <a href="{{ val2['href'] }}" {% if val2['open_window'] == 'Y' %} target="_blank" {% endif %}>
+                            {{ val2['link'] | raw }}
+                        </a>
+                        {% if val2['list'] %}
+                            <ul>
+                                {% for key3,val3 in val2['list'] %}
+                                    <li {% if val3['selected'] %}class="active"{% endif %}>
+                                        <a href="{{ val3['href'] }}" {% if val3['open_window'] == 'Y' %} target="_blank" {% endif %}>
+                                            {{ val3['link'] | raw }}
+                                        </a>
+                                        {% if val3['list'] %}
+                                            <ul>
+                                                {% for key4,val4 in val3['list'] %}
+                                                    <li {% if val4['selected'] %}class="active"{% endif %}>
+                                                        <a href="{{ val4['href'] }}" {% if val4['open_window'] == 'Y' %} target="_blank" {% endif %}>
+                                                            {{ val4['link'] | raw }}
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+                {#</ul>#}
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
