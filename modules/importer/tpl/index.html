@@ -128,11 +128,16 @@
 				<strong id="preProgressMsg">{$lang->preprocessing}</strong>
 				<strong id="progressMsg" style="display:none;">{$lang->import_step_desc[99]}</strong>
 				<span class="pBar" style="width:300px;text-align:left">
-					<span class="pAction" id="progressBar" style="width:0%"><!-- Progress status --></span>
-					<span class="pNum"><span id="completeCount">0</span>/<span id="totalCount">0</span></span>
+
 				</span>
-				<strong id="progressPercent">0%</strong>
+
 			</span>
+            <div id="progressBar" style="width:90%;margin: 0 auto; text-align:center">
+                <span class="pNum">
+                    <span id="completeCount">0</span>/<span id="totalCount">0</span>
+                    <strong id="progressPercent">0%</strong>
+                </span>
+            </div>
 		</p>
     </form>
 </div>

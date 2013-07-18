@@ -174,13 +174,12 @@ function doImport(formId) {
 		ret.total = parseInt(ret.total, 10) || 0;
 		ret.cur   = parseInt(ret.cur, 10) || 0;
 		percent = parseInt((ret.cur/ret.total)*100);
-        jQuery('#progressbar').progressbar('option', 'max', ret.total);
-        jQuery('#progressbar').progressbar('option', 'value', ret.cur);
 
 		jQuery('#totalCount').text(ret.total);
 		jQuery('#completeCount').text(ret.cur);
-		jQuery('#progressBar').width(percent+'%');
+        jQuery('#progressBar').progressbar({max:ret.total, value:ret.cur});
 		jQuery('#progressPercent').html(percent + "%");
+        jQuery('#progressBar .ui-progressbar-value').append(jQuery('#progressBar .pNum:first'));
 
 		if(ret.total > ret.cur) {
 			doImport(formId);
@@ -191,7 +190,7 @@ function doImport(formId) {
 				jQuery('a[href="#process"].modalAnchor')
 					.unbind('before-close.mw')
 					.trigger('close.mw')
-					.find('#progressBar').width(1).end()
+					//.find('#progressBar').width(1).end()
 					.find('#progressPercent').html('0%').end();
 
 				try {

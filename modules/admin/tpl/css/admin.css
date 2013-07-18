@@ -2535,4 +2535,9 @@ a.new-instance:hover {
     opacity: 1;
     transition:0.2s;
 }
-
+.ui-progressbar-value .pNum{
+    position:absolute;
+    margin: 0 auto;
+    text-align:center;
+    width:90%
+}
