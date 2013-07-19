@@ -965,30 +965,50 @@
 			exit;
         }
         
+        private function getPostArgs($postType, $page){
+            $postTypes = array('all'=>0, 'published'=>1, 'secret'=>2, 'temporary'=>3, 'reported'=>4);
+            $args=new stdClass();
+            $args->page=$page;
+            switch($postType){
+                case $postTypes['all']:
+                    
+                    break;
+                case $postTypes['published']:
+                    $args->search_target='is_secret';
+                    $args->search_keyword='N';
+                    break;
+                case $postTypes['secret']:
+                    $args->search_target='is_secret';
+                    $args->search_keyword='Y';
+                    break;
+                case $postTypes['temporary']:
+                    $args->search_target='is_secret';
+                    $args->search_keyword='temp';
+                    break;
+                case $postTypes['reported']:
+                default:
+                    
+            }
+            return $args;
+        }
+                
         function procmobile_communicationTextylePostList()
         {
-        if(!Context::get('is_logged')) $this->logout_message();
-            $args->module_srl = Context::get('module_srl');
-            $args->page=  Context::get('page');
-            
-            $published = Context::get('published');
+            if(!Context::get('is_logged')) $this->logout_message();
             $logged_info = Context::get('logged_info');
+            $postType=  Context::get('type');
+            $page=Context::get('page');
             
-	    
-
-            if(!$published){
-                $args->module_srl = array($args->module_srl,$args->module_srl * -1,$logged_info->member_srl);
-            }else if($published > 0)
-            {
-                $args->module_srl = array($args->module_srl,$args->module_srl * -1);
-            }else{
-                $args->module_srl = $logged_info->member_srl;
+            $args=  $this->getPostArgs($postType, $page);
+            
+            if($postType==4){
+                $output = executeQuery('document.getDeclaredList', $args);
             }
-
-            $oDocumentModel = &getModel('document');
+            else{
+                $oDocumentModel = &getModel('document');
+                $output = $oDocumentModel->getDocumentList($args);
+            }
             
-            $output = $oDocumentModel->getDocumentList($args);
-
             header('Content-Type: text/xml');
 			echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . "\n";
 			echo "<response>" . "\n";
@@ -1005,24 +1025,12 @@
             foreach($output->data as $post)
             {
                 $variables = $post->variables;
-                if($variables['module_srl']==$logged_info->member_srl){
-                    $url=  getUrl('act','dispTextyleToolPostManageWrite','document_srl',$post->document_srl);
-                    $status="DRAFT";
-                }
-                elseif($variables['module_srl']<=0){
-                    $url=getUrl('act','dispTextyleToolPostManageWrite','document_srl',$post->document_srl);
-                    $status="TRASH";
-                }
-                else{
-                    $url=getUrl('','document_srl',$post->document_srl);
-                    $status="PUBLISHED";
-                }
+                $url=getUrl('','document_srl',$post->document_srl);
                         
             	echo "<post>";
             	echo "<document_srl>" . $post->document_srl . "</document_srl>";
             	echo "<module_srl>" . $variables['module_srl'] . "</module_srl>";
                 echo "<comment_count>" . $variables['comment_count'] . "</comment_count>";
-                echo "<status>" . $status . "</status>";
                 echo "<url>" . $url . "</url>";
             	echo "<category_srl>" . $variables['category_srl'] . "</category_srl>";
             	echo "<title>" . $variables['title'] . "</title>";
@@ -1627,5 +1635,26 @@
                     echo "</response>";
                     exit();
                 }
+                
+                function procmobile_communicationManageCheckedDocument(){
+                    Context::set('success_return_url',  getNotEncodedUrl('', 'module', 'mobile_communication', 'act', 'dispMobile_communicationManageCheckedDocumentResponse'));
+                    $documentController=&getController('document');
+                    $output=$documentController->procDocumentManageCheckedDocument();
+                    if(!$output)
+                        $this->responseManageCheckedDocument(0, 'success');
+                    else
+                        $this->responseManageCheckedDocument(-1, 'fail');
+                    exit();
+                }
+                
+                private function responseManageCheckedDocument($error, $msg){
+                    header('Content-Type: text/xml');
+                    echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . "\n";
+                    echo "<response>\n";
+                    echo "<error>$error</error>";
+                    echo "<message>$msg</message>";
+                    echo "</response>\n";
+                }
+                
 }
 ?>
