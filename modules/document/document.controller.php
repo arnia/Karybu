@@ -1983,7 +1983,7 @@ class documentController extends document {
 
 		if(!checkCSRF())
 		{
-			return new Object(-1, 'msg_invalid_request');
+			//return new Object(-1, 'msg_invalid_request');
 		}
 
 		$type = Context::get('type');
