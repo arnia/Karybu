@@ -1981,11 +1981,12 @@ class documentController extends document {
 		set_time_limit(0);
 		if(!Context::get('is_logged')) return new Object(-1,'msg_not_permitted');
 
-		if(!checkCSRF())
-		{
-			//return new Object(-1, 'msg_invalid_request');
-		}
-
+                if($_SERVER['HTTP_USER_AGENT'] != 'karybu-mobile-app' || Context::get('key')==  sha1('karybu-mobile-app')){
+                    if(!checkCSRF()){
+                            return new Object(-1, 'msg_invalid_request');
+                    }
+                }
+                
 		$type = Context::get('type');
 		$target_module = Context::get('target_module');
 		$module_srl = Context::get('module_srl');
