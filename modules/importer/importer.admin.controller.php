@@ -885,6 +885,7 @@
                     // Get parent_srl if parent comment exists
                     } else {
                         // Get parent comment infomation
+                        $parent_args = new stdClass();
                         $parent_args->comment_srl = $obj->parent_srl;
                         $parent_output = executeQuery('comment.getCommentListItem', $parent_args);
                         // Return if parent comment doesn't exist
@@ -893,11 +894,22 @@
 
                         $list_args->head = $parent->head;
                         $list_args->depth = $parent->depth+1;
-                        if($list_args->depth<2) $list_args->arrange = $obj->comment_srl;
+                        if($list_args->depth < 2) {
+                            $list_args->arrange = $obj->comment_srl;
+                        }
                         else {
-                            $list_args->arrange = $parent->arrange;
-                            $output = executeQuery('comment.updateCommentListArrange', $list_args);
-                            if(!$output->toBool()) return $output;
+                            $p_args = new stdClass();
+                            $p_args->head = $parent->head;
+                            $p_args->arrange = $parent->arrange;
+                            $p_args->depth = $parent->depth;
+                            $output = executeQuery('comment.getCommentParentNextSibling', $p_args);
+
+                            if($output->data->arrange) {
+                                $list_args->arrange = $output->data->arrange;
+                                $output = executeQuery('comment.updateCommentListArrange', $list_args);
+                            } else {
+                                $list_args->arrange = $obj->comment_srl;
+                            }
                         }
                     }
 
