@@ -689,6 +689,8 @@
                 $obj->commentStatus = base64_decode($xmlDoc->post->allow_comment->body)!='N'?'ALLOW':'DENY';
                 $obj->allow_trackback = base64_decode($xmlDoc->post->allow_trackback->body)!='N'?'Y':'N';
                 $obj->notify_message = base64_decode($xmlDoc->post->is_notice->body);
+                $obj->meta_description = base64_decode($xmlDoc->post->meta_description->body);
+                $obj->meta_keywords = base64_decode($xmlDoc->post->meta_keywords->body);
                 // Change content information (attachment)
                 if(count($files)) {
                     foreach($files as $key => $val) {
