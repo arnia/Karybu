@@ -177,8 +177,12 @@ class ModuleHandlerInstance extends Handler
                 $this->module_info = $module_info;
                 $this->module_info->site_srl = $site_module_info->site_srl;
 
-
                 $this->context->setBrowserTitle($module_info->browser_title);
+                if ($module_info->document_srl){
+                    $document = getModel('document')->getDocument($module_info->document_srl);
+                    $this->context->addMetaTag('description', $document->get('meta_description'));
+                    $this->context->addMetaTag('keywords', $document->get('meta_keywords'));
+                }
 
                 if ($module_info->use_mobile && $this->mobile->isFromMobilePhone()) {
                     $layoutSrl = $module_info->mlayout_srl;

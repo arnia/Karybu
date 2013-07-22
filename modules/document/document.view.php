@@ -23,7 +23,6 @@
         function dispDocumentPrint() {
             // Bring a list of variables needed to implement
             $document_srl = Context::get('document_srl');
-
 			// module_info not use in UI
             //$oModuleModel = &getModel('module');
             //$module_info = $oModuleModel->getModuleInfoByDocumentSrl($document_srl);

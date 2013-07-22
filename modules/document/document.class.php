@@ -123,6 +123,13 @@ class document extends ModuleObject
 		// 2012. 08. 29 Add a trigger to copy additional setting when the module is copied 
 		if(!$oModuleModel->getTrigger('module.procModuleAdminCopyModule', 'document', 'controller', 'triggerCopyModule', 'after')) return true;
 
+        //2013. 07. 19 - meta data
+        if(!$oDB->isColumnExists('documents', 'meta_description')){
+            return true;
+        }
+        if (!$oDB->isColumnExists('documents', 'meta_keywords')) {
+            return true;
+        }
 		return false;
 	}
 
@@ -305,6 +312,13 @@ class document extends ModuleObject
 			$oModuleController->insertTrigger('module.procModuleAdminCopyModule', 'document', 'controller', 'triggerCopyModule', 'after');
 		}
 
+        //2013. 07. 19 - meta data
+        if(!$oDB->isColumnExists('documents', 'meta_description')) {
+            $oDB->addColumn('documents', 'meta_description', 'varchar', 255);
+        }
+        if(!$oDB->isColumnExists('documents', 'meta_keywords')) {
+            $oDB->addColumn('documents', 'meta_keywords', 'varchar', 255);
+        }
 		return new Object(0,'success_updated');
 	}
 

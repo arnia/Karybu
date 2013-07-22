@@ -7,7 +7,11 @@
 	<div class="form" style="margin-right:10px">
 		<input type="text" name="title" value="{htmlspecialchars($oDocument->getTitleText())}" title="{$lang->title}" style="width:100%" />
 	</div>
-
+    <div class="write_header">
+        {$lang->meta_description}&nbsp;&nbsp;<input type="text" name="meta_description" class="iText" title="{$lang->meta_description}" value="{htmlspecialchars($oDocument->get('meta_description'))}" />
+        &nbsp;&nbsp;&nbsp;
+        {$lang->meta_keywords}&nbsp;&nbsp;<input type="text" name="meta_keywords" class="iText" title="{$lang->meta_keywords}" value="{htmlspecialchars($oDocument->get('meta_keywords'))}" />
+    </div>
     <div class="editor">{$oDocument->getEditor()}</div>
 
     <div class="tag">

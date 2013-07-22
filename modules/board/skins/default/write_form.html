@@ -3,6 +3,10 @@
 	<input type="hidden" name="mid" value="{$mid}" />
 	<input type="hidden" name="content" value="{$oDocument->getContentText()}" />
 	<input type="hidden" name="document_srl" value="{$document_srl}" />
+    <div class="write_header">
+        <input type="text" name="meta_description" class="iText" title="{$lang->meta_description}" value="{htmlspecialchars($oDocument->get('meta_description'))}" />
+        <input type="text" name="meta_keywords" class="iText" title="{$lang->meta_keywords}" value="{htmlspecialchars($oDocument->get('meta_keywords'))}" />
+    </div>
 	<div class="write_header">
 		<select name="category_srl" cond="$module_info->use_category=='Y'">
 			<option value="">{$lang->category}</option>
@@ -14,7 +18,7 @@
 		<input cond="!$oDocument->getTitleText()" type="text" name="title" class="iText" title="{$lang->title}" />
 		<input cond="$grant->manager" type="checkbox" name="is_notice" value="Y" class="iCheck" checked="checked"|cond="$oDocument->isNotice()" id="is_notice" />
 		<label cond="$grant->manager" for="is_notice">{$lang->notice}</label>
-	</div>
+    </div>
     <div class="exForm" cond="count($extra_keys)">
 		<table cond="count($extra_keys)" border="1" cellspacing="0" summary="Extra Form">
 			<caption><em>*</em> : {$lang->is_required}</caption>

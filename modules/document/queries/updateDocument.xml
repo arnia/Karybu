@@ -29,6 +29,8 @@
         <column name="notify_message" var="notify_message" default="N" />
         <column name="status" var="status" default="PUBLIC" />
         <column name="comment_status" var="commentStatus" default="ALLOW" />
+        <column name="meta_keywords" var="meta_keywords" />
+        <column name="meta_description" var="meta_description" />
     </columns>
     <conditions>
         <condition operation="equal" column="document_srl" var="document_srl" filter="number" notnull="notnull" />

@@ -94,7 +94,6 @@ class moduleModel extends module
         $request_url_parse = parse_url($request_url);
         $vid = Context::get('vid');
         $mid = Context::get('mid');
-
         // Set up
         // test.xe.com
         $domain = '';

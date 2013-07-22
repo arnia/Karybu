@@ -33,4 +33,6 @@
     <column name="notify_message" type="char" size="1" default="N" notnull="notnull" />
     <column name="status" type="varchar" size="20" default="PUBLIC" />
     <column name="comment_status" type="varchar" size="20" default="ALLOW" />
+    <column name="meta_keywords" type="varchar" size="255" />
+    <column name="meta_description" type="varchar" size="255" />
 </table>

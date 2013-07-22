@@ -4175,4 +4175,12 @@
         <value xml:lang="en">Your version</value>
         <value xml:lang="ro">Versiunea ta</value>
     </item>
+    <item name="meta_description">
+        <value xml:lang="en">Meta description</value>
+        <value xml:lang="ro">Meta descriere</value>
+    </item>
+    <item name="meta_keywords">
+        <value xml:lang="en">Meta Keywords</value>
+        <value xml:lang="ro">Cuvinte cheie</value>
+    </item>
 </lang>
