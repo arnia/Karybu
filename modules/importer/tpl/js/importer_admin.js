@@ -187,6 +187,9 @@ function doImport(formId) {
 			function resultAlertMessage()
 			{
 				alert(ret.message);
+                jQuery('#doneProcess').show();
+                jQuery('#progressMsg').hide();
+                jQuery('#doneClose').show();
 				jQuery('a[href="#process"].modalAnchor')
 					.unbind('before-close.mw')
 					.trigger('close.mw')
