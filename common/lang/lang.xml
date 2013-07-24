@@ -28,8 +28,16 @@
 		<value xml:lang="tr"><![CDATA[Cevapla]]></value>
 		<value xml:lang="vi"><![CDATA[Trả lời]]></value>
 		<value xml:lang="mn"><![CDATA[Хариу]]></value>
-        <value xml:lang="en"><![CDATA[Comentariu]]></value>
+        <value xml:lang="ro"><![CDATA[Raspunde]]></value>
 	</item>
+    <item name="cmd_quote_reply">
+        <value xml:lang="en"><![CDATA[Quote & Reply]]></value>
+        <value xml:lang="ro"><![CDATA[Raspunde cu citat]]></value>
+    </item>
+    <item name="cmd_quote">
+        <value xml:lang="en"><![CDATA[Quote]]></value>
+        <value xml:lang="ro"><![CDATA[Citat]]></value>
+    </item>
 	<item name="cmd_delete">
 		<value xml:lang="ko"><![CDATA[삭제]]></value>
 		<value xml:lang="en"><![CDATA[Delete]]></value>
