@@ -211,6 +211,19 @@
             if($this->isSecret() && !$this->isAccessible()) return Context::getLang('msg_is_secret');
 
             $content = $this->get('content');
+
+            // QUOTE
+            $quotePattern = '#\[quote\s?name=\"([^\"\'\<\>\(\)]+)+\"\](<br\s?\/?\>)*(.*?)(<br\s?\/?\>)*\[\/quote\]#iu';
+            $quoteReplace = '<span class="quote">'.Context::getLang('quote').' \1'.'</span><blockquote>\\3</blockquote>';
+            while(preg_match($quotePattern, $content, $mathces)) {
+                $content = preg_replace($quotePattern, $quoteReplace, $content);
+            }
+            $quotePattern = '#\[quote[^\]]*?\](<br\s?\/?\>)*([^\[]+)(<br\s?\/?\>)*\[\/quote\]#iu';
+            $quoteReplace = '<span class="quote">'.Context::getLang('quote').'</span><blockquote>\\2</blockquote>';
+            while(preg_match($quotePattern, $content, $matches)) {
+                $content = preg_replace($quotePattern, $quoteReplace, $content);
+            }
+
             stripEmbedTagForAdmin($content, $this->get('member_srl'));
             // when displaying the comment on the pop-up menu
             if($add_popup_menu && Context::get('is_logged') ) {

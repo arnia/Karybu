@@ -238,6 +238,9 @@
             $oDocument->add('module_srl', $this->module_srl);
             Context::set('oDocument', $oDocument);
 
+            $comments = $oDocument->getComments();
+            Context::set('comments',$comments);
+
             /**
              * add javascript filters
              **/
@@ -640,8 +643,14 @@
 				return $this->dispBoardMessage('msg_not_allow_comment');
 			}
 
+
             // get the comment information
             $oComment = $oCommentModel->getComment();
+            //if quote than format quote comment
+            if(Context::get('quote') == 'Y'){
+                $quote = '[quote name="'.$oSourceComment->nick_name.'"]'.$oSourceComment->content.'[/quote]<br />';
+                $oComment->add('content',$quote);
+            }
             $oComment->add('parent_srl', $parent_srl);
             $oComment->add('document_srl', $oSourceComment->get('document_srl'));
 

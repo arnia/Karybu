@@ -123,6 +123,21 @@ function doScrap(document_srl) {
     exec_xml("member","procMemberScrapDocument", params, null);
 }
 
+/* quote */
+function quote(comment_srl){
+    author = document.getElementById("author_"+comment_srl);
+    content = document.getElementById("content_"+comment_srl);
+    var quote = '[quote name="'+author.textContent+'"]'+content.textContent+"[/quote]";
+    var textareaList = document.all.tags("textarea");
+    if(typeof(CKEDITOR) != "undefined") {
+        CKEDITOR.instances[textareaList[0].id].insertText(quote);
+    }
+    if(typeof(tinyMCE) != "undefined"){
+        value = tinyMCE.get(textareaList[0].id).getContent() + quote;
+        tinyMCE.get(textareaList[0].id).setContent(quote);
+    }
+}
+
 
 jQuery(function($){
 	$(document.body).click(function(e){
