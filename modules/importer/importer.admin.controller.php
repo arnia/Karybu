@@ -699,6 +699,15 @@
 
                 $output = executeQuery('document.insertDocument', $obj);
 
+                if ($output->toBool() && !empty($xmlDoc->post->alias)){
+                    $alias = new stdClass();
+                    $alias->alias_srl = getNextSequence();
+                    $alias->document_srl = $obj->document_srl;
+                    $alias->module_srl = $module_srl;
+                    $alias->alias_title = base64_decode($xmlDoc->post->alias->body);
+                    $aliasOutput = executeQuery('document.insertAlias', $alias);
+                }
+
                 if($output->toBool() && $obj->tags) {
                     $tag_list = explode(',',$obj->tags);
                     $tag_count = count($tag_list);
