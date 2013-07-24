@@ -268,7 +268,6 @@
             // Check if an index file exists
             $index_file = './files/cache/importer/'.$key.'/index';
             if(!file_exists($index_file)) return new Object(-1, 'msg_invalid_xml_file');
-
             switch($type) {
                 case 'ttxml' :
                         if(!$target_module) return new Object(-1,'msg_invalid_request');
@@ -594,7 +593,6 @@
                 }
                 FileHandler::removeFile($category_file);
             }
-
             $category_list = $category_titles = array();
             $category_list = $oDocumentModel->getCategoryList($module_srl);
             if(count($category_list)) foreach($category_list as $key => $val) $category_titles[$val->title] = $val->category_srl;
@@ -653,7 +651,6 @@
                         $extra_vars = $this->importExtraVars($fp);
                         continue;
                     }
-
                     if($started) $buff .= $str;
                 }
 
@@ -749,11 +746,13 @@
                 fclose($fp);
                 FileHandler::removeFile($target_file);
             }
-
             fclose($f);
             // Sync category counts
-            if(count($category_list)) foreach($category_list as $key => $val) $oDocumentController->updateCategoryCount($module_srl, $val->category_srl);
-
+            if(count($category_list)) {
+                foreach($category_list as $key => $val) {
+                    $oDocumentController->updateCategoryCount($module_srl, $val->category_srl);
+                }
+            }
             return $idx-1;
         }
 

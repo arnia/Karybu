@@ -127,16 +127,20 @@
 			<span class="prgrs prgrsMedium">
 				<strong id="preProgressMsg">{$lang->preprocessing}</strong>
 				<strong id="progressMsg" style="display:none;">{$lang->import_step_desc[99]}</strong>
+                <strong id="doneProcess" style="display:none">{$lang->cmd_complete}</strong>
 				<span class="pBar" style="width:300px;text-align:left">
 
 				</span>
 
 			</span>
             <div id="progressBar" style="width:90%;margin: 0 auto; text-align:center">
-                <span class="pNum">
+                <div class="pNum">
                     <span id="completeCount">0</span>/<span id="totalCount">0</span>
                     <strong id="progressPercent">0%</strong>
-                </span>
+                </div>
+            </div>
+            <div class="text-center">
+                <button data-dismiss="modal" class="btn" id="doneClose" type="button" style="display: none" name="close_button">{$lang->cmd_close}</button>
             </div>
 		</p>
     </form>
