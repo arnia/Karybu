@@ -447,7 +447,7 @@
 		</item>
 		<item name="cubrid">
 			<value xml:lang="ko"><![CDATA[CUBRID DB를 이용합니다. <a href="http://www.cubrid.org/wiki_tutorials/entry/cubrid-installation-instructions" target="_blank">Manual</a>]]></value>
-			<value xml:lang="en"><![CDATA[Use CUBRID as a database. See <a href="http://www.cubrid.org/wiki_tutorials/entry/cubrid-installation-instructions" target="_blank">Manual</a> for more info]]></value>
+			<value xml:lang="en"><![CDATA[Use CUBRID as a database.]]></value>
 			<value xml:lang="jp"><![CDATA[CUBRID DBを利用します。 <a href="http://www.cubrid.org/wiki_tutorials/entry/cubrid-installation-instructions" target="_blank">Manual</a>]]></value>
 			<value xml:lang="zh-CN"><![CDATA[使用CUBRID DB。 <a href="http://www.cubrid.org/wiki_tutorials/entry/cubrid-installation-instructions" target="_blank">Manual</a>]]></value>
 			<value xml:lang="zh-TW"><![CDATA[使用 CUBRID DB。 <a href="http://www.cubrid.org/wiki_tutorials/entry/cubrid-installation-instructions" target="_blank">Manual</a>]]></value>
@@ -456,7 +456,7 @@
 			<value xml:lang="es"><![CDATA[Usar BD CUBRID. <a href="http://www.cubrid.org/wiki_tutorials/entry/cubrid-installation-instructions" target="_blank">Manual</a>]]></value>
 			<value xml:lang="tr"><![CDATA[CUBRID'ü veritabanı olarak kullanın. Daha fazla bilgi için <a href="http://www.cubrid.org/wiki_tutorials/entry/cubrid-installation-instructions" target="_blank">Manuel</a>i inceleyiniz]]></value>
 			<value xml:lang="vi"><![CDATA[Sử dụng <b>CUBRID</b> Database.  <a href="http://www.cubrid.org/wiki_tutorials/entry/cubrid-installation-instructions" target="_blank">Hướng dẫn</a>]]></value>
-            <value xml:lang="ro"><![CDATA[Foloseşte CUBRID ca bază de date. Vezi <a href="http://www.cubrid.org/wiki_tutorials/entry/cubrid-installation-instructions" target="_blank">Manualul</a> pentru mai multe informaţii]]></value>
+            <value xml:lang="ro"><![CDATA[Foloseşte CUBRID ca bază de date.]]></value>
 		</item>
 		<item name="mssql">
 			<value xml:lang="ko"><![CDATA[MSSQL DB를 이용합니다.]]></value>
