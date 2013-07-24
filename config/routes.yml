@@ -73,6 +73,11 @@ mid_entry:
     requirements:
         mid: '[a-zA-Z0-9_]+'
 
+mid_entry_no_entry:
+    pattern: /{mid}/{entry}
+    requirements:
+        mid: '[a-zA-Z0-9_]+'
+
 vid_mid_entry:
     pattern: /{vid}/{mid}/entry/{entry}
     requirements:
