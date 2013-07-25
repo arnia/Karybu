@@ -119,6 +119,12 @@ function doPreProcessing(form, formId) {
 		resp=['error','message','type','total','cur','key','status'] // response tags
 	);
     jQuery('#process').modal();
+    jQuery('#preProgressMsg').show();
+    jQuery('#progressMsg').hide();
+    jQuery('#doneProcess').hide();
+    jQuery('#progressBar').progressbar("option", "max", "0");
+    jQuery('#progressBar').progressbar("option", "value", "0");
+    jQuery('#doneClose').hide();
 	function on_complete(ret) {
 		var $reload, $cont, fo_proc, elems, i, c, key, to_copy, fo_import;
 
