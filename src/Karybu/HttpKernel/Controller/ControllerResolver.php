@@ -48,7 +48,7 @@ class ControllerResolver extends BaseResolver
             $oModule->setModuleInfo($module_info, $xml_info);
         } else {
             $module_matcher = new \ModuleMatcher();
-            $oModule = $module_matcher->getModuleInstance($act, $module, $oModuleModel, $is_mobile, $is_installed, $module_info);
+            $oModule = $module_matcher->getModuleInstance($act, $module, $oModuleModel, false, $is_installed, $module_info);
         }
 
         if ($oModule instanceof ContainerAwareInterface) {
