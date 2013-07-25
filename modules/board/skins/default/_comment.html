@@ -3,7 +3,7 @@
 	<div class="fbHeader">
 		<h2>{$lang->comment} <em>{$oDocument->getCommentcount()}</em></h2>
 	</div>
-	<ul cond="$oDocument->getCommentcount()" class="fbList">
+	<ul cond="$oDocument->getCommentcount()" class="fbList" id="comment_list">
 		<li loop="$comments=>$key,$comment" class="fbItem"|cond="!$comment->get('depth')" class="fbItem indent indent{($comment->get('depth'))}"|cond="$comment->get('depth')" id="comment_{$comment->comment_srl}">
 			<div class="fbMeta">
 				<img cond="$comment->getProfileImage()" src="{$comment->getProfileImage()}" alt="Profile" class="profile" />
@@ -37,9 +37,9 @@
 			</div>
 			<p class="action">
 				<span class="vote" cond="$comment->get('voted_count')!=0">{$lang->cmd_vote}:{$comment->get('voted_count')?$comment->get('voted_count'):0}</span>
-				<a cond="$oDocument->allowComment()" href="{getUrl('act','dispBoardReplyComment','comment_srl',$comment->comment_srl,'quote','')}" class="reply">{$lang->cmd_reply}</a>
+                <a cond="$oDocument->allowComment()" href="#comment_{$comment->comment_srl}" onclick="reply({$comment->comment_srl},'N')" class="reply">{$lang->cmd_reply}</a>
 				<a cond="$oDocument->allowComment()" href="#write_comment" onclick="quote({$comment->comment_srl})" class="reply">{$lang->cmd_quote}</a>
-				<a cond="$oDocument->allowComment()" href="{getUrl('act','dispBoardReplyComment','comment_srl',$comment->comment_srl,'quote','Y')}" class="reply">{$lang->cmd_quote_reply}</a>
+                <a cond="$oDocument->allowComment()" href="#comment_{$comment->comment_srl}" onclick="reply({$comment->comment_srl},'Y')" class="reply">{$lang->cmd_quote_reply}</a>
 				<a cond="$comment->isGranted()||!$comment->get('member_srl')" href="{getUrl('act','dispBoardModifyComment','comment_srl',$comment->comment_srl)}" class="modify">{$lang->cmd_modify}</a>
 				<a cond="$comment->isGranted()||!$comment->get('member_srl')" href="{getUrl('act','dispBoardDeleteComment','comment_srl',$comment->comment_srl)}" class="delete">{$lang->cmd_delete}</a>
 				<a cond="$is_logged" class="comment_{$comment->comment_srl} this" href="#popup_menu_area" onclick="return false">{$lang->cmd_comment_do}</a>
@@ -58,6 +58,7 @@
 		<input type="hidden" name="mid" value="{$mid}" />
 		<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
 		<input type="hidden" name="comment_srl" value="" />
+		<input type="hidden" name="parent_srl" value="" />
         <input type="hidden" name="content" value="" />
         {$oDocument->getCommentEditor()}
 		<div class="write_author">
@@ -80,6 +81,7 @@
 		</div>
 		<div class="btnArea">
 			<button type="submit" class="btn">{$lang->cmd_comment_registration}</button>
+            <a class="btn" onclick="cancelReply()" id="cancel_reply" style="display:none" href="#write_comment">Cancel</a>
 		</div>
 	</form>
 </div>

@@ -138,6 +138,57 @@ function quote(comment_srl){
     }
 }
 
+/* reply */
+function reply(comment_srl,quote){
+    if(quote == 'Y'){
+        author = document.getElementById("author_"+comment_srl);
+        content = document.getElementById("content_"+comment_srl);
+        var quote_text = '[quote name="'+author.textContent+'"]'+content.textContent+"[/quote]";
+    } else quote_text = '';
+
+    li = document.getElementById("comment_"+comment_srl);
+    editor = document.getElementById("write_comment");
+
+    parent = document.getElementsByName("parent_srl");
+    parent[0].value = comment_srl;
+
+    cancelLink = document.getElementById("cancel_reply");
+    cancelLink.style.display = "";
+
+    li.appendChild(editor);
+    var textareaList = document.all.tags("textarea");
+    if(typeof(tinyMCE) != "undefined"){
+        if (tinyMCE.getInstanceById(textareaList[0].id))
+        {
+            tinyMCE.execCommand('mceFocus', false, textareaList[0].id);
+            tinyMCE.execCommand('mceRemoveControl', false, textareaList[0].id);
+        }
+        tinyMCE.execCommand('mceAddControl', false, textareaList[0].id);
+        tinyMCE.get(textareaList[0].id).setContent(quote_text);
+    }
+}
+
+/* cancel reply and replace the editor at the bottom of the comment list */
+function cancelReply(){
+    cancelLink = document.getElementById("cancel_reply");
+    cancelLink.style.display = "none";
+
+    ul = document.getElementById("comment_list");
+    editor = document.getElementById("write_comment");
+    ul.appendChild(editor);
+
+    var textareaList = document.all.tags("textarea");
+    if(typeof(tinyMCE) != "undefined"){
+        if (tinyMCE.getInstanceById(textareaList[0].id))
+        {
+            tinyMCE.execCommand('mceFocus', false, textareaList[0].id);
+            tinyMCE.execCommand('mceRemoveControl', false, textareaList[0].id);
+        }
+        tinyMCE.execCommand('mceAddControl', false, textareaList[0].id);
+        tinyMCE.get(textareaList[0].id).setContent("");
+    }
+}
+
 
 jQuery(function($){
 	$(document.body).click(function(e){
