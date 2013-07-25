@@ -86,6 +86,10 @@
         <action name="procmobile_communicationArrangeMenu" type="controller" standalone="true" />
         <action name="procmobile_communicationGetFormKey" type="controller" standalone="true" />
         <action name="procmobile_communicationManageCheckedDocument" type="controller" standalone="true" />
+        <!--Comment-->
+        <action name="procmobile_communicationGetNewCommentCount"  type="controller"  standalone="true" />
+        <action name="procmobile_communicationManagePublishCommentStatus"  type="controller"  standalone="true" />
+        <action name="procmobile_communicationDeleteComment"  type="controller"  standalone="true" />
         
         <action name="dispMobile_communicationManageCheckedDocumentResponse" type="view" standalone="true" />
         

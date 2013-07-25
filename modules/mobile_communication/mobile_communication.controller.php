@@ -1099,8 +1099,6 @@
 
             $args->sort_index = 'list_order'; ///< sorting
 
-            $args->module_srl = Context::get('module_srl');
-
             $oCommentModel = &getModel('comment');
             $output = $oCommentModel->getTotalCommentList($args);
             
@@ -1117,7 +1115,7 @@
             	echo "<module_srl>" .$comment_dets['module_srl'] ."</module_srl>";
             	echo "<document_srl>" . $comment_dets['document_srl'] ."</document_srl>";
             	echo "<parent_srl>" . $comment_dets['parent_srl'] . "</parent_srl>";
-            	echo "<is_secret>" . $comment_dets['is_secret'] . "</is_secret>";
+            	echo "<status>" . $comment_dets['status'] . "</status>";
             	echo "<content><![CDATA[" . $comment_dets['content'] . "]]></content>";
             	echo "<regdate>" . $comment_dets['regdate'] . "</regdate>";
             	echo "<nickname>" . $comment_dets['nick_name'] . "</nickname>";
@@ -1648,12 +1646,44 @@
                 }
                 
                 private function responseManageCheckedDocument($error, $msg){
+                    $this->printSingleValueResponse($error, $msg, '');
+                }
+                
+//                Comment
+                public function procmobile_communicationGetNewCommentCount(){
+                    $commentCount=  $this->getNewCommentCount();
+                    $this->printSingleValueResponse(0, '', $commentCount);
+                }
+                
+                private function printSingleValueResponse($errorCode, $msg, $value){
                     header('Content-Type: text/xml');
                     echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . "\n";
                     echo "<response>\n";
-                    echo "<error>$error</error>";
-                    echo "<message>$msg</message>";
+                    echo "<error>$errorCode</error>\n";
+                    echo "<message>$msg</message>\n";
+                    echo "<value>$value</value>\n";
                     echo "</response>\n";
+                    exit();
+                }
+                
+                public function procmobile_communicationManagePublishCommentStatus(){
+                    $commentController=&getAdminController('comment');
+                    $output=$commentController->procCommentAdminChangePublishedStatusChecked();
+                    if(!$output)
+                        $this->responseManageCheckedDocument(0, 'success');
+                    else
+                        $this->responseManageCheckedDocument(-1, 'fail');
+                    exit();
+                }
+                
+                public function procmobile_communicationDeleteComment(){
+                    $commentController=&getAdminController('comment');
+                    $output=$commentController->procCommentAdminDeleteChecked();
+                    if(!$output)
+                        $this->responseManageCheckedDocument(0, 'success');
+                    else
+                        $this->responseManageCheckedDocument(-1, 'fail');
+                    exit();
                 }
                 
 }
