@@ -20,18 +20,6 @@ function getFTPList(pwd)
     {
         form.ftp_root_path.value = pwd;
     }
-    else
-    {
-        if(!form.ftp_root_path.value && typeof(form.sftp) != 'undefined' && form.sftp.checked)
-        {
-            form.ftp_root_path.value = xe_root;
-        }
-		else
-        {
-          form.ftp_root_path.value = "/";
-        }
-    }
-
     var params= new Array();
 	//ftp_pasv not used
 	params['ftp_user'] = jQuery("#ftp_user").val();
@@ -61,7 +49,7 @@ function completeGetFtpInfo(ret_obj)
     var e = jQuery("#ftpSuggestion").empty();
 
     var list = "";
-    if(!jQuery.isArray(ret_obj['list']['item']))
+    if(ret_obj['list'] != null && !jQuery.isArray(ret_obj['list']['item']))
     {
         ret_obj['list']['item'] = [ret_obj['list']['item']];
     }
@@ -77,24 +65,32 @@ function completeGetFtpInfo(ret_obj)
         list = list + "<li><button type=\"button\" class=\"btn-link\" onclick=\"getFTPList('"+target+"')\">../</button></li>";
     }
 
-    for(var i=0;i<ret_obj['list']['item'].length;i++)
-    {
-        var v = ret_obj['list']['item'][i];
-        if(v == "../")
+    if(ret_obj['list'] != null) {
+        for(var i=0;i<ret_obj['list']['item'].length;i++)
         {
-            continue;
-        }
-        else if( v == "./")
-        {
-            continue;
-        }
-        else
-        {
-            list = list + "<li><button type=\"button\" class=\"btn-link\" onclick=\"getFTPList('"+pwd+v+"')\">"+v+"</button></li>";
+            var v = ret_obj['list']['item'][i];
+            if(v == "../")
+            {
+                continue;
+            }
+            else if( v == "./")
+            {
+                continue;
+            }
+            else
+            {
+                list = list + "<li><button type=\"button\" class=\"btn-link\" onclick=\"getFTPList('"+pwd+v+"')\">"+v+"</button></li>";
+            }
         }
     }
     list = "<ul class=\"unstyled\">"+list+"</ul>";
     e.append(jQuery(list));
+
+    var e = jQuery("#ftpSuggestion");
+    if(!e.is(":visible")) {
+        e.show();
+        return;
+    }
 }
 
 var icon = null;

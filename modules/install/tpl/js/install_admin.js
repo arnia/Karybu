@@ -79,19 +79,6 @@ function getFTPList(pwd)
     {
         form.ftp_root_path.value = pwd;
     }
-    else
-    {
-        if(!form.ftp_root_path.value)
-        {
-            if(typeof(form.sftp) != 'undefined' && form.sftp.checked) {
-                form.ftp_root_path.value = xe_root;
-            }
-            else
-            {
-                form.ftp_root_path.value = "/";
-            }
-        }
-    }
     var params={}, data=jQuery("#ftp_form").serializeArray();
     jQuery.each(data, function(i, field){ params[field.name] = field.value });
     exec_xml('install', 'getInstallFTPList', params, completeGetFtpInfo, ['list', 'error', 'message'], params, form);

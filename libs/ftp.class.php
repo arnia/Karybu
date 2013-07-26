@@ -278,6 +278,26 @@
             return $list;
         }
 
+        function ftp_directory_exists($pathname = "", $just_check = true)
+        {
+            // Get the current working directory
+            $origin = $this->ftp_pwd();
+
+            // Attempt to change directory, suppress errors
+            if (@$this->ftp_chdir($pathname))
+            {
+                //if just checking return to original path
+                if($just_check) {
+                    // If the directory exists, set back to origin
+                    $this->ftp_chdir($origin);
+                }
+                return true;
+            }
+
+            // Directory does not exist
+            return false;
+        }
+
         function ftp_rawlist($pathname = "")
         {
             if (!($string = $this->ftp_pasv())) {

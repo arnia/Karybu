@@ -94,9 +94,14 @@
             }
 
             $oFtp = new ftp();
+            $directory_exists = false;
             if($oFtp->ftp_connect($ftp_info->ftp_host, $ftp_info->ftp_port)){
 				if($oFtp->ftp_login($ftp_info->ftp_user, $ftp_info->ftp_password)) {
 					$_list = $oFtp->ftp_rawlist($this->pwd);
+                    if(!$_list) {
+                        //check if directory exists
+                        $directory_exists = $oFtp->ftp_directory_exists($this->pwd, false);
+                    }
 					$oFtp->ftp_quit();
 				}
                 else {
@@ -116,7 +121,7 @@
                     }
                 }
             }
-			else {
+			else if (!$directory_exists) {
 				return new Object(-1,'msg_ftp_no_directory');
 			}
             $this->add('list', $list);
