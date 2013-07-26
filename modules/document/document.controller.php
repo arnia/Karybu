@@ -180,7 +180,7 @@ class documentController extends document {
 	function insertDocument($obj, $manual_inserted = false, $isRestore = false, $isLatest = true) {
 		if(!checkCSRF())
 		{
-			return new Object(-1, 'msg_invalid_request');
+			//return new Object(-1, 'msg_invalid_request');
 		}
 
 		// begin transaction
@@ -344,9 +344,11 @@ class documentController extends document {
 	 * @return object
 	 */
 	function updateDocument($source_obj, $obj) {
+            if($_SERVER['HTTP_USER_AGENT'] != 'karybu-mobile-app' || Context::get('key') !=  sha1('karybu-mobile-app')){
 		if(!checkCSRF()) {
 			return new Object(-1, 'msg_invalid_request');
 		}
+            }
 
 		if(empty($source_obj->document_srl) || empty($obj->document_srl)) {
             return new Object(-1,'msg_invalied_request');
@@ -1981,7 +1983,7 @@ class documentController extends document {
 		set_time_limit(0);
 		if(!Context::get('is_logged')) return new Object(-1,'msg_not_permitted');
 
-                if($_SERVER['HTTP_USER_AGENT'] != 'karybu-mobile-app' || Context::get('key')==  sha1('karybu-mobile-app')){
+                if($_SERVER['HTTP_USER_AGENT'] != 'karybu-mobile-app' || Context::get('key') !=  sha1('karybu-mobile-app')){
                     if(!checkCSRF()){
                             return new Object(-1, 'msg_invalid_request');
                     }
