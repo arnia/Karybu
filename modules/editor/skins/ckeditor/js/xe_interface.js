@@ -15,7 +15,7 @@ function editorStart_xe(editor_sequence, primary_key, content_key){
 
 //Get content from editor
 function editorGetContentTextarea_xe(editor_sequence){
-    return CKEDITOR.instances.ckeditor_instanceinstance.getData();
+    return CKEDITOR.instances["ckeditor_instance_"+editor_sequence].getData();
 }
 
 function editorGetContent(editor_sequence) {

@@ -147,7 +147,7 @@ function reply(comment_srl,quote){
     } else quote_text = '';
 
     li = document.getElementById("comment_"+comment_srl);
-    editor = document.getElementById("write_comment");
+
 
     parent = document.getElementsByName("parent_srl");
     parent[0].value = comment_srl;
@@ -155,9 +155,22 @@ function reply(comment_srl,quote){
     cancelLink = document.getElementById("cancel_reply");
     cancelLink.style.display = "";
 
-    li.appendChild(editor);
+
     var textareaList = document.all.tags("textarea");
+
+    if(typeof(CKEDITOR) != "undefined") {
+        config = CKEDITOR.instances[textareaList[0].id].config;
+        CKEDITOR.instances[textareaList[0].id].destroy();
+        editor = document.getElementById("write_comment");
+        li.appendChild(editor);
+        CKEDITOR.replace(textareaList[0].id,config);
+        setTimeout(function(){ CKEDITOR.instances[textareaList[0].id].setData(quote_text);},300);
+
+    }
+
     if(typeof(tinyMCE) != "undefined"){
+        editor = document.getElementById("write_comment");
+        li.appendChild(editor);
         if (tinyMCE.getInstanceById(textareaList[0].id))
         {
             tinyMCE.execCommand('mceFocus', false, textareaList[0].id);
@@ -174,11 +187,23 @@ function cancelReply(){
     cancelLink.style.display = "none";
 
     ul = document.getElementById("comment_list");
-    editor = document.getElementById("write_comment");
-    ul.appendChild(editor);
+
 
     var textareaList = document.all.tags("textarea");
+
+    if(typeof(CKEDITOR) != "undefined") {
+        config = CKEDITOR.instances[textareaList[0].id].config;
+        CKEDITOR.instances[textareaList[0].id].destroy();
+        editor = document.getElementById("write_comment");
+        ul.appendChild(editor);
+        CKEDITOR.replace(textareaList[0].id,config);
+        setTimeout(function(){ CKEDITOR.instances[textareaList[0].id].setData("");},300);
+
+    }
+
     if(typeof(tinyMCE) != "undefined"){
+        editor = document.getElementById("write_comment");
+        ul.appendChild(editor);
         if (tinyMCE.getInstanceById(textareaList[0].id))
         {
             tinyMCE.execCommand('mceFocus', false, textareaList[0].id);
