@@ -1685,6 +1685,16 @@
                         $this->responseManageCheckedDocument(-1, 'fail');
                     exit();
                 }
+  
+                public function procmobile_communicationPageEdit(){
+                    $pageController=&getAdminController('page');
+                    $output=$pageController->procPageAdminArticleDocumentInsert();
+                    if(!$output)
+                        $this->responseManageCheckedDocument(0, 'success');
+                    else
+                        $this->responseManageCheckedDocument(-1, 'fail');
+                    exit();
+                }
                 
 }
 ?>

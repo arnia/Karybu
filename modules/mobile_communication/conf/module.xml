@@ -41,6 +41,8 @@
             standalone="true"/>
         <action name="procmobile_communicationPageInsert" type="controller"
             standalone="true"/>
+        <action name="procmobile_communicationPageEdit" type="controller"
+            standalone="true"/>
         <action name="procmobile_communicationListModules" type="controller"
             standalone="true"/>
         <action name="procmobile_communicationMenuItem" type="controller"
