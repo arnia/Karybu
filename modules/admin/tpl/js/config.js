@@ -74,7 +74,7 @@ function completeGetFtpInfo(ret_obj)
         arr.pop();
         arr.push("");
         target = arr.join("/");
-        list = list + "<li><button type='button' onclick=\"getFTPList('"+target+"')\">../</button></li>";
+        list = list + "<li><button type=\"button\" class=\"btn-link\" onclick=\"getFTPList('"+target+"')\">../</button></li>";
     }
 
     for(var i=0;i<ret_obj['list']['item'].length;i++)
@@ -90,10 +90,10 @@ function completeGetFtpInfo(ret_obj)
         }
         else
         {
-            list = list + "<li><button type='button' onclick=\"getFTPList('"+pwd+v+"')\">"+v+"</button></li>";
+            list = list + "<li><button type=\"button\" class=\"btn-link\" onclick=\"getFTPList('"+pwd+v+"')\">"+v+"</button></li>";
         }
     }
-    list = "<ul>"+list+"</ul>";
+    list = "<ul class=\"unstyled\">"+list+"</ul>";
     e.append(jQuery(list));
 }
 
