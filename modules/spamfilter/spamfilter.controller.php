@@ -32,24 +32,42 @@
             $logged_info = Context::get('logged_info');
             $grant = Context::get('grant');
             // In case logged in, check if it is an administrator
-            if($is_logged) {
+            if(false && $is_logged) {
                 if($logged_info->is_admin == 'Y') return new Object();
                 if($grant->manager) return new Object();
             }
 
             $oFilterModel = &getModel('spamfilter');
+
             // Check if the IP is prohibited
             $output = $oFilterModel->isDeniedIP();
             if(!$output->toBool()) return $output;
-            // Check if there is a ban on the word
-            $text = $obj->title.$obj->content;
-            $output = $oFilterModel->isDeniedWord($text);
-            if(!$output->toBool()) return $output;
+
+            // Check words blacklist
+
+            // Check words blacklist
+            $config = $this->getSpamConfig();
+            if (in_array('articles', (array) $config->usage)) {
+                //replace words
+                if ($config->action_bad_words == 'replace') {
+                    $obj->title = $oFilterModel->censorText($obj->title);
+                    $obj->content = $oFilterModel->censorText($obj->content);
+                }
+                //or block publishing
+                else {
+                    $output = $oFilterModel->isDeniedWord( $obj->title . $obj->content );
+                    if (!$output->toBool()) {
+                        return $output;
+                    }
+                }
+            }
+
             // Check the specified time beside the modificaiton time
             if($obj->document_srl == 0){
                 $output = $oFilterModel->checkLimited();
                 if(!$output->toBool()) return $output;
             }
+
             // Save a log
             $this->insertLog();
 
@@ -68,25 +86,46 @@
             $logged_info = Context::get('logged_info');
             $grant = Context::get('grant');
             // In case logged in, check if it is an administrator
-            if($is_logged) {
-                if($logged_info->is_admin == 'Y') return new Object();
-                if($grant->manager) return new Object();
+            if (false && $is_logged) {
+                if($logged_info->is_admin == 'Y') {
+                    return new Object();
+                }
+                if ($grant->manager) {
+                    return new Object();
+                }
             }
 
-            $oFilterModel = &getModel('spamfilter');
+            $oFilterModel = getModel('spamfilter');
+
             // Check if the IP is prohibited
             $output = $oFilterModel->isDeniedIP();
-            if(!$output->toBool()) return $output;
-            // Check if there is a ban on the word
-            $text = $obj->content;
-            $output = $oFilterModel->isDeniedWord($text);
-            if(!$output->toBool()) return $output;
+            if (!$output->toBool()) {
+                return $output;
+            }
+
+            // Check words blacklist
+            $config = $this->getSpamConfig();
+            if (in_array('comments', (array) $config->usage)) {
+                //replace words
+                if ($config->action_bad_words == 'replace') {
+                    $obj->content = $oFilterModel->censorText($obj->content);
+                }
+                //or block publishing
+                else {
+                    $output = $oFilterModel->isDeniedWord($obj->content);
+                    if (!$output->toBool()) {
+                        return $output;
+                    }
+                }
+            }
+
             // If the specified time check is not modified
-            if(!$obj->__isupdate){
+            if(!$obj->__isupdate) {
                 $output = $oFilterModel->checkLimited();
                 if(!$output->toBool()) return $output;
             }
             unset($obj->__isupdate);
+
             // Save a log
             $this->insertLog();
 
@@ -186,6 +225,16 @@
         function insertLog() {
             $output = executeQuery('spamfilter.insertLog');
             return $output;
+        }
+
+        /**
+         * @return array
+         */
+        public function getSpamConfig()
+        {
+            $oModuleModel = getModel('module');
+            $spamConfig = $oModuleModel->getModuleConfig('spamfilter');
+            return $spamConfig;
         }
     }
 ?>

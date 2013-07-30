@@ -85,6 +85,21 @@
             return new Object();
         }
 
+        public function censorText($text, array $badWords = array(), $char='*')
+        {
+            $word_list = !empty($badWords) ? $badWords : $this->getDeniedWordList();
+            if (empty($word_list)) {
+                return new Object();
+            }
+            foreach ($word_list as $w) {
+                $word = preg_quote($w->word, '/');
+                $text = preg_replace_callback("/$word/is", function($match) use ($word, $char) {
+                    return str_repeat($char, strlen($word));
+                }, $text);
+            }
+            return $text;
+        }
+
         /**
          * @brief Check the specified time
          **/
@@ -133,7 +148,7 @@
          **/
         function getLogCount($time = 60, $ipaddress='') {
             if(!$ipaddress) $ipaddress = $_SERVER['REMOTE_ADDR'];
-
+            $args = new stdClass;
             $args->ipaddress = $ipaddress;
             $args->regdate = date("YmdHis", time()-$time);
             $output = executeQuery('spamfilter.getLogCount', $args);

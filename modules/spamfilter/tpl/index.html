@@ -41,7 +41,29 @@
             </label>
         </div>
     </div>
-	<div class="btnArea">
+    <div class="control-group form-inline">
+        <label class="control-label">Use words blacklist for...</label>
+        <div class="controls">
+            <label style="margin-right: 50px;">
+                <input type="checkbox" name="usage[]" value="comments"<!--@if (in_array('comments', $config->usage))--> checked<!--@end-->>
+                Comments
+            </label>
+            <label>
+                <input type="checkbox" name="usage[]" value="articles"<!--@if (in_array('articles', $config->usage))--> checked<!--@end-->>
+                Articles
+            </label>
+        </div>
+    </div>
+    <div class="control-group form-inline">
+        <label class="control-label" for="action_bad_words">Action to perform on bad words detection</label>
+        <div class="controls">
+            <select class="form-control" id="action_bad_words" name="action_bad_words">
+                <option value="replace" selected="selected"|cond="$config->action_bad_words == 'replace'">replace with *s</option>
+                <option value="stop" selected="selected"|cond="$config->action_bad_words == 'stop'">don't publish</option>
+            </select>
+        </div>
+    </div>
+    <div class="btnArea">
 		<button class="btn btn-primary" type="submit">{$lang->cmd_save}</button>
 	</div>
 </form>
@@ -59,7 +81,7 @@
                 </li>
                 <!--@endforeach-->
             </ul>
-            <textarea rows="8" cols="42" name="ipaddress_list" title="Ip addresses blacklist"></textarea>
+            <textarea rows="2" cols="42" name="ipaddress_list" title="Ip addresses blacklist"></textarea>
                 <button class="btn pull-top" type="button" onclick="doInsertDeniedIP('{$lang->msg_invalid_format}')">{$lang->cmd_insert}</button>
                 <span class="pull-top">{$lang->about_denied_ip}</span>
         </div>
@@ -72,7 +94,7 @@
                 <li>{$wordListKey->word} <a href="#" onclick="doDeleteDeniedWord('{$wordListKey->word}')">{$lang->cmd_delete}</a></li>
                 <!--@end-->
             </ul>
-            <textarea rows="8" cols="42" name="word_list" title="words blacklist"></textarea>
+            <textarea rows="2" cols="42" name="word_list" title="words blacklist"></textarea>
             <button class="btn pull-top" type="button" onclick="doInsertDeniedWord('{$lang->msg_invalid_format}')">{$lang->add}</button>
             <span class="pull-top">{$lang->about_denied_word}</span>
         </div>
