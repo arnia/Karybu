@@ -241,7 +241,7 @@
 .write_author label{margin:0 10px 0 0}
 /* Write Comment */
 /* _read.html | comment_form.html */
-.write_comment{position:relative;margin:25px 12px;zoom:1}
+.write_comment{position:relative;margin:35px 12px;zoom:1}
 .write_comment:after{content:"";display:block;clear:both}
 .write_comment textarea{width:645px;height:37px;margin:0 0 5px 0}
 .write_comment .write_author{padding:0 0 10px 0}

@@ -167,7 +167,7 @@
 		<value xml:lang="ko"><![CDATA[업데이트하시겠습니까?]]></value>
 		<value xml:lang="en"><![CDATA[Would you like to update?]]></value>
 		<value xml:lang="jp"><![CDATA[アップデートしますか？]]></value>
-        <value xml:lang="ro"><![CDATA[Vrei să faci update]]?></value>
+        <value xml:lang="ro"><![CDATA[Vrei să faci update?]]></value>
 	</item>
 	<item name="msg_font_too_big">
 		<value xml:lang="ko"><![CDATA[글꼴이 너무 큽니다.]]></value>
