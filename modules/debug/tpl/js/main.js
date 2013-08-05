@@ -71,14 +71,16 @@
         });
 
         // add tooltips
-        $('.queries li', $.dToolbar()).each(function(){
-            var title = $(this).attr('title', '').attr('title');
-            //title += $('.meta.time', $(this)).text() + "\n";
-            //title += $('.meta.elapsed_time', $(this)).text() + "\n";
-            title += $('.meta.query_name', $(this)).text();
-            $(this).attr('title', title);
-        }).tooltip();
-        $('.failed_queries li').tooltip();
+        if($.fn.tooltip){
+            $('.queries li', $.dToolbar()).each(function(){
+                var title = $(this).attr('title', '').attr('title');
+                //title += $('.meta.time', $(this)).text() + "\n";
+                //title += $('.meta.elapsed_time', $(this)).text() + "\n";
+                title += $('.meta.query_name', $(this)).text();
+                $(this).attr('title', title);
+            }).tooltip();
+            $('.failed_queries li').tooltip();
+        }
     });
 
     var methods = {
