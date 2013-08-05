@@ -516,7 +516,7 @@ class editorController extends editor
                 continue;
             }
             // Pass if configured
-            if (empty($component_list->{$component_name})) {
+            if (!empty($component_list->{$component_name})) {
                 continue;
             }
             // Insert data into the DB
