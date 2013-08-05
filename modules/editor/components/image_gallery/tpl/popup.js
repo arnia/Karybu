@@ -102,9 +102,7 @@ function insertSlideShow() {
         selected_node.style.width = width+"px";
     } else {
         var text = "<img src=\"../../../../common/img/blank.gif\" editor_component=\"image_gallery\" width=\""+width+"\" gallery_style=\""+gallery_style+"\" align=\""+gallery_align+"\" gallery_align=\""+gallery_align+"\" border_thickness=\""+border_thickness+"\" border_color=\""+border_color+"\" bg_color=\""+bg_color+"\" style=\"width:"+width+"px;min-height:200px;border:2px dotted #4371B9;background:url(./modules/editor/components/image_gallery/tpl/image_gallery_component.gif) no-repeat center;\" images_list=\""+images_list+"\" />";
-        opener.editorFocus(opener.editorPrevSrl);
-        var iframe_obj = opener.editorGetIFrame(opener.editorPrevSrl)
-        opener.editorReplaceHTML(iframe_obj, text);
+        opener.editorReplaceHTML(opener.editorPrevSrl, text);
     }
 
     opener.editorFocus(opener.editorPrevSrl);

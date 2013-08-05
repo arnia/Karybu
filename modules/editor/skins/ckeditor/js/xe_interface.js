@@ -27,7 +27,7 @@ function editorGetContent(editor_sequence) {
 }
 
 //Replace html content to editor
-function editorReplaceHTML(iframe_obj, content) {
-    CKEDITOR.instances.ckeditor_instance.insertHtml(content);
+function editorReplaceHTML(editor_sequence, content) {
+    CKEDITOR.instances["ckeditor_instance_"+editor_sequence].insertHtml(content);
 }
 
