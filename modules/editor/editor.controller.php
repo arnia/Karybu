@@ -432,6 +432,7 @@ class editorController extends editor
         if (!is_array($db_list)) {
             $db_list = array($db_list);
         }
+        $component_list = new stdClass();
         foreach ($db_list as $component) {
             if (in_array($component->component_name, array('colorpicker_text', 'colorpicker_bg'))) {
                 continue;
@@ -488,7 +489,6 @@ class editorController extends editor
                     }
                 }
             }
-            $component_list = new stdClass();
             $component_list->{$component_name} = $xml_info;
             // Get buttons, icons, images
             $icon_file = _KARYBU_PATH_ . 'modules/editor/components/' . $component_name . '/icon.gif';
