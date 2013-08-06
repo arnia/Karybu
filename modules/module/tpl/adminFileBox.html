@@ -1,4 +1,5 @@
 <!--%load_js_plugin("filebox")-->
+<load target="js/dropzone_config.js"/>
 
 <div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -26,7 +27,23 @@
     </ul>
     <include target="../../admin/tpl/common/include.paging.html" />
 </div>
-
+<div id="dropzone">
+    <form action="./" class="dropzone dz-clickable" id="fileboxUpload">
+        <input type="hidden" name="module" value="module" />
+        <input type="hidden" name="act" value="procModuleFileBoxAdd" />
+        <input type="hidden" name="vid" value="{$vid}" />
+        <input type="hidden" name="filter" value="{$filter}" />
+        <input type="hidden" name="input" value="{$input}" />
+        <input type="hidden" name="{$form_key_name}" value="{$form_key}" />
+        <input type="hidden" name="dropped_file" value="Y" />
+        <div class="dz-default dz-message">
+            <span>Drop files here to upload</span>
+        </div>
+        <div class="fallback">
+            <input name="file" type="file" multiple />
+        </div>
+    </form>
+</div>
     <form style="margin-top: 40px;" action="./" class="portlet form" method="post" enctype="multipart/form-data">
         <input type="hidden" name="module" value="module" />
         <input type="hidden" name="act" value="procModuleFileBoxAdd" />

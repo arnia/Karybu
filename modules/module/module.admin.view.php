@@ -242,6 +242,9 @@
             Context::set('filebox_list', $output->data);
             Context::set('page_navigation', $output->page_navigation);
             Context::set('page', $page);
+            $csrf = new \Karybu\Security\Csrf();
+            Context::set('form_key_name', $csrf->getFormKeyName());
+            Context::set('form_key', $csrf->getSessionFormKey());
             $this->setTemplateFile('adminFileBox');
 		}
     }

@@ -841,8 +841,15 @@
             $logged_info = Context::get('logged_info');
             if($logged_info->is_admin !='Y' && !$logged_info->is_site_admin) return new Object(-1, 'msg_not_permitted');
 
-            $vars = Context::gets('addfile','filter');
+
             $attributes = Context::getRequestVars();
+            if($attributes->dropped_file == 'Y'){
+                $vars = new stdClass();
+                $vars->addfile = $attributes->file;
+                $vars->filter = Context::get('filter');
+            }else{
+                $vars = Context::gets('addfile','filter');
+            }
             foreach($attributes as $key => $value){
             	if(!(strpos($key, 'attribute_name') === false)) $vars->comment = $vars->comment.';'.$value;
             	if(!(strpos($key, 'attribute_value') ===false)) $vars->comment = $vars->comment.':'.$value;
@@ -866,8 +873,7 @@
             // insert
             }else{
                 if(!Context::isUploaded()) return new Object(-1, 'msg_error_occured');
-                $addfile = Context::get('addfile');
-                if(!is_uploaded_file($addfile['tmp_name'])) return new Object(-1, 'msg_error_occured');
+                if(!is_uploaded_file($vars->addfile['tmp_name'])) return new Object(-1, 'msg_error_occured');
                 if($vars->addfile['error'] != 0) return new Object(-1, 'msg_error_occured');
                 $output = $this->insertModuleFileBox($vars);
             }
