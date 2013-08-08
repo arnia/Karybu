@@ -1,0 +1,12 @@
+<load target="js/search_admin.js" usecdn="true" />
+
+<h1>
+    {$lang->search_manager}
+    <span class="xe-ui-nav">
+        <a href="{getUrl('act','dispSearchAdminContent')}" class="xe-ui-button-gray <!--@if($act=='dispSearchAdminContent')-->disabled<!--@end-->">{$lang->cmd_setup}</a>
+        <a href="{getUrl('act','dispSearchAdminSkinInfo')}" class="xe-ui-button-gray <!--@if($act=='dispSearchAdminSkinInfo')-->disabled<!--@end-->">{$lang->cmd_manage_skin}</a>
+    </span>
+</h1>
+<div class="xe-ui-title-separator">
+    <hr/>
+</div>

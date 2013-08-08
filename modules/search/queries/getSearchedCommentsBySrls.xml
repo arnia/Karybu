@@ -1,0 +1,17 @@
+<query id="getSearchedCommentsBySrls" action="select">
+    <tables>
+        <table name="comments" alias="comments" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="in" column="comment_srl" var="comments_srls"/>
+    </conditions>
+    <navigation>
+        <index var="sort_index" default="list_order" order="asc" />
+        <list_count var="list_count" default="20" />
+        <page_count var="page_count" default="10" />
+        <page var="page" default="1" />
+    </navigation>
+</query>
