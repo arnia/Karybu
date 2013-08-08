@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+    <grants />
+    <permissions />
+    <actions>
+        <action name="IS" type="view" standalone="true" />
+        <action name="dispSearchAdminContent" type="view" admin_index="true" />
+        <action name="dispSearchAdminGrantInfo" type="view" />
+        <action name="dispSearchAdminSkinInfo" type="view" />
+
+        <action name="procSearchAdminInsertConfig" type="controller" ruleset="insertConfig" />
+        <action name="procSearchAdminInsertSkin" type="controller" />
+    </actions>
+</module>

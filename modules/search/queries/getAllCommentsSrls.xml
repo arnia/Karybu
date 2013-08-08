@@ -1,0 +1,8 @@
+<query id="getAllCommentsSrls" action="select">
+    <tables>
+        <table name="comments" />
+    </tables>
+    <columns>
+        <column name="comment_srl" />
+    </columns>
+</query>
