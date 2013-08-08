@@ -2213,9 +2213,9 @@ class moduleModel extends module
         $this->add('html', $html);
     }
 
-    function getModuleFileBoxPath($module_filebox_srl)
+    function getModuleFileBoxPath()
     {
-        return sprintf("./files/attach/filebox/%s", getNumberingPath($module_filebox_srl, 3));
+        return sprintf("./files/attach/filebox/");
     }
 
     /**

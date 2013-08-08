@@ -904,10 +904,10 @@
                 $output = $oModuleModel->getModuleFileBox($vars->module_filebox_srl);
                 FileHandler::removeFile($output->data->filename);
 
-                $path = $oModuleModel->getModuleFileBoxPath($vars->module_filebox_srl);
+                $path = $oModuleModel->getModuleFileBoxPath();
                 FileHandler::makeDir($path);
 
-                $save_filename = sprintf('%s%s.%s',$path, $vars->module_filebox_srl, $ext);
+                $save_filename = sprintf('%s%s',$path, $vars->addfile['name']);
                 $tmp = $vars->addfile['tmp_name'];
 
                 if(!@move_uploaded_file($tmp, $save_filename)) {
@@ -936,9 +936,9 @@
 
             // get file path
             $oModuleModel = &getModel('module');
-            $path = $oModuleModel->getModuleFileBoxPath($vars->module_filebox_srl);
+            $path = $oModuleModel->getModuleFileBoxPath();
             FileHandler::makeDir($path);
-            $save_filename = sprintf('%s%s.%s',$path, $vars->module_filebox_srl, $vars->ext);
+            $save_filename = sprintf('%s%s',$path, $vars->addfile['name']);
             $tmp = $vars->addfile['tmp_name'];
 
             // upload

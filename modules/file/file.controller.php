@@ -559,13 +559,14 @@
                 $file_info['name'] = preg_replace('/\.(php|phtm|html?|cgi|pl|exe|jsp|asp|inc)/i', '$0-x',$file_info['name']);
                 $file_info['name'] = str_replace(array('<','>'),array('%3C','%3E'),$file_info['name']);
 
-                $path = sprintf("./files/attach/images/%s/%s", $module_srl,getNumberingPath($upload_target_srl,3));
+                $path = sprintf("./files/attach/images/%s/%s/", $module_srl,$upload_target_srl);
 
 				// special character to '_'
 				// change to md5 file name. because window php bug. window php is not recognize unicode character file name - by cherryfilter
 				$ext = substr(strrchr($file_info['name'],'.'),1);
 				//$_filename = preg_replace('/[#$&*?+%"\']/', '_', $file_info['name']);
-				$_filename = md5(crypt(rand(1000000,900000), rand(0,100))).'.'.$ext;
+				//$_filename = md5(crypt(rand(1000000,900000), rand(0,100))).'.'.$ext;
+                $_filename = $file_info['name'];
                 $filename  = $path.$_filename;
                 $idx = 1;
                 while(file_exists($filename)) {
@@ -574,8 +575,9 @@
                 }
                 $direct_download = 'Y';
             } else {
-                $path = sprintf("./files/attach/binaries/%s/%s", $module_srl, getNumberingPath($upload_target_srl,3));
-                $filename = $path.md5(crypt(rand(1000000,900000), rand(0,100)));
+                $path = sprintf("./files/attach/binaries/%s/%s/", $module_srl, $upload_target_srl);
+                //$filename = $path.md5(crypt(rand(1000000,900000), rand(0,100)));
+                $filename = $path.$file_info['name'];
                 $direct_download = 'N';
             }
             // Create a directory
@@ -584,12 +586,14 @@
             if($manual_insert) {
                 @copy($file_info['tmp_name'], $filename);
                 if(!file_exists($filename)) {
-                    $filename = $path. md5(crypt(rand(1000000,900000).$file_info['name'])).'.'.$ext;
+                    //$filename = $path. md5(crypt(rand(1000000,900000).$file_info['name'])).'.'.$ext;
+                    $filename = $path.$file_info['name'];
                     @copy($file_info['tmp_name'], $filename);
                 }
             } else {
                 if(!@move_uploaded_file($file_info['tmp_name'], $filename)) {
-                    $filename = $path. md5(crypt(rand(1000000,900000).$file_info['name'])).'.'.$ext;
+                    //$filename = $path. md5(crypt(rand(1000000,900000).$file_info['name'])).'.'.$ext;
+                    $filename = $path.$file_info['name'];
                     if(!@move_uploaded_file($file_info['tmp_name'], $filename))  return new Object(-1,'msg_file_upload_error');
                 }
             }
