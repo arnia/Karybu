@@ -2210,6 +2210,31 @@ class documentController extends document {
 		$this->add('document_list', $documentList);
 	}
 
+    public function procInsertForeignFile(){
+        $vars = Context::getRequestVars();
+        $oFileModel = getModel('file');
+        $args = $oFileModel->getFile($vars->file_srl);
+
+        if(!Context::get('document_srl')){
+            $document_srl = getNextSequence();
+            $this->add('document_srl',$document_srl);
+            $args->isvalid = 'N';
+        }else{
+            $document_srl = Context::get('document_srl');
+            $args->isvalid = 'Y';
+        }
+        $args->file_srl = getNextSequence();
+        $args->upload_target_srl = $document_srl;
+        unset($args->regdate);
+        unset($args->ipaddress);
+        $args->download_url = $args->uploaded_filename;
+
+        $output =  $output = executeQuery('file.insertFile', $args);
+
+        $this->add('file',$args);
+        //$this->add('source_filename',$args->source_filename);
+    }
+
 	/**
 	 * For old version, comment allow status check.
 	 * @param object $obj

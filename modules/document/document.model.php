@@ -1026,6 +1026,26 @@ class documentModel extends document
         return $oTemplate->compile($this->module_path . 'tpl', 'category_list');
     }
 
+    public function getDocumentsFilesJson(){
+        $vars = Context::getRequestVars();
+        $oModuleModel = getModel('module');
+
+        $args = new stdClass();
+        $module_srl = $oModuleModel->getModuleSrlByMid($vars->module_instance);
+        $args->module_srl = $module_srl[0];
+        $args->search = $vars->search;
+        $output = executeQueryArray('file.getModuleSimilarFiles',$args);
+        $files = $output->data;
+        $unique = array();
+        $unique_files = array();
+        foreach($files as $file){
+            if(!in_array($file->uploaded_filename,$unique)){
+                $unique[] = $file->uploaded_filename;
+                $unique_files[] = $file;
+            }
+        }
+        $this->add('files',$unique_files);
+    }
     /**
      * Certain categories of information, return the template guhanhu
      * Manager on the page to add information about a particular menu from the server after compiling tpl compiled a direct return html

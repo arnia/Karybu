@@ -1,0 +1,9 @@
+<query id="getModuleSimilarFiles" action="select">
+    <tables>
+        <table name="files" />
+    </tables>
+    <conditions>
+        <condition operation="equal" column="module_srl" var="module_srl" filter="number" notnull="notnull" />
+        <condition operation="like" column="source_filename" var="search" notnull="notnull" pipe="and"/>
+    </conditions>
+</query>

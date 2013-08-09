@@ -393,4 +393,8 @@
 		<value xml:lang="en"><![CDATA[You can disable a category feature.]]></value>
         <value xml:lang="ro"><![CDATA[Poţi dezactiva optiunea de categorie]]></value>
 	</item>
+    <item name="search_attachments">
+		<value xml:lang="en"><![CDATA[Search other attachments by name]]></value>
+        <value xml:lang="ro"><![CDATA[Cauta atasamente dupa nume]]></value>
+	</item>
 </lang>

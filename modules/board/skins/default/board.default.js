@@ -1,5 +1,59 @@
 jQuery(function($){
-	// delete the border for the last row
+    //autocomplete search other attachments
+    $( "#search_attachments" )
+        .autocomplete({
+            minLength: 1,
+            source: function( request, response ) {
+                var params ={
+                    "search":request.term
+                    ,"module_instance":$('input[name=mid]').val()
+                };
+                $("#search_attachments").addClass( "ui-autocomplete-loading" );
+                $.exec_json('document.getDocumentsFilesJson', params, function(data){
+                    $("#search_attachments").removeClass( "ui-autocomplete-loading" );
+                    response( data.files );
+                });
+
+
+            },
+            focus: function(event, ui) {
+                $( "#search_attachments" ).val( ui.item.source_filename );
+                return false;
+            },
+            select: function( event, ui ) {
+                $( "#search_attachments" ).val( ui.item.source_filename );
+                var params = {
+                    file_srl: ui.item.file_srl,
+                    document_srl: $('input[name=document_srl]').val()
+                };
+                $.exec_json('document.procInsertForeignFile', params, function(data){
+                    if($('input[name=document_srl]').val() == ''){
+                        $('input[name=document_srl]').val(data.document_srl);
+                    }
+                    if($(".fileList option")[0].value == ''){
+                        $(".fileList option")[0].remove();
+                    }
+                    $(".fileList").append('<option selected="true" value='+data.file.file_srl+'>'+ data.file.source_filename +'</option>');
+
+                    data.file.previewAreaID = $('.preview').attr('id');
+                    uploadedFiles[data.file.file_srl] = data.file;
+                    previewFiles(null,data.file.file_srl);
+                })
+                return false;
+
+            }
+        })
+        .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+        console.log(item)
+
+
+        return $( "<li>" )
+            .append( "<a>" + item.source_filename + "<img class='thumb' src='" + item.uploaded_filename + "'></a>" )
+            .appendTo( ul );
+        };
+
+
+    // delete the border for the last row
 	$('.board_list tr:last-child>td').css('border','0');
 	// hide last tag
 	$('.read_footer .tags span:last-child').hide();
@@ -14,24 +68,24 @@ jQuery(function($){
 		};
 	});
 	// user input text blur/focus/change
-	var iText = $('.item .iLabel').next('.iText');
+	var iText = $('.item .iLabel').siblings('.iText');
 	$('.item .iLabel').css('position','absolute');
 	iText
 		.focus(function(){
-			$(this).prev('.iLabel').css('visibility','hidden');
+			$(this).siblings('.iLabel').css('visibility','hidden');
 		})
 		.blur(function(){
 			if($(this).val() == ''){
-				$(this).prev('.iLabel').css('visibility','visible');
+				$(this).siblings('.iLabel').css('visibility','visible');
 			} else {
-				$(this).prev('.iLabel').css('visibility','hidden');
+				$(this).siblings('.iLabel').css('visibility','hidden');
 			}
 		})
 		.change(function(){
 			if($(this).val() == ''){
-				$(this).prev('.iLabel').css('visibility','visible');
+				$(this).siblings('.iLabel').css('visibility','visible');
 			} else {
-				$(this).prev('.iLabel').css('visibility','hidden');
+				$(this).siblings('.iLabel').css('visibility','hidden');
 			}
 		})
 		.blur();

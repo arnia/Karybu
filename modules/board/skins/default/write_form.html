@@ -33,7 +33,7 @@
 	</div>
 	<div class="write_footer">
 		<div class="write_option">
-			<block cond="$grant->manager">
+            <block cond="$grant->manager">
 				<input type="checkbox" name="title_bold" id="title_bold" class="iCheck" value="Y" checked="checked"|cond="$oDocument->get('title_bold')=='Y'" />
 				<label for="title_bold">{$lang->title_bold}</label>
 			</block>
@@ -55,6 +55,11 @@
 			<!--@end-->
 		</div>
 		<div class="write_author">
+            <span class="item">
+				<label for="search_attachments" class="iLabel">{$lang->search_attachments}</label>
+				<input type="text" name="search_attachments" id="search_attachments" value="" class="iText" style="width:300px" title="Search" />
+			</span>
+            </br>
 			<span class="item" cond="!$is_logged">
 				<label for="userName" class="iLabel">{$lang->writer}</label>
 				<input type="text" name="nick_name" id="userName" class="iText userName" style="width:80px" value="{htmlspecialchars($oDocument->get('nick_name'))}" />

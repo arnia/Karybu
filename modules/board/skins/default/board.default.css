@@ -270,3 +270,11 @@
 .board .btn:hover,
 .board .btn:active,
 .board .btn[disabled]{color:#333333;background-color:#e6e6e6;*background-color:#d9d9d9}
+
+.ui-autocomplete-loading{
+    background:url('ajax-loader.gif') no-repeat right center !important;
+}
+
+.thumb{
+    height: 40px;
+}
