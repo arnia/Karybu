@@ -901,30 +901,41 @@ class documentItem extends Object
         }
         // Target File
         $source_file = null;
-        $is_tmp_file = false;
-        // Find an iamge file among attached files if exists
-        if ($this->get('uploaded_count')) {
-            $oFileModel = & getModel('file');
-            $file_list = $oFileModel->getFiles($this->document_srl, array(), 'file_srl', true);
-            if (count($file_list)) {
-                foreach ($file_list as $file) {
-                    if ($file->direct_download != 'Y') {
-                        continue;
-                    }
-                    if (!preg_match("/\.(jpg|png|jpeg|gif|bmp)$/i", $file->source_filename)) {
-                        continue;
-                    }
+        // check if there is a featured img selected
+        $oFileModel = & getModel('file');
+        if($this->get('featured_file_srl')){
+            $featured_file = $oFileModel->getFile($this->get('featured_file_srl'));
+            if (preg_match("/\.(jpg|png|jpeg|gif|bmp)$/i", $featured_file->uploaded_filename)){
+                $source_file = $featured_file->uploaded_filename;
+            }
+        }
+        //check to see if source file is already set
+        if(!$source_file){
+            $is_tmp_file = false;
+            // Find an iamge file among attached files if exists
+            if ($this->get('uploaded_count')) {
+                $file_list = $oFileModel->getFiles($this->document_srl, array(), 'file_srl', true);
+                if (count($file_list)) {
+                    foreach ($file_list as $file) {
+                        if ($file->direct_download != 'Y') {
+                            continue;
+                        }
+                        if (!preg_match("/\.(jpg|png|jpeg|gif|bmp)$/i", $file->source_filename)) {
+                            continue;
+                        }
 
-                    $source_file = $file->uploaded_filename;
-                    if (!file_exists($source_file)) {
-                        $source_file = null;
-                    }
-                    else {
-                        break;
+                        $source_file = $file->uploaded_filename;
+                        if (!file_exists($source_file)) {
+                            $source_file = null;
+                        }
+                        else {
+                            break;
+                        }
                     }
                 }
             }
         }
+
         // If not exists, file an image file from the content
         if (!$source_file) {
             $content = $this->get('content');

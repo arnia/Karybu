@@ -378,7 +378,7 @@
 			if(in_array('summary', $configColumList)) array_push($this->columnList, 'content');
 
 			// default column list add
-			$defaultColumn = array('document_srl', 'module_srl', 'category_srl', 'lang_code', 'member_srl', 'last_update', 'comment_count', 'trackback_count', 'uploaded_count', 'status', 'regdate', 'title_bold', 'title_color');
+			$defaultColumn = array('document_srl', 'module_srl', 'category_srl', 'lang_code', 'member_srl', 'last_update', 'comment_count', 'trackback_count', 'uploaded_count', 'status', 'regdate', 'title_bold', 'title_color', 'featured_file_srl');
 
 			//TODO guestbook, blog style supports legacy codes.
 			if($this->module_info->skin == 'xe_guestbook' || (isset($this->module_info->default_style) && $this->module_info->default_style == 'blog'))
