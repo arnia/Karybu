@@ -3,6 +3,7 @@
 	<input type="hidden" name="mid" value="{$mid}" />
 	<input type="hidden" name="content" value="{$oDocument->getContentText()}" />
 	<input type="hidden" name="document_srl" value="{$document_srl}" />
+	<input type="hidden" name="featured_file_srl" value="{$oDocument->get('featured_file_srl')}" />
     <div class="write_header">
         <input type="text" name="meta_description" class="iText" title="{$lang->meta_description}" value="{htmlspecialchars($oDocument->get('meta_description'))}" />
         <input type="text" name="meta_keywords" class="iText" title="{$lang->meta_keywords}" value="{htmlspecialchars($oDocument->get('meta_keywords'))}" />

@@ -101,8 +101,12 @@
             <button type="button" id="swfUploadButton{$editor_sequence}" class="text btn">{$lang->edit->upload_file}</button>
             <button type="button" onclick="removeUploadedFile('{$editor_sequence}');" class="text btn">{$lang->edit->delete_selected}</button>
             <button type="button" onclick="mceInsertUploadedFile('{$editor_sequence}');" class="text btn">{$lang->edit->link_file}</button>
+            <div class="file_attach_info" id="uploader_status_{$editor_sequence}">{$upload_status}</div>
         </div>
-        <div class="file_attach_info" id="uploader_status_{$editor_sequence}">{$upload_status}</div>
+        <div class="featured_file">
+            <button type="button" onclick="addFeaturedImage('{$editor_sequence}');" class="btn text">{$lang->edit->add_featured_image}</button>
+            <div class="preview_featured_file" id="preview_featured_file"></div>
+        </div>
     </div>
 </div>    
 <!--@if($allow_fileupload)-->
