@@ -1495,6 +1495,10 @@ Bài viết tự động lưu sẽ tự động hủy sau khi bạn hoàn thành
 			<value xml:lang="tr"><![CDATA[Seçileni Sil]]></value>
             <value xml:lang="ro"><![CDATA[Sterge selecţia.]]></value>
 		</item>
+        <item name="add_featured_image">
+			<value xml:lang="en"><![CDATA[Featured image]]></value>
+            <value xml:lang="ro"><![CDATA[Imagine preferata]]></value>
+		</item>
 		<item name="icon_align_article">
 			<value xml:lang="ko"><![CDATA[한 문단을 차지]]></value>
 			<value xml:lang="en"><![CDATA[Occupy a paragraph]]></value>

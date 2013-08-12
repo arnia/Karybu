@@ -130,6 +130,9 @@ class document extends ModuleObject
         if (!$oDB->isColumnExists('documents', 'meta_keywords')) {
             return true;
         }
+        if (!$oDB->isColumnExists('documents', 'featured_file_srl')) {
+            return true;
+        }
 		return false;
 	}
 
@@ -318,6 +321,9 @@ class document extends ModuleObject
         }
         if(!$oDB->isColumnExists('documents', 'meta_keywords')) {
             $oDB->addColumn('documents', 'meta_keywords', 'varchar', 255);
+        }
+        if(!$oDB->isColumnExists('documents', 'featured_file_srl')) {
+            $oDB->addColumn('documents', 'featured_file_srl', 'number', 11);
         }
 		return new Object(0,'success_updated');
 	}

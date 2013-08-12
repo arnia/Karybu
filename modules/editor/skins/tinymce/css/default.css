@@ -1,15 +1,17 @@
 /* File Uploader */
 .tiny_mce_editor .fileUploader{clear:both;padding-top:5px;margin-bottom:10px}
+.tiny_mce_editor .fileUploader > div{display: inline-block; margin-right: 10px;position: relative; float: left; clear: none; }
 .tiny_mce_editor .fileUploader:after{content:"";display:block;clear:both}
 .tiny_mce_editor .fileUploader .preview{float:left;width:64px;height:64px;border:1px solid #ccc;;padding:2px;margin:0 10px 5px 0}
+.tiny_mce_editor .fileUploader .preview_featured_file{display: inline-block; width:64px;height:64px;border:1px solid #ccc;;padding:2px;margin:0 10px 5px 0}
 .tiny_mce_editor .fileUploader .preview.black {background-color:#000;border:1px solid #666}
+.tiny_mce_editor .fileUploader .preview_featured_file img{display:block;width:64px;height:64px}
 .tiny_mce_editor .fileUploader .preview img{display:block;width:64px;height:64px}
 .tiny_mce_editor .fileUploader .fileListArea{float:left;width:260px;margin:0 10px 5px 0}
 .tiny_mce_editor .fileUploader .fileListArea select{width:100%;height:70px;overflow:auto;margin:0;padding:0;float:none}
 .tiny_mce_editor .fileUploader .fileListArea select option{font-size:11px}
 .tiny_mce_editor .fileUploader .fileListArea.black select {background-color:#000;border:1px solid #666}
 .tiny_mce_editor .fileUploader .fileListArea.black select option {color:#aaa}
-.tiny_mce_editor .fileUploader .fileUploadControl{clear:right}
 .tiny_mce_editor .fileUploader .fileUploadControl .button{margin-bottom:5px}
 .tiny_mce_editor .fileUploader .file_attach_info{clear:right;margin:5px 0;font-size:11px;color:#333}
 /* Auto Save */

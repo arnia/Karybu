@@ -311,6 +311,28 @@ function reloadFileList(cfg) {
 			if(i) $list.prop('selectedIndex', i-1).click();
 		}
 
+        featured_file_srl = $('[name="featured_file_srl"]').val();
+        featuredFileInfo = uploadedFiles[featured_file_srl];
+        featuredPreview = $('#preview_featured_file').html('&nbsp;');
+        if(!featuredPreview.length) return;
+
+        filename = featuredFileInfo.download_url || '';
+        match    = filename.match(/\.(?:(flv)|(swf)|(wmv|avi|mpe?g|as[fx]|mp3)|(jpe?g|png|gif))$/i);
+
+        if(featuredFileInfo.direct_download != 'Y' || !match) {
+            html = '<img src="'+request_uri+'modules/editor/tpl/images/files.gif" border="0" width="100%" height="100%" />';
+        } else if(match[1]) { // flash video file
+            html = '<embed src="'+request_uri+'common/img/flvplayer.swf?autoStart=false&file='+filename+'" width="100%" height="100%" type="application/x-shockwave-flash" />';
+        } else if(match[2]) { // shockwave flash file
+            html = '<embed src="'+request_uri+filename+'" width="100%" height="100%" type="application/x-shockwave-flash"  />';
+        } else if(match[3]) { // movie file
+            html = '<embed src="'+request_uri+filename+'" width="100%" height="100%" autostart="true" showcontrols="0" />';
+        } else if(match[4]) { // image file
+            html = '<img src="'+request_uri+filename+'" border="0" width="100%" height="100%" />';
+        }
+
+        if(html) featuredPreview.html(html);
+
 		// Force auto-save one-time use documentation (attachment target_srl automatically saved as one for storing the document as well)
 		if(!uploadAutosaveChecker) autosave();
 	};
@@ -354,7 +376,7 @@ function previewFiles(event, file_srl) {
 	if(fileinfo.direct_download != 'Y' || !match) {
 		html = '<img src="'+request_uri+'modules/editor/tpl/images/files.gif" border="0" width="100%" height="100%" />';
 	} else if(match[1]) { // flash video file
-        html = '<embed src="'+request_uri+'common/img/flvplayer.swf?autoStart=false&file='+uploaded_filename+'" width="100%" height="100%" type="application/x-shockwave-flash" />';
+        html = '<embed src="'+request_uri+'common/img/flvplayer.swf?autoStart=false&file='+filename+'" width="100%" height="100%" type="application/x-shockwave-flash" />';
 	} else if(match[2]) { // shockwave flash file
 		html = '<embed src="'+request_uri+filename+'" width="100%" height="100%" type="application/x-shockwave-flash"  />';
 	} else if(match[3]) { // movie file
@@ -390,6 +412,46 @@ function removeUploadedFile(editorSequence) {
 	};
 
 	exec_xml("file","procFileDelete", params, function() { reloadFileList(settings); } );
+}
+
+function addFeaturedImage(editorSequence){
+    var settings = uploaderSettings[editorSequence];
+    var fileListAreaID = settings["fileListAreaID"];
+    var fileListObj = get_by_id(fileListAreaID);
+    if(!fileListObj) return;
+    if(fileListObj.selectedIndex<0) return;
+    for(var i=0;i<fileListObj.options.length;i++) {
+        if(!fileListObj.options[i].selected) continue;
+        if(fileListObj.options[i].selected){
+            var file_srl = fileListObj.options[i].value;
+            if(!file_srl) continue;
+            break;
+        }
+    }
+
+    if(!file_srl) return;
+    fileInfo = uploadedFiles[file_srl];
+
+    $preview =  document.getElementById('preview_featured_file');
+
+    filename = fileInfo.download_url || '';
+    match    = filename.match(/\.(?:(flv)|(swf)|(wmv|avi|mpe?g|as[fx]|mp3)|(jpe?g|png|gif))$/i);
+
+    if(fileInfo.direct_download != 'Y' || !match) {
+        html = '<img src="'+request_uri+'modules/editor/tpl/images/files.gif" border="0" width="100%" height="100%" />';
+    } else if(match[1]) { // flash video file
+        html = '<embed src="'+request_uri+'common/img/flvplayer.swf?autoStart=false&file='+filename+'" width="100%" height="100%" type="application/x-shockwave-flash" />';
+    } else if(match[2]) { // shockwave flash file
+        html = '<embed src="'+request_uri+filename+'" width="100%" height="100%" type="application/x-shockwave-flash"  />';
+    } else if(match[3]) { // movie file
+        html = '<embed src="'+request_uri+filename+'" width="100%" height="100%" autostart="true" showcontrols="0" />';
+    } else if(match[4]) { // image file
+        html = '<img src="'+request_uri+filename+'" border="0" width="100%" height="100%" />';
+    }
+
+    if(html) $preview.innerHTML = html;
+
+    document.getElementsByName("featured_file_srl")[0].value = file_srl;
 }
 
 function insertUploadedFile(editorSequence) {
