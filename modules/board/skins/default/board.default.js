@@ -27,11 +27,13 @@ jQuery(function($){
                     document_srl: $('input[name=document_srl]').val()
                 };
                 $.exec_json('document.procInsertForeignFile', params, function(data){
-                    if($('input[name=document_srl]').val() == ''){
-                        $('input[name=document_srl]').val(data.document_srl);
+                    var $input = $('input[name=document_srl]');
+                    if ($input.val() == ''){
+                        $input.val(data.document_srl);
                     }
-                    if($(".fileList option")[0].value == ''){
-                        $(".fileList option")[0].remove();
+                    var $fileList = $('.fileList option');
+                    if($fileList[0].value == ''){
+                        $fileList[0].remove();
                     }
                     $(".fileList").append('<option selected="true" value='+data.file.file_srl+'>'+ data.file.source_filename +'</option>');
 
@@ -44,12 +46,9 @@ jQuery(function($){
             }
         })
         .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-        console.log(item)
-
-
-        return $( "<li>" )
-            .append( "<a>" + item.source_filename + "<img class='thumb' src='" + item.uploaded_filename + "'></a>" )
-            .appendTo( ul );
+            return $( "<li>" )
+                .append( "<a>" + item.source_filename + "<img class='thumb' src='" + item.uploaded_filename + "'></a>" )
+                .appendTo( ul );
         };
 
 
@@ -128,3 +127,138 @@ jQuery(function($){
 		});
 	};
 })(jQuery);
+
+
+/**
+ * related documents
+ */
+
+(function( $ ) {
+
+$.fn.appendKDocument = function(doc, type, limit) {
+    return this.each(function() {
+        if ($(this).is('ul')) {
+
+            var count = 0;
+            var exists = false;
+            $(this)
+                .children('li').each(function() {
+                    if ($(this).data('srl') == doc.document_srl) {
+                        exists = true;
+                    }
+                    count++;
+                });
+
+            var el = '<li data-srl="' + doc.document_srl + '" data-type="' + type + '">' +
+                '<input type="hidden" checked name="related[]" id="related' + doc.document_srl + '" value="' + doc.document_srl + '">' +
+                '<span class="related_content">' + doc.title + '</span>' +
+                '<span class="delete_related">x</span>' +
+                '</li>';
+
+            if (type == 'auto') {
+                if (!exists) {
+                    $(this).append(el);
+                    count++;
+                }
+            }
+            else {
+                if (!exists) {
+                    $(this).prepend(el);
+                    count++;
+                }
+                else {
+                    var li = $('li[data-srl=' + doc.document_srl + ']', $(this));
+                    li.attr('data-type', 'manual');
+                    $(this).prepend(li);
+                }
+            }
+
+            if (count > limit) {
+                $('li:last', $(this)).remove();
+                count--;
+            }
+
+        }
+    });
+};
+
+}( jQuery ));
+
+jQuery(function($) {
+
+    $('#related')
+        .autocomplete({
+            minLength: 1,
+            source: function( request, response ) {
+                $.exec_json('document.getDocumentsRelated', {
+                    title: request.term
+                }, function(data){
+                    response( data.docs );
+                });
+            },
+            focus: function(event, ui) {
+                $( "#related" ).val( ui.item.title );
+                return false;
+            },
+            select: function( event, ui ) {
+                $( "#related" ).val( ui.item.title );
+                var $ul = $('ul#related_articles');
+                $ul.appendKDocument(ui.item, 'manual', $ul.data('max'));
+                $(event.target).val('');
+                return false;
+            }
+        }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+            var tmp = $('<div>').html(item.content);
+            var content = tmp.text().substr(0, 200);
+
+            var re = new RegExp($('#related').val(), 'gi');
+            var bTitle = item.title.replace(re, '<strong>$&</strong>');
+
+            return $( "<li>" )
+                .append( "<a>" + bTitle + "<br>" + content + "</a>" )
+                .appendTo( ul );
+        };
+    $('.delete_related').live('click', function(){
+        $(this).parent().fadeOut(function(){
+            $(this).remove();
+        });
+    });
+
+    setInterval(function() {
+        var title = $('div.write_header input[name=title]');
+        var content = CKEDITOR.instances[jQuery('.write_editor .ckeditor:first > textarea:first').attr('id')].getData();
+        var tags = $('#tags');
+
+        var changedTitle = title.val() != title.data('lastTitle');
+        var changedContent = content != title.data('lastContent');
+        var changedTags = tags.val() != title.data('lastTags');
+
+        if (changedTitle) {
+            title.data('lastTitle', title.val());
+        }
+        if (changedContent) {
+            title.data('lastContent', content);
+        }
+        if (changedTags) {
+            title.data('lastTags', tags.val());
+        }
+        if (changedTitle || changedContent || changedTags) {
+            $('ul#related_articles li:[data-type=auto]').remove();
+        }
+
+        if ((title.val().length && changedTitle) || (content.length && changedContent) || (tags.val().length && changedTags)) {
+            var manuals = $('ul#related_articles li:[data-type=manual]').length;
+            $.exec_json('document.getDocumentsRelated', {
+                list_count: 3 - manuals,
+                title: title.val(),
+                content: $('<div>' + content + '</div>').text(),
+                tags: tags.val()
+            }, function(data) {
+                $.each(data.docs, function(i, doc) {
+                    var $ul = $('ul#related_articles');
+                    $ul.appendKDocument(doc, 'auto', $ul.data('max'));
+                });
+            });
+        }
+    }, 2000);
+});

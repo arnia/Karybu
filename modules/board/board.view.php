@@ -485,8 +485,27 @@
 
 			// if the document is not granted, then back to the password input form
 			$oModuleModel = &getModel('module');
-            if($oDocument->isExists()&&!$oDocument->isGranted()) return $this->setTemplateFile('input_password_form');
-            if(!$oDocument->isExists()) {
+            if ($oDocument->isExists()) {
+                if (!$oDocument->isGranted()) {
+                    return $this->setTemplateFile('input_password_form');
+                }
+                //related
+                if (isset($oDocument->variables['extra_vars'])) {
+                    $ev = unserialize($oDocument->variables['extra_vars']);
+                    $str = $ev['related'];
+                    $relateds = (strpos('|@|', $str) === false ? explode('|@|', $str) : array($str));
+                    if (!empty($relateds)) {
+                        $args = new stdClass();
+                        $args->document_srls = $relateds;
+                        $output = executeQueryArray('search.getDocumentsBySrls', $args);
+                        $docs = $output->data;
+                        if (!empty($output->data)) {
+                            Context::set('related_documents', $docs);
+                        }
+                    }
+                }
+            }
+            else {
                 $point_config = $oModuleModel->getModulePartConfig('point',$this->module_srl);
                 $logged_info = Context::get('logged_info');
                 $oPointModel = &getModel('point');
@@ -496,7 +515,10 @@
                     else if (($oPointModel->getPoint($logged_info->member_srl) + $pointForInsert )< 0 ) return $this->dispBoardMessage('msg_not_enough_point');
                 }
             }
-			if(!$oDocument->get('status')) $oDocument->add('status', $oDocumentModel->getDefaultStatus());
+
+			if (!$oDocument->get('status')) {
+                $oDocument->add('status', $oDocumentModel->getDefaultStatus());
+            }
 
 			$statusList = $this->_getStatusNameList($oDocumentModel);
 			if(count($statusList) > 0) Context::set('status_list', $statusList);

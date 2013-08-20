@@ -1696,5 +1696,89 @@ class documentModel extends document
             }
         }
     }
+
+    function getDocumentsJson()
+    {
+        if (!Context::get('is_logged')) {
+            return new Object(-1, 'msg_not_permitted');
+        }
+        $search = Context::get('search');
+
+        $searchController = new searchController();
+        //$srls = $searchController->getDocumentSerials($title);
+        $indexedResults = array();
+        if ($search) {
+            $docs = $searchController->retrieveDocumentsFromIndex($search, 'title', 0, 10);
+            if (!($docs instanceof \Exception) && !empty($docs)) {
+                array_push($indexedResults, $docs);
+            }
+        }
+
+        $srls = array();
+        foreach ($indexedResults as $doc) {
+            if (empty($doc)) continue;
+            if (!in_array($doc[0]->srl, $srls)) {
+                $srls[] = $doc[0]->srl;
+            }
+        }
+
+        $args = new stdClass();
+        $args->documents_srls = $srls;
+        $args->list_count = Context::get('list_count');
+        $output = executeQueryArray('search.getSearchedDocumentsBySrls', $args);
+
+        $this->add('docs', $output->data);
+    }
+
+    public function getDocumentsRelated()
+    {
+        if (!Context::get('is_logged')) {
+            return new Object(-1, 'msg_not_permitted');
+        }
+
+        /**
+         * get srls using zend_search_lucene document indexes
+         */
+        $searchController = new searchController();
+        //$srls = $searchController->getDocumentSerials($title);
+        $indexedResults = array();
+
+        if ($title = Context::get('title')) {
+            $docs = $searchController->retrieveDocumentsFromIndex($title, 'title', 0, 10);
+            if (!($docs instanceof \Exception) && !empty($docs)) {
+                array_push($indexedResults, $docs);
+            }
+        }
+        if ($content = Context::get('content')) {
+            $docs = $searchController->retrieveDocumentsFromIndex($content, 'content', 0, 10);
+            if (!($docs instanceof \Exception) && !empty($docs)) {
+                array_push($indexedResults, $docs);
+            }
+        }
+        if ($tags = Context::get('tags')) {
+            $docs = $searchController->retrieveDocumentsFromIndex($tags, 'tags', 0, 10);
+            if (!($docs instanceof \Exception) && !empty($docs)) {
+                array_push($indexedResults, $docs);
+            }
+        }
+
+        $srls = array();
+        foreach ($indexedResults as $doc) {
+            if (!in_array($doc[0]->srl, $srls)) {
+                $srls[] = $doc[0]->srl;
+            }
+        }
+
+        $docs = array();
+        if (!empty($srls)) {
+            //empty $srls will result in 3 docs returned anyway
+            $args = new stdClass();
+            $args->document_srls = $srls;
+            $args->list_count = Context::get('list_count');
+            $output = executeQueryArray('search.getDocumentsBySrls', $args);
+            $docs = $output->data;
+        }
+        $this->add('docs', $docs);
+    }
+
 }
-?>

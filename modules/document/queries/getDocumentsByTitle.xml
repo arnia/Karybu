@@ -1,0 +1,16 @@
+<query id="getDocumentsByTitle" action="select">
+    <tables>
+        <table name="documents" />
+    </tables>
+    <columns>
+        <column name="document_srl" alias="document_srl" />
+        <column name="title" alias="title" />
+        <column name="content" alias="content" />
+    </columns>
+    <conditions>
+        <condition operation="like" column="title" var="search" />
+    </conditions>
+    <navigation>
+        <list_count var="limit" default="10" />
+    </navigation>
+</query>

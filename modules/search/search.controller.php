@@ -151,9 +151,11 @@ class searchController extends search {
     }
 
     function retrieveDocumentsFromIndex($query, $searchTarget='title', $offset=0, $count=null, $justHits=false) {
-        if (!in_array($searchTarget, array('title','content','title_content','tag'))) $searchTarget = 'title';
+        if (!in_array($searchTarget, array('title','content','title_content','tag'))) {
+            $searchTarget = 'title';
+        }
         $index = $this->createOrRetrieveIndex(self::INDEX_PATH_DOCUMENTS);
-        if (in_array($searchTarget, array('title', 'content', 'tag'))) {
+        if ($searchTarget && in_array($searchTarget, array('title', 'content', 'tag'))) {
             $searchField = ( $searchTarget == 'tag' ? 'tags' : $searchTarget );
             $index->setDefaultSearchField($searchField);
         } // else search all
@@ -267,10 +269,14 @@ class searchController extends search {
 
     function getDocumentSerials($searchQuery, $page=1, $itemsPerPage=5)
     {
-        $docs = $this->retrieveDocumentsFromIndex($searchQuery, ($page-1) * $itemsPerPage, $itemsPerPage);
-        if ($docs instanceof Exception) return $docs;
+        $docs = $this->retrieveDocumentsFromIndex($searchQuery, null, ($page-1) * $itemsPerPage, $itemsPerPage);
+        if ($docs instanceof Exception) {
+            return $docs;
+        }
         $srls = array();
-        foreach ($docs as $i=>$doc) $srls[$i] = $doc->srl;
+        foreach ($docs as $i=>$doc) {
+            $srls[$i] = $doc->srl;
+        }
         return $srls;
     }
 

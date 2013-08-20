@@ -76,9 +76,38 @@
 			<span class="item">
 				<label for="tags" class="iLabel">{$lang->tag}: {$lang->about_tag}</label>
 				<input type="text" name="tags" id="tags" value="{htmlspecialchars($oDocument->get('tags'))}" class="iText" style="width:300px" title="Tag" />
-			</span>		
+			</span>
 		</div>
-		<div class="btnArea">
+
+        <style type="text/css">
+            #related_articles input {
+                display: none;
+            }
+            #related_articles .related_content {
+                display: inline-block;
+                width: 300px;
+            }
+            #related_articles .delete_related {
+                cursor: pointer;
+            }
+            #related_articles li:hover {
+                color: cornflowerblue;
+            }
+        </style>
+
+        <div style="display: block; clear: both">
+            <ul id="related_articles" data-max=3>
+                <li loop="$related_documents => $key,$doc" data-srl="{$doc->document_srl}" data-type="manual">
+                    <input type="hidden" name="related[]" id="related{$doc->document_srl}" value="{$doc->document_srl}" />
+                    <span class="related_content">{$doc->title}</span>
+                    <span class="delete_related">x</span>
+                </li>
+            </ul>
+            <BR>
+            <label for="related">Related articles:</label>
+            <input id="related" style="width: 400px;"/>
+        </div>
+        <div class="btnArea">
 			<input type="submit" value="{$lang->cmd_registration}" class="btn" />
 			<block cond="!$oDocument->isExists() || $oDocument->get('status') == 'TEMP'">
 			<button cond="$is_logged" class="btn" type="button" onclick="doDocumentSave(this);">{$lang->cmd_temp_save}</button>

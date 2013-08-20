@@ -3,12 +3,10 @@
     <grants />
     <permissions>
         <permission action="dispDocumentAdminList" target="manager" />
-
         <permission action="dispDocumentManageDocument" target="member" />
         <permission action="getDocumentCategories" target="member" />
         <permission action="getDocumentCategoryTplInfo" target="member" />
         <permission action="procDocumentAddCart" target="member" />
-
         <permission action="procDocumentInsertCategory" target="member" />
         <permission action="procDocumentManageCheckedDocument" target="member" />
         <permission action="procDocumentMoveCategory" target="member" />
@@ -59,6 +57,9 @@
         <action name="procDocumentAdminInsertConfig" type="controller" standalone="true" />
         <action name="procDocumentAdminDeleteAllThumbnail" type="controller" standalone="true" />
         <action name="procDocumentAdminCancelDeclare" type="controller" standalone="true" />
+
+        <action name="getDocumentsJson" type="model" standalone="true" />
+        <action name="getDocumentsRelated" type="model" standalone="true" />
 
     </actions>
 	<menus>

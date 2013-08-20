@@ -50,6 +50,8 @@
             // check if the document is existed
             $oDocument = $oDocumentModel->getDocument(isset($obj->document_srl) ? $obj->document_srl : null, $this->grant->manager);
 
+            $obj->extra_vars['related'] = Context::get('related');
+
             // if use anonymous is true
             if($this->module_info->use_anonymous == 'Y') {
                 $obj->notify_message = 'N';
