@@ -256,11 +256,17 @@ l'article qui comporte le mot ne sera pas affichagé.]]></value>
 	　　<value xml:lang="jp"><![CDATA[10秒の間3回以上書き込みをすると、スパムとみなしますか？書き込み、コメント作成とトラックバックの送信をブロックします。]]></value>
         <value xml:lang="ro"><![CDATA[Vrei să interzici utilizatorii care încearcă să posteze mai mult de 3 documente în 10 secunde? Utilizatorii interzişi nu vor putea scrie documente sau cometarii şi nu vor putea trimite trackback-uri.]]></value>
 	</item>
+	<item name="about_interval">
+		<value xml:lang="en"><![CDATA[The blacklisted users cannot write articles or comments and send trackbacks.]]></value>
+	</item>
 	<item name="cmd_check_trackback">
 		<value xml:lang="ko"><![CDATA[하나의 글에 2회 이상 엮인글을 등록하면 스패머로 간주할까요? 엮인글을 차단합니다.]]></value>
 		<value xml:lang="en"><![CDATA[Do you want to blacklist the users who attempt to post more than 2 trackbacks to one document? The blacklisted users cannot post trackbacks.]]></value>
 	　　<value xml:lang="jp"><![CDATA[ひとつの書き込みに2回以上トラックバックを登録するとスパムとみなしますか？トラックバックをブロックします。]]></value>
         <value xml:lang="ro"><![CDATA[Vrei să interzici utilizatorii care încearcă să posteze mai mult de 2 trackback-uri în 10 secunde? Utilizatorii interzişi nu vor putea trimite trackback-uri.]]></value>
+	</item>
+	<item name="about_check_trackback">
+		<value xml:lang="en"><![CDATA[The blacklisted users cannot post trackbacks.]]></value>
 	</item>
 	<item name="add">
 		<value xml:lang="ko"><![CDATA[추가]]></value>
@@ -285,6 +291,17 @@ l'article qui comporte le mot ne sera pas affichagé.]]></value>
 	<item name="invalid">
 		<value xml:lang="ko"><![CDATA[형식이 유효하지 않습니다.]]></value>
 		<value xml:lang="en"><![CDATA[The value is invalid.]]></value>
-        <value xml:lang="ro"><![CDATA[Valoarea nu este validă]]></value>
+	</item>
+	<item name="add_denied_ip">
+		<value xml:lang="en"><![CDATA[Add IP(s) to Blacklist]]></value>
+	</item>
+	<item name="add_denied_word">
+		<value xml:lang="en"><![CDATA[Add word(s) to Blacklist]]></value>
+	</item>
+    <item name="set_akismet_api_key">
+        <value xml:lang="en"><![CDATA[Akismet API key]]></value>
+    </item>
+    <item name="about_akismet_api_key">
+        <value xml:lang="en"><![CDATA[Sign up to <a href="https://akismet.com/signup" target="_blank">Akismet</a> and get your API key]]></value>
 	</item>
 </lang>

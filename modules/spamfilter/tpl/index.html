@@ -100,6 +100,21 @@
         </div>
     </div>
 </form>
+<form id="spamfilterAkismetApiKey" action="./" method="POST">
+    <div class="control-group form-inline">
+        <label class="control-label" for="akismet_api_key">{$lang->set_akismet_api_key}</label>
+        <div class="controls">
+            <input type="hidden" name="act" value="procSpamfilterAdminUpdateAkismetApiKey" />
+            <input type="hidden" name="module" value="spamfilter" />
+            <input type="hidden" name="ruleset" value="updateAkismetApiKey" />
+            <input value="{$config->akismet_api_key}" type="text" name="akismet_api_key" id="akismet_api_key" title="{$lang->set_akismet_api_key}">
+            <p class="desc">{$lang->about_akismet_api_key}</p>
+        </div>
+    </div>
+    <div class="btnArea">
+        <button class="btn btn-primary" type="submit">{$lang->cmd_save}</button>
+    </div>
+</form>
 <script type="text/javascript">
     if (typeof xe.lang != "undefined"){
         xe.lang.confirm_delete = '{$lang->confirm_delete}';

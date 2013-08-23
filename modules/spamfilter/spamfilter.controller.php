@@ -1,4 +1,7 @@
 <?php
+
+    require_once(_KARYBU_PATH_ . 'libs/Akismet.class.php');
+
     /**
      * @class  spamfilterController
      * @author Arnia (dev@karybu.org)
@@ -32,19 +35,15 @@
             $logged_info = Context::get('logged_info');
             $grant = Context::get('grant');
             // In case logged in, check if it is an administrator
-            if(false && $is_logged) {
+            if ($is_logged) {
                 if($logged_info->is_admin == 'Y') return new Object();
                 if($grant->manager) return new Object();
             }
 
-            $oFilterModel = &getModel('spamfilter');
-
+            $oFilterModel = getModel('spamfilter');
             // Check if the IP is prohibited
             $output = $oFilterModel->isDeniedIP();
             if(!$output->toBool()) return $output;
-
-            // Check words blacklist
-
             // Check words blacklist
             $config = $this->getSpamConfig();
             if (in_array('articles', (array) $config->usage)) {
@@ -133,12 +132,36 @@
         }
 
         /**
+         * @brief Use Akismet API to check comments
+         */
+        function triggerAkismetCheckComment(&$obj)
+        {
+            $logged_info = Context::get('logged_info');
+            if ($logged_info->is_admin == 'Y') return new Object();
+            $oModuleModel = getModel('module');
+            $spamConfig = $oModuleModel->getModuleConfig('spamfilter');
+            if ($key = $spamConfig->akismet_api_key) //if spam checking enabled
+            {
+                $akismet = new Akismet(getSiteUrl(), $key);
+                $akismet->setCommentAuthorEmail($obj->email_address);
+                $akismet->setCommentAuthorURL($obj->homepage);
+                $akismet->setCommentContent($obj->content);
+                $url = getSiteUrl().$obj->document_srl;
+                $akismet->setPermalink($url);
+                if ($akismet->isCommentSpam()) {
+                    $obj->status = 2;
+                }
+            }
+            return new Object();
+        }
+
+        /**
          * @brief Inspect the trackback creation time and IP
          **/
         function triggerInsertTrackback(&$obj) {
             if($_SESSION['avoid_log']) return new Object();
 
-            $oFilterModel = &getModel('spamfilter');
+            $oFilterModel = getModel('spamfilter');
             // Confirm if the trackbacks have been added more than once to your document
             $output = $oFilterModel->isInsertedTrackback($obj->document_srl);
             if(!$output->toBool()) return $output;
@@ -151,8 +174,8 @@
             $output = $oFilterModel->isDeniedWord($text);
             if(!$output->toBool()) return $output;
             // Start Filtering
-            $oTrackbackModel = &getModel('trackback');
-            $oTrackbackController = &getController('trackback');
+            $oTrackbackModel = getModel('trackback');
+            $oTrackbackController = getController('trackback');
 
             list($ipA,$ipB,$ipC,$ipD) = explode('.',$_SERVER['REMOTE_ADDR']);
             $ipaddress = $ipA.'.'.$ipB.'.'.$ipC;
@@ -188,7 +211,7 @@
                 //IPv6 check
                 preg_match('/^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/', $ipaddressValue, $matches);
                 if (isset($matches[1])){
-                    if($ipaddress=trim($matches[1])) {
+                    if($ipaddress = trim($matches[1])) {
                         $args->ipaddress = $ipaddress;
                         $args->description = $description;
                     }
