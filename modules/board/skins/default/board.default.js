@@ -226,7 +226,12 @@ jQuery(function($) {
 
     setInterval(function() {
         var title = $('div.write_header input[name=title]');
-        var content = CKEDITOR.instances[jQuery('.write_editor .ckeditor:first > textarea:first').attr('id')].getData();
+        if (typeof(CKEDITOR) != "undefined") {
+            var content = CKEDITOR.instances[jQuery('.write_editor .ckeditor:first > textarea:first').attr('id')].getData();
+        }
+        else {
+            var content = tinyMCE.activeEditor.getContent();
+        }
         var tags = $('#tags');
 
         var changedTitle = title.val() != title.data('lastTitle');
