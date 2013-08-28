@@ -191,7 +191,8 @@ jQuery(function($) {
             minLength: 1,
             source: function( request, response ) {
                 $.exec_json('document.getDocumentsRelated', {
-                    title: request.term
+                    title: request.term,
+                    srl: $('input[name=document_srl]').val()
                 }, function(data){
                     response( data.docs );
                 });
@@ -257,7 +258,8 @@ jQuery(function($) {
                 list_count: 3 - manuals,
                 title: title.val(),
                 content: $('<div>' + content + '</div>').text(),
-                tags: tags.val()
+                tags: tags.val(),
+                srl: $('input[name=document_srl]').val()
             }, function(data) {
                 $.each(data.docs, function(i, doc) {
                     var $ul = $('ul#related_articles');

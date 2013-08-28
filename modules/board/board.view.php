@@ -492,8 +492,10 @@
                 //related
                 if (isset($oDocument->variables['extra_vars'])) {
                     $ev = unserialize($oDocument->variables['extra_vars']);
-                    $str = $ev['related'];
-                    $relateds = (strpos('|@|', $str) === false ? explode('|@|', $str) : array($str));
+                    $relateds = array();
+                    if ($str = $ev['related']) {
+                        $relateds = (strpos('|@|', $str) === false ? explode('|@|', $str) : array($str));
+                    }
                     if (!empty($relateds)) {
                         $args = new stdClass();
                         $args->document_srls = $relateds;

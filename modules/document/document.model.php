@@ -1746,26 +1746,33 @@ class documentModel extends document
         if ($title = Context::get('title')) {
             $docs = $searchController->retrieveDocumentsFromIndex($title, 'title', 0, 10);
             if (!($docs instanceof \Exception) && !empty($docs)) {
-                array_push($indexedResults, $docs);
+                foreach ($docs as $doc) {
+                    $indexedResults[] = $doc;
+                }
             }
         }
         if ($content = Context::get('content')) {
             $docs = $searchController->retrieveDocumentsFromIndex($content, 'content', 0, 10);
             if (!($docs instanceof \Exception) && !empty($docs)) {
-                array_push($indexedResults, $docs);
+                foreach ($docs as $doc) {
+                    $indexedResults[] = $doc;
+                }
             }
         }
         if ($tags = Context::get('tags')) {
             $docs = $searchController->retrieveDocumentsFromIndex($tags, 'tags', 0, 10);
             if (!($docs instanceof \Exception) && !empty($docs)) {
-                array_push($indexedResults, $docs);
+                foreach ($docs as $doc) {
+                    $indexedResults[] = $doc;
+                }
             }
         }
+        $except = Context::get('srl') ? Context::get('srl') : false;
 
         $srls = array();
         foreach ($indexedResults as $doc) {
-            if (!in_array($doc[0]->srl, $srls)) {
-                $srls[] = $doc[0]->srl;
+            if (!in_array($doc->srl, $srls) && $doc->srl != (int) $except) {
+                $srls[] = $doc->srl;
             }
         }
 
