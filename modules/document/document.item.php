@@ -1349,5 +1349,11 @@ class documentItem extends Object
         $this->getModuleName();
     }
 
+    function getCategoryName(){
+        $oDocumentModel = getModel('document');
+        $category = $oDocumentModel->getCategory($this->get('category_srl'));
+        return $category->title;
+    }
+
 }
 ?>
