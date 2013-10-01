@@ -384,6 +384,17 @@
                 <name xml:lang="zh-TW">內容字數</name>
                 <name xml:lang="tr">İçerik Uzunluğu</name>
             </var>
+            <var id="keep_html_tags" type="select">
+                <name xml:lang="en">Keep HTML Tags</name>
+                <options>
+                    <value>N</value>
+                    <name xml:lang="en">No</name>
+                </options>
+                <options>
+                    <value>Y</value>
+                    <name xml:lang="en">Yes</name>
+                </options>
+            </var>
             <var id="new_window" type="select">
                 <name xml:lang="ko">링크</name>
                 <name xml:lang="en">Like</name>
