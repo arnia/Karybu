@@ -120,6 +120,11 @@
                 <description xml:lang="zh-TW">把所選擇的模組作為目標。</description>
                 <description xml:lang="tr">Sıralanacak hedef yazılar seçili modüle gönderilenlerdir.</description>
             </var>
+            <var id="category_srl">
+                <type>select</type>
+                <name xml:lang="en">Target Category</name>
+                <description xml:lang="en">Select the target category</description>
+            </var>
             <var id="list_type">
                 <type>select</type>
                 <name xml:lang="ko">내용형태</name>
@@ -382,16 +387,16 @@
             <var id="new_window" type="select">
                 <name xml:lang="ko">링크</name>
                 <name xml:lang="en">Like</name>
-				<options>
-					<value></value>
-					<name xml:lang="ko">현재창에서 열기</name>
-					<name xml:lang="en">Open in current window</name>
-				</options>
-				<options>
-					<value>Y</value>
-					<name xml:lang="ko">새창에서 열기</name>
-					<name xml:lang="en">Open in new window</name>
-				</options>
+                <options>
+                    <value></value>
+                    <name xml:lang="ko">현재창에서 열기</name>
+                    <name xml:lang="en">Open in current window</name>
+                </options>
+                <options>
+                    <value>Y</value>
+                    <name xml:lang="ko">새창에서 열기</name>
+                    <name xml:lang="en">Open in new window</name>
+                </options>
             </var>
         </group>
 
@@ -645,7 +650,7 @@
         </group>
 
         <group>
-        <title xml:lang="ko">정렬</title>
+            <title xml:lang="ko">정렬</title>
             <var id="order_target" type="select">
                 <name xml:lang="ko">정렬 대상</name>
                 <name xml:lang="zh-CN">排序对象</name>
@@ -699,7 +704,7 @@
                 <name xml:lang="es">Tipo de ordenamiento</name>
                 <name xml:lang="ru">Тип сортировки</name>
                 <name xml:lang="zh-TW">排列方式</name>
-                 <name xml:lang="tr">Sıralama Tipi</name>
+                <name xml:lang="tr">Sıralama Tipi</name>
                 <description xml:lang="ko">정렬대상을 내림차순 또는 올림차순으로 정렬할 수 있습니다.</description>
                 <description xml:lang="zh-CN">对其排序对象可进行升序/降序方式排序。</description>
                 <description xml:lang="jp">ソートタイプを、降順、または昇順に設定します。</description>
@@ -737,7 +742,7 @@
         </group>
 
         <group>
-        <title xml:lang="ko">썸네일</title>
+            <title xml:lang="ko">썸네일</title>
 
             <var id="thumbnail_type" type="select">
                 <name xml:lang="ko">썸네일 생성 방법</name>
@@ -820,7 +825,7 @@
         </group>
 
         <group>
-        <title xml:lang="ko">RSS 설정</title>
+            <title xml:lang="ko">RSS 설정</title>
             <var id="rss_url0" type="text">
                 <name xml:lang="ko">피드(RSS/ATOM) 주소</name>
                 <name xml:lang="jp">Feed(RSS/ATOM) URL</name>
@@ -831,20 +836,20 @@
                 <name xml:lang="zh-TW">Feed(RSS/ATOM) URL</name>
                 <name xml:lang="tr">Feed(RSS/ATOM) URL</name>
                 <description xml:lang="ko">피드 주소는 타입이 지원하는 문서 형식일 경우에만 등록 됩니다.
-                (지원 문서 형식 : RSS 2.0, RSS 1.0, ATOM 1.0)</description>
+                    (지원 문서 형식 : RSS 2.0, RSS 1.0, ATOM 1.0)</description>
                 <description xml:lang="en">Feed address will be registered only in case of required document type.
-                (Supported document type : RSS 2.0, RSS 1.0, ATOM 1.0)</description>
+                    (Supported document type : RSS 2.0, RSS 1.0, ATOM 1.0)</description>
                 <description xml:lang="zh-CN">请输入RSS格式地址。
-                (支持文档格式 : RSS 2.0, RSS 1.0, ATOM 1.0)</description>
+                    (支持文档格式 : RSS 2.0, RSS 1.0, ATOM 1.0)</description>
                 <description xml:lang="vi">Chỉ hỗ trợ những định dạng được dăng kí. (RSS 2.0 RSS 1.0 ATOM 1.0).</description>
                 <description xml:lang="ru">Feed(RSS/ATOM) URL может быть зарегистрирован только в случае предлагаемом типе документа
-                (지원 문서 형식 : RSS 2.0, RSS 1.0, ATOM 1.0)</description>
+                    (지원 문서 형식 : RSS 2.0, RSS 1.0, ATOM 1.0)</description>
                 <description xml:lang="jp">RSS URLはタイプが RSSの時だけ登録出来ます。
-                (サポートする文書形式 : RSS 2.0, RSS 1.0, ATOM 1.0)</description>
+                    (サポートする文書形式 : RSS 2.0, RSS 1.0, ATOM 1.0)</description>
                 <description xml:lang="zh-TW">請輸入 RSS 位址。
-                (支援檔案格式 : RSS 2.0, RSS 1.0, ATOM 1.0)</description>
+                    (支援檔案格式 : RSS 2.0, RSS 1.0, ATOM 1.0)</description>
                 <description xml:lang="tr">Besleme adresi sadece gerekli belge türü halinde kaydedilecek.
-                (지원 문서 형식 : RSS 2.0, RSS 1.0, ATOM 1.0)</description>
+                    (지원 문서 형식 : RSS 2.0, RSS 1.0, ATOM 1.0)</description>
             </var>
             <var id="rss_url1" type="text">
                 <name xml:lang="ko">피드(RSS/ATOM) 주소</name>
