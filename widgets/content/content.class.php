@@ -35,7 +35,7 @@
                 $args->subject_cut_size = 0;
             }
             // Cut the length of contents
-            if(empty($args->content_cut_size)) {
+            if(!isset($args->content_cut_size)) {
                 $args->content_cut_size = 100;
             }
             // Display time of the latest post
@@ -260,7 +260,11 @@
                     $content_item->setTitle($oDocument->getTitleText());
                     $content_item->setCategory( isset($category_lists[$module_srl][$category_srl]->title) ? $category_lists[$module_srl][$category_srl]->title : null );
                     $content_item->setDomain( isset($args->module_srls_info[$module_srl]->domain) ? $args->module_srls_info[$module_srl]->domain : null );
-                    $content_item->setContent($oDocument->getSummary($args->content_cut_size));
+                    if($args->keep_html_tags == 'Y'){
+                        $content_item->setContent($oDocument->getSummaryWithHtml($args->content_cut_size));
+                    }else{
+                        $content_item->setContent($oDocument->getSummary($args->content_cut_size));
+                    }
                     $content_item->setLink( getSiteUrl($domain,'','document_srl',$document_srl) );
                     $content_item->setThumbnail($thumbnail);
                     $content_item->setExtraImages($oDocument->printExtraImages($args->duration_new * 60 * 60));

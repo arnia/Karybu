@@ -620,6 +620,19 @@ class documentItem extends Object
         return $content;
     }
 
+    function getSummaryWithHtml($str_size = 50, $tail = '...')
+    {
+        $content = $this->getContent(false, false);
+
+        //remove script tags
+        $content = preg_replace('%<script\b[^>]*>([\s\S]*?)<\/script>%', '', $content);
+
+        // Truncate string
+        if($str_size > 0) $content = trim(cut_str($content, $str_size, $tail));
+
+        return $content;
+    }
+
     function getRegdate($format = 'Y.m.d H:i:s')
     {
         return zdate($this->get('regdate'), $format);
