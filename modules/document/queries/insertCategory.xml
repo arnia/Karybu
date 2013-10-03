@@ -15,5 +15,6 @@
         <column name="last_update" var="last_update" default="curdate()" />
         <column name="list_order" var="list_order" default="0" />
         <column name="color" var="color" />
+        <column name="is_featured" var="is_featured" />
     </columns>
 </query>

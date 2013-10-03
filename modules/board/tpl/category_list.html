@@ -15,7 +15,7 @@
 		<h1>{$lang->category_settings}</h1>
 		<div class="control-group">
 			<label class="control-label">{$lang->hide_category}</label>
-			<div class="controls">
+			    <div class="controls">
 				<label class="inline" for="hide_category"><input type="checkbox" name="hide_category" id="hide_category" value="Y" checked="checked"|cond="$module_info->hide_category == 'Y'" /> {$lang->about_hide_category}</label>
 			</div>
 		</div>
@@ -26,3 +26,30 @@
 		</div>
 	</div>
 </form>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <form ruleset="insertCategory" id="insert_cat" action="./" method="post">
+                    <input type="hidden" name="module" value="document" />
+                    <input type="hidden" name="act" value="procDocumentInsertCategory" />
+                    <input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+                    <input type="hidden" name="xml_file" value="{$category_xml_file}" />
+                    <input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
+                    <div id="category_info"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

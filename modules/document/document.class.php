@@ -70,6 +70,7 @@ class document extends ModuleObject
 		// 2007. 10. 17 Add a trigger to delete all posts together when the module is deleted
 		if(!$oModuleModel->getTrigger('module.deleteModule', 'document', 'controller', 'triggerDeleteModuleDocuments', 'after')) return true;
 		// 2007. 10. 25 add parent_srl, expand to the document category
+		if(!$oDB->isColumnExists("document_categories","is_featured")) return true;
 		if(!$oDB->isColumnExists("document_categories","parent_srl")) return true;
 		if(!$oDB->isColumnExists("document_categories","expand")) return true;
 		if(!$oDB->isColumnExists("document_categories","group_srls")) return true;
@@ -170,6 +171,7 @@ class document extends ModuleObject
 		if(!$oModuleModel->getTrigger('module.deleteModule', 'document', 'controller', 'triggerDeleteModuleDocuments', 'after'))
 			$oModuleController->insertTrigger('module.deleteModule', 'document', 'controller', 'triggerDeleteModuleDocuments', 'after');
 		// 2007. 10. 25 add columns(parent_srl, expand) 
+		if(!$oDB->isColumnExists("document_categories","is_featured")) $oDB->addColumn('document_categories',"is_featured","char",1,"N");
 		if(!$oDB->isColumnExists("document_categories","parent_srl")) $oDB->addColumn('document_categories',"parent_srl","number",12,0);
 		if(!$oDB->isColumnExists("document_categories","expand")) $oDB->addColumn('document_categories',"expand","char",1,"N");
 		if(!$oDB->isColumnExists("document_categories","group_srls")) $oDB->addColumn('document_categories',"group_srls","text");

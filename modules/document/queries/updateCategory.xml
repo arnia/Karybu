@@ -11,6 +11,7 @@
         <column name="parent_srl" var="parent_srl" filter="number" />
         <column name="group_srls" var="group_srls" />
         <column name="color" var="color" />
+        <column name="is_featured" var="is_featured" />
     </columns>
     <conditions>
         <condition operation="equal" column="category_srl" var="category_srl" filter="number" notnull="notnull" />

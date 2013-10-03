@@ -7,50 +7,53 @@
 function Tree(url){
     // clear tree;
     jQuery('#menu > ul > li > ul').remove();
-    if(jQuery("ul.simpleTree > li > a").size() ==0)jQuery('<a href="#" class="add"><img src="./common/js/plugins/ui.tree/images/iconAdd.gif" /></a>').bind("click",function(e){addNode(0,e);}).appendTo("ul.simpleTree > li");
+    if (jQuery("ul.simpleTree > li > a").size() ==0) {
+        jQuery('<a href="#" class="add"><img src="../common/js/plugins/ui.tree/images/iconAdd.gif" /></a>').bind("click",function(e){addNode(0,e);}).appendTo("ul.simpleTree > li");
+    }
 
     //ajax get data and transeform ul il
     jQuery.get(url,function(data){
-        jQuery(data).find("node").each(function(i){
-            var text = jQuery(this).attr("text");
-            var node_srl = jQuery(this).attr("node_srl");
-            var parent_srl = jQuery(this).attr("parent_srl");
-            var color = jQuery(this).attr("color");
-            var url = jQuery(this).attr("url");
+        var $ = jQuery;
+        $(data).find("node").each(function(i){
+            var text = $(this).attr("text");
+            var node_srl = $(this).attr("node_srl");
+            var parent_srl = $(this).attr("parent_srl");
+            var color = $(this).attr("color");
+            var url = $(this).attr("url");
 
             // node
             var node = '';
             if(color && color !='transparent'){
-                node = jQuery('<li id="tree_'+node_srl+'"><span style="color:'+color+';">'+text+'</span></li>');
+                node = $('<li id="tree_'+node_srl+'"><span style="color:'+color+';">'+text+'</span></li>');
             }else{
-                node = jQuery('<li id="tree_'+node_srl+'"><span>'+text+'</span></li>');
+                node = $('<li id="tree_'+node_srl+'"><span>'+text+'</span></li>');
             }
 
             // button
-            jQuery('<a href="#" class="add"><img src="./common/js/plugins/ui.tree/images/iconAdd.gif" /></a>').bind("click",function(e){
-                jQuery("#tree_"+node_srl+" > span").click();
+            $('<a href="#" class="add"><img src="../common/js/plugins/ui.tree/images/iconAdd.gif" /></a>').bind("click",function(e){
+                $("#tree_"+node_srl+" > span").click();
                 addNode(node_srl,e);
                 return false;
             }).appendTo(node);
 
-            jQuery('<a href="#" class="modify"><img src="./common/js/plugins/ui.tree/images/iconModify.gif" /></a>').bind("click",function(e){
-                jQuery("#tree_"+node_srl+" > span").click();
+            $('<a href="#" class="modify"><img src="../common/js/plugins/ui.tree/images/iconModify.gif" /></a>').bind("click",function(e){
+                $("#tree_"+node_srl+" > span").click();
                 modifyNode(node_srl,e);
                 return false;
             }).appendTo(node);
 
-            jQuery('<a href="#" class="delete"><img src="./common/js/plugins/ui.tree/images/iconDel.gif" /></a>').bind("click",function(e){
+            $('<a href="#" class="delete"><img src="../common/js/plugins/ui.tree/images/iconDel.gif" /></a>').bind("click",function(e){
                 deleteNode(node_srl);
                 return false;
             }).appendTo(node);
 
             // insert parent child
             if(parent_srl>0){
-                if(jQuery('#tree_'+parent_srl+'>ul').length==0) jQuery('#tree_'+parent_srl).append(jQuery('<ul>'));
-                jQuery('#tree_'+parent_srl+'> ul').append(node);
+                if($('#tree_'+parent_srl+'>ul').length==0) $('#tree_'+parent_srl).append($('<ul>'));
+                $('#tree_'+parent_srl+'> ul').append(node);
             }else{
-                if(jQuery('#menu ul.simpleTree > li > ul').length==0) jQuery("<ul>").appendTo('#menu ul.simpleTree > li');
-                jQuery('#menu ul.simpleTree > li > ul').append(node);
+                if($('#menu ul.simpleTree > li > ul').length==0) $("<ul>").appendTo('#menu ul.simpleTree > li');
+                $('#menu ul.simpleTree > li > ul').append(node);
             }
 
         });
@@ -117,7 +120,10 @@ function Tree(url){
 
         // open all node
         nodeToggleAll();
-    },"xml");
+    },"xml")
+    .fail(function(jqXHR, textStatus, errorThrown) {
+        alert(errorThrown);
+    });
 }
 function addNode(node,e){
     var params ={
@@ -127,7 +133,13 @@ function addNode(node,e){
             };
 
     jQuery.exec_json('document.getDocumentCategoryTplInfo', params, function(data){
-        jQuery('#category_info').html(data.tpl).css('left',e.pageX).css('top',e.pageY);
+        jQuery('#myModal')
+            .find('.modal-title').text('Add Category').end()
+            .find('#category_info').html(data.tpl).end()
+            .find('.btn-primary').on('click', function(){
+                jQuery('#insert_cat').submit();
+            }).end()
+            .modal();
     });
 }
 
@@ -139,7 +151,13 @@ function modifyNode(node,e){
             };
 
     jQuery.exec_json('document.getDocumentCategoryTplInfo', params, function(data){
-        jQuery('#category_info').html(data.tpl).css('left',e.pageX).css('top',e.pageY);
+        jQuery('#myModal')
+            .find('.modal-title').text('Edit Category').end()
+            .find('#category_info').html(data.tpl).end()
+            .find('.btn-primary').on('click', function(){
+                jQuery('#insert_cat').submit();
+            }).end()
+            .modal();
     });
 }
 
@@ -185,5 +203,5 @@ function doReloadTreeCategory(module_srl) {
 }
 
 function doCategoryFormMove() {
-	jQuery(function($){ $('#fo_category').appendTo(document.body); $('#category_info').css('width', '550px'); });
+	jQuery(function($){ $('#fo_category').appendTo(document.body); });
 }

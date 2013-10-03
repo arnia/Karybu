@@ -148,6 +148,10 @@
 		<value xml:lang="vi"><![CDATA[Mở rộng]]></value>
         <value xml:lang="ro"><![CDATA[Extinde]]></value>
 	</item>
+	<item name="is_featured">
+		<value xml:lang="en"><![CDATA[Show in home]]></value>
+        <value xml:lang="ro"><![CDATA[Arata pe homepage]]></value>
+	</item>
 	<item name="category_group_srls">
 		<value xml:lang="ko"><![CDATA[그룹 제한]]></value>
 		<value xml:lang="en"><![CDATA[Accessable Group]]></value>
@@ -211,6 +215,10 @@
 		<value xml:lang="tr"><![CDATA[Bu seçimle, her zaman genişletilmiş olacaktır]]></value>
 		<value xml:lang="vi"><![CDATA[Nếu sử dụng tùy chọn này, Thể loại sẽ luôn luôn được trải rộng.]]></value>
         <value xml:lang="ro"><![CDATA[Selectează această opţiune si va ramâne extinsă]]></value>
+	</item>
+	<item name="about_is_featured">
+		<value xml:lang="en"><![CDATA[Show category in home menu?]]></value>
+        <value xml:lang="ro"><![CDATA[Arata categoria pe pagina principala?]]></value>
 	</item>
 	<item name="about_category_group_srls">
 		<value xml:lang="ko"><![CDATA[선택하신 그룹만 현재 카테고리를 지정할 수 있도록 합니다.]]></value>

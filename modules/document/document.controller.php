@@ -1475,7 +1475,9 @@ class documentController extends document {
 	 */
 	function procDocumentInsertCategory($args = null) {
 		// List variables
-		if(!$args) $args = Context::gets('module_srl','category_srl','parent_srl','category_title','category_description','expand','group_srls','category_color','mid');
+		if(!$args) {
+            $args = Context::gets('module_srl','category_srl','parent_srl','category_title','category_description','expand','group_srls','category_color','mid', 'is_featured');
+        }
 		$args->title = $args->category_title;
 		$args->description = $args->category_description;
 		$args->color = $args->category_color;
@@ -1732,10 +1734,10 @@ class documentController extends document {
 		$xml_buff = sprintf(
 				'<?php '.
 				'define(\'__KARYBU__\', true); '.
-				'define(\'__KARYBU__\', true); '.
 				'require_once(\''.FileHandler::getRealPath('./config/config.inc.php').'\'); '.
-				'$oContext = &Context::getInstance(); '.
-				'$oContext->init(); '.
+                '$kernel = new \Karybu\HttpKernel\Kernel("prod", false);'.
+                'try { $kernel->handle(\Symfony\Component\HttpFoundation\Request::createFromGlobals(), Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, false); } catch (Exception $e) {};'.
+                '$oContext = Context::getInstance();'.
 				'header("Content-Type: text/xml; charset=UTF-8"); '.
 				'header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); '.
 				'header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); '.
@@ -1788,6 +1790,7 @@ class documentController extends document {
 			// Get data of the child nodes
 			if($category_srl && $tree[$category_srl]) $child_buff = $this->getXmlTree($tree[$category_srl], $tree, $site_srl, $xml_header_buff);
 			// List variables
+            $is_featured = $node->is_featured;
 			$expand = $node->expand;
 			$group_srls = $node->group_srls;
 			$mid = $node->mid;
@@ -1808,7 +1811,7 @@ class documentController extends document {
 			if(count($langx)) foreach($langx as $key => $val) $xml_header_buff .= sprintf('$_descriptions[%d]["%s"] = "%s"; ', $category_srl, $key, str_replace('"','\\"',htmlspecialchars($val)));
 
 			$attribute = sprintf(
-					'mid="%s" module_srl="%d" node_srl="%d" parent_srl="%d" category_srl="%d" text="<?php echo (%s?($_titles[%d][$lang_type]):"")?>" url="%s" expand="%s" color="%s" description="<?php echo (%s?($_descriptions[%d][$lang_type]):"")?>" document_count="%d" ',
+					'mid="%s" module_srl="%d" node_srl="%d" parent_srl="%d" category_srl="%d" text="<?php echo (%s?($_titles[%d][$lang_type]):"")?>" url="%s" expand="%s" color="%s" description="<?php echo (%s?($_descriptions[%d][$lang_type]):"")?>" document_count="%d" is_featured="%s" ',
 					$mid,
 					$module_srl,
 					$category_srl,
@@ -1821,7 +1824,8 @@ class documentController extends document {
 					$color,
 					$group_check_code,
 					$category_srl,
-					$node->document_count
+					$node->document_count,
+                    $is_featured
 					);
 
 			if($child_buff) $buff .= sprintf('<node %s>%s</node>', $attribute, $child_buff);
@@ -1869,7 +1873,7 @@ class documentController extends document {
 			if(count($langx)) foreach($langx as $key => $val) $php_header_buff .= sprintf('$_descriptions[%d]["%s"] = "%s"; ', $category_srl, $key, str_replace('"','\\"',htmlspecialchars($val)));
 			// Create attributes(Use the category_srl_list to check whether to belong to the menu's node. It seems to be tricky but fast fast and powerful;)
 			$attribute = sprintf(
-					'"mid" => "%s", "module_srl" => "%d","node_srl"=>"%s","category_srl"=>"%s","parent_srl"=>"%s","text"=>$_titles[%d][$lang_type],"selected"=>(in_array(Context::get("category"),array(%s))?1:0),"expand"=>"%s","color"=>"%s","description"=>$_descriptions[%d][$lang_type],"list"=>array(%s),"document_count"=>"%d","grant"=>%s?true:false',
+					'"mid" => "%s", "module_srl" => "%d","node_srl"=>"%s","category_srl"=>"%s","parent_srl"=>"%s","text"=>$_titles[%d][$lang_type],"selected"=>(in_array(Context::get("category"),array(%s))?1:0),"expand"=>"%s","color"=>"%s","description"=>$_descriptions[%d][$lang_type],"list"=>array(%s),"document_count"=>"%d","grant"=>%s?true:false, "is_featured"=>"%s"',
 					$node->mid,
 					$node->module_srl,
 					$node->category_srl,
@@ -1882,7 +1886,8 @@ class documentController extends document {
 					$node->category_srl,
 					$child_buff,
 					$node->document_count,
-					$group_check_code
+					$group_check_code,
+                    $node->is_featured
 					);
 
 			// Generate buff data

@@ -797,6 +797,7 @@ class documentModel extends document
             $obj->child_count = 0;
             $obj->childs = array();
             $obj->grant = $val['grant'];
+            $obj->is_featured = $val['is_featured'];
 
             if (Context::get('mid') == $obj->mid && Context::get('category') == $obj->category_srl) {
                 $selected = true;
@@ -1070,6 +1071,7 @@ class documentModel extends document
         $group_list = $oMemberModel->getGroups($module_info->site_srl);
         Context::set('group_list', $group_list);
         // Without the sub-menu has parent_srl category_srl chugaim
+        $category_info = new stdClass();
         if (!$category_srl && $parent_srl) {
             // Get information of the parent menu
             $parent_info = $this->getCategory($parent_srl);
