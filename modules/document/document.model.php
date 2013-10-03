@@ -1083,7 +1083,11 @@ class documentModel extends document
             if ($category_srl) {
                 $category_info = $this->getCategory($category_srl);
             }
+            if (!$category_info->category_srl) {
+                $category_info->category_srl = getNextSequence();
+            }
         }
+
 
 
         $category_info->title = htmlspecialchars($category_info->title);

@@ -1,6 +1,6 @@
 <?php
 
-require_once(_XE_PATH_.'modules/board/board.view.php');
+require_once(_KARYBU_PATH_.'modules/board/board.view.php');
 
 class boardMobile extends boardView {
 		function init()

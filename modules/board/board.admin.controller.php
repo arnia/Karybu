@@ -17,6 +17,10 @@
          * @brief insert borad module
          **/
         function procBoardAdminInsertBoard($args = null) {
+            if(!checkCSRF())
+            {
+                return new Object(-1, 'msg_invalid_request');
+            }
             // igenerate module model/controller object
             $oModuleController = &getController('module');
             $oModuleModel = &getModel('module');
@@ -63,6 +67,7 @@
             	$args->hide_category = 'N';
                 $output = $oModuleController->insertModule($args);
                 $msg_code = 'success_registed';
+                Context::set('module_srl',$output->get('module_srl'));
             } else {
             	$args->hide_category = isset($module_info->hide_category) ? $module_info->hide_category : null;
                 $output = $oModuleController->updateModule($args);
@@ -90,6 +95,8 @@
 				$oModuleController = &getController('module');
 				$oModuleController->insertModulePartConfig('board', $output->get('module_srl'), $list_arr);
 			}
+
+            $this->add('module_srl',$output->get('module_srl'));
 
             $this->setMessage($msg_code);
 			if (Context::get('success_return_url')){
