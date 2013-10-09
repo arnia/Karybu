@@ -439,6 +439,7 @@ class editorModel extends editor
             Context::set('saved_doc', $saved_doc);
         }
         Context::set('enable_autosave', $enable_autosave);
+        Context::set('use_simple_options',$option->use_simple_options);
 
         /**
          * Extract editor's unique number (in order to display multiple editors on a single page)
@@ -560,6 +561,7 @@ class editorModel extends editor
             $config->enable_html_grant = isset($editor_config->enable_html_grant) ? $editor_config->enable_html_grant : null;
             $config->editor_height = isset($editor_config->editor_height) ? $editor_config->editor_height : null;
             $config->enable_autosave = isset($editor_config->enable_autosave) ? $editor_config->enable_autosave : null;
+            $config->use_simple_options = isset($editor_config->use_simple_options) ? $editor_config->use_simple_options : null;
         } else {
             $config->editor_skin = isset($editor_config->comment_editor_skin) ? $editor_config->comment_editor_skin : null;
             $config->content_style = isset($editor_config->comment_content_style) ? $editor_config->comment_content_style : null;
@@ -571,6 +573,7 @@ class editorModel extends editor
             $config->enable_component_grant = isset($editor_config->enable_comment_component_grant) ? $editor_config->enable_comment_component_grant : null;
             $config->enable_html_grant = isset($editor_config->enable_comment_html_grant) ? $editor_config->enable_comment_html_grant : null;
             $config->editor_height = isset($editor_config->comment_editor_height) ? $editor_config->comment_editor_height : null;
+            $config->use_simple_options = isset($editor_config->comment_use_simple_options) ? $editor_config->comment_use_simple_options : null;
             $config->enable_autosave = 'N';
         }
         // Check a group_list of the currently logged-in user for permission check
@@ -645,6 +648,7 @@ class editorModel extends editor
         $option->height = $config->editor_height;
         // Set an option for Auto-save
         $option->enable_autosave = $config->enable_autosave == 'Y' ? true : false;
+        $option->use_simple_options = $config->use_simple_options == 'Y' ? true : false;
         // Other settings
         $option->primary_key_name = $primary_key_name;
         $option->content_key_name = $content_key_name;
@@ -708,9 +712,9 @@ class editorModel extends editor
     function getComponentObject($component, $editor_sequence = 0, $site_srl = 0)
     {
         if (!preg_match('/^[a-zA-Z0-9_-]+$/', $component) || !preg_match(
-            '/^[0-9]+$/',
-            $editor_sequence . $site_srl
-        )
+                '/^[0-9]+$/',
+                $editor_sequence . $site_srl
+            )
         ) {
             return;
         }

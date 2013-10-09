@@ -161,6 +161,18 @@ class editorController extends editor
             $editor_config->enable_autosave = 'N';
         }
 
+        $editor_config->use_simple_options = Context::get('use_simple_options');
+
+        if ($editor_config->use_simple_options != 'Y') {
+            $editor_config->use_simple_options = 'N';
+        }
+
+        $editor_config->comment_use_simple_options = Context::get('comment_use_simple_options');
+
+        if ($editor_config->comment_use_simple_options != 'Y') {
+            $editor_config->comment_use_simple_options = 'N';
+        }
+
         $oModuleController = & getController('module');
         for ($i = 0; $i < count($module_srl); $i++) {
             $srl = trim($module_srl[$i]);
