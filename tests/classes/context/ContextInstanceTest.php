@@ -1211,7 +1211,6 @@ class ContextInstanceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($context->getRequestUri() . '?param1=value1&param2=value2', $current_url);
     }
 
-
     public function testGetCurrentUrl_GET_WithParams_Array()
     {
         // 1. Arrange
