@@ -12,6 +12,10 @@ admin_slash:
 #admin2:
 #    pattern: /admin/{act}
 #    defaults: { module: admin }
+vid:
+    pattern: /{vid}
+    requirements:
+            vid: '[a-zA-Z0-9_]+'
 
 module_is_admin:
     pattern: /{module}
@@ -22,6 +26,7 @@ module_is_admin_act_is_whatever:
     pattern: /{module}/{act}
     requirements:
         module: "admin"
+
 
 doc:
     pattern: /{document_srl}
@@ -84,6 +89,17 @@ vid_mid_entry:
         vid: '[a-zA-Z0-9_]+'
         mid: '[a-zA-Z0-9_]+'
 
+vid_product:
+    pattern: /{vid}/product/{product}
+    requirements:
+            vid: '[a-zA-Z0-9_]+'
+            product: '[a-zA-Z0-9_]+'
+
+vid_category:
+    pattern: /{vid}/category/{category}
+    requirements:
+            vid: '[a-zA-Z0-9_]+'
+            category: '[a-zA-Z0-9_]+'
 #admin3:
 #    pattern: /admin/{act}/{mid}
 #    defaults: { module: admin }
