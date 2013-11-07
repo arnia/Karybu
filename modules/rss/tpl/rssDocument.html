@@ -1,0 +1,46 @@
+{'<?xml version="1.0" encoding="UTF-8" ?>'}
+
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/">
+    <channel>
+        <title>{$document->getTitle()}</title>
+        <link>{$document->getPermanentUrl()}</link>
+        <!--@if($open_rss_config[$document->get('module_srl')]=='Y')-->
+        <description>{str_replace('\'', '&apos;', htmlspecialchars($document->getTransContent(false,false,true)))}</description>
+        <!--@else-->
+        <description>{str_replace('\'', '&apos;', htmlspecialchars($document->getContentText(100)))}</description>
+        <!--@end-->
+        <pubDate>{$document->getRegdate('D, d M Y H:i:s P')}</pubDate>
+        <lastBuildDate>{$document->getUpdate('D, d M Y H:i:s P')}</lastBuildDate>
+        <!--@if($document->allowComment()) -->
+        <comments>{$document->getPermanentUrl()}#comment</comments>
+        <!--@if($document->getCommentcount()>0)-->
+        <slash:comments>{$document->getCommentcount()}</slash:comments>
+        <!--@end-->
+        <!--@foreach($document->get('tag_list') as $tag)-->
+        <category>{str_replace('\'', '&apos;', htmlspecialchars($tag))}</category>
+        <!--@end-->
+        <!--@end-->
+        <generator>Karybu</generator>
+        <!--@if($info->feed_copyright)-->
+        <copyright>{$info->feed_copyright}</copyright>
+        <!--@end-->
+        <!--@if($info->image)-->
+        <image>
+            <url>{$info->image}</url>
+            <title>{$info->title}</title>
+            <link>{$info->link}</link>
+        </image>
+        <!--@end-->
+        <!--@foreach($document->getComments() as $comment)-->
+        <item>
+            <title>{str_replace('\'', '&apos;',htmlspecialchars($comment->getContentText(20)))}</title>
+            <dc:creator>{str_replace('\'', '&apos;',$comment->getNickName())}</dc:creator>
+            <link>{$comment->getPermanentUrl()}</link>
+            <guid isPermaLink="true">{$comment->getPermanentUrl()}</guid>
+
+            <description>{str_replace('\'', '&apos;', $comment->getContentText())}</description>
+            <pubDate>{$comment->getRegdate('D, d M Y H:i:s P')}</pubDate>
+        </item>
+        <!--@end-->
+    </channel>
+</rss>
