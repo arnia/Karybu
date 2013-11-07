@@ -12,10 +12,6 @@ admin_slash:
 #admin2:
 #    pattern: /admin/{act}
 #    defaults: { module: admin }
-vid:
-    pattern: /{vid}
-    requirements:
-            vid: '[a-zA-Z0-9_]+'
 
 module_is_admin:
     pattern: /{module}
@@ -46,6 +42,11 @@ mid_slash:
     pattern: /{mid}/
     requirements:
         mid: '[a-zA-Z0-9_]+'
+
+vid:
+    pattern: /{vid}
+    requirements:
+            vid: '[a-zA-Z0-9_]+'
 
 page:
     pattern: /show/{mid}

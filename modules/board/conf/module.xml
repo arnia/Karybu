@@ -78,6 +78,8 @@
         <action name="dispBoardDeleteTrackback" type="view" />
         <action name="dispBoardMessage" type="view" />
 
+        <action name="rss" standalone="true" type="view" />
+
         <action name="procBoardInsertDocument" type="controller" ruleset="insertDocument" />
         <action name="procBoardDeleteDocument" type="controller" />
         <action name="procBoardVoteDocument" type="controller" />

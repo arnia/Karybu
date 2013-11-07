@@ -18,10 +18,10 @@
         /**
          * Feed output.
          * When trying to directly print out the RSS, the results variable can be directly specified through $oRssView->rss($document_list)
-		 *
-		 * @param Object $document_list Document list 
-		 * @param string $rss_title Rss title
-		 * @param string $add_description Add description
+         *
+         * @param Object $document_list Document list
+         * @param string $rss_title Rss title
+         * @param string $add_description Add description
          **/
         function rss($document_list = null, $rss_title = null, $add_description = null) {
             $oDocumentModel = &getModel('document');
@@ -44,10 +44,10 @@
                     $module_srl = $this->module_info->module_srl;
                     $config = $oModuleModel->getModulePartConfig('rss', $module_srl);
                     if($config->open_rss && $config->open_rss != 'N') {
-                       $module_srls[] = $module_srl; 
-                       $open_rss_config[$module_srl] = $config->open_rss;
+                        $module_srls[] = $module_srl;
+                        $open_rss_config[$module_srl] = $config->open_rss;
                     }
-                // If mid is not selected, then get all
+                    // If mid is not selected, then get all
                 } else {
                     if($total_config->use_total_feed != 'N') {
                         $rss_config = $oModuleModel->getModulePartConfigs('rss', $site_srl);
@@ -79,7 +79,7 @@
                     if($start_date == 0) unset($start_date);
                     if($end_date == 0) unset($end_date);
 
-                    $args->sort_index = 'list_order'; 
+                    $args->sort_index = 'list_order';
                     $args->order_type = 'asc';
                     $output = $oDocumentModel->getDocumentList($args);
                     $document_list = $output->data;
@@ -153,6 +153,7 @@
             Context::set('info', $info);
             Context::set('feed_config', $config);
             Context::set('open_rss_config', $open_rss_config);
+
             Context::set('document_list', $document_list);
             // Force the result output to be of XMLRPC
             Context::setResponseMethod("XMLRPC");
@@ -174,6 +175,12 @@
                     $file = 'rss20';
                     break;
             }
+
+            if(count($document_list) == 1) {
+                Context::set('document',$document_list[0]);
+                $file = 'rssDocument';
+            }
+
 
             $oTemplate = new TemplateHandler();
 

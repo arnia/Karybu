@@ -805,5 +805,21 @@
             Context::addHtmlFooter( $script );
         }
 
+        /**
+         * @brief rss for publish subscription
+         **/
+        function rss(){
+            $oRss = getView('rss');
+            $oRss->module_info = $this->module_info;
+            $document_srl = Context::get('document_srl');
+            if(isset($document_srl)){
+                $document_list[] = new documentItem($document_srl);
+            }
+
+            $oRss->rss($document_list);
+            $this->setTemplatePath($oRss->getTemplatePath());
+            $this->setTemplateFile($oRss->getTemplateFile());
+        }
+
     }
 ?>

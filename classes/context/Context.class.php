@@ -2929,6 +2929,11 @@ class Context
         self::$context->setRequestMethod($type);
     }
 
+    public static function setResponseMethod($method)
+    {
+        self::$context->setResponseMethod($method);
+    }
+
     public static function getRequestVars()
     {
         return self::$context->getRequestVars();
