@@ -47,8 +47,8 @@
 
             preg_match('/width([^[:digit:]]+)([0-9]+)/i',$xml_obj->attrs->style,$matches);
             $width = $matches[2];
-            if(!$width) $width = 400;
-            $style = sprintf('width:%dpx', $width);
+            /*if(!$width) $width = 400;
+            $style = sprintf('width:%dpx', $width);*/
             // poll model object creation to come get it return html
             $oPollModel = &getModel('poll');
             return $oPollModel->getPollHtml($poll_srl, $style, $skin);

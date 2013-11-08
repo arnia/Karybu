@@ -7,6 +7,8 @@
  * WYSIWYG editor to insert data into the parent window
  **/
 function completeInsertPoll(ret_obj) {
+
+
     if(typeof(opener)=="undefined") return null;
 
     var fo_obj = get_by_id('fo_component');
@@ -49,16 +51,16 @@ jQuery(function($){
 	$('button._add_item').click(function(){
 		var $tr_src, $tr_new, $th, idx;
 
-		$tr_src = $(this).prev().children('table').find('>tbody>tr:last');
+		$tr_src = $(this).parents('.poll_box').find('.control-group:last');
 		$tr_new = $tr_src.clone();
 
-		match = $tr_src.find('td>input').attr('name').match(/item_(\d+)_(\d+)$/);
+		match = $tr_src.find('input').attr('name').match(/item_(\d+)_(\d+)$/);
 		if(!match) return;
 
 		match[2]++;
 
-		($th=$tr_new.find('th')).html( $th.html().replace(/ \d+/, ' '+match[2]) );
-		$tr_new.find('td>input').attr('name', 'item_'+match[1]+'_'+match[2]);
+		($th=$tr_new.find('label.control-label')).html( $th.html().replace(/ \d+/, ' '+match[2]) );
+		$tr_new.find('div.controls>input').attr('name', 'item_'+match[1]+'_'+match[2]);
 
 		$tr_src.after($tr_new);
 
@@ -69,8 +71,8 @@ jQuery(function($){
 	$('button._del_item').click(function(){
 		var $tr, match;
 
-		$tr = $(this).prevAll('div').children('table').find('>tbody>tr:last');
-		match = $tr.find('td>input').attr('name').match(/item_(\d+)_(\d+)/);
+		$tr = $(this).parents('.poll_box').find('.control-group:last');
+		match = $tr.find('input').attr('name').match(/item_(\d+)_(\d+)/);
 		if(!match || match[2] == 2) return;
 
 		$tr.remove();
@@ -120,3 +122,5 @@ jQuery(function($){
 });
 
 jQuery(window).load(setFixedPopupSize);
+jQuery(document).ready(function(){setFixedPopupSize
+});
