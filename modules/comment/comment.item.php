@@ -463,5 +463,32 @@
         function isCarted() {
             return $_SESSION['comment_management'][$this->comment_srl];
         }
+
+        //check if the current user is allowed to vote this comment
+        function isVoteAllowed(){
+            // invalid vote if vote info exists in the session info.
+            if($_SESSION['voted_comment'][$this->comment_srl]) return false;
+
+            $oCommentModel = &getModel('comment');
+            $oComment = $oCommentModel->getComment($this->comment_srl, false, false);
+            // invalid vote if both ip addresses between author's and the current user are same.
+            if($oComment->get('ipaddress') == $_SERVER['REMOTE_ADDR']) {
+                $_SESSION['voted_comment'][$this->comment_srl] = true;
+                return false;
+            }
+            // if the comment author is a member
+            if($oComment->get('member_srl')) {
+                // create the member model object
+                $oMemberModel = &getModel('member');
+                $member_srl = $oMemberModel->getLoggedMemberSrl();
+                // session registered if the author information matches to the current logged-in user's.
+                if($member_srl && $member_srl == $oComment->get('member_srl')) {
+                    $_SESSION['voted_comment'][$this->comment_srl] = true;
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 ?>
