@@ -121,7 +121,7 @@ if(jQuery) jQuery.noConflict();
             /* The output layer */
             if(html) {
                 var area = $('#popup_menu_area');
-                area.find('.modal-body:first').html('<ul>'+html+'</ul>');
+                area.find('.modal-body:first').html('<ul class="nav nav-tabs nav-stacked">'+html+'</ul>');
                 var areaOffset = {top:params['page_y'], left:params['page_x']};
 
                 if(area.outerHeight()+areaOffset.top > $(window).height()+$(window).scrollTop())
