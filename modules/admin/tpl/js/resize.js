@@ -13,7 +13,7 @@
      */
     function getDashboardContentHeight() {
         var windowHeight = $(window).height();
-        var heightOfPageTitle = 60;
+        var heightOfPageTitle = $('.pagetitle-fixed').height();
         var heightOfAdminMainNav = 40;
 
         var heightOfSidebarNavigationWhenMobile = 60;
