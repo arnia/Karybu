@@ -891,7 +891,9 @@ button.sTog {padding: 4px 10px 8px;
     display: block;
 }
 
-
+ul.langList {
+    display: none!important;
+}
 
 .moduleSearchWindow li a i {
     float: right;

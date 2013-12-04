@@ -1792,73 +1792,79 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 .langEdit li.en input,
 .langEdit li.en textarea,
 .mLangEdit li.en textarea {
-    background: url(../img/flag.us.gif) no-repeat 95%
+    background: url(../img/flag.us.gif) no-repeat 98% 8px;
 }
 
 .langEdit li.ko input,
 .langEdit li.ko textarea,
 .mLangEdit li.ko textarea {
-    background: url(../img/flag.kr.gif) no-repeat 95%
+    background: url(../img/flag.kr.gif) no-repeat 98% 8px;
 }
 
 .langEdit li.jp input,
 .langEdit li.jp textarea,
 .mLangEdit li.jp textarea {
-    background: url(../img/flag.jp.gif) no-repeat 95%
+    background: url(../img/flag.jp.gif) no-repeat 98% 8px;
 }
 
 .langEdit li.fr input,
 .langEdit li.fr textarea,
 .mLangEdit li.fr textarea {
-    background: url(../img/flag.fr.gif) no-repeat 95%
+    background: url(../img/flag.fr.gif) no-repeat 98% 8px;
 }
 
 .langEdit li.de input,
 .langEdit li.de textarea,
 .mLangEdit li.de textarea {
-    background: url(../img/flag.de.gif) no-repeat 95%
+    background: url(../img/flag.de.gif) no-repeat 98% 8px;
 }
 
 .langEdit li.ru input,
 .langEdit li.ru textarea,
 .mLangEdit li.ru textarea {
-    background: url(../img/flag.ru.gif) no-repeat 95%
+    background: url(../img/flag.ru.gif) no-repeat 98% 8px;
 }
 
 .langEdit li.es input,
 .langEdit li.es textarea,
 .mLangEdit li.es textarea {
-    background: url(../img/flag.es.gif) no-repeat 95%
+    background: url(../img/flag.es.gif) no-repeat 98% 8px;
 }
 
 .langEdit li.tr input,
 .langEdit li.tr textarea,
 .mLangEdit li.tr textarea {
-    background: url(../img/flag.tr.gif) no-repeat 95%
+    background: url(../img/flag.tr.gif) no-repeat 98% 8px;
 }
 
 .langEdit li.vi input,
 .langEdit li.vi textarea,
 .mLangEdit li.vi textarea {
-    background: url(../img/flag.vn.gif) no-repeat 95%
+    background: url(../img/flag.vn.gif) no-repeat 98% 8px;
 }
 
-.langEdit li.mn input,
+.langEdit li.mn input,langlist
 .langEdit li.mn textarea,
 .mLangEdit li.mn textarea {
-    background: url(../img/flag.mn.gif) no-repeat 95%
+    background: url(../img/flag.mn.gif) no-repeat 98% 8px;
+}
+
+.langEdit li.ro input,
+.langEdit li.ro textarea,
+.mLangEdit li.ro textarea {
+    background: url(../img/flag.ro.gif) no-repeat 98% 8px;
 }
 
 .langEdit li.zh-CN input,
 .langEdit li.zh-CN textarea,
 .mLangEdit li.zh-CN textarea {
-    background: url(../img/flag.cn.gif) no-repeat 95%
+    background: url(../img/flag.cn.gif) no-repeat 98% 8px;
 }
 
 .langEdit li.zh-TW input,
 .langEdit li.zh-TW textarea,
 .mLangEdit li.zh-TW textarea {
-    background: url(../img/flag.tw.gif) no-repeat 95%
+    background: url(../img/flag.tw.gif) no-repeat 98% 8px;
 }
 
 .mLangEdit.en strong {

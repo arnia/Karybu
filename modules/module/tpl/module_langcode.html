@@ -33,7 +33,7 @@
                             unset($lang_supported[$lang_type]);
                             $lang_supported = array_merge($a, $lang_supported);
                         }
-                        <li class="{$key2}" loop="$lang_supported=>$key2,$value2"><label for="{$langName}_{$key2}">{$value2}</label> <textarea rows="1" cols="42" name="{$key2}" id="{$langName}_{$key2}"></textarea></li>
+                        <li class="{$key2}" loop="$lang_supported=>$key2,$value2"><label for="{$langName}_{$key2}">{$value2}</label> <textarea rows="2" cols="92" name="{$key2}" id="{$langName}_{$key2}" class="input-block-level"></textarea></li>
                     </ul>
                     <div class="btnArea">
                         <button class="btn btn-primary" type="submit" name="act" value="procModuleAdminInsertLang">{$lang->cmd_save}</button>
