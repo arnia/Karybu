@@ -197,7 +197,7 @@
 	</item>
     <item name="visitors">
         <value xml:lang="en"><![CDATA[Visitors]]></value>
-        <value xml:lang="en"><![CDATA[Vizitatori]]></value>
+        <value xml:lang="ro"><![CDATA[Vizitatori]]></value>
     </item>
 	<item name="module_category_title" type="array">
 		<item name="service">

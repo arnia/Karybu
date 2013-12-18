@@ -35,5 +35,5 @@
     <column name="comment_status" type="varchar" size="20" default="ALLOW" />
     <column name="meta_keywords" type="varchar" size="255" />
     <column name="meta_description" type="varchar" size="255" />
-    <column name="feature_file_srl" type="number" size="11" />
+    <column name="featured_file_srl" type="number" size="11" default="0" />
 </table>
