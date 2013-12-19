@@ -44,7 +44,7 @@ mid_slash:
         mid: '[a-zA-Z0-9_]+'
 
 vid:
-    pattern: /{vid}
+    pattern: /{vid}/
     requirements:
             vid: '[a-zA-Z0-9_]+'
 
