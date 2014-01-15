@@ -494,7 +494,7 @@
                     $ev = unserialize($oDocument->variables['extra_vars']);
                     $relateds = array();
                     if ($str = $ev['related']) {
-                        $relateds = (strpos('|@|', $str) === false ? explode('|@|', $str) : array($str));
+                        $relateds = (strpos('|@|', $str) === true ? explode('|@|', $str) : array($str));
                     }
                     if (!empty($relateds)) {
                         $args = new stdClass();
