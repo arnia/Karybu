@@ -123,8 +123,10 @@ class widgetController extends widget
 
         $err = 0;
         $oLayoutModel = & getModel('layout');
-        $layout_info = $oLayoutModel->getLayout($module_srl);
-        if (!$layout_info || $layout_info->type != 'faceoff') {
+        $oModuleModel = getModel('module');
+        $module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
+        $layout_info = $oLayoutModel->getLayout($module_info->layout_srl);
+        if (!$layout_info) {
             $err++;
         }
         // Destination Information Wanted page module
@@ -152,8 +154,8 @@ class widgetController extends widget
             }
         }
         if (!$is_admin && !$is_logged && $logged_info->is_admin != 'Y' && !$oModuleModel->isSiteAdmin(
-            $logged_info
-        ) && !(is_array($page_info->admin_id) && in_array($logged_info->user_id, $page_info->admin_id))
+                $logged_info
+            ) && !(is_array($page_info->admin_id) && in_array($logged_info->user_id, $page_info->admin_id))
         ) {
             return new Object(-1, 'msg_not_permitted');
         }
