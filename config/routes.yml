@@ -77,7 +77,7 @@ vid_mid_doc:
 mid_entry:
     pattern: /{mid}/entry/{entry}
     requirements:
-        mid: '[a-zA-Z0-9_]+'
+        mid: '[a-zA-Z0-9_-]+'
 
 mid_entry_no_entry:
     pattern: /{mid}/{entry}
@@ -87,20 +87,20 @@ mid_entry_no_entry:
 vid_mid_entry:
     pattern: /{vid}/{mid}/entry/{entry}
     requirements:
-        vid: '[a-zA-Z0-9_]+'
-        mid: '[a-zA-Z0-9_]+'
+        vid: '[a-zA-Z0-9_-]+'
+        mid: '[a-zA-Z0-9_-]+'
 
 vid_product:
     pattern: /{vid}/product/{product}
     requirements:
             vid: '[a-zA-Z0-9_]+'
-            product: '[a-zA-Z0-9_]+'
+            product: '[a-zA-Z0-9_-]+'
 
 vid_category:
     pattern: /{vid}/category/{category}
     requirements:
             vid: '[a-zA-Z0-9_]+'
-            category: '[a-zA-Z0-9_]+'
+            category: '[a-zA-Z0-9_-]+'
 #admin3:
 #    pattern: /admin/{act}/{mid}
 #    defaults: { module: admin }
