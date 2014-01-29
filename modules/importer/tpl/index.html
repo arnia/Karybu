@@ -1,6 +1,21 @@
 <include target="./header.html" />
 <load target="js/importer_admin.js" usecdn="true" />
 
+<script type="text/javascript">
+    jQuery(function($){
+        $('.moduleSearch').bind('moduleSelect', function(e, aSelected){
+            if (aSelected.length > 0){
+                var sType, sName, sSrl;
+                sType = aSelected[0].type;
+                sName = aSelected[0].browser_title;
+                sSrl = aSelected[0].module_srl;
+                $('#_target_module').val(sName);
+                $('#index_module_srl').val(sSrl);
+            }
+        });
+    });
+</script>
+
 <div cond="$XE_VALIDATOR_MESSAGE" class="alert alert-block alert-{$XE_VALIDATOR_MESSAGE_TYPE}">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p>{$XE_VALIDATOR_MESSAGE}</p>
@@ -22,23 +37,42 @@
 			</p>
 		</li>
 		<li class="xml ttxml modulefinder">
-		<p class="q">{$lang->data_destination} <br />{$lang->import_desc}</p>
-			<div class="a">
-				<input type="text" name="site_keyword" /> <a href="#suggestion1" class="tgAnchor findsite">{$lang->find_site}</a>
-				<div id="suggestion1" class="tgContent suggestion">
-					<ul></ul>
-				</div>
-			</div>
-			<p class="a">
-				<select class="moduleList" style="width:290px">
-					<option>{$lang->select_module}</option>
-				</select>
-			</p>
-			<p class="a">
-				<select class="moduleIdList" style="width:290px" name="target_module">
-					<option>{$lang->select_module_id}</option>
-				</select>
-			</p>
+            <p class="q">{$lang->data_destination} <br />{$lang->import_desc}</p>
+            <div class="controls modulefinder moduleSearch">
+                <input type="hidden" name="index_module_srl" id="index_module_srl" value="{$start_module->index_module_srl}" />
+                <input type="text" name="_target_module" id="_target_module" value="{$start_module->browser_title} ({$start_module->mid})" readonly="readonly" />
+                <a href="#moduleSearchWindow" class="tgAnchor moduleSearch" title="{$lang->cmd_find}"><i class="icon-search"></i></a>
+                <div id="moduleSearchWindow" class="moduleSearchWindow tgContent">
+                    <div class="siteList sectionDiv">
+                        <h5>{$lang->select_site}</h5>
+                        <div class="siteListSearchBox">
+                            <div class="siteListSearchBoxBorder control-group">
+                                <div class="searchImg icon-search"></div>
+                                <input type="text" class="siteListSearchInput" name="site_filter" />
+                            </div>
+                        </div>
+                        <div class="siteListUL">
+                            <ul>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="moduleTypeList sectionDiv">
+                        <h5>{$lang->select_module_type}</h5>
+                        <div>
+                            <ul class="moduleTypeListUL">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="moduleInstanceList sectionDiv">
+                        <h5>{$lang->select_module_instance}</h5>
+                        <div class="control-group">
+                            <select class="moduleInstanceListSelect" size="8">
+                            </select>
+                        </div>
+                        <button class="btn btn_primary moduleSearch_ok">{$lang->cmd_select}</button>
+                    </div>
+                </div>
+            </div>
 		</li>
 		<li class="ttxml modulefinder">
 			<p class="q">{$lang->guestbook_destination}</p>
@@ -77,7 +111,7 @@
 	<input type="hidden" name="unit_count" value="100" />
 	<h3 class="h3">{$lang->type_member}</h3>
 	<ul class="unstyled">
-		<li>
+        <li class="form-inline">
 			<p class="q">{$lang->xml_path} {$lang->path_info}</p>
 			<p class="a checkxml">
 				<input type="text" name="xml_file" value="./" />
@@ -99,7 +133,7 @@
 	<input type="hidden" name="unit_count" value="100" />
 	<h3 class="h3">{$lang->type_message}</h3>
 	<ul class="unstyled">
-		<li>
+        <li class="form-inline">
 			<p class="q">{$lang->xml_path} {$lang->path_info}</p>
 			<p class="a checkxml">
 				<input type="text" name="xml_file" value="./" />

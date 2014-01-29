@@ -23,14 +23,16 @@ jQuery(function($){
 
 <script type="text/javascript">
 jQuery(function($){
-	$('.moduleSearch').bind('moduleSelect', function(e, aSelected){
-		var sType, sName, sSrl;
-		sType = aSelected[0].type;
-		sName = aSelected[0].browser_title;
-		sSrl = aSelected[0].module_srl;
-		$('#_target_module').val(sName);
-		$('#index_module_srl').val(sSrl);
-	});
+    $('.moduleSearch').bind('moduleSelect', function(e, aSelected){
+        if (aSelected.length > 0){
+            var sType, sName, sSrl;
+            sType = aSelected[0].type;
+            sName = aSelected[0].browser_title;
+            sSrl = aSelected[0].module_srl;
+            $('#_target_module').val(sName);
+            $('#index_module_srl').val(sSrl);
+        }
+    });
 });
 </script>
 

@@ -559,6 +559,9 @@
             $oDocumentController = &getController('document');
             $oDocumentModel = &getModel('document');
             $category_list = $category_titles = array();
+            // begin transaction
+            $oDB = DB::getInstance();
+            $oDB->begin();
             $category_list = $oDocumentModel->getCategoryList($module_srl);
             if(count($category_list)) foreach($category_list as $key => $val) $category_titles[$val->title] = $val->category_srl;
             // Extract category information
@@ -574,7 +577,7 @@
                     if(!is_array($categories)) $categories = array($categories);
                     $match_sequence = array();
                     foreach($categories as $k => $v) {
-                        $category = trim(base64_decode($v->body));
+                        $category = htmlspecialchars(trim(base64_decode($v->body)));
                         if(!$category || $category_titles[$category]) continue;
 
                         $sequence = $v->attrs->sequence;
@@ -586,6 +589,10 @@
                         if($parent) $obj->parent_srl = $match_sequence[$parent];
 
                         $output = $oDocumentController->insertCategory($obj);
+                        if(!$output->toBool()) {
+                            $oDB->rollback();
+                            return $output;
+                        }
                         if($output->toBool()) $match_sequence[$sequence] = $output->get('category_srl');
                     }
                     $oDocumentController = &getController('document');
@@ -634,6 +641,10 @@
                     // Prepare an item
                     if(trim($str) == '<post>') {
                         $started = true;
+                    // Insert images
+                    } else if(substr($str,0,7) == '<images') {
+                        $this->importImages($fp, $module_srl, $obj->document_srl);
+                        continue;
                     // Trackback inserted
                     } else if(substr($str,0,11) == '<trackbacks') {
                         $obj->trackback_count = $this->importTrackbacks($fp, $module_srl, $obj->document_srl);
@@ -698,6 +709,10 @@
                 }
 
                 $output = executeQuery('document.insertDocument', $obj);
+                if(!$output->toBool()) {
+                    $oDB->rollback();
+                    return $output;
+                }
 
                 if ($output->toBool() && !empty($xmlDoc->post->alias)){
                     $alias = new stdClass();
@@ -706,6 +721,10 @@
                     $alias->module_srl = $module_srl;
                     $alias->alias_title = base64_decode($xmlDoc->post->alias->body);
                     $aliasOutput = executeQuery('document.insertAlias', $alias);
+                    if(!$aliasOutput->toBool()) {
+                        $oDB->rollback();
+                        return $aliasOutput;
+                    }
                 }
 
                 if($output->toBool() && $obj->tags) {
@@ -720,6 +739,10 @@
                         $args->regdate = $obj->regdate;
                         if(!$args->tag) continue;
                         $output = executeQuery('tag.insertTag', $args);
+                        if(!$output->toBool()) {
+                            $oDB->rollback();
+                            return $output;
+                        }
                     }
 
                 }
@@ -745,10 +768,18 @@
                             $ek_args->var_default = '';
                             $ek_args->eid = $val->eid;
                             $output = executeQuery('document.insertDocumentExtraKey', $ek_args);
+                            if(!$output->toBool()) {
+                                $oDB->rollback();
+                                return $output;
+                            }
                             $extra_keys[$ek_args->eid] = true;
                         }
 
                         $output = executeQuery('document.insertDocumentExtraVar', $e_args);
+                        if(!$output->toBool()) {
+                            $oDB->rollback();
+                            return $output;
+                        }
                     }
                 }
 
@@ -762,6 +793,10 @@
                     $oDocumentController->updateCategoryCount($module_srl, $val->category_srl);
                 }
             }
+
+            // commit
+            $oDB->commit();
+
             return $idx-1;
         }
 
@@ -1041,6 +1076,50 @@
                 }
             }
             return $uploaded_count;
+        }
+
+        /**
+         * Images
+         * @param resource $fp
+         * @param int $module_srl
+         * @param int $document_srl
+         * @return int
+         */
+        function importImages($fp, $module_srl, $document_srl) {
+            while(!feof($fp)) {
+
+                $str = fgets($fp, 1024);
+                // If </images>, break
+                if(trim($str) == '</images>') break;
+                else{
+                    $xmlDoc = $this->oXmlParser->parse($str);
+
+                    // List file information
+                    $obj = null;
+                    $obj->file_srl = getNextSequence();
+                    $obj->upload_target_srl = $document_srl;
+                    $obj->module_srl = $module_srl;
+                    $obj->direct_download = 'Y';
+
+                    $image_path = base64_decode($xmlDoc->image->body);
+                    $image = explode('/', $image_path);
+                    $image_name = end($image);
+                    $obj->source_filename = $image_name;
+
+                    $obj->uploaded_filename = $image_path;
+                    $obj->download_count = 0;
+                    $obj->file_size = @filesize($image_path);
+                    $obj->comment = NULL;
+                    $obj->isvalid = 'Y';
+                    // Get member information
+                    $oMemberModel = &getModel('member');
+                    $obj->member_srl = $oMemberModel->getLoggedMemberSrl();
+                    $obj->sid = md5(rand(rand(1111111,4444444),rand(4444445,9999999)));
+
+                    $output = executeQuery('file.insertFile', $obj);
+                    if(!$output->toBool()) return $output;
+                }
+            }
         }
 
 		/**

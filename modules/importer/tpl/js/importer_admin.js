@@ -73,7 +73,7 @@ $('.checkxml')
 	.end()
 	.find('.desc').hide().end()
 	.closest('ul').find('>li.ttxml').hide().end().end()
-	.closest('form').find(':submit').attr('disabled','disabled');
+    .closest('form').find(':submit').not('.moduleSearch_ok').attr('disabled','disabled');
 
 // hide 'sync member' block
 $('.syncmember').hide();
@@ -118,10 +118,14 @@ function doPreProcessing(form, formId) {
 		on_complete, // callback
 		resp=['error','message','type','total','cur','key','status'] // response tags
 	);
-    jQuery('#process').modal();
+    jQuery('#process').modal({
+        keyboard: false,
+        backdrop: 'static'
+    });
     jQuery('#preProgressMsg').show();
     jQuery('#progressMsg').hide();
     jQuery('#doneProcess').hide();
+    jQuery('#progressBar').progressbar();
     jQuery('#progressBar').progressbar("option", "max", "0");
     jQuery('#progressBar').progressbar("option", "value", "0");
     jQuery('#doneClose').hide();
@@ -232,7 +236,10 @@ function doImport(formId) {
 		on_complete, // callback
 		resp = ['error','message','type','total','cur','key'] // response tags
 	);
-    jQuery('#process').modal();
+    jQuery('#process').modal({
+        keyboard: false,
+        backdrop: 'static'
+    });
     show_waiting_message = true;
 
     return false;
