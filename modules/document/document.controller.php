@@ -178,7 +178,7 @@ class documentController extends document {
 	 * @return object
 	 */
 	function insertDocument($obj, $manual_inserted = false, $isRestore = false, $isLatest = true) {
-		if(!checkCSRF())
+		if(!checkCSRF() && $obj->module != 'shop')
 		{
 			return new Object(-1, 'msg_invalid_request');
 		}
