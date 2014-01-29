@@ -274,9 +274,18 @@
             $lang_supported = Context::get('lang_supported');
             $args = new stdClass();
             $selected_lang = array();
-            if(substr($name,0,12)=='$user_lang->') {
+
+            //get lang name by value
+            $argx = new stdClass();
+            $argx->site_srl = (int)$site_srl;
+            $argx->value = $name;
+            $outputx = executeQuery('module.getLangNameByValue', $argx);
+            $namex = $outputx->data->name;
+
+
+            if(substr($name,0,12)=='$user_lang->' || substr($namex,0,8)=='userLang') {
                 $args->site_srl = (int)$site_srl;
-                $args->name = substr($name,12);
+                $args->name = $namex;
                 $output = executeQueryArray('module.getLang', $args);
                 if($output->data) {
                     foreach($output->data as $key => $val) {
@@ -290,20 +299,20 @@
                     $selected_lang = array();
                     $rand_name = $tmp[Context::getLangType()];
                     if(!$rand_name) $rand_name = array_shift($tmp);
-					if(is_array($lang_supported))
-					{
-						foreach($lang_supported as $key => $val)
-							$selected_lang[$key] = $tmp[$key]?$tmp[$key]:$rand_name;
-					}
+                    if(is_array($lang_supported))
+                    {
+                        foreach($lang_supported as $key => $val)
+                            $selected_lang[$key] = $tmp[$key]?$tmp[$key]:$rand_name;
+                    }
                 }
             }
 
             $output = array();
-			if(is_array($lang_supported))
-			{
-				foreach($lang_supported as $key => $val)
-					$output[$key] = !empty($selected_lang[$key])?$selected_lang[$key]:$name;
-			}
+            if(is_array($lang_supported))
+            {
+                foreach($lang_supported as $key => $val)
+                    $output[$key] = !empty($selected_lang[$key])?$selected_lang[$key]:$name;
+            }
             return $output;
         }
 

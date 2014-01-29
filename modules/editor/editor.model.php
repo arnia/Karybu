@@ -599,8 +599,6 @@ class editorModel extends editor
                     break;
                 }
             }
-        } else {
-            $option->allow_fileupload = true;
         }
         // Permission check for using default components
         $option->enable_default_component = false;
