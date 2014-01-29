@@ -64,6 +64,10 @@
 			$oDocumentModel = &getModel('document');	//for document lang use in this page
 
             $this->setTemplatePath($this->module_path.'tpl');
+            $oModuleModel = &getModel('module');
+            $columnList = array('modules.mid', 'modules.browser_title', 'sites.index_module_srl');
+            $start_module = $oModuleModel->getSiteInfo(0, $columnList);
+            Context::set('start_module', $start_module);
             $this->setTemplateFile('index');
         }
         
