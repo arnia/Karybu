@@ -1776,8 +1776,8 @@ class ContextInstance
             } else {
                 $files = array();
                 for ($i = 0; $i < count($tmp_name); $i++) {
-                    $tmp_name = $val['tmp_name'][$i];
-                    if (!$tmp_name || !$this->is_uploaded_file($tmp_name)) {
+                    $temp_name = $val['tmp_name'][$i];
+                    if (!$temp_name || !$this->is_uploaded_file($temp_name)) {
                         continue;
                     }
                     if ($val['size'][$i] > 0) {

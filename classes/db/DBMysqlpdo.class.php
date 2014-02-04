@@ -262,6 +262,7 @@ class DBMysqlpdo extends DBMysql
                     $param->value = $v;
                     $param->type = $type;
                     $params[] = $param;
+                    unset($param);
                 }
             } else {
                 $param->value = $value;
