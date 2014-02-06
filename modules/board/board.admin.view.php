@@ -203,7 +203,23 @@
             // the additional setup triggers can be used in many modules
             $output = ModuleHandler::triggerCall('module.dispAdditionSetup', 'before', $content);
             $output = ModuleHandler::triggerCall('module.dispAdditionSetup', 'after', $content);
-            Context::set('setup_content', $content);
+
+            preg_match_all('#<div class="(tab-pane|tab-pane active)" id="([^"]*)"[^>]*>(.*?)</div>#s',$content,$matches);
+            $hrefs = $matches[2];
+            preg_match_all('#<h3>(.*?)</h3>#s',$content,$h3_matches);
+            $titles = $h3_matches[1];
+
+            $before = '<div class="tabbable tabs-left"><ul class="nav nav-tabs">';
+
+            foreach ($hrefs as $key => $href){
+                $before .= '<li class="'. ($key == 0 ? 'active' : "") . '"><a href="#' . $href . '" data-toggle="tab">' . $titles[$key] . '</a></li>';
+            }
+
+            $before .= '</ul><div class="tab-content">';
+
+            $setup_content = $before . $content . '</div></div>';
+
+            Context::set('setup_content', $setup_content);
 
             // setup the template file
             $this->setTemplateFile('addition_setup');

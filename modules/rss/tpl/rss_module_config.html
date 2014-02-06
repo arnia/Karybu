@@ -1,51 +1,53 @@
-<form ruleset="insertRssModuleConfig" action="./" method="post" class="form-horizontal">
-	<input type="hidden" name="module" value="rss" />
-	<input type="hidden" name="act" value="procRssAdminInsertModuleConfig" />
-	<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
-	<input type="hidden" name="target_module_srl" value="{$rss_config->module_srl?$rss_config->module_srl:$module_srls}" />
-	
-    <h3 class="h3">{$lang->open_rss}</h3>
+<div class="tab-pane" id="tab-pane-rss">
+    <form ruleset="insertRssModuleConfig" action="./" method="post" class="form-horizontal">
+        <input type="hidden" name="module" value="rss" />
+        <input type="hidden" name="act" value="procRssAdminInsertModuleConfig" />
+        <input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
+        <input type="hidden" name="target_module_srl" value="{$rss_config->module_srl?$rss_config->module_srl:$module_srls}" />
 
-    <p>{$lang->about_open_rss}</p>
+        <h3>{$lang->open_rss}</h3>
 
-    <div class="control-group">
-        <label for="open_rss" class="control-label">{$lang->open_rss}</label>
-        <div class="controls">
-            <select name="open_rss" id="open_rss">
-                <!--@foreach($lang->open_rss_types as $key=>$val)-->
-                <option value="{$key}" <!--@if(!$rss_config->open_rss && $key=='N')-->selected="selected"<!--@elseif($rss_config->open_rss==$key)-->selected="selected"<!--@end-->>{$val}</option>
-                <!--@end-->
-            </select>
+        <p>{$lang->about_open_rss}</p>
+
+        <div class="control-group">
+            <label for="open_rss" class="control-label">{$lang->open_rss}</label>
+            <div class="controls">
+                <select name="open_rss" id="open_rss">
+                    <!--@foreach($lang->open_rss_types as $key=>$val)-->
+                    <option value="{$key}" <!--@if(!$rss_config->open_rss && $key=='N')-->selected="selected"<!--@elseif($rss_config->open_rss==$key)-->selected="selected"<!--@end-->>{$val}</option>
+                    <!--@end-->
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="control-group">
-        <label for="open_total_feed" class="control-label">{$lang->open_feed_to_total}</label>
-        <div class="controls">
-            <select name="open_total_feed" id="open_total_feed">
-                <option value="N" <!--@if(!$rss_config->open_total_feed || $rss_config->open_total_feed == 'N')-->selected="selected"<!--@end-->>{$lang->use}</option>
-                <option value="T_N" <!--@if($rss_config->open_total_feed == 'T_N')-->selected="selected"<!--@end-->>{$lang->notuse}</option>
-            </select>
+        <div class="control-group">
+            <label for="open_total_feed" class="control-label">{$lang->open_feed_to_total}</label>
+            <div class="controls">
+                <select name="open_total_feed" id="open_total_feed">
+                    <option value="N" <!--@if(!$rss_config->open_total_feed || $rss_config->open_total_feed == 'N')-->selected="selected"<!--@end-->>{$lang->use}</option>
+                    <option value="T_N" <!--@if($rss_config->open_total_feed == 'T_N')-->selected="selected"<!--@end-->>{$lang->notuse}</option>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="control-group">
-        <label for="feed_description" class="control-label">{$lang->description}</label>
-        <div class="controls">
-            <textarea name="feed_description" id="feed_description" rows="8" cols="42">{$rss_config->feed_description}</textarea>
-            <div class="help-block">{$lang->about_feed_description}</div>
+        <div class="control-group">
+            <label for="feed_description" class="control-label">{$lang->description}</label>
+            <div class="controls">
+                <textarea name="feed_description" id="feed_description" rows="8" cols="42">{$rss_config->feed_description}</textarea>
+                <div class="help-block">{$lang->about_feed_description}</div>
+            </div>
         </div>
-    </div>
 
-    <div class="control-group">
-        <label for="feed_copyright" class="control-label">{$lang->feed_copyright}</label>
-        <div class="controls">
-            <input type="text"  name="feed_copyright" id="feed_copyright" value="{htmlspecialchars($rss_config->feed_copyright)}" />
-            <div class="help-block">{$lang->about_feed_copyright}</div>
+        <div class="control-group">
+            <label for="feed_copyright" class="control-label">{$lang->feed_copyright}</label>
+            <div class="controls">
+                <input type="text"  name="feed_copyright" id="feed_copyright" value="{htmlspecialchars($rss_config->feed_copyright)}" />
+                <div class="help-block">{$lang->about_feed_copyright}</div>
+            </div>
         </div>
-    </div>
 
-    <div>
-		<button type="submit" class="btn">{$lang->cmd_save}</button>
-	</div>
-</form>
+        <div>
+            <button type="submit" class="btn">{$lang->cmd_save}</button>
+        </div>
+    </form>
+</div>

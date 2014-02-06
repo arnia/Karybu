@@ -1,47 +1,49 @@
-<!--%import("filter/insert_document_module_config.xml")-->
-<form action="./" method="post" class="form-horizontal">
-    <input type="hidden" name="module" value="document" />
-    <input type="hidden" name="act" value="procDocumentInsertModuleConfig" />
-    <input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
-	<input type="hidden" name="target_module_srl" value="{$module_info->module_srl?$module_info->module_srl:$module_srls}" />
+<div class="tab-pane" id="tab-pane-document">
+    <!--%import("filter/insert_document_module_config.xml")-->
+    <form action="./" method="post" class="form-horizontal">
+        <input type="hidden" name="module" value="document" />
+        <input type="hidden" name="act" value="procDocumentInsertModuleConfig" />
+        <input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
+        <input type="hidden" name="target_module_srl" value="{$module_info->module_srl?$module_info->module_srl:$module_srls}" />
 
-    <h3 class="h3">{$lang->document}</h3>
+        <h3>{$lang->document}</h3>
 
-    <div class="control-group">
-        <label for="use_history" class="control-label">{$lang->history}</label>
-        <div class="controls">
-            <select name="use_history" id="use_history">
-                <option value="N" selected="selected"|cond="$document_config->use_history=='N'">{$lang->notuse}</option>
-                <option value="Y" selected="selected"|cond="$document_config->use_history=='Y'">{$lang->use}</option>
-                <option value="Trace" selected="selected"|cond="$document_config->use_history=='Trace'">{$lang->trace_only}</option>
-            </select>
-            <div class="help-block">{$lang->about_use_history}</div>
+        <div class="control-group">
+            <label for="use_history" class="control-label">{$lang->history}</label>
+            <div class="controls">
+                <select name="use_history" id="use_history">
+                    <option value="N" selected="selected"|cond="$document_config->use_history=='N'">{$lang->notuse}</option>
+                    <option value="Y" selected="selected"|cond="$document_config->use_history=='Y'">{$lang->use}</option>
+                    <option value="Trace" selected="selected"|cond="$document_config->use_history=='Trace'">{$lang->trace_only}</option>
+                </select>
+                <div class="help-block">{$lang->about_use_history}</div>
+            </div>
         </div>
-    </div>
 
-    <div class="control-group">
-        <label for="document_use_vote_up" class="control-label">{$lang->cmd_vote}</label>
-        <div class="controls">
-            <select name="use_vote_up" id="document_use_vote_up">
-                <option value="Y" selected="selected"|cond="$document_config->use_vote_up=='Y'">{$lang->use}</option>
-                <option value="S" selected="selected"|cond="$document_config->use_vote_up=='S'">{$lang->use_and_display}</option>
-                <option value="N" selected="selected"|cond="$document_config->use_vote_up=='N'">{$lang->notuse}</option>
-            </select>
+        <div class="control-group">
+            <label for="document_use_vote_up" class="control-label">{$lang->cmd_vote}</label>
+            <div class="controls">
+                <select name="use_vote_up" id="document_use_vote_up">
+                    <option value="Y" selected="selected"|cond="$document_config->use_vote_up=='Y'">{$lang->use}</option>
+                    <option value="S" selected="selected"|cond="$document_config->use_vote_up=='S'">{$lang->use_and_display}</option>
+                    <option value="N" selected="selected"|cond="$document_config->use_vote_up=='N'">{$lang->notuse}</option>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="control-group">
-        <label for="document_use_vote_down" class="control-label">{$lang->cmd_vote_down}</label>
-        <div class="controls">
-            <select name="use_vote_down" id="document_use_vote_down">
-                <option value="Y" selected="selected"|cond="$document_config->use_vote_down=='Y'">{$lang->use}</option>
-                <option value="S" selected="selected"|cond="$document_config->use_vote_down=='S'">{$lang->use_and_display}</option>
-                <option value="N" selected="selected"|cond="$document_config->use_vote_down=='N'">{$lang->notuse}</option>
-            </select>
+        <div class="control-group">
+            <label for="document_use_vote_down" class="control-label">{$lang->cmd_vote_down}</label>
+            <div class="controls">
+                <select name="use_vote_down" id="document_use_vote_down">
+                    <option value="Y" selected="selected"|cond="$document_config->use_vote_down=='Y'">{$lang->use}</option>
+                    <option value="S" selected="selected"|cond="$document_config->use_vote_down=='S'">{$lang->use_and_display}</option>
+                    <option value="N" selected="selected"|cond="$document_config->use_vote_down=='N'">{$lang->notuse}</option>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div>
-		<button type="submit" class="btn">{$lang->cmd_save}</button>
-	</div>
-</form>
+        <div>
+            <button type="submit" class="btn">{$lang->cmd_save}</button>
+        </div>
+    </form>
+</div>

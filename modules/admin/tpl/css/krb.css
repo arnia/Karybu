@@ -1925,6 +1925,10 @@ white-space: nowrap;
 
 }
 
+.horizontal-scroll table.left-heading {
+    white-space: normal;
+}
+
 .kActionIcons button {
     background: none;
     margin: 0;
