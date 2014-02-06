@@ -180,6 +180,10 @@ ul.nav-tabs {
     border-bottom:#6d7587 1px solid;
 }
 
+.tabs-left ul.nav-tabs {
+    padding:0 0 0;
+}
+
 .nav-tabs:before,
 .nav-pills:before,
 .nav-tabs:after,
