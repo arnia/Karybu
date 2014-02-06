@@ -11,11 +11,15 @@
     <extra_vars>
         <var name="title_image" type="image">
             <title xml:lang="ko">게시판 제목 이미지</title>
-			<description xml:lang="ko">작성하면 화면에 표시 됨</description>
+            <title xml:lang="en">Board Title Image</title>
+            <description xml:lang="ko">작성하면 화면에 표시 됨</description>
+            <description xml:lang="en">When you create a search screen</description>
         </var>
         <var name="title_alt" type="text">
             <title xml:lang="ko">게시판 제목 이미지 alt</title>
-			<description xml:lang="ko">게시판 제목 이미지 대체 텍스트</description>
+            <title xml:lang="en">Board Title Image alt</title>
+            <description xml:lang="ko">게시판 제목 이미지 대체 텍스트</description>
+            <description xml:lang="en">Board Title image alternate text</description>
         </var>
     </extra_vars>
 </skin>
