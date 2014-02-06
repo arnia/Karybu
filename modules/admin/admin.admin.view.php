@@ -261,7 +261,7 @@
             else{
                 $page_title = $module;
             }
-            $page_title = ucfirst($page_title);
+            $page_title = str_replace('_',' ',ucfirst($page_title));
             Context::set('activeNode', $activeNode);
             Context::set('subMenuTitle', $subMenuTitle);
 			Context::set('gnbUrlList',   $menu->list);
