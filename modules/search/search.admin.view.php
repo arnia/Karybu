@@ -55,7 +55,7 @@
             Context::set('options_config', $this->config->options);
             $options_list = array('all_content' => $lang->all_content,
                                   'document' => $lang->document,
-                                  'comment' => $lang->content,
+                                  'comment' => $lang->comment,
                                   'trackback' => $lang->trackback,
                                   'multimedia' => $lang->multimedia,
                                   'file' => $lang->file);
