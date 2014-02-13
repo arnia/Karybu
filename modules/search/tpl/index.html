@@ -1,5 +1,6 @@
 <!--#include("header.html")-->
 <load target="../../widget/tpl/js/widget_admin.js" usecdn="true" />
+<load target="../../module/tpl/js/multi_order.js" />
 
 <div id="content" class="cleared">
     <div cond="$XE_VALIDATOR_MESSAGE" class="xe-ui-message {$XE_VALIDATOR_MESSAGE_TYPE} gradient cleared">
@@ -32,21 +33,73 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="v-top"><p>{$lang->target}</p></td>
-                        <td><p>
-                            <select name="target" class="xe-ui-panel-select">
+                        <td class="v-top" align="left" valign="top"><p>{$lang->target}</p></td>
+                        <td class="moduleSearch moduleSearch1 modulefinder extra_vars">
+                            <select name="target">
                                 <option value="include">{$lang->include_search_target}</option>
                                 <option value="exclude" <!--@if($config->target=='exclude')-->selected="selected"<!--@end-->>{$lang->exclude_search_target}</option>
-                            </select></p>
+                            </select>
+                            <br/>
 
-                            <select name="_target_module_srl" id="_target_module_srl" size="8" style="display:block;margin:10px 0;"></select>
-
-                            <a class="xe-ui-button-gray" href="{getUrl('','module','module','act','dispModuleSelectList','id','target_module_srl')}" onclick="popopen(this.href, 'ModuleSelect');return false;" class="button blue"><span>{$lang->cmd_insert}</span></a>
-                            <a class="xe-ui-button-gray" href="#" onclick="midRemove('target_module_srl');return false;" class="button red"><span>{$lang->cmd_delete}</span></a>
-
+                            <!--@ // List of modules to search in -->
+                            <input type="hidden" id="target_module_srl" name="target_module_srl" value="{$config->target_module_srl}" />
+                            <select class="modulelist_selected" size="8" multiple="multiple"></select>
+                            <br/>
+                            <span><a id="add" href="#moduleSearchWindow1" class="tgAnchor moduleSearch btn btn-small btn-primary">{$lang->cmd_add}</a></span>
+                            <button type="button" class="text modulelist_del btn btn-small">{$lang->cmd_delete}</button>
                             <script type="text/javascript">
-                                jQuery( function() { getModuleSrlList('target_module_srl'); } );
+                                xe.registerApp(new xe.ModuleListManager('target_module_srl'));
                             </script>
+
+                            <script>
+                                jQuery(function($){
+                                    $('.moduleSearch1').bind('moduleSelect', function(e, aSelected){
+                                        var sType, sName, sSrl;
+
+                                        for(var i=0, nLen=aSelected.length; i<nLen; i++){
+                                            sType = aSelected[i].type;
+                                            sName = aSelected[i].browser_title;
+                                            sSrl = aSelected[i].module_srl;
+                                            xe.broadcast("ADD_MODULE_TO_MODULELIST_MANAGER", [sType, sName, sSrl]);
+                                        }
+                                    });
+                                });
+                            </script>
+
+                            <!-- new module search -->
+                            <div id="moduleSearchWindow1" class="moduleSearchWindow tgContent search-site-list">
+                                <div class="siteList sectionDiv">
+                                    <h2>{$lang->select_site}</h2>
+                                    <div class="siteListSearchBox">
+                                        <div class="siteListSearchBoxBorder">
+                                            <div class="searchImg icon-search"></div>
+                                            <input type="text" class="siteListSearchInput" name="site_filter">
+                                        </div>
+                                    </div>
+                                    <div class="siteListUL">
+                                        <ul>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="moduleTypeList sectionDiv">
+                                    <h2>{$lang->select_module_type}</h2>
+                                    <div>
+                                        <ul class="moduleTypeListUL">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="moduleInstanceList sectionDiv">
+                                    <h2>{$lang->select_module_instance}</h2>
+                                    <div>
+                                        <select class="moduleInstanceListSelect" multiple="multiple" size="8">
+                                        </select>
+                                    </div>
+                                    <button class="btn btn_primary moduleSearch_ok">{$lang->cmd_select}</button>
+                                </div>
+                            </div>
+                            <!--// new module search -->
+
+                            <!--@ // END of list of modules -->
                         </td>
                     </tr>
                     <tr>
@@ -56,6 +109,35 @@
                         <td>
                             <input type="checkbox" name="lucene_search" id="lucene_search" value="{$config->lucene_search ? $config->lucene_search : 'Y'}" {$config->lucene_search == 'Y' ? 'checked' : ''}>
                             <p class="desc">{$lang->about_search_lucene}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="v-top">
+                            <p>{$lang->search_options}</p>
+                        </td>
+                        <td>
+                            {@$options = array_keys($options_config)}
+                            <input type="hidden" id="options_list" name="options_list" value="{implode(',', $options)}" />
+                            <div class="pull-left">
+                                <select id="options" class="multiorder_show" size="8" multiple="multiple" style="width:220px;vertical-align:top;margin-bottom:8px">
+                                    <option loop="$options_list => $key, $val" cond="!$options_config[$key] && $options_list[$key]" value="{$key}">{$options_list[$key]}</option>
+                                </select><br />
+                                <button type="button" class="btn multiorder_add" style="vertical-align:top">{$lang->cmd_insert}</button>
+                            </div>
+                            <div class="pull-left">
+                                <select id="options_config" class="multiorder_selected" size="8" multiple="multiple" style="width:220px;vertical-align:top;margin-bottom:8px">
+                                    <option cond="$options_config" loop="$options_config => $opt_key, $opt_val" value="{$opt_key}">{$options_list[$opt_val]}</option>
+                                </select><br />
+                            <span class="btn-group">
+                                <button type="button" class="btn multiorder_up" style="vertical-align:top">{$lang->cmd_move_up}</button>
+                                <button type="button" class="btn multiorder_down" style="vertical-align:top">{$lang->cmd_move_down}</button>
+                                <button type="button" class="btn multiorder_del" style="vertical-align:top">{$lang->cmd_delete}</button>
+                            </span>
+                            </div>
+                            <script>
+                                xe.registerApp(new xe.MultiOrderManager('options_list'));
+                            </script>
+                            <div style="clear: left; padding-top: 10px; padding-bottom: 10px;">{$lang->default_search_option}</div>
                         </td>
                     </tr>
                 </table>

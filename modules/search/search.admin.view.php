@@ -28,6 +28,8 @@
          * @brief Module selection and skin set
          **/
         function dispSearchAdminContent() {
+            global $lang;
+
             // Get a list of skins(themes)
             $oModuleModel = getModel('module');
             $skin_list = $oModuleModel->getSkins($this->module_path);
@@ -49,6 +51,15 @@
             }
 
             Context::set('mid_list',$module_categories);*/
+
+            Context::set('options_config', $this->config->options);
+            $options_list = array('all_content' => $lang->all_content,
+                                  'document' => $lang->document,
+                                  'comment' => $lang->content,
+                                  'trackback' => $lang->trackback,
+                                  'multimedia' => $lang->multimedia,
+                                  'file' => $lang->file);
+            Context::set('options_list', $options_list);
 
 			$security = new Security();
 			$security->encodeHTML('skin_list..title');

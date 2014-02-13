@@ -22,12 +22,17 @@
             $oModuleModel = getModel('module');
             $config = $oModuleModel->getModuleConfig('search');
 
+            $args = new stdClass();
             $args->skin = Context::get('skin');
             $args->target = Context::get('target');
             $args->target_module_srl = Context::get('target_module_srl');
             $args->lucene_search = Context::get('lucene_search');
             if(!$args->target_module_srl) $args->target_module_srl = '';
             $args->skin_vars = $config->skin_vars;
+            $options = Context::get('options_list') ? explode(',',Context::get('options_list')) : array();
+            foreach ($options as $option){
+                $args->options[$option] = $option;
+            }
 
             $oModuleController = getController('module');
             $output = $oModuleController->insertModuleConfig('search',$args);

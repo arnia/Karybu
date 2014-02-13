@@ -27,12 +27,28 @@
         </form>
     </div>
 
-    <ul class="localNavigation">
-        <li <!--@if(!$where)-->class="on"<!--@end-->><a href="{getAutoEncodedUrl('where','','page','','division','')}">{$lang->search}</a></li>
-        <li <!--@if($where=='document')-->class="on"<!--@end-->><a href="{getAutoEncodedUrl('where','document','page',1,'division','')}">{$lang->document}</a></li>
-        <li <!--@if($where=='comment')-->class="on"<!--@end-->><a href="{getAutoEncodedUrl('where','comment','page',1,'division','')}">{$lang->comment}</a></li>
-        <li <!--@if($where=='trackback')-->class="on"<!--@end-->><a href="{getAutoEncodedUrl('where','trackback','page',1,'division','')}">{$lang->trackback}</a></li>
-        <li <!--@if($where=='multimedia')-->class="on"<!--@end-->><a href="{getAutoEncodedUrl('where','multimedia','page',1,'division','')}">{$lang->multimedia}</a></li>
-        <li <!--@if($where=='file')-->class="on"<!--@end-->><a href="{getAutoEncodedUrl('where','file','page',1,'division','')}">{$lang->file}</a></li>
-    </ul>
+
+    <ul class="nav nav-tabs">
+        {@$i=0}
+        <!--@if($search_options)-->
+            <!--@foreach($search_options as $search_option)-->
+                <!--@if($search_option=='all_content')-->
+                    <li <!--@if((!$where && $i==0) || $where==$search_option)-->class="active"<!--@end-->><a href="{getUrl('where',$search_option,'page','1','division','')}">{$lang->all_content}</a></li>
+                <!--@elseif($search_option=='document')-->
+                    <li <!--@if((!$where && $i==0) || $where==$search_option)-->class="active"<!--@end-->><a href="{getUrl('where',$search_option,'page',1,'division','')}">{$lang->document}</a></li>
+                <!--@elseif($search_option=='comment')-->
+                    <li <!--@if((!$where && $i==0) || $where==$search_option)-->class="active"<!--@end-->><a href="{getUrl('where',$search_option,'page',1,'division','')}">{$lang->comment}</a></li>
+                <!--@elseif($search_option=='trackback')-->
+                    <li <!--@if((!$where && $i==0) || $where==$search_option)-->class="active"<!--@end-->><a href="{getNotEncodedUrl('where',$search_option,'page',1,'division','')}">{$lang->trackback}</a></li>
+                <!--@elseif($search_option=='multimedia')-->
+                    <li <!--@if((!$where && $i==0) || $where==$search_option)-->class="active"<!--@end-->><a href="{getNotEncodedUrl('where',$search_option,'page',1,'division','')}">{$lang->multimedia}</a></li>
+                <!--@elseif($search_option=='file')-->
+                    <li <!--@if((!$where && $i==0) || $where==$search_option)-->class="active"<!--@end-->><a href="{getNotEncodedUrl('where',$search_option,'page',1,'division','')}">{$lang->file}</a></li>
+                <!--@end;-->
+                {@$i++}
+            <!--@endforeach-->
+        <!--@else-->
+            <li class="active"><a href="{getAutoEncodedUrl('where',$search_option,'page','','division','')}">{$lang->all_content}</a></li>
+        <!--@end-->
+</ul>
 <!--@end-->

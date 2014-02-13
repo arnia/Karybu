@@ -270,4 +270,20 @@
 			<value xml:lang="vi"><![CDATA[Bình chọn]]></value>
 		</item>
 	</item>
+    <item name="all_content">
+        <value xml:lang="en"><![CDATA[All content]]></value>
+        <value xml:lang="ro"><![CDATA[Tot continutul]]></value>
+    </item>
+    <item name="search_options">
+        <value xml:lang="en"><![CDATA[Search options]]></value>
+        <value xml:lang="ro"><![CDATA[Optiuni cautare]]></value>
+    </item>
+    <item name="default_search_option">
+        <value xml:lang="en"><![CDATA[First option is also the default one]]></value>
+        <value xml:lang="ro"><![CDATA[Prima optiune este si cea implicita]]></value>
+    </item>
+    <item name="more">
+        <value xml:lang="en"><![CDATA[More]]></value>
+        <value xml:lang="ro"><![CDATA[Mai mult]]></value>
+    </item>
 </lang>

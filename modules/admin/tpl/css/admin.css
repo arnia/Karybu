@@ -2547,3 +2547,9 @@ a.new-instance:hover {
     text-align:center;
     width:90%
 }
+
+.search-site-list {
+    position: absolute;
+    bottom: 350px;
+    left: 35px;
+}

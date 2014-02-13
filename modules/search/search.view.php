@@ -49,6 +49,9 @@
             // Search by search tab
             $where = Context::get('where');
 
+            Context::set('search_options', $config->options);
+            if (!isset($where) && $config->options) $where = reset($config->options);
+
             $isController = getController('search');
             // Create integration search model object
             if($is_keyword) {
