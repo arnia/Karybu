@@ -138,3 +138,23 @@ function doSaveListConfig(module_srl) {
 
     exec_xml('board','procBoardAdminInsertListConfig', params, function() { location.reload(); });
 }
+
+jQuery(document).ready(function() {
+    var hash = window.location.hash ? window.location.hash.slice(1) : null;
+    var href = window.location.href;
+    var action_parts = href.substr(href.lastIndexOf('/') + 1).split('?');
+    var action = action_parts[0];
+
+    if (action == 'dispBoardAdminBoardAdditionSetup'){
+        if (hash){
+            active_content = document.getElementById(hash);
+            active_content.className += ' active';
+
+            active_li = document.getElementsByClassName(hash);
+            active_li[0].className += ' active';
+        }else{
+            jQuery('.tabbable li').first().addClass('active');
+            jQuery('.tab-content .tab-pane').first().addClass('active');
+        }
+    }
+});

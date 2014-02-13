@@ -1,8 +1,8 @@
-<div class="tab-pane" id="tab-pane-file">
+<div class="tab-pane" id="file">
     <form ruleset="fileModuleConfig" action="./" method="post" class="form-horizontal">
         <input type="hidden" name="module" value="file" />
         <input type="hidden" name="act" value="procFileAdminInsertModuleConfig" />
-        <input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
+        <input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment() . '#file'}" />
         <input type="hidden" name="target_module_srl" value="{$module_info->module_srl?$module_info->module_srl:$module_srls}" />
 
         <h3>{$lang->file}</h3>

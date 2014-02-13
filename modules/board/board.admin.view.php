@@ -212,7 +212,7 @@
             $before = '<div class="tabbable tabs-left"><ul class="nav nav-tabs">';
 
             foreach ($hrefs as $key => $href){
-                $before .= '<li class="'. ($key == 0 ? 'active' : "") . '"><a href="#' . $href . '" data-toggle="tab">' . $titles[$key] . '</a></li>';
+                $before .= '<li class="' . $href . '"><a href="#' . $href . '" data-toggle="tab">' . $titles[$key] . '</a></li>';
             }
 
             $before .= '</ul><div class="tab-content">';
