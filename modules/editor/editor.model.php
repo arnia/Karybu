@@ -367,7 +367,11 @@ class editorModel extends editor
             $option->colorset = $editor_config->sel_editor_colorset;
         }
         if (empty($option->height)) {
-            $option->height = $editor_config->editor_height;
+            if(empty($option->editor_height)){
+                $option->height = $editor_config->editor_height;
+            }else{
+                $option->height = $option->editor_height;
+            }
         }
         if (empty($option->comment_skin)) {
             $option->comment_skin = $editor_config->comment_editor_skin;
@@ -439,6 +443,7 @@ class editorModel extends editor
             Context::set('saved_doc', $saved_doc);
         }
         Context::set('enable_autosave', $enable_autosave);
+        $option->use_simple_options = $option->use_simple_options == 'Y' ? true : false;
         Context::set('use_simple_options',$option->use_simple_options);
 
         /**
