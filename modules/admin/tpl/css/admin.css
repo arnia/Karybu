@@ -1939,6 +1939,14 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
     font-size: 1em;
 }
 
+.help-block:before,
+.help-block:after {
+    content:"";
+    display: table;
+    width: 100%;
+    clear: both;
+}
+
 /* OLDX THEME */
 
 .x .thumbPreview li {

@@ -362,21 +362,24 @@
 
 			$langList = array();
 
-			// search value
-			$output = executeQueryArray('module.getLangNameByValue', $args);
-			if ($output->toBool() && is_array($output->data)){
-				unset($args->value);
+            // search value
+            if(isset($args->value)){
+                $output = executeQueryArray('module.getLangNameByValue', $args);
 
-				foreach($output->data as $data) {
-					$args->langName = $data->name;
-					$columnList = array('lang_code', 'name', 'value');
-					$outputByName = executeQueryArray('module.getLangListByName', $args, $columnList);
+                if ($output->toBool() && is_array($output->data)){
+                    unset($args->value);
 
-					if($outputByName->toBool()) {
- 						$langList = array_merge($langList, $outputByName->data);
-					}
-				}
-			}
+                    foreach($output->data as $data) {
+                        $args->langName = $data->name;
+                        $columnList = array('lang_code', 'name', 'value');
+                        $outputByName = executeQueryArray('module.getLangListByName', $args, $columnList);
+
+                        if($outputByName->toBool()) {
+                            $langList = array_merge($langList, $outputByName->data);
+                        }
+                    }
+                }
+            }
 
 			$this->add('lang_list', $langList);
 		}

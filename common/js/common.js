@@ -1006,7 +1006,9 @@ jQuery(function($){
 			var targetName = objText.attr("id");
 			if(typeof(targetName) == "undefined") targetName = objText.attr("name");
 			if(typeof(targetName) == "undefined") return;
-			objText.after("<a href='"+request_uri.setQuery('module','module').setQuery('act','dispModuleAdminLangcode').setQuery('target',targetName)+"' class='buttonSet buttonSetting' onclick='popopen(this.href);return false;'><span>find_langcode</span></a>"); 
+            var href = '#langEdit';
+            if (objText[0].type == "textarea") href += 'Textarea';
+            objText.after("<span class='desc kActionIcons pull-left'><a href='"+href+"' class='editUserLang tgAnchor' title='"+xe.lang.cmd_set_multilingual+"'><i class='kLanguage'>"+xe.lang.cmd_set_multilingual+"</i></a></span>");
 		}
     );
 
