@@ -1478,3 +1478,8 @@ jQuery(document).ready(function($){
         selector: "*[data-toggle=tooltip]"
     })
 });
+
+/* Fix for modal in modal error: "Uncaught RangeError: Maximum call stack size exceeded" */
+jQuery(function($){
+    $.fn.modal.Constructor.prototype.enforceFocus = function () {};
+});
