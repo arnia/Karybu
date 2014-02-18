@@ -27,7 +27,7 @@
                 <td>
                     <input cond="$key!='callback_url'" type="text" name="{$key}" value="{$value->value}" />
                     <input cond="$key=='callback_url'" type="hidden" name="{$key}" value="{getFullUrl('act','procMemberSnsSignIn','sns',$sns->sns_name)}" />
-                    <span cond="$key=='callback_url'">{getFullUrl('act','procMemberSnsSignIn','sns',$sns->sns_name)}</span>
+                    <span cond="$key=='callback_url'">{getFullUrl('','act','procMemberSnsSignIn','sns',$sns->sns_name)}</span>
                 </td>
             </tr>
         </table>

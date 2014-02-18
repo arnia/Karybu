@@ -38,7 +38,7 @@ class facebook_login implements ISns{
         }elseif(isset ($_GET['code'])){
             return new Object(-1, 'unexpected_error');
         }else{
-            $loginUrl = $facebook->getLoginUrl(array('scope' => 'email'));
+            $loginUrl = $facebook->getLoginUrl(array('scope' => 'email','redirect_uri' => getNotEncodedFullUrl('','act','procMemberSnsSignIn','sns','facebook')));
             header("Location: " . $loginUrl);
         }
         
