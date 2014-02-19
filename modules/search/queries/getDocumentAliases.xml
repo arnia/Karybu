@@ -1,0 +1,11 @@
+<query id="getDocumentAliases" action="select">
+    <tables>
+        <table name="document_aliases" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="in" column="document_srl" var="document_srls" filter="number" notnull="notnull" />
+    </conditions>
+</query>

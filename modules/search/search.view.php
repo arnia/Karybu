@@ -63,6 +63,7 @@
                             if(!in_array($search_target, array('title','content','title_content','tag'))) $search_target = 'title';
                             Context::set('search_target', $search_target);
                             $output = $oIS->getDocuments($target, $module_srl_list, $search_target, $is_keyword, $page, $perPage);
+                            $oIS->addAliases($output->data);
                             //pagination
                             $total = $isController->countDocuments($is_keyword, $search_target);
                             $total_count = $output->total_count = $total;
@@ -113,6 +114,7 @@
 
                             $defaultDocumentSearchTarget = 'title';
                             $output['document'] = $oIS->getDocuments($target, $module_srl_list, $defaultDocumentSearchTarget, $is_keyword, $page, 5);
+                            $oIS->addAliases($output['document']->data);
 
                             //document count
                             $total = $isController->countDocuments($is_keyword, $defaultDocumentSearchTarget);

@@ -322,5 +322,22 @@
             return $this->_getFiles($target, $module_srls_list, $search_keyword, $page, $list_count, 'N');
         }
 
+        function addAliases($documents){
+            foreach($documents as $document){
+                $document_srls[] = $document->document_srl;
+            }
+            $args = new stdClass();
+            $args->document_srls = $document_srls;
+            $output = executeQueryArray('search.getDocumentAliases',$args);
+            $aliases = $output->data;
+            foreach($documents as $document){
+                foreach($aliases as $alias){
+                    if($document->document_srl == $alias->document_srl){
+                        $document->alias = $alias->alias_title;
+                    }
+                }
+            }
+        }
+
     }
 ?>
