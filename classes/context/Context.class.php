@@ -1944,6 +1944,14 @@ class ContextInstance
             unset($get_vars['vid']);
         }
 
+        if ($this->isInstalled()) {
+            // we don't mid if it is the default one of the current website
+            $current_site_info = $this->getSiteModuleInfo();
+            if($get_vars['mid'] == $current_site_info->mid) {
+                unset($get_vars['mid']);
+            }
+        }
+
         // organize URL
         $query = '';
         if (count($get_vars)) {
@@ -1970,6 +1978,7 @@ class ContextInstance
                     'mid.vid' => "$vid/$mid",
                     'entry.mid' => "$mid/entry/$entry",
                     'entry.mid.vid' => "$vid/$mid/entry/$entry",
+                    'entry' => "entry/$entry",
                     'document_srl' => $srl,
                     'document_srl.mid' => "$mid/$srl",
                     'document_srl.vid' => "$vid/$srl",

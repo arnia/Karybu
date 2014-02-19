@@ -159,6 +159,7 @@ class ModuleHandlerInstance extends Handler
                 // Get current module instance properties
                 $moduleInstanceRetriever = new ModuleInstanceRetriever($this->getDocumentModel(), $this->getModuleModel(
                 ), $this->context);
+                $this->mid = isset($this->mid) ? $this->mid : $site_module_info->mid;
                 $result = $moduleInstanceRetriever->findModuleInfo(
                     $this->mid,
                     $this->entry,
