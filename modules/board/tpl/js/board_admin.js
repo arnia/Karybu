@@ -140,21 +140,30 @@ function doSaveListConfig(module_srl) {
 }
 
 jQuery(document).ready(function() {
-    var hash = window.location.hash ? window.location.hash.slice(1) : null;
     var href = window.location.href;
     var action_parts = href.substr(href.lastIndexOf('/') + 1).split('?');
     var action = action_parts[0];
+    var tab = getUrlVars()["tab"];
 
     if (action == 'dispBoardAdminBoardAdditionSetup'){
-        if (hash){
-            active_content = document.getElementById(hash);
+        if (tab){
+            active_content = document.getElementById(tab);
             active_content.className += ' active';
 
-            active_li = document.getElementsByClassName(hash);
+            active_li = document.getElementsByClassName(tab);
             active_li[0].className += ' active';
         }else{
             jQuery('.tabbable li').first().addClass('active');
             jQuery('.tab-content .tab-pane').first().addClass('active');
         }
     }
+
+    function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+            vars[key] = value;
+        });
+        return vars;
+    }
+
 });

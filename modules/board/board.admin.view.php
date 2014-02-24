@@ -204,7 +204,7 @@
             $output = ModuleHandler::triggerCall('module.dispAdditionSetup', 'before', $content);
             $output = ModuleHandler::triggerCall('module.dispAdditionSetup', 'after', $content);
 
-            preg_match_all('#<div class="(tab-pane|tab-pane active)" id="([^"]*)"[^>]*>(.*?)</div>#s',$content,$matches);
+            preg_match_all('#<div class="(tab-pane)" id="([^"]*)"[^>]*>(.*?)</div>#s',$content,$matches);
             $hrefs = $matches[2];
             preg_match_all('#<h3>(.*?)</h3>#s',$content,$h3_matches);
             $titles = $h3_matches[1];

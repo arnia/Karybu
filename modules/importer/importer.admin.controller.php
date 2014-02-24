@@ -577,7 +577,7 @@
                     if(!is_array($categories)) $categories = array($categories);
                     $match_sequence = array();
                     foreach($categories as $k => $v) {
-                        $category = htmlspecialchars(trim(base64_decode($v->body)));
+                        $category = trim(base64_decode($v->body));
                         if(!$category || $category_titles[$category]) continue;
 
                         $sequence = $v->attrs->sequence;
