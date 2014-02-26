@@ -1134,7 +1134,7 @@ class FileHandler
 
     static function filesize($size)
     {
-        self::$file_handler->filesize($size);
+        return self::$file_handler->filesize($size);
     }
 
     static function getRemoteResource(
