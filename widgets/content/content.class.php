@@ -778,7 +778,7 @@
         }
 
         function getLink(){
-            return $this->get('url');
+            return $this->get('alias') ? getUrl('','entry',$this->get('alias')) : $this->get('url');
         }
         function getModuleSrl(){
             return $this->get('module_srl');
