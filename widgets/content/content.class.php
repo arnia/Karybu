@@ -240,6 +240,11 @@
             $first_thumbnail_idx = -1;
             if(count($output->data)) {
                 foreach($output->data as $key => $attribute) {
+                    $args_srl = new stdClass();
+                    $args_srl->document_srl = $attribute->document_srl;
+                    $output = executeQueryArray('document.getAliases',$args_srl);
+                    $alias = reset($output->data);
+                    $attribute->alias = $alias->alias_title;
                     $oDocument = new documentItem();
                     $oDocument->setAttribute($attribute, false);
                     $GLOBALS['XE_DOCUMENT_LIST'][$oDocument->document_srl] = $oDocument;
