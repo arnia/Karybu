@@ -198,8 +198,8 @@
                         $logged_info = Context::get('logged_info');
                         if($oDocument->get('member_srl')!=$logged_info->member_srl) $oDocument = $oDocumentModel->getDocument(0);
                     }
-                    Context::addMetaTag('description', $oDocument->get('meta_description'));
-                    Context::addMetaTag('keywords', $oDocument->get('meta_keywords'));
+                    Context::addMetaTag('og:description', false, $oDocument->get('meta_description'));
+                    Context::addMetaTag('og:keywords', false, $oDocument->get('meta_keywords'));
 
                 // if the document is not existed, then alert a warning message
                 } else {

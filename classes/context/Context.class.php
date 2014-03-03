@@ -2757,8 +2757,7 @@ class ContextInstance
         $map = & $this->meta_tags;
 
         foreach ($map as $key => $val) {
-            list($name, $is_http_equiv) = explode("\t", $key);
-            $ret[] = array('name' => $name, 'is_http_equiv' => $is_http_equiv, 'content' => $val);
+            $ret[] = array('property' => $val->property, 'name' => $val->name, 'is_http_equiv' => $val->is_http_equiv, 'content' => $val->content);
         }
 
         return $ret;
@@ -2767,17 +2766,23 @@ class ContextInstance
     /**
      * Add the meta tag
      *
+     * @param string $property property of meta tag
      * @param string $name name of meta tag
      * @param string $content content of meta tag
      * @param mixed $is_http_equiv value of http_equiv
      * @return void
      */
-    function addMetaTag($name, $content, $is_http_equiv = false)
+    function addMetaTag($property = false, $name, $content, $is_http_equiv = false)
     {
-        $key = $name . "\t" . ($is_http_equiv ? '1' : '0');
+        $meta_tag = new stdClass();
+        $meta_tag->is_http_equiv = $is_http_equiv ? '1' : '0';
+        $meta_tag->property = $property;
+        $meta_tag->name = $name;
+        $meta_tag->content = $content;
+
         $map = & $this->meta_tags;
 
-        $map[$key] = $content;
+        $map[] = $meta_tag;
     }
 
     public function getNotEncodedSiteUrl()
@@ -3172,9 +3177,9 @@ class Context
         return self::$context->addBrowserTitle($title);
     }
 
-    public static function addMetaTag($name, $content, $is_http_equiv = false)
+    public static function addMetaTag($property = false, $name, $content, $is_http_equiv = false)
     {
-        return self::$context->addMetaTag($name, $content, $is_http_equiv);
+        return self::$context->addMetaTag($property, $name, $content, $is_http_equiv);
     }
 
     public static function getMetaTag()

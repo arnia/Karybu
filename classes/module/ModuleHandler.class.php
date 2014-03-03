@@ -181,8 +181,8 @@ class ModuleHandlerInstance extends Handler
                 $this->context->setBrowserTitle($module_info->browser_title);
                 if ($module_info->document_srl){
                     $document = getModel('document')->getDocument($module_info->document_srl);
-                    $this->context->addMetaTag('description', $document->get('meta_description'));
-                    $this->context->addMetaTag('keywords', $document->get('meta_keywords'));
+                    $this->context->addMetaTag('og:description' , false, $document->get('meta_description'));
+                    $this->context->addMetaTag('og:keywords', false, $document->get('meta_keywords'));
                 }
 
                 if ($module_info->use_mobile && $this->mobile->isFromMobilePhone()) {

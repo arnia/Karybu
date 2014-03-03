@@ -10,14 +10,18 @@
 <!--@else-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--@end-->
-<html lang="{$lang_type}" xmlns="http://www.w3.org/1999/xhtml"|cond="$db_info->use_html5!='Y'">
+
+<html lang="{$lang_type}"
+      xmlns="http://www.w3.org/1999/xhtml"|cond="$db_info->use_html5!='Y'"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
 <!-- META -->
 	<meta charset="UTF-8" cond="$db_info->use_html5=='Y'"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" cond="$db_info->use_html5!='Y'" />
 	<meta name="Generator" content="Karybu" />
     <block loop="Context::getMetaTag() => $no, $val">
-        <meta http-equiv="{$val['name']}"|cond="$val['is_http_equiv']" name="{$val['name']}"|cond="!$val['is_http_equiv']" content="{$val['content']}">
+        <meta http-equiv="{$val['name']}"|cond="$val['is_http_equiv']" name="{$val['name']}"|cond="!$val['is_http_equiv'] && !$val['property']" property="{$val['property']}"|cond="$val['property'] && !$val['is_http_equiv'] && !$val['name']" content="{$val['content']}">
     </block>
 <!-- TITLE -->
 	<title>{Context::getBrowserTitle()}</title>
