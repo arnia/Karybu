@@ -16,38 +16,42 @@
     </div>
 <div id="dashboard_content">
     <div class="swatchBoard">
-        <div class="row-fluid">
-            <a class="span2 turquoise swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispCounterAdminIndex')}">
-                <span class="corner"></span>
-                <b class="kNumbers" id="kNumbers">{number_format($status->total_visitor)} (<!--@if($status->visitor > 0)-->+<!--@end-->{number_format($status->visitor)})</b>
-                <strong> {$lang->visitors}</strong>
-            </a>
-            <a class="span2 red swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminList')}">
-                <span class="corner"></span>
-                <b class="kNumbers">{number_format($status->member->totalCount)} (<!--@if($status->member->todayCount > 0)-->+<!--@end-->{number_format($status->member->todayCount)})</b>
-                <strong>{$lang->menu_gnb['user']}</strong>
-            </a>
-            <a class="span2 yellow swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispDocumentAdminList')}">
-                <span class="corner"></span>
-                <b class="kNumbers">{number_format($status->document->totalCount)} (<!--@if($status->document->todayCount > 0)-->+<!--@end-->{number_format($status->document->todayCount)})</b>
-                <strong>{$lang->documents}</strong>
-            </a>
-            <a class="span2 blue swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispCommentAdminList')}">
-                <span class="corner"></span>
-                <b class="kNumbers">{number_format($status->comment->totalCount)} (<!--@if($status->comment->todayCount > 0)-->+<!--@end-->{$status->comment->todayCount})</b>
-                <strong>{$lang->comments}</strong>
-            </a>
-            <a class="span2 purple swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispTrackbackAdminList')}">
-                <span class="corner"></span>
-                <b class="kNumbers">{number_format($status->trackback->totalCount)} (<!--@if($status->trackback->todayCount > 0)-->+<!--@end-->{$status->trackback->todayCount})</b>
-                <strong>{$lang->trackbacks}</strong>
-            </a>
-            <a class="span2 green swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispFileAdminList')}">
-                <span class="corner"></span>
-                <b class="kNumbers">{number_format($status->file->totalCount)} (<!--@if($status->file->todayCount > 0)-->+<!--@end-->{number_format($status->file->todayCount)})</b>
-                <strong>{$lang->files}</strong>
-            </a>
-        </div>
+        <a class="span2 turquoise swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispCounterAdminIndex')}">
+            <span class="corner"></span>
+            <b class="kNumbers" id="kNumbers">{number_format($status->total_visitor)}</b>
+            <b class="kNumbers">(<!--@if($status->visitor > 0)-->+<!--@end-->{number_format($status->visitor)})</b>
+            <strong> {$lang->visitors}</strong>
+        </a>
+        <a class="span2 red swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispMemberAdminList')}">
+            <span class="corner"></span>
+            <b class="kNumbers">{number_format($status->member->totalCount)}</b>
+            <b class="kNumbers">(<!--@if($status->member->todayCount > 0)-->+<!--@end-->{number_format($status->member->todayCount)})</b>
+            <strong>{$lang->menu_gnb['user']}</strong>
+        </a>
+        <a class="span2 yellow swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispDocumentAdminList')}">
+            <span class="corner"></span>
+            <b class="kNumbers">{number_format($status->document->totalCount)}</b>
+            <b class="kNumbers">(<!--@if($status->document->todayCount > 0)-->+<!--@end-->{number_format($status->document->todayCount)})</b>
+            <strong>{$lang->documents}</strong>
+        </a>
+        <a class="span2 blue swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispCommentAdminList')}">
+            <span class="corner"></span>
+            <b class="kNumbers">{number_format($status->comment->totalCount)}</b>
+            <b class="kNumbers">(<!--@if($status->comment->todayCount > 0)-->+<!--@end-->{$status->comment->todayCount})</b>
+            <strong>{$lang->comments}</strong>
+        </a>
+        <a class="span2 purple swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispTrackbackAdminList')}">
+            <span class="corner"></span>
+            <b class="kNumbers">{number_format($status->trackback->totalCount)}</b>
+            <b class="kNumbers">(<!--@if($status->trackback->todayCount > 0)-->+<!--@end-->{$status->trackback->todayCount})</b>
+            <strong>{$lang->trackbacks}</strong>
+        </a>
+        <a class="span2 green swatch" href="{getUrl('', 'module', 'admin', 'act', 'dispFileAdminList')}">
+            <span class="corner"></span>
+            <b class="kNumbers">{number_format($status->file->totalCount)}</b>
+            <b class="kNumbers">(<!--@if($status->file->todayCount > 0)-->+<!--@end-->{number_format($status->file->todayCount)})</b>
+            <strong>{$lang->files}</strong>
+        </a>
     </div>
 
         <!--@if(!$isEnviromentGatheringAgreement)-->

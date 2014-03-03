@@ -952,6 +952,8 @@ form .controls textarea ~ span
 
     .kNumbers {
         height: 40px;
+        display: inline-block;
+        width: 46%;
     }
 
     #kSidebar .brand .span8 {
