@@ -46,6 +46,7 @@ $embed_css=true;
             <select id="uploaded_file_list_{$editor_sequence}" multiple="multiple" class="fileList" title="Attached File List"><option></option></select>
         </div>
         <div class="fileUploadControl">
+            <input type="hidden" name="featured_file_srl" value="0" />
             <button type="button" id="swfUploadButton{$editor_sequence}" class="btn text">{$lang->edit->upload_file}</button>
             <button type="button" onclick="removeUploadedFile('{$editor_sequence}');" class="btn text">{$lang->edit->delete_selected}</button>
             <button type="button" onclick="ckInsertUploadedFile('{$editor_sequence}');" class="btn text">{$lang->edit->link_file}</button>

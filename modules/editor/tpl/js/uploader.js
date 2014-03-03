@@ -314,7 +314,7 @@ function reloadFileList(cfg) {
         featured_file_srl = $('[name="featured_file_srl"]').val();
         featuredFileInfo = uploadedFiles[featured_file_srl];
         featuredPreview = $('#preview_featured_file').html('&nbsp;');
-        if(!featuredPreview.length) return;
+        if(!featuredPreview.length || !featuredFileInfo) return;
 
         filename = featuredFileInfo.download_url || '';
         match    = filename.match(/\.(?:(flv)|(swf)|(wmv|avi|mpe?g|as[fx]|mp3)|(jpe?g|png|gif))$/i);
