@@ -3,10 +3,16 @@
 <!--@else-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--@end-->
-<html xmlns="http://www.w3.org/1999/xhtml" lang="{Context::getLangType()}" xml:lang="{Context::getLangType()}">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      lang="{Context::getLangType()}"
+      xml:lang="{Context::getLangType()}" xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes, target-densitydpi=medium-dpi" />
+<block loop="Context::getMetaTag() => $no, $val">
+    <meta http-equiv="{$val['name']}"|cond="$val['is_http_equiv']" name="{$val['name']}"|cond="!$val['is_http_equiv'] && !$val['property']" property="{$val['property']}"|cond="$val['property'] && !$val['is_http_equiv'] && !$val['name']" content="{$val['content']}">
+</block>
 <title>{Context::getBrowserTitle()}</title>
 {@ $css_files = Context::getCssFile() }
 <!--@foreach($css_files as $key => $css_file)-->
