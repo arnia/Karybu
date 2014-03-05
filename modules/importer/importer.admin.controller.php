@@ -787,17 +787,23 @@
                 FileHandler::removeFile($target_file);
             }
             fclose($f);
-            // Sync category counts
-            if(count($category_list)) {
-                foreach($category_list as $key => $val) {
-                    $oDocumentController->updateCategoryCount($module_srl, $val->category_srl);
-                }
-            }
 
             // commit
             $oDB->commit();
 
             return $idx-1;
+        }
+
+        function procImporterAdminUpdateCategoryCount(){
+            $oDocumentModel = &getModel('document');
+            $oDocumentController = &getController('document');
+            $module_srl = Context::get('index_module_srl');
+            $category_list = $oDocumentModel->getCategoryList($module_srl);
+            // Sync category counts
+            foreach($category_list as $key => $val) {
+                $oDocumentController->updateCategoryCount($module_srl, $val->category_srl);
+            }
+            return true;
         }
 
 		/**

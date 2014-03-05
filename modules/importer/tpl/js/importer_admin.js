@@ -194,17 +194,11 @@ function doImport(formId) {
 		if(ret.total > ret.cur) {
 			doImport(formId);
 		} else {
-			function resultAlertMessage()
-			{
+            function resultAlertMessage(){
 				alert(ret.message);
-                jQuery('#doneProcess').show();
                 jQuery('#progressMsg').hide();
-                jQuery('#doneClose').show();
-				jQuery('a[href="#process"].modalAnchor')
-					.unbind('before-close.mw')
-					.trigger('close.mw')
-					//.find('#progressBar').width(1).end()
-					.find('#progressPercent').html('0%').end();
+
+                doUpdateCategoryCount();
 
 				try {
 					form.reset();
@@ -214,6 +208,24 @@ function doImport(formId) {
 				jQuery('span.btn > input[type=submit]').attr('disabled','disabled');
 			}
 
+
+            function doUpdateCategoryCount(){
+                var newParams = {index_module_srl: params.index_module_srl};
+                jQuery('#importSuccess').show();
+                jQuery('#updatingCategCount').show();
+                jQuery.exec_json('importer.procImporterAdminUpdateCategoryCount',newParams,function(ret){
+                    jQuery('#importSuccess').hide();
+                    jQuery('#updatingCategCount').hide();
+                    jQuery('#doneProcess').show();
+                    jQuery('#doneClose').show();
+                    jQuery('a[href="#process"].modalAnchor')
+                        .unbind('before-close.mw')
+                        .trigger('close.mw')
+                        //.find('#progressBar').width(1).end()
+                        .find('#progressPercent').html('0%').end();
+                });
+            }
+
 			fo_import = get_by_id(formId);
 			if(fo_import != null && fo_import.isSync.checked)
 			{
@@ -221,11 +233,16 @@ function doImport(formId) {
 					'importer', // module
 					'procImporterAdminSync', // act
 					params,
-					function(ret){if(ret && (!ret.error || ret.error == '0'))resultAlertMessage()}, // callback
+                    function(ret){
+                        if(ret && (!ret.error || ret.error == '0')){
+                            resultAlertMessage();
+                        }
+                    }, // callback
 					resp = ['error','message'] // response tags
 				);
-			}
-			else resultAlertMessage();
+			}else{
+                resultAlertMessage();
+            }
 		}
 	}
     show_waiting_message = false;

@@ -4191,4 +4191,12 @@
         <value xml:lang="en">Meta Keywords</value>
         <value xml:lang="ro">Cuvinte cheie</value>
     </item>
+    <item name="cmd_import_success">
+        <value xml:lang="en"><![CDATA[Import completed successfully.]]></value>
+        <value xml:lang="ro"><![CDATA[Import finalizat cu success.]]></value>
+    </item>
+    <item name="cmd_update_categ_count">
+        <value xml:lang="en"><![CDATA[Updating category count. This might take a while...]]></value>
+        <value xml:lang="ro"><![CDATA[Actualizare categorii. Acest lucru ar putea dura putin mai mult...]]></value>
+    </item>
 </lang>
