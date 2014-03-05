@@ -668,7 +668,11 @@
                 $xmlDoc = $this->oXmlParser->parse($buff);
 
                 $category = base64_decode($xmlDoc->post->category->body);
-                if($category_titles[$category]) $obj->category_srl = $category_titles[$category];
+                if($category_titles[$category]){
+                    $obj->category_srl = $category_titles[$category];
+                }elseif($category_titles[htmlspecialchars($category)]){
+                    $obj->category_srl = $category_titles[htmlspecialchars($category)];
+                }
 
                 $obj->member_srl = 0;
 
@@ -713,6 +717,11 @@
                     $oDB->rollback();
                     return $output;
                 }
+
+                $doc = $oDocumentModel->getDocument($output->data['document_srl']);
+
+                $oSearchController = getController('search');
+                $oSearchController->addDocumentToIndex($doc);
 
                 if ($output->toBool() && !empty($xmlDoc->post->alias)){
                     $alias = new stdClass();
@@ -963,10 +972,15 @@
                         }
                     }
 
+                    $oSearchController = getController('search');
+                    $oCommentModel = getModel('comment');
+
                     $output = executeQuery('comment.insertCommentList', $list_args);
                     if($output->toBool()) {
                         $output = executeQuery('comment.insertComment', $obj);
                         if($output->toBool()) $cnt++;
+                        $comment = $oCommentModel->getComment($output->data['comment_srl']);
+                        $oSearchController->addCommentToIndex($comment);
                     }
 
                     $buff = null;
