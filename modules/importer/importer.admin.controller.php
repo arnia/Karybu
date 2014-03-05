@@ -689,7 +689,7 @@
                 if($obj->homepage && !preg_match('/^http:\/\//i',$obj->homepage)) $obj->homepage = 'http://'.$obj->homepage;
                 $obj->tags = base64_decode($xmlDoc->post->tags->body);
                 $obj->regdate = base64_decode($xmlDoc->post->regdate->body);
-                $obj->last_update = base64_decode($xmlDoc->post->update->body);
+                $obj->last_update = base64_decode($xmlDoc->post->last_update->body);
 				$obj->last_updater = base64_decode($xmlDoc->post->last_updater->body);
                 if(!$obj->last_update) $obj->last_update = $obj->regdate;
                 $obj->ipaddress = base64_decode($xmlDoc->post->ipaddress->body);
