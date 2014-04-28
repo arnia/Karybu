@@ -1900,7 +1900,12 @@
                     $oDB->rollback();
                     return $output;
                 }
-				$this->_sendAuthMail($auth_args, $args);
+                
+                // Check the context for a "send_auth_mail" variable before sending 
+                // an email with the confirmation link
+                if (Context::get('send_auth_mail', true)) {
+					$this->_sendAuthMail($auth_args, $args);
+                }
             }
             // Call a trigger (after)
             if($output->toBool()) {
