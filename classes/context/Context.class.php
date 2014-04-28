@@ -2185,12 +2185,13 @@ class ContextInstance
      * Return key's value
      *
      * @param string $key Key
+     * @param mixed $default Value to return when $key is not set (defaults to null)
      * @return string Key
      */
-    public function get($key)
+    public function get($key, $default = null)
     {
         if (!isset($this->context->{$key})) {
-            return null;
+            return $default;
         }
         return $this->context->{$key};
     }
