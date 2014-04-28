@@ -2903,9 +2903,9 @@ class Context
         return self::$context->isUploaded();
     }
 
-    public static function get($key)
+    public static function get($key, $default = null)
     {
-        return self::$context->get($key);
+        return self::$context->get($key, $default);
     }
 
     public static function set($key, $value, $set_to_get_vars = 0)
