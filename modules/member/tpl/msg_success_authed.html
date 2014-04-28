@@ -4,5 +4,5 @@
     <!--@else-->
     alert("{$lang->msg_success_authed}");
     <!--@end-->
-    location.href="{getUrl()}";
+    location.href="{call_user_func_array('getUrl', $redirect_url_params)}";
 </script>

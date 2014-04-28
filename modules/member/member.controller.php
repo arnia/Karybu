@@ -1020,6 +1020,7 @@
             $auth_key = Context::get('auth_key');
             if(!$member_srl || !$auth_key) return $this->stop('msg_invalid_request');
             // Test logs for finding password by user_id and authkey
+            $args = new stdClass();
             $args->member_srl = $member_srl;
             $args->auth_key = $auth_key;
             $output = executeQuery('member.getAuthMail', $args);
@@ -1041,6 +1042,12 @@
             executeQuery('member.deleteAuthMail',$args);
             // Notify the result
             Context::set('is_register', $is_register);
+            
+            $trigger_output = ModuleHandler::triggerCall('member.authAccount', 'after', $args);
+            if(!$trigger_output->toBool()) return $trigger_output;
+            
+            $redirect_url_params = Context::get('redirect_url_params', array());
+            
             $this->setTemplatePath($this->module_path.'tpl');
             $this->setTemplateFile('msg_success_authed');
         }
