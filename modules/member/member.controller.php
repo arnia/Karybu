@@ -1605,9 +1605,19 @@
 			}
 			// Password Check
 			if($password && !$oMemberModel->isValidPassword($this->memberInfo->password, $password, $this->memberInfo->member_srl)) return $this->recordMemberLoginError(-1, 'invalid_password',$this->memberInfo);
+			
+			$trigger_output = ModuleHandler::triggerCall('member.loginCheckCredentials', 'after', $this->memberInfo);
+			if(!$trigger_output->toBool()) return $trigger_output;
+				
 			// If denied == 'Y', notify
-			if($this->memberInfo->denied == 'Y') 
+			if($this->memberInfo->denied == 'Y')
 			{
+				// in some cases when the member has not confirmed its membership yet, we want to redirect
+				// him back to the sign in page directly
+				if (Context::get('force_redirect_to_login_page', false) === true) {
+					return new Object(-1,'msg_user_not_confirmed');
+				}
+			
 				$args->member_srl = $this->memberInfo->member_srl;
 				$output = executeQuery('member.chkAuthMail', $args);
 				if ($output->toBool() && $output->data->count != '0') 
