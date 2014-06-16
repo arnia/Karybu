@@ -384,7 +384,7 @@ class documentController extends document {
 		}
 
 		if(empty($source_obj->document_srl) || empty($obj->document_srl)) {
-            return new Object(-1,'msg_invalied_request');
+            return new Object(-1,'msg_invalid_request');
         }
 		if(empty($obj->status) && isset($obj->is_secret) && $obj->is_secret == 'Y') {
             $obj->status = 'SECRET';
