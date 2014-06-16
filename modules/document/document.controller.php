@@ -49,11 +49,46 @@ class documentController extends document {
 		$args->alias_srl = getNextSequence();
 		$args->module_srl = $module_srl;
 		$args->document_srl = $document_srl;
-		$args->alias_title = urldecode($alias_title);
+        $args->alias_title = $this->createAlias(
+            $alias_title,
+            array('replace' => array('*', '`', "'"), 'delimiter' => '-')
+        );
 		$query = "document.insertAlias";
 		$output = executeQuery($query, $args);
 		return $output;
 	}
+
+    /**
+     * Function which create a slug from a string
+     *
+     * @param       $str
+     * @param array $options
+     *
+     * @return mixed|string
+     */
+    function createAlias($str, $options = array())
+    {
+        setlocale(LC_ALL, 'en_US.UTF8');
+
+
+        if (!empty($options['replace'])) {
+            $str = str_replace((array)$options['replace'], ' ', $str);
+        }
+
+        // transform all special characters to the closest ascii character equivalent
+        $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
+
+        // strip away all special characters and punctuation
+        $clean = preg_replace('/[^a-zA-Z0-9\/_|+ -]/', '', $clean);
+
+        // get rid of the unused margins
+        $clean = strtolower(trim($clean, '-'));
+
+        // put delimiter between words
+        $clean = preg_replace('/[\/_|+ -]+/', $options['delimiter'], $clean);
+
+        return $clean;
+    }
 
 	/**
 	 * Action to handle vote-up of the post (Down)
