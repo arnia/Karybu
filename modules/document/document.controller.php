@@ -1654,7 +1654,7 @@ class documentController extends document {
 		$category_info = $oDocumentModel->getCategory($args->category_srl);
 		if($category_info->parent_srl) $parent_srl = $category_info->parent_srl;
 		// Display an error that the category cannot be deleted if it has a child node
-		if($oDocumentModel->getCategoryChlidCount($args->category_srl)) return new Object(-1, 'msg_cannot_delete_for_child');
+		if($oDocumentModel->getCategoryChildCount($args->category_srl)) return new Object(-1, 'msg_cannot_delete_for_child');
 		// Remove from the DB
 		$output = $this->deleteCategory($args->category_srl);
 		if(!$output->toBool()) {

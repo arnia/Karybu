@@ -732,7 +732,7 @@ class documentModel extends document
      * @param int $category_srl
      * @return bool
      */
-    function getCategoryChlidCount($category_srl)
+    function getCategoryChildCount($category_srl)
     {
         $args->category_srl = $category_srl;
         $output = executeQuery('document.getChildCategoryCount', $args);
