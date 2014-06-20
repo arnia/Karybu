@@ -1,15 +1,16 @@
-//Set existing content to editor
-function mceEditorInit(){
-    if(jQuery("input[name=" + editor_content_key_name + "]").size()>0){
-        var content=jQuery("input[name=" + editor_content_key_name + "]").val();
-        tinyMCE.activeEditor.execCommand('mceInsertContent',false,content);
+// Set existing content to editor
+function mceEditorInit() {
+    var obj = jQuery('input[name="' + editor_content_key_name + '"]');
+    if (obj.length && obj.val() != '') {
+        tinyMCE.activeEditor.execCommand('mceInsertContent', false, obj.val());
     }
 }
 
-//Get content from editor to content variable
-function mceEditorContentChange(tiny_mce_obj){
-    if(jQuery("input[name=" + editor_content_key_name + "]").size()>0){
-       jQuery("input[name=" + editor_content_key_name + "]").val(tiny_mce_obj.getBody().innerHTML);
+// Get content from editor to content variable
+function mceEditorContentChange(tinyMCE) {
+    var obj = jQuery('input[name="' + editor_content_key_name + '"]');
+    if (obj.length) {
+        obj.val(tinyMCE.getBody().innerHTML);
     }
 }
 
