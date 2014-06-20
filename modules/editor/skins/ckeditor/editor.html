@@ -53,30 +53,8 @@ $embed_css=true;
             <div class="file_attach_info" id="uploader_status_{$editor_sequence}">{$upload_status}</div>
         </div>
         <div class="featured_file">
-            <button id="add_featured_image" type="button" onclick="addFeaturedImage('{$editor_sequence}');" class="btn text">{$lang->edit->add_featured_image}</button>
+            <button type="button" onclick="addFeaturedImage('{$editor_sequence}');" class="btn text">{$lang->edit->add_featured_image}</button>
             <div class="preview_featured_file" id="preview_featured_file"></div>
-            <button type="button" id="remove_featured_file" class="btn text">{$lang->edit->remove_featured_image}</button>
-            <script type="text/javascript">
-                (function($){
-                    var val = $('[name=featured_file_srl]').val();
-                    var $featuredControls = $('#preview_featured_file, #remove_featured_file');
-                    if(typeof(val) != "undefined"){
-                        if (!val.length || val == 0) {
-                            $featuredControls.hide();
-                        }
-                    }
-                    $('#add_featured_image').on('click', function(){
-                        var $featuredControls = $('#preview_featured_file, #remove_featured_file');
-                        $featuredControls.show();
-                    });
-                    $('#remove_featured_file').on('click', function() {
-                        var $featuredControls = $('#preview_featured_file, #remove_featured_file');
-                        $('[name=featured_file_srl]').val('');
-                        $('#preview_featured_file').empty();
-                        $featuredControls.hide();
-                    });
-                })(jQuery)
-            </script>
         </div>
     </div>
 
@@ -93,57 +71,57 @@ $embed_css=true;
                     extraPlugins: 'preview,xe_component,onchange',
                     xe_editor_sequence: '{$editor_sequence}',
                     xe_component_arrays: {{$xe_component_array}},
-        <!--@if($colorset=='kama' || $colorset=='kama_black')-->
-            skin: 'kama',
-        <!--@end-->
-        <!--@if($colorset=='moono_black' || $colorset=='kama_black')-->
-            uiColor: '#000000',
-        <!--@end-->
-        <!--@if($embed_css)-->
-            contentsCss: '{$css_filename}',
-        <!--@end-->
-            width: '100%',
-            height: '{$editor_height}',
-        <!--@if(!$use_simple_options)-->
-            toolbar: [
-        <!--@if($enable_default_component)-->
-        ['Undo', 'Redo'],
-        ['Format', 'Font', 'FontSize'],
-        ['Bold', 'Italic', 'Underline', 'Strike', 'TextColor', 'BGColor', 'Subscript', 'Superscript'],
-        ['Preview'],
-        '/',
-        ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'NumberedList', 'BulletedList', 'Outdent', 'Indent'],
-        ['Blockquote', 'Link'],
-        ['Table']
-        <!--@end-->
-        <!--@if($enable_component)-->
-        ,['Xe_component']
-        <!--@end-->
-        <!--@if($html_mode)-->
-        ,['Source']
-        <!--@end-->
-    ],
-        <!--@else-->
-            toolbar: [
-        ['Bold', 'Italic', 'Underline', 'Strike']
-    ],
-        <!--@end-->
-            on:{
-        instanceReady: function (e) {
-            var obj = jQuery('input[name="' + editor_content_key_name + '"]');
-            if (obj.length && obj.val() != '') {
-                e.editor.insertHtml(obj.val());
+                <!--@if($colorset=='kama' || $colorset=='kama_black')-->
+                    skin: 'kama',
+                <!--@end-->
+                <!--@if($colorset=='moono_black' || $colorset=='kama_black')-->
+                    uiColor: '#000000',
+                <!--@end-->
+                <!--@if($embed_css)-->
+                    contentsCss: '{$css_filename}',
+                <!--@end-->
+                    width: '100%',
+                    height: '{$editor_height}',
+                <!--@if(!$use_simple_options)-->
+                    toolbar: [
+                <!--@if($enable_default_component)-->
+                ['Undo', 'Redo'],
+                ['Format', 'Font', 'FontSize'],
+                ['Bold', 'Italic', 'Underline', 'Strike', 'TextColor', 'BGColor', 'Subscript', 'Superscript'],
+                ['Preview'],
+                '/',
+                ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'NumberedList', 'BulletedList', 'Outdent', 'Indent'],
+                ['Blockquote', 'Link'],
+                ['Table']
+                <!--@end-->
+                <!--@if($enable_component)-->
+                ,['Xe_component']
+                <!--@end-->
+                <!--@if($html_mode)-->
+                ,['Source']
+                <!--@end-->
+            ],
+                <!--@else-->
+                    toolbar: [
+                ['Bold', 'Italic', 'Underline', 'Strike'], ['Source']
+            ],
+                <!--@end-->
+                on:{
+                    instanceReady: function (e) {
+                        var obj = jQuery('input[name="' + editor_content_key_name + '"]');
+                        if (obj.length && obj.val() != '') {
+                            e.editor.insertHtml(obj.val());
+                        }
+                    },
+                    change: function (e) {
+                        var obj = jQuery('input[name="' + editor_content_key_name + '"]');
+                        if (obj.length) {
+                            obj.val(e.editor.getData());
+                        }
+                    }
+                }
             }
-        },
-        change: function (e) {
-            var obj = jQuery('input[name="' + editor_content_key_name + '"]');
-            if (obj.length) {
-                obj.val(e.editor.getData());
-            }
-        }
-    }
-    }
-    );
+        );
     })();
 </script>
 
@@ -153,17 +131,17 @@ $embed_css=true;
 <script type="text/javascript">//<![CDATA[
 jQuery(function(){
     editorUploadInit({
-                "editorSequence" : {$editor_sequence},
-                "sessionName" : "{session_name()}",
-                "allowedFileSize" : "{$file_config->allowed_filesize}",
-                "allowedFileTypes" : "{$file_config->allowed_filetypes}",
-                "allowedFileTypesDescription" : "{$file_config->allowed_filetypes}",
-                "insertedFiles" : {(int)$files_count},
-            "replaceButtonID" : "swfUploadButton{$editor_sequence}",
-            "fileListAreaID" : "uploaded_file_list_{$editor_sequence}",
-            "previewAreaID" : "preview_uploaded_{$editor_sequence}",
-            "uploaderStatusID" : "uploader_status_{$editor_sequence}"
-});
+        "editorSequence" : {$editor_sequence},
+        "sessionName" : "{session_name()}",
+        "allowedFileSize" : "{$file_config->allowed_filesize}",
+        "allowedFileTypes" : "{$file_config->allowed_filetypes}",
+        "allowedFileTypesDescription" : "{$file_config->allowed_filetypes}",
+        "insertedFiles" : {(int)$files_count},
+        "replaceButtonID" : "swfUploadButton{$editor_sequence}",
+        "fileListAreaID" : "uploaded_file_list_{$editor_sequence}",
+        "previewAreaID" : "preview_uploaded_{$editor_sequence}",
+        "uploaderStatusID" : "uploader_status_{$editor_sequence}"
+    });
 });
 
 </script>
