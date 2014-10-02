@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+    <title xml:lang="en">mobile_application</title>
+    <description xml:lang="en">This module is for managing mobile application theme.</description>
+    <version>0.1</version>
+    <date>2014-18-07</date>
+    <category>service</category>
+    <author email_address="contact@arnia.ro" link="www.arnia.ro">
+        <name xml:lang="en">Arnia</name>
+    </author>
+</module>

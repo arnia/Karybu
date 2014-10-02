@@ -1,0 +1,9 @@
+.dir_list{
+}
+
+.dir_list .file{
+    background-image: url("../images/file.png");
+}
+.dir_list .folder{
+    background-image: url("../images/folder.png");
+}

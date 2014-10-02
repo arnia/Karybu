@@ -1,0 +1,46 @@
+<include target="header_nav.html"/>
+<div class="container">
+    <div class="row-fluid">
+        <div class="span10">
+            <h3>{$lang->all_apps}</h3>
+            <p cond="empty($apps)">{$lang->no_registered_apps}</p>
+            <!--@foreach($apps as $app)-->
+                <div class="row-fluid">
+                    <div class="span2">
+                        <img src="{$app->icon->url}">
+                    </div>
+                    <div class="span6">
+                        <label>{$app->title}</label>
+                        <label>{$app->version}</label>
+                        <p>{$app->description}</p>
+                    </div>
+                    <div class="span2">
+                        <a cond="!empty($app->download->ios_file)" class="btn" href="{$app->download->ios_file}">{$lang->ios_download}</a>
+                        <a cond="!empty($app->download->android_file)" class="btn" href="{$app->download->android_file}">{$lang->android_download}</a>
+                        <a cond="!empty($app->download->winphone_file)" class="btn" href="{$app->download->winphone_file}">{$lang->window_download}</a>
+                        <hr>
+                        <a class="btn" href="{getUrl('','module',$module,'act','dispMobile_applicationAdminRegisterApp','app_id',$app->id);}">{$lang->edit}</a>
+                        <form action="./" method="post" onsubmit="return confirmDeleteApp();">
+                            <input type="hidden" name="app_id" value="{$app->id}"/>
+                            <input type="hidden" name="act" value="procMobile_applicationAdminDeleteApp"/>
+                            <input class="btn btn-danger" type="submit" value="{$lang->delete}"/>
+                        </form>
+                        <hr>
+                        <a class="btn" target="_blank" href="http://emulate.phonegap.com?url={$app->test_url}&platform=phonegap">{$lang->test_app}</a>
+                    </div>
+                </div>
+            <!--@end-->
+            <a href="{getNotEncodedUrl('','module',$module,'act','dispMobile_applicationAdminRegisterApp');}" class="btn btn-primary">{$lang->register_app}</a>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function confirmDeleteApp(){
+        if(confirm('{$lang->confirm_delete_app}')==true){
+            return true;
+        }
+        return false;
+    }
+</script>
+

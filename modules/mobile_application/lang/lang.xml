@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="mobile_application_management">
+		<value xml:lang="en"><![CDATA[Manage of mobile_application]]></value>
+	</item>
+	<item name="about_mobile_application">
+		<value xml:lang="en"><![CDATA[It helps you manage mobile themes]]></value>
+	</item>
+	<item name="cmd_mobile_application_create">
+		<value xml:lang="en"><![CDATA[Create a Mobile_application]]></value>
+	</item>
+	<item name="mobile_application_delete_warning">
+		<value xml:lang="en"><![CDATA[If you delete it you can't undo the operation.]]></value>
+	</item>
+	<item name="mobile_application_module_message">
+		<value xml:lang="en"><![CDATA[Module message]]></value>
+	</item>
+	<item name="mobile_application_about_module_message">
+		<value xml:lang="en"><![CDATA[Enter message that you want to display on frontend]]></value>
+	</item>
+    <item name="menu_mobile_app">
+        <value xml:lang="en"><![CDATA[Mobile App]]></value>
+    </item>
+    <item name="menu_mobile_config">
+        <value xml:lang="en"><![CDATA[Configuration]]></value>
+    </item>
+    <item name="menu_mobile_test">
+        <value xml:lang="en"><![CDATA[Test & Build]]></value>
+    </item>
+    <item name="menu_mobile_upload_to_store">
+        <value xml:lang="en"><![CDATA[Upload to Stores]]></value>
+    </item>
+    <item name="file_location">
+        <value xml:lang="en"><![CDATA[File Location]]></value>
+    </item>
+    <item name="file_name">
+        <value xml:lang="en"><![CDATA[File name]]></value>
+    </item>
+    <item name="image_size">
+        <value xml:lang="en"><![CDATA[Image size]]></value>
+    </item>
+    <item name="replace_file">
+        <value xml:lang="en"><![CDATA[Replace with file]]></value>
+    </item>
+    <item name="invalid_directory">
+        <value xml:lang="en"><![CDATA[Current selected path is not a valid directory.]]></value>
+    </item>
+    <item name="image_save_successfully">
+        <value xml:lang="en"><![CDATA[Save image successfully.]]></value>
+    </item>
+    <item name="image_fail_to_save">
+        <value xml:lang="en"><![CDATA[Image fail to save.]]></value>
+    </item>
+    <item name="file_save_successfully">
+        <value xml:lang="en"><![CDATA[File save successfully.]]></value>
+    </item>
+    <item name="file_fail_to_save">
+        <value xml:lang="en"><![CDATA[File fail to save.]]></value>
+    </item>
+    <item name="phonegap_configuration">
+        <value xml:lang="en"><![CDATA[Phonegap Account Configuration]]></value>
+    </item>
+    <item name="phonegap_username">
+        <value xml:lang="en"><![CDATA[Username]]></value>
+    </item>
+    <item name="phonegap_password">
+        <value xml:lang="en"><![CDATA[Password]]></value>
+    </item>
+    <item name="module_config_save_successfully">
+        <value xml:lang="en"><![CDATA[Configuration save successfully.]]></value>
+    </item>
+    <item name="module_config_fail_to_save">
+        <value xml:lang="en"><![CDATA[Configuration fail to save.]]></value>
+    </item>
+    <item name="ios_download">
+        <value xml:lang="en"><![CDATA[IOS]]></value>
+    </item>
+    <item name="android_download">
+        <value xml:lang="en"><![CDATA[Android]]></value>
+    </item>
+    <item name="window_download">
+        <value xml:lang="en"><![CDATA[Window]]></value>
+    </item>
+    <item name="test_app">
+        <value xml:lang="en"><![CDATA[Test App]]></value>
+    </item>
+    <item name="register_app">
+        <value xml:lang="en"><![CDATA[Register App]]></value>
+    </item>
+    <item name="all_apps">
+        <value xml:lang="en"><![CDATA[All Registered Mobile Apps]]></value>
+    </item>
+    <item name="no_registered_apps">
+        <value xml:lang="en"><![CDATA[No registered app.]]></value>
+    </item>
+    <item name="app_info">
+        <value xml:lang="en"><![CDATA[App Info]]></value>
+    </item>
+    <item name="private">
+        <value xml:lang="en"><![CDATA[Private]]></value>
+    </item>
+    <item name="share">
+        <value xml:lang="en"><![CDATA[Share]]></value>
+    </item>
+    <item name="app_icon">
+        <value xml:lang="en"><![CDATA[App Icon]]></value>
+    </item>
+    <item name="accessibility">
+        <value xml:lang="en"><![CDATA[Accessibility]]></value>
+    </item>
+    <item name="package">
+        <value xml:lang="en"><![CDATA[Package]]></value>
+    </item>
+    <item name="back_to_list">
+        <value xml:lang="en"><![CDATA[Back]]></value>
+    </item>
+    <item name="edit">
+        <value xml:lang="en"><![CDATA[Edit]]></value>
+    </item>
+    <item name="confirm_delete_app">
+        <value xml:lang="en"><![CDATA[This app will be deleted. Are you sure?]]></value>
+    </item>
+    <item name="register_app_successfully">
+        <value xml:lang="en"><![CDATA[App registered successfully.]]></value>
+    </item>
+    <item name="update_app_successfully">
+        <value xml:lang="en"><![CDATA[App updated successfully.]]></value>
+    </item>
+    <item name="delete_app_successfully">
+        <value xml:lang="en"><![CDATA[App deleted successfully.]]></value>
+    </item>
+    <item name="delete_app_failed">
+        <value xml:lang="en"><![CDATA[App failed to delete.]]></value>
+    </item>
+
+
+</lang>

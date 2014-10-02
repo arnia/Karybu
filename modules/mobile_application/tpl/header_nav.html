@@ -1,0 +1,11 @@
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+<div class="cnb">
+    <ul class="nav nav-tabs">
+        <!--@foreach($mobile_app_menus as $menu =>$actions)-->
+            <li class="active"|cond=" array_search($act,$actions)!==false"><a href="{getUrl('','module',$module,'act',$actions[0])}">{$menu}</a></li>
+        <!--@end-->
+    </ul>
+</div>

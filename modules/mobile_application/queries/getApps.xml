@@ -1,0 +1,8 @@
+<query id="getApps" action="select">
+    <tables>
+        <table name="phonegap_app" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+</query>

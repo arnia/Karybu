@@ -1,0 +1,22 @@
+<include target="header_nav.html"/>
+<div class="container">
+    <form action="./" method="post">
+        <input type="hidden" name="act" value="procMobile_applicationAdminSaveTextFile"/>
+        <input type="hidden" name="directory" value="{$file->directory}"/>
+        <input type="hidden" name="file_name" value="{$file->file_name}"/>
+        <input type="hidden" name="success_return_url" value="{getUrl('','mid',$mid,'act','dispMobile_applicationAdminFileText')}"/>
+        <div class="row-fluid">
+            <div class="span12">
+                <label>{$lang->file_location}: {$file->directory._DS_.$file->file_name}</label>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span10">
+            <input type="hidden" class="data_editor" id="content" name="content" value="{htmlspecialchars($file->content)}" />
+            <input type="hidden" id="content_primary" name="content_primary" />
+            {$editor}
+            </div>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Save"/>
+    </form>
+</div>

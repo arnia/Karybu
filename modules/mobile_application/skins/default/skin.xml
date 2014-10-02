@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+<!-- You can see below some examples for the title section -->
+<!--
+    <title xml:lang="en">Default mobile_application Skin</title>
+	<title xml:lang="ko">???</title>
+-->
+
+<!-- You can see below some examples for the description section -->
+<!--
+	<description xml:lang="en">
+        The default skin of the member module
+        Arnia (contact@arnia.ro)
+    </description>
+    <description xml:lang="ko">
+        ???
+    </description>
+-->	
+<!-- You can see below some examples for the version section -->
+<!--
+	<version>0.1</version>
+-->	
+<!-- You can see below some examples for the date section -->
+<!--
+	<date>2012-02-28</date>
+-->	
+
+<!-- You can see below some examples for the author section -->
+<!--
+	<author email_address="contact@arnia.ro" link="www.arnia.ro">
+        <name xml:lang="en">Arnia</name>
+		<name xml:lang="ko">???</name>
+    </author>
+-->	
+<!-- You can see below some examples for the colorset section -->
+<!--
+	<colorset>
+        <color name="white">
+            <title xml:lang="en">default</title>
+			<title xml:lang="ko">???</title>
+        </color>
+    </colorset>
+-->	
+
+</skin>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+    <grants>
+	</grants>
+    
+	<permissions>
+	<permission action="dispMobile_applicationAdminDirectory" target="manager" />
+	<permission action="dispMobile_applicationAdminConfig" target="manager" />
+	<permission action="dispMobile_applicationAdminTest" target="manager" />
+	<permission action="dispMobile_applicationAdminUploadToStore" target="manager" />
+	<permission action="dispMobile_applicationAdminRegisterApp" target="manager" />
+	<permission action="procMobile_applicationAdminSaveApp" target="manager" />
+
+	<permission action="procMobile_applicationAdminRun" target="manager" />
+	<permission action="procMobile_applicationAdminSaveConfiguration" target="manager" />
+	<permission action="procMobile_applicationAdminSaveApp" target="manager" />
+	<permission action="procMobile_applicationAdminDeleteApp" target="manager" />
+	</permissions>
+	
+    <actions>
+        <!--view-->
+        <action name="dispMobile_applicationAdminDirectory" type="view" admin_index="true" />
+        <action name="dispMobile_applicationAdminFileImage" type="view"/>
+        <action name="dispMobile_applicationAdminFileText" type="view"  />
+        <action name="dispMobile_applicationAdminConfig" type="view" />
+        <action name="dispMobile_applicationAdminTest" type="view" />
+        <action name="dispMobile_applicationAdminUploadToStore" type="view" />
+        <action name="dispMobile_applicationAdminRegisterApp" type="view" />
+
+        <!--controller-->
+        <action name="procMobile_applicationAdminRun" type="controller" />
+        <action name="procMobile_applicationAdminImageSave" type="controller" />
+        <action name="procMobile_applicationAdminSaveTextFile" type="controller" />
+        <action name="procMobile_applicationAdminSaveConfiguration" type="controller" />
+        <action name="procMobile_applicationAdminSaveApp" type="controller" />
+        <action name="procMobile_applicationAdminDeleteApp" type="controller" />
+	</actions>
+
+</module>

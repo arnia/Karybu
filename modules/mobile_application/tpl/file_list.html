@@ -1,0 +1,17 @@
+<load target="css/file_list.css"/>
+<include target="header_nav.html"/>
+<div class="container">
+    <p>{$result}</p>
+    <ul>
+        <!--@foreach($files as $file)-->
+            <!--@if($file->type==mobile_application::FILE_TYPE_DIR)-->
+                <li ><i class="folder"></i><a href="{getUrl('','module',$module,'act','dispMobile_applicationAdminDirectory','directory',$directory._DS_.$file->name);}">{$file->name}</a></li>
+            <!--@elseif($file->type==mobile_application::FILE_TYPE_IMAGE)-->
+                <li ><i class="file"></i><a href="{getUrl('','module',$module,'act','dispMobile_applicationAdminFileImage','directory',$directory,'file_name',$file->name);}">{$file->name}</a></li>
+            <!--@elseif($file->type==mobile_application::FILE_TYPE_TEXT)-->
+                <li ><i class="file"></i><a href="{getUrl('','module',$module,'act','dispMobile_applicationAdminFileText','directory',$directory,'file_name',$file->name);}">{$file->name}</a></li>
+            <!--@end-->
+        <!--@end-->
+    </ul>
+
+</div>

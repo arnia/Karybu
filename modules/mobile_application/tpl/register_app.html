@@ -1,0 +1,36 @@
+<include target="header_nav.html"/>
+<div class="container">
+    <div class="row-fluid">
+        <div class="span10">
+            <h3>{$lang->app_info}</h3>
+            <form action="./" method="post">
+                <input type="hidden" name="act" value="procMobile_applicationAdminSaveApp"/>
+                <input type="hidden" name="app_id" value="{$appInfo->id}"/>
+                <input type="hidden" name="success_return_url" value="{getUrl('','module',$module,'act','dispMobile_applicationAdminTest');}"/>
+                <fieldset>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <label for="title">{$lang->title}</label>
+                        <input type="text" id="title" name="title" value="{$appInfo->title}"/>
+                        <label for="version">{$lang->version}</label>
+                        <input type="text" id="version" name="version" value="{$appInfo->version}"/>
+                        <label for="package">{$lang->package}</label>
+                        <input type="text" id="package" name="package" value="{$appInfo->package}"/>
+                        <label for="description">{$lang->description}</label>
+                        <textarea id="description" name="description">{$appInfo->description}</textarea>
+                        <!--<label></label>-->
+                        <!--<input type="checkbox" name="upload" value="1"/>{$lang->upload}-->
+                        <!--<label>{$lang->app_icon}</label>-->
+                        <!--<input type="file" name="icon"/>-->
+                    </div>
+
+                </div>
+                    <a href="{getUrl('','module',$module,'act','dispMobile_applicationAdminTest');}" class="btn" >{$lang->back_to_list}</a>
+                    <input type="submit" class="btn btn-primary" value="{$lang->save}"/>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+

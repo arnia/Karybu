@@ -1,0 +1,3 @@
+<table name="phonegap_app">
+    <column name="app_id" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+</table>
