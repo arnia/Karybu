@@ -73,13 +73,13 @@
         <value xml:lang="en"><![CDATA[Configuration fail to save.]]></value>
     </item>
     <item name="ios_download">
-        <value xml:lang="en"><![CDATA[IOS]]></value>
+        <value xml:lang="en"><![CDATA[IOS.ipa]]></value>
     </item>
     <item name="android_download">
-        <value xml:lang="en"><![CDATA[Android]]></value>
+        <value xml:lang="en"><![CDATA[Android.apk]]></value>
     </item>
     <item name="window_download">
-        <value xml:lang="en"><![CDATA[Window]]></value>
+        <value xml:lang="en"><![CDATA[Window.xap]]></value>
     </item>
     <item name="test_app">
         <value xml:lang="en"><![CDATA[Test App]]></value>
@@ -132,6 +132,79 @@
     <item name="delete_app_failed">
         <value xml:lang="en"><![CDATA[App failed to delete.]]></value>
     </item>
-
-
+    <item name="phonegap_keys">
+        <value xml:lang="en"><![CDATA[Phonegap Keys]]></value>
+    </item>
+    <item name="android_key">
+        <value xml:lang="en"><![CDATA[Android Keys]]></value>
+    </item>
+    <item name="ios_key">
+        <value xml:lang="en"><![CDATA[IOS Keys]]></value>
+    </item>
+    <item name="ios_key">
+        <value xml:lang="en"><![CDATA[IOS Keys]]></value>
+    </item>
+    <item name="android_key">
+        <value xml:lang="en"><![CDATA[Android Keys]]></value>
+    </item>
+    <item name="window_key">
+        <value xml:lang="en"><![CDATA[Window Keys]]></value>
+    </item>
+    <item name="key_title">
+        <value xml:lang="en"><![CDATA[Title]]></value>
+    </item>
+    <item name="key_alias">
+        <value xml:lang="en"><![CDATA[Alias]]></value>
+    </item>
+    <item name="is_default">
+        <value xml:lang="en"><![CDATA[Default key]]></value>
+    </item>
+    <item name="keystore">
+        <value xml:lang="en"><![CDATA[Keystore File]]></value>
+    </item>
+    <item name="true">
+        <value xml:lang="en"><![CDATA[Yes]]></value>
+    </item>
+    <item name="false">
+        <value xml:lang="en"><![CDATA[No]]></value>
+    </item>
+    <item name="is_locked">
+        <value xml:lang="en"><![CDATA[Is locked]]></value>
+    </item>
+    <item name="edit_key">
+        <value xml:lang="en"><![CDATA[Edit]]></value>
+    </item>
+    <item name="confirm_delete_key">
+        <value xml:lang="en"><![CDATA[Do you want to delete the key?]]></value>
+    </item>
+    <item name="delete_key_successfully">
+        <value xml:lang="en"><![CDATA[Key deleted successfully.]]></value>
+    </item>
+    <item name="delete_key_failed">
+        <value xml:lang="en"><![CDATA[Key failed to delete.]]></value>
+    </item>
+    <item name="keystore_password">
+        <value xml:lang="en"><![CDATA[Keystore password]]></value>
+    </item>
+    <item name="private_password">
+        <value xml:lang="en"><![CDATA[Private password]]></value>
+    </item>
+    <item name="ios_add_key">
+        <value xml:lang="en"><![CDATA[Add IOS Key]]></value>
+    </item>
+    <item name="winphone_add_key">
+        <value xml:lang="en"><![CDATA[Add Window Phone Key]]></value>
+    </item>
+    <item name="android_add_key">
+        <value xml:lang="en"><![CDATA[Add Android Key]]></value>
+    </item>
+    <item name="back_key_list">
+        <value xml:lang="en"><![CDATA[Back Key List]]></value>
+    </item>
+    <item name="keystore_registered_successfully">
+        <value xml:lang="en"><![CDATA[Keystore registered successfully.]]></value>
+    </item>
+    <item name="keystore_failed_to_register">
+        <value xml:lang="en"><![CDATA[Keystore failed to resgister.]]></value>
+    </item>
 </lang>

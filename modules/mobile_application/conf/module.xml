@@ -4,17 +4,20 @@
 	</grants>
     
 	<permissions>
-	<permission action="dispMobile_applicationAdminDirectory" target="manager" />
-	<permission action="dispMobile_applicationAdminConfig" target="manager" />
-	<permission action="dispMobile_applicationAdminTest" target="manager" />
-	<permission action="dispMobile_applicationAdminUploadToStore" target="manager" />
-	<permission action="dispMobile_applicationAdminRegisterApp" target="manager" />
-	<permission action="procMobile_applicationAdminSaveApp" target="manager" />
+        <permission action="dispMobile_applicationAdminDirectory" target="manager" />
+        <permission action="dispMobile_applicationAdminConfig" target="manager" />
+        <permission action="dispMobile_applicationAdminTest" target="manager" />
+        <permission action="dispMobile_applicationAdminUploadToStore" target="manager" />
+        <permission action="dispMobile_applicationAdminRegisterApp" target="manager" />
+        <permission action="dispMobile_applicationAdminKeyConfig" target="manager" />
 
-	<permission action="procMobile_applicationAdminRun" target="manager" />
-	<permission action="procMobile_applicationAdminSaveConfiguration" target="manager" />
-	<permission action="procMobile_applicationAdminSaveApp" target="manager" />
-	<permission action="procMobile_applicationAdminDeleteApp" target="manager" />
+        <permission action="procMobile_applicationAdminSaveApp" target="manager" />
+        <permission action="procMobile_applicationAdminRun" target="manager" />
+        <permission action="procMobile_applicationAdminSaveConfiguration" target="manager" />
+        <permission action="procMobile_applicationAdminSaveApp" target="manager" />
+        <permission action="procMobile_applicationAdminDeleteApp" target="manager" />
+        <permission action="procMobile_applicationAdminDeleteKey" target="manager" />
+        <permission action="procMobile_applicationAdminSaveKey" target="manager" />
 	</permissions>
 	
     <actions>
@@ -26,6 +29,7 @@
         <action name="dispMobile_applicationAdminTest" type="view" />
         <action name="dispMobile_applicationAdminUploadToStore" type="view" />
         <action name="dispMobile_applicationAdminRegisterApp" type="view" />
+        <action name="dispMobile_applicationAdminKeyConfig" type="view" />
 
         <!--controller-->
         <action name="procMobile_applicationAdminRun" type="controller" />
@@ -34,6 +38,8 @@
         <action name="procMobile_applicationAdminSaveConfiguration" type="controller" />
         <action name="procMobile_applicationAdminSaveApp" type="controller" />
         <action name="procMobile_applicationAdminDeleteApp" type="controller" />
+        <action name="procMobile_applicationAdminDeleteKey" type="controller" />
+        <action name="procMobile_applicationAdminSaveKey" type="controller" />
 	</actions>
 
 </module>

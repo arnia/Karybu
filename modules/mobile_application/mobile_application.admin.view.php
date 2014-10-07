@@ -45,6 +45,10 @@
         function dispMobile_applicationAdminConfig(){
             $moduleConfig = $this->moduleModel->getModuleConfig($this->module);
             Context::set('module_config',$moduleConfig);
+            $supportedKeys = $this->mobileModel->getSupportedPlatformKeys();
+            Context::set('supportedKeys',$supportedKeys);
+            $keys = $this->mobileModel->getAllKeys();
+            Context::set('keys',$keys);
             $this->setTemplateFile('configuration');
         }
         function dispMobile_applicationAdminTest(){
@@ -92,6 +96,14 @@
             $editConfig->height = $height;
             $editor = $editorModel->getEditor(0, $editConfig);
             return $editor;
+        }
+        public function dispMobile_applicationAdminKeyConfig(){
+            $args = Context::getRequestVars();
+            if(!empty($args->key_id)){
+                $keyInfo = $this->mobileModel->getKeyInfo($args->key_id,$args->platform);
+                Context::set('key',$keyInfo);
+            }
+            $this->setTemplateFile('key_configuration');
         }
 	}
 ?>

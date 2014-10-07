@@ -21,6 +21,9 @@ class PhoneGapBuilder{
     public static function getSupportedPlatforms(){
         return array('android','blackberry','ios','symbian','webos','winphone');
     }
+    public static function getSupportedPlatformKeys(){
+        return array('android','ios');
+    }
 
     private function __construct($userName,$password){
         $this->chanel = curl_init();
@@ -106,7 +109,7 @@ class PhoneGapBuilder{
         return $this->_request($url);
     }
     public function getKeyByID($id,$platform){
-        $url=self::PHONEGAP_URL.'/'.$platform.'/'.$id;
+        $url=self::PHONEGAP_URL.'/api/v1/keys/'.$platform.'/'.$id;
         return $this->_request($url);
     }
     public function addAndroidKey($keystoreFile,$title,$alias,$keystorePassword,$keyPassword){
@@ -114,13 +117,27 @@ class PhoneGapBuilder{
         $data->title=$title;
         $data->alias=$alias;
         $data->keystore_pw=$keystorePassword;
+//        $data->default=$default;
         $data->key_pw=$keyPassword;
-        $param = array('keystore'=>$keystoreFile,
+        $param = array('keystore'=>'@'.$keystoreFile,
                        'data'=>json_encode($data)
                       );
         $url = self::PHONEGAP_URL.'/api/v1/keys/'.self::PLATFORM_ANDROID;
         return $this->_request($url,$param);
     }
+    public function updateAndroidKey($keystoreFile,$title,$alias,$keystorePassword,$keyPassword){
+        $data = new stdclass();
+        $data->title=$title;
+        $data->alias=$alias;
+        $data->keystore_pw=$keystorePassword;
+        $data->key_pw=$keyPassword;
+        $param = array('keystore'=>'@'.$keystoreFile,
+            'data'=>json_encode($data)
+        );
+        $url = self::PHONEGAP_URL.'/api/v1/keys/'.self::PLATFORM_ANDROID;
+        return $this->_request($url,$param);
+    }
+
     public function addIOSKey($certFile,$profileFile,$title,$password){
         $data = new stdClass();
         $data->title = $title;

@@ -170,7 +170,45 @@
             }
             $this->setRedirectUrl(getUrl('','module',Context::get('module'),'act','dispMobile_applicationAdminTest'));
         }
-		
+
+        function procMobile_applicationAdminDeleteKey(){
+            global $lang;
+            $args=Context::getRequestVars();
+            $builder = $this->mobileModel->getPhoneGapBuilder();
+            $output = $builder->deleteKey($args->key_id,$args->platform);
+            if(!empty($output->success)){
+                $msg = $lang->delete_key_successfully;
+            }else{
+                $msg = $lang->delete_key_failed;
+            }
+            $this->setMessage($msg);
+            $this->setRedirectUrl(Context::get('success_return_url'));
+        }
+        function procMobile_applicationAdminSaveKey(){
+            global $lang;
+            $args= Context::getRequestVars();
+            $builder = $this->mobileModel->getPhoneGapBuilder();
+            if(!empty($args->key_id)){
+                //update key
+
+            }else{
+                //add key
+                if($args->platform==PhoneGapBuilder::PLATFORM_ANDROID){
+                    $keyStorePath = $this->mobileModel->getKeyStoreFilePath($args->keystore);
+                    $output = $builder->addAndroidKey($keyStorePath,$args->key_title,$args->key_alias,$args->keystore_pwd,$args->private_pwd);
+                    unlink($keyStorePath);
+                    if($output->id){
+                        $message = $lang->keystore_registered_successfully;
+                    }else{
+                        $message =$lang->keystore_failed_to_register;
+                    }
+                }else if($args->platform==PhoneGapBuilder::PLATFORM_IOS){
+//                    $output = $builder->addIOSKey($args->)
+                }
+            }
+            $this->setMessage($message);
+            $this->setRedirectUrl(Context::get('success_return_url'));
+        }
 
 	}
 ?>

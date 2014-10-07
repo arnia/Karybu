@@ -1,0 +1,70 @@
+<include target="header_nav.html"/>
+<div class="container">
+    <form action="./" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="act" value="procMobile_applicationAdminSaveKey"/>
+        <input type="hidden" name="platform" value="{$platform}"/>
+        <input type="hidden" name="key_id" value="{$key_id}"/>
+        <input type="hidden" name="success_return_url" value="{getUrl('','module',$module,'act','dispMobile_applicationAdminConfig')}"/>
+        <fieldset>
+            <div cond="$platform==PhoneGapBuilder::PLATFORM_ANDROID" class="row-fluid">
+                <div class="span10">
+                    <h3>{$lang->android_key}</h3>
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <label>{$lang->key_title}</label>
+                        </div>
+                        <div class="span4">
+                            <input type="text" name="key_title" value="{$key->title}"/>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <label>{$lang->key_alias}</label>
+                        </div>
+                        <div class="span4">
+                            <input type="text" name="key_alias" value="{$key->alias}"/>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <label>{$lang->keystore}</label>
+                        </div>
+                        <div class="span4">
+                            <input type="file" name="keystore" value="{$key->key_file}"/>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <label>{$lang->is_default}</label>
+                        </div>
+                        <div class="span4">
+                            <input type="checkbox" name="is_default" value="true" checked="checked"|cond="$key->default==true"/>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <label>{$lang->keystore_password}</label>
+                        </div>
+                        <div class="span4">
+                            <input type="password" name="keystore_pwd" value=""/>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <label>{$lang->private_password}</label>
+                        </div>
+                        <div class="span4">
+                            <input type="password" name="private_pwd" value=""/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="btn" href="{getUrl('','module',$module,'act','dispMobile_applicationAdminConfig')}">{$lang->back_key_list}</a>
+            <input type="submit" class="btn btn-primary" value="{$lang->save}"/>
+        </fieldset>
+    </form>
+
+</div>
+
+

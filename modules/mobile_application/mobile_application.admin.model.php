@@ -19,7 +19,7 @@
                             $lang->menu_mobile_app=>array('dispMobile_applicationAdminDirectory','dispMobile_applicationAdminFileImage','dispMobile_applicationAdminFileText'),
                             $lang->menu_mobile_test=>array('dispMobile_applicationAdminTest'),
                             $lang->menu_mobile_upload_to_store=>array('dispMobile_applicationAdminUploadToStore'),
-                            $lang->menu_mobile_config=>array('dispMobile_applicationAdminConfig'),
+                            $lang->menu_mobile_config=>array('dispMobile_applicationAdminConfig','dispMobile_applicationAdminKeyConfig'),
                         );
             return $navMenu;
         }
@@ -132,9 +132,9 @@
         //-----------Create zip---------------
         public function createProjectZip(){
             $zipArchive = new ZipArchive();
-            $zipFile = _KARYBU_MOBILE_APP_DIR_._DS_.'karybu.zip';
+            $zipFile = _KARYBU_MOBILE_APP_ZIP_DIR_._DS_.'karybu.zip';
             $zipArchive->open($zipFile,ZipArchive::CREATE);
-            $this->addFolderToArchive($zipArchive,_KARYBU_MOBILE_APP_DIR_._DS_.'www','');
+            $this->addFolderToArchive($zipArchive,_KARYBU_MOBILE_APP_DIR_,'');
             $zipArchive->close();
             return $zipFile;
         }
@@ -211,6 +211,35 @@
         public function getTestingUrl(){
             return getSiteUrl().'modules'._DS_.$this->module._DS_.'karybu_app'._DS_.'www';
         }
+        public function getSupportedPlatformKeys(){
+            return PhoneGapBuilder::getSupportedPlatformKeys();
+        }
+        public function getSupportedPlatforms(){
+            return PhoneGapBuilder::getSupportedPlatforms();
+        }
+        public function getAllKeys(){
+            $builder = $this->getPhoneGapBuilder();
+            $keys=$builder->getKeys();
+            $appKeys =array();
+            $keys = get_object_vars($keys->keys);
+            foreach($keys as $platform => $value){
+                foreach($value->all as $key){
+                    $appKeys[$platform][]=$key;
+                }
+            }
+            return $appKeys;
+        }
+        public function getKeyInfo($id,$platform){
+            $builder = $this->getPhoneGapBuilder();
+            $keyInfo = $builder->getKeyByID($id,$platform);
+            return $keyInfo;
+        }
+        public function getKeyStoreFilePath($fileObj){
+            $dest = _KARYBU_MOBILE_APP_KEY_STORE_DIR_._DS_.$fileObj['name'];
+            $output = move_uploaded_file($fileObj['tmp_name'],$dest);
+            return $dest;
+        }
+
 
 	}
 ?>
