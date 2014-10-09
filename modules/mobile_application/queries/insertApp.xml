@@ -1,6 +1,6 @@
 <query id="insertApp" action="insert">
     <tables>
-        <table name="phonegap_app" />
+        <table name="mobile_app" />
     </tables>
     <columns>
         <column name="app_id" var="app_id" notnull="notnull" />

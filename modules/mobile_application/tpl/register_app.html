@@ -1,3 +1,4 @@
+<load target="css/register_app.css"/>
 <include target="header_nav.html"/>
 <div class="container">
     <div class="row-fluid">
@@ -9,7 +10,7 @@
                 <input type="hidden" name="success_return_url" value="{getUrl('','module',$module,'act','dispMobile_applicationAdminTest');}"/>
                 <fieldset>
                 <div class="row-fluid">
-                    <div class="span12">
+                    <div class="span6">
                         <label for="title">{$lang->title}</label>
                         <input type="text" id="title" name="title" value="{$appInfo->title}"/>
                         <label for="version">{$lang->version}</label>
@@ -23,6 +24,95 @@
                         <!--<label>{$lang->app_icon}</label>-->
                         <!--<input type="file" name="icon"/>-->
                     </div>
+                    <div class="span6">
+                        <h4>{$lang->build_keys}</h4>
+                        <!--@foreach($keys as $platform =>$value)-->
+                        <label>{getPlatformKeyCaption($platform);}</label>
+                        <!--@foreach($value as $key)-->
+                        <div class="row-fluid">
+                            <div class="span1"></div>
+                            <div class="span1"><input type="radio" name="app_keys[{$platform}]" class="key_{$key->id}" value="{$key->id}" disabled="disabled"|cond="$key->locked==true"></div>
+                            <div class="span8">
+                                <div class="row-fluid">
+                                        <div class="span6">
+                                            <!--@if($key->locked)-->
+                                                <label  class="key_{$key->id} disabled">{$lang->key_title}: {$key->title}</label>
+                                                <label class="key_{$key->id} disabled">{$lang->key_alias}: {$key->alias}</label>
+                                            <!--@else-->
+                                                <label class="key_{$key->id} ">{$lang->key_title}: {$key->title}</label>
+                                                <label class="key_{$key->id} ">{$lang->key_alias}: {$key->alias}</label>
+                                            <!--@end-->
+                                    </div>
+                                    <div class="span6">
+                                            <!--@if($key->locked)-->
+                                        <button class="btn btn-primary" id="btn_{$key->id}" data-toggle="modal" data-target="#{$key->id}">{$lang->unlock}</button>
+                                            <!--@else-->
+                                                <button class="btn btn-primary" id="btn_{$key->id}" data-toggle="modal" data-target="#{$key->id}">{$lang->key_credential}</button>
+                                            <!--@end-->
+                                            <!--popup to unlock key-->
+                                                <div class="modal fade" id="{$key->id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                                                                <h4 class="modal-title" id="myModalLabel">{$lang->key_credential} {$key->title}</h4>
+                                                            </div>
+                                                            <div class="modal-body unlock_content">
+                                                                <input type="hidden" class="field" name="platform" value="{$platform}"/>
+                                                                <input type="hidden" class="field" name="key_id" value="{$key->id}"/>
+                                                                <!--@if($platform==PhoneGapBuilder::PLATFORM_ANDROID)-->
+                                                                    <div class="row-fluid">
+                                                                        <div class="span3">
+                                                                            <label>{$lang->keystore_password}</label>
+                                                                        </div>
+                                                                        <div class="span4">
+                                                                            <input type="password" class="field" name="keystore_pwd" value=""/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row-fluid">
+                                                                        <div class="span3">
+                                                                            <label>{$lang->private_password}</label>
+                                                                        </div>
+                                                                        <div class="span4">
+                                                                            <input type="password" class="field" name="private_pwd" value=""/>
+                                                                        </div>
+                                                                    </div>
+                                                                <!--@elseif($platform==PhoneGapBuilder::PLATFORM_IOS)-->
+                                                                    <div class="row-fluid">
+                                                                        <div class="span3">
+                                                                            <label>{$lang->certificate_pwd}</label>
+                                                                        </div>
+                                                                        <div class="span4">
+                                                                            <input class="field" type="password" name="cert_pwd" value=""/>
+                                                                        </div>
+                                                                    </div>
+                                                                <!--@end-->
+                                                                <div class="row-fluid">
+                                                                    <label>{$lang->unlocked_instruction}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">{$lang->cancel}</button>
+                                                                <button type="button" class="btn btn-primary" onclick="unlockKey({$key->id});">{$lang->unlock}</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <!--end popup-->
+
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="span10">
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--@end-->
+                        <!--@end-->
+                    </div>
 
                 </div>
                     <a href="{getUrl('','module',$module,'act','dispMobile_applicationAdminTest');}" class="btn" >{$lang->back_to_list}</a>
@@ -32,5 +122,30 @@
         </div>
     </div>
 </div>
+<script>
+    function unlockKey(app_id){
+        var requestObj = generateRequestObject(app_id);
+        jQuery.exec_json('mobile_application.procMobile_applicationAdminAjaxUnlockKey',requestObj,function(result){
+            if(result.error==0){
+                jQuery('#btn_'+app_id).text('{$lang->key_credential}');
+                jQuery('.key_'+app_id).each(function(){
+                    console.log(jQuery(this));
+                    if(jQuery(this).attr('type')=='radio'){
+                        jQuery(this).removeAttr('disabled');
+                    }else {
+                        jQuery(this).removeClass('disabled');
+                    }
+                });
+                jQuery('#'+app_id).modal('hide');
+            }
+        });
+    }
 
-
+    function generateRequestObject(form_id){
+        var request = new Object();
+        jQuery('#'+form_id).find('.field').each(function(){
+            request[jQuery(this).attr('name')]=jQuery(this).val();
+        });
+        return request;
+    }
+</script>

@@ -46,10 +46,14 @@
                         <div class="span10">
                             <label>{$lang->key_title}: {$key->title}</label>
                             <label>{$lang->key_alias}: {$key->alias}</label>
-                            <label>{$lang->is_default}: {getBooleanCaption($key->default)}</label>
-                            <label>{$lang->is_locked}: {getBooleanCaption($key->locked)}</label>
+                            <!--<label>{$lang->is_default}: {getBooleanCaption($key->default)}</label>-->
+                            <!--<label>{$lang->is_locked}: {getBooleanCaption($key->locked)}</label>-->
                         </div>
                         <div class="span2">
+                            <!--@if($key->locked==true)-->
+                                <a class="btn btn-primary" href="{getUrl('','module',$module,'act','dispMobile_applicationAdminKeyUnlock','platform',$platform,'key_id',$key->id);}">{$lang->unlock}</a>
+                                <hr>
+                            <!--@end-->
                             <a class="btn btn-info" href="{getUrl('','module',$module,'act','dispMobile_applicationAdminKeyConfig','platform',$platform,'key_id',$key->id);}">{$lang->edit_key}</a>
                             <form action="./" method="post" onsubmit="return confirmDeleteApp();">
                                 <input type="hidden" name="key_id" value="{$key->id}"/>

@@ -1,0 +1,8 @@
+<query id="insertAppKey" action="insert">
+    <tables>
+        <table name="mobile_app_key" />
+    </tables>
+    <columns>
+        <column name="key_id" var="key_id" notnull="notnull" />
+    </columns>
+</query>

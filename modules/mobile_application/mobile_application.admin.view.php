@@ -65,6 +65,9 @@
             $args = Context::getRequestVars();
             $appInfo = $this->mobileModel->getAppInfo($args->app_id);
             Context::set('appInfo',$appInfo);
+            //Get available keys
+            $keys = $this->mobileModel->getAllKeys();
+            Context::set('keys',$keys);
             $this->setTemplateFile('register_app');
         }
 
@@ -104,6 +107,20 @@
                 Context::set('key',$keyInfo);
             }
             $this->setTemplateFile('key_configuration');
+        }
+        public function dispMobile_applicationAdminKeyUnlock(){
+            $args = Context::getRequestVars();
+            if(!empty($args->key_id)){
+                $keyInfo = $this->mobileModel->getKeyInfo($args->key_id,$args->platform);
+                Context::set('key',$keyInfo);
+            }
+            $this->setTemplateFile('unlock_key');
+        }
+        public function dispMobile_applicationAdminBuildApp(){
+            $args = Context::getRequestVars();
+            $appInfo = $this->mobileModel->getAppInfo($args->app_id);
+            Context::set('appInfo',$appInfo);
+            $this->setTemplateFile('rebuild');
         }
 	}
 ?>

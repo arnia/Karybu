@@ -1,0 +1,3 @@
+<table name="mobile_app_key">
+    <column name="key_id" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+</table>

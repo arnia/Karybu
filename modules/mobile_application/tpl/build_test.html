@@ -15,8 +15,11 @@
                         <p>{$app->description}</p>
                     </div>
                     <div class="span2">
+                        <button class="btn btn-warning" title="{$app->error->ios}" cond="$app->status->ios!=PhoneGapBuilder::STATUS_COMPLETE">{$lang->ios_error}</button>
                         <a cond="!empty($app->download->ios_file)" class="btn" href="{$app->download->ios_file}">{$lang->ios_download}</a>
+                        <button class="btn btn-warning" title="{$app->error->android}" cond="$app->status->android!=PhoneGapBuilder::STATUS_COMPLETE">{getPlatformBuildStatus('android',$app->status->android)}</button>
                         <a cond="!empty($app->download->android_file)" class="btn" href="{$app->download->android_file}">{$lang->android_download}</a>
+                        <button class="btn btn-warning" title="{$app->error->ios}" cond="$app->status->winphone!=PhoneGapBuilder::STATUS_COMPLETE">{getPlatformBuildStatus('window',$app->status->winphone)}</button>
                         <a cond="!empty($app->download->winphone_file)" class="btn" href="{$app->download->winphone_file}">{$lang->window_download}</a>
                         <hr>
                         <a class="btn" href="{getUrl('','module',$module,'act','dispMobile_applicationAdminRegisterApp','app_id',$app->id);}">{$lang->edit}</a>

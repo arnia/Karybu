@@ -1,6 +1,6 @@
-<query id="getApps" action="select">
+<query id="getAppKeys" action="select">
     <tables>
-        <table name="mobile_app" />
+        <table name="mobile_app_key" />
     </tables>
     <columns>
         <column name="*" />

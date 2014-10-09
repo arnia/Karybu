@@ -202,6 +202,14 @@
             }
             return false;
         }
+        private function _keyExistsInKarybuKeys($id,$karybuKeys){
+            foreach($karybuKeys->data as $key){
+                if($key->key_id==$id){
+                    return true;
+                }
+            }
+            return false;
+        }
 
         public function getAppInfo($id){
             $builder = $this->getPhoneGapBuilder();
@@ -222,9 +230,12 @@
             $keys=$builder->getKeys();
             $appKeys =array();
             $keys = get_object_vars($keys->keys);
+            $karybuKeys = executeQueryArray('mobile_application.getAppKeys');
             foreach($keys as $platform => $value){
                 foreach($value->all as $key){
-                    $appKeys[$platform][]=$key;
+                    if($this->_keyExistsInKarybuKeys($key->id,$karybuKeys)) {
+                        $appKeys[$platform][] = $key;
+                    }
                 }
             }
             return $appKeys;
@@ -234,9 +245,12 @@
             $keyInfo = $builder->getKeyByID($id,$platform);
             return $keyInfo;
         }
-        public function getKeyStoreFilePath($fileObj){
+        public function getUploadedFilePath($fileObj){
             $dest = _KARYBU_MOBILE_APP_KEY_STORE_DIR_._DS_.$fileObj['name'];
             $output = move_uploaded_file($fileObj['tmp_name'],$dest);
+            if(!$output){
+                return '';
+            }
             return $dest;
         }
 

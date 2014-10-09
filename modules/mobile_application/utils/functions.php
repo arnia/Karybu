@@ -24,3 +24,9 @@ function getPlatformAddKeyCaption($platform){
     return $lang->$prop;
 }
 
+function getPlatformBuildStatus($platform,$status){
+    global $lang;
+    $prop = $platform.'_'.$status;
+    return $lang->$prop;
+}
+

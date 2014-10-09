@@ -135,11 +135,11 @@
     <item name="phonegap_keys">
         <value xml:lang="en"><![CDATA[Phonegap Keys]]></value>
     </item>
-    <item name="android_key">
-        <value xml:lang="en"><![CDATA[Android Keys]]></value>
+    <item name="unlock_android_key">
+        <value xml:lang="en"><![CDATA[Unlock Android Key]]></value>
     </item>
-    <item name="ios_key">
-        <value xml:lang="en"><![CDATA[IOS Keys]]></value>
+    <item name="unlock_ios_key">
+        <value xml:lang="en"><![CDATA[Unlock IOS Key]]></value>
     </item>
     <item name="ios_key">
         <value xml:lang="en"><![CDATA[IOS Keys]]></value>
@@ -207,4 +207,97 @@
     <item name="keystore_failed_to_register">
         <value xml:lang="en"><![CDATA[Keystore failed to resgister.]]></value>
     </item>
+    <item name="certificate_p12">
+        <value xml:lang="en"><![CDATA[Certificate (P12) file]]></value>
+    </item>
+    <item name="provisioning_profile">
+        <value xml:lang="en"><![CDATA[Provisioning profile file]]></value>
+    </item>
+    <item name="certificate_pwd">
+        <value xml:lang="en"><![CDATA[Certificate Password]]></value>
+    </item>
+    <item name="unlocked_instruction">
+        <value xml:lang="en"><![CDATA[Please enter key credential to unlocked the key. Please note that the key will be unlocked for one hour only.]]></value>
+    </item>
+    <item name="unlock">
+        <value xml:lang="en"><![CDATA[Unlock]]></value>
+    </item>
+    <item name="build">
+        <value xml:lang="en"><![CDATA[Build]]></value>
+    </item>
+    <item name="keystore_unlocked_successfully">
+        <value xml:lang="en"><![CDATA[Keystore unlocked successfully.]]></value>
+    </item>
+    <item name="keystore_failed_to_unlock">
+        <value xml:lang="en"><![CDATA[Keystore failed to unlock.]]></value>
+    </item>
+    <item name="key_is_not_provided">
+        <value xml:lang="en"><![CDATA[Invalid selected key.]]></value>
+    </item>
+    <item name="keystore_update_successfully">
+        <value xml:lang="en"><![CDATA[Keystore updated successfully.]]></value>
+    </item>
+    <item name="keystore_failed_to_update">
+        <value xml:lang="en"><![CDATA[Keystore failed to update.]]></value>
+    </item>
+    <item name="build_keys">
+        <value xml:lang="en"><![CDATA[Build keys]]></value>
+    </item>
+    <item name="cancel">
+        <value xml:lang="en"><![CDATA[Cancel]]></value>
+    </item>
+
+    <item name="key_credential">
+        <value xml:lang="en"><![CDATA[Key Credential]]></value>
+    </item>
+    <item name="ios_error">
+        <value xml:lang="en"><![CDATA[IOS Error]]></value>
+    </item>
+    <item name="android_error">
+        <value xml:lang="en"><![CDATA[Android Error]]></value>
+    </item>
+    <item name="winphone_error">
+        <value xml:lang="en"><![CDATA[Winphone Error]]></value>
+    </item>
+    <item name="ios_pending">
+        <value xml:lang="en"><![CDATA[Pending...]]></value>
+    </item>
+    <item name="android_pending">
+        <value xml:lang="en"><![CDATA[Pending...]]></value>
+    </item>
+    <item name="winphone_pending">
+        <value xml:lang="en"><![CDATA[Pending...]]></value>
+    </item>
+    <item name="ios_skip">
+        <value xml:lang="en"><![CDATA[Skip]]></value>
+    </item>
+    <item name="android_skip">
+        <value xml:lang="en"><![CDATA[Skip]]></value>
+    </item>
+    <item name="winphone_skip">
+        <value xml:lang="en"><![CDATA[Skip]]></value>
+    </item>
+
+
+
 </lang>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

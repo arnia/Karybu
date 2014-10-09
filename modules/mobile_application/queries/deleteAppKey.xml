@@ -1,0 +1,8 @@
+<query id="deleteAppKey" action="delete">
+    <tables>
+        <table name="mobile_app_key" />
+    </tables>
+    <conditions>
+        <condition operation="equal" column="key_id" var="key_id" notnull="notnull" />
+    </conditions>
+</query>

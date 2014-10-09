@@ -32,12 +32,18 @@ class PhoneGapBuilder{
         curl_setopt($this->chanel, CURLOPT_SSL_VERIFYPEER, false);
     }
     //-------------Application----------
-    public function registerNewAppUsingFile($title,$fileName,$package='',$version='',$description='',$private=true,$share=false){
+    public function registerNewAppUsingFile($title,$fileName,$package='',$version='',$description='',$appKeys=array(),$private=true,$share=false){
         $data = new stdClass();
         $data->create_method='file';
         $data->title = $title;
         $data->private=$private;
         $data->share=$share;
+        if(!empty($appKeys)){
+            $data->keys = new stdClass();
+            foreach($appKeys as $key =>$val){
+                $data->keys->$key = $val;
+            }
+        }
         if(!empty($package)) $data->pacakge=$package;
         if(!empty($version)) $data->version=$version;
         if(!empty($description)) $data->description=$description;
@@ -53,7 +59,7 @@ class PhoneGapBuilder{
         return $this->_request(self::PHONEGAP_URL.'/api/v1/apps');
     }
 
-    public function updateApp($id,$title='',$fileName,$package='',$version='',$description='',$private=true,$share=false){
+    public function updateApp($id,$title='',$fileName,$package='',$version='',$description='',$appKeys=array(),$private=true,$share=false){
         $url = self::PHONEGAP_URL.'/api/v1/apps/'.$id;
         $data = new stdClass();
         $params = array();
@@ -76,6 +82,12 @@ class PhoneGapBuilder{
         if(!empty($share)){
             $data->share = $share;
         }
+        if(!empty($appKeys)){
+            $data->keys = new stdClass();
+            foreach($appKeys as $key =>$val){
+                $data->keys->$key = $val;
+            }
+        }
         $dataArray = get_object_vars($data);
         if(!empty($dataArray)){
             $params['data']=json_encode($data);
@@ -83,7 +95,8 @@ class PhoneGapBuilder{
         if(!empty($fileName)){
             $params['file']='@'.$fileName;
         }
-        curl_setopt($this->chanel,CURLOPT_PUT,1);
+
+        curl_setopt($this->chanel,CURLOPT_CUSTOMREQUEST,'PUT');
         return $this->_request($url,$params);
 
     }
@@ -112,36 +125,58 @@ class PhoneGapBuilder{
         $url=self::PHONEGAP_URL.'/api/v1/keys/'.$platform.'/'.$id;
         return $this->_request($url);
     }
-    public function addAndroidKey($keystoreFile,$title,$alias,$keystorePassword,$keyPassword){
+    public function addAndroidKey($keystoreFile,$title,$alias,$keystorePassword='',$keyPassword=''){
         $data = new stdclass();
         $data->title=$title;
         $data->alias=$alias;
-        $data->keystore_pw=$keystorePassword;
-//        $data->default=$default;
-        $data->key_pw=$keyPassword;
+        if(!empty($keystorePassword))
+            $data->keystore_pw=$keystorePassword;
+        if(!empty($keyPassword))
+            $data->key_pw=$keyPassword;
         $param = array('keystore'=>'@'.$keystoreFile,
                        'data'=>json_encode($data)
                       );
         $url = self::PHONEGAP_URL.'/api/v1/keys/'.self::PLATFORM_ANDROID;
         return $this->_request($url,$param);
     }
-    public function updateAndroidKey($keystoreFile,$title,$alias,$keystorePassword,$keyPassword){
+    public function updateAndroidKey($id,$title,$alias,$keystoreFile='',$keystorePassword='',$keyPassword=''){
         $data = new stdclass();
         $data->title=$title;
         $data->alias=$alias;
-        $data->keystore_pw=$keystorePassword;
-        $data->key_pw=$keyPassword;
-        $param = array('keystore'=>'@'.$keystoreFile,
+        if(!empty($keystorePassword))
+            $data->keystore_pw=$keystorePassword;
+        if(!empty($keyPassword))
+            $data->key_pw=$keyPassword;
+
+        $param = array(
             'data'=>json_encode($data)
         );
-        $url = self::PHONEGAP_URL.'/api/v1/keys/'.self::PLATFORM_ANDROID;
+        if(!empty($keystoreFile))
+            $param['keystore']='@'.$keystoreFile;
+        $param = array(
+            'data'=>json_encode($data)
+        );
+        $url = self::PHONEGAP_URL.'/api/v1/keys/'.self::PLATFORM_ANDROID.'/'.$id;
+        curl_setopt($this->chanel,CURLOPT_CUSTOMREQUEST,'PUT');
+        return $this->_request($url,$param);
+    }
+    public function unlockAndroidKey($id,$keystorePassword,$keyPassword){
+        $url = self::PHONEGAP_URL.'/api/v1/keys/'.self::PLATFORM_ANDROID.'/'.$id;
+        $data = new stdclass();
+        $data->keystore_pw=$keystorePassword;
+        $data->key_pw=$keyPassword;
+        $param = array(
+            'data'=>json_encode($data)
+        );
+        curl_setopt($this->chanel,CURLOPT_CUSTOMREQUEST,'PUT');
         return $this->_request($url,$param);
     }
 
-    public function addIOSKey($certFile,$profileFile,$title,$password){
+    public function addIOSKey($certFile,$profileFile,$title,$password=''){
         $data = new stdClass();
         $data->title = $title;
-        $data->password=$password;
+        if(!empty($password))
+            $data->password=$password;
         $param = array('cert'=>'@'.$certFile,
                        'profile'=>'@'.$profileFile,
                        'data'=>json_encode($data)
@@ -149,8 +184,37 @@ class PhoneGapBuilder{
         $url = self::PHONEGAP_URL.'/api/v1/keys/'.self::PLATFORM_IOS;
         return $this->_request($url,$param);
     }
+    public function updateIOSKey($id,$title,$certFile='',$profileFile='',$password=''){
+        $data = new stdClass();
+        $data->title = $title;
+        if(!empty($password))
+            $data->password=$password;
+        $param = array(
+            'data'=>json_encode($data)
+        );
+        if(!empty($certFile))
+            $param['cert']='@'.$certFile;
+        if(!empty($profileFile))
+            $param['profile']='@'.$profileFile;
+
+        $url = self::PHONEGAP_URL.'/api/v1/keys/'.self::PLATFORM_IOS.'/'.$id;
+        curl_setopt($this->chanel,CURLOPT_CUSTOMREQUEST,'PUT');
+        return $this->_request($url,$param);
+    }
+
+    public function unlockIOSKey($id,$password){
+        $url = self::PHONEGAP_URL.'/api/v1/keys/'.self::PLATFORM_IOS.'/'.$id;
+        $data = new stdclass();
+        $data->password=$password;
+        $param = array(
+            'data'=>json_encode($data)
+        );
+        curl_setopt($this->chanel,CURLOPT_CUSTOMREQUEST,'PUT');
+        return $this->_request($url,$param);
+    }
     public function deleteKey($id,$platform){
         $url = self::PHONEGAP_URL.'/api/v1/keys/'.$platform.'/'.$id;
+        curl_setopt($this->chanel,CURLOPT_CUSTOMREQUEST,'DELETE');
         return $this->_request($url);
     }
     //-----------app download----------------
