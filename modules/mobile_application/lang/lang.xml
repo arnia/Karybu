@@ -260,13 +260,13 @@
         <value xml:lang="en"><![CDATA[Winphone Error]]></value>
     </item>
     <item name="ios_pending">
-        <value xml:lang="en"><![CDATA[Pending...]]></value>
+        <value xml:lang="en"><![CDATA[Pending ...]]></value>
     </item>
     <item name="android_pending">
-        <value xml:lang="en"><![CDATA[Pending...]]></value>
+        <value xml:lang="en"><![CDATA[Pending ...]]></value>
     </item>
     <item name="winphone_pending">
-        <value xml:lang="en"><![CDATA[Pending...]]></value>
+        <value xml:lang="en"><![CDATA[Pending ...]]></value>
     </item>
     <item name="ios_skip">
         <value xml:lang="en"><![CDATA[Skip]]></value>

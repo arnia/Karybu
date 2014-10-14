@@ -12,6 +12,7 @@
         <permission action="dispMobile_applicationAdminKeyConfig" target="manager" />
         <permission action="dispMobile_applicationAdminKeyUnlock" target="manager" />
         <permission action="dispMobile_applicationAdminBuildApp" target="manager" />
+        <permission action="dispMobile_applicationAdminTestApp" target="manager" />
 
         <permission action="procMobile_applicationAdminSaveApp" target="manager" />
         <permission action="procMobile_applicationAdminRun" target="manager" />
@@ -41,6 +42,7 @@
         <action name="dispMobile_applicationAdminKeyConfig" type="view" />
         <action name="dispMobile_applicationAdminKeyUnlock" type="view" />
         <action name="dispMobile_applicationAdminBuildApp" type="view" />
+        <action name="dispMobile_applicationAdminTestApp" type="view" />
 
         <!--controller-->
         <action name="procMobile_applicationAdminImageSave" type="controller" />

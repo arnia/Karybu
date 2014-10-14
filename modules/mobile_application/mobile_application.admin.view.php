@@ -122,5 +122,11 @@
             Context::set('appInfo',$appInfo);
             $this->setTemplateFile('rebuild');
         }
+        public function dispMobile_applicationAdminTestApp(){
+            $appUrl = $this->mobileModel->getTestingUrl();
+            $testUrl = "http://emulate.phonegap.com?url={$appUrl}&platform=cordova";
+            Context::set('test_url',$testUrl);
+            $this->setTemplateFile('test_app');
+        }
 	}
 ?>
