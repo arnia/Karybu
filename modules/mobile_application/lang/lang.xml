@@ -277,6 +277,54 @@
     <item name="winphone_skip">
         <value xml:lang="en"><![CDATA[Skip]]></value>
     </item>
+    <item name="rename">
+        <value xml:lang="en"><![CDATA[Rename]]></value>
+    </item>
+    <item name="file_name">
+        <value xml:lang="en"><![CDATA[File Name]]></value>
+    </item>
+    <item name="action">
+        <value xml:lang="en"><![CDATA[Actions]]></value>
+    </item>
+    <item name="confirm_delete_msg">
+        <value xml:lang="en"><![CDATA[Do you want to delete ]]></value>
+    </item>
+    <item name="create_new_folder">
+        <value xml:lang="en"><![CDATA[Create New Folder]]></value>
+    </item>
+    <item name="rename_successfully">
+        <value xml:lang="en"><![CDATA[Renamed successfully. ]]></value>
+    </item>
+    <item name="rename_failed">
+        <value xml:lang="en"><![CDATA[Rename failed.]]></value>
+    </item>
+    <item name="delete_folder_successfully">
+        <value xml:lang="en"><![CDATA[Deleted folder successfully.]]></value>
+    </item>
+    <item name="delete_file_successfully">
+        <value xml:lang="en"><![CDATA[Deleted file successfully.]]></value>
+    </item>
+    <item name="create_folder_successfully">
+        <value xml:lang="en"><![CDATA[Create folder successfully.]]></value>
+    </item>
+    <item name="create_folder">
+        <value xml:lang="en"><![CDATA[Create Folder]]></value>
+    </item>
+    <item name="create_file">
+        <value xml:lang="en"><![CDATA[Create File]]></value>
+    </item>
+    <item name="create_new_file">
+        <value xml:lang="en"><![CDATA[Create New File]]></value>
+    </item>
+    <item name="upload_file">
+        <value xml:lang="en"><![CDATA[Upload File]]></value>
+    </item>
+    <item name="uploaded_file_successfully">
+        <value xml:lang="en"><![CDATA[Uploaded file successfully.]]></value>
+    </item>
+    <item name="uploaded_file_failed">
+        <value xml:lang="en"><![CDATA[File failed to upload.]]></value>
+    </item>
 
 
 

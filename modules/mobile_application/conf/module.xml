@@ -21,6 +21,12 @@
         <permission action="procMobile_applicationAdminDeleteKey" target="manager" />
         <permission action="procMobile_applicationAdminSaveKey" target="manager" />
         <permission action="procMobile_applicationAdminUnlockKey" target="manager" />
+        <permission action="procMobile_applicationAdminRename" target="manager" />
+        <permission action="procMobile_applicationAdminDeleteFolder" target="manager" />
+        <permission action="procMobile_applicationAdminDeleteFile" target="manager" />
+        <permission action="procMobile_applicationAdminCreateFolder" target="manager" />
+        <permission action="procMobile_applicationAdminCreateFile" target="manager" />
+        <permission action="procMobile_applicationAdminUploadFile" target="manager" />
 	</permissions>
 	
     <actions>
@@ -46,6 +52,12 @@
         <action name="procMobile_applicationAdminSaveKey" type="controller" />
         <action name="procMobile_applicationAdminUnlockKey" type="controller" />
         <action name="procMobile_applicationAdminAjaxUnlockKey" type="controller" />
+        <action name="procMobile_applicationAdminRename" type="controller" />
+        <action name="procMobile_applicationAdminDeleteFolder" type="controller" />
+        <action name="procMobile_applicationAdminDeleteFile" type="controller" />
+        <action name="procMobile_applicationAdminCreateFolder" type="controller" />
+        <action name="procMobile_applicationAdminCreateFile" type="controller" />
+        <action name="procMobile_applicationAdminUploadFile" type="controller" />
 	</actions>
 
 </module>

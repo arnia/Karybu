@@ -24,7 +24,7 @@
             return $navMenu;
         }
 
-        public function getDirectoryContent($directory='/'){
+        public function getDirectoryContent($directory=''){
             $fullPath = _KARYBU_MOBILE_APP_DIR_.$directory;
             $ignoreFileTypes=array('.DAV','.DS_Store','.bzr','.bzrignore','.bzrtags','.git','.gitattributes','.gitignore','.gitmodules','.hg','.hgignore','.hgtags','.htaccess','.htpasswd','.jshintrc','.npmignore','.Spotlight-V100','.svn','__MACOSX','ehthumbs.db','robots.txt','Thumbs.db');
             $ignoreDirNames = array('.','..');
@@ -34,11 +34,11 @@
                 if(($file=='.' ||$file=='..')) continue;
                 $filePath=_KARYBU_MOBILE_APP_DIR_.$directory._DS_.$file;
                 if(is_dir($filePath)){
-                    $result[]=$this->getFileObj($filePath,$file,self::FILE_TYPE_DIR);
+                    $result[]=$this->getFileObj($directory,$file,self::FILE_TYPE_DIR);
                 }else if($this->isImageFile($filePath)){
-                    $result[]=$this->getFileObj($filePath,$file,self::FILE_TYPE_IMAGE);
+                    $result[]=$this->getFileObj($directory,$file,self::FILE_TYPE_IMAGE);
                 }else if($this->isTextFile($filePath)){
-                    $result[]=$this->getFileObj($filePath,$file,self::FILE_TYPE_TEXT);
+                    $result[]=$this->getFileObj($directory,$file,self::FILE_TYPE_TEXT);
                 }
             }
             return $result;
@@ -69,7 +69,7 @@
         }
         private function getFileObj($directory,$name,$type){
             $obj = new stdClass();
-            $obj->path = $directory;
+            $obj->directory = $directory;
             $obj->name=$name;
             $obj->type=$type;
             return $obj;
@@ -161,11 +161,11 @@
             return $phonegapBuilder;
         }
         private function _getFilePath($directory,$fileName){
-            return _KARYBU_MOBILE_APP_DIR_.$directory._DS_.$fileName;
+            return _KARYBU_MOBILE_APP_DIR_._DS_.(!empty($directory)?$directory._DS_:'').$fileName;
         }
 
         private function _getSiteFilePath($directory,$fileName){
-            return getSiteUrl().$this->module_path._DS_.'karybu_app'._DS_.$directory._DS_.$fileName;
+            return getSiteUrl().'modules'._DS_.$this->module._DS_.'karybu_app'._DS_.'www'._DS_.(!empty($directory)?$directory._DS_:'').$fileName;
         }
 
         public function getAllPhonegapApps(){
@@ -252,6 +252,28 @@
                 return '';
             }
             return $dest;
+        }
+        public function deleteFolder($directory){
+            $fullPath = _KARYBU_MOBILE_APP_DIR_.$directory;
+            $files = scandir($fullPath);
+            foreach($files as $file){
+                if(($file=='.' ||$file=='..')) continue;
+                $filePath=_KARYBU_MOBILE_APP_DIR_.$directory._DS_.$file;
+                if(is_dir($filePath)){
+                    $this->deleteFolder($directory._DS_.$file);
+                }else{
+                    unlink($filePath);
+                }
+            }
+            rmdir($fullPath);
+        }
+        public function createFolder($directory,$name){
+            $fullPath = _KARYBU_MOBILE_APP_DIR_.$directory._DS_.$name;
+            return mkdir($fullPath);
+        }
+        public function createFile($directory,$name){
+            $fullPath = _KARYBU_MOBILE_APP_DIR_.$directory._DS_.$name;
+            return file_put_contents($fullPath,'');
         }
 
 

@@ -1,17 +1,179 @@
 <load target="css/file_list.css"/>
 <include target="header_nav.html"/>
 <div class="container">
-    <p>{$result}</p>
-    <ul>
-        <!--@foreach($files as $file)-->
-            <!--@if($file->type==mobile_application::FILE_TYPE_DIR)-->
-                <li ><i class="folder"></i><a href="{getUrl('','module',$module,'act','dispMobile_applicationAdminDirectory','directory',$directory._DS_.$file->name);}">{$file->name}</a></li>
-            <!--@elseif($file->type==mobile_application::FILE_TYPE_IMAGE)-->
-                <li ><i class="file"></i><a href="{getUrl('','module',$module,'act','dispMobile_applicationAdminFileImage','directory',$directory,'file_name',$file->name);}">{$file->name}</a></li>
-            <!--@elseif($file->type==mobile_application::FILE_TYPE_TEXT)-->
-                <li ><i class="file"></i><a href="{getUrl('','module',$module,'act','dispMobile_applicationAdminFileText','directory',$directory,'file_name',$file->name);}">{$file->name}</a></li>
+    <div class="row-fluid">
+        <div class="span8">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>{$lang->file_name}</th>
+                    <th>{$lang->action}</th>
+                </tr>
+            </thead>
+            <!--@foreach($files as $file)-->
+                <!--@if($file->type==mobile_application::FILE_TYPE_DIR)-->
+                    <tr>
+                        <td>
+                            <i class="folder"></i>
+                            <a href="{getUrl('','module',$module,'act','dispMobile_applicationAdminDirectory','directory',$file->directory._DS_.$file->name);}">
+                                {$file->name}
+                            </a>
+                        </td>
+                        <td>
+                            <form action="./" method="post" onsubmit="return confirmDeleteFile('{$file->name}');">
+                                <input type="hidden" name="act" value="procMobile_applicationAdminDeleteFolder"/>
+                                <input type="hidden" name="name" value="{$file->name}"/>
+                                <input type="hidden" name="directory" value="{$directory}"/>
+                                <input type="hidden" name="success_return_url" value="{getUrl('','module',$module,'act','dispMobile_applicationAdminDirectory','directory',$directory);}"/>
+                                <input type="submit" class="btn btn-danger" value="{$lang->delete}"/>
+                            </form>
+                            <a onclick="return rename('{$file->name}');" href="#rename_form" role="button" class="btn" data-toggle="modal">{$lang->rename}</a>
+
+                        </td>
+                    </tr>
+                <!--@elseif($file->type==mobile_application::FILE_TYPE_IMAGE)-->
+                    <tr>
+                        <td>
+                            <i class="file"></i>
+                            <a href="{getUrl('','module',$module,'act','dispMobile_applicationAdminFileImage','directory',$file->directory,'file_name',$file->name);}">
+                                {$file->name}
+                            </a>
+                        </td>
+                        <td>
+                            <form action="./" method="post" onsubmit="return confirmDeleteFile('{$file->name}');">
+                                <input type="hidden" name="act" value="procMobile_applicationAdminDeleteFile"/>
+                                <input type="hidden" name="name" value="{$file->name}"/>
+                                <input type="hidden" name="directory" value="{$directory}"/>
+                                <input type="hidden" name="success_return_url" value="{getUrl('','module',$module,'act','dispMobile_applicationAdminDirectory','directory',$directory);}"/>
+                                <input type="submit" class="btn btn-danger" value="{$lang->delete}"/>
+                            </form>
+                        </td>
+                    </tr>
+                <!--@elseif($file->type==mobile_application::FILE_TYPE_TEXT)-->
+                    <tr>
+                        <td>
+                            <i class="file"></i>
+                            <a href="{getUrl('','module',$module,'act','dispMobile_applicationAdminFileText','directory',$file->directory,'file_name',$file->name);}">
+                                {$file->name}
+                            </a>
+                        </td>
+                        <td>
+                            <form action="./" method="post" onsubmit="return confirmDeleteFile('{$file->name}');">
+                                <input type="hidden" name="act" value="procMobile_applicationAdminDeleteFile"/>
+                                <input type="hidden" name="name" value="{$file->name}"/>
+                                <input type="hidden" name="directory" value="{$directory}"/>
+                                <input type="hidden" name="success_return_url" value="{getUrl('','module',$module,'act','dispMobile_applicationAdminDirectory','directory',$directory);}"/>
+                                <input type="submit" class="btn btn-danger" value="{$lang->delete}"/>
+                            </form>
+                        </td>
+                    </tr>
+                <!--@end-->
             <!--@end-->
-        <!--@end-->
-    </ul>
+        </table>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span2">
+            <a href="#create_folder_form"  role="button" class="btn" data-toggle="modal">{$lang->create_folder}</a>
+        </div>
+        <div class="span2">
+            <a href="#create_file_form"  role="button" class="btn" data-toggle="modal">{$lang->create_file}</a>
+        </div>
+        <div class="span2">
+            <a href="#upload_file_form"  role="button" class="btn" data-toggle="modal">{$lang->upload_file}</a>
+        </div>
+    </div>
+    <div id="rename_form" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <form action="./" method="post">
+            <input type="hidden" name="act" value="procMobile_applicationAdminRename"/>
+            <input type="hidden" id="old_name" name="old_name" value=""/>
+            <input type="hidden" name="directory" value="{$directory}"/>
+            <input type="hidden" name="success_return_url" value="{getUrl('','module',$module,'act','dispMobile_applicationAdminDirectory','directory',$directory);}"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>{$lang->rename} <span class="old_name_title"></span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="span6">
+                        <input type="text" name="new_name" id="new_name" value=""/>
+                    </div>
+                    <div class="span4">
+                        <button class="btn" data-dismiss="modal" >{$lang->cancel}</button>
+                        <input type="submit" class="btn btn-primary" value="{$lang->save}"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="create_folder_form" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <form action="./" method="post">
+            <input type="hidden" name="act" value="procMobile_applicationAdminCreateFolder"/>
+            <input type="hidden" name="directory" value="{$directory}"/>
+            <input type="hidden" name="success_return_url" value="{getUrl('','module',$module,'act','dispMobile_applicationAdminDirectory','directory',$directory);}"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>{$lang->create_new_folder}</h3>
+            </div>
+            <div class="modal-body">
+                <input type="text" name="new_folder" value=""/>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" >{$lang->cancel}</button>
+                <input type="submit" class="btn btn-primary" value="{$lang->save}"/>
+            </div>
+        </form>
+    </div>
+    <div id="create_file_form" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <form action="./" method="post">
+            <input type="hidden" name="act" value="procMobile_applicationAdminCreateFile"/>
+            <input type="hidden" name="directory" value="{$directory}"/>
+            <input type="hidden" name="success_return_url" value="{getUrl('','module',$module,'act','dispMobile_applicationAdminDirectory','directory',$directory);}"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>{$lang->create_new_file}</h3>
+            </div>
+            <div class="modal-body">
+                <input type="text" name="new_file_name" value=""/>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" >{$lang->cancel}</button>
+                <input type="submit" class="btn btn-primary" value="{$lang->save}"/>
+            </div>
+        </form>
+    </div>
+    <div id="upload_file_form" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <form action="./" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="act" value="procMobile_applicationAdminUploadFile"/>
+            <input type="hidden" name="directory" value="{$directory}"/>
+            <input type="hidden" name="success_return_url" value="{getUrl('','module',$module,'act','dispMobile_applicationAdminDirectory','directory',$directory);}"/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>{$lang->create_new_file}</h3>
+            </div>
+            <div class="modal-body">
+                <input type="file" name="new_file" value=""/>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" >{$lang->cancel}</button>
+                <input type="submit" class="btn btn-primary" value="{$lang->save}"/>
+            </div>
+        </form>
+    </div>
+
 
 </div>
+
+<script>
+    function confirmDeleteFile(file_name){
+        if(confirm('{$lang->confirm_delete_msg}'+file_name+' ?')){
+            return true;
+        }
+        return false;
+    }
+    function rename(folder_name){
+        jQuery('#rename_form').find('#old_name_title').text(folder_name);
+        jQuery('#rename_form').find('#new_name').val(folder_name);
+        jQuery('#rename_form').find('#old_name').val(folder_name);
+    }
+</script>

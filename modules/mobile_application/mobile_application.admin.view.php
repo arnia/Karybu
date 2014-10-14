@@ -34,7 +34,7 @@
             global $lang;
             //Get files and directory of project path
             $directory=Context::get('directory');
-            if(empty($directory)) $directory='/';
+            if(empty($directory)) $directory='';
             if($this->mobileModel->isDirectory($directory)){
                 Context::set('files',$this->mobileModel->getDirectoryContent($directory));
             }else{

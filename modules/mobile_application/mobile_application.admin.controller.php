@@ -34,11 +34,13 @@
             global $lang;
             $args = Context::getRequestVars();
             $returnUrl = '';
+            if(empty($args->directory))
+                $args->directory='';
             //if user sent new file, replace current file with new file
             if(!empty($args->new_file)){
                 $result = $this->mobileModel->replaceFile($args->directory,$args->file_name,$args->new_file);
                 if($result){
-                    $returnUrl = getNotEncodedUrl('','module',$this->module,'act','dispMobile_applicationAdminFileImage','directory',$args->directory,'file_name',$args->new_file['name']);
+                    $returnUrl = getNotEncodedUrl('','module',Context::get('module'),'act','dispMobile_applicationAdminFileImage','directory',$args->directory,'file_name',$args->new_file['name']);
                 }
             }else{
                 //rename file with given file name
@@ -46,7 +48,7 @@
                     //Rename file
                     $result = $this->mobileModel->renameFile($args->directory,$args->old_file_name,$args->file_name);
                     if($result){
-                        $returnUrl = getNotEncodedUrl('','module',$this->module,'act','dispMobile_applicationAdminFileImage','directory',$args->directory,'file_name',$args->file_name);
+                        $returnUrl = getNotEncodedUrl('','module',Context::get('module'),'act','dispMobile_applicationAdminFileImage','directory',$args->directory,'file_name',$args->file_name);
                     }
                 }
             }
@@ -241,7 +243,64 @@
                     return new Object(-1,$lang->keystore_failed_to_unlock);
                 }
             }
-
         }
+        function procMobile_applicationAdminRename(){
+            global $lang;
+            $args = Context::getRequestVars();
+            if(empty($args->directory))
+                $args->directory='';
+            if($this->mobileModel->renameFile($args->directory,$args->old_name,$args->new_name)){
+                $message=$lang->rename_successfully;
+            }else{
+                $message=$lang->rename_failed;
+            }
+            $this->setMessage($message);
+            $this->setRedirectUrl(Context::get('success_return_url'));
+        }
+        function procMobile_applicationAdminDeleteFolder(){
+            global $lang;
+            $args = Context::getRequestVars();
+            $this->mobileModel->deleteFolder($args->directory._DS_.$args->name);
+            $this->setMessage($lang->delete_folder_successfully);
+            $this->setRedirectUrl(Context::get('success_return_url'));
+        }
+        function procMobile_applicationAdminDeleteFile(){
+            global $lang;
+            $args = Context::getRequestVars();
+            $this->mobileModel->deleteFile($args->directory,$args->name);
+            $this->setMessage($lang->delete_file_successfully);
+            $this->setRedirectUrl(Context::get('success_return_url'));
+        }
+        function procMobile_applicationAdminCreateFolder(){
+            global $lang;
+            $args = Context::getRequestVars();
+            if(empty($args->directory))
+                $args->directory='';
+            $this->mobileModel->createFolder($args->directory,$args->new_folder);
+            $this->setMessage($lang->create_folder_successfully);
+            $this->setRedirectUrl(Context::get('success_return_url'));
+        }
+        function procMobile_applicationAdminCreateFile(){
+            global $lang;
+            $args = Context::getRequestVars();
+            if(empty($args->directory))
+                $args->directory='';
+            $this->mobileModel->createFile($args->directory,$args->new_file_name);
+            $this->setMessage($lang->create_folder_successfully);
+            $this->setRedirectUrl(Context::get('success_return_url'));
+        }
+        function procMobile_applicationAdminUploadFile(){
+            global $lang;
+            $args = Context::getRequestVars();
+            if(empty($args->directory))
+                $args->directory='';
+            if($this->mobileModel->uploadFile($args->directory,$args->new_file)){
+                $this->setMessage($lang->uploaded_file_successfully);
+            }else{
+                $this->setMessage($lang->uploaded_file_failed);
+            }
+            $this->setRedirectUrl(Context::get('success_return_url'));
+        }
+
 	}
 ?>
