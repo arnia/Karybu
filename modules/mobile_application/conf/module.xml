@@ -43,6 +43,7 @@
         <action name="dispMobile_applicationAdminKeyUnlock" type="view" />
         <action name="dispMobile_applicationAdminBuildApp" type="view" />
         <action name="dispMobile_applicationAdminTestApp" type="view" />
+        <action name="dispMobile_applicationStaticPage" type="view" />
 
         <!--controller-->
         <action name="procMobile_applicationAdminImageSave" type="controller" />
