@@ -302,25 +302,29 @@
             $this->setRedirectUrl(Context::get('success_return_url'));
         }
 
-		function procMobile_applicationGenerateStaticPage() {
+		function procMobile_applicationAdminGenerateStaticPage() {
+			$this->writeIndexFile();
 			try {
-				$a = new PharData('archive.tar');
-
-				// ADD FILES TO archive.tar FILE
-				$a->addFile('data.xls');
-				$a->addFile('index.php');
-
-				// COMPRESS archive.tar FILE. COMPRESSED FILE WILL BE archive.tar.gz
+				if (file_exists($this->getPhonegapWriteAccessDir() . '/' . 'archive.tar.gz')) {
+					unlink($this->getPhonegapWriteAccessDir() . '/' . 'archive.tar.gz');
+				}
+				$tar = $this->getPhonegapWriteAccessDir() . '/' . 'archive.tar';
+				$a = new PharData( $tar );
+				$a->addFile($this->getPhonegapWriteAccessDir() . '/' . 'index.html');
 				$a->compress(Phar::GZ);
-
-				// NOTE THAT BOTH FILES WILL EXISTS. SO IF YOU WANT YOU CAN UNLINK archive.tar
-				unlink('archive.tar');
-				$this->serveTarGz('archive.tar.gz');
+				unlink($tar);
+				$this->serveTarGz($this->getPhonegapWriteAccessDir() . '/' . 'archive.tar.gz');
 			}
 			catch (Exception $e) {
 				echo "Exception : " . $e;
 			}
-			die('ok');
+			die;
+		}
+
+		private function writeIndexFile()
+		{
+			$content = $this->getFileIndexHtml();
+			return file_put_contents($this->getPhonegapWriteAccessDir() . '/' . 'index.html', $content);
 		}
 
 		private function serveTarGz($path)
@@ -330,6 +334,39 @@
 			header('Content-Length: ' . filesize($path));
 			header('Content-Disposition: attachment; filename=' . basename($path));
 			readfile($path);
+		}
+
+		protected function getPhonegapWriteAccessDir() {
+			$writeAccessDir = _KARYBU_PATH_ . 'files/cache/phonegap';
+			if (!file_exists($writeAccessDir)) {
+				if (!mkdir( $writeAccessDir, 0755, true)) {
+					throw new Exception( 'Cannot create phonegap dir' );
+				}
+			}
+			return $writeAccessDir;
+		}
+
+		private function getFileIndexHtml()
+		{
+		    $contextInstance = Context::getInstance();
+		    $siteInfo = $contextInstance->getSiteModuleInfo();
+		    $layoutModel = getModel('layout');
+		    $layoutInfo = $layoutModel->getLayout($siteInfo->layout_srl);
+		    $menuAdminModel = getAdminModel('menu');
+		    $menuInfo = $menuAdminModel->getMenu($layoutInfo->main_menu);
+		    $menuItems = $menuAdminModel->getMenuItems($layoutInfo->main_menu);
+
+		    $oTemplate = &TemplateHandler::getInstance();
+
+		    $layoutHtml = $oTemplate->compile($layoutInfo->path,'layout.html');
+
+		    $oModule = getController('widget');
+		    $output = $oModule->triggerWidgetCompile($layoutHtml);
+
+		    Context::set('content',$layoutHtml);
+		    $output = $oTemplate->compile('./common/tpl', 'common_layout');
+
+			return $output;
 		}
 
 	}

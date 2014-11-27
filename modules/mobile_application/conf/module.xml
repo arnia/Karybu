@@ -29,7 +29,7 @@
         <permission action="procMobile_applicationAdminCreateFolder" target="manager" />
         <permission action="procMobile_applicationAdminCreateFile" target="manager" />
         <permission action="procMobile_applicationAdminUploadFile" target="manager" />
-        <permission action="procMobile_applicationGenerateStaticPage" target="manager" />
+        <permission action="procMobile_applicationAdminGenerateStaticPage" target="manager" />
 	</permissions>
 	
     <actions>
@@ -63,7 +63,7 @@
         <action name="procMobile_applicationAdminCreateFolder" type="controller" />
         <action name="procMobile_applicationAdminCreateFile" type="controller" />
         <action name="procMobile_applicationAdminUploadFile" type="controller" />
-        <action name="procMobile_applicationGenerateStaticPage" type="controller" />
+        <action name="procMobile_applicationAdminGenerateStaticPage" type="controller" />
 	</actions>
 
 </module>
