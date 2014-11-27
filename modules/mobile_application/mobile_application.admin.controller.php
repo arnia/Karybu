@@ -29,7 +29,7 @@
             $this->moduleModel = getModel('module');
             $this->moduleController = getController('module');
         }
-		
+
         function procMobile_applicationAdminImageSave(){
             global $lang;
             $args = Context::getRequestVars();
@@ -301,6 +301,36 @@
             }
             $this->setRedirectUrl(Context::get('success_return_url'));
         }
+
+		function procMobile_applicationGenerateStaticPage() {
+			try {
+				$a = new PharData('archive.tar');
+
+				// ADD FILES TO archive.tar FILE
+				$a->addFile('data.xls');
+				$a->addFile('index.php');
+
+				// COMPRESS archive.tar FILE. COMPRESSED FILE WILL BE archive.tar.gz
+				$a->compress(Phar::GZ);
+
+				// NOTE THAT BOTH FILES WILL EXISTS. SO IF YOU WANT YOU CAN UNLINK archive.tar
+				unlink('archive.tar');
+				$this->serveTarGz('archive.tar.gz');
+			}
+			catch (Exception $e) {
+				echo "Exception : " . $e;
+			}
+			die('ok');
+		}
+
+		private function serveTarGz($path)
+		{
+			header('Content-Description: File Transfer');
+			header('Content-Type: application/octet-stream');
+			header('Content-Length: ' . filesize($path));
+			header('Content-Disposition: attachment; filename=' . basename($path));
+			readfile($path);
+		}
 
 	}
 ?>

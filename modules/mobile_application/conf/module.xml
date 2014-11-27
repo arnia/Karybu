@@ -13,6 +13,7 @@
         <permission action="dispMobile_applicationAdminKeyUnlock" target="manager" />
         <permission action="dispMobile_applicationAdminBuildApp" target="manager" />
         <permission action="dispMobile_applicationAdminTestApp" target="manager" />
+        <permission action="dispMobile_applicationAdminStaticPage" target="manager" />
 
         <permission action="procMobile_applicationAdminSaveApp" target="manager" />
         <permission action="procMobile_applicationAdminRun" target="manager" />
@@ -28,6 +29,7 @@
         <permission action="procMobile_applicationAdminCreateFolder" target="manager" />
         <permission action="procMobile_applicationAdminCreateFile" target="manager" />
         <permission action="procMobile_applicationAdminUploadFile" target="manager" />
+        <permission action="procMobile_applicationGenerateStaticPage" target="manager" />
 	</permissions>
 	
     <actions>
@@ -43,7 +45,7 @@
         <action name="dispMobile_applicationAdminKeyUnlock" type="view" />
         <action name="dispMobile_applicationAdminBuildApp" type="view" />
         <action name="dispMobile_applicationAdminTestApp" type="view" />
-        <action name="dispMobile_applicationStaticPage" type="view" />
+        <action name="dispMobile_applicationAdminStaticPage" type="view" />
 
         <!--controller-->
         <action name="procMobile_applicationAdminImageSave" type="controller" />
@@ -61,6 +63,7 @@
         <action name="procMobile_applicationAdminCreateFolder" type="controller" />
         <action name="procMobile_applicationAdminCreateFile" type="controller" />
         <action name="procMobile_applicationAdminUploadFile" type="controller" />
+        <action name="procMobile_applicationGenerateStaticPage" type="controller" />
 	</actions>
 
 </module>

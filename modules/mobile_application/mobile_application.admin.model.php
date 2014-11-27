@@ -19,6 +19,7 @@
                             $lang->menu_mobile_app=>array('dispMobile_applicationAdminDirectory','dispMobile_applicationAdminFileImage','dispMobile_applicationAdminFileText'),
                             $lang->menu_mobile_test=>array('dispMobile_applicationAdminTest','dispMobile_applicationAdminTestApp'),
                             $lang->menu_mobile_upload_to_store=>array('dispMobile_applicationAdminUploadToStore'),
+                            $lang->menu_mobile_static_page=>array('dispMobile_applicationAdminStaticPage'),
                             $lang->menu_mobile_config=>array('dispMobile_applicationAdminConfig','dispMobile_applicationAdminKeyConfig'),
                         );
             return $navMenu;

@@ -52,30 +52,4 @@ class mobile_applicationView extends mobile_application {
         Context::set('email_list',$output->data);
         $this->setTemplateFile('mobile_application_email_list');
     }
-
-    public function dispMobile_applicationStaticPage()
-    {
-	    $contextInstance = Context::getInstance();
-	    $siteInfo = $contextInstance->getSiteModuleInfo();
-	    $layoutModel = getModel('layout');
-	    $layoutInfo = $layoutModel->getLayout($siteInfo->layout_srl);
-	    $menuAdminModel = getAdminModel('menu');
-	    $menuInfo = $menuAdminModel->getMenu($layoutInfo->main_menu);
-	    $menuItems = $menuAdminModel->getMenuItems($layoutInfo->main_menu);
-
-	    $oTemplate = &TemplateHandler::getInstance();
-
-	    $layoutHtml = $oTemplate->compile($layoutInfo->path,'layout.html');
-
-	    $oModule = getController('widget');
-	    $output = $oModule->triggerWidgetCompile($layoutHtml);
-
-	    Context::set('content',$layoutHtml);
-		$output = $oTemplate->compile('./common/tpl', 'common_layout');
-
-	    echo $output;
-	    die();
-
-	    $this->setTemplateFile('static');
-    }
 }

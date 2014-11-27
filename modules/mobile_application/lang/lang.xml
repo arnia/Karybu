@@ -30,6 +30,15 @@
     <item name="menu_mobile_upload_to_store">
         <value xml:lang="en"><![CDATA[Upload to Stores]]></value>
     </item>
+    <item name="menu_mobile_static_page">
+        <value xml:lang="en"><![CDATA[PhoneGap Static Page]]></value>
+    </item>
+    <item name="generate_static_page_title">
+        <value xml:lang="en"><![CDATA[Generate PhoneGap Static Page]]></value>
+    </item>
+    <item name="generate_static_page_button">
+        <value xml:lang="en"><![CDATA[Get Archive]]></value>
+    </item>
     <item name="file_location">
         <value xml:lang="en"><![CDATA[File Location]]></value>
     </item>
