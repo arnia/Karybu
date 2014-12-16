@@ -396,7 +396,6 @@
 
 		    $output = $oTemplate->compile('./common/tpl', 'common_layout');
 
-
             //echo $output;die();
 
 			return $output;
@@ -450,18 +449,25 @@
             $jsResourceFilesPath = $jsMatches[2];
             for ($i = 0; $i < count($jsResourceFilesPath); $i++){
 
-                /*if (strpos($jsResourceFilesPath[$i],'http:') !== false)
-                    continue;*/
-
                 $tempPath = $jsResourceFilesPath[$i];
-                // remove karybu
-                $jsResourceFilesPath[$i] = ltrim($jsResourceFilesPath[$i], '/karybu/');
-                // remove timestamp
-                if (strpos($jsResourceFilesPath[$i], '?'))
-                    $jsResourceFilesPath[$i] = substr($jsResourceFilesPath[$i], 0, strpos($jsResourceFilesPath[$i], '?'));
+                if (strpos($jsResourceFilesPath[$i],'http:') === false) {
 
-                // compute absolute path
-                $jsResourceFilesPath[$i] = _KARYBU_PATH_ . $jsResourceFilesPath[$i];
+                    // remove karybu folder from path
+                    $jsResourceFilesPath[$i] = ltrim($jsResourceFilesPath[$i], '/karybu/');
+                    // remove timestamp
+                    if (strpos($jsResourceFilesPath[$i], '?'))
+                        $jsResourceFilesPath[$i] = substr($jsResourceFilesPath[$i], 0, strpos($jsResourceFilesPath[$i], '?'));
+
+                    // compute absolute path
+                    $jsResourceFilesPath[$i] = _KARYBU_PATH_ . $jsResourceFilesPath[$i];
+                } else {
+                    // remove http://
+                    $jsResourceFilesPath[$i] = ltrim($jsResourceFilesPath[$i], 'http://');
+                    // remove host ip
+                    $jsResourceFilesPath[$i] = ltrim($jsResourceFilesPath[$i], $ipAddress);
+                    // remove karybu folder from path
+                    $jsResourceFilesPath[$i] = ltrim($jsResourceFilesPath[$i], '/karybu/');
+                }
 
                 $fileInfo = pathinfo($jsResourceFilesPath[$i]);
                 $fileName = $fileInfo['basename'];
