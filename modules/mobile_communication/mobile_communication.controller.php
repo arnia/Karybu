@@ -68,55 +68,57 @@
             }
             exit;
         }
+
         function procmobile_communicationArrangeMenu(){
-        $adminMenuController = getAdminController("menu");
-        $adminMenuController->menuSrl = Context::get('menu_srl');
-        
-        $parentKeyList = Context::get('parent_key');
-        $adminMenuController->itemKeyList = Context::get('item_key');
-        $adminMenuController->map = array();
-        if (is_array($parentKeyList)) {
-            foreach ($parentKeyList as $no => $srl) {
-                if ($srl === 0)
-                    continue;
-                if (!is_array($adminMenuController->map[$srl]))
-                    $adminMenuController->map[$srl] = array();
-                $adminMenuController->map[$srl][] = $no;
-            }
-        }
+            $adminMenuController = getAdminController("menu");
+            $adminMenuController->menuSrl = Context::get('menu_srl');
 
-        $result = array();
-        if (is_array($adminMenuController->itemKeyList)) {
-            foreach ($adminMenuController->itemKeyList as $srl) {
-                if (!$adminMenuController->checked[$srl]) {
-                    unset($target);
-                    $adminMenuController->checked[$srl] = 1;
-                    $target->node = $srl;
-                    $target->child = array();
-
-                    while (count($adminMenuController->map[$srl])) {
-                        $adminMenuController->_setParent($srl, array_shift($adminMenuController->map[$srl]), $target);
-                    }
-                    $result[] = $target;
+            $parentKeyList = Context::get('parent_key');
+            $adminMenuController->itemKeyList = Context::get('item_key');
+            $adminMenuController->map = array();
+            if (is_array($parentKeyList)) {
+                foreach ($parentKeyList as $no => $srl) {
+                    if ($srl === 0)
+                        continue;
+                    if (!is_array($adminMenuController->map[$srl]))
+                        $adminMenuController->map[$srl] = array();
+                    $adminMenuController->map[$srl][] = $no;
                 }
             }
-        }
 
-        if (is_array($result)) {
-            $i = 0;
-            foreach ($result AS $key => $node) {
-                $adminMenuController->moveMenuItem($adminMenuController->menuSrl, 0, $i, $node->node, 'move'); //move parent node
-                $adminMenuController->_recursiveMoveMenuItem($node); //move child node
-                $i = $node->node;
+            $result = array();
+            if (is_array($adminMenuController->itemKeyList)) {
+                foreach ($adminMenuController->itemKeyList as $srl) {
+                    if (!$adminMenuController->checked[$srl]) {
+                        unset($target);
+                        $adminMenuController->checked[$srl] = 1;
+                        $target->node = $srl;
+                        $target->child = array();
+
+                        while (count($adminMenuController->map[$srl])) {
+                            $adminMenuController->_setParent($srl, array_shift($adminMenuController->map[$srl]), $target);
+                        }
+                        $result[] = $target;
+                    }
+                }
             }
+
+            if (is_array($result)) {
+                $i = 0;
+                foreach ($result AS $key => $node) {
+                    $adminMenuController->moveMenuItem($adminMenuController->menuSrl, 0, $i, $node->node, 'move'); //move parent node
+                    $adminMenuController->_recursiveMoveMenuItem($node); //move child node
+                    $i = $node->node;
+                }
+            }
+
+            header('Content-Type: text/xml');
+                    echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . "\n";
+                    echo "<response>\n";
+                    echo "<value>true</value>";
+                    echo "</response>\n";
         }
 
-        header('Content-Type: text/xml');
-                echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . "\n";
-                echo "<response>\n";
-                echo "<value>true</value>";
-                echo "</response>\n";
-        }
         function procmobile_communicationDisplayMenu()
         {
         	if(!Context::get('is_logged')) $this->logout_message();

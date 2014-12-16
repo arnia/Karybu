@@ -44,6 +44,80 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
-        console.log('Received Event: ' + id);
+        console.log('[DEBUG]Received Event: ' + id);
+	
+		if (id == 'deviceready')
+		{
+			//httpRequest('POST');
+			window.location = 'index.html';
+			console.log('[DEBUG] index.html loaded');
+		}
     }
 };
+
+var xmlHttp = null;
+var xmlHttpRespose;
+var serverAddress = '10.0.0.197';
+
+function httpRequest(requestType)
+{   
+	// function parameter default value
+	requestType = requestType || 'GET';
+    
+	xmlHttp = new XMLHttpRequest();
+	xmlHttp.open(requestType, 'http://' + serverAddress + '/karybu/index.php?mid=get_started&act=procMobile_applicationAdminGenerateStaticPage', true);
+	xmlHttp.onreadystatechange = handleReadyStateChange;
+	
+	xmlHttp.addEventListener('progress', updateProgress, false);
+	xmlHttp.addEventListener('load', transferComplete, false);
+	xmlHttp.addEventListener('error', transferFailed, false);
+	xmlHttp.addEventListener('abort', transferCanceled, false);
+    
+	xmlHttp.send(null);
+    return xmlHttp.responseText;
+}
+
+function handleReadyStateChange()
+{
+	console.log('[DEBUG]handleReadyStateChange');
+	if (xmlHttp.readyState == 4)
+	{
+        if (xmlHttp.status == 200)
+        {
+			xmlHttpRespose = xmlHttp.responseText;
+			xmlHttpRespose.replace('localhost', serverAddress);
+			document.body.innerHTML = xmlHttpRespose;
+		}
+    }
+}
+
+// progress on transfers from the server to the client (downloads)
+function updateProgress(oEvent) {
+   console.log('[DEBUG]updateProgress');
+  if (oEvent.lengthComputable) {
+    var percentComplete = oEvent.loaded / oEvent.total;
+    // ...
+  } else {
+    // Unable to compute progress information since the total size is unknown
+  }
+}
+
+function transferComplete(evt)
+{
+  console.log('[DEBUG]The transfer is complete.');
+}
+
+function transferFailed(evt)
+{
+  console.log('[DEBUG]An error occurred while transferring the file.');
+}
+
+function transferCanceled(evt)
+{
+  console.log('[DEBUG]The transfer has been canceled by the user.');
+}
+
+function onClickRequest()
+{
+	httpRequest('POST');
+}

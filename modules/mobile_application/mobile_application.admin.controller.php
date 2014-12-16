@@ -302,17 +302,19 @@
             $this->setRedirectUrl(Context::get('success_return_url'));
         }
 
-		function procMobile_applicationAdminGenerateStaticPage() {
-			$this->writeIndexFile();
+		function procMobile_applicationAdminGenerateStaticPage(){
 			try {
 				if (file_exists($this->getPhonegapWriteAccessDir() . '/' . 'archive.tar.gz')) {
 					unlink($this->getPhonegapWriteAccessDir() . '/' . 'archive.tar.gz');
 				}
-				$tar = $this->getPhonegapWriteAccessDir() . '/' . 'archive.tar';
-				$a = new PharData( $tar );
-				$a->addFile($this->getPhonegapWriteAccessDir() . '/' . 'index.html');
-				$a->compress(Phar::GZ);
-				unlink($tar);
+				$tarPath = $this->getPhonegapWriteAccessDir() . '/' . 'archive.tar';
+				$tarData = new PharData($tarPath);
+                $this->writeIndexFile($tarData);
+                $tarData->addFile($this->getPhonegapWriteAccessDir() . '/' . 'index.html', 'index.html');
+                // Add phonegap files
+                $tarData->buildFromDirectory(_KARYBU_PATH_ . 'modules/mobile_application/karybu_app/www');
+                $tarData->compress(Phar::GZ);
+				unlink($tarPath);
 				$this->serveTarGz($this->getPhonegapWriteAccessDir() . '/' . 'archive.tar.gz');
 			}
 			catch (Exception $e) {
@@ -321,14 +323,16 @@
 			die;
 		}
 
-		private function writeIndexFile()
-		{
+		private function writeIndexFile($tarData){
 			$content = $this->getFileIndexHtml();
+
+            // add html resource file to phonegap
+            $content = $this->getResourceFiles($content, $tarData);
+
 			return file_put_contents($this->getPhonegapWriteAccessDir() . '/' . 'index.html', $content);
 		}
 
-		private function serveTarGz($path)
-		{
+		private function serveTarGz($path){
 			header('Content-Description: File Transfer');
 			header('Content-Type: application/octet-stream');
 			header('Content-Length: ' . filesize($path));
@@ -336,8 +340,8 @@
 			readfile($path);
 		}
 
-		protected function getPhonegapWriteAccessDir() {
-			$writeAccessDir = _KARYBU_PATH_ . 'files/cache/phonegap';
+		protected function getPhonegapWriteAccessDir(){
+			$writeAccessDir = _KARYBU_PATH_ . 'modules/mobile_application/karybu_app';
 			if (!file_exists($writeAccessDir)) {
 				if (!mkdir( $writeAccessDir, 0755, true)) {
 					throw new Exception( 'Cannot create phonegap dir' );
@@ -346,17 +350,35 @@
 			return $writeAccessDir;
 		}
 
-		private function getFileIndexHtml()
-		{
+		private function getFileIndexHtml(){
 		    $contextInstance = Context::getInstance();
 		    $siteInfo = $contextInstance->getSiteModuleInfo();
 		    $layoutModel = getModel('layout');
 		    $layoutInfo = $layoutModel->getLayout($siteInfo->layout_srl);
-		    $menuAdminModel = getAdminModel('menu');
+
+            $menuAdminModel = getAdminModel('menu');
 		    $menuInfo = $menuAdminModel->getMenu($layoutInfo->main_menu);
 		    $menuItems = $menuAdminModel->getMenuItems($layoutInfo->main_menu);
 
 		    $oTemplate = &TemplateHandler::getInstance();
+
+
+            // Set menus into context
+            if ($layoutInfo->menu_count) {
+                foreach ($layoutInfo->menu as $menu_id => $menu) {
+                    if (!file_exists($menu->php_file)) {
+                        //create menu cache if it doesn't exist
+                        $oMenuAdminController = getAdminController('menu');
+                        Context::set('menu_srl', $menu->menu_srl);
+                        $oMenuAdminController->procMenuAdminMakeXmlFile();
+                    }
+                    //failsave in case the cache is not created
+                    if (file_exists($menu->php_file)){
+                        include($menu->php_file);
+                    }
+                    Context::set($menu_id, $menu);
+                }
+            }
 
 		    $layoutHtml = $oTemplate->compile($layoutInfo->path,'layout.html');
 
@@ -364,10 +386,104 @@
 		    $output = $oModule->triggerWidgetCompile($layoutHtml);
 
 		    Context::set('content',$layoutHtml);
+
+            $oContext  =& Context::getInstance();
+
+            // add common JS/CSS files
+            $oContext->loadFile(array('./common/js/jquery.min.js', 'head', '', -100000), true);
+            $oContext->loadFile(array('./common/js/x.min.js', 'head', '', -100000), true);
+            $oContext->loadFile(array('./common/js/xe.min.js', 'head', '', -100000), true);
+
 		    $output = $oTemplate->compile('./common/tpl', 'common_layout');
+
+
+            //echo $output;die();
 
 			return $output;
 		}
 
+        private function getResourceFiles($content, $tarData){
+            // replace localhost with host IP address
+            $ipAddress = gethostbyname(trim(`hostname`));
+            $content = str_replace('localhost', $ipAddress, $content);
+
+            // Get css & js resource files
+            $cssFileCount = preg_match_all('/(<link\b.+href=")(?!http)([^"]*)(".*>)/', $content, $cssMatches);
+            $jsFileCount = preg_match_all('/src=(["\'])(.*?)\1/', $content, $jsMatches);
+
+            if ($cssFileCount == false && $jsFileCount == false)
+                return $content;
+
+            // CSS files
+            $cssResourceFilesPath = $cssMatches[2];
+            for ($i = 0; $i < count($cssResourceFilesPath); $i++){
+                // remove karybu
+                $tempPath = $cssResourceFilesPath[$i];
+                $cssResourceFilesPath[$i] = ltrim($cssResourceFilesPath[$i], '/karybu/');
+                // remove timestamp
+                $cssResourceFilesPath[$i] = substr($cssResourceFilesPath[$i], 0, strpos($cssResourceFilesPath[$i], '?'));
+                $cssResourceFilesPath[$i] = _KARYBU_PATH_. $cssResourceFilesPath[$i];
+
+                $fileName = basename($cssResourceFilesPath[$i]);
+                $fileContent = file_get_contents($cssResourceFilesPath[$i]);
+
+                // add css from @import
+                $cssImportFileCount = preg_match_all('/@import (url\()?"(.*?)"(?(1)\))/', $fileContent, $cssImportMatches);
+                if ($cssImportFileCount != false){
+                    $cssDirName = dirname($cssResourceFilesPath[$i]);
+                    for ($j = 0; $j < count($cssImportFiles = $cssImportMatches[2]); $j++){
+                        $tarData->addEmptyDir('css');
+                        $tarData->addFile($cssDirName.'/'.$cssImportFiles[$j], 'css/'.$cssImportFiles[$j]);
+                    }
+                }
+
+                if ($cssResourceFilesPath[$i] != _KARYBU_PATH_){
+                    $tarData->addEmptyDir('css');
+                    $tarData->addFile($cssResourceFilesPath[$i], 'css/'.$fileName);
+                }
+
+                // replace link href
+                $content = str_replace($tempPath, 'css/'.$fileName, $content);
+            }
+
+            // JS files
+            $jsResourceFilesPath = $jsMatches[2];
+            for ($i = 0; $i < count($jsResourceFilesPath); $i++){
+
+                /*if (strpos($jsResourceFilesPath[$i],'http:') !== false)
+                    continue;*/
+
+                $tempPath = $jsResourceFilesPath[$i];
+                // remove karybu
+                $jsResourceFilesPath[$i] = ltrim($jsResourceFilesPath[$i], '/karybu/');
+                // remove timestamp
+                if (strpos($jsResourceFilesPath[$i], '?'))
+                    $jsResourceFilesPath[$i] = substr($jsResourceFilesPath[$i], 0, strpos($jsResourceFilesPath[$i], '?'));
+
+                // compute absolute path
+                $jsResourceFilesPath[$i] = _KARYBU_PATH_ . $jsResourceFilesPath[$i];
+
+                $fileInfo = pathinfo($jsResourceFilesPath[$i]);
+                $fileName = $fileInfo['basename'];
+                $fileExt = $fileInfo['extension'];
+
+                if ($jsResourceFilesPath[$i] != _KARYBU_PATH_){
+                    // add js and img files to resource folder
+                    $folder = ($fileExt == 'js') ? 'js' : 'img';
+                    // replace script src
+                    $content = str_replace($tempPath, $folder.'/'.$fileName, $content);
+
+                    try {
+                        $tarData->addEmptyDir($folder);
+                        $tarData->addFile($jsResourceFilesPath[$i], $folder . '/' . $fileName);
+                    }
+                    catch (Exception $e) {
+                        continue;
+                    }
+                }
+            }
+
+            return $content;
+        }
 	}
 ?>
