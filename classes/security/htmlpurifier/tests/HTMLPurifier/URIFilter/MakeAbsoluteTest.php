@@ -87,17 +87,17 @@ class HTMLPurifier_URIFilter_MakeAbsoluteTest extends HTMLPurifier_URIFilterHarn
 
     function testFilterAbsolutePathBase() {
         $this->setBase('/foo/baz.txt');
-        $this->assertFiltering('test.html', '/foo/test.php');
+        $this->assertFiltering('test.php', '/foo/test.php');
     }
 
     function testFilterAbsolutePathBaseDirectory() {
         $this->setBase('/foo/');
-        $this->assertFiltering('test.html', '/foo/test.php');
+        $this->assertFiltering('test.php', '/foo/test.php');
     }
 
     function testFilterAbsolutePathBaseBelow() {
         $this->setBase('/foo/baz.txt');
-        $this->assertFiltering('../../test.html', '/test.php');
+        $this->assertFiltering('../../test.php', '/test.php');
     }
 
     function testFilterRelativePathBase() {
