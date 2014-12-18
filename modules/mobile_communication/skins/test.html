@@ -1,0 +1,14 @@
+<h5>Client Mobile Communication Methods</h5>
+        {@$index=1;}
+<!--@foreach($functions as $action =>$params)-->
+        <form action="./">
+            {$index++;}
+            <input type="hidden" name="module" value="mobile_communication"/>
+            <input type="hidden" name="act" value="{$action}"/>
+    <!--@foreach($params as $key =>$type)-->
+            <input type="{$type}" name="{$key}" value="" placeholder="{$key}"/>
+    <!--@end-->
+            <input type="submit" value="call {$action}"/>
+        </form>
+        <br/>
+<!--@end-->

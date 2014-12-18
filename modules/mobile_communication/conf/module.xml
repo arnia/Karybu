@@ -84,6 +84,12 @@
         <action name="procmobile_communicationUnregistreForPopUpAndroid" type="controller" standalone="true" />
         <action name="procmobile_communicationGetThemes" type="controller" standalone="true" />
         <action name="procmobile_communicationArrangeMenu" type="controller" standalone="true" />
+
+        <!-- Mobile communication APIs -->
+        <action name="dispmobile_communicationGetMenu" type="view" standalone="true" />
+        <action name="dispmobile_communicationGetIndexPage" type="view" standalone="true" />
+        <action name="dispmobile_communicationGetPageContentByMid" type="view" standalone="true" />
+        <action name="dispmobile_communicationTestPage" type="view" standalone="true" />
 	</actions>
 	<menus>
 <!-- You can see below some examples for the menus section -->
