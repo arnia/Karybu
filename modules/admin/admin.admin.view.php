@@ -430,7 +430,7 @@
 			$oModuleModel = &getModel('module');
 			$config = $oModuleModel->getModuleConfig('module');
             if (!empty($config->htmlFooter)) {
-       		    Context::set('htmlFooter',$config->htmlFooter);
+       		    Context::set('htmlFooter',htmlspecialchars($config->htmlFooter));
             }
             else {
                 Context::set('htmlFooter',null);
