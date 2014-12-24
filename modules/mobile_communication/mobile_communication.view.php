@@ -13,9 +13,50 @@ class mobile_communicationView extends mobile_communication {
         $layoutInfo = $layoutModel->getLayout($defaultModule->layout_srl);
         //Get menu from cache to variable $menu
         @include $layoutInfo->menu->main_menu->php_file;
-        $this->_reply($menu);
+        $menuInfo=new stdClass();
+        $menuInfo->theme_layout=$layoutInfo->layout_title;
+        $menuInfo->menu_html = $this->_generateMenuHtml($menu->list);
+        $this->_reply($menuInfo);
     }
 
+    private function _generateMenuHtml($menu){
+        $menuHtml = '<ul>';
+        if($menu)
+        {
+            foreach($menu as $key => $val)
+            {
+                // Open LI
+                $menuHtml .= '<li';
+                if($val['selected'])
+                {
+                    $menuHtml .= ' class="active" ';
+                }
+                $menuHtml .= '>';
+
+                // Link
+                $menuHtml .= '<a href="' . $val['href']  .'"';
+                if($val['open_window'] == 'Y')
+                {
+                    $menuHtml .= ' target="_blank"';
+                }
+                $menuHtml .= '>';
+
+                // Link text
+                $menuHtml .= $val['link'];
+                $menuHtml .= '</a>';
+
+                // Recursive to get sub menu
+                if(!empty($val['list']))
+                {
+                    $menuHtml.=$this->_generateMenuHtml($val['list']);
+                }
+
+                $menuHtml .= '</li>';
+            }
+        }
+        $menuHtml .= '</ul>';
+        return $menuHtml;
+    }
     /**
      * Get the index page content of the site
      *@return string html content
