@@ -46,26 +46,39 @@ var app = {
 
         console.log('[DEBUG]Received Event: ' + id);
 	
-		if (id == 'deviceready')
-		{
-			//httpRequest('POST');
+		if (id == 'deviceready') {
+			// load Karybu bootstrap layout
 			window.location = 'index.html';
 			console.log('[DEBUG] index.html loaded');
+			
+			// get header
+			//httpRequest('POST', 'karybu/?module=mobile_communication&act=dispmobile_communicationTestPage&module_srl='.module_srl);
+			
+			// get menu
+			//httpRequest('POST', 'karybu/?module=mobile_communication&act=dispmobile_communicationTestPage&module_srl='.module_srl);
+			
+			// get content
+			httpRequest('POST', 'karybu/?module=mobile_communication&act=dispmobile_communicationTestPage&module_srl='.module_srl);
+			console.log('[DEBUG] response' + xmlHttpRespose);
+			$(body).html($(body).html().replace('{$content}<!--[CONTENT]-->', xmlHttpRespose));
+			console.log('[DEBUG] response after');
+			
+			// get footer
+			//httpRequest('POST', 'karybu/?module=mobile_communication&act=dispmobile_communicationTestPage&module_srl='.module_srl);
 		}
     }
 };
 
 var xmlHttp = null;
 var xmlHttpRespose;
-var serverAddress = '10.0.0.197';
 
-function httpRequest(requestType)
-{   
+function httpRequest(requestType, serverRequest) {   
 	// function parameter default value
 	requestType = requestType || 'GET';
+	serverRequest = serverRequest || '/karybu/index.php?mid=get_started&act=procMobile_applicationAdminGenerateStaticPage';
     
 	xmlHttp = new XMLHttpRequest();
-	xmlHttp.open(requestType, 'http://' + serverAddress + '/karybu/index.php?mid=get_started&act=procMobile_applicationAdminGenerateStaticPage', true);
+	xmlHttp.open(requestType, 'http://' + serverAddress + serverRequest, true);
 	xmlHttp.onreadystatechange = handleReadyStateChange;
 	
 	xmlHttp.addEventListener('progress', updateProgress, false);
@@ -77,13 +90,10 @@ function httpRequest(requestType)
     return xmlHttp.responseText;
 }
 
-function handleReadyStateChange()
-{
+function handleReadyStateChange() {
 	console.log('[DEBUG]handleReadyStateChange');
-	if (xmlHttp.readyState == 4)
-	{
-        if (xmlHttp.status == 200)
-        {
+	if (xmlHttp.readyState == 4) {
+        if (xmlHttp.status == 200) {
 			xmlHttpRespose = xmlHttp.responseText;
 			xmlHttpRespose.replace('localhost', serverAddress);
 			document.body.innerHTML = xmlHttpRespose;
@@ -102,22 +112,18 @@ function updateProgress(oEvent) {
   }
 }
 
-function transferComplete(evt)
-{
+function transferComplete(evt) {
   console.log('[DEBUG]The transfer is complete.');
 }
 
-function transferFailed(evt)
-{
+function transferFailed(evt) {
   console.log('[DEBUG]An error occurred while transferring the file.');
 }
 
-function transferCanceled(evt)
-{
+function transferCanceled(evt) {
   console.log('[DEBUG]The transfer has been canceled by the user.');
 }
 
-function onClickRequest()
-{
+function onClickRequest() {
 	httpRequest('POST');
 }

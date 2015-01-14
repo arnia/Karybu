@@ -304,18 +304,18 @@
 
 		function procMobile_applicationAdminGenerateStaticPage(){
 			try {
-				if (file_exists($this->getPhonegapWriteAccessDir() . '/' . 'archive.tar.gz')) {
-					unlink($this->getPhonegapWriteAccessDir() . '/' . 'archive.tar.gz');
+				if (file_exists($this->getPhonegapWriteAccessDir() . DIRECTORY_SEPARATOR . 'archive.tar.gz')) {
+					unlink($this->getPhonegapWriteAccessDir() . DIRECTORY_SEPARATOR . 'archive.tar.gz');
 				}
-				$tarPath = $this->getPhonegapWriteAccessDir() . '/' . 'archive.tar';
+				$tarPath = $this->getPhonegapWriteAccessDir() . DIRECTORY_SEPARATOR . 'archive.tar';
 				$tarData = new PharData($tarPath);
                 $this->writeIndexFile($tarData);
-                $tarData->addFile($this->getPhonegapWriteAccessDir() . '/' . 'index.html', 'index.html');
+                $tarData->addFile($this->getPhonegapWriteAccessDir() . DIRECTORY_SEPARATOR . 'index.html', 'index.html');
                 // Add phonegap files
-                $tarData->buildFromDirectory(_KARYBU_PATH_ . 'modules/mobile_application/karybu_app/www');
+                $tarData->buildFromDirectory(_KARYBU_PATH_ . 'modules'. DIRECTORY_SEPARATOR .'mobile_application'. DIRECTORY_SEPARATOR .'karybu_app'. DIRECTORY_SEPARATOR .'www');
                 $tarData->compress(Phar::GZ);
 				unlink($tarPath);
-				$this->serveTarGz($this->getPhonegapWriteAccessDir() . '/' . 'archive.tar.gz');
+				$this->serveTarGz($this->getPhonegapWriteAccessDir() . DIRECTORY_SEPARATOR . 'archive.tar.gz');
 			}
 			catch (Exception $e) {
 				echo "Exception : " . $e;
@@ -328,8 +328,10 @@
 
             // add html resource file to phonegap
             $content = $this->getResourceFiles($content, $tarData);
+            //die;
 
-			return file_put_contents($this->getPhonegapWriteAccessDir() . '/' . 'index.html', $content);
+
+			return FileHandler::writeFile($this->getPhonegapWriteAccessDir() . DIRECTORY_SEPARATOR . 'index.html', $content);
 		}
 
 		private function serveTarGz($path){
@@ -341,7 +343,7 @@
 		}
 
 		protected function getPhonegapWriteAccessDir(){
-			$writeAccessDir = _KARYBU_PATH_ . 'modules/mobile_application/karybu_app';
+			$writeAccessDir = _KARYBU_PATH_ . 'modules'.DIRECTORY_SEPARATOR.'mobile_application'.DIRECTORY_SEPARATOR.'karybu_app';
 			if (!file_exists($writeAccessDir)) {
 				if (!mkdir( $writeAccessDir, 0755, true)) {
 					throw new Exception( 'Cannot create phonegap dir' );
@@ -362,7 +364,6 @@
 
 		    $oTemplate = &TemplateHandler::getInstance();
 
-
             // Set menus into context
             if ($layoutInfo->menu_count) {
                 foreach ($layoutInfo->menu as $menu_id => $menu) {
@@ -380,12 +381,34 @@
                 }
             }
 
-		    $layoutHtml = $oTemplate->compile($layoutInfo->path,'layout.html');
+            // get layout.html content and put placeholders
+            $layoutPath = _KARYBU_PATH_.ltrim($layoutInfo->path, './').'layout.html';
+            $layoutContent = FileHandler::readFile($layoutPath);
+
+            // put CONTENT placeholder
+            $layoutContent = str_replace('{$content}', '{$content}<!--[CONTENT]-->', $layoutContent);
+
+            // temporary save layout.html for compile output
+            FileHandler::writeFile($this->getPhonegapWriteAccessDir().DIRECTORY_SEPARATOR.'layout.html', $layoutContent);
+
+            // compile layout with placeholders
+            $layoutHtml = $oTemplate->compileMobileApp($layoutContent, $layoutInfo->path, 'layout.html');
+
+            // delete temporary file
+            FileHandler::removeFile($this->getPhonegapWriteAccessDir().DIRECTORY_SEPARATOR.'layout.html');
+
+            // set mdoule_srl and mid
+            $script = "<script type='text/javascript'>
+                        var module_srl = {$siteInfo->module_srl};
+                        var mid = '{$siteInfo->mid}';
+                        var serverAddress = '".gethostbyname(trim(`hostname`))."';
+                        </script>";
+            $layoutHtml .= $script;
 
 		    $oModule = getController('widget');
 		    $output = $oModule->triggerWidgetCompile($layoutHtml);
 
-		    Context::set('content',$layoutHtml);
+            Context::set('content', $layoutHtml);
 
             $oContext  =& Context::getInstance();
 
@@ -396,96 +419,68 @@
 
 		    $output = $oTemplate->compile('./common/tpl', 'common_layout');
 
-            //echo $output;die();
-
 			return $output;
 		}
 
-        private function getResourceFiles($content, $tarData){
+        private function getResourceFiles($content, $tarData, $parentPath = null) {
+
             // replace localhost with host IP address
             $ipAddress = gethostbyname(trim(`hostname`));
             $content = str_replace('localhost', $ipAddress, $content);
 
-            // Get css & js resource files
-            $cssFileCount = preg_match_all('/(<link\b.+href=")(?!http)([^"]*)(".*>)/', $content, $cssMatches);
-            $jsFileCount = preg_match_all('/src=(["\'])(.*?)\1/', $content, $jsMatches);
+            preg_match_all('/(<link\b.+href=")(?!http)([^"]*)(".*>)/', $content, $linkHrefMatches);
+            preg_match_all('/src=(["\'])(.*?)\1/', $content, $srcMatches);
+            preg_match_all('/@import (url\()?"(.*?)"(?(1)\))/', $content, $importMatches);
+            preg_match_all('/url\(\s*[\'"]?(\S*\.(?:jpe?g|gif|png|js|eot|woff|ttf|otf|svg))[\'"]?\s*\)[^;}]*?/i', $content, $urlMatches);
 
-            if ($cssFileCount == false && $jsFileCount == false)
-                return $content;
+            $resourceFiles = array_merge($linkHrefMatches[2], $srcMatches[2], $importMatches[2], $urlMatches[1]);
 
-            // CSS files
-            $cssResourceFilesPath = $cssMatches[2];
-            for ($i = 0; $i < count($cssResourceFilesPath); $i++){
-                // remove karybu
-                $tempPath = $cssResourceFilesPath[$i];
-                $cssResourceFilesPath[$i] = ltrim($cssResourceFilesPath[$i], '/karybu/');
-                // remove timestamp
-                $cssResourceFilesPath[$i] = substr($cssResourceFilesPath[$i], 0, strpos($cssResourceFilesPath[$i], '?'));
-                $cssResourceFilesPath[$i] = _KARYBU_PATH_. $cssResourceFilesPath[$i];
+            if (count($resourceFiles)) {
+                $currentDirectory = '';
+                if ($parentPath == null)
+                    $currentDirectory = rtrim(_KARYBU_PATH_, /*DIRECTORY_SEPARATOR*/'/karybu');
+                else
+                    $currentDirectory = $parentPath['dirname'];
 
-                $fileName = basename($cssResourceFilesPath[$i]);
-                $fileContent = file_get_contents($cssResourceFilesPath[$i]);
+                for ($i = 0; $i < count($resourceFiles); $i++) {
+                    $tempPath = $resourceFiles[$i];
 
-                // add css from @import
-                $cssImportFileCount = preg_match_all('/@import (url\()?"(.*?)"(?(1)\))/', $fileContent, $cssImportMatches);
-                if ($cssImportFileCount != false){
-                    $cssDirName = dirname($cssResourceFilesPath[$i]);
-                    for ($j = 0; $j < count($cssImportFiles = $cssImportMatches[2]); $j++){
-                        $tarData->addEmptyDir('css');
-                        $tarData->addFile($cssDirName.'/'.$cssImportFiles[$j], 'css/'.$cssImportFiles[$j]);
+                    if (strpos($resourceFiles[$i], '?') !== false) {
+                        // remove timestamp
+                        $resourceFiles[$i] = substr($resourceFiles[$i], 0, strpos($resourceFiles[$i], '?'));
                     }
-                }
 
-                if ($cssResourceFilesPath[$i] != _KARYBU_PATH_){
-                    $tarData->addEmptyDir('css');
-                    $tarData->addFile($cssResourceFilesPath[$i], 'css/'.$fileName);
-                }
+                    chdir($currentDirectory);
+                    $resourceFiles[$i] = realpath($currentDirectory.'/'.$resourceFiles[$i]);
 
-                // replace link href
-                $content = str_replace($tempPath, 'css/'.$fileName, $content);
-            }
+                    if ($resourceFiles[$i] === false)
+                        continue;
 
-            // JS files
-            $jsResourceFilesPath = $jsMatches[2];
-            for ($i = 0; $i < count($jsResourceFilesPath); $i++){
+                    $fileInfo = pathinfo($resourceFiles[$i]);
+                    $fileName = $fileInfo['basename'];
+                    $fileExt = $fileInfo['extension'];
 
-                $tempPath = $jsResourceFilesPath[$i];
-                if (strpos($jsResourceFilesPath[$i],'http:') === false) {
-
-                    // remove karybu folder from path
-                    $jsResourceFilesPath[$i] = ltrim($jsResourceFilesPath[$i], '/karybu/');
-                    // remove timestamp
-                    if (strpos($jsResourceFilesPath[$i], '?'))
-                        $jsResourceFilesPath[$i] = substr($jsResourceFilesPath[$i], 0, strpos($jsResourceFilesPath[$i], '?'));
-
-                    // compute absolute path
-                    $jsResourceFilesPath[$i] = _KARYBU_PATH_ . $jsResourceFilesPath[$i];
-                } else {
-                    // remove http://
-                    $jsResourceFilesPath[$i] = ltrim($jsResourceFilesPath[$i], 'http://');
-                    // remove host ip
-                    $jsResourceFilesPath[$i] = ltrim($jsResourceFilesPath[$i], $ipAddress);
-                    // remove karybu folder from path
-                    $jsResourceFilesPath[$i] = ltrim($jsResourceFilesPath[$i], '/karybu/');
-                }
-
-                $fileInfo = pathinfo($jsResourceFilesPath[$i]);
-                $fileName = $fileInfo['basename'];
-                $fileExt = $fileInfo['extension'];
-
-                if ($jsResourceFilesPath[$i] != _KARYBU_PATH_){
-                    // add js and img files to resource folder
-                    $folder = ($fileExt == 'js') ? 'js' : 'img';
-                    // replace script src
-                    $content = str_replace($tempPath, $folder.'/'.$fileName, $content);
+                    if ($fileExt == 'css' || $fileExt == 'js')
+                        $folder = $fileExt;
+                    elseif ($fileExt == 'jpg' || $fileExt == 'jpeg' || $fileExt == 'gif' || $fileExt == 'img' || $fileExt == 'jpeg' || $fileExt == 'png')
+                        $folder = 'img';
+                    elseif ($fileExt == 'woff' || $fileExt == 'eot' || $fileExt == 'ttf' || $fileExt == 'otf' || $fileExt == 'svg')
+                        $folder = 'font';
 
                     try {
                         $tarData->addEmptyDir($folder);
-                        $tarData->addFile($jsResourceFilesPath[$i], $folder . '/' . $fileName);
+                        $tarData->addFile($resourceFiles[$i], $folder.DIRECTORY_SEPARATOR.$fileName);
                     }
                     catch (Exception $e) {
                         continue;
                     }
+
+                    // replace old path
+                    $content = str_replace($tempPath, $folder.DIRECTORY_SEPARATOR.$fileName, $content);
+
+                    // get new file content
+                    $fileContent = FileHandler::readFile($resourceFiles[$i]);
+                    $this->getResourceFiles($fileContent, $tarData, $fileInfo);
                 }
             }
 

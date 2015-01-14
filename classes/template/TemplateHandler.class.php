@@ -203,6 +203,48 @@ class TemplateHandler
     }
 
     /**
+     * compiles specified buffer and execution result in Context into resultant content
+     * @param string $buff content of the template file
+     * @param string $tpl_path path of the directory containing target template file
+     * @param string $tpl_filename target template file's name
+     * @param string $tpl_file if specified use it as template file's full path
+     * @return string Returns compiled result in case of success, NULL otherwise
+     */
+
+    function compileMobileApp($buff, $tpl_path, $tpl_filename, $tpl_file = '')
+    {
+        $this->init($tpl_path, $tpl_filename, $tpl_file);
+
+        $buff = $this->replaceComments($buff);
+        $buff = $this->replaceImageSrc($buff);
+
+        // replace loop and cond template syntax
+        $buff = $this->_parseInline($buff);
+
+        // include, unload/load, import
+        $buff = preg_replace_callback(
+            '/{(@[\s\S]+?|(?=\$\w+|_{1,2}[A-Z]+|[!\(+-]|\w+(?:\(|::)|\d+|[\'"].*?[\'"]).+?)}|<(!--[#%])?(include|import|(un)?load(?(4)|(?:_js_plugin)?))(?(2)\(["\']([^"\']+)["\'])(.*?)(?(2)\)--|\/)>|<!--(@[a-z@]*)([\s\S]*?)-->(\s*)/',
+            array($this, '_parseResource'),
+            $buff
+        );
+
+        // remove block which is a virtual tag
+        $buff = preg_replace('@</?block\s*>@is', '', $buff);
+
+        $buff = $this->doFormAutogeneration($buff);
+
+        // prevent from calling directly before writing into file
+        $buff = '<?php if(!defined("__KARYBU__"))exit;?>' . $buff;
+
+        // remove php script reopening
+        $buff = preg_replace(array('/(\n|\r\n)+/', '/(;)?( )*\?\>\<\?php([\n\t ]+)?/'), array("\n", ";\n"), $buff);
+
+        $output = $this->_fetch($buff);
+
+        return $output;
+    }
+
+    /**
      * @param $path
      * @param $filename
      * @param null $fullPath
