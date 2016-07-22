@@ -4,7 +4,7 @@ README
 What is Karybu?
 ---------------
 
-Karybu is  a powerful CMS based on Symfony Framework components and Bootsrtap frontend that can be based on multiple types of databases like Mysql, SQLite, PostgreSql, Cubrid and other.
+Karybu is  a powerful CMS based on Symfony Framework components and Bootstrap frontend that can be based on multiple types of databases like Mysql, SQLite, PostgreSql, Cubrid and other.
 
 
 Modular Structure
